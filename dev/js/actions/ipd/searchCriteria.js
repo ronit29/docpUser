@@ -46,7 +46,7 @@ export const getIpdHospitals = (ipdId, selectedLocation, filterCriteria, provide
     let max_distance = filterCriteria.distance[0]
     let provider_ids = []
 
-    let url = `/api/v1/doctor/ipd_procedure/${ipdId}/hospitals&long=${long}&lat=${lat}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}`
+    let url = `/api/v1/doctor/ipd_procedure/${ipdId}/hospitals?long=${long}&lat=${lat}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}`
     return API_GET(url).then( function (response) {
         console.log(response)
     }).catch( function (error) {

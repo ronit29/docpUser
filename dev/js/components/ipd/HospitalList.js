@@ -5,7 +5,7 @@ class HospitalList extends React.Component {
 
 	getCostEstimateClicked(hospitalId){
 
-      this.props.history.push(`ipd/${this.props.ipd_info.about.id}/${hospitalId}/getPriceEstimate`)
+      this.props.history.push(`/ipd/${this.props.ipd_info.about.id}/${hospitalId}/getPriceEstimate`)
    	}
 
 	render(){
