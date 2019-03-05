@@ -10,9 +10,25 @@ class WhatsAppOptinView extends React.Component {
         }
     }
 
+    shouldRender(){
+        if(this.props.profiles){
+            if (!this.props.profiles || this.props.profiles.whatsapp_optin!=null)
+                if(this.props.isAppointment && !this.props.profiles.whatsapp_optin && !this.props.profiles.whatsapp_is_declined){
+                    return true
+                }else{
+                    return false
+                }
+            return true
+        }else if(this.props.isUserProfile){
+            return true
+        }else{
+            return false
+        }    
+    }
+
     toggleWhatsap(status,e) {       
         if(this.props.isAppointment){      
-            let profileData = {...this.props.profile}
+            let profileData = {...this.props.profiles}
             if(status){
                 profileData.whatsapp_optin = true
                 SnackBar.show({ pos: 'bottom-center', text: "You whatsApp notifications has been enabled."})   
@@ -31,6 +47,10 @@ class WhatsAppOptinView extends React.Component {
     }
 
     render() {
+
+        if (!this.shouldRender())
+            return (<div></div>)
+
         return (
             <div>
             {this.props.isAppointment?

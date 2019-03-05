@@ -210,9 +210,7 @@ class BookingView extends React.Component {
                             {
                                 (!this.state.loading && this.state.data) ? <section className="booking-confirm-screen">
                                     <div className="container-fluid">
-                                        {profile && !profile.whatsapp_optin && !profile.whatsapp_is_declined?
-                                            <WhatsAppOptinView {...this.props} profile={profile} isAppointment ={true}/>
-                                        :''}
+                                        <WhatsAppOptinView {...this.props} profiles={profile} isAppointment ={true}/>
                                         <div className="row">
                                             <div className="col-12">
                                                 <div className="app-timeline book-confirmed-timeline">

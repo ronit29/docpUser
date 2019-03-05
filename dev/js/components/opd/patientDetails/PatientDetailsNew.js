@@ -293,12 +293,10 @@ class PatientDetailsNew extends React.Component {
             cart_item: this.state.cart_item,
         }
         let profileData = {...patient}
-        if(profileData && profileData.whatsapp_optin != null){
-            profileData['whatsapp_optin']= profileData.whatsapp_optin
-        }else{
+        if(profileData && profileData.whatsapp_optin == null){
             profileData['whatsapp_optin']= this.state.whatsapp_optin
+            this.props.editUserProfile(profileData, profileData.id)
         }
-        this.props.editUserProfile(profileData, profileData.id)
         if (this.props.disCountedOpdPrice && this.props.payment_type == 1) {
             postData['coupon_code'] = [this.state.couponCode] || []
         }
@@ -748,9 +746,7 @@ class PatientDetailsNew extends React.Component {
                                                                 </div>
                                                             </div> : ""
                                                         }
-                                                        {!patient || (patient && patient.whatsapp_optin == null)?
-                                                            <WhatsAppOptinView {...this.props} toggleWhatsap={this.toggleWhatsap.bind(this)}/>
-                                                        :''}
+                                                        <WhatsAppOptinView {...this.props} profiles= {patient} toggleWhatsap={this.toggleWhatsap.bind(this)}/>
 
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
                                                             <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
