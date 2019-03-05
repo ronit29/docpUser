@@ -145,6 +145,25 @@ class BannerCarousel extends React.Component {
             GTM.sendEvent({ data: data })
         }
 
+        else if (offer.url_details && offer.url_details.hospital_id && offer.url_details.hospital_id != '') {
+            let speciality = {}
+
+            let filters = { 'priceRange': [offer.url_details.min_fees, offer.url_details.max_fees], 'distanceRange': [offer.url_details.min_distance, offer.url_details.max_distance], 'sort_on': offer.url_details.sort_on || '', 'is_female': offer.url_details.is_female || false, 'is_available': offer.url_details.is_available || false, 'doctor_name': offer.url_details.doctor_name || '', 'hospital_name': offer.url_details.hospital_name || '', 'hospital_id': offer.url_details.hospital_id || '' }
+
+            speciality.type = 'speciality'
+            speciality.id = []
+
+            this.props.toggleOPDCriteria('speciality', speciality, true, filters)
+            setTimeout(() => {
+                this.props.history.push('/opd/searchresults')
+            }, 100)
+
+            let data = {
+                'Category': 'ConsumerApp', 'Action': offer.event_name, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': offer.event_name, 'clickedOn': offer.slider_location
+            }
+            GTM.sendEvent({ data: data })
+        }
+
         else if (offer.url) {
             this.props.history.push(offer.url)
 
