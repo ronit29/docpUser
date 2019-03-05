@@ -52,8 +52,8 @@ class UserSignupView extends React.Component {
         this.setState({ have_referralCode: e.target.checked })
     }
 
-    toggleWhatsap(e) {
-        this.setState({ whatsapp_optin: e.target.checked })
+    toggleWhatsap(status,e) {
+        this.setState({ whatsapp_optin: !status })
     }
 
     selectDateFromCalendar(date) {
@@ -301,7 +301,7 @@ class UserSignupView extends React.Component {
                                             <div className="widget mrb-15">
                                                 <div className="widget-content">
                                                     <div>
-                                                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
+                                                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this,this.state.whatsapp_optin)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
                                                     </div>
                                                 </div>
                                             </div>

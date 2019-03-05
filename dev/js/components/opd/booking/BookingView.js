@@ -169,18 +169,14 @@ class BookingView extends React.Component {
         let profileData = {...this.state.data.profile}
         if(status){
             profileData.whatsapp_optin = true
-            SnackBar.show({ pos: 'bottom-center', text: "You whatsApp notifications has been enabled."})
-            setTimeout(() => {
-                document.getElementsByClassName('whatsappCardContainer')[0].classList.add('d-none')
-            }, 100)    
+            SnackBar.show({ pos: 'bottom-center', text: "You whatsApp notifications has been enabled."})   
         }else{
             profileData.whatsapp_is_declined = true
             SnackBar.show({ pos: 'bottom-center', text: "your whatsApp notifications has been disabled."})
-            setTimeout(() => {
-                document.getElementsByClassName('whatsappCardContainer')[0].classList.add('d-none')
-            }, 100)
         }
-        this.props.editUserProfile(profileData, profileData.id)
+        this.props.editUserProfile(profileData, profileData.id ,()=>{
+            document.getElementsByClassName('whatsappCardContainer')[0].classList.add('d-none')
+        })
     }
 
     render() {
