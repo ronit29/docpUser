@@ -108,7 +108,9 @@ class EditProfile extends React.Component {
             }
             if (validated) {
                 this.setState({ loading: true })
-                this.state.profileData.whatsapp_optin = this.state.whatsapp_optin
+                if(this.state.profileData.whatsapp_optin == null){
+                    this.state.profileData.whatsapp_optin = this.state.whatsapp_optin
+                }
                 this.props.editUserProfile(this.state.profileData, this.state.profileData.id, (err, data) => {
                     this.setState({ loading: false })
                     this.props.history.go(-1)
