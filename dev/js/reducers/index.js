@@ -59,6 +59,12 @@ const AUTH_PERSIST = {
     whitelist: []
 }
 
+const IPD_SEARCH_PERSIST = {
+    key: 'SEARCH_CRITERIA_IPD',
+    storage: storage,
+    whitelist: ['selectedCriterias']
+}
+
 const allReducers = combineReducers({
     SEARCH_CRITERIA_OPD: persistReducer(OPD_SEARCH_PERSIST, SEARCH_CRITERIA_OPD),
     SEARCH_CRITERIA_LABS: persistReducer(LAB_SEARCH_PERSIST, SEARCH_CRITERIA_LABS),
@@ -73,7 +79,7 @@ const allReducers = combineReducers({
     DOCTOR_PROFILES,
     LAB_SEARCH_DATA,
     ELASTIC_SEARCH,
-    SEARCH_CRITERIA_IPD
+    SEARCH_CRITERIA_IPD: persistReducer(IPD_SEARCH_PERSIST, SEARCH_CRITERIA_IPD)
 });
 
 const persistedReducer = persistReducer(persistConfig, allReducers)

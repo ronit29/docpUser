@@ -1,13 +1,17 @@
-import { TOGGLE_IPD } from '../../constants/types';
+import { TOGGLE_IPD, LOADED_IPD_INFO } from '../../constants/types';
 
-const DEFAULT_FILTER_STATE = {
-
+const DEFAULT_HOSPITAL_FILTER_STATE = {
+	distance:[0,20],
+	provider_ids: []
 }
 
 const defaultState = {
 	selectedIpd: [],
-	selectedCriterias: []
-
+	selectedCriterias: [],
+	ipd_info: {},
+	IPD_INFO_LOADED: false,
+	filterCriteria: DEFAULT_HOSPITAL_FILTER_STATE,
+	provider_ids: []
 }
 
 export default function ( state=defaultState, action) {
@@ -17,7 +21,7 @@ export default function ( state=defaultState, action) {
 		case TOGGLE_IPD: {
 			let newState = {
 				...state,
-				selectedCriterias: [].concat(state.selectedCriterias)
+				selectedCriterias: []
 			}
 			if(action.forceAdd) {
 				newState.selectedCriterias.push({...action.payload})
@@ -37,6 +41,15 @@ export default function ( state=defaultState, action) {
 				
 			}
 
+			return newState
+		}
+
+		case LOADED_IPD_INFO: {
+			let newState = {
+				...state
+			}
+			newState.IPD_INFO_LOADED = true
+			newState.ipd_info= action.payload
 			return newState
 		}	
 	}

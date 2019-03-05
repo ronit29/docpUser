@@ -58,6 +58,8 @@ import TaxSaverTC from './components/diagnosis/searchPackages/TaxSaverTC.js'
 import IPD from './components/commons/IPD/ipd.js'
 ///
 import IPDInfo from './containers/ipd/IpdInfo.js'
+import IpdForm from './containers/ipd/IpdForm.js'
+import IpdHospitalSearch from './containers/ipd/IpdHospitalSearch.js'
 
 
 /**
@@ -148,7 +150,9 @@ const routes = [
     { path: `/*-tpp`, component: searchTestInfo, RENDER_ON_SERVER: true },
     { path: '/sms/booking', exact: true, component: DirectBooking },
     { path: '/ipd', exact: true, component: IPD },
-    { path: '/ipdInfo', exact: true, component: IPDInfo},
+    { path: '/ipdInfo/:id', exact: true, component: IPDInfo},
+    { path: '/ipd/:id/:hospitalId/getPriceEstimate',exact: true, component: IpdForm},
+    { path: '/ipd/:id/:hospitals',exact: true, component: IpdHospitalSearch},
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 
