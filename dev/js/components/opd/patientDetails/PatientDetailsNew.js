@@ -553,6 +553,7 @@ class PatientDetailsNew extends React.Component {
                                                             boxShadowHide={true}
                                                             selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
                                                             selectedClinic={this.state.selectedClinic}
+                                                            history={this.props.history}
                                                         />
                                                         <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError}
 

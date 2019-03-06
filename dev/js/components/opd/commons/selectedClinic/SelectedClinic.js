@@ -17,28 +17,37 @@ class SelectedClinic extends React.Component {
         }, "")
     }
 
-    profileClick() {
-        if (this.props.selectedDoctor && this.props.selectedDoctor.url && this.props.selectedDoctor.url != '' && this.props.history) {
-            this.props.history.push(`/${this.props.selectedDoctor.url}`);
+    profileClick(id, url, hospital_id) {
+        if (this.props.history) {
+            if (url) {
+                this.props.history.push(`/${url}?hospital_id=${hospital_id}&hide_search_data=true`)
+
+            } else {
+                this.props.history.push(`/opd/doctor/${id}?hospital_id=${hospital_id}&hide_search_data=true`)
+            }
         }
     }
 
     render() {
 
-        let { name, qualifications, hospitals, thumbnail, general_specialization, display_name } = this.props.selectedDoctor
+        let { name, hospitals, thumbnail, display_name, url, id } = this.props.selectedDoctor
         let hospitalName = ""
+        let hospital_id = ''
 
         if (hospitals && hospitals.length) {
-            hospitals.map((hospital) => {
+            hospitals.map((hospital, i) => {
                 if ((hospital.hospital_id || hospital.id) == this.props.selectedClinic) {
                     hospitalName = hospital.hospital_name || hospital.name
+                    if (i == 0) {
+                        hospital_id = hospital.hospital_id
+                    }
                 }
             })
         }
 
         return (
             <div className="widget mrb-15 mrng-top-12">
-                <div className="widget-header dr-qucik-info" style={this.props.selectedDoctor && this.props.selectedDoctor.url && this.props.selectedDoctor.url != '' ? { cursor: 'pointer' } : {}} onClick={() => this.profileClick()}>
+                <div className="widget-header dr-qucik-info" style={this.props.history ? { cursor: 'pointer' } : {}} onClick={() => this.profileClick(id, url, hospital_id)}>
                     <div>
                         <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-dp">
                             <img src={thumbnail} className="img-fluid img-round" />
