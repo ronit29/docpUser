@@ -4,6 +4,7 @@ import RightBar from '../commons/RightBar'
 import ProfileHeader from '../commons/DesktopProfileHeader'
 import IpdAboutUs from './aboutIPD.js'
 import HospitalList from './HospitalList.js'
+import DoctorResultCard from '../opd/commons/doctorResultCard'
 import Loader from '../commons/Loader'
 import Footer from '../commons/Home/footer'
 
@@ -45,6 +46,19 @@ class IpdInfo extends React.Component {
 		//this.props.history.push(`/ipd/${this.props.match.params.id}/hospitals`)	
 	}
 
+	viewDoctorsClicked(){
+		if(this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length){
+
+			let criteria = {}
+			criteria.id = this.props.commonSelectedCriterias[0].id
+			criteria.name = this.props.commonSelectedCriterias[0].name
+			criteria.type = 'ipd' 
+			this.props.cloneCommonSelectedCriterias(criteria)
+			this.props.history.push(`/opd/searchresults`)	
+		}
+		
+	}
+
 	render(){
 
 		return(
@@ -82,7 +96,15 @@ class IpdInfo extends React.Component {
 										</div>
 
 										<div id="doctorTab" className="tab-pane fade" id="nav-doc">
-						                    Coming Soon
+						                    {
+						                    	this.props.ipd_info && this.props.ipd_info.doctors?
+							                    this.props.ipd_info.doctors.result.map((doctorCard, i) => {
+							                    	return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_info.doctors.seo} {...this.props}/>
+							                    })	
+							                    :''
+						                    }
+						                    <a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewDoctorsClicked.bind(this)}>View all Doctors</a>
+						                    
 						                </div>
 						            </div>
 
