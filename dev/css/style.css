@@ -6850,7 +6850,7 @@ button.padding-btn-adjust{
     right: 8px;
 }
 .leftBlock div{
-    font-size: 14px;
+    font-size: 13px;
 
 }
 .leftBlock .date-time{
@@ -6868,7 +6868,10 @@ button.padding-btn-adjust{
 }
 @media screen and (max-width: 320px){
     .leftBlock div {
-        font-size: 12px;
+        font-size: 11px;
+}
+.rightBlock a{
+font-size: 11px;
 }
 .aptmnt-card .leftBlock img{
     width: 32px;
