@@ -7478,17 +7478,44 @@ button.padding-btn-adjust{
     padding: 2px 0;
     margin-top: -4px;
 }
-
+.ipd-carousel ul{
+	overflow: hidden;
+    white-space: nowrap;
+}
 .ipd-carousel ul li {
 	padding:0 10px 10px;
-	box-shadow: 0px 2px 8px 0 rgba(0, 0, 0, 0.3);
-	border-radius: 10px;
+	border:1px solid rgba(0,0,0,0.12);
 	background-color: #fff;
+	width: 56%;
+	display: inline-block;
+    white-space: normal;
+    margin-right: 15px;
+}
+.ipd-carousel ul li a,.ipd-carousel ul li a:hover,.ipd-carousel ul li a:focus{
+	color: #000;
+}
+.ipd-carousel{
+	background-color: #fff;
+	border: 1px solid #ccc;
+	padding:20px;
+	position: relative;
+}
+.ipd-carousel ul li a{
+	display: block;
+	padding-bottom: 10px;
+}
+.ipd-carousel ul li a p{
+	margin-top: 15px;
+}
+.ipd-carousel .pad-T15{
+	padding-top: 15px;
 }
 .ipd-carousel .doc-img{
 	height: 45px;
 	width: 45px;
 	border-radius: 50%;
+	margin-right: 10px;
+	border:1px solid #f5f5f5;
 }
 .ipd-carousel .doc-name{
 	font-size: 16px;
@@ -7498,6 +7525,24 @@ button.padding-btn-adjust{
 	font-size: 14px;
 	color: rgba(0,0,0,0.54);
 	font-weight: 400;
+	margin-top: 5px;
+}
+.widthbyimg{
+	width: calc(100% - 56px);
+}
+.slide-arrow{
+
+    position: absolute;
+    top: 50%;
+    background: #fff;
+    padding: 10px 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.12);
+}
+.slide-arrow.left-arrow{
+    left: 5px;
+}
+.slide-arrow.rights-arrow{
+    right: 5px;
 }
 
 @media screen and (max-width: 991px){
@@ -7507,6 +7552,9 @@ button.padding-btn-adjust{
 	.stick-it{
 		top: 89px !important;
 		margin-top: 7px;
+	}
+	.ipd-carousel ul li{
+		width: 60%;
 	}
 }
 
@@ -7522,7 +7570,10 @@ button.padding-btn-adjust{
     }
     .ipd-section .med-help{
     padding: 0 35px;
-}
+    }
+    .ipd-carousel ul li{
+    	width: 54%;
+    }
 }
 @media screen and (max-width: 576px){
 	.btn-search-div.btn-apply-div.btn-sbmt {
@@ -7573,6 +7624,9 @@ button.padding-btn-adjust{
     .ipd-section .med-help{
     	padding: 0 20px;
     }
+    .ipd-carousel ul li{
+		width: 67%;
+	}
 }
 @media screen and (max-width: 350px){
 	 .ipd-section .med-help li{
