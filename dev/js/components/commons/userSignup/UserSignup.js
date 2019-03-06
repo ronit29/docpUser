@@ -299,7 +299,7 @@ class UserSignupView extends React.Component {
                                                     </div> : ""
                                             }
 
-                                            <WhatsAppOptinView {...this.props} toggleWhatsap={this.toggleWhatsap.bind(this)}/>
+                                            <WhatsAppOptinView {...this.props} toggleWhatsap={this.toggleWhatsap.bind(this)} isUserProfile={true}/>
                                         </section>
 
                                         <span className="errorMessage">{this.state.err}</span>
