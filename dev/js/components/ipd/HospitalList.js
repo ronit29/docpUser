@@ -5,7 +5,11 @@ class HospitalListView extends React.Component {
 
 	getCostEstimateClicked(hospitalId){
 
-      this.props.history.push(`/ipd/${this.props.match.params.id}/${hospitalId}/getPriceEstimate`)
+      this.props.history.push(`/ipd/${this.props.ipd_id}/${hospitalId}/getPriceEstimate`)
+   	}
+
+   	getHospitalDetailPage(hospitalId){
+   		this.props.history.push(`/ipd/hospital/${hospitalId}`)	
    	}
 
 	render(){
@@ -15,7 +19,7 @@ class HospitalListView extends React.Component {
 				{
 					hospitalList && hospitalList.result?
 					hospitalList.result.map((hospital, i) => {
-						return <HospitalCard key={i} data={hospital} getCostEstimateClicked={this.getCostEstimateClicked.bind(this)}/>
+						return <HospitalCard key={i} data={hospital} getCostEstimateClicked={this.getCostEstimateClicked.bind(this)} getHospitalDetailPage={this.getHospitalDetailPage.bind(this)}/>
 					})
 					:''
 				}

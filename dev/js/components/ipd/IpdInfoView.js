@@ -40,7 +40,9 @@ class IpdInfo extends React.Component {
 	}
 
 	viewHospitalsClicked(){
-		this.props.history.push(`/ipd/${this.props.match.params.id}/hospitals`)	
+		this.props.history.push(`/ipd/searchHospitals`)
+
+		//this.props.history.push(`/ipd/${this.props.match.params.id}/hospitals`)	
 	}
 
 	render(){
@@ -89,6 +91,7 @@ class IpdInfo extends React.Component {
 				                :<Loader/>
 	                    	}
 			            </div>
+			            <RightBar extraClass=" chat-float-btn-2"/>
 			        </div>
 			    </section>
 			    <Footer />

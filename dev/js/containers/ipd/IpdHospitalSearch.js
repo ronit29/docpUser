@@ -1,12 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getIpdInfo, getIpdHospitals, mergeIpdCriteria } from '../../actions/index.js'
+import { getIpdInfo, getIpdHospitals, mergeIpdCriteria, urlShortner, setIpdSearchId, getIpdSearchIdResults } from '../../actions/index.js'
 import IpdHospitalSearchView from '../../components/ipd/IpdHospitalSearchView.js'
+const queryString = require('query-string')
 
 class IpdHospitals extends React.Component {
 
 	componentDidMount(){
-		this.props.getIpdHospitals(this.props.match.params.id, this.props.selectedLocation, this.props.filterCriteria, this.props.provider_ids)
+		if(window){
+			window.scrollTo(0,0)
+		}
 	}
 	render(){
 
@@ -28,7 +31,14 @@ const mapStateToProps = (state) => {
 		provider_ids,
 		hospital_list,
 		hospital_search_results,
-		HOSPITAL_DATA
+		HOSPITAL_DATA,
+		nextFilterCriteria,
+		page,
+		search_id_data,
+		commonSelectedCriterias,
+		nextSelectedCriterias,
+		fetchNewResults,
+		getNewResults
 	} = state.SEARCH_CRITERIA_IPD
 
 	return {
@@ -38,15 +48,25 @@ const mapStateToProps = (state) => {
 		provider_ids,
 		hospital_list,
 		hospital_search_results,
-		HOSPITAL_DATA
+		HOSPITAL_DATA,
+		nextFilterCriteria,
+		page,
+		search_id_data,
+		commonSelectedCriterias,
+		nextSelectedCriterias,
+		fetchNewResults,
+		getNewResults
 	}
 }
 
 const mapDisptachToProps = (dispatch) => {
 
 	return{
-		getIpdHospitals: (ipdId, selectedLocation, filterCriteria, provider_ids)=> dispatch(getIpdHospitals(ipdId, selectedLocation, filterCriteria, provider_ids)),
-		mergeIpdCriteria: (filterCriteria)=> dispatch(mergeIpdCriteria(filterCriteria))
+		getIpdHospitals: (state, cb)=> dispatch(getIpdHospitals(state, cb)),
+		mergeIpdCriteria: (filterCriteria)=> dispatch(mergeIpdCriteria(filterCriteria)),
+		urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
+		setIpdSearchId: (search_id, filters, page) => dispatch(setIpdSearchId(search_id, filters, page)),
+		getIpdSearchIdResults: (search_id, data) => dispatch(getIpdSearchIdResults(search_id, data))
 	}
 }
 export default connect(mapStateToProps, mapDisptachToProps)(IpdHospitals)

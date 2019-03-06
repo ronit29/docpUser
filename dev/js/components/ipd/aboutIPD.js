@@ -33,7 +33,7 @@ class IPDAboutUs extends React.Component {
                 		this.state.toggleReadMore?
                 		<div className="widget" onClick={()=>this.setState({toggleReadMore: !this.state.toggleReadMore})}>
 		                     {ipd_info.about.details}
-		                     <a href="javascript:void(0);">Read Less</a>
+		                     <a href="javascript:void(0);" className="read-more-btn">Read Less</a>
 		                </div>
 		                :<div className="widget" onClick={()=>this.setState({toggleReadMore: !this.state.toggleReadMore})}>
 		                     {ipd_info.about.details.substring(0,13)}

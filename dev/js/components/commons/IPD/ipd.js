@@ -320,8 +320,8 @@ class IPD extends React.Component{
 
 					             {/*Hospital view*/}
 					             {/*select policy Popup*/}
-					               <div className="custom-overlay"></div>
-					                    <div className="custom-popup hlth-ins-pop">
+					               <div className="custom-overlay d-none" ></div>
+					                    <div className="custom-popup hlth-ins-pop d-none">
 					                       <div className="cross-btn"><img src="https://cdn.docprime.com/cp/assets/img/icons/close.png" alt="" /></div>
 					                       <div className="pop-head text-center">Filters</div>
 					                       <div className="distance-slider">
@@ -374,7 +374,7 @@ class IPD extends React.Component{
 					             {/*select policy popup*/}
 					             {/*Thanku popup*/}
 
-					             	<div className="custom-popup thanks-popup text-center">
+					             	<div className="custom-popup thanks-popup text-center d-none">
 				                       <div className="cross-btn"><img src="https://cdn.docprime.com/cp/assets/img/icons/close.png" alt="" /></div>
 				                       <div className="pop-head text-center">Thank you for using Docprime!</div>
 				                       <p>Our medical expert will call you shortly and help you with the following:</p>

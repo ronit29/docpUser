@@ -120,7 +120,7 @@ class TopBar extends React.Component {
 
     render() {
 
-        let criteriaStr = this.getCriteriaString(this.props.selectedCriterias)
+        let criteriaStr = this.getCriteriaString(this.props.commonSelectedCriterias)
         let locationName = ""
         if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
             locationName = this.props.selectedLocation.formatted_address
@@ -165,7 +165,7 @@ class TopBar extends React.Component {
                                     </ul>
                                 </div>
                                 <div className="filter-title">
-                                    {this.props.count} Results found {criteriaStr ? "for" : ""}
+                                    {this.props.hospital_search_results && this.props.hospital_search_results.count?this.props.hospital_search_results.count: 'No'} Results found {criteriaStr ? "for" : ""}
                                     <h1 className="search-result-heading">
                                         <span className="fw-700"> {criteriaStr} </span>
                                         <span className="search-result-span" onClick={

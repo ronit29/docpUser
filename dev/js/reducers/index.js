@@ -62,7 +62,7 @@ const AUTH_PERSIST = {
 const IPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_IPD',
     storage: storage,
-    whitelist: ['selectedCriterias']
+    blacklist: ['page', 'getNewResults', 'fetchNewResults']
 }
 
 const allReducers = combineReducers({

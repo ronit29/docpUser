@@ -12,12 +12,12 @@ class HospitalCard extends React.Component {
                   <img src="https://cdn.docprime.com/cp/assets/img/new-loc-ico.svg" alt="loc" className="img-loc" />
                   <p>{`${data.address} ${distance?` | ${distance} Km`:''}` }</p>
                </div>
-               <div className="hospital-info">
+               <div className="hospital-info" style={{cursor:'pointer'}} onClick={()=>this.props.getHospitalDetailPage(data.id)}>
                   <div className="left-side-info">
                      <h4 className="section-heading">{data.name}</h4>
                      {
                      	data.certifications?
-                     	<div className="hos-certified"><img src="assets/images/certified.png" className="img-certified" />{data.certifications.length?data.certifications.join(' | '):''}</div>
+                     	<div className="hos-certified"><img src={ASSETS_BASE_URL + "/images/certified.png"} className="img-certified" />{data.certifications.length?data.certifications.join(' | '):''}</div>
                      	:''
                      }
                      
@@ -36,18 +36,18 @@ class HospitalCard extends React.Component {
                   <div className="left-side-info">
                      {
                      	data.bed_count?
-                     	<div className="hos-certified hs-certified"><img src="assets/images/bed.png" alt="" className="img-bed" />{data.bed_count} beds</div>
+                     	<div className="hos-certified hs-certified"><img src={ASSETS_BASE_URL + "/images/bed.png"} alt="" className="img-bed" />{data.bed_count} beds</div>
                      	:''	
                      }
                      {
                      	data.multi_speciality?
-                     	<div className="hos-certified"><img src="assets/images/multi-speciality.png" alt="" className="img-splty" />Multi Speciality</div>
+                     	<div className="hos-certified"><img src={ASSETS_BASE_URL + "/images/multi-speciality.png"} alt="" className="img-splty" />Multi Speciality</div>
                      	:''	
                      }
                      
                   </div>
                   <div className="right-side-info">
-                     <p className="ins-provider"><img src="assets/images/green-tick.png" alt="" className="img-tick" />{data.count_of_insurance_provider} Health Insurance Providers</p>
+                     <p className="ins-provider"><img src={ASSETS_BASE_URL + "/images/green-tick.png"} alt="" className="img-tick" />{data.count_of_insurance_provider} Health Insurance Providers</p>
                      <a href="javascript:void(0);" onClick={()=>this.props.getCostEstimateClicked(data.id)} className="btn-estimate">Get Cost Estimate</a>
                   </div>
                </div>

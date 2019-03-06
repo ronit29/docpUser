@@ -8,6 +8,10 @@ class IpdHospitalListView extends React.Component {
       this.props.history.push(`/ipd/${this.props.match.params.id}/${hospitalId}/getPriceEstimate`)
    	}
 
+   	getHospitalDetailPage(hospitalId){
+   		this.props.history.push(`/ipd/hospital/${hospitalId}`)
+   	}
+
 	render(){
 		let { hospital_list, HOSPITAL_DATA } = this.props
 		return(
@@ -16,7 +20,7 @@ class IpdHospitalListView extends React.Component {
 					hospital_list.length?
 					hospital_list.map((hospitalId, i) => {
 						if(HOSPITAL_DATA[hospitalId]){
-							return <HospitalCard key={i} data={HOSPITAL_DATA[hospitalId]} getCostEstimateClicked={this.getCostEstimateClicked.bind(this)}/>	
+							return <HospitalCard key={i} data={HOSPITAL_DATA[hospitalId]} getCostEstimateClicked={this.getCostEstimateClicked.bind(this)} getHospitalDetailPage={this.getHospitalDetailPage.bind(this)}/>	
 						}
 					})
 					:''

@@ -1,6 +1,7 @@
 import React from 'react'
 import ResultCount from './result_count.js'
 import Range from 'rc-slider/lib/Range';
+const queryString = require('query-string')
 
 class StickyFilter extends React.Component{
 
@@ -14,13 +15,26 @@ class StickyFilter extends React.Component{
 		}
 	}
 
+	componentWillReceiveProps(nextProps){
+		this.setState({provider_ids: nextProps.filterCriteria.provider_ids, distance: nextProps.filterCriteria.distance})
+	}
+
 	applyFilters(){
+		const parsed = queryString.parse(this.props.location.search)
 		let filterCriteria =  {
 			distance: this.state.distance,
 			provider_ids: this.state.provider_ids
 		}
+
+		let search_id_data = Object.assign({}, this.props.search_id_data)
+
+		if (this.props.search_id_data && this.props.search_id_data[parsed.search_id]) {
+            search_id_data[parsed.search_id].filterCriteria = filterCriteria
+            search_id_data[parsed.search_id].page = 1
+        }
+
 		this.props.mergeIpdCriteria({
-			filterCriteria:filterCriteria
+			filterCriteria:filterCriteria, search_id_data: search_id_data, page: 1
 		})
 		setTimeout(()=>{
 			this.props.fetchNewResults()
@@ -47,6 +61,7 @@ class StickyFilter extends React.Component{
 	}
 
 	closeFiltersPopUp(){
+		this.setState({toggleFilterPopup: false})
 		let currentSelectedFilters = this.state.currentSelectedFilters
 		let previousFilters = []
 	//	this.state.toggleProviderFilter.map((x))
@@ -74,18 +89,20 @@ class StickyFilter extends React.Component{
 		}
 		return(
 			<div>
-		        <section className="filter-row sticky-header mbl-stick">
-		           <div className="top-filter-tab-container">
-		              {/*<div className="top-filter-tabs-select"><img src="https://cdn.docprime.com/cp/assets/img/sort.svg" style={{ width: '18px', marginRight: '5px' }} /><span>Sort</span></div>*/}
-		              <div className="top-filter-tabs-select" onClick={()=>this.setState({toggleFilterPopup: true})}><img src="https://cdn.docprime.com/cp/assets/img/filter.svg" style={{ width: '18px', marginRight: '5px' }} /><span>Filter</span></div>
+			
+		        <section className="stick-prnt">
+		         <div className="stick-it">
+			           <div className="top-filter-tab-container">
+			              {/*<div className="top-filter-tabs-select"><img src="https://cdn.docprime.com/cp/assets/img/sort.svg" style={{ width: '18px', marginRight: '5px' }} /><span>Sort</span></div>*/}
+			              <div className="top-filter-tabs-select" onClick={()=>this.setState({toggleFilterPopup: true})}><img src="https://cdn.docprime.com/cp/assets/img/filter.svg" style={{ width: '18px', marginRight: '5px' }} /><span>Filter</span></div>
+			           </div>
 		           </div>
-
 		           <ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={seoData} lab_card={false} seoFriendly={false}/>
 		        </section>
 
 		        {
 		        	this.state.toggleFilterPopup?
-		        	<div>
+		        	<div className="ipd-section">
 			        	<div className="custom-overlay" onClick={this.closeFiltersPopUp.bind(this)}></div>
 	                    <div className="custom-popup hlth-ins-pop">
 	                       <div className="cross-btn"><img src="https://cdn.docprime.com/cp/assets/img/icons/close.png" alt="" onClick={this.closeFiltersPopUp.bind(this)}/></div>
@@ -96,11 +113,11 @@ class StickyFilter extends React.Component{
 	                       </div>*/}
 
 	                       <div className="widget-content">
-                                <div className="filterRow">
+                                <div className="filterRow distance-slider-bar">
                                     <span className="tl">Distance</span>
-                                    <span className="tr">&#8377; {this.state.distance[0]} to {this.state.distance[1]}</span>
-                                    <span className="bl">&#8377; 0</span>
-                                    <span className="br">&#8377; 50</span>
+                                    <span className="tr orng-txt"> {this.state.distance[0]} Km to {this.state.distance[1]} Km </span>
+                                    <span className="bl ">0 Km</span>
+                                    <span className="br">50 Km</span>
 
                                     <Range
                                         min={0}
@@ -128,7 +145,7 @@ class StickyFilter extends React.Component{
 	                       	health_insurance_provider.length?
 	                       	<div className="ins-listing">
 	                          <div className="pop-head">Health Insurance Providers</div>
-	                          <ul>
+	                          <ul className="range-slider-ul">
 	                       			{
 				                    	health_insurance_provider.length?
 				                    	health_insurance_provider.map((provider, i) => {

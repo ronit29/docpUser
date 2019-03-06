@@ -206,7 +206,7 @@ class SearchElasticView extends React.Component {
 
     showIPD(id){
 
-        this.props.history.push(`/ipdInfo/${id}`)
+        this.props.history.push(`/ipdInfo?ipd_id=${id}`)
     }
 
     toggleIpd(type, criteria, searchString = ""){
@@ -277,7 +277,7 @@ class SearchElasticView extends React.Component {
                 type="ipd"
                 selectedSearchType={this.props.selectedSearchType}
                 data={this.props.dataState.ipd_procedures}
-                selected={this.props.dataState.selectedCriterias}
+                selected={[]}
                 toggle={this.toggleIpd.bind(this)}
                 selectedCriterias={this.props.dataState.selectedCriterias}
             />
