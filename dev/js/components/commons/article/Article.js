@@ -306,7 +306,8 @@ class Article extends React.Component {
                                                 <span>Last updated on : {this.state.articleData.last_updated_at}</span>
                                             </div> : ''
                                     }
-                                    {
+                                    {/* DISCOUNT WIDGET CODE BELOW */}
+                                    {/* {
                                         this.props.match.path.split('-')[1] === 'mddp' ?
                                             <div className="fixed horizontal bottom no-round fw-500 sticky-btn d-flex align-items-center justify-content-around discount-widget" onClick={() => this.props.history.push('/opd/searchresults')}>
                                                 <div className="dw-info">
@@ -318,14 +319,11 @@ class Article extends React.Component {
                                                     <p className="fw-500">Book Now</p>
                                                 </div>
                                             </div> : ''
-                                    }
+                                    } */}
                                 </div> : ""
                             }
                         </div>
-                        {
-                            this.props.match.path.split('-')[1] !== 'mddp' ?
-                                <RightBar colClass="col-lg-4" articleData={this.state.articleData} /> : ''
-                        }
+                        <RightBar colClass="col-lg-4" articleData={this.state.articleData} />
                     </div>
 
                     <div className="row">
