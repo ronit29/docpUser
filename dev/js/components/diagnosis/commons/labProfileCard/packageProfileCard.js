@@ -68,13 +68,12 @@ class LabProfileCard extends React.Component {
             }
         }
     }
-    testInfo(test_id, event) {
+    testInfo(test_id) {
         let lab_id = this.props.details.lab.id
         // let selected_test_ids = this.props.lab_test_data[this.props.selectedLab] || []
         // selected_test_ids = selected_test_ids.map(x => x.id)
         let selected_test_ids = test_id
         this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&lab_id=' + lab_id + '&from=searchbooknow')
-        event.stopPropagation()
         let data = {
             'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'lab-test-page'
         }
@@ -132,16 +131,21 @@ class LabProfileCard extends React.Component {
                                         <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
                                     </InitialsPicture>
                                 </div>
-                                <a href={this.props.details.lab.url} onClick={(e) => e.preventDefault()}>
+                                <a href={this.props.details.lab.url} onClick={(e) => 
+                                    {e.preventDefault()}}>
                                     <h2 className="pkg-labDoc-Name">{name} {show_details ?
-                                        <span style={{ 'marginLeft': '5px', marginTop: '4px', display: 'inline-block', cursor: 'pointer' }} onClick={this.testInfo.bind(this, id)}>
+                                        <span style={{ 'marginLeft': '5px', marginTop: '2px', display: 'inline-block', cursor: 'pointer' }} onClick={(e)=>{
+                                            e.preventDefault()
+                                            e.stopPropagation()
+                                            this.testInfo(id)}}>
+                                            
                                             <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                         </span> : ''}
                                     </h2>
                                 </a>
                                 {
                                     number_of_tests > 0 ?
-                                        <h3 className="lab-fltr-dc-name fw-500 pkg-include">{number_of_tests ? `${number_of_tests} Tests Included` : ''}
+                                        <h3 className="lab-fltr-dc-name fw-500 pkg-include" style={{fontSize: '12px'}}>{number_of_tests ? `${number_of_tests} Tests Included` : ''}
                                         </h3>
                                         : ''
                                 }
@@ -149,7 +153,7 @@ class LabProfileCard extends React.Component {
                             <div className="col-4">
                                 <div className="pkg-card-price">
                                     {
-                                        discounted_price ? <p>₹ {parseInt(discounted_price)}
+                                        discounted_price ? <p className="fw-500">₹ {parseInt(discounted_price)}
                                             <span className="pkg-cut-price">₹ {parseInt(mrp)}</span></p> : ''
                                     }
                                 </div>
@@ -157,7 +161,7 @@ class LabProfileCard extends React.Component {
                                     <button className="pkg-btn-nw" style={{ width: '100%' }}>Book Now</button>
                                 </a>
                                 {
-                                    discounted_price != price ? <p className="pkg-discountCpn">Includes coupon discount</p>
+                                    discounted_price != price ? <p className="pkg-discountCpn">Includes coupon</p>
                                         : ""
                                 }
                             </div>

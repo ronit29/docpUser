@@ -52,26 +52,28 @@ class AboutDoctor extends React.Component {
             // }
         }
         let aboutTxt 
-        if(this.props.details.about){
-            if(this.props.details.about.length > 100){
+        if(this.props.details.about_web){
+            if(this.props.details.about_web.length > 100){
                 if(this.state.readMore){
-                    aboutTxt = this.props.details.about.slice(0, 100) + "..."
+                    aboutTxt = this.props.details.about_web.slice(0, 100) + "..."
                     button = <a className="fw-700 text-primary" style={{ cursor: 'pointer' }} onClick={() =>         {this.setState({ readMore: !this.state.readMore}) 
                                 }}> READ MORE &#9660;</a>
                 }else{
-                    aboutTxt = this.props.details.about
+                    aboutTxt = this.props.details.about_web
                     button = <a className="fw-700 text-primary" style={{ cursor: 'pointer' }} onClick={() =>         {this.setState({ readMore: !this.state.readMore}) 
                                 }}> SHOW LESS &#9650;</a>
                 }
+            }else{
+                aboutTxt = this.props.details.about_web
             } 
         }
         return (
             <div className="widget-panel">
                 <h4 className="panel-title mb-rmv">About Dr. {name}</h4>
                 <div className="panel-content">
-                    <p className="fw-10000 text-md">{aboutTxt}
-                        {button}
-                    </p>
+                    <div className="fw-10000 text-md abt-doc-inlinetext" dangerouslySetInnerHTML={{ __html: aboutTxt }}>
+                    </div>
+                    {button}
                 </div>
             </div>
         );

@@ -79,15 +79,16 @@ class HomeView extends React.Component {
 	}
 
 	searchLab(test, isPackage = false) {
-		test.type = 'test'
-		this.props.toggleDiagnosisCriteria('test', test, true)
 		let data
 		if (isPackage) {
-			this.props.setPackageId(test.id)
+			test.type = 'package'
+			this.props.setPackageId(test.id, true)
 			data = {
 				'Category': 'ConsumerApp', 'Action': 'SelectedHealthPackage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'selected-health-package', 'selected': test.name || '', 'selectedId': test.id || ''
 			}
 		} else {
+			test.type = 'test'
+			this.props.toggleDiagnosisCriteria('test', test, true)
 			data = {
 				'Category': 'ConsumerApp', 'Action': 'SelectedBookTest', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'selected-book-test', 'selected': test.name || '', 'selectedId': test.id || ''
 			}
@@ -95,11 +96,11 @@ class HomeView extends React.Component {
 
 		GTM.sendEvent({ data: data })
 
-		if(isPackage){
+		if (isPackage) {
 			setTimeout(() => {
 				this.props.history.push('/searchpackages')
 			}, 100)
-		}else{
+		} else {
 			setTimeout(() => {
 				this.props.history.push('/lab/searchresults')
 			}, 100)
@@ -239,7 +240,7 @@ class HomeView extends React.Component {
 									discount="50%"
 									list={this.props.common_package}
 									searchFunc={(ct) => this.searchLab(ct, true)}
-									type="lab"
+									type="package"
 									searchType="packages"
 									{...this.props}
 									linkTo="/full-body-checkup-health-packages?from=home"
@@ -315,13 +316,13 @@ class HomeView extends React.Component {
 									discount="50%"
 									list={this.props.common_package}
 									searchFunc={(ct) => this.searchLab(ct, true)}
-									type="lab"
+									type="package"
 									searchType="packages"
 									{...this.props}
 									linkTo="/full-body-checkup-health-packages?from=home"
 									// navTo="/health-package-advisor"
 									navTo="/searchpackages"
-									/> : ""
+								/> : ""
 						}
 
 						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>
