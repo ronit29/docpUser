@@ -19,6 +19,7 @@ import GTM from '../../../helpers/gtm.js'
 import ProcedureView from './procedureView.js'
 import BookingError from './bookingErrorPopUp.js'
 import { APPEND_HEALTH_TIP } from '../../../constants/types';
+import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 
 class PatientDetailsNew extends React.Component {
     constructor(props) {
@@ -40,7 +41,8 @@ class PatientDetailsNew extends React.Component {
             // order_id: !!parsed.order_id,
             use_wallet: true,
             profileError: false,
-            cart_item: parsed.cart_item
+            cart_item: parsed.cart_item,
+            whatsapp_optin: true,
         }
     }
 
@@ -288,7 +290,12 @@ class PatientDetailsNew extends React.Component {
             start_date, start_time,
             payment_type: this.props.payment_type,
             use_wallet: this.state.use_wallet,
-            cart_item: this.state.cart_item
+            cart_item: this.state.cart_item,
+        }
+        let profileData = {...patient}
+        if(profileData && profileData.whatsapp_optin == null){
+            profileData['whatsapp_optin']= this.state.whatsapp_optin
+            this.props.editUserProfile(profileData, profileData.id)
         }
         if (this.props.disCountedOpdPrice && this.props.payment_type == 1) {
             postData['coupon_code'] = [this.state.couponCode] || []
@@ -467,6 +474,10 @@ class PatientDetailsNew extends React.Component {
         this.props.selectOpdTimeSLot(slot, false)
     }
 
+    toggleWhatsap(status,e) {
+        this.setState({ whatsapp_optin: status })
+    }
+
     render() {
         let doctorDetails = this.props.DOCTORS[this.state.selectedDoctor]
         let doctorCoupons = this.props.doctorCoupons[this.state.selectedDoctor] || []
@@ -533,7 +544,6 @@ class PatientDetailsNew extends React.Component {
         if (!enabled_for_cod_payment && this.props.payment_type == 2) {
             this.props.select_opd_payment_type(1)
         }
-
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -542,7 +552,7 @@ class PatientDetailsNew extends React.Component {
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             {
-                                this.props.DOCTORS[this.state.selectedDoctor] && this.props.DATA_FETCH?
+                                this.props.DOCTORS[this.state.selectedDoctor] && this.props.DATA_FETCH ?
                                     <div>
                                         <section className="dr-profile-screen booking-confirm-screen">
                                             <div className="container-fluid">
@@ -557,10 +567,10 @@ class PatientDetailsNew extends React.Component {
                                                         />
                                                         <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError}
 
-                                                                timeSlots={this.props.timeSlots}
-                                                                selectTimeSlot={this.selectTimeSlot.bind(this)}
-                                                                doctor_leaves={this.props.doctor_leaves || []}
-                                                            />
+                                                            timeSlots={this.props.timeSlots}
+                                                            selectTimeSlot={this.selectTimeSlot.bind(this)}
+                                                            doctor_leaves={this.props.doctor_leaves || []}
+                                                        />
                                                         <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} />
                                                         {
                                                             Object.values(selectedProcedures).length ?
@@ -737,6 +747,7 @@ class PatientDetailsNew extends React.Component {
                                                                 </div>
                                                             </div> : ""
                                                         }
+                                                        <WhatsAppOptinView {...this.props} profiles= {patient} toggleWhatsap={this.toggleWhatsap.bind(this)}/>
 
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
                                                             <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>

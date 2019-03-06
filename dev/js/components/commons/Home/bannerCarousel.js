@@ -5,7 +5,12 @@ class BannerCarousel extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            index: 0
+            index: 0,
+            startX:0,
+            startY:0,
+            distX:0,
+            distY:0,
+            intervalFlag:false
         }
     }
 
@@ -15,11 +20,13 @@ class BannerCarousel extends React.Component {
             totalOffers = this.props.offerList.filter(x => x.slider_location == this.props.sliderLocation).length;
             setInterval(() => {
                 let curr_index = this.state.index
-                curr_index = curr_index + 1
-                if (curr_index >= totalOffers) {
-                    curr_index = 0
+                if(this.state.intervalFlag){
+                    curr_index = curr_index + 1
+                    if (curr_index >= totalOffers) {
+                        curr_index = 0
+                    }
                 }
-                this.setState({ index: curr_index })
+                this.setState({ index: curr_index,intervalFlag:!this.state.intervalFlag })
             }, 5000)
         }
     }
@@ -173,7 +180,56 @@ class BannerCarousel extends React.Component {
             GTM.sendEvent({ data: data })
         }
     }
-
+    onTouchStart(event){
+        let touchobj = event.changedTouches[0];
+        this.state.startX=touchobj.pageX;
+        this.state.startY=touchobj.pageY;
+        let startTime = new Date().getTime()
+    }
+    onTouchMove(event){
+        let touchobj = event.changedTouches[0];
+        this.state.distX = touchobj.pageX - this.state.startX;
+        this.state.distY = touchobj.pageY - this.state.startY; 
+        if (this.state.startX - touchobj.pageX > 5 || touchobj.pageX - this.state.startX > 5) {
+            if (event.preventDefault)
+                event.preventDefault();
+                event.returnValue = false;
+        }
+    }
+    onTouchEnd(event){
+        let startTime = new Date().getTime()
+        let touchobj = event.changedTouches[0]
+        let totalOffers = ''
+        let curr_index
+        this.state.distX = touchobj.pageX - this.state.startX
+        this.state.distY = touchobj.pageY - this.state.startY
+        let elapsedTime = new Date().getTime() - startTime
+        if(elapsedTime<=400){
+            if(Math.abs(this.state.distX) >= 50 && Math.abs(this.state.distY) <= 100){
+                if(this.state.distX<0){
+                    if (this.props.offerList) {
+                        totalOffers = this.props.offerList.filter(x => x.slider_location === 'home_page').length;
+                        curr_index = this.state.index
+                        curr_index = curr_index + 1
+                        if (curr_index >= totalOffers) {
+                            curr_index = 0
+                        }
+                        this.setState({ index: curr_index,intervalFlag:false })
+                    }
+                }else{
+                    if (this.props.offerList) {
+                        totalOffers = this.props.offerList.filter(x => x.slider_location === 'home_page').length;
+                        curr_index = this.state.index
+                        curr_index = curr_index - 1
+                        if(curr_index < 0){
+                            curr_index = totalOffers -1
+                        }
+                        this.setState({ index: curr_index,intervalFlag:false })
+                    }
+                }
+            }
+        }
+    }
     render() {
 
         let offerVisible = {}
@@ -185,7 +241,7 @@ class BannerCarousel extends React.Component {
             <div className={this.props.hideClass ? `banner-carousel-div mrt-20 mrb-20 ${this.props.hideClass}` : `banner-carousel-div mrt-10 mrb-20`}>
                 {
                     this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length ?
-                        <img src={offerVisible.image} onClick={() => this.navigateTo(offerVisible)} style={offerVisible.url ? { cursor: 'pointer' } : {}} />
+                        <img src={offerVisible.image} onTouchStart={this.onTouchStart.bind(this)} onTouchMove={this.onTouchMove.bind(this)} onTouchEnd={this.onTouchEnd.bind(this)} onClick={() => this.navigateTo(offerVisible)} style={offerVisible.url ? { cursor: 'pointer' } : {}} />
                         : ''
                 }
                 {
