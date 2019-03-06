@@ -8,14 +8,16 @@ import Loader from '../../commons/Loader'
 import HelmetTags from '../../commons/HelmetTags'
 import CONFIG from '../../../config'
 import Footer from '../Home/footer'
+const queryString = require('query-string')
 
 class ArticleList extends React.Component {
 	constructor(props) {
 		super(props)
+		const parsed = queryString.parse(this.props.location.search)
 
 		var page = 1;
-		if (this.props.location.search.length) {
-			page = this.props.location.search.split('=')[1];
+		if (parsed && parsed.page) {
+			page = parsed.page
 		}
 
 		var title = this.props.match.url.toLowerCase();
@@ -28,7 +30,8 @@ class ArticleList extends React.Component {
 			searchVal: '',
 			noArticleFound: false,
 			title: title,
-			buttonsVisible: true
+			buttonsVisible: true,
+			start_page: page
 		}
 	}
 
@@ -36,9 +39,11 @@ class ArticleList extends React.Component {
 		window.scrollTo(0, 0);
 
 		this.props.getArticleList(this.state.title, this.state.page, true)
+		const parsed = queryString.parse(this.props.location.search)
 
-		if (this.props.location.search == '?page=1') {
+		if (parsed.page && parsed.page == 1) {
 			var newHref = window.location.href.replace('?page=1', '');
+			newHref = newHref.replace('&page=1', '');
 			window.location.href = newHref;
 		}
 
@@ -72,31 +77,38 @@ class ArticleList extends React.Component {
 	}
 
 	searchArticle() {
-		this.props.getArticleList(this.state.title, 1, true, this.state.searchVal, (resp) => {
-			if (resp.length == 0) {
-				this.setState({
-					hasMore: false,
-					noArticleFound: true
-				});
-			}
-			else {
-				this.setState({
-					hasMore: true,
-					noArticleFound: false
-				});
-			}
+		let page = 1
+		if (!this.state.searchVal) {
+			page = this.state.start_page
+		}
 
-			if (this.state.searchVal) {
-				this.setState({
-					buttonsVisible: false
-				});
-			}
-			else {
-				this.setState({
-					buttonsVisible: true
-				});
-			}
-		});
+		this.setState({ page: page }, () => {
+			this.props.getArticleList(this.state.title, this.state.page, true, this.state.searchVal, (resp) => {
+				if (resp.length == 0) {
+					this.setState({
+						hasMore: false,
+						noArticleFound: true
+					});
+				}
+				else {
+					this.setState({
+						hasMore: true,
+						noArticleFound: false
+					});
+				}
+
+				if (this.state.searchVal) {
+					this.setState({
+						buttonsVisible: false
+					});
+				}
+				else {
+					this.setState({
+						buttonsVisible: true
+					});
+				}
+			});
+		})
 	}
 
 	handleKeyUp(e) {
@@ -106,7 +118,7 @@ class ArticleList extends React.Component {
 	}
 
 	render() {
-		var pageNo = parseInt(this.state.page);
+		var pageNo = parseInt(this.state.start_page);
 		let currentPage = []
 		currentPage.push(<div className="art-pagination-btn">
 			<span className="fw-500" style={{ color: '#000' }}>{pageNo}</span>

@@ -261,6 +261,19 @@ export default function (state = defaultState, action) {
             } else {
                 newState.articleList = newState.articleList.concat(action.payload.result)
             }
+
+            //dedupe
+            let dedupe = {}
+            let final_articles = []
+            for (let article of newState.articleList) {
+                let id = article.id || article.url
+                if (!dedupe[id]) {
+                    final_articles.push(article)
+                    dedupe[id] = true
+                }
+            }
+
+            newState.articleList = final_articles
             newState.articleListData = action.payload
 
             return newState
@@ -363,9 +376,9 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state
             }
-            if(action.defaultVal){
+            if (action.defaultVal) {
                 newState.toggleLeftMenu = action.toggle
-            }else{
+            } else {
                 newState.toggleLeftMenu = !newState.toggleLeftMenu
             }
 

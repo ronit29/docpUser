@@ -5,6 +5,7 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import Calendar from 'rc-calendar';
+import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 const moment = require('moment');
 
 const stepperStyle = {
@@ -39,7 +40,8 @@ class UserSignupView extends React.Component {
             err: "",
             referralCode: parsed.referral || null,
             have_referralCode: !!parsed.referral,
-            dateModal: false
+            dateModal: false,
+            whatsapp_optin:true
         }
     }
 
@@ -49,6 +51,10 @@ class UserSignupView extends React.Component {
 
     toggleReferral(e) {
         this.setState({ have_referralCode: e.target.checked })
+    }
+
+    toggleWhatsap(status,e) {
+        this.setState({ whatsapp_optin: status })
     }
 
     selectDateFromCalendar(date) {
@@ -133,7 +139,6 @@ class UserSignupView extends React.Component {
             if (this.state.referralCode && this.state.have_referralCode) {
                 post_data["referral_code"] = this.state.referralCode
             }
-
             this.props.createProfile(post_data, (err, res) => {
                 if (!err) {
                     // this.setState({ showMedical: true })
@@ -165,7 +170,6 @@ class UserSignupView extends React.Component {
     }
 
     render() {
-
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -230,7 +234,7 @@ class UserSignupView extends React.Component {
 
                                             {
                                                 !this.state.showMedical ?
-                                                    <div className="widget mrng-top-12">
+                                                    <div className="widget mrng-top-12 mrb-15">
                                                         <div className="widget-content">
                                                             <form className="go-bottom" >
 
@@ -282,6 +286,7 @@ class UserSignupView extends React.Component {
                                                                 <div className="referral-select">
                                                                     <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>I have a referral code<input type="checkbox" onClick={this.toggleReferral.bind(this)} checked={this.state.have_referralCode} /><span className="checkmark"></span></label>
                                                                 </div>
+
                                                                 {
                                                                     this.state.have_referralCode ? <div className="referralContainer">
                                                                         <div className="slt-nw-input">
@@ -294,7 +299,7 @@ class UserSignupView extends React.Component {
                                                     </div> : ""
                                             }
 
-
+                                            <WhatsAppOptinView {...this.props} toggleWhatsap={this.toggleWhatsap.bind(this)} isUserProfile={true}/>
                                         </section>
 
                                         <span className="errorMessage">{this.state.err}</span>

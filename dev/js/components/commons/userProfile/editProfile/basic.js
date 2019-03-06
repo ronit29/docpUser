@@ -88,11 +88,10 @@ class BasicDetails extends React.Component {
 
     render() {
 
-        let { name, email, gender, phone_number, profile_image, id } = this.props.profileData
+        let { name, email, gender, phone_number, profile_image, id} = this.props.profileData
         profile_image = profile_image || (ASSETS_BASE_URL + "/img/customer-icons/user.png")
-
         return (
-            <section className="myProfile profile-details">
+            <section className="myProfile profile-details mrb-15">
                 {
                     this.state.loading ? "" : <div className="widget no-shadow no-radius">
                         <div className="widget-content">
@@ -141,7 +140,7 @@ class BasicDetails extends React.Component {
                                 <div className="labelWrap">
                                     <input value={phone_number || ""} onChange={this.handleChange.bind(this, 'phone_number')} id="number" name="lname" type="text" className={this.props.errors['phone_number'] ? 'errorColorBorder' : ""} required onKeyPress={this.handleEnterPress.bind(this)} />
                                     <label htmlFor="number">Mobile Number</label>
-                                </div>
+                                </div>    
 
                                 {/* <a href="javascript:;" style={{ color: '#f78361' }} onClick={(e) => {
                                 e.preventDefault()

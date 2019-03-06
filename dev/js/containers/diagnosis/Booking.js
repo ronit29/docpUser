@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, getUpcomingAppointments, getLabBookingSummary, updateLabAppointment, selectLabTimeSLot, retryPaymentLAB, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp, setCorporateCoupon } from '../../actions/index.js'
+import { getCartItems, getUpcomingAppointments, getLabBookingSummary, updateLabAppointment, selectLabTimeSLot, retryPaymentLAB, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp, setCorporateCoupon,editUserProfile} from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 import BookingView from '../../components/diagnosis/booking/BookingView.js'
 
@@ -49,6 +49,7 @@ const mapDispatchToProps = (dispatch) => {
         closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
         setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon)),
         getCartItems: () => dispatch(getCartItems()),
+        editUserProfile: (profileData, profileId, cb) => dispatch(editUserProfile(profileData, profileId, cb)),
     }
 }
 

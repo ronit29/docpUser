@@ -12,6 +12,7 @@ import CancelPopup from './cancelPopup.js'
 import GTM from '../../../helpers/gtm.js'
 import STORAGE from '../../../helpers/storage'
 import CRITEO from '../../../helpers/criteo.js'
+import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -92,10 +93,12 @@ class BookingView extends React.Component {
                             }
 
                             GTM.sendEvent({ data: analyticData }, true, false)
-                            let criteo_data = 
-                            { 'event': "trackTransaction", 'id': appointmentId, 'item': [
-                                {'id': "1", 'price': data.length?data[0].deal_price:'', 'quantity': 1 }
-                            ]}
+                            let criteo_data =
+                            {
+                                'event': "trackTransaction", 'id': appointmentId, 'item': [
+                                    { 'id': "1", 'price': data.length ? data[0].deal_price : '', 'quantity': 1 }
+                                ]
+                            }
 
                             CRITEO.sendData(criteo_data)
 
@@ -234,6 +237,7 @@ class BookingView extends React.Component {
                                 (!this.state.loading && this.state.data) ?
                                     <section className="booking-confirm-screen">
                                         <div className="container-fluid">
+                                            <WhatsAppOptinView {...this.props} profiles={profile} isAppointment ={true}/>
                                             <div className="row">
                                                 <div className="col-12">
                                                     <div className="app-timeline book-confirmed-timeline">
