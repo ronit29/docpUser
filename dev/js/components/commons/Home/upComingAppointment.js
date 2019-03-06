@@ -11,6 +11,8 @@ class UpComingAppointmentView extends React.Component {
     }
 
     render() {
+        console.log(this.props.upcoming_appointments)
+        console.log('this.props.upcoming_appointments')
         return (
             <div>
                 <div className="card cstm-card aptmnt-card mb-3">
