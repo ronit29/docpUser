@@ -62,7 +62,7 @@ class IpdInfo extends React.Component {
 				                     <nav className="tab-head">
 				                        <div className="">
 				                           <div className="nav nav-tabs nav-top-head" id="nav-tab" role="tablist">
-				                              <a className={`nav-item nav-link ${this.state.toggleTabType=='aboutTab'?'active':''}`} id="overview-tab" data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'aboutTab')}>About
+				                              <a className={`nav-item nav-link ${this.state.toggleTabType=='aboutTab'?'active':''}`} id="overview-tab" data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'aboutTab')}>Info
 				                              </a>
 				                              <a className={`nav-item nav-link ${this.state.toggleTabType=='hospitalTab'?'active':''}`} id="hospital-tab" data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'hospitalTab')}>Hospitals
 				                              </a>
