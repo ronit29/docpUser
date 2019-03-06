@@ -6,11 +6,11 @@ class BannerCarousel extends React.Component {
         super(props)
         this.state = {
             index: 0,
-            startX:0,
-            startY:0,
-            distX:0,
-            distY:0,
-            intervalFlag:false
+            startX: 0,
+            startY: 0,
+            distX: 0,
+            distY: 0,
+            intervalFlag: false
         }
     }
 
@@ -20,13 +20,13 @@ class BannerCarousel extends React.Component {
             totalOffers = this.props.offerList.filter(x => x.slider_location == this.props.sliderLocation).length;
             setInterval(() => {
                 let curr_index = this.state.index
-                if(this.state.intervalFlag){
+                if (this.state.intervalFlag) {
                     curr_index = curr_index + 1
                     if (curr_index >= totalOffers) {
                         curr_index = 0
                     }
                 }
-                this.setState({ index: curr_index,intervalFlag:!this.state.intervalFlag })
+                this.setState({ index: curr_index, intervalFlag: !this.state.intervalFlag })
             }, 5000)
         }
     }
@@ -59,7 +59,7 @@ class BannerCarousel extends React.Component {
         else if (offer.url_details && offer.url_details.specializations && offer.url_details.specializations != '') {
             let speciality = {}
 
-            let filters = { 'priceRange': [offer.url_details.min_fees, offer.url_details.max_fees], 'distanceRange': [offer.url_details.min_distance, offer.url_details.max_distance], 'sort_on': offer.url_details.sort_on || '', 'is_female': offer.url_details.is_female.includes('true') ? true : false, 'is_available': offer.url_details.is_available.includes('true') ? true : false, 'doctor_name': offer.url_details.doctor_name || '', 'hospital_name': offer.url_details.hospital_name || '', 'hospital_id': offer.url_details.hospital_id || '' }
+            let filters = { 'priceRange': [offer.url_details.min_fees, offer.url_details.max_fees], 'distanceRange': [offer.url_details.min_distance, offer.url_details.max_distance], 'sort_on': offer.url_details.sort_on || '', 'is_female': offer.url_details.is_female || false, 'is_available': offer.url_details.is_available || false, 'doctor_name': offer.url_details.doctor_name || '', 'hospital_name': offer.url_details.hospital_name || '', 'hospital_id': offer.url_details.hospital_id || '' }
 
             speciality.type = 'speciality'
             speciality.id = []
@@ -83,7 +83,7 @@ class BannerCarousel extends React.Component {
         else if (offer.url_details && offer.url_details.procedure_ids && offer.url_details.procedure_ids != '') {
             let speciality = {}
 
-            let filters = { 'priceRange': [offer.url_details.min_fees, offer.url_details.max_fees], 'distanceRange': [offer.url_details.min_distance, offer.url_details.max_distance], 'sort_on': offer.url_details.sort_on || '', 'is_female': offer.url_details.is_female.includes('true') ? true : false, 'is_available': offer.url_details.is_available.includes('true') ? true : false, 'doctor_name': offer.url_details.doctor_name || '', 'hospital_name': offer.url_details.hospital_name || '', 'hospital_id': offer.url_details.hospital_id || '' }
+            let filters = { 'priceRange': [offer.url_details.min_fees, offer.url_details.max_fees], 'distanceRange': [offer.url_details.min_distance, offer.url_details.max_distance], 'sort_on': offer.url_details.sort_on || '', 'is_female': offer.url_details.is_female || false, 'is_available': offer.url_details.is_available || false, 'doctor_name': offer.url_details.doctor_name || '', 'hospital_name': offer.url_details.hospital_name || '', 'hospital_id': offer.url_details.hospital_id || '' }
 
             speciality.type = 'procedures'
             speciality.id = []
@@ -107,7 +107,7 @@ class BannerCarousel extends React.Component {
         else if (offer.url_details && offer.url_details.procedure_category_ids && offer.url_details.procedure_category_ids != '') {
             let speciality = {}
 
-            let filters = { 'priceRange': [offer.url_details.min_fees, offer.url_details.max_fees], 'distanceRange': [offer.url_details.min_distance, offer.url_details.max_distance], 'sort_on': offer.url_details.sort_on || '', 'is_female': offer.url_details.is_female.includes('true') ? true : false, 'is_available': offer.url_details.is_available.includes('true') ? true : false, 'doctor_name': offer.url_details.doctor_name || '', 'hospital_name': offer.url_details.hospital_name || '', 'hospital_id': offer.url_details.hospital_id || '' }
+            let filters = { 'priceRange': [offer.url_details.min_fees, offer.url_details.max_fees], 'distanceRange': [offer.url_details.min_distance, offer.url_details.max_distance], 'sort_on': offer.url_details.sort_on || '', 'is_female': offer.url_details.is_female || false, 'is_available': offer.url_details.is_available || false, 'doctor_name': offer.url_details.doctor_name || '', 'hospital_name': offer.url_details.hospital_name || '', 'hospital_id': offer.url_details.hospital_id || '' }
 
             speciality.type = 'procedures_category'
             speciality.id = []
@@ -131,7 +131,7 @@ class BannerCarousel extends React.Component {
         else if (offer.url_details && offer.url_details.conditions && offer.url_details.conditions != '') {
             let speciality = {}
 
-            let filters = { 'priceRange': [offer.url_details.min_fees, offer.url_details.max_fees], 'distanceRange': [offer.url_details.min_distance, offer.url_details.max_distance], 'sort_on': offer.url_details.sort_on || '', 'is_female': offer.url_details.is_female.includes('true') ? true : false, 'is_available': offer.url_details.is_available.includes('true') ? true : false, 'doctor_name': offer.url_details.doctor_name || '', 'hospital_name': offer.url_details.hospital_name || '', 'hospital_id': offer.url_details.hospital_id || '' }
+            let filters = { 'priceRange': [offer.url_details.min_fees, offer.url_details.max_fees], 'distanceRange': [offer.url_details.min_distance, offer.url_details.max_distance], 'sort_on': offer.url_details.sort_on || '', 'is_female': offer.url_details.is_female || false, 'is_available': offer.url_details.is_available || false, 'doctor_name': offer.url_details.doctor_name || '', 'hospital_name': offer.url_details.hospital_name || '', 'hospital_id': offer.url_details.hospital_id || '' }
 
             speciality.type = 'condition'
             speciality.id = []
@@ -155,7 +155,7 @@ class BannerCarousel extends React.Component {
         else if (offer.url_details && offer.url_details.hospital_id && offer.url_details.hospital_id != '') {
             let speciality = {}
 
-            let filters = { 'priceRange': [offer.url_details.min_fees, offer.url_details.max_fees], 'distanceRange': [offer.url_details.min_distance, offer.url_details.max_distance], 'sort_on': offer.url_details.sort_on || '', 'is_female': offer.url_details.is_female.includes('true') ? true : false, 'is_available': offer.url_details.is_available.includes('true') ? true : false, 'doctor_name': offer.url_details.doctor_name || '', 'hospital_name': offer.url_details.hospital_name || '', 'hospital_id': offer.url_details.hospital_id || '' }
+            let filters = { 'priceRange': [offer.url_details.min_fees, offer.url_details.max_fees], 'distanceRange': [offer.url_details.min_distance, offer.url_details.max_distance], 'sort_on': offer.url_details.sort_on || '', 'is_female': offer.url_details.is_female || false, 'is_available': offer.url_details.is_available || false, 'doctor_name': offer.url_details.doctor_name || '', 'hospital_name': offer.url_details.hospital_name || '', 'hospital_id': offer.url_details.hospital_id || '' }
 
             speciality.type = 'speciality'
             speciality.id = []
@@ -180,23 +180,23 @@ class BannerCarousel extends React.Component {
             GTM.sendEvent({ data: data })
         }
     }
-    onTouchStart(event){
+    onTouchStart(event) {
         let touchobj = event.changedTouches[0];
-        this.state.startX=touchobj.pageX;
-        this.state.startY=touchobj.pageY;
+        this.state.startX = touchobj.pageX;
+        this.state.startY = touchobj.pageY;
         let startTime = new Date().getTime()
     }
-    onTouchMove(event){
+    onTouchMove(event) {
         let touchobj = event.changedTouches[0];
         this.state.distX = touchobj.pageX - this.state.startX;
-        this.state.distY = touchobj.pageY - this.state.startY; 
+        this.state.distY = touchobj.pageY - this.state.startY;
         if (this.state.startX - touchobj.pageX > 5 || touchobj.pageX - this.state.startX > 5) {
             if (event.preventDefault)
                 event.preventDefault();
-                event.returnValue = false;
+            event.returnValue = false;
         }
     }
-    onTouchEnd(event){
+    onTouchEnd(event) {
         let startTime = new Date().getTime()
         let touchobj = event.changedTouches[0]
         let totalOffers = ''
@@ -204,9 +204,9 @@ class BannerCarousel extends React.Component {
         this.state.distX = touchobj.pageX - this.state.startX
         this.state.distY = touchobj.pageY - this.state.startY
         let elapsedTime = new Date().getTime() - startTime
-        if(elapsedTime<=400){
-            if(Math.abs(this.state.distX) >= 50 && Math.abs(this.state.distY) <= 100){
-                if(this.state.distX<0){
+        if (elapsedTime <= 400) {
+            if (Math.abs(this.state.distX) >= 50 && Math.abs(this.state.distY) <= 100) {
+                if (this.state.distX < 0) {
                     if (this.props.offerList) {
                         totalOffers = this.props.offerList.filter(x => x.slider_location === 'home_page').length;
                         curr_index = this.state.index
@@ -214,17 +214,17 @@ class BannerCarousel extends React.Component {
                         if (curr_index >= totalOffers) {
                             curr_index = 0
                         }
-                        this.setState({ index: curr_index,intervalFlag:false })
+                        this.setState({ index: curr_index, intervalFlag: false })
                     }
-                }else{
+                } else {
                     if (this.props.offerList) {
                         totalOffers = this.props.offerList.filter(x => x.slider_location === 'home_page').length;
                         curr_index = this.state.index
                         curr_index = curr_index - 1
-                        if(curr_index < 0){
-                            curr_index = totalOffers -1
+                        if (curr_index < 0) {
+                            curr_index = totalOffers - 1
                         }
-                        this.setState({ index: curr_index,intervalFlag:false })
+                        this.setState({ index: curr_index, intervalFlag: false })
                     }
                 }
             }
