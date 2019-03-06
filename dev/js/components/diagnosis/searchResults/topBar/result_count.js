@@ -260,13 +260,12 @@ class TopBar extends React.Component {
                                 <div className="filter-title">
                                     {this.props.count} Results found {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr}</span>
 
-                                    <span onClick={this.goToLocation.bind(this)}>
-
+                                    <span>
                                         {
                                             this.state.showLocationPopup && false ? ''
-                                                : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
+                                                : locationName ? <span className="location-edit">{` in ${locationName}`}</span> : ''
                                         }
-                                        <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
+                                        <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} onClick={this.goToLocation.bind(this)} />
                                     </span>
                                 </div>
                             </div>
