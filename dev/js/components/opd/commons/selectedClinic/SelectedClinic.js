@@ -17,6 +17,12 @@ class SelectedClinic extends React.Component {
         }, "")
     }
 
+    profileClick() {
+        if (this.props.selectedDoctor && this.props.selectedDoctor.url && this.props.selectedDoctor.url != '' && this.props.history) {
+            this.props.history.push(`/${this.props.selectedDoctor.url}`);
+        }
+    }
+
     render() {
 
         let { name, qualifications, hospitals, thumbnail, general_specialization, display_name } = this.props.selectedDoctor
@@ -32,7 +38,7 @@ class SelectedClinic extends React.Component {
 
         return (
             <div className="widget mrb-15 mrng-top-12">
-                <div className="widget-header dr-qucik-info">
+                <div className="widget-header dr-qucik-info" style={this.props.selectedDoctor && this.props.selectedDoctor.url && this.props.selectedDoctor.url != '' ? { cursor: 'pointer' } : {}} onClick={() => this.profileClick()}>
                     <div>
                         <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-dp">
                             <img src={thumbnail} className="img-fluid img-round" />
