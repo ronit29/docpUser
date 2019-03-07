@@ -116,7 +116,7 @@ class UpComingAppointmentView extends React.Component {
                                 </div>
                             </div>
                             <div className="rightBlock">
-                                <a href="javascript:void(0);" className="anchr-img" onClick={this.showAppointment.bind(this,appointment.type,appointment.id)}>View Detail</a>
+                                <a href="javascript:void(0);" className="anchr-img" onClick={this.showAppointment.bind(this,appointment.type,appointment.id)}><img src={ASSETS_BASE_URL + "/images/right-arrow.svg"} alt="" /></a>
                             </div>
                         </div>
                         <div className="carousel-indicators crsl-indicators cr-indicator">
