@@ -356,7 +356,8 @@ class IPD extends React.Component{
 
 					         	{/*Carousel*/}
 
-
+					         	<div>
+					         	<h4 className="section-heading">Health Tips</h4>
 					         	<div className="ipd-carousel">
   									<ul>
   										<li>
@@ -369,19 +370,83 @@ class IPD extends React.Component{
   												   by the age of 50. And the most vulnerable age of developing ut...
   												</p>
   											</a>
-  											<a href="javascript:void(0);">
+  											<a href="javascript:void(0);" className="clearfix pad-T15">
   											  <div className="float-l">
   											  	<img src="assets/images/doc-img.jpeg" alt="" className="doc-img" />
   											  </div>
+  											  <div className="float-l widthbyimg">
+  											  	<h4 className="doc-name">Dr. Dummy</h4>
+  											  	<p className="doc-info">MS - Gynaecology and Gynaecology, Delhi</p>
+											 </div>	
+  											</a>
+  										</li>
+  										<li>
+  											<a href="javascript:void(0);">
+  											    <h4 className="section-heading">Dummy Text</h4>
+  												<img src="assets/images/dummy-img.jpeg" className="img-fluid" alt="" />
+  												<p>Also referred to as myomas or leiomyomas, uterine fibroids are the most common form of 
+  												   uterine tumors. In a recent study, it was found that about 
+  												   70 to 80 percent of women are likely to be affected by uterine fibroids 
+  												   by the age of 50. And the most vulnerable age of developing ut...
+  												</p>
+  											</a>
+  											<a href="javascript:void(0);" className="clearfix pad-T15">
   											  <div className="float-l">
+  											  	<img src="assets/images/doc-img.jpeg" alt="" className="doc-img" />
+  											  </div>
+  											  <div className="float-l widthbyimg">
+  											  	<h4 className="doc-name">Dr. Dummy</h4>
+  											  	<p className="doc-info">MS - Gynaecology and Gynaecology, Delhi</p>
+											 </div>	
+  											</a>
+  										</li>
+  										<li>
+  											<a href="javascript:void(0);">
+  											    <h4 className="section-heading">Dummy Text</h4>
+  												<img src="assets/images/dummy-img.jpeg" className="img-fluid" alt="" />
+  												<p>Also referred to as myomas or leiomyomas, uterine fibroids are the most common form of 
+  												   uterine tumors. In a recent study, it was found that about 
+  												   70 to 80 percent of women are likely to be affected by uterine fibroids 
+  												   by the age of 50. And the most vulnerable age of developing ut...
+  												</p>
+  											</a>
+  											<a href="javascript:void(0);" className="clearfix pad-T15">
+  											  <div className="float-l">
+  											  	<img src="assets/images/doc-img.jpeg" alt="" className="doc-img" />
+  											  </div>
+  											  <div className="float-l widthbyimg">
+  											  	<h4 className="doc-name">Dr. Dummy</h4>
+  											  	<p className="doc-info">MS - Gynaecology and Gynaecology, Delhi</p>
+											 </div>	
+  											</a>
+  										</li>
+  										<li>
+  											<a href="javascript:void(0);">
+  											    <h4 className="section-heading">Dummy Text</h4>
+  												<img src="assets/images/dummy-img.jpeg" className="img-fluid" alt="" />
+  												<p>Also referred to as myomas or leiomyomas, uterine fibroids are the most common form of 
+  												   uterine tumors. In a recent study, it was found that about 
+  												   70 to 80 percent of women are likely to be affected by uterine fibroids 
+  												   by the age of 50. And the most vulnerable age of developing ut...
+  												</p>
+  											</a>
+  											<a href="javascript:void(0);" className="clearfix pad-T15">
+  											  <div className="float-l">
+  											  	<img src="assets/images/doc-img.jpeg" alt="" className="doc-img" />
+  											  </div>
+  											  <div className="float-l widthbyimg">
   											  	<h4 className="doc-name">Dr. Dummy</h4>
   											  	<p className="doc-info">MS - Gynaecology and Gynaecology, Delhi</p>
 											 </div>	
   											</a>
   										</li>
   									</ul>
+  									<div className="left-right-btn">
+  										<a href="javascript:void(0);"><img src="assets/images/left-arrow.png" className="slide-arrow left-arrow" /></a>
+  										<a href="javascript:void(0);"><img src="assets/images/right-arrow.png" className="slide-arrow rights-arrow" /></a>
+  									</div>
 					         	</div>
-
+					         	</div>
 
 					         	{/*Carousel*/}
 
