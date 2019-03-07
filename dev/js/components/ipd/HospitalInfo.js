@@ -74,7 +74,7 @@ class HospitalInfoView extends React.Component{
                     <li className="li-address">
                       <div className="hsptl-title hs-tle">Address:</div>
                       <div className="hsptl-title hsptl-add">{hospital_data.address}</div>
-                      <div className="hsptl-title"><img src="https://cdn.docprime.com/cp/assets/img/customer-icons/map-icon.png" alt="" className="img-fluid img-map" /></div>
+                      <div className="hsptl-title">{/*<img src="https://cdn.docprime.com/cp/assets/img/customer-icons/map-icon.png" alt="" className="img-fluid img-map" />*/}</div>
                       
                     </li>
                     :''  
