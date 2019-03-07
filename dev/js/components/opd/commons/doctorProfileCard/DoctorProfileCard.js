@@ -47,8 +47,9 @@ class DoctorProfileCard extends React.Component {
         window.scrollTo(0, scrollPosition);
     }
 
-    searchProceedOPD(doctor_name = "", hospital_name = "", hospital_id = "") {
+    searchProceedOPD(doc_name = "", hospital_name = "", hospital_id = "") {
         // handle doctor name, hospital name
+        let doctor_name = doc_name.toLowerCase()
         let state = {
             filterCriteria: {
                 ...this.props.filterCriteria,
