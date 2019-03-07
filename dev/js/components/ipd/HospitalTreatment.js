@@ -43,8 +43,8 @@ class HospitalTreatmentView extends React.Component {
        <div className="card-body clearfix">
          <ul className="hs-accordian"> 
             {
-              hospital_data.ipd_procedure_categories.map((treatment)=> {
-              return <li>
+              hospital_data.ipd_procedure_categories.map((treatment, i)=> {
+              return <li key={i}>
                    <div className="accordian-head" onClick={this.toggleTreatment.bind(this, treatment.id)}>{`${treatment.name} (${treatment.ipd_procedures.length})`}
                       {
                         this.state.treatment.indexOf(treatment.id)>-1?
@@ -56,8 +56,8 @@ class HospitalTreatmentView extends React.Component {
                       this.state.treatment.indexOf(treatment.id)>-1?
                       <p className="accordian-dtl">
                         {
-                          treatment.ipd_procedures.map((ipd)=> {
-                            return <a href="javascript:void(0);" onClick={this.goToIpdSearch.bind(this, ipd.id)} className="treat-anch">{ipd.name}</a>
+                          treatment.ipd_procedures.map((ipd, k)=> {
+                            return <a key={k} href="javascript:void(0);" onClick={this.goToIpdSearch.bind(this, ipd.id)} className="treat-anch">{ipd.name}</a>
                           })
                         }
                      </p>
