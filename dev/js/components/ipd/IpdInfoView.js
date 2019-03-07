@@ -7,13 +7,14 @@ import HospitalList from './HospitalList.js'
 import DoctorResultCard from '../opd/commons/doctorResultCard'
 import Loader from '../commons/Loader'
 import Footer from '../commons/Home/footer'
+import Scrollspy from 'react-scrollspy'
 
 class IpdInfo extends React.Component {
 
 	constructor(props){
 		super(props)
 		this.state = {
-			toggleTabType: 'aboutTab'
+			toggleTabType: ''
 		}
 	}
 
@@ -80,26 +81,34 @@ class IpdInfo extends React.Component {
 				                     <nav className="tab-head">
 				                        <div className="">
 				                           <div className="nav nav-tabs nav-top-head" id="nav-tab" role="tablist">
-				                              <a className={`nav-item nav-link ${this.state.toggleTabType=='aboutTab'?'active':''}`} id="overview-tab" data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'aboutTab')}>Info
-				                              </a>
-				                              <a className={`nav-item nav-link ${this.state.toggleTabType=='hospitalTab'?'active':''}`} id="hospital-tab" data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'hospitalTab')}>Hospitals
-				                              </a>
-				                              <a className={`nav-item nav-link ${this.state.toggleTabType=='doctorTab'?'active':''}`} id="doc-tab" data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'doctorTab')}>Doctors
-				                              </a>
+				                           	{
+				                           		<Scrollspy items={ ['aboutTab', 'hospitalTab', 'doctorTab'] } currentClassName="active">
+
+
+						                              <a className={`nav-item nav-link ${this.state.toggleTabType=='aboutTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'aboutTab')}>Info
+						                              </a>
+						                              <a className={`nav-item nav-link ${this.state.toggleTabType=='hospitalTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'hospitalTab')}>Hospitals
+						                              </a>
+						                              <a className={`nav-item nav-link ${this.state.toggleTabType=='doctorTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'doctorTab')}>Doctors
+						                              </a>
+
+				                           		</Scrollspy>
+				                           	}
 				                           </div>
 				                        </div>
 				                     </nav>
 				                   </div>
 				                   <div className="tab-content" ref={elem => this.ipd_info=elem}>
-
-					                   	<IpdAboutUs {...this.props} id="aboutTab"/>
-
-							            <div id="hospitalTab" className="tab-pane fade" /*id="nav-hospital"*/>
+				                   		<div id="aboutTab">
+				                   			<IpdAboutUs {...this.props} id="aboutTab"/>
+				                   		</div> 
+					                   	
+							            <div id="hospitalTab" className="tab-pane fade" >
 							            	<HospitalList {...this.props} hospitalList = {this.props.ipd_info && this.props.ipd_info.hospitals?this.props.ipd_info.hospitals:[]}/>
 							   				 <a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewHospitalsClicked.bind(this)}>View all Hospitals</a>
 										</div>
 
-										<div id="doctorTab" className="tab-pane fade" /*id="nav-doc"*/>
+										<div id="doctorTab" className="tab-pane fade">
 						                    {
 						                    	this.props.ipd_info && this.props.ipd_info.doctors?
 							                    this.props.ipd_info.doctors.result.map((doctorCard, i) => {

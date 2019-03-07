@@ -9,9 +9,9 @@ class IpdInfoContainer extends React.Component{
 	componentDidMount(){
 		const parsed = queryString.parse(this.props.location.search)
 		if(parsed.ipd_id){
-			this.props.getIpdInfo(parsed.ipd_id)
+			this.props.getIpdInfo(parsed.ipd_id, this.props.selectedLocation)
 		}else if(this.props.commonSelectedCriterias.length){
-			this.props.getIpdInfo(this.props.commonSelectedCriterias[0].id)	
+			this.props.getIpdInfo(this.props.commonSelectedCriterias[0].id, this.props.selectedLocation)	
 		}
 		
 	}
