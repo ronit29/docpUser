@@ -65,7 +65,7 @@ class ThyrocarePackageView extends React.Component {
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam B <br />(60 Parameters)</p>
-                                            <p className="stc-price-cut">₹ 860 <span>₹ 690</span></p>
+                                            <p className="stc-price-cut">₹ 690 <span>₹ 860</span></p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
