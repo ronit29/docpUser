@@ -362,84 +362,95 @@ class IPD extends React.Component{
   									<ul>
   										<li>
   											<a href="javascript:void(0);">
-  											    <h4 className="section-heading">Dummy Text</h4>
-  												<img src="assets/images/dummy-img.jpeg" className="img-fluid" alt="" />
+  											    <img src="assets/images/dummy-img.jpeg" className="img-fluid crsl-img" alt="" />
+  											    <h4 className="section-heading secHeading">Heading Text</h4>
   												<p>Also referred to as myomas or leiomyomas, uterine fibroids are the most common form of 
-  												   uterine tumors. In a recent study, it was found that about 
-  												   70 to 80 percent of women are likely to be affected by uterine fibroids 
-  												   by the age of 50. And the most vulnerable age of developing ut...
+  												   uterine tumors. In a recent study...
   												</p>
   											</a>
-  											<a href="javascript:void(0);" className="clearfix pad-T15">
+  											<a href="javascript:void(0);" className="clearfix doc-infrmtn">
   											  <div className="float-l">
   											  	<img src="assets/images/doc-img.jpeg" alt="" className="doc-img" />
   											  </div>
   											  <div className="float-l widthbyimg">
-  											  	<h4 className="doc-name">Dr. Dummy</h4>
+  											  	<h4 className="doc-name">Dr. Doc Name</h4>
   											  	<p className="doc-info">MS - Gynaecology and Gynaecology, Delhi</p>
 											 </div>	
   											</a>
   										</li>
   										<li>
   											<a href="javascript:void(0);">
-  											    <h4 className="section-heading">Dummy Text</h4>
-  												<img src="assets/images/dummy-img.jpeg" className="img-fluid" alt="" />
+  												<img src="assets/images/dummy-img.jpeg" className="img-fluid crsl-img" alt="" />
+  											    <h4 className="section-heading secHeading">Heading Text</h4>
   												<p>Also referred to as myomas or leiomyomas, uterine fibroids are the most common form of 
-  												   uterine tumors. In a recent study, it was found that about 
-  												   70 to 80 percent of women are likely to be affected by uterine fibroids 
-  												   by the age of 50. And the most vulnerable age of developing ut...
+  												   uterine tumors. In a recent study...
   												</p>
   											</a>
-  											<a href="javascript:void(0);" className="clearfix pad-T15">
+  											<a href="javascript:void(0);" className="clearfix doc-infrmtn">
   											  <div className="float-l">
   											  	<img src="assets/images/doc-img.jpeg" alt="" className="doc-img" />
   											  </div>
   											  <div className="float-l widthbyimg">
-  											  	<h4 className="doc-name">Dr. Dummy</h4>
+  											  	<h4 className="doc-name">Dr. Doc Name</h4>
   											  	<p className="doc-info">MS - Gynaecology and Gynaecology, Delhi</p>
 											 </div>	
   											</a>
   										</li>
   										<li>
   											<a href="javascript:void(0);">
-  											    <h4 className="section-heading">Dummy Text</h4>
-  												<img src="assets/images/dummy-img.jpeg" className="img-fluid" alt="" />
+  												<img src="assets/images/dummy-img.jpeg" className="img-fluid crsl-img" alt="" />
+  											    <h4 className="section-heading secHeading">Heading Text</h4>
   												<p>Also referred to as myomas or leiomyomas, uterine fibroids are the most common form of 
-  												   uterine tumors. In a recent study, it was found that about 
-  												   70 to 80 percent of women are likely to be affected by uterine fibroids 
-  												   by the age of 50. And the most vulnerable age of developing ut...
+  												   uterine tumors. In a recent study...
   												</p>
   											</a>
-  											<a href="javascript:void(0);" className="clearfix pad-T15">
+  											<a href="javascript:void(0);" className="clearfix doc-infrmtn">
   											  <div className="float-l">
   											  	<img src="assets/images/doc-img.jpeg" alt="" className="doc-img" />
   											  </div>
   											  <div className="float-l widthbyimg">
-  											  	<h4 className="doc-name">Dr. Dummy</h4>
+  											  	<h4 className="doc-name">Dr. Doc Name</h4>
   											  	<p className="doc-info">MS - Gynaecology and Gynaecology, Delhi</p>
 											 </div>	
   											</a>
   										</li>
   										<li>
   											<a href="javascript:void(0);">
-  											    <h4 className="section-heading">Dummy Text</h4>
-  												<img src="assets/images/dummy-img.jpeg" className="img-fluid" alt="" />
+  												<img src="assets/images/dummy-img.jpeg" className="img-fluid crsl-img" alt="" />
+  											    <h4 className="section-heading secHeading">Heading Text</h4>
   												<p>Also referred to as myomas or leiomyomas, uterine fibroids are the most common form of 
-  												   uterine tumors. In a recent study, it was found that about 
-  												   70 to 80 percent of women are likely to be affected by uterine fibroids 
-  												   by the age of 50. And the most vulnerable age of developing ut...
+  												   uterine tumors. In a recent study...
   												</p>
   											</a>
-  											<a href="javascript:void(0);" className="clearfix pad-T15">
+  											<a href="javascript:void(0);" className="clearfix doc-infrmtn">
   											  <div className="float-l">
   											  	<img src="assets/images/doc-img.jpeg" alt="" className="doc-img" />
   											  </div>
   											  <div className="float-l widthbyimg">
-  											  	<h4 className="doc-name">Dr. Dummy</h4>
+  											  	<h4 className="doc-name">Dr. Doc Name</h4>
   											  	<p className="doc-info">MS - Gynaecology and Gynaecology, Delhi</p>
 											 </div>	
   											</a>
   										</li>
+  										<li>
+  											<a href="javascript:void(0);">
+  												<img src="assets/images/dummy-img.jpeg" className="img-fluid crsl-img" alt="" />
+  											    <h4 className="section-heading secHeading">Heading Text</h4>
+  												<p>Also referred to as myomas or leiomyomas, uterine fibroids are the most common form of 
+  												   uterine tumors. In a recent study...
+  												</p>
+  											</a>
+  											<a href="javascript:void(0);" className="clearfix doc-infrmtn">
+  											  <div className="float-l">
+  											  	<img src="assets/images/doc-img.jpeg" alt="" className="doc-img" />
+  											  </div>
+  											  <div className="float-l widthbyimg">
+  											  	<h4 className="doc-name">Dr. Doc Name</h4>
+  											  	<p className="doc-info">MS - Gynaecology and Gynaecology, Delhi</p>
+											 </div>	
+  											</a>
+  										</li>
+  									
   									</ul>
   									<div className="left-right-btn">
   										<a href="javascript:void(0);"><img src="assets/images/left-arrow.png" className="slide-arrow left-arrow" /></a>
@@ -449,6 +460,116 @@ class IPD extends React.Component{
 					         	</div>
 
 					         	{/*Carousel*/}
+
+					            {/*Q & A*/}
+					            
+					            	<div>
+							         	<h4 className="section-heading">Question answered by doc</h4>
+							         	<div className="ipd-qa">
+							         		<ul>
+							         			<li>
+							         				<div className="clearfix doc-infrmtn">
+		  											  <div className="float-l">
+		  											  	<img src="assets/images/doc-img.jpeg" alt="" className="doc-img" />
+		  											  </div>
+		  											  <div className="float-l widthbyimg">
+		  											  	<p className="doc-info">Verified User</p>
+													 </div>	
+		  											</div>
+		  											<div className="cm-width">
+		  												<a href="javascript:void(0);" className="anch-qstn">Go for angioplasty?</a>
+		  												<p className="prgh-qstn">What is the situation right now according to the report attached with this question? Should he go for angioplasty right now?</p>
+		  											    <div className="ansByDoc mrg-T15">
+		  											    	<div className="">
+		  											    		<div className="clearfix doc-infrmtn">
+					  											  <div className="float-l">
+					  											  	<img src="assets/images/doc-img.jpeg" alt="" className="doc-img" />
+					  											  </div>
+					  											  <div className="float-l widthbyimg">
+					  											  	<h4 className="doc-name">Dr. Doc Name</h4>
+  											  						<p className="doc-info dcInfo">MS - Gynaecology and Gynaecology, Delhi</p>
+																 </div>	
+					  											</div>
+		  											    	</div>
+		  											    	<div className="qa-text">
+		  											    		<p>Having a pain, heaviness or discomfort in & around your chest can be scary.
+		  											    		   It does not always mean that you are having a heart attack.
+		  											    		   There can be many other causes, including
+		  											    		</p>
+		  											    		<p>
+		  											    			Other heart problems, such as angina
+																	Panic attacks <br />
+																	Digestive problems, such as heartburn or esophagus disorders<br />
+																	Sore muscles<br />
+																	Lung diseases, such as pneumonia, pleurisy, or pulmonary embolism<br />
+																	Costochondritis - an inflammation of joints in your chest
+																</p>
+																<p>
+																	1) Chest pain - must know <br />
+																	   https://youtu.be/xZunqXM3G1Y
+																</p>
+		  											    	</div>
+		  											    </div>
+		  											     <div className="ansByDoc">
+		  											    	<div className="">
+		  											    		<div className="clearfix doc-infrmtn">
+					  											  <div className="float-l">
+					  											  	<img src="assets/images/doc-img.jpeg" alt="" className="doc-img" />
+					  											  </div>
+					  											  <div className="float-l widthbyimg">
+					  											  	<h4 className="doc-name">Dr. Doc Name</h4>
+  											  						<p className="doc-info dcInfo">MS - Gynaecology and Gynaecology, Delhi</p>
+																 </div>	
+					  											</div>
+		  											    	</div>
+		  											    	<div className="qa-text">
+		  											    		<p>Having a pain, heaviness or discomfort in & around your chest can be scary.
+		  											    		   It does not always mean that you are having a heart attack.
+		  											    		   There can be many other causes, including
+		  											    		</p>
+		  											    	</div>
+		  											    </div>
+		  											</div>
+							         			</li>
+							         			<li>
+							         				<div className="clearfix doc-infrmtn">
+		  											  <div className="float-l">
+		  											  	<img src="assets/images/doc-img.jpeg" alt="" className="doc-img" />
+		  											  </div>
+		  											  <div className="float-l widthbyimg">
+		  											  	<p className="doc-info">Verified User</p>
+													 </div>	
+		  											</div>
+		  											<div className="cm-width">
+		  												<a href="javascript:void(0);" className="anch-qstn">Go for angioplasty?</a>
+		  												<p className="prgh-qstn">What is the situation right now according to the report attached with this question? Should he go for angioplasty right now?</p>
+		  											    <div className="ansByDoc mrg-T15">
+		  											    	<div className="">
+		  											    		<div className="clearfix doc-infrmtn">
+					  											  <div className="float-l">
+					  											  	<img src="assets/images/doc-img.jpeg" alt="" className="doc-img" />
+					  											  </div>
+					  											  <div className="float-l widthbyimg">
+					  											  	<h4 className="doc-name">Dr. Doc Name</h4>
+  											  						<p className="doc-info dcInfo">MS - Gynaecology and Gynaecology, Delhi</p>
+																 </div>	
+					  											</div>
+		  											    	</div>
+		  											    	<div className="qa-text">
+		  											    		<p>Having a pain, heaviness or discomfort in & around your chest can be scary.
+		  											    		   It does not always mean that you are having a heart attack.
+		  											    		   There can be many other causes, including
+		  											    		</p>
+		  											    	</div>
+		  											    </div>
+		  											</div>
+							         			</li>
+							         		</ul>
+							         	</div>
+							        </div>
+
+					            {/*Q & A*/}
+
 
 
 

@@ -7478,37 +7478,38 @@ button.padding-btn-adjust{
     padding: 2px 0;
     margin-top: -4px;
 }
+.ipd-carousel{
+	position: relative;
+}
 .ipd-carousel ul{
 	overflow: hidden;
     white-space: nowrap;
+    border-radius: 10px;
 }
 .ipd-carousel ul li {
-	padding:0 10px 10px;
-	border:1px solid rgba(0,0,0,0.12);
+	padding:10px;
+	box-shadow: 0px 2px 8px 0 rgba(0, 0, 0, 0.3);
 	background-color: #fff;
 	width: 56%;
 	display: inline-block;
     white-space: normal;
-    margin-right: 15px;
+    border-radius: 10px;
+    margin: 0px 15px 7px 0px;
+}
+.ipd-carousel ul li a{
+	display: block;
 }
 .ipd-carousel ul li a,.ipd-carousel ul li a:hover,.ipd-carousel ul li a:focus{
 	color: #000;
 }
-.ipd-carousel{
-	background-color: #fff;
-	border: 1px solid #ccc;
-	padding:20px;
-	position: relative;
-}
-.ipd-carousel ul li a{
-	display: block;
-	padding-bottom: 10px;
-}
 .ipd-carousel ul li a p{
-	margin-top: 15px;
+	padding-bottom: 5px;
 }
 .ipd-carousel .pad-T15{
 	padding-top: 15px;
+}
+.ipd-carousel .crsl-img{
+	border-radius: 5px;
 }
 .ipd-carousel .doc-img{
 	height: 45px;
@@ -7518,33 +7519,98 @@ button.padding-btn-adjust{
 	border:1px solid #f5f5f5;
 }
 .ipd-carousel .doc-name{
-	font-size: 16px;
+	font-size: 14px;
 	color: #000;
 }
 .ipd-carousel .doc-info{
-	font-size: 14px;
+	font-size: 13px;
 	color: rgba(0,0,0,0.54);
-	font-weight: 400;
-	margin-top: 5px;
+	font-weight: 500;
+	margin-top: 3px;
 }
-.widthbyimg{
+.ipd-carousel .widthbyimg{
 	width: calc(100% - 56px);
 }
-.slide-arrow{
+.ipd-carousel .secHeading{
+	padding: 15px 0 7px;
+}
+.ipd-carousel .slide-arrow{
 
     position: absolute;
-    top: 50%;
+    top: 42%;
     background: #fff;
     padding: 10px 5px;
     box-shadow: 0 0 10px rgba(0,0,0,0.12);
+    opacity: 0.7;
 }
-.slide-arrow.left-arrow{
-    left: 5px;
+.ipd-carousel .slide-arrow:hover{
+	opacity: 1;
 }
-.slide-arrow.rights-arrow{
-    right: 5px;
+.ipd-carousel .slide-arrow.left-arrow{
+    left: 0px;
+}
+.ipd-carousel .slide-arrow.rights-arrow{
+    right: 0px;
+}
+.ipd-carousel .doc-infrmtn{
+	padding-top: 10px;
 }
 
+
+/*Q&A*/
+.ipd-qa ul li{
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+}
+.ipd-qa .doc-info{
+	font-size: 13px;
+	color: rgba(0,0,0,0.54);
+	font-weight: 500;
+	margin-top: 10px;
+}
+.ipd-qa .doc-info.dcInfo {
+    margin-top: 4px;
+}
+.ipd-qa .widthbyimg{
+	width: calc(100% - 56px);
+}
+.ipd-qa .doc-img {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 1px solid #f5f5f5;
+}
+.ipd-qa .cm-width{
+	margin-left: 56px;
+	margin-top: -10px;
+}
+.ipd-qa .prgh-qstn{
+	margin-top: 5px;
+}
+.ipd-qa .qa-text{
+	margin: 10px 0 0 56px;
+}
+.ipd-qa .ansByDoc{
+	background-color:#fff;
+	padding: 10px;
+	border:1px solid #eee;
+	border-top: 0;
+}
+.ipd-qa .ansByDoc.mrg-T15{
+	margin-top: 15px;
+	border-top: 1px solid #eee;
+}
+.ipd-qa .doc-name {
+    font-size: 14px;
+    color: #000;
+}
+.qa-text p{
+	font-size: 14px;
+	line-height: 24px;
+	margin-bottom: 10px;
+}
 @media screen and (max-width: 991px){
 	.ipd-section .full-widget{
 		top: 89px;
@@ -7573,6 +7639,9 @@ button.padding-btn-adjust{
     }
     .ipd-carousel ul li{
     	width: 54%;
+    }
+    .ipd-carousel .secHeading {
+       padding: 15px 0 7px;
     }
 }
 @media screen and (max-width: 576px){
