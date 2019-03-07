@@ -125,7 +125,11 @@ class DoctorProfileCard extends React.Component {
 
                 <div className="dr-profile">
                     <h1 className="dr-name">{display_name}</h1>
-                    <p className="diff-suggestion">Looking for a different <span onClick={this.searchProceedOPD.bind(this, name, '', '')}>{name}?</span></p>
+                    {
+                        this.props.isSeoFriendly?
+                            <p className="diff-suggestion">Looking for a different <span onClick={this.searchProceedOPD.bind(this, name, '', '')}>{name}?</span></p>
+                        :''
+                    }
                     <h2 className="desg">{this.getQualificationStr(general_specialization || '')}</h2>
                     {/* {
                         general_specialization && general_specialization.length > 3 ?
@@ -150,7 +154,7 @@ class DoctorProfileCard extends React.Component {
                     <button className="notAvldocBtn">Book Now</button>
                     {
                         this.props.recommendDocs ?
-                            <p className="notAvlDoc"><span className="fw-700">Not available for online booking</span>: See bookable doctors with great discounts below <a onClick={this.props.viewAllDocClick.bind(this,this.props.nearbyDoctors)} className="text-primary fw-600 d-inline-block"> {this.props.nearbyDoctors.count >= 1 && this.props.nearbyDoctors.doctors_url ?'(View All)':''}</a></p> : ''
+                        <p className="notAvlDoc"><span className="fw-700">Not available for online booking</span>: See bookable doctors with great discounts below <a onClick={this.props.viewAllDocClick.bind(this,this.props.nearbyDoctors)} className="text-primary fw-600 d-inline-block"> {this.props.nearbyDoctors.count >= 1 && this.props.nearbyDoctors.doctors_url?'(View All)':''}</a></p> : ''
                     }
                 </div>
             </div>

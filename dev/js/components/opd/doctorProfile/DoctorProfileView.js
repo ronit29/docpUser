@@ -275,6 +275,7 @@ class DoctorProfileView extends React.Component {
                                                             recommendDocs={nearbyDoctors.result && nearbyDoctors.result.length}
                                                             viewAllDocClick={this.viewAllDocClick.bind(this)}
                                                             nearbyDoctors= {nearbyDoctors?nearbyDoctors:''}
+                                                            isSeoFriendly= {this.state.seoFriendly}
                                                             {...this.props}
                                                         />
                                                         {
