@@ -8,7 +8,7 @@ class HospitalInfoView extends React.Component{
 			<div className="hs-card">  
               {
                 hospital_data.images && hospital_data.images.length?
-                <div className="banner mt-21">
+                <div className="banner">
                   <img src={hospital_data.images[0].original} className="img-fluid" alt="" />  
                 </div>
                 :''
@@ -74,7 +74,7 @@ class HospitalInfoView extends React.Component{
                     <li className="li-address">
                       <div className="hsptl-title hs-tle">Address:</div>
                       <div className="hsptl-title hsptl-add">{hospital_data.address}</div>
-                      <div className="hsptl-title">{/*<img src="https://cdn.docprime.com/cp/assets/img/customer-icons/map-icon.png" alt="" className="img-fluid img-map" />*/}</div>
+                      <div className="hsptl-title"><img src={ASSETS_BASE_URL + "/images/white-map.png"} alt="" className="img-fluid img-map" /></div>
                       
                     </li>
                     :''  
@@ -84,7 +84,7 @@ class HospitalInfoView extends React.Component{
                     <li>
                       <div className="hsptl-title hsptl-cntc hs-tle">Contact</div>
                       <div className="hsptl-title hsptl-add"> {hospital_data.contact_number}</div>
-                      <div className="hsptl-title"><img src="https://cdn.docprime.com/cp/assets/img/customer-icons/map-icon.png" alt="" className="img-fluid img-map" style={{width: '20px'}} /></div>
+                      <div className="hsptl-title"><img src={ASSETS_BASE_URL + "/images/call-round.png"} alt="" className="img-fluid img-map" style={{width: '20px'}} /></div>
                     </li>
                     :''  
                   }
