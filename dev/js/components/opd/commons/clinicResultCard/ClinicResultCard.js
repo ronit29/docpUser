@@ -62,6 +62,46 @@ class ClinicResultCard extends React.Component {
         }, "")
     }
 
+    bookNowClicked(id, url, hospital_id, e) {
+        //always clear selected time at doctor profile
+        let slot = { time: {} }
+        this.props.selectOpdTimeSLot(slot, false)
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'OpdSearchBookNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-book-now-clicked', 'selectedId': id
+        }
+        GTM.sendEvent({ data: data })
+
+        let { procedure_ids } = this.trackingEventsBookNow(id)
+        this.props.saveProfileProcedures('', '', procedure_ids, true)
+        this.props.history.push(`/opd/doctor/${id}/${hospital_id}/bookdetails`)
+    }
+
+    trackingEventsBookNow(id) {
+        let Distance = ''
+
+        if (this.props.details && this.props.details.distance) {
+            Distance = (Math.round(this.props.details.distance * 10) / 10).toFixed(1);
+        }
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'DoctorSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-selected', 'selectedId': id
+        }
+        GTM.sendEvent({ data: data });
+
+        let category_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id).join(',')
+        let procedure_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id).join(',')
+        let condition_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'condition').map(x => x.id).join(',')
+        let specialization_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id).join(',')
+        data = {
+            'Category': 'ConsumerApp', 'Action': 'DoctorRankInSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-rank-in-search', 'Rank': this.props.rank + 1, 'DoctorSearchCount': this.props.count, 'specializations': specialization_ids, 'conditions': condition_ids, 'procedures': procedure_ids, 'procedure_category': category_ids, 'Distance': Distance
+        }
+        GTM.sendEvent({ data: data })
+
+        return ({ category_ids, procedure_ids })
+
+    }
+
 
     render() {
         let { hospital_id, address, hospital_name, doctors, procedure_categories, short_address } = this.props.details
@@ -118,7 +158,11 @@ class ClinicResultCard extends React.Component {
                         </div>
                         <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={(e) => {
                             if (doctors && doctors.length == 1) {
-                                this.cardClick(doctor.id, doctor.url, hospital_id, e)
+                                if (enabled_for_online_booking) {
+                                    this.bookNowClicked(doctor.id, doctor.url, hospital_id || '')
+                                } else {
+                                    this.cardClick(doctor.id, doctor.url, hospital_id, e)
+                                }
                             } else {
                                 this.toggleSelectDoctor(e)
                             }
@@ -136,7 +180,6 @@ class ClinicResultCard extends React.Component {
                                     {
                                         enabled_for_online_booking && discount ? <p className="fw-500 text-xs" style={{ color: 'red', paddingRight: '2px' }}>*Exclusive discount on clinic rates. Available only on prepaid bookings</p> : ""
                                     }
-
                                 </div>
                             </div>
                             <div className="col-4">
@@ -185,8 +228,7 @@ class ClinicResultCard extends React.Component {
                                                     </p> : ""
                                                 }
                                                 {
-                                                    d.enabled_for_online_booking ? <button style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, d.id, d.url, hospital_id)} className="showBookTestListBtn">Book Now</button> : <button style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, d.id, d.url, hospital_id)} className="showBookTestListBtn contact-small-btn">Contact</button>
-
+                                                    d.enabled_for_online_booking ? <button style={{ cursor: 'pointer' }} onClick={this.bookNowClicked.bind(this, d.id, d.url, hospital_id || '')} className="showBookTestListBtn">Book Now</button> : <button style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, d.id, d.url, hospital_id)} className="showBookTestListBtn contact-small-btn">Contact</button>
                                                 }
                                             </div>
                                         </li>

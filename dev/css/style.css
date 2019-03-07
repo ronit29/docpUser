@@ -2935,10 +2935,6 @@ ul.list-sub-menu a:hover {
 	left: -26px;
 	z-index: -1;
 }
-.search-result-span{
-	/* padding-right: 26px; */
-	cursor: pointer;
-}
 
 .gold-card-img {
 	width: 65px;
