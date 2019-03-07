@@ -34,7 +34,7 @@ class IpdInfo extends React.Component {
 	}
 
 	toggleTabs(type){
-		this.setState({toggleTabType: type})
+		//this.setState({toggleTabType: type})
 		if(document.getElementById(type)){
 			var elmnt = document.getElementById(type)
 			elmnt.scrollIntoView()
