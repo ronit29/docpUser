@@ -611,7 +611,7 @@ export const toggleLeftMenuBar = (toggle, defaultVal = false) => (dispatch) => {
 }
 
 export const getUpComingAppointment = () => (dispatch) => {
-	return API_GET('/api/v2/doctor/upcoming/appointments').then(function (response) {
+	return API_GET('/api/v1/user/upcoming/appointments').then(function (response) {
 		dispatch({
 			type: UPCOMING_APPOINTMENTS,
 			payload: response
