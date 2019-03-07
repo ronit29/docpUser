@@ -6860,11 +6860,13 @@ button.padding-btn-adjust{
     margin-bottom: 15px;
     position: sticky;
     top: 107px;
-
+    z-index: 99;
 }
-.ipd-section .nav-top-head {
+.ipd-section .nav-top-head{
+	border: 0;
+}
+.ipd-section .nav-top-head ul{
 	display: flex;
-    border: 0;
     align-items: center;
     justify-content: space-around;
 }
@@ -6967,6 +6969,7 @@ button.padding-btn-adjust{
     font-size: 14px;
     display: block;
     text-align: right;
+    margin-bottom: 10px;
 }
 .ipd-section .img-tick{    
     width: 13px;
@@ -7063,6 +7066,9 @@ button.padding-btn-adjust{
     position: absolute;
     right: 0;
     bottom: 2px;
+}
+.ipd-section .error-msg.gender-error-msg{
+	bottom: -15px;
 }
 
 
@@ -7726,6 +7732,9 @@ button.padding-btn-adjust{
     }
     .ipd-section .form-group.fm-grp.mrg-mt0{
     	margin-top: 0;
+    }
+    .ipd-section .error-msg.gender-error-msg{
+    	bottom: 10px;
     }
    
 }

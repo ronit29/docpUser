@@ -185,7 +185,7 @@ class IPDFormView extends React.Component{
 					                        </div>
 					                        {
 					                        	this.state.validateError.indexOf('gender')>-1?
-					                        	<span className="error-msg">Required</span>
+					                        	<span className="error-msg gender-error-msg">Required</span>
 					                        	:''	
 					                        }
 					                     </div>
