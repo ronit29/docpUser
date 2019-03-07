@@ -125,7 +125,7 @@ class DoctorProfileCard extends React.Component {
 
                 <div className="dr-profile">
                     <h1 className="dr-name">{display_name}</h1>
-                    <p className="dr-name">Looking for differnt <span style={{color:'#f78631'}} onClick={this.searchProceedOPD.bind(this,name,'','')}>{name}</span></p>
+                    <p className="diff-suggestion">Looking for a different <span onClick={this.searchProceedOPD.bind(this, name, '', '')}>{name}?</span></p>
                     <h2 className="desg">{this.getQualificationStr(general_specialization || '')}</h2>
                     {/* {
                         general_specialization && general_specialization.length > 3 ?
@@ -145,10 +145,14 @@ class DoctorProfileCard extends React.Component {
                         this.props.recommendDocs ? <button onClick={this.claimButtonClick.bind(this)} className="fltr-bkng-btn claim-btn mrt-10">Claim this profile</button> : ''
                     }
                 </div>
-                {
-                    this.props.recommendDocs ?
-                        <p className="notAvlDoc mrt-10"><span className="text-primary fw-700">Not available for online booking</span>: See bookable doctors with great discounts below</p> : ''
-                }
+
+                <div className="notAvldocBtnContainer mrt-10">
+                    <button className="notAvldocBtn">Book Now</button>
+                    {
+                        this.props.recommendDocs ?
+                            <p className="notAvlDoc"><span className="fw-700">Not available for online booking</span>: See bookable doctors with great discounts below <a className="text-primary fw-600 d-inline-block"> (View All)</a></p> : ''
+                    }
+                </div>
             </div>
         );
     }
