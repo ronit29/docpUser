@@ -9,6 +9,7 @@ import HospitalServices from './HospitalServices.js'
 import HospitalTreatment from './HospitalTreatment.js'
 import DoctorResultCard from '../opd/commons/doctorResultCard'
 //import RatingView from './RatingView.js'
+import RatingGraph from '../commons/ratingsProfileView/RatingGraph.js'
 import HospitalLocations from './HospitalLocations.js'
 import HospitalGallery from './HospitalGallery.js'
 import HospitalAboutUs from './HospitalAboutUs.js'
@@ -34,14 +35,32 @@ class HospitalDetailView extends React.Component {
 		                    			:''	 	
 		                    		}
 		                    		
-		                    		<HospitalTreatment hospital_data={this.props.ipd_hospital_detail}/>
+		                    		{
+		                    			this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.ipd_procedure_categories && this.props.ipd_hospital_detail.ipd_procedure_categories.length?
+		                    			<HospitalTreatment hospital_data={this.props.ipd_hospital_detail} {...this.props}/>
+		                    			:''	
+		                    		}
 		                    		
 		                    		{
-				                    	this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.doctors?
-					                    this.props.ipd_hospital_detail.doctors.result.map((doctorCard, i) => {
-					                    	return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.doctors.seo} {...this.props}/>
-					                    })	
+				                    	this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.doctors && this.props.ipd_hospital_detail.doctors.result.length?
+				                    		<div className="hs-card">
+					               			<div className="card-head">Doctors</div>
+					               			{
+							                    this.props.ipd_hospital_detail.doctors.result.map((doctorCard, i) => {
+							                    	return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.doctors.seo} {...this.props}/>
+							                    })
+						                	}
+						                    </div>    	
 					                    :''
+				                    }
+
+				                    {
+				                    	this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.rating_graph && this.props.ipd_hospital_detail.rating_graph.star_count?
+				                    	<div className="hs-card">
+					               			<div className="card-head">Patient Feedback</div>
+				                    		<RatingGraph details = {this.props.ipd_hospital_detail}/>
+				                   		</div>
+				                    	:''
 				                    }
 
 		                    		{

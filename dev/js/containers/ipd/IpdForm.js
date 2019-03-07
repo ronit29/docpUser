@@ -5,6 +5,9 @@ import IPDFormView from '../../components/ipd/IPDFormView.js'
 class IPDForm extends React.Component{
 
 	componentDidMount(){
+		if(window){
+			window.scrollTo(0,0)
+		}
 		if(this.props.match.params.id){
 			this.props.getIpdInfo(this.props.match.params.id)	
 		}
