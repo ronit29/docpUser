@@ -47,6 +47,38 @@ class DoctorProfileCard extends React.Component {
         window.scrollTo(0, scrollPosition);
     }
 
+    searchProceedOPD(doctor_name = "", hospital_name = "", hospital_id = "") {
+        // handle doctor name, hospital name
+        let state = {
+            filterCriteria: {
+                ...this.props.filterCriteria,
+                doctor_name, hospital_name, hospital_id
+            },
+            nextFilterCriteria: {
+                ...this.props.filterCriteria,
+                doctor_name, hospital_name, hospital_id
+            }
+        }
+
+
+        if (doctor_name || hospital_name || hospital_id) {
+            state.selectedCriterias = []
+            state.commonSelectedCriterias = []
+        }
+
+        this.props.mergeOPDState(state, true)
+
+        /*        let data = {
+                    'Category': 'ConsumerApp', 'Action': 'ShowDoctorsClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'show-doctors-clicked'
+                }
+                GTM.sendEvent({ data: data })*/
+
+        this.props.history.push({
+            pathname: '/opd/searchresults',
+            state: { search_back: true }
+        })
+    }
+
     render() {
         let { name, experience_years, qualifications, thumbnail, experiences, general_specialization, display_name, is_license_verified, rating_graph } = this.props.details
         let expStr = ""
@@ -93,6 +125,7 @@ class DoctorProfileCard extends React.Component {
 
                 <div className="dr-profile">
                     <h1 className="dr-name">{display_name}</h1>
+                    <p className="dr-name">Looking for differnt <span style={{color:'#f78631'}} onClick={this.searchProceedOPD.bind(this,name,'','')}>{name}</span></p>
                     <h2 className="desg">{this.getQualificationStr(general_specialization || '')}</h2>
                     {/* {
                         general_specialization && general_specialization.length > 3 ?
