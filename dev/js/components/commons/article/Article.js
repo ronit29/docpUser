@@ -306,6 +306,20 @@ class Article extends React.Component {
                                                 <span>Last updated on : {this.state.articleData.last_updated_at}</span>
                                             </div> : ''
                                     }
+                                    {/* DISCOUNT WIDGET CODE BELOW */}
+                                    {/* {
+                                        this.props.match.path.split('-')[1] === 'mddp' ?
+                                            <div className="fixed horizontal bottom no-round fw-500 sticky-btn d-flex align-items-center justify-content-around discount-widget" onClick={() => this.props.history.push('/opd/searchresults')}>
+                                                <div className="dw-info">
+                                                    <p className="fw-700" style={{ fontSize: 18 }}>Trouble with Health ?</p>
+                                                    <p className="fw-500" style={{ fontSize: 14 }}>Book doctor appointments</p>
+                                                    <p className="fw-500" style={{ fontSize: 14 }}>@ upto <span className="fw-700">50% off</span></p>
+                                                </div>
+                                                <div className="dw-book-btn text-center">
+                                                    <p className="fw-500">Book Now</p>
+                                                </div>
+                                            </div> : ''
+                                    } */}
                                 </div> : ""
                             }
                         </div>
@@ -333,7 +347,6 @@ class Article extends React.Component {
                                 : ''
                         }
                     </div>
-
                 </section>
                 <Footer />
             </div>

@@ -1933,3 +1933,25 @@ p.rt-doc-nm{
 .exclsv-price{
     color: #f78631;
 }
+
+.discount-widget{
+    padding: 10px 25px;
+    height: auto !important;
+    background-color: #f78631;
+    cursor: pointer;
+}
+
+.dw-book-btn{
+    background-color: #fff;
+    border: 1px solid #f78631;
+    border-radius: 5px;
+    padding: 6px 10px;
+}
+
+.dw-book-btn>p{
+    color: #f78631;
+}
+
+.dw-info p{
+    color: #fff;
+}
