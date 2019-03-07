@@ -62,7 +62,9 @@ const GTM = {
         let visitor_info = ""
 
         if (typeof window == "object") {
-            visitor_info = window.VISITOR_INFO
+            if (window.VISITOR_INFO && typeof window.VISITOR_INFO == 'string') {
+                visitor_info = window.VISITOR_INFO
+            }
         }
 
         if (!visitor_info) {
@@ -82,7 +84,6 @@ const GTM = {
             visitor_info.last_visit_time = new Date().getTime()
 
         } else {
-
             let visitor_id = getVisitorId();
             let visit_id = getVisitId();
             visitor_info = {
