@@ -163,7 +163,6 @@ class DoctorProfileView extends React.Component {
     }
 
     viewAllDocClick(nearbyDoctors) {
-
         let data = {
             'Category': 'ConsumerApp', 'Action': 'viewAllDoctorsClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'view-all-doctors-click'
         }
@@ -274,13 +273,15 @@ class DoctorProfileView extends React.Component {
                                                             details={this.props.DOCTORS[doctor_id]}
                                                             getDoctorNumber={this.props.getDoctorNumber}
                                                             recommendDocs={nearbyDoctors.result && nearbyDoctors.result.length}
+                                                            viewAllDocClick={this.viewAllDocClick.bind(this)}
+                                                            nearbyDoctors= {nearbyDoctors?nearbyDoctors:''}
                                                             {...this.props}
                                                         />
                                                         {
                                                             nearbyDoctors && Object.keys(nearbyDoctors).length ?
                                                                 <div className="widge-content pd-0">
                                                                     <div className="widget-panel">
-                                                                        {
+                                                                        {/*
                                                                             nearbyDoctors.result && nearbyDoctors.result.length && nearbyDoctors.specializations && nearbyDoctors.specializations.length ?
                                                                                 <div className="panel-title mb-rmv p-relative docslideHeadAlign">
                                                                                     <p>Book experienced {nearbyDoctors.specializations[0].name}s near you<span className="docSlideSubHeading">Get exclusive Docprime discount</span>
@@ -290,7 +291,7 @@ class DoctorProfileView extends React.Component {
                                                                                             <span className="docSlideviewAll" onClick={() => this.viewAllDocClick(nearbyDoctors)}>View All <img src={ASSETS_BASE_URL + "/img/arrowRight.svg"} /></span> : ''
                                                                                     }
                                                                                 </div> : ''
-                                                                        }
+                                                                        */}
                                                                         <div className="panel-content pd-0 border-bottom-panel">
                                                                             <div className="docScrollSliderContainer">
                                                                                 {

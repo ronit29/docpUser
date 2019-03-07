@@ -150,7 +150,7 @@ class DoctorProfileCard extends React.Component {
                     <button className="notAvldocBtn">Book Now</button>
                     {
                         this.props.recommendDocs ?
-                            <p className="notAvlDoc"><span className="fw-700">Not available for online booking</span>: See bookable doctors with great discounts below <a className="text-primary fw-600 d-inline-block"> (View All)</a></p> : ''
+                            <p className="notAvlDoc"><span className="fw-700">Not available for online booking</span>: See bookable doctors with great discounts below <a onClick={this.props.viewAllDocClick.bind(this,this.props.nearbyDoctors)} className="text-primary fw-600 d-inline-block"> {this.props.nearbyDoctors.count >= 1 && this.props.nearbyDoctors.doctors_url ?'(View All)':''}</a></p> : ''
                     }
                 </div>
             </div>
