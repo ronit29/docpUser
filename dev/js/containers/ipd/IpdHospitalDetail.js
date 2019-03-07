@@ -6,6 +6,16 @@ const queryString = require('query-string')
 
 class HospitalDetail extends React.Component {
 
+	static loadData(store, match,queryData={}) {
+        if (match.params.hospitalId) {
+            return store.dispatch(getHospitaDetails(match.params.hospitalId))
+		}	
+	}
+
+	static contextTypes = {
+        router: () => null
+	}
+	
 	componentDidMount(){
 		if(window){
 			window.scrollTo(0,0)
