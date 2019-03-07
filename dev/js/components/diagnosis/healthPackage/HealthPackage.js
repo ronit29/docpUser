@@ -1310,7 +1310,7 @@ class LabView extends React.Component {
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
                                                 <p>
-                                                    6
+                                                    5
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -1338,7 +1338,6 @@ class LabView extends React.Component {
                                                                 <li><p>High Sensitivity C-Reactive Protein (HSCRP)</p></li>
                                                                 <li><p>Apolipoproteins B</p></li>
                                                                 <li><p>Apolipoproteins B/A1</p></li>
-                                                                <li><p>Homocysteine</p></li>
                                                             </ul>
                                                         </div>
                                                         <div className="acrd-stc-data mid-border-mrgn">
@@ -1359,8 +1358,8 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p className="acrd-stc-red">
-                                                    X
+                                                <p>
+                                                    1
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
