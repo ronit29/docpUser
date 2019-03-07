@@ -46,6 +46,7 @@ class UpComingAppointmentView extends React.Component {
         this.state.startY=touchobj.pageY;
         let startTime = new Date().getTime()
     }
+
     onTouchMove(event){
         let touchobj = event.changedTouches[0];
         this.state.distX = touchobj.pageX - this.state.startX;
@@ -56,10 +57,11 @@ class UpComingAppointmentView extends React.Component {
                 event.returnValue = false;
         }
     }
+
     onTouchEnd(event){
         let startTime = new Date().getTime()
         let touchobj = event.changedTouches[0]
-        let totalOffers = ''
+        let totalAppointments = ''
         let curr_index
         this.state.distX = touchobj.pageX - this.state.startX
         this.state.distY = touchobj.pageY - this.state.startY
@@ -68,21 +70,21 @@ class UpComingAppointmentView extends React.Component {
             if(Math.abs(this.state.distX) >= 50 && Math.abs(this.state.distY) <= 100){
                 if(this.state.distX<0){
                     if (this.props.upcoming_appointments) {
-                        totalOffers = this.props.upcoming_appointments.length;
+                        totalAppointments = this.props.upcoming_appointments.length;
                         curr_index = this.state.index
                         curr_index = curr_index + 1
-                        if (curr_index >= totalOffers) {
+                        if (curr_index >= totalAppointments) {
                             curr_index = 0
                         }
                         this.setState({ index: curr_index })
                     }
                 }else{
                     if (this.props.offerList) {
-                        totalOffers = this.props.upcoming_appointments.length;
+                        totalAppointments = this.props.upcoming_appointments.length;
                         curr_index = this.state.index
                         curr_index = curr_index - 1
                         if(curr_index < 0){
-                            curr_index = totalOffers -1
+                            curr_index = totalAppointments -1
                         }
                         this.setState({ index: curr_index })
                     }
@@ -119,7 +121,7 @@ class UpComingAppointmentView extends React.Component {
                         </div>
                         <div className="carousel-indicators crsl-indicators cr-indicator">
                             {
-                                this.props.upcoming_appointments && this.props.upcoming_appointments.map((offer, i) => {
+                                this.props.upcoming_appointments && this.props.upcoming_appointments.map((appointmentDots, i) => {
                                     return <span key={i} onClick={() => this.setState({ index: i })} className={this.state.index == i ? "active" : ''} ></span>
                                 })
                             }
