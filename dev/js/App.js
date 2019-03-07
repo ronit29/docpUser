@@ -8,7 +8,7 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
-import { set_summary_utm, getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState, mergeUrlState, getCartItems, loadLabCommonCriterias, toggleLeftMenuBar, clearLabSearchId, clearOpdSearchId } from './actions/index.js'
+import { set_summary_utm, getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState, mergeUrlState, getCartItems, loadLabCommonCriterias, toggleLeftMenuBar, clearLabSearchId, clearOpdSearchId, clearIpdSearchId } from './actions/index.js'
 import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from './helpers/urltoState.js'
 
@@ -173,6 +173,7 @@ class App extends React.Component {
         this.props.saveDeviceInfo(device)
         this.props.clearOpdSearchId()
         this.props.clearLabSearchId()
+        this.props.clearIpdSearchId()
 
         /**  
          * Boot Raven(Sentry logger)
@@ -273,7 +274,8 @@ const mapDispatchToProps = (dispatch) => {
         loadLabCommonCriterias: () => dispatch(loadLabCommonCriterias()),
         toggleLeftMenuBar: (toggle, defaultVal) => dispatch(toggleLeftMenuBar(toggle, defaultVal)),
         clearLabSearchId: () => dispatch(clearLabSearchId()),
-        clearOpdSearchId: () => dispatch(clearOpdSearchId())
+        clearOpdSearchId: () => dispatch(clearOpdSearchId()),
+        clearIpdSearchId: () => dispatch(clearIpdSearchId())
     }
 
 }

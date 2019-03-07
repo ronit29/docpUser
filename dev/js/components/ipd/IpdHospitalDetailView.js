@@ -7,7 +7,7 @@ import Loader from '../commons/Loader'
 import HospitalInfo from './HospitalInfo.js'
 import HospitalServices from './HospitalServices.js'
 import HospitalTreatment from './HospitalTreatment.js'
-//import DoctorList from './DoctorList.js'
+import DoctorResultCard from '../opd/commons/doctorResultCard'
 //import RatingView from './RatingView.js'
 import HospitalLocations from './HospitalLocations.js'
 import HospitalGallery from './HospitalGallery.js'
@@ -36,6 +36,14 @@ class HospitalDetailView extends React.Component {
 		                    		
 		                    		<HospitalTreatment hospital_data={this.props.ipd_hospital_detail}/>
 		                    		
+		                    		{
+				                    	this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.doctors?
+					                    this.props.ipd_hospital_detail.doctors.result.map((doctorCard, i) => {
+					                    	return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.doctors.seo} {...this.props}/>
+					                    })	
+					                    :''
+				                    }
+
 		                    		{
 		                    			this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.other_network_hospitals && this.props.ipd_hospital_detail.other_network_hospitals.length?
 		                    			<HospitalLocations hospital_data={this.props.ipd_hospital_detail}/>

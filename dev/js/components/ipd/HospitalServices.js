@@ -10,8 +10,8 @@ class HospitalServicesView extends React.Component  {
 	           <div className="card-body clearfix">
 	             <ul className="hs-services">
 	             	{
-	             		hospital_data.services.map((service) => {
-	             			return <li><img src={service.icon} alt="" /> {service.name} </li>  
+	             		hospital_data.services.map((service, i) => {
+	             			return <li key={i}><img src={service.icon} alt="" /> {service.name} </li>  
 	               		
 	             		})
 	             	}

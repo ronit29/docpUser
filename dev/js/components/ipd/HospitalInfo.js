@@ -54,8 +54,8 @@ class HospitalInfoView extends React.Component{
                       <div className="hsptl-title hs-tle hsptl-photo">Photo</div>
                       <div className="hsptl-img">
                         {
-                          hospital_data.images.map((image)=> {
-                            return <span><img src={image.original} alt="" /></span>
+                          hospital_data.images.map((image, i)=> {
+                            return <span key={i}><img src={image.original} alt="" /></span>
                           })
                         }
                         {

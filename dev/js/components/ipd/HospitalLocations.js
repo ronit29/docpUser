@@ -10,8 +10,8 @@ class HospitalLocationView extends React.Component {
          <div className="card-body clearfix">
            <ul className="hs-accordian"> 
               {
-                hospital_data.other_network_hospitals.map((location)=> {
-                  return <li>
+                hospital_data.other_network_hospitals.map((location, i)=> {
+                  return <li key={i}>
                          <div className="accordian-head">{location.name}
                              {/*<img className="img-map" src="https://cdn.docprime.com/cp/assets/img/customer-icons/map-icon.png" />*/}
                          </div>

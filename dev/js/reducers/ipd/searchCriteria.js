@@ -1,4 +1,4 @@
-import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET_IPD_SEARCH_ID, SAVE_IPD_RESULTS_WITH_SEARCHID, GET_IPD_SEARCH_ID_RESULTS, SELECT_IPD_LOCATION_STATUS, GET_IPD_HOSPITAL_DETAIL } from '../../constants/types';
+import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET_IPD_SEARCH_ID, SAVE_IPD_RESULTS_WITH_SEARCHID, GET_IPD_SEARCH_ID_RESULTS, SELECT_IPD_LOCATION_STATUS, GET_IPD_HOSPITAL_DETAIL, CLEAR_IPD_SEARCH_IDS } from '../../constants/types';
 
 const moment = require('moment');
 
@@ -68,6 +68,9 @@ export default function ( state=defaultState, action) {
 				...state
 			}
 			newState.IPD_INFO_LOADED = true
+			if(action.payload && action.payload.about && action.payload.about.id){
+				newState.commonSelectedCriterias = [{'id': action.payload.about.id, 'name': action.payload.about.name}]
+			}
 			newState.ipd_info= action.payload
 			return newState
 		}	
@@ -187,6 +190,22 @@ export default function ( state=defaultState, action) {
         	}
         	newState.HOSPITAL_DETAIL_LOADED = true
         	newState.ipd_hospital_detail = action.payload
+        	return newState
+        }
+
+        case CLEAR_IPD_SEARCH_IDS: {
+        	let newState = {
+        		...state
+        	}
+        	if(newState.last_save_searched_date){
+                let currentTime = moment(new Date())
+                let lastSearchTime = moment(new Date(newState.last_save_searched_date))
+                let diffDays = currentTime.diff(lastSearchTime, 'days')
+                if(diffDays>2){
+                    newState.search_id_data = {}
+                    newState.last_save_searched_date = null
+                }
+            }
         	return newState
         }
 

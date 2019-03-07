@@ -9,14 +9,15 @@ class StickyFilter extends React.Component{
 		super(props)
 		this.state = {
 			toggleFilterPopup :false,
-			currentSelectedFilters: [],
+			lastSelectedProviderIds: [],
+			lastSelectedDistance: [0, 25],
 			provider_ids: [],
 			distance: [0, 25]
 		}
 	}
 
 	componentWillReceiveProps(nextProps){
-		this.setState({provider_ids: nextProps.filterCriteria.provider_ids, distance: nextProps.filterCriteria.distance})
+		this.setState({provider_ids: nextProps.filterCriteria.provider_ids, lastSelectedProviderIds: nextProps.filterCriteria.provider_ids, distance: nextProps.filterCriteria.distance, lastSelectedDistance: nextProps.filterCriteria.distance})
 	}
 
 	applyFilters(){
@@ -26,6 +27,7 @@ class StickyFilter extends React.Component{
 			provider_ids: this.state.provider_ids
 		}
 
+		this.setState({lastSelectedProviderIds: this.state.provider_ids, lastSelectedDistance: this.state.distance})
 		let search_id_data = Object.assign({}, this.props.search_id_data)
 
 		if (this.props.search_id_data && this.props.search_id_data[parsed.search_id]) {
@@ -57,14 +59,11 @@ class StickyFilter extends React.Component{
 			provider_ids.push(id)
 		}
 
-		this.setState({provider_ids: provider_ids, currentSelectedFilters: provider_ids})
+		this.setState({provider_ids: provider_ids})
 	}
 
 	closeFiltersPopUp(){
-		this.setState({toggleFilterPopup: false})
-		let currentSelectedFilters = this.state.currentSelectedFilters
-		let previousFilters = []
-	//	this.state.toggleProviderFilter.map((x))
+		this.setState({toggleFilterPopup: false, provider_ids: this.state.lastSelectedProviderIds, distance: this.state.lastSelectedDistance})
 	}
 
 	handleRange(type, range) {

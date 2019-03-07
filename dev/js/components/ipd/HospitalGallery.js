@@ -10,8 +10,8 @@ class HospitalGalleryView extends React.Component {
 	           <div className="card-body clearfix">
 	             <ul className="hs-accordian hs-image-gallery">
 	             	{
-	             		hospital_data.images.map((image)=>{
-	             			return <li><img src={image.original} /></li>
+	             		hospital_data.images.map((image, i)=>{
+	             			return <li key={i}><img src={image.original} /></li>
 	             		})
 	             	}
 	             </ul>

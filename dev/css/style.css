@@ -6819,6 +6819,7 @@ button.padding-btn-adjust{
     font-size: 16px;
     font-weight: 500;
     padding: 20px 0;
+    color: #000;
 }
 .ipd-section .section-heading.secHead{
     padding-top: 0;
@@ -7450,6 +7451,20 @@ button.padding-btn-adjust{
 	margin-top: -10px;
 	box-shadow: 0px 3px 6px 0 rgba(0, 0, 0, 0.2);
 }
+.ipd-section .treat-anch{
+	background-color: #f5f5f5;
+    color: #000;
+    border-radius: 25px;
+    display: inline-flex;
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.ipd-section .treat-anch:hover,.ipd-section .treat-anch:focus{
+    color: #000;
+}
+
 .stick-it{
 	position: sticky !important;
 	top: 107px !important;
@@ -7464,6 +7479,26 @@ button.padding-btn-adjust{
     margin-top: -4px;
 }
 
+.ipd-carousel ul li {
+	padding:0 10px 10px;
+	box-shadow: 0px 2px 8px 0 rgba(0, 0, 0, 0.3);
+	border-radius: 10px;
+	background-color: #fff;
+}
+.ipd-carousel .doc-img{
+	height: 45px;
+	width: 45px;
+	border-radius: 50%;
+}
+.ipd-carousel .doc-name{
+	font-size: 16px;
+	color: #000;
+}
+.ipd-carousel .doc-info{
+	font-size: 14px;
+	color: rgba(0,0,0,0.54);
+	font-weight: 400;
+}
 
 @media screen and (max-width: 991px){
 	.ipd-section .full-widget{

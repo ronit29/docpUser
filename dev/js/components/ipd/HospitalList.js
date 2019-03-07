@@ -4,8 +4,11 @@ import HospitalCard from './HospitalCard.js'
 class HospitalListView extends React.Component {
 
 	getCostEstimateClicked(hospitalId){
-
-      this.props.history.push(`/ipd/${this.props.ipd_id}/${hospitalId}/getPriceEstimate`)
+		if(this.props.commonSelectedCriterias.length){
+			let ipd_id = this.props.commonSelectedCriterias[0].id
+			this.props.history.push(`/ipd/${ipd_id}/${hospitalId}/getPriceEstimate`)		
+		}
+      
    	}
 
    	getHospitalDetailPage(hospitalId){

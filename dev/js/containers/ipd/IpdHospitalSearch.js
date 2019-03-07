@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { getIpdInfo, getIpdHospitals, mergeIpdCriteria, urlShortner, setIpdSearchId, getIpdSearchIdResults } from '../../actions/index.js'
 import IpdHospitalSearchView from '../../components/ipd/IpdHospitalSearchView.js'
-const queryString = require('query-string')
 
 class IpdHospitals extends React.Component {
 

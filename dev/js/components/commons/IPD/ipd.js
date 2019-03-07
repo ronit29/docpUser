@@ -249,25 +249,61 @@ class IPD extends React.Component{
 					                       <div className="accordian-head">Uro Oncology (3)
 					                           <img className="" src="assets/images/up-arrow.png" />
 					                       </div>
-					                       <p className="accordian-dtl">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					                       <p className="accordian-dtl">
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem  </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse impulse </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse impulse </a>
+
+
+					                       </p>
 					                     </li>
 					                     <li>
 					                       <div className="accordian-head">Uro Oncology (3)
 					                           <img className="" src="assets/images/down-arrow.png" />
 					                       </div>
-					                       <p className="accordian-dtl d-none">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					                       <p className="accordian-dtl d-none">
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem  </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse impulse </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse impulse </a>
+
+
+					                       </p>
 					                     </li>
 					                     <li>
 					                       <div className="accordian-head">Uro Oncology (3)
 					                           <img className="" src="assets/images/down-arrow.png" />
 					                       </div>
-					                       <p className="accordian-dtl d-none">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					                       <p className="accordian-dtl d-none">
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem  </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse impulse </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse impulse </a>
+
+
+					                       </p>
 					                     </li>
 					                     <li>
 					                       <div className="accordian-head">Uro Oncology (3)
 					                           <img className="" src="assets/images/down-arrow.png" />
 					                       </div>
-					                       <p className="accordian-dtl d-none">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					                       <p className="accordian-dtl d-none">
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem  </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse impulse </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse </a>
+					                       		<a href="javascript:void(0);" className="treat-anch">Lorem impulse impulse </a>
+
+
+					                       </p>
 					                     </li>
 					                 </ul>
 					                 <a href="javascript:void(0);" className="btn-view-hospital btn-more">+24 more</a>
@@ -317,6 +353,40 @@ class IPD extends React.Component{
 					                   cost.With a belief that 'Quality' is the heart of any intelligent management,
 					               </div>   
 					             </div>
+
+					         	{/*Carousel*/}
+
+
+					         	<div className="ipd-carousel">
+  									<ul>
+  										<li>
+  											<a href="javascript:void(0);">
+  											    <h4 className="section-heading">Dummy Text</h4>
+  												<img src="assets/images/dummy-img.jpeg" className="img-fluid" alt="" />
+  												<p>Also referred to as myomas or leiomyomas, uterine fibroids are the most common form of 
+  												   uterine tumors. In a recent study, it was found that about 
+  												   70 to 80 percent of women are likely to be affected by uterine fibroids 
+  												   by the age of 50. And the most vulnerable age of developing ut...
+  												</p>
+  											</a>
+  											<a href="javascript:void(0);">
+  											  <div className="float-l">
+  											  	<img src="assets/images/doc-img.jpeg" alt="" className="doc-img" />
+  											  </div>
+  											  <div className="float-l">
+  											  	<h4 className="doc-name">Dr. Dummy</h4>
+  											  	<p className="doc-info">MS - Gynaecology and Gynaecology, Delhi</p>
+											 </div>	
+  											</a>
+  										</li>
+  									</ul>
+					         	</div>
+
+
+					         	{/*Carousel*/}
+
+
+
 
 					             {/*Hospital view*/}
 					             {/*select policy Popup*/}
