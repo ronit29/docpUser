@@ -10,6 +10,7 @@ import HospitalTreatment from './HospitalTreatment.js'
 import DoctorResultCard from '../opd/commons/doctorResultCard'
 //import RatingView from './RatingView.js'
 import RatingGraph from '../commons/ratingsProfileView/RatingGraph.js'
+import ReviewList from '../commons/ratingsProfileView/ReviewList.js'
 import HospitalLocations from './HospitalLocations.js'
 import HospitalGallery from './HospitalGallery.js'
 import HospitalAboutUs from './HospitalAboutUs.js'
@@ -60,6 +61,12 @@ class HospitalDetailView extends React.Component {
 					               			<div className="card-head">Patient Feedback</div>
 				                    		<RatingGraph details = {this.props.ipd_hospital_detail}/>
 				                   		</div>
+				                    	:''
+				                    }
+
+				                    {
+				                    	this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.rating && this.props.ipd_hospital_detail.rating.length?
+				                    	<ReviewList details = {this.props.ipd_hospital_detail}/>
 				                    	:''
 				                    }
 
