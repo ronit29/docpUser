@@ -71,48 +71,44 @@ class LabView extends React.Component {
                                 <div className="static-pk-container sticky-pk-container">
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Good Health Package</p>
-                                            <p className="stc-price-cut">₹ 360 <span>₹ 400</span></p>
+                                            <p className="stc-sub-para">Aarogyam 1.7 Special (Thyrocare)</p>
+                                            <p className="stc-price-cut">₹ 1440<span>₹ 2700</span></p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam B
                                                                 (Thyrocare)</p>
-                                            <p className="stc-price-cut">₹ 560 <span>₹ 700</span></p>
+                                            <p className="stc-price-cut">₹ 690 <span>₹ 860</span></p>
                                         </div>
                                     </div>
-                                    {/*<div className="static-pkg-top-column stc-mid-mrgn">
-                                        <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">MET Healthy Youth (25 YRS & Above)
-                                            </p>
-                                            <p className="stc-price-cut">₹ 999 <span>₹ 3,640</span></p>
-                                        </div>
-                                    </div>*/}
                                     <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">MET Healthy Youth (25 YRS & Above)</p>
-                                            <p className="stc-price-cut">₹ 999 <span>₹ 1,450</span></p>
+                                            <p className="stc-price-cut">₹ 999 <span>₹ 3640</span></p>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="static-pk-container sticky-pk-container-2">
-                                    <div className="static-pkg-top-column">
+                                <div className="static-pk-container sticky-pk-container-2" style={{ paddingTop: 0, paddingBottom: 30 }}>
+                                    <div className="static-pkg-top-column" style={{ position: 'relative' }}>
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">
-                                                10% OFF + ₹ 100
+                                                46% OFF + ₹ 100
                                                 OFF Coupon
                                                                 </p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
-                                        <a href="/lab/searchresults?test_ids=12349" onClick={(e) => {
+                                        <a href="/lab/searchresults?test_ids=12387" onClick={(e) => {
                                             e.preventDefault()
-                                            this.bookNowClicked('/lab/searchresults?test_ids=12349', 'TopbookNowClickedBlock1')
+                                            this.bookNowClicked('/lab/searchresults?test_ids=12387', 'TopbookNowClickedBlock1')
                                         }} className="stc-book-btn">Book Now</a>
+                                        <div className="popular-txt" style={{ top: 'unset', right: 'unset', bottom: '-26px', left: '50%', transform: 'translateX(-50%)' }} >
+                                            <span className="fw-500">Popular</span>
+                                        </div>
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-offr-cpn">
-                                            <p className="stc-off-para">72% OFF + ₹ 100 OFF Coupon</p>
+                                            <p className="stc-off-para">20% OFF + ₹ 100 OFF Coupon</p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=12227" onClick={(e) => {
@@ -124,7 +120,7 @@ class LabView extends React.Component {
                                     <div className="static-pkg-top-column">
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">
-                                                20% OFF + ₹ 100
+                                                72% OFF + ₹ 100
                                                 OFF Coupon
                                                                 </p>
                                         </div>
@@ -168,17 +164,17 @@ class LabView extends React.Component {
                                         <div className="stc-acrd-content text-center">
                                             <div className="acrd-stc-data">
                                                 <p>
-                                                    35
+                                                    88
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
                                                 <p>
-                                                    56
+                                                    60
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
                                                 <p>
-                                                    68
+                                                    56
                                                                         </p>
                                             </div>
                                         </div>
@@ -193,7 +189,7 @@ class LabView extends React.Component {
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
                                                 <p>
-                                                    29
+                                                    28
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -618,10 +614,10 @@ class LabView extends React.Component {
                                                 </div> : ''
                                         }
                                     </div>
-                                    <div className="stc-accord-container">
+                                    {/* <div className="stc-accord-container">
                                         <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 15)}>
                                             <p>Cholesterol-Total Serum</p>
-                                            {/*<img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />*/}
+                                            <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
@@ -647,8 +643,8 @@ class LabView extends React.Component {
                                                     </p>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    {/*<p>A "male hormone" -- a sex hormone produced by the testes that encourages the development of male sexual characteristics, stimulates the activity of the male secondary sex characteristics, and prevents changes in them following castration.
-                                                                        </p>*/}
+                                                    <p>A "male hormone" -- a sex hormone produced by the testes that encourages the development of male sexual characteristics, stimulates the activity of the male secondary sex characteristics, and prevents changes in them following castration.
+                                                                        </p>
                                                 </div>
                                                 <div className="acrd-stc-data">
                                                     <p>
@@ -660,7 +656,7 @@ class LabView extends React.Component {
                                     <div className="stc-accord-container">
                                         <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 16)}>
                                             <p>SGPT ALT</p>
-                                            {/*<img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />*/}
+                                            <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
@@ -686,8 +682,8 @@ class LabView extends React.Component {
                                                     </p>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    {/*<p>A "male hormone" -- a sex hormone produced by the testes that encourages the development of male sexual characteristics, stimulates the activity of the male secondary sex characteristics, and prevents changes in them following castration.
-                                                                        </p>*/}
+                                                    <p>A "male hormone" -- a sex hormone produced by the testes that encourages the development of male sexual characteristics, stimulates the activity of the male secondary sex characteristics, and prevents changes in them following castration.
+                                                                        </p>
                                                 </div>
                                                 <div className="acrd-stc-data">
                                                     <p>
@@ -699,7 +695,7 @@ class LabView extends React.Component {
                                     <div className="stc-accord-container">
                                         <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 17)}>
                                             <p>Routine Urine Analysis (RUA)</p>
-                                            {/*<img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />*/}
+                                            <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
@@ -725,8 +721,8 @@ class LabView extends React.Component {
                                                     </p>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    {/*<p>A "male hormone" -- a sex hormone produced by the testes that encourages the development of male sexual characteristics, stimulates the activity of the male secondary sex characteristics, and prevents changes in them following castration.
-                                                                        </p>*/}
+                                                    <p>A "male hormone" -- a sex hormone produced by the testes that encourages the development of male sexual characteristics, stimulates the activity of the male secondary sex characteristics, and prevents changes in them following castration.
+                                                                        </p>
                                                 </div>
                                                 <div className="acrd-stc-data">
                                                     <p>
@@ -738,7 +734,7 @@ class LabView extends React.Component {
                                     <div className="stc-accord-container">
                                         <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 18)}>
                                             <p>Serum Creatinine</p>
-                                            {/*<img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />*/}
+                                            <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
@@ -764,8 +760,8 @@ class LabView extends React.Component {
                                                     </p>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    {/*<p>A "male hormone" -- a sex hormone produced by the testes that encourages the development of male sexual characteristics, stimulates the activity of the male secondary sex characteristics, and prevents changes in them following castration.
-                                                                        </p>*/}
+                                                    <p>A "male hormone" -- a sex hormone produced by the testes that encourages the development of male sexual characteristics, stimulates the activity of the male secondary sex characteristics, and prevents changes in them following castration.
+                                                                        </p>
                                                 </div>
                                                 <div className="acrd-stc-data">
                                                     <p>
@@ -773,7 +769,7 @@ class LabView extends React.Component {
                                                 </div>
                                             </div> : ''
                                         }
-                                    </div>
+                                    </div> */}
                                     <div className="stc-accord-container">
                                         <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 1)}>
                                             <p>Liver Function Test</p>
@@ -781,7 +777,8 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p className="acrd-stc-red">X
+                                                <p>
+                                                    11
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -996,7 +993,8 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p className="acrd-stc-red">X
+                                                <p>
+                                                    8
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -1071,7 +1069,7 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p className="acrd-stc-red">X
+                                                <p>5
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -1136,7 +1134,8 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p className="acrd-stc-red">X
+                                                <p>
+                                                    3
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -1195,7 +1194,8 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p className="acrd-stc-red">X
+                                                <p>
+                                                    4
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -1223,6 +1223,7 @@ class LabView extends React.Component {
                                                                 <li><p>Total Iron Binding Capacity (TIBC)</p></li>
                                                                 <li><p>Iron</p></li>
                                                                 <li><p>Transferrin Saturation</p></li>
+                                                                <li><p>Ferritin</p></li>
                                                             </ul>
                                                         </div>
                                                         <div className="acrd-stc-data mid-border-mrgn">
@@ -1237,11 +1238,6 @@ class LabView extends React.Component {
                                                         <div className="acrd-stc-data">
                                                             {/*<p>Iron tests are groups of clinical chemistry laboratory blood tests that are used to evaluate body iron stores or the iron level in blood serum. Other terms used for the same tests are iron panel, iron profile, iron indices or iron status.
                                                                         </p>*/}
-                                                            <ul className="stc-data-ul-list">
-                                                                <li><p>Total Iron Binding Capacity (TIBC)</p></li>
-                                                                <li><p>Iron</p></li>
-                                                                <li><p>Transferrin Saturation</p></li>
-                                                            </ul>
                                                         </div>
                                                     </div>
                                                 </div> : ''
@@ -1254,7 +1250,8 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p className="acrd-stc-red">X
+                                                <p>
+                                                    4
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -1281,6 +1278,8 @@ class LabView extends React.Component {
                                                             <ul className="stc-data-ul-list">
                                                                 <li><p>HbA1c Glycated Haemoglobin</p></li>
                                                                 <li><p>Average Blood Glucose (ABG)</p></li>
+                                                                <li><p>Blood ketone</p></li>
+                                                                <li><p>Fructosamine</p></li>
                                                             </ul>
                                                         </div>
                                                         <div className="acrd-stc-data mid-border-mrgn">
@@ -1294,10 +1293,10 @@ class LabView extends React.Component {
                                                         <div className="acrd-stc-data">
                                                             {/*<p>Definition: insulin resistance. This test is ordered for a patient who newly diagnosed with diabetes type-2 to monitor the status of beta cell production of insulin and while the insulin injection is required for the patient. The expected value: Normal or high level of C-peptide will be detected.
                                                                         </p>*/}
-                                                            <ul className="stc-data-ul-list">
+                                                            {/* <ul className="stc-data-ul-list">
                                                                 <li><p>HbA1c Glycated Haemoglobin</p></li>
                                                                 <li><p>Average Blood Glucose (ABG)</p></li>
-                                                            </ul>
+                                                            </ul> */}
                                                         </div>
                                                     </div>
                                                 </div> : ''
@@ -1310,8 +1309,8 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p className="acrd-stc-red">
-                                                    X
+                                                <p>
+                                                    6
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -1328,12 +1327,19 @@ class LabView extends React.Component {
                                             this.state.collapse[7] ?
                                                 <div>
                                                     <div>
-                                                        <span>A cardiac risk profile—or CRP—gives you information about some of the factors that can put you at risk for heart disease—things like elevated blood levels of cholesterol, triglycerides, and glucose (blood sugar).
-                                                </span>
+                                                        <span>A cardiac risk profile—or CRP—gives you information about some of the factors that can put you at risk for heart disease—things like elevated blood levels of cholesterol, triglycerides, and glucose (blood sugar).</span>
                                                     </div>
                                                     <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
                                                         <div className="acrd-stc-data">
                                                             <p></p>
+                                                            <ul className="stc-data-ul-list">
+                                                                <li><p>Lipoprotein (A)</p></li>
+                                                                <li><p>Apolipoproteins A1</p></li>
+                                                                <li><p>High Sensitivity C-Reactive Protein (HSCRP)</p></li>
+                                                                <li><p>Apolipoproteins B</p></li>
+                                                                <li><p>Apolipoproteins B/A1</p></li>
+                                                                <li><p>Homocysteine</p></li>
+                                                            </ul>
                                                         </div>
                                                         <div className="acrd-stc-data mid-border-mrgn">
                                                             <p></p>
@@ -1341,13 +1347,6 @@ class LabView extends React.Component {
                                                         <div className="acrd-stc-data">
                                                             {/*<p>A cardiac risk profile—or CRP—gives you information about some of the factors that can put you at risk for heart disease—things like elevated blood levels of cholesterol, triglycerides, and glucose (blood sugar).
                                                                         </p>*/}
-                                                            <ul className="stc-data-ul-list">
-                                                                <li><p>Lipoprotein (A)</p></li>
-                                                                <li><p>Apolipoproteins A1</p></li>
-                                                                <li><p>High Sensitivity C-Reactive Protein (HSCRP)</p></li>
-                                                                <li><p>Apolipoproteins B</p></li>
-                                                                <li><p>Apolipoproteins B/A1</p></li>
-                                                            </ul>
                                                         </div>
                                                     </div>
                                                 </div> : ''
@@ -1400,13 +1399,13 @@ class LabView extends React.Component {
                                     </div>
                                     <div className="stc-accord-container">
                                         <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 9)}>
-                                            <p>Vitamin D Profile</p>
+                                            <p>Vitamin Profile</p>
                                             <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p className="acrd-stc-red">
-                                                    X
+                                                <p>
+                                                    3
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -1421,31 +1420,33 @@ class LabView extends React.Component {
                                         </div>
                                         {
                                             this.state.collapse[9] ?
-                                                <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
-                                                    <div className="acrd-stc-data">
-                                                        <p>
-                                                        </p>
-                                                    </div>
-                                                    <div className="acrd-stc-data mid-border-mrgn">
-                                                        {/*<p>Vitamin D Total-25 Hydroxy
-                                                                        </p>*/}
-                                                    </div>
-                                                    <div className="acrd-stc-data">
-                                                        {/*<p>Vitamin D Total-25 Hydroxy
-                                                                        </p>*/}
+                                                <div>
+                                                    <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                                        <div className="acrd-stc-data">
+                                                            <ul className="stc-data-ul-list">
+                                                                <li><p>Folate</p></li>
+                                                                <li><p>Vitamin B12</p></li>
+                                                                <li><p>25-OH Vitamin D Total</p></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="acrd-stc-data mid-border-mrgn">
+                                                            <p></p>
+                                                        </div>
+                                                        <div className="acrd-stc-data">
+                                                        </div>
                                                     </div>
                                                 </div> : ''
                                         }
                                     </div>
                                     <div className="stc-accord-container">
                                         <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 10)}>
-                                            <p>Vitamin B Complex</p>
+                                            <p>Toxic Elements Profile</p>
                                             <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p className="acrd-stc-red">
-                                                    X
+                                                <p>
+                                                    9
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -1461,16 +1462,22 @@ class LabView extends React.Component {
                                         {
                                             this.state.collapse[10] ? <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
                                                 <div className="acrd-stc-data">
-                                                    <p>
-                                                    </p>
+                                                    <ul className="stc-data-ul-list">
+                                                        <li><p>Barium</p></li>
+                                                        <li><p>Cesium</p></li>
+                                                        <li><p>Cobolt</p></li>
+                                                        <li><p>Lead</p></li>
+                                                        <li><p>Cadmium</p></li>
+                                                        <li><p>Selenium</p></li>
+                                                        <li><p>Mercury</p></li>
+                                                        <li><p>Chromium</p></li>
+                                                        <li><p>Arsenic</p></li>
+                                                    </ul>
                                                 </div>
                                                 <div className="acrd-stc-data mid-border-mrgn">
-                                                    {/*<p>Vitamin B12, active Holo Transcobalamin
-                                                                        </p>*/}
+                                                    <p></p>
                                                 </div>
                                                 <div className="acrd-stc-data">
-                                                    {/*<p>Vitamin B12, active Holo Transcobalamin
-                                                                        </p>*/}
                                                 </div>
                                             </div> : ''
                                         }
@@ -1482,8 +1489,8 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p className="acrd-stc-red">
-                                                    X
+                                                <p>
+                                                    2
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -1502,14 +1509,14 @@ class LabView extends React.Component {
                                                 <div className="acrd-stc-data">
                                                     <p>
                                                     </p>
-                                                </div>
-                                                <div className="acrd-stc-data mid-border-mrgn">
-                                                    <p>
-                                                    </p>
                                                     <ul className="stc-data-ul-list">
                                                         <li><p>Sodium</p></li>
                                                         <li><p>Chloride</p></li>
                                                     </ul>
+                                                </div>
+                                                <div className="acrd-stc-data mid-border-mrgn">
+                                                    <p>
+                                                    </p>
                                                 </div>
                                                 <div className="acrd-stc-data">
                                                     <p>
@@ -1521,12 +1528,12 @@ class LabView extends React.Component {
                                     <div className="stc-accord-container">
                                         <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 12)}>
                                             <p>Testosterone Total</p>
-                                            <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
+                                            {/* <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /> */}
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p className="acrd-stc-red">
-                                                    X
+                                                <p>
+                                                    1
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -1564,8 +1571,8 @@ class LabView extends React.Component {
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
-                                                <p className="acrd-stc-red">
-                                                    X
+                                                <p>
+                                                    2
                                                                             </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -1583,21 +1590,66 @@ class LabView extends React.Component {
                                             this.state.collapse[13] ?
                                                 <div>
                                                     <div>
-                                                        <span>Acute pancreatitis or acute pancreatic necrosis is a sudden inflammation of the pancreas. It can have severe complications and high mortality despite treatment.
-                                                </span>
+                                                        <span>Acute pancreatitis or acute pancreatic necrosis is a sudden inflammation of the pancreas. It can have severe complications and high mortality despite treatment.</span>
                                                     </div>
                                                     <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
                                                         <div className="acrd-stc-data">
                                                             <p>
                                                             </p>
-                                                        </div>
-                                                        <div className="acrd-stc-data mid-border-mrgn">
-                                                            {/*<p>Acute pancreatitis or acute pancreatic necrosis is a sudden inflammation of the pancreas. It can have severe complications and high mortality despite treatment.
-                                                                            </p>*/}
                                                             <ul className="stc-data-ul-list">
                                                                 <li><p>Amylase</p></li>
                                                                 <li><p>Lipase</p></li>
                                                             </ul>
+                                                        </div>
+                                                        <div className="acrd-stc-data mid-border-mrgn">
+                                                            {/*<p>Acute pancreatitis or acute pancreatic necrosis is a sudden inflammation of the pancreas. It can have severe complications and high mortality despite treatment.
+                                                                            </p>*/}
+                                                        </div>
+                                                        <div className="acrd-stc-data">
+                                                            <p>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div> : ''
+                                        }
+                                    </div>
+                                    <div className="stc-accord-container">
+                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 14)}>
+                                            <p>Arthritis Profile</p>
+                                            <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
+                                        </div>
+                                        <div className="stc-acrd-content pb-0 text-center">
+                                            <div className="acrd-stc-data">
+                                                <p>
+                                                    2
+                                                                            </p>
+                                            </div>
+                                            <div className="acrd-stc-data mid-border-mrgn">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                            </p>
+                                            </div>
+                                        </div>
+                                        {
+                                            this.state.collapse[14] ?
+                                                <div>
+                                                    <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                                        <div className="acrd-stc-data">
+                                                            <p>
+                                                            </p>
+                                                            <ul className="stc-data-ul-list">
+                                                                <li><p>Anti Nuclear Antibodies(ANA)</p></li>
+                                                                <li><p>Anti CCP(ACPP)</p></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="acrd-stc-data mid-border-mrgn">
+                                                            <p>
+                                                            </p>
                                                         </div>
                                                         <div className="acrd-stc-data">
                                                             <p>
