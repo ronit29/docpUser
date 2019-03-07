@@ -94,12 +94,12 @@ class IpdInfo extends React.Component {
 
 					                   	<IpdAboutUs {...this.props} id="aboutTab"/>
 
-							            <div id="hospitalTab" className="tab-pane fade" id="nav-hospital">
+							            <div id="hospitalTab" className="tab-pane fade" /*id="nav-hospital"*/>
 							            	<HospitalList {...this.props} hospitalList = {this.props.ipd_info && this.props.ipd_info.hospitals?this.props.ipd_info.hospitals:[]}/>
 							   				 <a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewHospitalsClicked.bind(this)}>View all Hospitals</a>
 										</div>
 
-										<div id="doctorTab" className="tab-pane fade" id="nav-doc">
+										<div id="doctorTab" className="tab-pane fade" /*id="nav-doc"*/>
 						                    {
 						                    	this.props.ipd_info && this.props.ipd_info.doctors?
 							                    this.props.ipd_info.doctors.result.map((doctorCard, i) => {

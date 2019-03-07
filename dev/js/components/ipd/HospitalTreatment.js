@@ -2,41 +2,74 @@ import React from 'react'
 
 class HospitalTreatmentView extends React.Component {
 
+  constructor(props){
+    super(props)
+    this.state = {
+      treatment: []
+    }
+  }
+
+  toggleTreatment(id){
+    let treatment = this.state.treatment
+    let found = false
+    treatment = this.state.treatment.filter((ipd) => {
+      if(ipd == id){
+        found = true
+        return false
+      }
+      return true
+    })
+    
+    if(!found){
+      treatment.push(id)
+    }
+    this.setState({treatment: treatment})
+  }
+
+  goToIpdSearch(id){
+      let selectedCriteria = {}
+      selectedCriteria.type = 'ipd'
+      selectedCriteria.id = id
+      selectedCriteria.name = ''
+      this.props.toggleIPDCriteria(selectedCriteria, true)
+      this.props.history.push(`/ipdInfo?ipd_id=${id}`)
+  }
+
 	render(){
     let { hospital_data } = this.props
 		return(
 			<div className="hs-card">
-               <div className="card-head">Treatments</div>   
-               <div className="card-body clearfix">
-                 <ul className="hs-accordian"> 
-                     <li>
-                       <div className="accordian-head">Uro Oncology (3)
-                           <img className="" src="assets/images/up-arrow.png" />
-                       </div>
-                       <p className="accordian-dtl">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                     </li>
-                     <li>
-                       <div className="accordian-head">Uro Oncology (3)
-                           <img className="" src="assets/images/down-arrow.png" />
-                       </div>
-                       <p className="accordian-dtl d-none">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                     </li>
-                     <li>
-                       <div className="accordian-head">Uro Oncology (3)
-                           <img className="" src="assets/images/down-arrow.png" />
-                       </div>
-                       <p className="accordian-dtl d-none">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                     </li>
-                     <li>
-                       <div className="accordian-head">Uro Oncology (3)
-                           <img className="" src="assets/images/down-arrow.png" />
-                       </div>
-                       <p className="accordian-dtl d-none">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                     </li>
-                 </ul>
-                 <a href="javascript:void(0);" className="btn-view-hospital btn-more">+24 more</a>
-               </div>   
-             </div>
+       <div className="card-head">Treatments</div>   
+       <div className="card-body clearfix">
+         <ul className="hs-accordian"> 
+            {
+              hospital_data.ipd_procedure_categories.map((treatment)=> {
+              return <li>
+                   <div className="accordian-head" onClick={this.toggleTreatment.bind(this, treatment.id)}>{`${treatment.name} (${treatment.ipd_procedures.length})`}
+                      {
+                        this.state.treatment.indexOf(treatment.id)>-1?
+                        <img className="" src={ASSETS_BASE_URL+"/images/up-arrow.png"} />
+                        :<img className="" src={ASSETS_BASE_URL+"/images/down-arrow.png"} /> 
+                      }
+                   </div>
+                   {
+                      this.state.treatment.indexOf(treatment.id)>-1?
+                      <p className="accordian-dtl">
+                        {
+                          treatment.ipd_procedures.map((ipd)=> {
+                            return <a href="javascript:void(0);" onClick={this.goToIpdSearch.bind(this, ipd.id)} className="treat-anch">{ipd.name}</a>
+                          })
+                        }
+                     </p>
+                     :''   
+                   }
+                   
+                 </li>
+              })
+            }
+         </ul>
+       </div>   
+     </div>
 			)
 	}
 }
