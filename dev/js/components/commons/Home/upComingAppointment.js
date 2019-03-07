@@ -104,7 +104,7 @@ class UpComingAppointmentView extends React.Component {
                 <div>
                     <div className="card cstm-card aptmnt-card mb-3">
                         <div className="child1" onTouchStart={this.onTouchStart.bind(this)} onTouchMove={this.onTouchMove.bind(this)} onTouchEnd={this.onTouchEnd.bind(this)}>
-                            <div className="float-l leftBlock">
+                            <div className="float-l leftBlock" onClick={this.showAppointment.bind(this,appointment.type,appointment.id)}>
                                 <div className="float-l">
                                     <img src={ASSETS_BASE_URL + "/images/ic-time-date.png"} alt="" />
                                 </div>
