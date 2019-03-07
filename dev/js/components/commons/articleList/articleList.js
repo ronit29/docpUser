@@ -118,9 +118,9 @@ class ArticleList extends React.Component {
 	}
 
 	navigate(delta = 0, e) {
-		e.preventDefault()
-		e.stopPropagation()
-		this.loadMore(delta)
+		// e.preventDefault()
+		// e.stopPropagation()
+		// this.loadMore(delta)
 	}
 
 	render() {
