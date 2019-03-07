@@ -389,7 +389,6 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state
             }
-            console.log(action.payload)
             newState.upcoming_appointments = action.payload
             return newState
         }        
