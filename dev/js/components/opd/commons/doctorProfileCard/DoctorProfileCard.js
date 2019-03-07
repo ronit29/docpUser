@@ -68,12 +68,7 @@ class DoctorProfileCard extends React.Component {
         }
 
         this.props.mergeOPDState(state, true)
-
-        /*        let data = {
-                    'Category': 'ConsumerApp', 'Action': 'ShowDoctorsClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'show-doctors-clicked'
-                }
-                GTM.sendEvent({ data: data })*/
-
+        
         this.props.history.push({
             pathname: '/opd/searchresults',
             state: { search_back: true }
