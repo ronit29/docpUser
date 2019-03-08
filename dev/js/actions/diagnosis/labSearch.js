@@ -335,7 +335,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	}
 
 	if (forTaxSaver) {
-		url += `long=${long || ""}&lat=${lat || ""}&category_ids=41`
+		url += `long=${long || ""}&lat=${lat || ""}&package_category_id=5025`
 	}
 
 	if (!forTaxSaver) {

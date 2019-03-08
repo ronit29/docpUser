@@ -147,13 +147,17 @@ class SearchPackagesView extends React.Component {
         let url
 
         if(this.props.forTaxSaver){
-            url = `${window.location.pathname}?lat=${lat}&long=${long}&category_ids=41`
+            url = `${window.location.pathname}?lat=${lat}&long=${long}&package_category_id=5025`
         } else{
             url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&page=${page}&package_ids=${package_ids}`
         }
 
         if (this.props.location.search.includes('scrollbyid')) {
-            url += `&scrollbyid=${filterCriteriaPackages.package_ids || ""}`
+            var url_string = this.props.location.search
+            var url = new URL(url_string);
+            let scrollby_test_id = url.searchParams.get("scrollbyid")
+            let scrollby_lab_id = url.searchParams.get("scrollbylabid")
+            url += `&scrollbyid=${scrollby_test_id || "1234"}&scrollbylabid=${scrollby_lab_id || "5678"}`
         }
 
         return url
