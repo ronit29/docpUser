@@ -145,14 +145,15 @@ class DoctorProfileCard extends React.Component {
                         this.props.recommendDocs ? <button onClick={this.claimButtonClick.bind(this)} className="fltr-bkng-btn claim-btn mrt-10">Claim this profile</button> : ''
                     }
                 </div>
-
+                {
+                        this.props.recommendDocs ?
                 <div className="notAvldocBtnContainer mrt-10">
                     <button className="notAvldocBtn">Book Now</button>
-                    {
-                        this.props.recommendDocs ?
-                        <p className="notAvlDoc"><span className="fw-700">Not Bookable</span>: See bookable doctors with great discounts below <a onClick={this.props.viewAllDocClick.bind(this,this.props.nearbyDoctors)} className="text-primary fw-600 d-inline-block"> {this.props.nearbyDoctors.count >= 1 && this.props.nearbyDoctors.doctors_url?'(View All)':''}</a></p> : ''
-                    }
+                    
+                        <p className="notAvlDoc"><span className="fw-700">Not Bookable</span>: See bookable doctors with great discounts below <a onClick={this.props.viewAllDocClick.bind(this,this.props.nearbyDoctors)} className="text-primary fw-600 d-inline-block"> {this.props.nearbyDoctors.count >= 1 && this.props.nearbyDoctors.doctors_url?'(View All)':''}</a></p>
                 </div>
+                : ''
+                }
             </div>
         );
     }
