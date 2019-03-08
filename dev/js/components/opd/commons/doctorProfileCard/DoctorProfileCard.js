@@ -48,8 +48,16 @@ class DoctorProfileCard extends React.Component {
     }
 
     searchProceedOPD(doc_name = "", hospital_name = "", hospital_id = "") {
-        // handle doctor name, hospital name
+
         let doctor_name = doc_name.toLowerCase()
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'DoctorButtomClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'different-doctor-searched', 'doctor_name': doctor_name
+        }
+        GTM.sendEvent({ data: data })
+
+        // handle doctor name, hospital name
+        
         let state = {
             filterCriteria: {
                 ...this.props.filterCriteria,
