@@ -548,7 +548,7 @@ class BookingSummaryViewNew extends React.Component {
                             {
                                 this.props.LABS[this.state.selectedLab] ?
                                     <div>
-                                        <section className="dr-profile-screen booking-confirm-screen">
+                                        <section className="dr-profile-screen booking-confirm-screen mrb-60">
                                             <div className="container-fluid">
                                                 <div className="row mrb-20">
                                                     <div className="col-12">

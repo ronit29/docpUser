@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { clearAllTests, toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList, setPackageId } from '../../actions/index.js'
+import { clearAllTests, toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList, setPackageId, getUpComingAppointment } from '../../actions/index.js'
 
 import HomeView from '../../components/commons/Home'
 import STORAGE from '../../helpers/storage'
@@ -30,6 +30,7 @@ class Home extends React.Component {
     componentDidMount() {
         if (STORAGE.checkAuth()) {
             this.props.getUserProfile()
+            this.props.getUpComingAppointment()
         }
         // this.props.fetchHeatlhTip()
         // this.props.fetchArticles()
@@ -57,7 +58,7 @@ const mapStateToProps = (state, passedProps) => {
     }
 
     let {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, device_info, offerList
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, device_info, offerList, upcoming_appointments
     } = state.USER
 
     const {
@@ -75,7 +76,7 @@ const mapStateToProps = (state, passedProps) => {
     let filterCriteria_opd = state.SEARCH_CRITERIA_OPD.filterCriteria
 
     return {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList,  upcoming_appointments
     }
 }
 
@@ -94,7 +95,8 @@ const mapDispatchToProps = (dispatch) => {
         selectSearchType: (type) => dispatch(selectSearchType(type)),
         getOfferList: (lat, long) => dispatch(getOfferList(lat, long)),
         clearAllTests: () => dispatch(clearAllTests()),
-        setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage))
+        setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage)),
+        getUpComingAppointment: () => dispatch(getUpComingAppointment()),
     }
 }
 

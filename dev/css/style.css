@@ -6241,6 +6241,14 @@ span.slideCutPrc{
 	margin-right: 0px;
 	white-space: normal;
 }
+.ct-profile p.notAvlDoc{
+	background: #f5e28a;
+    color: #0c0c0c;
+    display: inline-block;
+    font-size: 12px;
+    padding: 3px 6px;
+    border-radius: 5px;
+}
 .docSlideSubHeading{
 	display: block;
     font-size: 12px;
@@ -6814,6 +6822,60 @@ button.padding-btn-adjust{
 .abt-doc-inlinetext p{
 	display: inline;
 }
+/* ============= Appoinment Card ==============*/
+.card.cstm-card.aptmnt-card{
+    padding: 10px 15px;
+}
+.aptmnt-card .leftBlock img{
+    width: 60px;
+    margin-right: 10px;
+    margin-top: 1px;
+}
+.rightBlock a{
+    position: absolute;
+    right: 15px;
+    top: 31px;
+    color: #f78631;
+    font-size: 12px;
+    font-weight: 500;
+}
+.rightBlock a:hover{
+    color: #f78631;
+}
+.rightBlock a.anchr-img{
+    right: 8px;
+}
+.leftBlock div{
+    font-size: 13px;
+
+}
+.leftBlock .date-time{
+    font-weight: 700;
+}
+.carousel-indicators.crsl-indicators span{
+    background:rgba(196, 196, 196, 0.4);
+    border:0;
+}
+.carousel-indicators.crsl-indicators span.active{
+    background-color: #f78631;
+}
+.cr-indicator.carousel-indicators{
+    margin-top: 5px;
+}
+@media screen and (max-width: 320px){
+    .leftBlock div {
+        font-size: 11px;
+}
+.rightBlock a{
+font-size: 11px;
+}
+.aptmnt-card .leftBlock img{
+    width: 32px;
+}
+
+}
+
+/* ============= Appoinment Card ==============*/
 /* ==================== wa-label ==================== */
 .whatsappCardContainer{
 	background: white;
@@ -6908,3 +6970,6 @@ flex-shrink: 0;
 }
 /* ==================== docNewWidget ==================== */
 
+.mrb-60{
+	margin-bottom: 60px;
+}
