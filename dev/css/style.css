@@ -6881,6 +6881,7 @@ flex-shrink: 0;
 }
 .ct-profile p.diff-suggestion span{
 	color: #f78631;
+	cursor: pointer;
 }
 .notAvldocBtnContainer{
 	display: flex;
