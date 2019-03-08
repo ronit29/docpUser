@@ -6830,7 +6830,7 @@ button.padding-btn-adjust{
     cursor: pointer;
 }
 .ipd-section .widget{
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.2);
     background-color: #ffffff;
     padding: 10px;
@@ -6881,6 +6881,7 @@ button.padding-btn-adjust{
     text-align: center;
     border-radius: 0;
     position: relative;
+    border-bottom: 2px solid transparent;
 }
 .ipd-section .nav-tabs.nav-top-head a:after{
 	content: "";
@@ -7009,7 +7010,7 @@ button.padding-btn-adjust{
 /*Form*/
 .ipd-section .info-popup {
     background: #fff;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 15px;
     box-shadow: 0px 2px 8px 0 rgba(0, 0, 0, 0.3);
     margin-top: 0;
@@ -7101,19 +7102,19 @@ button.padding-btn-adjust{
     bottom: 0;
 }
 .ipd-section .hs-card{
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0px 2px 8px 0 rgba(0, 0, 0, 0.3);
     background: #fff;
     margin-bottom: 15px;
 }
 .ipd-section .banner img{
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 .ipd-section .hospital-details{
     background: #fff;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     text-align: center;
     padding: 15px;
 }
@@ -7125,7 +7126,7 @@ button.padding-btn-adjust{
 }
 .ipd-section .hs-nme img{
     background: #fff;
-    border-radius: 10px;
+    border-radius: 5px;
     margin-top: -42px;
     padding: 8px 12px;
     width: 120px;
@@ -7191,14 +7192,14 @@ button.padding-btn-adjust{
     font-size: 16px;
     font-weight: 500;
     background: #e0e0e0;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     padding:10px 15px;
 }
 .ipd-section .card-body{
     background: #fff;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     clear: both;
     padding: 15px;
 }
@@ -7276,7 +7277,7 @@ button.padding-btn-adjust{
 .ipd-section .hs-image-gallery li img{
     height: 120px;
     width: 120px;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 .ipd-section hr{
 	margin-bottom: 15px;
@@ -7313,7 +7314,7 @@ button.padding-btn-adjust{
 }
 .ipd-section .info-popup{
     background: #fff;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 15px;
     box-shadow: 0px 2px 8px 0 rgba(0, 0, 0, 0.3);
 }
@@ -7435,7 +7436,7 @@ button.padding-btn-adjust{
     width: 93%;
 }
 .ipd-section .read-more-btn{
-	margin-right: 5px;
+	margin-left: 5px;
 }
 .ipd-section .range-slider-ul{
 	margin-bottom: 60px;
@@ -7490,7 +7491,7 @@ button.padding-btn-adjust{
 .ipd-carousel ul{
 	overflow: hidden;
     white-space: nowrap;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 .ipd-carousel ul li {
 	padding:10px;
@@ -7499,7 +7500,7 @@ button.padding-btn-adjust{
 	width: 56%;
 	display: inline-block;
     white-space: normal;
-    border-radius: 10px;
+    border-radius: 5px;
     margin: 0px 15px 7px 0px;
 }
 .ipd-carousel ul li a{
@@ -7617,6 +7618,59 @@ button.padding-btn-adjust{
 	line-height: 24px;
 	margin-bottom: 10px;
 }
+.free-qstn{
+	width: 60%;
+	float: left;
+}
+.free-qstn-btn{
+	width: 40%;
+	float: left;
+}
+.free-qstn-btn a.btn-search{
+	border-radius: 5px;
+	height: 40px;
+	line-height: 40px;
+}
+.qstn-box{
+	margin-top: 25px;
+	clear: both;
+	padding: 15px;
+	background-color: #fff;
+	border-radius: 5px;
+}
+.qstn-box textarea{
+	border-color: #eee;
+	border-radius: 5px;
+	height: 70px;
+	resize: none;
+	width: 100%;
+	padding: 10px;
+}
+.qstn-box textarea:focus{
+	border-color: #f78631;
+	outline: 0;
+}
+.qstn-head{
+	font-size: 16px;
+	color: #000;
+	font-weight: 500;
+	display: block;
+	margin-bottom: 10px;
+}
+a.btn-search.btn-cnte{
+	display: inline-block;
+	border-radius: 5px;
+	height: 40px;
+	line-height: 40px;
+	padding: 0 15px;
+	margin-top: 10px;
+}
+.ipd-section .fltr-bkng-btn{
+	border:1px solid #f78631;
+}
+
+
+
 @media screen and (max-width: 991px){
 	.ipd-section .full-widget{
 		top: 89px;
@@ -7701,6 +7755,15 @@ button.padding-btn-adjust{
     }
     .ipd-carousel ul li{
 		width: 67%;
+	}
+	.free-qstn{
+		width: 50%;
+	}
+	.free-qstn-btn{
+		width: 50%;
+	}
+	.free-qstn-btn a.btn-search{
+		font-size: 14px;
 	}
 }
 @media screen and (max-width: 350px){

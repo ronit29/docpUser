@@ -565,6 +565,17 @@ class IPD extends React.Component{
 		  											</div>
 							         			</li>
 							         		</ul>
+							         		<div className="clearfix">
+							         			<div className="free-qstn">Ask health queries and get free answers from doctors in 24 hrs</div>
+							         			<div className="free-qstn-btn">
+							         			   <a href="javascript:void(0);" className="btn-search">Ask a Free Question</a>
+							         			 </div>
+							         		</div>
+							         		<div className="clearfix qstn-box">
+							         		    <label className="qstn-head">Tell us your symptom or health problem</label>
+ 												<textarea className="" placeholder="Eg. Fever,headache"></textarea>
+ 												<a href="javascript:void(0);" className="btn-search btn-cnte">Continue</a>
+							         		</div>
 							         	</div>
 							        </div>
 
