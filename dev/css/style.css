@@ -6519,7 +6519,7 @@ cursor: pointer;
 /* ==================== popDesign ==================== */
 .pop-onscreen-scroll{
 	min-height: 30vh;
-	max-height: 40vh;
+	max-height: 70vh;
 	overflow: auto;
 }
 /* ==================== package new card style ==================== */

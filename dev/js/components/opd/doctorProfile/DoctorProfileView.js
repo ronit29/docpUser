@@ -216,7 +216,7 @@ class DoctorProfileView extends React.Component {
                                                 {
                                                     key == this.props.DOCTORS[doctor_id].breadcrumb.length - 1 ?
                                                         <span>{data.title}</span>
-                                                        : <a href={data.url} title='' onClick={(e) => {
+                                                        : <a href={data.url} title={data.link_title || data.title} onClick={(e) => {
                                                             e.preventDefault();
                                                             this.props.history.push((key == 0 || key == this.props.DOCTORS[doctor_id].breadcrumb.length - 1) ? data.url : `/${data.url}`)
                                                         }}>

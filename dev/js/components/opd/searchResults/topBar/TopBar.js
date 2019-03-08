@@ -263,7 +263,7 @@ class TopBar extends React.Component {
                                             {
                                                 key == this.props.breadcrumb.length - 1 ?
                                                     <span>{data.title}</span>
-                                                    : <a href={data.url} title='' onClick={(e) => {
+                                                    : <a href={data.url} title={data.link_title || data.title} onClick={(e) => {
                                                         e.preventDefault();
                                                         this.props.history.push((key == 0 || key == this.props.breadcrumb.length - 1) ? data.url : `/${data.url}`)
                                                     }}>{key == 0 || key == this.props.breadcrumb.length - 1 ? <span className="fw-500 breadcrumb-title breadcrumb-colored-title">{data.title}</span> : <h2 className="fw-500 breadcrumb-title breadcrumb-colored-title d-inline-blck">{data.title}</h2>}</a>
