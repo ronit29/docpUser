@@ -7,8 +7,7 @@ class HospitalAboutUsView extends React.Component {
 		return(
 			<div className="hs-card">
                <div className="card-head">About</div>   
-               <div className="card-body clearfix">
-                {hospital_data.about}
+               <div className="card-body clearfix" dangerouslySetInnerHTML={{ __html: hospital_data.about }}>
                </div>   
              </div>
 			)

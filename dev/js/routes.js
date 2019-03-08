@@ -154,7 +154,7 @@ const routes = [
     { path: '/ipdInfo', exact: true, component: IPDInfo},
     { path: '/ipd/:id/:hospitalId/getPriceEstimate',exact: true, component: IpdForm},
     { path: '/ipd/searchHospitals',exact: true, component: IpdHospitalSearch},
-    { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail, RENDER_ON_SERVER: true },
+    { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail},
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 

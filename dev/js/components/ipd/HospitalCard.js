@@ -16,7 +16,7 @@ class HospitalCard extends React.Component {
                   <div className="left-side-info">
                      <h4 className="section-heading">{data.name}</h4>
                      {
-                     	data.certifications?
+                     	data.certifications && data.certifications.length?
                      	<div className="hos-certified"><img src={ASSETS_BASE_URL + "/images/certified.png"} className="img-certified" />{data.certifications.length?data.certifications.join(' | '):''}</div>
                      	:''
                      }

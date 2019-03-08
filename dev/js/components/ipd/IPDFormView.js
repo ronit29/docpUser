@@ -34,18 +34,17 @@ class IPDFormView extends React.Component{
 
     }
 
+    componentWillReceiveProps(nextProps){
+    	if(nextProps.defaultProfile && !this.state.name && nextProps.profiles && nextProps.profiles[nextProps.defaultProfile]){
+    		let userData = nextProps.profiles[nextProps.defaultProfile]
+    		this.setState({name: userData.name|| '', phone_number: userData.phone_number+''||'', email: userData.email ||'', gender: userData.gender || '', age: userData.age ||'',  })
+    	}
+    }
+
     submitClicked() {
         let self = this
         let validateError = []
         if (!this.state.name.match(/^[a-zA-Z ]+$/)) {
-            /*setTimeout(() => {
-                if (!this.state.name) {
-                    SnackBar.show({ pos: 'bottom-center', text: "Please enter your's name." })
-                } else {
-                    SnackBar.show({ pos: 'bottom-center', text: "Name should only contain alphabets." })
-                }
-            }, 500)
-            return*/
             validateError.push('name')
         }
 
@@ -53,43 +52,26 @@ class IPDFormView extends React.Component{
         if (this.state.phone_number.match(/^[56789]{1}[0-9]{9}$/)) {
 
         } else {
-            /*setTimeout(() => {
-                SnackBar.show({ pos: 'bottom-center', text: "Please provide a valid number (10 digits)" })
-            }, 500)
-       		return */
        		validateError.push('phone_number')
         }
 
         if(this.state.email ==''){
-          /*  setTimeout(() => {
-                SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
-            }, 500)
-            return*/ 
+
             validateError.push('email')
         }
 
         if (this.state.gender == '') {
-           /* setTimeout(() => {
-                SnackBar.show({ pos: 'bottom-center', text: "Please Select The Gender" })
-            }, 500)
-            return*/
+           
             validateError.push('gender')
         }
 
         if(!this.state.email.match(/\S+@\S+\.\S+/)) 
         {
-            /*setTimeout(() => {
-                SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Email Id" })
-            }, 500)
-            return */
             validateError.push('email')
         }
 
         if (this.state.age == '') {
-           /* setTimeout(() => {
-                SnackBar.show({ pos: 'bottom-center', text: "Please Select The Gender" })
-            }, 500)
-            return*/
+          
             validateError.push('age')
         }
 

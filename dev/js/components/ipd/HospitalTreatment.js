@@ -39,7 +39,7 @@ class HospitalTreatmentView extends React.Component {
     let { hospital_data } = this.props
 		return(
 			<div className="hs-card">
-       <div className="card-head">Treatments</div>   
+       <div className="card-head">Procedures</div>   
        <div className="card-body clearfix">
          <ul className="hs-accordian"> 
             {

@@ -11,6 +11,17 @@ class IPDAboutUs extends React.Component {
 	}
 	render(){
 		let { ipd_info } = this.props
+
+		let aboutText =''
+		if(ipd_info  && ipd_info.about && ipd_info.about.details ){
+
+			if(this.state.toggleReadMore){
+				aboutText = ipd_info.about.details
+			}else{
+				aboutText = ipd_info.about.details.substring(0,13)
+			}	
+		}
+		
 		return(
              <div className="tab-pane fade show active" id="nav-overview">
                 <h4 className="section-heading top-sc-head"> <span className="about-head"> {ipd_info.about.name} </span>
@@ -29,16 +40,12 @@ class IPDAboutUs extends React.Component {
                 	}
                 </ul>
                 <h4 className="section-heading">Procedure </h4>
+            	<div className="widget" dangerouslySetInnerHTML={{ __html: aboutText}}>
+	            </div>
                 	{
                 		this.state.toggleReadMore?
-                		<div className="widget" onClick={()=>this.setState({toggleReadMore: !this.state.toggleReadMore})}>
-		                     {ipd_info.about.details}
-		                     <a href="javascript:void(0);" className="read-more-btn">Read Less</a>
-		                </div>
-		                :<div className="widget" onClick={()=>this.setState({toggleReadMore: !this.state.toggleReadMore})}>
-		                     {ipd_info.about.details.substring(0,13)}
-		                     <a href="javascript:void(0);" className="read-more-btn">Read More</a>
-		                </div>		
+                		<a href="javascript:void(0);" className="read-more-btn" onClick={()=>this.setState({toggleReadMore: !this.state.toggleReadMore})} >Read Less</a>
+		                :<a href="javascript:void(0);" className="read-more-btn" onClick={()=>this.setState({toggleReadMore: !this.state.toggleReadMore})} >Read More</a>
                 	}
                   
              </div>
