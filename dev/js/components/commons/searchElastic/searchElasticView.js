@@ -235,22 +235,23 @@ class SearchElasticView extends React.Component {
                 toggle={this.toggleLabTests.bind(this)}
                 selectedCriterias={this.props.dataState.selectedCriterias}
             />
-
-        } else if (this.props.selectedSearchType.includes('package')) {
-            title = "health packages"
-            searchProceed = this.searchProceedPackages.bind(this)
-            showResults = this.showPackages.bind(this)
-
-            commonSearched = <CommonlySearched
-                heading="Common Health Packages"
-                type="package"
-                selectedSearchType={this.props.selectedSearchType}
-                data={this.props.dataState.common_package}
-                selected={this.props.dataState.selectedPackages}
-                toggle={this.togglePackages.bind(this)}
-                selectedCriterias={this.props.dataState.selectedPackages}
-            />
         }
+
+        // else if (this.props.selectedSearchType.includes('package')) {
+        //     title = "health packages"
+        //     searchProceed = this.searchProceedPackages.bind(this)
+        //     showResults = this.showPackages.bind(this)
+
+        //     commonSearched = <CommonlySearched
+        //         heading="Common Health Packages"
+        //         type="package"
+        //         selectedSearchType={this.props.selectedSearchType}
+        //         data={this.props.dataState.common_package}
+        //         selected={this.props.dataState.selectedPackages}
+        //         toggle={this.togglePackages.bind(this)}
+        //         selectedCriterias={this.props.dataState.selectedPackages}
+        //     />
+        // }
 
         return (
             <section>
@@ -270,7 +271,7 @@ class SearchElasticView extends React.Component {
                                 /> : ""
                             }
 
-                            {
+                            {/* {
                                 (this.props.selectedSearchType.includes('package') && this.props.dataState.selectedPackages && this.props.dataState.selectedPackages.length > 0) ? <CommonlySearched {...this.props}
                                     heading={`View Selected (${this.props.dataState.selectedPackages.length})`}
                                     type="package"
@@ -280,7 +281,7 @@ class SearchElasticView extends React.Component {
                                     selectedPills={true}
                                     toggle={this.togglePackages.bind(this)}
                                 /> : ""
-                            }
+                            } */}
 
                             {commonSearched}
 

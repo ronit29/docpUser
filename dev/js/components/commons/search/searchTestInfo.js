@@ -479,10 +479,31 @@ class SearchTestView extends React.Component {
                 </div>
             )
         } else {
-            return (<div>
-
-            </div>)
+            return (
+                <div>
+                    <section className="fade-enter-done">
+                        <div className="container-fluid">
+                            <div className="profile-body-wrap">
+                                <ProfileHeader showSearch={true} />
+                                <section className="container parent-section book-appointment-section">
+                                    <div className="row main-row parent-section-row">
+                                        <div className="col-12 col-md-7 col-lg-7 center-column">
+                                            <div className="row">
+                                                <div className="col-12">
+                                                    <p className="fw-500 text-center mrt-10" style={{fontSize:18}}>No Record Found !!</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <ChatPanel noChatButton={true} />
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            )
         }
     }
 }
+
 export default SearchTestView

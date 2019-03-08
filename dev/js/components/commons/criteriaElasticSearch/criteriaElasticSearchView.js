@@ -138,21 +138,21 @@ class CriteriaElasticSearchView extends React.Component {
                 }
                 GTM.sendEvent({ data: gtmData })
                 let filterData = filterSearchResults.suggestion
-                if (this.props.type.includes('package')) {
-                    filterData = filterSearchResults.suggestion.filter((x) => {
-                        if (x.is_package && x.is_package.length && x.is_package[0]) {
-                            return true
-                        }
-                        return false
-                    })
-                } else if (this.props.type.includes('lab')) {
-                    filterData = filterSearchResults.suggestion.filter((x) => {
-                        if (x.is_package && x.is_package.length && !x.is_package[0]) {
-                            return true
-                        }
-                        return false
-                    })
-                }
+                // if (this.props.type.includes('package')) {
+                //     filterData = filterSearchResults.suggestion.filter((x) => {
+                //         if (x.is_package && x.is_package.length && x.is_package[0]) {
+                //             return true
+                //         }
+                //         return false
+                //     })
+                // } else if (this.props.type.includes('lab')) {
+                //     filterData = filterSearchResults.suggestion.filter((x) => {
+                //         if (x.is_package && x.is_package.length && !x.is_package[0]) {
+                //             return true
+                //         }
+                //         return false
+                //     })
+                // }
                 this.setState({ searchResults: filterData, searchedCategories: filterSearchResults.suggestedCategories, loading: false, type: type, visibleType: visibleType })
             }
 
@@ -242,25 +242,27 @@ class CriteriaElasticSearchView extends React.Component {
                 this.props.history.push(`/lab/${criteria.action.value[0]}`)
                 return
             } else if (criteria.type == "lab_test") {
-
-                if (!criteria.is_package[0]) {
-                    criteria.type = 'test'
-                    criteria.id = criteria.action.value[0]
-                    if (criteria.action.test_type && criteria.action.test_type.length) {
-                        criteria.test_type = criteria.action.test_type[0]
-                    } else {
-                        criteria.test_type = ''
-                    }
-                    this.setState({ searchValue: "" })
-                    this.props.toggleLabTests('test', criteria, this.state.searchValue)
+                criteria.type = 'test'
+                criteria.url = ''
+                criteria.id = criteria.action.value[0]
+                if (criteria.action.test_type && criteria.action.test_type.length) {
+                    criteria.test_type = criteria.action.test_type[0]
+                } else {
+                    criteria.test_type = ''
                 }
+                this.setState({ searchValue: "" })
+                this.props.toggleLabTests('test', criteria, this.state.searchValue)
 
-                else {
-                    criteria.type = 'package'//package
-                    criteria.id = criteria.action.value[0]
-                    this.setState({ searchValue: "" })
-                    this.props.toggleSearchPackages(criteria)
-                }
+                // if (!criteria.is_package[0]) {
+
+                // }
+
+                // else {
+                //     criteria.type = 'package'//package
+                //     criteria.id = criteria.action.value[0]
+                //     this.setState({ searchValue: "" })
+                //     this.props.toggleSearchPackages(criteria)
+                // }
 
                 /*let data = {
                     'Category': 'ConsumerApp', 'Action': 'TestSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
@@ -370,12 +372,12 @@ class CriteriaElasticSearchView extends React.Component {
                                                                 <span className="doc-checkmark"></span>
                                                             </label>
                                                         </div>
-                                                        <div className="dtl-radio">
+                                                        {/* <div className="dtl-radio">
                                                             <label className="container-radio">Health Packages
                                                             <input type="radio" onChange={this.props.changeSelection.bind(this, 'package', '')} checked={this.props.selected == 'package'} name="radio" />
                                                                 <span className="doc-checkmark"></span>
                                                             </label>
-                                                        </div>
+                                                        </div> */}
                                                     </div>
                                                     <div className="serch-nw-inputs mb-0">
                                                         <input type="text" autoComplete="off" className="d-block d-lg-none new-srch-doc-lab" id="search_bar" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {

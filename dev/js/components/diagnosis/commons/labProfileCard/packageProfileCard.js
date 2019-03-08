@@ -131,7 +131,7 @@ class LabProfileCard extends React.Component {
                                         <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
                                     </InitialsPicture>
                                 </div>
-                                <a href={this.props.details.lab.url} onClick={(e) => 
+                                <a href={this.props.details.url || ''} onClick={(e) => 
                                     {e.preventDefault()}}>
                                     <h2 className="pkg-labDoc-Name">{name} {show_details ?
                                         <span style={{ 'marginLeft': '5px', marginTop: '2px', display: 'inline-block', cursor: 'pointer' }} onClick={(e)=>{
@@ -172,7 +172,7 @@ class LabProfileCard extends React.Component {
                             <ul>
                                 {
                                     category_details.map((category_detail, k) => {
-                                        return <li className="pkgIncludeList" key={k} id={k}>
+                                        return <li className="pkgIncludeList" key={k} id={k} onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
                                             {category_detail.icon ?
                                                 <img style={{ width: '20px', marginRight: '5px' }} src={category_detail.icon} />
                                                 : ''}
