@@ -256,6 +256,7 @@ class BannerCarousel extends React.Component {
                 }
             </div>
         );
+        
     }
 }
 
