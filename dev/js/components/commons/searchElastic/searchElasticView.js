@@ -62,7 +62,7 @@ class SearchElasticView extends React.Component {
         })
     }
 
-    searchProceedLAB(lab_name = "") {
+    searchProceedLAB(lab_name = "",show_all_labs= false) {
         // handle doctor name, hospital name
         this.props.mergeLABState({
             filterCriteria: {
@@ -73,8 +73,8 @@ class SearchElasticView extends React.Component {
                 ...this.props.dataState.filterCriteria,
                 lab_name
             },
-            currentSearchedCriterias: this.props.dataState.selectedCriterias,
-            nextSelectedCriterias: this.props.dataState.selectedCriterias
+            currentSearchedCriterias: show_all_labs?[]:this.props.dataState.selectedCriterias,
+            nextSelectedCriterias: show_all_labs?[]:this.props.dataState.selectedCriterias
         }, true)
 
         let selectedTestIds = this.props.dataState.selectedCriterias.map(test => test.id)

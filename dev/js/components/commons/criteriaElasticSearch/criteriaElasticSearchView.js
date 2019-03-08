@@ -523,7 +523,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                         }
                                                                                         GTM.sendEvent({ data: data })
 
-                                                                                        this.props.searchProceed(this.state.searchValue)
+                                                                                        this.props.searchProceed(this.state.searchValue,true)
                                                                                     }}>
                                                                                         <div className="serach-rslt-with-img">
                                                                                             <span className="srch-rslt-wd-span text-center srch-img">
