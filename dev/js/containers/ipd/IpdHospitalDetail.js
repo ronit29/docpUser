@@ -1,20 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getHospitaDetails , selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, toggleIPDCriteria } from '../../actions/index.js'
+
 import IpdHospitalDetailView from '../../components/ipd/IpdHospitalDetailView.js'
 const queryString = require('query-string')
 
 class HospitalDetail extends React.Component {
 
-	static loadData(store, match,queryData={}) {
-        if (match.params.hospitalId) {
-            return store.dispatch(getHospitaDetails(match.params.hospitalId))
-		}	
-	}
-
-	static contextTypes = {
-        router: () => null
-	}
 	
 	componentDidMount(){
 		if(window){
@@ -22,6 +14,7 @@ class HospitalDetail extends React.Component {
 		}
 		this.props.getHospitaDetails(this.props.match.params.hospitalId, this.props.selectedLocation)
 	}
+
 	render(){
 
 		return(
