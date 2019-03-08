@@ -20,24 +20,20 @@ class DoctorProfileCard extends React.Component {
         // }
     }
 
-    cardClick(id, url, hospital_id, e) {
-        e.stopPropagation()
+    viewProfileClicked(id, url, hospital_id, e) {
+        e.stopPropagation();
+
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'DoctorSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-selected', 'selectedId': id
+            'Category': 'ConsumerApp', 'Action': 'OpdSearchViewProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-search-view-profile-clicked', 'selectedId': id
         }
         GTM.sendEvent({ data: data })
 
-        data = {
-            'Category': 'ConsumerApp', 'Action': 'DoctorRankInSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-rank-in-search', 'Rank': this.props.rank + 1
-        }
-        GTM.sendEvent({ data: data })
+        let { category_ids, procedure_ids } = this.trackingEventsBookNow(id)
 
         if (e.ctrlKey || e.metaKey) {
 
         } else {
             e.preventDefault();
-            let category_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
-            let procedure_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
 
             if (url) {
                 if (category_ids.length || procedure_ids.length) {
@@ -53,6 +49,46 @@ class DoctorProfileCard extends React.Component {
                 }
             }
         }
+    }
+
+    bookNowClicked(id, url, hospital_id, e) {
+        //always clear selected time at doctor profile
+        let slot = { time: {} }
+        this.props.selectOpdTimeSLot(slot, false)
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'OpdSearchBookNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-book-now-clicked', 'selectedId': id
+        }
+        GTM.sendEvent({ data: data })
+
+        let { procedure_ids } = this.trackingEventsBookNow(id)
+        this.props.saveProfileProcedures('', '', procedure_ids, true)
+        this.props.history.push(`/opd/doctor/${id}/${hospital_id}/bookdetails`)
+    }
+
+    trackingEventsBookNow(id) {
+        let Distance = ''
+
+        if (this.props.details && this.props.details.distance) {
+            Distance = (Math.round(this.props.details.distance * 10) / 10).toFixed(1);
+        }
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'DoctorSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-selected', 'selectedId': id
+        }
+        GTM.sendEvent({ data: data });
+
+        let category_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id).join(',')
+        let procedure_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id).join(',')
+        let condition_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'condition').map(x => x.id).join(',')
+        let specialization_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id).join(',')
+        data = {
+            'Category': 'ConsumerApp', 'Action': 'DoctorRankInSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-rank-in-search', 'Rank': this.props.rank + 1, 'DoctorSearchCount': this.props.count, 'specializations': specialization_ids, 'conditions': condition_ids, 'procedures': procedure_ids, 'procedure_category': category_ids, 'Distance': Distance
+        }
+        GTM.sendEvent({ data: data })
+
+        return ({ category_ids, procedure_ids })
+
     }
 
     bookNow(id, e) {
@@ -99,7 +135,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, schema, enabled_for_online_booking } = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, new_schema, enabled_for_online_booking, discounted_price, parent_url } = this.props.details
 
         let enabled_for_hospital_booking = true
         let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
@@ -114,22 +150,22 @@ class DoctorProfileCard extends React.Component {
         }
 
         var Distance = (Math.round(distance * 10) / 10).toFixed(1);
-        if (mrp != 0 && deal_price != 0) {
-            var discount = 100 - Math.round((deal_price * 100) / mrp);
+        if (mrp != 0 && discounted_price != 0) {
+            var discount = 100 - Math.round((discounted_price * 100) / mrp);
         }
 
         try {
-            if (schema) {
-                schema = JSON.stringify(schema)
+            if (new_schema) {
+                new_schema = JSON.stringify(new_schema)
             }
         } catch (e) {
-            schema = ""
+            new_schema = ""
         }
         let is_procedure = false
         if (hospitals && hospitals.length) {
             let selectedCount = 0
             let unselectedCount = 0
-            let finalProcedureDealPrice = deal_price
+            let finalProcedureDealPrice = discounted_price
             let finalProcedureMrp = mrp
             hospitals[0].procedure_categories.map((x) => {
                 is_procedure = true
@@ -153,8 +189,8 @@ class DoctorProfileCard extends React.Component {
             return (
                 <div className="filter-card-dl mb-3" >
                     {
-                        schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
-                            __html: schema
+                        new_schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
+                            __html: new_schema
                         }} />
                             : ""
                     }
@@ -167,19 +203,51 @@ class DoctorProfileCard extends React.Component {
                         {
                             this.props.seoFriendly ?
                                 <div className="fltr-lctn-dtls" style={{ paddingLeft: 45 }}>
-                                    <p><img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
-                                        <span>{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span>
-                                    </p>
+                                    {
+                                        parent_url && parent_url.length ?
+                                            <a href={parent_url} onClick={
+                                                (e) => {
+                                                    e.preventDefault()
+                                                    this.props.history.push(`/${parent_url}`)
+                                                }
+                                            }>
+                                                <p>
+                                                    <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
+                                                    <span>{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span>
+                                                </p>
+                                            </a>
+                                            :
+                                            <p>
+                                                <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
+                                                <span>{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span>
+                                            </p>
+                                    }
                                 </div>
                                 : <div className="fltr-lctn-dtls">
-                                    <p><img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
-                                        <span className="fltr-loc-txt">{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span>
-                                    </p>
+                                    {
+                                        parent_url && parent_url.length ?
+                                            <a href={parent_url} onClick={
+                                                (e) => {
+                                                    e.preventDefault()
+                                                    this.props.history.push(`/${parent_url}`)
+                                                }
+                                            }>
+                                                <p>
+                                                    <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
+                                                    <span className="fltr-loc-txt">{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span>
+                                                </p>
+                                            </a>
+                                            :
+                                            <p>
+                                                <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
+                                                <span className="fltr-loc-txt">{hospital.short_address}</span> {hospital.short_address ? " | " : ""}<span>{Distance} Km</span>
+                                            </p>
+                                    }
                                 </div>
                         }
-                        <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={this.cardClick.bind(this, id, url, hospital.hospital_id || '')}>
+                        <div className="row no-gutters" >
                             <div className="col-12 mrt-10">
-                                <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={(e) => e.preventDefault()} title={display_name}>
+                                <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')} title={display_name}>
                                     <h2 style={{ fontSize: 16, paddingLeft: 8, paddingRight: 50 }} className="lab-fltr-dc-name fw-500">{display_name}</h2>
                                 </a>
                                 {
@@ -187,7 +255,7 @@ class DoctorProfileCard extends React.Component {
                                         <span className="filtr-offer ofr-ribbon fw-700">{discount}% Off</span> : ''
                                 }
                                 {
-                                    !deal_price && !is_procedure ?
+                                    !discounted_price && !is_procedure && enabled_for_hospital_booking ?
                                         <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
                                 }
                             </div>
@@ -225,29 +293,72 @@ class DoctorProfileCard extends React.Component {
                                 {
                                     enabled_for_hospital_booking ?
                                         <p className="fltr-prices" style={{ marginTop: 4 }}>
-                                            &#x20B9; {is_procedure ? finalProcedureDealPrice : deal_price}
+                                            &#x20B9; {is_procedure ? finalProcedureDealPrice : discounted_price}
                                             {
                                                 is_procedure
                                                     ? finalProcedureMrp != finalProcedureDealPrice ? <span className="fltr-cut-price">&#x20B9; {finalProcedureMrp}</span> : ""
-                                                    : mrp != deal_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
+                                                    : mrp != discounted_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
                                             }
                                         </p>
+                                        : is_procedure ?
+                                            <p className="fltr-prices" style={{ marginTop: 4 }}>
+                                                &#x20B9;{finalProcedureMrp}
+                                            </p>
+                                            : mrp && mrp != 0 ?
+                                                <p className="fltr-prices" style={{ marginTop: 4 }}>
+                                                    &#x20B9;{mrp}
+                                                </p> : ''
+                                }
+
+                                {/* code for new pricing UI (exclusive docprime price) */}
+                                {/* {
+                                    enabled_for_hospital_booking ?
+                                        <div className="dp-price-dtls-div mrb-10">
+                                            {
+                                                is_procedure
+                                                    ? finalProcedureMrp != finalProcedureDealPrice ?
+                                                        <p className="fw-500 dp-price">Doctor fee : &#x20B9; {finalProcedureMrp}</p> : ''
+                                                    : mrp != discounted_price ? <p className="fw-500 dp-price">Doctor fee : &#x20B9; {mrp}</p> : ''
+                                            }
+                                            <p className="fw-500 exclsv-price">Docprime fee : &#x20B9; {is_procedure ? finalProcedureDealPrice : discounted_price}</p>
+                                        </div>
                                         :
-                                        <p className="fltr-prices" style={{ marginTop: 4 }}>
-                                            &#x20B9;{is_procedure ? finalProcedureMrp : mrp}
-                                        </p>
-                                }
-                                {
-                                    STORAGE.checkAuth() || deal_price < 100 ?
-                                        ''
-                                        : enabled_for_hospital_booking ?
-                                            <div className="signup-off-container">
-                                                <span className="signup-off-doc" style={{ fontSize: 12 }} >+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                        is_procedure ?
+                                            <div className="dp-price-dtls-div mrb-10">
+                                                <p className="fw-500 dp-price">Doctor fee : &#x20B9; {finalProcedureMrp}</p>
                                             </div>
-                                            : ''
-                                }
+                                            : mrp ?
+                                                <div className="dp-price-dtls-div mrb-10">
+                                                    <p className="fw-500 dp-price">Doctor fee : &#x20B9; {mrp}</p>
+                                                </div> : ''
+                                } */}
+
                                 {
-                                    enabled_for_hospital_booking ? <button className="fltr-bkng-btn" style={{ width: '100%' }}>Book Now</button> : <button className="fltr-cntct-btn" style={{ width: '100%' }}>Contact</button>
+                                    deal_price != discounted_price && enabled_for_hospital_booking ? <div className="signup-off-container">
+                                        <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span>
+                                    </div> : ''
+                                }
+                            </div>
+                            <div className="col-12 mrt-10">
+                                {
+                                    enabled_for_hospital_booking ?
+                                        <div className="row">
+                                            <div className="col-6">
+                                                <a href={url} onClick={(e) => e.preventDefault()}>
+                                                    <button className="fltr-cntct-btn btn-pdng" onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')}>View Profile</button>
+                                                </a>
+                                            </div>
+                                            <div className="col-6">
+                                                <button onClick={this.bookNowClicked.bind(this, id, url, hospital.hospital_id || '')} className="fltr-bkng-btn btn-pdng" >Book Now</button>
+                                            </div>
+                                        </div>
+                                        : <div className="row">
+                                            <div className="col-6"></div>
+                                            <div className="col-6">
+                                                <button onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')} className="fltr-cntct-btn btn-pdng" >Contact
+                                            </button>
+                                            </div>
+                                        </div>
                                 }
                             </div>
                         </div>
@@ -258,7 +369,7 @@ class DoctorProfileCard extends React.Component {
                                         <div className="clearfix">
                                             {
                                                 enabled_for_hospital_booking ?
-                                                    <span className="test-price txt-ornage">₹ {deal_price}<span className="test-mrp">₹ {mrp}</span></span>
+                                                    <span className="test-price txt-ornage">₹ {discounted_price}<span className="test-mrp">₹ {mrp}</span></span>
                                                     :
                                                     <span className="test-price txt-ornage">₹ {mrp}</span>
                                             }
@@ -320,7 +431,6 @@ class DoctorProfileCard extends React.Component {
                                         <span> &amp; {hospital_count - 1} More </span> : ''
                                 }
                             </h3>
-
                         </div>
                         <div className="text-right">
                             <img src={ASSETS_BASE_URL + "/img/customer-icons/clock-black.svg"} />

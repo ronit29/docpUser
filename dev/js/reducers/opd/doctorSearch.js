@@ -1,4 +1,4 @@
-import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_PROFILE_PROCEDURES, HOSPITAL_SEARCH } from '../../constants/types';
+import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_PROFILE_PROCEDURES, HOSPITAL_SEARCH, TOGGLE_404, SELECT_OPD_PAYMENT_TYPE } from '../../constants/types';
 
 const defaultState = {
     doctorList: [],
@@ -22,12 +22,20 @@ const defaultState = {
     couponAutoApply: true,
     curr_page: null,
     breadcrumb: [],
-    seoData: {}
+    seoData: {},
+    show404: false,
+    payment_type: 1
 }
 
 export default function (state = defaultState, action) {
 
     switch (action.type) {
+
+        case TOGGLE_404: {
+            let newState = { ...state }
+            newState.show404 = false
+            return newState
+        }
 
         case DOCTOR_SEARCH_START: {
             let newState = { ...state }
@@ -72,6 +80,7 @@ export default function (state = defaultState, action) {
             newState.curr_page = action.payload.page
             newState.breadcrumb = action.payload.breadcrumb
             newState.seoData = action.payload.seo
+            newState.show404 = action.payload.show404 || false
 
             return newState
         }
@@ -104,6 +113,7 @@ export default function (state = defaultState, action) {
             newState.ratings_title = action.payload.ratings_title
             newState.bottom_content = action.payload.bottom_content
             newState.curr_page = action.payload.page
+            newState.show404 = action.payload.show404 || false
 
             return newState
         }
@@ -121,6 +131,16 @@ export default function (state = defaultState, action) {
             }
 
             newState.selectedSlot = { ...action.payload.slot }
+
+            return newState
+        }
+
+        case SELECT_OPD_PAYMENT_TYPE: {
+            let newState = {
+                ...state
+            }
+
+            newState.payment_type = action.payload
 
             return newState
         }

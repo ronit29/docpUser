@@ -5,7 +5,7 @@ class CommonlySearched extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            currentTestType:{}
+            currentTestType: {}
         }
     }
 
@@ -26,19 +26,43 @@ class CommonlySearched extends React.Component {
             }
             GTM.sendEvent({ data: data })
 
-        } else if (this.props.type == 'test') {
+        } else if (this.props.type == 'test' || this.props.type == 'package') {
 
-            let data = {
+            if (this.props.type == 'package') {
+                let data = {
+                    'Category': 'ConsumerApp', 'Action': 'PackageSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'package-selected', 'selected': row.name || '', 'selectedId': row.id || '', 'searched': '', 'searchString': ''
+                }
+                GTM.sendEvent({ data: data })
+            }
+
+            else {
+                /*let data = {
                 'Category': 'ConsumerApp', 'Action': 'TestSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-selected', 'selected': row.name || '', 'selectedId': row.id || '', 'searched': '', 'searchString': ''
             }
-            GTM.sendEvent({ data: data })
+            GTM.sendEvent({ data: data })*/
+            }
 
             row = Object.assign({}, row)
             row.type = 'test'
             this.props.toggle((this.props.type || row.type), row)
             return
 
-        } else if (this.props.type == 'procedures_category') {
+        }
+
+        // else if (this.props.type == 'package') {
+
+        //     let data = {
+        //         'Category': 'ConsumerApp', 'Action': 'PackageSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'package-selected', 'selected': row.name || '', 'selectedId': row.id || '', 'searched': '', 'searchString': ''
+        //     }
+        //     GTM.sendEvent({ data: data })
+
+        //     row = Object.assign({}, row)
+        //     row.type = 'package'
+        //     this.props.toggle((this.props.type || row.type), row)
+        //     return
+        // }
+
+        else if (this.props.type == 'procedures_category') {
             let data = {
                 'Category': 'ConsumerApp', 'Action': 'CommonProcedureCategoriesSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedure-category-selected', 'selected': row.name || '', 'selectedId': row.id || ''
             }
@@ -52,18 +76,34 @@ class CommonlySearched extends React.Component {
         }
         this.props.toggle((this.props.type || row.type), row)
     }
-    testInfo(test_id) {
+    testInfo(test_id, url) {
+        let lat = 28.644800
+        let long = 77.216721
+        if (this.props.dataState.selectedLocation !== null) {
+            lat = this.props.dataState.selectedLocation.geometry.location.lat
+            long = this.props.dataState.selectedLocation.geometry.location.lng
+
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
         let selected_test_ids = []
         this.props.data.map((row, i) => {
             selected_test_ids.push(row.id)
         })
-        this.props.history.push('/search/testinfo?test_ids=' + test_id+'&selected_test_ids='+selected_test_ids + '&from=search')
+        if (url && url != '') {
+            this.props.history.push('/' + url + '?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&lat=' + lat + '&long=' + long + '&from=search')
+        } else {
+            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&lat=' + lat + '&long=' + long + '&from=search')
+        }
+
         let data = {
             'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'common-search-result-page'
         }
         GTM.sendEvent({ data: data })
     }
+
     render() {
+
         let test_info = ''
         let rows = this.props.data.map((row, i) => {
             if (this.props.selectedPills) {
@@ -73,17 +113,15 @@ class CommonlySearched extends React.Component {
                     }
                 }*/}
                 return <li key={i}>
-                    <p>{row.name} 
-                    {row.show_details && this.props.selectedSearchType == 'lab'?
-                        <span style={{marginLeft:'5px',marginTop:'1px',display:'inline-block'}} onClick={this.testInfo.bind(this,row.id)}>
-                            <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
-                        </span>
-                    :''
-                    }
+                    <p>{row.name}
+                        {row.show_details ?
+                            <span style={{ marginLeft: '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, row.id, row.url)}>
+                                <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
+                            </span>
+                            : ''
+                        }
                     </p>
-                    <img style={{ width: '15px' }} onClick={() => {
-                        return this.props.toggle((this.props.type || row.type), row)
-                    }} src={ASSETS_BASE_URL + "/img/sl-close.svg"} />
+                    <img style={{ width: '15px' }} onClick={() => this.props.toggle((this.props.type || row.type), row)} src={ASSETS_BASE_URL + "/img/sl-close.svg"} />
                 </li>
             } else {
                 let selected = false
@@ -92,8 +130,8 @@ class CommonlySearched extends React.Component {
                         selected = true
                     }
                 })
-                return <li key={i}>
-                    <p className={selected ? "click-active" : ""} onClick={this.toggle.bind(this, row)}>{row.name} </p>
+                return <li key={i} onClick={this.toggle.bind(this, row)}>
+                    <p className={selected ? "click-active" : ""}>{row.name} </p>
                     {
                         selected ? "" : <img style={{ width: '15px' }} src={ASSETS_BASE_URL + "/img/redirect-arrow.svg"} />
                     }

@@ -11,6 +11,7 @@ class LabResultCard extends React.Component {
 
     openLab(id, url, e) {
         let dedupe_ids = {}
+        this.props.clearExtraTests()
         let testIds = this.props.currentSearchedCriterias
             .reduce((final, x) => {
                 final = final || []
@@ -83,7 +84,14 @@ class LabResultCard extends React.Component {
         if (mrp && price && (price < mrp)) {
             offPercent = parseInt(((mrp - price) / mrp) * 100);
         }
-
+        let hide_price = false
+        if(this.props.test_data){
+            this.props.test_data.map((test) => {
+                if(test.hide_price){
+                    hide_price = true
+                }
+            })
+        }
         return (
             <div className="filter-card-dl mb-3">
                 <div className="fltr-crd-top-container">
@@ -100,7 +108,7 @@ class LabResultCard extends React.Component {
                                 <h2 className="lab-fltr-dc-name fw-500 text-md" style={{ color: '#000' }}>{lab.name}</h2>
                             </a>
                             {
-                                offPercent && offPercent > 0 ?
+                                !hide_price && offPercent && offPercent > 0 ?
                                     <span className="filtr-offer ofr-ribbon fw-700">{offPercent}% OFF</span> : ''
                             }
                         </div>
@@ -111,7 +119,7 @@ class LabResultCard extends React.Component {
                                         <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
                                     </InitialsPicture>
                                 </div>
-                                <div style={{ marginLeft: 8 }}>
+                                <div style={{ marginLeft: '8px',marginRight: '8px' }}>
                                     {
                                         this.props.details.tests && this.props.details.tests.length == 1 ?
                                             <p style={{ color: '#000', fontSize: 14, fontWeight: 400 }}>{this.props.details.tests[0].name}</p> : ''
@@ -121,7 +129,10 @@ class LabResultCard extends React.Component {
                         </div>
                         <div className="col-5 mrt-10 text-right" style={{ paddingLeft: 8 }} >
                             {
-                                price ? <p className="text-primary fw-500 text-lg mrb-10">&#8377; {price}<span className="fltr-cut-price" style={{ verticalAlign: '1px' }} >&#8377; {mrp}</span></p> : ''
+                                price && !hide_price? <p className="text-primary fw-500 text-lg mrb-10">&#8377; {price}<span className="fltr-cut-price" style={{ verticalAlign: '1px' }} >&#8377; {mrp}</span></p> : ''
+                            }
+                            {
+                               hide_price? <p className="text-primary fw-500 text-lg mrb-10">Free</p>:''
                             }
                             {
                                 STORAGE.checkAuth() || price < 100 ?
@@ -142,7 +153,11 @@ class LabResultCard extends React.Component {
                                         this.props.details.tests.map((test, i) => {
                                             return <li className="fltr-slected-test" key={i}>
                                                 <label style={{ fontWeight: 400 }}>{test.name}</label>
-                                                <p style={{ fontWeight: 400 }}>&#x20B9; {test.deal_price} <span>&#x20B9; {test.mrp}</span></p>
+                                                {
+                                                    hide_price?
+                                                    <p style={{ fontWeight: 400 }}>Free</p>
+                                                    :<p style={{ fontWeight: 400 }}>&#x20B9; {test.deal_price} <span>&#x20B9; {test.mrp}</span></p>
+                                                }
                                             </li>
                                         })
                                     }

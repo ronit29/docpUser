@@ -334,6 +334,154 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
     }
 }
 
+export function PackageSearchStateBuilder(selectLocation, querParams, isServer = false, location_ms = null) {
+    try {
+        return new Promise((resolve, reject) => {
+
+            let _getLocationParamBind = (tag) => _getLocationParam(querParams, isServer, tag)
+
+            let test_ids = _getLocationParamBind('test_ids') || ""
+            let lat = _getLocationParamBind('lat') || ""
+            let long = _getLocationParamBind('long') || ""
+            let place_id = _getLocationParamBind('place_id') || ""
+            let min_distance = parseInt(_getLocationParamBind('min_distance')) || 0
+            let max_distance = parseInt(_getLocationParamBind('max_distance')) || 15
+            let min_price = parseInt(_getLocationParamBind('min_price')) || 0
+            let max_price = parseInt(_getLocationParamBind('max_price')) || 20000
+            let sort_on = _getLocationParamBind('sort_on') || null
+            let lab_name = _getLocationParamBind('lab_name') || ""
+            // let test_ids = _getLocationParamBind('test_ids') || ""
+            let catIds = _getLocationParamBind('category_ids') || ""
+            lab_name = lab_name || ""
+            let network_id = _getLocationParamBind('network_id') || ""
+            network_id = network_id || ""
+            let locationType = _getLocationParamBind('locationType') || "geo"
+            let page = _getLocationParamBind('page') || 1
+            page = parseInt(page)
+            let max_age= parseInt(_getLocationParamBind('max_age')) || ""
+            let min_age= parseInt(_getLocationParamBind('min_age')) || ""
+            let gender= parseInt(_getLocationParamBind('gender')) || ""
+            let package_type= parseInt(_getLocationParamBind('package_type')) || ""
+            let package_ids= parseInt(_getLocationParamBind('package_ids')) || ""
+
+            let currentSearchedCriterias = []
+            // if (test_ids) {
+            //     currentSearchedCriterias = test_ids.split(',').map((x) => {
+            //         return {
+            //             type: 'test',
+            //             name: "",
+            //             id: parseInt(x)
+            //         }
+            //     })
+            // }
+
+            let filterCriteriaPackages = {
+                min_price, max_price, min_distance, max_distance, sort_on, max_age, min_age, package_type, gender, catIds, test_ids, package_ids
+            }
+
+            if (lab_name) {
+                filterCriteriaPackages.lab_name = lab_name
+            }
+
+            if (network_id) {
+                filterCriteriaPackages.network_id = network_id
+            }
+
+            filterCriteriaPackages.priceRange = [0, 20000]
+            filterCriteriaPackages.priceRange[0] = filterCriteriaPackages.min_price
+            filterCriteriaPackages.priceRange[1] = filterCriteriaPackages.max_price
+
+            filterCriteriaPackages.distanceRange = [0, 15]
+            filterCriteriaPackages.distanceRange[0] = filterCriteriaPackages.min_distance
+            filterCriteriaPackages.distanceRange[1] = filterCriteriaPackages.max_distance
+
+            if (!isServer && !location_ms) {
+                if (place_id) {
+                    setTimeout(() => {
+                        _getLocationFromPlaceId(place_id, (location_object) => {
+                            selectLocation(location_object, 'autoComplete', false)
+                        })
+                    }, 1000)
+                } else {
+                    if (lat && long) {
+                        setTimeout(() => {
+                            _getlocationFromLatLong(lat, long, (locationType == 'geoip' ? 'city' : 'locality'), (location_object) => {
+                                selectLocation(location_object, locationType, false)
+                            })
+                        }, 1000)
+                    }
+                }
+            }
+
+            let selectedLocation = null
+            if (lat && long) {
+                selectedLocation = { geometry: { location: { lat, lng: long } }, place_id, formatted_address: "Delhi" }
+            }
+
+            if (location_ms) {
+                API_GET(`/api/v1/geoip/adword/${location_ms}`).then((data) => {
+                    selectedLocation = { geometry: { location: { lat: data.latitude, lng: data.longitude } }, place_id, formatted_address: "" }
+
+                    if (!isServer) {
+                        setTimeout(() => {
+                            _getlocationFromLatLong(data.latitude, data.longitude, 'locality', (location_object) => {
+                                selectLocation(location_object, 'geo', false)
+                            })
+                        }, 1000)
+                    }
+
+                    resolve({
+                        filterCriteriaPackages,
+                        currentSearchedCriterias,
+                        selectedLocation,
+                        page
+                    })
+                }).catch((e) => {
+                    if (selectedLocation) {
+                        if (!isServer) {
+                            setTimeout(() => {
+                                _getlocationFromLatLong(lat, long, 'locality', (location_object) => {
+                                    selectLocation(location_object, 'geo', false)
+                                })
+                            }, 1000)
+                        }
+                        resolve({
+                            filterCriteriaPackages,
+                            currentSearchedCriterias,
+                            selectedLocation,
+                            page
+                        })
+                    } else {
+                        resolve({
+                            filterCriteriaPackages,
+                            currentSearchedCriterias,
+                            page
+                        })
+                    }
+                })
+            } else {
+                if (selectedLocation) {
+                    resolve({
+                        filterCriteriaPackages,
+                        currentSearchedCriterias,
+                        selectedLocation,
+                        page
+                    })
+                } else {
+                    resolve({
+                        filterCriteriaPackages,
+                        currentSearchedCriterias,
+                        page
+                    })
+                }
+            }
+        })
+
+    } catch (e) {
+        console.error(e)
+    }
+}
+
 
 function _getLocationParam(querParams, isServer = false, tag) {
     if (isServer) {

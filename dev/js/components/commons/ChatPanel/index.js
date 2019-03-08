@@ -48,7 +48,7 @@ const mapDispatchToProps = (dispatch) => {
         loginViaChat: (token) => dispatch(loginViaChat(token)),
         setChatRoomId: (roomId) => dispatch(setChatRoomId(roomId)),
         startLiveChat: (started, deleteRoomId) => dispatch(startLiveChat(started, deleteRoomId)),
-        toggleDiagnosisCriteria: (type, test, forceAdd) => dispatch(toggleDiagnosisCriteria(type, test, forceAdd)),
+        toggleDiagnosisCriteria: (type, test, forceAdd, filters) => dispatch(toggleDiagnosisCriteria(type, test, forceAdd, filters)),
         toggleOPDCriteria: (type, test, forceAdd, filters) => dispatch(toggleOPDCriteria(type, test, forceAdd, filters))
     }
 }

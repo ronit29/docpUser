@@ -6,7 +6,7 @@ import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 import LocationElements from '../../../containers/commons/locationElements'
-import FixedMobileFooter from '../Home/FixedMobileFooter';
+// import FixedMobileFooter from '../Home/FixedMobileFooter';
 
 
 const debouncer = (fn, delay) => {
@@ -354,7 +354,7 @@ class CriteriaSearchView extends React.Component {
                             this.props.clinic_card || this.props.lab_card ? '' : <RightBar extraClass=" chat-float-btn-2" newChatBtn={this.props.newChatBtn} type={this.props.type} noChatButton={this.props.searchPackages || this.props.searchDoctors || this.props.searchLabs} />
                         }
                         {
-                            this.props.bottom_content && this.props.bottom_content.length && parseInt(this.props.page) == 1?
+                            this.props.bottom_content && this.props.bottom_content.length && parseInt(this.props.page) == 1 ?
                                 <div className="col-12 mrt-20">
                                     <div className="search-result-card-collpase" dangerouslySetInnerHTML={{ __html: this.props.bottom_content }}>
                                     </div>
@@ -364,7 +364,7 @@ class CriteriaSearchView extends React.Component {
                         {
                             this.props.ratings_title && this.props.ratings && this.props.reviews ?
                                 <div className="col-12 avg-rating mrt-20">
-                                    <p className="fw-500">{this.props.ratings_title}</p>
+                                    <p className="fw-500">{`${this.props.ratings_title} - Ratings & Reviews`}</p>
                                     <p className="fw-500">Average rating {ratingArray}<span>&nbsp;{this.props.ratings} </span><span>({this.props.reviews} reviews)</span>
                                     </p>
                                 </div>
@@ -372,13 +372,13 @@ class CriteriaSearchView extends React.Component {
                         }
                     </div>
                 </section>
-                {
+                {/*
                     this.props.searchPackages ?
                         <FixedMobileFooter searchPackagePage={true} {...this.props} />
                         :
                         this.props.searchDoctors || this.props.searchLabs ?
                             <FixedMobileFooter {...this.props} /> : ''
-                }
+                */}
             </div>
         );
     }

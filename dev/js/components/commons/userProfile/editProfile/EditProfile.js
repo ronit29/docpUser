@@ -3,21 +3,26 @@ import React from 'react';
 import BasicDetails from './basic'
 import MedialDetails from './medical'
 import Loader from '../../Loader'
+import WhatsAppOptinView from '../../WhatsAppOptin/WhatsAppOptinView.js'
 
 class EditProfile extends React.Component {
     constructor(props) {
         super(props)
         let { profiles } = this.props.USER
+        let currentProfile = null
+        currentProfile = {...profiles[this.props.match.params.id]}
         this.state = {
             selectedTab: 0,
-            profileData: { ...profiles[this.props.match.params.id] },
+            profileData: currentProfile,
             loading: false,
             openCrop: false,
             errors: {
 
-            }
+            },
+            whatsapp_optin:currentProfile.whatsapp_optin
         }
     }
+
 
     toggleOpenCrop() {
         this.setState({ openCrop: !this.state.openCrop })
@@ -27,6 +32,10 @@ class EditProfile extends React.Component {
         this.props.history.push('/user/address')
     }
 
+    toggleWhatsap(status,e) {
+        this.setState({ whatsapp_optin: status })
+    }
+
     getComp() {
         if (this.state.loading) {
             return <Loader />
@@ -34,7 +43,11 @@ class EditProfile extends React.Component {
 
         switch (this.state.selectedTab) {
             case 0: {
-                return <BasicDetails {...this.props} manageAddress={this.manageAddress.bind(this)} profileData={this.state.profileData} updateProfile={this.updateProfile.bind(this)} proceedUpdate={this.proceedUpdate.bind(this)} errors={this.state.errors} toggleOpenCrop={this.toggleOpenCrop.bind(this)} />
+                return <div style={{marginBottom:'60px'}}>
+                            <BasicDetails {...this.props} manageAddress={this.manageAddress.bind(this)} profileData={this.state.profileData} updateProfile={this.updateProfile.bind(this)} proceedUpdate={this.proceedUpdate.bind(this)} errors={this.state.errors} toggleOpenCrop={this.toggleOpenCrop.bind(this)}/>
+                                <WhatsAppOptinView {...this.props} toggleWhatsap={this.toggleWhatsap.bind(this)} profiles={this.state.profileData}/>
+                        </div>
+
             }
             case 1: {
                 return <MedialDetails />
@@ -59,28 +72,31 @@ class EditProfile extends React.Component {
                 case "phone_number": {
                     if (!this.state.profileData[field]) {
                         validated = true
+                        errors[field] = !validated
                         return
                     } else {
                         validated = this.state.profileData[field].toString().match(/^[56789]{1}[0-9]{9}$/)
+                        errors[field] = !validated
                     }
                     break
                 }
                 case "email": {
                     if (!this.state.profileData[field]) {
-                        validated = true
+                        validated = false
+                        errors[field] = !validated
                         return
                     } else {
                         validated = this.state.profileData[field].match(/\S+@\S+\.\S+/)
-                        break
+                        errors[field] = !validated
                     }
                     break
                 }
                 default: {
                     validated = true
+                    errors[field] = !validated
                     break
                 }
             }
-            errors[field] = !validated
         })
 
         this.setState({ errors }, () => {
@@ -92,6 +108,7 @@ class EditProfile extends React.Component {
             }
             if (validated) {
                 this.setState({ loading: true })
+                this.state.profileData.whatsapp_optin = this.state.whatsapp_optin == null ?true: this.state.whatsapp_optin
                 this.props.editUserProfile(this.state.profileData, this.state.profileData.id, (err, data) => {
                     this.setState({ loading: false })
                     this.props.history.go(-1)
@@ -102,7 +119,6 @@ class EditProfile extends React.Component {
     }
 
     render() {
-
         return (
             <div>
 

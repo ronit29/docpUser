@@ -1,5 +1,5 @@
 
-import { SET_SERVER_RENDER_LAB, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH, ADD_LAB_COUPONS, REMOVE_LAB_COUPONS, APPLY_LAB_COUPONS, RESET_LAB_COUPONS, SEARCH_HEALTH_PACKAGES } from '../../constants/types';
+import { TOGGLE_404, SET_SERVER_RENDER_LAB, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH, ADD_LAB_COUPONS, REMOVE_LAB_COUPONS, APPLY_LAB_COUPONS, RESET_LAB_COUPONS, SEARCH_HEALTH_PACKAGES } from '../../constants/types';
 
 const defaultState = {
     labList: [],
@@ -15,12 +15,20 @@ const defaultState = {
     couponAutoApply: true,
     curr_page: null,
     packagesList: [],
-    seoData:{}
+    seoData: {},
+    test_data: [],
+    show404: false
 }
 
 export default function (state = defaultState, action) {
 
     switch (action.type) {
+
+        case TOGGLE_404: {
+            let newState = { ...state }
+            newState.show404 = false
+            return newState
+        }
 
         case LAB_SEARCH_START: {
             let newState = { ...state }
@@ -54,6 +62,8 @@ export default function (state = defaultState, action) {
             newState.LOADED_LABS_SEARCH = true
             newState.curr_page = action.payload.page
             newState.seoData = action.payload.seo
+            newState.test_data = action.payload.tests
+            newState.show404 = action.payload.show404 || false
             return newState
         }
 

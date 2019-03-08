@@ -11,7 +11,8 @@ class LabProfileCard extends React.Component {
         super(props)
     }
 
-    openLab(id, url, test_id, test_name,e) {
+    openLab(id, url, test_id, test_name, e) {
+        this.props.clearExtraTests()
         let testIds = test_id
         // let dedupe_ids = {}
         // let testIds = this.props.selectedCriterias
@@ -39,12 +40,12 @@ class LabProfileCard extends React.Component {
         //         this.props.toggleDiagnosisCriteria('test', new_test, true)
         //     })
         let new_test = {}
-            new_test.extra_test = true
-            new_test.lab_id = id
-            new_test.type = 'test'
-            new_test.name = test_name
-            new_test.id = test_id
-            this.props.toggleDiagnosisCriteria('test', new_test, true)
+        new_test.extra_test = true
+        new_test.lab_id = id
+        new_test.type = 'test'
+        new_test.name = test_name
+        new_test.id = test_id
+        this.props.toggleDiagnosisCriteria('test', new_test, true)
         let data = {
             'Category': 'ConsumerApp', 'Action': 'RankOfLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'rank-lab-clicked', 'Rank': this.props.rank + 1
         }
@@ -67,23 +68,37 @@ class LabProfileCard extends React.Component {
             }
         }
     }
+    testInfo(test_id) {
+        let lab_id = this.props.details.lab.id
+        // let selected_test_ids = this.props.lab_test_data[this.props.selectedLab] || []
+        // selected_test_ids = selected_test_ids.map(x => x.id)
+        let selected_test_ids = test_id
+        this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&lab_id=' + lab_id + '&from=searchbooknow')
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'lab-test-page'
+        }
+        GTM.sendEvent({ data: data })
+    }
     render() {
-        let { price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id,number_of_tests } = this.props.details;
+        let { discounted_price, price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id, number_of_tests, show_details, categories, category_details, address } = this.props.details;
         distance = Math.ceil(distance / 1000);
-
         var openingTime = ''
         if (this.props.details.lab_timing) {
             openingTime = this.props.details.lab_timing.split('-')[0];
         }
 
         let pickup_text = ""
-        if (lab.is_home_collection_enabled && distance_related_charges == 1) {
+        if (pickup_available == 1 && distance_related_charges == 1) {
             pickup_text = "Home pickup charges applicable"
         }
 
-        if (lab.is_home_collection_enabled && !distance_related_charges) {
+        if (pickup_available == 1 && !distance_related_charges) {
             pickup_text = "Inclusive of home visit charges"
-            price = parseInt(price) + parseInt(pickup_charges)
+            discounted_price = parseInt(discounted_price) + parseInt(pickup_charges)
+        }
+
+        if (pickup_available == 0) {
+            pickup_text = "Center visit required"
         }
 
         // let hide_price = false
@@ -95,90 +110,91 @@ class LabProfileCard extends React.Component {
         //     })
         // }
         let offPercent = ''
-        if (mrp && price && (price < mrp)) {
-            offPercent = parseInt(((mrp - price) / mrp) * 100);
+        if (mrp && discounted_price && (discounted_price < mrp)) {
+            offPercent = parseInt(((mrp - discounted_price) / mrp) * 100);
         }
         return (
-           <div className="filter-card-dl mb-3">
-                <div className="fltr-crd-top-container">
-                    <div className="fltr-lctn-dtls">
-                        <p>
-                            <img className="fltr-loc-ico" style={{ width: 12, height: 18 }} src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
-                            <span className="fltr-loc-txt">{lab.locality} {lab.city}</span>
-                            |
-                            <span>{distance} Km</span>
-                        </p>
+            <div className="pkg-card-container mb-3">
+                <div className="pkg-content-section">
+                    {
+                        offPercent && offPercent > 0 ?
+                            <span className="pkg-ofr-ribbon fw-700">{offPercent}% OFF</span> : ''
+                    }
+                    <div className="pkg-card-location p-relative">
+                        <p><img className="fltr-loc-ico" src="/assets/img/new-loc-ico.svg" style={{ width: '12px', height: '18px' }} /> {lab.locality} {lab.city} </p><span className="kmTrunate"> | {distance} Km</span>
                     </div>
-                    <div className="row no-gutters" style={{ cursor: 'pointer' }} onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url,id,name)}>
-                            <div className="col-12 mrt-10">
-                                <a>
-                                <h2 className="lab-fltr-dc-name fw-500" style={{ fontSize: '16px', paddingLeft: '8px', paddingRight: '110px' }}>{name}</h2>
-                                <h3 className="lab-fltr-dc-name fw-500" style={{ fontSize: '14px', paddingLeft: '8px', paddingRight: '110px', color:'#757575' }}>{number_of_tests?`${number_of_tests} Tests Included`:''} </h3>
-                                    {/*<h2 className="lab-fltr-dc-name fw-500" style={{ fontSize: '16px', paddingLeft: '8px', paddingRight: '110px' }}>{lab.name}</h2>*/}
+                    <div className="pkg-card-content">
+                        <div className="row no-gutters" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
+                            <div className="col-8">
+                                <div className="pkg-cardleft-img">
+                                    <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
+                                        <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
+                                    </InitialsPicture>
+                                </div>
+                                <a href={this.props.details.url || ''} onClick={(e) => 
+                                    {e.preventDefault()}}>
+                                    <h2 className="pkg-labDoc-Name">{name} {show_details ?
+                                        <span style={{ 'marginLeft': '5px', marginTop: '2px', display: 'inline-block', cursor: 'pointer' }} onClick={(e)=>{
+                                            e.preventDefault()
+                                            e.stopPropagation()
+                                            this.testInfo(id)}}>
+                                            
+                                            <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
+                                        </span> : ''}
+                                    </h2>
                                 </a>
                                 {
-                                            offPercent && offPercent > 0 ?
-                                                <span className="filtr-offer ofr-ribbon fw-700">{offPercent}% OFF</span> : ''
+                                    number_of_tests > 0 ?
+                                        <h3 className="lab-fltr-dc-name fw-500 pkg-include" style={{fontSize: '12px'}}>{number_of_tests ? `${number_of_tests} Tests Included` : ''}
+                                        </h3>
+                                        : ''
                                 }
                             </div>
-                            <div className="col-7 mrt-10">
-                                <div className="img-nd-dtls" style={{ alignItems: 'flex-start' }}>
-                                    <div className="fltr-crd-img text-center" style={{ width: '60px' }}>
-                                   
-                                        <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
-                                            <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
-                                        </InitialsPicture>
-                                        {/*<span className="fltr-rtng">Verified</span>*/}
-                                    </div>
-                                    {/*<div className="crd-dctr-dtls">
-                                        <h3 className="fw-500">General Physician</h3>
-                                        <h3 className="fw-500">15 Years of Experience</h3>
-                                    </div>*/}
-                                </div>
-                            </div>
-                            <div className="col-5 mrt-10 text-right" style={{ paddingLeft: '8px' }}>
-                                {
-                                     price ? <p className="fltr-prices" style={{ marginTop: '4px' }}>₹ {parseInt(price)}
-                                     <span className="fltr-cut-price">₹ {parseInt(mrp)}</span></p> : ''
-                                }
-                                {
-                                STORAGE.checkAuth() || price < 100 ?
-                                    ''
-                                    : <div className="signup-off-container">
-                                        <span className="signup-off-doc" style={{ fontSize: 12 }} >+ ₹ 100 OFF <b>on Signup</b> </span>
-                                    </div>
-                                }
-                                <button className="fltr-bkng-btn" style={{ width: '100%' }}>Book Now</button>
-                            </div>
-                        </div>
-                    {
-                        this.props.details.tests && this.props.details.tests.length >= 2 ?
-                            <div>
-                                <ul className="fltr-labs-test-selected mrt-10">
-                                    <span className="fltr-prv-selected-test">Tests Selected</span>
+                            <div className="col-4">
+                                <div className="pkg-card-price">
                                     {
-                                        this.props.details.tests.map((test, i) => {
-                                            return <li className="fltr-slected-test" key={i}>
-                                                <label style={{ fontWeight: 400 }}>{test.name}</label>
-                                                <p style={{ fontWeight: 400 }}>&#x20B9; {test.price} <span>&#x20B9; {test.mrp}</span></p>
-                                            </li>
-                                        })
+                                        discounted_price ? <p className="fw-500">₹ {parseInt(discounted_price)}
+                                            <span className="pkg-cut-price">₹ {parseInt(mrp)}</span></p> : ''
                                     }
-                                </ul>
-                            </div> : ''
-                    }
-                </div>
-                <div className="filtr-card-footer">
-                        <div><img src="https://qacdn.docprime.com/cp/assets/img/customer-icons/home.svg" />
-                        {pickup_text ? <h3 className="mrb-0">{pickup_text}</h3>:""}
+                                </div>
+                                <a href={this.props.details.lab.url} onClick={(e) => e.preventDefault()}>
+                                    <button className="pkg-btn-nw" style={{ width: '100%' }}>Book Now</button>
+                                </a>
+                                {
+                                    discounted_price != price ? <p className="pkg-discountCpn">Includes coupon</p>
+                                        : ""
+                                }
+                            </div>
                         </div>
-                        <div className="text-right"><img src="https://qacdn.docprime.com/cp/assets/img/customer-icons/clock-black.svg" />
-                            <p>
-                                <span>{buildOpenBanner(lab_timing, lab_timing_data, next_lab_timing, next_lab_timing_data)}</span>
-                            </p>
-                        </div>
+                    </div>
+                    <div className="pkg-includes-container">
+                        {category_details && category_details.length > 0 ?
+                            <ul>
+                                {
+                                    category_details.map((category_detail, k) => {
+                                        return <li className="pkgIncludeList" key={k} id={k} onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
+                                            {category_detail.icon ?
+                                                <img style={{ width: '20px', marginRight: '5px' }} src={category_detail.icon} />
+                                                : ''}
+                                            <span className="fw-500">{category_detail.name} {category_detail.parameter_count > 1 ? `(${category_detail.parameter_count})` : ''} </span>
+                                        </li>
+                                    })
+                                }
+                            </ul>
+                            : ''}
+                    </div>
                 </div>
-            </div> 
+                <div className="pkg-crd-footer">
+                    <div className="pkg-crd-foot-img-text">
+                        <img src={ASSETS_BASE_URL + "/img/infoerror.svg"} style={{ marginTop: '2px', width: '15px' }} />
+                        {pickup_text ? <p>{pickup_text}</p> : ""}
+                    </div>
+                    <div className="pkg-crd-foot-img-text">
+                        <img src={ASSETS_BASE_URL + "/img/watch-date.svg"} style={{ marginTop: '2px', width: '15px' }} />
+                        <p>{buildOpenBanner(lab_timing, lab_timing_data, next_lab_timing, next_lab_timing_data)}</p>
+                    </div>
+                </div>
+            </div>
         );
     }
 }

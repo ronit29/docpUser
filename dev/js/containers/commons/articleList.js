@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import ArticleListView from '../../components/commons/articleList'
 import { getArticleList, getSpecialityFooterData } from '../../actions/index.js'
+import DoctorsNearMeView from '../../components/commons/DoctorsNearMe/DoctorsNearMeView';
 const queryString = require('query-string');
 
 
@@ -23,7 +24,16 @@ class ArticleList extends React.Component {
             query = 1
         }
         return new Promise((resolve, reject) => {
-            Promise.all([store.dispatch(getArticleList(title, query))]).then(() => {
+            Promise.all([store.dispatch(getArticleList(title, query))]).then((result) => {
+                result = result[0]
+                if (!result) {
+                    reject({})
+                    return
+                }
+                if (result && result.length == 0 && query) {
+                    reject({})
+                    return
+                }
                 getSpecialityFooterData((footerData) => {
                     resolve({ footerData: (footerData || null) })
                 })()
@@ -39,7 +49,12 @@ class ArticleList extends React.Component {
 
     render() {
         return (
-            <ArticleListView {...this.props} />
+            <div>
+                {
+                    this.props.match.url === "/doctors-near-me" ?
+                        <DoctorsNearMeView {...this.props} /> : <ArticleListView {...this.props} />
+                }
+            </div>
         );
     }
 }

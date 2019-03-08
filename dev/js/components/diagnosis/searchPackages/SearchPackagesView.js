@@ -7,6 +7,7 @@ import NAVIGATE from '../../../helpers/navigate/index.js';
 import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import Footer from '../../commons/Home/footer'
+import ResultCount from './topBar/result_count.js'
 
 class SearchPackagesView extends React.Component {
     constructor(props) {
@@ -19,8 +20,6 @@ class SearchPackagesView extends React.Component {
         }
         this.state = {
             seoData, footerData,
-            seoFriendly: this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit'),
-            lab_card: this.props.location.search.includes('lab_card') || null,
             showError: false,
             showChatWithus: false
         }
@@ -66,15 +65,11 @@ class SearchPackagesView extends React.Component {
     }
 
     getLabList(state = null, page = 1, cb = null) {
-        let searchUrl = null
-        if (this.props.match.url.includes('-lbcit') || this.props.match.url.includes('-lblitcit')) {
-            searchUrl = this.props.match.url.toLowerCase()
-        }
         if (!state) {
             state = this.props
         }
 
-        this.props.getPackages(state, page, false, searchUrl, (...args) => {
+        this.props.getPackages(state, page, false, null, (...args) => {
             this.setState({ seoData: args[1] })
             if (cb) {
                 cb(...args)
@@ -88,22 +83,35 @@ class SearchPackagesView extends React.Component {
     }
 
     applyFilters(filterState) {
-        this.props.mergeLABState({ filterCriteria: filterState })
+        // this.props.mergeLABState({ filterCriteria: filterState })
+        this.props.mergeLABState({ filterCriteriaPackages: filterState })
         if (window) {
             window.scrollTo(0, 0)
         }
     }
-    applyCategories(categoryState) {
+    applyCategories(categoryState,filterstate) {
         let newCategoryState = {}
         newCategoryState['catIds'] = categoryState
-        this.props.mergeLABState({ filterCriteria: newCategoryState })
+        newCategoryState['distanceRange']=filterstate.distanceRange
+        newCategoryState['priceRange']=filterstate.priceRange
+        newCategoryState['sort_on']=filterstate.sort_on
+        newCategoryState['max_age'] = filterstate.max_age
+        newCategoryState['max_price'] = filterstate.max_price
+        newCategoryState['min_age'] = filterstate.min_age
+        newCategoryState['gender'] = filterstate.gender
+        newCategoryState['packageType'] = filterstate.packageType
+        newCategoryState['test_ids'] = filterstate.test_ids
+        newCategoryState['package_ids'] = filterstate.package_ids
+
+        // this.props.mergeLABState({ filterCriteria: newCategoryState })
+        this.props.mergeLABState({ filterCriteriaPackages: newCategoryState })
         if (window) {
             window.scrollTo(0, 0)
         }
     }
 
     buildURI(state) {
-        let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType } = state
+        let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, filterCriteriaPackages } = state
         // let testIds = selectedCriterias.filter(x => x.type == 'test').map(x => x.id)
         let lat = 28.644800
         let long = 77.216721
@@ -119,22 +127,29 @@ class SearchPackagesView extends React.Component {
             lat = parseFloat(parseFloat(lat).toFixed(6))
             long = parseFloat(parseFloat(long).toFixed(6))
         }
-        let cat_ids = filterCriteria.catIds || ""
 
-        // let min_distance = filterCriteria.distanceRange[0]
-        // let max_distance = filterCriteria.distanceRange[1]
-        // let min_price = filterCriteria.priceRange[0]
-        // let max_price = filterCriteria.priceRange[1]
-        // let sort_on = filterCriteria.sort_on || ""
-        // let lab_name = filterCriteria.lab_name || ""
-        // let network_id = filterCriteria.network_id || ""
+        let cat_ids = filterCriteriaPackages.catIds || ""
+        let min_distance = filterCriteriaPackages.distanceRange[0]
+        let max_distance = filterCriteriaPackages.distanceRange[1]
+        let min_price = filterCriteriaPackages.priceRange[0]
+        let max_price = filterCriteriaPackages.priceRange[1]
+        let sort_on = filterCriteriaPackages.sort_on || ""
+        let lab_name = filterCriteriaPackages.lab_name || ""
+        let network_id = filterCriteriaPackages.network_id || ""
+        let max_age=filterCriteriaPackages.max_age || ""
+        let min_age=filterCriteriaPackages.min_age || ""
+        let gender=filterCriteriaPackages.gender || ""
+        let package_type=filterCriteriaPackages.packageType || ""
+        let test_ids = filterCriteriaPackages.test_ids || ""
+        let package_ids = filterCriteriaPackages.package_ids || ""
+        let page=1
         
-        // let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}`
+        let url
 
-        let url = `${window.location.pathname}?lat=${lat}&long=${long}&category_ids=${cat_ids}`
-
-        if (this.state.lab_card) {
-            url += `&lab_card=true`
+        if(this.props.forTaxSaver){
+            url = `${window.location.pathname}?lat=${lat}&long=${long}&category_ids=41`
+        } else{
+            url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&page=${page}&package_ids=${package_ids}`
         }
 
         return url
@@ -156,8 +171,8 @@ class SearchPackagesView extends React.Component {
                     longitude2 = geometry.location.lng()
                 }
                 var distance = 0
-
-                if (google) {
+                
+                if (typeof google != undefined) {
                     var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2));
                 }
 
@@ -188,12 +203,13 @@ class SearchPackagesView extends React.Component {
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
                 <HelmetTags tagsData={{
-                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+                    canonicalUrl: `${CONFIG.API_BASE_URL}/full-body-checkup-health-packages`,
                     title: 'Full Body Checkup - Book Health Checkup Packages & get 50% off - docprime',
                     description: 'Book Full Body Checkup Packages and get 50% off. Health Checkup packages includes &#10003 60Plus Tests & &#10003 Free Home Sample Collection starting at Rs. 499.'
                 }} noIndex={false} />                
-                <CriteriaSearch {...this.props} checkForLoad={LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} >
+                <CriteriaSearch {...this.props} checkForLoad={LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} bottom_content={this.props.packagesList && this.props.packagesList.count>0 && this.props.packagesList.bottom_content && this.props.packagesList.bottom_content !=null && this.props.forOrganicSearch? this.props.packagesList.bottom_content:''} page={1}>
                     <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
+                    <ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
                     <PackagesLists {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
                 </CriteriaSearch>
                 <Footer footerData={this.state.footerData} />

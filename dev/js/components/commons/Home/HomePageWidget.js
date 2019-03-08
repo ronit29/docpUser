@@ -13,11 +13,7 @@ class HomePageWidget extends React.Component {
             e.preventDefault()
             e.stopPropagation()
         }
-        let test = {}
-        if (this.props.searchType == "packages") {
-            // test.type = 'test'
-            // this.props.toggleDiagnosisCriteria('test', test, true)
-        }
+
         if (this.props.type) {
             this.props.selectSearchType(this.props.type)
         }
@@ -35,7 +31,7 @@ class HomePageWidget extends React.Component {
                                 <a style={{ cursor: 'pointer' }} title="Full Body Checkup Packages" href="/full-body-checkup-health-packages"
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        this.navigateTo(this.props.navTo)
+                                        this.navigateTo(this.props.linkTo)
                                     }}
                                 >
                                     <h2 className="home-widget-heading">{this.props.heading}</h2>
@@ -62,7 +58,7 @@ class HomePageWidget extends React.Component {
 
                         {
                             this.props.searchType ?
-                                <div className="col-4 home-card-col">
+                                <div className="col-4 home-card-col" key={`search${this.props.searchType}`}>
                                     <div className="grid-img-cnt brdr-btm">
                                         <a href="javascript:void(0);" onClick={this.navigateTo.bind(this, this.props.navTo)}>
                                             <img className="img-fluid" src="/assets/images/vall.png" />

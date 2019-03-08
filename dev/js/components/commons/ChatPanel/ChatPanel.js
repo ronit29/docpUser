@@ -272,6 +272,10 @@ class ChatPanel extends React.Component {
     newChatBtnClick() {
         if (this.props.type && (this.props.type == 'opd' || this.props.type == 'lab')) {
             this.props.history.push('/mobileviewchat?botagent=true&force_start=true');
+            let data = {
+                'Category': 'Chat', 'Action': 'needHelpBtnClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'need-help-btn-clicked', "PageType": this.props.type, "url": window.location.pathname
+            }
+            GTM.sendEvent({ data: data })
         }
         else {
             this.setState({ showChatBlock: true, additionClasses: "" });
@@ -330,17 +334,16 @@ class ChatPanel extends React.Component {
                 {
                     this.props.homePage || this.props.mobilechatview || this.props.noChatButton ? '' :
                         this.props.articleData || this.props.newChatBtn || this.props.newChatBtnAds ?
-                            <div className="chat-article-btn fixed horizontal bottom no-round d-md-none fw-500 text-center" onClick={() => this.chatBtnClick()} >{chatBtnContent1}
+                            <section className="chat-article-btn fixed horizontal bottom no-round d-md-none fw-500 text-center" onClick={() => this.chatBtnClick()} >{chatBtnContent1}
                                 <span>{chatBtnContent2}</span>
-                            </div> :
-                            // <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>
-                            //     <img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} />
-                            // </div>
-                            <div className="new-chat-fixed-btn d-md-none" onClick={() => this.newChatBtnClick()}>
-                                <img src={ASSETS_BASE_URL + '/img/customer-icons/chat-btn-new.svg'} />
-                            </div>
+                            </section> : ""
+                    // <div className={"chat-float-btn d-lg-none d-md-none" + (this.props.extraClass || "")} onClick={() => this.setState({ showChatBlock: true, additionClasses: "" })}>
+                    //     <img width="80" src={ASSETS_BASE_URL + "/img/customer-icons/floatingicon.png"} />
+                    // </div>
+                    // <div className="new-chat-fixed-btn d-md-none" onClick={() => this.newChatBtnClick()}>
+                    //     <img src={ASSETS_BASE_URL + '/img/customer-icons/chat-btn-new.svg'} />
+                    // </div>
                 }
-
                 <div className={this.state.showChatBlock ? "floating-chat " : ""}>
                     {
                         this.state.showStaticView ?
@@ -353,7 +356,7 @@ class ChatPanel extends React.Component {
 
                                     <div className="hd-chat" style={{ flex: 1 }}>
                                         {
-                                            this.props.location.search && this.props.location.search === "?botagent=true&force_start=true" ?
+                                            this.props.location.search && this.props.location.search.includes('?botagent') ?
                                                 <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
                                                     <span className="hed-txt-lt">Get </span>
                                                     Help with Booking
@@ -387,7 +390,7 @@ class ChatPanel extends React.Component {
                                                     }, 10000)
                                                 }
                                             }}>
-                                                <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" title="get a callback from doctor" />
+                                                {/*<img style={{ width: 26 }} src="/assets/img/customer-icons/chat-call.svg" title="get a callback from doctor" />*/}
 
                                             </span> : ""
                                         }
@@ -420,7 +423,7 @@ class ChatPanel extends React.Component {
                                                     <span></span>
                                                     <span></span>
                                                 </div>
-                                                <p className="ldng-text">Connecting to the agent...</p>
+                                                <p className="ldng-text">Connecting to the doctor...</p>
                                             </div>
                                             : ""
                                     }
@@ -453,7 +456,7 @@ class ChatPanel extends React.Component {
                 }
                 {
                     this.props.homePage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-                        <BannerCarousel {...this.props} /> : ''
+                        <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
                 }
             </div>
         );

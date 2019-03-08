@@ -25,6 +25,7 @@ class ProfileData extends React.Component {
 
     searchLab(coupon) {
         this.props.setCorporateCoupon(coupon)
+        this.props.clearExtraTests()
 
         let test_ids = []
         let network_id = ""
@@ -145,7 +146,7 @@ class ProfileData extends React.Component {
                                 <div className="box-img-cont"><img src="/assets/img/step-2.png" className="img-fluid" /></div>
                                 <div className="ofr-contnt">
                                     <p className="ofr-bkg">
-                                        Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight:'0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> on completion of their first order</p>
+                                        Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight: '0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> on completion of their first order</p>
                                     <div>
                                         <div className="mrt-20" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                             <p className="text-xs fw-500" style={{ color: 'rgb(247, 134, 49)', cursor: 'pointer' }}>Know more</p>
@@ -230,6 +231,16 @@ class ProfileData extends React.Component {
                                 </span>
                                 <div className="nav-content">
                                     <h4 className="title app-title">My Family</h4>
+                                </div>
+                            </a>
+                        </li>
+                        <li onClick={() => this.props.history.push(`/myratings`)} className="my-profile-item lst-spcng">
+                            <a>
+                                <span className="icon icon-md nav-icon">
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/review.png"} className="img-fluid" />
+                                </span>
+                                <div className="nav-content">
+                                    <h4 className="title app-title">My Reviews</h4>
                                 </div>
                             </a>
                         </li>

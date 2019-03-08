@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchArticle, getSpecialityFooterData } from '../../actions/index.js'
+import { fetchArticle, getSpecialityFooterData, postComment } from '../../actions/index.js'
 
 import ArticleView from '../../components/commons/article'
 
@@ -21,7 +21,7 @@ class Article extends React.Component {
                             resolve({ footerData: (footerData || null), articleData: data })
                         })()
                     } else {
-                        resolve(null)
+                        reject(null)
                     }
                 })(null)
             })
@@ -52,15 +52,20 @@ const mapStateToProps = (state, passedProps) => {
     if (staticContext && staticContext.data) {
         initialServerData = staticContext.data
     }
+    let {
+        profiles, defaultProfile
+    } = state.USER
     return {
-        initialServerData
+        initialServerData,
+        profiles, defaultProfile
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchArticle: (id, preview, cb) => dispatch(fetchArticle(id, preview, cb)),
-        getSpecialityFooterData: (cb) => dispatch(getSpecialityFooterData(cb))
+        getSpecialityFooterData: (cb) => dispatch(getSpecialityFooterData(cb)),
+        postComment: (comment, cb) => dispatch(postComment(comment, cb))
     }
 }
 
