@@ -146,7 +146,8 @@ class packagesList extends React.Component {
                                 <div className="col-12">
                                     {
                                         this.props.packagesList && this.props.packagesList.result ? this.props.packagesList.result.map((packages, i) => {
-                                            return <div key={i}>
+                                            console.log(packages)
+                                            return <div key={i} id={packages.lab.id}>
                                                 <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
                                             </div>
                                         })

@@ -152,6 +152,10 @@ class SearchPackagesView extends React.Component {
             url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&page=${page}&package_ids=${package_ids}`
         }
 
+        if (this.props.location.search.includes('scrollbyid')) {
+            url += `&scrollbyid=${filterCriteriaPackages.package_ids || ""}`
+        }
+
         return url
     }
 
