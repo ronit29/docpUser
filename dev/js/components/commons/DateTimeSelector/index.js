@@ -1,3 +1,3 @@
-import DateTimeSelector from './DateTimeSelector.js'
+import DateTimeSelector from './DateTimePicker.js'
 
 export default DateTimeSelector
