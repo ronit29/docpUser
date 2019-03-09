@@ -212,8 +212,8 @@ class SearchPackagesView extends React.Component {
                 <div id="map" style={{ display: 'none' }}></div>
                 <HelmetTags tagsData={{
                     canonicalUrl: `${CONFIG.API_BASE_URL}/full-body-checkup-health-packages`,
-                    title: 'Full Body Checkup - Book Health Checkup Packages & get 50% off - docprime',
-                    description: 'Book Full Body Checkup Packages and get 50% off. Health Checkup packages includes &#10003 60Plus Tests & &#10003 Free Home Sample Collection starting at Rs. 499.'
+                    title: `${this.props.packagesList.title || ''}`,
+                    description: `${this.props.packagesList.description || ''}`
                 }} noIndex={false} />                
                 <CriteriaSearch {...this.props} checkForLoad={LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} bottom_content={this.props.packagesList && this.props.packagesList.count>0 && this.props.packagesList.bottom_content && this.props.packagesList.bottom_content !=null && this.props.forOrganicSearch? this.props.packagesList.bottom_content:''} page={1}>
                     <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
