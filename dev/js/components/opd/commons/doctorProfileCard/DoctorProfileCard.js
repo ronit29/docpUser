@@ -130,8 +130,8 @@ class DoctorProfileCard extends React.Component {
                 <div className="dr-profile">
                     <h1 className="dr-name">{display_name}</h1>
                     {
-                        this.props.isSeoFriendly && this.props.recommendDocs?
-                            <p className="diff-suggestion">Looking for a different <span onClick={this.searchProceedOPD.bind(this, doc_name[0], '', '')}>{doc_name[0]}?</span></p>
+                        this.props.isSeoFriendly?
+                            <p className="diff-suggestion">Looking for a different <span onClick={this.searchProceedOPD.bind(this, doc_name[0], '', '')}>Dr. {doc_name[0]}?</span></p>
                         :''
                     }
                     <h2 className="desg">{this.getQualificationStr(general_specialization || '')}</h2>
