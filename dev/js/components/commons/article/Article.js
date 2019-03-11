@@ -12,8 +12,6 @@ import STORAGE from '../../../helpers/storage';
 import CommentBox from './ArticleCommentBox.js'
 import SnackBar from 'node-snackbar'
 import Reply from './Reply.js'
-import BannerCarousel from '../Home/bannerCarousel';
-
 
 // import RelatedArticles from './RelatedArticles'
 
@@ -230,10 +228,14 @@ class Article extends React.Component {
                                             } : ''
                                     }} />
 
+                                    {/* condition */}
+
+                                    {/* && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'medicine_detail_page').length */}
+
                                     {
-                                        this.props.match.path.split('-')[1] === 'mddp' && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'medicine_detail_page').length ?
+                                        this.props.match.path.split('-')[1] === 'mddp' ?
                                             <div>
-                                                <BannerCarousel {...this.props} sliderLocation="medicine_detail_page" />
+
                                             </div> : ''
                                     }
 
