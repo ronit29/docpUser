@@ -169,11 +169,11 @@ class SearchElasticView extends React.Component {
         GTM.sendEvent({ data: data })
     
         let selectedTestIds = []
-        this.props.dataState.selectedCriterias.map((x) => {
-            if (x.test_type) {
-                selectedTestIds.push(x.test_type)
-            }
-        })
+        // this.props.dataState.selectedCriterias.map((x) => {
+        //     if (x.test_type) {
+        //         selectedTestIds.push(x.test_type)
+        //     }
+        // })
         if (selectedTestIds.length && criteria.test_type) {
             if (selectedTestIds.indexOf(criteria.test_type) == -1) {
                 this.setState({ currentTestType: criteria, searchString: searchString })
