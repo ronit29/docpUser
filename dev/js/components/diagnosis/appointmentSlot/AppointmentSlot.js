@@ -58,7 +58,7 @@ class AppointmentSlot extends React.Component {
 
         this.props.getLabTimeSlots(selectedLab, this.state.pickupType, (data) => {
             let { time_slots, today_min, tomorrow_min, today_max, upcoming_slots } = data
-            this.setState({ timeSlots: time_slots, today_min: today_min || null, tomorrow_min: tomorrow_min || null, today_max: today_max || null, upcoming_slots: upcoming_slots || null })
+            this.setState({ timeSlots: time_slots.time_slots ||null, today_min: today_min || null, tomorrow_min: tomorrow_min || null, today_max: today_max || null, upcoming_slots: time_slots.upcoming_slots|| null})
         })
 
     }

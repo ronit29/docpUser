@@ -35,6 +35,7 @@ class DateTimePicker extends React.Component {
                 let upcoming_time = Object.keys(this.props.upcoming_slots)
                 if(this.props.timeSlots[upcoming_time[0]]){
                     getUpcomingDate = true
+                    this.setState({selectedDateSpan: new Date(upcoming_time[0])})
                     this.generateDays(true, new Date(upcoming_time[0]))
                 }
             }
