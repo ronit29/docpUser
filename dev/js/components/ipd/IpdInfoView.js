@@ -152,8 +152,8 @@ class IpdInfo extends React.Component {
 						                </div>
 						            </div>
 
-						            <IpdProcedurePop />
-						            
+						            {/*<IpdProcedurePop />*/}
+						           
 				                </div>
 				                :<Loader/>
 	                    	}

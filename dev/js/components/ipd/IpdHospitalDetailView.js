@@ -89,7 +89,7 @@ class HospitalDetailView extends React.Component {
 		                    			<HospitalAboutUs hospital_data={this.props.ipd_hospital_detail}/>
 		                    			:''	
 		                    		}
-		                    		
+		                    		<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" className="btn-search">Get Estimated Cost</a></div>
 		                    	</div>
 		                    	:<Loader/>	
 	                    	}

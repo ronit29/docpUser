@@ -7743,6 +7743,8 @@ a.btn-search.btn-cnte{
 @media screen and (max-width: 767px){
 	 .ipd-section{
     	padding:0 15px;
+    }
+    .ipd-section .full-widget.mrg-b0{
     	margin-top: -10px;
     }
     .ipd-section .section-heading{
