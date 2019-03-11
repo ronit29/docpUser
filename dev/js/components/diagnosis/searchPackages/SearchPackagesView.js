@@ -214,11 +214,8 @@ class SearchPackagesView extends React.Component {
             let scrollby_lab_id = parseInt(parsed.scrollbylabid)
             let url_id= `scrollById_${scrollby_test_id}_${scrollby_lab_id}`
             if (document.getElementById(url_id)) {
-                var elementTop = document.getElementById(url_id).getBoundingClientRect().top;
-                var elementHeight = document.getElementById(url_id).clientHeight;
-                var scrollPosition = elementTop - elementHeight;
-                window.scrollTo(0, parseInt(scrollPosition))
-                self.setState({isScroll:false})
+               window.scrollTo(0, document.getElementById(url_id).offsetTop+250)
+               self.setState({isScroll:false})
             }
         }
         return (
