@@ -6868,12 +6868,11 @@ button.padding-btn-adjust{
 }
 .ipd-section .nav-top-head{
 	border: 0;
-}
-.ipd-section .nav-top-head ul{
 	display: flex;
     align-items: center;
     justify-content: space-around;
 }
+
 
 .ipd-section .nav-tabs.nav-top-head a {
     padding: 5px 0 10px;
@@ -7128,12 +7127,12 @@ button.padding-btn-adjust{
 .ipd-section .hs-nme{
     text-align: center;
 }
-.ipd-section .hs-nme img{
+.ipd-section .hs-nme{
     background: #fff;
     border-radius: 5px;
     margin-top: -42px;
     padding: 8px 12px;
-    width: 120px;
+    width: 200px;
     box-shadow: 0px 3px 6px 0 rgba(0, 0, 0, 0.12);
     position: absolute;
     left: 0;
@@ -7141,7 +7140,7 @@ button.padding-btn-adjust{
     margin: -42px auto 0;
 }
 .ipd-section .hs-nme.hsptName{
-	margin-bottom: 40px;
+	margin-bottom: 10px;
 }
 .ipd-section .hsptl-info{
     display: flex;
@@ -7169,6 +7168,7 @@ button.padding-btn-adjust{
 .ipd-section .hsptl-img span{
     display: inline-block;
     padding-right: 10px;
+    text-align: center;
 }
 .ipd-section .hsptl-img span img{
     height: 54px;
@@ -7705,6 +7705,19 @@ a.btn-search.btn-cnte{
 	list-style-type: disc;
 	padding: 5px 0;
 }
+.procedure-info{
+	background-color: #fff;
+	padding:15px;
+}
+.opd-timing span b{
+	font-size: 15px;
+	display: inline-block;
+    margin-top: -2px;
+}
+.hosNme{
+	margin-bottom: 30px;
+	display: block;
+}
 
 @media screen and (max-width: 991px){
 	.ipd-section .full-widget{
@@ -7813,6 +7826,9 @@ a.btn-search.btn-cnte{
 	.ipd-section .read-more-btn{
 		right: -78%;
 	}
+	.hsptl-img span:first-child{
+		display: none;
+	}
 }
 @media screen and (max-width: 350px){
 	 .ipd-section .med-help li{
@@ -7851,6 +7867,9 @@ a.btn-search.btn-cnte{
     .ipd-section .error-msg.gender-error-msg{
     	bottom: 10px;
     }
+    .hsptl-img span:first-child,.hsptl-img span:nth-child(2){
+		display: none;
+	}
    
 }
 /* ============ time slot new card ============ */

@@ -2,13 +2,15 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { getIpdInfo, submitIPDForm, getUserProfile } from '../../actions/index.js'
 import IPDFormView from '../../components/ipd/IPDFormView.js'
+import STORAGE from '../../helpers/storage';
+
 class IPDForm extends React.Component{
 
 	componentDidMount(){
 		if(window){
 			window.scrollTo(0,0)
 		}
-		if(!this.props.defaultProfile){
+		if(!this.props.defaultProfile && STORAGE.checkAuth()){
 			this.props.getUserProfile()
 		}
 		if(this.props.match.params.id){

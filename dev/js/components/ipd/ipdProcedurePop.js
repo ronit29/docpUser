@@ -5,9 +5,9 @@ class IpdProcedurePop extends React.Component{
 		return(
 
 			<div>
+			<h4 className="section-heading"><img src="https://cdn.docprime.com/cp/assets/img/icons/back-arrow.png" class="img-fluid" style={{ width: '20px',marginRight: '10px', verticalAlign: '-3px' }} /> About Myomectomy</h4>
                     <div className="procedure-info">
-                       <h4 className="section-heading"><img src="https://cdn.docprime.com/cp/assets/img/icons/back-arrow.png" class="img-fluid" style={{ width: '20px',marginRight: '10px', verticalAlign: '-3px' }} /> About Myomectomy</h4>
-					   <p>Myomectomy is a surgical procedure performed to remove fibroids from the uterus. 
+                       <p>Myomectomy is a surgical procedure performed to remove fibroids from the uterus. 
 						  Uterine fibroids are non-cancerous growth that can cause certain symptoms and hamper daily activities 
 						  if they are large in size, many in number of deeply entrenched in the uterus.
 						  Through myomectomy, only the fibroids are removed from the uterus and not the entire uterus as
@@ -29,6 +29,20 @@ class IpdProcedurePop extends React.Component{
 						<div className="section-heading">During Procedure </div>
 						<p>Myomectomy as a surgical procedure can be carried out in three different ways depending on the size and the number of fibroids. It generally takes an hour or two for the completion of the operation. </p>
 						<div className="section-heading">Laparoscopic Myomectomy </div>
+						<p>Laparoscopic Myomectomy is another type of surgical procedure that takes place under general anaesthesia with the surgeon making around four small incisions to insert a laparoscope into the abdomen. The laparoscope is a small tube with the camera that helps the surgeon to see where the stones are placed. The surgeon makes other two to three incisions in the abdominal wall to insert instruments to take out the fibroids from the uterus.</p>
+						<p>Robotic Myomectomy surgery is also similar to Laparoscope Myomectomy where small incisions are made, however, in this instance, the movements of the instruments are controlled through a separate console.</p>
+						<div className="section-heading">Hysteroscopic Myomectomy </div>
+						<p>If the fibroids become too large and start bulging into the uterine cavity, then the surgeon may suggest a hysteroscopic myomectomy. This surgical procedure involves removal of the fibroids by inserting instruments through the cervix and vagina into the uterus. After cutting through the tissues via laser beam, a sterile salt solution is entered into the uterus to expand the cavity in order to examine the uterine walls.</p>
+						<p>The surgeon then uses the resectoscope to shred pieces of the fibroid till it sticks to the surface of the uterine cavity. The clear liquid inserted earlier helps in washing out the shaved fibroid tissues. </p>
+						<div className="section-heading">Laparotomy or Abdominal Myomectomy </div>
+						<p>Abdominal Myomectomy is the procedure where fibroids are removed from the uterus under general anesthesia through vertical or horizontal incisions made on the lower abdomen. </p>
+						<div className="section-heading">Post Procedure </div>
+						<p>Immediately, after the procedure, pain pump infuser is attached to the catheter to minimize the need for postoperative opioids. Oral hydrocodone or oxycodone are further given to control the residual pain. Many doctors also prescribe nonsteroidal anti-inflammatory drugs too. Most of the women are discharged within two days of surgery and the pain pump is also removed by day 5. Women experience instant results as they get relief from excessive menstrual bleeding and pain. </p>
+						<div className="section-heading">Risks and Complications  </div>
+						<p>Myomectomy is quite a safe surgery and complications and risks are extremely rare. In some instances, excessive loss of blood or the presence of certain abnormalities may prompt the surgeon to take the decision of removing the uterus. Although rare, but sometimes, a cancerous tumor may be misunderstood for a fibroid. In such an instance, if the tumor is removed through small incisions, then the tumor broken into little pieces may spread the cancer in the body.</p>
+
+
+                        
                     </div>
             </div>
 		)
