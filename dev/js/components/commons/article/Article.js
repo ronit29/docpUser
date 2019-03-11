@@ -12,6 +12,7 @@ import STORAGE from '../../../helpers/storage';
 import CommentBox from './ArticleCommentBox.js'
 import SnackBar from 'node-snackbar'
 import Reply from './Reply.js'
+import BannerCarousel from '../Home/bannerCarousel';
 
 // import RelatedArticles from './RelatedArticles'
 
@@ -228,19 +229,9 @@ class Article extends React.Component {
                                             } : ''
                                     }} />
 
-                                    {/* condition */}
-
-                                    {/* && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'medicine_detail_page').length */}
-
                                     {
-                                        this.props.match.path.split('-')[1] === 'mddp' ?
-                                            <div>
-                                                <div className="medic-img-slider">
-                                                    <img src={ASSETS_BASE_URL + "/img/Artboard-1.png"} />
-                                                    <img src={ASSETS_BASE_URL + "/img/Artboard-2.png"} />
-                                                    <img src={ASSETS_BASE_URL + "/img/Artboard-1.png"} />
-                                                </div>
-                                            </div> : ''
+                                        this.props.match.path.split('-')[1] === 'mddp' && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'medicine_detail_page').length ?
+                                            <BannerCarousel {...this.props} sliderLocation="medicine_detail_page" /> : ''
                                     }
 
                                     <ul className="mrb-10 breadcrumb-list" style={{ wordBreak: 'break-word' }}>
