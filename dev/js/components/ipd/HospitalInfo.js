@@ -1,9 +1,19 @@
 import React from 'react'
+import Lightbox from '../../helpers/lightbox';
 
 class HospitalInfoView extends React.Component{
 
+  constructor(props){
+    super(props)
+    this.state = {
+      photoIndex: 0,
+      isOpen: false,
+    }
+  }
+
 	render(){
 		let { hospital_data } = this.props
+    let { photoIndex, isOpen } = this.state
 		return(
 			<div className="hs-card">  
               {
@@ -54,13 +64,31 @@ class HospitalInfoView extends React.Component{
                       <div className="hsptl-title hs-tle hsptl-photo">Photo</div>
                       <div className="hsptl-img">
                         {
-                          hospital_data.images.map((image, i)=> {
-                            return <span key={i}><img src={image.original} alt="" /></span>
+                          hospital_data.images.slice(0,4).map((image, i)=> {
+                            return <span key={i}><img style = {{cursor: 'pointer'}} src={image.original} alt="" onClick={() => this.setState({ isOpen: true, photoIndex: i })}/></span>
                           })
                         }
+                        {isOpen && (
+                            <Lightbox
+                                mainSrc={hospital_data.images[photoIndex].original}
+                                nextSrc={hospital_data.images[(photoIndex + 1) % hospital_data.images.length].original}
+                                prevSrc={hospital_data.images[(photoIndex + hospital_data.images.length - 1) % hospital_data.images.length].original}
+                                onCloseRequest={() => this.setState({ isOpen: false })}
+                                onMovePrevRequest={() =>
+                                    this.setState({
+                                        photoIndex: (photoIndex + hospital_data.images.length - 1) % hospital_data.images.length,
+                                    })
+                                }
+                                onMoveNextRequest={() =>
+                                    this.setState({
+                                        photoIndex: (photoIndex + 1) % hospital_data.images.length,
+                                    })
+                                }
+                            />
+                        )}
                         {
-                          hospital_data.images.length>5?
-                          <span className="btn-more-img">+25<br /> more</span>
+                          hospital_data.images.length>4?
+                          <span className="btn-more-img" onClick={() => this.setState({ isOpen: true, photoIndex: 4 })}>{hospital_data.images.length - 4}<br /> more</span>
                           :''  
                         }
                         
@@ -74,7 +102,11 @@ class HospitalInfoView extends React.Component{
                     <li className="li-address">
                       <div className="hsptl-title hs-tle">Address:</div>
                       <div className="hsptl-title hsptl-add">{hospital_data.address}</div>
-                      <div className="hsptl-title"><img src={ASSETS_BASE_URL + "/images/white-map.png"} alt="" className="img-fluid img-map" /></div>
+                      <div className="hsptl-title">
+                        <a href={`https://www.google.com/maps/search/?api=1&query=${hospital_data.lat},${hospital_data.long}`} target="_blank">
+                          <img src={ASSETS_BASE_URL + "/images/white-map.png"} alt="" className="img-fluid img-map" />
+                        </a>
+                      </div>
                       
                     </li>
                     :''  
@@ -84,7 +116,10 @@ class HospitalInfoView extends React.Component{
                     <li>
                       <div className="hsptl-title hsptl-cntc hs-tle">Contact</div>
                       <div className="hsptl-title hsptl-add"> {hospital_data.contact_number}</div>
-                      <div className="hsptl-title"><img src={ASSETS_BASE_URL + "/images/call-round.png"} alt="" className="img-fluid img-map" style={{width: '20px'}} /></div>
+                      <div className="hsptl-title"> 
+                        <a href={`tel:${hospital_data.contact_number}`} className="dpp-btn-book d-lg-none d-flex"><img src={ASSETS_BASE_URL + "/images/call-round.png"} alt="" className="img-fluid img-map" style={{width: '20px'}} />
+                        </a>
+                      </div>
                     </li>
                     :''  
                   }

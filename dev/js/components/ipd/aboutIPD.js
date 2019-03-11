@@ -33,7 +33,7 @@ class IPDAboutUs extends React.Component {
                 		ipd_info.about.features.map((ipd, i) =>{
                 			return <li key={i} className="widget pat-info">
 				                      <img src={ipd.icon} alt="" className="img-list" />
-				                      <div>{ipd.name}  <span>{ipd.value}</span></div>
+				                      <div>{`${ipd.name}:`}  <span>{ipd.value}</span></div>
 				                   </li>
                 		})
                 		:''

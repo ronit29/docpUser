@@ -22,19 +22,10 @@ class IpdInfo extends React.Component {
 		if(window){
 			window.scrollTo(0,0)
 		}
-		/*if(this.refs.ipd_info){
-
-			this.refs.ipd_info.addEventListener("scroll", ()=>{
-				if(document.getElementById('aboutTab')){
-					this.setState({toggleTabType: 'aboutTab'})
-				}
-			})	
-		}*/
 		
 	}
 
 	toggleTabs(type){
-		//this.setState({toggleTabType: type})
 		if(document.getElementById(type)){
 			var elmnt = document.getElementById(type)
 			elmnt.scrollIntoView()
@@ -47,8 +38,6 @@ class IpdInfo extends React.Component {
 			nextSelectedCriterias: this.props.commonSelectedCriterias
 		})
 		this.props.history.push(`/ipd/searchHospitals`)
-
-		//this.props.history.push(`/ipd/${this.props.match.params.id}/hospitals`)	
 	}
 
 	viewDoctorsClicked(){
@@ -105,10 +94,19 @@ class IpdInfo extends React.Component {
 					                   	
 							            <div id="hospitalTab" className="tab-pane fade" >
 							            	<HospitalList {...this.props} hospitalList = {this.props.ipd_info && this.props.ipd_info.hospitals?this.props.ipd_info.hospitals:[]}/>
-							   				 <a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewHospitalsClicked.bind(this)}>View all Hospitals</a>
+							            	{
+							            		this.props.ipd_info && this.props.ipd_info.hospitals && this.props.ipd_info.hospitals.result && this.props.ipd_info.hospitals.result.length>3?
+									   				<a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewHospitalsClicked.bind(this)}>View all Hospitals</a>
+									   				:''
+							            	}
 										</div>
 
 										<div id="doctorTab" className="tab-pane fade">
+											{
+												this.props.ipd_info &&  this.props.ipd_info.about && this.props.ipd_info.about.name?
+												<h4 className="section-heading">{`Top Doctors for ${this.props.ipd_info.about.name} `}</h4>
+												:''	
+											}
 						                    {
 						                    	this.props.ipd_info && this.props.ipd_info.doctors?
 							                    this.props.ipd_info.doctors.result.map((doctorCard, i) => {
@@ -116,7 +114,12 @@ class IpdInfo extends React.Component {
 							                    })	
 							                    :''
 						                    }
-						                    <a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewDoctorsClicked.bind(this)}>View all Doctors</a>
+						                    {
+						                    	this.props.ipd_info && this.props.ipd_info.doctors && this.props.ipd_info.doctors.result && this.props.ipd_info.doctors.result.length>3?
+						                    	<a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewDoctorsClicked.bind(this)}>View all Doctors</a>
+						                    	:''	
+						                    }
+						                    
 						                    
 						                </div>
 						            </div>

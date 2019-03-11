@@ -16,9 +16,15 @@ class HospitalListView extends React.Component {
    	}
 
 	render(){
-		let { hospitalList } = this.props
+		let { hospitalList, ipd_info } = this.props
 		return(
 			<div>
+				{
+					ipd_info && ipd_info.about && ipd_info.about.name?
+					<h4 className="section-heading">{`Top Hospitals for ${ipd_info.about.name} `}</h4>
+					:''	
+				}
+				
 				{
 					hospitalList && hospitalList.result?
 					hospitalList.result.map((hospital, i) => {
