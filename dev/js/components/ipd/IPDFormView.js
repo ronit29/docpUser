@@ -112,9 +112,9 @@ class IPDFormView extends React.Component{
 	                    	this.props.IPD_INFO_LOADED?
 			                <div className="col-12 col-md-7 col-lg-7 center-column">
 		                    	<div className ="ipd-section">
-		                    		<h4 className="section-heading pt-0">Please provide your below details, Our Medical Expert will call you for the further process</h4>
+		                    		<h4 className="section-heading pt-0">{`Get Cost Estimate of ${ipd_info.about.name}`}</h4>
 					                  <div className="info-popup">
-					                     <div className="pop-head">{ipd_info.about.name}</div>
+					                     {/*<div className="pop-head">{ipd_info.about.name}</div>*/}
 					                     <div className="form-group fm-grp mt-0">
 					                        <div className="lbl-txt">Name:</div>
 					                        <div className="input-form"><input type="text" autoComplete="off" className={`form-control ${this.state.validateError.indexOf('name')>-1?'error-on':''}`}  name = "name" value={this.state.name} onChange={this.inputHandler.bind(this)}/></div>

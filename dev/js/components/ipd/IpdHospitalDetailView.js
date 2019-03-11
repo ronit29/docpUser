@@ -16,6 +16,14 @@ import HospitalGallery from './HospitalGallery.js'
 import HospitalAboutUs from './HospitalAboutUs.js'
 class HospitalDetailView extends React.Component {
 
+	getCostEstimateClicked(hospitalId){
+		if(this.props.commonSelectedCriterias.length){
+			let ipd_id = this.props.commonSelectedCriterias[0].id
+			this.props.history.push(`/ipd/${ipd_id}/${this.props.match.params.hospitalId}/getPriceEstimate`)		
+		}
+      
+   	}
+
 	render(){
 
 		return(
@@ -89,7 +97,7 @@ class HospitalDetailView extends React.Component {
 		                    			<HospitalAboutUs hospital_data={this.props.ipd_hospital_detail}/>
 		                    			:''	
 		                    		}
-		                    		<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" className="btn-search">Get Estimated Cost</a></div>
+		                    		<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Estimated Cost</a></div>
 		                    	</div>
 		                    	:<Loader/>	
 	                    	}

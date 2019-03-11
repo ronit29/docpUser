@@ -24,7 +24,7 @@ class IPDAboutUs extends React.Component {
 		
 		return(
              <div className="tab-pane fade show active" id="nav-overview">
-                <h4 className="section-heading top-sc-head"> <span className="about-head"> {ipd_info.about.name} </span>
+                <h4 className="section-heading top-sc-head"> <span className="about-head"> {`About ${ipd_info.about.name}`} </span>
                    {/*<img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" alt="" className="info-img" />*/}
                 </h4>
                 <ul>

@@ -53,7 +53,11 @@ class HospitalInfoView extends React.Component{
                   hospital_data.opd_timings?
                   <div className="opd-timing">
                     <span><b>OPD Timing:</b> {hospital_data.opd_timings} </span>
-                    {/*<span className="opd-status"> Open Today</span>*/}
+                    {
+                      hospital_data.open_today?
+                      <span className="opd-status"> Open Today</span>
+                      :''
+                    }
                   </div>
                   :''  
                 }
@@ -90,7 +94,7 @@ class HospitalInfoView extends React.Component{
                         )}
                         {
                           hospital_data.images.length>4?
-                          <span className="btn-more-img" onClick={() => this.setState({ isOpen: true, photoIndex: 4 })}>{hospital_data.images.length - 4}<br /> more</span>
+                          <span className="btn-more-img" onClick={() => this.setState({ isOpen: true, photoIndex: 4 })}>{`+${hospital_data.images.length - 4}`}<br /> more</span>
                           :''  
                         }
                         
