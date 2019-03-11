@@ -147,7 +147,7 @@ class SearchPackagesView extends React.Component {
         let page=1
         
         let url
-        const parsed = queryString.parsed(this.props.location.search)
+        const parsed = queryString.parse(this.props.location.search)
         if(this.props.forTaxSaver){
             let package_category_id = parsed.package_category_ids
             url = `${window.location.pathname}?lat=${lat}&long=${long}&package_category_ids=${package_category_id}`
