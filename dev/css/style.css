@@ -6938,3 +6938,101 @@ flex-shrink: 0;
 .mrb-60{
 	margin-bottom: 60px;
 }
+/* ==================== custom new doctor card ==================== */
+.cstm-docCard {
+    background: #fff;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,.12);
+}
+.cstm-docCard-content {
+    padding: 10px;
+}
+p.cstm-card-loc-set {
+    color: #b7b7b7;
+    font-weight: 500;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+p.cstm-card-loc-set span {
+    max-width: 95px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+.cstm-doc-details-container {
+	display: flex;
+	margin-right: 5px;
+}
+.cstm-doc-img-container {
+    margin-right: 8px;
+}
+.cstm-doc-img-container img{
+	width: 52px;
+}
+.cstm-varify{
+	background: #55a740;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+    margin: 5px 0;
+    font-size: 11px;
+    padding: 2px 0px;
+}
+.cstm-doc-rtng{
+	text-align: center;
+    color: #f78631;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+img.img-cstm-docrating {
+    width: 12px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-left: 2px;
+    margin-top: -2px;
+}
+.cstm-doc-content-container{
+
+}
+.cstm-doc-content-container h4{
+	font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.cstm-doc-content-container p{
+    color: #757575;
+    font-weight: 500;
+    font-size: 12px;
+    margin-bottom: 3px;
+}
+p.cstm-doc-price {
+    color: #757575;
+    font-size: 12px;
+    text-align: right;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+p.cst-doc-price {
+	text-align: right;
+    font-weight: 500;
+    color: #f78631;
+    font-size: 16px;
+}
+span.cstm-doc-cut-price {
+    color: #989898;
+    text-decoration: line-through;
+}
+button.cstm-book-btn {
+    background-image: linear-gradient(to left, #f78631, #ff6d00);
+    width: 100%;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    margin-top: 5px;
+}
+/* ==================== custom new doctor card ==================== */
