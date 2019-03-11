@@ -6818,8 +6818,11 @@ button.padding-btn-adjust{
 .ipd-section .section-heading{
     font-size: 16px;
     font-weight: 500;
-    padding: 20px 0;
+    padding: 10px 0;
     color: #000;
+}
+.ipd-section .hospital-info .section-heading{
+	font-size: 15px;
 }
 .ipd-section .section-heading.secHead{
     padding-top: 0;
@@ -6848,6 +6851,7 @@ button.padding-btn-adjust{
     vertical-align: middle;
     display: inline-block;
     font-weight: 400;
+    width: calc(100% - 42px);
 }
 .ipd-section .pat-info div span{
     font-weight: 600;
@@ -6856,7 +6860,7 @@ button.padding-btn-adjust{
     background: #fff;
     margin-right: -15px;
     margin-left: -15px;
-    padding: 15px 15px 0;
+    padding: 10px 15px 0;
     margin-bottom: 15px;
     position: sticky;
     top: 107px;
@@ -6872,7 +6876,7 @@ button.padding-btn-adjust{
 }
 
 .ipd-section .nav-tabs.nav-top-head a {
-    padding: 5px 0 15px;
+    padding: 5px 0 10px;
     font-size: 16px;
     font-weight: 500;
     border: 0;
@@ -6888,7 +6892,7 @@ button.padding-btn-adjust{
 	border-right: 1px solid rgba(0,0,0,0.12);
 	position: absolute;
     right: 0;
-    height: 32px;
+    height: 25px;
 }
 .ipd-section .nav-tabs.nav-top-head a:last-child:after{
 	content: none;
@@ -6919,7 +6923,7 @@ button.padding-btn-adjust{
     margin-top: -2px;
 }
 .ipd-section .hospital-info{
-    padding-top: 20px;
+    padding-top: 15px;
     display: flex;
     justify-content: space-between;
 }
@@ -6996,7 +7000,7 @@ button.padding-btn-adjust{
     margin: 0 -15px;
 }
 .ipd-section .img-hospital{
-        width: 100px;
+        width: 120px;
     }
  .ipd-edit.ic-edit{
     width: 12px;
@@ -7131,6 +7135,13 @@ button.padding-btn-adjust{
     padding: 8px 12px;
     width: 120px;
     box-shadow: 0px 3px 6px 0 rgba(0, 0, 0, 0.12);
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: -42px auto 0;
+}
+.ipd-section .hs-nme.hsptName{
+	margin-bottom: 40px;
 }
 .ipd-section .hsptl-info{
     display: flex;
@@ -7436,7 +7447,10 @@ button.padding-btn-adjust{
     width: 93%;
 }
 .ipd-section .read-more-btn{
-	margin-left: 5px;
+	position: relative;
+	right: -85%;
+	top: -38px;
+
 }
 .ipd-section .range-slider-ul{
 	margin-bottom: 60px;
@@ -7668,8 +7682,29 @@ a.btn-search.btn-cnte{
 .ipd-section .fltr-bkng-btn{
 	border:1px solid #f78631;
 }
-
-
+.ipd-section  .banner{
+	position: relative;
+}
+.total-img{
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+}
+.total-img a{
+	color: #fff !important;
+}
+.procedure-pop p{
+	font-size: 14px;
+	font-weight: 400;
+}
+.procedure-info ul {
+	padding-top: 10px;
+	padding-left: 15px;
+}
+.procedure-info ul li{
+	list-style-type: disc;
+	padding: 5px 0;
+}
 
 @media screen and (max-width: 991px){
 	.ipd-section .full-widget{
@@ -7682,14 +7717,18 @@ a.btn-search.btn-cnte{
 	.ipd-carousel ul li{
 		width: 60%;
 	}
+	.ipd-section .read-more-btn{
+		right: -80%;
+	}
 }
 
 @media screen and (max-width: 767px){
 	 .ipd-section{
     	padding:0 15px;
+    	margin-top: -10px;
     }
     .ipd-section .section-heading{
-    	padding: 15px 0;
+    	padding: 10px 0;
     }
     .ipd-section .section-heading.top-sc-head{
     	padding-top: 5px;
@@ -7703,6 +7742,9 @@ a.btn-search.btn-cnte{
     .ipd-carousel .secHeading {
        padding: 15px 0 7px;
     }
+    .ipd-section .read-more-btn{
+		right: -83%;
+	}
 }
 @media screen and (max-width: 576px){
 	.btn-search-div.btn-apply-div.btn-sbmt {
@@ -7765,6 +7807,12 @@ a.btn-search.btn-cnte{
 	.free-qstn-btn a.btn-search{
 		font-size: 14px;
 	}
+	.ipd-section .section-heading.top-sc-head{
+		padding-top: 10px;
+	}
+	.ipd-section .read-more-btn{
+		right: -78%;
+	}
 }
 @media screen and (max-width: 350px){
 	 .ipd-section .med-help li{
@@ -7774,6 +7822,10 @@ a.btn-search.btn-cnte{
     .ipd-section .custom-popup.thanks-popup{
     	transform: translateY(-27%);
     }
+
+    .ipd-section .read-more-btn{
+		right: -75%;
+	}
 }
 @media screen and (max-width: 320px){
 	.ipd-section .dis-flx{

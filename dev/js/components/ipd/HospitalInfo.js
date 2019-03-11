@@ -9,7 +9,8 @@ class HospitalInfoView extends React.Component{
               {
                 hospital_data.images && hospital_data.images.length?
                 <div className="banner">
-                  <img src={hospital_data.images[0].original} className="img-fluid" alt="" />  
+                  <img src={hospital_data.images[0].original} className="img-fluid" alt="" />
+                  <div className="total-img"><a href="javascript:void(0);"><img src={ASSETS_BASE_URL+"/images/camera.png"} alt="" className="" /> 54</a></div>  
                 </div>
                 :''
               }  
@@ -17,7 +18,7 @@ class HospitalInfoView extends React.Component{
               <div className="hospital-details">
                 {
                   hospital_data.logo?
-                  <div className="hs-nme">
+                  <div className="hs-nme hsptName">
                      <img src={hospital_data.logo} alt="" className="" />  
                   </div> 
                   :'' 

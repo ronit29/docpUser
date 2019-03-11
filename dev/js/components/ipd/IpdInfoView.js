@@ -8,6 +8,7 @@ import DoctorResultCard from '../opd/commons/doctorResultCard'
 import Loader from '../commons/Loader'
 import Footer from '../commons/Home/footer'
 import Scrollspy from 'react-scrollspy'
+import IpdProcedurePop from './ipdProcedurePop.js'
 
 class IpdInfo extends React.Component {
 
@@ -121,6 +122,7 @@ class IpdInfo extends React.Component {
 						                </div>
 						            </div>
 
+						            <IpdProcedurePop />
 						            
 				                </div>
 				                :<Loader/>
