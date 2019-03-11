@@ -147,21 +147,19 @@ class SearchPackagesView extends React.Component {
         let page=1
         
         let url
-
+        const parsed = queryString.parsed(this.props.location.search)
         if(this.props.forTaxSaver){
-            url = `${window.location.pathname}?lat=${lat}&long=${long}&package_category_ids=5025`
-        } else{
+            let package_category_id = parsed.package_category_ids
+            url = `${window.location.pathname}?lat=${lat}&long=${long}&package_category_ids=${package_category_id}`
+        }else{
             url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&page=${page}&package_ids=${package_ids}`
         }
 
-        if (this.props.location.search.includes('scrollbyid')) {
-            var url_string = this.props.location.search
-            var staticUrl = new URL(url_string);
-            let scrollby_test_id = staticUrl.searchParams.get("scrollbyid")
-            let scrollby_lab_id = staticUrl.searchParams.get("scrollbylabid")
-            url += `&scrollbyid=${scrollby_test_id || "1234"}&scrollbylabid=${scrollby_lab_id || "5678"}`
+        if (parsed.scrollbyid) {
+            let scrollby_test_id = parseInt(parsed.scrollbyid)
+            let scrollby_lab_id = parseInt(parsed.scrollbylabid)
+            url += `&scrollbyid=${scrollby_test_id || ""}&scrollbylabid=${scrollby_lab_id || ""}`
         }
-
         return url
     }
 
@@ -223,7 +221,6 @@ class SearchPackagesView extends React.Component {
                 self.setState({isScroll:false})
             }
         }
-        console.log(this.state.isScroll)
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>

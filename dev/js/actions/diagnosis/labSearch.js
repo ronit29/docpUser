@@ -2,6 +2,7 @@ import { SET_FETCH_RESULTS_LAB, SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELE
 import { API_GET, API_POST } from '../../api/api.js';
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 import GTM from '../../helpers/gtm.js'
+const queryString = require('query-string');
 
 export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl = false, cb) => (dispatch) => {
 
@@ -298,11 +299,13 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	let url_string
 	let new_url
 	let forTaxSaver = false
+	let parsed
 
 	if (typeof window == "object") {
 		url_string = window.location.href
 		new_url = new URL(url_string)
 		forTaxSaver = window.location.pathname.includes("tax-saver-health-packages")
+		parsed = queryString.parse(window.location.search)
 	}
 
 	if (selectedLocation) {
@@ -327,7 +330,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	let package_type = filterCriteriaPackages.packageType || ""
 	let test_ids = filterCriteriaPackages.test_ids || ""
 	let package_ids = filterCriteriaPackages.package_ids || ""
-
+	let package_category_id
 	let url = `/api/v1/diagnostic/packagelist?`
 
 	if (searchByUrl) {
@@ -335,7 +338,8 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	}
 
 	if (forTaxSaver) {
-		url += `long=${long || ""}&lat=${lat || ""}&package_category_ids=5025`
+		package_category_id = parsed.package_category_ids
+		url += `long=${long || ""}&lat=${lat || ""}&package_category_ids=${package_category_id}`
 	}
 
 	if (!forTaxSaver) {
