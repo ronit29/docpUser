@@ -235,7 +235,11 @@ class Article extends React.Component {
                                     {
                                         this.props.match.path.split('-')[1] === 'mddp' ?
                                             <div>
-
+                                                <div className="medic-img-slider">
+                                                    <img src={ASSETS_BASE_URL + "/img/Artboard-1.png"} />
+                                                    <img src={ASSETS_BASE_URL + "/img/Artboard-2.png"} />
+                                                    <img src={ASSETS_BASE_URL + "/img/Artboard-1.png"} />
+                                                </div>
                                             </div> : ''
                                     }
 
