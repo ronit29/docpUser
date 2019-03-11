@@ -7684,6 +7684,11 @@ a.btn-search.btn-cnte{
 }
 .ipd-section  .banner{
 	position: relative;
+	height: 200px;
+	background-position: center;
+	background-size: cover;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
 }
 .total-img{
 	position: absolute;
@@ -7828,6 +7833,9 @@ a.btn-search.btn-cnte{
 	}
 	.hsptl-img span:first-child{
 		display: none;
+	}
+	.ipd-section .hs-nme{
+		width: 170px;
 	}
 }
 @media screen and (max-width: 350px){

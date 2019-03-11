@@ -58,11 +58,11 @@ class IpdInfo extends React.Component {
 			
 			let headerHeight = 0
 			if(document.getElementsByClassName('stickyBar') && document.getElementsByClassName('stickyBar')[0]){
-				headerHeight = document.getElementsByClassName('stickyBar')[0].offsetTop - 100
+				headerHeight = document.getElementById(type).offsetTop - 50 //document.getElementsByClassName('stickyBar')[0].offsetTop + 100
 			}
 			this.setState({toggleTabType: type})
-			elmnt.scrollIntoView(true)
-			elmnt.scrollTop+=headerHeight
+			//elmnt.scrollIntoView(true)
+			window.scrollTo(0,headerHeight)
 
 		}
 	}

@@ -18,8 +18,7 @@ class HospitalInfoView extends React.Component{
 			<div className="hs-card">  
               {
                 hospital_data.images && hospital_data.images.length?
-                <div className="banner">
-                  <img src={hospital_data.images[0].original} className="img-fluid" alt="" />
+                <div className="banner" style={{backgroundImage : `url(${hospital_data.images[0].original})` }}>
                   <div className="total-img"><a href="javascript:void(0);"><img src={ASSETS_BASE_URL+"/images/camera.png"} alt="" className="" /> 54</a></div>  
                 </div>
                 :''
