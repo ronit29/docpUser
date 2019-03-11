@@ -30,7 +30,17 @@ class DateTimePicker extends React.Component {
             
             this.generateDays(true, this.props.selectedSlot.date)
         } else {
-        	this.generateDays()
+            let getUpcomingDate= false
+            if(this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length){
+                let upcoming_time = Object.keys(this.props.upcoming_slots)
+                if(this.props.timeSlots[upcoming_time[0]]){
+                    getUpcomingDate = true
+                    this.generateDays(true, new Date(upcoming_time[0]))
+                }
+            }
+            if(!getUpcomingDate){
+                this.generateDays()   
+            }
         }
 
     }

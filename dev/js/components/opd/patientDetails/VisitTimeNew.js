@@ -63,57 +63,6 @@ class VisitTimeNew extends React.Component {
 
         }while((sameDayTimeAvailable || currentTimeSlotDay != today) && availableTimeSlots.length==0)
 
-
-        //Check if any timeslot available in current day
-      /*  if(this.props.timeSlots && this.props.timeSlots[today] && this.props.timeSlots[today].length){
-
-            this.props.timeSlots[today].map((time)=>{
-
-                time.timing.map((timeSlot)=>{
-                    if(timeSlot.value> currentTime && timeSlot.value>=10.5 && timeSlot.value<=19.75){
-
-                        let isAvailable = this.isTimeSlotAvailable(timeSlot, selectedTimeSlotDate)
-                        if(isAvailable){
-
-                            let timeData = Object.assign({}, timeSlot)
-                            timeData.title = time.title
-                            availableTimeSlots = availableTimeSlots.concat(timeData)
-                        }
-                    }else{
-                        sameDayTimeAvailable = true
-                    }
-                })
-            })
-        }
-
-        //Check for timeslots on other days, only if there is no timeslot available today
-        if(availableTimeSlots.length == 0){
-            currentTimeSlotDay = currentTimeSlotDay==6?0:currentTimeSlotDay+1
-            
-            while((sameDayTimeAvailable || currentTimeSlotDay != today) && availableTimeSlots.length==0){
-                selectedTimeSlotDate.setDate(selectedTimeSlotDate.getDate() + 1)
-
-                if(this.props.timeSlots && this.props.timeSlots[currentTimeSlotDay] && this.props.timeSlots[currentTimeSlotDay].length){
-
-                    this.props.timeSlots[currentTimeSlotDay].map((time)=>{
-
-                        time.timing.map((timeSlot)=>{
-
-                            let isAvailable = this.isTimeSlotAvailable(timeSlot, selectedTimeSlotDate)
-                            if(isAvailable){
-
-                                let timeData = Object.assign({}, timeSlot)
-                                timeData.title = time.title
-                                availableTimeSlots = availableTimeSlots.concat(timeData)
-                            }
-                        })
-                    })
-                }
-                currentTimeSlotDay = currentTimeSlotDay==6?0:currentTimeSlotDay+1
-            }
-        }*/
-
-
         return availableTimeSlots.length?
         <div className="select-time-listing-container">
             <div className="nw-tm-shift">
@@ -214,6 +163,11 @@ class VisitTimeNew extends React.Component {
     }
 
     render() {
+        let upcomingDate = null
+        if(this.props.upcoming_slots && Object.keys(this.props.upcoming_slots) && Object.keys(this.props.upcoming_slots).length){
+            upcomingDate = Object.keys(this.props.upcoming_slots)[0]
+            upcomingDate = new Date(upcomingDate)
+        }
 
         let { date, time } = this.props.selectedSlot
 
@@ -239,8 +193,31 @@ class VisitTimeNew extends React.Component {
                     {
                         ((this.props.selectedSlot && this.props.selectedSlot.summaryPage) || !date )?
                         <div className='nw-timeslot-container'>
-                            <p className="avl-time-slot">Next available time slot</p>
-                             {this.getTimeSlots()}
+                            {
+                              this.props.upcoming_slots && Object.values(this.props.upcoming_slots) && Object.values(this.props.upcoming_slots).length?  
+                                <div>
+                                    <p className="avl-time-slot">Next available time slot</p>
+                                    <div className="select-time-listing-container">
+                                        <div className="nw-tm-shift">
+                                            {WEEK_DAYS[upcomingDate.getDay()]}, {upcomingDate.getDate()} {MONTHS[upcomingDate.getMonth()] }:
+                                        </div>
+                                        <div className="time-slot-main-listing">
+                                            <ul className="inline-list nw-time-st">
+                                                {
+                                                    Object.values(this.props.upcoming_slots)[0].map((time, i)=>{
+                                                        return <li key={i} className="nw-time-slot-li" onClick={
+                                                            this.selectTime.bind(this, time, upcomingDate)}>
+                                                            <p className={`time-slot-timmings ${this.props.selectedSlot && this.props.selectedSlot.time?`${this.props.selectedSlot.time.value == time.value? " time-active" : ''}`:''}`}
+                            >{time.text} {time.text ? (time.value >= 12 ? 'PM' : 'AM') : ''}</p>
+                                                        </li>
+                                                    })
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>  
+                                </div>
+                                :<div>No time slots Available</div>
+                            }
                         </div>
                         :<div className="timeAfterSelect text-right">
                             <h4 className="date-time title">{ date? `${WEEK_DAYS[new Date(date).getDay()]}, ${new Date(date).getDate()} ${MONTHS[new Date(date).getMonth()] }` :''} {time.text ? "|" : ""} {time.text} {time.text ? (time.value >= 12 ? 'PM' : 'AM') : ''}</h4>

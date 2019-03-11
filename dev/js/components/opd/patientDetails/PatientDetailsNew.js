@@ -559,6 +559,7 @@ class PatientDetailsNew extends React.Component {
                                                                 timeSlots={this.props.timeSlots}
                                                                 selectTimeSlot={this.selectTimeSlot.bind(this)}
                                                                 doctor_leaves={this.props.doctor_leaves || []}
+                                                                upcoming_slots = {this.props.upcoming_slots || null}
                                                             />
                                                         <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} />
                                                         {
