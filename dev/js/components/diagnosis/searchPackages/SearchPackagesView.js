@@ -8,6 +8,7 @@ import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import Footer from '../../commons/Home/footer'
 import ResultCount from './topBar/result_count.js'
+const queryString = require('query-string');
 
 class SearchPackagesView extends React.Component {
     constructor(props) {
@@ -21,16 +22,17 @@ class SearchPackagesView extends React.Component {
         this.state = {
             seoData, footerData,
             showError: false,
-            showChatWithus: false
+            showChatWithus: false,
+            isScroll:true
         }
     }
 
     componentDidMount() {
         if (true) {
             this.getLabList(this.props)
-            if (window) {
-                window.scrollTo(0, 0)
-            }
+            // if (window) {
+            //     window.scrollTo(0, 0)
+            // }
         }
         if (this.state.seoFriendly) {
             this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
@@ -147,16 +149,16 @@ class SearchPackagesView extends React.Component {
         let url
 
         if(this.props.forTaxSaver){
-            url = `${window.location.pathname}?lat=${lat}&long=${long}&package_category_id=5025`
+            url = `${window.location.pathname}?lat=${lat}&long=${long}&package_category_ids=5025`
         } else{
             url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&page=${page}&package_ids=${package_ids}`
         }
 
         if (this.props.location.search.includes('scrollbyid')) {
             var url_string = this.props.location.search
-            var url = new URL(url_string);
-            let scrollby_test_id = url.searchParams.get("scrollbyid")
-            let scrollby_lab_id = url.searchParams.get("scrollbylabid")
+            var staticUrl = new URL(url_string);
+            let scrollby_test_id = staticUrl.searchParams.get("scrollbyid")
+            let scrollby_lab_id = staticUrl.searchParams.get("scrollbylabid")
             url += `&scrollbyid=${scrollby_test_id || "1234"}&scrollbylabid=${scrollby_lab_id || "5678"}`
         }
 
@@ -207,6 +209,21 @@ class SearchPackagesView extends React.Component {
 
     render() {
         let LOADED_LABS_SEARCH = true
+        let self = this
+        if(this.props.forTaxSaver && this.state.isScroll){
+            const parsed = queryString.parse(this.props.location.search)
+            let scrollby_test_id = parseInt(parsed.scrollbyid)
+            let scrollby_lab_id = parseInt(parsed.scrollbylabid)
+            let url_id= `scrollById_${scrollby_test_id}_${scrollby_lab_id}`
+            if (document.getElementById(url_id)) {
+                var elementTop = document.getElementById(url_id).getBoundingClientRect().top;
+                var elementHeight = document.getElementById(url_id).clientHeight;
+                var scrollPosition = elementTop - elementHeight;
+                window.scrollTo(0, parseInt(scrollPosition))
+                self.setState({isScroll:false})
+            }
+        }
+        console.log(this.state.isScroll)
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
