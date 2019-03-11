@@ -130,7 +130,7 @@ class DoctorProfileCard extends React.Component {
                 <div className="dr-profile">
                     <h1 className="dr-name">{display_name}</h1>
                     {
-                        this.props.isSeoFriendly?
+                        this.props.isSeoFriendly && !this.props.isOrganic?
                             <p className="diff-suggestion">Looking for a different <span onClick={this.searchProceedOPD.bind(this, doc_name[0], '', '')}>Dr. {doc_name[0]}?</span></p>
                         :''
                     }
