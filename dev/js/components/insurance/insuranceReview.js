@@ -1,6 +1,6 @@
 import React from 'react'
 import ChatPanel from '../commons/ChatPanel'
-import InsurCommon from './insuranceCommonHeader.js'
+import InsurCommon from './insuranceCommonSection.js'
 import ProfileHeader from '../commons/DesktopProfileHeader'
 
 class InsuranceReview extends React.Component{
@@ -234,7 +234,7 @@ class InsuranceReview extends React.Component{
 				</div>
 				</div>
 			</section>
-			<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn" onClick={this.proceedPlan.bind(this)}>Pay now (₹ {this.state.selected_plan_price}) 
+			<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Pay now (₹ {this.state.selected_plan_price}) 
 			<span className="foot-btn-sub-span">{this.state.gst}</span>
 			</button>
 			</div>

@@ -3,7 +3,7 @@ import ProfileHeader from '../commons/DesktopProfileHeader'
 import ChatPanel from '../commons/ChatPanel'
 import InsurSelf from './insuranceSelf.js'
 import InsurOthers from './insuranceFamily.js'
-import InsurCommon from './insuranceCommonHeader.js'
+import InsurCommon from './insuranceCommonSection.js'
 import SnackBar from 'node-snackbar'
 
 class InsuranceInputView extends React.Component{
@@ -441,7 +441,7 @@ class InsuranceInputView extends React.Component{
 								</div>
 							</div>
 						</section>		
-							<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn" onClick={this.proceedPlan.bind(this)}>Confirm (₹ {this.state.selected_plan_price})
+							<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Confirm (₹ {this.state.selected_plan_price})
 								<span className="foot-btn-sub-span">{this.state.gst}</span>
 							</button>
 						</div>

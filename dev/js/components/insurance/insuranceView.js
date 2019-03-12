@@ -3,6 +3,7 @@ import ProfileHeader from '../commons/DesktopProfileHeader'
 import ChatPanel from '../commons/ChatPanel'
 import SnackBar from 'node-snackbar'
 import InsurPopup from './insurancePopup.js'
+import InsurCommon from './insuranceCommonSection.js'
 import STORAGE from '../../helpers/storage'
 
 class Insurance extends React.Component{
@@ -115,84 +116,7 @@ class Insurance extends React.Component{
 						<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
 							<section className="profile-book-screen">
 								<div className="widget">
-									<div className="ins-card-head">
-										<div className="ins-name-head">
-											<img width="140" src={this.props.insurnaceData['insurance'][0].logo} />
-											{/*<p>
-												OPD Insurance by <span>{this.props.insurnaceData['insurance'][0].name}</span>
-											</p>*/}
-											<p>
-												Group Out-patient Insurance
-											</p>
-										</div>
-										<div className="ins-pdf-dwnload">
-											<a href={this.props.insurnaceData['insurance'][0].insurer_document} target="_blank">
-											<img src={ASSETS_BASE_URL + "/img/pdf-dwn.png"} />
-											</a>
-											<span>												
-												Policy Details
-											</span>
-										</div>
-									</div>
-									{/* tab section */}
-									<div className="ins-swich-tabs-container">
-										<div className="ins-tabs">
-											<ul>
-												<li onClick={()=> this.setState({toggle:'one'})}>
-													<p className={this.state.toggle == "one"?'active':'ins-tab-inactive'} >Salient Features</p>
-												</li>
-												<li onClick={()=> this.setState({toggle:'two'})}>
-													<p className={this.state.toggle == "two"?'active ':'ins-tab-inactive'} >What's not Covered?</p></li>
-											</ul>
-										</div>
-										<div className="ins-tabs-content">
-											<div>													
-												{
-													this.state.toggle == "one"?
-													Object.values(this.props.insurnaceData['insurance'][0].plans).filter(x=>x.id==this.state.is_checked).map((selected_plan,i) => {
-														return (<ul key={i}>
-														{selected_plan.content['salient_features'].map((result, i) => { 
-																return <li key={i}>
-																<p>{result}</p>
-																</li>})
-														}
-														</ul>)					
-													})
-													:Object.values(this.props.insurnaceData['insurance'][0].plans).filter(x=>x.id==this.state.is_checked).map((selected_plan,i) => {
-														return (<ul key={i}>
-														{selected_plan.content['whats_not_covered'].map((result, i) => { 
-																	return <li key={i}>
-																	<p>{result}</p>
-																	</li>})
-														}	
-														</ul>)					
-													}) 
-										        }
-										        {this.state.toggle == 'one'?
-										        <div><a style={{paddingLeft: '12px',fontWeight: '500',fontSize: '12px',color:'#f78631',textDecoration: 'underline',cursor: 'pointer'}} onClick={()=> this.setState({toggle:'two'})}>T&C apply</a>
-										        </div>
-										        :''
-										        }	
-											</div>												
-										</div>
-
-									</div>
-									<div className="ins-status-container">
-										<div className="navigation_menu" id="">
-											<ul className="navigation_tabs" id="">
-												<li className="tab_inactive">
-													<a href="#">Select Premium</a>
-												</li>
-												<li className="tab_active">
-													<a href="#">Fill Details</a>
-												</li>
-												<li className="tab_disabled">
-													<a href="#">Payment</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-									{/* tab section */}
+									<InsurCommon {...this.props} isSelectPlan={true} is_checked={this.state.is_checked}/>
 									{/* coverage listing */}
 									<div className="coverage-list-container border-bg-transprant">
 										<table className="table table-bordered insurance-tbl insurance-checkboxes">

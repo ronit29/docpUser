@@ -163,7 +163,7 @@ class InsuranceFaq extends React.Component{
 					</div>
 				</div>
 			</section>
-			<button className="congrats-btn v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn" onClick={this.submitPlan.bind(this)}><p style={{fontWeight:'500', fontSize:'15px'}}>Submit & Download Certficate of Insurance</p>
+			<button className="congrats-btn v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.submitPlan.bind(this)}><p style={{fontWeight:'500', fontSize:'15px'}}>Submit & Download Certficate of Insurance</p>
 			</button>
 			</section>
 			</div>
