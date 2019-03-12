@@ -117,7 +117,7 @@ class IPDFormView extends React.Component{
 					                     {/*<div className="pop-head">{ipd_info.about.name}</div>*/}
 					                     <div className="form-group fm-grp mt-0">
 					                        <div className="lbl-txt">Name:</div>
-					                        <div className="input-form"><input type="text" autoComplete="off" className={`form-control ${this.state.validateError.indexOf('name')>-1?'error-on':''}`}  name = "name" value={this.state.name} onChange={this.inputHandler.bind(this)}/></div>
+					                        <div className="input-form"><input type="text" autoComplete="none" className={`form-control ${this.state.validateError.indexOf('name')>-1?'error-on':''}`}  name = "name" value={this.state.name} onChange={this.inputHandler.bind(this)}/></div>
 					                        {
 					                        	this.state.validateError.indexOf('name')>-1?
 					                        	<span className="error-msg">Required</span>
@@ -126,7 +126,7 @@ class IPDFormView extends React.Component{
 					                     </div>
 					                     <div className="form-group fm-grp">
 					                        <div className="lbl-txt">Mobile No:</div>
-					                        <div className="input-form"><input type="number" autoComplete="off" className={`form-control ${this.state.validateError.indexOf('phone_number')>-1?'error-on':''}`} name = "phone_number" value={this.state.phone_number} onChange={this.inputHandler.bind(this)}/></div>
+					                        <div className="input-form"><input type="number" autoComplete="none" className={`form-control ${this.state.validateError.indexOf('phone_number')>-1?'error-on':''}`} name = "phone_number" value={this.state.phone_number} onChange={this.inputHandler.bind(this)}/></div>
 					                        {
 					                        	this.state.validateError.indexOf('phone_number')>-1?
 					                        	<span className="error-msg">Required</span>
@@ -135,7 +135,7 @@ class IPDFormView extends React.Component{
 					                     </div>
 					                     <div className="form-group fm-grp">
 					                        <div className="lbl-txt">Email Id:</div>
-					                        <div className="input-form"><input type="text" autoComplete="off" className={`form-control ${this.state.validateError.indexOf('email')>-1?'error-on':''}`} name = "email" value={this.state.email} onChange={this.inputHandler.bind(this)}/></div>
+					                        <div className="input-form"><input type="text" autoComplete="none" className={`form-control ${this.state.validateError.indexOf('email')>-1?'error-on':''}`} name = "email" value={this.state.email} onChange={this.inputHandler.bind(this)}/></div>
 					                        {
 					                        	this.state.validateError.indexOf('email')>-1?
 					                        	<span className="error-msg">Required</span>
@@ -173,7 +173,7 @@ class IPDFormView extends React.Component{
 					                     </div>
 					                     <div className="form-group fm-grp mrg-mt0">
 					                        <div className="lbl-txt">Age:</div>
-					                        <div className="input-form"><input type="number" autoComplete="off" className={`form-control ${this.state.validateError.indexOf('age')>-1?'error-on':''}`} name = "age" value={this.state.age} onChange={this.inputHandler.bind(this)}/></div>
+					                        <div className="input-form"><input type="number" autoComplete="none" className={`form-control ${this.state.validateError.indexOf('age')>-1?'error-on':''}`} name = "age" value={this.state.age} onChange={this.inputHandler.bind(this)}/></div>
 					                        {
 					                        	this.state.validateError.indexOf('age')>-1?
 					                        	<span className="error-msg">Required</span>

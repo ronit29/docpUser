@@ -120,7 +120,12 @@ class IpdInfo extends React.Component {
 				                   		</div> 
 					                   	
 							            <div id="hospitalTab" className="tab-pane fade" className="nav_top_bar">
-							            	<HospitalList {...this.props} hospitalList = {this.props.ipd_info && this.props.ipd_info.hospitals?this.props.ipd_info.hospitals:[]}/>
+							            	{
+							            		this.props.ipd_info && this.props.ipd_info.hospitals && this.props.ipd_info.hospitals.result && this.props.ipd_info.hospitals.result.length?
+							            		<HospitalList {...this.props} hospitalList = {this.props.ipd_info && this.props.ipd_info.hospitals?this.props.ipd_info.hospitals:[]}/>
+							            		:''	
+							            	}
+							            	
 							            	{
 							            		this.props.ipd_info && this.props.ipd_info.hospitals && this.props.ipd_info.hospitals.result && this.props.ipd_info.hospitals.result.length<this.props.ipd_info.hospitals.count?
 									   				<a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewHospitalsClicked.bind(this)}>View all Hospitals</a>
@@ -130,7 +135,7 @@ class IpdInfo extends React.Component {
 
 										<div id="doctorTab" className="tab-pane fade nav_top_bar">
 											{
-												this.props.ipd_info &&  this.props.ipd_info.about && this.props.ipd_info.about.name?
+												this.props.ipd_info && this.props.ipd_info.doctors && this.props.ipd_info.doctors.result  && this.props.ipd_info.doctors.result.length && this.props.ipd_info.about && this.props.ipd_info.about.name?
 												<h4 className="section-heading">{`Top Doctors for ${this.props.ipd_info.about.name} `}</h4>
 												:''	
 											}
