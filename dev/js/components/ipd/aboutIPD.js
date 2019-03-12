@@ -18,7 +18,7 @@ class IPDAboutUs extends React.Component {
 			if(this.state.toggleReadMore){
 				aboutText = ipd_info.about.details
 			}else{
-				aboutText = ipd_info.about.details.substring(0,13)
+				aboutText = ipd_info.about.about
 			}	
 		}
 		
@@ -45,7 +45,7 @@ class IPDAboutUs extends React.Component {
                 	{
                 		this.state.toggleReadMore?
                 		<a href="javascript:void(0);" className="read-more-btn" onClick={()=>this.setState({toggleReadMore: !this.state.toggleReadMore})} >Read Less</a>
-		                :<a href="javascript:void(0);" className="read-more-btn" onClick={()=>this.setState({toggleReadMore: !this.state.toggleReadMore})} >Read More</a>
+		                :<a href="javascript:void(0);" className="read-more-btn" onClick={()=>this.props.history.push(`/ipd/${this.props.ipd_id}/detail`)} >Read More</a>
                 	}
                   
              </div>

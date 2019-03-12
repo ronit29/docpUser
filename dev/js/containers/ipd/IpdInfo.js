@@ -6,12 +6,24 @@ const queryString = require('query-string')
 
 class IpdInfoContainer extends React.Component{
 
+	constructor(props){
+		super(props)
+		this.state = {
+			ipd_id: ''
+		}
+	}
+
 	componentDidMount(){
 		const parsed = queryString.parse(this.props.location.search)
 		if(parsed.ipd_id){
+			this.setState({ipd_id: parsed.ipd_id})
 			this.props.getIpdInfo(parsed.ipd_id, this.props.selectedLocation)
 		}else if(this.props.commonSelectedCriterias.length){
+			this.setState({ipd_id: this.props.commonSelectedCriterias[0].id})
 			this.props.getIpdInfo(this.props.commonSelectedCriterias[0].id, this.props.selectedLocation)	
+		}
+		if(window){
+			window.scrollTo(0,0)
 		}
 		
 	}
@@ -19,7 +31,7 @@ class IpdInfoContainer extends React.Component{
 	render(){
 
 		return(
-			<IpdInfoView {...this.props}/>
+			<IpdInfoView {...this.props} {...this.state}/>
 			)
 	}
 } 

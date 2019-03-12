@@ -7,7 +7,6 @@ import HospitalList from './HospitalList.js'
 import DoctorResultCard from '../opd/commons/doctorResultCard'
 import Loader from '../commons/Loader'
 import Footer from '../commons/Home/footer'
-import IpdProcedurePop from './ipdProcedurePop.js'
 
 class IpdInfo extends React.Component {
 
@@ -123,7 +122,7 @@ class IpdInfo extends React.Component {
 							            <div id="hospitalTab" className="tab-pane fade" className="nav_top_bar">
 							            	<HospitalList {...this.props} hospitalList = {this.props.ipd_info && this.props.ipd_info.hospitals?this.props.ipd_info.hospitals:[]}/>
 							            	{
-							            		this.props.ipd_info && this.props.ipd_info.hospitals && this.props.ipd_info.hospitals.result && this.props.ipd_info.hospitals.result.length>3?
+							            		this.props.ipd_info && this.props.ipd_info.hospitals && this.props.ipd_info.hospitals.result && this.props.ipd_info.hospitals.result.length>this.props.ipd_info.hospitals.count?
 									   				<a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewHospitalsClicked.bind(this)}>View all Hospitals</a>
 									   				:''
 							            	}
@@ -143,7 +142,7 @@ class IpdInfo extends React.Component {
 							                    :''
 						                    }
 						                    {
-						                    	this.props.ipd_info && this.props.ipd_info.doctors && this.props.ipd_info.doctors.result && this.props.ipd_info.doctors.result.length>3?
+						                    	this.props.ipd_info && this.props.ipd_info.doctors && this.props.ipd_info.doctors.result && this.props.ipd_info.doctors.result.length>this.props.ipd_info.doctors.count?
 						                    	<a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewDoctorsClicked.bind(this)}>View all Doctors</a>
 						                    	:''	
 						                    }
@@ -151,8 +150,6 @@ class IpdInfo extends React.Component {
 						                    
 						                </div>
 						            </div>
-
-						            {/*<IpdProcedurePop />*/}
 						           
 				                </div>
 				                :<Loader/>
