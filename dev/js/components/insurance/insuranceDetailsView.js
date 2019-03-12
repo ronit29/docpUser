@@ -436,7 +436,6 @@ class InsuranceInputView extends React.Component{
 										<InsurSelf {...this.props} checkForValidation ={this.checkForValidation.bind(this)} id={`member_${this.props.USER.selectedProfile}`} member_id={this.props.USER.selectedProfile} validateErrors={this.state.validateErrors['0'] || []} validateOtherErrors={this.state.validateOtherErrors['0'] || []} createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} errorMessages={this.state.errorMessages}/>
 										{adult}
 										{child}
-										
 									</div>
 								</div>
 							</div>

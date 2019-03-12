@@ -5,7 +5,7 @@ import SnackBar from 'node-snackbar'
 import InsurPopup from './insurancePopup.js'
 import InsurCommon from './insuranceCommonSection.js'
 import STORAGE from '../../helpers/storage'
-
+import Loader from '../commons/Loader'
 class Insurance extends React.Component{
 	constructor(props) {
         super(props)
@@ -46,7 +46,7 @@ class Insurance extends React.Component{
 			}
     }
     selectPlan(plan_to_toggle) {
-    	this.setState({ is_checked: plan_to_toggle.id, selected_plan_data: plan_to_toggle, selected_plan_price: `(₹ ${plan_to_toggle.amount})`, gst: 'Inclusive of 18% GST',toggle:this.state.plan_to_toggle == 'two'?'one':'one' })
+    	this.setState({ is_checked: plan_to_toggle.id, selected_plan_data: plan_to_toggle, selected_plan_price: `(₹ ${plan_to_toggle.amount})`, gst: 'Inclusive of 18% GST',toggle:this.state.toggle == 'two'?'one':'one' })
     }
     proceedPlan(){
     	let self = this
@@ -163,7 +163,9 @@ class Insurance extends React.Component{
 				this.props.history.push('/insurance/certificate')
 			}
 			return(
-			<div></div>
+			<div>
+				<Loader />
+			</div>
 			)
 		}
 	}
