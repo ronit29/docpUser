@@ -6973,3 +6973,28 @@ flex-shrink: 0;
 .mrb-60{
 	margin-bottom: 60px;
 }
+
+/* ==================== docprime care html page ==================== */
+.careHeaderBar{
+    background-image: linear-gradient(to left, #f78631, #ff6d00);
+    min-height: 72px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 12;
+}
+.care-logo-container{
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.careLogiImg{
+	width: 100px;
+    padding: 10px 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+/* ==================== docprime care html page ==================== */
