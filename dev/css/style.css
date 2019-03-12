@@ -6973,3 +6973,19 @@ flex-shrink: 0;
 .mrb-60{
 	margin-bottom: 60px;
 }
+
+.medic-img-slider {
+    white-space: nowrap;
+    overflow: auto;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+}
+.medic-img-slider::-webkit-scrollbar { 
+    display: none; 
+}
+.medic-img-slider img {
+    width: 250px;
+    margin-right: 20px;
+    border-radius: 4px;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0), 0 3px 6px rgba(0, 0, 0, 0.08);
+}

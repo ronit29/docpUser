@@ -4,6 +4,7 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 import Footer from '../../commons/Home/footer'
+import BannerCarousel from '../../commons/Home/bannerCarousel';
 
 class ThyrocarePackageView extends React.Component {
     constructor(props) {
@@ -19,6 +20,19 @@ class ThyrocarePackageView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+
+        let selectedLocation = ''
+        let lat = 28.644800
+        let long = 77.216721
+        if (this.props.selectedLocation) {
+            selectedLocation = this.props.selectedLocation;
+            lat = selectedLocation.geometry.location.lat
+            long = selectedLocation.geometry.location.lng
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
+
+        this.props.getOfferList(lat, long);
     }
 
     toggle(index) {
@@ -56,9 +70,13 @@ class ThyrocarePackageView extends React.Component {
                 <ProfileHeader />
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
-                        <LeftBar />
-
                         <div className="col-12 col-md-7 col-lg-7 center-column">
+                            {
+                                this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'health_package_compare_page').length ?
+                                    <div className="col-12">
+                                        <BannerCarousel {...this.props} sliderLocation="thyrocare_aarogyam_packages_page" />
+                                    </div> : ''
+                            }
                             <h4 className="mrng-top-12">Top full body checkup packages</h4>
                             <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
                                 <div className="static-pk-container sticky-pk-container">
