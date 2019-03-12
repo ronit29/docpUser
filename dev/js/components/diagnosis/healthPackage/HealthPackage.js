@@ -79,7 +79,7 @@ class LabView extends React.Component {
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam B
                                                                 (Thyrocare)</p>
-                                            <p className="stc-price-cut">₹ 540 <span>₹ 800</span></p>
+                                            <p className="stc-price-cut">₹ 490 <span>₹ 740</span></p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
