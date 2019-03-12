@@ -143,11 +143,11 @@ class InsuranceReview extends React.Component{
     	})
 		return(
 			<div className="profile-body-wrap">
-			{/*<ProfileHeader /> */}
-			<section className="container">
+			<ProfileHeader />
+			<section className="container container-top-margin">
 				<div className="row main-row parent-section-row">
 				<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
-				<section>
+				<section className="profile-book-screen">
 				<div className="widget">
 					<InsurCommon {...this.props} is_edit={this.state.is_edit}/>
 				<div className="insurance-member-container">

@@ -97,8 +97,8 @@ class InsuranceFaq extends React.Component{
     	let self =  this
     	if(Object.keys(this.props.insured_member_list).length>0){
     	return <div className="profile-body-wrap">
-            {/*<ProfileHeader /> */}
-            <section className="container parent-section book-appointment-section text-center">
+            <ProfileHeader />
+            <section className="container parent-section book-appointment-section text-center container-top-margin">
 			<section className="section-margin-bottom congrats-space">
 				<div className="widget cong-margin-btm">
 					<div className="congratulation-section pb-0">

@@ -109,129 +109,129 @@ class Insurance extends React.Component{
 		if(this.props.LOAD_INSURANCE){
 			return(
 				<div className="profile-body-wrap">
-	                {/*<ProfileHeader /> */}
-				<section className="container">
-							<div className="row main-row parent-section-row">
-								<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
-									<section className="profile-book-screen">
-										<div className="widget">
-											<div className="ins-card-head">
-												<div className="ins-name-head">
-													<img width="140" src={this.props.insurnaceData['insurance'][0].logo} />
-													{/*<p>
-														OPD Insurance by <span>{this.props.insurnaceData['insurance'][0].name}</span>
-													</p>*/}
-													<p>
-														Group Out-patient Insurance
-													</p>
-												</div>
-												<div className="ins-pdf-dwnload">
-													<a href={this.props.insurnaceData['insurance'][0].insurer_document} target="_blank">
-													<img src={ASSETS_BASE_URL + "/img/pdf-dwn.png"} />
-													</a>
-													<span>												
-														Policy Details
-													</span>
-												</div>
-											</div>
-											{/* tab section */}
-											<div className="ins-swich-tabs-container">
-												<div className="ins-tabs">
-													<ul>
-														<li onClick={()=> this.setState({toggle:'one'})}>
-															<p className={this.state.toggle == "one"?'active':'ins-tab-inactive'} >Salient Features</p>
-														</li>
-														<li onClick={()=> this.setState({toggle:'two'})}>
-															<p className={this.state.toggle == "two"?'active ':'ins-tab-inactive'} >What's not Covered?</p></li>
-													</ul>
-												</div>
-												<div className="ins-tabs-content">
-													<div>													
-														{
-															this.state.toggle == "one"?
-															Object.values(this.props.insurnaceData['insurance'][0].plans).filter(x=>x.id==this.state.is_checked).map((selected_plan,i) => {
-																return (<ul key={i}>
-																{selected_plan.content['salient_features'].map((result, i) => { 
-																		return <li key={i}>
-																		<p>{result}</p>
-																		</li>})
-																}
-																</ul>)					
-															})
-															:Object.values(this.props.insurnaceData['insurance'][0].plans).filter(x=>x.id==this.state.is_checked).map((selected_plan,i) => {
-																return (<ul key={i}>
-																{selected_plan.content['whats_not_covered'].map((result, i) => { 
-																			return <li key={i}>
-																			<p>{result}</p>
-																			</li>})
-																}	
-																</ul>)					
-															}) 
-												        }
-												        {this.state.toggle == 'one'?
-												        <div><a style={{paddingLeft: '12px',fontWeight: '500',fontSize: '12px',color:'#f78631',textDecoration: 'underline',cursor: 'pointer'}} onClick={()=> this.setState({toggle:'two'})}>T&C apply</a>
-												        </div>
-												        :''
-												        }	
-													</div>												
-												</div>
-
-											</div>
-											<div className="ins-status-container">
-												<div className="navigation_menu" id="">
-													<ul className="navigation_tabs" id="">
-														<li className="tab_inactive">
-															<a href="#">Select Premium</a>
-														</li>
-														<li className="tab_active">
-															<a href="#">Fill Details</a>
-														</li>
-														<li className="tab_disabled">
-															<a href="#">Payment</a>
-														</li>
-													</ul>
-												</div>
-											</div>
-											{/* tab section */}
-											{/* coverage listing */}
-											<div className="coverage-list-container border-bg-transprant">
-												<table className="table table-bordered insurance-tbl insurance-checkboxes">
-													<thead>
-														<tr>
-															<th className="tbl-first-head"><p>Coverage (1 Year)</p></th>
-															<th className="tbl-second-head"><p>Annual Premium</p></th>
-														</tr>
-													</thead>
-													<tbody>
-														{
-	                                                        this.props.insurnaceData['insurance'][0].plans.map((result, i) => {
-	                                                            return <tr id={result.id} key={i} onClick={this.selectPlan.bind(this, result)} ref={result.adult_count == 2 && result.child_count == 2?(input) => { this.textInput = input }:'ref_0'}>
-	                                                            	<td>
-	                                                            	<label className="container-radio" htmlform={i} >{result.name}
-																	 <input type="radio" name="gender" id={i} value={i} checked={this.state.is_checked=== result.id}/>
-																	 <span className="doc-checkmark"></span>
-																	 </label>
-	                                                            	</td>
-																	<td><span>₹ {result.amount}</span></td>
-	                                                            </tr>
-	                                                        })
-	                                                    }
-													</tbody>
-												</table>
-											</div>
-											{/* coverage listing */}
+	                <ProfileHeader />
+				<section className="container container-top-margin">
+					<div className="row main-row parent-section-row">
+						<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
+							<section className="profile-book-screen">
+								<div className="widget">
+									<div className="ins-card-head">
+										<div className="ins-name-head">
+											<img width="140" src={this.props.insurnaceData['insurance'][0].logo} />
+											{/*<p>
+												OPD Insurance by <span>{this.props.insurnaceData['insurance'][0].name}</span>
+											</p>*/}
+											<p>
+												Group Out-patient Insurance
+											</p>
 										</div>
-									</section>
-									{this.state.showPopup ?
-										<InsurPopup {...this.props} sendOTP={this.props.sendOTP.bind(this)} submitOTP={this.props.submitOTP.bind(this)} resetAuth={this.props.resetAuth.bind(this)}/> : ''
-									}
-									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Proceeed {this.state.selected_plan_price} <span className="foot-btn-sub-span">{this.state.gst}</span>
-									</button>
-								</div>
+										<div className="ins-pdf-dwnload">
+											<a href={this.props.insurnaceData['insurance'][0].insurer_document} target="_blank">
+											<img src={ASSETS_BASE_URL + "/img/pdf-dwn.png"} />
+											</a>
+											<span>												
+												Policy Details
+											</span>
+										</div>
+									</div>
+									{/* tab section */}
+									<div className="ins-swich-tabs-container">
+										<div className="ins-tabs">
+											<ul>
+												<li onClick={()=> this.setState({toggle:'one'})}>
+													<p className={this.state.toggle == "one"?'active':'ins-tab-inactive'} >Salient Features</p>
+												</li>
+												<li onClick={()=> this.setState({toggle:'two'})}>
+													<p className={this.state.toggle == "two"?'active ':'ins-tab-inactive'} >What's not Covered?</p></li>
+											</ul>
+										</div>
+										<div className="ins-tabs-content">
+											<div>													
+												{
+													this.state.toggle == "one"?
+													Object.values(this.props.insurnaceData['insurance'][0].plans).filter(x=>x.id==this.state.is_checked).map((selected_plan,i) => {
+														return (<ul key={i}>
+														{selected_plan.content['salient_features'].map((result, i) => { 
+																return <li key={i}>
+																<p>{result}</p>
+																</li>})
+														}
+														</ul>)					
+													})
+													:Object.values(this.props.insurnaceData['insurance'][0].plans).filter(x=>x.id==this.state.is_checked).map((selected_plan,i) => {
+														return (<ul key={i}>
+														{selected_plan.content['whats_not_covered'].map((result, i) => { 
+																	return <li key={i}>
+																	<p>{result}</p>
+																	</li>})
+														}	
+														</ul>)					
+													}) 
+										        }
+										        {this.state.toggle == 'one'?
+										        <div><a style={{paddingLeft: '12px',fontWeight: '500',fontSize: '12px',color:'#f78631',textDecoration: 'underline',cursor: 'pointer'}} onClick={()=> this.setState({toggle:'two'})}>T&C apply</a>
+										        </div>
+										        :''
+										        }	
+											</div>												
+										</div>
 
-								<ChatPanel />
-							</div>
-						</section>
+									</div>
+									<div className="ins-status-container">
+										<div className="navigation_menu" id="">
+											<ul className="navigation_tabs" id="">
+												<li className="tab_inactive">
+													<a href="#">Select Premium</a>
+												</li>
+												<li className="tab_active">
+													<a href="#">Fill Details</a>
+												</li>
+												<li className="tab_disabled">
+													<a href="#">Payment</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									{/* tab section */}
+									{/* coverage listing */}
+									<div className="coverage-list-container border-bg-transprant">
+										<table className="table table-bordered insurance-tbl insurance-checkboxes">
+											<thead>
+												<tr>
+													<th className="tbl-first-head"><p>Coverage (1 Year)</p></th>
+													<th className="tbl-second-head"><p>Annual Premium</p></th>
+												</tr>
+											</thead>
+											<tbody>
+												{
+                                                    this.props.insurnaceData['insurance'][0].plans.map((result, i) => {
+                                                        return <tr id={result.id} key={i} onClick={this.selectPlan.bind(this, result)} ref={result.adult_count == 2 && result.child_count == 2?(input) => { this.textInput = input }:'ref_0'}>
+                                                        	<td>
+                                                        	<label className="container-radio" htmlform={i} >{result.name}
+															 <input type="radio" name="gender" id={i} value={i} checked={this.state.is_checked=== result.id}/>
+															 <span className="doc-checkmark"></span>
+															 </label>
+                                                        	</td>
+															<td><span>₹ {result.amount}</span></td>
+                                                        </tr>
+                                                    })
+                                                }
+											</tbody>
+										</table>
+									</div>
+									{/* coverage listing */}
+								</div>
+							</section>
+							{this.state.showPopup ?
+								<InsurPopup {...this.props} sendOTP={this.props.sendOTP.bind(this)} submitOTP={this.props.submitOTP.bind(this)} resetAuth={this.props.resetAuth.bind(this)}/> : ''
+							}
+							<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Proceeed {this.state.selected_plan_price} <span className="foot-btn-sub-span">{this.state.gst}</span>
+							</button>
+						</div>
+
+						<ChatPanel />
+					</div>
+				</section>
 				</div>
 			)
 		}else{
