@@ -7837,4 +7837,17 @@ div.ins-form-radio.insradio-on-popup{
 .border-remove{
 	border: transparent !important;
 }
+.datePickerLabel{
+	font-size: 85%;
+    transform: translate3d(0, -62%, 0);
+    opacity: 1;
+    background: white;
+    color: #e4814f;
+    font-weight: 500;
+    top: 0px;
+}
+input[type=button]{
+	cursor: pointer;
+	color: #848282;
+}
 /* ================= ins ui fixing ================= */
