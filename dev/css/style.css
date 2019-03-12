@@ -6980,6 +6980,9 @@ flex-shrink: 0;
     margin-bottom: 15px;
     padding-bottom: 8px;
 }
+.medic-img-slider::-webkit-scrollbar { 
+    display: none; 
+}
 .medic-img-slider img {
     width: 250px;
     margin-right: 20px;
