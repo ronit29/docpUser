@@ -103,7 +103,7 @@ class IPDFormView extends React.Component{
 		let { ipd_info } = this.props
 		return(
 			<div className="profile-body-wrap">
-                <ProfileHeader showSearch={true} />
+                <ProfileHeader />
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">
 
 	                <div className="row main-row parent-section-row">
