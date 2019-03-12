@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import { getInsuredProfile} from '../../actions/index.js'
-import InsuranceCertificateView from '../../components/insurance/insurance_certificate.js'
+import InsuranceCertificateView from '../../components/insurance/insuranceCertificate.js'
 
 class InsuranceCertificate extends React.Component{
     componentDidMount(){

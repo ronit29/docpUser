@@ -1,9 +1,9 @@
 import React from 'react'
 import ProfileHeader from '../commons/DesktopProfileHeader'
 import ChatPanel from '../commons/ChatPanel'
-import InsurSelf from './insurance_self.js'
-import InsurOthers from './insurance_others.js'
-import InsurCommon from './insurance_common.js'
+import InsurSelf from './insuranceSelf.js'
+import InsurOthers from './insuranceFamily.js'
+import InsurCommon from './insuranceCommonHeader.js'
 import SnackBar from 'node-snackbar'
 
 class InsuranceInputView extends React.Component{

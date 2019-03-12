@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import { getInsurance, selectInsurancePlan,getUserProfile,userData,selectInsuranceProfile, saveCurrentSelectedMembers,resetSelectedInsuranceMembers} from '../../actions/index.js'
-import InsuranceComponentView from '../../components/insurance/insurance_input_view.js'
+import InsuranceComponentView from '../../components/insurance/insuranceDetailsView.js'
 
 class InsuranceDetails extends React.Component{
     componentDidMount() {

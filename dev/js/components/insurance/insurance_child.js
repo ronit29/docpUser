@@ -1,5 +1,5 @@
 import React from 'react'
-import InsurPopup from './insurance_popup.js'
+import InsurPopup from './insurancePopup.js'
 
 class InsuranceChild extends React.Component {
 	constructor(props) {

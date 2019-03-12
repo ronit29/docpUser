@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import { getInsuranceMemberList,updateMemberList} from '../../actions/index.js'
-import InsuranceSuccessComp from '../../components/insurance/insurance_success.js'
+import InsuranceSuccessComp from '../../components/insurance/insuranceSuccess.js'
 
 class InsuranceSuccess extends React.Component{
 

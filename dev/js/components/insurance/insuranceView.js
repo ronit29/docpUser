@@ -2,7 +2,7 @@ import React from 'react'
 import ProfileHeader from '../commons/DesktopProfileHeader'
 import ChatPanel from '../commons/ChatPanel'
 import SnackBar from 'node-snackbar'
-import InsurPopup from './insurance_popup.js'
+import InsurPopup from './insurancePopup.js'
 import STORAGE from '../../helpers/storage'
 
 class Insurance extends React.Component{

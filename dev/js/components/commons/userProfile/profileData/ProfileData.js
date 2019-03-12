@@ -46,6 +46,8 @@ class ProfileData extends React.Component {
             coupon = this.props.applicableCoupons[0]
         }
 
+        let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)]?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_insured && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user:false
+        
         return (
             <div className="widget no-round no-shadow skin-transparent profile-nav new-profile-header-margin">
                 <div className="widget-content padding-remove">
@@ -178,6 +180,21 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
+                        <li onClick={()=> isUserLoginInsured?this.props.history.push('/insurance/certificate'):this.props.history.push('/insurance')} className="my-profile-item lst-spcng">
+                            <a>
+                                <span className="icon icon-md nav-icon">
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} className="img-fluid" />
+                                </span>
+                                <div className="nav-content">
+                                    <h4 className="title app-title">OPD Insurance
+                                        {/* <span className="float-right badge badge-warning">1</span> */}
+                                    </h4>
+                                </div>
+                            </a>
+                            {
+                                isUserLoginInsured?<button className="ins-userdetails-active">Active</button>:<button className="ins-userdetails-buy">Buy Now</button>
+                            }
+                        </li>
                         <li onClick={this.gotTo.bind(this, 'onlinePrescriptions')} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">

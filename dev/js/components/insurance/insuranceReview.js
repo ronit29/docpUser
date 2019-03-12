@@ -1,6 +1,6 @@
 import React from 'react'
 import ChatPanel from '../commons/ChatPanel'
-import InsurCommon from './insurance_common.js'
+import InsurCommon from './insuranceCommonHeader.js'
 import ProfileHeader from '../commons/DesktopProfileHeader'
 
 class InsuranceReview extends React.Component{
@@ -151,89 +151,86 @@ class InsuranceReview extends React.Component{
 				<div className="widget">
 					<InsurCommon {...this.props} is_edit={this.state.is_edit}/>
 				<div className="insurance-member-container">
-	 			<div className="ins-user-details-lisitng">
-					<p className="sub-form-hed">Proposer</p>
-					<ul className="ins-usr-img-para">
-						<li>
-							<div className="img-list-width">
-								<img className="ins-input-img" style={{ width: '19px' }} src={ASSETS_BASE_URL + "/img/ins-usr.svg"} />
-							</div>
-							{
-								self_profile.no_lname?<p style={{'textTransform': 'capitalize'}}>{self_profile.name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>:
-								<p style={{'textTransform': 'capitalize'}}>{self_profile.name} {self_profile.middle_name} {self_profile.last_name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>
-							}
-						</li>
-						<li>
-							<div className="img-list-width">
-								<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/cal.svg"} />
-							</div>
-							<p>{self_profile.dob}</p>
-						</li>
-						<li>
-							<div className="img-list-width">
-								<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/email.svg"} />
-							</div>
-							<p>{self_profile.email}</p>
-						</li>
-						<li>
-							<div className="img-list-width">
-								<img className="ins-input-img" style={{ width: '18px' }} src={ASSETS_BASE_URL + "/img/ins-loc.svg"} />
-							</div>
-							<p style={{'textTransform': 'capitalize'}}>{`${self_profile.address}, ${self_profile.town}, ${self_profile.district}, ${self_profile.state} - ${self_profile.pincode}`}</p>
-						</li>
-					</ul>
-				</div>
-				<div>
+		 			<div className="ins-user-details-lisitng">
+						<p className="sub-form-hed">Proposer</p>
+						<ul className="ins-usr-img-para">
+							<li>
+								<div className="img-list-width">
+									<img className="ins-input-img" style={{ width: '19px' }} src={ASSETS_BASE_URL + "/img/ins-usr.svg"} />
+								</div>
+								{
+									self_profile.no_lname?<p style={{'textTransform': 'capitalize'}}>{self_profile.name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>:
+									<p style={{'textTransform': 'capitalize'}}>{self_profile.name} {self_profile.middle_name} {self_profile.last_name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>
+								}
+							</li>
+							<li>
+								<div className="img-list-width">
+									<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/cal.svg"} />
+								</div>
+								<p>{self_profile.dob}</p>
+							</li>
+							<li>
+								<div className="img-list-width">
+									<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/email.svg"} />
+								</div>
+								<p>{self_profile.email}</p>
+							</li>
+							<li>
+								<div className="img-list-width">
+									<img className="ins-input-img" style={{ width: '18px' }} src={ASSETS_BASE_URL + "/img/ins-loc.svg"} />
+								</div>
+								<p style={{'textTransform': 'capitalize'}}>{`${self_profile.address}, ${self_profile.town}, ${self_profile.district}, ${self_profile.state} - ${self_profile.pincode}`}</p>
+							</li>
+						</ul>
+					</div>
 					{
-					this.props.currentSelectedInsuredMembersId.map((val,key) => {
-					if(parseInt(val[key]) != self.props.USER.selectedProfile){
-						if(this.props.self_data_values[val[key]].relation != 'self'){
-						return <div key={key} className="ins-sub-forms sub-input-forms-containers">
-							<hr className="ins-internal-hr" />
-							<div className="ins-user-details-lisitng">
-								<p className="sub-form-hed">Member {key+1} </p>
-								<div className="members-container-padding">
-									<div className="row">
-										<div className="col-6">
-											<div className="members-listings">
-												<div className="member-list-width">
-													<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/rel.svg"} />
+						this.props.currentSelectedInsuredMembersId.map((val,key) => {
+							if(parseInt(val[key]) != self.props.USER.selectedProfile){
+								if(this.props.self_data_values[val[key]].relation != 'self'){
+								return <div key={key} className="ins-sub-forms sub-input-forms-containers">
+									<hr className="ins-internal-hr" />
+									<div className="ins-user-details-lisitng">
+										<p className="sub-form-hed">Member {key+1} </p>
+										<div className="members-container-padding">
+											<div className="row">
+												<div className="col-6">
+													<div className="members-listings">
+														<div className="member-list-width">
+															<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/rel.svg"} />
+														</div>
+														<p style={{'textTransform': 'capitalize'}}>{this.props.self_data_values[val[key]].relation}</p>
+													</div>
 												</div>
-												<p style={{'textTransform': 'capitalize'}}>{this.props.self_data_values[val[key]].relation}</p>
-											</div>
-										</div>
-										<div className="col-6">
-											<div className="members-listings">
-												<div className="member-list-width">
-													<img style={{ width: '19px' }} className="ins-input-img" src={ASSETS_BASE_URL + "/img/ins-usr.svg"} />
+												<div className="col-6">
+													<div className="members-listings">
+														<div className="member-list-width">
+															<img style={{ width: '19px' }} className="ins-input-img" src={ASSETS_BASE_URL + "/img/ins-usr.svg"} />
+														</div>
+														{
+															this.props.self_data_values[val[key]].no_lname?
+														<p style={{'textTransform': 'capitalize'}}>{this.props.self_data_values[val[key]].name} | {this.props.self_data_values[val[key]].gender=='m'?'Male':this.props.self_data_values[val[key]].gender=='f'?'Female':this.props.self_data_values[val[key]].gender=='o'?'Others':''}</p>:
+														<p style={{'textTransform': 'capitalize'}}>{this.props.self_data_values[val[key]].name} {this.props.self_data_values[val[key]].middle_name} {this.props.self_data_values[val[key]].last_name} | {this.props.self_data_values[val[key]].gender=='m'?'Male':this.props.self_data_values[val[key]].gender=='f'?'Female':this.props.self_data_values[val[key]].gender=='o'?'Others':''}</p>
+														}
+													</div>
 												</div>
-												{
-													this.props.self_data_values[val[key]].no_lname?
-												<p style={{'textTransform': 'capitalize'}}>{this.props.self_data_values[val[key]].name} | {this.props.self_data_values[val[key]].gender=='m'?'Male':this.props.self_data_values[val[key]].gender=='f'?'Female':this.props.self_data_values[val[key]].gender=='o'?'Others':''}</p>:
-												<p style={{'textTransform': 'capitalize'}}>{this.props.self_data_values[val[key]].name} {this.props.self_data_values[val[key]].middle_name} {this.props.self_data_values[val[key]].last_name} | {this.props.self_data_values[val[key]].gender=='m'?'Male':this.props.self_data_values[val[key]].gender=='f'?'Female':this.props.self_data_values[val[key]].gender=='o'?'Others':''}</p>
-												}
-											</div>
-										</div>
-										<div className="col-6">
-											<div className="members-listings">
-												<div className="member-list-width">
-													<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/cal.svg"} />
+												<div className="col-6">
+													<div className="members-listings">
+														<div className="member-list-width">
+															<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/cal.svg"} />
+														</div>
+														<p>{this.props.self_data_values[val[key]].dob}</p>
+													</div>
 												</div>
-												<p>{this.props.self_data_values[val[key]].dob}</p>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-						}else{
-							return <div></div>
-						}
-					}							
-					})
-					}
-				</div>
-				
+								}else{
+									return <div></div>
+								}
+							}							
+						})
+					}				
 				</div>
 				</div>
 			</section>
