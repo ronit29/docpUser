@@ -110,7 +110,7 @@ class DoctorProfileCard extends React.Component {
             //     if (i < experiences.length - 1) expStr += ', '
             // })
         }
-
+        let doc_name = name.split(' ')
         return (
             <div className="widget-header dr-qucik-info doc-gold-padding">
                 <div className="fltr-crd-img text-center">
@@ -129,11 +129,11 @@ class DoctorProfileCard extends React.Component {
 
                 <div className="dr-profile">
                     <h1 className="dr-name">{display_name}</h1>
-                    {
-                        this.props.isSeoFriendly?
-                            <p className="diff-suggestion">Looking for a different <span onClick={this.searchProceedOPD.bind(this, name, '', '')}>{name}?</span></p>
+                    {/*
+                        this.props.isSeoFriendly && !this.props.isOrganic?
+                            <p className="diff-suggestion">Looking for a different <span onClick={this.searchProceedOPD.bind(this, doc_name[0], '', '')}>Dr. {doc_name[0]}?</span></p>
                         :''
-                    }
+                    */}
                     <h2 className="desg">{this.getQualificationStr(general_specialization || '')}</h2>
                     {/* {
                         general_specialization && general_specialization.length > 3 ?
