@@ -136,7 +136,7 @@ class packagesList extends React.Component {
                                     </div>
                                     <div className="taxContent">
                                         {/* <img style={{ cursor: 'pointer', marginTop: '3px' }} src={ASSETS_BASE_URL + "/img/icons/info.svg"} /> */}
-                                        <p className="taxContentPara">Book Preventive Healthcare Packages for you and your family and get a tax benefit upto <span style={{ display: 'inline-block' }}>₹ 5000</span> under section 80D. To know more <span className="taxClickbtn" onClick={this.showTc.bind(this)}> click here</span></p>
+                                        <p className="taxContentPara">Book Preventive Healthcare Packages for you and your family and get a tax benefit upto <span style={{ display: 'inline-block' }}>₹ 5000</span> under section 80D of the Income Tax Act. To know more <span className="taxClickbtn" onClick={this.showTc.bind(this)}> click here</span></p>
                                     </div>
                                 </div>
                                     : ''

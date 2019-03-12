@@ -34,7 +34,7 @@ class TaxSaverTC extends React.Component {
                                             <div className="widget mrb-15 mrng-top-12">
                                                 <div className="widget-content">
                                                     <div className="taxFullContent">
-                                                        <h4>You can avail tax benefit up to ₹ 5000 on preventive health care packages under Section 80D</h4>
+                                                        <h4>You can avail tax benefit up to ₹ 5000 on preventive health care packages under Section 80D of the Income Tax Act</h4>
                                                         <h4>Preventive healthcare packages:</h4>
                                                         <p>In today’s lifestyle, stress has become a constant companion. Long hours spent at the office meeting deadlines, interpersonal conflicts, and keeping up with regularly changing technology is becoming too much to bear. No wonder, health problems are ubiquitous. While development in medical science allows professionals to combat various ailments, awareness among common people is crucial.</p>
                                                         <p>Preventive health care checkup means identification and minimization of disease risk factors, existing disease course improvement, and early disease detection through screening. This has become crucial since it allows people to know about their health issues well within time. You may be sitting on a health landmine and have no inkling of it. Diagnosis of cancer in later stages is completely ineffectual and heart disease may translate into instant death. These are silent killers and the only way to deal with them is to remain aware of the issues through regular checkups and taking preventive care.</p>
@@ -58,6 +58,7 @@ class TaxSaverTC extends React.Component {
                                                         </ul>
                                                         <p>As people are becoming more health conscious, an increasing number of people are going for preventive healthcare packages. You can choose the healthcare plan that is most suited to your specific needs. The benefit can be availed for the individual, spouse, children or parent depending on the package undertaken. </p>
                                                         <p>Basically, consider your specific situation and then choose the plan that suits your needs. It is also possible to go for custom plans, which are ideal for a specific scenario. The main aim of this is to keep people aware of their health issues and deal with them in a proper manner. Neglecting a disease and allowing it to fester may lead to fatal or irreversible conditions and the preventive care plans does not let this happen</p>
+                                                        <p className="fw-500 text-center">*The deduction is limited to preventive health checkups*</p>
                                                     </div>
                                                 </div>
                                             </div>
