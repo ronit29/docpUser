@@ -1,4 +1,4 @@
-import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET_IPD_SEARCH_ID, SAVE_IPD_RESULTS_WITH_SEARCHID, GET_IPD_SEARCH_ID_RESULTS, GET_IPD_HOSPITAL_DETAIL, CLEAR_IPD_SEARCH_IDS } from '../../constants/types';
+import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET_IPD_SEARCH_ID, SAVE_IPD_RESULTS_WITH_SEARCHID, GET_IPD_SEARCH_ID_RESULTS, GET_IPD_HOSPITAL_DETAIL, CLEAR_IPD_SEARCH_IDS, GET_IPD_HOSPITAL_DETAIL_START } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm'
 
@@ -124,6 +124,10 @@ export const getIpdSearchIdResults = (search_id, response) => (dispatch) => {
 }
 
 export const getHospitaDetails = (hospitalId, selectedLocation) => (dispatch) => {
+
+    dispatch({
+        type: GET_IPD_HOSPITAL_DETAIL_START
+    })
 
     let lat = 28.644800
     let long = 77.216721
