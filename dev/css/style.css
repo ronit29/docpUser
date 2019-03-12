@@ -6999,3 +6999,84 @@ flex-shrink: 0;
 }
 
 /* ==================== docprime care html page ==================== */
+
+
+
+/*================== Package Compare ===================== */
+
+.pkgComapre .top-filter-tabs-select img{
+	width: 18px;
+}
+.pkgComapre .top-filter-tabs-select img.sort-filter{
+	width: 15px;
+}
+.pkgComapre .edit-loc-icon{
+	height: 12px;
+    vertical-align: -2px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+.pkgComapre .alignShareBtn{
+	height: auto;
+	display: inline-block;
+	padding: 2px 0;
+}
+.pkgComapre .filter-title{
+	padding-top: 5px;
+}
+
+.pkgComapre .lab-doc-span{
+	margin-left: 5px;
+	margin-top: 2px; 
+	display: inline-block; 
+	cursor: pointer;
+}
+.pkgComapre h3.pkg-include{
+	font-size: 12px;
+	padding: 3px 8px;
+	vertical-align: 0;
+}
+
+.pkgComapre .pkg-labDoc-Name{
+	font-size: 15px;
+	margin: 2px 0 10px;
+}
+.pkgComapre  .pkg-discountCpn{
+	font-size: 12px;
+}
+.pkgComapre .test-included{
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+}
+.pkgComapre .test-included span{
+	padding-right: 10px;
+	font-weight: 500;
+}
+.pkgComapre .test-included ul{
+	display: inline-block;
+}
+.pkgComapre .test-included ul li{
+	background: rgba(247, 134, 49, .08);
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: #e3711c;
+    font-size: 14px;
+    display: inline-block;
+    margin-right: 10px;
+}
+.pkgComapre .test-included ul li img{
+	width: 15px;
+	vertical-align: middle;
+}
+.pkgComapre .test-included.also-included-test ul li img{
+	width: 21px;
+}
+
+
+
+
+
+
+/*================== Package Compare ===================== */
+

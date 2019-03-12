@@ -55,6 +55,7 @@ import HealthPackageAdvisor from './containers/diagnosis/HealthPackageAdvisor';
 import ThyrocarePackage from './containers/diagnosis/ThyrocarePackage';
 import TaxSaverTC from './components/diagnosis/searchPackages/TaxSaverTC.js'
 import Compare from './containers/commons/ComparePackages.js'
+import PackageCompare from './containers/commons/PackagesComapre.js'
 
 
 /**
@@ -145,6 +146,7 @@ const routes = [
     { path: `/*-tpp`, component: searchTestInfo, RENDER_ON_SERVER: true },
     { path: '/sms/booking', exact: true, component: DirectBooking },
     { path: '/compare', exact:true, component: Compare},
+    { path: '/packageCompare', exact:true, component: PackageCompare},
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 
