@@ -361,7 +361,7 @@ class InsuranceInputView extends React.Component{
     	if(is_disable && document.getElementById(member_ref)){    		
     		document.getElementById(member_ref).scrollIntoView();
     	}else{
-			this.props.history.push('/insurancereviews')
+			this.props.history.push('/insurance/insurance-user-details-review')
     	}
     }
     

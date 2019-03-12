@@ -91,9 +91,9 @@ class InsurancePopup extends React.Component{
                     this.props.getInsurance('a', (resp)=>{
                         if(!resp.certificate){
                             if (exists.user_exists) {
-                            this.props.history.push('/insurancedetails')
+                            this.props.history.push('/insurance/insurance-user-details')
                             }else{
-                                this.props.history.push('/insurancedetails')    
+                                this.props.history.push('/insurance/insurance-user-details')    
                             }
                         }
                         

@@ -94,7 +94,7 @@ class InsuranceCommon extends React.Component{
 							<tbody>
 								<tr>
 									<td><p className="ins-dtls-members-edit">{this.props.is_edit?'Change Insured Plan':'Insured Member Details'}   
-									<span style={{ 'cursor': 'pointer' }} onClick={()=>{this.props.is_edit?this.props.history.push('/insurance'):this.props.history.push('/insurancedetails')}}>EDIT
+									<span style={{ 'cursor': 'pointer' }} onClick={()=>{this.props.is_edit?this.props.history.push('/insurance/insurance-plans'):this.props.history.push('/insurance/insurance-user-details')}}>EDIT
 									</span></p></td>
 									<td></td>
 								</tr>

@@ -180,7 +180,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
-                        <li onClick={()=> isUserLoginInsured?this.props.history.push('/insurance/certificate'):this.props.history.push('/insurance')} className="my-profile-item lst-spcng">
+                        <li onClick={()=> isUserLoginInsured?this.props.history.push('/insurance/certificate'):this.props.history.push('/insurance/insurance-plans')} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} className="img-fluid" />

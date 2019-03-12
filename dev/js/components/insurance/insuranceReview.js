@@ -109,7 +109,7 @@ class InsuranceReview extends React.Component{
 		this.props.resetSelectedInsuranceMembers()
 		this.props.insurancePay('insurance_pay', insurance_pay,'a',(resp)=>{
 			if(resp.members && resp.members.length >0){
-				this.props.history.push('/insurancedetails')
+				this.props.history.push('/insurance/insurance-user-details')
 			}else{
 				if(resp.certificate){
 					this.props.history.push('/insurance/certificate')

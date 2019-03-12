@@ -95,12 +95,12 @@ class Insurance extends React.Component{
 							self.props.userData('memberNewdata', memberNewdata)
 						}
 					})
-					this.props.history.push('/insurancedetails')
+					this.props.history.push('/insurance/insurance-user-details')
 				}else{
-					this.props.history.push('/insurancedetails')
+					this.props.history.push('/insurance/insurance-user-details')
 				}
         	}else{	
-        		this.props.history.push('/insurancedetails')
+        		this.props.history.push('/insurance/insurance-user-details')
         	}
    		}else{
    			this.setState({showPopup: true})
