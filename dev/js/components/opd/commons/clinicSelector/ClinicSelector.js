@@ -131,7 +131,7 @@ class ClinicSelector extends React.Component {
                                 </label>
                             </div>
                             {
-                                this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories
+                                false && this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories
                                     ? ''
                                     : <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
                                         <div className="clearfix">
@@ -188,13 +188,13 @@ class ClinicSelector extends React.Component {
                                 </div>
                             </div>
                             {
-                                this.props.selectedClinic != hospital.hospital_id && (this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id]) && (this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures > 0 || this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures > 0)
+                                false && this.props.selectedClinic != hospital.hospital_id && (this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id]) && (this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures > 0 || this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures > 0)
                                     ? <p>Treatments Available {`(${this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures})`}</p>
                                     : ''
                             }
 
                             {
-                                this.props.is_procedure ?
+                                this.props.is_procedure && false ?
                                     this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures >= 0
                                         ? ''
                                         : <p className="select-bnr-dsn">Selected treatment not available</p>
@@ -202,7 +202,7 @@ class ClinicSelector extends React.Component {
                             }
 
                             {
-                                this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories ?
+                                false && this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories ?
                                     <div className="procedure-checkboxes remove-bg-color">
                                         <div className="dtl-cnslt-fee pb-list ofr-mrngbtm">
 
