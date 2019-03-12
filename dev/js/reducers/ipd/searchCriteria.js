@@ -26,7 +26,8 @@ const defaultState = {
 	fetchNewResults: false,
 	getNewResults: true,
 	ipd_hospital_detail: {},
-	HOSPITAL_DETAIL_LOADED: false
+	HOSPITAL_DETAIL_LOADED: false,
+	locationFetched: false
 }
 
 export default function ( state=defaultState, action) {
@@ -179,7 +180,7 @@ export default function ( state=defaultState, action) {
         	let newState = {
         		...state
         	}
-
+        	newState.locationFetched = true
         	newState.fetchNewResults = !!action.fetchNewResults
         	return newState
         }

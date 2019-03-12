@@ -25,7 +25,24 @@ class IpdInfoContainer extends React.Component{
 		if(window){
 			window.scrollTo(0,0)
 		}
-		
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if(this.props.locationFetched != nextProps.locationFetched){
+
+			const parsed = queryString.parse(nextProps.location.search)
+			if(parsed.ipd_id){
+				this.setState({ipd_id: parsed.ipd_id})
+				this.props.getIpdInfo(parsed.ipd_id, nextProps.selectedLocation)
+			}else if(nextProps.commonSelectedCriterias.length){
+				this.setState({ipd_id: nextProps.commonSelectedCriterias[0].id})
+				this.props.getIpdInfo(nextProps.commonSelectedCriterias[0].id, nextProps.selectedLocation)	
+			}
+			if(window){
+				window.scrollTo(0,0)
+			}
+
+		}
 	}
 
 	render(){
@@ -46,11 +63,12 @@ const mapStateToProps = (state) => {
 		selectedCriterias,
 		ipd_info,
 		IPD_INFO_LOADED,
-		commonSelectedCriterias
+		commonSelectedCriterias,
+		locationFetched
 	} = state.SEARCH_CRITERIA_IPD
 
     return{
-    	selectedLocation, selectedCriterias, ipd_info, IPD_INFO_LOADED, commonSelectedCriterias
+    	selectedLocation, selectedCriterias, ipd_info, IPD_INFO_LOADED, commonSelectedCriterias, locationFetched
     }
 }
 

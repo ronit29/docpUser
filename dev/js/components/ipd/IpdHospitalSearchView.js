@@ -125,6 +125,8 @@ class IpdHospitalView extends React.Component{
                 this.getIpdHospitalList(nextProps)    
             })
             
+        }else if(nextProps.locationFetched != this.props.locationFetched){
+            this.getIpdHospitalList(nextProps)
         }
     }
 
@@ -166,7 +168,7 @@ class IpdHospitalView extends React.Component{
         let max_distance = filterCriteria.distance[1]
         let provider_ids = filterCriteria.provider_ids
 
-        let url = `${window.location.pathname}?ipd_id=${ipd_id}&lat=${lat}&long=${long}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&search_id=${this.state.search_id}`
+        let url = `${window.location.pathname}?ipd_id=${ipd_id}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&search_id=${this.state.search_id}`
 
         if (page > 1) {
             url += `&page=${page}`

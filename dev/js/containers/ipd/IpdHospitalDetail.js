@@ -15,6 +15,15 @@ class HospitalDetail extends React.Component {
 		this.props.getHospitaDetails(this.props.match.params.hospitalId, this.props.selectedLocation)
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if(this.props.locationFetched != nextProps.locationFetched){
+			this.props.getHospitaDetails(this.props.match.params.hospitalId, nextProps.selectedLocation)
+			if(window){
+				window.scrollTo(0,0)
+			}
+		}
+	}
+
 	render(){
 
 		return(
@@ -33,7 +42,8 @@ const mapStateToProps = (state) => {
 	const {
 		ipd_hospital_detail,
 		HOSPITAL_DETAIL_LOADED,
-		commonSelectedCriterias
+		commonSelectedCriterias,
+		locationFetched
 	} = state.SEARCH_CRITERIA_IPD
 
 	return {
@@ -41,7 +51,8 @@ const mapStateToProps = (state) => {
         locationType,
         ipd_hospital_detail,
         HOSPITAL_DETAIL_LOADED,
-        commonSelectedCriterias
+        commonSelectedCriterias,
+        locationFetched
 	}
 }
 

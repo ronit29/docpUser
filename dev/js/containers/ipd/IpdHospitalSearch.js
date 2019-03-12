@@ -37,7 +37,8 @@ const mapStateToProps = (state) => {
 		commonSelectedCriterias,
 		nextSelectedCriterias,
 		fetchNewResults,
-		getNewResults
+		getNewResults,
+		locationFetched
 	} = state.SEARCH_CRITERIA_IPD
 
 	return {
@@ -54,7 +55,8 @@ const mapStateToProps = (state) => {
 		commonSelectedCriterias,
 		nextSelectedCriterias,
 		fetchNewResults,
-		getNewResults
+		getNewResults,
+		locationFetched
 	}
 }
 
