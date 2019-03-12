@@ -7723,7 +7723,12 @@ a.btn-search.btn-cnte{
 	margin-bottom: 30px;
 	display: block;
 }
-
+#hospitalTab{
+	margin-top: -25px;	
+}
+.ipd-section a .lab-fltr-dc-name{
+	color: #000;
+}
 @media screen and (max-width: 991px){
 	.ipd-section .full-widget{
 		top: 89px;
@@ -7807,6 +7812,9 @@ a.btn-search.btn-cnte{
     } 
     .ipd-section .custom-popup.thanks-popup{
     	transform: translateY(-44%);
+    }
+    .ipd-section .custom-popup.thanks-popup.login-cls{
+    	transform: translateY(-100%);
     }
     .ipd-section .cross-btn{
         top: 7px;
@@ -7927,4 +7935,9 @@ a.btn-search.btn-cnte{
 }
 .abt-doc-inlinetext p{
 	display: inline;
+}
+.custom-li-style ul{
+	padding-left: 15px;
+	list-style: disc;
+	font-weight:400;
 }

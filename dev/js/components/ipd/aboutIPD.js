@@ -40,7 +40,7 @@ class IPDAboutUs extends React.Component {
                 	}
                 </ul>
                 <h4 className="section-heading">Procedure </h4>
-            	<div className="widget" dangerouslySetInnerHTML={{ __html: aboutText}}>
+            	<div className="widget custom-li-style" dangerouslySetInnerHTML={{ __html: aboutText}}>
 	            </div>
                 	{
                 		this.state.toggleReadMore?

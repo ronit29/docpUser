@@ -64,7 +64,7 @@ class HospitalDetailView extends React.Component {
 				                    }
 
 				                    {
-				                    	this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.rating_graph && this.props.ipd_hospital_detail.rating_graph.star_count?
+				                    	this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.rating_graph && this.props.ipd_hospital_detail.rating_graph.star_count && this.props.ipd_hospital_detail.display_rating_widget?
 				                    	<div className="hs-card">
 					               			<div className="card-head">Patient Feedback</div>
 				                    		<RatingGraph details = {this.props.ipd_hospital_detail}/>
@@ -73,7 +73,7 @@ class HospitalDetailView extends React.Component {
 				                    }
 
 				                    {
-				                    	this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.rating && this.props.ipd_hospital_detail.rating.length?
+				                    	this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.rating && this.props.ipd_hospital_detail.rating.length && this.props.ipd_hospital_detail.display_rating_widget?
 				                    	<ReviewList details = {this.props.ipd_hospital_detail}/>
 				                    	:''
 				                    }
@@ -97,7 +97,7 @@ class HospitalDetailView extends React.Component {
 		                    			<HospitalAboutUs hospital_data={this.props.ipd_hospital_detail}/>
 		                    			:''	
 		                    		}
-		                    		<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Estimated Cost</a></div>
+		                    		<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a></div>
 		                    	</div>
 		                    	:<Loader/>	
 	                    	}

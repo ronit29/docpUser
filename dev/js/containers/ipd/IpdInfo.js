@@ -48,7 +48,13 @@ class IpdInfoContainer extends React.Component{
 	render(){
 
 		return(
-			<IpdInfoView {...this.props} {...this.state}/>
+			<div>
+			{
+				this.props.IPD_INFO_LOADED?
+				<IpdInfoView {...this.props} {...this.state}/>
+				:''	
+			}
+			</div>
 			)
 	}
 } 

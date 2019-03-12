@@ -25,7 +25,7 @@ class IpdInfo extends React.Component {
 		var section = document.querySelectorAll(".nav_top_bar");
 		var sections = {};
 		var i = 0;
-
+/*
 		Array.prototype.forEach.call(section, function(e) {
 			let headerHeight = 0
 			if(document.getElementsByClassName('stickyBar') && document.getElementsByClassName('stickyBar')[0]){
@@ -34,18 +34,28 @@ class IpdInfo extends React.Component {
 			
 		    sections[e.id] = e.offsetTop + headerHeight
 
-		 })
+		 })*/
+		 let headerHeight = 0
+		Object.keys(this.refs).forEach((prp, i) => {
+			
+			if(document.getElementsByClassName('stickyBar') && document.getElementsByClassName('stickyBar')[0]){
+				headerHeight = document.getElementsByClassName('stickyBar')[0].offsetTop - 100
+			}
+			sections[prp] = this.refs[prp].offsetTop + headerHeight						
+
+		})
 
 		let self = this
-
 		if(window && document){
 			window.onscroll = function() {
 		    var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
 
 		    for (i in sections) {
-		      if (sections[i] <= scrollPosition) {
-		      	self.setState({toggleTabType: i})
-		      }
+		    	if(self.refs[i]){
+		    		if ((self.refs[i].offsetTop +  headerHeight )<= scrollPosition) {
+				      	self.setState({toggleTabType: i})
+				    }
+		    	}
 		    }
 		  }	
 		}
@@ -114,12 +124,12 @@ class IpdInfo extends React.Component {
 				                        </div>
 				                     </nav>
 				                   </div>
-				                   <div className="tab-content" ref={elem => this.ipd_info=elem}>
-				                   		<div id="aboutTab" className="nav_top_bar">
+				                   <div className="tab-content" >
+				                   		<div id="aboutTab" ref="aboutTab" className="nav_top_bar">
 				                   			<IpdAboutUs {...this.props} id="aboutTab"/>
 				                   		</div> 
 					                   	
-							            <div id="hospitalTab" className="tab-pane fade" className="nav_top_bar">
+							            <div id="hospitalTab" ref="hospitalTab" className="tab-pane fade" className="nav_top_bar">
 							            	{
 							            		this.props.ipd_info && this.props.ipd_info.hospitals && this.props.ipd_info.hospitals.result && this.props.ipd_info.hospitals.result.length?
 							            		<HospitalList {...this.props} hospitalList = {this.props.ipd_info && this.props.ipd_info.hospitals?this.props.ipd_info.hospitals:[]}/>
@@ -133,7 +143,7 @@ class IpdInfo extends React.Component {
 							            	}
 										</div>
 
-										<div id="doctorTab" className="tab-pane fade nav_top_bar">
+										<div id="doctorTab" ref="doctorTab" className="tab-pane fade nav_top_bar">
 											{
 												this.props.ipd_info && this.props.ipd_info.doctors && this.props.ipd_info.doctors.result  && this.props.ipd_info.doctors.result.length && this.props.ipd_info.about && this.props.ipd_info.about.name?
 												<h4 className="section-heading">{`Top Doctors for ${this.props.ipd_info.about.name} `}</h4>

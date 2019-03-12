@@ -32,7 +32,7 @@ class IpdDetailView extends React.Component {
                     			this.props.IPD_INFO_LOADED?
                     			<div className ="ipd-section">
 									<h4 className="section-heading"><img src="https://cdn.docprime.com/cp/assets/img/icons/back-arrow.png" className="img-fluid" style={{ width: '20px',marginRight: '10px', verticalAlign: '-3px' }} onClick={()=>this.props.history.go(-1)}/>{` About ${this.props.ipd_info.about.name}`}</h4>
-                    				<div className="widget" dangerouslySetInnerHTML={{ __html: this.props.ipd_info.about.details}}></div>
+                    				<div className="widget custom-li-style" dangerouslySetInnerHTML={{ __html: this.props.ipd_info.about.details}}></div>
 		                    	</div>
 		                    	:''	
                     		}

@@ -90,7 +90,7 @@ class IPDFormView extends React.Component{
         			this.setState({submitFormSuccess: true})	
         		}else{
         			setTimeout(() => {
-	                SnackBar.show({ pos: 'bottom-center', text: "Please Try after some time" })
+	                SnackBar.show({ pos: 'bottom-center', text: "Please try after some time" })
 	            }, 500)	
         		}
         	})
@@ -144,11 +144,11 @@ class IPDFormView extends React.Component{
 					                        
 					                     </div>
 					                     <div className="form-group fm-grp mrg-mb0">
-					                        <div className="lbl-txt gender-label">gender:</div>
+					                        <div className="lbl-txt gender-label">Gender:</div>
 					                        <div className="input-form dis-flx">
 					                           <div className="dtl-radio">
 					                              <label className="container-radio">Male
-					                              <input type="radio" name="gender" value="on" checked={this.state.gender=='m'} onClick={()=>this.setState({gender:'m'})}/>
+					                              <input type="radio" name="gender" value="on" checked={this.state.gender=='m'} onChange={()=>this.setState({gender:'m'})}/>
 					                              <span className="doc-checkmark"></span>
 					                              </label>
 					                           </div>

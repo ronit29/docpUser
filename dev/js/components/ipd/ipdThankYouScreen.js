@@ -7,11 +7,11 @@ class IpdThankYouScreen extends React.Component{
 		this.props.history.push('/login')
 	}	
 	render(){
-
+		let userLogin = STORAGE.checkAuth() || false
 		return(
 			<div>
 			<div className="custom-overlay" onClick={()=>this.props.history.push('/')}></div>
-			<div className="custom-popup thanks-popup text-center">
+			<div className={`custom-popup thanks-popup text-center ${userLogin?'login-cls':''}`}>
 	           <div className="cross-btn"><img src="https://cdn.docprime.com/cp/assets/img/icons/close.png" alt="" onClick={()=>this.props.history.push('/')}/></div>
 	           <div className="pop-head text-center">Thank you for using Docprime!</div>
 	           <p>Our medical expert will call you shortly and help you with the following:</p>
@@ -21,7 +21,7 @@ class IpdThankYouScreen extends React.Component{
 	             <li><img src={ASSETS_BASE_URL + "/images/tick.png"} alt="" />Managing Hospital Process</li>
 	           </ul>
 	           	{
-	           		STORAGE.checkAuth()?''
+	           		userLogin?''
 	           		:<div>
 	           			<a href="javascript:void(0);" className="btn-search btn-singup" onClick={this.signUpClicked.bind(this)}>Signup on Docprime</a>
 			            <a href="javascript:void(0);" className="btn-coupan">&amp; Get coupons worth ₹300 </a>
