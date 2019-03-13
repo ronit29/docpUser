@@ -54,7 +54,7 @@ import OrderSummary from './containers/commons/OrderSummary'
 import HealthPackageAdvisor from './containers/diagnosis/HealthPackageAdvisor';
 import ThyrocarePackage from './containers/diagnosis/ThyrocarePackage';
 import TaxSaverTC from './components/diagnosis/searchPackages/TaxSaverTC.js'
-import PrimeCare from './containers/commons/PrimeCare.js'
+import PrimeCare from './containers/commons/primeCare.js'
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.

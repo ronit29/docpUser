@@ -33,7 +33,7 @@ class PrimeCareView extends React.Component {
                                 <p className="error-text fw-500">Page not found !</p>
                                 <p className="error-link">Go to <a href="javascript:;" onClick={() => {
                                     this.props.history.push('/')
-                                }}>docprime homepage</a></p>
+                                }}>docprime homepage rishab</a></p>
                             </div>
                         </div>
                     </div>

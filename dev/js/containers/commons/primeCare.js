@@ -5,7 +5,7 @@ import { } from '../../actions/index.js'
 
 import PrimeCareView from '../../components/commons/primeCare/primeCareView.js'
 
-class NotFound extends React.Component {
+class primeCare extends React.Component {
     constructor(props) {
         super(props)
     }
