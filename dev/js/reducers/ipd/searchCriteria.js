@@ -89,7 +89,7 @@ export default function ( state=defaultState, action) {
 			newState.getNewResults = false
 			newState.fetchNewResults = false
 
-			action.payload.result.map((hospital) => {
+			action.payload && action.payload.result && action.payload.result.map((hospital) => {
 				if(newState.hospital_list.indexOf(hospital.id)>-1){
 
 				}else{

@@ -96,7 +96,10 @@ export const getIpdHospitals = (state, cb) => (dispatch) => {
         if(cb)cb(true)
 
     }).catch( function (error) {
-
+        dispatch({
+            type: GET_IPD_HOSPITALS,
+            payload: []
+        })
     })
 }
 
