@@ -165,7 +165,7 @@ class TopBar extends React.Component {
                                     </ul>
                                 </div>
                                 <div className="filter-title">
-                                    {this.props.hospital_search_results && this.props.hospital_search_results.count?this.props.hospital_search_results.count: 'No'} Results found {criteriaStr ? "for" : ""}
+                                    {this.props.hospital_search_results && this.props.hospital_search_results.count?this.props.hospital_search_results.count: 'No'} Hospitals found {criteriaStr ? "for" : ""}
                                     <h1 className="search-result-heading">
                                         <span className="fw-700"> {criteriaStr} </span>
                                         <span className="search-result-span" onClick={

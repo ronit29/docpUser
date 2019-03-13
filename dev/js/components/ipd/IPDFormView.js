@@ -122,6 +122,14 @@ class IPDFormView extends React.Component{
 			                <div className="col-12 col-md-7 col-lg-7 center-column">
 		                    	<div className ="ipd-section ipd-form-view">
 		                    		<h4 className="section-heading pt-0">{`Get Cost Estimate of ${ipd_info.about.name}`}</h4>
+		                    		<div className="lead-form">
+		                    			<p>Please provide your details below and our Medical Experts will contact you shortly</p>
+		                    			 {/*<ul class="med-help">
+			                    			 <li><img src={ASSETS_BASE_URL + "/images/tick.png"} alt="" />Find the right Doctor and Hospital </li>
+			                    			 <li><img src={ASSETS_BASE_URL + "/images/tick.png"} alt="" />Comparing Surgery/Procedure cost</li>
+			                    			 <li><img src={ASSETS_BASE_URL + "/images/tick.png"} alt="" />Managing Hospital Process</li>
+		                    			 </ul>*/}
+		                    		</div>
 					                  <div className="info-popup">
 					                     {/*<div className="pop-head">{ipd_info.about.name}</div>*/}
 					                     <div className="form-group fm-grp mt-0">
@@ -142,7 +150,7 @@ class IPDFormView extends React.Component{
 					                        	:''	
 					                        }
 					                     </div>
-					                     <div className="form-group fm-grp">
+					                     <div className="form-group fm-grp emailForm">
 					                        <div className="lbl-txt">Email Id:</div>
 					                        <div className="input-form"><input type="text" autoComplete="none" className={`form-control ${this.state.validateError.indexOf('email')>-1?'error-on':''}`} name = "email" value={this.state.email} onChange={this.inputHandler.bind(this)}/></div>
 					                        {
@@ -190,8 +198,8 @@ class IPDFormView extends React.Component{
 					                        }
 					                     </div>
 					                  </div>
-					                  <div className="btn-search-div btn-apply-div btn-sbmt">
-					                     <a href="javascript:void(0);" className="btn-search" onClick={this.submitClicked.bind(this)}>Submit</a>
+					                  <div className="btn-search-div btn-apply-div btn-sbmt btncallback">
+					                     <a href="javascript:void(0);" className="btn-search" onClick={this.submitClicked.bind(this)}>Request Call Back</a>
 					                  </div>
 					                  {
 					                  	this.state.submitFormSuccess?

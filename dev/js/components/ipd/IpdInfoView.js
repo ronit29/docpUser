@@ -114,11 +114,13 @@ class IpdInfo extends React.Component {
 	                    	{
 	                    	   this.props.IPD_INFO_LOADED?                    		
 		                       <div className ="ipd-section">
+		                       	  <h4 className="section-heading top-sc-head"> <span className="about-head"> {`${this.props.ipd_info?this.props.ipd_info.about.name:''}`} </span>
+               						</h4>
 		                          <div className="full-widget mrg-b0 stickyBar">
 				                     <nav className="tab-head">
 				                        <div className="">
 				                           <div className="nav nav-tabs nav-top-head " id="nav-tab" role="tablist">
-						                              <a className={`nav-item nav-link ${this.state.toggleTabType=='aboutTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'aboutTab')}>Info
+						                              <a className={`nav-item nav-link ${this.state.toggleTabType=='aboutTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'aboutTab')}>Overview
 						                              </a>
 						                              <a className={`nav-item nav-link ${this.state.toggleTabType=='hospitalTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'hospitalTab')}>Hospitals
 						                              </a>

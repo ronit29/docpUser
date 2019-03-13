@@ -6784,9 +6784,10 @@ button.padding-btn-adjust{
 
 .ipd-section {
 	font-weight: 500;
+	margin-top: -20px;
 }
 .ipd-section.ipd-form-view{
-	margin-top: -45px;
+	margin-top: -22px;
 }
 .ipd-section a,.ipd-section a:hover,.ipd-section a:focus,.ipd-section a:active{
     color: #f78631;
@@ -6905,24 +6906,28 @@ button.padding-btn-adjust{
 .ipd-section .nav-tabs.nav-top-head a:hover{
     color: #ff7600;
 }
-.ipd-section .nav-tabs.nav-top-head a.active {
+.ipd-section .nav-tabs.nav-top-head a.active,.ipd-section .nav-tabs.nav-top-head a:focus.active  {
     color: #ff7600;
     border-bottom: 2px solid #ff7600;
+}
+.ipd-section .nav-tabs.nav-top-head a:focus{
+	color: #6c6b6b;
 }
 .ipd-section .loc-info{
     display: flex;
 }
 .ipd-section .img-loc{
-    width: 14px;
+    width: 10px;
     vertical-align: top;
-    height: 20px;
+    height: 15px;
 }
 .ipd-section .loc-info p{
-    font-size: 14px;
+    font-size: 13px;
     color: #757575;
     display: inline-block;
     margin-left: 10px;
     margin-top: -2px;
+    margin-bottom: 5px;
 }
 .ipd-section .hospital-info{
     padding-top: 15px;
@@ -6937,7 +6942,7 @@ button.padding-btn-adjust{
     padding-bottom: 5px;
 }
 .ipd-section .hos-certified{
-    padding: 0 0 5px;
+    padding: 0 0 0px;
 }
 .ipd-section .hos-popularity .pop-txt{
     background: #55a740;
@@ -7000,9 +7005,11 @@ button.padding-btn-adjust{
 }
 .ipd-section .tab-head{
     margin: 0 -15px;
+    margin-bottom: 15px;
 }
 .ipd-section .img-hospital{
         width: 120px;
+        margin-top: -15px;
     }
  .ipd-edit.ic-edit{
     width: 12px;
@@ -7048,6 +7055,7 @@ button.padding-btn-adjust{
     color: #000;
     font-weight: 500;
     padding: 12px 0 0;
+    font-size: 14px;
 }
 .ipd-section .input-form input:focus{
     box-shadow: none;
@@ -7099,7 +7107,9 @@ button.padding-btn-adjust{
     z-index: 99;
     margin-left: -15px;
     margin-right: -15px;
+
 }
+
 
 .ipd-section .btn-search-div {
     position: fixed;
@@ -7432,6 +7442,7 @@ button.padding-btn-adjust{
 .ipd-section .btn-coupan{
     display: block;
     margin-bottom: 15px;
+    color: #767676;
 }
 .ins-listing .ck-bx{
 	font-weight: 500;
@@ -7448,6 +7459,10 @@ button.padding-btn-adjust{
 .ipd-section .section-heading.top-sc-head .about-head{
 	display: inline-block;
     width: 93%;
+}
+.ipd-section .section-heading.top-sc-head{
+	 padding-top: 0px;
+    font-size: 20px;
 }
 .ipd-section .read-more-btn{
 	position: relative;
@@ -7726,7 +7741,7 @@ a.btn-search.btn-cnte{
 	margin-bottom: 30px;
 	display: block;
 }
-#hospitalTab{
+#hospitalTab,#doctorTab{
 	margin-top: -25px;	
 }
 .ipd-section a .lab-fltr-dc-name{
@@ -7742,6 +7757,18 @@ a.btn-search.btn-cnte{
 .custom-li-style{
 	min-height: 38px;
 }
+.lead-form p{
+	margin-bottom: 10px;
+}
+.lead-form ul{
+	margin-bottom: 15px;
+}
+.fm-grp.emailForm{
+	margin-bottom: 40px;
+}
+.thumb-icon img{
+	width: 50px;
+}
 @media screen and (max-width: 991px){
 	.ipd-section .full-widget{
 		top: 89px;
@@ -7756,14 +7783,24 @@ a.btn-search.btn-cnte{
 	.ipd-section .read-more-btn{
 		right: -80%;
 	}
+	.ipd-section.ipd-form-view{
+		margin-top: -45px;
+	}
+	.ipd-section .left-side-info{
+		flex: auto;
+	}
+	.ipd-section{
+		margin-top: 0;
+	}
 }
 
 @media screen and (max-width: 767px){
 	 .ipd-section{
     	padding:0 15px;
+    	margin-top: -10px;
     }
     .ipd-section .full-widget.mrg-b0{
-    	margin-top: -10px;
+    	margin-top: 0px;
     }
     .ipd-section .section-heading{
     	padding: 10px 0;
@@ -7794,10 +7831,7 @@ a.btn-search.btn-cnte{
 	}
 }
 @media screen and (max-width: 480px){
-    .ipd-section .hospital-info.hsptl-info{
-        display: block;
-        overflow: auto;
-    }
+    
     .ipd-section .btn-estimate{
         width: 100%;
         text-align: center;
@@ -7805,12 +7839,14 @@ a.btn-search.btn-cnte{
     .ipd-section .hos-certified.hs-certified{
         float: left;
         margin-right: 10px;
-        border-right: 1px solid #ccc;
         padding-right: 10px;
         padding-bottom: 0;
     }
+    .ipd-section .hos-certified{
+    	clear: both;
+    }
     .ipd-section .img-splty{
-        margin: 3px 5px 0 0;
+        margin: 1px 10px 0 3px;
     }
     .ipd-section .hospital-info{
         padding-top: 5px;
@@ -7860,6 +7896,9 @@ a.btn-search.btn-cnte{
 	.ipd-section .hs-nme{
 		width: 170px;
 	}
+	.ipd-section .btn-search-div.btn-apply-div.btn-sbmt.btncallback{
+		position: fixed !important;
+	}
 }
 @media screen and (max-width: 405px){
 	.ipd-section .lbl-txt{
@@ -7906,6 +7945,19 @@ a.btn-search.btn-cnte{
     .hsptl-img span:first-child,.hsptl-img span:nth-child(2){
 		display: none;
 	}
+	.ipd-section .hospital-info.hsptl-info{
+        display: block;
+        overflow: auto;
+    }
+    .ipd-section .hos-certified.hs-certified{
+    	border-right: 1px solid #ccc;
+    }
+    .ipd-section .hos-certified{
+    	clear: unset;
+    }
+    .ipd-section .img-hospital{
+        margin-top: 0 px;
+    }
    
 }
 /* ============ time slot new card ============ */
