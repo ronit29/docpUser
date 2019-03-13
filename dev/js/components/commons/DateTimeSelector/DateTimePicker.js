@@ -101,18 +101,18 @@ class DateTimePicker extends React.Component {
     selectDateFromCalendar(date) {
         if (date) {
             date = date.toDate()
-            this.setState({ selectedDateSpan: new Date(date), currentTimeSlot:{}, dateModal: false }, () => {
+            this.setState({ dateModal: false }, () => {
                 this.props.enableProceed(false, [])
-                this.pickDate()
+                this.pickDate(new Date(date))
             })
         } else {
             this.setState({ dateModal: false })
         }
     }
 
-    pickDate() {
-        if (this.state.selectedDateSpan) {
-            let selectedDate = new Date(this.state.selectedDateSpan)
+    pickDate(date) {
+        if (date) {
+            let selectedDate = new Date(date)
             this.generateDays(true, selectedDate)
             this.selectDate(selectedDate)
         }
@@ -155,14 +155,7 @@ class DateTimePicker extends React.Component {
 
 	render(){
 
-        const parsed = queryString.parse(this.props.location.search)
-        let type = 1
-        if(parsed.type && parsed.type == 'opd'){
-            type = 0
-        }
-
         let selectedFormattedDate = this.getFormattedDate(this.state.selectedDateSpan)
-
 		return(
 			<div className="widget mrng-top-12">
                 <div className="time-slot-container">
@@ -177,7 +170,7 @@ class DateTimePicker extends React.Component {
                             <div className="vertical-date-listing">
                                 <ul className="ver-date-list-ul">
                                     {
-                                        this.props.daySeries && this.props.daySeries.length && this.state.daySeries[0].dateFormat > new Date()
+                                        this.state.daySeries && this.state.daySeries.length && this.state.daySeries[0].dateFormat > new Date()
                                         ?<li className="scrll-date" onClick={this.openDateModal.bind(this)}>
                                             <img src={ASSETS_BASE_URL + "/img/right-sc.svg"} style={{transform:'rotate(180deg)'}} />
                                         </li>
