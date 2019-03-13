@@ -5,6 +5,7 @@ import ProfileHeader from '../commons/DesktopProfileHeader'
 import Footer from '../commons/Home/footer'
 import SnackBar from 'node-snackbar'
 import ThankyouPoup from './ipdThankYouScreen.js'
+const queryString = require('query-string')
 
 class IPDFormView extends React.Component{
 
@@ -79,12 +80,20 @@ class IPDFormView extends React.Component{
 
         	this.setState({validateError: validateError})
         }else{
+
+        	const parsed = queryString.parse(this.props.location.search)
+
+
         	this.setState({validateError: validateError})
         	let formData = {
         		...this.state,
-        		ipd_procedure: this.props.match.params.id,
-        		hospital: this.props.match.params.hospitalId
+        		ipd_procedure: this.props.match.params.id
         	}
+
+        	if(parsed.hospital_id){
+        		formData.hospital = parsed.hospital_id
+        	}
+
         	this.props.submitIPDForm(formData, (error, response)=>{
         		if(!error && response){
         			this.setState({submitFormSuccess: true})	

@@ -103,6 +103,8 @@ class CriteriaElasticSearchView extends React.Component {
         let OPD_TYPES = ['visit_reason', 'practice_specialization', 'doctor', 'hospital', 'practice_specialization_synonym']
         
         let PROCEDURE_TYPES = ['procedure_category', 'procedure']
+
+        let IPD_TYPES = ['ipd']
         
         let type = ''
         let visibleType = ''
@@ -122,7 +124,12 @@ class CriteriaElasticSearchView extends React.Component {
 
                     type = 'opd'
                     visibleType = searchResults.suggestion[0]
-                }/*else if(PROCEDURE_TYPES.indexOf(searchResults.suggestion[0].type)>-1 && this.props.type !='procedures'){
+                }else if(IPD_TYPES.indexOf(searchResults.suggestion[0].type)>-1 && this.props.type !='ipd'){
+                    type = 'ipd'
+                    visibleType = searchResults.suggestion[0]                    
+                }
+
+                /*else if(PROCEDURE_TYPES.indexOf(searchResults.suggestion[0].type)>-1 && this.props.type !='procedures'){
 
                     type = 'procedures'
                     visibleType = searchResults.suggestion[0]
@@ -214,6 +221,15 @@ class CriteriaElasticSearchView extends React.Component {
             this.props.cloneCommonSelectedCriterias(criteria)
             this.setState({ searchValue: "" })
             this.props.showResults('opd')
+
+        }else if(this.props.type.includes('ipd')){
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'IPDNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
+            }
+            GTM.sendEvent({ data: data })
+            let ipdData = Object.assign({}, criteria)
+            ipdData.id = criteria.action.value[0]
+            this.props.toggleIpd('ipd', ipdData, this.state.searchValue)
 
         } else {
 
@@ -475,7 +491,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                         <p className="p-0" >Search all Doctors with name :<span className="search-el-code-bold">{this.state.searchValue}</span></p>
                                                                                     </div>
                                                                                 </li>
-                                                                                : (this.state.searchValue.length > 2)
+                                                                                : (this.state.searchValue.length > 2 && this.props.type.includes('lab'))
                                                                                     ? <li onClick={() => {
 
                                                                                         let data = {

@@ -97,6 +97,10 @@ class IpdInfo extends React.Component {
 		
 	}
 
+	getCostEstimateClicked(){
+		this.props.history.push(`/ipd/${this.props.ipd_id}/getPriceEstimate`)
+	}
+
 	render(){
 
 		return(
@@ -165,8 +169,11 @@ class IpdInfo extends React.Component {
 						                    
 						                </div>
 						            </div>
-						           
+						            <div className="btn-search-div btn-apply-div btn-sbmt">
+					                     <a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a>
+					                  </div>
 				                </div>
+
 				                :<Loader/>
 	                    	}
 			            </div>

@@ -153,7 +153,7 @@ const routes = [
     { path: '/sms/booking', exact: true, component: DirectBooking },
     { path: '/ipd', exact: true, component: IPD },
     { path: '/ipdInfo', exact: true, component: IPDInfo},
-    { path: '/ipd/:id/:hospitalId/getPriceEstimate',exact: true, component: IpdForm},
+    { path: '/ipd/:id/getPriceEstimate',exact: true, component: IpdForm},
     { path: '/ipd/searchHospitals',exact: true, component: IpdHospitalSearch},
     { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail},
     { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail },
