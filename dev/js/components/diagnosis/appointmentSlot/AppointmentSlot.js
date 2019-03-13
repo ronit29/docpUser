@@ -2,12 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 //import TimeSlotSelector from '../../commons/timeSlotSelector/index.js'
-import TimeSlotSelector from '../LabDateTimeSelector.js'
+import TimeSlotSelector from '../LabDateTimePicker.js'
 import Loader from '../../commons/Loader'
 
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
+const queryString = require('query-string');
 
 class AppointmentSlot extends React.Component {
     constructor(props) {
@@ -18,12 +19,10 @@ class AppointmentSlot extends React.Component {
             timeSlots: null,
             goback: this.props.location.search.includes('goback'),
             pickupType: this.props.location.search.includes('type=lab') ? 0 : 1,
-            today_min: null,
-            tomorrow_min: null, 
-            today_max: null,
             enableProceed: false,
             selectedTimeSlot: {},
-            upcoming_slots: null
+            upcoming_slots: null,
+            is_thyrocare: false
         }
     }
 
@@ -54,12 +53,6 @@ class AppointmentSlot extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
-        
-
-        /*this.props.getLabTimeSlots(selectedLab, this.state.pickupType, this.props.pincode, (data) => {
-            let { time_slots, today_min, tomorrow_min, today_max } = data
-            this.setState({ timeSlots: time_slots, today_min: today_min || null, tomorrow_min: tomorrow_min || null, today_max: today_max || null })
-        })*/
 
         if(this.props.selectedSlot && this.props.selectedSlot.date){
             this.getTimeSlots(new Date(this.props.selectedSlot.date))
@@ -75,18 +68,16 @@ class AppointmentSlot extends React.Component {
         let selectedLab = this.props.match.params.id
         date = this.getFormattedDate(date)
         let pincode = this.props.pincode
-        if(this.props.LABS[selectedLab] && this.props.LABS[selectedLab].lab && !this.props.LABS[selectedLab].lab.is_thyrocare){
+        const parsed = queryString.parse(this.props.location.search)
+        if(parsed.is_thyrocare && parsed.is_thyrocare.includes('true')){
+            
+        }else{
             pincode = ''
+            date = ''
         }
-
-        this.props.getLabTimeSlots(selectedLab, this.state.pickupType, (data) => {
-            let { time_slots, today_min, tomorrow_min, today_max, upcoming_slots } = data
-            this.setState({ timeSlots: time_slots.time_slots ||null, today_min: today_min || null, tomorrow_min: tomorrow_min || null, today_max: today_max || null, upcoming_slots: time_slots.upcoming_slots|| null})
-        })
-
-        this.props.getNewLabTimeSlots(selectedLab, this.state.pickupType, pincode||'', date, (data) => {
-            let { time_slots, today_min, tomorrow_min, today_max } = data
-            this.setState({ timeSlots: time_slots, today_min: today_min || null, tomorrow_min: tomorrow_min || null, today_max: today_max || null })
+        this.props.getLabTimeSlots(selectedLab, this.state.pickupType, pincode||'', date, (data) => {
+            let { time_slots } = data
+            this.setState({ timeSlots: time_slots.time_slots ||null, upcoming_slots: time_slots.upcoming_slots|| null, is_thyrocare: time_slots.is_thyrocare})
         })
     }
 
@@ -105,7 +96,7 @@ class AppointmentSlot extends React.Component {
             mm='0'+mm;
         }
 
-        var today = dd+'-'+mm+'-'+yyyy;
+        var today = yyyy+'-'+mm+'-'+dd
         return today
     }
 
@@ -164,13 +155,11 @@ class AppointmentSlot extends React.Component {
                                                                 timeSlots={this.state.timeSlots}
                                                                 selectTimeSlot={this.selectTimeSlot.bind(this)}
                                                                 selectedSlot={this.props.selectedSlot}
-                                                                today_min={this.state.today_min}
-                                                                tomorrow_min={this.state.tomorrow_min}
-                                                                today_max={this.state.today_max}
                                                                 enableProceed = {this.enableProceed.bind(this)}
                                                                 getFormattedDate={this.getFormattedDate.bind(this)}
                                                                 getTimeSlots= {this.getTimeSlots.bind(this)}
                                                                 upcoming_slots= {this.state.upcoming_slots}
+                                                                is_thyrocare = {this.state.is_thyrocare}
                                                             /> : <Loader />
                                                     }
 

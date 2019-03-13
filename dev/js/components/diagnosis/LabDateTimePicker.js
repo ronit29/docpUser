@@ -6,7 +6,8 @@ const DAYS_TO_SHOW = 40
 const WEEK_DAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
 const MONTHS = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
 const queryString = require('query-string');
-import STORAGE from '../../../helpers/storage'
+import STORAGE from '../../helpers/storage'
+import Loader from '../commons/Loader'
 
 class DateTimePicker extends React.Component {
 
@@ -68,20 +69,22 @@ class DateTimePicker extends React.Component {
             formattedDate: formattedDate
         })
 
+        if(!this.props.is_thyrocare){
+            while(dateCount!=3 && totalDateVisited<30){
+                offset.setDate(currentDate.getDate() + totalDateVisited)
+                let formattedDate = this.getFormattedDate(offset)
 
-        while(dateCount!=3 && totalDateVisited<30){
-        	offset.setDate(currentDate.getDate() + totalDateVisited)
-        	let formattedDate = this.getFormattedDate(offset)
+                if(this.props.timeSlots && this.props.timeSlots[formattedDate] && this.props.timeSlots[formattedDate].length){
 
-        	if(this.props.timeSlots && this.props.timeSlots[formattedDate] && this.props.timeSlots[formattedDate].length){
-        		daySeries.push({
-	                dateFormat: new Date(offset),
-	                formattedDate: formattedDate
-	            })
-	         	dateCount++
-        	}
-        	totalDateVisited++
-        	offset = new Date(currentDate)
+                    daySeries.push({
+                        dateFormat: new Date(offset),
+                        formattedDate: formattedDate
+                    })
+                    dateCount++
+                }
+                totalDateVisited++
+                offset = new Date(currentDate)
+            }
         }
         this.setState({ daySeries: daySeries  })
     }
@@ -91,28 +94,39 @@ class DateTimePicker extends React.Component {
     }
 
     selectDate(dateFormat) {
+        let formattedDate = this.getFormattedDate(dateFormat)
+
     	if(new Date(this.state.selectedDateSpan).toDateString() != new Date(dateFormat).toDateString()){
-    		this.setState({ selectedDateSpan: dateFormat, currentTimeSlot: {} })
+    		
+            if(this.props.timeSlots && this.props.timeSlots[formattedDate]){
+
+            } else{
+                this.props.getTimeSlots(dateFormat)
+
+            }
+            this.setState({ selectedDateSpan: dateFormat, currentTimeSlot: {} })
         	this.props.enableProceed(false, [])	
-    	}
+    	}else {
+            
+        }
 	    
     }
 
     selectDateFromCalendar(date) {
         if (date) {
             date = date.toDate()
-            this.setState({ selectedDateSpan: new Date(date), currentTimeSlot:{}, dateModal: false }, () => {
-                this.props.enableProceed(false, [])
-                this.pickDate()
+            this.setState({ dateModal: false }, () => {
+                //this.props.enableProceed(false, [])
+                this.pickDate(new Date(date))
             })
         } else {
             this.setState({ dateModal: false })
         }
     }
 
-    pickDate() {
-        if (this.state.selectedDateSpan) {
-            let selectedDate = new Date(this.state.selectedDateSpan)
+    pickDate(date) {
+        if (date) {
+            let selectedDate = new Date(date)
             this.generateDays(true, selectedDate)
             this.selectDate(selectedDate)
         }
@@ -155,12 +169,7 @@ class DateTimePicker extends React.Component {
 
 	render(){
 
-        const parsed = queryString.parse(this.props.location.search)
-        let type = 1
-        if(parsed.type && parsed.type == 'opd'){
-            type = 0
-        }
-
+        let disabledDays = this.props.is_thyrocare?7:30
         let selectedFormattedDate = this.getFormattedDate(this.state.selectedDateSpan)
 
 		return(
@@ -205,7 +214,7 @@ class DateTimePicker extends React.Component {
                                             showWeekNumber={false}
                                             defaultValue={moment(this.state.selectedDateSpan)}
                                             disabledDate={(date) => {
-                                                return date.diff(moment((new Date)), 'days') < 0 || date.diff(moment((new Date)), 'days') > 30
+                                                return date.diff(moment((new Date)), 'days') < 0 || date.diff(moment((new Date)), 'days') > disabledDays
                                             }}
                                             showToday
                                             onSelect={this.selectDateFromCalendar.bind(this)}
@@ -221,10 +230,19 @@ class DateTimePicker extends React.Component {
                     	this.state.daySeries.length?
                     	<div className="select-time-slot-container">
 				            <div className="slect-date-img-content mb-0">
-				                <div className="date-text-img">
-				                    <img src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
-				                    <p>Select Time Slot</p>
-				                </div>
+                                {
+                                    this.props.timeSlots && this.props.timeSlots[selectedFormattedDate]
+                                    ?this.props.timeSlots[selectedFormattedDate].length
+                                        ?<div className="date-text-img">
+                                            <img src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
+                                            <p>Select Time Slot</p>
+                                        </div>
+                                        :<div className="select-time-slot-container">
+                                            <p style={{ textAlign: 'center' }}>Not available on this day.</p>
+                                        </div>
+                                    :<Loader/>
+                                }
+				                
 				            </div>
 				            {
 				            	this.props.timeSlots && this.props.timeSlots[selectedFormattedDate]?

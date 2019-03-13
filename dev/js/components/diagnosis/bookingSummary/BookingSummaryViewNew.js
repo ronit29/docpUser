@@ -207,7 +207,12 @@ class BookingSummaryViewNew extends React.Component {
         switch (where) {
             case "time": {
                 if(this.state.pincode || (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].lab && !this.props.LABS[this.state.selectedLab].lab.is_thyrocare) ){
-                    this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true`)
+                    if(this.props.LABS[this.state.selectedLab].lab.is_thyrocare){
+                        this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true`)
+                    }else{
+                        this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false`)
+                    }
+                    
                     return    
                 }else{
                     this.setState({showPincodePopup: true})
