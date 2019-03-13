@@ -178,6 +178,18 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
+                        <li onClick={(e)=>{this.props.history.push('/prime/plans')} } className="my-profile-item lst-spcng">
+                            <a>
+                                <span className="icon icon-md nav-icon">
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/onlnpres.svg"} className="img-fluid" />
+                                </span>
+                                <div className="nav-content">
+                                    <h4 className="title app-title">Docprime Care 
+                                        <span className="float-right badge badge-warning">NEW</span>
+                                    </h4>
+                                </div>
+                            </a>
+                        </li>
                         <li onClick={this.gotTo.bind(this, 'onlinePrescriptions')} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
