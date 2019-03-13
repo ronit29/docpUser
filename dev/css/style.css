@@ -7004,6 +7004,10 @@ flex-shrink: 0;
 
 /*================== Package Compare ===================== */
 
+.pkgComapre{
+	margin-top: 100px;
+}
+
 .pkgComapre .top-filter-tabs-select img{
 	width: 18px;
 }
@@ -7064,6 +7068,7 @@ flex-shrink: 0;
     font-size: 14px;
     display: inline-block;
     margin-right: 10px;
+    margin-bottom: 5px;
 }
 .pkgComapre .test-included ul li img{
 	width: 15px;
@@ -7073,7 +7078,17 @@ flex-shrink: 0;
 	width: 21px;
 }
 
-
+@media screen and (max-width: 991px){
+	.pkgComapre{
+		margin-top: 60px;
+	}
+	.pkgComapre .filter-row{
+		top: 44px;
+	}
+	.pkgComapre .chat-load-mobile.mt-21{
+		margin-top: 0;
+	}
+}
 
 
 

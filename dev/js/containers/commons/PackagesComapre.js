@@ -12,7 +12,7 @@ class PackageCompare extends React.Component {
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
                 <ProfileHeader />
-                 <section className="pkgComapre container" style={{ marginTop: 100 }}>
+                 <section className="pkgComapre container">
                      <div className="row main-row parent-section-row">
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-8 center-column">
