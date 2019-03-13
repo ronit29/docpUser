@@ -54,7 +54,9 @@ import OrderSummary from './containers/commons/OrderSummary'
 import HealthPackageAdvisor from './containers/diagnosis/HealthPackageAdvisor';
 import ThyrocarePackage from './containers/diagnosis/ThyrocarePackage';
 import TaxSaverTC from './components/diagnosis/searchPackages/TaxSaverTC.js'
-import PrimeCare from './containers/commons/primeCare.js'
+import PrimeCare from './containers/care/primeCare.js'
+import PrimeCareBooking from './containers/care/primeCareBooking.js'
+import PrimeCareSuccess from './containers/care/primeCareSuccess.js'
 import Compare from './containers/commons/ComparePackages.js'
 
 
@@ -145,7 +147,9 @@ const routes = [
     { path: '/tax-saver-health-packages-tc', exact: true, component: TaxSaverTC, RENDER_ON_SERVER: true },
     { path: `/*-tpp`, component: searchTestInfo, RENDER_ON_SERVER: true },
     { path: '/sms/booking', exact: true, component: DirectBooking },
-    { path: '/prime/booking', exact: true, component: PrimeCare },
+    { path: '/prime/plans', exact: true, component: PrimeCare },
+    { path: '/prime/booking', exact: true, component: PrimeCareBooking },
+    { path: '/prime/success', exact: true, component: PrimeCareSuccess },
     { path: '/compare', exact:true, component: Compare},
     { path: '*', component: NotFound, NO_MATCH: true },
 ]

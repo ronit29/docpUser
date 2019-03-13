@@ -141,9 +141,8 @@ class Compare extends React.Component {
                                 </div>
                             </div>
                             <div className="careFinalscreenContainer">
-<div className="">
-
-</div>
+                            <div className="">
+                            </div>
                             </div>
                         </div>
                         <RightBar className="col-md-5 mb-3" />
