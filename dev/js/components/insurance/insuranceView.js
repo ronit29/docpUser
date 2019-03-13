@@ -163,7 +163,8 @@ class Insurance extends React.Component{
 				this.props.history.push('/insurance/certificate')
 			}
 			return(
-			<div>
+			<div className="profile-body-wrap">
+	            <ProfileHeader />
 				<Loader />
 			</div>
 			)
