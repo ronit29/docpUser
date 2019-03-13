@@ -238,25 +238,38 @@ class BannerCarousel extends React.Component {
         }
 
         return (
-            <div className={this.props.hideClass ? `banner-carousel-div mrt-20 mrb-20 ${this.props.hideClass}` : `banner-carousel-div mrt-10 mrb-20`}>
+            <div>
                 {
-                    this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length ?
-                        <img src={offerVisible.image} onTouchStart={this.onTouchStart.bind(this)} onTouchMove={this.onTouchMove.bind(this)} onTouchEnd={this.onTouchEnd.bind(this)} onClick={() => this.navigateTo(offerVisible)} style={offerVisible.url ? { cursor: 'pointer' } : {}} />
-                        : ''
-                }
-                {
-                    this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length > 1 ?
-                        <div className="carousel-indicators mrt-10">
+                    this.props.sliderLocation === "medicine_detail_page" ?
+                        <div className="medic-img-slider">
                             {
-                                this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).map((offer, i) => {
-                                    return <span key={i} onClick={() => this.setState({ index: i })} className={this.state.index == i ? "indicator-selected" : ''} ></span>
+                                this.props.offerList.filter(x => x.slider_location === 'medicine_detail_page').map((offer, i) => {
+                                    return <img key={i} src={offer.image} onClick={() => this.navigateTo(offer)} style={offer.url ? { cursor: 'pointer' } : {}} />
                                 })
                             }
-                        </div> : ''
+                        </div>
+                        :
+                        <div className={this.props.hideClass ? `banner-carousel-div mrt-20 mrb-20 ${this.props.hideClass}` : `banner-carousel-div mrt-10 mrb-20`}>
+                            {
+                                this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length ?
+                                    <img src={offerVisible.image} onTouchStart={this.onTouchStart.bind(this)} onTouchMove={this.onTouchMove.bind(this)} onTouchEnd={this.onTouchEnd.bind(this)} onClick={() => this.navigateTo(offerVisible)} style={offerVisible.url ? { cursor: 'pointer' } : {}} />
+                                    : ''
+                            }
+                            {
+                                this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length > 1 ?
+                                    <div className="carousel-indicators mrt-10">
+                                        {
+                                            this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).map((offer, i) => {
+                                                return <span key={i} onClick={() => this.setState({ index: i })} className={this.state.index == i ? "indicator-selected" : ''} ></span>
+                                            })
+                                        }
+                                    </div> : ''
+                            }
+                        </div>
                 }
             </div>
         );
-        
+
     }
 }
 

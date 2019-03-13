@@ -102,7 +102,6 @@ class packagesList extends React.Component {
         //       }
         //     }
         // }
-
         return (
             <section className="wrap search-book-result variable-content-section" style={{ paddingTop: 10 }} ref="checkIfExists">
                 {!this.props.forOrganicSearch && !this.props.forTaxSaver ? <div className="pkgTost d-none" id="pkgTost"><p onClick={() => this.props.history.push('/health-package-advisor')}>Need Help in Booking Health Package? </p>
@@ -146,7 +145,7 @@ class packagesList extends React.Component {
                                 <div className="col-12">
                                     {
                                         this.props.packagesList && this.props.packagesList.result ? this.props.packagesList.result.map((packages, i) => {
-                                            return <div key={i}>
+                                            return <div key={i} id={`scrollById_${packages.id}_${packages.lab.id}`}>
                                                 <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
                                             </div>
                                         })

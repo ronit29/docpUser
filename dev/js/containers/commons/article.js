@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchArticle, getSpecialityFooterData, postComment } from '../../actions/index.js'
+import { fetchArticle, getSpecialityFooterData, postComment, getOfferList, toggleOPDCriteria, toggleDiagnosisCriteria } from '../../actions/index.js'
 
 import ArticleView from '../../components/commons/article'
 
@@ -53,11 +53,11 @@ const mapStateToProps = (state, passedProps) => {
         initialServerData = staticContext.data
     }
     let {
-        profiles, defaultProfile
+        profiles, defaultProfile, offerList
     } = state.USER
     return {
         initialServerData,
-        profiles, defaultProfile
+        profiles, defaultProfile, offerList
     }
 }
 
@@ -65,7 +65,10 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchArticle: (id, preview, cb) => dispatch(fetchArticle(id, preview, cb)),
         getSpecialityFooterData: (cb) => dispatch(getSpecialityFooterData(cb)),
-        postComment: (comment, cb) => dispatch(postComment(comment, cb))
+        postComment: (comment, cb) => dispatch(postComment(comment, cb)),
+        getOfferList: (lat, long) => dispatch(getOfferList(lat, long)),
+        toggleOPDCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filter)),
+        toggleDiagnosisCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filter))
     }
 }
 
