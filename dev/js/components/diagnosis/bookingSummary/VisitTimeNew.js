@@ -21,6 +21,19 @@ class VisitTimeNew extends React.Component {
         return (
             <div className={`widget mrb-15 ${this.props.timeError?'rnd-error-nm':''}`}>
                 <div className="widget-content pos-relative">
+                    {
+                        this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].lab && this.props.LABS[this.props.selectedLab].lab.is_thyrocare?
+                            this.props.pincode?
+                            <div className="area-pin" onClick={()=>this.props.toggle()}>
+                                Area Pincode - <b>{this.props.pincode}</b>
+                                <a href="javascript:void(0);">Change</a> 
+                            </div>
+                            :<div className="area-pin" onClick={()=>this.props.toggle()}>
+                                Add Area Pincode  <b></b>
+                                <a href="javascript:void(0);">Add</a> 
+                            </div>
+                        :''
+                    }
                     <div className="lab-visit-time d-flex jc-spaceb">
                         <h4 className="title d-flex"><span>
                             <img style={{ width: '18px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/watch-date.svg"} />

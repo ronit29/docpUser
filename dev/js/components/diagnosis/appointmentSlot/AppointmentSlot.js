@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 //import TimeSlotSelector from '../../commons/timeSlotSelector/index.js'
-import TimeSlotSelector from '../../commons/DateTimeSelector/index.js'
+import TimeSlotSelector from '../LabDateTimeSelector.js'
 import Loader from '../../commons/Loader'
 
 import LeftBar from '../../commons/LeftBar'
@@ -19,7 +19,7 @@ class AppointmentSlot extends React.Component {
             goback: this.props.location.search.includes('goback'),
             pickupType: this.props.location.search.includes('type=lab') ? 0 : 1,
             today_min: null,
-            tomorrow_min: null,
+            tomorrow_min: null, 
             today_max: null,
             enableProceed: false,
             selectedTimeSlot: {},
@@ -54,13 +54,59 @@ class AppointmentSlot extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+        
+
+        /*this.props.getLabTimeSlots(selectedLab, this.state.pickupType, this.props.pincode, (data) => {
+            let { time_slots, today_min, tomorrow_min, today_max } = data
+            this.setState({ timeSlots: time_slots, today_min: today_min || null, tomorrow_min: tomorrow_min || null, today_max: today_max || null })
+        })*/
+
+        if(this.props.selectedSlot && this.props.selectedSlot.date){
+            this.getTimeSlots(new Date(this.props.selectedSlot.date))
+        }else{
+            this.getTimeSlots(new Date())    
+        }
+        
+
+    }
+
+    getTimeSlots(date){
+        //2325
         let selectedLab = this.props.match.params.id
+        date = this.getFormattedDate(date)
+        let pincode = this.props.pincode
+        if(this.props.LABS[selectedLab] && this.props.LABS[selectedLab].lab && !this.props.LABS[selectedLab].lab.is_thyrocare){
+            pincode = ''
+        }
 
         this.props.getLabTimeSlots(selectedLab, this.state.pickupType, (data) => {
             let { time_slots, today_min, tomorrow_min, today_max, upcoming_slots } = data
             this.setState({ timeSlots: time_slots.time_slots ||null, today_min: today_min || null, tomorrow_min: tomorrow_min || null, today_max: today_max || null, upcoming_slots: time_slots.upcoming_slots|| null})
         })
 
+        this.props.getNewLabTimeSlots(selectedLab, this.state.pickupType, pincode||'', date, (data) => {
+            let { time_slots, today_min, tomorrow_min, today_max } = data
+            this.setState({ timeSlots: time_slots, today_min: today_min || null, tomorrow_min: tomorrow_min || null, today_max: today_max || null })
+        })
+    }
+
+    getFormattedDate(date){
+        var dd = date.getDate();
+
+        var mm = date.getMonth()+1; 
+        var yyyy = date.getFullYear();
+        if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        }
+
+        var today = dd+'-'+mm+'-'+yyyy;
+        return today
     }
 
     enableProceed(enable, slot={}){
@@ -121,7 +167,9 @@ class AppointmentSlot extends React.Component {
                                                                 today_min={this.state.today_min}
                                                                 tomorrow_min={this.state.tomorrow_min}
                                                                 today_max={this.state.today_max}
-                                                                enableProceed = {this.enableProceed.bind(this)} 
+                                                                enableProceed = {this.enableProceed.bind(this)}
+                                                                getFormattedDate={this.getFormattedDate.bind(this)}
+                                                                getTimeSlots= {this.getTimeSlots.bind(this)}
                                                                 upcoming_slots= {this.state.upcoming_slots}
                                                             /> : <Loader />
                                                     }
