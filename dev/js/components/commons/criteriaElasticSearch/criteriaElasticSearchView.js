@@ -450,7 +450,9 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                         <p style={{ padding: '0 50px 0 0' }} >
                                                                                             {cat.name}
                                                                                             {
-                                                                                                cat.is_package && cat.is_package.length && cat.is_package[0]?
+                                                                                                this.props.type.includes('ipd')
+                                                                                                ?<span className="search-span-sub">IPD Procedures</span>
+                                                                                                :cat.is_package && cat.is_package.length && cat.is_package[0]?
                                                                                                 <span className="search-span-sub">Health Package {cat.number_of_tests && cat.number_of_tests.length && cat.number_of_tests[0]?` | ${cat.number_of_tests[0]} Test Included`:''}</span>
                                                                                                 :cat.type == "hospital"
                                                                                                     ? <span className="search-span-sub">{cat.locality && Array.isArray(cat.locality) ? cat.locality.join(', ') : cat.visible_name}</span>
