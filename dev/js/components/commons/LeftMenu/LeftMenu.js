@@ -51,6 +51,12 @@ class LeftMenu extends React.Component {
                             <ul className="drop-list-menu list_1">
                               {/*<li><a href="#"><img src="/assets/images/insurance.png" alt="" className="" />Insurance</a> <a href="#" class="btn-buy-now">Buy Now</a></li>
                               */}
+
+                              <li><a onClick={(e)=>{
+                                e.preventDefault()
+                                this.props.toggleLeftMenu()
+                                this.props.history.push('/insurance/insurance-plans')} } href="#"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"}  alt="" className="" />OPD Insurance</a></li>
+
                               <li><a onClick={(e)=>{
                                 e.preventDefault()
                                 this.props.toggleLeftMenu()
