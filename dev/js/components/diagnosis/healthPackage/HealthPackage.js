@@ -9,6 +9,7 @@ import HelmetTags from '../../commons/HelmetTags'
 import GTM from '../../../helpers/gtm.js'
 import CONFIG from '../../../config'
 import Footer from '../../commons/Home/footer'
+import BannerCarousel from '../../commons/Home/bannerCarousel';
 
 class LabView extends React.Component {
     constructor(props) {
@@ -24,6 +25,19 @@ class LabView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+
+        let selectedLocation = ''
+        let lat = 28.644800
+        let long = 77.216721
+        if (this.props.selectedLocation) {
+            selectedLocation = this.props.selectedLocation;
+            lat = selectedLocation.geometry.location.lat
+            long = selectedLocation.geometry.location.lng
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
+
+        this.props.getOfferList(lat, long);
     }
 
     toggle(index) {
@@ -66,6 +80,12 @@ class LabView extends React.Component {
                             description: 'Compare and book full body health checkup packages from top labs at docprime.com. Avail exclusive discounts & save upto 50%. Get free home sample collection and online reports on time.'
                         }} />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
+                            {
+                                this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'health_package_compare_page').length ?
+                                    <div className="col-12">
+                                        <BannerCarousel {...this.props} sliderLocation="health_package_compare_page" />
+                                    </div> : ''
+                            }
                             <h4 className="mrng-top-12">Top full body checkup packages</h4>
                             <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
                                 <div className="static-pk-container sticky-pk-container">
@@ -79,7 +99,7 @@ class LabView extends React.Component {
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam B
                                                                 (Thyrocare)</p>
-                                            <p className="stc-price-cut">₹ 540 <span>₹ 800</span></p>
+                                            <p className="stc-price-cut">₹ 490 <span>₹ 740</span></p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">

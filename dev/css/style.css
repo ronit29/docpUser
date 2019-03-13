@@ -6519,7 +6519,7 @@ cursor: pointer;
 /* ==================== popDesign ==================== */
 .pop-onscreen-scroll{
 	min-height: 30vh;
-	max-height: 50vh;
+	max-height: 40vh;
 	overflow: auto;
 }
 /* ==================== package new card style ==================== */
@@ -7207,3 +7207,18 @@ li.careListiLi span {
 	}
 }
 /* ==================== docprime care html page ==================== */
+.medic-img-slider {
+    white-space: nowrap;
+    overflow: auto;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+}
+.medic-img-slider::-webkit-scrollbar { 
+    display: none; 
+}
+.medic-img-slider img {
+    width: 250px;
+    margin-right: 20px;
+    border-radius: 4px;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0), 0 3px 6px rgba(0, 0, 0, 0.08);
+}

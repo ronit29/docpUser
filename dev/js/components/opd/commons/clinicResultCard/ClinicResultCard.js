@@ -137,11 +137,13 @@ class ClinicResultCard extends React.Component {
                 unselectedCount += x.procedures.filter(x => !x.is_selected).length
             })
 
-            if (is_procedure) {
+            if (is_procedure && false) {
                 if (finalProcedureMrp != 0 && finalProcedureDealPrice != 0) {
                     discount = 100 - Math.round((finalProcedureDealPrice * 100) / finalProcedureMrp);
                 }
             }
+
+            is_procedure = false
 
             return (
 

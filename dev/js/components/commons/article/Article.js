@@ -12,7 +12,7 @@ import STORAGE from '../../../helpers/storage';
 import CommentBox from './ArticleCommentBox.js'
 import SnackBar from 'node-snackbar'
 import Reply from './Reply.js'
-
+import BannerCarousel from '../Home/bannerCarousel';
 
 // import RelatedArticles from './RelatedArticles'
 
@@ -28,7 +28,6 @@ class Article extends React.Component {
         }
         this.state = {
             articleData: articleData,
-            medicineURL: false,
             replyOpenFor: null,
             comment: '',
             articleLoaded: articleLoaded
@@ -42,7 +41,18 @@ class Article extends React.Component {
         }
 
         if (this.props.match.path.split('-')[1] === 'mddp') {
-            // this.setState({ medicineURL: true });
+            let selectedLocation = ''
+            let lat = 28.644800
+            let long = 77.216721
+            if (this.props.selectedLocation) {
+                selectedLocation = this.props.selectedLocation;
+                lat = selectedLocation.geometry.location.lat
+                long = selectedLocation.geometry.location.lng
+                if (typeof lat === 'function') lat = lat()
+                if (typeof long === 'function') long = long()
+            }
+
+            this.props.getOfferList(lat, long);
         }
 
     }
@@ -219,6 +229,11 @@ class Article extends React.Component {
                                             } : ''
                                     }} />
 
+                                    {
+                                        this.props.match.path.split('-')[1] === 'mddp' && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'medicine_detail_page').length ?
+                                            <BannerCarousel {...this.props} sliderLocation="medicine_detail_page" /> : ''
+                                    }
+
                                     <ul className="mrb-10 breadcrumb-list" style={{ wordBreak: 'break-word' }}>
                                         <li className="breadcrumb-list-item">
                                             <a href="/" onClick={(e) => this.onHomeClick(e, "/")}>
@@ -306,20 +321,6 @@ class Article extends React.Component {
                                                 <span>Last updated on : {this.state.articleData.last_updated_at}</span>
                                             </div> : ''
                                     }
-                                    {/* DISCOUNT WIDGET CODE BELOW */}
-                                    {/* {
-                                        this.props.match.path.split('-')[1] === 'mddp' ?
-                                            <div className="fixed horizontal bottom no-round fw-500 sticky-btn d-flex align-items-center justify-content-around discount-widget" onClick={() => this.props.history.push('/opd/searchresults')}>
-                                                <div className="dw-info">
-                                                    <p className="fw-700" style={{ fontSize: 18 }}>Trouble with Health ?</p>
-                                                    <p className="fw-500" style={{ fontSize: 14 }}>Book doctor appointments</p>
-                                                    <p className="fw-500" style={{ fontSize: 14 }}>@ upto <span className="fw-700">50% off</span></p>
-                                                </div>
-                                                <div className="dw-book-btn text-center">
-                                                    <p className="fw-500">Book Now</p>
-                                                </div>
-                                            </div> : ''
-                                    } */}
                                 </div> : ""
                             }
                         </div>
@@ -343,14 +344,14 @@ class Article extends React.Component {
 
                         {
                             this.state.articleLoaded && this.props.match.path.split('-')[1] != 'nmdp' ?
-                            <div className="col-12 col-md-7 col-lg-8 center-column">
-                                <div className="widget mrb-15 mrng-top-12">
-                                    <div className="widget-content">
-                                        <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} commentsExists={commentsExists} parentCommentId={this.state.replyOpenFor} />
+                                <div className="col-12 col-md-7 col-lg-8 center-column">
+                                    <div className="widget mrb-15 mrng-top-12">
+                                        <div className="widget-content">
+                                            <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} commentsExists={commentsExists} parentCommentId={this.state.replyOpenFor} />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            :''
+                                : ''
                         }
                     </div>
                 </section>

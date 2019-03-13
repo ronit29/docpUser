@@ -178,14 +178,14 @@ class DoctorProfileCard extends React.Component {
                 unselectedCount += x.procedures.filter(x => !x.is_selected).length
             })
 
-            if (is_procedure) {
+            if (is_procedure && false) {
                 if (finalProcedureMrp != 0 && finalProcedureDealPrice != 0) {
                     discount = 100 - Math.round((finalProcedureDealPrice * 100) / finalProcedureMrp);
                 }
             }
 
             enabled_for_hospital_booking = hospitals[0].enabled_for_online_booking
-
+            is_procedure = false
             return (
                 <div className="filter-card-dl mb-3" >
                     {
@@ -363,7 +363,7 @@ class DoctorProfileCard extends React.Component {
                             </div>
                         </div>
                         {
-                            hospitals[0] && hospitals[0].procedure_categories && hospitals[0].procedure_categories.length ?
+                            false && hospitals[0] && hospitals[0].procedure_categories && hospitals[0].procedure_categories.length ?
                                 <div className="procedure-checkboxes">
                                     <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
                                         <div className="clearfix">

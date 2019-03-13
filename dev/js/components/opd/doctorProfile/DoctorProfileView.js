@@ -40,7 +40,8 @@ class DoctorProfileView extends React.Component {
             searchDataHidden: this.props.location.search.includes('hide_search_data'),
             openContactPopup: false,
             clinicPhoneNo: {},
-            show_contact: ''
+            show_contact: '',
+            isOrganic: this.props.location.search.includes('hospital_id')
         }
     }
 
@@ -276,6 +277,7 @@ class DoctorProfileView extends React.Component {
                                                             viewAllDocClick={this.viewAllDocClick.bind(this)}
                                                             nearbyDoctors= {nearbyDoctors?nearbyDoctors:''}
                                                             isSeoFriendly= {this.state.seoFriendly}
+                                                            isOrganic = {this.state.isOrganic}
                                                             {...this.props}
                                                         />
                                                         {

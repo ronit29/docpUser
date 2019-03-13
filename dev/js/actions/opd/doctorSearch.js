@@ -189,7 +189,8 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 }
 
 export const getDoctorById = (doctorId, hospitalId = "", procedure_ids = "", category_ids = "") => (dispatch) => {
-
+	procedure_ids = ''
+	category_ids = ''
 	return API_GET(`/api/v1/doctor/profileuserview/${doctorId}?hospital_id=${hospitalId || ""}&procedure_ids=${procedure_ids || ""}&procedure_category_ids=${category_ids || ""}`).then(function (response) {
 
 		dispatch({
@@ -210,7 +211,8 @@ export const getDoctorById = (doctorId, hospitalId = "", procedure_ids = "", cat
 }
 
 export const getDoctorByUrl = (doctor_url, hospitalId = "", procedure_ids = "", category_ids = "", cb) => (dispatch) => {
-
+	procedure_ids = ''
+	category_ids = ''
 	return API_GET(`/api/v1/doctor/profileuserviewbyurl?url=${doctor_url}&hospital_id=${hospitalId}&procedure_ids=${procedure_ids || ""}&procedure_category_ids=${category_ids || ""}`).then(function (response) {
 		dispatch({
 			type: APPEND_DOCTORS_PROFILE,
@@ -299,7 +301,7 @@ export const applyOpdCoupons = (productId = '', couponCode, couponId, doctor_id,
 		doctor: doctor_id,
 		hospital: hospitalId,
 		profile: profile_id,
-		procedures: procedures_ids || [],
+		procedures: [],//procedures_ids || [],
 		cart_item
 	}).then(function (response) {
 		let analyticData = {
