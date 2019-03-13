@@ -458,7 +458,7 @@ class InsuranceSelf extends React.Component{
                                             disabledDate={(date) => {
                                                 return date.diff(moment((new Date)), 'days')  > 0 || date.diff(moment((new Date)), 'days') > 40
                                             }}
-                                            showToday
+                                            showToday = {false}
                                             onSelect={this.selectDateFromCalendar.bind(this)}
                                         />
                                     </div></div> : ""
