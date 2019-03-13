@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { } from '../../actions/index.js'
+import {getCareDetails } from '../../actions/index.js'
 
 import PrimeCareView from '../../components/commons/primeCare/primeCareView.js'
 
@@ -10,11 +10,11 @@ class primeCare extends React.Component {
         super(props)
     }
 
-    static contextTypes = {
-        router: () => null
-    }
-
+    
     componentDidMount() {
+        this.props.getCareDetails('', (resp)=>{
+            console.log(resp)
+        })
 
     }
 
@@ -34,7 +34,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        
+        getCareDetails: (InsuranceId,callback) => dispatch(getCareDetails(InsuranceId,callback))
     }
 }
 

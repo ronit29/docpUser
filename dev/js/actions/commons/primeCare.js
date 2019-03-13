@@ -19,3 +19,22 @@ import { API_GET,API_POST } from '../../api/api.js';
 //     })
 
 // }
+
+export const getCareDetails = (insuranceid,callback) => (dispatch) => {
+
+    return API_GET('/api/v1/insurance/list').then(function (response) {
+        dispatch({
+            type: CARE_DETAILS,
+            payload: response
+        })
+        if(callback) callback(response)
+    }).catch(function (error) {
+        dispatch({
+            type: CARE_DETAILS,
+            payload: error
+        })
+        if(callback) callback(error)
+        throw error
+    })
+
+}
