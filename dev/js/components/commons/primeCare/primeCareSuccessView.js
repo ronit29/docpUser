@@ -4,13 +4,9 @@ import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
 import Footer from '../Home/footer'
 
-class PrimeCareSuccessView extends React.Pomponent {
+class PrimeCareSuccessView extends React.Component {
     constructor(props) {
         super(props)
-    }
-
-    proceed(){
-        this.props.history.push('/prime/success')
     }
 
     render() {
@@ -18,64 +14,42 @@ class PrimeCareSuccessView extends React.Pomponent {
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
                 <ProfileHeader />
-                <section className="container container-top-margin" style={{ marginTop: '120px' }}>
+                <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             <div className="container-fluid">
-                                <div className="widget mr-60">
-                                    <div className="widget-content">
-                                        <div className="careMemberContainer">
-                                            <div className="careMembrLogo">
-                                                <img src={ASSETS_BASE_URL + "/img/logoornage.png"} />
-                                            </div>
-                                            <div className="careMembrtxt">
-                                                <h5>Docprime Care </h5>
-                                                <p>membership</p>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-6">
-                                                <p className="carePara"><img src={ASSETS_BASE_URL + "/img/memsecur.png"} />Valid for :</p>
-                                            </div>
-                                            <div className="col-6 text-right">
-                                                <p className="careSUbpara">1 year</p>
-                                            </div>
-                                            <div className="col-6">
-                                                <p className="carePara"><img src={ASSETS_BASE_URL + "/img/memuser.png"} />Member Name :</p>
-                                            </div>
-                                            <div className="col-6 text-right">
-                                                <p className="careSUbpara">Tarun Sehgal</p>
-                                            </div>
-                                            <div className="col-6">
-                                                <p className="carePara"><img src={ASSETS_BASE_URL + "/img/memcall.png"} />Mobile no: </p>
-                                            </div>
-                                            <div className="col-6 text-right">
-                                                <p className="careSUbpara">9990641820</p>
-                                            </div>
-                                        </div>
-                                        <div className="careListingWithSideline">
-                                            <ul className="UlcareListingWithSide">
-                                                <li className="careListiLi"><p className="careListin">Free Unlimited Online Consultation </p>
-                                                <span>Anytime, Anywhere!</span>
-                                                </li>
-                                                <li className="careListiLi"><p className="careListin">Free Unlimited Online Consultation </p>
-                                                <span>Anytime, Anywhere!</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <div className="careFinalscreenContainer">
-                                <div className="">
+                                <div className="careDocwithBg">
+                                    <div className="careDocwithBglogo">
+                                        <img className="careLogiImg" src={ASSETS_BASE_URL + "/img/logo-care-white.png"} />
+                                    </div>
+                                    <p className="careDecparacong">Congratulations!</p>
+                                    <p className="careDecparasub">Your Docprime care membership is active</p>
+                                    <p className="careDecparadate">10 Oct 2018 - 11 Oct 2018</p>
+                                </div>
+                            </div>
+                            <div className="careThankyouContainer">
+                                <div className="careThankyouContainerCard">
+                                    <ul className="UlcareListingWithSide mt-rmv">
+                                        <li className="careListiLi"><p className="careListin">Free Unlimited Online Consultation </p>
+                                            <span>Anytime, Anywhere!</span>
+                                        </li>
+                                        <li className="careListiLi"><p className="careListin">Free Unlimited Online Consultation </p>
+                                            <span>Anytime, Anywhere!</span>
+                                        </li>
+                                        <li className="careListiLi"><p className="careListin">Free Unlimited Online Consultation </p>
+                                            <span>Anytime, Anywhere!</span>
+                                        </li>
+                                    </ul>
+                                    <p className="careThankpara">Thanks for choosing <a>docprime.com</a></p>
                                 </div>
                             </div>
                         </div>
                         <RightBar className="col-md-5 mb-3" />
                     </div>
                 </section>
-                <button onClick={this.proceed.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Book Now</button>
                 <Footer />
             </div>
         );

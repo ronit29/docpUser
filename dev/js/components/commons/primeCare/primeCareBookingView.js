@@ -18,7 +18,7 @@ class PrimeCareBookingView extends React.Component {
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
                 <ProfileHeader />
-                <section className="container container-top-margin" style={{ marginTop: '120px' }}>
+                <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
@@ -65,10 +65,6 @@ class PrimeCareBookingView extends React.Component {
                                             </ul>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div className="careFinalscreenContainer">
-                                <div className="">
                                 </div>
                             </div>
                         </div>

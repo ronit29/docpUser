@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { } from '../../actions/index.js'
 
-import PrimeCareSuccessView from '../../components/commons/primeCare/primeCareBookingView.js'
+import PrimeCareSuccessView from '../../components/commons/primeCare/primeCareSuccessView.js'
 
 class primeCareSuccess extends React.Component {
     constructor(props) {
@@ -39,4 +39,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(PrimeCareSuccessView);
+export default connect(mapStateToProps, mapDispatchToProps)(primeCareSuccess);
