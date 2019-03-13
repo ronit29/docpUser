@@ -11,14 +11,16 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin');
+const reactLoadablePlugin = require('react-loadable/webpack').ReactLoadablePlugin;
 
 const client_dev = {
     mode: 'development',
-    devtool: 'inline-source-map',
+    // devtool: 'inline-source-map',
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: '/dist'
+        publicPath: '/dist/',
+        chunkFilename: '[name].bundle.js'
     },
     plugins: [
         new CleanWebpackPlugin(['dist'], {
@@ -41,7 +43,11 @@ const client_dev = {
             template: '!!raw-loader!./views/index.template.ejs',
             excludeAssets: [/style.*.css/]
         }),
-        new HtmlWebpackExcludeAssetsPlugin()
+        new HtmlWebpackExcludeAssetsPlugin(),
+        new reactLoadablePlugin({
+            filename: './dist/react-loadable.json',
+        }),
+        // new BundleAnalyzerPlugin(),
     ]
 }
 
@@ -50,7 +56,8 @@ const client_prod = {
     output: {
         filename: '[name].[chunkhash].bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: process.env.CDN_BASE_URL + 'dist'
+        publicPath: process.env.CDN_BASE_URL + 'dist/',
+        chunkFilename: '[name].[chunkhash].bundle.js'
     },
     plugins: [
         new CleanWebpackPlugin(['dist'], {
@@ -74,7 +81,10 @@ const client_prod = {
             template: '!!raw-loader!./views/index.template.prod.ejs',
             excludeAssets: [/style.*.css/]
         }),
-        new HtmlWebpackExcludeAssetsPlugin()
+        new HtmlWebpackExcludeAssetsPlugin(),
+        new reactLoadablePlugin({
+            filename: './dist/react-loadable.json',
+        }),
     ]
 }
 
@@ -83,7 +93,8 @@ const client_staging = {
     output: {
         filename: '[name].[chunkhash].bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: process.env.CDN_BASE_URL + 'dist'
+        publicPath: process.env.CDN_BASE_URL + 'dist/',
+        chunkFilename: '[name].[chunkhash].bundle.js'
     },
     plugins: [
         new CleanWebpackPlugin(['dist'], {
@@ -107,7 +118,10 @@ const client_staging = {
             template: '!!raw-loader!./views/index.template.ejs',
             excludeAssets: [/style.*.css/]
         }),
-        new HtmlWebpackExcludeAssetsPlugin()
+        new HtmlWebpackExcludeAssetsPlugin(),
+        new reactLoadablePlugin({
+            filename: './dist/react-loadable.json',
+        }),
     ]
 }
 
@@ -183,10 +197,10 @@ const serverConfig = {
             "ASSETS_BASE_URL": (process.env.NODE_ENV == 'staging' || process.env.NODE_ENV == 'production') ? (JSON.stringify(process.env.CDN_BASE_URL + "assets")) : JSON.stringify("/assets"),
             "API_BASE_URL": JSON.stringify(process.env.API_BASE_URL) || "",
             "SOCKET_BASE_URL": JSON.stringify(process.env.SOCKET_BASE_URL) || ""
-        }),
+        })
     ],
     output: {
-        path: __dirname,
+        path: path.resolve(__dirname, 'server'),
         filename: 'server.js',
         publicPath: '/'
     },

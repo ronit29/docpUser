@@ -12,6 +12,7 @@ const axios = require('axios')
 const fs = require('fs');
 const DIST_FOLDER = './dist/';
 const Sentry = require('@sentry/node');
+const stats = require('./dist/react-loadable.json')
 
 import { Helmet } from "react-helmet";
 import React from 'react'
@@ -25,6 +26,8 @@ import { createLogger } from 'redux-logger'
 import allReducers from './dev/js/reducers/index.js';
 import { matchPath } from 'react-router-dom'
 import CONFIG from './dev/js/config'
+import Loadable from 'react-loadable';
+import { getBundles } from 'react-loadable/webpack'
 
 if (CONFIG.RAVEN_SERVER_DSN_KEY) {
     Sentry.init({ dsn: CONFIG.RAVEN_SERVER_DSN_KEY })
@@ -32,19 +35,19 @@ if (CONFIG.RAVEN_SERVER_DSN_KEY) {
 }
 
 app.disable('etag');
-app.set('views', path.join(__dirname, '/dist'));
+app.set('views', path.join(__dirname, '../dist'));
 app.get('/firebase-messaging-sw.js', function (req, res) {
-    res.sendFile(__dirname + '/assets/firebase-messaging-sw.js')
+    res.sendFile(__dirname + '../assets/firebase-messaging-sw.js')
 });
-app.use('/assets', Express.static(path.join(__dirname, 'assets')));
-app.use('/dist', Express.static(path.join(__dirname, 'dist')));
+app.use('/assets', Express.static(path.join(__dirname, '../assets')));
+app.use('/dist', Express.static(path.join(__dirname, '../dist')));
 
 
 app.all('*', function (req, res) {
     /**
      * Fetch Css files
      */
-    _readStyles().then((styleFiles) => {
+    _readStyles().then(async (styleFiles) => {
 
         let css_file = styleFiles[0]
         let bootstrap_file = styleFiles[1]
@@ -61,14 +64,19 @@ app.all('*', function (req, res) {
         const store = createStore(
             allReducers, applyMiddleware(thunk)
         );
+
         /** 
          * Check if a route is enabled for SSR , RENDER_ON_SERVER == true,
          * if enabled, check if it needs any data(async API) before rendering, if so
          * then wait for that data to resolve then render with proper data.
          */
         const promises = []
+        let split_bundles = []
         let route_matched = false
-        Routes.ROUTES.some(route => {
+        await Promise.all(Routes.ROUTES.map(async (route) => {
+            if (route_matched) {
+                return
+            }
             // use `matchPath` here
             const match = matchPath(req.path, route)
             if (match) {
@@ -80,15 +88,21 @@ app.all('*', function (req, res) {
                 promises.push(Promise.reject({ url: route.redirectTo }))
             }
 
+            let preload = false
+            let preloaded_component = route.component
+            if (preloaded_component.preload) {
+                preloaded_component = await preloaded_component.preload().then(res => res.default)
+                preload = true
+            }
+
             if (match && route.RENDER_ON_SERVER) {
-                if (route.component.loadData) {
-                    promises.push(route.component.loadData(store, match, req.query))
+                if (preloaded_component.loadData) {
+                    promises.push(preloaded_component.loadData(store, match, req.query))
                 } else {
                     promises.push(Promise.resolve({}))
                 }
             }
-            return match
-        })
+        }))
 
         /** 
          * Only when a route matches all criteria for SSR, we do SSR
@@ -99,7 +113,7 @@ app.all('*', function (req, res) {
             let SSR_TIMER = setTimeout(() => {
                 _serverHit(req, 'server_done')
                 res.render('index.ejs', {
-                    html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
+                    html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, split_bundles
                 })
             }, 10000)
 
@@ -118,20 +132,26 @@ app.all('*', function (req, res) {
                     }
 
                     const storeData = JSON.stringify(store.getState())
+                    let modules = []
+
                     const html = ReactDOMServer.renderToString(
-                        <Provider store={store}>
-                            <div>
-                                <StaticRouter
-                                    location={req.url}
-                                    context={context}
-                                >
-                                    <div>
-                                        <Routes />
-                                    </div>
-                                </StaticRouter>
-                            </div>
-                        </Provider>
+                        <Loadable.Capture report={moduleName => modules.push(moduleName)}>
+                            <Provider store={store}>
+                                <div>
+                                    <StaticRouter
+                                        location={req.url}
+                                        context={context}
+                                    >
+                                        <div>
+                                            <Routes />
+                                        </div>
+                                    </StaticRouter>
+                                </div>
+                            </Provider>
+                        </Loadable.Capture>
                     )
+                    
+                    split_bundles = getBundles(stats, modules)
                     const helmet = Helmet.renderStatic()
 
                     // clear timer to mark success in SSR
@@ -140,7 +160,7 @@ app.all('*', function (req, res) {
                     _serverHit(req, 'server_done')
                     _serverHit(req, 'server_done_ssr')
                     res.render('index.ejs', {
-                        html, storeData, helmet, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
+                        html, storeData, helmet, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, split_bundles
                     })
 
                 } catch (e) {
@@ -153,7 +173,7 @@ app.all('*', function (req, res) {
 
                     _serverHit(req, 'server_done')
                     res.render('index.ejs', {
-                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
+                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, split_bundles
                     })
                 }
 
@@ -175,7 +195,7 @@ app.all('*', function (req, res) {
                     res.status(404)
                     _serverHit(req, 'server_done')
                     res.render('index.ejs', {
-                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
+                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, split_bundles
                     })
                 }
             })
@@ -187,7 +207,7 @@ app.all('*', function (req, res) {
             }
             _serverHit(req, 'server_done')
             res.render('index.ejs', {
-                html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file
+                html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, split_bundles
             })
         }
 
@@ -204,12 +224,14 @@ if (CONFIG.RAVEN_SERVER_DSN_KEY) {
     app.use(Sentry.Handlers.errorHandler())
 }
 
-server.listen(process.env.PORT || 3000, (err) => {
-    if (err) {
-        return console.error(err);
-    }
-    console.info(`Server running on http://localhost:${process.env.PORT || 3000}`);
-});
+Loadable.preloadAll().then(() => {
+    server.listen(process.env.PORT || 3000, (err) => {
+        if (err) {
+            return console.error(err);
+        }
+        console.info(`Server running on http://localhost:${process.env.PORT || 3000}`);
+    });
+})
 
 
 function _readStyles() {

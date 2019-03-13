@@ -3,6 +3,23 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import HelmetTags from './components/commons/HelmetTags'
 
+import Loadable from 'react-loadable';
+const loading = () => <div>Loading...</div>;
+
+const ArticleList = Loadable({
+    loader: () => import('./containers/commons/articleList'),
+    modules: ['./containers/commons/articleList'],
+    webpack: () => [require.resolveWeak('./containers/commons/articleList')],
+    loading,
+});
+
+const StaticPages = Loadable({
+    loader: () => import('./containers/commons/StaticPages'),
+    modules: ['./containers/commons/StaticPages'],
+    webpack: () => [require.resolveWeak('./containers/commons/StaticPages')],
+    loading,
+});
+
 import SearchCriteria from './containers/opd/SearchCriteria.js'
 import LocationSearch from './containers/opd/LocationSearch.js'
 import SearchResults from './containers/opd/SearchResults.js'
@@ -21,10 +38,10 @@ import HomeChat from './containers/commons/HomeChat'
 import Wallet from './containers/commons/Wallet'
 import NotFound from './containers/commons/404'
 import Article from './containers/commons/article'
-import ArticleList from './containers/commons/articleList'
+// import ArticleList from './containers/commons/articleList'
 import Payment from './containers/commons/Payment'
 import ChatHistory from './containers/commons/chatHistory'
-import StaticPages from './containers/commons/StaticPages'
+// import StaticPages from './containers/commons/StaticPages'
 import MobileViewChat from './components/commons/mobileViewChat/MobileViewChat'
 import RatingsView from './containers/commons/RatingsView.js'
 import MyRatings from './containers/commons/MyRatings.js'
@@ -133,7 +150,7 @@ const routes = [
     { path: '/speciality-inventory/:speciality', exact: true, component: SpecializationSiteMap, RENDER_ON_SERVER: true },
     { path: '/city-inventory', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
     { path: '/city-inventory/:city', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
-    { path: '/search/testinfo', exact: true, component: searchTestInfo , RENDER_ON_SERVER: true },
+    { path: '/search/testinfo', exact: true, component: searchTestInfo, RENDER_ON_SERVER: true },
     { path: '/bookings', exact: true, component: adsBooking },
     { path: '/full-body-checkup-health-packages', exact: true, component: DX_SearchPackages, RENDER_ON_SERVER: true },
     { path: '/health-package-advisor', exact: true, component: HealthPackageAdvisor, RENDER_ON_SERVER: true },
