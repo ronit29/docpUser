@@ -159,11 +159,13 @@ class InsurancePopup extends React.Component{
             </div>
             )
         }else{
-            return <div className="col-12 col-md-7  center-column">
-                    <div className="cancel-overlay"></div>
-                <div className="widget cancel-appointment-div cancel-popup">
+            return (
+            <div className="col-12 col-md-7  center-column">
+                    <div className="cancel-overlay" onClick={this.props.hideLoginPopup.bind(this)}>
+                    </div>
                     <section className="mobile-verification-screen p-3">
-                        <div className="widget no-shadow no-round sign-up-container">
+                        <div className="widget no-shadow no-round sign-up-container widget cancel-appointment-div cancel-popup">
+                            <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.props.hideLoginPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>                    
                             <div className="widget-header text-center mv-header">
                                 {/*<h3 className="sign-coupon fw-700">Please login to continue</h3>*/}
                                 <h4 className="fw-500 text-md sign-up-mbl-text">Enter your Mobile Number</h4>
@@ -209,8 +211,7 @@ class InsurancePopup extends React.Component{
                             <p className="text-center fw-500 p-3" style={{ fontSize: 12, color: '#8a8a8a' }} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: '#f78631' }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: '#f78631' }} >Privacy Policy.</a></p>
                         </div>
                     </section>
-                </div>
-            </div>
+            </div> )
         }
     }
 }
