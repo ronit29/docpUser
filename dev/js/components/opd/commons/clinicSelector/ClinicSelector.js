@@ -143,8 +143,9 @@ class ClinicSelector extends React.Component {
                                                                 ? ''
                                                                 : <span className="test-mrp">₹ {hospital.mrp}</span>
                                                         }
-                                                    </span> :
-                                                    <span className="test-price txt-ornage">₹ {hospital.mrp}</span>
+                                                    </span>
+                                                    : hospital.mrp && hospital.mrp != 0 ?
+                                                        <span className="test-price txt-ornage">₹ {hospital.mrp}</span> : ''
                                             }
                                             <span className="fw-500 test-name-item">Consultation Fee</span>
                                         </div>
@@ -154,7 +155,7 @@ class ClinicSelector extends React.Component {
 
                                 <div className="clearfix">
                                     {
-                                        STORAGE.checkAuth() || hospital.deal_price < 100 || (this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories) ?
+                                        STORAGE.checkAuth() || hospital.deal_price < 100 || (false && this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories) ?
                                             ''
                                             : enabled_for_online_booking ?
                                                 <span className="signup-off-doc" style={{ float: 'right' }} >+ &#8377; 100 OFF <b>on Signup</b> </span>
@@ -194,7 +195,7 @@ class ClinicSelector extends React.Component {
                             }
 
                             {
-                                this.props.is_procedure && false ?
+                                false && this.props.is_procedure ?
                                     this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures >= 0
                                         ? ''
                                         : <p className="select-bnr-dsn">Selected treatment not available</p>
@@ -224,8 +225,9 @@ class ClinicSelector extends React.Component {
                                                                     ? ''
                                                                     : <span className="test-mrp">₹ {hospital.mrp}</span>
                                                             }
-                                                        </span> :
-                                                        <span className="test-price txt-ornage">₹ {hospital.mrp}</span>
+                                                        </span>
+                                                        : hospital.mrp && hospital.mrp != 0 ?
+                                                            <span className="test-price txt-ornage">₹ {hospital.mrp}</span> : ''
                                                 }
                                                 <span className="fw-500 test-name-item">Consultation Fee</span>
                                             </div>

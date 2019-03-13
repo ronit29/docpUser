@@ -24,7 +24,16 @@ class ArticleList extends React.Component {
             query = 1
         }
         return new Promise((resolve, reject) => {
-            Promise.all([store.dispatch(getArticleList(title, query))]).then(() => {
+            Promise.all([store.dispatch(getArticleList(title, query))]).then((result) => {
+                result = result[0]
+                if (!result) {
+                    reject({})
+                    return
+                }
+                if (result && result.length == 0 && query) {
+                    reject({})
+                    return
+                }
                 getSpecialityFooterData((footerData) => {
                     resolve({ footerData: (footerData || null) })
                 })()

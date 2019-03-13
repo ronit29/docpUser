@@ -13,6 +13,7 @@ import CRITEO from '../../../helpers/criteo.js'
 import SnackBar from 'node-snackbar'
 const queryString = require('query-string');
 import RatingsPopUp from '../../commons/ratingsProfileView/RatingsPopUp.js'
+import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -205,12 +206,11 @@ class BookingView extends React.Component {
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
-
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             {
                                 (!this.state.loading && this.state.data) ? <section className="booking-confirm-screen">
                                     <div className="container-fluid">
-
+                                        <WhatsAppOptinView {...this.props} profiles={profile} isAppointment ={true}/>
                                         <div className="row">
                                             <div className="col-12">
                                                 <div className="app-timeline book-confirmed-timeline">
@@ -272,6 +272,7 @@ class BookingView extends React.Component {
 
                                                 {/* cart price design */}
 
+
                                                 <div className="widget mrb-10">
                                                     <div className="widget-content">
                                                         <p className="fw-500 text-md mrb-10">Booking ID: <span className="fw-700 text-md">{this.state.data.id}</span></p>
@@ -308,8 +309,8 @@ class BookingView extends React.Component {
                                                     <div className="widget-content pb-details pb-location">
                                                         <h4 className="wc-title text-md fw-700 card-nm-ovrlpng">{hospital.name}</h4>
                                                         <div className="address-details">
-                                                            {/*<img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid add-map" />
-*/}                                                            <p className="add-info fw-500">{hospital.address}</p>
+                                                            {/*<img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid add-map" />*/}      
+                                                            <p className="add-info fw-500">{hospital.address}</p>
                                                         </div>
                                                         {/*<div className="pb-view text-left">
                                                             <a href={`https://www.google.com/maps/search/?api=1&query=${hospital.lat},${hospital.long}`} target="_blank" className="link-text text-md fw-700">View in Google Map</a>

@@ -375,6 +375,7 @@ export function PackageSearchStateBuilder(selectLocation, querParams, isServer =
             let gender= parseInt(_getLocationParamBind('gender')) || ""
             let package_type= parseInt(_getLocationParamBind('package_type')) || ""
             let package_ids= parseInt(_getLocationParamBind('package_ids')) || ""
+            let package_category_ids= parseInt(_getLocationParamBind('package_category_ids')) || ""
 
             let currentSearchedCriterias = []
             // if (test_ids) {
@@ -388,7 +389,7 @@ export function PackageSearchStateBuilder(selectLocation, querParams, isServer =
             // }
 
             let filterCriteriaPackages = {
-                min_price, max_price, min_distance, max_distance, sort_on, max_age, min_age, package_type, gender, catIds, test_ids, package_ids
+                min_price, max_price, min_distance, max_distance, sort_on, max_age, min_age, package_type, gender, catIds, test_ids, package_ids, package_category_ids
             }
 
             if (lab_name) {

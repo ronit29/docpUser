@@ -10,6 +10,7 @@ import HomePageWidget from './HomePageWidget'
 import Accordian from './Accordian'
 import FixedMobileFooter from './FixedMobileFooter'
 import BannerCarousel from './bannerCarousel';
+import UpComingAppointmentView from './upComingAppointment.js'
 const queryString = require('query-string');
 import CRITEO from '../../../helpers/criteo.js'
 
@@ -188,14 +189,13 @@ class HomeView extends React.Component {
 		}
 
 		let slabOrder = []
-
 		if (this.props.device_info != "desktop" && SlabSequence) {
 
 			slabOrder.push(<ChatPanel homePage={true} offerList={this.props.offerList} />)
 			slabOrder.push(
 				<div className="col-md-5">
 					<div className="right-card-container">
-
+						<UpComingAppointmentView {...this.props}/>
 						<HomePageWidget
 							heading="Find a Doctor"
 							discount="50%"
@@ -221,7 +221,7 @@ class HomeView extends React.Component {
 			slabOrder.push(
 				<div className="col-md-5">
 					<div className="right-card-container">
-
+					<UpComingAppointmentView {...this.props}/>
 						<HomePageWidget
 							heading="Book a Test"
 							discount="50%"
@@ -265,7 +265,7 @@ class HomeView extends React.Component {
 			slabOrder.push(
 				<div className="col-md-5">
 					<div className="right-card-container">
-
+					<UpComingAppointmentView {...this.props}/>
 						{/* {
                             !!!profileData ?
                                 <div className="home-signup-banner" onClick={this.gotToSignup.bind(this)}>

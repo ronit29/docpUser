@@ -16,6 +16,7 @@ import CancelationPolicy from './cancellation.js'
 import PaymentSummary from './paymentSummary.js'
 import GTM from '../../../helpers/gtm.js'
 import BookingError from '../../opd/patientDetails/bookingErrorPopUp.js';
+import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
@@ -38,7 +39,8 @@ class BookingSummaryViewNew extends React.Component {
             profileDataFilled: true,
             is_cashback: false,
             use_wallet: true,
-            cart_item: parsed.cart_item
+            cart_item: parsed.cart_item,
+            whatsapp_optin: true,
         }
     }
 
@@ -309,9 +311,13 @@ class BookingSummaryViewNew extends React.Component {
             start_date, start_time, is_home_pickup: this.props.selectedAppointmentType == 'home', address: this.props.selectedAddress,
             payment_type: 1, // TODO : Select payment type
             use_wallet: this.state.use_wallet,
-            cart_item: this.state.cart_item
+            cart_item: this.state.cart_item,
         }
-
+        let profileData = {...patient}
+        if(profileData && profileData.whatsapp_optin == null){
+            profileData['whatsapp_optin']= this.state.whatsapp_optin
+            this.props.editUserProfile(profileData, profileData.id)
+        }
         if (this.props.disCountedLabPrice) {
             postData['coupon_code'] = [this.state.couponCode] || []
         }
@@ -440,6 +446,10 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
+    toggleWhatsap(status,e) {
+        this.setState({ whatsapp_optin: status })
+    }
+
     render() {
         let tests = []
         let finalPrice = 0
@@ -538,7 +548,7 @@ class BookingSummaryViewNew extends React.Component {
                             {
                                 this.props.LABS[this.state.selectedLab] ?
                                     <div>
-                                        <section className="dr-profile-screen booking-confirm-screen">
+                                        <section className="dr-profile-screen booking-confirm-screen mrb-60">
                                             <div className="container-fluid">
                                                 <div className="row mrb-20">
                                                     <div className="col-12">
@@ -722,8 +732,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                 </div>
                                                             </div> : ""
                                                         }
-
-
+                                                        <WhatsAppOptinView {...this.props} profiles= {patient} toggleWhatsap={this.toggleWhatsap.bind(this)}/>
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
                                                             <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                         </div>
@@ -736,7 +745,6 @@ class BookingSummaryViewNew extends React.Component {
                                                         </a>
 
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </section>

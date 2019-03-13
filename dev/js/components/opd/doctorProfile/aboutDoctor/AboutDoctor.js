@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+let doctorData = false
 class AboutDoctor extends React.Component {
 
     constructor(props) {
@@ -8,11 +9,12 @@ class AboutDoctor extends React.Component {
         this.state = {
             // lessAbout: "",
             // requiredReadMore: false,
-            readMore: true
+            readMore: doctorData
         }
     }
 
     componentDidMount() {
+        this.setState({readMore: true})
         // this.renderAbout(this.props)
     }
 
@@ -51,25 +53,27 @@ class AboutDoctor extends React.Component {
             //     }}> SHOW LESS &#9650;</a>
             // }
         }
-        let aboutTxt 
-        if(this.props.details.about_web){
-            if(this.props.details.about_web.length > 100){
-                if(this.state.readMore){
+        let aboutTxt
+        if (this.props.details.about_web) {
+            if (this.props.details.about_web.length > 100) {
+                if (this.state.readMore) {
                     aboutTxt = this.props.details.about_web.slice(0, 100) + "..."
-                    button = <a className="fw-700 text-primary" style={{ cursor: 'pointer' }} onClick={() =>         {this.setState({ readMore: !this.state.readMore}) 
-                                }}> READ MORE &#9660;</a>
-                }else{
+                    button = <a className="fw-700 text-primary" style={{ cursor: 'pointer' }} onClick={() => {
+                        this.setState({ readMore: !this.state.readMore })
+                    }}> READ MORE &#9660;</a>
+                } else {
                     aboutTxt = this.props.details.about_web
-                    button = <a className="fw-700 text-primary" style={{ cursor: 'pointer' }} onClick={() =>         {this.setState({ readMore: !this.state.readMore}) 
-                                }}> SHOW LESS &#9650;</a>
+                    button = <a className="fw-700 text-primary" style={{ cursor: 'pointer' }} onClick={() => {
+                        this.setState({ readMore: !this.state.readMore })
+                    }}> SHOW LESS &#9650;</a>
                 }
-            }else{
+            } else {
                 aboutTxt = this.props.details.about_web
-            } 
+            }
         }
         return (
             <div className="widget-panel">
-                <h4 className="panel-title mb-rmv">About Dr. {name}</h4>
+                <h2 className="panel-title mb-rmv">About Dr. {name}</h2>
                 <div className="panel-content">
                     <div className="fw-10000 text-md abt-doc-inlinetext" dangerouslySetInnerHTML={{ __html: aboutTxt }}>
                     </div>

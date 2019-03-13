@@ -177,8 +177,8 @@ class TopBar extends React.Component {
 
     overlayClick() {
         this.setState({ overlayVisible: false, searchCities: [] });
-        if(document.getElementById('location_element')){
-            document.getElementById('location_element').style.zIndex ='0'
+        if (document.getElementById('location_element')) {
+            document.getElementById('location_element').style.zIndex = '0'
         }
     }
 
@@ -263,11 +263,10 @@ class TopBar extends React.Component {
                                     {this.props.count} {ipd_ids.length?'Specialists':'Results'} found {criteriaStr ? "for" : ""}
                                     <h1 className="search-result-heading">
                                         <span className="fw-700"> {criteriaStr} </span>
-                                        <span className="search-result-span" onClick={
-                                            this.goToLocation.bind(this)}>
+                                        <span className="search-result-span">
                                             {
                                                 this.state.showLocationPopup && false ? ''
-                                                    : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
+                                                    : locationName ? <span className="location-edit">{` in ${locationName}`}</span> : ''
                                             }
                                         </span>
                                     </h1>

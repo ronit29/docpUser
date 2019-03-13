@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { } from '../../actions/index.js'
+import { getOfferList, toggleOPDCriteria, toggleDiagnosisCriteria } from '../../actions/index.js'
 
 import ThyrocarePackageView from '../../components/diagnosis/ThyrocarePackage/ThyrocarePackageView.js';
 
@@ -21,14 +21,22 @@ class ThyrocarePackage extends React.Component {
 }
 
 const mapStateToProps = (state, passedProps) => {
-    return {
 
+    const {
+        offerList
+    } = state.USER
+
+    return {
+        offerList
     }
+
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        getOfferList: (lat, long) => dispatch(getOfferList(lat, long)),
+        toggleOPDCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filter)),
+        toggleDiagnosisCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filter))
     }
 }
 

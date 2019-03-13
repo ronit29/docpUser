@@ -199,7 +199,7 @@ class IPDFormView extends React.Component{
 					                     </div>
 					                  </div>
 					                  <div className="btn-search-div btn-apply-div btn-sbmt btncallback">
-					                     <a href="javascript:void(0);" className="btn-search" onClick={this.submitClicked.bind(this)}>Request Call Back</a>
+					                     <a href="javascript:void(0);" className="btn-search" onClick={this.submitClicked.bind(this)}>Submit</a>
 					                  </div>
 					                  {
 					                  	this.state.submitFormSuccess?

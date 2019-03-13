@@ -4,6 +4,7 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 import Footer from '../../commons/Home/footer'
+import BannerCarousel from '../../commons/Home/bannerCarousel';
 
 class ThyrocarePackageView extends React.Component {
     constructor(props) {
@@ -19,6 +20,19 @@ class ThyrocarePackageView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+
+        let selectedLocation = ''
+        let lat = 28.644800
+        let long = 77.216721
+        if (this.props.selectedLocation) {
+            selectedLocation = this.props.selectedLocation;
+            lat = selectedLocation.geometry.location.lat
+            long = selectedLocation.geometry.location.lng
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
+
+        this.props.getOfferList(lat, long);
     }
 
     toggle(index) {
@@ -56,28 +70,32 @@ class ThyrocarePackageView extends React.Component {
                 <ProfileHeader />
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
-                        <LeftBar />
-
                         <div className="col-12 col-md-7 col-lg-7 center-column">
+                            {
+                                this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'health_package_compare_page').length ?
+                                    <div className="col-12">
+                                        <BannerCarousel {...this.props} sliderLocation="thyrocare_aarogyam_packages_page" />
+                                    </div> : ''
+                            }
                             <h4 className="mrng-top-12">Top full body checkup packages</h4>
                             <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
                                 <div className="static-pk-container sticky-pk-container">
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam B <br />(60 Parameters)</p>
-                                            <p className="stc-price-cut">₹ 560 <span>₹ 700</span></p>
+                                            <p className="stc-price-cut">₹ 490 <span>₹ 740</span></p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam C <br />(63 Parameters)</p>
-                                            <p className="stc-price-cut">₹ 800 <span>₹ 1,000</span></p>
+                                            <p className="stc-price-cut">₹ 750 <span>₹ 1060</span></p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam 3 <br />(68 Parameters)</p>
-                                            <p className="stc-price-cut">₹ 1,600 <span>₹ 2,000</span></p>
+                                            <p className="stc-price-cut">₹ 1500 <span>₹ 2000</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -925,6 +943,82 @@ class ThyrocarePackageView extends React.Component {
                                                                         BUN/Serum Creatinine Ratio
                                                                                 </p>
                                                                 </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div> : ''
+                                        }
+                                    </div>
+                                    <div className="stc-accord-container">
+                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 11)}>
+                                            <p>Lipid Profile</p>
+                                            <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
+                                        </div>
+                                        <div className="stc-acrd-content pb-0 text-center">
+                                            <div className="acrd-stc-data">
+                                                <p>
+                                                    8
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data mid-border-mrgn">
+                                                <p>
+                                                    8
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data">
+                                                <p>
+                                                    8
+                                                                        </p>
+                                            </div>
+                                        </div>
+                                        {
+                                            this.state.collapse[11] ?
+                                                <div> <span>Lipid profile test is a set of tests used to measure the amount of cholesterol and other types of fats present in your blood. This test is helpful in assessing the risk of cardiovascular diseases (CVD).</span>
+                                                    <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+
+                                                        <div className="acrd-stc-data">
+                                                            {/*} <p>Lipid profile test is a set of tests used to measure the amount of cholesterol and other types of fats present in your blood. This test is helpful in assessing the risk of cardiovascular diseases (CVD).
+
+                                                                        </p>*/}
+                                                            <ul className="stc-data-ul-list">
+                                                                <li><p>LDL Cholestrol</p></li>
+                                                                <li><p>Total Cholesterol</p></li>
+                                                                <li><p>HDL Cholesterol</p></li>
+                                                                <li><p>Triglycerides</p></li>
+                                                                <li><p>VLDL Cholesterol</p></li>
+                                                                <li><p>LDL/HDL Ratio</p></li>
+                                                                <li><p>Non - HDL Cholesterol</p></li>
+                                                                <li><p>TC/HDL Cholesterol Ratio</p></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="acrd-stc-data mid-border-mrgn">
+                                                            {/*} <p>Lipid profile test is a set of tests used to measure the amount of cholesterol and other types of fats present in your blood. This test is helpful in assessing the risk of cardiovascular diseases (CVD).
+
+                                                                        </p>*/}
+                                                            <ul className="stc-data-ul-list">
+                                                                <li><p>LDL Cholestrol</p></li>
+                                                                <li><p>Total Cholesterol</p></li>
+                                                                <li><p>HDL Cholesterol</p></li>
+                                                                <li><p>Triglycerides</p></li>
+                                                                <li><p>VLDL Cholesterol</p></li>
+                                                                <li><p>LDL/HDL Ratio</p></li>
+                                                                <li><p>Non - HDL Cholesterol</p></li>
+                                                                <li><p>TC/HDL Cholesterol Ratio</p></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="acrd-stc-data">
+                                                            {/*} <p>Lipid profile test is a set of tests used to measure the amount of cholesterol and other types of fats present in your blood. This test is helpful in assessing the risk of cardiovascular diseases (CVD).
+
+                                                                        </p>*/}
+                                                            <ul className="stc-data-ul-list">
+                                                                <li><p>LDL Cholestrol</p></li>
+                                                                <li><p>Total Cholesterol</p></li>
+                                                                <li><p>HDL Cholesterol</p></li>
+                                                                <li><p>Triglycerides</p></li>
+                                                                <li><p>VLDL Cholesterol</p></li>
+                                                                <li><p>LDL/HDL Ratio</p></li>
+                                                                <li><p>Non - HDL Cholesterol</p></li>
+                                                                <li><p>TC/HDL Cholesterol Ratio</p></li>
                                                             </ul>
                                                         </div>
                                                     </div>

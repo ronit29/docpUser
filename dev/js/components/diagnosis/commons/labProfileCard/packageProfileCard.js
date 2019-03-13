@@ -131,21 +131,25 @@ class LabProfileCard extends React.Component {
                                         <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
                                     </InitialsPicture>
                                 </div>
-                                <a href={this.props.details.lab.url} onClick={(e) => 
-                                    {e.preventDefault()}}>
+                                <a href={this.props.details.url || ''} onClick={(e) => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                    this.props.history.push(`/${this.props.details.url || ''}`)
+                                }}>
                                     <h2 className="pkg-labDoc-Name">{name} {show_details ?
-                                        <span style={{ 'marginLeft': '5px', marginTop: '2px', display: 'inline-block', cursor: 'pointer' }} onClick={(e)=>{
+                                        <span style={{ 'marginLeft': '5px', marginTop: '2px', display: 'inline-block', cursor: 'pointer' }} onClick={(e) => {
                                             e.preventDefault()
                                             e.stopPropagation()
-                                            this.testInfo(id)}}>
-                                            
+                                            // this.testInfo(id)
+                                            this.props.history.push(`/${this.props.details.url || ''}`)
+                                        }}>
                                             <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                         </span> : ''}
                                     </h2>
                                 </a>
                                 {
                                     number_of_tests > 0 ?
-                                        <h3 className="lab-fltr-dc-name fw-500 pkg-include" style={{fontSize: '12px'}}>{number_of_tests ? `${number_of_tests} Tests Included` : ''}
+                                        <h3 className="lab-fltr-dc-name fw-500 pkg-include" style={{ fontSize: '12px' }}>{number_of_tests ? `${number_of_tests} Tests Included` : ''}
                                         </h3>
                                         : ''
                                 }
@@ -172,7 +176,7 @@ class LabProfileCard extends React.Component {
                             <ul>
                                 {
                                     category_details.map((category_detail, k) => {
-                                        return <li className="pkgIncludeList" key={k} id={k}>
+                                        return <li className="pkgIncludeList" key={k} id={k} onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
                                             {category_detail.icon ?
                                                 <img style={{ width: '20px', marginRight: '5px' }} src={category_detail.icon} />
                                                 : ''}

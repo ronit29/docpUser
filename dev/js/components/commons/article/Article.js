@@ -12,7 +12,7 @@ import STORAGE from '../../../helpers/storage';
 import CommentBox from './ArticleCommentBox.js'
 import SnackBar from 'node-snackbar'
 import Reply from './Reply.js'
-
+import BannerCarousel from '../Home/bannerCarousel';
 
 // import RelatedArticles from './RelatedArticles'
 
@@ -28,7 +28,6 @@ class Article extends React.Component {
         }
         this.state = {
             articleData: articleData,
-            medicineURL: false,
             replyOpenFor: null,
             comment: '',
             articleLoaded: articleLoaded
@@ -42,7 +41,18 @@ class Article extends React.Component {
         }
 
         if (this.props.match.path.split('-')[1] === 'mddp') {
-            // this.setState({ medicineURL: true });
+            let selectedLocation = ''
+            let lat = 28.644800
+            let long = 77.216721
+            if (this.props.selectedLocation) {
+                selectedLocation = this.props.selectedLocation;
+                lat = selectedLocation.geometry.location.lat
+                long = selectedLocation.geometry.location.lng
+                if (typeof lat === 'function') lat = lat()
+                if (typeof long === 'function') long = long()
+            }
+
+            this.props.getOfferList(lat, long);
         }
 
     }
@@ -219,6 +229,11 @@ class Article extends React.Component {
                                             } : ''
                                     }} />
 
+                                    {
+                                        this.props.match.path.split('-')[1] === 'mddp' && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'medicine_detail_page').length ?
+                                            <BannerCarousel {...this.props} sliderLocation="medicine_detail_page" /> : ''
+                                    }
+
                                     <ul className="mrb-10 breadcrumb-list" style={{ wordBreak: 'break-word' }}>
                                         <li className="breadcrumb-list-item">
                                             <a href="/" onClick={(e) => this.onHomeClick(e, "/")}>
@@ -323,17 +338,22 @@ class Article extends React.Component {
                                                 return <Reply key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists} />
                                             })}
                                     </div>
-                                    : <div className="col-12 col-md-7 col-lg-8 center-column">
-                                        <div className="widget mrb-15 mrng-top-12">
-                                            <div className="widget-content">
-                                                <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} commentsExists={commentsExists} parentCommentId={this.state.replyOpenFor} />
-                                            </div>
+                                    : ''
+                                : ''
+                        }
+
+                        {
+                            this.state.articleLoaded && this.props.match.path.split('-')[1] != 'nmdp' ?
+                                <div className="col-12 col-md-7 col-lg-8 center-column">
+                                    <div className="widget mrb-15 mrng-top-12">
+                                        <div className="widget-content">
+                                            <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} commentsExists={commentsExists} parentCommentId={this.state.replyOpenFor} />
                                         </div>
                                     </div>
+                                </div>
                                 : ''
                         }
                     </div>
-
                 </section>
                 <Footer />
             </div>
