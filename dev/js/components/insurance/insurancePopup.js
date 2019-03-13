@@ -127,10 +127,11 @@ class InsurancePopup extends React.Component{
         })
         return (            
             <div>
-                <div className="cancel-overlay"></div>
+                <div className="cancel-overlay" onClick={this.props.hideSelectProfilePopup.bind(this)}></div>
                 <div className="widget cancel-appointment-div cancel-popup onscreen-scroll">
                     <div className="pop-top-heading">
                         My Family                        
+                        <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.props.hideSelectProfilePopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>
                     </div>
                     <div className="widget-header action-screen-header pop-padding">
                         <p className="fw-500 cancel-appointment-head"></p>
@@ -153,7 +154,7 @@ class InsurancePopup extends React.Component{
                         </div>
                     </div>
                     <div className="procedures-btn-pop" onClick={()=>this.props.closePopup(this.state.profile_id,this.props.member_id,this.state.newprofile)}>
-                        <button className="fw-500" >Done</button>
+                        <button className="fw-500" disabled={this.state.profile_id == ''?'disabled':''}>Done</button>
                     </div>
                 </div>
             </div>

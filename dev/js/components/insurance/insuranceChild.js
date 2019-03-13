@@ -99,7 +99,6 @@ class InsuranceChild extends React.Component {
 
 	}
 	render() {
-		console.log(this.props.selected_plan.adult_count)
 		return (
 			<div className="ins-sub-forms pading-hr-devider">
 			<hr className="ins-internal-hr"/>

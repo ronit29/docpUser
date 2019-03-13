@@ -208,7 +208,13 @@ class InsuranceOthers extends React.Component {
 		this.setState({no_lname:!this.state.no_lname},() =>{
 			this.handleSubmit(event)
 		})
-	}	
+	}
+
+	hideSelectProfilePopup() {
+        this.setState({
+            showPopup: false
+        });
+    }	
 	render() {
 		console.log(this.props.validateOtherErrors)
 		console.log('validateOtherErrors')
@@ -475,7 +481,7 @@ class InsuranceOthers extends React.Component {
 					</div>
 				</div>
 				{this.state.showPopup ?
-					<InsurPopup {...this.state.userProfiles} currentSelectedInsuredMembersId={this.props.currentSelectedInsuredMembersId} member_id={this.props.member_id} closePopup={this.togglePopup.bind(this)} isSelectprofile = {true} self_data_values ={this.props.self_data_values[this.props.member_id]}
+					<InsurPopup {...this.state.userProfiles} currentSelectedInsuredMembersId={this.props.currentSelectedInsuredMembersId} member_id={this.props.member_id} closePopup={this.togglePopup.bind(this)} isSelectprofile = {true} self_data_values ={this.props.self_data_values[this.props.member_id]} hideSelectProfilePopup={this.hideSelectProfilePopup.bind(this)}
 					/> : ''
 				}
 			</div>
