@@ -7206,6 +7206,50 @@ li.careListiLi span {
 		font-size: 12px !important;
 	}
 }
+
+.careFinalscreenContainer{
+	background: url(/assets/img/layerbgcare.png);
+    background-color: #ff6100;
+    text-align: center;
+    padding: 20px;
+    background-size: cover;
+}
+.careDocwithBglogo{
+	margin-bottom: 15px;
+}
+.careDecparacong{
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+.careDecparasub{
+    color: white;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+.careDecparadate{
+    color: white;
+    font-weight: 500;
+    font-size: 15px;
+}
+.careThankyouContainerCard{
+	background: white;
+	padding-top: 20px;
+}
+.careThankpara{
+	text-align: center;
+    padding: 5px 0;
+    border-top: 1px solid #e0dede;
+    margin: 0 10px;
+    font-weight: 500;
+}
+.careThankpara a{
+	color:#f78631;
+}
+
+
+
 /* ==================== docprime care html page ==================== */
 .medic-img-slider {
     white-space: nowrap;
