@@ -323,13 +323,12 @@ class ResultCount extends React.Component {
                                                 <h1 className="search-result-heading">
                                                 <span className="fw-700"> {this.props.forOrganicSearch?'Full Body Checkup Packages':this.props.forTaxSaver?'Health Packages':'selected categories'}</span>
                                                 </h1>
-                                                <span className="search-result-span" onClick={this.goToLocation.bind(this)}>
-
+                                                <span className="search-result-span">
                                                     {
                                                         this.state.showLocationPopup && false ? ''
-                                                            : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
+                                                            : locationName ? <span className="location-edit">{` in ${locationName}`}</span> : ''
                                                     }
-                                                    <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
+                                                    <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} onClick={this.goToLocation.bind(this)} />
                                                 </span>
                                             </div>
                                         </div>

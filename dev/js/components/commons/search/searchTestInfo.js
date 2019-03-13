@@ -74,8 +74,8 @@ class SearchTestView extends React.Component {
         }
         const parsed = queryString.parse(this.props.location.search)
         let no_labs = false
-        if(parsed.test_ids){
-          no_labs = true
+        if (parsed.test_ids) {
+            no_labs = true
         }
         this.setState({ lastSource: last_page, search_id: search_id })
 
@@ -90,7 +90,7 @@ class SearchTestView extends React.Component {
             test_id = ''
         }
 
-        this.props.searchTestData(test_id, test_url, lab_id, this.props,no_labs)
+        this.props.searchTestData(test_id, test_url, lab_id, this.props, no_labs)
     }
 
 
@@ -159,7 +159,7 @@ class SearchTestView extends React.Component {
     }
 
     searchProceedLAB(lab_name = "") {
-        let test ={}
+        let test = {}
         let found = false
         let selectedCriteria = []
         let nextSelectedCriterias = []
@@ -195,7 +195,7 @@ class SearchTestView extends React.Component {
     }
 
     proceedBookNow(lab_name = "") {
-        let test ={}
+        let test = {}
         let found = false
         let selectedCriteria = []
         let nextSelectedCriterias = this.props.selectedCriterias
@@ -287,7 +287,7 @@ class SearchTestView extends React.Component {
             let title = ''
             let description = ''
             let this_package_will_include = this.props.searchTestInfoData[0].this_package_will_include
-            if(this.props.searchTestInfoData[0].seo){
+            if (this.props.searchTestInfoData[0].seo) {
                 canonicalUrl = this.props.searchTestInfoData[0].url
                 title = this.props.searchTestInfoData[0].seo.title
                 description = this.props.searchTestInfoData[0].seo.description
@@ -295,9 +295,9 @@ class SearchTestView extends React.Component {
             return (
                 <div>
                     <HelmetTags tagsData={{
-                    canonicalUrl: `${CONFIG.API_BASE_URL}/${canonicalUrl}`,
-                    title: title,
-                    description: description,
+                        canonicalUrl: `${CONFIG.API_BASE_URL}/${canonicalUrl}`,
+                        title: title,
+                        description: description,
                     }} />
                     <section className="fade-enter-done">
                         <div className="container-fluid">
@@ -348,7 +348,7 @@ class SearchTestView extends React.Component {
                                                                                 </div>
                                                                                 : ''
                                                                             }
-                                                                            
+
                                                                             {this_package_will_include.tests && this_package_will_include.tests.length > 0 ?
                                                                                 <div className="test-sub-accordion">
                                                                                     <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'test_include_' + resp_test_id)}>{this_package_will_include.title} <span className={self.state.tabsValue.indexOf('test_include_' + resp_test_id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
@@ -356,18 +356,18 @@ class SearchTestView extends React.Component {
                                                                                         <ul>
                                                                                             {Object.entries(this_package_will_include.tests).map(function ([k, test_include]) {
                                                                                                 return <li key={k} id={test_include.id} className="mb-rmv">
-                                                                                                        <div>
-                                                                                                            <button className="tst-sub-acrd-heading padding-btn-adjust" onClick={self.ButtonHandler.bind(self, 'test_include_' + test_include.id)}>{test_include.name} {test_include.parameters && test_include.parameters.length>0?<span className={self.state.tabsValue.indexOf('test_include_' + test_include.id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span>:''}</button>
-                                                                                                        </div>
+                                                                                                    <div>
+                                                                                                        <button className="tst-sub-acrd-heading padding-btn-adjust" onClick={self.ButtonHandler.bind(self, 'test_include_' + test_include.id)}>{test_include.name} {test_include.parameters && test_include.parameters.length > 0 ? <span className={self.state.tabsValue.indexOf('test_include_' + test_include.id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span> : ''}</button>
+                                                                                                    </div>
                                                                                                     {
-                                                                                                     test_include.parameters && test_include.parameters.length>0?
-                                                                                                        <ul className={self.state.tabsValue.indexOf('test_include_'+ test_include.id) == -1 ? 'acrd-sub-content hide' : 'acrd-sub-content'}>
-                                                                                                        {Object.entries(test_include.parameters).map(function ([p_k, parameter]) {
-                                                                                                            return <li key={p_k}>{parameter} </li>
-                                                                                                        })}
-                                                                                                        </ul>
-                                                                                                        :''
-                                                                                                    }           
+                                                                                                        test_include.parameters && test_include.parameters.length > 0 ?
+                                                                                                            <ul className={self.state.tabsValue.indexOf('test_include_' + test_include.id) == -1 ? 'acrd-sub-content hide' : 'acrd-sub-content'}>
+                                                                                                                {Object.entries(test_include.parameters).map(function ([p_k, parameter]) {
+                                                                                                                    return <li key={p_k}>{parameter} </li>
+                                                                                                                })}
+                                                                                                            </ul>
+                                                                                                            : ''
+                                                                                                    }
                                                                                                 </li>
                                                                                             })}
                                                                                         </ul>
@@ -412,17 +412,16 @@ class SearchTestView extends React.Component {
                                                                     style={{ height: 'auto', marginBottom: '10px' }}>
 
                                                                     {/*this.props.packagesList?this.props.packagesList.count:''*/}
-                                                                    {labs && labs.count ?labs.count:''} Results found for
-                                                            <h1 className="search-result-heading">
+                                                                    {labs && labs.count ? labs.count : ''} Results found for
+                                                                    <h1 className="search-result-heading">
                                                                         <span className="fw-700"> {SearchedCritera}</span>
                                                                     </h1>
-                                                                    <span className="search-result-span" onClick={this.goToLocation.bind(this)}>
-
+                                                                    <span className="search-result-span">
                                                                         {
                                                                             this.state.showLocationPopup && false ? ''
-                                                                                : locationName ? <span className="location-edit" style={{ color: '#f6843a', cursor: 'pointer' }}>{` in ${locationName}`}</span> : ''
+                                                                                : locationName ? <span className="location-edit">{` in ${locationName}`}</span> : ''
                                                                         }
-                                                                        <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
+                                                                        <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} onClick={this.goToLocation.bind(this)} />
                                                                     </span>
                                                                 </div>
 
@@ -435,11 +434,11 @@ class SearchTestView extends React.Component {
                                                                         }) : ''
                                                                 }
                                                                 {
-                                                                  labs && labs.count>0?
-                                                                    <div>
-                                                                        <a className="viewAllLab" onClick={this.searchProceedLAB.bind(this, '')}> View all labs</a>
-                                                                    </div>
-                                                                :''  
+                                                                    labs && labs.count > 0 ?
+                                                                        <div>
+                                                                            <a className="viewAllLab" onClick={this.searchProceedLAB.bind(this, '')}> View all labs</a>
+                                                                        </div>
+                                                                        : ''
                                                                 }
                                                             </div> : ''}
 
@@ -480,10 +479,31 @@ class SearchTestView extends React.Component {
                 </div>
             )
         } else {
-            return (<div>
-
-            </div>)
+            return (
+                <div>
+                    <section className="fade-enter-done">
+                        <div className="container-fluid">
+                            <div className="profile-body-wrap">
+                                <ProfileHeader showSearch={true} />
+                                <section className="container parent-section book-appointment-section">
+                                    <div className="row main-row parent-section-row">
+                                        <div className="col-12 col-md-7 col-lg-7 center-column">
+                                            <div className="row">
+                                                <div className="col-12">
+                                                    <p className="fw-500 text-center mrt-10" style={{fontSize:18}}>No Record Found !!</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <ChatPanel noChatButton={true} />
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            )
         }
     }
 }
+
 export default SearchTestView

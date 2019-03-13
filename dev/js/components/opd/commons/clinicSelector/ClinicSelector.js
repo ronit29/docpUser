@@ -131,7 +131,7 @@ class ClinicSelector extends React.Component {
                                 </label>
                             </div>
                             {
-                                this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories
+                                false && this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories
                                     ? ''
                                     : <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
                                         <div className="clearfix">
@@ -143,8 +143,9 @@ class ClinicSelector extends React.Component {
                                                                 ? ''
                                                                 : <span className="test-mrp">₹ {hospital.mrp}</span>
                                                         }
-                                                    </span> :
-                                                    <span className="test-price txt-ornage">₹ {hospital.mrp}</span>
+                                                    </span>
+                                                    : hospital.mrp && hospital.mrp != 0 ?
+                                                        <span className="test-price txt-ornage">₹ {hospital.mrp}</span> : ''
                                             }
                                             <span className="fw-500 test-name-item">Consultation Fee</span>
                                         </div>
@@ -154,7 +155,7 @@ class ClinicSelector extends React.Component {
 
                                 <div className="clearfix">
                                     {
-                                        STORAGE.checkAuth() || hospital.deal_price < 100 || (this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories) ?
+                                        STORAGE.checkAuth() || hospital.deal_price < 100 || (false && this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories) ?
                                             ''
                                             : enabled_for_online_booking ?
                                                 <span className="signup-off-doc" style={{ float: 'right' }} >+ &#8377; 100 OFF <b>on Signup</b> </span>
@@ -188,13 +189,13 @@ class ClinicSelector extends React.Component {
                                 </div>
                             </div>
                             {
-                                this.props.selectedClinic != hospital.hospital_id && (this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id]) && (this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures > 0 || this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures > 0)
+                                false && this.props.selectedClinic != hospital.hospital_id && (this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id]) && (this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures > 0 || this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures > 0)
                                     ? <p>Treatments Available {`(${this.props.selectedDoctorProcedure[id][hospital.hospital_id].unselectedProcedures + this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures})`}</p>
                                     : ''
                             }
 
                             {
-                                this.props.is_procedure ?
+                                false && this.props.is_procedure ?
                                     this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].selectedProcedures >= 0
                                         ? ''
                                         : <p className="select-bnr-dsn">Selected treatment not available</p>
@@ -202,7 +203,7 @@ class ClinicSelector extends React.Component {
                             }
 
                             {
-                                this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories ?
+                                false && this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories ?
                                     <div className="procedure-checkboxes remove-bg-color">
                                         <div className="dtl-cnslt-fee pb-list ofr-mrngbtm">
 
@@ -224,8 +225,9 @@ class ClinicSelector extends React.Component {
                                                                     ? ''
                                                                     : <span className="test-mrp">₹ {hospital.mrp}</span>
                                                             }
-                                                        </span> :
-                                                        <span className="test-price txt-ornage">₹ {hospital.mrp}</span>
+                                                        </span>
+                                                        : hospital.mrp && hospital.mrp != 0 ?
+                                                            <span className="test-price txt-ornage">₹ {hospital.mrp}</span> : ''
                                                 }
                                                 <span className="fw-500 test-name-item">Consultation Fee</span>
                                             </div>

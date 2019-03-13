@@ -47,6 +47,42 @@ class DoctorProfileCard extends React.Component {
         window.scrollTo(0, scrollPosition);
     }
 
+    searchProceedOPD(doc_name = "", hospital_name = "", hospital_id = "") {
+
+        let doctor_name = doc_name.toLowerCase()
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'DoctorButtomClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'different-doctor-searched', 'doctor_name': doctor_name
+        }
+        GTM.sendEvent({ data: data })
+
+        // handle doctor name, hospital name
+        
+        let state = {
+            filterCriteria: {
+                ...this.props.filterCriteria,
+                doctor_name, hospital_name, hospital_id
+            },
+            nextFilterCriteria: {
+                ...this.props.filterCriteria,
+                doctor_name, hospital_name, hospital_id
+            }
+        }
+
+
+        if (doctor_name || hospital_name || hospital_id) {
+            state.selectedCriterias = []
+            state.commonSelectedCriterias = []
+        }
+
+        this.props.mergeOPDState(state, true)
+
+        this.props.history.push({
+            pathname: '/opd/searchresults',
+            state: { search_back: true }
+        })
+    }
+
     render() {
         let { name, experience_years, qualifications, thumbnail, experiences, general_specialization, display_name, is_license_verified, rating_graph } = this.props.details
         let expStr = ""
@@ -74,7 +110,7 @@ class DoctorProfileCard extends React.Component {
             //     if (i < experiences.length - 1) expStr += ', '
             // })
         }
-
+        let doc_name = name.split(' ')
         return (
             <div className="widget-header dr-qucik-info doc-gold-padding">
                 <div className="fltr-crd-img text-center">
@@ -93,6 +129,11 @@ class DoctorProfileCard extends React.Component {
 
                 <div className="dr-profile">
                     <h1 className="dr-name">{display_name}</h1>
+                    {/*
+                        this.props.isSeoFriendly && !this.props.isOrganic?
+                            <p className="diff-suggestion">Looking for a different <span onClick={this.searchProceedOPD.bind(this, doc_name[0], '', '')}>Dr. {doc_name[0]}?</span></p>
+                        :''
+                    */}
                     <h2 className="desg">{this.getQualificationStr(general_specialization || '')}</h2>
                     {/* {
                         general_specialization && general_specialization.length > 3 ?
@@ -113,8 +154,13 @@ class DoctorProfileCard extends React.Component {
                     }
                 </div>
                 {
-                    this.props.recommendDocs ?
-                        <p className="notAvlDoc mrt-10"><span className="text-primary fw-700">Not available for online booking</span>: See bookable doctors with great discounts below</p> : ''
+                        this.props.recommendDocs ?
+                <div className="notAvldocBtnContainer mrt-10">
+                    <button className="notAvldocBtn">Book Now</button>
+                    
+                        <p className="notAvlDoc"><span className="fw-700">Not Bookable</span>: See bookable doctors with great discounts below <a onClick={this.props.viewAllDocClick.bind(this,this.props.nearbyDoctors)} className="text-primary fw-600 d-inline-block"> {this.props.nearbyDoctors.count >= 1 && this.props.nearbyDoctors.doctors_url?'(View All)':''}</a></p>
+                </div>
+                : ''
                 }
             </div>
         );

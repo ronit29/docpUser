@@ -408,11 +408,12 @@ export default function (state = defaultState, action) {
 
             if (newState.filterCriteriaPackages) {
                 newState.filterCriteriaPackages.package_ids = []
-                if (action.isHomePage) {
-                    newState.filterCriteriaPackages.package_ids.push(action.package_id);
-                } else {
-                    newState.filterCriteriaPackages.package_ids = action.package_id
-                }
+                newState.filterCriteriaPackages.package_ids.push(action.package_id);
+                // if (action.isHomePage) {
+                //     newState.filterCriteriaPackages.package_ids.push(action.package_id);
+                // } else {
+                //     newState.filterCriteriaPackages.package_ids = action.package_id
+                // }
             }
             return newState
         }
