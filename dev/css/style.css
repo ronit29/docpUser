@@ -6785,6 +6785,9 @@ button.padding-btn-adjust{
 .ipd-section {
 	font-weight: 500;
 }
+.ipd-section.ipd-form-view{
+	margin-top: -45px;
+}
 .ipd-section a,.ipd-section a:hover,.ipd-section a:focus,.ipd-section a:active{
     color: #f78631;
 }
@@ -7729,6 +7732,16 @@ a.btn-search.btn-cnte{
 .ipd-section a .lab-fltr-dc-name{
 	color: #000;
 }
+.hs-image-gallery li{
+	height: 120px;
+	width: 120px;
+	background-size: cover;
+	margin-right: 10px;
+	border-radius: 5px;
+}
+.custom-li-style{
+	min-height: 38px;
+}
 @media screen and (max-width: 991px){
 	.ipd-section .full-widget{
 		top: 89px;
@@ -7846,6 +7859,11 @@ a.btn-search.btn-cnte{
 	}
 	.ipd-section .hs-nme{
 		width: 170px;
+	}
+}
+@media screen and (max-width: 405px){
+	.ipd-section .lbl-txt{
+		width: 30%;
 	}
 }
 @media screen and (max-width: 350px){

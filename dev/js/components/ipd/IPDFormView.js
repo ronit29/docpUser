@@ -120,7 +120,7 @@ class IPDFormView extends React.Component{
 	                    {
 	                    	this.props.IPD_INFO_LOADED?
 			                <div className="col-12 col-md-7 col-lg-7 center-column">
-		                    	<div className ="ipd-section">
+		                    	<div className ="ipd-section ipd-form-view">
 		                    		<h4 className="section-heading pt-0">{`Get Cost Estimate of ${ipd_info.about.name}`}</h4>
 					                  <div className="info-popup">
 					                     {/*<div className="pop-head">{ipd_info.about.name}</div>*/}

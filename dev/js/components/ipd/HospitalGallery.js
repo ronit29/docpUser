@@ -19,9 +19,10 @@ class HospitalGalleryView extends React.Component {
 	           <div className="card-head">Photo Gallery</div>   
 	           <div className="card-body clearfix">
 	             <ul className="hs-accordian hs-image-gallery">
+
 	             	{
 	             		hospital_data.images.map((image, i)=>{
-	             			return <li key={i} onClick={() => this.setState({ isOpen: true, photoIndex: i })}><img src={image.original} /></li>
+	             			return <li key={i} style = {{ backgroundImage: `url(${image.original})` }} onClick={() => this.setState({ isOpen: true, photoIndex: i })}></li>
 	             		})
 	             	}
 	             	{isOpen && (
