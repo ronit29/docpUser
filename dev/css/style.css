@@ -6976,7 +6976,7 @@ flex-shrink: 0;
 
 /* ==================== docprime care html page ==================== */
 .careHeaderBar{
-    background-image: linear-gradient(to left, #f78631, #ff6d00);
+	background-image: linear-gradient(to left, #ff7e00, #ff6100);
     min-height: 72px;
     position: fixed;
     left: 0;
@@ -6996,5 +6996,214 @@ flex-shrink: 0;
     flex-grow: 0;
     flex-shrink: 0;
 }
+img.careBackIco {
+    width: 18px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.careSubHeader {
+    position: relative;
+    top: 72px;
+}
+.careSubImg{
+	height: 65px;
+    width: 100%;
+}
+.caresubTxt{
+	position: absolute;
+    top: 5px;
+    left: 12%;
+    width: 200px;
+}
+.caresubsmile{
+    position: absolute;
+    right: 12%;
+    top: 32px;
+    width: 80px;
+}
+.careMainContainer{
+	background-color: #fff;
+    border-radius: 5px;
+	box-shadow: 0 1px 3px 0 rgba(0,0,0,.25);
+	padding-bottom: 15px;
+}
+.carePlanHeading{
+	text-align: center;
+    padding: 20px 0;
+    font-weight: 500;
+}
+p.carePlans {
+    text-align: center;
+    color: #757575;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+.careComparePanel {
+	text-align: center;
+	background: rgba(247, 134, 49, .1);
+    padding-top: 10px;
+}
+p.carePlanPrice {
+    color: #f78631;
+    font-size: 16px;
+	padding: 5px 0px;
+	font-weight: 500;
+}
+p.carePlanPriceCut{
+	color: #757575;
+	font-size: 14px;
+	padding: 5px 0px;
+	font-weight: 500
+}
+.careComparePanel button{
+	background: #f78631;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 20px;
+    margin-top: 8px;
+}
+.careCheckContainers {
+	text-align: center;
+    margin-top: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+h4.carechkHeading {
+    font-size: 18px;
+    font-weight: 500;
+}
+p.carechksubHeading {
+    color: #757575;
+    font-weight: 500;
+    margin-top: 3px;
+}
+.checkCrdcont {
+    margin-top: 13px;
+}
+.checkCrdimgcont {
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 11px;
+}
+img.checkcrdImg {
+    width: 20px;
+}
+img.crosscheckcrdImg{
+	width: 16px;
+}
+.care-leftrightborder{
+	border-left: 1px solid #e2e0e0;
+    border-right: 1px solid #e2e0e0;
+}
+.btn-bgwhite{
+	background: white;
+}
+.careTestYear{
+	color: #757575;
+	font-weight: 500;
+}
+.careMemberContainer{
+	display: flex;
+    align-items: center;
+    padding: 10px 0px 20px 10px;
+}
+.careMembrLogo img{
+	width: 120px;
+}
+.careMembrtxt{
+	margin-left: 15px;
+}
+.careMembrtxt h5{ 
+	font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 3px;
+}
+p.carePara {
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    color: #757575;
+    font-weight: 500;
+    padding-left: 10px;
+}
+.careSUbpara{
+	font-weight: 500
+}
+.carePara img{
+	width: 16px;
+    margin-right: 10px;
+}
+.careListingWithSideline{
 
+}
+.UlcareListingWithSide{
+	position: relative;
+    padding-left: 70px;
+    margin-top: 20px;
+}
+.UlcareListingWithSide::before{
+	content: '';
+
+}
+.UlcareListingWithSide::after{
+	content: '';
+	
+}
+.careListiLi::before{
+	content: '';
+    position: absolute;
+    height: 100%;
+    width: 20px;
+    top: 18px;
+    bottom: 0;
+    left: -50px;
+    border-left: 2px dashed #757575;
+}
+.careListiLi:last-child::before{
+	height: 0px;
+}
+.careListiLi::after{
+	content: '';
+    position: absolute;
+    width: 29px;
+    height: 10px;
+    left: -50px;
+    border-top: 2px dashed #757575;
+}
+.careListiLi{
+    padding-bottom: 30px;
+    position: relative;
+}
+.careListin{
+	font-weight: 500;
+}
+.careListin::before{
+	content: '';
+    width: 15px;
+    height: 15px;
+    background: #ff6800;
+    position: absolute;
+    border-radius: 10px;
+    top: 11px;
+    left: -25px;
+    z-index: 9;
+
+}
+li.careListiLi span {
+    color: #757575;
+}
+@media screen and (max-width: 320px) {
+	.UlcareListingWithSide{
+		padding-left: 47px !important;
+	}
+	.careListin {
+		font-weight: 500;
+		font-size: 12px !important;
+	}
+	li.careListiLi span {
+		color: #757575;
+		font-size: 12px !important;
+	}
+}
 /* ==================== docprime care html page ==================== */
