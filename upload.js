@@ -55,7 +55,8 @@ function uploadFolder(folderPath, folderName) {
                     Bucket: config.s3BucketName,
                     Key: `cp/${folderName}/${fileName}`,
                     Body: fileContent,
-                    ContentType: content_type
+                    ContentType: content_type,
+                    CacheControl: 'max-age=172800'
                 }, (res) => {
                     console.log(`Successfully uploaded '${fileName}' - ${content_type}`);
                 });
