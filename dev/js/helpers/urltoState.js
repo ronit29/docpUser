@@ -29,6 +29,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let locationType = _getLocationParamBind('locationType') || "geo"
             let procedures_ids = _getLocationParamBind('procedure_ids') || ""
             let category_ids = _getLocationParamBind('procedure_category_ids') || ""
+            let ipd_procedures = _getLocationParamBind('ipd_procedures') || ""
             let page = _getLocationParamBind('page') || 1
             page = parseInt(page)
             let hospital_id = _getLocationParamBind('hospital_id') || ""
@@ -37,6 +38,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let cond = []
             let procedures = []
             let procedure_categories = []
+            let ipd_ids = []
             if (specializations_ids) {
                 spec = specializations_ids.split(',').map((x) => {
                     return {
@@ -77,7 +79,17 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                 })
             }
 
-            let commonSelectedCriterias = [...cond, ...spec, ...procedures, ...procedure_categories]
+            if(ipd_procedures){
+                ipd_ids = ipd_procedures.split(',').map((x) => {
+                    return {
+                        type: 'ipd',
+                        name: "",
+                        id: parseInt(x)
+                    }
+                })
+            }
+
+            let commonSelectedCriterias = [...cond, ...spec, ...procedures, ...procedure_categories, ...ipd_ids]
 
             let filterCriteria = {
                 min_fees, max_fees, sort_on, is_available, is_female, min_distance, max_distance
