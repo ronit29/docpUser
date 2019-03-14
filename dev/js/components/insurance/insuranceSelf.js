@@ -39,8 +39,8 @@ class InsuranceSelf extends React.Component{
     	this.handleEmail = this.handleEmail.bind(this);
     }
     componentDidMount(){
-    	if(this.props.self_data_values[this.props.USER.selectedProfile]){
-    		this.setState({...this.props.self_data_values[this.props.USER.selectedProfile]},()=>{
+    	if(this.props.self_data_values[this.props.USER.defaultProfile]){
+    		this.setState({...this.props.self_data_values[this.props.USER.defaultProfile]},()=>{
 	    		if(this.state.gender == 'm'){
 					this.setState({title:'mr.'},()=>{
 						 this.handleSubmit()
@@ -62,7 +62,7 @@ class InsuranceSelf extends React.Component{
 	    		let isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
 	    		let profile
 	    		if(!isDummyUser){
-	    			profile= Object.assign({}, props.self_data_values[props.USER.selectedProfile])
+	    			profile= Object.assign({}, props.self_data_values[props.USER.defaultProfile])
 	    		}else{
 	    			profile= Object.assign({}, props.self_data_values[0])
 	    		} 
@@ -80,7 +80,7 @@ class InsuranceSelf extends React.Component{
 		    		})	
 		    	}else{
 		    		this.setState({profile_flag:false})
-		    		let new_profile = props.USER.profiles[props.USER.selectedProfile]
+		    		let new_profile = props.USER.profiles[props.USER.defaultProfile]
 		    		newName =  new_profile.name.split(" ")
 		    		if(newName.length == 2){
 						this.setState({name:new_profile.isDummyUser?'':newName[0],last_name:new_profile.isDummyUser?'':newName[1],gender:new_profile.isDummyUser?'':new_profile.gender,email:new_profile.isDummyUser?'':new_profile.email,dob:new_profile.isDummyUser?'':new_profile.dob,id:new_profile.isDummyUser?0:new_profile.id},() =>{
@@ -123,9 +123,9 @@ class InsuranceSelf extends React.Component{
 						})
 					}
 		    	}
-	    	}else if(props.USER.profiles[props.USER.selectedProfile]){
+	    	}else if(props.USER.profiles[props.USER.defaultProfile]){
 		    	this.setState({profile_flag:false})
-		    	let profile  = Object.assign({}, props.USER.profiles[props.USER.selectedProfile])
+		    	let profile  = Object.assign({}, props.USER.profiles[props.USER.defaultProfile])
 					newName =  profile.name.split(" ")
 					if(newName.length == 2){
 						this.setState({name:profile.isDummyUser?'':newName[0],last_name:profile.isDummyUser?'':newName[1],gender:profile.isDummyUser?'':profile.gender,email:profile.isDummyUser?'':profile.email,dob:profile.isDummyUser?'':profile.dob,id:profile.isDummyUser?0:profile.id},() =>{
@@ -193,7 +193,7 @@ class InsuranceSelf extends React.Component{
     	})
   	}
 	handleSubmit() {
-		let profile  = Object.assign({}, this.props.USER.profiles[this.props.USER.selectedProfile])
+		let profile  = Object.assign({}, this.props.USER.profiles[this.props.USER.defaultProfile])
     	if(!profile.isDummyUser){
     		this.setState({profile_id:this.props.member_id})
     	}else{
@@ -341,7 +341,7 @@ class InsuranceSelf extends React.Component{
 					<label className="ck-bx" onChange={this.handleLastname.bind(this)} style={{'fontWeight': '400', 'fontSize': '14'}}>I dont have last name<input type="checkbox" checked={this.state.no_lname} value="on"/>
 					<span className="checkmark"></span></label>
 				</div>
-				<div className="row no-gutters" id={isDummyUser?'member_0':`member_${this.props.USER.selectedProfile}`}>
+				<div className="row no-gutters" id={isDummyUser?'member_0':`member_${this.props.USER.defaultProfile}`}>
 					<div className="col-12">
 						{
 							this.props.selected_plan.adult_count== 2?

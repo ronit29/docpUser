@@ -9046,6 +9046,9 @@ input[type=button]{
 	cursor: pointer;
 	color: #848282;
 }
+.btn-disabled{
+	opacity: 0.2;
+}
 /* ================= ins ui fixing ================= */
 .medic-img-slider {
     white-space: nowrap;

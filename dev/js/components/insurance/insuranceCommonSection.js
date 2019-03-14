@@ -12,7 +12,7 @@ class InsuranceCommon extends React.Component{
     }
     componentDidMount(){
     	let self = this
-    	this.setState({selectedProfile:this.props.USER.selectedProfile, selected_plan_price:this.props.selected_plan.amount, ...self.props.self_data_values[this.props.USER.selectedProfile]})
+    	this.setState({selectedProfile:this.props.USER.defaultProfile, selected_plan_price:this.props.selected_plan.amount, ...self.props.self_data_values[this.props.USER.defaultProfile]})
     }
 	render(){
 			return (

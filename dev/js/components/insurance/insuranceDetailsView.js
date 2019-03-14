@@ -47,8 +47,11 @@ class InsuranceInputView extends React.Component{
     	let card
     	let self = this
     	let isDummyUser
-    	if(!this.state.saveMembers && Object.keys(props.selected_plan).length >0 && props.USER.selectedProfile && !props.currentSelectedInsuredMembersId.length){
-    		let loginUser = props.USER.selectedProfile
+    	if(!this.state.saveMembers && Object.keys(props.selected_plan).length >0 && props.USER.defaultProfile && !props.currentSelectedInsuredMembersId.length){
+    		// let loginUser = props.USER.selectedProfile
+    		let loginUser = props.USER.defaultProfile
+    		console.log(loginUser)
+    		console.log('loginUser=Details')
     		let membersId = []
     		let isDefaultUser
     		if(props.USER.profiles && Object.keys(props.USER.profiles).length && props.USER.profiles[props.USER.defaultProfile]){
@@ -85,7 +88,7 @@ class InsuranceInputView extends React.Component{
 	    	if(!props.USER.profiles[props.USER.defaultProfile].isDummyUser){
 				{Object.entries(props.USER.profiles).map(function([key, value]) {
 
-					if(currentSelectedProfiles.indexOf(parseInt(key)) == -1 && key !== props.USER.selectedProfile){
+					if(currentSelectedProfiles.indexOf(parseInt(key)) == -1 && key !== props.USER.defaultProfile){
 						show_selected_profile.push(key)
 					}
 				})}
@@ -131,7 +134,7 @@ class InsuranceInputView extends React.Component{
     	if(Object.keys(this.props.self_data_values).length > 0){
     		isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
     		if(!isDummyUser){
-    			self_profile  = Object.assign({}, this.props.self_data_values[this.props.USER.selectedProfile])	
+    			self_profile  = Object.assign({}, this.props.self_data_values[this.props.USER.defaultProfile])	
     		}else{
     			self_profile  = Object.assign({}, this.props.self_data_values[0])
     		}
@@ -369,10 +372,10 @@ class InsuranceInputView extends React.Component{
 		let child
 		let adult
 		let userProfile
-		let selectedProfileId = parseInt(this.props.USER.selectedProfile)
+		let selectedProfileId = parseInt(this.props.USER.defaultProfile)
 		if(Object.keys(this.props.selected_plan).length >0){
 		
-			userProfile = Object.assign({}, this.props.USER.profiles[this.props.USER.selectedProfile])
+			userProfile = Object.assign({}, this.props.USER.profiles[this.props.USER.defaultProfile])
 			
 			if(this.props.selected_plan.adult_count == 2 && this.props.currentSelectedInsuredMembersId.length>1){
 			
@@ -433,7 +436,7 @@ class InsuranceInputView extends React.Component{
 									<p className="fill-error-span fw-500 text-right d-block" style={{marginTop:'0px'}}>*All fields are mandatory
 									</p>
 									<div className="insurance-member-details">
-										<InsurSelf {...this.props} checkForValidation ={this.checkForValidation.bind(this)} id={`member_${this.props.USER.selectedProfile}`} member_id={this.props.USER.selectedProfile} validateErrors={this.state.validateErrors['0'] || []} validateOtherErrors={this.state.validateOtherErrors['0'] || []} createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} errorMessages={this.state.errorMessages}/>
+										<InsurSelf {...this.props} checkForValidation ={this.checkForValidation.bind(this)} id={`member_${this.props.USER.defaultProfile}`} member_id={this.props.USER.defaultProfile} validateErrors={this.state.validateErrors['0'] || []} validateOtherErrors={this.state.validateOtherErrors['0'] || []} createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} errorMessages={this.state.errorMessages}/>
 										{adult}
 										{child}
 									</div>

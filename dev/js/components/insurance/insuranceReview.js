@@ -18,7 +18,7 @@ class InsuranceReview extends React.Component{
     		window.scrollTo(0,0)
     	}
     	let self = this
-    	this.setState({selectedProfile:this.props.USER.selectedProfile, selected_plan_price:this.props.selected_plan.amount, ...self.props.self_data_values[this.props.USER.selectedProfile]})  
+    	this.setState({selectedProfile:this.props.USER.defaultProfile, selected_plan_price:this.props.selected_plan.amount, ...self.props.self_data_values[this.props.USER.defaultProfile]})  
     }
     proceedPlan(){
     	let success_id
@@ -28,7 +28,7 @@ class InsuranceReview extends React.Component{
     	insurance_pay.insurance_plan=this.props.selected_plan.id
     	insurance_pay.insurer= this.props.selected_plan.insurer
     	insurance_pay.members=[]
-    	let selectedUser = this.props.USER.selectedProfile
+    	let selectedUser = this.props.USER.defaultProfile
     	let address=''
     	let email=''
     	let pincode = ''
@@ -133,7 +133,7 @@ class InsuranceReview extends React.Component{
     		}
     		let self_profile
     		if(!isDummyUser){
-    			self_profile  = Object.assign({}, this.props.self_data_values[this.props.USER.selectedProfile])		
+    			self_profile  = Object.assign({}, this.props.self_data_values[this.props.USER.defaultProfile])		
     		}else{
     			self_profile  = Object.assign({}, this.props.self_data_values[0])		
     		}
@@ -185,7 +185,7 @@ class InsuranceReview extends React.Component{
 					</div>
 					{
 						this.props.currentSelectedInsuredMembersId.map((val,key) => {
-							if(parseInt(val[key]) != self.props.USER.selectedProfile){
+							if(parseInt(val[key]) != self.props.USER.defaultProfile){
 								if(this.props.self_data_values[val[key]].relation != 'self'){
 								return <div key={key} className="ins-sub-forms sub-input-forms-containers">
 									<hr className="ins-internal-hr" />
