@@ -57,7 +57,18 @@ class AppointmentSlot extends React.Component {
         if(this.props.selectedSlot && this.props.selectedSlot.date){
             this.getTimeSlots(new Date(this.props.selectedSlot.date))
         }else{
-            this.getTimeSlots(new Date())    
+
+            const parsed = queryString.parse(this.props.location.search)
+            if(parsed.is_thyrocare && parsed.is_thyrocare.includes('true')){
+                    
+                let nextDate = new Date()
+                nextDate.setDate(new Date().getDate() + 1)
+                this.getTimeSlots(nextDate)
+                
+            }else{
+                this.getTimeSlots(new Date())
+            }
+                
         }
         
 
