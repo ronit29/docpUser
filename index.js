@@ -47,7 +47,7 @@ app.all('*', function (req, res) {
     /**
      * Fetch Css files
      */
-    _readStyles().then(async (styleFiles) => {
+    _readStyles().then((styleFiles) => {
 
         let css_file = styleFiles[0]
         let bootstrap_file = styleFiles[1]
@@ -73,10 +73,7 @@ app.all('*', function (req, res) {
         const promises = []
         let split_bundles = []
         let route_matched = false
-        await Promise.all(Routes.ROUTES.map(async (route) => {
-            if (route_matched) {
-                return
-            }
+        Routes.ROUTES.some((route) => {
             // use `matchPath` here
             const match = matchPath(req.path, route)
             if (match) {
@@ -88,21 +85,28 @@ app.all('*', function (req, res) {
                 promises.push(Promise.reject({ url: route.redirectTo }))
             }
 
-            let preload = false
-            let preloaded_component = route.component
-            if (preloaded_component.preload) {
-                preloaded_component = await preloaded_component.preload().then(res => res.default)
-                preload = true
-            }
-
             if (match && route.RENDER_ON_SERVER) {
-                if (preloaded_component.loadData) {
-                    promises.push(preloaded_component.loadData(store, match, req.query))
+                /**
+                 * If a component needs preloading, chain preload followed by loadData if required
+                 */
+                if (route.component.preload) {
+                    promises.push(route.component.preload().then(res => res.default).then((c) => {
+                        if (c.loadData) {
+                            return c.loadData(store, match, req.query)
+                        }
+                        return {}
+                    }))
                 } else {
-                    promises.push(Promise.resolve({}))
+                    if (route.component.loadData) {
+                        promises.push(route.component.loadData(store, match, req.query))
+                    } else {
+                        promises.push(Promise.resolve({}))
+                    }
                 }
             }
-        }))
+
+            return match
+        })
 
         /** 
          * Only when a route matches all criteria for SSR, we do SSR
@@ -132,8 +136,11 @@ app.all('*', function (req, res) {
                     }
 
                     const storeData = JSON.stringify(store.getState())
-                    let modules = []
 
+                    /**
+                     * Store preloaded module's path- required while appending chunk in template
+                     */
+                    let modules = []
                     const html = ReactDOMServer.renderToString(
                         <Loadable.Capture report={moduleName => modules.push(moduleName)}>
                             <Provider store={store}>
@@ -151,6 +158,7 @@ app.all('*', function (req, res) {
                         </Loadable.Capture>
                     )
                     
+                    // split bundles based on react-loadbale.json stats - built via webpack
                     split_bundles = getBundles(stats, modules)
                     const helmet = Helmet.renderStatic()
 

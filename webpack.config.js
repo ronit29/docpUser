@@ -15,7 +15,7 @@ const reactLoadablePlugin = require('react-loadable/webpack').ReactLoadablePlugi
 
 const client_dev = {
     mode: 'development',
-    // devtool: 'inline-source-map',
+    devtool: 'inline-source-map',
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
@@ -26,7 +26,7 @@ const client_dev = {
         new CleanWebpackPlugin(['dist'], {
             verbose: true,
             dry: false,
-            exclude: ['index.ejs']
+            exclude: ['index.ejs', 'react-loadable.json']
         }),
         new MiniCssExtractPlugin({
             filename: "style.css",
@@ -63,7 +63,7 @@ const client_prod = {
         new CleanWebpackPlugin(['dist'], {
             verbose: true,
             dry: false,
-            exclude: ['index.ejs'],
+            exclude: ['index.ejs', 'react-loadable.json'],
             beforeEmit: true
         }),
         new MiniCssExtractPlugin({
@@ -100,7 +100,7 @@ const client_staging = {
         new CleanWebpackPlugin(['dist'], {
             verbose: true,
             dry: false,
-            exclude: ['index.ejs'],
+            exclude: ['index.ejs', 'react-loadable.json'],
             beforeEmit: true
         }),
         new MiniCssExtractPlugin({
@@ -191,6 +191,11 @@ const serverConfig = {
     mode: 'development',
     devtool: 'inline-source-map',
     plugins: [
+        new CleanWebpackPlugin(['dist'], {
+            verbose: true,
+            dry: false,
+            exclude: ['server.js', 'react-loadable.json']
+        }),
         new webpack.DefinePlugin({
             "DOCPRIME_PRODUCTION": process.env.NODE_ENV == 'production',
             "DOCPRIME_STAGING": process.env.NODE_ENV == 'staging',
@@ -248,5 +253,5 @@ module.exports = env => {
         clientConfig = { ...client_base, ...client_prod }
     }
 
-    return [serverConfig, clientConfig]
+    return [clientConfig, serverConfig]
 }

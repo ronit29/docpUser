@@ -4,7 +4,7 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import HelmetTags from './components/commons/HelmetTags'
 
 import Loadable from 'react-loadable';
-const loading = () => <div>Loading...</div>;
+const loading = () => <div>Loading...</div>
 
 const ArticleList = Loadable({
     loader: () => import('./containers/commons/articleList'),

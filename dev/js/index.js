@@ -28,12 +28,14 @@ const store = createStore(
 );
 
 /**
- * Wait for persisStore to finish rehydrating, before trying to hydrate client side DOM.
- * This will only re-render nodes which are changed after merging persisted store on the
- * client side.
+ * Wait for all chunks to get merged and then bootstarp the application.
  */
-
 Loadable.preloadReady().then(() => {
+    /**
+     * Wait for persisStore to finish rehydrating, before trying to hydrate client side DOM.
+     * This will only re-render nodes which are changed after merging persisted store on the
+     * client side.
+     */
     let persistor = persistStore(store, null, () => {
         ReactDOM.hydrate(
             <Provider store={store}>
