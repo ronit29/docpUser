@@ -107,7 +107,7 @@ class InsuranceReview extends React.Component{
 		},this)}
 		console.log(insurance_pay)
 		this.props.resetSelectedInsuranceMembers()
-		this.props.insurancePay('insurance_pay', insurance_pay,'a',(resp)=>{
+		this.props.insurancePay(insurance_pay,(resp)=>{
 			if(resp.members && resp.members.length >0){
 				this.props.history.push('/insurance/insurance-user-details')
 			}else{
@@ -117,7 +117,7 @@ class InsuranceReview extends React.Component{
 					if(resp.payment_required){
 						this.props.history.push(`/payment/${resp.data.orderId}?refs=opd`)
 					}else{
-						success_id = 'insurance/complete?id='+resp.data.id
+						success_id = '/insurance/complete?payment_success=true&id='+resp.data.id
 						this.props.history.push(success_id)
 					}
 				}

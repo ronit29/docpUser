@@ -6,6 +6,7 @@ import InsurPopup from './insurancePopup.js'
 import InsurCommon from './insuranceCommonSection.js'
 import STORAGE from '../../helpers/storage'
 import Loader from '../commons/Loader'
+
 class Insurance extends React.Component{
 	constructor(props) {
         super(props)

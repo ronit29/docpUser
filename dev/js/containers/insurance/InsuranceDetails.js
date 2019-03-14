@@ -1,12 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { selectInsurancePlan,getUserProfile,userData,selectInsuranceProfile, saveCurrentSelectedMembers,resetSelectedInsuranceMembers} from '../../actions/index.js'
+import { userData,selectInsuranceProfile, saveCurrentSelectedMembers} from '../../actions/index.js'
 import InsuranceComponentView from '../../components/insurance/insuranceDetailsView.js'
 
 class InsuranceDetails extends React.Component{
     componentDidMount() {
-            this.props.getUserProfile()
+            //this.props.getUserProfile()
     }
 	render(){
 		return(
@@ -26,12 +26,12 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         // getInsurance: (insuranceId) => dispatch(getInsurance(insuranceId)),
-        getUserProfile: () => dispatch(getUserProfile()),
-        selectInsurancePlan: (plan,criteria,forceadd) => dispatch(selectInsurancePlan(plan,criteria,forceadd)),
+        // getUserProfile: () => dispatch(getUserProfile()),
+        // selectInsurancePlan: (plan,criteria,forceadd) => dispatch(selectInsurancePlan(plan,criteria,forceadd)),
         userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),
         selectInsuranceProfile :(newProfileid,member_id,newProfile,param_id) => dispatch(selectInsuranceProfile(newProfileid,member_id,newProfile,param_id)),
         saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),
-        resetSelectedInsuranceMembers: () => dispatch(resetSelectedInsuranceMembers())
+        // resetSelectedInsuranceMembers: () => dispatch(resetSelectedInsuranceMembers())
     }
 }
 

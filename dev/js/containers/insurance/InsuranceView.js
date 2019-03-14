@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => {
         getInsurance: (callback) => dispatch(getInsurance(callback)),
         getUserProfile: () => dispatch(getUserProfile()),
         selectInsurancePlan: (plan,criteria,forceadd) => dispatch(selectInsurancePlan(plan,criteria,forceadd)),
-        saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),
+        // saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),
         resetSelectedPlans: () => dispatch(resetSelectedPlans()),
         sendOTP: (number, cb) => dispatch(sendOTP(number, cb)),
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),

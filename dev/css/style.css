@@ -3461,6 +3461,13 @@ border: 1px solid #aaaa;
 	header.searcLocationHeaderPadding{
 		padding-top: 70px !important;
 	}
+	.congrats-space{
+		width: 100% !important;
+		margin: 30px auto 30px auto !important;
+	}
+	.congrats-btn{
+		width: 100% !important;
+	}
 }
 header.searcLocationHeaderPadding{
 	padding-top: 0px;

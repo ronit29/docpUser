@@ -34,7 +34,7 @@ export const getInsuranceMemberList = (member_list_id) => (dispatch) => {
     })
 
 }
-export const insurancePay = (postData,criteria,forceadd,callback) => (dispatch) => {
+export const insurancePay = (criteria,callback) => (dispatch) => {
     return API_POST('/api/v1/insurance/create',criteria).then(function (response) {
         dispatch({
             type: INSURANCE_PAY,
