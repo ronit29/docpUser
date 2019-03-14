@@ -6781,6 +6781,9 @@ button.padding-btn-adjust{
 
 .ipd-section {
 	font-weight: 500;
+	
+}
+.ipd-section.ipdSection{
 	margin-top: -20px;
 }
 .ipd-section.ipd-form-view{
@@ -7786,7 +7789,7 @@ a.btn-search.btn-cnte{
 	.ipd-section .left-side-info{
 		flex: auto;
 	}
-	.ipd-section{
+	.ipd-section.ipdSection{
 		margin-top: 0;
 	}
 }

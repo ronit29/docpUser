@@ -91,7 +91,7 @@ class IpdView extends React.Component {
 	render(){
 
 		return(                  		
-           <div className ="ipd-section">
+           <div className ="ipd-section ipdSection">
            	  <h4 className="section-heading top-sc-head"> <span className="about-head"> {`${this.props.ipd_info?this.props.ipd_info.about.name:''}`} </span>
 					</h4>
               <div className="full-widget mrg-b0 stickyBar">
