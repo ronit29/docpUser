@@ -56,7 +56,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		condition_ids = ""
 		procedures_ids = ""
 		category_ids = "",
-		ipd_ids = ""
+			ipd_ids = ""
 	}
 
 	let url = `/api/v1/doctor/doctorsearch?`
@@ -69,7 +69,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		url = `/api/v1/doctor/doctorsearchbyhospital?`
 	}
 
-	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&ipd_procedure_ids=${ipd_ids||""}`
+	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&ipd_procedure_ids=${ipd_ids || ""}`
 
 	if (!!filterCriteria.doctor_name) {
 		url += `&doctor_name=${filterCriteria.doctor_name || ""}`
@@ -105,10 +105,10 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 			return x
 		})
 
-		let ipd_data = response.ipd_procedures.map((x) => {
+		let ipd_data = response.ipd_procedures ? response.ipd_procedures.map((x) => {
 			x.type = 'ipd'
 			return x
-		})
+		}) : []
 
 		let commonSelectedCriterias = [...specializations, ...conditions, ...procedure_category, ...procedures, ...ipd_data]
 
@@ -171,11 +171,11 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		let procedure_ids = procedures && procedures.length ? procedures.map(x => x.id).join(',') : ''
 		let procedure_category_ids = procedure_category && procedure_category.length ? procedure_category.map(x => x.id).join(',') : ''
 
-		let ipd_ids = ipd_data && ipd_data.length? ipd_data.map(x => x.id).join(','):''
+		let ipd_ids = ipd_data && ipd_data.length ? ipd_data.map(x => x.id).join(',') : ''
 
 		if (page == 1) {
 			let data = {
-				'Category': 'ConsumerApp', 'Action': 'DoctorSearchCount', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-count', 'DoctorSearchCount': response.count || 0, 'specializations': specialization_ids, 'conditions': condition_ids, 'procedures': procedure_ids, 'procedure_category': procedure_category_ids, 'doctor_name': filterCriteria.doctor_name || '', 'hospital_name': filterCriteria.hospital_name || '', 'hospital_id': filterCriteria.hospital_id || '', 'ipd_ids': ipd_ids||''
+				'Category': 'ConsumerApp', 'Action': 'DoctorSearchCount', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-count', 'DoctorSearchCount': response.count || 0, 'specializations': specialization_ids, 'conditions': condition_ids, 'procedures': procedure_ids, 'procedure_category': procedure_category_ids, 'doctor_name': filterCriteria.doctor_name || '', 'hospital_name': filterCriteria.hospital_name || '', 'hospital_id': filterCriteria.hospital_id || '', 'ipd_ids': ipd_ids || ''
 			}
 			GTM.sendEvent({ data: data })
 		}
@@ -469,11 +469,11 @@ export const toggle404 = (status = false) => (dispatch) => {
 	})
 }
 
-export const clearOpdSearchId = () => (dispatch)=>{
+export const clearOpdSearchId = () => (dispatch) => {
 	dispatch({
 		type: CLEAR_OPD_SEARCH_ID
 	})
-} 
+}
 
 export const select_opd_payment_type = (type = 1) => (dispatch) => {
 	dispatch({
