@@ -69,6 +69,10 @@ class LabView extends React.Component {
         }
     }
 
+    viewAllClick() {
+        this.props.history.push('/full-body-checkup-health-packages')
+    }
+
     render() {
         return (
             <div className="profile-body-wrap">
@@ -86,7 +90,10 @@ class LabView extends React.Component {
                                         <BannerCarousel {...this.props} sliderLocation="health_package_compare_page" />
                                     </div> : ''
                             }
-                            <h4 className="mrng-top-12">Top full body checkup packages</h4>
+                            <div className="d-flex justify-content-between mrt-10" style={{ padding: '0 15px' }} >
+                                <h4 className="fw-500" style={{ fontSize: 16, flex: 1, marginRight: 4 }}>Top full body checkup packages</h4>
+                                <button onClick={() => this.viewAllClick()} className="vw-all-static text-primary fw-500">View all</button>
+                            </div>
                             <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
                                 <div className="static-pk-container sticky-pk-container">
                                     <div className="static-pkg-top-column">

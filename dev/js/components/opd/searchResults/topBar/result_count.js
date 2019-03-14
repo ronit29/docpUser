@@ -258,9 +258,9 @@ class TopBar extends React.Component {
                                     </ul>
                                 </div>
                                 <div className="filter-title">
-                                    {this.props.count} Results found {criteriaStr ? "for" : ""}
+                                    {this.props.count} Results found for
                                     <h1 className="search-result-heading">
-                                        <span className="fw-700"> {criteriaStr} </span>
+                                        <span className="fw-700"> {criteriaStr || "doctors"} </span>
                                         <span className="search-result-span">
                                             {
                                                 this.state.showLocationPopup && false ? ''
