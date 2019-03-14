@@ -12,8 +12,9 @@ class primeCare extends React.Component {
 
     
     componentDidMount() {
-        this.props.getCareDetails('', (resp)=>{
+        this.props.getCareDetails((resp)=>{
             console.log(resp)
+            console.log('response=container')
         })
 
     }
@@ -34,7 +35,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getCareDetails: (InsuranceId,callback) => dispatch(getCareDetails(InsuranceId,callback))
+        getCareDetails: (callback) => dispatch(getCareDetails(callback))
     }
 }
 
