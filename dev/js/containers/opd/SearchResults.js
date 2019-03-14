@@ -117,7 +117,8 @@ const mapStateToProps = (state, passedProps) => {
     let { hospitalList, doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page, ratings, reviews, ratings_title, bottom_content, breadcrumb, seoData, show404 } = state.DOCTOR_SEARCH
 
     const {
-        offerList
+        offerList,
+        is_login_user_insured
     } = state.USER
 
     return {
@@ -146,7 +147,8 @@ const mapStateToProps = (state, passedProps) => {
         seoData,
         mergeUrlState,
         show404,
-        offerList
+        offerList,
+        is_login_user_insured
     }
 }
 

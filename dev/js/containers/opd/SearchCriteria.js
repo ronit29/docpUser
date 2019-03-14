@@ -43,6 +43,10 @@ const mapStateToProps = (state) => {
         procedure_categories
     } = state.SEARCH_CRITERIA_OPD
 
+    const {
+        is_login_user_insured
+    } = state.USER
+
     return {
         LOADED_SEARCH_CRITERIA_OPD,
         specializations,
@@ -51,7 +55,8 @@ const mapStateToProps = (state) => {
         selectedLocation,
         filterCriteria,
         locationType,
-        procedure_categories
+        procedure_categories,
+        is_login_user_insured
     }
 }
 
