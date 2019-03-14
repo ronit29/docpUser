@@ -7741,9 +7741,9 @@ a.btn-search.btn-cnte{
 	margin-bottom: 45px;
 	display: block;
 }
-#hospitalTab,#doctorTab{
+/*#hospitalTab,#doctorTab{
 	margin-top: -10px;	
-}
+}*/
 .ipd-section a .lab-fltr-dc-name{
 	color: #000;
 }
