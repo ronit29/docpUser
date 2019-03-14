@@ -7240,6 +7240,14 @@ flex-shrink: 0;
     width: 80%;
 }
 
+.pkgComapre .multi-pkg-cmpre{
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+}
+
+
 
 @media screen and (max-width: 991px){
 	.pkgComapre{

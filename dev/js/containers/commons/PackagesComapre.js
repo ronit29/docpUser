@@ -237,11 +237,16 @@ render() {
                             </div>
 
                             <div className="container-fluid">
-                              <div className="tgle-btn">
-                                   <label className="switch">
-                                      <input type="checkbox"  />
-                                      <span className="slider round"></span>
-                                    </label>
+                                <div className="multi-pkg-cmpre">
+                                  <div className="tgle-btn">
+                                     <label className="switch">
+                                        <input type="checkbox"  /> Show Differe
+                                        <span className="slider round"></span>
+                                      </label>
+                                  </div>
+                                  <div className="">
+                                    <a href="javascript:void(0);"> + Add more </a>
+                                  </div>
                                 </div>
                             </div>
 
