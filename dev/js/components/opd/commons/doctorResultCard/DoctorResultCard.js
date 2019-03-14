@@ -190,19 +190,19 @@ class DoctorProfileCard extends React.Component {
 
                 <div className="cstm-docCard mb-3">
                     <div className="cstm-docCard-content">
-                        <p className="cstm-card-loc-set"><img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} /><span>Cloud Nine Health clin...</span> |  <span>Ardee City, Sector... </span> |  3.4 KM </p>
+                        {/* <p className="cstm-card-loc-set"><img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} /><span>Cloud Nine Health clin...</span> |  <span>Ardee City, Sector... </span> |  3.4 KM </p> */}
                         <div className="row no-gutters">
                             <div className="col-8">
+                                <h4 className="cstmDocName">Dr. Vandana Kumar Singh</h4>
                                 <div className="cstm-doc-details-container">
                                     <div className="cstm-doc-img-container">
-                                        <div> 
+                                        <div>
                                             <img class="img-round" src="https://cdn.docprime.com/media/doctor/images/80x80/7ac60cbb55d5f3d12f6a63361adf017c.jpg" alt="Dr. Pradip Sharma" title="Dr. Pradip Sharma" />
                                             <p className="cstm-varify">Verified</p>
                                             <span className="cstm-doc-rtng">4.5 <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/slidedocrating.svg"} /></span>
                                         </div>
                                     </div>
                                     <div className="cstm-doc-content-container">
-                                        <h4>Dr. Vandana Kumar Singh</h4>
                                         <p>MD, General Physician</p>
                                         <p>12 Years Experience</p>
                                         <p>8:00 AM - 12:00 PM </p>
@@ -213,8 +213,18 @@ class DoctorProfileCard extends React.Component {
                             <div className="col-4">
                                 <p className="cstm-doc-price">Docprime Price</p>
                                 <p className="cst-doc-price">₹ 300 <span className="cstm-doc-cut-price">₹ 500</span></p>
+                                <p className="cstm-cpn">50% Off (includes Coupon)</p>
                                 <button className="cstm-book-btn">Book Now</button>
                             </div>
+                        </div>
+                    </div>
+                    <div className="cstmCardFooter">
+                        <div className="cstmfooterContent">
+                            <p><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />Cloud Nine Health Super Clinic & 2 more </p>
+                            <p className="mb-rmv"><img style={{ width: '10px', marginLeft: '3px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />5818, Near Super Mart I, Aster Avenue DLF Phase IV, Gur </p>
+                        </div>
+                        <div className="cstmDocLoc">
+                            <p className=""><img src={ASSETS_BASE_URL + "/img/cstmdist.svg"} /> 1.5Km</p>
                         </div>
                     </div>
                 </div>
