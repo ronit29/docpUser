@@ -191,7 +191,7 @@ const serverConfig = {
     mode: 'development',
     devtool: 'inline-source-map',
     plugins: [
-        new CleanWebpackPlugin(['dist'], {
+        new CleanWebpackPlugin(['server'], {
             verbose: true,
             dry: false,
             exclude: ['server.js', 'react-loadable.json']

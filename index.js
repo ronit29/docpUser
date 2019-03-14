@@ -12,7 +12,7 @@ const axios = require('axios')
 const fs = require('fs');
 const DIST_FOLDER = './dist/';
 const Sentry = require('@sentry/node');
-const stats = require('./dist/react-loadable.json')
+const stats = JSON.parse(_readFileSync(`${DIST_FOLDER}react-loadable.json`))
 
 import { Helmet } from "react-helmet";
 import React from 'react'
@@ -298,4 +298,8 @@ function _serverHit(req, type = 'server') {
     }).catch((e) => {
         // console.log(e)
     })
+}
+
+function _readFileSync(filename){
+    return fs.readFileSync(filename, 'utf-8')
 }
