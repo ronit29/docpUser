@@ -76,7 +76,6 @@ class Lab extends React.Component {
         //always clear selected time at lab profile
         let slot = { time: {} }
         this.props.selectLabTimeSLot(slot, false)
-        this.props.savePincode(null)
     }
 
     render() {

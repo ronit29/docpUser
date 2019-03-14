@@ -41,6 +41,11 @@ class DateTimePicker extends React.Component {
                 }
             }
             if(!getUpcomingDate){
+                if(this.props.is_thyrocare){
+                    let nextDate = new Date()
+                    nextDate.setDate(new Date().getDate() + 1)
+                    this.setState({selectedDateSpan: nextDate})
+                }
                 this.generateDays()   
             }
         }
@@ -48,7 +53,8 @@ class DateTimePicker extends React.Component {
     }
 
     generateDays(getNewDates = false, selectedDate = ''){
-        let offset, currentDate
+        let offset= new Date()
+        let currentDate = new Date()
         
         let dateCount = 1
         let totalDateVisited = 1
@@ -59,9 +65,11 @@ class DateTimePicker extends React.Component {
             currentDate = new Date(selectedDate)
 
         } else {
-            offset = new Date()
-            currentDate = new Date()
 
+            if(this.props.is_thyrocare){
+                offset.setDate(new Date().getDate() + 1)
+                currentDate.setDate(new Date().getDate() + 1)
+            }
         }
         let formattedDate = this.getFormattedDate(offset)
         daySeries.push({
