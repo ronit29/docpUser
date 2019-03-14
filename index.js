@@ -90,7 +90,9 @@ app.all('*', function (req, res) {
                  * If a component needs preloading, chain preload followed by loadData if required
                  */
                 if (route.component.preload) {
-                    promises.push(route.component.preload().then(res => res.default).then((c) => {
+                    promises.push(route.component.preload().then(r => {
+                        return r.default || r
+                    }).then((c) => {
                         if (c.loadData) {
                             return c.loadData(store, match, req.query)
                         }
@@ -157,7 +159,7 @@ app.all('*', function (req, res) {
                             </Provider>
                         </Loadable.Capture>
                     )
-                    
+
                     // split bundles based on react-loadbale.json stats - built via webpack
                     split_bundles = getBundles(stats, modules)
                     const helmet = Helmet.renderStatic()
@@ -300,6 +302,6 @@ function _serverHit(req, type = 'server') {
     })
 }
 
-function _readFileSync(filename){
+function _readFileSync(filename) {
     return fs.readFileSync(filename, 'utf-8')
 }

@@ -6,20 +6,56 @@ import HelmetTags from './components/commons/HelmetTags'
 import Loadable from 'react-loadable'
 const loading = () => <div></div>
 
-const ArticleList = Loadable({
-    loader: () => import('./containers/commons/articleList'),
-    modules: ['./containers/commons/articleList'],
-    webpack: () => [require.resolveWeak('./containers/commons/articleList')],
+const LocationSearch = Loadable({
+    loader: () => import('./opd_routes').then(c => c.LocationSearch),
+    modules: ['./opd_routes'],
+    webpack: () => [require.resolveWeak('./opd_routes')],
     loading,
-});
+})
+const SearchResults = Loadable({
+    loader: () => import('./opd_routes').then(c => c.SearchResults),
+    modules: ['./opd_routes'],
+    webpack: () => [require.resolveWeak('./opd_routes')],
+    loading,
+})
+const DoctorProfile = Loadable({
+    loader: () => import('./opd_routes').then(c => c.DoctorProfile),
+    modules: ['./opd_routes'],
+    webpack: () => [require.resolveWeak('./opd_routes')],
+    loading,
+})
+const AppointmentSlot = Loadable({
+    loader: () => import('./opd_routes').then(c => c.AppointmentSlot),
+    modules: ['./opd_routes'],
+    webpack: () => [require.resolveWeak('./opd_routes')],
+    loading,
+})
+const PatientDetails = Loadable({
+    loader: () => import('./opd_routes').then(c => c.PatientDetails),
+    modules: ['./opd_routes'],
+    webpack: () => [require.resolveWeak('./opd_routes')],
+    loading,
+})
+const Booking_OPD = Loadable({
+    loader: () => import('./opd_routes').then(c => c.Booking_OPD),
+    modules: ['./opd_routes'],
+    webpack: () => [require.resolveWeak('./opd_routes')],
+    loading,
+})
+const AppointmentReschedule = Loadable({
+    loader: () => import('./opd_routes').then(c => c.AppointmentReschedule),
+    modules: ['./opd_routes'],
+    webpack: () => [require.resolveWeak('./opd_routes')],
+    loading,
+})
 
-import LocationSearch from './containers/opd/LocationSearch.js'
-import SearchResults from './containers/opd/SearchResults.js'
-import DoctorProfile from './containers/opd/DoctorProfile.js'
-import AppointmentSlot from './containers/opd/AppointmentSlot.js'
-import PatientDetails from './containers/opd/PatientDetails.js'
-import Booking_OPD from './containers/opd/Booking.js'
-import AppointmentReschedule from './containers/opd/AppointmentReschedule.js'
+// import LocationSearch from './containers/opd/LocationSearch.js'
+// import SearchResults from './containers/opd/SearchResults.js'
+// import DoctorProfile from './containers/opd/DoctorProfile.js'
+// import AppointmentSlot from './containers/opd/AppointmentSlot.js'
+// import PatientDetails from './containers/opd/PatientDetails.js'
+// import Booking_OPD from './containers/opd/Booking.js'
+// import AppointmentReschedule from './containers/opd/AppointmentReschedule.js'
 
 import UserProfile from './containers/commons/UserProfile.js'
 import UserSignup from './containers/commons/UserSignup'
@@ -30,7 +66,7 @@ import HomeChat from './containers/commons/HomeChat'
 import Wallet from './containers/commons/Wallet'
 import NotFound from './containers/commons/404'
 import Article from './containers/commons/article'
-// import ArticleList from './containers/commons/articleList'
+import ArticleList from './containers/commons/articleList'
 import Payment from './containers/commons/Payment'
 import ChatHistory from './containers/commons/chatHistory'
 import StaticPages from './containers/commons/StaticPages'
