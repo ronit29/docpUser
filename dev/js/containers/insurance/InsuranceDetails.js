@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { getInsurance, selectInsurancePlan,getUserProfile,userData,selectInsuranceProfile, saveCurrentSelectedMembers,resetSelectedInsuranceMembers} from '../../actions/index.js'
+import { selectInsurancePlan,getUserProfile,userData,selectInsuranceProfile, saveCurrentSelectedMembers,resetSelectedInsuranceMembers} from '../../actions/index.js'
 import InsuranceComponentView from '../../components/insurance/insuranceDetailsView.js'
 
 class InsuranceDetails extends React.Component{
@@ -25,7 +25,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getInsurance: (insuranceId) => dispatch(getInsurance(insuranceId)),
+        // getInsurance: (insuranceId) => dispatch(getInsurance(insuranceId)),
         getUserProfile: () => dispatch(getUserProfile()),
         selectInsurancePlan: (plan,criteria,forceadd) => dispatch(selectInsurancePlan(plan,criteria,forceadd)),
         userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),

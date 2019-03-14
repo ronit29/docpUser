@@ -88,7 +88,7 @@ class InsurancePopup extends React.Component{
                 if(exists.code == 'invalid'){
                     this.setState({error_message:exists.message})
                 }else{
-                    this.props.getInsurance('a', (resp)=>{
+                    this.props.getInsurance((resp)=>{
                         if(!resp.certificate){
                             if (exists.user_exists) {
                             this.props.history.push('/insurance/insurance-user-details')

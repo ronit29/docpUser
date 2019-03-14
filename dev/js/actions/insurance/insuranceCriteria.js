@@ -1,7 +1,7 @@
 import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, INSURANCE_PAY, SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE , SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE} from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
-export const getInsurance = (insuranceid,callback) => (dispatch) => {
+export const getInsurance = (callback) => (dispatch) => {
 
     return API_GET('/api/v1/insurance/list').then(function (response) {
         dispatch({
