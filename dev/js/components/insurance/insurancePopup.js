@@ -154,7 +154,7 @@ class InsurancePopup extends React.Component{
                         </div>
                     </div>
                     <div className="procedures-btn-pop" onClick={()=>this.props.closePopup(this.state.profile_id,this.props.member_id,this.state.newprofile)}>
-                        <button className="fw-500" disabled={this.state.profile_id == ''?'disabled':''}>Done</button>
+                        <button className= {this.state.profile_id == ''?'fw-500 btn-disabled':'fw-500'} disabled={this.state.profile_id == ''?'disabled':''}>Done</button>
                     </div>
                 </div>
             </div>
