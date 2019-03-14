@@ -120,7 +120,7 @@ class HospitalInfoView extends React.Component{
                   {
                     hospital_data.contact_number?
                     <li>
-                      <div className="hsptl-title hsptl-cntc hs-tle">Contact</div>
+                      <div className="hsptl-title hsptl-cntc hs-tle">Contact:</div>
                       <div className="hsptl-title hsptl-add"> {hospital_data.contact_number}</div>
                       <div className="hsptl-title"> 
                         <a style={{borderRadius: '25px'}} href={`tel:${hospital_data.contact_number}`} className="dpp-btn-book d-lg-none d-flex"><img src={ASSETS_BASE_URL + "/images/call-round.png"} alt="" className="img-fluid img-map" style={{width: '20px'}} />

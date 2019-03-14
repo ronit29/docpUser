@@ -19,7 +19,7 @@ class HospitalDetailView extends React.Component {
 	getCostEstimateClicked(hospitalId){
 		if(this.props.commonSelectedCriterias.length){
 			let ipd_id = this.props.commonSelectedCriterias[0].id
-			this.props.history.push(`/ipd/${ipd_id}/${this.props.match.params.hospitalId}/getPriceEstimate`)		
+			this.props.history.push(`/ipd/${ipd_id}/getPriceEstimate?hospital_id=${this.props.match.params.hospitalId}`)		
 		}
       
    	}

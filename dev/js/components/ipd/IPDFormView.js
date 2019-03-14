@@ -36,7 +36,7 @@ class IPDFormView extends React.Component{
     }
 
     componentWillReceiveProps(nextProps){
-    	if(nextProps.defaultProfile && !this.state.name && nextProps.profiles && nextProps.profiles[nextProps.defaultProfile]){
+    	if(nextProps.defaultProfile && !this.state.name && nextProps.profiles && nextProps.profiles[nextProps.defaultProfile] && !nextProps.profiles[nextProps.defaultProfile].isDummyUser){
     		let userData = nextProps.profiles[nextProps.defaultProfile]
     		this.setState({name: userData.name|| '', phone_number: userData.phone_number+''||'', email: userData.email ||'', gender: userData.gender || '', age: userData.age ||'',  })
     	}
