@@ -16,6 +16,7 @@ import SITE_MAP from './commons/siteMap.js'
 import LAB_SEARCH_DATA from './diagnosis/labSearchData.js'
 import ELASTIC_SEARCH from './commons/elasticSearch.js'
 import INSURANCE from './insurance/insuranceCriteria.js'
+import SEARCH_CRITERIA_IPD from './ipd/searchCriteria.js'
 
 const persistConfig = {
     key: 'root',
@@ -64,6 +65,11 @@ const INSURANCE_LIST_PRESIST = {
     storage: storage,
     whitelist: ['self_data_values','selected_plan','currentSelectedInsuredMembersId','create_payment_resp']
 }
+const IPD_SEARCH_PERSIST = {
+    key: 'SEARCH_CRITERIA_IPD',
+    storage: storage,
+    blacklist: ['page', 'getNewResults', 'fetchNewResults', 'locationFetched', 'HOSPITAL_DETAIL_LOADED', 'IPD_INFO_LOADED']
+}
 
 const allReducers = combineReducers({
     SEARCH_CRITERIA_OPD: persistReducer(OPD_SEARCH_PERSIST, SEARCH_CRITERIA_OPD),
@@ -79,7 +85,8 @@ const allReducers = combineReducers({
     DOCTOR_PROFILES,
     LAB_SEARCH_DATA,
     ELASTIC_SEARCH,
-INSURANCE: persistReducer(INSURANCE_LIST_PRESIST,INSURANCE)
+    INSURANCE: persistReducer(INSURANCE_LIST_PRESIST,INSURANCE),
+    SEARCH_CRITERIA_IPD: persistReducer(IPD_SEARCH_PERSIST, SEARCH_CRITERIA_IPD)
 });
 
 const persistedReducer = persistReducer(persistConfig, allReducers)
