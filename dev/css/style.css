@@ -7005,7 +7005,7 @@ button.padding-btn-adjust{
     margin-bottom: 15px;
 }
 .ipd-section .img-hospital{
-        width: 120px;
+        width: 100px;
         margin-top: -15px;
     }
  .ipd-edit.ic-edit{
@@ -7459,7 +7459,7 @@ button.padding-btn-adjust{
 }
 .ipd-section .section-heading.top-sc-head{
 	 padding-top: 0px;
-    font-size: 20px;
+    font-size: 18px;
 }
 .ipd-section .read-more-btn{
 	position: relative;
@@ -7735,7 +7735,7 @@ a.btn-search.btn-cnte{
     margin-top: -2px;
 }
 .hosNme{
-	margin-bottom: 30px;
+	margin-bottom: 45px;
 	display: block;
 }
 #hospitalTab,#doctorTab{

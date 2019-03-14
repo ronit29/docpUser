@@ -29,7 +29,7 @@ class HospitalInfoView extends React.Component{
                   hospital_data.logo?
                   <div className="hosNme">
                     <div className="hs-nme hsptName">
-                       <img src={hospital_data.logo} alt="" className="" />  
+                       <img src={hospital_data.logo} alt="" className="img-fluid" />  
                     </div> 
                   </div>
                   :'' 
