@@ -430,7 +430,7 @@ class InsuranceInputView extends React.Component{
 								<InsurCommon {...this.props} is_edit={this.state.is_edit}/>
 								<div className="insurance-member-container">
 									<h4>Insured Member Details</h4>
-									<p className="fill-error-span fw-500 text-right d-block">*All fields are mandatory
+									<p className="fill-error-span fw-500 text-right d-block" style={{marginTop:'0px'}}>*All fields are mandatory
 									</p>
 									<div className="insurance-member-details">
 										<InsurSelf {...this.props} checkForValidation ={this.checkForValidation.bind(this)} id={`member_${this.props.USER.selectedProfile}`} member_id={this.props.USER.selectedProfile} validateErrors={this.state.validateErrors['0'] || []} validateOtherErrors={this.state.validateOtherErrors['0'] || []} createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} errorMessages={this.state.errorMessages}/>
