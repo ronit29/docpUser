@@ -3,8 +3,8 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import HelmetTags from './components/commons/HelmetTags'
 
-import Loadable from 'react-loadable';
-const loading = () => <div>Loading...</div>
+import Loadable from 'react-loadable'
+const loading = () => <div></div>
 
 const ArticleList = Loadable({
     loader: () => import('./containers/commons/articleList'),
@@ -13,334 +13,56 @@ const ArticleList = Loadable({
     loading,
 });
 
-const StaticPages = Loadable({
-    loader: () => import('./containers/commons/StaticPages'),
-    modules: ['./containers/commons/StaticPages'],
-    webpack: () => [require.resolveWeak('./containers/commons/StaticPages')],
-    loading,
-});
+import LocationSearch from './containers/opd/LocationSearch.js'
+import SearchResults from './containers/opd/SearchResults.js'
+import DoctorProfile from './containers/opd/DoctorProfile.js'
+import AppointmentSlot from './containers/opd/AppointmentSlot.js'
+import PatientDetails from './containers/opd/PatientDetails.js'
+import Booking_OPD from './containers/opd/Booking.js'
+import AppointmentReschedule from './containers/opd/AppointmentReschedule.js'
 
-const SearchCriteria = Loadable({
-    loader: () => import('./containers/opd/SearchCriteria.js'),
-    modules: ['./containers/opd/SearchCriteria.js'],
-    webpack: () => [require.resolveWeak('./containers/opd/SearchCriteria.js')],
-    loading,
-});
+import UserProfile from './containers/commons/UserProfile.js'
+import UserSignup from './containers/commons/UserSignup'
+import UserLogin from './containers/commons/UserLogin'
+import Notifications from './containers/commons/Notifications'
+import Home from './containers/commons/Home'
+import HomeChat from './containers/commons/HomeChat'
+import Wallet from './containers/commons/Wallet'
+import NotFound from './containers/commons/404'
+import Article from './containers/commons/article'
+// import ArticleList from './containers/commons/articleList'
+import Payment from './containers/commons/Payment'
+import ChatHistory from './containers/commons/chatHistory'
+import StaticPages from './containers/commons/StaticPages'
+import MobileViewChat from './components/commons/mobileViewChat/MobileViewChat'
+import RatingsView from './containers/commons/RatingsView.js'
+import MyRatings from './containers/commons/MyRatings.js'
 
-const LocationSearch = Loadable({
-    loader: () => import('./containers/opd/LocationSearch.js'),
-    modules: ['./containers/opd/LocationSearch.js'],
-    webpack: () => [require.resolveWeak('./containers/opd/LocationSearch.js')],
-    loading,
-});
+import Booking_LAB from './containers/diagnosis/Booking.js'
+import DX_SearchCriteria from './containers/diagnosis/SearchCriteria.js'
+import DX_SearchResults from './containers/diagnosis/SearchResults.js'
+import Lab from './containers/diagnosis/Lab.js'
+import DX_BookingSummary from './containers/diagnosis/BookingSummary.js'
+import TestSelector from './containers/diagnosis/TestSelector'
+import AppointmentSlot_Lab from './containers/diagnosis/AppointmentSlot.js'
+import HealthPackage from './containers/diagnosis/HealthPackage';
 
-const SearchResults = Loadable({
-    loader: () => import('./containers/opd/SearchResults.js'),
-    modules: ['./containers/opd/SearchResults.js'],
-    webpack: () => [require.resolveWeak('./containers/opd/SearchResults.js')],
-    loading,
-});
-
-const DoctorProfile = Loadable({
-    loader: () => import('./containers/opd/DoctorProfile.js'),
-    modules: ['./containers/opd/DoctorProfile.js'],
-    webpack: () => [require.resolveWeak('./containers/opd/DoctorProfile.js')],
-    loading,
-});
-
-const AppointmentSlot = Loadable({
-    loader: () => import('./containers/opd/AppointmentSlot.js'),
-    modules: ['./containers/opd/AppointmentSlot.js'],
-    webpack: () => [require.resolveWeak('./containers/opd/AppointmentSlot.js')],
-    loading,
-});
-
-const PatientDetails = Loadable({
-    loader: () => import('./containers/opd/PatientDetails.js'),
-    modules: ['./containers/opd/PatientDetails.js'],
-    webpack: () => [require.resolveWeak('./containers/opd/PatientDetails.js')],
-    loading,
-});
-
-const Booking_OPD = Loadable({
-    loader: () => import('./containers/opd/Booking.js'),
-    modules: ['./containers/opd/Booking.js'],
-    webpack: () => [require.resolveWeak('./containers/opd/Booking.js')],
-    loading,
-});
-
-const AppointmentReschedule = Loadable({
-    loader: () => import('./containers/opd/AppointmentReschedule.js'),
-    modules: ['./containers/opd/AppointmentReschedule.js'],
-    webpack: () => [require.resolveWeak('./containers/opd/AppointmentReschedule.js')],
-    loading,
-});
-
-const UserProfile = Loadable({
-    loader: () => import('./containers/commons/UserProfile.js'),
-    modules: ['./containers/commons/UserProfile.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/UserProfile.js')],
-    loading,
-});
-
-const UserSignup = Loadable({
-    loader: () => import('./containers/commons/UserSignup.js'),
-    modules: ['./containers/commons/UserSignup.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/UserSignup.js')],
-    loading,
-});
-
-const UserLogin = Loadable({
-    loader: () => import('./containers/commons/UserLogin.js'),
-    modules: ['./containers/commons/UserLogin.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/UserLogin.js')],
-    loading,
-});
-
-const Notifications = Loadable({
-    loader: () => import('./containers/commons/Notifications.js'),
-    modules: ['./containers/commons/Notifications.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/Notifications.js')],
-    loading,
-});
-
-const Home = Loadable({
-    loader: () => import('./containers/commons/Home.js'),
-    modules: ['./containers/commons/Home.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/Home.js')],
-    loading,
-});
-
-const HomeChat = Loadable({
-    loader: () => import('./containers/commons/HomeChat.js'),
-    modules: ['./containers/commons/HomeChat.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/HomeChat.js')],
-    loading,
-});
-
-const Wallet = Loadable({
-    loader: () => import('./containers/commons/Wallet.js'),
-    modules: ['./containers/commons/Wallet.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/Wallet.js')],
-    loading,
-});
-
-const NotFound = Loadable({
-    loader: () => import('./containers/commons/404.js'),
-    modules: ['./containers/commons/404.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/404.js')],
-    loading,
-});
-
-const Article = Loadable({
-    loader: () => import('./containers/commons/article.js'),
-    modules: ['./containers/commons/article.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/article.js')],
-    loading,
-});
-
-const Payment = Loadable({
-    loader: () => import('./containers/commons/Payment.js'),
-    modules: ['./containers/commons/Payment.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/Payment.js')],
-    loading,
-});
-
-const ChatHistory = Loadable({
-    loader: () => import('./containers/commons/chatHistory.js'),
-    modules: ['./containers/commons/chatHistory.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/chatHistory.js')],
-    loading,
-});
-
-const MobileViewChat = Loadable({
-    loader: () => import('./containers/commons/MobileViewChat.js'),
-    modules: ['./containers/commons/MobileViewChat.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/MobileViewChat.js')],
-    loading,
-});
-
-const RatingsView = Loadable({
-    loader: () => import('./containers/commons/RatingsView.js'),
-    modules: ['./containers/commons/RatingsView.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/RatingsView.js')],
-    loading,
-});
-
-const MyRatings = Loadable({
-    loader: () => import('./containers/commons/MyRatings.js'),
-    modules: ['./containers/commons/MyRatings.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/MyRatings.js')],
-    loading,
-});
-
-const Booking_LAB = Loadable({
-    loader: () => import('./containers/diagnosis/Booking.js'),
-    modules: ['./containers/diagnosis/Booking.js'],
-    webpack: () => [require.resolveWeak('./containers/diagnosis/Booking.js')],
-    loading,
-});
-
-const DX_SearchCriteria = Loadable({
-    loader: () => import('./containers/diagnosis/SearchCriteria.js'),
-    modules: ['./containers/diagnosis/SearchCriteria.js'],
-    webpack: () => [require.resolveWeak('./containers/diagnosis/SearchCriteria.js')],
-    loading,
-});
-
-const DX_SearchResults = Loadable({
-    loader: () => import('./containers/diagnosis/SearchResults.js'),
-    modules: ['./containers/diagnosis/SearchResults.js'],
-    webpack: () => [require.resolveWeak('./containers/diagnosis/SearchResults.js')],
-    loading,
-});
-
-const Lab = Loadable({
-    loader: () => import('./containers/diagnosis/Lab.js'),
-    modules: ['./containers/diagnosis/Lab.js'],
-    webpack: () => [require.resolveWeak('./containers/diagnosis/Lab.js')],
-    loading,
-});
-
-const DX_BookingSummary = Loadable({
-    loader: () => import('./containers/diagnosis/BookingSummary.js'),
-    modules: ['./containers/diagnosis/BookingSummary.js'],
-    webpack: () => [require.resolveWeak('./containers/diagnosis/BookingSummary.js')],
-    loading,
-});
-
-const TestSelector = Loadable({
-    loader: () => import('./containers/diagnosis/TestSelector.js'),
-    modules: ['./containers/diagnosis/TestSelector.js'],
-    webpack: () => [require.resolveWeak('./containers/diagnosis/TestSelector.js')],
-    loading,
-});
-
-const AppointmentSlot_Lab = Loadable({
-    loader: () => import('./containers/diagnosis/AppointmentSlot.js'),
-    modules: ['./containers/diagnosis/AppointmentSlot.js'],
-    webpack: () => [require.resolveWeak('./containers/diagnosis/AppointmentSlot.js')],
-    loading,
-});
-
-const HealthPackage = Loadable({
-    loader: () => import('./containers/diagnosis/HealthPackage.js'),
-    modules: ['./containers/diagnosis/HealthPackage.js'],
-    webpack: () => [require.resolveWeak('./containers/diagnosis/HealthPackage.js')],
-    loading,
-});
-
-const AgentLogin = Loadable({
-    loader: () => import('./containers/commons/agentLogin.js'),
-    modules: ['./containers/commons/agentLogin.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/agentLogin.js')],
-    loading,
-});
-
-const DirectBooking = Loadable({
-    loader: () => import('./containers/commons/directBooking.js'),
-    modules: ['./containers/commons/directBooking.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/directBooking.js')],
-    loading,
-});
-
-const CouponSelectNewView = Loadable({
-    loader: () => import('./containers/commons/CouponsView.js'),
-    modules: ['./containers/commons/CouponsView.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/CouponsView.js')],
-    loading,
-});
-
-const CitiesSiteMap = Loadable({
-    loader: () => import('./containers/commons/CitiesSiteMap.js'),
-    modules: ['./containers/commons/CitiesSiteMap.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/CitiesSiteMap.js')],
-    loading,
-});
-
-const SpecializationSiteMap = Loadable({
-    loader: () => import('./containers/commons/SpecializationSiteMap.js'),
-    modules: ['./containers/commons/SpecializationSiteMap.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/SpecializationSiteMap.js')],
-    loading,
-});
-
-const Search = Loadable({
-    loader: () => import('./containers/commons/search.js'),
-    modules: ['./containers/commons/search.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/search.js')],
-    loading,
-});
-
-const searchTestInfo = Loadable({
-    loader: () => import('./containers/commons/searchTestInfo.js'),
-    modules: ['./containers/commons/searchTestInfo.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/searchTestInfo.js')],
-    loading,
-});
-
-const adsBooking = Loadable({
-    loader: () => import('./containers/commons/adsBooking.js'),
-    modules: ['./containers/commons/adsBooking.js'],
-    webpack: () => [require.resolveWeak('./containers/commons/adsBooking.js')],
-    loading,
-});
-
-const DX_SearchPackages = Loadable({
-    loader: () => import('./containers/diagnosis/SearchPackages.js'),
-    modules: ['./containers/diagnosis/SearchPackages.js'],
-    webpack: () => [require.resolveWeak('./containers/diagnosis/SearchPackages.js')],
-    loading,
-});
-
-const Offers = Loadable({
-    loader: () => import('./containers/commons/Offers'),
-    modules: ['./containers/commons/Offers'],
-    webpack: () => [require.resolveWeak('./containers/commons/Offers')],
-    loading,
-});
-
-const Referral = Loadable({
-    loader: () => import('./containers/commons/referral'),
-    modules: ['./containers/commons/referral'],
-    webpack: () => [require.resolveWeak('./containers/commons/referral')],
-    loading,
-});
-
-const Cart = Loadable({
-    loader: () => import('./containers/commons/cart'),
-    modules: ['./containers/commons/cart'],
-    webpack: () => [require.resolveWeak('./containers/commons/cart')],
-    loading,
-});
-
-const OrderSummary = Loadable({
-    loader: () => import('./containers/commons/OrderSummary'),
-    modules: ['./containers/commons/OrderSummary'],
-    webpack: () => [require.resolveWeak('./containers/commons/OrderSummary')],
-    loading,
-});
-
-const HealthPackageAdvisor = Loadable({
-    loader: () => import('./containers/diagnosis/HealthPackageAdvisor'),
-    modules: ['./containers/diagnosis/HealthPackageAdvisor'],
-    webpack: () => [require.resolveWeak('./containers/diagnosis/HealthPackageAdvisor')],
-    loading,
-});
-
-const ThyrocarePackage = Loadable({
-    loader: () => import('./containers/diagnosis/ThyrocarePackage'),
-    modules: ['./containers/diagnosis/ThyrocarePackage'],
-    webpack: () => [require.resolveWeak('./containers/diagnosis/ThyrocarePackage')],
-    loading,
-});
-
-const TaxSaverTC = Loadable({
-    loader: () => import('./components/diagnosis/searchPackages/TaxSaverTC.js'),
-    modules: ['./components/diagnosis/searchPackages/TaxSaverTC.js'],
-    webpack: () => [require.resolveWeak('./components/diagnosis/searchPackages/TaxSaverTC.js')],
-    loading,
-});
+import AgentLogin from './containers/commons/agentLogin.js'
+import DirectBooking from './containers/commons/directBooking.js'
+import CouponSelectNewView from './containers/commons/CouponsView.js'
+import CitiesSiteMap from './containers/commons/CitiesSiteMap.js'
+import SpecializationSiteMap from './containers/commons/SpecializationSiteMap'
+import Search from './containers/commons/search'
+import searchTestInfo from './containers/commons/searchTestInfo'
+import adsBooking from './containers/commons/adsBooking.js'
+import DX_SearchPackages from './containers/diagnosis/SearchPackages.js'
+import Offers from './containers/commons/Offers';
+import Referral from './containers/commons/referral'
+import Cart from './containers/commons/cart'
+import OrderSummary from './containers/commons/OrderSummary'
+import HealthPackageAdvisor from './containers/diagnosis/HealthPackageAdvisor';
+import ThyrocarePackage from './containers/diagnosis/ThyrocarePackage';
+import TaxSaverTC from './components/diagnosis/searchPackages/TaxSaverTC.js'
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -374,7 +96,6 @@ const routes = [
     { path: '/offers', exact: true, component: Offers },
     { path: '/cart', exact: true, component: Cart },
 
-    // { path: '/opd', exact: true, component: SearchCriteria },
     { path: '/opd/searchresults', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
     { path: '/opd/searchresults/location=*', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
     { path: '/*-sptcit', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
@@ -387,7 +108,6 @@ const routes = [
     { path: '/opd/appointment/:refId', exact: true, component: Booking_OPD },
     { path: '/opd/reschedule/:refId', exact: true, component: AppointmentReschedule },
 
-    // { path: '/lab', exact: true, component: DX_SearchCriteria },
     { path: '/lab/searchresults', exact: true, component: DX_SearchResults, RENDER_ON_SERVER: true },
     { path: '/lab/searchresults/location=*', exact: true, component: DX_SearchResults, RENDER_ON_SERVER: true },
     { path: '/*-lbcit', exact: true, component: DX_SearchResults, RENDER_ON_SERVER: true },
