@@ -47,10 +47,11 @@ class IPDAboutUs extends React.Component {
                 	:''
                 }
                 
-                	{
-                		this.state.toggleReadMore?
-                		<a href="javascript:void(0);" className="read-more-btn" onClick={()=>this.setState({toggleReadMore: !this.state.toggleReadMore})} >Read Less</a>
-		                :<a href="javascript:void(0);" className="read-more-btn" onClick={()=>this.props.history.push(`/ipd/${this.props.ipd_id}/detail`)} >Read More</a>
+                	{	aboutText?
+	                		this.state.toggleReadMore?
+	                		<a href="javascript:void(0);" className="read-more-btn" onClick={()=>this.setState({toggleReadMore: !this.state.toggleReadMore})} >Read Less</a>
+			                :<a href="javascript:void(0);" className="read-more-btn" onClick={()=>this.props.history.push(`/ipd/${this.props.ipd_id}/detail`)} >Read More</a>
+                		:''
                 	}
                   
              </div>
