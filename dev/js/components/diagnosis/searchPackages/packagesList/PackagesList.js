@@ -4,6 +4,7 @@ import PackageProfileCard from '../../commons/labProfileCard/packageProfileCard.
 import InfiniteScroll from 'react-infinite-scroller';
 import Loader from '../../../commons/Loader'
 import GTM from '../../../../helpers/gtm'
+import BannerCarousel from '../../../commons/Home/bannerCarousel.js';
 
 class packagesList extends React.Component {
     constructor(props) {
@@ -45,6 +46,18 @@ class packagesList extends React.Component {
             this.setState({ hasMore: true })
         }, 0)
 
+        let selectedLocation = ''
+        let lat = 28.644800
+        let long = 77.216721
+        if (this.props.selectedLocation) {
+            selectedLocation = this.props.selectedLocation;
+            lat = selectedLocation.geometry.location.lat
+            long = selectedLocation.geometry.location.lng
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
+
+        this.props.getOfferList(lat, long);
     }
 
     componentWillUnmount() {
@@ -102,6 +115,7 @@ class packagesList extends React.Component {
         //       }
         //     }
         // }
+
         return (
             <section className="wrap search-book-result variable-content-section" style={{ paddingTop: 10 }} ref="checkIfExists">
                 {!this.props.forOrganicSearch && !this.props.forTaxSaver ? <div className="pkgTost d-none" id="pkgTost"><p onClick={() => this.props.history.push('/health-package-advisor')}>Need Help in Booking Health Package? </p>
@@ -142,6 +156,12 @@ class packagesList extends React.Component {
                                     : ''
                             }
                             <div className="row">
+                                {
+                                    this.props.offerList && this.props.offerList.filter(x => (x.slider_location === 'search_packages_page') || (x.slider_location === 'full_body_chechkup_page') || (x.slider_location === 'tax_saver_packages_page')).length ?
+                                        <div className="col-12">
+                                            <BannerCarousel {...this.props} sliderLocation={this.props.forTaxSaver ? "tax_saver_packages_page" : this.props.forOrganicSearch ? 'full_body_chechkup_page' : 'search_packages_page'} />
+                                        </div> : ''
+                                }
                                 <div className="col-12">
                                     {
                                         this.props.packagesList && this.props.packagesList.result ? this.props.packagesList.result.map((packages, i) => {

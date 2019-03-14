@@ -5,6 +5,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import Loader from '../../../commons/Loader'
 import GTM from '../../../../helpers/gtm'
 import LabResultCard from '../../commons/labResultCard'
+import BannerCarousel from '../../../commons/Home/bannerCarousel.js';
 
 class LabsList extends React.Component {
     constructor(props) {
@@ -45,6 +46,18 @@ class LabsList extends React.Component {
             this.setState({ hasMore: true })
         }, 0)
 
+        let selectedLocation = ''
+        let lat = 28.644800
+        let long = 77.216721
+        if (this.props.selectedLocation) {
+            selectedLocation = this.props.selectedLocation;
+            lat = selectedLocation.geometry.location.lat
+            long = selectedLocation.geometry.location.lng
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
+
+        this.props.getOfferList(lat, long);
     }
 
     componentWillUnmount() {
@@ -113,6 +126,14 @@ class LabsList extends React.Component {
                                     show_details ? <div className="col-12">
                                         <span className="srch-heading" style={{ float: 'left', cursor: 'pointer', color: '#e46608' }} onClick={this.testInfo.bind(this)}> Test Info</span></div> : ''
                                 }*/}
+
+                                {
+                                    this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'lab_search_results').length ?
+                                        <div className="col-12">
+                                            <BannerCarousel {...this.props} sliderLocation="lab_search_results" />
+                                        </div> : ''
+                                }
+
                                 <div className="col-12">
                                     <InfiniteScroll
                                         pageStart={start_page}
