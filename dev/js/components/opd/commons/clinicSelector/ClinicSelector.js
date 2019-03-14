@@ -136,7 +136,9 @@ class ClinicSelector extends React.Component {
                                     : <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
                                         <div className="clearfix">
                                             {
-                                                hospital.enabled_for_online_booking ?
+                                                hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.deal_price) <=hospital.insurance.insurance_threshold_amount?
+                                                <div>Covered Under Insurance</div>
+                                                :hospital.enabled_for_online_booking ?
                                                     <span className="test-price txt-ornage">₹ {hospital.deal_price}
                                                         {
                                                             parseInt(hospital.deal_price) == parseInt(hospital.mrp)

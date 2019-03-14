@@ -176,6 +176,9 @@ class LabProfileCard extends React.Component {
                 })
             }
         }
+
+        //let is_insurance_applicable = hospital.is_insurance_covered && hospital.is_user_insured && deal_price <= hospital.insurance_threshold_amount
+
         return (
 
             <div className="">

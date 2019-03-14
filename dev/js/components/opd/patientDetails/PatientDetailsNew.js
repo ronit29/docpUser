@@ -485,6 +485,8 @@ class PatientDetailsNew extends React.Component {
         let patient = null
         let priceData = {}
         let enabled_for_cod_payment = true
+        let is_insurance_applicable = false
+        let is_selected_user_insured = false
 
         if (doctorDetails) {
             let { name, qualifications, hospitals, enabled_for_cod } = doctorDetails
@@ -501,11 +503,17 @@ class PatientDetailsNew extends React.Component {
 
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
+            is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
         }
 
         if (this.props.selectedSlot && this.props.selectedSlot.date) {
             priceData = { ...this.props.selectedSlot.time }
             priceData.payable_amount = priceData.deal_price
+
+            if(hospital && hospital.insurance){
+                is_insurance_applicable = (parseInt(priceData.deal_price)<=hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered     
+            }
+             
 
             // reset time slot if doctor/hospital changes
             if (this.props.selectedSlot.selectedClinic != this.state.selectedClinic || this.props.selectedSlot.selectedDoctor != this.state.selectedDoctor) {
@@ -516,6 +524,10 @@ class PatientDetailsNew extends React.Component {
             priceData.mrp = hospital.mrp
             priceData.deal_price = hospital.deal_price
             priceData.payable_amount = hospital.deal_price
+
+            if(hospital.insurance){
+                is_insurance_applicable = (parseInt(hospital.deal_price)<=hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered
+            }
         }
         let treatment_Price = 0, treatment_mrp = 0
         let selectedProcedures = {}
@@ -543,6 +555,12 @@ class PatientDetailsNew extends React.Component {
 
         if (!enabled_for_cod_payment && this.props.payment_type == 2) {
             this.props.select_opd_payment_type(1)
+        }
+
+        if(is_insurance_applicable && is_selected_user_insured){
+            finalPrice = 0
+            priceData.deal_price = 0
+            priceData.mrp = 0
         }
         return (
             <div className="profile-body-wrap">
@@ -672,7 +690,7 @@ class PatientDetailsNew extends React.Component {
                                                         {/*Payment Mode*/}
 
                                                         {
-                                                            this.props.payment_type == 1 ? <div className="widget mrb-15">
+                                                            !(is_insurance_applicable && is_selected_user_insured) && this.props.payment_type == 1 ? <div className="widget mrb-15">
 
                                                                 <div className="widget-content">
                                                                     <h4 className="title mb-20">Payment Summary</h4>
@@ -722,9 +740,10 @@ class PatientDetailsNew extends React.Component {
                                                                             </div>
                                                                         </div>
                                                                         <hr />
-
                                                                         {
-                                                                            priceData ? <div className="test-report payment-detail mt-20">
+                                                                            is_insurance_applicable && is_selected_user_insured?
+                                                                            <div>Covered Under Insurance</div>
+                                                                            :priceData ? <div className="test-report payment-detail mt-20">
                                                                                 <h4 className="title payment-amt-label">Amount Payable</h4>
                                                                                 <h5 className="payment-amt-value">&#8377; {parseInt(priceData.mrp) + treatment_mrp}</h5>
                                                                             </div> : ""

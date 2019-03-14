@@ -186,6 +186,8 @@ class DoctorProfileCard extends React.Component {
 
             enabled_for_hospital_booking = hospitals[0].enabled_for_online_booking
             is_procedure = false
+
+            let is_insurance_applicable = hospital.is_insurance_covered && hospital.is_user_insured && deal_price <= hospital.insurance_threshold_amount
             return (
                 <div className="filter-card-dl mb-3" >
                     {
@@ -251,11 +253,11 @@ class DoctorProfileCard extends React.Component {
                                     <h2 style={{ fontSize: 16, paddingLeft: 8, paddingRight: 50 }} className="lab-fltr-dc-name fw-500">{display_name}</h2>
                                 </a>
                                 {
-                                    enabled_for_hospital_booking && discount && discount != 0 ?
+                                    !is_insurance_applicable && enabled_for_hospital_booking && discount && discount != 0 ?
                                         <span className="filtr-offer ofr-ribbon fw-700">{discount}% Off</span> : ''
                                 }
                                 {
-                                    !discounted_price && !is_procedure && enabled_for_hospital_booking ?
+                                    is_insurance_applicable || (!discounted_price && !is_procedure && enabled_for_hospital_booking) ?
                                         <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
                                 }
                             </div>
@@ -291,7 +293,9 @@ class DoctorProfileCard extends React.Component {
                             </div>
                             <div className="col-5 mrt-10 text-right" style={{ paddingLeft: 8 }} >
                                 {
-                                    enabled_for_hospital_booking ?
+                                    is_insurance_applicable?
+                                    <div>Insurance Applicable</div>
+                                    :enabled_for_hospital_booking ?
                                         <p className="fltr-prices" style={{ marginTop: 4 }}>
                                             &#x20B9; {is_procedure ? finalProcedureDealPrice : discounted_price}
                                             {
