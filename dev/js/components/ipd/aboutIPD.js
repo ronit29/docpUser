@@ -37,9 +37,16 @@ class IPDAboutUs extends React.Component {
                 		:''
                 	}
                 </ul>
-                <h4 className="section-heading">{`About ${ipd_info.about?ipd_info.about.name:''}`} </h4>
-            	<div className="widget custom-li-style" dangerouslySetInnerHTML={{ __html: aboutText}}>
-	            </div>
+                {
+                	aboutText?
+                	<div>
+                		<h4 className="section-heading">{`About ${ipd_info.about?ipd_info.about.name:''}`} </h4>
+		            	<div className="widget custom-li-style" dangerouslySetInnerHTML={{ __html: aboutText}}>
+			            </div>
+                	</div>
+                	:''
+                }
+                
                 	{
                 		this.state.toggleReadMore?
                 		<a href="javascript:void(0);" className="read-more-btn" onClick={()=>this.setState({toggleReadMore: !this.state.toggleReadMore})} >Read Less</a>
