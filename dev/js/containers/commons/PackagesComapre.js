@@ -240,13 +240,71 @@ render() {
                                 <div className="multi-pkg-cmpre">
                                   <div className="tgle-btn">
                                      <label className="switch">
-                                        <input type="checkbox"  /> Show Differe
+                                       <span className="tgle-btn-txt"> Show Difference</span>
+                                        <input type="checkbox"  /> 
                                         <span className="slider round"></span>
                                       </label>
                                   </div>
                                   <div className="">
-                                    <a href="javascript:void(0);"> + Add more </a>
+                                    <a href="javascript:void(0);" className="add-more-packages"> + Add More </a>
                                   </div>
+                                </div>
+                                <div className="sticky-multiple-pkgs">
+                                  <div className="multiple-pkgs">
+                                  <ul>
+                                    <li>
+                                       <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
+                                        <br />
+                                        <div className="pkg-hd">Aarogyam B</div>
+                                        <div className="pkg-hd-by">By Thyrocare</div>
+                                        <h3 className="lab-fltr-dc-name fw-500 pkg-include">40 Tests Included</h3>
+                                        <div className="pkg-card-price">
+                                          <p className="fw-500">₹ 1340 <span className="pkg-cut-price">₹ 2700</span></p>
+                                        </div>
+                                        <p className="pkg-discountCpn">Includes coupon discount</p>
+                                        <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
+                                    </li>
+                                    <li>
+                                       <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
+                                        <br />
+                                        <div className="pkg-hd">Aarogyam B</div>
+                                        <div className="pkg-hd-by">By Thyrocare</div>
+                                        <h3 className="lab-fltr-dc-name fw-500 pkg-include">40 Tests Included</h3>
+                                        <div className="pkg-card-price">
+                                          <p className="fw-500">₹ 1340 <span className="pkg-cut-price">₹ 2700</span></p>
+                                        </div>
+                                        <p className="pkg-discountCpn">Includes coupon discount</p>
+                                        <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
+                                    </li>
+                                    <li>
+                                       <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
+                                        <br />
+                                        <div className="pkg-hd">Aarogyam B</div>
+                                        <div className="pkg-hd-by">By Thyrocare</div>
+                                        <h3 className="lab-fltr-dc-name fw-500 pkg-include">40 Tests Included</h3>
+                                        <div className="pkg-card-price">
+                                          <p className="fw-500">₹ 1340 <span className="pkg-cut-price">₹ 2700</span></p>
+                                        </div>
+                                        <p className="pkg-discountCpn">Includes coupon discount</p>
+                                        <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
+                                    </li>
+                                    <li>
+                                       <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
+                                        <br />
+                                        <div className="pkg-hd">Aarogyam B</div>
+                                        <div className="pkg-hd-by">By Thyrocare</div>
+                                        <h3 className="lab-fltr-dc-name fw-500 pkg-include">40 Tests Included</h3>
+                                        <div className="pkg-card-price">
+                                          <p className="fw-500">₹ 1340 <span className="pkg-cut-price">₹ 2700</span></p>
+                                        </div>
+                                        <p className="pkg-discountCpn">Includes coupon discount</p>
+                                        <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
+                                    </li>
+                                  </ul>
+                                   </div>
+                                </div>
+                                <div className="pkg-cmpre-list">
+                                    <div className=""><a href="javascript:void(0);" className="hide-all">Hide All <img src={ASSETS_BASE_URL + "/images/up-arrow-o.png"} alt="" /></a></div>
                                 </div>
                             </div>
 
