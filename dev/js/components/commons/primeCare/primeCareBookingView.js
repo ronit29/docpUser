@@ -25,10 +25,10 @@ class PrimeCareBookingView extends React.Component {
     }
     proceed(){
         let member_profile = null
-        if(member_profile){
-            if (this.props.USER.profiles[this.props.USER.selectedProfile] && !this.props.USER.profiles[this.props.USER.selectedProfile].isDummyUser) {
-                member_profile = this.props.USER.profiles[this.props.USER.selectedProfile]
-            }
+        if (this.props.USER.profiles[this.props.USER.defaultProfile]) {
+            member_profile = this.props.USER.profiles[this.props.USER.defaultProfile]
+        }
+        if(member_profile && member_profile.isDummyUser){
             let data = this.state
             if (data.name == '' || data.gender == '' || data.phoneNumber == '' || data.email == '') {
                 this.setState({ profileDataFilled: false })
@@ -50,7 +50,7 @@ class PrimeCareBookingView extends React.Component {
                     this.props.history.push('/prime/success')
             }, 100)
         }else{
-
+            this.props.history.push('/prime/success')
         }    
     }
 
@@ -73,9 +73,8 @@ class PrimeCareBookingView extends React.Component {
 
     render() {
         let member_profile = null
-
-        if (this.props.USER.profiles[this.props.USER.selectedProfile] && !this.props.USER.profiles[this.props.USER.selectedProfile].isDummyUser) {
-            member_profile = this.props.USER.profiles[this.props.USER.selectedProfile]
+        if (this.props.USER.profiles[this.props.USER.defaultProfile]) {
+            member_profile = this.props.USER.profiles[this.props.USER.defaultProfile]
         }
         let self = this
         return (
@@ -98,28 +97,7 @@ class PrimeCareBookingView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                        member_profile?
-                                            <div className="row no-gutters">
-                                                <div className="col-7">
-                                                    <p className="carePara"><img src={ASSETS_BASE_URL + "/img/memsecur.png"} />Valid for :</p>
-                                                </div>
-                                                <div className="col-5 text-right">
-                                                    <p className="careSUbpara">1 year</p>
-                                                </div>
-                                                <div className="col-7">
-                                                    <p className="carePara"><img src={ASSETS_BASE_URL + "/img/memuser.png"} />Member Name :</p>
-                                                </div>
-                                                <div className="col-5 text-right">
-                                                    <p className="careSUbpara" style={{'textTransform': 'capitalize'}}>{member_profile.name}</p>
-                                                </div>
-                                                <div className="col-7">
-                                                    <p className="carePara"><img src={ASSETS_BASE_URL + "/img/memcall.png"} />Mobile no: </p>
-                                                </div>
-                                                <div className="col-5 text-right">
-                                                    <p className="careSUbpara">{member_profile.phone_number}</p>
-                                                </div>
-                                            </div>
-                                        :
+                                        member_profile && member_profile.isDummyUser?
                                             <div className="widget-content">
                                                 <div className="lab-visit-time d-flex jc-spaceb">
                                                     <h4 className="title d-flex"><span>
@@ -164,6 +142,27 @@ class PrimeCareBookingView extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
+                                            :member_profile?
+                                            <div className="row no-gutters">
+                                                <div className="col-7">
+                                                    <p className="carePara"><img src={ASSETS_BASE_URL + "/img/memsecur.png"} />Valid for :</p>
+                                                </div>
+                                                <div className="col-5 text-right">
+                                                    <p className="careSUbpara">1 year</p>
+                                                </div>
+                                                <div className="col-7">
+                                                    <p className="carePara"><img src={ASSETS_BASE_URL + "/img/memuser.png"} />Member Name :</p>
+                                                </div>
+                                                <div className="col-5 text-right">
+                                                    <p className="careSUbpara" style={{'textTransform': 'capitalize'}}>{member_profile.name}</p>
+                                                </div>
+                                                <div className="col-7">
+                                                    <p className="carePara"><img src={ASSETS_BASE_URL + "/img/memcall.png"} />Mobile no: </p>
+                                                </div>
+                                                <div className="col-5 text-right">
+                                                    <p className="careSUbpara">{member_profile.phone_number}</p>
+                                                </div>
+                                            </div>:''
                                         }
                                         <div className="careListingWithSideline">
                                             <ul className="UlcareListingWithSide">
