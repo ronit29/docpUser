@@ -24,12 +24,12 @@ class primeCareBooking extends React.Component {
 
         this.props.getCareDetails((resp)=>{
             let feature_detail = resp.plans.filter(x => x.id == parsed.plan_id)
+            feature_detail[0].feature_details = resp.feature_details
             this.setState({data:feature_detail})
         })
     }
 
     render() {
-
         return (
             <PrimeCareBookingView {...this.props} data={this.state.data}/>
         );

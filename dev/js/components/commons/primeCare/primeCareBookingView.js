@@ -77,7 +77,7 @@ class PrimeCareBookingView extends React.Component {
         if (this.props.USER.profiles[this.props.USER.selectedProfile] && !this.props.USER.profiles[this.props.USER.selectedProfile].isDummyUser) {
             member_profile = this.props.USER.profiles[this.props.USER.selectedProfile]
         }
-        console.log(this.props.data)
+        let self = this
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
                 <ProfileHeader />
@@ -169,7 +169,7 @@ class PrimeCareBookingView extends React.Component {
                                             <ul className="UlcareListingWithSide">
                                                 {
                                                     this.props.data && this.props.data.length>0 && this.props.data[0].unlimited_online_consultation?
-                                                        <li className="careListiLi"><p className="careListin">Free Unlimited Online Consultation </p>
+                                                        <li key={this.props.data[0].id} className="careListiLi"><p className="careListin">Free Unlimited Online Consultation </p>
                                                             <span>Anytime, Anywhere!</span>
                                                         </li>
                                                     :''
@@ -177,9 +177,23 @@ class PrimeCareBookingView extends React.Component {
 
                                                 {
                                                     this.props.data && this.props.data.length>0 && this.props.data[0].priority_queue?
-                                                        <li className="careListiLi"><p className="careListin">Free Unlimited Online Consultation </p>
-                                                            <span>Anytime, Anywhere!</span>
+                                                        <li key={this.props.data[0].id} className="careListiLi"><p className="careListin">Priority Queue </p>
+                                                            <span>No waiting time!</span>
                                                         </li>
+                                                    :''
+                                                }
+                                                
+                                                {
+                                                    this.props.data && this.props.data.length>0 && this.props.data[0].features.length > 0?
+                                                    Object.entries(this.props.data[0].features).map(function ([key, value]) {
+                                                        if(value.count != null){
+                                                            return <li key={value.id} className="careListiLi">
+                                                                        <p className="careListin">{self.props.data[0].feature_details[value.id].name} </p>
+                                                                    </li>
+                                                        }
+                                                        
+                                                        
+                                                    })
                                                     :''
                                                 }                                                    
                                             </ul>
