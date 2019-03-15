@@ -20,7 +20,7 @@ class CategoryPopup extends React.Component {
                 <div className="terms-condition-div pop-onscreen-scroll pt-0">
                  <div className="">
                     <div className="ins-form-radio insradio-on-popup">
-                        <ul className="list all-test-list mrt-10">
+                        <ul className="careListing mrt-10">
                             {this.props.infoData && this.props.infoData.included_tests.length > 0?
                                 this.props.infoData.included_tests.map(function (tests,i) {
                                     return(<li key={i}>{tests.name} {tests.parameter_count>1?

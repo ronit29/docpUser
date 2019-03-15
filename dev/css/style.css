@@ -8174,6 +8174,12 @@ flex-shrink: 0;
     width: 100%;
     z-index: 12;
 }
+.careHeaderBar:after{
+	content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+}
 .care-logo-container{
 	display: flex;
     justify-content: space-between;
@@ -8218,7 +8224,7 @@ img.careBackIco {
 }
 .carePlanHeading{
 	text-align: center;
-    padding: 20px 0;
+    padding: 20px 0 35px 0;
     font-weight: 500;
 }
 p.carePlans {
@@ -8394,6 +8400,14 @@ li.careListiLi span {
 		color: #757575;
 		font-size: 12px !important;
 	}
+	.careComparePanel button{
+		font-size: 12px;
+	}
+}
+@media screen and (max-width: 375px) {
+	.caresubTxt{
+		left: 6%;
+	}
 }
 
 .careFinalscreenContainer{
@@ -8437,7 +8451,9 @@ li.careListiLi span {
 	color:#f78631;
 }
 
-
+ul.careListing li {
+    margin-bottom: 13px;
+}
 
 /* ==================== docprime care html page ==================== */
 .medic-img-slider {

@@ -87,7 +87,7 @@ class PrimeCareBookingView extends React.Component {
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             <div className="container-fluid">
                                 <div className="widget mr-60">
-                                    <div className="widget-content">
+                                    <div className="widget-content mrng-top-12">
                                         <div className="careMemberContainer">
                                             <div className="careMembrLogo">
                                                 <img src={ASSETS_BASE_URL + "/img/logoornage.png"} />
@@ -99,23 +99,23 @@ class PrimeCareBookingView extends React.Component {
                                         </div>
                                         {
                                         member_profile?
-                                            <div className="row">
-                                                <div className="col-6">
+                                            <div className="row no-gutters">
+                                                <div className="col-7">
                                                     <p className="carePara"><img src={ASSETS_BASE_URL + "/img/memsecur.png"} />Valid for :</p>
                                                 </div>
-                                                <div className="col-6 text-right">
+                                                <div className="col-5 text-right">
                                                     <p className="careSUbpara">1 year</p>
                                                 </div>
-                                                <div className="col-6">
+                                                <div className="col-7">
                                                     <p className="carePara"><img src={ASSETS_BASE_URL + "/img/memuser.png"} />Member Name :</p>
                                                 </div>
-                                                <div className="col-6 text-right">
+                                                <div className="col-5 text-right">
                                                     <p className="careSUbpara" style={{'textTransform': 'capitalize'}}>{member_profile.name}</p>
                                                 </div>
-                                                <div className="col-6">
+                                                <div className="col-7">
                                                     <p className="carePara"><img src={ASSETS_BASE_URL + "/img/memcall.png"} />Mobile no: </p>
                                                 </div>
-                                                <div className="col-6 text-right">
+                                                <div className="col-5 text-right">
                                                     <p className="careSUbpara">{member_profile.phone_number}</p>
                                                 </div>
                                             </div>
