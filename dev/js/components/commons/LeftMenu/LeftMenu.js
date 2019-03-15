@@ -56,8 +56,7 @@ class LeftMenu extends React.Component {
                                 e.preventDefault()
                                 this.props.toggleLeftMenu()
                                 this.props.history.push('/prime/plans')} } href="#"><img src="https://cdn.docprime.com/cp/assets/img/customer-icons/onlnpres.svg" alt="" className="" />Docprime Care
-                                  <span className="float-right" style={{color:'#f78631'}}>NEW</span></a>
-                                </li>
+                                  <span className="float-right" style={{color:'#f78631'}}>NEW</span></a></li>
 
                               <li><a onClick={(e)=>{
                                 e.preventDefault()

@@ -3,18 +3,81 @@ import LeftBar from '../LeftBar'
 import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
 import Footer from '../Home/footer'
+import SnackBar from 'node-snackbar'
+import GTM from '../../../helpers/gtm.js'
 
 class PrimeCareBookingView extends React.Component {
     constructor(props) {
         super(props)
+        this.state={
+            name: '',
+            phoneNumber: '',
+            gender: '',
+            email:'',
+            profileDataFilled: true
+        }
     }
 
+    componentDidMount(){
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+    }
     proceed(){
-        this.props.history.push('/prime/success')
+        let member_profile = null
+        if(member_profile){
+            if (this.props.USER.profiles[this.props.USER.selectedProfile] && !this.props.USER.profiles[this.props.USER.selectedProfile].isDummyUser) {
+                member_profile = this.props.USER.profiles[this.props.USER.selectedProfile]
+            }
+            let data = this.state
+            if (data.name == '' || data.gender == '' || data.phoneNumber == '' || data.email == '') {
+                this.setState({ profileDataFilled: false })
+                SnackBar.show({ pos: 'bottom-center', text: "Please fill the info" });
+                return
+            }else{
+                this.setState({ profileDataFilled: true })
+            }
+            let self = this
+            let profileData={}
+            profileData.name = this.state.name
+            profileData.phoneNumber = this.state.phoneNumber
+            profileData.gender = this.state.gender
+            profileData.email = this.state.email
+            this.props.createProfile(profileData, (err, res) => {
+                self.props.getUserProfile()
+            })
+            setTimeout(() => {
+                    this.props.history.push('/prime/success')
+            }, 100)
+        }else{
+
+        }    
+    }
+
+    inputHandler(e) {
+        if (e.target.name == 'phoneNumber') {
+            e.target.value.length <= 10
+                ? e.target.value.length == 10
+                    ? this.setState({
+                        [e.target.name]: e.target.value,
+                    })
+                    : this.setState({
+                        [e.target.name]: e.target.value
+                    })
+                : ''
+        } else {
+            this.setState({ [e.target.name]: e.target.value })
+        }
+
     }
 
     render() {
+        let member_profile = null
 
+        if (this.props.USER.profiles[this.props.USER.selectedProfile] && !this.props.USER.profiles[this.props.USER.selectedProfile].isDummyUser) {
+            member_profile = this.props.USER.profiles[this.props.USER.selectedProfile]
+        }
+        console.log(this.props.data)
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
                 <ProfileHeader />
@@ -34,34 +97,91 @@ class PrimeCareBookingView extends React.Component {
                                                 <p>membership</p>
                                             </div>
                                         </div>
-                                        <div className="row">
-                                            <div className="col-6">
-                                                <p className="carePara"><img src={ASSETS_BASE_URL + "/img/memsecur.png"} />Valid for :</p>
+                                        {
+                                        member_profile?
+                                            <div className="row">
+                                                <div className="col-6">
+                                                    <p className="carePara"><img src={ASSETS_BASE_URL + "/img/memsecur.png"} />Valid for :</p>
+                                                </div>
+                                                <div className="col-6 text-right">
+                                                    <p className="careSUbpara">1 year</p>
+                                                </div>
+                                                <div className="col-6">
+                                                    <p className="carePara"><img src={ASSETS_BASE_URL + "/img/memuser.png"} />Member Name :</p>
+                                                </div>
+                                                <div className="col-6 text-right">
+                                                    <p className="careSUbpara" style={{'textTransform': 'capitalize'}}>{member_profile.name}</p>
+                                                </div>
+                                                <div className="col-6">
+                                                    <p className="carePara"><img src={ASSETS_BASE_URL + "/img/memcall.png"} />Mobile no: </p>
+                                                </div>
+                                                <div className="col-6 text-right">
+                                                    <p className="careSUbpara">{member_profile.phone_number}</p>
+                                                </div>
                                             </div>
-                                            <div className="col-6 text-right">
-                                                <p className="careSUbpara">1 year</p>
+                                        :
+                                            <div className="widget-content">
+                                                <div className="lab-visit-time d-flex jc-spaceb">
+                                                    <h4 className="title d-flex"><span>
+                                                        <img style={{ width: '20px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
+                                                    </span>Member Detail</h4>
+                                                </div>
+                                                <div className="select-pt-form">
+                                                    <div className="slt-nw-input">
+                                                        <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Name:</label>
+                                                        <input className="slt-text-input" style={{'textTransform': 'capitalize'}} autoComplete="none" type="text" name="name" value={this.state.name} onChange={this.inputHandler.bind(this)}placeholder="" />
+                                                    </div>
+                                                    <div className="slt-nw-input radio-mbl">
+                                                        <label className="slt-label" htmlFor="male" ><sup className="requiredAst">*</sup>Gender:</label>
+                                                        <div className="slt-label-radio">
+                                                            <div className="dtl-radio">
+                                                                <label className="container-radio">Male
+                                                        <input type="radio" name="gender" name="gender" onClick={() => this.setState({ 'gender': 'm' })} />
+                                                                    <span className="doc-checkmark"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div className="dtl-radio">
+                                                                <label className="container-radio">Female
+                                                        <input type="radio" name="gender" value="m" name="gender" onClick={() => this.setState({ 'gender': 'f' })} />
+                                                                    <span className="doc-checkmark"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div className="dtl-radio">
+                                                                <label className="container-radio">Other
+                                                        <input type="radio" name="gender" name="gender" onClick={() => this.setState({ 'gender': 'o' })} />
+                                                                    <span className="doc-checkmark"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="slt-nw-input">
+                                                        <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Email:</label>
+                                                        <input className="slt-text-input" style={{'textTransform': 'capitalize'}} autoComplete="none" type="text" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)}placeholder="" />
+                                                    </div>
+                                                    <div className="slt-nw-input">
+                                                        <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Mobile:</label>
+                                                        <input className="slt-text-input" autoComplete="none" type="number" placeholder="" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" />
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className="col-6">
-                                                <p className="carePara"><img src={ASSETS_BASE_URL + "/img/memuser.png"} />Member Name :</p>
-                                            </div>
-                                            <div className="col-6 text-right">
-                                                <p className="careSUbpara">Tarun Sehgal</p>
-                                            </div>
-                                            <div className="col-6">
-                                                <p className="carePara"><img src={ASSETS_BASE_URL + "/img/memcall.png"} />Mobile no: </p>
-                                            </div>
-                                            <div className="col-6 text-right">
-                                                <p className="careSUbpara">9990641820</p>
-                                            </div>
-                                        </div>
+                                        }
                                         <div className="careListingWithSideline">
                                             <ul className="UlcareListingWithSide">
-                                                <li className="careListiLi"><p className="careListin">Free Unlimited Online Consultation </p>
-                                                <span>Anytime, Anywhere!</span>
-                                                </li>
-                                                <li className="careListiLi"><p className="careListin">Free Unlimited Online Consultation </p>
-                                                <span>Anytime, Anywhere!</span>
-                                                </li>
+                                                {
+                                                    this.props.data && this.props.data.length>0 && this.props.data[0].unlimited_online_consultation?
+                                                        <li className="careListiLi"><p className="careListin">Free Unlimited Online Consultation </p>
+                                                            <span>Anytime, Anywhere!</span>
+                                                        </li>
+                                                    :''
+                                                }
+
+                                                {
+                                                    this.props.data && this.props.data.length>0 && this.props.data[0].priority_queue?
+                                                        <li className="careListiLi"><p className="careListin">Free Unlimited Online Consultation </p>
+                                                            <span>Anytime, Anywhere!</span>
+                                                        </li>
+                                                    :''
+                                                }                                                    
                                             </ul>
                                         </div>
                                     </div>
@@ -71,7 +191,7 @@ class PrimeCareBookingView extends React.Component {
                         <RightBar className="col-md-5 mb-3" />
                     </div>
                 </section>
-                <button onClick={this.proceed.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Book Now</button>
+                <button onClick={this.proceed.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Pay Now</button>
                 <Footer />
             </div>
         );

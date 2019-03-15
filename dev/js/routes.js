@@ -54,18 +54,15 @@ import OrderSummary from './containers/commons/OrderSummary'
 import HealthPackageAdvisor from './containers/diagnosis/HealthPackageAdvisor';
 import ThyrocarePackage from './containers/diagnosis/ThyrocarePackage';
 import TaxSaverTC from './components/diagnosis/searchPackages/TaxSaverTC.js'
-<<<<<<< HEAD
 import PrimeCare from './containers/care/primeCare.js'
 import PrimeCareBooking from './containers/care/primeCareBooking.js'
 import PrimeCareSuccess from './containers/care/primeCareSuccess.js'
 import Compare from './containers/commons/ComparePackages.js'
-=======
 import IPDInfo from './containers/ipd/IpdInfo.js'
 import IpdForm from './containers/ipd/IpdForm.js'
 import IpdHospitalSearch from './containers/ipd/IpdHospitalSearch.js'
 import IpdHospitalDetail from './containers/ipd/IpdHospitalDetail.js'
 import IpdDetail from './containers/ipd/IpdDetail.js'
->>>>>>> 11-jan-search
 
 
 /**
