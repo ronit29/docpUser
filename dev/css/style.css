@@ -6985,7 +6985,12 @@ p.cstm-card-loc-set span {
     color: #f78631;
     display: flex;
     align-items: center;
-    justify-content: center;
+}
+.cstm-doc-rtng span{
+	color: black;
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 5px;
 }
 img.img-cstm-docrating {
     width: 12px;
@@ -7090,6 +7095,23 @@ button.cstm-book-btn {
 	color: #55a740;
     text-align: right;
     font-size: 12px;
-    margin: 2px 0;
+	margin: 2px 0;
+	font-weight: 500;
+}
+.cstmTimeImg{
+	width: 14px;
+    margin-right: 4px;
+}
+.cstmLabStar{
+	margin-top: 10px;
+    text-align: center;
+}
+.cstmLabStar p{
+	margin-top: -5px;
+    font-weight: 500;
+    font-size: 12px;
+}
+.bg-white-main{
+	background: white !important;
 }
 /* ==================== custom new doctor card ==================== */
