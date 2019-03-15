@@ -50,26 +50,35 @@ class CartView extends React.Component {
         let cashback_breakup = {}
         for (let item of cart_items) {
             if (item.valid && item.actual_data.payment_type == 1) {
-                total_mrp += item.mrp
-                total_deal_price += item.deal_price
-                total_home_pickup_charges += item.total_home_pickup_charges || 0
-                if (item.data.coupons && item.data.coupons.length) {
-                    total_coupon_discount += item.coupon_discount
-                    total_coupon_cashback += item.coupon_cashback
-                    if (item.coupon_cashback <= 0) {
-                        if (coupon_breakup[item.data.coupons[0].code]) {
-                            coupon_breakup[item.data.coupons[0].code] += item.coupon_discount
+                
+
+                //For Insured Appointments Do not add deal price to Amount Payable
+                if(item.actual_data.is_appointment_insured){
+
+                }else{
+                    total_mrp += item.mrp
+                    total_deal_price += item.deal_price    
+                    total_home_pickup_charges += item.total_home_pickup_charges || 0
+                    
+                    if (item.data.coupons && item.data.coupons.length) {
+                        total_coupon_discount += item.coupon_discount
+                        total_coupon_cashback += item.coupon_cashback
+                        if (item.coupon_cashback <= 0) {
+                            if (coupon_breakup[item.data.coupons[0].code]) {
+                                coupon_breakup[item.data.coupons[0].code] += item.coupon_discount
+                            } else {
+                                coupon_breakup[item.data.coupons[0].code] = item.coupon_discount
+                            }
                         } else {
-                            coupon_breakup[item.data.coupons[0].code] = item.coupon_discount
-                        }
-                    } else {
-                        if (cashback_breakup[item.data.coupons[0].code]) {
-                            cashback_breakup[item.data.coupons[0].code] += item.coupon_cashback
-                        } else {
-                            cashback_breakup[item.data.coupons[0].code] = item.coupon_cashback
+                            if (cashback_breakup[item.data.coupons[0].code]) {
+                                cashback_breakup[item.data.coupons[0].code] += item.coupon_cashback
+                            } else {
+                                cashback_breakup[item.data.coupons[0].code] = item.coupon_cashback
+                            }
                         }
                     }
                 }
+                
             }
         }
         return {

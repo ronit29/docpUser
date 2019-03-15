@@ -133,7 +133,7 @@ class CartItem extends React.Component {
 
         let { valid, product_id, mrp, deal_price, id } = this.props
         let { lab, tests, doctor, hospital, coupons, profile, date, thumbnail, procedures } = this.props.data
-        let { is_home_pickup, payment_type } = this.props.actual_data
+        let { is_home_pickup, payment_type, insurance_message, is_appointment_insured } = this.props.actual_data
 
         if (date) {
             date = new Date(date)
@@ -149,8 +149,10 @@ class CartItem extends React.Component {
                             !valid ? <p className="appointmentPassed">Your appointment date and time has passed.</p> : ""
                         } */}
 
-                        {
-                            payment_type == 1 ? <div className="shopng-cart-price">
+                        {   
+                            is_appointment_insured?
+                            <div className="shopng-cart-price">{insurance_message}</div>
+                            :payment_type == 1 ? <div className="shopng-cart-price">
                                 {
                                     mrp ? <p>₹ {deal_price} <span className="shopng-cart-price-cut">₹ {mrp}</span></p> : ""
                                 }
