@@ -177,7 +177,11 @@ class DateTimePicker extends React.Component {
 
 	render(){
 
-        let disabledDays = this.props.is_thyrocare?7:30
+        let upperDisableDateLimit = this.props.is_thyrocare?7:30
+        let nextDate = new Date()
+        nextDate.setDate(nextDate.getDate() + 1)
+        let lowerDisableDateLimit = this.props.is_thyrocare?nextDate:new Date()
+
         let selectedFormattedDate = this.getFormattedDate(this.state.selectedDateSpan)
 
 		return(
@@ -222,7 +226,7 @@ class DateTimePicker extends React.Component {
                                             showWeekNumber={false}
                                             defaultValue={moment(this.state.selectedDateSpan)}
                                             disabledDate={(date) => {
-                                                return date.diff(moment((new Date)), 'days') < 0 || date.diff(moment((new Date)), 'days') > disabledDays
+                                                return date.diff(moment((lowerDisableDateLimit)), 'days') < 0 || date.diff(moment((new Date)), 'days') > upperDisableDateLimit
                                             }}
                                             showToday
                                             onSelect={this.selectDateFromCalendar.bind(this)}

@@ -303,6 +303,25 @@ class BookingSummaryViewNew extends React.Component {
             return
         }
 
+        if(addressPicked && this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].lab && this.props.LABS[this.state.selectedLab].lab.is_thyrocare){
+
+            let validateAddressPincode = false
+            if(this.props.address && this.props.address.length){
+                let selectedAddressPincode = this.props.address.filter(x=>x.id==this.props.selectedAddress).map(x=>x.pincode)
+
+                if(selectedAddressPincode.length && parseInt(selectedAddressPincode[0])==parseInt(this.state.pincode)){
+                    validateAddressPincode = true
+                }
+            }
+
+            if(!validateAddressPincode){
+                SnackBar.show({ pos: 'bottom-center', text: "Pincode Different" });
+
+                window.scrollTo(0, 0)
+                return
+            }
+        }
+
         if (!this.state.profileDataFilled) {
             SnackBar.show({ pos: 'bottom-center', text: "Please fill the info" });
             return
@@ -335,6 +354,20 @@ class BookingSummaryViewNew extends React.Component {
         if (this.props.disCountedLabPrice) {
             postData['coupon_code'] = [this.state.couponCode] || []
         }
+
+        //Post Pincode & thyrocare data
+        if(this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].lab && this.props.LABS[this.state.selectedLab].lab.is_thyrocare){
+
+            let pincode = this.state.pincode
+            postData['pincode'] = pincode.toString() || ""
+            postData['is_thyrocare'] = true
+        
+        }else{
+            postData['pincode'] = ""
+            postData['is_thyrocare'] = false
+            
+        }
+
 
         if (addToCart) {
             let data = {

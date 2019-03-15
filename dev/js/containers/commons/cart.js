@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { select_opd_payment_type, sendAgentBookingURL, getUserProfile, getCartItems, removeFromCart, processCartItems, selectProfile, selectLabTimeSLot, selectOpdTimeSLot, saveProfileProcedures, clearAllTests, applyCoupons, toggleDiagnosisCriteria, fetchTransactions, selectLabAppointmentType } from '../../actions/index.js'
+import { select_opd_payment_type, sendAgentBookingURL, getUserProfile, getCartItems, removeFromCart, processCartItems, selectProfile, selectLabTimeSLot, selectOpdTimeSLot, saveProfileProcedures, clearAllTests, applyCoupons, toggleDiagnosisCriteria, fetchTransactions, selectLabAppointmentType, savePincode } from '../../actions/index.js'
 
 import CartView from '../../components/commons/cart'
 import STORAGE from '../../helpers/storage'
@@ -60,7 +60,8 @@ const mapDispatchToProps = (dispatch) => {
         fetchTransactions: () => dispatch(fetchTransactions()),
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
         sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
-        select_opd_payment_type: (type) => dispatch(select_opd_payment_type(type))
+        select_opd_payment_type: (type) => dispatch(select_opd_payment_type(type)),
+        savePincode: (pincode) => dispatch(savePincode(pincode))
     }
 }
 
