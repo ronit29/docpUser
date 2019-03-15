@@ -73,10 +73,11 @@ class CriteriaElasticSearchView extends React.Component {
         let searchString = e.target.value.trim()
         if (searchString.length) {
             this.getSearchResults()
+            this.props.toggleFixedMobileFooter(false)
         } else {
             this.setState({ searchResults: [] })
+            this.props.toggleFixedMobileFooter(true)
         }
-
     }
 
     getSearchResults() {
@@ -105,7 +106,7 @@ class CriteriaElasticSearchView extends React.Component {
         let PROCEDURE_TYPES = ['procedure_category', 'procedure']
 
         let IPD_TYPES = ['ipd']
-        
+
         let type = ''
         let visibleType = ''
         let filterResults = this.props.getElasticCriteriaResults(this.state.searchValue.trim(), this.props.type.includes('package') ? 'test' : this.props.type, location)
@@ -124,9 +125,9 @@ class CriteriaElasticSearchView extends React.Component {
 
                     type = 'opd'
                     visibleType = searchResults.suggestion[0]
-                }else if(IPD_TYPES.indexOf(searchResults.suggestion[0].type)>-1 && this.props.type !='ipd'){
+                } else if (IPD_TYPES.indexOf(searchResults.suggestion[0].type) > -1 && this.props.type != 'ipd') {
                     type = 'ipd'
-                    visibleType = searchResults.suggestion[0]                    
+                    visibleType = searchResults.suggestion[0]
                 }
 
                 /*else if(PROCEDURE_TYPES.indexOf(searchResults.suggestion[0].type)>-1 && this.props.type !='procedures'){
@@ -237,7 +238,7 @@ class CriteriaElasticSearchView extends React.Component {
             this.setState({ searchValue: "" })
             this.props.showResults('opd')
 
-        }else if(this.props.type.includes('ipd')){
+        } else if (this.props.type.includes('ipd')) {
             let data = {
                 'Category': 'ConsumerApp', 'Action': 'IPDNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
             }
@@ -476,12 +477,12 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                             {cat.name}
                                                                                             {
                                                                                                 this.props.type.includes('ipd')
-                                                                                                ?<span className="search-span-sub">IPD Procedures</span>
-                                                                                                :cat.is_package && cat.is_package.length && cat.is_package[0]?
-                                                                                                <span className="search-span-sub">Health Package {cat.number_of_tests && cat.number_of_tests.length && cat.number_of_tests[0]?` | ${cat.number_of_tests[0]} Test Included`:''}</span>
-                                                                                                :cat.type == "hospital"
-                                                                                                    ? <span className="search-span-sub">{cat.locality && Array.isArray(cat.locality) ? cat.locality.join(', ') : cat.visible_name}</span>
-                                                                                                    : <span className="search-span-sub">{cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name) ? cat.primary_name.slice(0, 2).join(', ') : cat.visible_name}</span>
+                                                                                                    ? <span className="search-span-sub">IPD Procedures</span>
+                                                                                                    : cat.is_package && cat.is_package.length && cat.is_package[0] ?
+                                                                                                        <span className="search-span-sub">Health Package {cat.number_of_tests && cat.number_of_tests.length && cat.number_of_tests[0] ? ` | ${cat.number_of_tests[0]} Test Included` : ''}</span>
+                                                                                                        : cat.type == "hospital"
+                                                                                                            ? <span className="search-span-sub">{cat.locality && Array.isArray(cat.locality) ? cat.locality.join(', ') : cat.visible_name}</span>
+                                                                                                            : <span className="search-span-sub">{cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name) ? cat.primary_name.slice(0, 2).join(', ') : cat.visible_name}</span>
                                                                                             }
                                                                                         </p>
                                                                                     </div>
