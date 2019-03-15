@@ -18,6 +18,7 @@ import GTM from '../../../helpers/gtm.js'
 import BookingError from '../../opd/patientDetails/bookingErrorPopUp.js';
 import PincodePopup from './PincodePopup.js'
 import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
+import PincodeErrorPopup from './PincodeErrorPopup.js'
 
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
@@ -43,7 +44,8 @@ class BookingSummaryViewNew extends React.Component {
             showPincodePopup: false,
             cart_item: parsed.cart_item,
             pincode: this.props.pincode,
-            whatsapp_optin: true
+            whatsapp_optin: true,
+            pincodeMismatchError: false
         }
     }
 
@@ -315,8 +317,7 @@ class BookingSummaryViewNew extends React.Component {
             }
 
             if(!validateAddressPincode){
-                SnackBar.show({ pos: 'bottom-center', text: "Pincode Different" });
-
+                this.setState({pincodeMismatchError: true})
                 window.scrollTo(0, 0)
                 return
             }
@@ -492,6 +493,15 @@ class BookingSummaryViewNew extends React.Component {
         this.setState({showPincodePopup: false, pincode: pincode}, ()=>{
             this.navigateTo('time')    
         })
+    }
+
+    clickPincodeErrrorPopUp(type){
+        if(type==1){
+            this.setState({pincodeMismatchError: false, showPincodePopup: true}, ()=>{    
+            })       
+        }else{
+            this.props.history.push('/user/address?pick=true')
+        }
     }
     
     goToProfile(id, url){
@@ -807,6 +817,12 @@ class BookingSummaryViewNew extends React.Component {
                                         {
                                             this.state.showPincodePopup?
                                             <PincodePopup setPincode= {this.setPincode.bind(this)} toggle={this.toggle.bind(this, 'showPincodePopup')}/>
+                                            :''
+                                        }
+
+                                        {
+                                            this.state.pincodeMismatchError?
+                                            <PincodeErrorPopup clickPopUp={this.clickPincodeErrrorPopUp.bind(this)} toggle={this.toggle.bind(this, 'pincodeMismatchError')}/>
                                             :''
                                         }
 

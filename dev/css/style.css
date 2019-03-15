@@ -7055,3 +7055,12 @@ flex-shrink: 0;
     border-radius: 4px;
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0), 0 3px 6px rgba(0, 0, 0, 0.08);
 }
+.alrt-head{
+	font-size: 16px;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 15px;
+}
+.widget-content.padiing-srch-el.pad-srch{
+	padding: 10px 15px;
+}
