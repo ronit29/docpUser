@@ -207,6 +207,22 @@ class SearchElasticView extends React.Component {
         }, 100)        
     }
 
+    searchProceedIPD(){
+
+    }
+
+    showIPD(id){
+
+        this.props.history.push(`/ipdInfo?ipd_id=${id}`)
+    }
+
+    toggleIpd(type, criteria, searchString = ""){
+        let selectedCriteria = { ...criteria }
+        selectedCriteria.type = 'ipd'
+        this.props.toggleIPDCriteria(selectedCriteria, true)
+        this.showIPD(criteria.id)
+    }
+
     render() {
 
         let title = ''
@@ -242,6 +258,37 @@ class SearchElasticView extends React.Component {
                 toggle={this.toggleLabTests.bind(this)}
                 selectedCriterias={this.props.dataState.selectedCriterias}
             />
+
+        } else if (this.props.selectedSearchType.includes('package')) {
+            title = "health packages"
+            searchProceed = this.searchProceedPackages.bind(this)
+            showResults = this.showPackages.bind(this)
+
+            commonSearched = <CommonlySearched
+                heading="Common Health Packages"
+                type="package"
+                selectedSearchType={this.props.selectedSearchType}
+                data={this.props.dataState.common_package}
+                selected={this.props.dataState.selectedPackages}
+                toggle={this.togglePackages.bind(this)}
+                selectedCriterias={this.props.dataState.selectedPackages}
+            />
+        }else if (this.props.selectedSearchType.includes('ipd')) {
+
+            title = "Search Surgery/Procedure"
+            searchProceed = this.searchProceedIPD.bind(this)
+            showResults = this.showIPD.bind(this)
+
+            commonSearched = <CommonlySearched
+                heading="Commonly Searched"
+                type="ipd"
+                selectedSearchType={this.props.selectedSearchType}
+                data={this.props.dataState.ipd_procedures}
+                selected={[]}
+                toggle={this.toggleIpd.bind(this)}
+                selectedCriterias={this.props.dataState.selectedCriterias}
+            />
+
         }
 
         // else if (this.props.selectedSearchType.includes('package')) {
@@ -264,7 +311,7 @@ class SearchElasticView extends React.Component {
             <section>
                 <div id="map" style={{ display: 'none' }}></div>
                 <div className="container-fluid">
-                    <CriteriaElasticSearch {...this.props} checkForLoad={true} title={title} type={this.props.selectedSearchType} paddingTopClass={true} searchProceed={searchProceed} showResults={showResults} focusInput={this.state.focusInput} hideHeaderOnMobile={true} toggleLabTests={this.toggleLabTests.bind(this)} searchElasticView={true}>
+                    <CriteriaElasticSearch {...this.props} checkForLoad={true} title={title} type={this.props.selectedSearchType} paddingTopClass={true} searchProceed={searchProceed} showResults={showResults} focusInput={this.state.focusInput} hideHeaderOnMobile={true} toggleLabTests={this.toggleLabTests.bind(this)} toggleIpd = {this.toggleIpd.bind(this)} searchElasticView={true}>
                         <section className="opd-search-section mbl-pdng-zero">
 
                             {/*
