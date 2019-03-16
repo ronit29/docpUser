@@ -64,6 +64,10 @@ class Insurance extends React.Component{
         this.props.selectInsurancePlan('plan', plan)
         this.props.resetSelectedPlans()
         if (STORAGE.checkAuth()) {
+        	if(Object.keys(plan).length > 0){
+        		this.props.GenerateInsuranceLead(plan.id,()=>{
+        		})
+        	}
         	profileLength = Object.keys(this.props.USER.profiles).length
         	memberStoreDataLength = Object.keys(this.props.self_data_values).length
         	if(profileLength >0 && memberStoreDataLength > 0){

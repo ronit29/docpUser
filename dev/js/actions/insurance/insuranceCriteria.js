@@ -143,3 +143,10 @@ export const clearInsurance = () => (dispatch) =>{
             type: CLEAR_INSURANCE
         })
 }
+export const GenerateInsuranceLead = (selectedPlan, callback) => (dispatch) => {
+    return API_POST(`/api/v1/insurance/banner-lead/create`, selectedPlan).then(function (response) {
+        callback(null, response)
+    }).catch(function (error) {
+        callback(error, null)
+    })
+}
