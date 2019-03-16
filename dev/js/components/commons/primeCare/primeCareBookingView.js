@@ -6,6 +6,8 @@ import Footer from '../Home/footer'
 import SnackBar from 'node-snackbar'
 import GTM from '../../../helpers/gtm.js'
 
+const queryString = require('query-string');
+
 class PrimeCareBookingView extends React.Component {
     constructor(props) {
         super(props)
@@ -24,7 +26,10 @@ class PrimeCareBookingView extends React.Component {
         }
     }
     proceed(){
+        const parsed = queryString.parse(this.props.location.search)
         let member_profile = null
+        let selectedPlan ={}
+        selectedPlan.plan= parseInt(parsed.plan_id)
         if (this.props.USER.profiles[this.props.USER.defaultProfile]) {
             member_profile = this.props.USER.profiles[this.props.USER.defaultProfile]
         }
@@ -50,7 +55,11 @@ class PrimeCareBookingView extends React.Component {
                     this.props.history.push('/prime/success')
             }, 100)
         }else{
-            this.props.history.push('/prime/success')
+
+            this.props.createCareBooking(selectedPlan,(resp)=>{
+                console.log(resp)
+            })
+            // this.props.history.push('/prime/success')
         }    
     }
 
@@ -168,7 +177,7 @@ class PrimeCareBookingView extends React.Component {
                                             <ul className="UlcareListingWithSide">
                                                 {
                                                     this.props.data && this.props.data.length>0 && this.props.data[0].unlimited_online_consultation?
-                                                        <li key={this.props.data[0].id} className="careListiLi"><p className="careListin">Free Unlimited Online Consultation </p>
+                                                        <li className="careListiLi"><p className="careListin">Free Unlimited Online Consultation </p>
                                                             <span>Anytime, Anywhere!</span>
                                                         </li>
                                                     :''
@@ -176,7 +185,7 @@ class PrimeCareBookingView extends React.Component {
 
                                                 {
                                                     this.props.data && this.props.data.length>0 && this.props.data[0].priority_queue?
-                                                        <li key={this.props.data[0].id} className="careListiLi"><p className="careListin">Priority Queue </p>
+                                                        <li className="careListiLi"><p className="careListin">Priority Queue </p>
                                                             <span>No waiting time!</span>
                                                         </li>
                                                     :''

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCareDetails, submitOTP, sendOTP, resetAuth, createProfile, getUserProfile } from '../../actions/index.js'
+import { getCareDetails, submitOTP, sendOTP, resetAuth, createProfile, getUserProfile, createCareBooking } from '../../actions/index.js'
 
 import PrimeCareBookingView from '../../components/commons/primeCare/primeCareBookingView.js'
 
@@ -52,6 +52,7 @@ const mapDispatchToProps = (dispatch) => {
         resetAuth: () => dispatch(resetAuth()),
         createProfile: (postData, cb) => dispatch(createProfile(postData, cb)),
         getUserProfile: () => dispatch(getUserProfile()),
+        createCareBooking:(selectedPlan, cb) => dispatch(createCareBooking(selectedPlan,cb))
         
     }
 }
