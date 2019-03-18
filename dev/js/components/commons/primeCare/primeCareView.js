@@ -28,6 +28,17 @@ class PrimeCareView extends React.Component {
         this.setState({infoData:'',showInfo:false})   
     }
 
+    searchLab(test) {
+        if (test.is_package) {
+            this.props.setPackageId(test.id, true)
+            setTimeout(() => {
+                this.props.history.push('/searchpackages')
+            }, 100)
+        }else{
+            this.testInfo(test)
+        }
+    }
+
     render() {
         if(this.props.data && Object.keys(this.props.data).length > 0){
         let self = this
@@ -115,8 +126,8 @@ class PrimeCareView extends React.Component {
                                         Object.entries(this.props.feature_data).map(function ([key, value]) {
                                             let feature_detail = self.props.data.feature_details.filter(x => x.id == key)
                                             return (<div className="careCheckContainers" key={key}>
-                                                        <h4 className="carechkHeading">{feature_detail[0].name} {feature_detail[0].test.show_details?
-                                                            <span style={{ marginLeft: '5px', marginTop: '1px', display: 'inline-block' }} onClick={self.testInfo.bind(self, feature_detail[0].test)}>
+                                                        <h4 className="carechkHeading">{feature_detail[0].name} {feature_detail[0].test.show_detail_in_plan?
+                                                            <span style={{ marginLeft: '5px', marginTop: '1px', display: 'inline-block' }} onClick={self.searchLab.bind(self, feature_detail[0].test)}>
                                                                 <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                                             </span>:''}
                                                         </h4>

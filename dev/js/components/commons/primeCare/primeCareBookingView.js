@@ -29,6 +29,7 @@ class PrimeCareBookingView extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
         let member_profile = null
         let selectedPlan ={}
+        let self = this
         selectedPlan.plan= parseInt(parsed.plan_id)
         if (this.props.USER.profiles[this.props.USER.defaultProfile]) {
             member_profile = this.props.USER.profiles[this.props.USER.defaultProfile]
@@ -42,7 +43,6 @@ class PrimeCareBookingView extends React.Component {
             }else{
                 this.setState({ profileDataFilled: true })
             }
-            let self = this
             let profileData={}
             profileData.name = this.state.name
             profileData.phoneNumber = this.state.phoneNumber
@@ -51,15 +51,22 @@ class PrimeCareBookingView extends React.Component {
             this.props.createProfile(profileData, (err, res) => {
                 self.props.getUserProfile()
             })
-            setTimeout(() => {
-                    this.props.history.push('/prime/success')
-            }, 100)
-        }else{
-
-            this.props.createCareBooking(selectedPlan,(resp)=>{
-                console.log(resp)
+            self.props.createCareBooking(selectedPlan,(resp)=>{
+                if(resp.payment_required){
+                    this.props.history.push(`/payment/${resp.data.orderId}?refs=care`)
+                }else{
+                    this.props.history.push('/prime/success?user_plan='+resp.data.id)
+                }        
             })
-            // this.props.history.push('/prime/success')
+        }else{
+            this.props.createCareBooking(selectedPlan,(resp)=>{
+                if(resp.payment_required){
+                    this.props.history.push(`/payment/${resp.data.orderId}?refs=care`)
+                }else{
+                    this.props.history.push('/prime/success?user_plan='+resp.data.id)
+                    
+                }        
+            })
         }    
     }
 
@@ -198,9 +205,7 @@ class PrimeCareBookingView extends React.Component {
                                                             return <li key={value.id} className="careListiLi">
                                                                         <p className="careListin">{self.props.data[0].feature_details[value.id].name} </p>
                                                                     </li>
-                                                        }
-                                                        
-                                                        
+                                                        }   
                                                     })
                                                     :''
                                                 }                                                    

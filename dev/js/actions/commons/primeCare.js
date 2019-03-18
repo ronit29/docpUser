@@ -14,8 +14,18 @@ export const getCareDetails = (callback) => (dispatch) => {
 
 export const createCareBooking = (selectedPlan, callback) => (dispatch) => {
 	return API_POST(`/api/v1/subscription_plan/buy`, selectedPlan).then(function (response) {
-		callback(null, response)
-	}).catch(function (error) {
-		callback(error, null)
-	})
+		if (callback) callback(response)
+    }).catch(function (error) {
+        if (callback) callback(null)
+    })
+}
+
+export const retrieveCareDetails = (selectedPlan,callback) => (dispatch) => {
+
+	API_GET('/api/v1/subscription_plan/retrieve?user_plan='+parseInt(selectedPlan)).then(function (response) {
+    	if (callback) callback(response)
+    }).catch(function (error) {
+        if (callback) callback(null)
+    })
+
 }

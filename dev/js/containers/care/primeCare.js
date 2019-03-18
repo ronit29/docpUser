@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {getCareDetails } from '../../actions/index.js'
+import {getCareDetails, setPackageId } from '../../actions/index.js'
 
 import STORAGE from '../../helpers/storage'
 
@@ -56,7 +56,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getCareDetails: (callback) => dispatch(getCareDetails(callback))
+        getCareDetails: (callback) => dispatch(getCareDetails(callback)),
+        setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage)),
     }
 }
 
