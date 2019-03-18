@@ -38,6 +38,9 @@ class primeCare extends React.Component {
                 this.setState({data:resp,feature_data:feature_data})
             }
         })
+        if (window) {
+            window.scrollTo(0, 0)
+        }
 
     }
 
@@ -49,8 +52,13 @@ class primeCare extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return {
 
+    const {
+        selectedLocation
+    } = state.SEARCH_CRITERIA_LABS
+
+    return {
+        selectedLocation
     }
 }
 

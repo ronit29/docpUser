@@ -2,9 +2,9 @@ import React from 'react';
 import LeftBar from '../LeftBar'
 import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
-import Footer from '../Home/footer'
 import Loader from '../../commons/Loader'
 import InfoPopup from './careInfoPopup.js'
+import GTM from '../../../helpers/gtm.js'
 
 class PrimeCareView extends React.Component {
     constructor(props) {
@@ -36,6 +36,28 @@ class PrimeCareView extends React.Component {
             }, 100)
         }else{
             this.testInfo(test)
+        }
+    }
+
+    testInfo(test) {
+        let lat = 28.644800
+        let long = 77.216721
+        if (this.props.selectedLocation !== null) {
+            lat = this.props.selectedLocation.geometry.location.lat
+            long = this.props.selectedLocation.geometry.location.lng
+
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
+        let selected_test_ids = []
+        // this.props.data.map((row, i) => {
+        //     selected_test_ids.push(row.id)
+        // })
+
+        if (test.is_package && test.url && test.url != '') {
+            this.props.history.push('/' + test.url + '?test_ids=' + test.id + '&selected_test_ids=' + selected_test_ids + '&lat=' + lat + '&long=' + long + '&from=search')
+        } else if(test.is_package) {
+            this.props.history.push('/search/testinfo?test_ids=' + test.id + '&selected_test_ids=' + selected_test_ids + '&lat=' + lat + '&long=' + long + '&from=search')
         }
     }
 
@@ -127,7 +149,7 @@ class PrimeCareView extends React.Component {
                                             let feature_detail = self.props.data.feature_details.filter(x => x.id == key)
                                             return (<div className="careCheckContainers" key={key}>
                                                         <h4 className="carechkHeading">{feature_detail[0].name} {feature_detail[0].test.show_detail_in_plan?
-                                                            <span style={{ marginLeft: '5px', marginTop: '1px', display: 'inline-block' }} onClick={self.searchLab.bind(self, feature_detail[0].test)}>
+                                                            <span style={{ marginLeft: '5px', marginTop: '1px', display: 'inline-block' }} onClick={self.testInfo.bind(self, feature_detail[0].test)}>
                                                                 <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                                             </span>:''}
                                                         </h4>
@@ -155,7 +177,6 @@ class PrimeCareView extends React.Component {
                 {this.state.showInfo?
                     <InfoPopup infoData={this.state.infoData} closeInfo={this.closeInfo.bind(this)}/>
                 :''}
-                <Footer />
             </div>
         )
         }else{
