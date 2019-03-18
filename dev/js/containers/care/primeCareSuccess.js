@@ -21,6 +21,9 @@ class primeCareSuccess extends React.Component {
         this.props.retrieveCareDetails(parsed.user_plan,(resp)=>{
             this.setState({data:resp})
         })
+        if (window) {
+            window.scrollTo(0, 0)
+        }
     }
 
     render() {

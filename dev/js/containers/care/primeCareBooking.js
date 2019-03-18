@@ -27,6 +27,9 @@ class primeCareBooking extends React.Component {
             feature_detail[0].feature_details = resp.feature_details
             this.setState({data:feature_detail})
         })
+        if (window) {
+            window.scrollTo(0, 0)
+        }
     }
 
     render() {

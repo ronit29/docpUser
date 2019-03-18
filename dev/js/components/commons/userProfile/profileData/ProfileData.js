@@ -38,6 +38,14 @@ class ProfileData extends React.Component {
         window.location.href = `/lab/searchresults?test_ids=${test_ids.join(',')}&network_id=${network_id}`
     }
 
+    isDocCare(){
+        if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
+            this.props.history.push('/prime/success?user_plan='+this.props.isUserCared.user_plan_id) 
+        }else{
+            this.props.history.push('/prime/plans') 
+        }
+    }
+
     render() {
 
         let currentRoomId = this.props.USER.currentRoomId
@@ -178,7 +186,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
-                        <li onClick={(e)=>{this.props.history.push('/prime/plans')} } className="my-profile-item lst-spcng">
+                        <li onClick={this.isDocCare.bind(this)} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/onlnpres.svg"} className="img-fluid" />
