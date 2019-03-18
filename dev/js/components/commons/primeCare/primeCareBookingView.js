@@ -100,7 +100,7 @@ class PrimeCareBookingView extends React.Component {
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             <div className="container-fluid">
-                                <div className="widget mr-60">
+                                <div className="widget mrng-top-12 mrb-60">
                                     <div className="widget-content mrng-top-12">
                                         <div className="careMemberContainer">
                                             <div className="careMembrLogo">
@@ -215,10 +215,10 @@ class PrimeCareBookingView extends React.Component {
                                     </div>
                                 </div>
                             </div>
+                            <button onClick={this.proceed.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Pay Now</button>
                         </div>
                         <RightBar className="col-md-5 mb-3" />
                     </div>
-                <button onClick={this.proceed.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Pay Now</button>
                 </section>
             </div>
         );
