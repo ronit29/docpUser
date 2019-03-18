@@ -1955,3 +1955,12 @@ p.rt-doc-nm{
 .dw-info p{
     color: #fff;
 }
+
+.vw-all-static{
+    padding: 4px 6px;
+    border: 1px solid #f78631;
+    font-size: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #fff;
+}
