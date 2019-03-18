@@ -300,12 +300,105 @@ render() {
                                         <p className="pkg-discountCpn">Includes coupon discount</p>
                                         <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
                                     </li>
+                                    <div>
+                                      <ul>
+                                       <li>12</li>
+                                       <li>12</li>
+                                       <li>12</li>
+                                       <li>12</li>
+                                      </ul>
+                                    </div>
                                   </ul>
                                    </div>
                                 </div>
                                 <div className="pkg-cmpre-list">
-                                    <div className=""><a href="javascript:void(0);" className="hide-all">Hide All <img src={ASSETS_BASE_URL + "/images/up-arrow-o.png"} alt="" /></a></div>
+                                    <div className=""><a href="javascript:void(0);" className="hide-all">View All <img src={ASSETS_BASE_URL + "/images/down-arrow-o.png"} alt="" /></a></div>
+                                    
+                                    <div className="pkg-card-container mb-3">
+                                      <div className="pkg-crd-header light-orng-header">
+                                        <span className="text-left">Heart</span>
+                                        <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
+                                      </div>
+                                      <div>
+                                        <div className="top-head-info multiple-pkgs parent-info">
+                                          <ul>
+                                            <li>2</li>
+                                            <li>3</li>
+                                            <li>4</li>
+                                            <li>5</li>
+                                          </ul>
+                                        </div>
+                                        <div className="pkg-crd-header light-orng-header grey-head">
+                                          <span>Lipid Profile</span>
+                                          <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
+                                        </div>
+                                        <div className="top-head-info multiple-pkgs">
+                                          <ul>
+                                            <li>2</li>
+                                            <li>3</li>
+                                            <li>4</li>
+                                            <li>5</li>
+                                          </ul>
+                                        </div>
+                                        <div className="top-head-info multiple-pkgs multiple-pkgs-details">
+                                          <ul>
+                                            <li>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>TC/HDL Cholesterol Ratio</span>
+                                            </li>
+                                            <li>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>TC/HDL Cholesterol Ratio</span>
+                                            </li>
+                                            <li>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>TC/HDL Cholesterol Ratio</span>
+                                            </li>
+                                            <li>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>LDL Cholestrol</span>
+                                              <span>TC/HDL Cholesterol Ratio</span>
+                                            </li>
+                                          </ul>
+                                        </div>
+                                      </div>
+
+                                    </div>
+
+
                                 </div>
+
                             </div>
 
                         </div>{/*center-column*/}
