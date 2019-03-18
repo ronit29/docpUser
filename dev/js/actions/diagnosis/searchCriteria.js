@@ -1,4 +1,4 @@
-import { MERGE_SEARCH_STATE_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SEARCH_TEST_INFO } from '../../constants/types';
+import { MERGE_SEARCH_STATE_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SEARCH_TEST_INFO, SAVE_PINCODE } from '../../constants/types';
 import { API_GET } from '../../api/api.js';
 
 export const loadLabCommonCriterias = () => (dispatch) => {
@@ -119,5 +119,12 @@ export const searchTestData = (test_ids, test_url, lab_id, state,no_labs, callba
             payload: null
         })
         throw error
+    })
+}
+
+export const savePincode = (pincode) => (dispatch) => {
+    dispatch({
+        type: SAVE_PINCODE,
+        payload: pincode
     })
 }
