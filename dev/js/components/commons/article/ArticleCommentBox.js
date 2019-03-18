@@ -57,10 +57,7 @@ class CommmentView extends React.Component{
 						Object.values(this.props.profiles).length || STORAGE.checkAuth()?
 						<div className="row no-gutters">
 							<div className="col-12">
-								{
-									this.props.commentsExists?''
-									:<p className="cmnt-static"><img src = {ASSETS_BASE_URL+"/img/chatComment.svg"} />Leave a Comment</p>	
-								}
+								<p className="cmnt-static"><img src = {ASSETS_BASE_URL+"/img/chatComment.svg"} />Leave a Comment</p>
 								<div className="labelWrap">
 									<div className="labelWrap">
 										<textarea style={{ height: '100px' }} id="ftext" className="fc-input" name="comment" type="text" required value = {this.state.comment} onChange={this.inputHandler.bind(this)}></textarea>
@@ -71,10 +68,7 @@ class CommmentView extends React.Component{
 						</div>
 						:<div className="row no-gutters">
 							<div className="col-12">
-								{
-									this.props.commentsExists?''
-									:<p className="cmnt-static"><img src = {ASSETS_BASE_URL+"/img/chatComment.svg"} />Leave a Comment</p>	
-								}
+								<p className="cmnt-static"><img src = {ASSETS_BASE_URL+"/img/chatComment.svg"} />Leave a Comment</p>
 								
 								<div className="labelWrap">
 									<div className="labelWrap">
@@ -98,7 +92,7 @@ class CommmentView extends React.Component{
 						</div>	
 					}
 					<div className="commnets-sbmt-btn">
-						<button className="cmnts-btn" onClick= {this.postReply.bind(this)}>{this.props.commentsExists?'Reply':'Post Comment'}</button>
+						<button className="cmnts-btn" onClick= {this.postReply.bind(this)}>Post Comment</button>
 					</div>
 				</div>
 			</form>
