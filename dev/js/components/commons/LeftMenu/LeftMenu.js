@@ -26,6 +26,7 @@ class LeftMenu extends React.Component {
     let user = null
     let thumbnail = null
     let memberClass = 'float-right memNew'
+    let memStatus = 'New'
     if(this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]){
 
       user = this.props.profiles[this.props.defaultProfile]
@@ -33,6 +34,7 @@ class LeftMenu extends React.Component {
     }
     if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
       memberClass = 'float-right memAct'
+      memStatus = 'Active'
     }
     return(
            
@@ -65,7 +67,7 @@ class LeftMenu extends React.Component {
                               */}
 
                               <li><a onClick={this.isDocCare.bind(this)}><img src="/assets/img/primecae.png" alt="" className="" />Docprime Care
-                                  <span className={memberClass}>NEW</span></a></li>
+                                  <span className={memberClass}>{memStatus}</span></a></li>
 
                               <li><a onClick={(e)=>{
                                 e.preventDefault()

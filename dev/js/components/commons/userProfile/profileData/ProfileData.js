@@ -51,12 +51,14 @@ class ProfileData extends React.Component {
         let currentRoomId = this.props.USER.currentRoomId
         let coupon = null
         let memberClass = 'float-right memNew'
+        let memStatus = 'New'
         if (this.props.applicableCoupons && this.props.applicableCoupons.length) {
             coupon = this.props.applicableCoupons[0]
         }
 
         if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
           memberClass = 'float-right memAct'
+          memStatus = 'Active'
         }
 
         return (
@@ -198,7 +200,7 @@ class ProfileData extends React.Component {
                                 </span>
                                 <div className="nav-content" style={{width:'100%'}}>
                                     <h4 className="title app-title">Docprime Care 
-                                        <span className={memberClass}>NEW</span>
+                                        <span className={memberClass}>{memStatus}</span>
                                     </h4>
                                 </div>
                             </a>
