@@ -8346,7 +8346,7 @@ p.carePara {
 	content: '';
 	
 }
-.careListiLi::before{
+/*.careListiLi::before{
 	content: '';
     position: absolute;
     height: 100%;
@@ -8355,18 +8355,18 @@ p.carePara {
     bottom: 0;
     left: -50px;
     border-left: 2px dashed #757575;
-}
+}*/
 .careListiLi:last-child::before{
 	height: 0px;
 }
-.careListiLi::after{
+/*.careListiLi::after{
 	content: '';
     position: absolute;
     width: 29px;
     height: 10px;
     left: -50px;
     border-top: 2px dashed #757575;
-}
+}*/
 .careListiLi{
     padding-bottom: 30px;
     position: relative;
@@ -8455,7 +8455,14 @@ li.careListiLi span {
 ul.careListing li {
     margin-bottom: 13px;
 }
-
+.careAvlP{
+	    font-weight: 500;
+    color: #17af07;
+}
+.careAvlP img{
+	    width: 20px;
+    margin-right: 8px;
+}
 /* ==================== docprime care html page ==================== */
 .medic-img-slider {
     white-space: nowrap;
