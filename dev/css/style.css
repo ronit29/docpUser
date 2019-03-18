@@ -3766,6 +3766,11 @@ span.search-el-code-bold{
 	margin-left: 4px;
 
 }
+@media screen and (max-width: 375px){
+	.src-el-btn-border{
+		position: absolute;
+	}
+}
 /* ========================= search design ========================= */
 
 
