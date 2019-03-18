@@ -202,11 +202,9 @@ class PrimeCareBookingView extends React.Component {
                                                     Object.entries(this.props.data[0].features).map(function ([key, value]) {
                                                         if(value.count != null){
                                                             return <li key={value.id} className="careListiLi">
-                                                                    {
-                                                                        <div><p className="careListin">{self.props.data[0].feature_details[0].name} </p>
-                                                                        <span>{`Memeber can avail this offer ${value.count ==2?'twice':'once'} in a year`}</span>
-                                                                        </div>
-                                                                    }
+                                                                    <p className="careListin">{self.props.data[0].feature_details[0].name} </p>
+                                                                    <span>{`Memeber can avail this offer ${value.count ==2?'twice':'once'} in a year`}</span>
+                                                                     
                                                                     </li>
                                                         }   
                                                     })
