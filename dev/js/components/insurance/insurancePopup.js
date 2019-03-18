@@ -78,6 +78,7 @@ class InsurancePopup extends React.Component{
     }
 
     verifyOTP() {
+        let self = this
         if (!this.state.otp) {
             this.setState({ validationError: "Please enter OTP" })
             return
@@ -90,8 +91,12 @@ class InsurancePopup extends React.Component{
                 }else{
                     this.props.getInsurance((resp)=>{
                         if(!resp.certificate){
+                            if(Object.keys(self.props.selected_plan).length > 0){
+                                self.props.GenerateInsuranceLead(self.props.selected_plan.id,()=>{
+                                })
+                            }
                             if (exists.user_exists) {
-                            this.props.history.push('/insurance/insurance-user-details')
+                                this.props.history.push('/insurance/insurance-user-details')
                             }else{
                                 this.props.history.push('/insurance/insurance-user-details')    
                             }

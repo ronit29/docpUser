@@ -159,7 +159,7 @@ class Insurance extends React.Component{
 								</div>
 							</section>
 							{this.state.showPopup ?
-								<InsurPopup {...this.props} sendOTP={this.props.sendOTP.bind(this)} submitOTP={this.props.submitOTP.bind(this)} resetAuth={this.props.resetAuth.bind(this)} hideLoginPopup={this.hideLoginPopup.bind(this)}/> : ''
+								<InsurPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)}/> : ''
 							}
 							<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Proceeed {this.state.selected_plan_price} <span className="foot-btn-sub-span">{this.state.gst}</span>
 							</button>
