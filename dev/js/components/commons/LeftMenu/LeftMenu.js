@@ -61,8 +61,8 @@ class LeftMenu extends React.Component {
                               {/*<li><a href="#"><img src="/assets/images/insurance.png" alt="" className="" />Insurance</a> <a href="#" class="btn-buy-now">Buy Now</a></li>
                               */}
 
-                              <li><a onClick={this.isDocCare.bind(this)}><img src="https://cdn.docprime.com/cp/assets/img/customer-icons/onlnpres.svg" alt="" className="" />Docprime Care
-                                  <span className="float-right" style={{color:'#f78631'}}>NEW</span></a></li>
+                              <li><a onClick={this.isDocCare.bind(this)}><img src="/assets/img/primecae.png" alt="" className="" />Docprime Care
+                                  <span className="float-right memNew memAct">NEW</span></a></li>
 
                               <li><a onClick={(e)=>{
                                 e.preventDefault()

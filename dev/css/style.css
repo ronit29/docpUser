@@ -8471,3 +8471,15 @@ ul.careListing li {
     border-radius: 4px;
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0), 0 3px 6px rgba(0, 0, 0, 0.08);
 }
+.memNew{
+    color: white;
+    background: #f78b2e;
+    padding: 0px 10px;
+    border-radius: 4px;
+}
+.memAct{
+background:#17af07;
+color: white;
+padding: 0px 10px;
+border-radius: 4px;
+}

@@ -189,9 +189,9 @@ class ProfileData extends React.Component {
                         <li onClick={this.isDocCare.bind(this)} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
-                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/onlnpres.svg"} className="img-fluid" />
+                                    <img src={ASSETS_BASE_URL + "/img/primecae.png"} className="img-fluid" />
                                 </span>
-                                <div className="nav-content">
+                                <div className="nav-content" style={{width:'100%'}}>
                                     <h4 className="title app-title">Docprime Care 
                                         <span className="float-right badge badge-warning">NEW</span>
                                     </h4>
