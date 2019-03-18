@@ -173,7 +173,7 @@ export const getLabByUrl = (lab_url, testIds = [], cb) => (dispatch) => {
 }
 
 export const getLabTimeSlots = (labId, pickup, pincode, date, callback) => (dispatch) => {
-	let url = `/api/v1/diagnostic/labtiming?lab=${labId}&pickup=${pickup}&pincode=${pincode}&date=${date}`
+	let url = `/api/v1/diagnostic/labtiming_new?lab=${labId}&pickup=${pickup}&pincode=${pincode}&date=${date}`
 	return API_GET(url).then(function (response) {
 		callback(response)
 	}).catch(function (error) {
