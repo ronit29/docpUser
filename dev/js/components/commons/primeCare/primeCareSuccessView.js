@@ -64,6 +64,7 @@ class PrimeCareSuccessView extends React.Component {
                                                             return <li key={value.id} className="careListiLi">
                                                                         <p className="careListin">{value.name} </p>
                                                                         <span>{`Memeber can avail this offer ${value.count ==2?'twice':'once'} in a year`}</span>
+                                                                        <p><img src={ASSETS_BASE_URL + "/img/tec.svg"}/>2 Available</p>
                                                                     </li>
                                                         }
                                                     })

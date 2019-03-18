@@ -8249,7 +8249,8 @@ p.carePlanPriceCut{
 	color: #757575;
 	font-size: 14px;
 	padding: 5px 0px;
-	font-weight: 500
+	font-weight: 500;
+	text-decoration: line-through;
 }
 .careComparePanel button{
 	background: #f78631;

@@ -28,17 +28,6 @@ class PrimeCareView extends React.Component {
         this.setState({infoData:'',showInfo:false})   
     }
 
-    searchLab(test) {
-        if (test.is_package) {
-            this.props.setPackageId(test.id, true)
-            setTimeout(() => {
-                this.props.history.push('/searchpackages')
-            }, 100)
-        }else{
-            this.testInfo(test)
-        }
-    }
-
     testInfo(test) {
         let lat = 28.644800
         let long = 77.216721
@@ -55,9 +44,9 @@ class PrimeCareView extends React.Component {
         // })
 
         if (test.is_package && test.url && test.url != '') {
-            this.props.history.push('/' + test.url + '?test_ids=' + test.id + '&selected_test_ids=' + selected_test_ids + '&lat=' + lat + '&long=' + long + '&from=search')
+            this.props.history.push('/' + test.url + '?test_ids=' + test.id + '&selected_test_ids=' + selected_test_ids + '&lat=' + lat + '&long=' + long)
         } else if(test.is_package) {
-            this.props.history.push('/search/testinfo?test_ids=' + test.id + '&selected_test_ids=' + selected_test_ids + '&lat=' + lat + '&long=' + long + '&from=search')
+            this.props.history.push('/search/testinfo?test_ids=' + test.id + '&selected_test_ids=' + selected_test_ids + '&lat=' + lat + '&long=' + long)
         }
     }
 
@@ -95,7 +84,6 @@ class PrimeCareView extends React.Component {
                                         {
                                           this.props.data && this.props.data.plans && this.props.data.plans.length>0?
                                             Object.entries(this.props.data.plans).map(function ([key, value]) {
-                                                // console.log(value)
                                                 return( <div className="col-4" key={key}>
                                                             <p className="carePlans">{value.name}</p>
                                                             <div className="careComparePanel">
@@ -149,7 +137,7 @@ class PrimeCareView extends React.Component {
                                             let feature_detail = self.props.data.feature_details.filter(x => x.id == key)
                                             return (<div className="careCheckContainers" key={key}>
                                                         <h4 className="carechkHeading">{feature_detail[0].name} {feature_detail[0].test.show_detail_in_plan?
-                                                            <span style={{ marginLeft: '5px', marginTop: '1px', display: 'inline-block' }} onClick={self.testInfo.bind(self, feature_detail[0].test)}>
+                                                            <span style={{ marginLeft: '5px', marginTop: '1px', display: 'inline-block',cursor:'pointer' }} onClick={self.testInfo.bind(self, feature_detail[0].test)}>
                                                                 <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                                             </span>:''}
                                                         </h4>
