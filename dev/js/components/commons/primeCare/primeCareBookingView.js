@@ -1,5 +1,6 @@
 import React from 'react';
 import LeftBar from '../LeftBar'
+import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
 import SnackBar from 'node-snackbar'
 import GTM from '../../../helpers/gtm.js'
@@ -217,9 +218,10 @@ class PrimeCareBookingView extends React.Component {
                                 </div>
                             </div>
                         </div>
+                        <RightBar className="col-md-5 mb-3" />
                     </div>
-                </section>
                 <button onClick={this.proceed.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Pay Now</button>
+                </section>
             </div>
         );
     }

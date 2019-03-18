@@ -11,6 +11,16 @@ class LeftMenu extends React.Component {
       toggleArticles: false
     }
   }
+
+  isDocCare(){
+    this.props.toggleLeftMenu()
+    if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
+        this.props.history.push('/prime/success?user_plan='+this.props.isUserCared.user_plan_id) 
+    }else{
+        this.props.history.push('/prime/plans') 
+    }
+  }
+
   render(){
 
     let user = null
@@ -21,7 +31,6 @@ class LeftMenu extends React.Component {
       user = this.props.profiles[this.props.defaultProfile]
       thumbnail = this.props.profiles[this.props.defaultProfile].profile_image || null
     }
-    
     return(
            
             <section>
@@ -52,10 +61,7 @@ class LeftMenu extends React.Component {
                               {/*<li><a href="#"><img src="/assets/images/insurance.png" alt="" className="" />Insurance</a> <a href="#" class="btn-buy-now">Buy Now</a></li>
                               */}
 
-                              <li><a onClick={(e)=>{
-                                e.preventDefault()
-                                this.props.toggleLeftMenu()
-                                this.props.history.push('/prime/plans')} } href="#"><img src="https://cdn.docprime.com/cp/assets/img/customer-icons/onlnpres.svg" alt="" className="" />Docprime Care
+                              <li><a onClick={this.isDocCare.bind(this)}><img src="https://cdn.docprime.com/cp/assets/img/customer-icons/onlnpres.svg" alt="" className="" />Docprime Care
                                   <span className="float-right" style={{color:'#f78631'}}>NEW</span></a></li>
 
                               <li><a onClick={(e)=>{
