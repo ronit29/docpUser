@@ -36,7 +36,7 @@ class FixedMobileFooter extends React.Component {
                         </div>
                         <span>Doctors</span>
                     </div>
-                    <div className="chat-div-containers" onClick={() => {
+                    <div className="chat-div-containers" style={this.props.selectedSearchType === 'lab' ? { borderTop: '2px solid #f78631' } : {}} onClick={() => {
                         let data = {
                             'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-book-test-clicked'
                         }
