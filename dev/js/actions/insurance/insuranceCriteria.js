@@ -144,7 +144,9 @@ export const clearInsurance = () => (dispatch) =>{
         })
 }
 export const GenerateInsuranceLead = (selectedPlan, callback) => (dispatch) => {
-    return API_POST(`/api/v1/insurance/banner-lead/create`, selectedPlan).then(function (response) {
+    let plan={}
+        plan.plan_id= selectedPlan
+    return API_POST(`/api/v1/insurance/lead/create`, plan).then(function (response) {
         callback(null, response)
     }).catch(function (error) {
         callback(error, null)

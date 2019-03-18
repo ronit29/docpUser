@@ -5,8 +5,27 @@ import { getInsurance, selectInsurancePlan , saveCurrentSelectedMembers,resetSel
 import InsuranceComponent from '../../components/insurance/insuranceView.js'
 
 class Insurance extends React.Component{
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            selected_plan: ''
+        }
+    }
+
     componentDidMount() {
-        this.props.getInsurance()
+        this.props.getInsurance((resp)=>{
+            
+            if(resp.insurance && resp.insurance.length>0){
+                if(resp.insurance[0].plans && resp.insurance[0].plans.length >0){
+                    this.props.insurnaceData['insurance'][0].plans.map((result, i) => {
+                        if(result.is_selected){
+                            this.props.selectInsurancePlan('plan', result)
+                        }
+                    })
+                }
+            }
+        })
     }
 	render(){
 		return(
