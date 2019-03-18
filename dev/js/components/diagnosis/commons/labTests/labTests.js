@@ -74,6 +74,30 @@ class LabTests extends React.Component {
         let unSelectedPackage = []
         let test_info = ''
         let show_details = ''
+
+        let is_insurance_applicable = true
+
+        if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
+            this.props.currentLabSelectedTests.map((test, i) => {
+                
+                if (test.is_package) {
+                    if (test.is_selected) {
+                        is_insurance_applicable = false
+                    }
+
+                } else if (test.is_selected){
+                        
+                    //Check Selected Tests for Insurance
+
+                    if(test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount>=parseInt(test.deal_price)){
+
+                    }else{
+                        is_insurance_applicable = false
+                    }
+                }
+            })
+        }
+
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
             this.props.currentLabSelectedTests.map((test, i) => {
                 if (test.hide_price) {
@@ -100,7 +124,8 @@ class LabTests extends React.Component {
                                     <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                             </span>
                         }
-                        selectedTests.push(hide_price ? <li key={i + "srt"}>
+
+                        selectedTests.push(hide_price || is_insurance_applicable ? <li key={i + "srt"}>
                             <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                 {test.test.name}
                                 <input type="checkbox" checked={test.is_selected ? true : false} />
@@ -135,6 +160,8 @@ class LabTests extends React.Component {
             selectedTestIds = this.props.currentLabSelectedTests.map(x => x.test_id)
 
         }
+
+
 
         const parsed = queryString.parse(this.props.location.search)
         if (parsed && parsed.price_list && parsed.price_list == 'true') {
@@ -192,7 +219,6 @@ class LabTests extends React.Component {
             extra_price = this.props.data.lab.home_pickup_charges
         }
 
-
         return (
             <div>
                 <div className="widget-content pb-details pb-test nw-listing-pddng">
@@ -207,6 +233,12 @@ class LabTests extends React.Component {
                         {hide_price ? '' : unSelectedTests}
                         {hide_price ? '' : unSelectedPackage}
                     </ul>
+
+                    {
+                        is_insurance_applicable?
+                        <div>Covered Under Insurance</div>
+                        :''
+                    }
                     {
                         pickup_text ? <div className="clearfix">
 

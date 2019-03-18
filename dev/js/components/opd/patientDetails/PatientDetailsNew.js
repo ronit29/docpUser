@@ -278,6 +278,38 @@ class PatientDetailsNew extends React.Component {
             return
         }
 
+        //Check if Covered Under Insurance 
+
+        let is_insurance_applicable = false
+        let is_selected_user_insured = false
+
+        if (this.props.selectedSlot && this.props.selectedSlot.date && this.props.DOCTORS[this.state.selectedDoctor]) {
+            let priceData = { ...this.props.selectedSlot.time }
+            let hospitals = this.props.DOCTORS[this.state.selectedDoctor].hospitals
+            let hospital = null
+
+            if (hospitals && hospitals.length) {
+                hospitals.map((hsptl) => {
+                    if (hsptl.hospital_id == this.state.selectedClinic) {
+                        hospital = hsptl
+                    }
+                })
+            }
+
+            if(hospital && hospital.insurance){
+                is_insurance_applicable = (parseInt(priceData.deal_price)<=hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered     
+            }
+        }
+
+        if (this.props.profiles && this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
+
+            is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
+        }
+
+        is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
+
+
+
         this.setState({ loading: true, error: "" })
 
         let start_date = this.props.selectedSlot.date
@@ -297,7 +329,7 @@ class PatientDetailsNew extends React.Component {
             profileData['whatsapp_optin']= this.state.whatsapp_optin
             this.props.editUserProfile(profileData, profileData.id)
         }
-        if (this.props.disCountedOpdPrice && this.props.payment_type == 1) {
+        if (this.props.disCountedOpdPrice && this.props.payment_type == 1 && !is_selected_user_insured) {
             postData['coupon_code'] = [this.state.couponCode] || []
         }
 

@@ -134,7 +134,7 @@ class LabProfileCard extends React.Component {
 
     render() {
         let self = this
-        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price } = this.props.details;
+        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price, insurance } = this.props.details;
 
         distance = Math.ceil(distance / 1000);
 
@@ -177,7 +177,11 @@ class LabProfileCard extends React.Component {
             }
         }
 
-        //let is_insurance_applicable = hospital.is_insurance_covered && hospital.is_user_insured && deal_price <= hospital.insurance_threshold_amount
+        let is_insurance_applicable = false
+        if(insurance && insurance.is_insurance_covered && insurance.is_user_insured){
+            is_insurance_applicable = true
+            hide_price = true
+        }     
 
         return (
 
@@ -237,6 +241,12 @@ class LabProfileCard extends React.Component {
                                 }
                                 {
                                     hide_price ? <p className="text-primary fw-500 text-lg mrb-10">Free</p> : ""
+                                }
+
+                                {
+                                    is_insurance_applicable?
+                                    <div>Covered Under Insurance</div>
+                                    :''
                                 }
 
                                 {
