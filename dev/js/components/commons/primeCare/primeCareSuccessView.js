@@ -59,10 +59,11 @@ class PrimeCareSuccessView extends React.Component {
 
                                             {
                                                 this.props.data?
-                                                    Object.entries(this.props.data.features).map(function ([key, value]) {
+                                                    Object.entries(this.props.data.features).map(function ([key, value]) {console.log(value)
                                                         if(value.count != null){
                                                             return <li key={value.id} className="careListiLi">
                                                                         <p className="careListin">{value.name} </p>
+                                                                        <span>{`Memeber can avail this offer ${result.count ==2?'twice':'once'} in a year`}</span>
                                                                     </li>
                                                         }
                                                     })
