@@ -48,7 +48,7 @@ class PrimeCareView extends React.Component {
                 <div className="careHeaderBar">
                     <div className="container">
                         <div className="care-logo-container">
-                            <img className="careBackIco" src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} />
+                            <img className="careBackIco" src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} onClick={()=> this.props.history.push('/')}/>
                             <img className="careLogiImg" src={ASSETS_BASE_URL + "/img/logo-care-white.png"} />
                         </div>
                     </div>
@@ -164,7 +164,7 @@ class PrimeCareView extends React.Component {
                     <div className="careHeaderBar">
                         <div className="container">
                             <div className="care-logo-container">
-                                <img className="careBackIco" src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} />
+                                <img className="careBackIco" src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} onClick={()=> this.props.history.push('/')} />
                                 <img className="careLogiImg" src={ASSETS_BASE_URL + "/img/logo-care-white.png"} />
                             </div>
                         </div>

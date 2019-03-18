@@ -63,7 +63,7 @@ class PrimeCareSuccessView extends React.Component {
                                                         if(value.count != null){
                                                             return <li key={value.id} className="careListiLi">
                                                                         <p className="careListin">{value.name} </p>
-                                                                        <span>{`Memeber can avail this offer ${result.count ==2?'twice':'once'} in a year`}</span>
+                                                                        <span>{`Memeber can avail this offer ${value.count ==2?'twice':'once'} in a year`}</span>
                                                                     </li>
                                                         }
                                                     })
