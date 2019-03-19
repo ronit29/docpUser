@@ -589,7 +589,9 @@ class PatientDetailsNew extends React.Component {
             this.props.select_opd_payment_type(1)
         }
 
-        if(is_insurance_applicable && is_selected_user_insured){
+        is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
+
+        if(is_insurance_applicable){
             finalPrice = 0
             priceData.deal_price = 0
             priceData.mrp = 0
@@ -722,7 +724,7 @@ class PatientDetailsNew extends React.Component {
                                                         {/*Payment Mode*/}
 
                                                         {
-                                                            !(is_insurance_applicable && is_selected_user_insured) && this.props.payment_type == 1 ? <div className="widget mrb-15">
+                                                            !is_insurance_applicable && this.props.payment_type == 1 ? <div className="widget mrb-15">
 
                                                                 <div className="widget-content">
                                                                     <h4 className="title mb-20">Payment Summary</h4>
@@ -773,7 +775,7 @@ class PatientDetailsNew extends React.Component {
                                                                         </div>
                                                                         <hr />
                                                                         {
-                                                                            is_insurance_applicable && is_selected_user_insured?
+                                                                            is_insurance_applicable?
                                                                             <div>Covered Under Insurance</div>
                                                                             :priceData ? <div className="test-report payment-detail mt-20">
                                                                                 <h4 className="title payment-amt-label">Amount Payable</h4>
