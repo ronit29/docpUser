@@ -238,8 +238,12 @@ class CartItem extends React.Component {
                                             tests.map((test, i) => {
                                                 return <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
 
-                                                    <span className="float-right fw-700">₹ {test.deal_price}<span className="test-mrp">₹ {test.mrp}</span>
-                                                    </span>
+                                                    {
+                                                        is_appointment_insured?
+                                                        <div className="shopng-cart-price">Free</div>
+                                                        :<span className="float-right fw-700">₹ {test.deal_price}<span className="test-mrp">₹ {test.mrp}</span>
+                                                        </span>
+                                                    }
                                                     <span className="test-name-item">{test.test_name}</span>
                                                 </p>
                                             })

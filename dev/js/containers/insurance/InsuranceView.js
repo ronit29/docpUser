@@ -3,35 +3,34 @@ import {connect} from 'react-redux'
 
 import { getInsurance, selectInsurancePlan , saveCurrentSelectedMembers,resetSelectedInsuranceMembers,resetSelectedPlans,sendOTP, submitOTP, resetAuth, getUserProfile, userData, GenerateInsuranceLead } from '../../actions/index.js'
 import InsuranceComponent from '../../components/insurance/insuranceView.js'
+import Loader from '../../components/commons/Loader'
+import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 
 class Insurance extends React.Component{
 
     constructor(props) {
         super(props)
+        this.state={
+            showInsuranceView:false
+        }
     }
 
     componentDidMount() {
-        this.props.getInsurance((resp)=>{
-            
-            if(resp.insurance && resp.insurance.length>0){
-                if(resp.insurance[0].plans && resp.insurance[0].plans.length >0){
-                    let result = resp.insurance[0].plans.filter((x => x.is_selected))
-                    this.props.selectInsurancePlan('plan', result[0])
-                    // this.props.insurnaceData['insurance'][0].plans.map((result, i) => {
-                    //     if(result.is_selected){
-                    //         console.log('rishab')
-                    //         console.log(result)
-                    //         this.props.selectInsurancePlan('plan', result)
-                    //     }
-                    // })
-                }
-            }
-        })
+        this.props.getInsurance()
     }
 	render(){
-		return(
-			<InsuranceComponent {...this.props}/>
-		)
+        if(this.props.LOAD_INSURANCE){
+            return(
+                <InsuranceComponent {...this.props}/>
+            )
+        }else{
+            return(
+            <div className="profile-body-wrap">
+                <ProfileHeader />
+                <Loader />
+            </div>
+                )
+        }
 	}
 }
 
@@ -47,7 +46,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getInsurance: (callback) => dispatch(getInsurance(callback)),
         getUserProfile: () => dispatch(getUserProfile()),
-        selectInsurancePlan: (plan,criteria,forceadd) => dispatch(selectInsurancePlan(plan,criteria,forceadd)),
+        selectInsurancePlan: (plan,criteria) => dispatch(selectInsurancePlan(plan,criteria)),
         // saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),
         resetSelectedPlans: () => dispatch(resetSelectedPlans()),
         sendOTP: (number, cb) => dispatch(sendOTP(number, cb)),
