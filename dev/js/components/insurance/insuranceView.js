@@ -35,9 +35,9 @@ class Insurance extends React.Component{
 			}
     }
     componentWillReceiveProps(props) {
-    	let self = this
-    	let selectedId = this.props.selected_plan?this.props.selected_plan.id:''
-    	let newSelectedId = props.selected_plan?props.selected_plan.id:''
+    	// let self = this
+    	// let selectedId = this.props.selected_plan?this.props.selected_plan.id:''
+    	// let newSelectedId = props.selected_plan?props.selected_plan.id:''
 			// if(selectedId){
 			// 	this.setState({ selected_plan_data: props.selected_plan , selected_plan_price: `(₹ ${props.selected_plan.amount})`, is_checked: selectedId })
 			// }
@@ -56,14 +56,6 @@ class Insurance extends React.Component{
     proceedPlan(){
     	let self = this
     	let plan = Object.assign({}, this.state.selected_plan_data)
-    	console.log(plan)
-    	if(Object.keys(plan).length == 0){
-    		this.props.insurnaceData['insurance'][0].plans.map((result, i) => {
-				if(result.is_selected){
-                    plan = result
-                }
-            })
-    	}
     	let profileLength
     	let memberStoreDataLength
     	let membersArray = []
@@ -73,7 +65,6 @@ class Insurance extends React.Component{
     	plan.insurer_document = this.props.insurnaceData['insurance'][0].insurer_document   	
     	plan.insurer = this.props.insurnaceData['insurance'][0].id
     	plan.stateData = this.props.insurnaceData['state']
-    	console.log(plan)
         this.props.selectInsurancePlan('plan', plan)
         this.props.resetSelectedPlans()
         if (STORAGE.checkAuth()) {

@@ -67,11 +67,11 @@ export const updateMemberList = (postData,callback) => (dispatch) => {
     })
 
 }
-export const selectInsurancePlan = (type, selected_plan, forceAdd = false) => (dispatch) => {
+export const selectInsurancePlan = (type, selected_plan) => (dispatch) => {
     dispatch({
         type: SELECT_INSURANCE_PLAN,
         payload: {
-            type, selected_plan, forceAdd
+            type, selected_plan
         }
     })
 

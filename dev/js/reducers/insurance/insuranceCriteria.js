@@ -31,7 +31,10 @@ export default function (state = defaultState, action) {
                 if(action.payload.certificate){
                     newState.LOAD_INSURANCE = false
                 }else{
-                    newState.LOAD_INSURANCE = true
+                    if(action.payload.insurance[0].plans && action.payload.insurance[0].plans.length >0){
+                        newState.selected_plan = action.payload.insurance[0].plans.filter((x => x.is_selected))
+                        newState.LOAD_INSURANCE = true
+                    }
                 }
             }else{
                 newState.insurnaceData = action.payload
