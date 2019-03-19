@@ -777,7 +777,7 @@ class PatientDetailsNew extends React.Component {
                                                                         <hr />
                                                                         {
                                                                             is_insurance_applicable?
-                                                                            <div>Covered Under Insurance</div>
+                                                                            <div className="ins-val-bx">Covered Under Insurance</div>
                                                                             :priceData ? <div className="test-report payment-detail mt-20">
                                                                                 <h4 className="title payment-amt-label">Amount Payable</h4>
                                                                                 <h5 className="payment-amt-value">&#8377; {parseInt(priceData.mrp) + treatment_mrp}</h5>
