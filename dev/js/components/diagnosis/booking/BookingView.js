@@ -159,7 +159,12 @@ class BookingView extends React.Component {
     goToSlotSelector(e) {
         e.preventDefault()
         e.stopPropagation()
-        this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true?type=${this.state.data.is_home_pickup ? 'home' : 'lab'}`)
+        if(this.state.data.lab && this.state.data.lab.is_thyrocare){
+            this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true?type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=true`)
+        }else{
+            this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true?type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=false`)
+        }
+        
     }
 
     navigateTo(where, e) {

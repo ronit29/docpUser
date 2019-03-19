@@ -8,9 +8,6 @@ class Insurance extends React.Component{
 
     constructor(props) {
         super(props)
-        this.state = {
-            selected_plan: ''
-        }
     }
 
     componentDidMount() {
@@ -18,11 +15,15 @@ class Insurance extends React.Component{
             
             if(resp.insurance && resp.insurance.length>0){
                 if(resp.insurance[0].plans && resp.insurance[0].plans.length >0){
-                    this.props.insurnaceData['insurance'][0].plans.map((result, i) => {
-                        if(result.is_selected){
-                            this.props.selectInsurancePlan('plan', result)
-                        }
-                    })
+                    let result = resp.insurance[0].plans.filter((x => x.is_selected))
+                    this.props.selectInsurancePlan('plan', result[0])
+                    // this.props.insurnaceData['insurance'][0].plans.map((result, i) => {
+                    //     if(result.is_selected){
+                    //         console.log('rishab')
+                    //         console.log(result)
+                    //         this.props.selectInsurancePlan('plan', result)
+                    //     }
+                    // })
                 }
             }
         })
