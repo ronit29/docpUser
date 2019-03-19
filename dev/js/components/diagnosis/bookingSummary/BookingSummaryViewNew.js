@@ -549,7 +549,7 @@ class BookingSummaryViewNew extends React.Component {
 
                 return <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
                     {
-                        is_corporate ? <span className="float-right fw-700">Free</span> : <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
+                        is_corporate ? <span className="float-right fw-700">Free</span> : twp.included_in_user_plan? <span className="float-right fw-700">Free <span className="test-mrp">₹ {parseFloat(twp.mrp)}</span> </span>: <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
                         </span>
                     }
                     <span className="test-name-item">{twp.test.name}</span></p>

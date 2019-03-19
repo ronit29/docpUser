@@ -18,6 +18,7 @@ class PackageTest extends React.Component {
         let { deal_price, mrp, pre_test_info } = test
         let test_package = test.package || []
         let test_info
+        console.log(test)
         if (test.test.show_details) {
             test_info= <span style={{'marginRight':'5px',marginTop:'2px',display:'inline-block'}} onClick={this.props.testInfo.bind(this,test.test.id,test.test.url)}>
                     <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
@@ -64,8 +65,11 @@ class PackageTest extends React.Component {
                     </button>
                 </div>
                 {
-                    test.hide_price ? "" : <span className="test-price text-sm">₹ {parseInt(deal_price)}<span className="test-mrp">₹ {parseInt(mrp)}</span></span>
+                 test.included_in_user_plan || test.hide_price ? "" : <span className="test-price text-sm">₹ {parseInt(deal_price)}<span className="test-mrp">₹ {parseInt(mrp)}</span></span>
 
+                }
+                {
+                    test.included_in_user_plan ? <span className="test-price text-sm">Free<span className="test-mrp">₹ {parseInt(mrp)}</span></span>:''
                 }
                 {/*                 
                 <div>

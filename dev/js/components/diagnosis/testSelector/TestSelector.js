@@ -203,6 +203,7 @@ class TestSelectorView extends React.Component {
                                                                 >
                                                                     {
                                                                         this.state.searchString == '' ? tests.map((test, i) => {
+                                                                            console.log(test)
                                                                             return <li key={i + "srt"}>
                                                                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                                                                     {test.test.name}
@@ -213,13 +214,19 @@ class TestSelectorView extends React.Component {
                                                                                     <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
                                                                                     <span className="checkmark" />
                                                                                 </label>
-                                                                                <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                                                                {
+                                                                                test.included_in_user_plan?
+                                                                                    <span className="test-price text-sm">Free<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                                                                :
+                                                                                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                                                                }
                                                                             </li>
                                                                         })
                                                                             : ''
                                                                     }
                                                                     {
                                                                         this.state.searchResults.map((test, i) => {
+                                                                            console.log(test)
                                                                             return <li key={i + "srt"}>
                                                                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                                                                     {test.test.name}
@@ -230,7 +237,12 @@ class TestSelectorView extends React.Component {
                                                                                     <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
                                                                                     <span className="checkmark" />
                                                                                 </label>
-                                                                                <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                                                                {
+                                                                                test.included_in_user_plan?
+                                                                                    <span className="test-price text-sm">Free <span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                                                                :
+                                                                                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                                                                }
                                                                             </li>
                                                                         })
                                                                     }

@@ -114,7 +114,11 @@ class LabTests extends React.Component {
                                     <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} testInfo={this.testInfo.bind(this)} />
                                     <span className="checkmark" />
                                 </label>
-                                <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                {
+                                    test.included_in_user_plan?
+                                        <span className="test-price text-sm">Free <span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                    :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                }
                             </li>)
                     } else {
                         unSelectedTests.push(test.hide_price
@@ -127,7 +131,12 @@ class LabTests extends React.Component {
                                     <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} testInfo={this.testInfo.bind(this,test.test.id,test.test.url)} />
                                     <span className="checkmark" />
                                 </label>
-                                <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                {
+                                    test.included_in_user_plan?
+                                        <span className="test-price text-sm">Free <span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                    :
+                                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                }
                             </li>)
                     }
                 }
