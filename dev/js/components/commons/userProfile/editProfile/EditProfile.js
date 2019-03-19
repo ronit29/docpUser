@@ -4,6 +4,8 @@ import BasicDetails from './basic'
 import MedialDetails from './medical'
 import Loader from '../../Loader'
 import WhatsAppOptinView from '../../WhatsAppOptin/WhatsAppOptinView.js'
+import SnackBar from 'node-snackbar'
+
 
 class EditProfile extends React.Component {
     constructor(props) {
@@ -111,7 +113,18 @@ class EditProfile extends React.Component {
                 this.state.profileData.whatsapp_optin = this.state.whatsapp_optin == null ?true: this.state.whatsapp_optin
                 this.props.editUserProfile(this.state.profileData, this.state.profileData.id, (err, data) => {
                     this.setState({ loading: false })
-                    this.props.history.go(-1)
+                    if(err){
+                        if(err.message){
+                            setTimeout(() => {
+                                SnackBar.show({ pos: 'bottom-center', text: err.message })
+                            }, 500)   
+                            return  
+                        }
+                    }
+
+                    this.props.history.go(-1)    
+                    
+                    
                 })
             }
         })
