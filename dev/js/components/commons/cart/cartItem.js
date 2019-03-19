@@ -81,7 +81,7 @@ class CartItem extends React.Component {
                 this.props.applyCoupons('1', { code: data.actual_data.coupon_code[0], coupon_id: data.data.coupons[0].id, is_cashback: data.data.coupons[0].is_cashback ? true : false }, data.data.coupons[0].id, data.actual_data.doctor)
             }
 
-            if (data.actual_data.payment_type >= 0) {
+            if (data.actual_data.payment_type >= 0 && data.actual_data.payment_type <= 2) {
                 this.props.select_opd_payment_type(data.actual_data.payment_type)
             }
         }
