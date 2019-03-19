@@ -190,14 +190,19 @@ class ClinicResultCard extends React.Component {
                                         enabled_for_online_booking && discount ? <span className="filtr-offer ofr-ribbon fw-700">{discount}% OFF</span> : ""
                                     }
 
-                                    <p className="fltr-prices">₹ {finalProcedureDealPrice}
-                                        {
-                                            finalProcedureMrp == finalProcedureDealPrice ? "" : <span className="fltr-cut-price">₹ {finalProcedureMrp}</span>
-                                        }
-                                    </p>
+                                    {
+                                        enabled_for_online_booking?
+                                        <p className="fltr-prices">₹ {finalProcedureDealPrice}
+                                            {
+                                                finalProcedureMrp == finalProcedureDealPrice ? "" : <span className="fltr-cut-price">₹ {finalProcedureMrp}</span>
+                                            }
+                                        </p>
+                                        :<p className="fltr-prices">₹ {finalProcedureMrp}</p>    
+                                    }
+                                    
                                     <div className="signup-off-container">
                                         {
-                                            discounted_price != deal_price ? <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span> : ""
+                                            enabled_for_online_booking && discounted_price != deal_price ? <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span> : ""
                                         }
                                         {
                                             !discounted_price && !is_procedure ?
