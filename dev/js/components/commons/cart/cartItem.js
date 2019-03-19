@@ -103,6 +103,10 @@ class CartItem extends React.Component {
             this.props.toggleDiagnosisCriteria('test', curr, true)
         }
 
+        if(data.actual_data && data.actual_data.pincode){
+            this.props.savePincode(data.actual_data.pincode)
+        }
+
         this.props.selectProfile(data.actual_data.profile)
         if (data.valid) {
             let time_slot = this.buildLabTimeSlot(data)

@@ -2,12 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 //import TimeSlotSelector from '../../commons/timeSlotSelector/index.js'
-import TimeSlotSelector from '../../commons/DateTimeSelector/index.js'
+import TimeSlotSelector from '../LabDateTimePicker.js'
 import Loader from '../../commons/Loader'
 
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
+const queryString = require('query-string');
 
 class AppointmentSlot extends React.Component {
     constructor(props) {
@@ -18,11 +19,10 @@ class AppointmentSlot extends React.Component {
             timeSlots: null,
             goback: this.props.location.search.includes('goback'),
             pickupType: this.props.location.search.includes('type=lab') ? 0 : 1,
-            today_min: null,
-            tomorrow_min: null,
-            today_max: null,
             enableProceed: false,
-            selectedTimeSlot: {}
+            selectedTimeSlot: {},
+            upcoming_slots: null,
+            is_thyrocare: false
         }
     }
 
@@ -53,13 +53,62 @@ class AppointmentSlot extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+
+        if(this.props.selectedSlot && this.props.selectedSlot.date){
+            this.getTimeSlots(new Date(this.props.selectedSlot.date))
+        }else{
+
+            const parsed = queryString.parse(this.props.location.search)
+            if(parsed.is_thyrocare && parsed.is_thyrocare.includes('true')){
+                    
+                let nextDate = new Date()
+                nextDate.setDate(new Date().getDate() + 1)
+                this.getTimeSlots(nextDate)
+                
+            }else{
+                this.getTimeSlots(new Date())
+            }
+                
+        }
+        
+
+    }
+
+    getTimeSlots(date){
+        //2325
         let selectedLab = this.props.match.params.id
-
-        this.props.getLabTimeSlots(selectedLab, this.state.pickupType, (data) => {
-            let { time_slots, today_min, tomorrow_min, today_max } = data
-            this.setState({ timeSlots: time_slots, today_min: today_min || null, tomorrow_min: tomorrow_min || null, today_max: today_max || null })
+        date = this.getFormattedDate(date)
+        let pincode = this.props.pincode
+        const parsed = queryString.parse(this.props.location.search)
+        if(parsed.is_thyrocare && parsed.is_thyrocare.includes('true')){
+            
+        }else{
+            pincode = ''
+            date = ''
+        }
+        this.props.getLabTimeSlots(selectedLab, this.state.pickupType, pincode||'', date, (data) => {
+            let { time_slots } = data
+            this.setState({ timeSlots: time_slots.time_slots ||null, upcoming_slots: time_slots.upcoming_slots|| null, is_thyrocare: time_slots.is_thyrocare})
         })
+    }
 
+    getFormattedDate(date){
+        var dd = date.getDate();
+
+        var mm = date.getMonth()+1; 
+        var yyyy = date.getFullYear();
+        if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        }
+
+        var today = yyyy+'-'+mm+'-'+dd
+        return today
     }
 
     enableProceed(enable, slot={}){
@@ -117,10 +166,11 @@ class AppointmentSlot extends React.Component {
                                                                 timeSlots={this.state.timeSlots}
                                                                 selectTimeSlot={this.selectTimeSlot.bind(this)}
                                                                 selectedSlot={this.props.selectedSlot}
-                                                                today_min={this.state.today_min}
-                                                                tomorrow_min={this.state.tomorrow_min}
-                                                                today_max={this.state.today_max}
                                                                 enableProceed = {this.enableProceed.bind(this)}
+                                                                getFormattedDate={this.getFormattedDate.bind(this)}
+                                                                getTimeSlots= {this.getTimeSlots.bind(this)}
+                                                                upcoming_slots= {this.state.upcoming_slots}
+                                                                is_thyrocare = {this.state.is_thyrocare}
                                                             /> : <Loader />
                                                     }
 
