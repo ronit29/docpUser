@@ -360,11 +360,11 @@ class SearchElasticView extends React.Component {
                                     /> : ''
                             }
 
-                            {
+                            {/* {
                                 this.props.selectedSearchType == 'lab' ?
                                     <button onClick={this.showLabs.bind(this, true)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Show Labs</button>
                                     : ''
-                            }
+                            } */}
 
                             {
                                 Object.values(this.state.currentTestType).length ?
@@ -394,7 +394,7 @@ class SearchElasticView extends React.Component {
 
                 </div>
                 {
-                    (this.props.selectedSearchType === 'opd' || this.props.selectedSearchType === 'procedures') && this.state.showFixedMobileFooter ?
+                    this.state.showFixedMobileFooter ?
                         <FixedMobileFooter {...this.props} /> : ''
                 }
             </section>
