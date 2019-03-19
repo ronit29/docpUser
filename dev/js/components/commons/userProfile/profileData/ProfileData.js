@@ -38,6 +38,15 @@ class ProfileData extends React.Component {
         window.location.href = `/lab/searchresults?test_ids=${test_ids.join(',')}&network_id=${network_id}`
     }
 
+    gotToInsurance(isUserLoginInsured){
+        if(isUserLoginInsured){
+            this.props.history.push('/insurance/certificate')   
+        }else{
+            this.props.generateInsuranceLead()
+            this.props.history.push('/insurance/insurance-plans')
+        }
+    }
+
     render() {
 
         let currentRoomId = this.props.USER.currentRoomId
@@ -180,7 +189,7 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
-                        <li onClick={()=> isUserLoginInsured?this.props.history.push('/insurance/certificate'):this.props.history.push('/insurance/insurance-plans')} className="my-profile-item lst-spcng">
+                        <li onClick={this.gotToInsurance.bind(this, isUserLoginInsured)} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} className="img-fluid" />

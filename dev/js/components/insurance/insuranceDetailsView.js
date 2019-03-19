@@ -50,8 +50,6 @@ class InsuranceInputView extends React.Component{
     	if(!this.state.saveMembers && Object.keys(props.selected_plan).length >0 && props.USER.defaultProfile && !props.currentSelectedInsuredMembersId.length){
     		// let loginUser = props.USER.selectedProfile
     		let loginUser = props.USER.defaultProfile
-    		console.log(loginUser)
-    		console.log('loginUser=Details')
     		let membersId = []
     		let isDefaultUser
     		if(props.USER.profiles && Object.keys(props.USER.profiles).length && props.USER.profiles[props.USER.defaultProfile]){
