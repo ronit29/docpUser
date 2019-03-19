@@ -59,6 +59,12 @@ class SearchPackages extends React.Component {
         router: () => null
     }
 
+    componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+    }
+
     render() {
         return (
             <SearchPackagesView {...this.props} forTaxSaver={this.state.forTaxSaver} forOrganicSearch={this.state.forOrganicSearch} />
@@ -127,7 +133,7 @@ const mapDispatchToProps = (dispatch) => {
         mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
         selectSearchType: (type) => dispatch(selectSearchType(type)),
         getFooterData: (url) => dispatch(getFooterData(url)),
-        getOfferList: (lat,long) => dispatch(getOfferList(lat,long)),
+        getOfferList: (lat, long) => dispatch(getOfferList(lat, long)),
         toggleOPDCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filter))
     }
 }
