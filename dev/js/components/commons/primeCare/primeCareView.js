@@ -157,7 +157,7 @@ class PrimeCareView extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <RightBar className="col-md-5 mb-3" />
+                        {/*<RightBar className="col-md-5 mb-3" />*/}
                     </div>
                 </section>
                 {this.state.showInfo?

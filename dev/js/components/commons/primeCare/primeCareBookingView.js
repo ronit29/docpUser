@@ -215,9 +215,11 @@ class PrimeCareBookingView extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <button onClick={this.proceed.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Pay Now</button>
+                            <button onClick={this.proceed.bind(this)} className="p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round text-lg sticky-btn">Pay Now
+                                <span>{this.props.data?`(₹ ${parseInt(this.props.data[0].deal_price)})`:''}</span>
+                            </button>
                         </div>
-                        <RightBar className="col-md-5 mb-3" />
+                        {/*<RightBar className="col-md-5 mb-3" />*/}
                     </div>
                 </section>
             </div>
