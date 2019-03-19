@@ -74,7 +74,7 @@ class PrimeCareView extends React.Component {
                 <section className="container container-top-margin" style={{ marginTop: '120px' }}>
                     <div className="row main-row parent-section-row">
                         <LeftBar />
-                        <div className="col-12 col-md-7 col-lg-7 center-column">
+                        <div className="col-12 center-column">
                             <div className="container-fluid">
                                 <div className="careMainContainer mrb-15">
                                     <h5 className="carePlanHeading">Choose a plan that’s right for your loved ones.</h5>

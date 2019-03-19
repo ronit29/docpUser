@@ -98,7 +98,7 @@ class PrimeCareBookingView extends React.Component {
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
-                        <div className="col-12 col-md-7 col-lg-7 center-column">
+                        <div className="col-12 center-column">
                             <div className="container-fluid">
                                 <div className="widget mrng-top-12 mrb-60">
                                     <div className="widget-content mrng-top-12">
