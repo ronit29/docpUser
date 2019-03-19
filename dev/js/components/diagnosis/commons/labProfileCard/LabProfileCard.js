@@ -245,7 +245,7 @@ class LabProfileCard extends React.Component {
 
                                 {
                                     is_insurance_applicable?
-                                    <div>Covered Under Insurance</div>
+                                    <div className="ins-val-bx ins-vl-bx">Covered Under Insurance</div>
                                     :''
                                 }
 

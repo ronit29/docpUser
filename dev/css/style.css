@@ -9159,3 +9159,28 @@ input[type=button]{
 .widget-content.padiing-srch-el.pad-srch{
 	padding: 10px 15px;
 }
+
+.ins-val-bx{
+	color: #f78361;
+    border: 1px dashed #f78361;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 17px;
+    padding: 3px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline;
+    position: relative;
+    top: 4px;
+}
+.ins-val-bx.ins-vl-bx{
+	display: inline-block;
+}
+.ins-val-bx.ins-vl-bx-o{
+	top: 0;
+}
+.ins-val-bx.shopng-cart-price{
+	position: absolute;
+    top: 6px;
+    right: 12px;
+}

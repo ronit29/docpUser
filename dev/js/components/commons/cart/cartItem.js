@@ -155,7 +155,7 @@ class CartItem extends React.Component {
 
                         {   
                             is_appointment_insured?
-                            <div className="shopng-cart-price">{insurance_message}</div>
+                            <div className="shopng-cart-price ins-val-bx">{insurance_message}</div>
                             :payment_type == 1 ? <div className="shopng-cart-price">
                                 {
                                     mrp ? <p>₹ {deal_price} <span className="shopng-cart-price-cut">₹ {mrp}</span></p> : ""

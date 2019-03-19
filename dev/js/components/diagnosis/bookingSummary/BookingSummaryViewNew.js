@@ -787,7 +787,6 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 <div className="payment-detail d-flex">
                                                                                     <p className="payment-content fw-500">Subtotal</p>
                                                                                     <p className="payment-content fw-500">&#8377; {total_price || 0}</p>
-                                                                                    <div>Covered Under Insurance</div>
                                                                                 </div>
                                                                             </div>
                                                                             :<div className="payment-summary-content">
@@ -834,7 +833,9 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 this.props.selectedAppointmentType == 'home' ? <h5 className="payment-amt-value fw-500">&#8377;  {total_price || 0}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {total_price || 0}</h5>
                                                                             }
 
+                                                                                   
                                                                         </div>
+                                                                         <div className="ins-val-bx ins-vl-bx-o">Covered Under Insurance</div>
 
                                                                         {
                                                                             this.state.is_cashback && this.props.disCountedLabPrice ? <div className="csh-back-applied-container">

@@ -294,7 +294,7 @@ class DoctorProfileCard extends React.Component {
                             <div className="col-5 mrt-10 text-right" style={{ paddingLeft: 8 }} >
                                 {
                                     is_insurance_applicable?
-                                    <div>Insurance Applicable</div>
+                                    <div className="ins-val-bx ins-vl-bx">Covered Under Insurance</div>
                                     :enabled_for_hospital_booking ?
                                         <p className="fltr-prices" style={{ marginTop: 4 }}>
                                             &#x20B9; {is_procedure ? finalProcedureDealPrice : discounted_price}

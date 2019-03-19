@@ -245,7 +245,7 @@ class LabTests extends React.Component {
 
                     {
                         is_insurance_applicable?
-                        <div>Covered Under Insurance</div>
+                        <div className="ins-val-bx ins-vl-bx-o">Covered Under Insurance</div>
                         :''
                     }
                     {
