@@ -35,8 +35,7 @@ class IpdView extends React.Component {
 		let self = this
 		if(window && document){
 			window.onscroll = function() {
-		    var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
-
+		    var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
 		    for (i in sections) {
 		    	if(self.refs[i]){
 		    		if ((self.refs[i].offsetTop +  headerHeight )<= scrollPosition) {
@@ -54,10 +53,9 @@ class IpdView extends React.Component {
 			
 			let headerHeight = 0
 			if(document.getElementsByClassName('stickyBar') && document.getElementsByClassName('stickyBar')[0]){
-				headerHeight = document.getElementById(type).offsetTop - 50 //document.getElementsByClassName('stickyBar')[0].offsetTop + 100
+				headerHeight = this.refs[type].offsetTop -45
 			}
 			this.setState({toggleTabType: type})
-			//elmnt.scrollIntoView(true)
 			window.scrollTo(0,headerHeight)
 
 		}

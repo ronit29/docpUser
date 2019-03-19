@@ -7331,7 +7331,7 @@ button.padding-btn-adjust{
 .ipd-section .hs-services li img{
     width: 20px;
     margin-right: 10px;
-    vertical-align: -1px;
+    vertical-align: -4px;
 }
 .ipd-section .hs-services li:last-child img{
     width: 10px;
@@ -7861,6 +7861,14 @@ a.btn-search.btn-cnte{
 .thumb-icon img{
 	width: 50px;
 }
+.bg-img-box{
+	height: 54px;
+    width: 54px;
+    background-size: cover;
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
 @media screen and (max-width: 991px){
 	.ipd-section .full-widget{
 		top: 89px;
@@ -8048,7 +8056,7 @@ a.btn-search.btn-cnte{
     	clear: unset;
     }
     .ipd-section .img-hospital{
-        margin-top: 0 px;
+        margin-top: 0px;
     }
    
 }

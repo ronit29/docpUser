@@ -351,6 +351,12 @@ class SearchResultsView extends React.Component {
             next = url + `?page=${curr_page + 1}`
         }
 
+        // do not set rel next/prev for non seoFriendly pages
+        if (!this.state.seoFriendly) {
+            next = ""
+            prev = ""
+        }
+
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
