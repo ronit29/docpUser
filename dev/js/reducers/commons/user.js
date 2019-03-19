@@ -398,7 +398,6 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state
             }
-            console.log(action)
             newState.isUserCared = action.payload
             return newState
         }
