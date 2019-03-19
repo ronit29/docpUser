@@ -567,10 +567,11 @@ class PatientDetailsNew extends React.Component {
                                                         />
                                                         <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError}
 
-                                                            timeSlots={this.props.timeSlots}
-                                                            selectTimeSlot={this.selectTimeSlot.bind(this)}
-                                                            doctor_leaves={this.props.doctor_leaves || []}
-                                                        />
+                                                                timeSlots={this.props.timeSlots}
+                                                                selectTimeSlot={this.selectTimeSlot.bind(this)}
+                                                                doctor_leaves={this.props.doctor_leaves || []}
+                                                                upcoming_slots = {this.props.upcoming_slots || null}
+                                                            />
                                                         <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} />
                                                         {
                                                             Object.values(selectedProcedures).length ?
