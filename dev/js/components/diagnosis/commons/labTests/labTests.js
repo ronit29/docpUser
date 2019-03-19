@@ -125,7 +125,7 @@ class LabTests extends React.Component {
                             </span>
                         }
 
-                        selectedTests.push(hide_price || is_insurance_applicable ? <li key={i + "srt"}>
+                        selectedTests.push(hide_price? <li key={i + "srt"}>
                             <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                 {test.test.name}
                                 <input type="checkbox" checked={test.is_selected ? true : false} />
@@ -139,7 +139,12 @@ class LabTests extends React.Component {
                                     <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} testInfo={this.testInfo.bind(this)} />
                                     <span className="checkmark" />
                                 </label>
-                                <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                {
+                                    is_insurance_applicable?
+                                    <span className="test-price text-sm">Free</span>
+                                    :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>    
+                                }
+                                
                             </li>)
                     } else {
                         unSelectedTests.push(test.hide_price
@@ -152,7 +157,11 @@ class LabTests extends React.Component {
                                     <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} testInfo={this.testInfo.bind(this,test.test.id,test.test.url)} />
                                     <span className="checkmark" />
                                 </label>
-                                <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                {
+                                    is_insurance_applicable?
+                                    <span className="test-price text-sm">Free</span>
+                                    :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                }
                             </li>)
                     }
                 }
