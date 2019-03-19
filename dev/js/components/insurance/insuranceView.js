@@ -123,7 +123,6 @@ class Insurance extends React.Component{
     }
 
 	render(){
-		console.log(this.state)
 		if(this.props.LOAD_INSURANCE){
 			return(
 				<div className="profile-body-wrap">

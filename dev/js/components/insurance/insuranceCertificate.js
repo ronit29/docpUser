@@ -1,6 +1,7 @@
 import React from 'react'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import ChatPanel from '../../components/commons/ChatPanel'
+import Loader from '../commons/Loader'
 
 class InsuranceCertificateView extends React.Component {
 	constructor(props) {
@@ -94,10 +95,10 @@ class InsuranceCertificateView extends React.Component {
 												<span className="fw-500" style={{ color: '#4fc243', verticalAlign: '-21px' }} >Active</span>
 											</div>
 										</div>
-										<div className="ins-flex mrb-10">
+										{/*<div className="ins-flex mrb-10">
 											<img src={ASSETS_BASE_URL + '/img/customer-icons/pdf.png'} />
 											<p className="fw-500 mr-0">Please find attached the certificate of insurance for the issued policy</p>
-										</div>
+										</div>*/}
 									</div>
 									<div className="ins-flex justify-content-between ins-date-row mrb-0">
 										<div className="ins-date text-center">
@@ -168,7 +169,10 @@ class InsuranceCertificateView extends React.Component {
 				</section>
 			</div>
 		} else {
-			return <div></div>
+			return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
+				<ProfileHeader />
+				<Loader/>
+			</div>
 		}
 
 	}
