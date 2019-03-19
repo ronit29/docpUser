@@ -28,18 +28,18 @@ class Insurance extends React.Component{
 			if(selectedId){
 				this.selectPlan(this.props.selected_plan)
 			}
-			// else{
-			// 	if(this.textInput){
-			// 		this.textInput.click()
-			// 	}
-			// }
+			else{
+				if(this.textInput){
+					this.textInput.click()
+				}
+			}
     }
     componentWillReceiveProps(props) {
     	let self = this
     	let selectedId = this.props.selected_plan?this.props.selected_plan.id:''
     	let newSelectedId = props.selected_plan?props.selected_plan.id:''
 			// if(selectedId){
-			// 	this.setState({ selected_plan_data: props.selected_plan , selected_plan_price: `(₹ ${props.selected_plan.amount})`, gst: 'Inclusive of 18% GST', is_checked: selectedId })
+			// 	this.setState({ selected_plan_data: props.selected_plan , selected_plan_price: `(₹ ${props.selected_plan.amount})`, is_checked: selectedId })
 			// }
 			// if(!newSelectedId){
 			// 	if(this.textInput){
@@ -51,7 +51,7 @@ class Insurance extends React.Component{
     	let plan = plan_to_toggle
     	plan_to_toggle.is_selected = true 
     	this.props.selectInsurancePlan('plan', plan)
-    	this.setState({ is_checked: plan_to_toggle.id, selected_plan_data: plan_to_toggle, selected_plan_price: `(₹ ${plan_to_toggle.amount})`, gst: 'Inclusive of 18% GST',toggle:this.state.toggle == 'two'?'one':'one' })
+    	this.setState({ is_checked: plan_to_toggle.id, selected_plan_data: plan_to_toggle, selected_plan_price: `(₹ ${plan_to_toggle.amount})`,toggle:this.state.toggle == 'two'?'one':'one' })
     }
     proceedPlan(){
     	let self = this
@@ -132,6 +132,7 @@ class Insurance extends React.Component{
     }
 
 	render(){
+		console.log(this.state)
 		if(this.props.LOAD_INSURANCE){
 			return(
 				<div className="profile-body-wrap">
@@ -154,7 +155,7 @@ class Insurance extends React.Component{
 											<tbody>
 												{
                                                     this.props.insurnaceData['insurance'][0].plans.map((result, i) => {
-                                                        return <tr id={result.id} key={i} onClick={this.selectPlan.bind(this, result)}>
+                                                        return <tr id={result.id} key={i} onClick={this.selectPlan.bind(this, result)} ref={result.adult_count == 2 && result.child_count == 2?(input) => { this.textInput = input }:'ref_0'}>
                                                         	<td>
                                                         	<label className="container-radio" htmlform={i} >{result.name}
 															 <input type="radio" name="gender" id={i} value={i} checked={this.state.is_checked?this.state.is_checked=== result.id:result.is_selected}/>
