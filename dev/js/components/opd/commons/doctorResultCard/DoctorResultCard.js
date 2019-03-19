@@ -135,7 +135,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, new_schema, enabled_for_online_booking, discounted_price, parent_url } = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, new_schema, enabled_for_online_booking, discounted_price, parent_url, average_rating } = this.props.details
 
         let enabled_for_hospital_booking = true
         let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
@@ -186,98 +186,57 @@ class DoctorProfileCard extends React.Component {
 
             enabled_for_hospital_booking = hospitals[0].enabled_for_online_booking
 
+            console.log('saudsadad')
+            console.log(this.props.details)
+
+            let rating = ''
+            if (average_rating) {
+                rating = (Math.ceil(this.props.ratings * 2)) / 2;
+            }
+
+            let ratingArray = []
+            for (let i = 0; i < Math.floor(rating); i++) {
+                ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-filled.svg'} className="img-cstm-docrating" />)
+            }
+
+            if (rating != Math.floor(rating)) {
+                ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/halfstar.svg'} className="img-cstm-docrating" />)
+            }
+
+            let emptyStars = Math.floor(5 - rating);
+            if (emptyStars) {
+                for (let i = 0; i < emptyStars; i++) {
+                    ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-empty.svg'} className="img-cstm-docrating" />)
+                }
+            }
+
             return (
 
-                <div className="cstm-docCard mb-3">
-                    <div className="cstm-docCard-content">
-                        <div className="row no-gutters">
-                            <div className="col-8">
-                                <div className="cstm-doc-details-container">
-                                    <div className="cstm-doc-img-container">
-                                        <div>
-                                            <img style={{ width: '75px' }} src="https://cdn.docprime.com/media/lab/images/90x60/b0dad6f1354821d9af4c5143cc2aeeaa_N5id4Pi.jpg" />
-                                            <div className="cstmLabStar">
-                                                <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
-                                                <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
-                                                <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
-                                                <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
-                                                <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
-                                                <p>12 Reviews</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="cstm-doc-content-container">
-                                        <h4 className="cstmDocName">Metropolis Healthcare Ltd - Gurgaon</h4>
-                                        <p>Liver Function </p>
-                                        <p><img className="cstmTimeImg" src={ASSETS_BASE_URL + "/img/watch-date.svg"} /> 8:00 AM - 12:00 PM </p>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div className="col-4">
-                                <p className="cstm-doc-price">Docprime Price</p>
-                                <p className="cst-doc-price">₹ 300 <span className="cstm-doc-cut-price">₹ 500</span></p>
-                                <p className="cstm-cpn">50% Off (includes Coupon)</p>
-                                <button className="cstm-book-btn">Book Now</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="cstmCardFooter">
-                        <div className="cstmfooterContent">
-                            <p><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />Cloud Nine Health Super Clinic & 2 more </p>
-                            <p className="mb-rmv"><img style={{ width: '10px', marginLeft: '3px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />5818, Near Super Mart I, Aster Avenue DLF Phase IV, Gur </p>
-                        </div>
-                        <div className="cstmDocLoc">
-                            <p className=""><img src={ASSETS_BASE_URL + "/img/cstmdist.svg"} /> 1.5Km</p>
-                        </div>
-                    </div>
-                    <div className="showBookTestListContainer mt-rmv">
-                        <div className="showBookTestList bg-white-main">
-                            <ul>
-                                <li>
-                                    <p className="showBookTestListImg">
-                                        <img src="/assets/img/new-loc-ico.svg" style={{ marginRight: '8px', width: "12px" }} />Sohna Road Gurgaon | 5 km </p>
-                                    <button className="showBookTestListBtn">Book Now</button>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="filtr-card-footer bg-white-main" style={{ cursor: 'pointer', borderTop: '1px solid #e8e8e8' }}>
-                            <div style={{ paddingRight: "8px" }}>
-                                <p className="appBaseColor" style={{ marginLeft: '0px' }}>Show less</p>
-                            </div>
-                            <div className="text-right" style={{ marginLeft: 'auto' }}>
-                                <img style={{ margin: '5px' }} className="acrd-show" src="/assets/img/customer-icons/dropdown-arrow.svg" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                // doctor card design
                 // <div className="cstm-docCard mb-3">
                 //     <div className="cstm-docCard-content">
                 //         <div className="row no-gutters">
                 //             <div className="col-8">
-                //                 <h4 className="cstmDocName">Dr. Vandana Kumar Singh</h4>
                 //                 <div className="cstm-doc-details-container">
                 //                     <div className="cstm-doc-img-container">
                 //                         <div>
-                //                             <img class="img-round" src="https://cdn.docprime.com/media/doctor/images/80x80/7ac60cbb55d5f3d12f6a63361adf017c.jpg" alt="Dr. Pradip Sharma" title="Dr. Pradip Sharma" />
-                //                             <p className="cstm-varify">Verified</p>
+                //                             <img style={{ width: '75px' }} src="https://cdn.docprime.com/media/lab/images/90x60/b0dad6f1354821d9af4c5143cc2aeeaa_N5id4Pi.jpg" />
+                //                             <div className="cstmLabStar">
+                //                                 <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
+                //                                 <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
+                //                                 <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
+                //                                 <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
+                //                                 <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
+                //                                 <p>12 Reviews</p>
+                //                             </div>
                 //                         </div>
                 //                     </div>
                 //                     <div className="cstm-doc-content-container">
-                //                         <p>MD, General Physician</p>
-                //                         <p>12 Years Experience</p>
+                //                         <h4 className="cstmDocName">Metropolis Healthcare Ltd - Gurgaon</h4>
+                //                         <p>Liver Function </p>
                 //                         <p><img className="cstmTimeImg" src={ASSETS_BASE_URL + "/img/watch-date.svg"} /> 8:00 AM - 12:00 PM </p>
-                //                         <p><img className="cstmTimeImg" src={ASSETS_BASE_URL + "/img/watch-date.svg"} /> 1:00 PM - 7:00 PM </p>
                 //                     </div>
                 //                 </div>
-                //                 <div className="cstm-doc-rtng"><img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
-                //                     <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
-                //                     <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
-                //                     <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
-                //                     <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
-                //                     <span>12 Reviews</span>
-                //                 </div>
+
                 //             </div>
                 //             <div className="col-4">
                 //                 <p className="cstm-doc-price">Docprime Price</p>
@@ -296,7 +255,108 @@ class DoctorProfileCard extends React.Component {
                 //             <p className=""><img src={ASSETS_BASE_URL + "/img/cstmdist.svg"} /> 1.5Km</p>
                 //         </div>
                 //     </div>
+                //     <div className="showBookTestListContainer mt-rmv">
+                //         <div className="showBookTestList bg-white-main">
+                //             <ul>
+                //                 <li>
+                //                     <p className="showBookTestListImg">
+                //                         <img src="/assets/img/new-loc-ico.svg" style={{ marginRight: '8px', width: "12px" }} />Sohna Road Gurgaon | 5 km </p>
+                //                     <button className="showBookTestListBtn">Book Now</button>
+                //                 </li>
+                //             </ul>
+                //         </div>
+                //         <div className="filtr-card-footer bg-white-main" style={{ cursor: 'pointer', borderTop: '1px solid #e8e8e8' }}>
+                //             <div style={{ paddingRight: "8px" }}>
+                //                 <p className="appBaseColor" style={{ marginLeft: '0px' }}>Show less</p>
+                //             </div>
+                //             <div className="text-right" style={{ marginLeft: 'auto' }}>
+                //                 <img style={{ margin: '5px' }} className="acrd-show" src="/assets/img/customer-icons/dropdown-arrow.svg" />
+                //             </div>
+                //         </div>
+                //     </div>
                 // </div>
+                // doctor card design
+                <div className="cstm-docCard mb-3">
+                    <div className="cstm-docCard-content">
+                        <div className="row no-gutters">
+                            <div className="col-8">
+                                <h4 className="cstmDocName">{display_name}</h4>
+                                <div className="cstm-doc-details-container">
+                                    <div className="cstm-doc-img-container">
+                                        <div>
+                                            <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds" style={{ width: 52, height: 52 }} >
+                                                <img className="img-round" src={thumbnail} alt={display_name} title={display_name} />
+                                            </InitialsPicture>
+                                            {
+                                                is_license_verified && enabled_for_online_booking ?
+                                                    <p className="cstm-varify">Verified</p> : ''
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className="cstm-doc-content-container">
+                                        <p>{this.getQualificationStr(general_specialization || [])}</p>
+                                        {
+                                            experience_years ?
+                                                <p>{experience_years} Years Experience</p> : ''
+                                        }
+                                        {
+                                            hospital && hospital.timings && Object.keys(hospital.timings).length ?
+                                                hospital.timings[Object.keys(hospital.timings)[0]].map((time, index) => {
+                                                    return <p key={index}>
+                                                        <img className="cstmTimeImg" src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
+                                                        {time}
+                                                    </p>
+                                                }) : ''
+                                        }
+                                    </div>
+                                </div>
+                                {
+                                    rating ?
+                                        <div className="cstm-doc-rtng">
+                                            {ratingArray}
+                                            <span>{rating}</span>
+                                        </div> : ''
+                                }
+                            </div>
+                            <div className="col-4">
+                                <p className="cstm-doc-price">Docprime Price</p>
+                                {
+                                    discounted_price && discounted_price != mrp ?
+                                        <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+                                        : mrp && mrp != 0 ?
+                                            <p className="cst-doc-price">₹ {mrp}</p> : ''
+                                }
+                                {
+                                    deal_price != discounted_price && enabled_for_hospital_booking ?
+                                        <p className="cstm-cpn">50% Off (includes Coupon)</p> : ''
+                                }
+                                {
+                                    enabled_for_hospital_booking ?
+                                        <button className="cstm-book-btn">Book Now</button>
+                                        :
+                                        <button className="cstm-book-btn">View Contact</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div className="cstmCardFooter">
+                        <div className="cstmfooterContent">
+                            <p><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />{hospital.hospital_name}
+                                {
+                                    hospital_count > 1 ?
+                                        <span> &amp; {hospital_count - 1} More </span> : ''
+                                }
+                            </p>
+                            <p className="mb-rmv">
+                                <img style={{ width: '10px', marginLeft: '3px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />
+                                {hospital.short_address}
+                            </p>
+                        </div>
+                        <div className="cstmDocLoc">
+                            <p className=""><img src={ASSETS_BASE_URL + "/img/cstmdist.svg"} /> {Distance}Km</p>
+                        </div>
+                    </div>
+                </div>
                 // doctor card design
 
 
