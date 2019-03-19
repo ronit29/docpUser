@@ -120,7 +120,7 @@ class LabView extends React.Component {
                                     <div className="static-pkg-top-column" style={{ position: 'relative' }}>
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">
-                                                46% OFF + ₹ 100
+                                                45% OFF + ₹ 100
                                                 OFF Coupon
                                                                 </p>
                                         </div>

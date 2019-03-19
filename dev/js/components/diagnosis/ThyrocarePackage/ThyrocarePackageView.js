@@ -110,7 +110,7 @@ class ThyrocarePackageView extends React.Component {
                                     <div className="static-pkg-top-column">
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">
-                                                20% OFF + ₹ 100
+                                                29% OFF + ₹ 100
                                                 OFF Coupon
                                                                 </p>
                                         </div>
@@ -122,7 +122,7 @@ class ThyrocarePackageView extends React.Component {
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn" style={{ position: 'relative' }} >
                                         <div className="stc-offr-cpn">
-                                            <p className="stc-off-para">20% OFF + ₹ 100 OFF Coupon</p>
+                                            <p className="stc-off-para">30% OFF + ₹ 100 OFF Coupon</p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=12213" onClick={(e) => {
@@ -138,7 +138,7 @@ class ThyrocarePackageView extends React.Component {
                                     <div className="static-pkg-top-column">
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">
-                                                20% OFF + ₹ 100
+                                                25% OFF + ₹ 100
                                                 OFF Coupon
                                                                 </p>
                                         </div>
