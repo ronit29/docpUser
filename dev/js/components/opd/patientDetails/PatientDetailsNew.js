@@ -329,8 +329,12 @@ class PatientDetailsNew extends React.Component {
             profileData['whatsapp_optin']= this.state.whatsapp_optin
             this.props.editUserProfile(profileData, profileData.id)
         }
-        if (this.props.disCountedOpdPrice && this.props.payment_type == 1 && !is_selected_user_insured) {
+        if (this.props.disCountedOpdPrice && this.props.payment_type == 1 && !is_insurance_applicable) {
             postData['coupon_code'] = [this.state.couponCode] || []
+        }
+
+        if(is_insurance_applicable){
+            postData['payment_type'] = 1
         }
 
         let procedure_ids = []
