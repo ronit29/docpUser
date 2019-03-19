@@ -10,9 +10,9 @@ import PrimeCareView from '../../components/commons/primeCare/primeCareView.js'
 class primeCare extends React.Component {
     constructor(props) {
         super(props)
-        if (!STORAGE.checkAuth()) {
-            this.props.history.replace(`/login?callback=/prime/plans`)
-        }
+        // if (!STORAGE.checkAuth()) {
+        //     this.props.history.replace(`/login?callback=/prime/plans`)
+        // }
         this.state = {
             data: '',
             feature_data:{}
