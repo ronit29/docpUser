@@ -32,6 +32,7 @@ class InsuranceSelf extends React.Component{
     	    town_code:'',
     	    selectedDateSpan:new Date(),
     	    no_lname:false,
+    	    isDisable:false
 
         }
     	this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,18 +40,21 @@ class InsuranceSelf extends React.Component{
     	this.handleEmail = this.handleEmail.bind(this);
     }
     componentDidMount(){
+    	let profile 
     	if(this.props.self_data_values[this.props.USER.defaultProfile]){
-    		this.setState({...this.props.self_data_values[this.props.USER.defaultProfile]},()=>{
-	    		if(this.state.gender == 'm'){
-					this.setState({title:'mr.'},()=>{
-						 this.handleSubmit()
-					})
-				}else if(this.state.gender == 'f'){
-					this.setState({title:'mrs.'},()=>{
-						 this.handleSubmit()
-					})
-				}
-	    	})
+    		profile= Object.assign({}, this.props.self_data_values[this.props.USER.defaultProfile])
+    		this.getUserDetails(profile)
+ 			//this.setState({...this.props.self_data_values[this.props.USER.defaultProfile]},()=>{
+	    		//if(this.state.gender == 'm'){
+				// 	this.setState({title:'mr.'},()=>{
+				// 		 this.handleSubmit()
+				// 	})
+				// }else if(this.state.gender == 'f'){
+				// 	this.setState({title:'mrs.'},()=>{
+				// 		 this.handleSubmit()
+				// 	})
+				// }
+			//})
     	}
     }
     componentWillReceiveProps(props) {
@@ -81,95 +85,49 @@ class InsuranceSelf extends React.Component{
 		    	}else{
 		    		this.setState({profile_flag:false})
 		    		let new_profile = props.USER.profiles[props.USER.defaultProfile]
-		    		newName =  new_profile.name.split(" ")
-		    		if(newName.length == 2){
-						this.setState({name:new_profile.isDummyUser?'':newName[0],last_name:new_profile.isDummyUser?'':newName[1],gender:new_profile.isDummyUser?'':new_profile.gender,email:new_profile.isDummyUser?'':new_profile.email,dob:new_profile.isDummyUser?'':new_profile.dob,id:new_profile.isDummyUser?0:new_profile.id},() =>{
-							if(new_profile.gender == 'm'){
-								this.setState({title:'mr.'})
-							}else if(new_profile.gender == 'f'){
-								if(this.props.selected_plan.adult_count== 2){
-									this.setState({title:'mrs.'})	
-								}else{
-									this.setState({title:'miss'})
-								}	
-							}
-							this.handleSubmit()
-						})
-					}else if(newName.length ==3){
-						this.setState({name:new_profile.isDummyUser?'':newName[0],last_name:new_profile.isDummyUser?'':newName[2],middle_name:new_profile.isDummyUser?'':newName[1],gender:new_profile.isDummyUser?'':new_profile.gender,email:new_profile.isDummyUser?'':new_profile.email,dob:new_profile.isDummyUser?'':new_profile.dob,id:new_profile.isDummyUser?0:new_profile.id},() =>{
-							if(new_profile.gender == 'm'){
-								this.setState({title:'mr.'})
-							}else if(new_profile.gender == 'f'){
-								if(this.props.selected_plan.adult_count== 2){
-									this.setState({title:'mrs.'})	
-								}else{
-									this.setState({title:'miss'})
-								}
-							}
-							this.handleSubmit()
-						})
-					}else{
-						this.setState({name:new_profile.isDummyUser?'':new_profile.name,gender:new_profile.isDummyUser?'':new_profile.gender,email:new_profile.isDummyUser?'':new_profile.email,dob:new_profile.isDummyUser?'':new_profile.dob,id:new_profile.isDummyUser?0:new_profile.id},()=>{
-							if(new_profile.gender == 'm'){
-								this.setState({title:'mr.'})
-							}else if(new_profile.gender == 'f'){
-								if(this.props.selected_plan.adult_count== 2){
-									this.setState({title:'mrs.'})	
-								}else{
-									this.setState({title:'miss'})
-								}
-							}
-							this.handleSubmit()
-						})
-					}
+					this.getUserDetails(new_profile)
 		    	}
 	    	}else if(props.USER.profiles[props.USER.defaultProfile]){
 		    	this.setState({profile_flag:false})
 		    	let profile  = Object.assign({}, props.USER.profiles[props.USER.defaultProfile])
 					newName =  profile.name.split(" ")
-					if(newName.length == 2){
-						this.setState({name:profile.isDummyUser?'':newName[0],last_name:profile.isDummyUser?'':newName[1],gender:profile.isDummyUser?'':profile.gender,email:profile.isDummyUser?'':profile.email,dob:profile.isDummyUser?'':profile.dob,id:profile.isDummyUser?0:profile.id},() =>{
-							if(profile.gender == 'm'){
-								this.setState({title:'mr.'})
-							}else if(profile.gender == 'f'){
-								if(this.props.selected_plan.adult_count== 2){
-									this.setState({title:'mrs.'})	
-								}else{
-									this.setState({title:'miss'})
-								}	
-							}
-							this.handleSubmit()
-						})
-					}else if(newName.length ==3){
-						this.setState({name:profile.isDummyUser?'':newName[0],last_name:profile.isDummyUser?'':newName[2],middle_name:profile.isDummyUser?'':newName[1],gender:profile.isDummyUser?'':profile.gender,email:profile.isDummyUser?'':profile.email,dob:profile.isDummyUser?'':profile.dob,id:profile.isDummyUser?0:profile.id},() =>{
-							if(profile.gender == 'm'){
-								this.setState({title:'mr.'})
-							}else if(profile.gender == 'f'){
-								if(this.props.selected_plan.adult_count== 2){
-									this.setState({title:'mrs.'})	
-								}else{
-									this.setState({title:'miss'})
-								}
-							}
-							this.handleSubmit()
-						})
-					}else{
-						this.setState({name:profile.isDummyUser?'':profile.name,gender:profile.isDummyUser?'':profile.gender,email:profile.isDummyUser?'':profile.email,dob:profile.isDummyUser?'':profile.dob,id:profile.isDummyUser?0:profile.id},()=>{
-							if(profile.gender == 'm'){
-								this.setState({title:'mr.'})
-							}else if(profile.gender == 'f'){
-								if(this.props.selected_plan.adult_count== 2){
-									this.setState({title:'mrs.'})	
-								}else{
-									this.setState({title:'miss'})
-								}
-							}
-							this.handleSubmit()
-						})
-					}
+					this.getUserDetails(profile)
     		}	    	
     	}
     }
+    getUserDetails(profile){
+		let newName=[]
+	    newName =  profile.name.split(" ")
+	    if(newName.length == 2){
+	    	this.setState({
+			name:profile.isDummyUser?'':newName[0],
+			last_name:profile.isDummyUser?'':newName[1]})
+	    }else if(newName.length ==3){
+	    	this.setState({name:profile.isDummyUser?'':newName[0],
+			last_name:profile.isDummyUser?'':newName[2],
+			middle_name:profile.isDummyUser?'':newName[1]})
+	    }else{
+	    	this.setState({name:profile.isDummyUser?'':profile.name})
+	    }
+
+	    this.setState({
+			gender:profile.isDummyUser?'':profile.gender,
+			email:profile.isDummyUser?'':profile.email,
+			dob:profile.isDummyUser?'':profile.dob,
+			id:profile.isDummyUser?0:profile.id},() =>{
+			if(profile.gender == 'm'){
+				this.setState({title:'mr.'})
+			}else if(profile.gender == 'f'){
+				if(this.props.selected_plan.adult_count== 2){
+					this.setState({title:'mrs.'})	
+				}else{
+					this.setState({title:'miss'})
+				}	
+			}
+			this.handleSubmit()
+		})
+
+	}
     handleChange(field,event) { 
     	this.setState({
     		[event.target.getAttribute('data-param')] : event.target.value
