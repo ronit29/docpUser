@@ -24,6 +24,9 @@ class Insurance extends React.Component{
                 <InsuranceComponent {...this.props}/>
             )
         }else{
+            if(this.props.insurnaceData.certificate){
+                this.props.history.push('/insurance/certificate')
+            }
             return(
             <div className="profile-body-wrap">
                 <ProfileHeader />

@@ -9,8 +9,16 @@ class InsuranceCertificateView extends React.Component {
 
 		}
 	}
+
 	render() {
 		if (Object.keys(this.props.get_insured_profile).length > 0) {
+			let primaryMember
+			let FamilyMembers
+			{
+				primaryMember = this.props.get_insured_profile.insured_members.filter(x=>x.relation=='self')
+				FamilyMembers = this.props.get_insured_profile.insured_members.filter(x=>x.relation !='self')
+				
+			}
 			var purchase_date = new Date(this.props.get_insured_profile.purchase_date)
 			let purchase_time = purchase_date.toTimeString()
 			let purchaseTime = purchase_time.split(" ")
@@ -128,12 +136,21 @@ class InsuranceCertificateView extends React.Component {
 													<p className="ins-gr-text fw-500">Covered Members:</p>
 												</div>
 												<div className="col-6 ins-details-div">
-													{Object.entries(this.props.get_insured_profile.insured_members).map(function ([key, value]) {
-														return  <p key={key} style={{ 'textTransform': 'capitalize' }} className="ins-bl-text fw-500">
+													{
+														primaryMember && primaryMember.length > 0?
+															<p key={0} style={{ 'textTransform': 'capitalize' }} className="ins-bl-text fw-500">
+																<span className="fw-400">{primaryMember[0].relation} : - </span>
+																{primaryMember[0].first_name} {primaryMember[0].middle_name} {primaryMember[0].last_name}
+																</p>
+														:''
+													}
+													
+														{Object.entries(FamilyMembers).map(function ([key, value]) {
+															return  <p key={key} style={{ 'textTransform': 'capitalize' }} className="ins-bl-text fw-500">
 																<span className="fw-400">{value.relation} : - </span>
 																{value.first_name} {value.middle_name} {value.last_name}
 																</p>
-													}, this)}
+														})}
 												</div>
 											</div>
 										</div>
