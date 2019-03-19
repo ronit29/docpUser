@@ -203,7 +203,7 @@ class CriteriaElasticSearchView extends React.Component {
 
             } else if (criteria.action.param.includes('procedure_ids')) {
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value ? criteria.action.value[0] : '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
 
@@ -212,7 +212,7 @@ class CriteriaElasticSearchView extends React.Component {
 
             } else if (criteria.action.param.includes('specializations')) {
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value ? criteria.action.value[0] : '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
 

@@ -12,7 +12,8 @@ class PatientDetails extends React.Component {
         this.state = {
             timeSlots: null,
             doctor_leaves: [],
-            DATA_FETCH: false
+            DATA_FETCH: false,
+            upcoming_slots: null
         }
     }
 
@@ -38,7 +39,7 @@ class PatientDetails extends React.Component {
         }else{
             
             this.props.getTimeSlots(this.props.match.params.id, this.props.match.params.clinicId, (timeSlots) => {
-                this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, DATA_FETCH: true })
+                this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, DATA_FETCH: true, upcoming_slots: timeSlots.upcoming_slots })
             })   
         }
 

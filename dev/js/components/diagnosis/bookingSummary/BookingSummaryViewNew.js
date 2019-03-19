@@ -16,7 +16,9 @@ import CancelationPolicy from './cancellation.js'
 import PaymentSummary from './paymentSummary.js'
 import GTM from '../../../helpers/gtm.js'
 import BookingError from '../../opd/patientDetails/bookingErrorPopUp.js';
+import PincodePopup from './PincodePopup.js'
 import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
+import PincodeErrorPopup from './PincodeErrorPopup.js'
 
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
@@ -39,8 +41,11 @@ class BookingSummaryViewNew extends React.Component {
             profileDataFilled: true,
             is_cashback: false,
             use_wallet: true,
+            showPincodePopup: false,
             cart_item: parsed.cart_item,
+            pincode: this.props.pincode,
             whatsapp_optin: true,
+            pincodeMismatchError: false
         }
     }
 
@@ -203,8 +208,19 @@ class BookingSummaryViewNew extends React.Component {
     navigateTo(where, e) {
         switch (where) {
             case "time": {
-                this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true`)
-                return
+                if(this.state.pincode || (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].lab && !this.props.LABS[this.state.selectedLab].lab.is_thyrocare) ){
+                    if(this.props.LABS[this.state.selectedLab].lab.is_thyrocare){
+                        this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true`)
+                    }else{
+                        this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false`)
+                    }
+                    
+                    return    
+                }else{
+                    this.setState({showPincodePopup: true})
+                    return
+                }
+                
             }
 
             case "patient": {
@@ -232,7 +248,7 @@ class BookingSummaryViewNew extends React.Component {
         switch (this.props.selectedAppointmentType) {
             case "lab": {
                 return <div>
-                    <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
+                    <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.state.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')}/>
                     <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} />
                 </div>
             }
@@ -244,7 +260,7 @@ class BookingSummaryViewNew extends React.Component {
                             <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
                             : ''
                     }
-                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} />
+                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.state.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')}/>
                     <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} />
                 </div>
             }
@@ -289,6 +305,24 @@ class BookingSummaryViewNew extends React.Component {
             return
         }
 
+        if(addressPicked && this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].lab && this.props.LABS[this.state.selectedLab].lab.is_thyrocare){
+
+            let validateAddressPincode = false
+            if(this.props.address && this.props.address.length){
+                let selectedAddressPincode = this.props.address.filter(x=>x.id==this.props.selectedAddress).map(x=>x.pincode)
+
+                if(selectedAddressPincode.length && parseInt(selectedAddressPincode[0])==parseInt(this.state.pincode)){
+                    validateAddressPincode = true
+                }
+            }
+
+            if(!validateAddressPincode){
+                this.setState({pincodeMismatchError: true})
+                window.scrollTo(0, 0)
+                return
+            }
+        }
+
         if (!this.state.profileDataFilled) {
             SnackBar.show({ pos: 'bottom-center', text: "Please fill the info" });
             return
@@ -321,6 +355,20 @@ class BookingSummaryViewNew extends React.Component {
         if (this.props.disCountedLabPrice) {
             postData['coupon_code'] = [this.state.couponCode] || []
         }
+
+        //Post Pincode & thyrocare data
+        if(this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].lab && this.props.LABS[this.state.selectedLab].lab.is_thyrocare){
+
+            let pincode = this.state.pincode
+            postData['pincode'] = pincode.toString() || ""
+            postData['is_thyrocare'] = true
+        
+        }else{
+            postData['pincode'] = ""
+            postData['is_thyrocare'] = false
+            
+        }
+
 
         if (addToCart) {
             let data = {
@@ -438,6 +486,24 @@ class BookingSummaryViewNew extends React.Component {
         return `Confirm Booking`
     }
 
+    setPincode(pincode){
+        this.props.savePincode(pincode)
+        let slot = { time: {} }
+        this.props.selectLabTimeSLot(slot, false)
+        this.setState({showPincodePopup: false, pincode: pincode}, ()=>{
+            this.navigateTo('time')    
+        })
+    }
+
+    clickPincodeErrrorPopUp(type){
+        if(type==1){
+            this.setState({pincodeMismatchError: false, showPincodePopup: true}, ()=>{    
+            })       
+        }else{
+            this.props.history.push('/user/address?pick=true')
+        }
+    }
+    
     goToProfile(id, url){
         if (url) {
             this.props.history.push(`/${url}`)
@@ -748,6 +814,17 @@ class BookingSummaryViewNew extends React.Component {
                                                 </div>
                                             </div>
                                         </section>
+                                        {
+                                            this.state.showPincodePopup?
+                                            <PincodePopup setPincode= {this.setPincode.bind(this)} toggle={this.toggle.bind(this, 'showPincodePopup')}/>
+                                            :''
+                                        }
+
+                                        {
+                                            this.state.pincodeMismatchError?
+                                            <PincodeErrorPopup clickPopUp={this.clickPincodeErrrorPopUp.bind(this)} toggle={this.toggle.bind(this, 'pincodeMismatchError')}/>
+                                            :''
+                                        }
 
                                     </div> : <Loader />
                             }

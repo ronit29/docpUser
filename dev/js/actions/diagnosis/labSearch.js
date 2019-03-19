@@ -172,8 +172,8 @@ export const getLabByUrl = (lab_url, testIds = [], cb) => (dispatch) => {
 	})
 }
 
-export const getLabTimeSlots = (labId, pickup, callback) => (dispatch) => {
-	let url = `/api/v1/diagnostic/labtiming?lab=${labId}&pickup=${pickup}`
+export const getLabTimeSlots = (labId, pickup, pincode, date, callback) => (dispatch) => {
+	let url = `/api/v1/diagnostic/labtiming_new?lab=${labId}&pickup=${pickup}&pincode=${pincode}&date=${date}`
 	return API_GET(url).then(function (response) {
 		callback(response)
 	}).catch(function (error) {
@@ -427,7 +427,8 @@ export const getLabSearchIdResults = (searchId, response) => (dispatch) => {
 
 }
 
-export const setPackageId = (package_id, isHomePage) => (dispatch) => {
+export const setPackageId = (package_id, isHomePage) =>(dispatch) =>{
+
 	dispatch({
 		type: TOGGLE_PACKAGE_ID,
 		package_id: package_id,
