@@ -36,17 +36,18 @@ class AppointmentSlot extends React.Component {
 const mapStateToProps = (state) => {
 
     let LABS = state.LABS
+    let { pincode } = state.SEARCH_CRITERIA_LABS
     let { selectedSlot } = state.LAB_SEARCH
 
     return {
-        LABS, selectedSlot
+        LABS, selectedSlot, pincode
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         getLabById: (labId) => dispatch(getLabById(labId)),
-        getLabTimeSlots: (labId, pickup, callback) => dispatch(getLabTimeSlots(labId, pickup, callback)),
+        getLabTimeSlots: (labId, pickup, pincode, date, callback) => dispatch(getLabTimeSlots(labId, pickup, pincode, date, callback)),
         selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule))
     }
 }
