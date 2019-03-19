@@ -134,7 +134,7 @@ class PrimeCareView extends React.Component {
                                         Object.entries(this.props.feature_data).map(function ([key, value]) {
                                             let feature_detail = self.props.data.feature_details.filter(x => x.id == key)
                                             return (<div className="careCheckContainers" key={key}>
-                                                        <h4 className="carechkHeading">{feature_detail[0].name} {feature_detail[0].test.show_detail_in_plan?
+                                                        <h4 className="carechkHeading">{feature_detail[0].name} {feature_detail[0].test.show_details?
                                                             <span style={{ marginTop: '4px', display: 'inline-block',cursor:'pointer' }} onClick={self.testInfo.bind(self, feature_detail[0].test)}>
                                                                 <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                                             </span>:''}
