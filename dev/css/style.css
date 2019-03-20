@@ -7035,8 +7035,17 @@ button.cstm-book-btn {
     width: 100%;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    margin-top: 5px;
+}
+button.cstm-view-btn {
+    background: #ffffff;
+    width: 100%;
+    color: #f78631;
+    border: 1px solid #f78631;
+    border-radius: 5px;
     padding: 8px;
     margin-top: 5px;
 }
@@ -7097,6 +7106,9 @@ button.cstm-book-btn {
     font-size: 12px;
 	margin: 2px 0;
 	font-weight: 500;
+}
+.cstm-lab-time-container p{
+	display: inline;
 }
 .cstmTimeImg{
 	width: 14px;

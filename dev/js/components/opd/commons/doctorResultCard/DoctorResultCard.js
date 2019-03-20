@@ -186,9 +186,6 @@ class DoctorProfileCard extends React.Component {
 
             enabled_for_hospital_booking = hospitals[0].enabled_for_online_booking
 
-            console.log('saudsadad')
-            console.log(this.props.details)
-
             let rating = ''
             if (average_rating) {
                 rating = (Math.ceil(this.props.ratings * 2)) / 2;
@@ -210,77 +207,23 @@ class DoctorProfileCard extends React.Component {
                 }
             }
 
+            let offPercent = ''
+            if (mrp && discounted_price && (discounted_price < mrp)) {
+                offPercent = parseInt(((mrp - discounted_price) / mrp) * 100);
+            }
+
             return (
-
-                // <div className="cstm-docCard mb-3">
-                //     <div className="cstm-docCard-content">
-                //         <div className="row no-gutters">
-                //             <div className="col-8">
-                //                 <div className="cstm-doc-details-container">
-                //                     <div className="cstm-doc-img-container">
-                //                         <div>
-                //                             <img style={{ width: '75px' }} src="https://cdn.docprime.com/media/lab/images/90x60/b0dad6f1354821d9af4c5143cc2aeeaa_N5id4Pi.jpg" />
-                //                             <div className="cstmLabStar">
-                //                                 <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
-                //                                 <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
-                //                                 <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
-                //                                 <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
-                //                                 <img className="img-cstm-docrating" src={ASSETS_BASE_URL + "/img/staryellow.svg"} />
-                //                                 <p>12 Reviews</p>
-                //                             </div>
-                //                         </div>
-                //                     </div>
-                //                     <div className="cstm-doc-content-container">
-                //                         <h4 className="cstmDocName">Metropolis Healthcare Ltd - Gurgaon</h4>
-                //                         <p>Liver Function </p>
-                //                         <p><img className="cstmTimeImg" src={ASSETS_BASE_URL + "/img/watch-date.svg"} /> 8:00 AM - 12:00 PM </p>
-                //                     </div>
-                //                 </div>
-
-                //             </div>
-                //             <div className="col-4">
-                //                 <p className="cstm-doc-price">Docprime Price</p>
-                //                 <p className="cst-doc-price">₹ 300 <span className="cstm-doc-cut-price">₹ 500</span></p>
-                //                 <p className="cstm-cpn">50% Off (includes Coupon)</p>
-                //                 <button className="cstm-book-btn">Book Now</button>
-                //             </div>
-                //         </div>
-                //     </div>
-                //     <div className="cstmCardFooter">
-                //         <div className="cstmfooterContent">
-                //             <p><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />Cloud Nine Health Super Clinic & 2 more </p>
-                //             <p className="mb-rmv"><img style={{ width: '10px', marginLeft: '3px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />5818, Near Super Mart I, Aster Avenue DLF Phase IV, Gur </p>
-                //         </div>
-                //         <div className="cstmDocLoc">
-                //             <p className=""><img src={ASSETS_BASE_URL + "/img/cstmdist.svg"} /> 1.5Km</p>
-                //         </div>
-                //     </div>
-                //     <div className="showBookTestListContainer mt-rmv">
-                //         <div className="showBookTestList bg-white-main">
-                //             <ul>
-                //                 <li>
-                //                     <p className="showBookTestListImg">
-                //                         <img src="/assets/img/new-loc-ico.svg" style={{ marginRight: '8px', width: "12px" }} />Sohna Road Gurgaon | 5 km </p>
-                //                     <button className="showBookTestListBtn">Book Now</button>
-                //                 </li>
-                //             </ul>
-                //         </div>
-                //         <div className="filtr-card-footer bg-white-main" style={{ cursor: 'pointer', borderTop: '1px solid #e8e8e8' }}>
-                //             <div style={{ paddingRight: "8px" }}>
-                //                 <p className="appBaseColor" style={{ marginLeft: '0px' }}>Show less</p>
-                //             </div>
-                //             <div className="text-right" style={{ marginLeft: 'auto' }}>
-                //                 <img style={{ margin: '5px' }} className="acrd-show" src="/assets/img/customer-icons/dropdown-arrow.svg" />
-                //             </div>
-                //         </div>
-                //     </div>
-                // </div>
-                // doctor card design
-                <div className="cstm-docCard mb-3">
+                <div className="cstm-docCard mb-3" onClick={enabled_for_hospital_booking ? this.bookNowClicked.bind(this, id, url, hospital.hospital_id || '') : this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')}>
+                    {
+                        new_schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
+                            __html: new_schema
+                        }} />
+                            : ""
+                    }
                     <div className="cstm-docCard-content">
                         <div className="row no-gutters">
                             <div className="col-8">
-                                <h4 className="cstmDocName">{display_name}</h4>
+                                <h2 className="cstmDocName">{display_name}</h2>
                                 <div className="cstm-doc-details-container">
                                     <div className="cstm-doc-img-container">
                                         <div>
@@ -328,13 +271,13 @@ class DoctorProfileCard extends React.Component {
                                 }
                                 {
                                     deal_price != discounted_price && enabled_for_hospital_booking ?
-                                        <p className="cstm-cpn">50% Off (includes Coupon)</p> : ''
+                                        <p className="cstm-cpn">{offPercent}% Off (includes Coupon)</p> : ''
                                 }
                                 {
                                     enabled_for_hospital_booking ?
                                         <button className="cstm-book-btn">Book Now</button>
                                         :
-                                        <button className="cstm-book-btn">View Contact</button>
+                                        <button className="cstm-view-btn">View Contact</button>
                                 }
                             </div>
                         </div>
