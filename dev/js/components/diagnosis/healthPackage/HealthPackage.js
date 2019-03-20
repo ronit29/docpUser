@@ -106,7 +106,7 @@ class LabView extends React.Component {
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam B
                                                                 (Thyrocare)</p>
-                                            <p className="stc-price-cut">₹ 490 <span>₹ 740</span></p>
+                                            <p className="stc-price-cut">₹ 540 <span>₹ 900</span></p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
@@ -120,7 +120,7 @@ class LabView extends React.Component {
                                     <div className="static-pkg-top-column" style={{ position: 'relative' }}>
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">
-                                                46% OFF + ₹ 100
+                                                45% OFF + ₹ 100
                                                 OFF Coupon
                                                                 </p>
                                         </div>
@@ -135,7 +135,7 @@ class LabView extends React.Component {
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-offr-cpn">
-                                            <p className="stc-off-para">20% OFF + ₹ 100 OFF Coupon</p>
+                                            <p className="stc-off-para">29% OFF + ₹ 100 OFF Coupon</p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=12227" onClick={(e) => {
