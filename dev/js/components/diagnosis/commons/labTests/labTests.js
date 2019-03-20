@@ -116,7 +116,7 @@ class LabTests extends React.Component {
                                 </label>
                                 {
                                     test.included_in_user_plan?
-                                        <span className="test-price text-sm">Free <span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                        <span className="test-price text-sm">₹ 0 </span>
                                     :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                                 }
                             </li>)
@@ -133,7 +133,7 @@ class LabTests extends React.Component {
                                 </label>
                                 {
                                     test.included_in_user_plan?
-                                        <span className="test-price text-sm">Free <span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                        <span className="test-price text-sm">₹ 0 </span>
                                     :
                                     <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                                 }

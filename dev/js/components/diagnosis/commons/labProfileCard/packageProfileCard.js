@@ -165,7 +165,7 @@ class LabProfileCard extends React.Component {
                                             <span className="pkg-cut-price">₹ {parseInt(mrp)}</span></p> : ''
                                     }
                                     {
-                                    hide_price ? <p className="fw-500">Free <span className="pkg-cut-price">₹ {parseInt(mrp)}</span></p> : ""
+                                    hide_price ? <p className="fw-500">₹ 0</p> : ""
                                     }
                                 </div>
                                 <a href={this.props.details.lab.url} onClick={(e) => e.preventDefault()}>

@@ -69,7 +69,7 @@ class PackageTest extends React.Component {
 
                 }
                 {
-                    test.included_in_user_plan ? <span className="test-price text-sm">Free<span className="test-mrp">₹ {parseInt(mrp)}</span></span>:''
+                    test.included_in_user_plan ? <span className="test-price text-sm">₹ 0</span>:''
                 }
                 {/*                 
                 <div>
