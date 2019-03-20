@@ -24,6 +24,8 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 	let lat = 28.644800
 	let long = 77.216721
 	let place_id = ""
+	let locality = ""
+	let sub_locality = ""
 
 	if (selectedLocation) {
 		lat = selectedLocation.geometry.location.lat
@@ -32,6 +34,8 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 
 		if (typeof lat === 'function') lat = lat()
 		if (typeof long === 'function') long = long()
+		locality = selectedLocation.locality || ""
+		sub_locality = selectedLocation.sub_locality || ""
 
 	}
 	let min_distance = filterCriteria.distanceRange[0]
@@ -51,7 +55,7 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 		url = `/api/v1/diagnostic/labnetworksearchbyurl?url=${searchByUrl.split('/')[1]}&`
 	}
 
-	url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}`
+	url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&locality=${locality}&sub_locality=${sub_locality}`
 
 	if (!!filterCriteria.lab_name) {
 		url += `&name=${filterCriteria.lab_name || ""}`

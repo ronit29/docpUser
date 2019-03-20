@@ -33,6 +33,8 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	let lat = 28.644800
 	let long = 77.216721
 	let place_id = ""
+	let locality = ""
+	let sub_locality = ""
 
 	if (selectedLocation) {
 		lat = selectedLocation.geometry.location.lat
@@ -40,6 +42,8 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		place_id = selectedLocation.place_id || ""
 		if (typeof lat === 'function') lat = lat()
 		if (typeof long === 'function') long = long()
+		locality = selectedLocation.locality || ""
+		sub_locality = selectedLocation.sub_locality || ""
 	}
 
 	let min_distance = filterCriteria.distanceRange[0]
@@ -69,7 +73,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		url = `/api/v1/doctor/doctorsearchbyhospital?`
 	}
 
-	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&ipd_procedure_ids=${ipd_ids || ""}`
+	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&ipd_procedure_ids=${ipd_ids || ""}&locality=${locality}&sub_locality=${sub_locality}`
 
 	if (!!filterCriteria.doctor_name) {
 		url += `&doctor_name=${filterCriteria.doctor_name || ""}`
