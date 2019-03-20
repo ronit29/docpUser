@@ -213,12 +213,6 @@ class TopBar extends React.Component {
         })
     }
 
-    goToInsurance(){
-        if(!this.props.is_login_user_insured){
-            this.props.history.push('/insurance')
-        }
-    }
-
     render() {
         
         let sortType = ''
@@ -323,7 +317,7 @@ class TopBar extends React.Component {
                         ? <div className="tg-list-item">
                             <input className="tgl tgl-ios" id="lab_insurance" type="checkbox" checked={this.state.is_insured} onChange={this.toggleInsured.bind(this)} />
                             <label className="tgl-btn" htmlFor="lab_insurance"></label>
-                            <p>Covered under OPD insurance | <span onClick = {this.goToInsurance.bind(this)}> Know More</span></p>
+                            <p>Covered under OPD insurance | <a href="https://qacdn.docprime.com/media/insurer/documents/Group_Out-Patient_CIS_JNLVJju.PDF" target="_blank"><span> Know More</span></a></p>
                         </div>
                         : ''
                 }

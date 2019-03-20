@@ -601,7 +601,7 @@ class BookingSummaryViewNew extends React.Component {
 
                 return <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
                     {
-                        is_corporate || is_insurance_applicable? <span className="float-right fw-700">Free</span> : <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
+                        is_corporate || is_insurance_applicable? <span className="float-right fw-700">{is_insurance_applicable?'₹ 0':'Free'}</span> : <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
                         </span>
                     }
                     <span className="test-name-item">{twp.test.name}</span></p>

@@ -75,9 +75,9 @@ class LabTests extends React.Component {
         let test_info = ''
         let show_details = ''
 
-        let is_insurance_applicable = true
+        let { is_insurance_applicable } = this.props
 
-        if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
+        /*if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
             this.props.currentLabSelectedTests.map((test, i) => {
                 
                 if (test.is_package) {
@@ -96,7 +96,7 @@ class LabTests extends React.Component {
                     }
                 }
             })
-        }
+        }*/
 
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
             this.props.currentLabSelectedTests.map((test, i) => {
@@ -141,7 +141,7 @@ class LabTests extends React.Component {
                                 </label>
                                 {
                                     is_insurance_applicable?
-                                    <span className="test-price text-sm">Free</span>
+                                    <span className="test-price text-sm">&#8377; {0}</span>
                                     :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>    
                                 }
                                 
@@ -159,7 +159,7 @@ class LabTests extends React.Component {
                                 </label>
                                 {
                                     is_insurance_applicable?
-                                    <span className="test-price text-sm">Free</span>
+                                    <span className="test-price text-sm">&#8377; {0}</span>
                                     :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                                 }
                             </li>)
@@ -226,6 +226,10 @@ class LabTests extends React.Component {
             pickup_text = "Home visit charges"
             showPriceTag = 1
             extra_price = this.props.data.lab.home_pickup_charges
+        }
+
+        if(is_insurance_applicable){
+            pickup_text = ''
         }
 
         return (
