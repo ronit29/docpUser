@@ -100,7 +100,6 @@ class Transactions extends React.Component {
     }
 
     openAppointment(type, id) {
-        console.log(type)
         if (id) {
             if (PRODUCT[type] == 'Doctor') {
                 this.props.history.push(`/opd/appointment/${id}`)

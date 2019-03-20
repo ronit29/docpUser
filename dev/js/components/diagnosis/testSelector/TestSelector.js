@@ -203,7 +203,6 @@ class TestSelectorView extends React.Component {
                                                                 >
                                                                     {
                                                                         this.state.searchString == '' ? tests.map((test, i) => {
-                                                                            console.log(test)
                                                                             return <li key={i + "srt"}>
                                                                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                                                                     {test.test.name}
@@ -226,7 +225,6 @@ class TestSelectorView extends React.Component {
                                                                     }
                                                                     {
                                                                         this.state.searchResults.map((test, i) => {
-                                                                            console.log(test)
                                                                             return <li key={i + "srt"}>
                                                                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                                                                     {test.test.name}
