@@ -48,7 +48,10 @@ class SelectedClinic extends React.Component {
         return (
             <div className="widget mrb-15 mrng-top-12">
                 <div className="widget-header dr-qucik-info" style={this.props.history ? { cursor: 'pointer', position: 'relative' } : { position: 'relative' }} onClick={() => this.profileClick(id, url, hospital_id)}>
-                    <p className="fw-500 text-primary" style={{ position: 'absolute', right: 10, top: 5, fontSize: 12 }}>View Profile</p>
+                    {
+                        this.props.history ?
+                            <p className="fw-500 text-primary" style={{ position: 'absolute', right: 10, top: 5, fontSize: 12 }}>View Profile</p> : ''
+                    }
                     <div>
                         <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-dp">
                             <img src={thumbnail} className="img-fluid img-round" />
