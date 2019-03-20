@@ -101,7 +101,7 @@ class PrimeCareBookingView extends React.Component {
                         <div className="col-12 center-column">
                             <div className="container-fluid">
                                 <div className="widget mrng-top-12 mrb-60">
-                                    <div className="widget-content mrng-top-12">
+                                    <div className="widget-content mrng-top-12 care-widget">
                                         <div className="careMemberContainer">
                                             <div className="careMembrLogo">
                                                 <img src={ASSETS_BASE_URL + "/img/logoornage.png"} />
