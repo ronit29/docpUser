@@ -601,7 +601,13 @@ class BookingSummaryViewNew extends React.Component {
                         is_corporate ? <span className="float-right fw-700">Free</span> : is_plan_applicable? <span className="float-right fw-700">₹ 0 </span>: <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
                         </span>
                     }
-                    <span className="test-name-item">{twp.test.name}</span></p>
+                    <span className="test-name-item">{twp.test.name}</span>
+                    {
+                        is_plan_applicable?
+                            <p className="pkg-discountCpn" style={{display:'inline-block',float:'right',marginTop:'5px'}}>Docprime Care Benefit</p>
+                        :''
+                    }
+                    </p>
             })
 
             center_visit_enabled = labDetail.center_visit_enabled

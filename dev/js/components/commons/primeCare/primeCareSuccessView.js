@@ -72,7 +72,7 @@ class PrimeCareSuccessView extends React.Component {
                                             }
                                             
                                         </ul>
-                                        <p className="careThankpara">Thanks for choosing <a>docprime.com</a></p>
+                                        <p className="careThankpara">Thanks for choosing <a onClick={(e) =>this.props.history.push('/')}>docprime.com</a></p>
                                     </div>
                                 </div>
                             </div>

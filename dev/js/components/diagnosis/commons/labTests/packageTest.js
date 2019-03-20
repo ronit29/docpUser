@@ -18,22 +18,24 @@ class PackageTest extends React.Component {
         let { deal_price, mrp, pre_test_info } = test
         let test_package = test.package || []
         let test_info
-        console.log(test)
         if (test.test.show_details) {
             test_info= <span style={{'marginRight':'5px',marginTop:'2px',display:'inline-block'}} onClick={this.props.testInfo.bind(this,test.test.id,test.test.url)}>
                     <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
             </span>
         }
         return (
-            <li key={i} style={{ paddingRight: '0px' }} className="clearfix">
+            <li key={i} style={{ paddingRight: '0px' }} className="clearfix pdngRgt">
                 <label className="ck-bx" style={{ fontWeight: '400', fontSize: '14px' }} >
                     <p style={{ paddingRight: '120px' }}>
                         {test.test.name} {test.test.show_details?test_info:''}
                     </p>
                     
                     {
-                        test.number_of_tests ? <span style={{ fontSize: '12px', fontWeight: '600', color: '#757575' }}>{
+                        test.number_of_tests ? <span style={{ fontSize: '12px', fontWeight: '600', color: '#757575',display: 'block', marginTop: 5 }}>{
                             `(includes ${test.number_of_tests} Tests)`}
+                            {
+                                this.props.is_plan_applicable ? <p className="pkg-discountCpn" style={{display:'inline-block',float:'right'}}>Docprime Care Benefit</p>:''
+                            }
                         </span> : ''
                     }
                     {
@@ -65,11 +67,12 @@ class PackageTest extends React.Component {
                     </button>
                 </div>
                 {
-                 test.included_in_user_plan || test.hide_price ? "" : <span className="test-price text-sm">₹ {parseInt(deal_price)}<span className="test-mrp">₹ {parseInt(mrp)}</span></span>
+                 this.props.is_plan_applicable || test.hide_price ? "" : <span className="test-price text-sm">₹ {parseInt(deal_price)}<span className="test-mrp">₹ {parseInt(mrp)}</span></span>
 
                 }
+                    
                 {
-                    test.included_in_user_plan ? <span className="test-price text-sm">₹ 0</span>:''
+                    this.props.is_plan_applicable ? <span className="test-price text-sm">₹ 0</span>:''
                 }
                 {/*                 
                 <div>

@@ -85,8 +85,8 @@ class PrimeCareView extends React.Component {
                                                 return( <div className="col-4" key={key}>
                                                             <p className="carePlans">{value.name}</p>
                                                             <div className="careComparePanel">
-                                                                <p className="carePlanPrice">₹ {value.deal_price}/Yr.</p>
-                                                                <p className="carePlanPriceCut">{value.mrp}/Yr.</p>
+                                                                <p className="carePlanPrice">₹ {parseInt(value.deal_price)}/Yr</p>
+                                                                <p className="carePlanPriceCut">{parseInt(value.mrp)}/Yr</p>
                                                                 <div className="btn-bgwhite"><button onClick={self.buyNow.bind(self,value.id)}>Buy Now</button></div>
                                                             </div>
                                                         </div>)
@@ -144,7 +144,7 @@ class PrimeCareView extends React.Component {
                                                             {Object.entries(value).map(function ([k, val]) {
                                                                 return (<div className="col-4" key={k}>
                                                                             {val.count?
-                                                                                <div> <span className="careTestYear"> {`${val.count} Test/Yr.`}</span></div>
+                                                                                <div> <span className="careTestYear"> {`${val.count} Test/Yr`}</span></div>
                                                                                 :<div> <img className="crosscheckcrdImg" src={ASSETS_BASE_URL + "/img/wrongcopy.svg"} /></div>
                                                                             }
                                                                         </div>)

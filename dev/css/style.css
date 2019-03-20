@@ -8587,3 +8587,6 @@ border-radius: 4px;
 .widget-content.padiing-srch-el.pad-srch{
 	padding: 10px 15px;
 }
+.nw-listing-pddng .pdngRgt li{
+	padding-right: 0px;
+}

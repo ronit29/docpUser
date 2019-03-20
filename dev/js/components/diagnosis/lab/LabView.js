@@ -75,6 +75,17 @@ class LabView extends React.Component {
                 seo_url = "/" + seo_url
             }
         }
+        let is_plan_applicable = true
+        if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
+            this.props.currentLabSelectedTests.map((test, i) => {
+                
+                if(test.included_in_user_plan){
+    
+                }else{
+                    is_plan_applicable = false
+                }
+            })
+        }
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
@@ -125,12 +136,15 @@ class LabView extends React.Component {
                                             canonicalUrl: `${CONFIG.API_BASE_URL}${seo_url || this.props.match.url}`
                                         }} noIndex={false && !this.state.seoFriendly} />
 
-                                        <LabDetails {...this.props} data={this.props.LABS[lab_id]} />
+                                        <LabDetails {...this.props} data={this.props.LABS[lab_id]} is_plan_applicable={is_plan_applicable}/>
 
                                         <button disabled={
                                             this.props.currentLabSelectedTests.filter(x => x.is_selected).length < 1
                                         } onClick={this.bookLab.bind(this)} className="ratingBtnmrgn p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">
-                                            <span className="coupon-auto-applied-lab">*Coupon auto applied on checkout</span>
+                                            {
+                                                is_plan_applicable?'':
+                                                <span className="coupon-auto-applied-lab">*Coupon auto applied on checkout</span>
+                                            }    
                                             <span className="text-xs selected-option static-btn book-right-align-text" style={{ verticalAlign: 2, marginRight: 8 }}>({this.props.currentLabSelectedTests.filter(x => x.is_selected).length} Selected) </span>
                                             Book
                                         </button>
