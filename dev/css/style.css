@@ -8588,5 +8588,29 @@ border-radius: 4px;
 	padding: 10px 15px;
 }
 .nw-listing-pddng .pdngRgt li{
-	padding-right: 0px;
+    padding-right: 0px;
+}
+.widget-content.care-widget{
+	padding: 12px 310px;
+}
+@media screen and (max-width: 1200px){
+	.widget-content.care-widget{
+	padding: 12px 270px;
+}
+}
+
+@media screen and (max-width: 991px){
+	.widget-content.care-widget{
+	   padding: 12px 165px;
+   }
+}
+@media screen and (max-width: 767px){
+	.widget-content.care-widget{
+	   padding: 12px 75px;
+   }
+}
+@media screen and (max-width: 535px){
+	.widget-content.care-widget{
+	   padding: 12px;
+   }
 }
