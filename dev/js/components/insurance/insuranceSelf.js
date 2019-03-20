@@ -302,11 +302,11 @@ class InsuranceSelf extends React.Component{
 		}
 		return(
 				<div>
-				{
+				{/*
 					isDisable?
 						<span>Change details</span>
 					:''
-				}
+				*/}
 				<div className="member-dtls-chk">
 					<span>Proposer</span>
 					<label className="ck-bx" onChange={this.handleLastname.bind(this)} style={{'fontWeight': '400', 'fontSize': '14'}}>I dont have last name<input type="checkbox" checked={this.state.no_lname} value="on"/>
