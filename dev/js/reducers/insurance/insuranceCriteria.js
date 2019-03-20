@@ -32,7 +32,14 @@ export default function (state = defaultState, action) {
                     newState.LOAD_INSURANCE = false
                 }else{
                     if(action.payload.insurance[0].plans && action.payload.insurance[0].plans.length >0){
-                        newState.selected_plan = action.payload.insurance[0].plans.filter((x => x.is_selected))
+                        if(Object.keys(newState.selected_plan).length == 0){
+                            newState.selected_plan = action.payload.insurance[0].plans.filter((x => x.is_selected))
+                            // newState.selected_plan[0].plan_name = action.payload.insurance[0].name
+                            // newState.selected_plan[0].logo = action.payload.insurance[0].logo
+                            // newState.selected_plan[0].insurer_document = action.payload.insurance[0].insurer_document
+                            // newState.selected_plan[0].insurer = action.payload.insurance[0].id
+                            // newState.selected_plan[0].stateData = action.payload.state
+                        }
                         newState.LOAD_INSURANCE = true
                     }
                 }

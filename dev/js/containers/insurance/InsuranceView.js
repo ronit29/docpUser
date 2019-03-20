@@ -5,6 +5,7 @@ import { getInsurance, selectInsurancePlan , saveCurrentSelectedMembers,resetSel
 import InsuranceComponent from '../../components/insurance/insuranceView.js'
 import Loader from '../../components/commons/Loader'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
+import STORAGE from '../../helpers/storage'
 
 class Insurance extends React.Component{
 
@@ -17,6 +18,9 @@ class Insurance extends React.Component{
 
     componentDidMount() {
         this.props.getInsurance()
+        if (STORAGE.checkAuth()) {
+            this.props.getUserProfile()
+        }
     }
 	render(){
         if(this.props.LOAD_INSURANCE){

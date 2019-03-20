@@ -19,16 +19,16 @@ class InsuranceCommon extends React.Component{
 			<div> 
 				<div className="ins-card-head">
 					<div className="ins-name-head">
-						<img width="140" src={this.props.selected_plan?this.props.selected_plan.logo:this.props.insurnaceData['insurance'][0].logo} />
+						<img width="140" src={this.props.insurnaceData['insurance'][0].logo} />
 						{/*<p>
-							OPD Insurance by <span>{this.props.selected_plan.plan_name}</span>
+							OPD Insurance by <span>{this.props.insurnaceData['insurance'][0].name}</span>
 						</p>*/}
 						<p>
 							Group Out-patient Insurance
 						</p>
 					</div>
 					<div className="ins-pdf-dwnload">
-						<a href={this.props.selected_plan?this.props.selected_plan.insurer_document: this.props.insurnaceData['insurance'][0].insurer_document} download target="_blank" >
+						<a href={this.props.insurnaceData['insurance'][0].insurer_document} download target="_blank" >
 						<img src={ASSETS_BASE_URL + "/img/pdf-dwn.png"} />
 						</a>
 						<span>

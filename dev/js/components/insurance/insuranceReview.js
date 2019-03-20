@@ -26,7 +26,7 @@ class InsuranceReview extends React.Component{
     	// insurance_pay.profile=1
     	let isDummyUser
     	insurance_pay.insurance_plan=this.props.selected_plan.id
-    	insurance_pay.insurer= this.props.selected_plan.insurer
+    	insurance_pay.insurer= this.props.insurnaceData['insurance'][0].id
     	insurance_pay.members=[]
     	let selectedUser = this.props.USER.defaultProfile
     	let address=''

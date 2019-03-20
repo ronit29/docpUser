@@ -21,9 +21,9 @@ class Insurance extends React.Component{
         }
     }
     componentDidMount(){
-    	if (STORAGE.checkAuth()) {
-    		this.props.getUserProfile()
-    	}
+    	// if (STORAGE.checkAuth()) {
+    	// 	this.props.getUserProfile()
+    	// }
 		let selectedId = this.props.selected_plan?this.props.selected_plan.id:''
 			if(selectedId){
 				this.selectPlan(this.props.selected_plan)
@@ -49,7 +49,12 @@ class Insurance extends React.Component{
     }
     selectPlan(plan_to_toggle) {
     	let plan = plan_to_toggle
-    	plan_to_toggle.is_selected = true 
+    	plan_to_toggle.is_selected = true
+    	// plan_to_toggle.plan_name = this.props.insurnaceData['insurance'][0].name
+    	// plan_to_toggle.logo = this.props.insurnaceData['insurance'][0].logo 
+    	// plan_to_toggle.insurer_document = this.props.insurnaceData['insurance'][0].insurer_document
+    	// plan_to_toggle.insurer = this.props.insurnaceData['insurance'][0].id
+    	// plan_to_toggle.stateData = this.props.insurnaceData['state'] 
     	this.props.selectInsurancePlan('plan', plan)
     	this.setState({ is_checked: plan_to_toggle.id, selected_plan_data: plan_to_toggle, selected_plan_price: `(₹ ${plan_to_toggle.amount})`,toggle:this.state.toggle == 'two'?'one':'one' })
     }
@@ -60,12 +65,12 @@ class Insurance extends React.Component{
     	let memberStoreDataLength
     	let membersArray = []
     	let profilesArray = []
-    	plan.plan_name = this.props.insurnaceData['insurance'][0].name
-    	plan.logo = this.props.insurnaceData['insurance'][0].logo 
-    	plan.insurer_document = this.props.insurnaceData['insurance'][0].insurer_document   	
-    	plan.insurer = this.props.insurnaceData['insurance'][0].id
-    	plan.stateData = this.props.insurnaceData['state']
-        this.props.selectInsurancePlan('plan', plan)
+    	// plan.plan_name = this.props.insurnaceData['insurance'][0].name
+    	// plan.logo = this.props.insurnaceData['insurance'][0].logo 
+    	// plan.insurer_document = this.props.insurnaceData['insurance'][0].insurer_document   	
+    	// plan.insurer = this.props.insurnaceData['insurance'][0].id
+    	// plan.stateData = this.props.insurnaceData['state']
+     	// this.props.selectInsurancePlan('plan', plan)
         this.props.resetSelectedPlans()
         if (STORAGE.checkAuth()) {
         	if(Object.keys(plan).length > 0){
@@ -174,17 +179,18 @@ class Insurance extends React.Component{
 				</section>
 				</div>
 			)
-		}else{
-			if(this.props.insurnaceData.certificate){
-				this.props.history.push('/insurance/certificate')
-			}
-			return(
-			<div className="profile-body-wrap">
-	            <ProfileHeader />
-				<Loader />
-			</div>
-			)
 		}
+		// else{
+		// 	if(this.props.insurnaceData.certificate){
+		// 		this.props.history.push('/insurance/certificate')
+		// 	}
+		// 	return(
+		// 	<div className="profile-body-wrap">
+	    //        <ProfileHeader />
+		// 		<Loader />
+		// 	</div>
+		// 	)
+		// }
 	}
 }
 

@@ -283,7 +283,7 @@ class InsuranceSelf extends React.Component{
 		if(this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.profiles[this.props.USER.defaultProfile]){
 			isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
 		}
-		{Object.entries(self.props.selected_plan.stateData).map(function([key, value]) {	
+		{Object.entries(self.props.insurnaceData['state']).map(function([key, value]) {	
 			if(self.state.state_code && self.state.state_code !='' && self.state.state !='' && self.state.state_code == value.gst_code){
 				Object.entries(value.district).map(function([k, districts]) {
 					districts_opt.push( <option key={k} data-param="district" id={districts.district_code} value={districts.district_name}>{districts.district_name}</option>)
@@ -447,7 +447,7 @@ class InsuranceSelf extends React.Component{
 						<div className="ins-form-group">
 							<select className={`ins-select-drop ${this.props.validateErrors.indexOf('state')> -1?'fill-error':''}`} id="state_dropdown" onChange={this.handleState.bind(this)} value={this.state.state}>
 								<option data-param="state"  hidden id={0} value="select_state" value="state">Select State</option>
-								{Object.entries(this.props.selected_plan.stateData).map(function([key, value]) {
+								{Object.entries(this.props.insurnaceData['state']).map(function([key, value]) {
 									return <option key={key} data-param="state" id={value.gst_code} value={value.state_name}>{value.state_name}</option>
 								})}
 							</select>
