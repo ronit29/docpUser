@@ -8592,21 +8592,21 @@ border-radius: 4px;
 }
 @media screen and (max-width: 1200px){
 	.widget-content.care-widget{
-	padding: 12px 230px;
+	padding: 12px 270px;
 }
 }
 
 @media screen and (max-width: 991px){
 	.widget-content.care-widget{
-	   padding: 12px 130px;
+	   padding: 12px 165px;
    }
 }
 @media screen and (max-width: 767px){
 	.widget-content.care-widget{
-	   padding: 12px 30px;
+	   padding: 12px 75px;
    }
 }
-@media screen and (max-width: 550px){
+@media screen and (max-width: 535px){
 	.widget-content.care-widget{
 	   padding: 12px;
    }
