@@ -79,11 +79,13 @@ class LabView extends React.Component {
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
             this.props.currentLabSelectedTests.map((test, i) => {
                 
+              if(test.is_selected){
                 if(test.included_in_user_plan){
     
                 }else{
                     is_plan_applicable = false
-                }
+                }  
+              } 
             })
         }
         return (
