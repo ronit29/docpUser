@@ -26,6 +26,12 @@ class searchTestInfo extends React.Component {
         })
     }
 
+    componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+    }
+
     render() {
         return (
             <SearchTestView {...this.props} hideHeaderOnMobile={true} />

@@ -38,12 +38,27 @@ class ProfileData extends React.Component {
         window.location.href = `/lab/searchresults?test_ids=${test_ids.join(',')}&network_id=${network_id}`
     }
 
+    isDocCare(){
+        if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
+            this.props.history.push('/prime/success?user_plan='+this.props.isUserCared.user_plan_id) 
+        }else{
+            this.props.history.push('/prime/plans') 
+        }
+    }
+
     render() {
 
         let currentRoomId = this.props.USER.currentRoomId
         let coupon = null
+        let memberClass = 'float-right memNew'
+        let memStatus = 'New'
         if (this.props.applicableCoupons && this.props.applicableCoupons.length) {
             coupon = this.props.applicableCoupons[0]
+        }
+
+        if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
+          memberClass = 'float-right memAct'
+          memStatus = 'Active'
         }
 
         return (
@@ -178,6 +193,18 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
+                        <li onClick={this.isDocCare.bind(this)} className="my-profile-item lst-spcng">
+                            <a>
+                                <span className="icon icon-md nav-icon">
+                                    <img src={ASSETS_BASE_URL + "/img/primecae.png"} className="img-fluid" />
+                                </span>
+                                <div className="nav-content" style={{width:'100%'}}>
+                                    <h4 className="title app-title">Docprime Care 
+                                        <span className={memberClass}>{memStatus}</span>
+                                    </h4>
+                                </div>
+                            </a>
+                        </li>
                         <li onClick={this.gotTo.bind(this, 'onlinePrescriptions')} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">

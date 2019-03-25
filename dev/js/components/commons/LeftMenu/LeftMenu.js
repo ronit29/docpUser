@@ -11,17 +11,31 @@ class LeftMenu extends React.Component {
       toggleArticles: false
     }
   }
+
+  isDocCare(){
+    this.props.toggleLeftMenu()
+    if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
+        this.props.history.push('/prime/success?user_plan='+this.props.isUserCared.user_plan_id) 
+    }else{
+        this.props.history.push('/prime/plans') 
+    }
+  }
+
   render(){
 
     let user = null
     let thumbnail = null
-
+    let memberClass = 'float-right memNew'
+    let memStatus = 'New'
     if(this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]){
 
       user = this.props.profiles[this.props.defaultProfile]
       thumbnail = this.props.profiles[this.props.defaultProfile].profile_image || null
     }
-    
+    if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
+      memberClass = 'float-right memAct'
+      memStatus = 'Active'
+    }
     return(
            
             <section>
@@ -51,6 +65,10 @@ class LeftMenu extends React.Component {
                             <ul className="drop-list-menu list_1">
                               {/*<li><a href="#"><img src="/assets/images/insurance.png" alt="" className="" />Insurance</a> <a href="#" class="btn-buy-now">Buy Now</a></li>
                               */}
+
+                              <li><a onClick={this.isDocCare.bind(this)}><img src="/assets/img/primecae.png" alt="" className="" />Docprime Care
+                                  <span className={memberClass}>{memStatus}</span></a></li>
+
                               <li><a onClick={(e)=>{
                                 e.preventDefault()
                                 this.props.toggleLeftMenu()
