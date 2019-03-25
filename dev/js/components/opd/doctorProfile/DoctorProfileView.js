@@ -1,8 +1,6 @@
 import React from 'react';
 
 import Loader from '../../commons/Loader'
-import ReviewList from '../../commons/ratingsProfileView/ReviewList.js'
-import RatingGraph from '../../commons/ratingsProfileView/RatingGraph.js'
 import RatingProfileCard from '../../commons/ratingsProfileView/RatingProfileCard.js'
 import ComplimentListView from '../../commons/ratingsProfileView/ComplimentListView.js'
 import DoctorProfileCard from '../commons/doctorProfileCard'
@@ -20,6 +18,7 @@ import ContactPoupView from '../doctorProfile/ContactPopup.js'
 
 import GTM from '../../../helpers/gtm.js'
 import InitialsPicture from '../../commons/initialsPicture';
+import RatingReviewView from '../../commons/ratingsProfileView/ratingReviewView.js'
 
 class DoctorProfileView extends React.Component {
     constructor(props) {
@@ -201,7 +200,6 @@ class DoctorProfileView extends React.Component {
         if (this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].doctors && Object.keys(this.props.DOCTORS[doctor_id].doctors).length) {
             nearbyDoctors = this.props.DOCTORS[doctor_id].doctors;
         }
-
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
@@ -372,23 +370,8 @@ class DoctorProfileView extends React.Component {
                                                             <ProfessionalGraph
                                                                 details={this.props.DOCTORS[doctor_id]}
                                                             />
-                                                            {this.props.DOCTORS[doctor_id].display_rating_widget ?
-                                                                <div className="widget-panel">
-                                                                    <h4 className="panel-title mb-rmv">Patient Feedback <a className="rateViewAll"><span onClick={() => this.props.history.push(`/view-all-ratings?content_type=2&id=` + doctor_id)}>View All</span></a></h4>
-                                                                    <div className="panel-content pd-0 border-bottom-panel">
-                                                                        <RatingGraph details={this.props.DOCTORS[doctor_id]} />
-                                                                        <div className="user-satisfaction-section">
-                                                                            <div className="row no-gutters">
-                                                                                {(typeof (this.props.DOCTORS[doctor_id].rating_graph) != "undefined" && this.props.DOCTORS[doctor_id].rating_graph != null && this.props.DOCTORS[doctor_id].rating_graph) ?
-                                                                                    this.props.DOCTORS[doctor_id].rating_graph.top_compliments.map(compliment =>
-                                                                                        <ComplimentListView key={compliment.id} details={compliment} />
-                                                                                    ) : <div></div>}
-
-                                                                            </div>
-                                                                        </div>
-                                                                        <ReviewList details={this.props.DOCTORS[doctor_id]} />
-                                                                    </div>
-                                                                </div> :
+                                                            {this.props.DOCTORS[doctor_id]?
+                                                                <RatingReviewView doctor_id={doctor_id} content_type={2} {...this.props}/> :
                                                                 ""}
                                                         </div>
                                                     </div>
