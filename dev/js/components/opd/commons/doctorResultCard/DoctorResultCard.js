@@ -241,13 +241,16 @@ class DoctorProfileCard extends React.Component {
                                         <p>{this.getQualificationStr(general_specialization || [])}</p>
                                         {
                                             experience_years ?
-                                                <p>{experience_years} Years Experience</p> : ''
+                                                <p style={{ marginBottom: 5 }}>{experience_years} Years Experience</p> : ''
                                         }
                                         {
                                             hospital && hospital.timings && Object.keys(hospital.timings).length ?
                                                 hospital.timings[Object.keys(hospital.timings)[0]].map((time, index) => {
-                                                    return <p key={index}>
-                                                        <img className="cstmTimeImg" src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
+                                                    return <p key={index} style={index == 0 ? {} : { marginLeft: 18 }} >
+                                                        {
+                                                            index == 0 ?
+                                                                <img className="cstmTimeImg" src={ASSETS_BASE_URL + "/img/watch-date.svg"} /> : ''
+                                                        }
                                                         {time}
                                                     </p>
                                                 }) : ''
@@ -263,16 +266,24 @@ class DoctorProfileCard extends React.Component {
                                 }
                             </div>
                             <div className="col-4">
-                                <p className="cstm-doc-price">Docprime Price</p>
                                 {
-                                    discounted_price && discounted_price != mrp ?
+                                    enabled_for_hospital_booking ?
+                                        <p className="cstm-doc-price">Docprime Price</p> : ''
+                                }
+                                {
+                                    enabled_for_hospital_booking && discounted_price && discounted_price != mrp ?
                                         <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
                                         : mrp && mrp != 0 ?
                                             <p className="cst-doc-price">₹ {mrp}</p> : ''
                                 }
                                 {
-                                    deal_price != discounted_price && enabled_for_hospital_booking ?
-                                        <p className="cstm-cpn">{offPercent}% Off (includes Coupon)</p> : ''
+                                    deal_price != mrp && enabled_for_hospital_booking ?
+                                        <p className="cstm-cpn">{offPercent}% Off
+                                            {
+                                                deal_price != discounted_price ?
+                                                    <span><br />(includes Coupon)</span> : ''
+                                            }
+                                        </p> : ''
                                 }
                                 {
                                     enabled_for_hospital_booking ?
@@ -297,7 +308,7 @@ class DoctorProfileCard extends React.Component {
                             </p>
                         </div>
                         <div className="cstmDocLoc">
-                            <p className=""><img src={ASSETS_BASE_URL + "/img/cstmdist.svg"} /> {Distance}Km</p>
+                            <p className=""><img src={ASSETS_BASE_URL + "/img/cstmdist.svg"} />{Distance}&nbsp;km</p>
                         </div>
                     </div>
                 </div>
