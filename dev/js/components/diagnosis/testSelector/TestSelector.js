@@ -224,7 +224,7 @@ class TestSelectorView extends React.Component {
                                                                                 </label>
                                                                                 {
                                                                                     test.insurance && test.insurance.is_insurance_covered && test.insurance.is_user_insured?
-                                                                                    <div className="test-price text-sm">Free</div>
+                                                                                    <div className="test-price text-sm">&#8377; {0}</div>
                                                                                     :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                                                                                 }
                                                                                 {
@@ -251,7 +251,7 @@ class TestSelectorView extends React.Component {
                                                                                 </label>
                                                                                 {
                                                                                     test.insurance && test.insurance.is_insurance_covered && test.insurance.is_user_insured?
-                                                                                    <div className="test-price text-sm">Free</div>
+                                                                                    <div className="test-price text-sm">&#8377; {0}</div>
                                                                                     :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                                                                                 }
                                                                                 {

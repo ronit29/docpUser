@@ -829,7 +829,7 @@ class BookingSummaryViewNew extends React.Component {
                                                             is_corporate ? ""
                                                                 : <div className="widget mrb-15">
 
-                                                                    <div className="widget-content">
+                                                                    <div className="widget-content clearfix">
                                                                         <h4 className="title mb-20">Payment Summary</h4>
                                                                         {
                                                                             is_plan_applicable ||is_insurance_applicable?

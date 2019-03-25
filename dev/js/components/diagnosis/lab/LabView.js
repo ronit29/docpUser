@@ -88,6 +88,29 @@ class LabView extends React.Component {
               } 
             })
         }
+
+        let is_insurance_applicable = true
+        if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
+            this.props.currentLabSelectedTests.map((test, i) => {
+                
+                if (test.is_package) {
+                    if (test.is_selected) {
+                        is_insurance_applicable = false
+                    }
+
+                } else if (test.is_selected){
+                        
+                    //Check Selected Tests for Insurance
+
+                    if(test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount>=parseInt(test.deal_price)){
+
+                    }else{
+                        is_insurance_applicable = false
+                    }
+                }
+            })
+        }
+
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
@@ -138,17 +161,18 @@ class LabView extends React.Component {
                                             canonicalUrl: `${CONFIG.API_BASE_URL}${seo_url || this.props.match.url}`
                                         }} noIndex={false && !this.state.seoFriendly} />
 
-                                        <LabDetails {...this.props} data={this.props.LABS[lab_id]} is_plan_applicable={is_plan_applicable}/>
+                                        <LabDetails {...this.props} is_insurance_applicable = {is_insurance_applicable} data={this.props.LABS[lab_id]} is_plan_applicable={is_plan_applicable} />
 
                                         <button disabled={
                                             this.props.currentLabSelectedTests.filter(x => x.is_selected).length < 1
-                                        } onClick={this.bookLab.bind(this)} className="ratingBtnmrgn p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">
+                                        } onClick={this.bookLab.bind(this)} className="ratingBtnmrgn ratbtn-btn p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">
                                             {
-                                                is_plan_applicable?'':
-                                                <span className="coupon-auto-applied-lab">*Coupon auto applied on checkout</span>
-                                            }    
-                                            <span className="text-xs selected-option static-btn book-right-align-text" style={{ verticalAlign: 2, marginRight: 8 }}>({this.props.currentLabSelectedTests.filter(x => x.is_selected).length} Selected) </span>
+                                                is_insurance_applicable || is_plan_applicable?''
+                                                :<span className="coupon-auto-applied-lab">*Coupon auto applied on checkout</span>    
+                                            }
                                             Book
+                                            <span className="text-xs selected-option static-btn book-right-align-text" style={{ verticalAlign: 2, marginRight: 8 , marginLeft: 10}}>({this.props.currentLabSelectedTests.filter(x => x.is_selected).length} Selected) </span>
+                                            
                                         </button>
 
                                     </div> : <Loader />

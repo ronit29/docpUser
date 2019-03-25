@@ -8603,7 +8603,7 @@ ul.careListing li {
 	display: block;
 }
 .ins-pdf-dwnload{
-    
+
 }
 .memNew{
     color: white;
@@ -9502,19 +9502,16 @@ input[type=button]{
     padding: 3px;
     font-size: 12px;
     font-weight: 500;
-    display: inline;
-    position: relative;
-    top: 4px;
+    display: block;
+    float: right;
 }
+
 .ins-val-bx.ins-vl-bx{
-	display: inline-block;
-}
-.ins-val-bx.ins-vl-bx-o{
-	top: 0;
+	float: none;
 }
 .ins-val-bx.shopng-cart-price{
 	position: absolute;
-    top: 6px;
+    top: 26px;
     right: 12px;
 }
 .widget-content.padiing-srch-el.pad-srch{
@@ -9546,4 +9543,8 @@ input[type=button]{
 	.widget-content.care-widget{
 	   padding: 12px;
    }
+}
+
+.ratingBtnmrgn.ratbtn-btn{
+	padding: 15px 0 !important;
 }

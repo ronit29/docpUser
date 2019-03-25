@@ -137,7 +137,7 @@ class ClinicSelector extends React.Component {
                                         <div className="clearfix">
                                             {
                                                 hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.deal_price) <=hospital.insurance.insurance_threshold_amount?
-                                                <div className="ins-val-bx">Covered Under Insurance</div>
+                                                <span className="test-price txt-ornage">₹ {0}</span>
                                                 :hospital.enabled_for_online_booking ?
                                                     <span className="test-price txt-ornage">₹ {hospital.deal_price}
                                                         {
@@ -152,6 +152,12 @@ class ClinicSelector extends React.Component {
                                             <span className="fw-500 test-name-item">Consultation Fee</span>
                                         </div>
                                     </div>
+                            }
+
+                            {
+                                hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.deal_price) <=hospital.insurance.insurance_threshold_amount?
+                                <div className="ins-val-bx">Covered Under Insurance</div>
+                                :''
                             }
                             <div className="dtl-cnslt-fee pb-list">
 

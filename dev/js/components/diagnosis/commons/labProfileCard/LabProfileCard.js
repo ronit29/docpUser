@@ -180,7 +180,7 @@ class LabProfileCard extends React.Component {
         let is_insurance_applicable = false
         if(insurance && insurance.is_insurance_covered && insurance.is_user_insured){
             is_insurance_applicable = true
-            hide_price = true
+            pickup_text = ""
         }     
 
         return (
@@ -197,7 +197,7 @@ class LabProfileCard extends React.Component {
                                     <h2 className="lab-fltr-dc-name fw-500 text-md">{name}</h2>
                                 </a>
                                 {
-                                    !hide_price && offPercent && offPercent > 0 ?
+                                    !is_insurance_applicable && !hide_price && offPercent && offPercent > 0 ?
                                         <span className="filtr-offer ofr-ribbon fw-700">{offPercent}% OFF</span> : ''
                                 }
                             </div>
@@ -237,7 +237,7 @@ class LabProfileCard extends React.Component {
                             </div>
                             <div className="col-5 mrt-10 text-right" style={{ paddingleft: '8px' }}>
                                 {
-                                    discounted_price && !hide_price ? <p className="text-primary fw-500 text-lg mrb-10">₹ {discounted_price}<span className="fltr-cut-price" style={{ verticalAlign: '1px' }}>₹ {mrp}</span></p> : ""
+                                    !is_insurance_applicable && discounted_price && !hide_price ? <p className="text-primary fw-500 text-lg mrb-10">₹ {discounted_price}<span className="fltr-cut-price" style={{ verticalAlign: '1px' }}>₹ {mrp}</span></p> : ""
                                 }
                                 {
                                     hide_price ? <p className="text-primary fw-500 text-lg mrb-10">Free</p> : ""
@@ -245,7 +245,10 @@ class LabProfileCard extends React.Component {
 
                                 {
                                     is_insurance_applicable?
-                                    <div className="ins-val-bx ins-vl-bx">Covered Under Insurance</div>
+                                    <div>
+                                        <p className="text-primary fw-500 text-lg mrb-10">₹ {0}</p>
+                                        <div className="ins-val-bx ins-vl-bx">Covered Under Insurance</div>
+                                    </div>
                                     :''
                                 }
 
@@ -284,7 +287,7 @@ class LabProfileCard extends React.Component {
                                                         }
                                                     </label>
                                                     {
-                                                        hide_price ?
+                                                        hide_price || is_insurance_applicable ?
                                                             <p style={{ fontWeight: 400 }}>Free</p>
                                                             : <p style={{ fontWeight: 400 }}>&#x20B9; {test.deal_price} <span>&#x20B9; {test.mrp}</span></p>
                                                     }

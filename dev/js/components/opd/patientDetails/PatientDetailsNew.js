@@ -770,7 +770,7 @@ class PatientDetailsNew extends React.Component {
 
                                                             </div> : <div className="widget mrb-15">
 
-                                                                    <div className="widget-content">
+                                                                    <div className="widget-content clearfix">
                                                                         <h4 className="title mb-20">Payment Summary</h4>
                                                                         <div className="payment-summary-content">
                                                                             <div className="payment-detail d-flex">
