@@ -103,8 +103,8 @@ class UpComingAppointmentView extends React.Component {
             return (
                 <div>
                     <div className="card cstm-card aptmnt-card mb-3">
-                        <div className="child1" onTouchStart={this.onTouchStart.bind(this)} onTouchMove={this.onTouchMove.bind(this)} onTouchEnd={this.onTouchEnd.bind(this)}>
-                            <div className="float-l leftBlock" onClick={this.showAppointment.bind(this,appointment.type,appointment.id)}>
+                        <div className="child1" onTouchStart={this.onTouchStart.bind(this)} onTouchMove={this.onTouchMove.bind(this)} onTouchEnd={this.onTouchEnd.bind(this)} onClick={this.showAppointment.bind(this,appointment.type,appointment.id)}>
+                            <div className="float-l leftBlock">
                                 <div className="float-l">
                                     <img src={ASSETS_BASE_URL + "/images/ic-time-date.png"} alt="" />
                                 </div>
@@ -119,13 +119,17 @@ class UpComingAppointmentView extends React.Component {
                                 <a href="javascript:void(0);" className="anchr-img" onClick={this.showAppointment.bind(this,appointment.type,appointment.id)}><img src={ASSETS_BASE_URL + "/images/right-arrow.svg"} alt="" /></a>
                             </div>
                         </div>
-                        <div className="carousel-indicators crsl-indicators cr-indicator">
-                            {
-                                this.props.upcoming_appointments && this.props.upcoming_appointments.map((appointmentDots, i) => {
-                                    return <span key={i} onClick={() => this.setState({ index: i })} className={this.state.index == i ? "active" : ''} ></span>
-                                })
-                            }
-                        </div>
+                        {
+                        this.props.upcoming_appointments && this.props.upcoming_appointments.length >1?
+                            <div className="carousel-indicators crsl-indicators cr-indicator">
+                                {
+                                    this.props.upcoming_appointments && this.props.upcoming_appointments.map((appointmentDots, i) => {
+                                        return <span key={i} onClick={() => this.setState({ index: i })} className={this.state.index == i ? "active" : ''} ></span>
+                                    })
+                                }
+                            </div>
+                        :''
+                        }
                     </div>                    
                 </div>
             )

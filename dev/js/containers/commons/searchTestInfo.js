@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { searchTestData, selectedCriterias, searchTestInfoData, toggleDiagnosisCriteria, setLabSearchId, clearExtraTests, mergeLABState, clearAllTests } from '../../actions/index.js'
+import { searchTestData, selectedCriterias, searchTestInfoData, toggleDiagnosisCriteria, setLabSearchId, clearExtraTests, mergeLABState, clearAllTests, selectLabTimeSLot } from '../../actions/index.js'
 
 import SearchTestView from '../../components/commons/search/searchTestInfo.js'
 
@@ -24,6 +24,12 @@ class searchTestInfo extends React.Component {
                 resolve({})
             }))
         })
+    }
+
+    componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
     }
 
     render() {
@@ -50,6 +56,7 @@ const mapDispatchToProps = (dispatch) => {
         setLabSearchId: (searchId, filters, setDefault) => dispatch(setLabSearchId(searchId, filters, setDefault)),
         mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
         clearAllTests: () => dispatch(clearAllTests()),
+        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule))
 
     }
 }

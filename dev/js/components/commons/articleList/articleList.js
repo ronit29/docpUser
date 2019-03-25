@@ -49,12 +49,12 @@ class ArticleList extends React.Component {
 
 	}
 
-	loadMore() {
+	loadMore(delta) {
 		this.setState({
 			hasMore: false
 		}, () => {
-			let page = parseInt(this.state.page) + 1
-			this.props.getArticleList(this.state.title, page, false, this.state.searchVal, (resp) => {
+			let page = parseInt(this.state.page) + delta
+			this.props.getArticleList(this.state.title, page, true, this.state.searchVal, (resp) => {
 				if (resp.length) {
 					this.setState({
 						hasMore: true,
@@ -117,8 +117,15 @@ class ArticleList extends React.Component {
 		}
 	}
 
+	navigate(delta = 0, e) {
+		// e.preventDefault()
+		// e.stopPropagation()
+		// this.loadMore(delta)
+	}
+
 	render() {
-		var pageNo = parseInt(this.state.start_page);
+		var page_size = 50
+		var pageNo = parseInt(this.state.page);
 		let currentPage = []
 		currentPage.push(<div className="art-pagination-btn">
 			<span className="fw-500" style={{ color: '#000' }}>{pageNo}</span>
@@ -152,9 +159,9 @@ class ArticleList extends React.Component {
 									description: (this.props.articleListData.seo ? this.props.articleListData.seo.description : ""),
 									canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}${this.props.location.search}`,
 
-									prev: `${(pageNo != 1 && pageNo <= Math.ceil(this.props.articleListData.total_articles / 10)) ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}${(pageNo > 2 && pageNo <= Math.ceil(this.props.articleListData.total_articles / 10)) ? '?page=' + (pageNo - 1) : ''}` : ''}`,
+									prev: `${(pageNo != 1 && pageNo <= Math.ceil(this.props.articleListData.total_articles / page_size)) ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}${(pageNo > 2 && pageNo <= Math.ceil(this.props.articleListData.total_articles / page_size)) ? '?page=' + (pageNo - 1) : ''}` : ''}`,
 
-									next: `${(pageNo != Math.ceil(this.props.articleListData.total_articles / 10) && pageNo <= Math.ceil(this.props.articleListData.total_articles / 10)) ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${(pageNo >= 1 && pageNo < Math.ceil(this.props.articleListData.total_articles / 10)) ? pageNo + 1 : ''}` : ''}`
+									next: `${(pageNo != Math.ceil(this.props.articleListData.total_articles / page_size) && pageNo <= Math.ceil(this.props.articleListData.total_articles / page_size)) ? `${CONFIG.API_BASE_URL}${this.props.location.pathname}?page=${(pageNo >= 1 && pageNo < Math.ceil(this.props.articleListData.total_articles / page_size)) ? pageNo + 1 : ''}` : ''}`
 								}} /> : null
 							}
 							<div className="container-fluid main-container">
@@ -186,26 +193,23 @@ class ArticleList extends React.Component {
 									{
 										this.props.ARTICLE_LOADED ?
 											<div style={{ width: '100%' }}>
-												<InfiniteScroll
-													loadMore={this.loadMore.bind(this)}
-													hasMore={this.state.hasMore}
-												>
-													{
-														this.props.articleList.length && !this.state.noArticleFound ?
-															this.props.articleList.map((property, index) => {
-																return <div className="col-12" key={index}>
-																	<div className="widget disease-widget" onClick={() => this.props.history.push(`/${property.url}`)}>
-																		{
-																			property.header_image ?
-																				<img className="disease-list-img" src={property.header_image} alt={property.header_image_alt} /> : ''
-																		}
-																		<a href={`/${property.url}`} onClick={(e) => e.preventDefault()}><h2 className="disease-list-name fw-500">{property.title}</h2></a>
-																		<p className="disease-list-content fw-500" dangerouslySetInnerHTML={{ __html: property.articleTeaser }}></p>
-																	</div>
+
+												{
+													this.props.articleList.length && !this.state.noArticleFound ?
+														this.props.articleList.map((property, index) => {
+															return <div className="col-12" key={index}>
+																<div className="widget disease-widget" onClick={() => this.props.history.push(`/${property.url}`)}>
+																	{
+																		property.header_image ?
+																			<img className="disease-list-img" src={property.header_image} alt={property.header_image_alt} /> : ''
+																	}
+																	<a href={`/${property.url}`} onClick={(e) => e.preventDefault()}><h2 className="disease-list-name fw-500">{property.title}</h2></a>
+																	<p className="fw-500" dangerouslySetInnerHTML={{ __html: property.articleTeaser }}></p>
 																</div>
-															}) : <p className="fw-500 text-center" style={{ fontSize: 20 }} >No Article Found !!</p>
-													}
-												</InfiniteScroll>
+															</div>
+														}) : <p className="fw-500 text-center" style={{ fontSize: 20 }} >No Article Found !!</p>
+												}
+
 												{
 													this.props.articleList.length && !this.state.noArticleFound && this.state.buttonsVisible ?
 														<div className="col-12">
@@ -213,15 +217,15 @@ class ArticleList extends React.Component {
 																pageNo == 1 ?
 																	<div className="art-pagination-div">
 																		{currentPage}
-																		<a href={`${this.state.title}?page=${pageNo + 1}`} >
+																		<a onClick={this.navigate.bind(this, 1)} href={`${this.state.title}?page=${pageNo + 1}`} >
 																			<div className="art-pagination-btn">
 																				<span className="fw-500">{pageNo + 1}</span>
 																			</div>
 																		</a>
 																	</div>
-																	: (pageNo == Math.ceil(this.props.articleListData.total_articles / 10)) ?
+																	: (pageNo == Math.ceil(this.props.articleListData.total_articles / page_size)) ?
 																		<div className="art-pagination-div">
-																			<a href={`${this.state.title}?page=${pageNo - 1}`} >
+																			<a href={`${this.state.title}?page=${pageNo - 1}`} onClick={this.navigate.bind(this, -1)}>
 																				<div className="art-pagination-btn">
 																					<span className="fw-500">{pageNo - 1}</span>
 																				</div>
@@ -229,13 +233,14 @@ class ArticleList extends React.Component {
 																			{currentPage}
 																		</div>
 																		: <div className="art-pagination-div">
-																			<a href={`${pageNo == 2 ? `${this.state.title}` : `${this.state.title}?page=${pageNo - 1}`}`} >
+																			<a onClick={this.navigate.bind(this, pageNo == 2 ? -1 : -1)} href={`${pageNo == 2 ? `${this.state.title}` : `${this.state.title}?page=${pageNo - 1}`}`} >
 																				<div className="art-pagination-btn">
 																					<span className="fw-500">{pageNo - 1}</span>
 																				</div>
 																			</a>
+
 																			{currentPage}
-																			<a href={`${this.state.title}?page=${pageNo + 1}`} >
+																			<a href={`${this.state.title}?page=${pageNo + 1}`} onClick={this.navigate.bind(this, 1)} >
 																				<div className="art-pagination-btn">
 																					<span className="fw-500">{pageNo + 1}</span>
 																				</div>
@@ -254,7 +259,7 @@ class ArticleList extends React.Component {
 					</div>
 				</section>
 				<Footer />
-			</div>
+			</div >
 		);
 	}
 }

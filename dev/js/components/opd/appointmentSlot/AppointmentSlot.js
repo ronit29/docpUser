@@ -24,7 +24,8 @@ class AppointmentSlot extends React.Component {
             timeSlots: null,
             doctor_leaves: [],
             enableProceed: false,
-            selectedTimeSlot: {}
+            selectedTimeSlot: {},
+            upcoming_slots:null
         }
     }
 
@@ -69,7 +70,7 @@ class AppointmentSlot extends React.Component {
         let doctorId = this.props.match.params.id
 
         this.props.getTimeSlots(doctorId, clinicId, (timeSlots) => {
-            this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves })
+            this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, upcoming_slots: timeSlots.upcoming_slots||{} })
         })
 
         if(this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedSlot.time && this.props.selectedSlot.time.text){
@@ -140,7 +141,8 @@ class AppointmentSlot extends React.Component {
                                                                 selectTimeSlot={this.selectTimeSlot.bind(this)}
                                                                 selectedSlot={this.state.reschedule ? this.props.rescheduleSlot : this.props.selectedSlot}
                                                                 doctor_leaves={this.state.doctor_leaves || []}
-                                                                enableProceed = {this.enableProceed.bind(this)}
+                                                                enableProceed = {this.enableProceed.bind(this)} 
+                                                                upcoming_slots= {this.state.upcoming_slots}
                                                             /> : <Loader />
                                                     }
 

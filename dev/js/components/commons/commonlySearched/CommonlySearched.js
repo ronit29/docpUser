@@ -26,31 +26,43 @@ class CommonlySearched extends React.Component {
             }
             GTM.sendEvent({ data: data })
 
-        } else if (this.props.type == 'test') {
+        } else if (this.props.type == 'test' || this.props.type == 'package') {
 
-            /*let data = {
+            if (this.props.type == 'package') {
+                let data = {
+                    'Category': 'ConsumerApp', 'Action': 'PackageSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'package-selected', 'selected': row.name || '', 'selectedId': row.id || '', 'searched': '', 'searchString': ''
+                }
+                GTM.sendEvent({ data: data })
+            }
+
+            else {
+                /*let data = {
                 'Category': 'ConsumerApp', 'Action': 'TestSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-selected', 'selected': row.name || '', 'selectedId': row.id || '', 'searched': '', 'searchString': ''
             }
             GTM.sendEvent({ data: data })*/
+            }
 
             row = Object.assign({}, row)
             row.type = 'test'
             this.props.toggle((this.props.type || row.type), row)
             return
 
-        } else if (this.props.type == 'package') {
+        }
 
-            let data = {
-                'Category': 'ConsumerApp', 'Action': 'PackageSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'package-selected', 'selected': row.name || '', 'selectedId': row.id || '', 'searched': '', 'searchString': ''
-            }
-            GTM.sendEvent({ data: data })
+        // else if (this.props.type == 'package') {
 
-            row = Object.assign({}, row)
-            row.type = 'package'
-            this.props.toggle((this.props.type || row.type), row)
-            return
+        //     let data = {
+        //         'Category': 'ConsumerApp', 'Action': 'PackageSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'package-selected', 'selected': row.name || '', 'selectedId': row.id || '', 'searched': '', 'searchString': ''
+        //     }
+        //     GTM.sendEvent({ data: data })
 
-        } else if (this.props.type == 'procedures_category') {
+        //     row = Object.assign({}, row)
+        //     row.type = 'package'
+        //     this.props.toggle((this.props.type || row.type), row)
+        //     return
+        // }
+
+        else if (this.props.type == 'procedures_category') {
             let data = {
                 'Category': 'ConsumerApp', 'Action': 'CommonProcedureCategoriesSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedure-category-selected', 'selected': row.name || '', 'selectedId': row.id || ''
             }
@@ -61,6 +73,12 @@ class CommonlySearched extends React.Component {
                 'Category': 'ConsumerApp', 'Action': 'CommonProceduresSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-selected', 'selected': row.name || '', 'selectedId': row.id || '', 'searched': '', 'searchString': ''
             }
             GTM.sendEvent({ data: data })
+
+        }else if (this.props.type == 'ipd') {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'CommonIPDSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-ipd-selected', 'selected': row.name || '', 'selectedId': row.id || '', 'searched': '', 'searchString': ''
+            }
+            GTM.sendEvent({ data: data })            
         }
         this.props.toggle((this.props.type || row.type), row)
     }
@@ -102,7 +120,7 @@ class CommonlySearched extends React.Component {
                 }*/}
                 return <li key={i}>
                     <p>{row.name}
-                        {row.show_details && this.props.selectedSearchType == 'lab' ?
+                        {row.show_details ?
                             <span style={{ marginLeft: '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, row.id, row.url)}>
                                 <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                             </span>

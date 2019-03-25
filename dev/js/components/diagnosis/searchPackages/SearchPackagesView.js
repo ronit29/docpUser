@@ -8,6 +8,7 @@ import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import Footer from '../../commons/Home/footer'
 import ResultCount from './topBar/result_count.js'
+const queryString = require('query-string');
 
 class SearchPackagesView extends React.Component {
     constructor(props) {
@@ -21,16 +22,17 @@ class SearchPackagesView extends React.Component {
         this.state = {
             seoData, footerData,
             showError: false,
-            showChatWithus: false
+            showChatWithus: false,
+            isScroll:true
         }
     }
 
     componentDidMount() {
         if (true) {
             this.getLabList(this.props)
-            if (window) {
-                window.scrollTo(0, 0)
-            }
+            // if (window) {
+            //     window.scrollTo(0, 0)
+            // }
         }
         if (this.state.seoFriendly) {
             this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
@@ -145,13 +147,19 @@ class SearchPackagesView extends React.Component {
         let page=1
         
         let url
-
+        const parsed = queryString.parse(this.props.location.search)
         if(this.props.forTaxSaver){
-            url = `${window.location.pathname}?lat=${lat}&long=${long}&category_ids=41`
-        } else{
+            let package_category_id = parsed.package_category_ids
+            url = `${window.location.pathname}?lat=${lat}&long=${long}&package_category_ids=${package_category_id}`
+        }else{
             url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&page=${page}&package_ids=${package_ids}`
         }
 
+        if (parsed.scrollbyid) {
+            let scrollby_test_id = parseInt(parsed.scrollbyid)
+            let scrollby_lab_id = parseInt(parsed.scrollbylabid)
+            url += `&scrollbyid=${scrollby_test_id || ""}&scrollbylabid=${scrollby_lab_id || ""}`
+        }
         return url
     }
 
@@ -199,13 +207,24 @@ class SearchPackagesView extends React.Component {
 
     render() {
         let LOADED_LABS_SEARCH = true
+        let self = this
+        if(this.props.forTaxSaver && this.state.isScroll){
+            const parsed = queryString.parse(this.props.location.search)
+            let scrollby_test_id = parseInt(parsed.scrollbyid)
+            let scrollby_lab_id = parseInt(parsed.scrollbylabid)
+            let url_id= `scrollById_${scrollby_test_id}_${scrollby_lab_id}`
+            if (document.getElementById(url_id)) {
+               window.scrollTo(0, document.getElementById(url_id).offsetTop+250)
+               self.setState({isScroll:false})
+            }
+        }
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
                 <HelmetTags tagsData={{
                     canonicalUrl: `${CONFIG.API_BASE_URL}/full-body-checkup-health-packages`,
-                    title: 'Full Body Checkup - Book Health Checkup Packages & get 50% off - docprime',
-                    description: 'Book Full Body Checkup Packages and get 50% off. Health Checkup packages includes &#10003 60Plus Tests & &#10003 Free Home Sample Collection starting at Rs. 499.'
+                    title: `${this.props.packagesList.title || ''}`,
+                    description: `${this.props.packagesList.description || ''}`
                 }} noIndex={false} />                
                 <CriteriaSearch {...this.props} checkForLoad={LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} bottom_content={this.props.packagesList && this.props.packagesList.count>0 && this.props.packagesList.bottom_content && this.props.packagesList.bottom_content !=null && this.props.forOrganicSearch? this.props.packagesList.bottom_content:''} page={1}>
                     <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} />

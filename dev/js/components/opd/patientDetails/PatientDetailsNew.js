@@ -302,7 +302,7 @@ class PatientDetailsNew extends React.Component {
         }
 
         let procedure_ids = []
-        if (this.props.selectedDoctorProcedure[this.state.selectedDoctor] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].categories) {
+        if (false && this.props.selectedDoctorProcedure[this.state.selectedDoctor] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].categories) {
 
             Object.values(this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].categories).map((procedure) => {
 
@@ -519,7 +519,7 @@ class PatientDetailsNew extends React.Component {
         }
         let treatment_Price = 0, treatment_mrp = 0
         let selectedProcedures = {}
-        if (this.props.selectedDoctorProcedure[this.state.selectedDoctor] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price) {
+        if (false && this.props.selectedDoctorProcedure[this.state.selectedDoctor] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price) {
 
             treatment_Price = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
             treatment_mrp = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.mrp || 0
@@ -567,10 +567,11 @@ class PatientDetailsNew extends React.Component {
                                                         />
                                                         <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError}
 
-                                                            timeSlots={this.props.timeSlots}
-                                                            selectTimeSlot={this.selectTimeSlot.bind(this)}
-                                                            doctor_leaves={this.props.doctor_leaves || []}
-                                                        />
+                                                                timeSlots={this.props.timeSlots}
+                                                                selectTimeSlot={this.selectTimeSlot.bind(this)}
+                                                                doctor_leaves={this.props.doctor_leaves || []}
+                                                                upcoming_slots = {this.props.upcoming_slots || null}
+                                                            />
                                                         <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} />
                                                         {
                                                             Object.values(selectedProcedures).length ?

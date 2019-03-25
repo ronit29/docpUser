@@ -80,7 +80,7 @@ class LabProfileCard extends React.Component {
         GTM.sendEvent({ data: data })
     }
     render() {
-        let { discounted_price, price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id, number_of_tests, show_details, categories, category_details, address } = this.props.details;
+        let { discounted_price, price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id, number_of_tests, show_details, categories, category_details, address, included_in_user_plan } = this.props.details;
         distance = Math.ceil(distance / 1000);
         var openingTime = ''
         if (this.props.details.lab_timing) {
@@ -101,7 +101,7 @@ class LabProfileCard extends React.Component {
             pickup_text = "Center visit required"
         }
 
-        // let hide_price = false
+        let hide_price = false
         // if (this.props.selectedCriterias && this.props.selectedCriterias.length) {
         //     this.props.selectedCriterias.map((x) => {
         //         if (x.hide_price) {
@@ -113,11 +113,15 @@ class LabProfileCard extends React.Component {
         if (mrp && discounted_price && (discounted_price < mrp)) {
             offPercent = parseInt(((mrp - discounted_price) / mrp) * 100);
         }
+
+        if(included_in_user_plan){
+            hide_price = true
+        }
         return (
             <div className="pkg-card-container mb-3">
                 <div className="pkg-content-section">
                     {
-                        offPercent && offPercent > 0 ?
+                        !hide_price && offPercent && offPercent > 0 ?
                             <span className="pkg-ofr-ribbon fw-700">{offPercent}% OFF</span> : ''
                     }
                     <div className="pkg-card-location p-relative">
@@ -131,21 +135,25 @@ class LabProfileCard extends React.Component {
                                         <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
                                     </InitialsPicture>
                                 </div>
-                                <a href={this.props.details.lab.url} onClick={(e) => 
-                                    {e.preventDefault()}}>
+                                <a href={this.props.details.url || ''} onClick={(e) => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                    this.props.history.push(`/${this.props.details.url || ''}`)
+                                }}>
                                     <h2 className="pkg-labDoc-Name">{name} {show_details ?
-                                        <span style={{ 'marginLeft': '5px', marginTop: '2px', display: 'inline-block', cursor: 'pointer' }} onClick={(e)=>{
+                                        <span style={{ 'marginLeft': '5px', marginTop: '2px', display: 'inline-block', cursor: 'pointer' }} onClick={(e) => {
                                             e.preventDefault()
                                             e.stopPropagation()
-                                            this.testInfo(id)}}>
-                                            
+                                            // this.testInfo(id)
+                                            this.props.history.push(`/${this.props.details.url || ''}`)
+                                        }}>
                                             <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                                         </span> : ''}
                                     </h2>
                                 </a>
                                 {
                                     number_of_tests > 0 ?
-                                        <h3 className="lab-fltr-dc-name fw-500 pkg-include" style={{fontSize: '12px'}}>{number_of_tests ? `${number_of_tests} Tests Included` : ''}
+                                        <h3 className="lab-fltr-dc-name fw-500 pkg-include" style={{ fontSize: '12px' }}>{number_of_tests ? `${number_of_tests} Tests Included` : ''}
                                         </h3>
                                         : ''
                                 }
@@ -153,8 +161,11 @@ class LabProfileCard extends React.Component {
                             <div className="col-4">
                                 <div className="pkg-card-price">
                                     {
-                                        discounted_price ? <p className="fw-500">₹ {parseInt(discounted_price)}
+                                       !hide_price && discounted_price ? <p className="fw-500">₹ {parseInt(discounted_price)}
                                             <span className="pkg-cut-price">₹ {parseInt(mrp)}</span></p> : ''
+                                    }
+                                    {
+                                    hide_price ? <p className="fw-500">₹ 0</p> : ""
                                     }
                                 </div>
                                 <a href={this.props.details.lab.url} onClick={(e) => e.preventDefault()}>
@@ -163,6 +174,11 @@ class LabProfileCard extends React.Component {
                                 {
                                     discounted_price != price ? <p className="pkg-discountCpn">Includes coupon</p>
                                         : ""
+                                }
+                                {
+                                    included_in_user_plan?
+                                    <p className="pkg-discountCpn">Docprime Care Benefit</p>
+                                    :''
                                 }
                             </div>
                         </div>

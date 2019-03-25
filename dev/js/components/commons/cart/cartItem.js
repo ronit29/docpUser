@@ -103,6 +103,10 @@ class CartItem extends React.Component {
             this.props.toggleDiagnosisCriteria('test', curr, true)
         }
 
+        if(data.actual_data && data.actual_data.pincode){
+            this.props.savePincode(data.actual_data.pincode)
+        }
+
         this.props.selectProfile(data.actual_data.profile)
         if (data.valid) {
             let time_slot = this.buildLabTimeSlot(data)
@@ -133,12 +137,11 @@ class CartItem extends React.Component {
 
         let { valid, product_id, mrp, deal_price, id } = this.props
         let { lab, tests, doctor, hospital, coupons, profile, date, thumbnail, procedures } = this.props.data
-        let { is_home_pickup, payment_type } = this.props.actual_data
+        let { is_home_pickup, payment_type, included_in_user_plan } = this.props.actual_data
 
         if (date) {
             date = new Date(date)
         }
-
         return (
             <div>
                 <div className="widget mrb-15 mrng-top-12 p-relative">
@@ -150,7 +153,9 @@ class CartItem extends React.Component {
                         } */}
 
                         {
-                            payment_type == 1 ? <div className="shopng-cart-price">
+                            included_in_user_plan?
+                            <div className="shopng-cart-price ins-val-bx pkg-discountCpn">Docprime Care Benefit</div>
+                            :payment_type == 1 ? <div className="shopng-cart-price">
                                 {
                                     mrp ? <p>₹ {deal_price} <span className="shopng-cart-price-cut">₹ {mrp}</span></p> : ""
                                 }
@@ -231,9 +236,14 @@ class CartItem extends React.Component {
                                         {
                                             tests.map((test, i) => {
                                                 return <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
-
-                                                    <span className="float-right fw-700">₹ {test.deal_price}<span className="test-mrp">₹ {test.mrp}</span>
-                                                    </span>
+                                                    {
+                                                        included_in_user_plan?
+                                                        <span className="float-right fw-700">₹ 0 </span>
+                                                        :
+                                                        <span className="float-right fw-700">₹ {test.deal_price}<span className="test-mrp">₹ {test.mrp}</span>
+                                                        </span>
+                                                    }
+                                                    
                                                     <span className="test-name-item">{test.test_name}</span>
                                                 </p>
                                             })

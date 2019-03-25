@@ -356,8 +356,10 @@ export const getArticleList = (title, page = 1, replaceList, searchString = '', 
 			replaceList: replaceList
 		})
 		if (callback) callback(response.result);
+		return response.result
 	}).catch(function (error) {
 		if (callback) callback(error, null);
+		return null
 	})
 }
 

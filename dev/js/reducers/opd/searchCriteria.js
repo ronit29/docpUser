@@ -35,7 +35,8 @@ const defaultState = {
     nextFilterCriteria: DEFAULT_FILTER_STATE,
     currentSearchId:'',
     mergeUrlState:false,
-    last_save_searched_date: null
+    last_save_searched_date: null,
+    ipd_procedures:[]
 }
 
 export default function (state = defaultState, action) {
