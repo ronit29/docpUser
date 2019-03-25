@@ -234,7 +234,7 @@ class LabTests extends React.Component {
 
         return (
             <div>
-                <div className="widget-content pb-details pb-test nw-listing-pddng">
+                <div className="widget-content pb-details pb-test nw-listing-pddng clearfix">
                     {/* {
                         is_package && number_of_tests ? <h4 className="wc-title text-md fw-700">{number_of_tests} Test Included</h4> : <h4 className="wc-title text-md fw-700">Selected Tests {test_info}
                         </h4>
@@ -247,11 +247,7 @@ class LabTests extends React.Component {
                         {hide_price ? '' : unSelectedPackage}
                     </ul>
 
-                    {
-                        is_insurance_applicable?
-                        <div className="ins-val-bx ins-vl-bx-o">Covered Under Insurance</div>
-                        :''
-                    }
+                    
                     {
                         pickup_text ? <div className="clearfix">
 
@@ -277,6 +273,11 @@ class LabTests extends React.Component {
                         hide_price ? "" : <div className="pb-view text-right">
                             <a href="javascript:;" className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>View more tests</a>
                         </div>
+                    }
+                    {
+                        is_insurance_applicable?
+                        <div className="ins-val-bx">Covered Under Insurance</div>
+                        :''
                     }
                     {
                         this.state.showPackageInfo ? <PackageInfo content={this.state.packageInfoTest} toggle={this.toggle.bind(this, 'showPackageInfo')} /> : ""
