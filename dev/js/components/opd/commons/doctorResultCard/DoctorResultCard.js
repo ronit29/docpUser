@@ -292,6 +292,14 @@ class DoctorProfileCard extends React.Component {
                                 </div>
                             </div>
                             <div className="col-5 mrt-10 text-right" style={{ paddingLeft: 8 }} >
+
+                                {
+                                    is_insurance_applicable?
+                                    <p className="fltr-prices" style={{ marginTop: 4 }}>
+                                                    &#x20B9;{0}</p>
+                                    :''
+                                }
+
                                 {
                                     is_insurance_applicable?
                                     <div className="ins-val-bx ins-vl-bx">Covered Under Insurance
@@ -313,13 +321,6 @@ class DoctorProfileCard extends React.Component {
                                                 <p className="fltr-prices" style={{ marginTop: 4 }}>
                                                     &#x20B9;{mrp}
                                                 </p> : ''
-                                }
-
-                                {
-                                    is_insurance_applicable?
-                                    <p className="fltr-prices" style={{ marginTop: 4 }}>
-                                                    &#x20B9;{0}</p>
-                                    :''
                                 }
 
                                 {/* code for new pricing UI (exclusive docprime price) */}
