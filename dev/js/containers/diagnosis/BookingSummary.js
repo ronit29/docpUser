@@ -50,7 +50,7 @@ const mapStateToProps = (state) => {
         corporateCoupon,
         pincode
     } = state.SEARCH_CRITERIA_LABS
-    const { selectedProfile, profiles, address, userWalletBalance, userCashbackBalance, defaultProfile } = state.USER
+    const { selectedProfile, profiles, address, userWalletBalance, userCashbackBalance, isUserCared, defaultProfile } = state.USER
     let LABS = state.LABS
     let { selectedSlot, selectedAppointmentType, selectedAddress, labCoupons, disCountedLabPrice, couponAutoApply } = state.LAB_SEARCH
 
@@ -60,7 +60,7 @@ const mapStateToProps = (state) => {
         lab_test_data,
         LABS,
         selectedProfile, profiles, selectedSlot, selectedAppointmentType, address, selectedAddress, labCoupons, disCountedLabPrice,
-        couponAutoApply, userWalletBalance, userCashbackBalance, pincode, defaultProfile
+        couponAutoApply, userWalletBalance, userCashbackBalance, pincode, isUserCared, defaultProfile
     }
 }
 
