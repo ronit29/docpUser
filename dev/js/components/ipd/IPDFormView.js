@@ -6,6 +6,7 @@ import Footer from '../commons/Home/footer'
 import SnackBar from 'node-snackbar'
 import ThankyouPoup from './ipdThankYouScreen.js'
 const queryString = require('query-string')
+import GTM from '../../helpers/gtm.js'
 
 class IPDFormView extends React.Component{
 
@@ -20,6 +21,14 @@ class IPDFormView extends React.Component{
 			validateError:[],
 			submitFormSuccess:false
 		}
+	}
+
+	componentDidMount(){
+		const parsed = queryString.parse(this.props.location.search)
+		let gtmData = {
+	    	'Category': 'ConsumerApp', 'Action': 'IpdLeadGenerationPageLanded', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-lead-generation-page-landed', selectedId: this.props.match.params.id, 'hospitalId': parsed.hospital_id?parsed.hospital_id:''
+		}
+		GTM.sendEvent({ data: gtmData })		
 	}
 
 	inputHandler(e) {
@@ -96,6 +105,10 @@ class IPDFormView extends React.Component{
 
         	this.props.submitIPDForm(formData, (error, response)=>{
         		if(!error && response){
+        			let gtmData = {
+				    	'Category': 'ConsumerApp', 'Action': 'IpdLeadGenerationSuccess', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'ipd-lead-generation-success', selectedId: this.props.match.params.id, 'hospitalId': parsed.hospital_id?parsed.hospital_id:''
+					}
+					GTM.sendEvent({ data: gtmData })
         			this.setState({submitFormSuccess: true})	
         		}else{
         			setTimeout(() => {

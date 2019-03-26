@@ -7,6 +7,7 @@ import Loader from '../commons/Loader'
 import Footer from '../commons/Home/footer'
 import StickyTopBarFilter from './StickyTopBarFilter.js'
 const queryString = require('query-string')
+import GTM from '../../helpers/gtm.js'
 
 class IpdHospitalView extends React.Component{
 
@@ -19,6 +20,17 @@ class IpdHospitalView extends React.Component{
 	}
 
 	componentDidMount(){
+
+        let ipd_id = ''
+        if(this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) {
+            ipd_id = this.props.commonSelectedCriterias.map(x=>x.id)[0]    
+        }
+        
+        let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'IpdHospitalSearchPageLanded', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-search-page-landed', selectedId: ipd_id
+        }
+        GTM.sendEvent({ data: gtmData })
+
 		const parsed = queryString.parse(this.props.location.search)
        // if (this.props.mergeUrlState) {
             let getSearchId = true

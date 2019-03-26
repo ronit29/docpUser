@@ -14,11 +14,27 @@ import ReviewList from '../commons/ratingsProfileView/ReviewList.js'
 import HospitalLocations from './HospitalLocations.js'
 import HospitalGallery from './HospitalGallery.js'
 import HospitalAboutUs from './HospitalAboutUs.js'
+import GTM from '../../helpers/gtm.js'
+
 class HospitalDetailView extends React.Component {
+
+	componentDidMount(){
+			let gtmData = {
+		    	'Category': 'ConsumerApp', 'Action': 'IpdHospitalDetailPageLanded', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-detail-page-landed', selectedId: this.props.match.params.hospitalId 
+			}
+			GTM.sendEvent({ data: gtmData })		
+	}
 
 	getCostEstimateClicked(hospitalId){
 		if(this.props.commonSelectedCriterias.length){
 			let ipd_id = this.props.commonSelectedCriterias[0].id
+
+			let gtmData = {
+		    	'Category': 'ConsumerApp', 'Action': 'IpdGetCostEstimateClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-get-cost-estimate-clicked', selectedId: ipd_id || '', hospitalId: this.props.match.params.hospitalId || ''
+			}
+			GTM.sendEvent({ data: gtmData })
+
+			
 			this.props.history.push(`/ipd/${ipd_id}/getPriceEstimate?hospital_id=${this.props.match.params.hospitalId}`)		
 		}
       
