@@ -6,6 +6,9 @@ import HelmetTags from './components/commons/HelmetTags'
 import Loadable from 'react-loadable'
 const loading = () => <div></div>
 
+/**
+ * OPD ROUTES
+ */
 const LocationSearch = Loadable({
     loader: () => import('./opd_routes').then(c => c.LocationSearch),
     modules: ['./opd_routes'],
@@ -49,61 +52,303 @@ const AppointmentReschedule = Loadable({
     loading,
 })
 
-// import LocationSearch from './containers/opd/LocationSearch.js'
-// import SearchResults from './containers/opd/SearchResults.js'
-// import DoctorProfile from './containers/opd/DoctorProfile.js'
-// import AppointmentSlot from './containers/opd/AppointmentSlot.js'
-// import PatientDetails from './containers/opd/PatientDetails.js'
-// import Booking_OPD from './containers/opd/Booking.js'
-// import AppointmentReschedule from './containers/opd/AppointmentReschedule.js'
 
-import UserProfile from './containers/commons/UserProfile.js'
-import UserSignup from './containers/commons/UserSignup'
-import UserLogin from './containers/commons/UserLogin'
-import Notifications from './containers/commons/Notifications'
-import Home from './containers/commons/Home'
-import HomeChat from './containers/commons/HomeChat'
-import Wallet from './containers/commons/Wallet'
-import NotFound from './containers/commons/404'
-import Article from './containers/commons/article'
-import ArticleList from './containers/commons/articleList'
+/**
+ * LAB ROUTES
+ */
+
+const Booking_LAB = Loadable({
+    loader: () => import('./lab_routes').then(c => c.Booking_LAB),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const DX_SearchCriteria = Loadable({
+    loader: () => import('./lab_routes').then(c => c.DX_SearchCriteria),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const DX_SearchResults = Loadable({
+    loader: () => import('./lab_routes').then(c => c.DX_SearchResults),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const Lab = Loadable({
+    loader: () => import('./lab_routes').then(c => c.Lab),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const DX_BookingSummary = Loadable({
+    loader: () => import('./lab_routes').then(c => c.DX_BookingSummary),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const TestSelector = Loadable({
+    loader: () => import('./lab_routes').then(c => c.TestSelector),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const AppointmentSlot_Lab = Loadable({
+    loader: () => import('./lab_routes').then(c => c.AppointmentSlot_Lab),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const HealthPackage = Loadable({
+    loader: () => import('./lab_routes').then(c => c.HealthPackage),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const HealthPackageAdvisor = Loadable({
+    loader: () => import('./lab_routes').then(c => c.HealthPackageAdvisor),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const ThyrocarePackage = Loadable({
+    loader: () => import('./lab_routes').then(c => c.ThyrocarePackage),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const TaxSaverTC = Loadable({
+    loader: () => import('./lab_routes').then(c => c.TaxSaverTC),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const DX_SearchPackages = Loadable({
+    loader: () => import('./lab_routes').then(c => c.DX_SearchPackages),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+
+/**
+ * STATIC ROUTES
+ */
+
+
+const Article = Loadable({
+    loader: () => import('./static_routes.js').then(c => c.Article),
+    modules: ['./static_routes.js'],
+    webpack: () => [require.resolveWeak('./static_routes.js')],
+    loading,
+})
+const ArticleList = Loadable({
+    loader: () => import('./static_routes.js').then(c => c.ArticleList),
+    modules: ['./static_routes.js'],
+    webpack: () => [require.resolveWeak('./static_routes.js')],
+    loading,
+})
+const StaticPages = Loadable({
+    loader: () => import('./static_routes.js').then(c => c.StaticPages),
+    modules: ['./static_routes.js'],
+    webpack: () => [require.resolveWeak('./static_routes.js')],
+    loading,
+})
+const CitiesSiteMap = Loadable({
+    loader: () => import('./static_routes.js').then(c => c.CitiesSiteMap),
+    modules: ['./static_routes.js'],
+    webpack: () => [require.resolveWeak('./static_routes.js')],
+    loading,
+})
+const SpecializationSiteMap = Loadable({
+    loader: () => import('./static_routes.js').then(c => c.SpecializationSiteMap),
+    modules: ['./static_routes.js'],
+    webpack: () => [require.resolveWeak('./static_routes.js')],
+    loading,
+})
+const adsBooking = Loadable({
+    loader: () => import('./static_routes.js').then(c => c.adsBooking),
+    modules: ['./static_routes.js'],
+    webpack: () => [require.resolveWeak('./static_routes.js')],
+    loading,
+})
+
+
+/**
+ * IPD ROUTES
+ */
+
+const IPDInfo = Loadable({
+    loader: () => import('./ipd_routes.js').then(c => c.IPDInfo),
+    modules: ['./ipd_routes.js'],
+    webpack: () => [require.resolveWeak('./ipd_routes.js')],
+    loading,
+})
+const IpdForm = Loadable({
+    loader: () => import('./ipd_routes.js').then(c => c.IpdForm),
+    modules: ['./ipd_routes.js'],
+    webpack: () => [require.resolveWeak('./ipd_routes.js')],
+    loading,
+})
+const IpdHospitalSearch = Loadable({
+    loader: () => import('./ipd_routes.js').then(c => c.IpdHospitalSearch),
+    modules: ['./ipd_routes.js'],
+    webpack: () => [require.resolveWeak('./ipd_routes.js')],
+    loading,
+})
+const IpdHospitalDetail = Loadable({
+    loader: () => import('./ipd_routes.js').then(c => c.IpdHospitalDetail),
+    modules: ['./ipd_routes.js'],
+    webpack: () => [require.resolveWeak('./ipd_routes.js')],
+    loading,
+})
+const IpdDetail = Loadable({
+    loader: () => import('./ipd_routes.js').then(c => c.IpdDetail),
+    modules: ['./ipd_routes.js'],
+    webpack: () => [require.resolveWeak('./ipd_routes.js')],
+    loading,
+})
+
+/**
+ * LOGGED IN ROUTES
+ */
+
+
+// const UserProfile = Loadable({
+//     loader: () => import('./logged_in_routes.js').then(c => c.UserProfile),
+//     modules: ['./logged_in_routes.js'],
+//     webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+//     loading,
+// })
+const UserSignup = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.UserSignup),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const UserLogin = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.UserLogin),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const Notifications = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.Notifications),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const Home = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.Home),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const HomeChat = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.HomeChat),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const Wallet = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.Wallet),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const NotFound = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.NotFound),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+// const Payment = Loadable({
+//     loader: () => import('./logged_in_routes.js').then(c => c.Payment),
+//     modules: ['./logged_in_routes.js'],
+//     webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+//     loading,
+// })
+const ChatHistory = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.ChatHistory),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const AgentLogin = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.AgentLogin),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const DirectBooking = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.DirectBooking),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const CouponSelectNewView = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.CouponSelectNewView),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const Search = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.Search),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const searchTestInfo = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.searchTestInfo),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const Referral = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.Referral),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const Cart = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.Cart),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const OrderSummary = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.OrderSummary),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const MobileViewChat = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.MobileViewChat),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const RatingsView = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.RatingsView),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const MyRatings = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.MyRatings),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const Offers = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.Offers),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+
+
 import Payment from './containers/commons/Payment'
-import ChatHistory from './containers/commons/chatHistory'
-import StaticPages from './containers/commons/StaticPages'
-import MobileViewChat from './components/commons/mobileViewChat/MobileViewChat'
-import RatingsView from './containers/commons/RatingsView.js'
-import MyRatings from './containers/commons/MyRatings.js'
-
-import Booking_LAB from './containers/diagnosis/Booking.js'
-import DX_SearchCriteria from './containers/diagnosis/SearchCriteria.js'
-import DX_SearchResults from './containers/diagnosis/SearchResults.js'
-import Lab from './containers/diagnosis/Lab.js'
-import DX_BookingSummary from './containers/diagnosis/BookingSummary.js'
-import TestSelector from './containers/diagnosis/TestSelector'
-import AppointmentSlot_Lab from './containers/diagnosis/AppointmentSlot.js'
-import HealthPackage from './containers/diagnosis/HealthPackage';
-
-import AgentLogin from './containers/commons/agentLogin.js'
-import DirectBooking from './containers/commons/directBooking.js'
-import CouponSelectNewView from './containers/commons/CouponsView.js'
-import CitiesSiteMap from './containers/commons/CitiesSiteMap.js'
-import SpecializationSiteMap from './containers/commons/SpecializationSiteMap'
-import Search from './containers/commons/search'
-import searchTestInfo from './containers/commons/searchTestInfo'
-import adsBooking from './containers/commons/adsBooking.js'
-import DX_SearchPackages from './containers/diagnosis/SearchPackages.js'
-import Offers from './containers/commons/Offers';
-import Referral from './containers/commons/referral'
-import Cart from './containers/commons/cart'
-import OrderSummary from './containers/commons/OrderSummary'
-import HealthPackageAdvisor from './containers/diagnosis/HealthPackageAdvisor';
-import ThyrocarePackage from './containers/diagnosis/ThyrocarePackage';
-import TaxSaverTC from './components/diagnosis/searchPackages/TaxSaverTC.js'
-import IPDInfo from './containers/ipd/IpdInfo.js'
-import IpdForm from './containers/ipd/IpdForm.js'
-import IpdHospitalSearch from './containers/ipd/IpdHospitalSearch.js'
-import IpdHospitalDetail from './containers/ipd/IpdHospitalDetail.js'
-import IpdDetail from './containers/ipd/IpdDetail.js'
+import UserProfile from './containers/commons/UserProfile.js'
 
 
 /**
@@ -191,10 +436,10 @@ const routes = [
     { path: '/tax-saver-health-packages-tc', exact: true, component: TaxSaverTC, RENDER_ON_SERVER: true },
     { path: `/*-tpp`, component: searchTestInfo, RENDER_ON_SERVER: true },
     { path: '/sms/booking', exact: true, component: DirectBooking },
-    { path: '/ipdInfo', exact: true, component: IPDInfo},
-    { path: '/ipd/:id/getPriceEstimate',exact: true, component: IpdForm},
-    { path: '/ipd/searchHospitals',exact: true, component: IpdHospitalSearch},
-    { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail},
+    { path: '/ipdInfo', exact: true, component: IPDInfo },
+    { path: '/ipd/:id/getPriceEstimate', exact: true, component: IpdForm },
+    { path: '/ipd/searchHospitals', exact: true, component: IpdHospitalSearch },
+    { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail },
     { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail },
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
