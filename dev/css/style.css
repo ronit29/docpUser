@@ -7256,11 +7256,12 @@ flex-shrink: 0;
 	color: #f78631;
 	text-decoration: none;
 }
-.multiple-pkgs{
+.multiple-pkgs-in{
 	background: #fff;
     padding: 15px;
     box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.12);
     border-radius: 5px;
+    overflow: auto;
 }
 .multiple-pkgs li{
 	text-align: center;
@@ -7282,12 +7283,12 @@ flex-shrink: 0;
 	display: inline-block;
 	margin: 10px 0;
 }
-.multiple-pkgs ul {
+.multiple-pkgs ul.pckg-ul {
 	overflow: hidden;
 	overflow-x: auto;
 	white-space: nowrap;
 }
-.multiple-pkgs ul li{
+.multiple-pkgs ul.pckg-ul li{
 	display: inline-block;
     width: 33%;
     white-space: normal;
@@ -7319,12 +7320,16 @@ flex-shrink: 0;
 	top: 107px;
 	z-index: 9;
 }
-.hide-all{
+.hide-div{
 	text-align: right;
 	font-weight: 500;
 	color: #f78631;
 	padding: 10px 0;
 	display: block;
+    background: #f8f8f8;
+    width: 100%;
+    position: absolute;
+    right: 0;
 }
 .hide-all:hover,.hide-all:focus{
 	color: #f78631;
@@ -7382,7 +7387,9 @@ flex-shrink: 0;
 	height: 100%;
 	top: 0;
 }
-
+.pkg-cmpre-list{
+	margin-top: 60px;
+}
 
 @media screen and (max-width: 991px){
 	.pkgComapre{
