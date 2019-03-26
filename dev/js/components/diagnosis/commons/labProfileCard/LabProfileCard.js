@@ -204,10 +204,10 @@ class LabProfileCard extends React.Component {
                 <div className="cstm-docCard-content" onClick={this.bookNowClicked.bind(this, id, url)}>
                     <div className="row no-gutters">
                         <div className="col-8">
-                            <div className="cstm-doc-details-container">
+                            <div className="cstm-doc-details-container labCardUiresponsive">
                                 <div className="cstm-doc-img-container">
                                     <div className="text-center">
-                                        <InitialsPicture style={{ width: '75px' }} name={name} has_image={!!lab_thumbnail} className="initialsPicture-ls">
+                                        <InitialsPicture name={name} has_image={!!lab_thumbnail} className="initialsPicture-ls">
                                             <img style={{ width: '75px' }} className="fltr-usr-image-lab" src={lab_thumbnail} />
                                         </InitialsPicture>
                                         {/* <div className="cstmLabStar">
@@ -235,7 +235,7 @@ class LabProfileCard extends React.Component {
                             <p className="cstm-doc-price">Docprime Price</p>
                             {
                                 discounted_price && !hide_price ?
-                                    <p className="cst-doc-price">₹ {discounted_price}<span className="cstm-doc-cut-price">₹ {mrp}</span></p> : ''
+                                    <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p> : ''
                             }
                             {
                                 discounted_price != price && !hide_price && offPercent && offPercent > 0 ?
