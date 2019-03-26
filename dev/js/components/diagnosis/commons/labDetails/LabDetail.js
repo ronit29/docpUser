@@ -86,7 +86,7 @@ class LabDetails extends React.Component {
                                         </div>
                                     </div> : ""*/}
                                 {
-                                    this.props.data.lab?
+                                    this.props.data.lab.display_rating_widget?
                                     <RatingReviewView id={this.props.data.lab.id} content_type={1} {...this.props}/> :
                                     ""
                                 }
