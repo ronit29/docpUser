@@ -9186,3 +9186,10 @@ input[type=button]{
 .ratingBtnmrgn.ratbtn-btn{
 	padding: 15px 0 !important;
 }
+.arrow-forward-right{
+	top: 54px;
+}
+.ins-val-bx.ins-val-boxes{
+	margin-top: -94px;
+    width: calc(100% - 120px);
+}
