@@ -4,6 +4,7 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 import Footer from '../../commons/Home/footer'
+import BannerCarousel from '../../commons/Home/bannerCarousel';
 
 class ThyrocarePackageView extends React.Component {
     constructor(props) {
@@ -19,6 +20,19 @@ class ThyrocarePackageView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+
+        let selectedLocation = ''
+        let lat = 28.644800
+        let long = 77.216721
+        if (this.props.selectedLocation) {
+            selectedLocation = this.props.selectedLocation;
+            lat = selectedLocation.geometry.location.lat
+            long = selectedLocation.geometry.location.lng
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
+
+        this.props.getOfferList(lat, long);
     }
 
     toggle(index) {
@@ -50,28 +64,39 @@ class ThyrocarePackageView extends React.Component {
         }
     }
 
+    viewAllClick() {
+        this.props.history.push('/tax-saver-health-packages?package_category_ids=59')
+    }
+
     render() {
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
-                        <LeftBar />
-
                         <div className="col-12 col-md-7 col-lg-7 center-column">
-                            <h4 className="mrng-top-12">Top full body checkup packages</h4>
+                            {
+                                this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'health_package_compare_page').length ?
+                                    <div className="col-12">
+                                        <BannerCarousel {...this.props} sliderLocation="thyrocare_aarogyam_packages_page" />
+                                    </div> : ''
+                            }
+                            <div className="d-flex justify-content-between mrt-10" style={{ padding: '0 15px' }} >
+                                <h4 className="fw-500" style={{ fontSize: 16, flex: 1, marginRight: 4 }}>Top full body checkup packages</h4>
+                                <button onClick={() => this.viewAllClick()} className="vw-all-static text-primary fw-500">View all</button>
+                            </div>
                             <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
                                 <div className="static-pk-container sticky-pk-container">
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam B <br />(60 Parameters)</p>
-                                            <p className="stc-price-cut">₹ 540 <span>₹ 800</span></p>
+                                            <p className="stc-price-cut">₹ 540 <span>₹ 900</span></p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam C <br />(63 Parameters)</p>
-                                            <p className="stc-price-cut">₹ 850 <span>₹ 1190</span></p>
+                                            <p className="stc-price-cut">₹ 750 <span>₹ 1200</span></p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column">
@@ -85,7 +110,7 @@ class ThyrocarePackageView extends React.Component {
                                     <div className="static-pkg-top-column">
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">
-                                                20% OFF + ₹ 100
+                                                29% OFF + ₹ 100
                                                 OFF Coupon
                                                                 </p>
                                         </div>
@@ -97,7 +122,7 @@ class ThyrocarePackageView extends React.Component {
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn" style={{ position: 'relative' }} >
                                         <div className="stc-offr-cpn">
-                                            <p className="stc-off-para">20% OFF + ₹ 100 OFF Coupon</p>
+                                            <p className="stc-off-para">30% OFF + ₹ 100 OFF Coupon</p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=12213" onClick={(e) => {
@@ -113,7 +138,7 @@ class ThyrocarePackageView extends React.Component {
                                     <div className="static-pkg-top-column">
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">
-                                                20% OFF + ₹ 100
+                                                25% OFF + ₹ 100
                                                 OFF Coupon
                                                                 </p>
                                         </div>

@@ -6,12 +6,16 @@ import GTM from '../../../../helpers/gtm.js'
 class DoctorProfileCard extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            ssrFlag: false
+        }
     }
 
     componentDidMount() {
         if (window) {
             window.scrollTo(0, 0)
         }
+        this.setState({ ssrFlag: true })
     }
 
     getQualificationStr(qualificationSpecialization) {
@@ -57,7 +61,7 @@ class DoctorProfileCard extends React.Component {
         GTM.sendEvent({ data: data })
 
         // handle doctor name, hospital name
-        
+
         let state = {
             filterCriteria: {
                 ...this.props.filterCriteria,
@@ -110,7 +114,7 @@ class DoctorProfileCard extends React.Component {
             //     if (i < experiences.length - 1) expStr += ', '
             // })
         }
-
+        let doc_name = name.split(' ')
         return (
             <div className="widget-header dr-qucik-info doc-gold-padding">
                 <div className="fltr-crd-img text-center">
@@ -129,11 +133,11 @@ class DoctorProfileCard extends React.Component {
 
                 <div className="dr-profile">
                     <h1 className="dr-name">{display_name}</h1>
-                    {
-                        this.props.isSeoFriendly?
-                            <p className="diff-suggestion">Looking for a different <span onClick={this.searchProceedOPD.bind(this, name, '', '')}>{name}?</span></p>
+                    {/*
+                        this.props.isSeoFriendly && !this.props.isOrganic?
+                            <p className="diff-suggestion">Looking for a different <span onClick={this.searchProceedOPD.bind(this, doc_name[0], '', '')}>Dr. {doc_name[0]}?</span></p>
                         :''
-                    }
+                    */}
                     <h2 className="desg">{this.getQualificationStr(general_specialization || '')}</h2>
                     {/* {
                         general_specialization && general_specialization.length > 3 ?
@@ -154,13 +158,11 @@ class DoctorProfileCard extends React.Component {
                     }
                 </div>
                 {
-                        this.props.recommendDocs ?
-                <div className="notAvldocBtnContainer mrt-10">
-                    <button className="notAvldocBtn">Book Now</button>
-                    
-                        <p className="notAvlDoc"><span className="fw-700">Not Bookable</span>: See bookable doctors with great discounts below <a onClick={this.props.viewAllDocClick.bind(this,this.props.nearbyDoctors)} className="text-primary fw-600 d-inline-block"> {this.props.nearbyDoctors.count >= 1 && this.props.nearbyDoctors.doctors_url?'(View All)':''}</a></p>
-                </div>
-                : ''
+                    this.props.recommendDocs && this.state.ssrFlag ?
+                        <div className="notAvldocBtnContainer mrt-10">
+                            <button className="notAvldocBtn">Book Now</button>
+                            <p className="notAvlDoc"><span className="fw-700">Not Bookable</span>: See bookable doctors with great discounts below <a onClick={this.props.viewAllDocClick.bind(this, this.props.nearbyDoctors)} className="text-primary fw-600 d-inline-block"> {this.props.nearbyDoctors.count >= 1 && this.props.nearbyDoctors.doctors_url ? '(View All)' : ''}</a></p>
+                        </div> : ''
                 }
             </div>
         );

@@ -29,6 +29,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let locationType = _getLocationParamBind('locationType') || "geo"
             let procedures_ids = _getLocationParamBind('procedure_ids') || ""
             let category_ids = _getLocationParamBind('procedure_category_ids') || ""
+            let ipd_procedures = _getLocationParamBind('ipd_procedures') || ""
             let page = _getLocationParamBind('page') || 1
             page = parseInt(page)
             let hospital_id = _getLocationParamBind('hospital_id') || ""
@@ -37,6 +38,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let cond = []
             let procedures = []
             let procedure_categories = []
+            let ipd_ids = []
             if (specializations_ids) {
                 spec = specializations_ids.split(',').map((x) => {
                     return {
@@ -77,7 +79,17 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
                 })
             }
 
-            let commonSelectedCriterias = [...cond, ...spec, ...procedures, ...procedure_categories]
+            if(ipd_procedures){
+                ipd_ids = ipd_procedures.split(',').map((x) => {
+                    return {
+                        type: 'ipd',
+                        name: "",
+                        id: parseInt(x)
+                    }
+                })
+            }
+
+            let commonSelectedCriterias = [...cond, ...spec, ...procedures, ...procedure_categories, ...ipd_ids]
 
             let filterCriteria = {
                 min_fees, max_fees, sort_on, is_available, is_female, min_distance, max_distance
@@ -363,6 +375,7 @@ export function PackageSearchStateBuilder(selectLocation, querParams, isServer =
             let gender= parseInt(_getLocationParamBind('gender')) || ""
             let package_type= parseInt(_getLocationParamBind('package_type')) || ""
             let package_ids= parseInt(_getLocationParamBind('package_ids')) || ""
+            let package_category_ids= parseInt(_getLocationParamBind('package_category_ids')) || ""
 
             let currentSearchedCriterias = []
             // if (test_ids) {
@@ -376,7 +389,7 @@ export function PackageSearchStateBuilder(selectLocation, querParams, isServer =
             // }
 
             let filterCriteriaPackages = {
-                min_price, max_price, min_distance, max_distance, sort_on, max_age, min_age, package_type, gender, catIds, test_ids, package_ids
+                min_price, max_price, min_distance, max_distance, sort_on, max_age, min_age, package_type, gender, catIds, test_ids, package_ids, package_category_ids
             }
 
             if (lab_name) {

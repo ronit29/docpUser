@@ -4,6 +4,7 @@ import PackageProfileCard from '../../commons/labProfileCard/packageProfileCard.
 import InfiniteScroll from 'react-infinite-scroller';
 import Loader from '../../../commons/Loader'
 import GTM from '../../../../helpers/gtm'
+import BannerCarousel from '../../../commons/Home/bannerCarousel.js';
 
 class packagesList extends React.Component {
     constructor(props) {
@@ -45,6 +46,18 @@ class packagesList extends React.Component {
             this.setState({ hasMore: true })
         }, 0)
 
+        let selectedLocation = ''
+        let lat = 28.644800
+        let long = 77.216721
+        if (this.props.selectedLocation) {
+            selectedLocation = this.props.selectedLocation;
+            lat = selectedLocation.geometry.location.lat
+            long = selectedLocation.geometry.location.lng
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
+
+        this.props.getOfferList(lat, long);
     }
 
     componentWillUnmount() {
@@ -137,16 +150,22 @@ class packagesList extends React.Component {
                                     </div>
                                     <div className="taxContent">
                                         {/* <img style={{ cursor: 'pointer', marginTop: '3px' }} src={ASSETS_BASE_URL + "/img/icons/info.svg"} /> */}
-                                        <p className="taxContentPara">Book Preventive Healthcare Packages for you and your family and get a tax benefit upto <span style={{ display: 'inline-block' }}>₹ 5000</span> under section 80D. To know more <span className="taxClickbtn" onClick={this.showTc.bind(this)}> click here</span></p>
+                                        <p className="taxContentPara">Book Preventive Healthcare Packages for you and your family and get a tax benefit upto <span style={{ display: 'inline-block' }}>₹ 5000</span> under section 80D of the Income Tax Act. To know more <span className="taxClickbtn" onClick={this.showTc.bind(this)}> click here</span></p>
                                     </div>
                                 </div>
                                     : ''
                             }
                             <div className="row">
+                                {
+                                    this.props.offerList && this.props.offerList.filter(x => (x.slider_location === 'search_packages_page') || (x.slider_location === 'full_body_chechkup_page') || (x.slider_location === 'tax_saver_packages_page')).length ?
+                                        <div className="col-12">
+                                            <BannerCarousel {...this.props} sliderLocation={this.props.forTaxSaver ? "tax_saver_packages_page" : this.props.forOrganicSearch ? 'full_body_chechkup_page' : 'search_packages_page'} />
+                                        </div> : ''
+                                }
                                 <div className="col-12">
                                     {
                                         this.props.packagesList && this.props.packagesList.result ? this.props.packagesList.result.map((packages, i) => {
-                                            return <div key={i}>
+                                            return <div key={i} id={`scrollById_${packages.id}_${packages.lab.id}`}>
                                                 <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
                                             </div>
                                         })

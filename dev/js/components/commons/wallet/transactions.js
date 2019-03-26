@@ -17,7 +17,8 @@ const ACTION = {
 
 const PRODUCT = {
     1: 'Doctor',
-    2: 'Lab'
+    2: 'Lab',
+    4: 'Plan'
 }
 
 const SOURCE_FROM = {
@@ -28,6 +29,12 @@ const SOURCE_FROM = {
 const SOURCE_TO = {
     1: '',
     2: 'to Promotional Balance'
+}
+
+const ENTITY = {
+    1: 'Appointment',
+    2: 'Appointment',
+    4: ''
 }
 
 class Transactions extends React.Component {
@@ -78,7 +85,7 @@ class Transactions extends React.Component {
                 return "Amount Refunded to Payment Source"
             }
             case 3: {
-                return `Paid for ${PRODUCT[product_id]} Appointment ${SOURCE_FROM[source]}`
+                return `Paid for ${PRODUCT[product_id]} ${ENTITY[product_id]} ${SOURCE_FROM[source]}`
             }
             case 4: {
                 return "Refund for rescheduled appointment"
@@ -96,7 +103,10 @@ class Transactions extends React.Component {
         if (id) {
             if (PRODUCT[type] == 'Doctor') {
                 this.props.history.push(`/opd/appointment/${id}`)
-            } else {
+            }else if(PRODUCT[type] == 'Plan'){
+                this.props.history.push(`/prime/success?user_plan=${id}`)
+            }
+             else {
                 this.props.history.push(`/lab/appointment/${id}`)
             }
         }
@@ -114,7 +124,7 @@ class Transactions extends React.Component {
                         <div className="csh-booking-id-content">
                             <p>{this.getTxMessage(this.props.data)}</p>
                             {
-                                reference_id ? <span onClick={this.openAppointment.bind(this, product_id, reference_id)}>Booking ID : {reference_id}</span> : ""
+                                reference_id ? <span style={{cursor:'pointer'}} onClick={this.openAppointment.bind(this, product_id, reference_id)}>Booking ID : {reference_id}</span> : ""
                             }
                         </div>
                     </div>

@@ -222,6 +222,8 @@ class TopBar extends React.Component {
             locationName = this.props.seoData.location
         }
 
+        let ipd_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'ipd').map(x => x.id)
+
         return (
             <div>
                 <div className="container-fluid" id="filter-scroll">
@@ -258,9 +260,9 @@ class TopBar extends React.Component {
                                     </ul>
                                 </div>
                                 <div className="filter-title">
-                                    {this.props.count} Results found {criteriaStr ? "for" : ""}
+                                    {this.props.count} {ipd_ids.length ? 'Specialists' : 'Results'} found for
                                     <h1 className="search-result-heading">
-                                        <span className="fw-700"> {criteriaStr} </span>
+                                        <span className="fw-700"> {criteriaStr || "Doctors"} </span>
                                         <span className="search-result-span">
                                             {
                                                 this.state.showLocationPopup && false ? ''

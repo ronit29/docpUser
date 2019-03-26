@@ -54,8 +54,16 @@ import OrderSummary from './containers/commons/OrderSummary'
 import HealthPackageAdvisor from './containers/diagnosis/HealthPackageAdvisor';
 import ThyrocarePackage from './containers/diagnosis/ThyrocarePackage';
 import TaxSaverTC from './components/diagnosis/searchPackages/TaxSaverTC.js'
+import PrimeCare from './containers/care/primeCare.js'
+import PrimeCareBooking from './containers/care/primeCareBooking.js'
+import PrimeCareSuccess from './containers/care/primeCareSuccess.js'
 import Compare from './containers/commons/ComparePackages.js'
 import PackageCompare from './containers/commons/PackagesComapre.js'
+import IPDInfo from './containers/ipd/IpdInfo.js'
+import IpdForm from './containers/ipd/IpdForm.js'
+import IpdHospitalSearch from './containers/ipd/IpdHospitalSearch.js'
+import IpdHospitalDetail from './containers/ipd/IpdHospitalDetail.js'
+import IpdDetail from './containers/ipd/IpdDetail.js'
 
 
 /**
@@ -145,8 +153,16 @@ const routes = [
     { path: '/tax-saver-health-packages-tc', exact: true, component: TaxSaverTC, RENDER_ON_SERVER: true },
     { path: `/*-tpp`, component: searchTestInfo, RENDER_ON_SERVER: true },
     { path: '/sms/booking', exact: true, component: DirectBooking },
+    { path: '/prime/plans', exact: true, component: PrimeCare },
+    { path: '/prime/booking', exact: true, component: PrimeCareBooking },
+    { path: '/prime/success', exact: true, component: PrimeCareSuccess },
     { path: '/compare', exact:true, component: Compare},
     { path: '/packageCompare', exact:true, component: PackageCompare},
+    { path: '/ipdInfo', exact: true, component: IPDInfo},
+    { path: '/ipd/:id/getPriceEstimate',exact: true, component: IpdForm},
+    { path: '/ipd/searchHospitals',exact: true, component: IpdHospitalSearch},
+    { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail},
+    { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail },
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 
