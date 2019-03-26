@@ -8887,7 +8887,7 @@ border-radius: 4px;
 }
 .multiple-pkgs ul {
 	overflow: hidden;
-	overflow-x: auto;
+	overflow-x: scroll;
 	white-space: nowrap;
 }
 .multiple-pkgs ul li{

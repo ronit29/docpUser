@@ -9,8 +9,18 @@ import Footer from '../../components/commons/Home/footer'
         this.state={
           checked:false
         }
+      }
+      componentDidMount(){
+        var pkgCls = document.getElementsByClassName('pkgCls');
+        if(pkgCls && pkgCls[0]){
+          pkgCls[0].addEventListener('scroll', (e)=>{
+            var x = pkgCls.scrollLeft;
+            console.log(x);
+          });
+        }
         
-    }
+        
+      }  
 render() {
 
 return (
@@ -114,10 +124,9 @@ return (
                               </div>
                               <div className="pkg-crd-foot-img-text">
                                 <img src="https://cdn.docprime.com/cp/assets/img/watch-date.svg" style={{ width: 15 }} />
-                                <p>
-                                  <p style={{ fontSize: 12 }}>8:00 AM - 5:00 PM
-                                  </p>
-                                </p>
+                                <div>
+                                  <p style={{ fontSize: 12 }}>8:00 AM - 5:00 PM</p>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -186,10 +195,10 @@ return (
                               </div>
                               <div className="pkg-crd-foot-img-text">
                                 <img src="https://cdn.docprime.com/cp/assets/img/watch-date.svg" style={{ width: 15 }} />
-                                <p>
+                                <div>
                                   <p style={{ fontSize: 12 }}>8:00 AM - 5:00 PM
                                   </p>
-                                </p>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -242,7 +251,7 @@ return (
                       </div>
                     </div>
                     <div className="multiple-pkgs sticky-multiple-pkgs">
-                      <ul>
+                      <ul className="pkgCls">
                         <li>
                           <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
                           <br />
@@ -304,7 +313,7 @@ return (
                         </div>
                         <div>
                           <div className="top-head-info multiple-pkgs parent-info">
-                            <ul>
+                            <ul className="pkgCls">
                               <li>2</li>
                               <li>3</li>
                               <li>4</li>
@@ -316,7 +325,7 @@ return (
                             <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                           </div>
                           <div className="top-head-info multiple-pkgs">
-                            <ul>
+                            <ul className="pkgCls">
                               <li>2</li>
                               <li>3</li>
                               <li>4</li>
@@ -324,7 +333,7 @@ return (
                             </ul>
                           </div>
                           <div className="top-head-info multiple-pkgs multiple-pkgs-details">
-                            <ul>
+                            <ul className="pkgCls">
                               <li>
                                 <span>LDL Cholestrol</span>
                                 <span>LDL Cholestrol</span>
