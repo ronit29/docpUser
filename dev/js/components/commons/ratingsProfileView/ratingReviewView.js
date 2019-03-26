@@ -24,7 +24,7 @@ class RatingReviewView extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
-        this.props.getAllRatings(this.props.content_type, this.props.doctor_id, 1, (err, data, hasMore) => {
+        this.props.getAllRatings(this.props.content_type, this.props.id, 1, (err, data, hasMore) => {
             if (!err && data) {
                 this.setState({ data, hasMore })
             }
@@ -36,7 +36,7 @@ class RatingReviewView extends React.Component {
 
     loadMore() {
         this.setState({ hasMore: false, loading: true }, () => {
-            this.props.getAllRatings(this.props.content_type, this.props.doctor_id, this.state.page, (err, data, hasMore) => {
+            this.props.getAllRatings(this.props.content_type, this.props.id, this.state.page, (err, data, hasMore) => {
                 let newData = { ...this.state.data }
                 newData.rating = newData.rating.concat(data.rating)
                 this.setState({ loading: false, page: this.state.page + 1, hasMore, data: newData })
@@ -46,7 +46,6 @@ class RatingReviewView extends React.Component {
     }
 
     render() {
-        console.log('axxxxxxxxxxxx');console.log(this.state)
 
         return (
             <React.Fragment>

@@ -371,8 +371,9 @@ class DoctorProfileView extends React.Component {
                                                                 details={this.props.DOCTORS[doctor_id]}
                                                             />
                                                             {this.props.DOCTORS[doctor_id]?
-                                                                <RatingReviewView doctor_id={doctor_id} content_type={2} {...this.props}/> :
-                                                                ""}
+                                                                <RatingReviewView id={doctor_id} content_type={2} {...this.props}/> :
+                                                                ""
+                                                            }
                                                         </div>
                                                     </div>
                                                 </div>

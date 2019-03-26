@@ -1,12 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import InitialsPicture from '../../../commons/initialsPicture'
-import ReviewList from '../../../commons/ratingsProfileView/ReviewList.js'
-import RatingGraph from '../../../commons/ratingsProfileView/RatingGraph.js'
-import ComplimentListView from '../../../commons/ratingsProfileView/ComplimentListView.js'
 import LabTests from '../labTests'
 import RatingProfileCard from '../../../commons/ratingsProfileView/RatingProfileCard.js'
 import { buildOpenBanner } from '../../../../helpers/utils.js'
+import RatingReviewView from '../../../commons/ratingsProfileView/ratingReviewView.js'
 
 class LabDetails extends React.Component {
 
@@ -71,7 +69,7 @@ class LabDetails extends React.Component {
                                     </ul>
                                 </div> */}
 
-                                {this.props.data.lab.display_rating_widget ?
+                                {/*this.props.data.lab.display_rating_widget ?
                                     <div className="widget-panel">
                                         <h4 className="panel-title mb-rmv">Patient Feedback<a className="rateViewAll"><span onClick={() => this.props.history.push(`/view-all-ratings?content_type=1&id=` + this.props.data.lab.id)}>View All</span></a></h4>
 
@@ -86,7 +84,12 @@ class LabDetails extends React.Component {
                                             </div>
                                             <ReviewList details={this.props.data.lab} />
                                         </div>
-                                    </div> : ""}
+                                    </div> : ""*/}
+                                {
+                                    this.props.data.lab?
+                                    <RatingReviewView id={this.props.data.lab.id} content_type={1} {...this.props}/> :
+                                    ""
+                                }
                             </div>
                             <div className="widget mrb-15">
                                 <div className="widget-content pb-details pb-location">
