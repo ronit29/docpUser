@@ -110,7 +110,7 @@ class OrderSummaryView extends React.Component {
                                                             <div className="shopng-cart-price">
                                                                 {
                                                                     item.payment_type==3?<span>{item.data.profile && item.data.profile.name?item.data.profile.name:''}</span>
-                                                                    :item.payment_type == 1 ? <p>
+                                                                    :item.payment_type == 1 || item.payment_type == 4? <p>
                                                                         <img src="/assets/img/rupee-icon.svg" alt="rupee-icon" className="icon-rupee" />
                                                                         {" " + item.effective_price}
                                                                     </p> : <p>

@@ -74,7 +74,7 @@ class LabTests extends React.Component {
         let unSelectedPackage = []
         let test_info = ''
         let show_details = ''
-
+        let {is_plan_applicable} = this.props
         let { is_insurance_applicable } = this.props
 
         /*if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
@@ -111,9 +111,9 @@ class LabTests extends React.Component {
 
                 if (test.is_package) {
                     if (test.is_selected) {
-                        selectedPackage.push(<PackageTest key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} testInfo={this.testInfo.bind(this)} hide_price={hide_price} />)
+                        selectedPackage.push(<PackageTest is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} testInfo={this.testInfo.bind(this)} hide_price={hide_price} />)
                     } else {
-                        unSelectedPackage.push(<PackageTest key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} hide_price={hide_price} testInfo={this.testInfo.bind(this)} />)
+                        unSelectedPackage.push(<PackageTest is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} hide_price={hide_price} testInfo={this.testInfo.bind(this)} />)
                     }
 
                 } else {
@@ -144,7 +144,11 @@ class LabTests extends React.Component {
                                     <span className="test-price text-sm">&#8377; {0}</span>
                                     :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>    
                                 }
-                                
+                                {
+                                    test.included_in_user_plan?
+                                        <span className="test-price text-sm">₹ 0 </span>
+                                    :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                }
                             </li>)
                     } else {
                         unSelectedTests.push(test.hide_price
@@ -161,6 +165,12 @@ class LabTests extends React.Component {
                                     is_insurance_applicable?
                                     <span className="test-price text-sm">&#8377; {0}</span>
                                     :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                }
+                                {    
+                                    test.included_in_user_plan?
+                                        <span className="test-price text-sm">₹ 0 </span>
+                                    :
+                                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                                 }
                             </li>)
                     }
@@ -240,7 +250,7 @@ class LabTests extends React.Component {
                         </h4>
                     } */}
 
-                    <ul className="list all-test-list">
+                    <ul className="list all-test-list pdngRgt">
                         {selectedTests}
                         {selectedPackage}
                         {hide_price ? '' : unSelectedTests}

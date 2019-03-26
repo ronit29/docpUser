@@ -357,8 +357,32 @@ class BookingSummaryViewNew extends React.Component {
 
         }
 
+        let is_plan_applicable = false
+        let is_tests_covered_under_plan = true
+        let is_selected_user_has_active_plan = false
+
+        if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
+            is_selected_user_has_active_plan = this.props.isUserCared.has_active_plan
+        }
+
+        //Check If each Tests Covered Under Plan
+
+        if (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].tests) {
+
+            this.props.LABS[this.state.selectedLab].tests.map((test, i) => {
+                if(test.included_in_user_plan){
+    
+                }else{
+                    is_tests_covered_under_plan = false
+                }
+            })
+
+        }
+
+
         is_insurance_applicable = is_tests_covered_under_insurance && is_selected_user_insured
 
+        is_plan_applicable = is_tests_covered_under_plan && is_selected_user_has_active_plan
 
         let start_date = this.props.selectedSlot.date
         let start_time = this.props.selectedSlot.time.value
@@ -379,7 +403,7 @@ class BookingSummaryViewNew extends React.Component {
             profileData['whatsapp_optin']= this.state.whatsapp_optin
             this.props.editUserProfile(profileData, profileData.id)
         }
-        if (this.props.disCountedLabPrice && !is_insurance_applicable) {
+        if (this.props.disCountedLabPrice && !is_plan_applicable || !is_insurance_applicable) {
             postData['coupon_code'] = [this.state.couponCode] || []
         }
 
@@ -558,6 +582,9 @@ class BookingSummaryViewNew extends React.Component {
         let is_insurance_applicable = false
         let is_tests_covered_under_insurance = true
         let is_selected_user_insured = false
+        let is_plan_applicable = false
+        let is_tests_covered_under_plan = true
+        let is_selected_user_has_active_plan = false
 
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
@@ -566,22 +593,39 @@ class BookingSummaryViewNew extends React.Component {
 
 
         //Check If each Tests Covered Under Insurance
+        if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
+            is_selected_user_has_active_plan = this.props.isUserCared.has_active_plan
+        }
+
+        //Check If each Tests Covered Under Plan
 
         if (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].tests) {
 
             this.props.LABS[this.state.selectedLab].tests.map((test, i) => {
-                
-                if(test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount>=parseInt(test.deal_price) && !test.is_package){
     
+                if(test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount>=parseInt(test.deal_price) && !test.is_package){
+            
                 }else{
                     is_tests_covered_under_insurance = false
+            
                 }
             })
+            
+            
+            this.props.LABS[this.state.selectedLab].tests.map((test, i) => {
+                
+                if(test.included_in_user_plan){
+            
+                }else{
+                    is_tests_covered_under_plan = false
+                }
+            })            
 
         }
 
         is_insurance_applicable = is_tests_covered_under_insurance && is_selected_user_insured
 
+        is_plan_applicable = is_tests_covered_under_plan && is_selected_user_has_active_plan
 
         if (this.props.LABS[this.state.selectedLab]) {
             labDetail = this.props.LABS[this.state.selectedLab].lab
@@ -601,10 +645,16 @@ class BookingSummaryViewNew extends React.Component {
 
                 return <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
                     {
-                        is_corporate || is_insurance_applicable? <span className="float-right fw-700">{is_insurance_applicable?'₹ 0':'Free'}</span> : <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
+                        is_corporate || is_insurance_applicable? <span className="float-right fw-700">Free</span> : is_plan_applicable? <span className="float-right fw-700">₹ 0 </span>: <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
                         </span>
                     }
-                    <span className="test-name-item">{twp.test.name}</span></p>
+                    <span className="test-name-item">{twp.test.name}</span>
+                    {
+                        is_plan_applicable?
+                            <p className="pkg-discountCpn" style={{display:'inline-block',float:'right',marginTop:'5px'}}>Docprime Care Benefit</p>
+                        :''
+                    }
+                    </p>
             })
 
             center_visit_enabled = labDetail.center_visit_enabled
@@ -649,7 +699,7 @@ class BookingSummaryViewNew extends React.Component {
         if (!this.state.is_cashback) {
             total_price = total_price ? parseInt(total_price) - (this.props.disCountedLabPrice || 0) : 0
         }
-        total_price = is_corporate || is_insurance_applicable? 0 : total_price
+        total_price = is_corporate || is_insurance_applicable || is_plan_applicable ? 0 : total_price
         let total_wallet_balance = 0
         if (this.props.userWalletBalance >= 0 && this.props.userCashbackBalance >= 0) {
             total_wallet_balance = this.props.userWalletBalance + this.props.userCashbackBalance
@@ -727,7 +777,7 @@ class BookingSummaryViewNew extends React.Component {
                                                         </div>
 
                                                         {
-                                                            amtBeforeCoupon != 0 && !is_insurance_applicable?
+                                                            amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable?
                                                                 <div className="widget mrb-15" onClick={this.applyCoupons.bind(this)}>
                                                                     {
                                                                         labCoupons.length ?
@@ -782,14 +832,15 @@ class BookingSummaryViewNew extends React.Component {
                                                                     <div className="widget-content clearfix">
                                                                         <h4 className="title mb-20">Payment Summary</h4>
                                                                         {
-                                                                            is_insurance_applicable?
+                                                                            is_plan_applicable ||is_insurance_applicable?
                                                                             <div className="payment-summary-content">
                                                                                 <div className="payment-detail d-flex">
                                                                                     <p className="payment-content fw-500">Subtotal</p>
                                                                                     <p className="payment-content fw-500">&#8377; {total_price || 0}</p>
                                                                                 </div>
                                                                             </div>
-                                                                            :<div className="payment-summary-content">
+                                                                        :    
+                                                                            <div className="payment-summary-content">
                                                                                 <div className="payment-detail d-flex">
                                                                                     <p>Lab Fees</p>
                                                                                     <p>&#8377; {finalMrp}</p>
@@ -821,9 +872,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                             <p className="payment-content fw-500">&#8377; {total_price || 0}</p>
                                                                                         </div>
                                                                                 }
-
                                                                             </div>
-
                                                                         }
                                                                         <hr />
 
