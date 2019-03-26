@@ -189,7 +189,7 @@ class DoctorProfileCard extends React.Component {
 
             let rating = ''
             if (average_rating) {
-                rating = (Math.ceil(this.props.ratings * 2)) / 2;
+                rating = (Math.ceil(average_rating * 2)) / 2;
             }
 
             let ratingArray = []
@@ -228,7 +228,7 @@ class DoctorProfileCard extends React.Component {
                                 <div className="cstm-doc-details-container">
                                     <div className="cstm-doc-img-container">
                                         <div>
-                                            <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds" style={{ width: 52, height: 52 }} >
+                                            <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds" style={{ width: 50, height: 50, fontSize: '1.5em' }} >
                                                 <img className="img-round" src={thumbnail} alt={display_name} title={display_name} />
                                             </InitialsPicture>
                                             {
@@ -261,7 +261,7 @@ class DoctorProfileCard extends React.Component {
                                     rating ?
                                         <div className="cstm-doc-rtng">
                                             {ratingArray}
-                                            <span>{rating}</span>
+                                            <span>({rating})</span>
                                         </div> : ''
                                 }
                             </div>
@@ -277,7 +277,7 @@ class DoctorProfileCard extends React.Component {
                                             <p className="cst-doc-price">₹ {mrp}</p> : ''
                                 }
                                 {
-                                    deal_price != mrp && enabled_for_hospital_booking ?
+                                    offPercent && deal_price != mrp && enabled_for_hospital_booking ?
                                         <p className="cstm-cpn">{offPercent}% Off
                                             {
                                                 deal_price != discounted_price ?
