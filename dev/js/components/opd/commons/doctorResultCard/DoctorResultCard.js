@@ -10,7 +10,8 @@ class DoctorProfileCard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            errorMessage: false
+            errorMessage: false,
+            ssrFlag: false
         }
     }
 
@@ -18,6 +19,7 @@ class DoctorProfileCard extends React.Component {
         // if (window) {
         //     window.scrollTo(0, 0)
         // }
+        this.setState({ ssrFlag: true })
     }
 
     viewProfileClicked(id, url, hospital_id, e) {
@@ -214,7 +216,7 @@ class DoctorProfileCard extends React.Component {
             }
 
             return (
-                <div className="cstm-docCard mb-3" onClick={enabled_for_hospital_booking ? this.bookNowClicked.bind(this, id, url, hospital.hospital_id || '') : this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')}>
+                <div className="cstm-docCard mb-3">
                     {
                         new_schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
                             __html: new_schema
@@ -224,7 +226,9 @@ class DoctorProfileCard extends React.Component {
                     <div className="cstm-docCard-content">
                         <div className="row no-gutters">
                             <div className="col-8">
-                                <h2 className="cstmDocName">{display_name}</h2>
+                                <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')} title={display_name}>
+                                    <h2 className="cstmDocName">{display_name}</h2>
+                                </a>
                                 <div className="cstm-doc-details-container">
                                     <div className="cstm-doc-img-container">
                                         <div>
@@ -238,10 +242,10 @@ class DoctorProfileCard extends React.Component {
                                         </div>
                                     </div>
                                     <div className="cstm-doc-content-container">
-                                        <p>{this.getQualificationStr(general_specialization || [])}</p>
+                                        <h3>{this.getQualificationStr(general_specialization || [])}</h3>
                                         {
                                             experience_years ?
-                                                <p style={{ marginBottom: 5 }}>{experience_years} Years Experience</p> : ''
+                                                <h3 style={{ marginBottom: 5 }}>{experience_years} Years Experience</h3> : ''
                                         }
                                         {
                                             hospital && hospital.timings && Object.keys(hospital.timings).length ?
@@ -267,7 +271,7 @@ class DoctorProfileCard extends React.Component {
                             </div>
                             <div className="col-4" style={mrp == 0 ? { paddingTop: 40 } : {}}>
                                 {
-                                    enabled_for_hospital_booking && mrp != 0 ?
+                                    enabled_for_hospital_booking && mrp != 0 && this.state.ssrFlag ?
                                         <p className="cstm-doc-price">Docprime Price</p> : ''
                                 }
                                 {
@@ -289,9 +293,9 @@ class DoctorProfileCard extends React.Component {
                                 }
                                 {
                                     enabled_for_hospital_booking ?
-                                        <button className="cstm-book-btn">Book Now</button>
+                                        <button className="cstm-book-btn" onClick={this.bookNowClicked.bind(this, id, url, hospital.hospital_id || '')}>Book Now</button>
                                         :
-                                        <button className="cstm-view-btn">View Contact</button>
+                                        <button className="cstm-view-btn" onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')}>View Contact</button>
                                 }
                             </div>
                         </div>
@@ -304,10 +308,25 @@ class DoctorProfileCard extends React.Component {
                                         <span> &amp; {hospital_count - 1} More </span> : ''
                                 }
                             </p>
-                            <p className="mb-rmv">
-                                <img style={{ width: '10px', marginLeft: '3px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />
-                                {hospital.short_address}
-                            </p>
+                            {
+                                parent_url && parent_url.length ?
+                                    <a href={parent_url} onClick={
+                                        (e) => {
+                                            e.preventDefault()
+                                            this.props.history.push(`/${parent_url}`)
+                                        }
+                                    }>
+                                        <p className="mb-rmv">
+                                            <img style={{ width: '10px', marginLeft: '3px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />
+                                            {hospital.short_address}
+                                        </p>
+                                    </a>
+                                    :
+                                    <p className="mb-rmv">
+                                        <img style={{ width: '10px', marginLeft: '3px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />
+                                        {hospital.short_address}
+                                    </p>
+                            }
                         </div>
                         <div className="cstmDocLoc">
                             <p className=""><img src={ASSETS_BASE_URL + "/img/cstmdist.svg"} />{Distance}&nbsp;km</p>

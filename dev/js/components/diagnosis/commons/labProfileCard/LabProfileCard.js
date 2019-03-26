@@ -217,7 +217,7 @@ class LabProfileCard extends React.Component {
                                     </div>
                                 </div>
                                 <div className="cstm-doc-content-container">
-                                    <h4 className="cstmDocName">{name}</h4>
+                                    <h3 className="cstmDocName">{name}</h3>
                                     {
                                         this.props.details.tests && this.props.details.tests.length ?
                                             this.props.details.tests.map((test, index) => {

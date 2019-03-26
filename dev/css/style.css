@@ -7136,7 +7136,7 @@ img.img-cstm-docrating {
     font-weight: 600;
     margin-bottom: 4px;
 }
-.cstm-doc-content-container p{
+.cstm-doc-content-container p, .cstm-doc-content-container h3{
     color: #757575;
     font-weight: 500;
     font-size: 12px;
@@ -7180,9 +7180,10 @@ button.cstm-view-btn {
     margin-top: 5px;
 }
 .cstmDocName{
-	font-size: 15px;
-    margin-bottom: 5px;
-    font-weight: 700;
+	font-size: 15px !important;
+    margin-bottom: 5px !important;
+    font-weight: 700 !important;
+    color: #000 !important;
 }
 .cstmCardFooter {
     background-color: rgba(194,194,194,.2);
