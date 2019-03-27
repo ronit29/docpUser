@@ -266,7 +266,10 @@ class DoctorProfileCard extends React.Component {
                                     rating ?
                                         <div className="cstm-doc-rtng">
                                             {ratingArray}
-                                            <span>({rating_count || ''})</span>
+                                            {
+                                                rating_count ?
+                                                    <span>({rating_count})</span> : ''
+                                            }
                                         </div> : ''
                                 }
                             </div>

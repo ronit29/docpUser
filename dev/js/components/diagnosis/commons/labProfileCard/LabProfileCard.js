@@ -228,7 +228,10 @@ class LabProfileCard extends React.Component {
                                             rating ?
                                                 <div className="cstmLabStar">
                                                     {ratingArray}
-                                                    <span className="ratingsCount" style={{ fontSize: 12 }}>({rating_count || ''})</span>
+                                                    {
+                                                        rating_count ?
+                                                            <span className="ratingsCount" style={{ fontSize: 12 }}>({rating_count || ''})</span> : ''
+                                                    }
                                                 </div> : ''
                                         }
                                     </div>
