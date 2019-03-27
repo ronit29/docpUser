@@ -213,7 +213,6 @@ class DoctorProfileView extends React.Component {
                 google_rating.rating_graph = this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating_graph 
             }
         }
-
         let show_google_rating = Object.values(google_rating).length>0
 
         return (
