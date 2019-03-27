@@ -231,9 +231,11 @@ class DoctorProfileCard extends React.Component {
                                 <div className="cstm-doc-details-container">
                                     <div className="cstm-doc-img-container">
                                         <div>
-                                            <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds" style={{ width: 50, height: 50, fontSize: '1.5em' }} >
-                                                <img className="img-round" src={thumbnail} alt={display_name} title={display_name} />
-                                            </InitialsPicture>
+                                            <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')} title={display_name}>
+                                                <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds" style={{ width: 50, height: 50, fontSize: '1.5em' }} >
+                                                    <img className="img-round" src={thumbnail} alt={display_name} title={display_name} />
+                                                </InitialsPicture>
+                                            </a>
                                             {
                                                 is_license_verified && enabled_for_online_booking ?
                                                     <p className="cstm-varify">Verified</p> : ''
@@ -301,12 +303,12 @@ class DoctorProfileCard extends React.Component {
                     </div>
                     <div className="cstmCardFooter">
                         <div className="cstmfooterContent">
-                            <p><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />{hospital.hospital_name}
+                            <h3><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />{hospital.hospital_name}
                                 {
                                     hospital_count > 1 ?
                                         <span> &amp; {hospital_count - 1} More </span> : ''
                                 }
-                            </p>
+                            </h3>
                             {
                                 parent_url && parent_url.length ?
                                     <a href={parent_url} onClick={

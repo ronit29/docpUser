@@ -132,6 +132,14 @@ class LabProfileCard extends React.Component {
         GTM.sendEvent({ data: data })
     }
 
+    goToProfile(id, url) {
+        if (url) {
+            this.props.history.push(`/${url}`)
+        } else {
+            this.props.history.push(`/lab/${id}`)
+        }
+    }
+
     render() {
         let self = this
         let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price } = this.props.details;
@@ -201,15 +209,21 @@ class LabProfileCard extends React.Component {
         return (
 
             <div className="cstm-docCard mb-3">
-                <div className="cstm-docCard-content" onClick={this.bookNowClicked.bind(this, id, url)}>
+                <div className="cstm-docCard-content">
                     <div className="row no-gutters">
                         <div className="col-8">
                             <div className="cstm-doc-details-container labCardUiresponsive">
                                 <div className="cstm-doc-img-container">
                                     <div className="text-center">
-                                        <InitialsPicture name={name} has_image={!!lab_thumbnail} className="initialsPicture-ls">
-                                            <img style={{ width: '75px' }} className="fltr-usr-image-lab" src={lab_thumbnail} />
-                                        </InitialsPicture>
+                                        <a href={url} onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            this.goToProfile(id, url)
+                                        }}>
+                                            <InitialsPicture name={name} has_image={!!lab_thumbnail} className="initialsPicture-ls">
+                                                <img style={{ width: '75px' }} alt={name} className="fltr-usr-image-lab" src={lab_thumbnail} />
+                                            </InitialsPicture>
+                                        </a>
                                         {/* <div className="cstmLabStar">
                                             {ratingArray}
                                             <span>{rating}</span>
@@ -217,7 +231,13 @@ class LabProfileCard extends React.Component {
                                     </div>
                                 </div>
                                 <div className="cstm-doc-content-container">
-                                    <h3 className="cstmDocName">{name}</h3>
+                                    <a href={url} onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        this.goToProfile(id, url)
+                                    }}>
+                                        <h2 className="cstmDocName">{name}</h2>
+                                    </a>
                                     {
                                         this.props.details.tests && this.props.details.tests.length ?
                                             this.props.details.tests.map((test, index) => {
@@ -241,7 +261,7 @@ class LabProfileCard extends React.Component {
                                 discounted_price != price && !hide_price && offPercent && offPercent > 0 ?
                                     <p className="cstm-cpn">{offPercent}% Off (includes Coupon)</p> : ''
                             }
-                            <button className="cstm-book-btn">Book Now</button>
+                            <button className="cstm-book-btn" onClick={this.bookNowClicked.bind(this, id, url)}>Book Now</button>
                         </div>
                     </div>
                 </div>

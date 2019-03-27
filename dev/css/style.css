@@ -7205,7 +7205,7 @@ button.cstm-view-btn {
 	flex-grow: 0;
 	flex-shrink: 0;
 }
-.cstmfooterContent p {
+.cstmfooterContent p, .cstmfooterContent h3 {
     margin-bottom: 6px;
     white-space: nowrap;
     overflow: hidden;
@@ -7216,6 +7216,9 @@ button.cstm-view-btn {
 }
 .cstmfooterContent p img {
     margin-right: 6px;
+}
+.cstmfooterContent h3 img{
+    margin-right: 4px;
 }
 .cstmDocLoc p{
     display: inline-flex;
