@@ -9511,7 +9511,7 @@ input[type=button]{
 }
 .ins-val-bx.shopng-cart-price{
 	position: absolute;
-    top: 26px;
+    top: 6px;
     right: 12px;
 }
 .widget-content.padiing-srch-el.pad-srch{
@@ -9553,5 +9553,17 @@ input[type=button]{
 }
 .ins-val-bx.ins-val-boxes{
 	margin-top: -94px;
-    width: calc(100% - 120px);
+	display:inline;
+   
+}
+@media screen and (max-width: 991px){
+	.ins-val-bx.ins-val-boxes{
+		font-size:11px;
+	}
+}
+@media screen and (max-width: 480px){
+	.ins-val-bx.ins-val-boxes{
+		width: calc(100% - 120px);
+		font-size:9px;
+	}
 }
