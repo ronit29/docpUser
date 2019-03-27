@@ -220,8 +220,7 @@ class DoctorProfileCard extends React.Component {
                     {
                         new_schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
                             __html: new_schema
-                        }} />
-                            : ""
+                        }} /> : ""
                     }
                     <div className="cstm-docCard-content">
                         <div className="row no-gutters">
@@ -265,7 +264,7 @@ class DoctorProfileCard extends React.Component {
                                     rating ?
                                         <div className="cstm-doc-rtng">
                                             {ratingArray}
-                                            <span>({rating})</span>
+                                            {/* <span>({rating})</span> */}
                                         </div> : ''
                                 }
                             </div>
