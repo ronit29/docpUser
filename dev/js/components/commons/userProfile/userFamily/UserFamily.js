@@ -56,6 +56,7 @@ class UserFamily extends React.Component {
                                     <div className="member-details">
                                         <h4 className="title app-title">{profiles[id].name}</h4>
                                         <ul className="list">
+                        
                                             <li className="fw-500 text-sm" style={{ marginBottom: 5 }} >
                                                 {
                                                     profiles[id].gender == 'o' ? "" :
@@ -75,8 +76,9 @@ class UserFamily extends React.Component {
                                                 }
                                                 
                                             <li className="fw-500 text-sm">{profiles[id].is_default_user ? "Self/Primary" : "Family Member"}</li>
-                                            <li className="ins-val-bx">{profiles[id].is_insured?'Covered Under Insurance':'Not Covered Under Insurance'}</li>
+                                            
                                         </ul>
+                                        <div className="ins-val-bx ins-val-boxes">{profiles[id].is_insured?'Covered Under Insurance':'Not Covered Under Insurance'}</div>
                                     </div>
                                     <span className="ct-img ct-img-sm arrow-forward-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
                                 </a>
