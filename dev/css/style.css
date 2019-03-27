@@ -8753,7 +8753,21 @@ border-radius: 4px;
     text-align: center;
     font-weight: 500;
     line-height: 19px;
-    padding-right: 15px;
+	padding-right: 15px;
+	font-size:12px;
+	position:relative;
+}
+.pkgComapre .container-fluid{
+	padding: 0 5px;
+}
+.end-div{
+	position:absolute;
+	width:12px;
+	right:9px;
+	cursor:pointer;
+}
+.pkmkb .end-div{
+	right:15px;
 }
 .pkgComapre .add-more-package{
 	background: #767676;
@@ -8871,7 +8885,7 @@ border-radius: 4px;
 .pkg-hd{
 	font-size: 16px;
 	font-weight: 500;
-	margin: 5px 0;
+	margin: 0;
 }
 .pkg-hd-by{
 	font-size: 14px;
@@ -8883,7 +8897,7 @@ border-radius: 4px;
 }
 .pkgComapre .multiple-pkgs .pkg-discountCpn{
 	display: inline-block;
-	margin: 10px 0;
+	margin: 5px 0 2px;
 }
 .multiple-pkgs ul {
 	overflow: hidden;
@@ -8905,14 +8919,14 @@ border-radius: 4px;
 }
 .multiple-pkgs ul li:after{
 	content: "";
-    border-right: 1px solid #ccc;
+    border-right: 1px solid #ddd;
     position: absolute;
     height: 72%;
     top: 65px;
     left: -15px;
 }
 .pkgComapre .multiple-pkgs .pkg-card-price{
-	margin-top: 10px;
+	margin: 10px 0 4px;
 }
 .sticky-multiple-pkgs{
 	position: sticky;
@@ -8935,7 +8949,8 @@ border-radius: 4px;
 }
 .hide-all img{
 	vertical-align: 0;
-	width: 14px;
+	width: 12px;
+	height:8px;
 }
 
 .pkg-crd-header.light-orng-header{
@@ -8953,6 +8968,7 @@ border-radius: 4px;
 }
 .span-img img{
 	vertical-align: middle;
+	width:13px;
 }
 .top-head-info.multiple-pkgs{
 	box-shadow: none;
@@ -8985,24 +9001,15 @@ border-radius: 4px;
 	height: 100%;
 	top: 0;
 }
-
-
-
-
-/*.multiple-pkgs-in{
-	overflow: hidden;
-	white-space: nowrap;
-	overflow-x: auto;
+.multiple-pkgs.sticky-multiple-pkgs{
+	border-radius: 0;
+	margin: 0 -15px;
 }
-.pckg-type{
-	display: inline-block;
-	width: 33%;
+.x-img{
+	width: 10px;
+	height:10px;
+    margin: 4px;
 }
-.fixed-header-div{
-	box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.12);
-}*/
-/**/
-
 
 @media screen and (max-width: 991px){
 	.pkgComapre{
@@ -9014,21 +9021,100 @@ border-radius: 4px;
 	.pkgComapre .chat-load-mobile.mt-21{
 		margin-top: 0;
 	}
+	.pkgComapre .fltr-usr-image-lab{
+		width:60px;
+	}
+	.multiple-pkgs ul li{
+		padding:0 20px 0 0;
+	}
+	.pkgComapre .multiple-pkgs h3.pkg-include{
+		display:inline-block;
+		font-size:9px;
+		font-weight:400 !important;
+	}
+	.pkg-hd{
+		font-size:14px;
+	}
+	.pkg-hd-by{
+		font-size:12px;
+		margin-bottom:5px;
+	}
+	.pkgComapre .pkg-discountCpn{
+		font-size:10px;
+		font-weight: 500;
+	}
+	.pkg-card-price{
+		font-size:14px;
+	}
+	.pkg-cut-price{
+		font-size:11px;
+	}
+	.multiple-pkgs ul li:after{
+		left:-10px;
+	}
+	.sticky-multiple-pkgs{
+		top:46px;
+	}
+	.pkgComapre .multiple-pkgs .pkg-card-price{
+		margin:2px 0 4px;
+	}
 }
 @media screen and (max-width: 767px){
 	.pkgComapre .alignShareBtn{
 		display: none;
 	}
+	.multiple-pkgs-details ul span{
+		font-size:12px;
+	}
+	.x-img.xm-img{
+		margin: 12px 4px;
+	}
+	.pkg-crd-header.light-orng-header span{
+		font-size:12px;
+	}
+}
+
+@media screen and (max-width: 360px){
+	.pkg-hd{
+		font-size:13px;
+	}
+	.pkg-hd-by{
+		font-size:11px;
+	}
+	.pkgComapre .pkg-discountCpn {
+		font-size: 9px;
+		
+	}
+	.pkg-card-price {
+		font-size: 13px;
+	}
+	.pkg-cut-price {
+		font-size: 10px;
+	}
+	.pkg-btn-nw{
+		font-size:12px;
+	}
+	
 }
 @media screen and (max-width: 320px){
 	.pkgComapre .compare-packages ul li{
 		width: 40%;
 	}
+	.pkg-hd{
+		font-size:11px;
+	}
+	.pkg-hd-by {
+		font-size: 10px;
+	}
+	.pkg-card-price {
+		font-size: 11px;
+		margin-left: -2px;
+	}
+	.pkg-cut-price{
+		margin-left:0;
+		vertical-align: 0px;
+	}
 }
-
-
-
-
 /*================== Package Compare ===================== */
 
 @media screen and (max-width: 991px){

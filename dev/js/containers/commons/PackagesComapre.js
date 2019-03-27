@@ -11,15 +11,17 @@ import Footer from '../../components/commons/Home/footer'
         }
       }
       componentDidMount(){
-        var pkgCls = document.getElementsByClassName('pkgCls');
-        if(pkgCls && pkgCls[0]){
-          pkgCls[0].addEventListener('scroll', (e)=>{
-            var x = pkgCls.scrollLeft;
-            console.log(x);
-          });
+        let pkgCls = document.getElementsByClassName('pkgCls');
+         if(pkgCls && pkgCls.length){
+          for(var i=0;i<pkgCls.length;i++){
+            pkgCls[i].addEventListener('scroll', (e)=>{
+              let leftScrolledVal = e.target.scrollLeft;
+                for(var j=0;j<pkgCls.length;j++){
+                  pkgCls[j].scrollLeft = leftScrolledVal
+                }
+             });
+          }
         }
-        
-        
       }  
 render() {
 
@@ -97,7 +99,7 @@ return (
                                       <p className="fw-500">₹ 1340 <span className="pkg-cut-price">₹ 2700</span></p>
                                     </div>
                                     <a href="thyrocare-dlf-phase-4-in-sector-27-gurgaon-lpp"><button className="pkg-btn-nw" style={{ width: '100%' }}>Book Now</button></a>
-                                    <p className="pkg-discountCpn">Includes coupon discount</p>
+                                    <p className="pkg-discountCpn">Includes coupon</p>
                                   </div>
                                 </div>
                               </div>
@@ -211,21 +213,25 @@ return (
                     <div className="compare-packages">
                       <ul>
                         <li>
+                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />  
                           <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
                           <br/>
                           Thyocare Aarogyam B Package
                         </li>
                         <li>
+                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
                           <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
                           <br/>
                           Thyocare Aarogyam B Package
                         </li>
                         <li>
+                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
                           <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
                           <br/>
                           Thyocare Aarogyam B Package
                         </li>
                         <li>
+                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
                           <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
                           <br/>
                           Thyocare Aarogyam B Package
@@ -251,8 +257,9 @@ return (
                       </div>
                     </div>
                     <div className="multiple-pkgs sticky-multiple-pkgs">
-                      <ul className="pkgCls">
+                      <ul className="pkgCls pkmkb">
                         <li>
+                        <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
                           <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
                           <br />
                           <div className="pkg-hd">Aarogyam B</div>
@@ -261,10 +268,11 @@ return (
                           <div className="pkg-card-price">
                             <p className="fw-500">₹ 1340 <span className="pkg-cut-price">₹ 2700</span></p>
                           </div>
-                          <p className="pkg-discountCpn">Includes coupon discount</p>
+                          <p className="pkg-discountCpn">Includes coupon</p>
                           <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
                         </li>
                         <li>
+                        <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
                           <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
                           <br />
                           <div className="pkg-hd">Aarogyam B</div>
@@ -273,10 +281,11 @@ return (
                           <div className="pkg-card-price">
                             <p className="fw-500">₹ 1340 <span className="pkg-cut-price">₹ 2700</span></p>
                           </div>
-                          <p className="pkg-discountCpn">Includes coupon discount</p>
+                          <p className="pkg-discountCpn">Includes coupon</p>
                           <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
                         </li>
                         <li>
+                        <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
                           <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
                           <br />
                           <div className="pkg-hd">Aarogyam B</div>
@@ -285,10 +294,11 @@ return (
                           <div className="pkg-card-price">
                             <p className="fw-500">₹ 1340 <span className="pkg-cut-price">₹ 2700</span></p>
                           </div>
-                          <p className="pkg-discountCpn">Includes coupon discount</p>
+                          <p className="pkg-discountCpn">Includes coupon</p>
                           <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
                         </li>
                         <li>
+                        <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
                           <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
                           <br />
                           <div className="pkg-hd">Aarogyam B</div>
@@ -297,7 +307,7 @@ return (
                           <div className="pkg-card-price">
                             <p className="fw-500">₹ 1340 <span className="pkg-cut-price">₹ 2700</span></p>
                           </div>
-                          <p className="pkg-discountCpn">Includes coupon discount</p>
+                          <p className="pkg-discountCpn">Includes coupon</p>
                           <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
                         </li>
                       </ul>
@@ -336,51 +346,328 @@ return (
                             <ul className="pkgCls">
                               <li>
                                 <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
+                                <span>Total Cholesterol</span>
+                                <span>HDL Cholestrol</span>
+                                <span>Triglycerides</span>
+                                <span>VLDL Cholesterol</span>
+                                <span>LDL/HdL Ratio</span>
                                 <span>TC/HDL Cholesterol Ratio</span>
                               </li>
                               <li>
                                 <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
+                                <span>Total Cholesterol</span>
+                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img xm-img" /></span>
+                                <span>Triglycerides</span>
+                                <span>VLDL Cholesterol</span>
+                                <span>LDL/HdL Ratio</span>
                                 <span>TC/HDL Cholesterol Ratio</span>
                               </li>
                               <li>
                                 <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
+                                <span>Total Cholesterol</span>
+                                <span>HDL Cholestrol</span>
+                                <span>Triglycerides</span>
+                                <span>VLDL Cholesterol</span>
+                                <span>LDL/HdL Ratio</span>
                                 <span>TC/HDL Cholesterol Ratio</span>
                               </li>
                               <li>
                                 <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
-                                <span>LDL Cholestrol</span>
+                                <span>Total Cholesterol</span>
+                                <span>HDL Cholestrol</span>
+                                <span>Triglycerides</span>
+                                <span>VLDL Cholesterol</span>
+                                <span>LDL/HdL Ratio</span>
                                 <span>TC/HDL Cholesterol Ratio</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="pkg-card-container mb-3">
+                        <div className="pkg-crd-header light-orng-header">
+                          <span className="text-left">Thyroid</span>
+                          <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
+                        </div>
+                        <div>
+                          <div className="top-head-info multiple-pkgs parent-info">
+                            <ul className="pkgCls">
+                              <li>2</li>
+                              <li>3</li>
+                              <li>4</li>
+                              <li>5</li>
+                            </ul>
+                          </div>
+                          <div className="pkg-crd-header light-orng-header grey-head">
+                            <span>Thyroid Panel 1, Total</span>
+                            <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
+                          </div>
+                          <div className="top-head-info multiple-pkgs">
+                            <ul className="pkgCls">
+                              <li>2</li>
+                              <li>3</li>
+                              <li>4</li>
+                              <li>5</li>
+                            </ul>
+                          </div>
+                          <div className="top-head-info multiple-pkgs multiple-pkgs-details">
+                            <ul className="pkgCls">
+                              <li>
+                                <span>TriIodothyronine (T3)</span>
+                                <span>Thyroxine - T4 Total</span>
+                                <span>TSH - Thyroid Stimulating Hormone</span>
+                              </li>
+                              <li>
+                                <span>TriIodothyronine (T3)</span>
+                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img xm-img" /></span>
+                                <span>TSH - Thyroid Stimulating Hormone</span>
+                              </li>
+                              <li>
+                                <span>TriIodothyronine (T3)</span>
+                                <span>Thyroxine - T4 Total</span>
+                                <span>TSH - Thyroid Stimulating Hormone</span>
+                              </li>
+                              <li>
+                                <span>TriIodothyronine (T3)</span>
+                                <span>Thyroxine - T4 Total</span>
+                                <span>TSH - Thyroid Stimulating Hormone</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="pkg-card-container mb-3">
+                        <div className="pkg-crd-header light-orng-header">
+                          <span className="text-left">Vitamin</span>
+                          <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
+                        </div>
+                        <div>
+                          <div className="top-head-info multiple-pkgs parent-info">
+                            <ul className="pkgCls">
+                              <li>2</li>
+                              <li><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></li>
+                              <li><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></li>
+                              <li>5</li>
+                            </ul>
+                          </div>
+                          <div className="pkg-crd-header light-orng-header grey-head">
+                            <span>Vitamin D Total-25 Hydroxy</span>
+                            <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
+                          </div>
+                          <div className="top-head-info multiple-pkgs">
+                            <ul className="pkgCls">
+                              <li>2</li>
+                              <li>0</li>
+                              <li>0</li>
+                              <li>5</li>
+                            </ul>
+                          </div>
+                          <div className="top-head-info multiple-pkgs multiple-pkgs-details">
+                            <ul className="pkgCls">
+                              <li>
+                                <span>Yes</span>
+                              </li>
+                              <li>
+                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                              </li>
+                              <li>
+                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                              </li>
+                              <li>
+                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                              </li>
+                            </ul>
+                          </div>
+                          <div className="pkg-crd-header light-orng-header grey-head">
+                            <span>Vitamin B12, active Holo Transcobalamin</span>
+                            <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
+                          </div>
+                          <div className="top-head-info multiple-pkgs">
+                            <ul className="pkgCls">
+                              <li>2</li>
+                              <li>0</li>
+                              <li>0</li>
+                              <li>5</li>
+                            </ul>
+                          </div>
+                          <div className="top-head-info multiple-pkgs multiple-pkgs-details">
+                            <ul className="pkgCls">
+                              <li>
+                                <span>Yes</span>
+                              </li>
+                              <li>
+                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                              </li>
+                              <li>
+                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                              </li>
+                              <li>
+                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="pkg-card-container mb-3">
+                        <div className="pkg-crd-header light-orng-header">
+                          <span className="text-left">Kidney</span>
+                          <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
+                        </div>
+                        <div>
+                          <div className="top-head-info multiple-pkgs parent-info">
+                            <ul className="pkgCls">
+                              <li>2</li>
+                              <li>3</li>
+                              <li>4</li>
+                              <li>5</li>
+                            </ul>
+                          </div>
+                          <div className="pkg-crd-header light-orng-header grey-head">
+                            <span>Kidney Function Test</span>
+                            <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
+                          </div>
+                          <div className="top-head-info multiple-pkgs">
+                            <ul className="pkgCls">
+                              <li>2</li>
+                              <li>3</li>
+                              <li>4</li>
+                              <li>5</li>
+                            </ul>
+                          </div>
+                          <div className="top-head-info multiple-pkgs multiple-pkgs-details">
+                            <ul className="pkgCls">
+                              <li>
+                                <span>Blood Urea Nitrogen (BUN)</span>
+                                <span>Uric Acid</span>
+                                <span>Creatinine</span>
+                                <span>BUN / Creatinine Ratio</span>
+                              </li>
+                              <li>
+                                <span>Blood Urea Nitrogen (BUN)</span>
+                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span>Creatinine</span>
+                                <span>BUN / Creatinine Ratio</span>
+                              </li>
+                              <li>
+                                 <span>Blood Urea Nitrogen (BUN)</span>
+                                <span>Uric Acid</span>
+                                <span>Creatinine</span>
+                                <span>BUN / Creatinine Ratio</span>
+                              </li>
+                              <li>
+                                 <span>Blood Urea Nitrogen (BUN)</span>
+                                <span>Uric Acid</span>
+                                <span>Creatinine</span>
+                                <span>BUN / Creatinine Ratio</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div className="pkg-crd-header light-orng-header grey-head">
+                            <span>Pancreatic (Acute) Profile</span>
+                            <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
+                          </div>
+                          <div className="top-head-info multiple-pkgs">
+                            <ul className="pkgCls">
+                              <li>2</li>
+                              <li>0</li>
+                              <li>0</li>
+                              <li>5</li>
+                            </ul>
+                          </div>
+                          <div className="top-head-info multiple-pkgs multiple-pkgs-details">
+                            <ul className="pkgCls">
+                              <li>
+                                <span>Amylase</span>
+                                <span>LIipase</span>
+                              </li>
+                              <li>
+                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                              </li>
+                              <li>
+                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                              </li>
+                              <li>
+                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                              </li>
+                            </ul>
+                          </div>
+                          
+                      </div>
+                      <div className="pkg-card-container mb-3">
+                        <div className="pkg-crd-header light-orng-header">
+                          <span className="text-left">Hemoglobin</span>
+                          <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
+                        </div>
+                        <div>
+                          <div className="top-head-info multiple-pkgs parent-info">
+                            <ul className="pkgCls">
+                              <li>2</li>
+                              <li>0</li>
+                              <li>0</li>
+                              <li>5</li>
+                            </ul>
+                          </div>
+                          <div className="pkg-crd-header light-orng-header grey-head">
+                            <span>Electrolytes</span>
+                            <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
+                          </div>
+                          <div className="top-head-info multiple-pkgs">
+                            <ul className="pkgCls">
+                              <li>2</li>
+                              <li>0</li>
+                              <li>0</li>
+                              <li>5</li>
+                            </ul>
+                          </div>
+                          <div className="top-head-info multiple-pkgs multiple-pkgs-details">
+                            <ul className="pkgCls">
+                              <li>
+                                <span>Sodium</span>
+                                <span>Chloride</span>
+                              </li>
+                              <li>
+                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                              </li>
+                              <li>
+                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                              </li>
+                              <li>
+                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                              </li>
+                            </ul>
+                          </div>
+                          <div className="pkg-crd-header light-orng-header grey-head">
+                            <span>Testosterone Total</span>
+                            <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
+                          </div>
+                          <div className="top-head-info multiple-pkgs">
+                            <ul className="pkgCls">
+                              <li>2</li>
+                              <li>0</li>
+                              <li>0</li>
+                              <li>5</li>
+                            </ul>
+                          </div>
+                          <div className="top-head-info multiple-pkgs multiple-pkgs-details">
+                            <ul className="pkgCls">
+                              <li>
+                                <span>Yes</span>
+                              </li>
+                              <li>
+                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                              </li>
+                              <li>
+                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                              </li>
+                              <li>
+                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                             </ul>
                           </div>
