@@ -342,21 +342,6 @@ class BookingSummaryViewNew extends React.Component {
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
         }
 
-
-        //Check If each Tests Covered Under Insurance
-
-        if (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].tests) {
-            this.props.LABS[this.state.selectedLab].tests.map((test, i) => {
-                
-                if(test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount>=parseInt(test.deal_price) && !test.is_package){
-    
-                }else{
-                    is_tests_covered_under_insurance = false
-                }
-            })
-
-        }
-
         let is_plan_applicable = false
         let is_tests_covered_under_plan = true
         let is_selected_user_has_active_plan = false
@@ -366,10 +351,18 @@ class BookingSummaryViewNew extends React.Component {
         }
 
         //Check If each Tests Covered Under Plan
+        //Check If each Tests Covered Under Insurance
 
         if (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].tests) {
 
             this.props.LABS[this.state.selectedLab].tests.map((test, i) => {
+
+                if(test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount>=parseInt(test.deal_price) && !test.is_package){
+    
+                }else{
+                    is_tests_covered_under_insurance = false
+                }
+
                 if(test.included_in_user_plan){
     
                 }else{
@@ -609,17 +602,13 @@ class BookingSummaryViewNew extends React.Component {
                     is_tests_covered_under_insurance = false
             
                 }
-            })
-            
-            
-            this.props.LABS[this.state.selectedLab].tests.map((test, i) => {
-                
+
                 if(test.included_in_user_plan){
             
                 }else{
                     is_tests_covered_under_plan = false
                 }
-            })            
+            })          
 
         }
 
