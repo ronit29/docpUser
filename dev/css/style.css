@@ -3914,9 +3914,11 @@ ul li.time-slot-li-listing{
 	align-items: flex-end;
 }
 .slt-label{
-	width: 18%;
+    width: 22%;
     font-weight: 500;
     color: #757575;
+    flex-shrink: 0;
+    flex-grow: 0;
 }
 .slt-text-input{
 	width: 100%;
@@ -8052,8 +8054,9 @@ a.btn-search.btn-cnte{
 	font-weight: 600;
     margin-right: 5px;
 	padding-top: 4px;
-	font-size: 12px;
-	min-width: 70px;
+    font-size: 12px;
+    flex-shrink: 0;
+    flex-grow: 0;
 }
 .nw-time-st {
     margin: 0;
@@ -8063,9 +8066,13 @@ a.btn-search.btn-cnte{
     display: inline-block;
     border-right: 1px solid rgba(0, 0, 0, .12);
     text-align: center;
-    padding: 0px 6px;
+    padding: 0px 5px;
     color: #f78631;
     font-size: 12px;
+}
+.time-slot-main-listing{
+    flex-shrink: 0;
+    flex-grow: 0;
 }
 .nw-time-slot-li:last-child {
 	border-right: 0px;
@@ -8074,6 +8081,21 @@ a.btn-search.btn-cnte{
 	display: flex;
 	justify-content: space-between;
     align-items: center;
+}
+.initialsPicture-dp.docCardIntPic{
+    height: 60px;
+    width: 60px;
+    font-size: 1.5em;
+}
+.nwDocViewPrf{
+    color: #f78631!important;
+    font-weight: 600;
+    margin-left: 3px;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 3px;
+    letter-spacing: .5px;
 }
 /* ============ time slot new card ============ */
 .pdd-12{
@@ -8133,6 +8155,10 @@ a.btn-search.btn-cnte{
 @media screen and (max-width: 320px){
     .leftBlock div {
         font-size: 11px;
+}
+.time-slot-main-listing{
+    flex-shrink: initial;
+    flex-grow: initial;
 }
 .rightBlock a{
 font-size: 11px;
