@@ -253,7 +253,7 @@ class LabProfileCard extends React.Component {
                                 }
 
                                 {
-                                    discounted_price != price ? <div className="signup-off-container">
+                                    discounted_price != price && !is_insurance_applicable? <div className="signup-off-container">
                                         <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span>
                                     </div> : ""
                                 }

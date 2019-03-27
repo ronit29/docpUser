@@ -397,7 +397,7 @@ class BookingSummaryViewNew extends React.Component {
             this.props.editUserProfile(profileData, profileData.id)
         }
         if (this.props.disCountedLabPrice && !is_plan_applicable || !is_insurance_applicable) {
-            postData['coupon_code'] = [this.state.couponCode] || []
+            postData['coupon_code'] = this.state.couponCode?[this.state.couponCode]:[]
         }
 
         //Post Pincode & thyrocare data
@@ -634,7 +634,7 @@ class BookingSummaryViewNew extends React.Component {
 
                 return <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
                     {
-                        is_corporate || is_insurance_applicable? <span className="float-right fw-700">Free</span> : is_plan_applicable? <span className="float-right fw-700">₹ 0 </span>: <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
+                        is_corporate || is_insurance_applicable || is_plan_applicable? <span className="float-right fw-700">₹ 0 </span>: <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
                         </span>
                     }
                     <span className="test-name-item">{twp.test.name}</span>

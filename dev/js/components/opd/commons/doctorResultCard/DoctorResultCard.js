@@ -347,7 +347,7 @@ class DoctorProfileCard extends React.Component {
                                 } */}
 
                                 {
-                                    deal_price != discounted_price && enabled_for_hospital_booking ? <div className="signup-off-container">
+                                    deal_price != discounted_price && enabled_for_hospital_booking && !is_insurance_applicable? <div className="signup-off-container">
                                         <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span>
                                     </div> : ''
                                 }
