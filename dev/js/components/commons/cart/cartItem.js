@@ -242,15 +242,10 @@ class CartItem extends React.Component {
 
                                                     {
                                                         is_appointment_insured?
-                                                        <div className="shopng-cart-price">Free</div>
-                                                        :<span className="float-right fw-700">₹ {test.deal_price}<span className="test-mrp">₹ {test.mrp}</span>
-                                                        </span>
-                                                    }
-                                                    {
-                                                        included_in_user_plan?
+                                                        <div className="float-right fw-700">Free</div>
+                                                        :included_in_user_plan?
                                                         <span className="float-right fw-700">₹ 0 </span>
-                                                        :
-                                                        <span className="float-right fw-700">₹ {test.deal_price}<span className="test-mrp">₹ {test.mrp}</span>
+                                                        :<span className="float-right fw-700">₹ {test.deal_price}<span className="test-mrp">₹ {test.mrp}</span>
                                                         </span>
                                                     }
                                                     
