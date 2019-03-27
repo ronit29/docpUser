@@ -8703,6 +8703,11 @@ li.careListiLi span {
         align-items: baseline;
         
     }
+    span.ratingsCount{
+        display: inline-block;
+        position: relative;
+        top: -6px;
+    }
 }
 @media screen and (max-width: 375px) {
 	.caresubTxt{
@@ -8825,4 +8830,9 @@ border-radius: 4px;
 	.widget-content.care-widget{
 	   padding: 12px;
    }
+}
+.ratingsCount{
+    display: block;
+    position: relative;
+    top: -11px;
 }

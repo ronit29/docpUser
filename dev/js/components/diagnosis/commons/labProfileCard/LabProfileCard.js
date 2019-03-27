@@ -142,7 +142,7 @@ class LabProfileCard extends React.Component {
 
     render() {
         let self = this
-        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price } = this.props.details;
+        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price, avg_rating, rating_count } = this.props.details;
 
         distance = Math.ceil(distance / 1000);
 
@@ -185,26 +185,26 @@ class LabProfileCard extends React.Component {
             }
         }
 
-        // let rating = ''
-        // if (average_rating) {
-        //     rating = (Math.ceil(this.props.ratings * 2)) / 2;
-        // }
+        let rating = ''
+        if (avg_rating) {
+            rating = (Math.ceil(avg_rating * 2)) / 2;
+        }
 
-        // let ratingArray = []
-        // for (let i = 0; i < Math.floor(rating); i++) {
-        //     ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-filled.svg'} className="img-cstm-docrating" />)
-        // }
+        let ratingArray = []
+        for (let i = 0; i < Math.floor(rating); i++) {
+            ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-filled.svg'} style={{ width: 10, height: 10, margin: '-2px 2px 0px 0px' }} className="img-cstm-docrating" />)
+        }
 
-        // if (rating != Math.floor(rating)) {
-        //     ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/halfstar.svg'} className="img-cstm-docrating" />)
-        // }
+        if (rating != Math.floor(rating)) {
+            ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/halfstar.svg'} style={{ width: 10, height: 10, margin: '-2px 2px 0px 0px' }} className="img-cstm-docrating" />)
+        }
 
-        // let emptyStars = Math.floor(5 - rating);
-        // if (emptyStars) {
-        //     for (let i = 0; i < emptyStars; i++) {
-        //         ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-empty.svg'} className="img-cstm-docrating" />)
-        //     }
-        // }
+        let emptyStars = Math.floor(5 - rating);
+        if (emptyStars) {
+            for (let i = 0; i < emptyStars; i++) {
+                ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-empty.svg'} style={{ width: 10, height: 10, margin: '-2px 2px 0px 0px' }} className="img-cstm-docrating" />)
+            }
+        }
 
         return (
 
@@ -224,10 +224,13 @@ class LabProfileCard extends React.Component {
                                                 <img style={{ width: '75px' }} alt={name} className="fltr-usr-image-lab" src={lab_thumbnail} />
                                             </InitialsPicture>
                                         </a>
-                                        {/* <div className="cstmLabStar">
-                                            {ratingArray}
-                                            <span>{rating}</span>
-                                        </div> */}
+                                        {
+                                            rating ?
+                                                <div className="cstmLabStar">
+                                                    {ratingArray}
+                                                    <span className="ratingsCount" style={{ fontSize: 12 }}>({rating_count || ''})</span>
+                                                </div> : ''
+                                        }
                                     </div>
                                 </div>
                                 <div className="cstm-doc-content-container">
