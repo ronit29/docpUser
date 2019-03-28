@@ -178,7 +178,7 @@ class CartItem extends React.Component {
 
                         {   
                             is_appointment_insured?
-                            <div className="shopng-cart-price ins-val-bx">{insurance_message}</div>
+                            <div className="shopng-cart-price ins-val-bx">Covered Under Insurance</div>
                             :
                             included_in_user_plan?
                             <div className="shopng-cart-price ins-val-bx pkg-discountCpn">Docprime Care Benefit</div>
