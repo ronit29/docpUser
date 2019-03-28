@@ -7121,15 +7121,17 @@ p.cstm-card-loc-set span {
 	color: black;
     font-size: 12px;
     font-weight: 500;
-    margin-left: 5px;
+    margin-left: 4px;
 }
-img.img-cstm-docrating {
-    width: 12px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    margin-left: 2px;
-    margin-top: -2px;
+.rating-star-container .cstm-doc-rtng{
+    width: 69px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
+.rating-star-container .cstm-doc-rtng span{
+    margin-left: 0
+}
+
 .cstm-doc-content-container{
 
 }
@@ -8727,11 +8729,6 @@ li.careListiLi span {
         flex-direction: column;
         align-items: baseline;
         
-    }
-    span.ratingsCount{
-        display: inline-block;
-        position: relative;
-        top: -6px;
     }
 }
 @media screen and (max-width: 375px) {

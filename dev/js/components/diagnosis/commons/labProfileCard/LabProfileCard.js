@@ -5,6 +5,7 @@ import GTM from '../../../../helpers/gtm.js'
 import { buildOpenBanner } from '../../../../helpers/utils.js'
 import STORAGE from '../../../../helpers/storage'
 import { X_OK } from 'constants';
+import RatingStars from '../../../commons/ratingsProfileView/RatingStars';
 
 class LabProfileCard extends React.Component {
     constructor(props) {
@@ -182,27 +183,6 @@ class LabProfileCard extends React.Component {
             }
         }
 
-        let rating = ''
-        if (avg_rating) {
-            rating = (Math.ceil(avg_rating * 2)) / 2;
-        }
-
-        let ratingArray = []
-        for (let i = 0; i < Math.floor(rating); i++) {
-            ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-filled.svg'} style={{ width: 10, height: 10, margin: '-2px 2px 0px 0px' }} className="img-cstm-docrating" />)
-        }
-
-        if (rating != Math.floor(rating)) {
-            ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/halfstar.svg'} style={{ width: 10, height: 10, margin: '-2px 2px 0px 0px' }} className="img-cstm-docrating" />)
-        }
-
-        let emptyStars = Math.floor(5 - rating);
-        if (emptyStars) {
-            for (let i = 0; i < emptyStars; i++) {
-                ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-empty.svg'} style={{ width: 10, height: 10, margin: '-2px 2px 0px 0px' }} className="img-cstm-docrating" />)
-            }
-        }
-
         return (
 
             <div className="cstm-docCard mb-3">
@@ -219,17 +199,13 @@ class LabProfileCard extends React.Component {
                                                 <img style={{ width: '75px' }} alt={name} className="fltr-usr-image-lab" src={lab_thumbnail} />
                                             </InitialsPicture>
                                         </a>
-                                        {
-                                            rating ?
-                                                <div className="cstmLabStar">
-                                                    {ratingArray}
-                                                    {
-                                                        rating_count ?
-                                                            <span className="ratingsCount" style={{ fontSize: 12 }}>({rating_count || ''})</span> : ''
-                                                    }
-                                                </div> : ''
-                                        }
                                     </div>
+                                    {
+                                        avg_rating ?
+                                            <div style={{ marginTop: 4 }} className="rating-star-container">
+                                                <RatingStars average_rating={avg_rating} rating_count={rating_count || ''} width="10px" height="10px" />
+                                            </div> : ''
+                                    }
                                 </div>
                                 <div className="cstm-doc-content-container">
                                     <a href={url} onClick={(e) => {
@@ -261,7 +237,7 @@ class LabProfileCard extends React.Component {
                             }
                             {
                                 discounted_price != price && !hide_price && offPercent && offPercent > 0 ?
-                                    <p className="cstm-cpn">{offPercent}% Off (includes Coupon)</p> : ''
+                                    <p className="cstm-cpn">{offPercent}% Off <span><br />(includes Coupon)</span></p> : ''
                             }
                             <button className="cstm-book-btn">Book Now</button>
                         </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import InitialsPicture from '../../../commons/initialsPicture'
 import GTM from '../../../../helpers/gtm.js'
+import RatingStars from '../../../commons/ratingsProfileView/RatingStars';
 
 class DoctorProfileCard extends React.Component {
     constructor(props) {
@@ -116,27 +117,6 @@ class DoctorProfileCard extends React.Component {
         }
         let doc_name = name.split(' ')
 
-        let rating = ''
-        if (rating_graph.avg_rating) {
-            rating = (Math.ceil(rating_graph.avg_rating * 2)) / 2;
-        }
-
-        let ratingArray = []
-        for (let i = 0; i < Math.floor(rating); i++) {
-            ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-filled.svg'} style={{ width: 10, height: 10 }} className="img-cstm-docrating" />)
-        }
-
-        if (rating != Math.floor(rating)) {
-            ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/halfstar.svg'} style={{ width: 10, height: 10 }} className="img-cstm-docrating" />)
-        }
-
-        let emptyStars = Math.floor(5 - rating);
-        if (emptyStars) {
-            for (let i = 0; i < emptyStars; i++) {
-                ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-empty.svg'} style={{ width: 10, height: 10 }} className="img-cstm-docrating" />)
-            }
-        }
-
         return (
             <div className="widget-header dr-qucik-info doc-gold-padding">
                 <div className="fltr-crd-img text-center">
@@ -146,10 +126,7 @@ class DoctorProfileCard extends React.Component {
                     {is_license_verified ? <span className="fltr-rtng">Verified</span> : ''}
                     {
                         rating_graph && rating_graph.avg_rating ?
-                            <div className="d-flex justify-content-center" style={{ marginTop: 5, alignItems: 'baseline' }} >
-                                {ratingArray}
-                                <span style={{ fontSize: 13, marginLeft: 2 }}>({rating_graph.rating_count || ''})</span>
-                            </div> : ''
+                            <RatingStars average_rating={rating_graph.avg_rating} rating_count={rating_graph.rating_count || ''} width="10px" height="10px" /> : ''
                     }
                 </div>
 
