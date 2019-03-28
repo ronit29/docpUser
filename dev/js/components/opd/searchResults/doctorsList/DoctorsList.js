@@ -122,7 +122,7 @@ class DoctorsList extends React.Component {
             <section ref="checkIfExists">
                 {
                     this.state.renderBlock ? <Loader /> :
-                        <div className="container-fluid">
+                        <div className="container-fluid cardMainPaddingRmv">
                             {
                                 this.props.search_content && this.props.search_content != '' && parseInt(this.props.page) == 1 ?
                                     <div className="search-result-card-collpase">
@@ -141,7 +141,7 @@ class DoctorsList extends React.Component {
                                     </div>
                                     : ''
                             }
-                            <div className="row">
+                            <div className="row no-gutters">
                                 {
                                     this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'doctor_search_page').length ?
                                         <div className="col-12">

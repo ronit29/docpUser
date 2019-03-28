@@ -205,15 +205,26 @@ class DoctorProfileView extends React.Component {
 
         //Check if reviews exist for doctor, if not then pick the google reviews for that doctor/hospital
         let google_rating = {}
-        if(this.props.DOCTORS[doctor_id] && !this.props.DOCTORS[doctor_id].display_rating_widget){
-            
-            if(this.props.DOCTORS[doctor_id].google_rating &&  this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic] && this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating && this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating.length) {
+        if (this.props.DOCTORS[doctor_id] && !this.props.DOCTORS[doctor_id].display_rating_widget) {
+
+            if (this.props.DOCTORS[doctor_id].google_rating && this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic] && this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating && this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating.length) {
 
                 google_rating.rating = this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating
-                google_rating.rating_graph = this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating_graph 
+                google_rating.rating_graph = this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating_graph
             }
         }
-        let show_google_rating = Object.values(google_rating).length>0
+
+        let show_google_rating = Object.values(google_rating).length > 0
+
+        //Get Selected Clinic/Hospital Name
+        let selectedClinicName = ''
+
+        if(this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length && this.state.selectedClinic) {
+
+            let selectedClinicInfo = this.props.DOCTORS[doctor_id].hospitals.filter(x=>x.hospital_id == this.state.selectedClinic)
+
+            selectedClinicName = selectedClinicInfo.length?selectedClinicInfo[0].hospital_name:''
+        }
 
         return (
             <div className="profile-body-wrap">
@@ -288,9 +299,9 @@ class DoctorProfileView extends React.Component {
                                                             getDoctorNumber={this.props.getDoctorNumber}
                                                             recommendDocs={nearbyDoctors.result && nearbyDoctors.result.length}
                                                             viewAllDocClick={this.viewAllDocClick.bind(this)}
-                                                            nearbyDoctors= {nearbyDoctors?nearbyDoctors:''}
-                                                            isSeoFriendly= {this.state.seoFriendly}
-                                                            isOrganic = {this.state.isOrganic}
+                                                            nearbyDoctors={nearbyDoctors ? nearbyDoctors : ''}
+                                                            isSeoFriendly={this.state.seoFriendly}
+                                                            isOrganic={this.state.isOrganic}
                                                             {...this.props}
                                                         />
                                                         {
@@ -386,31 +397,37 @@ class DoctorProfileView extends React.Component {
                                                                 details={this.props.DOCTORS[doctor_id]}
                                                             />
                                                             {
-                                                                this.props.DOCTORS[doctor_id].display_rating_widget?
-                                                                <RatingReviewView id={doctor_id} content_type={2} {...this.props}/>
-                                                                :show_google_rating?
-                                                                    <div className="widget-panel">
-                                                                        <h4 className="panel-title mb-rmv">Patient Feedback <a className="rateViewAll">
-                                                                        </a></h4>
-                                                                        <div className="panel-content pd-0 border-bottom-panel">
-                                                                            <RatingGraph details={google_rating} />
-                                                                            <div className="user-satisfaction-section">
-                                                                                <div className="row no-gutters">
-
+                                                                this.props.DOCTORS[doctor_id].display_rating_widget ?
+                                                                    <RatingReviewView id={doctor_id} content_type={2} {...this.props} />
+                                                                    : show_google_rating ?
+                                                                        <div className="widget-panel">
+                                                                            <h4 className="panel-title mb-rmv">Patient Feedback <a className="rateViewAll">
+                                                                            </a></h4>
+                                                                            <div className="panel-content pd-0 border-bottom-panel">
+                                                                                <div className="googleReviewcard">
+                                                                                    <img src={ASSETS_BASE_URL + "/img/googleRw.png"} />
                                                                                     {
-                                                                                        show_google_rating && google_rating.rating_graph && google_rating.rating_graph.top_compliments?
-                                                                                            google_rating.rating_graph.top_compliments.map((compliment) => {
-                                                                                              return  <ComplimentListView key={compliment.id} details={compliment} />
-                                                                                            })
-                                                                                            :''
+                                                                                        selectedClinicName?<p>Reviews for<span>{selectedClinicName}</span></p>:''
                                                                                     }
-
                                                                                 </div>
+                                                                                <RatingGraph details={google_rating} />
+                                                                                <div className="user-satisfaction-section">
+                                                                                    <div className="row no-gutters">
+
+                                                                                        {
+                                                                                            show_google_rating && google_rating.rating_graph && google_rating.rating_graph.top_compliments ?
+                                                                                                google_rating.rating_graph.top_compliments.map((compliment) => {
+                                                                                                    return <ComplimentListView key={compliment.id} details={compliment} />
+                                                                                                })
+                                                                                                : ''
+                                                                                        }
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <ReviewList details={google_rating} />
                                                                             </div>
-                                                                            <ReviewList details={google_rating} />
                                                                         </div>
-                                                                    </div>
-                                                                    :""
+                                                                        : ""
                                                             }
                                                         </div>
                                                     </div>

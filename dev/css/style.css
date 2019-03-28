@@ -3914,9 +3914,11 @@ ul li.time-slot-li-listing{
 	align-items: flex-end;
 }
 .slt-label{
-	width: 18%;
+    width: 22%;
     font-weight: 500;
     color: #757575;
+    flex-shrink: 0;
+    flex-grow: 0;
 }
 .slt-text-input{
 	width: 100%;
@@ -4572,6 +4574,9 @@ color: red;
     padding: 4px 12px;
 	border-radius: 5px;
 	cursor: pointer;
+}
+.showBookTestListContainer.mt-rmv{
+	margin-top: 0px !important;
 }
 .showBookTestListContainer{
 	margin-top: 10px;
@@ -7054,6 +7059,210 @@ button.padding-btn-adjust{
     text-align: right;
     margin-bottom: 10px;
 }
+/* ==================== wa-label ==================== */
+
+.mrb-60{
+	margin-bottom: 60px;
+}
+/* ==================== custom new doctor card ==================== */
+.cardMainPaddingRmv{
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+.cstm-docCard {
+    background: #fff;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,.12);
+}
+.cstm-docCard-content {
+    padding: 10px;
+}
+p.cstm-card-loc-set {
+    color: #b7b7b7;
+    font-weight: 500;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+p.cstm-card-loc-set span {
+    max-width: 95px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+.cstm-doc-details-container {
+	display: flex;
+	margin-right: 5px;
+}
+
+.cstm-doc-img-container {
+    margin-right: 8px;
+}
+.cstm-doc-img-container img{
+	width: 50px;
+}
+.cstm-varify{
+	background: #55a740;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+    margin: 5px 0;
+    font-size: 11px;
+    padding: 2px 0px;
+}
+.cstm-doc-rtng{
+	text-align: center;
+    color: #f78631;
+    display: flex;
+    align-items: center;
+}
+.cstm-doc-rtng span{
+	color: black;
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 5px;
+}
+img.img-cstm-docrating {
+    width: 12px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-left: 2px;
+    margin-top: -2px;
+}
+.cstm-doc-content-container{
+
+}
+.cstm-doc-content-container h4{
+	font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.cstm-doc-content-container p, .cstm-doc-content-container h3{
+    color: #757575;
+    font-weight: 500;
+    font-size: 12px;
+    margin-bottom: 3px;
+}
+p.cstm-doc-price {
+    color: #757575;
+    font-size: 12px;
+    text-align: right;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+p.cst-doc-price {
+	text-align: right;
+    font-weight: 500;
+    color: #f78631;
+    font-size: 16px;
+}
+span.cstm-doc-cut-price {
+    color: #989898;
+    text-decoration: line-through;
+    margin-left: 2px;
+}
+button.cstm-book-btn {
+    background-image: linear-gradient(to left, #f78631, #ff6d00);
+    width: 100%;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    margin-top: 5px;
+}
+button.cstm-view-btn {
+    background: #ffffff;
+    width: 100%;
+    color: #f78631;
+    border: 1px solid #f78631;
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: 5px;
+}
+.cstmDocName{
+	font-size: 15px !important;
+    margin-bottom: 5px !important;
+    font-weight: 700 !important;
+    color: #000 !important;
+}
+.cstmCardFooter {
+    background-color: rgba(194,194,194,.2);
+    padding: 5px 10px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cstmfooterContent{
+	width: 80%;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+.cstmDocLoc{
+	width: 20%;
+	text-align: right;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+.cstmfooterContent p, .cstmfooterContent h3 {
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    font-weight: 500;
+    color: #010101;
+}
+.cstmfooterContent p img {
+    margin-right: 6px;
+}
+.cstmfooterContent h3 img{
+    margin-right: 4px;
+}
+.cstmDocLoc p{
+    display: inline-flex;
+    background: rgba(247, 134, 49, .2);
+    font-size: 12px;
+    align-items: center;
+    padding: 2px 7px 2px 3px;
+    border-radius: 4px;
+}
+.cstmDocLoc img{
+	margin-right: 5px;
+	width: 15px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+.cstm-cpn{
+	color: #55a740;
+    text-align: right;
+    font-size: 10px;
+	margin: 2px 0;
+	font-weight: 500;
+}
+.cstm-lab-time-container p{
+	display: inline;
+}
+.cstmTimeImg{
+	width: 14px;
+    margin-right: 4px;
+}
+.cstmLabStar{
+	margin-top: 10px;
+    text-align: center;
+}
+.cstmLabStar p{
+	margin-top: -5px;
+    font-weight: 500;
+    font-size: 12px;
+}
+.bg-white-main{
+	background: white !important;
+}
+/* ==================== custom new doctor card ==================== */
 .ipd-section .img-tick{    
     width: 13px;
     margin-right: 4px;
@@ -7905,8 +8114,7 @@ a.btn-search.btn-cnte{
  	   position: fixed;
 	}
 	.ipd-srch-radio-btn.srch-radio-btns .dtl-radio{
-		width: 50%;
-		margin-right: 0;
+		margin-right: 12px;
 	}
 }
 @media screen and (max-width: 480px){
@@ -8052,8 +8260,9 @@ a.btn-search.btn-cnte{
 	font-weight: 600;
     margin-right: 5px;
 	padding-top: 4px;
-	font-size: 12px;
-	min-width: 70px;
+    font-size: 12px;
+    flex-shrink: 0;
+    flex-grow: 0;
 }
 .nw-time-st {
     margin: 0;
@@ -8063,9 +8272,13 @@ a.btn-search.btn-cnte{
     display: inline-block;
     border-right: 1px solid rgba(0, 0, 0, .12);
     text-align: center;
-    padding: 0px 6px;
+    padding: 0px 5px;
     color: #f78631;
     font-size: 12px;
+}
+.time-slot-main-listing{
+    flex-shrink: 0;
+    flex-grow: 0;
 }
 .nw-time-slot-li:last-child {
 	border-right: 0px;
@@ -8074,6 +8287,21 @@ a.btn-search.btn-cnte{
 	display: flex;
 	justify-content: space-between;
     align-items: center;
+}
+.initialsPicture-dp.docCardIntPic{
+    height: 60px;
+    width: 60px;
+    font-size: 1.5em;
+}
+.nwDocViewPrf{
+    color: #f78631!important;
+    font-weight: 600;
+    margin-left: 3px;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 3px;
+    letter-spacing: .5px;
 }
 /* ============ time slot new card ============ */
 .pdd-12{
@@ -8133,6 +8361,10 @@ a.btn-search.btn-cnte{
 @media screen and (max-width: 320px){
     .leftBlock div {
         font-size: 11px;
+}
+.time-slot-main-listing{
+    flex-shrink: initial;
+    flex-grow: initial;
 }
 .rightBlock a{
 font-size: 11px;
@@ -8490,7 +8722,17 @@ li.careListiLi span {
 	}
 	.careComparePanel button{
 		font-size: 12px;
-	}
+    }
+    .cstm-doc-details-container.labCardUiresponsive {
+        flex-direction: column;
+        align-items: baseline;
+        
+    }
+    span.ratingsCount{
+        display: inline-block;
+        position: relative;
+        top: -6px;
+    }
 }
 @media screen and (max-width: 375px) {
 	.caresubTxt{
@@ -8613,4 +8855,30 @@ border-radius: 4px;
 	.widget-content.care-widget{
 	   padding: 12px;
    }
+}
+.ratingsCount{
+    display: block;
+    position: relative;
+    top: -11px;
+}
+/* ===================== google review ========================== */
+.googleReviewcard{
+    padding: 15px;
+}
+.googleReviewcard img{
+    width: 150px;
+    margin-bottom: 4px;
+}
+.googleReviewcard p{
+    font-weight: 400;
+    font-size: 13px;
+}
+.googleReviewcard span{
+    font-weight: 500;
+    margin-left: 2px;
+}
+/* ===================== google review ========================== */
+.refrWhtsIcotcs{
+    width:100% !important;
+    text-align: center !important;
 }
