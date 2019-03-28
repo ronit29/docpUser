@@ -1,4 +1,5 @@
 import React from "react";
+import RatingStars from "./RatingStars";
 
 class RatingGraph extends React.Component {
     constructor(props) {
@@ -17,36 +18,13 @@ class RatingGraph extends React.Component {
             let twostar_progress = this.props.details.rating_graph.star_count[2]
             let onestar_progress = this.props.details.rating_graph.star_count[1]
 
-            let rating = ''
-            if (this.props.details.rating_graph.avg_rating) {
-                rating = (Math.ceil(this.props.details.rating_graph.avg_rating * 2)) / 2;
-            }
-
-            let ratingArray = []
-            for (let i = 0; i < Math.floor(rating); i++) {
-                ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-filled.svg'} style={{ width: 12, height: 12 }} className="img-cstm-docrating" />)
-            }
-
-            if (rating != Math.floor(rating)) {
-                ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/halfstar.svg'} style={{ width: 12, height: 12 }} className="img-cstm-docrating" />)
-            }
-
-            let emptyStars = Math.floor(5 - rating);
-            if (emptyStars) {
-                for (let i = 0; i < emptyStars; i++) {
-                    ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-empty.svg'} style={{ width: 12, height: 12 }} className="img-cstm-docrating" />)
-                }
-            }
-
             return (
                 <div className="feed-back-container">
                     <div className="row flx-center">
                         <div className="col-4">
                             {
                                 this.props.details.rating_graph && this.props.details.rating_graph.avg_rating ?
-                                    <div className="d-flex justify-content-center" style={{ alignItems: 'baseline' }} >
-                                        {ratingArray}
-                                    </div> : ''
+                                    <RatingStars average_rating={this.props.details.rating_graph.avg_rating} width="12px" height="12px" justifyCenter={true} /> : ''
                             }
                             <div className="feedback-rating-text">
                                 <p className="feedback-rate">{this.props.details.rating_graph.avg_rating}</p>

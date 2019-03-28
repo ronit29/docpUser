@@ -4,6 +4,7 @@ import InitialsPicture from '../../../commons/initialsPicture'
 import GTM from '../../../../helpers/gtm.js'
 import STORAGE from '../../../../helpers/storage';
 import ProcedurePopup from '../PopUp'
+import RatingStars from '../../../commons/ratingsProfileView/RatingStars';
 
 
 class DoctorProfileCard extends React.Component {
@@ -189,27 +190,6 @@ class DoctorProfileCard extends React.Component {
             enabled_for_hospital_booking = hospitals[0].enabled_for_online_booking
             is_procedure = false
 
-            let rating = ''
-            if (average_rating) {
-                rating = (Math.ceil(average_rating * 2)) / 2;
-            }
-
-            let ratingArray = []
-            for (let i = 0; i < Math.floor(rating); i++) {
-                ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-filled.svg'} className="img-cstm-docrating" />)
-            }
-
-            if (rating != Math.floor(rating)) {
-                ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/halfstar.svg'} className="img-cstm-docrating" />)
-            }
-
-            let emptyStars = Math.floor(5 - rating);
-            if (emptyStars) {
-                for (let i = 0; i < emptyStars; i++) {
-                    ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-empty.svg'} className="img-cstm-docrating" />)
-                }
-            }
-
             let offPercent = ''
             if (mrp && (discounted_price != null) && (discounted_price < mrp)) {
                 offPercent = parseInt(((mrp - discounted_price) / mrp) * 100);
@@ -263,14 +243,8 @@ class DoctorProfileCard extends React.Component {
                                     </div>
                                 </div>
                                 {
-                                    rating ?
-                                        <div className="cstm-doc-rtng">
-                                            {ratingArray}
-                                            {
-                                                rating_count ?
-                                                    <span>({rating_count})</span> : ''
-                                            }
-                                        </div> : ''
+                                    average_rating ?
+                                        <RatingStars average_rating={average_rating} rating_count={rating_count || ''} width="12px" height="12px" /> : ''
                                 }
                             </div>
                             <div className="col-4" style={mrp == 0 ? { paddingTop: 40 } : {}}>
@@ -287,7 +261,7 @@ class DoctorProfileCard extends React.Component {
                                                 <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
                                 }
                                 {
-                                    deal_price != mrp && enabled_for_hospital_booking ?
+                                    enabled_for_hospital_booking && offPercent && offPercent > 0 ?
                                         <p className="cstm-cpn">{offPercent}% Off
                                             {
                                                 deal_price != discounted_price ?
