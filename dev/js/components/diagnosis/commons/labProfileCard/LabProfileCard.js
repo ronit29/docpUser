@@ -10,8 +10,13 @@ class LabProfileCard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            openViewMore: false
+            openViewMore: false,
+            ssrFlag: false
         }
+    }
+
+    componentDidMount() {
+        this.setState({ ssrFlag: true })
     }
 
     toggleViewMore() {
@@ -132,14 +137,6 @@ class LabProfileCard extends React.Component {
         GTM.sendEvent({ data: data })
     }
 
-    goToProfile(id, url) {
-        if (url) {
-            this.props.history.push(`/${url}`)
-        } else {
-            this.props.history.push(`/lab/${id}`)
-        }
-    }
-
     render() {
         let self = this
         let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price, avg_rating, rating_count } = this.props.details;
@@ -209,7 +206,7 @@ class LabProfileCard extends React.Component {
         return (
 
             <div className="cstm-docCard mb-3">
-                <div className="cstm-docCard-content">
+                <div className="cstm-docCard-content" style={{ cursor: 'pointer' }} onClick={this.bookNowClicked.bind(this, id, url)}>
                     <div className="row no-gutters">
                         <div className="col-8">
                             <div className="cstm-doc-details-container labCardUiresponsive">
@@ -217,8 +214,6 @@ class LabProfileCard extends React.Component {
                                     <div className="text-center">
                                         <a href={url} onClick={(e) => {
                                             e.preventDefault();
-                                            e.stopPropagation();
-                                            this.goToProfile(id, url)
                                         }}>
                                             <InitialsPicture name={name} has_image={!!lab_thumbnail} className="initialsPicture-ls">
                                                 <img style={{ width: '75px' }} alt={name} className="fltr-usr-image-lab" src={lab_thumbnail} />
@@ -239,8 +234,6 @@ class LabProfileCard extends React.Component {
                                 <div className="cstm-doc-content-container">
                                     <a href={url} onClick={(e) => {
                                         e.preventDefault();
-                                        e.stopPropagation();
-                                        this.goToProfile(id, url)
                                     }}>
                                         <h2 className="cstmDocName">{name}</h2>
                                     </a>
@@ -258,7 +251,10 @@ class LabProfileCard extends React.Component {
                             </div>
                         </div>
                         <div className="col-4">
-                            <p className="cstm-doc-price">Docprime Price</p>
+                            {
+                                this.state.ssrFlag ?
+                                    <p className="cstm-doc-price">Docprime Price</p> : ''
+                            }
                             {
                                 discounted_price && !hide_price ?
                                     <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p> : ''
@@ -267,7 +263,7 @@ class LabProfileCard extends React.Component {
                                 discounted_price != price && !hide_price && offPercent && offPercent > 0 ?
                                     <p className="cstm-cpn">{offPercent}% Off (includes Coupon)</p> : ''
                             }
-                            <button className="cstm-book-btn" onClick={this.bookNowClicked.bind(this, id, url)}>Book Now</button>
+                            <button className="cstm-book-btn">Book Now</button>
                         </div>
                     </div>
                 </div>
@@ -291,8 +287,7 @@ class LabProfileCard extends React.Component {
                                     {
                                         other_labs.map((olab, x) => {
                                             return <li key={x}>
-                                                <p className="showBookTestListImg">
-                                                    <img src="/assets/img/new-loc-ico.svg" style={{ marginRight: '8px', width: "12px" }} />{olab.address} | {Math.ceil(olab.distance / 1000)} km</p>
+                                                <p className="showBookTestListImg"><img src="/assets/img/new-loc-ico.svg" style={{ marginRight: '8px', width: "12px" }} />{olab.address} | {Math.ceil(olab.distance / 1000)} km</p>
                                                 <button className="showBookTestListBtn" onClick={this.bookNowClicked.bind(this, olab.id, olab.url)}>Book Now</button>
                                             </li>
                                         })
