@@ -375,7 +375,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                             </label>
                                             </div>*/}
                                                         <div className="dtl-radio">
-                                                            <label className="container-radio">Surgery / Procedure
+                                                            <label className="container-radio">Surgery
                                                             <input type="radio" onChange={this.props.changeSelection.bind(this, 'ipd', '')} checked={this.props.selected == 'ipd'} name="radio" />
                                                                 <span className="doc-checkmark"></span>
                                                             </label>

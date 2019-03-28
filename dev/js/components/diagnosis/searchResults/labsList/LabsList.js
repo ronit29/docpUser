@@ -114,8 +114,8 @@ class LabsList extends React.Component {
             <section className="wrap search-book-result variable-content-section" style={{ paddingTop: 10 }} ref="checkIfExists">
                 {
                     this.state.renderBlock ? <Loader /> :
-                        <div className="container-fluid">
-                            <div className="row">
+                        <div className="container-fluid cardMainPaddingRmv">
+                            <div className="row no-gutters">
 
                                 {/*{Object.entries(this.props.currentSearchedCriterias).map(function ([key, value]) {
                                     if (value.show_details) {
