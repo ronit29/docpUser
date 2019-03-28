@@ -1,17 +1,27 @@
 import React from 'react'
 import HospitalCard from './HospitalCard.js'
+import GTM from '../../helpers/gtm.js'
 
 class HospitalListView extends React.Component {
 
 	getCostEstimateClicked(hospitalId){
 		if(this.props.commonSelectedCriterias.length){
 			let ipd_id = this.props.commonSelectedCriterias[0].id
+
+			let gtmData = {
+		    	'Category': 'ConsumerApp', 'Action': 'IpdGetCostEstimateClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-get-cost-estimate-clicked', 'selectedId': ipd_id || '', 'hospitalId': hospitalId
+			}
+			GTM.sendEvent({ data: gtmData })			
 			this.props.history.push(`/ipd/${ipd_id}/getPriceEstimate?hospital_id=${hospitalId}`)		
 		}
       
    	}
 
    	getHospitalDetailPage(hospitalId){
+   		let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'HospitalDetailClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-detail-clicked', 'selectedId': hospitalId || ''
+        }
+        GTM.sendEvent({ data: gtmData })
    		this.props.history.push(`/ipd/hospital/${hospitalId}`)	
    	}
 

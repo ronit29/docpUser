@@ -1,5 +1,7 @@
 import React from 'react'
 import HospitalList from './HospitalList.js'
+import GTM from '../../helpers/gtm.js'
+
 
 class IPDAboutUs extends React.Component {
 
@@ -49,8 +51,20 @@ class IPDAboutUs extends React.Component {
                 
                 	{	aboutText?
 	                		this.state.toggleReadMore?
-	                		<a href="javascript:void(0);" className="read-more-btn" onClick={()=>this.setState({toggleReadMore: !this.state.toggleReadMore})} >Read Less</a>
-			                :<a href="javascript:void(0);" className="read-more-btn" onClick={()=>this.props.history.push(`/ipd/${this.props.ipd_id}/detail`)} >Read More</a>
+	                		<a href="javascript:void(0);" className="read-more-btn" onClick={()=>{
+	                			let gtmData = {
+						            'Category': 'ConsumerApp', 'Action': 'IpdInfoReadLessClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-info-read-less-clicked', selectedId: this.props.ipd_id || ''
+						        }
+						        GTM.sendEvent({ data: gtmData })
+	                			this.setState({toggleReadMore: !this.state.toggleReadMore})
+	                		}} >Read Less</a>
+			                :<a href="javascript:void(0);" className="read-more-btn" onClick={()=>{
+			                	let gtmData = {
+						            'Category': 'ConsumerApp', 'Action': 'IpdInfoReadMoreClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-info-read-more-clicked', selectedId: this.props.ipd_id || ''
+						        }
+						        GTM.sendEvent({ data: gtmData })
+			                	this.props.history.push(`/ipd/${this.props.ipd_id}/detail`)
+			                }} >Read More</a>
                 		:''
                 	}
                   
