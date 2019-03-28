@@ -16,6 +16,9 @@ import HospitalGallery from './HospitalGallery.js'
 import HospitalAboutUs from './HospitalAboutUs.js'
 import GTM from '../../helpers/gtm.js'
 
+
+//View all rating for hospital ,content_type = 3
+
 class HospitalDetailView extends React.Component {
 
 	componentDidMount(){
