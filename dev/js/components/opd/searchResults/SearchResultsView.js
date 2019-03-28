@@ -344,12 +344,11 @@ class SearchResultsView extends React.Component {
             next = ""
             prev = ""
         }
-
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
                 <HelmetTags tagsData={{
-                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}${page}`,
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.canonical_url?`/${this.props.canonical_url}`:this.props.match.url}${page}`,
                     title: this.getMetaTagsData(this.props.seoData).title,
                     description: this.getMetaTagsData(this.props.seoData).description,
                     schema: this.getMetaTagsData(this.props.seoData).schema,

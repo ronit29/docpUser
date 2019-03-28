@@ -24,7 +24,8 @@ const defaultState = {
     breadcrumb: [],
     seoData: {},
     show404: false,
-    payment_type: 1
+    payment_type: 1,
+    canonical_url: null
 }
 
 export default function (state = defaultState, action) {
@@ -81,6 +82,7 @@ export default function (state = defaultState, action) {
             newState.breadcrumb = action.payload.breadcrumb
             newState.seoData = action.payload.seo
             newState.show404 = action.payload.show404 || false
+            newState.canonical_url = action.payload.canonical_url||null
 
             return newState
         }
@@ -114,6 +116,7 @@ export default function (state = defaultState, action) {
             newState.bottom_content = action.payload.bottom_content
             newState.curr_page = action.payload.page
             newState.show404 = action.payload.show404 || false
+            newState.canonical_url = action.payload.canonical_url || null
 
             return newState
         }
