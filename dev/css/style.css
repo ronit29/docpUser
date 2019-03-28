@@ -8861,3 +8861,20 @@ border-radius: 4px;
     position: relative;
     top: -11px;
 }
+/* ===================== google review ========================== */
+.googleReviewcard{
+    padding: 15px;
+}
+.googleReviewcard img{
+    width: 90px;
+    margin-bottom: 4px;
+}
+.googleReviewcard p{
+    font-weight: 400;
+    font-size: 13px;
+}
+.googleReviewcard span{
+    font-weight: 500;
+    margin-left: 2px;
+}
+/* ===================== google review ========================== */
