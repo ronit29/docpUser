@@ -1,8 +1,6 @@
 import React from 'react';
 
 import Loader from '../../commons/Loader'
-import ReviewList from '../../commons/ratingsProfileView/ReviewList.js'
-import RatingGraph from '../../commons/ratingsProfileView/RatingGraph.js'
 import RatingProfileCard from '../../commons/ratingsProfileView/RatingProfileCard.js'
 import ComplimentListView from '../../commons/ratingsProfileView/ComplimentListView.js'
 import DoctorProfileCard from '../commons/doctorProfileCard'
@@ -20,6 +18,9 @@ import ContactPoupView from '../doctorProfile/ContactPopup.js'
 
 import GTM from '../../../helpers/gtm.js'
 import InitialsPicture from '../../commons/initialsPicture';
+import ReviewList from '../../commons/ratingsProfileView/ReviewList.js'
+import RatingGraph from '../../commons/ratingsProfileView/RatingGraph.js'
+import RatingReviewView from '../../commons/ratingsProfileView/ratingReviewView.js'
 
 class DoctorProfileView extends React.Component {
     constructor(props) {
@@ -202,6 +203,18 @@ class DoctorProfileView extends React.Component {
             nearbyDoctors = this.props.DOCTORS[doctor_id].doctors;
         }
 
+        //Check if reviews exist for doctor, if not then pick the google reviews for that doctor/hospital
+        let google_rating = {}
+        if(this.props.DOCTORS[doctor_id] && !this.props.DOCTORS[doctor_id].display_rating_widget){
+            
+            if(this.props.DOCTORS[doctor_id].google_rating &&  this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic] && this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating && this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating.length) {
+
+                google_rating.rating = this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating
+                google_rating.rating_graph = this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating_graph 
+            }
+        }
+        let show_google_rating = Object.values(google_rating).length>0
+
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
@@ -372,24 +385,33 @@ class DoctorProfileView extends React.Component {
                                                             <ProfessionalGraph
                                                                 details={this.props.DOCTORS[doctor_id]}
                                                             />
-                                                            {this.props.DOCTORS[doctor_id].display_rating_widget ?
-                                                                <div className="widget-panel">
-                                                                    <h4 className="panel-title mb-rmv">Patient Feedback <a className="rateViewAll"><span onClick={() => this.props.history.push(`/view-all-ratings?content_type=2&id=` + doctor_id)}>View All</span></a></h4>
-                                                                    <div className="panel-content pd-0 border-bottom-panel">
-                                                                        <RatingGraph details={this.props.DOCTORS[doctor_id]} />
-                                                                        <div className="user-satisfaction-section">
-                                                                            <div className="row no-gutters">
-                                                                                {(typeof (this.props.DOCTORS[doctor_id].rating_graph) != "undefined" && this.props.DOCTORS[doctor_id].rating_graph != null && this.props.DOCTORS[doctor_id].rating_graph) ?
-                                                                                    this.props.DOCTORS[doctor_id].rating_graph.top_compliments.map(compliment =>
-                                                                                        <ComplimentListView key={compliment.id} details={compliment} />
-                                                                                    ) : <div></div>}
+                                                            {
+                                                                this.props.DOCTORS[doctor_id].display_rating_widget?
+                                                                <RatingReviewView id={doctor_id} content_type={2} {...this.props}/>
+                                                                :show_google_rating?
+                                                                    <div className="widget-panel">
+                                                                        <h4 className="panel-title mb-rmv">Patient Feedback <a className="rateViewAll">
+                                                                        </a></h4>
+                                                                        <div className="panel-content pd-0 border-bottom-panel">
+                                                                            <RatingGraph details={google_rating} />
+                                                                            <div className="user-satisfaction-section">
+                                                                                <div className="row no-gutters">
 
+                                                                                    {
+                                                                                        show_google_rating && google_rating.rating_graph && google_rating.rating_graph.top_compliments?
+                                                                                            google_rating.rating_graph.top_compliments.map((compliment) => {
+                                                                                              return  <ComplimentListView key={compliment.id} details={compliment} />
+                                                                                            })
+                                                                                            :''
+                                                                                    }
+
+                                                                                </div>
                                                                             </div>
+                                                                            <ReviewList details={google_rating} />
                                                                         </div>
-                                                                        <ReviewList details={this.props.DOCTORS[doctor_id]} />
                                                                     </div>
-                                                                </div> :
-                                                                ""}
+                                                                    :""
+                                                            }
                                                         </div>
                                                     </div>
                                                 </div>

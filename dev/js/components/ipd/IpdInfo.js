@@ -3,6 +3,8 @@ import IpdAboutUs from './aboutIPD.js'
 import HospitalList from './HospitalList.js'
 import DoctorResultCard from '../opd/commons/doctorResultCard'
 import Loader from '../commons/Loader'
+import GTM from '../../helpers/gtm.js'
+
 
 class IpdView extends React.Component {
 
@@ -23,6 +25,12 @@ class IpdView extends React.Component {
 		var i = 0
 
 		let headerHeight = 0
+
+		let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'IPDInfoPageLanded', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-info-page-landed', selectedId: this.props.ipd_id || ''
+        }
+        GTM.sendEvent({ data: gtmData })
+
 		Object.keys(this.refs).forEach((prp, i) => {
 			
 			if(document.getElementsByClassName('stickyBar') && document.getElementsByClassName('stickyBar')[0]){
@@ -49,6 +57,11 @@ class IpdView extends React.Component {
 
 	toggleTabs(type){
 		if(document.getElementById(type)){
+			let gtmData = {
+	            'Category': 'ConsumerApp', 'Action': 'IpdTabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-tab-clicked', selectedId: this.props.ipd_id || '', type: type
+	        }
+	        GTM.sendEvent({ data: gtmData })
+
 			var elmnt = document.getElementById(type)
 			
 			let headerHeight = 0
@@ -62,6 +75,10 @@ class IpdView extends React.Component {
 	}
 
 	viewHospitalsClicked(){
+		let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'IpdViewAllHospitalClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-view-all-hospital-clicked', selectedId: this.props.ipd_id || ''
+        }
+        GTM.sendEvent({ data: gtmData })
 		this.props.mergeIpdCriteria({
 			commonSelectedCriterias: this.props.commonSelectedCriterias,
 			nextSelectedCriterias: this.props.commonSelectedCriterias
@@ -71,6 +88,12 @@ class IpdView extends React.Component {
 
 	viewDoctorsClicked(){
 		if(this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length){
+
+
+			let gtmData = {
+	            'Category': 'ConsumerApp', 'Action': 'IpdViewAllDoctorClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-view-all-doctor-clicked', selectedId: this.props.commonSelectedCriterias[0].id || ''
+	        }
+	        GTM.sendEvent({ data: gtmData })
 
 			let criteria = {}
 			criteria.id = this.props.commonSelectedCriterias[0].id
@@ -83,6 +106,10 @@ class IpdView extends React.Component {
 	}
 
 	getCostEstimateClicked(){
+		let gtmData = {
+	    	'Category': 'ConsumerApp', 'Action': 'IpdGetCostEstimateClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-get-cost-estimate-clicked', selectedId: this.props.ipd_id || ''
+		}
+		GTM.sendEvent({ data: gtmData })
 		this.props.history.push(`/ipd/${this.props.ipd_id}/getPriceEstimate`)
 	}
 

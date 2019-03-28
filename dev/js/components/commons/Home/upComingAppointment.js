@@ -112,7 +112,7 @@ class UpComingAppointmentView extends React.Component {
                                 <div className="float-l">
                                     <div>Appointment for {appointment.patient_name}</div>
                                         <div className="date-time">On {this.getDate(appointment.time_slot_start)}, {this.getTime(appointment.time_slot_start)} </div>
-                                    <div> with Dr. {appointment.name}</div>
+                                    <div> {`with ${appointment.type=="doctor"?'Dr.':''} ${appointment.name}`}</div>
                                 </div>
                             </div>
                             <div className="rightBlock">
