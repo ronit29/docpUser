@@ -8114,8 +8114,7 @@ a.btn-search.btn-cnte{
  	   position: fixed;
 	}
 	.ipd-srch-radio-btn.srch-radio-btns .dtl-radio{
-		width: 50%;
-		margin-right: 0;
+		margin-right: 12px;
 	}
 }
 @media screen and (max-width: 480px){
