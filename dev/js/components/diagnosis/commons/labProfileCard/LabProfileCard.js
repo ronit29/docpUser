@@ -261,7 +261,7 @@ class LabProfileCard extends React.Component {
                             }
                             {
                                 discounted_price != price && !hide_price && offPercent && offPercent > 0 ?
-                                    <p className="cstm-cpn">{offPercent}% Off (includes Coupon)</p> : ''
+                                    <p className="cstm-cpn">{offPercent}% Off <span><br />(includes Coupon)</span></p> : ''
                             }
                             <button className="cstm-book-btn">Book Now</button>
                         </div>
