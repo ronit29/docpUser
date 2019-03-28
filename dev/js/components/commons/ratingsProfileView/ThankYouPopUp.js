@@ -125,7 +125,7 @@ class ThankYouPopUp extends React.Component {
 									<div className="whtsappIcon-styling" onClick={this.gaTracking.bind(this, 'whtsapp')}>
 										<a className="whtsAppico" href={"whatsapp://send?text=" + social_message}>
 											<img src={ASSETS_BASE_URL + "/img/wa-logo.svg"} />
-											<span>Whatsapp referral link</span>
+											<span className="refrWhtsIcotcs">Whatsapp referral link</span>
 										</a>
 									</div>
 								</div>
