@@ -790,7 +790,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                                 'Category': 'ConsumerApp', 'Action': 'LabCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-removed', 'couponId': labCoupons[0].coupon_id
                                                                                             }
                                                                                             GTM.sendEvent({ data: analyticData })
-
+                                                                                            this.setState({couponCode: '', couponId:''})
                                                                                             this.props.removeLabCoupons(this.state.selectedLab, labCoupons[0].coupon_id)
                                                                                         }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
                                                                                         </span>

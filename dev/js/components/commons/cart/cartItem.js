@@ -78,7 +78,18 @@ class CartItem extends React.Component {
             this.props.selectOpdTimeSLot(timeSlot, false)
 
             if (data.actual_data.coupon_code) {
-                this.props.applyCoupons('1', { code: data.actual_data.coupon_code[0], coupon_id: data.data.coupons[0].id, is_cashback: data.data.coupons[0].is_cashback ? true : false }, data.data.coupons[0].id, data.actual_data.doctor)
+                let coupon_id = ''
+                let is_cashback= false
+                let coupon_code = data.actual_data.coupon_code.length?data.actual_data.coupon_code[0]:''
+                if(data.data.coupons && data.data.coupons.length){
+                    coupon_id = data.data.coupons[0].id
+                    is_cashback = data.data.coupons[0].is_cashback 
+
+                }
+                if(coupon_code){
+                    this.props.applyCoupons('1', { code: coupon_code, coupon_id: coupon_id, is_cashback: is_cashback }, coupon_id, data.actual_data.doctor)    
+                }
+                
             }
 
             if (data.actual_data.payment_type >= 0 && data.actual_data.payment_type <= 2) {
@@ -116,7 +127,20 @@ class CartItem extends React.Component {
             }
             this.props.selectLabTimeSLot(timeSlot, false)
             if (data.actual_data.coupon_code) {
-                this.props.applyCoupons('2', { code: data.actual_data.coupon_code[0], coupon_id: data.data.coupons[0].id, is_cashback: data.data.coupons[0].is_cashback ? true : false }, data.data.coupons[0].id, data.actual_data.lab)
+
+                let coupon_id = ''
+                let is_cashback= false
+                let coupon_code = data.actual_data.coupon_code.length?data.actual_data.coupon_code[0]:''
+                if(data.data.coupons && data.data.coupons.length){
+                    coupon_id = data.data.coupons[0].id
+                    is_cashback = data.data.coupons[0].is_cashback 
+
+                }
+
+                if(coupon_code){
+                    this.props.applyCoupons('2', { code: coupon_code, coupon_id: coupon_id, is_cashback: is_cashback }, coupon_id, data.actual_data.lab)    
+                }
+                
             }
             if (data.actual_data.is_home_pickup) {
                 this.props.selectLabAppointmentType('home')
