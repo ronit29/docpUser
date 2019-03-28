@@ -213,7 +213,18 @@ class DoctorProfileView extends React.Component {
                 google_rating.rating_graph = this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating_graph
             }
         }
+
         let show_google_rating = Object.values(google_rating).length > 0
+
+        //Get Selected Clinic/Hospital Name
+        let selectedClinicName = ''
+
+        if(this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length && this.state.selectedClinic) {
+
+            let selectedClinicInfo = this.props.DOCTORS[doctor_id].hospitals.filter(x=>x.hospital_id == this.state.selectedClinic)
+
+            selectedClinicName = selectedClinicInfo.length?selectedClinicInfo[0].hospital_name:''
+        }
 
         return (
             <div className="profile-body-wrap">
@@ -395,7 +406,9 @@ class DoctorProfileView extends React.Component {
                                                                             <div className="panel-content pd-0 border-bottom-panel">
                                                                                 <div className="googleReviewcard">
                                                                                     <img src={ASSETS_BASE_URL + "/img/googleRw.png"} />
-                                                                                    <p>For<span>Medanta Hospital Gurgaon</span></p>
+                                                                                    {
+                                                                                        selectedClinicName?<p>Reviews for<span>{selectedClinicName}</span></p>:''
+                                                                                    }
                                                                                 </div>
                                                                                 <RatingGraph details={google_rating} />
                                                                                 <div className="user-satisfaction-section">
