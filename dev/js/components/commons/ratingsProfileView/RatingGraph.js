@@ -24,17 +24,17 @@ class RatingGraph extends React.Component {
 
             let ratingArray = []
             for (let i = 0; i < Math.floor(rating); i++) {
-                ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-filled.svg'} style={{ width: 10, height: 10 }} className="img-cstm-docrating" />)
+                ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-filled.svg'} style={{ width: 12, height: 12 }} className="img-cstm-docrating" />)
             }
 
             if (rating != Math.floor(rating)) {
-                ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/halfstar.svg'} style={{ width: 10, height: 10 }} className="img-cstm-docrating" />)
+                ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/halfstar.svg'} style={{ width: 12, height: 12 }} className="img-cstm-docrating" />)
             }
 
             let emptyStars = Math.floor(5 - rating);
             if (emptyStars) {
                 for (let i = 0; i < emptyStars; i++) {
-                    ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-empty.svg'} style={{ width: 10, height: 10 }} className="img-cstm-docrating" />)
+                    ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-empty.svg'} style={{ width: 12, height: 12 }} className="img-cstm-docrating" />)
                 }
             }
 
