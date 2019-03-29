@@ -1,11 +1,17 @@
 import React from 'react'
 import InitialsPicture from '../commons/initialsPicture';
+import GTM from '../../helpers/gtm.js'
 
 class DoctorCarouselList extends React.Component {
 
     navigateToDoctor(doctor, e) {
         e.preventDefault()
-        this.props.history.push(doctor.url);
+        if(doctor.url){
+            this.props.history.push(doctor.url);
+        }else{
+            this.props.history.push(`/opd/doctor/${doctor.id}?hide_search_data=true`)
+        }
+        
 
         let data = {
             'Category': 'ConsumerApp', 'Action': 'recommendedDoctorClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'recommended-doctor-click', 'DoctorID': doctor.doctor_id
@@ -28,7 +34,12 @@ class DoctorCarouselList extends React.Component {
                                                 <InitialsPicture name={doctor.name} has_image={!!doctor.thumbnail} className="initialsPicture-ds slideDocMainImg" style={{ width: 60, height: 60, fontSize: '2rem' }} >
                                                     <img className="fltr-usr-image img-round slideDocMainImg" src={doctor.thumbnail} alt={doctor.display_name} title={doctor.display_name} />
                                                 </InitialsPicture>
-                                                <span className="rating-s-tar">4.5 <img src={ASSETS_BASE_URL + "/images/star.png"} className="star-img" /></span>
+                                                {
+                                                    doctorCardData.average_rating?
+                                                    <span className="rating-s-tar">{doctorCardData.average_rating} <img src={ASSETS_BASE_URL + "/images/star.png"} className="star-img" /></span>
+                                                    :''    
+                                                }
+                                                
                                             </div>
                                             <div className="slideDocContent">
                                                 <p className="slideDocName">{doctor.display_name}</p>

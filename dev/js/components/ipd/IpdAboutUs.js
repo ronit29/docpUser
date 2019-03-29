@@ -22,6 +22,7 @@ class IPDAboutUsView extends React.Component {
 		
 		return(
              <div className="tab-pane fade show active" id="nav-overview">
+             	<h4 className="section-heading">{`About ${ipd_info.about?ipd_info.about.name:''}`} </h4>
 
                 {
 					ipd_info  && ipd_info.about && ipd_info.about.all_details?
@@ -29,7 +30,7 @@ class IPDAboutUsView extends React.Component {
 					{
 						ipd_info.about.all_details.map((ipdInfo, key)=> {
 
-							return <ExpansionPanelIpd data={ipdInfo}/>
+							return <ExpansionPanelIpd data={ipdInfo} key={key} {...this.props}/>
 						})
 					}
 					</ul>
