@@ -70,7 +70,7 @@ return (
                       <div className="col-12">
                         <div>
                           <div className="pkg-card-container mb-3">
-                            <div className={this.state.checked ? 'pkg-crd-header pkg-crd-green':'pkg-crd-header'}>
+                            <div className={this.state.checked ? 'pkg-crd-header pkg-crd-green pkg-hd':'pkg-crd-header pkg-hd'}>
                               <label className="ck-bx">{this.state.checked ? 'Added':'Add to compare'}
                                 <input type="checkbox" onClick={()=>this.setState({checked:!this.state.checked})} checked={this.state.checked} />
                                 <span className="checkmark"></span>
@@ -141,7 +141,7 @@ return (
                       <div className="col-12">
                         <div>
                           <div className="pkg-card-container mb-3">
-                            <div className="pkg-crd-header">
+                            <div className="pkg-crd-header pkg-hd">
                               <label className="ck-bx">Add to comapre
                                 <input type="checkbox" onClick={()=>this.setState({checked:!this.state.checked})} checked={this.state.checked} />
                                 <span className="checkmark"></span>

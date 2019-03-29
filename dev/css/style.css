@@ -8683,14 +8683,17 @@ border-radius: 4px;
 }
 .pkgComapre .pkg-crd-header {
     background: #ddedd9;
-    color: #2f6704;
+    color: #55a740;
     padding: 10px;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
     position: relative;
 }
+.pkgComapre .pkg-crd-header.pkg-hd{
+	padding: 5px 10px;
+}
 .pkgComapre .pkg-crd-header.pkg-crd-green{
-	background: #2f6704;
+	background: #55a740;
 }
 .pkgComapre .pkg-crd-header.pkg-crd-green .ck-bx{
 	color: #fff;
@@ -8703,30 +8706,35 @@ border-radius: 4px;
 }
 .pkgComapre .checkmark{
 	border-radius: 3px;
-	box-shadow: 0px 0px 1px green;
+	border:1px solid #2f6704;
 	background: transparent;
+	height:16px;
+	width:16px;
+	margin-top:2px;
 }
 .pkgComapre .checkmark:hover{
 	background: transparent;
 }
 .pkgComapre .ck-bx:hover input ~ .checkmark{
-	background: #fff;
+	background: #ddedd9;
 }
 .pkgComapre .ck-bx{
 	font-weight: 500;
 	color: #2f6704;
 	font-size: 14px;
+	padding-left:25px;
 }
 .pkgComapre .ck-bx .checkmark:after{
-	left: 7px;
-    top: 3px;
-    width: 6px;
-    height: 12px;
+	left: 5px;
+    top: 2px;
+    width: 5px;
+    height: 9px;
     border: solid #4d7223;
     border-width: 0 2px 2px 0;
 }
 .pkgComapre .ck-bx input:checked ~ .checkmark{
 	background: #fff;
+	border-color:#fff;
 }
 .pkgComapre .compare-package-footer{
     position:sticky;
