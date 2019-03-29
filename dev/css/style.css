@@ -8772,6 +8772,7 @@ border-radius: 4px;
 	right:30px;
 }
 .pkgComapre .add-more-package{
+	display: none;
 	background: #767676;
 	padding: 15px;
 	font-size: 16px;
