@@ -36,7 +36,7 @@ class ExpansionPanelIPD extends React.Component {
                                     : ''
                             }
                             {
-                                data.doctors && data.doctors.result?
+                                data.show_doctors && data.doctors && data.doctors.result?
                                 <DoctorCarouselList doctorCardData = {data.doctors.result} {...this.props}/>
                                 :''
                             }
