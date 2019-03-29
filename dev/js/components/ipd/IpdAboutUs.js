@@ -24,7 +24,7 @@ class IPDAboutUsView extends React.Component {
 					{
 						ipd_info.about.all_details.map((ipdInfo, key)=> {
 
-							return <ExpansionPanelIpd data={ipdInfo} key={key} {...this.props}/>
+							return <ExpansionPanelIpd data={ipdInfo} key={key} {...this.props} id={key}/>
 						})
 					}
 					</ul>

@@ -48,9 +48,18 @@ class IpdView extends React.Component {
 		    var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
 		    for (i in sections) {
 		    	if(self.refs[i]){
-		    		if ((self.refs[i].offsetTop +  headerHeight )<= scrollPosition) {
-				      	self.setState({toggleTabType: i})
-				    }
+
+		    		if(i.includes('readMoreView')){
+		    			if(scrollPosition > (self.refs['readMoreView'].offsetTop +  headerHeight )){
+					    	self.setState({toggleTabType: 'aboutTab'})
+					    }
+		    		}else{
+
+		    			if ((self.refs[i].offsetTop +  headerHeight )<= scrollPosition) {
+					      	self.setState({toggleTabType: i})
+					    }	
+		    		}
+		    		
 		    	}
 		    }
 		  }	

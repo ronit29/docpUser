@@ -6,7 +6,7 @@ class ExpansionPanelIPD extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            open: false
+            open: this.props.id==0?true:false
         }
     }
 
