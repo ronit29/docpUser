@@ -25,7 +25,7 @@ class IPDAboutUsView extends React.Component {
 
                 {
 					ipd_info  && ipd_info.about && ipd_info.about.all_details?
-					<ul className="widget pat-info">
+					<ul className="widget">
 					{
 						ipd_info.about.all_details.map((ipdInfo, key)=> {
 

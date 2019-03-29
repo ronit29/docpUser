@@ -8249,6 +8249,30 @@ a.btn-search.btn-cnte{
     }
    
 }
+/*=========== IPD NEW CSS ================*/
+
+.more-content.mr-content p{
+	color: #757575;
+}
+.more-content.mr-content p.slideDocName{
+	font-weight:500;
+	color:#000;
+	font-size:15px;
+}
+.rating-s-tar{
+    font-size: 15px;
+    margin: 5px 10px 0 0;
+    display: inline-block;
+}
+.star-img{
+    width: 14px;
+    vertical-align: 0px;
+}
+
+
+
+/*=========== IPD NEW CSS ================*/
+
 /* ============ time slot new card ============ */
 .avl-time-slot{
 	margin-bottom: 10px;

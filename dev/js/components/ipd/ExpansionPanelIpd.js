@@ -21,7 +21,7 @@ class ExpansionPanelIPD extends React.Component {
         return (
             <li className="expansion-panel-list-item" style={{ listStyle: 'none', cursor: 'pointer' }} >
                 <div>
-                    <div className='title' onClick={this.toggleOpen.bind(this)} style={{ marginBottom: 0, fontSize: 15, fontWeight: 400, paddingRight: 30, position: 'relative' }} >
+                    <div className='title' onClick={this.toggleOpen.bind(this)} style={{ marginBottom: 0, fontSize: 15, fontWeight: 500, paddingRight: 30, position: 'relative' }} >
                         {data.name}
                         {
                             this.state.open ? <img className="titlearrow-up" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /> : <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
@@ -29,7 +29,7 @@ class ExpansionPanelIPD extends React.Component {
                     </div>
                     {
                         this.state.open ? 
-                        <div className="more-content">
+                        <div className="more-content mr-content">
                             {
                                 data.value ?
                                     <span className="pkg-content" dangerouslySetInnerHTML={{ __html: data.value }}></span>
