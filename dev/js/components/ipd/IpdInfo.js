@@ -1,5 +1,6 @@
 import React from 'react'
-import IpdAboutUs from './aboutIPD.js'
+//import IpdAboutUs from './aboutIPD.js'
+import IpdAboutUs from './IpdAboutUs.js'
 import HospitalList from './HospitalList.js'
 import DoctorResultCard from '../opd/commons/doctorResultCard'
 import Loader from '../commons/Loader'
