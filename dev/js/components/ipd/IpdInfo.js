@@ -1,6 +1,6 @@
 import React from 'react'
-//import IpdAboutUs from './aboutIPD.js'
-import IpdAboutUs from './IpdAboutUs.js'
+import IpdAboutUs from './aboutIPD.js'
+import IpdInfoViewMore from './IpdAboutUs.js'
 import HospitalList from './HospitalList.js'
 import DoctorResultCard from '../opd/commons/doctorResultCard'
 import Loader from '../commons/Loader'
@@ -12,7 +12,8 @@ class IpdView extends React.Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			toggleTabType: 'aboutTab'
+			toggleTabType: 'aboutTab',
+			toggleReadMore: false
 		}
 	}
 
@@ -114,6 +115,16 @@ class IpdView extends React.Component {
 		this.props.history.push(`/ipd/${this.props.ipd_id}/getPriceEstimate`)
 	}
 
+	readMoreClicked(){
+		this.setState({toggleReadMore: true})
+		if(this.refs['readMoreView']){
+			let headerHeight = this.refs['readMoreView'].offsetTop -45
+			window.scrollTo(0,headerHeight)	
+		}
+		
+
+	}
+
 	render(){
 
 		return(                  		
@@ -136,7 +147,7 @@ class IpdView extends React.Component {
                </div>
                <div className="tab-content" >
                		<div id="aboutTab" ref="aboutTab" className="nav_top_bar">
-               			<IpdAboutUs {...this.props} id="aboutTab"/>
+               			<IpdAboutUs {...this.props} id="aboutTab" readMoreClicked={this.readMoreClicked.bind(this)}/>
                		</div> 
                    	
 		            <div id="hospitalTab" ref="hospitalTab" className="tab-pane fade" className="nav_top_bar">
@@ -174,10 +185,14 @@ class IpdView extends React.Component {
 	                    
 	                    
 	                </div>
+
+	                <div ref="readMoreView" className="tab-pane fade nav_top_bar">
+	                	<IpdInfoViewMore {...this.props}/>
+	               	</div>
 	            </div>
 	            <div className="btn-search-div btn-apply-div btn-sbmt">
                      <a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a>
-                  </div>
+                </div>
             </div>
 			)
 	}

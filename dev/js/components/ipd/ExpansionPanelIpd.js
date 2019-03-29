@@ -1,4 +1,5 @@
 import React from 'react'
+import DoctorCarouselList from './DoctorCarouselList.js'
 
 class ExpansionPanelIPD extends React.Component {
 
@@ -33,6 +34,11 @@ class ExpansionPanelIPD extends React.Component {
                                 data.value ?
                                     <span className="pkg-content" dangerouslySetInnerHTML={{ __html: data.value }}></span>
                                     : ''
+                            }
+                            {
+                                data.doctors && data.doctors.result?
+                                <DoctorCarouselList doctorCardData = {data.doctors.result} {...this.props}/>
+                                :''
                             }
                         </div> : ""
                     }

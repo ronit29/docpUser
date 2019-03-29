@@ -27,7 +27,7 @@ class IPDAboutUs extends React.Component {
 		return(
              <div className="tab-pane fade show active" id="nav-overview">
                 
-                <ul>
+                {/*<ul>
                 	{
                 		ipd_info.about && ipd_info.about.features?
                 		ipd_info.about.features.map((ipd, i) =>{
@@ -38,7 +38,7 @@ class IPDAboutUs extends React.Component {
                 		})
                 		:''
                 	}
-                </ul>
+                </ul>*/}
                 {
                 	aboutText?
                 	<div>
@@ -63,7 +63,8 @@ class IPDAboutUs extends React.Component {
 						            'Category': 'ConsumerApp', 'Action': 'IpdInfoReadMoreClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-info-read-more-clicked', selectedId: this.props.ipd_id || ''
 						        }
 						        GTM.sendEvent({ data: gtmData })
-			                	this.props.history.push(`/ipd/${this.props.ipd_id}/detail`)
+						        this.props.readMoreClicked()
+			                	//this.props.history.push(`/ipd/${this.props.ipd_id}/detail`)
 			                }} >Read More</a>
                 		:''
                 	}
