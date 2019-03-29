@@ -13,19 +13,13 @@ class IPDAboutUsView extends React.Component {
 	}
 	render(){
 		let { ipd_info } = this.props
-
-		let aboutText =''
-		if(ipd_info  && ipd_info.about && ipd_info.about.all_details && ipd_info.about.all_details.length ){
-
-
-		}
 		
 		return(
              <div className="tab-pane fade show active" id="nav-overview">
-             	<h4 className="section-heading">{`About ${ipd_info.about?ipd_info.about.name:''}`} </h4>
+             	<h4 className="section-heading">{`About ${ipd_info.about?ipd_info.about.name:'Treatment'}`} </h4>
 
                 {
-					ipd_info  && ipd_info.about && ipd_info.about.all_details?
+					ipd_info && ipd_info.about && ipd_info.about.all_details?
 					<ul className="widget">
 					{
 						ipd_info.about.all_details.map((ipdInfo, key)=> {

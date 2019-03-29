@@ -29,7 +29,7 @@ class DoctorCarouselList extends React.Component {
                             {
                                 doctorCardData && doctorCardData.length ?
                                     doctorCardData.map((doctor, id) => {
-                                        return <a href={`/${doctor.url}`} className="docSlideCard" key={id} onClick={(e) => this.navigateToDoctor(doctor, e)}>
+                                        return <a href={`/${doctor.url?doctor.url:`opd/doctor/${doctor.id}?hide_search_data=true`}`} className="docSlideCard" key={id} onClick={(e) => this.navigateToDoctor(doctor, e)}>
                                             <div className="docSlideHead">
                                                 <InitialsPicture name={doctor.name} has_image={!!doctor.thumbnail} className="initialsPicture-ds slideDocMainImg" style={{ width: 60, height: 60, fontSize: '2rem' }} >
                                                     <img className="fltr-usr-image img-round slideDocMainImg" src={doctor.thumbnail} alt={doctor.display_name} title={doctor.display_name} />
