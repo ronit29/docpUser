@@ -90,13 +90,13 @@ class ThyrocarePackageView extends React.Component {
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam B <br />(60 Parameters)</p>
-                                            <p className="stc-price-cut">₹ 540 <span>₹ 900</span></p>
+                                            <p className="stc-price-cut">₹ 499 <span>₹ 750</span></p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam C <br />(63 Parameters)</p>
-                                            <p className="stc-price-cut">₹ 750 <span>₹ 1200</span></p>
+                                            <p className="stc-price-cut">₹ 899 <span>₹ 1100</span></p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column">
@@ -110,7 +110,7 @@ class ThyrocarePackageView extends React.Component {
                                     <div className="static-pkg-top-column">
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">
-                                                29% OFF + ₹ 100
+                                                33% OFF + ₹ 100
                                                 OFF Coupon
                                                                 </p>
                                         </div>
@@ -122,7 +122,7 @@ class ThyrocarePackageView extends React.Component {
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn" style={{ position: 'relative' }} >
                                         <div className="stc-offr-cpn">
-                                            <p className="stc-off-para">30% OFF + ₹ 100 OFF Coupon</p>
+                                            <p className="stc-off-para">18% OFF + ₹ 100 OFF Coupon</p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=12213" onClick={(e) => {
