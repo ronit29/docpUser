@@ -172,7 +172,13 @@ class BannerCarousel extends React.Component {
         }
 
         else if (offer.url) {
-            this.props.history.push(offer.url)
+
+            if (offer.url.includes('http')) {
+                window.open(offer.url, '_blank')
+            }
+            else {
+                this.props.history.push(offer.url)
+            }
 
             let data = {
                 'Category': 'ConsumerApp', 'Action': offer.event_name, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': offer.event_name, 'clickedOn': offer.slider_location
@@ -251,7 +257,7 @@ class BannerCarousel extends React.Component {
                         :
                         <div className={this.props.hideClass ? `banner-carousel-div mrt-20 mrb-20 ${this.props.hideClass}` : `banner-carousel-div mrt-10 mrb-20`}>
                             {
-                                offerVisible && this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length?
+                                offerVisible && this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length ?
                                     <img src={offerVisible.image} onTouchStart={this.onTouchStart.bind(this)} onTouchMove={this.onTouchMove.bind(this)} onTouchEnd={this.onTouchEnd.bind(this)} onClick={() => this.navigateTo(offerVisible)} style={offerVisible.url ? { cursor: 'pointer' } : {}} />
                                     : ''
                             }
