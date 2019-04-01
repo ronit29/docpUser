@@ -43,7 +43,7 @@ class IPDAboutUs extends React.Component {
                 	aboutText?
                 	<div>
                 		<h4 className="section-heading">{`About ${ipd_info.about?ipd_info.about.name:''}`} </h4>
-		            	<div className="widget custom-li-style" dangerouslySetInnerHTML={{ __html: aboutText}}>
+		            	<div className="widget custom-li-style pb-30" dangerouslySetInnerHTML={{ __html: aboutText}}>
 			            </div>
                 	</div>
                 	:''

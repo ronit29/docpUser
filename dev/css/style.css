@@ -8903,3 +8903,7 @@ border-radius: 4px;
     width:100% !important;
     text-align: center !important;
 }
+
+.pb-30{
+    padding-bottom: 30px !important;
+}
