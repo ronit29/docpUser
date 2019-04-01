@@ -342,21 +342,6 @@ class BookingSummaryViewNew extends React.Component {
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
         }
 
-
-        //Check If each Tests Covered Under Insurance
-
-        if (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].tests) {
-            this.props.LABS[this.state.selectedLab].tests.map((test, i) => {
-                
-                if(test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount>=parseInt(test.deal_price) && !test.is_package){
-    
-                }else{
-                    is_tests_covered_under_insurance = false
-                }
-            })
-
-        }
-
         let is_plan_applicable = false
         let is_tests_covered_under_plan = true
         let is_selected_user_has_active_plan = false
@@ -366,10 +351,18 @@ class BookingSummaryViewNew extends React.Component {
         }
 
         //Check If each Tests Covered Under Plan
+        //Check If each Tests Covered Under Insurance
 
         if (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].tests) {
 
             this.props.LABS[this.state.selectedLab].tests.map((test, i) => {
+
+                if(test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount>=parseInt(test.deal_price) && !test.is_package){
+    
+                }else{
+                    is_tests_covered_under_insurance = false
+                }
+
                 if(test.included_in_user_plan){
     
                 }else{
@@ -404,7 +397,7 @@ class BookingSummaryViewNew extends React.Component {
             this.props.editUserProfile(profileData, profileData.id)
         }
         if (this.props.disCountedLabPrice && !is_plan_applicable || !is_insurance_applicable) {
-            postData['coupon_code'] = [this.state.couponCode] || []
+            postData['coupon_code'] = this.state.couponCode?[this.state.couponCode]:[]
         }
 
         //Post Pincode & thyrocare data
@@ -609,17 +602,13 @@ class BookingSummaryViewNew extends React.Component {
                     is_tests_covered_under_insurance = false
             
                 }
-            })
-            
-            
-            this.props.LABS[this.state.selectedLab].tests.map((test, i) => {
-                
+
                 if(test.included_in_user_plan){
             
                 }else{
                     is_tests_covered_under_plan = false
                 }
-            })            
+            })          
 
         }
 
@@ -645,7 +634,7 @@ class BookingSummaryViewNew extends React.Component {
 
                 return <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
                     {
-                        is_corporate || is_insurance_applicable? <span className="float-right fw-700">Free</span> : is_plan_applicable? <span className="float-right fw-700">₹ 0 </span>: <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
+                        is_corporate || is_insurance_applicable || is_plan_applicable? <span className="float-right fw-700">₹ 0 </span>: <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
                         </span>
                     }
                     <span className="test-name-item">{twp.test.name}</span>
@@ -801,7 +790,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                                 'Category': 'ConsumerApp', 'Action': 'LabCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-removed', 'couponId': labCoupons[0].coupon_id
                                                                                             }
                                                                                             GTM.sendEvent({ data: analyticData })
-
+                                                                                            this.setState({couponCode: '', couponId:''})
                                                                                             this.props.removeLabCoupons(this.state.selectedLab, labCoupons[0].coupon_id)
                                                                                         }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
                                                                                         </span>

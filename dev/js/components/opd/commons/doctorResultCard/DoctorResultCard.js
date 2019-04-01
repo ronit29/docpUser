@@ -248,10 +248,36 @@ class DoctorProfileCard extends React.Component {
                                         <RatingStars average_rating={average_rating} rating_count={rating_count || ''} width="12px" height="12px" /> : ''
                                 }
                             </div>
-                            <div className="col-4" style={mrp == 0 ? { paddingTop: 40 } : {}}>
+                            <div className="col-5 mrt-10 text-right" style={{ paddingLeft: 8 }} >
+
                                 {
-                                    enabled_for_hospital_booking && mrp != 0 && this.state.ssrFlag ?
-                                        <p className="cstm-doc-price">Docprime Price</p> : ''
+                                    is_insurance_applicable?
+                                    <p className="fltr-prices" style={{ marginTop: 4 }}>
+                                                    &#x20B9;{0}</p>
+                                    :''
+                                }
+
+                                {
+                                    is_insurance_applicable?
+                                    <div className="ins-val-bx ins-vl-bx">Covered Under Insurance
+                                    </div>
+                                    :enabled_for_hospital_booking ?
+                                        <p className="fltr-prices" style={{ marginTop: 4 }}>
+                                            &#x20B9; {is_procedure ? finalProcedureDealPrice : discounted_price}
+                                            {
+                                                is_procedure
+                                                    ? finalProcedureMrp != finalProcedureDealPrice ? <span className="fltr-cut-price">&#x20B9; {finalProcedureMrp}</span> : ""
+                                                    : mrp != discounted_price ? <span className="fltr-cut-price">&#x20B9; {mrp}</span> : ""
+                                            }
+                                        </p>
+                                        : is_procedure ?
+                                            <p className="fltr-prices" style={{ marginTop: 4 }}>
+                                                &#x20B9;{finalProcedureMrp}
+                                            </p>
+                                            : mrp && mrp != 0 ?
+                                                <p className="fltr-prices" style={{ marginTop: 4 }}>
+                                                    &#x20B9;{mrp}
+                                                </p> : ''
                                 }
                                 {
                                     enabled_for_hospital_booking && (discounted_price != null) && discounted_price != mrp ?

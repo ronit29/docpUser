@@ -223,15 +223,9 @@ class TestSelectorView extends React.Component {
                                                                                     <span className="checkmark" />
                                                                                 </label>
                                                                                 {
-                                                                                    test.insurance && test.insurance.is_insurance_covered && test.insurance.is_user_insured?
+                                                                                    test.insurance && test.insurance.is_insurance_covered && test.insurance.is_user_insured || test.included_in_user_plan?
                                                                                     <div className="test-price text-sm">&#8377; {0}</div>
                                                                                     :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
-                                                                                }
-                                                                                {
-                                                                                test.included_in_user_plan?
-                                                                                    <span className="test-price text-sm">₹ 0</span>
-                                                                                :
-                                                                                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                                                                                 }
                                                                             </li>
                                                                         })
@@ -250,15 +244,9 @@ class TestSelectorView extends React.Component {
                                                                                     <span className="checkmark" />
                                                                                 </label>
                                                                                 {
-                                                                                    test.insurance && test.insurance.is_insurance_covered && test.insurance.is_user_insured?
+                                                                                    test.insurance && test.insurance.is_insurance_covered && test.insurance.is_user_insured || test.included_in_user_plan?
                                                                                     <div className="test-price text-sm">&#8377; {0}</div>
                                                                                     :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
-                                                                                }
-                                                                                {
-                                                                                test.included_in_user_plan?
-                                                                                    <span className="test-price text-sm">₹ 0 </span>
-                                                                                :
-                                                                                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                                                                                 }
                                                                             </li>
                                                                         })

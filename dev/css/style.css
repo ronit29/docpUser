@@ -9639,7 +9639,9 @@ input[type="date"]
     min-height: 38px;
 }
 div.ins-form-radio.insradio-on-popup{
-	display: block;
+    display: block;
+    max-height: 350px;
+    overflow: auto;
 }
 .ins-def-msg{
 	width: 113px;
@@ -9750,7 +9752,7 @@ input[type=button]{
 }
 .ins-val-bx.shopng-cart-price{
 	position: absolute;
-    top: 26px;
+    top: 6px;
     right: 12px;
 }
 .widget-content.padiing-srch-el.pad-srch{
@@ -9787,6 +9789,7 @@ input[type=button]{
 .ratingBtnmrgn.ratbtn-btn{
 	padding: 15px 0 !important;
 }
+<<<<<<< HEAD
 @media screen and (max-width: 535px){
 	.widget-content.care-widget{
 	   padding: 12px;
@@ -9818,3 +9821,24 @@ input[type=button]{
     width:100% !important;
     text-align: center !important;
 }
+=======
+.arrow-forward-right{
+	top: 54px;
+}
+.ins-val-bx.ins-val-boxes{
+	margin-top: -94px;
+	display:inline;
+   
+}
+@media screen and (max-width: 991px){
+	.ins-val-bx.ins-val-boxes{
+		font-size:11px;
+	}
+}
+@media screen and (max-width: 480px){
+	.ins-val-bx.ins-val-boxes{
+		width: calc(100% - 120px);
+		font-size:9px;
+	}
+}
+>>>>>>> db8d1742f2c76fb7a183a5f3c1c3790f96fccb90

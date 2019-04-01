@@ -77,26 +77,6 @@ class LabTests extends React.Component {
         let {is_plan_applicable} = this.props
         let { is_insurance_applicable } = this.props
 
-        /*if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
-            this.props.currentLabSelectedTests.map((test, i) => {
-                
-                if (test.is_package) {
-                    if (test.is_selected) {
-                        is_insurance_applicable = false
-                    }
-
-                } else if (test.is_selected){
-                        
-                    //Check Selected Tests for Insurance
-
-                    if(test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount>=parseInt(test.deal_price)){
-
-                    }else{
-                        is_insurance_applicable = false
-                    }
-                }
-            })
-        }*/
 
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
             this.props.currentLabSelectedTests.map((test, i) => {
@@ -140,12 +120,7 @@ class LabTests extends React.Component {
                                     <span className="checkmark" />
                                 </label>
                                 {
-                                    is_insurance_applicable?
-                                    <span className="test-price text-sm">&#8377; {0}</span>
-                                    :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>    
-                                }
-                                {
-                                    test.included_in_user_plan?
+                                    is_insurance_applicable || test.included_in_user_plan?
                                         <span className="test-price text-sm">₹ 0 </span>
                                     :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                                 }
@@ -161,13 +136,8 @@ class LabTests extends React.Component {
                                     <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} testInfo={this.testInfo.bind(this,test.test.id,test.test.url)} />
                                     <span className="checkmark" />
                                 </label>
-                                {
-                                    is_insurance_applicable?
-                                    <span className="test-price text-sm">&#8377; {0}</span>
-                                    :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
-                                }
                                 {    
-                                    test.included_in_user_plan?
+                                    is_insurance_applicable || test.included_in_user_plan?
                                         <span className="test-price text-sm">₹ 0 </span>
                                     :
                                     <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>

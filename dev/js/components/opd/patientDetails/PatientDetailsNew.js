@@ -330,7 +330,7 @@ class PatientDetailsNew extends React.Component {
             this.props.editUserProfile(profileData, profileData.id)
         }
         if (this.props.disCountedOpdPrice && this.props.payment_type == 1 && !is_insurance_applicable) {
-            postData['coupon_code'] = [this.state.couponCode] || []
+            postData['coupon_code'] = this.state.couponCode?[this.state.couponCode]:[]
         }
 
         if(is_insurance_applicable){
