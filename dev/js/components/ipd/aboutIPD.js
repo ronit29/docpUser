@@ -27,7 +27,7 @@ class IPDAboutUs extends React.Component {
 		return(
              <div className="tab-pane fade show active" id="nav-overview">
                 
-                {/*<ul>
+                {<ul>
                 	{
                 		ipd_info.about && ipd_info.about.features?
                 		ipd_info.about.features.map((ipd, i) =>{
@@ -38,7 +38,7 @@ class IPDAboutUs extends React.Component {
                 		})
                 		:''
                 	}
-                </ul>*/}
+                </ul>}
                 {
                 	aboutText?
                 	<div>

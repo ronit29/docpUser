@@ -358,8 +358,8 @@ export const resetOpdCoupons = () => (dispatch) => {
 	})
 }
 
-export const getFooterData = (url) => (dispatch) => {
-	return API_GET(`/api/v1/location/dynamicfooters?url=${url}`).then(function (response) {
+export const getFooterData = (url, page=1) => (dispatch) => {
+	return API_GET(`/api/v1/location/dynamicfooters?url=${url}&page=${page}`).then(function (response) {
 		return response
 	}).catch(function (error) {
 

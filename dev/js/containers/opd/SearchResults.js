@@ -159,7 +159,7 @@ const mapDispatchToProps = (dispatch) => {
         getDoctors: (state, page, from_server, searchByUrl, cb, clinic_card) => dispatch(getDoctors(state, page, from_server, searchByUrl, cb, clinic_card)),
         mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
         getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback)),
-        getFooterData: (url) => dispatch(getFooterData(url)),
+        getFooterData: (url, page) => dispatch(getFooterData(url, page)),
         saveCommonProcedures: (procedure_ids) => dispatch(saveCommonProcedures(procedure_ids)),
         resetProcedureURl: () => dispatch(resetProcedureURl()),
         mergeSelectedCriterias: () => dispatch(mergeSelectedCriterias()),
