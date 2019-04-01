@@ -203,7 +203,6 @@ class DoctorProfileView extends React.Component {
             nearbyDoctors = this.props.DOCTORS[doctor_id].doctors;
         }
 
-<<<<<<< HEAD
         let is_insurance_applicable = false
         if(this.state.selectedClinic && this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length){
             this.props.DOCTORS[doctor_id].hospitals.map((hospital) => {
@@ -211,8 +210,7 @@ class DoctorProfileView extends React.Component {
                     is_insurance_applicable = hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured
                 }
             })
-            
-=======
+        }
         //Check if reviews exist for doctor, if not then pick the google reviews for that doctor/hospital
         let google_rating = {}
         if (this.props.DOCTORS[doctor_id] && !this.props.DOCTORS[doctor_id].display_rating_widget) {
@@ -234,7 +232,6 @@ class DoctorProfileView extends React.Component {
             let selectedClinicInfo = this.props.DOCTORS[doctor_id].hospitals.filter(x=>x.hospital_id == this.state.selectedClinic)
 
             selectedClinicName = selectedClinicInfo.length?selectedClinicInfo[0].hospital_name:''
->>>>>>> 11-jan-search
         }
 
         return (

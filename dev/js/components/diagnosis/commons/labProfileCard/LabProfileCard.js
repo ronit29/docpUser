@@ -140,7 +140,7 @@ class LabProfileCard extends React.Component {
 
     render() {
         let self = this
-        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price, avg_rating, rating_count ,insurance} = this.props.details;
+        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price, avg_rating, rating_count, insurance } = this.props.details;
 
         distance = Math.ceil(distance / 1000);
 
@@ -182,12 +182,12 @@ class LabProfileCard extends React.Component {
                 })
             }
         }
-
         let is_insurance_applicable = false
         if(insurance && insurance.is_insurance_covered && insurance.is_user_insured){
             is_insurance_applicable = true
             pickup_text = ""
         }
+        
         return (
 
             <div className="cstm-docCard mb-3">
@@ -212,7 +212,7 @@ class LabProfileCard extends React.Component {
                                             </div> : ''
                                     }
                                 </div>
-<<<<<<< HEAD
+
                                 <div className="cstm-doc-content-container">
                                     <a href={url} onClick={(e) => {
                                         e.preventDefault();
@@ -228,53 +228,6 @@ class LabProfileCard extends React.Component {
                                     <div className="cstm-lab-time-container">
                                         <img className="cstmTimeImg" src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
                                         {buildOpenBanner(lab_timing, lab_timing_data, next_lab_timing, next_lab_timing_data)}
-=======
-                                {this.props.details.tests && this.props.details.tests.length == 1 && this.props.details.tests[0].number_of_tests && this.props.details.tests[0].number_of_tests != null ? <div style={{ marginTop: '10px' }}><h3 className="lab-fltr-dc-name fw-500 pkg-include">{this.props.details.tests[0].number_of_tests} Tests Included</h3></div>
-                                    : ''}
-                                {this.props.details.tests && this.props.details.tests.length == 1 && this.props.details.tests[0].category_details && this.props.details.tests[0].category_details.length > 0 ?
-                                    <ul style={{ marginTop: '5px' }}>
-                                        {
-                                            this.props.details.tests[0].category_details.map((category_detail, k) => {
-                                                return <li className="pkg-listing-tick" key={k} id={k}>
-                                                    <img className="fltr-loc-ico" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: '12px', marginTop: '6px' }} />
-                                                    {category_detail.category} ({category_detail.count})
-                                            </li>
-                                            })
-                                        }
-                                    </ul>
-                                    : ''}
-                            </div>
-                            <div className="col-5 mrt-10 text-right" style={{ paddingleft: '8px' }}>
-                                {
-                                    !is_insurance_applicable && discounted_price && !hide_price ? <p className="text-primary fw-500 text-lg mrb-10">₹ {discounted_price}<span className="fltr-cut-price" style={{ verticalAlign: '1px' }}>₹ {mrp}</span></p> : ""
-                                }
-                                {
-                                    hide_price ? <p className="text-primary fw-500 text-lg mrb-10">Free</p> : ""
-                                }
-
-                                {
-                                    is_insurance_applicable?
-                                    <div>
-                                        <p className="text-primary fw-500 text-lg mrb-10">₹ {0}</p>
-                                        <div className="ins-val-bx ins-vl-bx">Covered Under Insurance</div>
-                                    </div>
-                                    :''
-                                }
-
-                                {
-                                    discounted_price != price && !is_insurance_applicable? <div className="signup-off-container">
-                                        <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span>
-                                    </div> : ""
-                                }
-                            </div>
-                            <div className="col-12 mrt-10">
-                                <div className="row">
-                                    <div className="col-6">
-                                        {/*<button className="fltr-cntct-btn btn-pdng"  onClick={this.openLab.bind(this, id, url)} >View Profile</button>*/}
-                                    </div>
-                                    <div className="col-6">
-                                        <button className="fltr-bkng-btn btn-pdng">Book Now</button>
->>>>>>> db8d1742f2c76fb7a183a5f3c1c3790f96fccb90
                                     </div>
                                 </div>
                             </div>

@@ -9789,7 +9789,6 @@ input[type=button]{
 .ratingBtnmrgn.ratbtn-btn{
 	padding: 15px 0 !important;
 }
-<<<<<<< HEAD
 @media screen and (max-width: 535px){
 	.widget-content.care-widget{
 	   padding: 12px;
@@ -9821,7 +9820,6 @@ input[type=button]{
     width:100% !important;
     text-align: center !important;
 }
-=======
 .arrow-forward-right{
 	top: 54px;
 }
@@ -9841,4 +9839,3 @@ input[type=button]{
 		font-size:9px;
 	}
 }
->>>>>>> db8d1742f2c76fb7a183a5f3c1c3790f96fccb90
