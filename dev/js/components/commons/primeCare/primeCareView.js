@@ -86,7 +86,7 @@ class PrimeCareView extends React.Component {
                                                             <p className="carePlans">{value.name}</p>
                                                             <div className="careComparePanel">
                                                                 <p className="carePlanPrice">₹ {parseInt(value.deal_price)}/Yr</p>
-                                                                <p className="carePlanPriceCut">{parseInt(value.mrp)}/Yr</p>
+                                                                <p className="carePlanPriceCut">₹ {parseInt(value.mrp)}/Yr</p>
                                                                 <div className="btn-bgwhite"><button onClick={self.buyNow.bind(self,value.id)}>Buy Now</button></div>
                                                             </div>
                                                         </div>)
