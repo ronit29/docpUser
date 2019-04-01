@@ -89,19 +89,19 @@ class ThyrocarePackageView extends React.Component {
                                 <div className="static-pk-container sticky-pk-container">
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Aarogyam B <br />(60 Parameters)</p>
+                                            <p className="stc-sub-para">Aarogyam B <br />(Includes 60 tests)</p>
                                             <p className="stc-price-cut">₹ 499 <span>₹ 750</span></p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Aarogyam C <br />(63 Parameters)</p>
+                                            <p className="stc-sub-para">Aarogyam C <br />(Includes 63 tests)</p>
                                             <p className="stc-price-cut">₹ 899 <span>₹ 1100</span></p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Aarogyam 3 <br />(68 Parameters)</p>
+                                            <p className="stc-sub-para">Aarogyam 3 <br />(Includes 68 tests)</p>
                                             <p className="stc-price-cut">₹ 1500 <span>₹ 2000</span></p>
                                         </div>
                                     </div>

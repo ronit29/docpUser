@@ -98,20 +98,20 @@ class LabView extends React.Component {
                                 <div className="static-pk-container sticky-pk-container">
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Pro Aarogyam 1.7 (Thyrocare)</p>
+                                            <p className="stc-sub-para">Pro Aarogyam 1.7 (Thyrocare) <br />(Includes 86 tests)</p>
                                             <p className="stc-price-cut">₹ 2000<span>₹ 2400</span></p>
-                                        </div>
-                                    </div>
-                                    <div className="static-pkg-top-column">
-                                        <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Aarogyam B
-                                                                (Thyrocare)</p>
-                                            <p className="stc-price-cut">₹ 499 <span>₹ 750</span></p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">MET Healthy Youth (25 YRS & Above)</p>
+                                            <p className="stc-sub-para">Aarogyam B
+                                                                (Thyrocare) <br />(Includes 60 tests)</p>
+                                            <p className="stc-price-cut">₹ 499 <span>₹ 750</span></p>
+                                        </div>
+                                    </div>
+                                    <div className="static-pkg-top-column">
+                                        <div className="stc-pkg-sub">
+                                            <p className="stc-sub-para">MET Healthy Youth (25 YRS & Above) <br />(Includes 56 tests)</p>
                                             <p className="stc-price-cut">₹ 1099 <span>₹ 3640</span></p>
                                         </div>
                                     </div>
