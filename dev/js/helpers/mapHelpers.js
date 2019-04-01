@@ -30,7 +30,9 @@ export function _getlocationFromLatLong(lat, long, location_type = 'locality', c
                     formatted_address: location_name,
                     name: location_name,
                     place_id: "",
-                    geometry: { location: { lat, lng: long } }
+                    geometry: { location: { lat, lng: long } },
+                    locality: locality,
+                    sub_locality: sub_locality
                 }
                 cb(location_object)
             }
@@ -50,6 +52,11 @@ export function _getLocationFromPlaceId(placeId, cb) {
         }, function (place, status) {
             let location_name = place.formatted_address
             let formedName = _getNameforPlaceId(place)
+
+            //Get Locality & SubLocality
+            let locality = _getNameFromLocation(place, 'locality')
+            let sub_locality = _getNameFromLocation(place, 'sublocality')
+
             if (formedName) {
                 location_name = formedName
             }
@@ -58,7 +65,9 @@ export function _getLocationFromPlaceId(placeId, cb) {
                 formatted_address: location_name,
                 name: location_name,
                 place_id: place.place_id,
-                geometry: place.geometry
+                geometry: place.geometry,
+                locality: locality,
+                sub_locality: sub_locality
             }
 
             cb(location_object)

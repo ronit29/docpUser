@@ -75,13 +75,16 @@ class LabView extends React.Component {
                 seo_url = "/" + seo_url
             }
         }
-        let is_plan_applicable = true
+        let is_plan_applicable = false
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
+
+            let selectedTests = this.props.currentLabSelectedTests.filter(x=>x.is_selected)
+            is_plan_applicable = selectedTests.length?true:false            
             this.props.currentLabSelectedTests.map((test, i) => {
                 
               if(test.is_selected){
                 if(test.included_in_user_plan){
-    
+                    
                 }else{
                     is_plan_applicable = false
                 }  
