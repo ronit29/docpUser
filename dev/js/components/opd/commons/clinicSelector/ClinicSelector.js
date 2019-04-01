@@ -172,7 +172,7 @@ class ClinicSelector extends React.Component {
                                 </div>
                             </div>
                             <div className="address-bg-color">
-                                <div className="row">
+                                <div className="row no-gutters">
                                     <div className="col-10">
                                         <div className="add-content">
                                             <span className="add-span">Address:</span>

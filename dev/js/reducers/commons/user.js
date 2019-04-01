@@ -339,7 +339,9 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state
             }
-            newState.selectedSearchType = action.payload
+            if(action.payload.includes('lab') || action.payload.includes('opd') || action.payload.includes('ipd') ){
+                newState.selectedSearchType = action.payload
+            }
             return newState
         }
 

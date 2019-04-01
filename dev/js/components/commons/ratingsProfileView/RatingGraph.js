@@ -1,4 +1,5 @@
 import React from "react";
+import RatingStars from "./RatingStars";
 
 class RatingGraph extends React.Component {
     constructor(props) {
@@ -16,10 +17,15 @@ class RatingGraph extends React.Component {
             let threestar_progress = this.props.details.rating_graph.star_count[3]
             let twostar_progress = this.props.details.rating_graph.star_count[2]
             let onestar_progress = this.props.details.rating_graph.star_count[1]
+
             return (
                 <div className="feed-back-container">
                     <div className="row flx-center">
                         <div className="col-4">
+                            {
+                                this.props.details.rating_graph && this.props.details.rating_graph.avg_rating ?
+                                    <RatingStars average_rating={this.props.details.rating_graph.avg_rating} width="12px" height="12px" justifyCenter={true} /> : ''
+                            }
                             <div className="feedback-rating-text">
                                 <p className="feedback-rate">{this.props.details.rating_graph.avg_rating}</p>
                                 <p className="feedback-rate-status">

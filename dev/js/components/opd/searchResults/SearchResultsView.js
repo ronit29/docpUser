@@ -94,7 +94,11 @@ class SearchResultsView extends React.Component {
 
         if (this.state.seoFriendly) {
             //this.props.mergeSelectedCriterias()
-            this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
+            let page = 1
+            if(parsed && parsed.page){
+                page = parsed.page || 1
+            }
+            this.props.getFooterData(this.props.match.url.split('/')[1], page).then((footerData) => {
                 if (footerData) {
                     this.setState({ footerData: footerData })
                 }
@@ -356,12 +360,11 @@ class SearchResultsView extends React.Component {
             next = ""
             prev = ""
         }
-
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
                 <HelmetTags tagsData={{
-                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}${page}`,
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.canonical_url?`/${this.props.canonical_url}`:this.props.match.url}${page}`,
                     title: this.getMetaTagsData(this.props.seoData).title,
                     description: this.getMetaTagsData(this.props.seoData).description,
                     schema: this.getMetaTagsData(this.props.seoData).schema,

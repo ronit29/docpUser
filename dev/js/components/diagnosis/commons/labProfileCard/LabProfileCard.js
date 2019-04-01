@@ -5,13 +5,19 @@ import GTM from '../../../../helpers/gtm.js'
 import { buildOpenBanner } from '../../../../helpers/utils.js'
 import STORAGE from '../../../../helpers/storage'
 import { X_OK } from 'constants';
+import RatingStars from '../../../commons/ratingsProfileView/RatingStars';
 
 class LabProfileCard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            openViewMore: false
+            openViewMore: false,
+            ssrFlag: false
         }
+    }
+
+    componentDidMount() {
+        this.setState({ ssrFlag: true })
     }
 
     toggleViewMore() {
@@ -96,7 +102,7 @@ class LabProfileCard extends React.Component {
             })
     }
 
-    bookNowClicked(id, url=''){
+    bookNowClicked(id, url = '') {
         let slot = { time: {} }
         this.props.selectLabTimeSLot(slot, false)
         this.mergeTests(id)
@@ -134,7 +140,7 @@ class LabProfileCard extends React.Component {
 
     render() {
         let self = this
-        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price, insurance } = this.props.details;
+        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price, avg_rating, rating_count ,insurance} = this.props.details;
 
         distance = Math.ceil(distance / 1000);
 
@@ -181,175 +187,279 @@ class LabProfileCard extends React.Component {
         if(insurance && insurance.is_insurance_covered && insurance.is_user_insured){
             is_insurance_applicable = true
             pickup_text = ""
-        }     
-
+        }
         return (
 
-            <div className="">
-                <div className="filter-card-dl mb-3">
-                    <div className="fltr-crd-top-container">
-                        <div className="fltr-lctn-dtls" onClick={this.bookNowClicked.bind(this, id, url)} style={{ cursor: 'pointer' }}>
-                            <p><img className="fltr-loc-ico" src="/assets/img/new-loc-ico.svg" style={{ width: '12px', height: '18px' }} /><span className="fltr-loc-txt">{address}</span><span>&nbsp;|&nbsp;{distance} Km</span></p>
-                        </div>
-                        <div className="row no-gutters mrt-10" onClick={this.bookNowClicked.bind(this, id, url)} style={{ cursor: 'pointer' }}>
-                            <div className="col-12">
-                                <a href={url} onClick={(e) => e.preventDefault()}>
-                                    <h2 className="lab-fltr-dc-name fw-500 text-md">{name}</h2>
-                                </a>
-                                {
-                                    !is_insurance_applicable && !hide_price && offPercent && offPercent > 0 ?
-                                        <span className="filtr-offer ofr-ribbon fw-700">{offPercent}% OFF</span> : ''
-                                }
-                            </div>
-                            <div className="col-7 mrt-10">
-                                <div className="img-nd-dtls">
+            <div className="cstm-docCard mb-3">
+                <div className="cstm-docCard-content" style={{ cursor: 'pointer' }} onClick={this.bookNowClicked.bind(this, id, url)}>
+                    <div className="row no-gutters">
+                        <div className="col-8">
+                            <div className="cstm-doc-details-container labCardUiresponsive">
+                                <div className="cstm-doc-img-container">
                                     <div className="text-center">
-                                        <InitialsPicture name={name} has_image={!!lab_thumbnail} className="initialsPicture-ls">
-                                            <img className="fltr-usr-image-lab" src={lab_thumbnail} />
-                                        </InitialsPicture>
+                                        <a href={url} onClick={(e) => {
+                                            e.preventDefault();
+                                        }}>
+                                            <InitialsPicture name={name} has_image={!!lab_thumbnail} className="initialsPicture-ls">
+                                                <img style={{ width: '75px' }} alt={name} className="fltr-usr-image-lab" src={lab_thumbnail} />
+                                            </InitialsPicture>
+                                        </a>
                                     </div>
-                                    <div style={{ marginLeft: '8px', marginRight: '8px' }}>
-                                        {
-                                            this.props.details.tests && this.props.details.tests.length == 1 ? <p style={{ color: "rgb(0, 0, 0)", fontSize: "14px", fontWeight: 400 }}>{this.props.details.tests[0].name}
-                                                {
-                                                    show_detailsIds.indexOf(this.props.details.tests[0].id) > -1 ? <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, this.props.details.tests[0].id, id, this.props.details.tests[0].url)}>
-                                                        <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
-                                                    </span> : ''
-                                                }
-                                            </p> : ""
-                                        }
-                                    </div>
+                                    {
+                                        avg_rating ?
+                                            <div style={{ marginTop: 4 }} className="rating-star-container">
+                                                <RatingStars average_rating={avg_rating} rating_count={rating_count || ''} width="10px" height="10px" />
+                                            </div> : ''
+                                    }
                                 </div>
-                                {this.props.details.tests && this.props.details.tests.length == 1 && this.props.details.tests[0].number_of_tests && this.props.details.tests[0].number_of_tests != null ? <div style={{ marginTop: '10px' }}><h3 className="lab-fltr-dc-name fw-500 pkg-include">{this.props.details.tests[0].number_of_tests} Tests Included</h3></div>
-                                    : ''}
-                                {this.props.details.tests && this.props.details.tests.length == 1 && this.props.details.tests[0].category_details && this.props.details.tests[0].category_details.length > 0 ?
-                                    <ul style={{ marginTop: '5px' }}>
-                                        {
-                                            this.props.details.tests[0].category_details.map((category_detail, k) => {
-                                                return <li className="pkg-listing-tick" key={k} id={k}>
-                                                    <img className="fltr-loc-ico" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: '12px', marginTop: '6px' }} />
-                                                    {category_detail.category} ({category_detail.count})
-                                            </li>
-                                            })
-                                        }
-                                    </ul>
-                                    : ''}
-                            </div>
-                            <div className="col-5 mrt-10 text-right" style={{ paddingleft: '8px' }}>
-                                {
-                                    !is_insurance_applicable && discounted_price && !hide_price ? <p className="text-primary fw-500 text-lg mrb-10">₹ {discounted_price}<span className="fltr-cut-price" style={{ verticalAlign: '1px' }}>₹ {mrp}</span></p> : ""
-                                }
-                                {
-                                    hide_price ? <p className="text-primary fw-500 text-lg mrb-10">Free</p> : ""
-                                }
-
-                                {
-                                    is_insurance_applicable?
-                                    <div>
-                                        <p className="text-primary fw-500 text-lg mrb-10">₹ {0}</p>
-                                        <div className="ins-val-bx ins-vl-bx">Covered Under Insurance</div>
-                                    </div>
-                                    :''
-                                }
-
-                                {
-                                    discounted_price != price ? <div className="signup-off-container">
-                                        <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span>
-                                    </div> : ""
-                                }
-                            </div>
-                            <div className="col-12 mrt-10">
-                                <div className="row">
-                                    <div className="col-6">
-                                        {/*<button className="fltr-cntct-btn btn-pdng"  onClick={this.openLab.bind(this, id, url)} >View Profile</button>*/}
-                                    </div>
-                                    <div className="col-6">
-                                        <button className="fltr-bkng-btn btn-pdng">Book Now</button>
+                                <div className="cstm-doc-content-container">
+                                    <a href={url} onClick={(e) => {
+                                        e.preventDefault();
+                                    }}>
+                                        <h2 className="cstmDocName">{name}</h2>
+                                    </a>
+                                    {
+                                        this.props.details.tests && this.props.details.tests.length ?
+                                            this.props.details.tests.map((test, index) => {
+                                                return <p key={index}>{test.name}</p>
+                                            }) : ''
+                                    }
+                                    <div className="cstm-lab-time-container">
+                                        <img className="cstmTimeImg" src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
+                                        {buildOpenBanner(lab_timing, lab_timing_data, next_lab_timing, next_lab_timing_data)}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        {
-                            this.props.details.tests && this.props.details.tests.length >= 2 ?
-                                <div>
-                                    <ul className="fltr-labs-test-selected mrt-10">
-                                        <span className="fltr-prv-selected-test">Tests Selected</span>
-                                        {
-                                            this.props.details.tests.map((test, i) => {
-                                                return <li className="fltr-slected-test" key={i}>
-                                                    <label style={{ fontWeight: 400 }}>{test.name}
-                                                        {
-
-                                                            show_detailsIds.indexOf(test.id) > -1 ?
-                                                                <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, test.id, id, test.url)}>
-                                                                    <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
-                                                                </span> : ''
-                                                        }
-                                                    </label>
-                                                    {
-                                                        hide_price || is_insurance_applicable ?
-                                                            <p style={{ fontWeight: 400 }}>Free</p>
-                                                            : <p style={{ fontWeight: 400 }}>&#x20B9; {test.deal_price} <span>&#x20B9; {test.mrp}</span></p>
-                                                    }
-                                                </li>
-                                            })
-                                        }
-                                    </ul>
-                                </div> : ''
-                        }
-
-                    </div>
-                    <div className="filtr-card-footer" style={{ background: 'white' }}>
-                        <div style={{ paddingRight: "8px" }}>
+                        <div className="col-4">
                             {
-                                pickup_text ? <p style={{ marginLeft: '0px' }}>* {pickup_text}</p>
-                                    : ""
+                                this.state.ssrFlag ?
+                                    <p className="cstm-doc-price">Docprime Price</p> : ''
                             }
-                        </div>
-
-                        <div className="text-right" style={{ marginLeft: 'auto' }}>
-                            <img src="/assets/img/customer-icons/clock-black.svg" />
-                            <p style={{ fontSize: '12px' }}>{buildOpenBanner(lab_timing, lab_timing_data, next_lab_timing, next_lab_timing_data)}</p>
+                            {
+                                discounted_price && !hide_price ?
+                                    <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p> : ''
+                            }
+                            {
+                                discounted_price != price && !hide_price && offPercent && offPercent > 0 ?
+                                    <p className="cstm-cpn">{offPercent}% Off <span><br />(includes Coupon)</span></p> : ''
+                            }
+                            <button className="cstm-book-btn">Book Now</button>
                         </div>
                     </div>
-                    <div className="showBookTestListContainer">
+                </div>
+                <div className="cstmCardFooter">
+                    <div className="cstmfooterContent">
                         {
-                            other_labs && other_labs.length && this.state.openViewMore ? <div className="showBookTestList">
+                            pickup_text ?
+                                <p><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />{pickup_text}</p> : ''
+                        }
+                        <p className="mb-rmv"><img style={{ width: '10px', marginLeft: '3px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{address}</p>
+                    </div>
+                    <div className="cstmDocLoc">
+                        <p className=""><img src={ASSETS_BASE_URL + "/img/cstmdist.svg"} /> {distance}Km</p>
+                    </div>
+                </div>
+                <div className="showBookTestListContainer mt-rmv">
+                    {
+                        other_labs && other_labs.length && this.state.openViewMore ?
+                            <div className="showBookTestList bg-white-main">
                                 <ul>
                                     {
                                         other_labs.map((olab, x) => {
                                             return <li key={x}>
-                                                <p className="showBookTestListImg"> <img src="/assets/img/new-loc-ico.svg" style={{ marginRight: '8px', width: "12px" }} />{olab.address} | {Math.ceil(olab.distance / 1000)} km </p>
+                                                <p className="showBookTestListImg"><img src="/assets/img/new-loc-ico.svg" style={{ marginRight: '8px', width: "12px" }} />{olab.address} | {Math.ceil(olab.distance / 1000)} km</p>
                                                 <button className="showBookTestListBtn" onClick={this.bookNowClicked.bind(this, olab.id, olab.url)}>Book Now</button>
                                             </li>
                                         })
                                     }
                                 </ul>
-                            </div> : ""
-                        }
-
-                        {
-                            other_labs && other_labs.length ? <div className="filtr-card-footer" onClick={this.toggleViewMore.bind(this)} style={{ cursor: 'pointer', borderTop: '1px solid #e8e8e8' }}>
+                            </div> : ''
+                    }
+                    {
+                        other_labs && other_labs.length ?
+                            <div className="filtr-card-footer bg-white-main" onClick={this.toggleViewMore.bind(this)} style={{ cursor: 'pointer', borderTop: '1px solid #e8e8e8' }}>
                                 {
-                                    this.state.openViewMore ? <div style={{ paddingRight: "8px" }}>
-                                        <p className="appBaseColor" style={{ marginLeft: '0px' }}>Show less</p>
-                                    </div> : <div style={{ paddingRight: "8px" }}>
+                                    this.state.openViewMore ?
+                                        <div style={{ paddingRight: "8px" }}>
+                                            <p className="appBaseColor" style={{ marginLeft: '0px' }}>Show less</p>
+                                        </div>
+                                        :
+                                        <div style={{ paddingRight: "8px" }}>
                                             <p className="appBaseColor" style={{ marginLeft: '0px' }}>View {other_labs.length} more locations</p>
                                         </div>
                                 }
-
-                                <div className="text-right" style={{ marginLeft: 'auto' }}>
-                                    {
-                                        this.state.openViewMore ? <img style={{ margin: '5px' }} className="acrd-show" src="/assets/img/customer-icons/dropdown-arrow.svg" /> : <img style={{ margin: '5px' }} className="" src="/assets/img/customer-icons/dropdown-arrow.svg" />
-                                    }
-                                </div>
-                            </div> : ""
-                        }
-
-                    </div>
+                                {
+                                    this.state.openViewMore ?
+                                        <div className="text-right" style={{ marginLeft: 'auto' }}>
+                                            <img style={{ margin: '5px' }} className="acrd-show" src="/assets/img/customer-icons/dropdown-arrow.svg" />
+                                        </div>
+                                        :
+                                        <div className="text-right" style={{ marginLeft: 'auto' }}>
+                                            <img style={{ margin: '5px' }} src="/assets/img/customer-icons/dropdown-arrow.svg" />
+                                        </div>
+                                }
+                            </div> : ''
+                    }
                 </div>
             </div>
 
+
+            // <div className="">
+            //     <div className="filter-card-dl mb-3">
+            //         <div className="fltr-crd-top-container">
+            //             <div className="fltr-lctn-dtls" onClick={this.bookNowClicked.bind(this, id, url)} style={{ cursor: 'pointer' }}>
+            //                 <p><img className="fltr-loc-ico" src="/assets/img/new-loc-ico.svg" style={{ width: '12px', height: '18px' }} /><span className="fltr-loc-txt">{address}</span><span>&nbsp;|&nbsp;{distance} Km</span></p>
+            //             </div>
+            //             <div className="row no-gutters mrt-10" onClick={this.bookNowClicked.bind(this, id, url)} style={{ cursor: 'pointer' }}>
+            //                 <div className="col-12">
+            //                     <a href={url} onClick={(e) => e.preventDefault()}>
+            //                         <h2 className="lab-fltr-dc-name fw-500 text-md">{name}</h2>
+            //                     </a>
+            //                     {
+            //                         !hide_price && offPercent && offPercent > 0 ?
+            //                             <span className="filtr-offer ofr-ribbon fw-700">{offPercent}% OFF</span> : ''
+            //                     }
+            //                 </div>
+            //                 <div className="col-7 mrt-10">
+            //                     <div className="img-nd-dtls">
+            //                         <div className="text-center">
+            //                             <InitialsPicture name={name} has_image={!!lab_thumbnail} className="initialsPicture-ls">
+            //                                 <img className="fltr-usr-image-lab" src={lab_thumbnail} />
+            //                             </InitialsPicture>
+            //                         </div>
+            //                         <div style={{ marginLeft: '8px', marginRight: '8px' }}>
+            //                             {
+            //                                 this.props.details.tests && this.props.details.tests.length == 1 ? <p style={{ color: "rgb(0, 0, 0)", fontSize: "14px", fontWeight: 400 }}>{this.props.details.tests[0].name}
+            //                                     {
+            //                                         show_detailsIds.indexOf(this.props.details.tests[0].id) > -1 ? <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, this.props.details.tests[0].id, id, this.props.details.tests[0].url)}>
+            //                                             <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
+            //                                         </span> : ''
+            //                                     }
+            //                                 </p> : ""
+            //                             }
+            //                         </div>
+            //                     </div>
+            //                     {this.props.details.tests && this.props.details.tests.length == 1 && this.props.details.tests[0].number_of_tests && this.props.details.tests[0].number_of_tests != null ? <div style={{ marginTop: '10px' }}><h3 className="lab-fltr-dc-name fw-500 pkg-include">{this.props.details.tests[0].number_of_tests} Tests Included</h3></div>
+            //                         : ''}
+            //                     {this.props.details.tests && this.props.details.tests.length == 1 && this.props.details.tests[0].category_details && this.props.details.tests[0].category_details.length > 0 ?
+            //                         <ul style={{ marginTop: '5px' }}>
+            //                             {
+            //                                 this.props.details.tests[0].category_details.map((category_detail, k) => {
+            //                                     return <li className="pkg-listing-tick" key={k} id={k}>
+            //                                         <img className="fltr-loc-ico" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: '12px', marginTop: '6px' }} />
+            //                                         {category_detail.category} ({category_detail.count})
+            //                                 </li>
+            //                                 })
+            //                             }
+            //                         </ul>
+            //                         : ''}
+            //                 </div>
+            //                 <div className="col-5 mrt-10 text-right" style={{ paddingleft: '8px' }}>
+            //                     {
+            //                         discounted_price && !hide_price ? <p className="text-primary fw-500 text-lg mrb-10">₹ {discounted_price}<span className="fltr-cut-price" style={{ verticalAlign: '1px' }}>₹ {mrp}</span></p> : ""
+            //                     }
+            //                     {
+            //                         hide_price ? <p className="text-primary fw-500 text-lg mrb-10">Free</p> : ""
+            //                     }
+
+            //                     {
+            //                         discounted_price != price ? <div className="signup-off-container">
+            //                             <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span>
+            //                         </div> : ""
+            //                     }
+            //                 </div>
+            //                 <div className="col-12 mrt-10">
+            //                     <div className="row">
+            //                         <div className="col-6">
+            //                             {/*<button className="fltr-cntct-btn btn-pdng"  onClick={this.openLab.bind(this, id, url)} >View Profile</button>*/}
+            //                         </div>
+            //                         <div className="col-6">
+            //                             <button className="fltr-bkng-btn btn-pdng">Book Now</button>
+            //                         </div>
+            //                     </div>
+            //                 </div>
+            //             </div>
+            //             {
+            //                 this.props.details.tests && this.props.details.tests.length >= 2 ?
+            //                     <div>
+            //                         <ul className="fltr-labs-test-selected mrt-10">
+            //                             <span className="fltr-prv-selected-test">Tests Selected</span>
+            //                             {
+            //                                 this.props.details.tests.map((test, i) => {
+            //                                     return <li className="fltr-slected-test" key={i}>
+            //                                         <label style={{ fontWeight: 400 }}>{test.name}
+            //                                             {
+
+            //                                                 show_detailsIds.indexOf(test.id) > -1 ?
+            //                                                     <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, test.id, id, test.url)}>
+            //                                                         <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
+            //                                                     </span> : ''
+            //                                             }
+            //                                         </label>
+            //                                         {
+            //                                             hide_price ?
+            //                                                 <p style={{ fontWeight: 400 }}>Free</p>
+            //                                                 : <p style={{ fontWeight: 400 }}>&#x20B9; {test.deal_price} <span>&#x20B9; {test.mrp}</span></p>
+            //                                         }
+            //                                     </li>
+            //                                 })
+            //                             }
+            //                         </ul>
+            //                     </div> : ''
+            //             }
+
+            //         </div>
+            //         <div className="filtr-card-footer" style={{ background: 'white' }}>
+            //             <div style={{ paddingRight: "8px" }}>
+            //                 {
+            //                     pickup_text ? <p style={{ marginLeft: '0px' }}>* {pickup_text}</p>
+            //                         : ""
+            //                 }
+            //             </div>
+
+            //             <div className="text-right" style={{ marginLeft: 'auto' }}>
+            //                 <img src="/assets/img/customer-icons/clock-black.svg" />
+            //                 <p style={{ fontSize: '12px' }}>{buildOpenBanner(lab_timing, lab_timing_data, next_lab_timing, next_lab_timing_data)}</p>
+            //             </div>
+            //         </div>
+            //         <div className="showBookTestListContainer">
+            //             {
+            //                 other_labs && other_labs.length && this.state.openViewMore ? <div className="showBookTestList">
+            //                     <ul>
+            //                         {
+            //                             other_labs.map((olab, x) => {
+            //                                 return <li key={x}>
+            //                                     <p className="showBookTestListImg"> <img src="/assets/img/new-loc-ico.svg" style={{ marginRight: '8px', width: "12px" }} />{olab.address} | {Math.ceil(olab.distance / 1000)} km </p>
+            //                                     <button className="showBookTestListBtn" onClick={this.bookNowClicked.bind(this, olab.id, olab.url)}>Book Now</button>
+            //                                 </li>
+            //                             })
+            //                         }
+            //                     </ul>
+            //                 </div> : ""
+            //             }
+
+            //             {
+            //                 other_labs && other_labs.length ? <div className="filtr-card-footer" onClick={this.toggleViewMore.bind(this)} style={{ cursor: 'pointer', borderTop: '1px solid #e8e8e8' }}>
+            //                     {
+            //                         this.state.openViewMore ? <div style={{ paddingRight: "8px" }}>
+            //                             <p className="appBaseColor" style={{ marginLeft: '0px' }}>Show less</p>
+            //                         </div> : <div style={{ paddingRight: "8px" }}>
+            //                                 <p className="appBaseColor" style={{ marginLeft: '0px' }}>View {other_labs.length} more locations</p>
+            //                             </div>
+            //                     }
+
+            //                     <div className="text-right" style={{ marginLeft: 'auto' }}>
+            //                         {
+            //                             this.state.openViewMore ? <img style={{ margin: '5px' }} className="acrd-show" src="/assets/img/customer-icons/dropdown-arrow.svg" /> : <img style={{ margin: '5px' }} className="" src="/assets/img/customer-icons/dropdown-arrow.svg" />
+            //                         }
+            //                     </div>
+            //                 </div> : ""
+            //             }
+
+            //         </div>
+            //     </div>
+            // </div>
         );
     }
 }
