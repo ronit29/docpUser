@@ -8935,6 +8935,19 @@ border-radius: 4px;
     top: 65px;
     left: -15px;
 }
+.parent-info.multiple-pkgs ul li:after{
+    top:4px;
+}
+.ms-info.multiple-pkgs ul li:after{
+    top:4px;
+    height:41px;
+}
+.pkgComapre .multiple-pkgs.ms-info{
+    padding:0 15px;
+}
+.pkgComapre .multiple-pkgs.ms-info ul{
+    padding: 15px 0;
+}
 .pkgComapre .multiple-pkgs .pkg-card-price{
 	margin: 10px 0 4px;
 }
@@ -8996,9 +9009,10 @@ border-radius: 4px;
 	font-weight: 700;
 }
 .multiple-pkgs-details{
-	border-top: 1px solid rgba(0,0,0,0.12);
+	/* border-top: 1px solid rgba(0,0,0,0.12); */
     border-radius: 0;
     margin: 0 10px;
+    padding-top:0;
 }
 .multiple-pkgs-details ul{
 	margin: 0 -10px;
@@ -9172,6 +9186,9 @@ border-radius: 4px;
 	}
 	.last-span .span-img{
 		right:-8px;
+    }
+    .pkgComapre .compare-packages ul li{
+		width:30%;
 	}
 }
 @media screen and (max-width: 405px){
@@ -9180,9 +9197,6 @@ border-radius: 4px;
 	} 
 	.pkmkb .end-div{
 		right:9px;
-	}
-	.pkgComapre .compare-packages ul li{
-		width:30%;
 	}
 }
 @media screen and (max-width: 360px){

@@ -349,7 +349,7 @@ return (
                             <span>Lipid Profile</span>
                             <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                           </div>
-                          <div className="top-head-info multiple-pkgs">
+                          <div className="top-head-info multiple-pkgs ms-info">
                             <ul className="pkgCls">
                               <li>2</li>
                               <li>3</li>
@@ -428,7 +428,7 @@ return (
                             <span>Thyroid Panel 1, Total</span>
                             <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                           </div>
-                          <div className="top-head-info multiple-pkgs">
+                          <div className="top-head-info multiple-pkgs ms-info">
                             <ul className="pkgCls">
                               <li>2</li>
                               <li>3</li>
@@ -487,7 +487,7 @@ return (
                             <span>Vitamin D Total-25 Hydroxy</span>
                             <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                           </div>
-                          <div className="top-head-info multiple-pkgs">
+                          <div className="top-head-info multiple-pkgs ms-info">
                             <ul className="pkgCls">
                               <li>2</li>
                               <li>0</li>
@@ -519,7 +519,7 @@ return (
                             <span>Vitamin B12, active Holo Transcobalamin</span>
                             <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                           </div>
-                          <div className="top-head-info multiple-pkgs">
+                          <div className="top-head-info multiple-pkgs ms-info">
                             <ul className="pkgCls">
                               <li>2</li>
                               <li>0</li>
@@ -568,7 +568,7 @@ return (
                             <span>Kidney Function Test</span>
                             <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                           </div>
-                          <div className="top-head-info multiple-pkgs">
+                          <div className="top-head-info multiple-pkgs ms-info">
                             <ul className="pkgCls">
                               <li>2</li>
                               <li>3</li>
@@ -661,7 +661,7 @@ return (
                             <span>Pancreatic (Acute) Profile</span>
                             <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                           </div>
-                          <div className="top-head-info multiple-pkgs">
+                          <div className="top-head-info multiple-pkgs ms-info">
                             <ul className="pkgCls">
                               <li>2</li>
                               <li>0</li>
@@ -715,7 +715,7 @@ return (
                             <span>Electrolytes</span>
                             <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                           </div>
-                          <div className="top-head-info multiple-pkgs">
+                          <div className="top-head-info multiple-pkgs ms-info">
                             <ul className="pkgCls">
                               <li>2</li>
                               <li>0</li>
@@ -752,7 +752,7 @@ return (
                             <span>Testosterone Total</span>
                             <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                           </div>
-                          <div className="top-head-info multiple-pkgs">
+                          <div className="top-head-info multiple-pkgs ms-info">
                             <ul className="pkgCls">
                               <li>2</li>
                               <li>0</li>
