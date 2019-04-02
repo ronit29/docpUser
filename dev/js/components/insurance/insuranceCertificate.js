@@ -11,6 +11,12 @@ class InsuranceCertificateView extends React.Component {
 		}
 	}
 
+	 getGetOrdinal(n) {
+   	var s=["th","st","nd","rd"],
+       v=n%100;
+   return n+(s[(v-20)%10]||s[v]||s[0]);
+	}
+
 	render() {
 		if (Object.keys(this.props.get_insured_profile).length > 0) {
 			let primaryMember
@@ -103,11 +109,11 @@ class InsuranceCertificateView extends React.Component {
 									<div className="ins-flex justify-content-between ins-date-row mrb-0">
 										<div className="ins-date text-center">
 											<p className="fw-500 mrb-5">Policy issue Date</p>
-											<p className="fw-700">{`${purchaseDate[2]}th ${purchaseDate[1]} ${purchaseDate[3]}`}</p>
+											<p className="fw-700">{`${this.getGetOrdinal(purchaseDate[2])} ${purchaseDate[1]} ${purchaseDate[3]}`}</p>
 										</div>
 										<div className="ins-date text-center">
 											<p className="fw-500 mrb-5">Policy expiry Date</p>
-											<p className="fw-700">{`${expiryDate[2]}th ${expiryDate[1]} ${expiryDate[3]}`}</p>
+											<p className="fw-700">{`${this.getGetOrdinal(expiryDate[2])} ${expiryDate[1]} ${expiryDate[3]}`}</p>
 										</div>
 										<div className="ins-date text-center">
 											<p className="fw-500 mrb-5">Policy Number</p>
@@ -159,7 +165,7 @@ class InsuranceCertificateView extends React.Component {
 								</div>
 							</section>									
 							
-								<a className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn text-center" style={{ color: "#ffffff" }} href={this.props.get_insured_profile.coi_url} download target="_blank">
+								<a className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn text-center" disabled={this.props.showBtn?'':false} style={{ color: "#ffffff" }} href={this.props.get_insured_profile.coi_url} download target="_blank">
 									Download Certificate of Insurance<span className="foot-btn-sub-span">(Policy Document)</span>
 								</a>
 						</div>
