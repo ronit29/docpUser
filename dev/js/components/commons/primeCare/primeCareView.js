@@ -25,7 +25,13 @@ class PrimeCareView extends React.Component {
             // this.props.history.replace(`/login?callback=`+url)
             this.setState({'selectedPlanId':plan_id,'showLoginPopup':true})
         }else{
-            this.props.history.push(url)
+            this.props.getIsCareDetails((resp)=>{
+                if(resp && resp.has_active_plan){
+                    this.props.history.push('/prime/success?user_plan='+resp.user_plan_id) 
+                }else{
+                    this.props.history.push(url)        
+                }
+            })
         }
     }
 
