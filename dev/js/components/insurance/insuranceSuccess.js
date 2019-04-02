@@ -119,7 +119,7 @@ class InsuranceFaq extends React.Component{
 						</div>
 					</div>
 				</div>
-				<div className="widget">
+				<div className="widget" style={{marginBottom:'70px'}}>
 					<div className="fnl-radio">
 						<div className="ins-radio-table-container">
 							<p className="ins-rd-fist">All set to go! Your policy has being issued. Just answer some important questions regarding the insured member(s) and you can download the COI</p>
