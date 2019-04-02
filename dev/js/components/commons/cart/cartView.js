@@ -157,12 +157,16 @@ class CartView extends React.Component {
 
         let invalid_items = false
         let valid_items = false
+        let all_appointments_insured = true
         if (cart && cart.length) {
             cart.map((cart_item, i) => {
                 if (!cart_item.valid) {
                     invalid_items = true
                 } else {
                     valid_items = true
+                    if(cart_item.actual_data && !cart_item.actual_data.is_appointment_insured){
+                        all_appointments_insured = false
+                    }
                 }
             })
         }
@@ -271,7 +275,7 @@ class CartView extends React.Component {
 
 
                                                     {
-                                                        valid_items && total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
+                                                        !all_appointments_insured && valid_items && total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
                                                             <div className="widget-content">
                                                                 <div className="select-pt-form">
                                                                     <div className="referral-select">
