@@ -63,6 +63,7 @@ import IpdForm from './containers/ipd/IpdForm.js'
 import IpdHospitalSearch from './containers/ipd/IpdHospitalSearch.js'
 import IpdHospitalDetail from './containers/ipd/IpdHospitalDetail.js'
 import IpdDetail from './containers/ipd/IpdDetail.js'
+import ChatFeedback from './containers/commons/ChatFeedback.js'
 
 
 /**
@@ -161,6 +162,7 @@ const routes = [
     { path: '/ipd/searchHospitals',exact: true, component: IpdHospitalSearch},
     { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail},
     { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail },
+    { path: '/chat/feedback', exact: true, component: ChatFeedback },
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 
