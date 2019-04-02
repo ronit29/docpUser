@@ -51,8 +51,14 @@ class CareLoginPopup extends React.Component{
                 if(exists.code == 'invalid'){
                     this.setState({error_message:exists.message})
                 }else{
-                    let url = '/prime/booking?plan_id='+this.props.selectedPlanId
-                    this.props.history.push(url)
+                    this.props.getIsCareDetails((resp)=>{
+                        if(resp && resp.has_active_plan){
+                            this.props.history.push('/prime/success?user_plan='+resp.user_plan_id) 
+                        }else{
+                            let url = '/prime/booking?plan_id='+this.props.selectedPlanId
+                            this.props.history.push(url)        
+                        }
+                    })                    
                 }    
                    
             })
