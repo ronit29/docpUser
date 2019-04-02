@@ -76,41 +76,42 @@ class LabView extends React.Component {
             }
         }
         let is_plan_applicable = false
+        let is_insurance_applicable = true
+
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
 
             let selectedTests = this.props.currentLabSelectedTests.filter(x=>x.is_selected)
-            is_plan_applicable = selectedTests.length?true:false            
+            is_plan_applicable = selectedTests.length?true:false
+            is_insurance_applicable = selectedTests.length?true:false
+
             this.props.currentLabSelectedTests.map((test, i) => {
                 
               if(test.is_selected){
+
+                //Insusrance not applicable for Packages
+                if(test.is_package) {
+                    is_insurance_applicable = true
+                }
+
+                //Check Selected Tests for Insurance
+
+                if(test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount>=parseInt(test.deal_price)){
+
+                }else{
+                    is_insurance_applicable = false
+                }
+
+                //Check for User Plans
+
                 if(test.included_in_user_plan){
                     
                 }else{
                     is_plan_applicable = false
                 }  
               } 
-            })
-        }
 
-        let is_insurance_applicable = true
-        if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
-            this.props.currentLabSelectedTests.map((test, i) => {
-                
-                if (test.is_package) {
-                    if (test.is_selected) {
-                        is_insurance_applicable = false
-                    }
 
-                } else if (test.is_selected){
-                        
-                    //Check Selected Tests for Insurance
 
-                    if(test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount>=parseInt(test.deal_price)){
-
-                    }else{
-                        is_insurance_applicable = false
-                    }
-                }
             })
         }
 
