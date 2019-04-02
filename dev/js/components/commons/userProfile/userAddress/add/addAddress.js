@@ -124,19 +124,28 @@ class UserSignupView extends React.Component {
                     break
                 }
                 case "locality": {
-                    if (this.state.locality && this.state.locality_place_id) {
+                    if (this.state.locality && this.state.locality_place_id && this.refs[prp].value) {
                         validated = true
                     } else {
                         this.refs[prp].value = ""
                     }
                     break
                 }
+
+                case "address": {
+                    if(this.refs[prp].value){
+                        validated = true
+                    }
+                    break
+                }
+
                 case "land_mark": {
-                    if (this.state.land_mark && this.state.landmark_place_id) {
+                    validated = true
+                    /*if (this.state.land_mark && this.state.landmark_place_id) {
                         validated = true
                     } else {
                         this.refs[prp].value = ""
-                    }
+                    }*/
                     break
                 }
                 default: {
@@ -144,7 +153,7 @@ class UserSignupView extends React.Component {
                     break
                 }
             }
-            if (this.refs[prp].value && validated) {
+            if (/*this.refs[prp].value && */validated) {
                 this.refs[prp].style.border = ''
             } else {
                 this.refs[prp].style.border = '1px solid red'
@@ -261,7 +270,7 @@ class UserSignupView extends React.Component {
                                     <span className="text-xs"> (will be used at the time of sample pickup)</span>
                                 </div>
                                 <div className="labelWrap">
-                                    <input id="locality" name="locality" type="text" onChange={this.inputHandler.bind(this)} value={this.state.locality} ref="locality" required autoComplete="off" />
+                                    <input id="locality" name="locality" type="text" onChange={this.inputHandler.bind(this)} value={this.state.locality} ref="locality" required autoComplete='null' />
                                     <label htmlFor="locality">Select Locality</label>
 
                                     {
