@@ -8866,7 +8866,8 @@ border-radius: 4px;
 	display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 10px;
+	padding: 15px 10px;
+	background-color: #f8f8f8;
 }
 .pkgComapre .tgle-btn-txt{
 	margin-left: 50px;
@@ -8888,7 +8889,10 @@ border-radius: 4px;
     padding: 15px;
     box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.12);
     border-radius: 5px;
-    overflow: auto;
+	overflow: auto;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	margin-top: -1px;
 }
 .multiple-pkgs li{
 	text-align: center;
@@ -8902,6 +8906,15 @@ border-radius: 4px;
 	font-size: 14px;
 	font-weight: 500;
 	margin-bottom: 10px;
+	color: #757575;
+}
+.st-form{
+	color: #757575;
+	font-size: 12px;
+    font-weight: 500;
+}
+.st-form span{
+	color: #f78631;
 }
 .pkgComapre .multiple-pkgs h3.pkg-include{
 	color: #f78631;
@@ -9130,7 +9143,7 @@ border-radius: 4px;
 		left:-10px;
 	}
 	.sticky-multiple-pkgs{
-		top:46px;
+		top:44px;
 	}
 	.pkgComapre .multiple-pkgs .pkg-card-price{
 		margin:2px 0 4px;
@@ -9198,6 +9211,12 @@ border-radius: 4px;
 	} 
 	.pkmkb .end-div{
 		right:9px;
+	}
+	.st-form{
+		font-size: 11px;
+	}
+	.pkg-hd-by{
+		font-size: 10px;
 	}
 }
 @media screen and (max-width: 360px){
