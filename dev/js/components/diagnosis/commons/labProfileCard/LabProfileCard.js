@@ -234,16 +234,24 @@ class LabProfileCard extends React.Component {
                         </div>
                         <div className="col-4">
                             {
-                                this.state.ssrFlag ?
+                                !is_insurance_applicable && this.state.ssrFlag ?
                                     <p className="cstm-doc-price">Docprime Price</p> : ''
                             }
                             {
-                                discounted_price && !hide_price ?
+                                !is_insurance_applicable && discounted_price && !hide_price ?
                                     <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p> : ''
                             }
                             {
-                                discounted_price != price && !hide_price && offPercent && offPercent > 0 ?
+                                !is_insurance_applicable && discounted_price != price && !hide_price && offPercent && offPercent > 0 ?
                                     <p className="cstm-cpn">{offPercent}% Off <span><br />(includes Coupon)</span></p> : ''
+                            }
+                            {
+                                is_insurance_applicable?
+                                <div>
+                                    <p className="cst-doc-price">₹ {0}</p>
+                                    <div className="ins-val-bx">Covered Under Insurance</div>
+                                </div>
+                                :'' 
                             }
                             <button className="cstm-book-btn">Book Now</button>
                         </div>

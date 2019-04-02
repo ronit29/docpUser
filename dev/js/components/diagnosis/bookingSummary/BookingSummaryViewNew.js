@@ -396,7 +396,7 @@ class BookingSummaryViewNew extends React.Component {
             profileData['whatsapp_optin']= this.state.whatsapp_optin
             this.props.editUserProfile(profileData, profileData.id)
         }
-        if (this.props.disCountedLabPrice && !is_plan_applicable || !is_insurance_applicable) {
+        if (this.props.disCountedLabPrice && !is_plan_applicable && !is_insurance_applicable) {
             postData['coupon_code'] = this.state.couponCode?[this.state.couponCode]:[]
         }
 
@@ -575,6 +575,7 @@ class BookingSummaryViewNew extends React.Component {
         let is_insurance_applicable = false
         let is_tests_covered_under_insurance = true
         let is_selected_user_insured = false
+
         let is_plan_applicable = false
         let is_tests_covered_under_plan = true
         let is_selected_user_has_active_plan = false
@@ -873,7 +874,12 @@ class BookingSummaryViewNew extends React.Component {
 
                                                                                    
                                                                         </div>
-                                                                         <div className="ins-val-bx ins-vl-bx-o">Covered Under Insurance</div>
+
+                                                                        {
+                                                                            is_insurance_applicable?
+                                                                             <div className="ins-val-bx ins-vl-bx-o">Covered Under Insurance</div>
+                                                                             :''
+                                                                        }
 
                                                                         {
                                                                             this.state.is_cashback && this.props.disCountedLabPrice ? <div className="csh-back-applied-container">
@@ -889,7 +895,7 @@ class BookingSummaryViewNew extends React.Component {
 
 
                                                         {
-                                                            total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
+                                                            !is_insurance_applicable &&total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
                                                                 <div className="widget-content">
                                                                     <div className="select-pt-form">
                                                                         <div className="referral-select">

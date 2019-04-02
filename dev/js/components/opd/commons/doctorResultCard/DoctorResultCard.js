@@ -250,11 +250,13 @@ class DoctorProfileCard extends React.Component {
                             </div>
                             <div className="col-4" style={mrp == 0 ? { paddingTop: 40 } : {}}>
                                 {
-                                    enabled_for_hospital_booking && mrp != 0 && this.state.ssrFlag ?
+                                    !is_insurance_applicable && enabled_for_hospital_booking && mrp != 0 && this.state.ssrFlag ?
                                         <p className="cstm-doc-price">Docprime Price</p> : ''
                                 }
                                 {
-                                    enabled_for_hospital_booking && (discounted_price != null) && discounted_price != mrp ?
+                                    is_insurance_applicable?
+                                    ''
+                                    :enabled_for_hospital_booking && (discounted_price != null) && discounted_price != mrp ?
                                         <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
                                         : mrp && mrp != 0 ?
                                             <p className="cst-doc-price">₹ {mrp}</p>
@@ -262,13 +264,21 @@ class DoctorProfileCard extends React.Component {
                                                 <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
                                 }
                                 {
-                                    enabled_for_hospital_booking && offPercent && offPercent > 0 ?
+                                    !is_insurance_applicable && enabled_for_hospital_booking && offPercent && offPercent > 0 ?
                                         <p className="cstm-cpn">{offPercent}% Off
                                             {
                                                 deal_price != discounted_price ?
                                                     <span><br />(includes Coupon)</span> : ''
                                             }
                                         </p> : ''
+                                }
+                                {
+                                    is_insurance_applicable?
+                                    <div>
+                                        <p className="cst-doc-price">₹ {0}</p>
+                                        <div className="ins-val-bx">Covered Under Insurance</div>
+                                    </div>
+                                    :''
                                 }
                                 {
                                     enabled_for_hospital_booking ?

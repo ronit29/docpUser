@@ -211,36 +211,41 @@ class CartView extends React.Component {
                                                         valid_items ? <div className="widget mrb-15">
                                                             <div className="widget-content">
                                                                 <h4 className="title mb-20">Payment Summary</h4>
-                                                                <div className="payment-summary-content">
-                                                                    <div className="payment-detail d-flex">
-                                                                        <p>Total Fees</p>
-                                                                        <p>&#8377; {parseInt(total_mrp)}</p>
-                                                                    </div>
-                                                                    <div className="payment-detail d-flex">
-                                                                        <p>Docprime Discount</p>
-                                                                        <p>- &#8377; {parseInt(total_mrp) - parseInt(total_deal_price)}</p>
-                                                                    </div>
-                                                                    {
-                                                                        total_home_pickup_charges ? <div className="payment-detail d-flex">
-                                                                            <p>Home pickup charges</p>
-                                                                            <p>- &#8377; {parseInt(total_home_pickup_charges)}</p>
-                                                                        </div> : ""
-                                                                    }
+                                                                {
+                                                                    parseInt(total_mrp)?
 
-                                                                    {
-                                                                        total_coupon_discount ? <div>
-                                                                            {
-                                                                                Object.keys(coupon_breakup).map((cp, j) => {
-                                                                                    return <div className="payment-detail d-flex">
-                                                                                        <p style={{ color: 'green' }}>Coupon Discount ({cp})</p>
-                                                                                        <p style={{ color: 'green' }}>-&#8377; {coupon_breakup[cp]}</p>
-                                                                                    </div>
-                                                                                })
-                                                                            }
-                                                                        </div> : ''
-                                                                    }
+                                                                    <div className="payment-summary-content">
+                                                                        <div className="payment-detail d-flex">
+                                                                            <p>Total Fees</p>
+                                                                            <p>&#8377; {parseInt(total_mrp)}</p>
+                                                                        </div>
+                                                                        <div className="payment-detail d-flex">
+                                                                            <p>Docprime Discount</p>
+                                                                            <p>- &#8377; {parseInt(total_mrp) - parseInt(total_deal_price)}</p>
+                                                                        </div>
+                                                                        {
+                                                                            total_home_pickup_charges ? <div className="payment-detail d-flex">
+                                                                                <p>Home pickup charges</p>
+                                                                                <p>- &#8377; {parseInt(total_home_pickup_charges)}</p>
+                                                                            </div> : ""
+                                                                        }
 
-                                                                </div>
+                                                                        {
+                                                                            total_coupon_discount ? <div>
+                                                                                {
+                                                                                    Object.keys(coupon_breakup).map((cp, j) => {
+                                                                                        return <div className="payment-detail d-flex">
+                                                                                            <p style={{ color: 'green' }}>Coupon Discount ({cp})</p>
+                                                                                            <p style={{ color: 'green' }}>-&#8377; {coupon_breakup[cp]}</p>
+                                                                                        </div>
+                                                                                    })
+                                                                                }
+                                                                            </div> : ''
+                                                                        }
+
+                                                                    </div>
+                                                                    :''
+                                                                }
                                                                 <hr />
 
 
