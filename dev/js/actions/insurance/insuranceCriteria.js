@@ -107,15 +107,15 @@ export const getUserProfile = () => (dispatch) => {
 
     })
 }
-export const getInsuredProfile = () => (dispatch) => {
+export const getInsuredProfile = (callback) => (dispatch) => {
     return API_GET('/api/v1/insurance/profile').then(function (response) {
         dispatch({
             type: INSURED_PROFILE,
             payload: response
         })
-
+        if(callback) callback(response)
     }).catch(function (error) {
-
+        if(callback) callback(response)
     })
 }
 
