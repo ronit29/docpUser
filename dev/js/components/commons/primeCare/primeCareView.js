@@ -63,7 +63,7 @@ class PrimeCareView extends React.Component {
                     </div>
                 </div>
                 <div className="careSubHeader">
-                    <img className="careSubImg" src={ASSETS_BASE_URL + "/img/subhead.svg"} />
+                    <img className="careSubImg" src={ASSETS_BASE_URL + "/img/shape.png"} />
                     <div className="container">
                         <div className="careTextContSc">
                             <img className="caresubTxt" src={ASSETS_BASE_URL + "/img/careText.png"} />
@@ -177,7 +177,7 @@ class PrimeCareView extends React.Component {
                         </div>
                     </div>
                     <div className="careSubHeader">
-                        <img className="careSubImg" src={ASSETS_BASE_URL + "/img/subhead.svg"} />
+                        <img className="careSubImg" src={ASSETS_BASE_URL + "/img/shape.png"} />
                         <div className="container">
                             <div className="careTextContSc">
                                 <img className="caresubTxt" src={ASSETS_BASE_URL + "/img/careText.png"} />

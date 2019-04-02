@@ -231,7 +231,7 @@ class TopBar extends React.Component {
         // }
 
         return (
-            <div className="filter-row sticky-header mbl-stick">
+            <div>
                 {this.state.dropdown_visible ?
                     <div>
                         <div className="cancel-overlay cancel-overlay-zindex" onClick={this.hideSortDiv.bind(this)}>
@@ -253,130 +253,134 @@ class TopBar extends React.Component {
 
                         </div>
                     </div> : ""}
-                {this.props.breadcrumb && this.props.breadcrumb.length ?
-                    <div className="col-12 mrng-top-12 d-none d-md-block">
-                        <ul className="mrb-10 breadcrumb-list breadcrumb-list-ul" style={{ 'wordBreak': 'breakWord' }}>
-                            {
-                                this.props.breadcrumb && this.props.breadcrumb.length ?
-                                    this.props.breadcrumb.map((data, key) => {
-                                        return <li className="breadcrumb-list-item" key={key}>
-                                            {
-                                                key == this.props.breadcrumb.length - 1 ?
-                                                    <span>{data.title}</span>
-                                                    : <a href={data.url} title={data.link_title || data.title} onClick={(e) => {
-                                                        e.preventDefault();
-                                                        this.props.history.push((key == 0 || key == this.props.breadcrumb.length - 1) ? data.url : `/${data.url}`)
-                                                    }}>{key == 0 || key == this.props.breadcrumb.length - 1 ? <span className="fw-500 breadcrumb-title breadcrumb-colored-title">{data.title}</span> : <h2 className="fw-500 breadcrumb-title breadcrumb-colored-title d-inline-blck">{data.title}</h2>}</a>
-                                            }
-                                            {
-                                                key != this.props.breadcrumb.length - 1 ?
-                                                    <span className="breadcrumb-arrow">&gt;</span>
-                                                    : ''
-                                            }
-                                        </li>
-                                    })
-                                    : ''
-                            }
-                        </ul>
-                    </div>
-                    : ''
-                }
+                <div className="filter-row sticky-header mbl-stick">
 
-                <section className="scroll-shadow-bar">
-                    <div className="top-filter-tab-container">
-                        <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} /><span>Sort</span>
-                            {
-                                this.state.sort_on != null ? <span className="applied-filter-noti-new" /> : ""
-                            }
+                    {this.props.breadcrumb && this.props.breadcrumb.length ?
+                        <div className="col-12 mrng-top-12 d-none d-md-block">
+                            <ul className="mrb-10 breadcrumb-list breadcrumb-list-ul" style={{ 'wordBreak': 'breakWord' }}>
+                                {
+                                    this.props.breadcrumb && this.props.breadcrumb.length ?
+                                        this.props.breadcrumb.map((data, key) => {
+                                            return <li className="breadcrumb-list-item" key={key}>
+                                                {
+                                                    key == this.props.breadcrumb.length - 1 ?
+                                                        <span>{data.title}</span>
+                                                        : <a href={data.url} title={data.link_title || data.title} onClick={(e) => {
+                                                            e.preventDefault();
+                                                            this.props.history.push((key == 0 || key == this.props.breadcrumb.length - 1) ? data.url : `/${data.url}`)
+                                                        }}>{key == 0 || key == this.props.breadcrumb.length - 1 ? <span className="fw-500 breadcrumb-title breadcrumb-colored-title">{data.title}</span> : <h2 className="fw-500 breadcrumb-title breadcrumb-colored-title d-inline-blck">{data.title}</h2>}</a>
+                                                }
+                                                {
+                                                    key != this.props.breadcrumb.length - 1 ?
+                                                        <span className="breadcrumb-arrow">&gt;</span>
+                                                        : ''
+                                                }
+                                            </li>
+                                        })
+                                        : ''
+                                }
+                            </ul>
                         </div>
-                        <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}><img src={ASSETS_BASE_URL + "/img/filter.svg"} style={{ width: 18 }} /><span>Filter</span>
-                            {
-                                this.isFilterApplied.call(this) ? <span className="applied-filter-noti-new" /> : ""
-                            }
-                        </div>
-                        {/*<div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.catIds.length >0 ?'Category ('+this.state.catIds.length+')':'Category'}
+                        : ''
+                    }
+
+                    <section className="scroll-shadow-bar">
+                        <div className="top-filter-tab-container">
+                            <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} /><span>Sort</span>
+                                {
+                                    this.state.sort_on != null ? <span className="applied-filter-noti-new" /> : ""
+                                }
+                            </div>
+                            <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}><img src={ASSETS_BASE_URL + "/img/filter.svg"} style={{ width: 18 }} /><span>Filter</span>
+                                {
+                                    this.isFilterApplied.call(this) ? <span className="applied-filter-noti-new" /> : ""
+                                }
+                            </div>
+                            {/*<div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.catIds.length >0 ?'Category ('+this.state.catIds.length+')':'Category'}
                         </div>*/}
-                    </div>
-                </section>
-                {
-                    this.state.openFilter ? <div onClick={this.toggleFilter.bind(this)} className="filter-overlay overlay black">
-                        <div className="widget filter-popup" onClick={(e) => {
-                            e.stopPropagation()
-                            e.preventDefault()
-                        }}>
-                            <div className="widget-content">
-                                <div className="filterRow filterRowShort">
-                                    <span className="tl filterLabel">Available Today</span>
-                                    <div className="filterInput">
-                                        <input type="checkbox" name="is_available" checked={!!this.state.is_available} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" />
-                                        <span className="opd-filter-checkbox"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="widget-content">
-                                <div className="filterRow filterSitsAt">
-                                    <span className="tl">Sits At</span>
-                                    <div className="checkFilter">
-                                        <input type="checkbox" name="sits_at_clinic" checked={!!this.state.sits_at_clinic} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" style={{ top: 39, left: 20 }} />
-                                        <span className="opd-filter-checkbox" style={{ top: 39, left: 20 }}></span>
-                                    </div>
-                                    <span className="checkFilterLabel">Clinic</span>
-                                    <div className="checkFilter">
-                                        <input type="checkbox" name="sits_at_hospital" checked={!!this.state.sits_at_hospital} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" style={{ top: 39, left: 128 }} />
-                                        <span className="opd-filter-checkbox" style={{ top: 39, left: 128 }}></span>
-                                    </div>
-                                    <span className="checkFilterLabel">Hospital</span>
-                                </div>
-                            </div>
-                            <div className="widget-content">
-                                <div className="filterRow">
-                                    <span className="tl">Fees</span>
-                                    <span className="tr">&#8377; {this.state.priceRange[0]} to {this.state.priceRange[1]}</span>
-                                    <span className="bl">&#8377; 0</span>
-                                    <span className="br">&#8377; 3000</span>
-
-                                    <Range
-                                        min={0}
-                                        max={3000}
-                                        value={this.state.priceRange}
-                                        step={100}
-                                        className="range"
-                                        onChange={this.handleRange.bind(this, 'priceRange')}
-                                    />
-                                </div>
-                                <div className="filterRow">
-                                    <span className="tl">Distance</span>
-                                    <span className="tr">{this.state.distanceRange[0]} to {this.state.distanceRange[1]} KM</span>
-                                    <span className="bl">0 KM</span>
-                                    <span className="br">50 KM</span>
-
-                                    <Range
-                                        min={0}
-                                        max={50}
-                                        value={this.state.distanceRange}
-                                        step={1}
-                                        className="range"
-                                        onChange={this.handleRange.bind(this, 'distanceRange')}
-                                    />
-                                </div>
-                            </div>
-                            <div className="widget-content">
-                                <div className="filterRow filterRowFemaleDoc">
-                                    <span className="tl filterLabel">Female Doctor</span>
-                                    <div className="filterInput">
-                                        {/* <Checkbox name="is_female" checked={!!this.state.is_female} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" /> */}
-                                        <input type="checkbox" name="is_female" checked={!!this.state.is_female} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" />
-                                        <span className="opd-filter-checkbox"></span>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div className="widget-footer pd-0">
-                                <button className="v-btn v-btn-primary btn-block btn-lg" onClick={this.applyFilters.bind(this)}>Apply</button>
-                            </div>
                         </div>
-                    </div> : ""
-                }
+                    </section>
+                    
+                </div>
+                {
+                        this.state.openFilter ? <div onClick={this.toggleFilter.bind(this)} className="filter-overlay overlay black cancel-overlay-zindex">
+                            <div className="widget filter-popup" onClick={(e) => {
+                                e.stopPropagation()
+                                e.preventDefault()
+                            }}>
+                                <div className="widget-content">
+                                    <div className="filterRow filterRowShort">
+                                        <span className="tl filterLabel">Available Today</span>
+                                        <div className="filterInput">
+                                            <input type="checkbox" name="is_available" checked={!!this.state.is_available} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" />
+                                            <span className="opd-filter-checkbox"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="widget-content">
+                                    <div className="filterRow filterSitsAt">
+                                        <span className="tl">Sits At</span>
+                                        <div className="checkFilter">
+                                            <input type="checkbox" name="sits_at_clinic" checked={!!this.state.sits_at_clinic} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" style={{ top: 39, left: 20 }} />
+                                            <span className="opd-filter-checkbox" style={{ top: 39, left: 20 }}></span>
+                                        </div>
+                                        <span className="checkFilterLabel">Clinic</span>
+                                        <div className="checkFilter">
+                                            <input type="checkbox" name="sits_at_hospital" checked={!!this.state.sits_at_hospital} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" style={{ top: 39, left: 128 }} />
+                                            <span className="opd-filter-checkbox" style={{ top: 39, left: 128 }}></span>
+                                        </div>
+                                        <span className="checkFilterLabel">Hospital</span>
+                                    </div>
+                                </div>
+                                <div className="widget-content">
+                                    <div className="filterRow">
+                                        <span className="tl">Fees</span>
+                                        <span className="tr">&#8377; {this.state.priceRange[0]} to {this.state.priceRange[1]}</span>
+                                        <span className="bl">&#8377; 0</span>
+                                        <span className="br">&#8377; 3000</span>
+
+                                        <Range
+                                            min={0}
+                                            max={3000}
+                                            value={this.state.priceRange}
+                                            step={100}
+                                            className="range"
+                                            onChange={this.handleRange.bind(this, 'priceRange')}
+                                        />
+                                    </div>
+                                    <div className="filterRow">
+                                        <span className="tl">Distance</span>
+                                        <span className="tr">{this.state.distanceRange[0]} to {this.state.distanceRange[1]} KM</span>
+                                        <span className="bl">0 KM</span>
+                                        <span className="br">50 KM</span>
+
+                                        <Range
+                                            min={0}
+                                            max={50}
+                                            value={this.state.distanceRange}
+                                            step={1}
+                                            className="range"
+                                            onChange={this.handleRange.bind(this, 'distanceRange')}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="widget-content">
+                                    <div className="filterRow filterRowFemaleDoc">
+                                        <span className="tl filterLabel">Female Doctor</span>
+                                        <div className="filterInput">
+                                            {/* <Checkbox name="is_female" checked={!!this.state.is_female} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" /> */}
+                                            <input type="checkbox" name="is_female" checked={!!this.state.is_female} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" />
+                                            <span className="opd-filter-checkbox"></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div className="widget-footer pd-0">
+                                    <button className="v-btn v-btn-primary btn-block btn-lg" onClick={this.applyFilters.bind(this)}>Apply</button>
+                                </div>
+                            </div>
+                        </div> : ""
+                    }
             </div>
         );
     }
