@@ -162,7 +162,7 @@ const routes = [
     { path: '/ipd/searchHospitals',exact: true, component: IpdHospitalSearch},
     { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail},
     { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail },
-    { path: '/chat/feedback', exact: true, component: ChatFeedback },
+    { path: '/chat/feedback' , component: ChatFeedback },
     { path: '*', component: NotFound, NO_MATCH: true },
 ]
 
