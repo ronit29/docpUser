@@ -25,16 +25,16 @@ class TopBar extends React.Component {
             // showPopupContainer: true,
             sortText: 'Relevance',
             openCategory: false,
-            isCategoryApplied:false,
-            appliedCategoryCount:'',
-            initialSelectedCatIds:'',
-            max_age:'',
-            min_age:'',
-            packageType:'',
-            gender:'',
-            catIds:[],
-            test_ids:'',
-            package_ids:''
+            isCategoryApplied: false,
+            appliedCategoryCount: '',
+            initialSelectedCatIds: '',
+            max_age: '',
+            min_age: '',
+            packageType: '',
+            gender: '',
+            catIds: [],
+            test_ids: '',
+            package_ids: ''
         }
     }
 
@@ -64,15 +64,15 @@ class TopBar extends React.Component {
         //         this.setState({ showLocationPopup: true, overlayVisible: true })
         //     }
         // }
-        if(!this.props.forOrganicSearch){
+        if (!this.props.forOrganicSearch) {
             var url_string = window.location.href
             var url = new URL(url_string);
             var cat_ids = url.searchParams.get("category_ids")
-            if(cat_ids != null){
+            if (cat_ids != null) {
                 cat_ids = cat_ids.split(',')
-                if(cat_ids.length > 0){
+                if (cat_ids.length > 0) {
                     this.setState({
-                        appliedCategoryCount:cat_ids.length,isCategoryApplied:true
+                        appliedCategoryCount: cat_ids.length, isCategoryApplied: true
                     })
                 }
             }
@@ -88,9 +88,9 @@ class TopBar extends React.Component {
             min_age: this.state.min_age,
             gender: this.state.gender,
             packageType: this.state.packageType,
-            catIds:this.state.catIds,
-            test_ids:this.state.test_ids,
-            package_ids:this.state.package_ids
+            catIds: this.state.catIds,
+            test_ids: this.state.test_ids,
+            package_ids: this.state.package_ids
         }
         let data = {
             'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname, 'lowPriceRange': this.state.priceRange[0], 'highPriceRange': this.state.priceRange[1], 'lowDistanceRange': this.state.distanceRange[0], 'highDistanceRange': this.state.distanceRange[1], 'sort_on': this.state.sort_on == "" ? 'relevance' : this.state.sort_on
@@ -127,7 +127,7 @@ class TopBar extends React.Component {
             openFilter: !this.state.openFilter
         })
     }
-    
+
     handleRange(type, range) {
         this.setState({
             [type]: range
@@ -195,29 +195,29 @@ class TopBar extends React.Component {
             openCategory: !this.state.openCategory
         })
     }
-    applyCategories(categoryState) { 
+    applyCategories(categoryState) {
         let filterState = {
             priceRange: this.state.priceRange,
             distanceRange: this.state.distanceRange,
             sort_on: this.state.sort_on,
-            max_age:this.state.max_age,
+            max_age: this.state.max_age,
             min_age: this.state.min_age,
-            gender:this.state.gender,
+            gender: this.state.gender,
             packageType: this.state.packageType,
-            test_ids:this.state.test_ids,
-            package_ids:this.state.package_ids
+            test_ids: this.state.test_ids,
+            package_ids: this.state.package_ids
         }
         // let isCategory = false 
         // if(this.state.initialSelectedCatIds != categoryState.length){
         //     isCategory = true
         // }
-        this.props.applyCategories(categoryState,filterState)
+        this.props.applyCategories(categoryState, filterState)
         // this.setState({ openCategory: false ,isCategoryApplied:isCategory,appliedCategoryCount:categoryState.length>0?categoryState.length:''})
-        this.setState({ openCategory: false,catIds:categoryState.length})
+        this.setState({ openCategory: false, catIds: categoryState.length })
 
     }
-    initialSelectedCategory(selectedcategory){
-        this.setState({initialSelectedCatIds:selectedcategory.length})
+    initialSelectedCategory(selectedcategory) {
+        this.setState({ initialSelectedCatIds: selectedcategory.length })
     }
 
     // goToLocation() {
@@ -266,57 +266,66 @@ class TopBar extends React.Component {
         //     locationName = this.props.seoData.location
         // }
         return (
-            <div className="filter-row sticky-header mbl-stick">
+            <div>
                 {
                     this.state.dropdown_visible ?
-                     <div>
-                        <div className="cancel-overlay cancel-overlay-zindex" onClick={this.hideSortDiv.bind(this)}>
-                        </div>
-                        <div className="widget cancel-appointment-div cancel-popup onscreen-scroll">
-                            <div className="pop-top-heading">
-                                Sort                        
+                        <div>
+                            <div className="cancel-overlay cancel-overlay-zindex" onClick={this.hideSortDiv.bind(this)}>
                             </div>
-                            <div className="col-12">
-                                <div className="ins-form-radio insradio-on-popup">
-                                <ul>
-                                <li className={`drop-list-styling  ${!!!this.state.sort_on ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, "")}> <img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18, marginRight:'10px' }} />Relevance</li>
-                                <li className={`drop-list-styling ${this.state.sort_on == 'fees' ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, 'fees')}><img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/sortRupee.svg"} style={{ width: 18, marginRight:'10px' }} />Fee</li>
-                                <li className={`drop-list-styling ${this.state.sort_on == 'distance' ? 'drop-icon-selecter' : ''} `} onClick={this.handleClose.bind(this, 'distance')}><img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} style={{ width: 11, marginRight:'10px' }} />Distance</li>
-                                </ul>
+                            <div className="widget cancel-appointment-div cancel-popup onscreen-scroll">
+                                <div className="pop-top-heading">
+                                    Sort
+                            </div>
+                                <div className="col-12">
+                                    <div className="ins-form-radio insradio-on-popup">
+                                        <ul>
+                                            <li className={`drop-list-styling  ${!!!this.state.sort_on ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, "")}> <img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18, marginRight: '10px' }} />Relevance</li>
+                                            <li className={`drop-list-styling ${this.state.sort_on == 'fees' ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, 'fees')}><img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/sortRupee.svg"} style={{ width: 18, marginRight: '10px' }} />Fee</li>
+                                            <li className={`drop-list-styling ${this.state.sort_on == 'distance' ? 'drop-icon-selecter' : ''} `} onClick={this.handleClose.bind(this, 'distance')}><img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} style={{ width: 11, marginRight: '10px' }} />Distance</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div> : ""
+                        </div> : ""
                 }
-                {this.props.forOrganicSearch?
-                <div className="col-12 mrng-top-12 d-none d-md-block"><ul className="mrb-10 breadcrumb-list" style={{'wordBreak': 'breakWord'}}><li className="breadcrumb-list-item"><a href="/"><span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a></li><span className="breadcrumb-arrow">&gt;</span><li className="breadcrumb-list-item"><span className="fw-500 breadcrumb-title">Full Body Checkup Packages</span></li></ul></div>
-                :''}
-                <section className="scroll-shadow-bar">
-                {/*
-                    this.props.forTaxSaver?'':
-                    <div className="top-filter-tab-container">
-                        <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} /><span>Sort</span>
-                            {
-                                this.state.sort_on != null? <span className="applied-filter-noti-new" /> : ""
-                            }
-                        </div>
-                        <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}><img src={ASSETS_BASE_URL + "/img/filter.svg"} style={{ width: 18 }} /><span>Filter</span>
-                            {
-                                this.isFilterApplied.call(this) ? <span className="applied-filter-noti-new" /> : ""
-                            }
-                        </div>
-                        <div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.catIds.length >0 ?'Category ('+this.state.catIds.length+')':'Category'}
-                        </div>
-                    </div>
-                */}
+                <div className="filter-row sticky-header mbl-stick">
 
-                <div className="top-filter-tab-container">
-                      <div className="top-filter-tabs-select" onClick={this.props.comparePackage.bind(this)}><img src={ASSETS_BASE_URL + "/images/packageCompare/comapre.png"} alt="" /> Compare </div>
-                      <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}><img className="sort-filter" src={ASSETS_BASE_URL + "/images/packageCompare/filtersort.png"} alt="" /><span>Sort / Filter</span> </div>
+                    {this.props.forOrganicSearch ?
+                        <div className="col-12 mrng-top-12 d-none d-md-block"><ul className="mrb-10 breadcrumb-list" style={{ 'wordBreak': 'breakWord' }}><li className="breadcrumb-list-item"><a href="/"><span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a></li><span className="breadcrumb-arrow">&gt;</span><li className="breadcrumb-list-item"><span className="fw-500 breadcrumb-title">Full Body Checkup Packages</span></li></ul></div>
+                        : ''}
+                    <section className="scroll-shadow-bar">
+                        {/*
+                            this.props.forTaxSaver ? '' :
+                                <div className="top-filter-tab-container">
+                                    <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} /><span>Sort</span>
+                                        {
+                                            this.state.sort_on != null ? <span className="applied-filter-noti-new" /> : ""
+                                        }
+                                    </div>
+                                    <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}><img src={ASSETS_BASE_URL + "/img/filter.svg"} style={{ width: 18 }} /><span>Filter</span>
+                                        {
+                                            this.isFilterApplied.call(this) ? <span className="applied-filter-noti-new" /> : ""
+                                        }
+                                    </div>
+                                    <div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.catIds.length > 0 ? 'Category (' + this.state.catIds.length + ')' : 'Category'}
+                                    </div>
+                                </div>
+                        */}
+                        <div className="top-filter-tab-container">
+                            <div className="top-filter-tabs-select" onClick={this.props.comparePackage.bind(this)}><img src={ASSETS_BASE_URL + "/images/packageCompare/comapre.png"} alt="" /> Compare </div>
+                            <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}><img className="sort-filter" src={ASSETS_BASE_URL + "/images/packageCompare/filtersort.png"} alt="" /><span>Sort / Filter</span> </div>
+                        </div>
+                    </section>
+
+                   
                 </div>
-                </section>
                 {
-                    this.state.openFilter ? <div onClick={this.toggleFilter.bind(this)} className="filter-overlay overlay black">
+                        this.state.openCategory ? <div>
+                            <CategoryPopup {...this.props} applyCategories={this.applyCategories.bind(this)} closeCategory={this.closeCategory.bind(this)} initialSelectedCategory={this.initialSelectedCategory.bind(this)} />
+                        </div> : ""
+                    }
+                {
+                    this.state.openFilter ? <div onClick={this.toggleFilter.bind(this)} className="filter-overlay overlay black cancel-overlay-zindex">
                         <div className="widget filter-popup" onClick={(e) => {
                             e.stopPropagation()
                             e.preventDefault()
@@ -367,11 +376,6 @@ class TopBar extends React.Component {
                                 <button className="v-btn v-btn-primary btn-block btn-lg" onClick={this.applyFilters.bind(this)}>Apply</button>
                             </div>
                         </div>
-                    </div> : ""
-                }
-                {
-                    this.state.openCategory ? <div>
-                        <CategoryPopup {...this.props} applyCategories={this.applyCategories.bind(this)} closeCategory={this.closeCategory.bind(this)} initialSelectedCategory={this.initialSelectedCategory.bind(this)}/>
                     </div> : ""
                 }
             </div>
