@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, mergeOPDState, toggleProfileProcedures, saveProfileProcedures, getDoctorNo, toggleOPDCriteria } from '../../actions/index.js'
+import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, mergeOPDState, toggleProfileProcedures, saveProfileProcedures, getDoctorNo, toggleOPDCriteria, getAllRatings } from '../../actions/index.js'
 
 import DoctorProfileView from '../../components/opd/doctorProfile/index.js'
 const queryString = require('query-string');
@@ -68,7 +68,7 @@ class DoctorProfile extends React.Component {
 
         if (this.props.match.params.id) {
             this.props.getDoctorById(this.props.match.params.id, hospital_id, procedure_ids, category_ids)
-            this.setState({ hospital_id: hospital_id, is_procedure: is_procedure })
+            this.setState({ hospital_id: hospital_id, is_procedure: is_procedure})
         } else {
             let url = this.props.match.url
             if (url) {
@@ -76,7 +76,7 @@ class DoctorProfile extends React.Component {
             }
             this.props.getDoctorByUrl(url, hospital_id, procedure_ids, category_ids, (doctor_id) => {
                 if (doctor_id) {
-                    this.setState({ selectedDoctor: doctor_id, hospital_id: hospital_id, is_procedure: is_procedure })
+                    this.setState({ selectedDoctor: doctor_id, hospital_id: hospital_id, is_procedure: is_procedure})
                 }
             })
         }
@@ -149,7 +149,8 @@ const mapDispatchToProps = (dispatch) => {
         toggleProfileProcedures: (procedure_to_toggle, doctor_id, hospital_id) => dispatch(toggleProfileProcedures(procedure_to_toggle, doctor_id, hospital_id)),
         saveProfileProcedures: (doctor_id, clinic_id) => dispatch(saveProfileProcedures(doctor_id, clinic_id)),
         getDoctorNo: (doctorData, cb) => dispatch(getDoctorNo(doctorData, cb)),
-        toggleOPDCriteria: (type, criteria, forceAdd) => dispatch(toggleOPDCriteria(type, criteria, forceAdd))
+        toggleOPDCriteria: (type, criteria, forceAdd) => dispatch(toggleOPDCriteria(type, criteria, forceAdd)),
+        getAllRatings: (content_type, object_id, page, cb) => dispatch(getAllRatings(content_type, object_id, page, cb))
     }
 }
 

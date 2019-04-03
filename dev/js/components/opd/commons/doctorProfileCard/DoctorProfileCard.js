@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import InitialsPicture from '../../../commons/initialsPicture'
 import GTM from '../../../../helpers/gtm.js'
+import RatingStars from '../../../commons/ratingsProfileView/RatingStars';
 
 class DoctorProfileCard extends React.Component {
     constructor(props) {
@@ -115,6 +116,7 @@ class DoctorProfileCard extends React.Component {
             // })
         }
         let doc_name = name.split(' ')
+
         return (
             <div className="widget-header dr-qucik-info doc-gold-padding">
                 <div className="fltr-crd-img text-center">
@@ -124,10 +126,7 @@ class DoctorProfileCard extends React.Component {
                     {is_license_verified ? <span className="fltr-rtng">Verified</span> : ''}
                     {
                         rating_graph && rating_graph.avg_rating ?
-                            <div className="d-flex justify-content-center" style={{ marginTop: 5, alignItems: 'baseline' }} >
-                                <span className="text-primary fw-500" style={{ fontSize: 12, marginRight: 4 }} >{parseFloat(rating_graph.avg_rating).toFixed(1)}</span>
-                                <img src={ASSETS_BASE_URL + '/img/customer-icons/star.svg'} style={{ width: 10, height: 'auto' }} />
-                            </div> : ''
+                            <RatingStars average_rating={rating_graph.avg_rating} rating_count={rating_graph.rating_count || ''} width="10px" height="10px" /> : ''
                     }
                 </div>
 

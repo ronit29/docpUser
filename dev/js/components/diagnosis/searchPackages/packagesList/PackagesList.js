@@ -123,7 +123,7 @@ class packagesList extends React.Component {
                 }
                 {
                     this.state.renderBlock ? <Loader /> :
-                        <div className="container-fluid">
+                        <div className="container-fluid cardMainPaddingRmv">
                             {
                                 this.props.forOrganicSearch && this.props.packagesList && this.props.packagesList.count > 0 ?
                                     <div className="search-result-card-collpase">
@@ -155,7 +155,7 @@ class packagesList extends React.Component {
                                 </div>
                                     : ''
                             }
-                            <div className="row">
+                            <div className="row no-gutters">
                                 {
                                     this.props.offerList && this.props.offerList.filter(x => (x.slider_location === 'search_packages_page') || (x.slider_location === 'full_body_chechkup_page') || (x.slider_location === 'tax_saver_packages_page')).length ?
                                         <div className="col-12">
