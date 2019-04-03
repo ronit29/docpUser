@@ -14,6 +14,16 @@ class SelectedPkgStrip extends React.Component {
         }
     }
 
+    comparePackages(){
+      let selectedPkgCompareIds=[]
+        if(this.props.compare_packages){
+            this.props.compare_packages.map((packages, i) => {
+                selectedPkgCompareIds.push(packages.id)
+            })
+        }
+        this.props.history.push('/package/compare')      
+    }
+
     render() {
         return (
             <div className="compare-package-footer">
@@ -41,7 +51,7 @@ class SelectedPkgStrip extends React.Component {
                         Add one more package to compare
                       </div>
                       :
-                      <a className="add-more-package compare-package-now" href="javascript:void(0);">Compare Now {this.props.compare_packages && this.props.compare_packages.length>0?`(${this.props.compare_packages.length})`:''}</a>
+                      <a className="add-more-package compare-package-now" onClick={this.comparePackages.bind(this)}>Compare Now {this.props.compare_packages && this.props.compare_packages.length>0?`(${this.props.compare_packages.length})`:''}</a>
                     }
                     </div>
             </div>
