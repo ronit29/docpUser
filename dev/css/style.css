@@ -6862,9 +6862,6 @@ button.padding-btn-adjust{
 .ipd-section.ipdSection{
 	margin-top: -20px;
 }
-.ipd-section.ipd-form-view{
-	margin-top: -22px;
-}
 .ipd-section a,.ipd-section a:hover,.ipd-section a:focus,.ipd-section a:active{
     color: #f78631;
 }
@@ -8073,9 +8070,6 @@ a.btn-search.btn-cnte{
 	.ipd-section .read-more-btn{
 		right: -80%;
 	}
-	.ipd-section.ipd-form-view{
-		margin-top: -45px;
-	}
 	.ipd-section .left-side-info{
 		flex: auto;
 	}
@@ -8249,6 +8243,37 @@ a.btn-search.btn-cnte{
     }
    
 }
+/*=========== IPD NEW CSS ================*/
+
+.more-content.mr-content p,.more-content.mr-content ul li{
+	color: #222;
+	font-size: 14px;
+	text-align: left !important;
+}
+.more-content.mr-content p.slideDocName{
+	font-weight:500;
+	color:#000;
+	font-size:15px;
+}
+.more-content.mr-content .pkg-content h5{
+	text-align: left !important;
+	font-size: 14px;
+	margin-bottom: 2px;
+}
+.rating-s-tar{
+    font-size: 15px;
+    margin: 5px 10px 0 0;
+    display: inline-block;
+}
+.star-img{
+    width: 14px;
+    vertical-align: 0px;
+}
+
+
+
+/*=========== IPD NEW CSS ================*/
+
 /* ============ time slot new card ============ */
 .avl-time-slot{
 	margin-bottom: 10px;
@@ -8278,10 +8303,7 @@ a.btn-search.btn-cnte{
     color: #f78631;
     font-size: 12px;
 }
-.time-slot-main-listing{
-    flex-shrink: 0;
-    flex-grow: 0;
-}
+
 .nw-time-slot-li:last-child {
 	border-right: 0px;
 }
@@ -8364,10 +8386,7 @@ a.btn-search.btn-cnte{
     .leftBlock div {
         font-size: 11px;
 }
-.time-slot-main-listing{
-    flex-shrink: initial;
-    flex-grow: initial;
-}
+
 .rightBlock a{
 font-size: 11px;
 }
@@ -8878,4 +8897,8 @@ border-radius: 4px;
 .refrWhtsIcotcs{
     width:100% !important;
     text-align: center !important;
+}
+
+.pb-30{
+    padding-bottom: 30px !important;
 }
