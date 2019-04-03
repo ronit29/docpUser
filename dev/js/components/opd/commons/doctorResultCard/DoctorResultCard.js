@@ -202,7 +202,7 @@ class DoctorProfileCard extends React.Component {
                             __html: new_schema
                         }} /> : ""
                     }
-                    <div className="cstm-docCard-content">
+                    <div className="cstm-docCard-content" onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')}>
                         <div className="row no-gutters">
                             <div className="col-8">
                                 <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')} title={display_name}>
