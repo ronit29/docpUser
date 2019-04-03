@@ -8251,13 +8251,19 @@ a.btn-search.btn-cnte{
 }
 /*=========== IPD NEW CSS ================*/
 
-.more-content.mr-content p{
-	color: #757575;
+.more-content.mr-content p,.more-content.mr-content ul li{
+	color: #222;
+	font-size: 14px;
 }
 .more-content.mr-content p.slideDocName{
 	font-weight:500;
 	color:#000;
 	font-size:15px;
+}
+.more-content.mr-content .pkg-content h5{
+	text-align: left !important;
+	font-size: 14px;
+	margin-bottom: 2px;
 }
 .rating-s-tar{
     font-size: 15px;
