@@ -6883,9 +6883,6 @@ button.padding-btn-adjust{
 .ipd-section.ipdSection{
 	margin-top: -20px;
 }
-.ipd-section.ipd-form-view{
-	margin-top: -22px;
-}
 .ipd-section a,.ipd-section a:hover,.ipd-section a:focus,.ipd-section a:active{
     color: #f78631;
 }
@@ -8094,9 +8091,6 @@ a.btn-search.btn-cnte{
 	.ipd-section .read-more-btn{
 		right: -80%;
 	}
-	.ipd-section.ipd-form-view{
-		margin-top: -45px;
-	}
 	.ipd-section .left-side-info{
 		flex: auto;
 	}
@@ -8270,6 +8264,37 @@ a.btn-search.btn-cnte{
     }
    
 }
+/*=========== IPD NEW CSS ================*/
+
+.more-content.mr-content p,.more-content.mr-content ul li{
+	color: #222;
+	font-size: 14px;
+	text-align: left !important;
+}
+.more-content.mr-content p.slideDocName{
+	font-weight:500;
+	color:#000;
+	font-size:15px;
+}
+.more-content.mr-content .pkg-content h5{
+	text-align: left !important;
+	font-size: 14px;
+	margin-bottom: 2px;
+}
+.rating-s-tar{
+    font-size: 15px;
+    margin: 5px 10px 0 0;
+    display: inline-block;
+}
+.star-img{
+    width: 14px;
+    vertical-align: 0px;
+}
+
+
+
+/*=========== IPD NEW CSS ================*/
+
 /* ============ time slot new card ============ */
 .avl-time-slot{
 	margin-bottom: 10px;
@@ -9832,4 +9857,8 @@ input[type=button]{
 		width: calc(100% - 120px);
 		font-size:9px;
 	}
+}
+
+.pb-30{
+    padding-bottom: 30px !important;
 }

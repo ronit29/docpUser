@@ -43,7 +43,8 @@ const mapStateToProps = (state) => {
 		ipd_hospital_detail,
 		HOSPITAL_DETAIL_LOADED,
 		commonSelectedCriterias,
-		locationFetched
+		locationFetched,
+		selectedCriterias
 	} = state.SEARCH_CRITERIA_IPD
 
 	return {
@@ -52,7 +53,8 @@ const mapStateToProps = (state) => {
         ipd_hospital_detail,
         HOSPITAL_DETAIL_LOADED,
         commonSelectedCriterias,
-        locationFetched
+        locationFetched,
+        selectedCriterias
 	}
 }
 

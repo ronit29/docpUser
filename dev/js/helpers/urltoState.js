@@ -18,7 +18,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let min_distance = parseInt(_getLocationParamBind('min_distance')) || 0
             let max_distance = parseInt(_getLocationParamBind('max_distance')) || 15
             let min_fees = parseInt(_getLocationParamBind('min_fees')) || 0
-            let max_fees = parseInt(_getLocationParamBind('max_fees')) || 1500
+            let max_fees = parseInt(_getLocationParamBind('max_fees')) || 3000
             let sort_on = _getLocationParamBind('sort_on') || null
             let is_available = _getLocationParamBind('is_available') === "true"
             let is_female = _getLocationParamBind('is_female') === "true"
