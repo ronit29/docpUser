@@ -6862,9 +6862,6 @@ button.padding-btn-adjust{
 .ipd-section.ipdSection{
 	margin-top: -20px;
 }
-.ipd-section.ipd-form-view{
-	margin-top: -22px;
-}
 .ipd-section a,.ipd-section a:hover,.ipd-section a:focus,.ipd-section a:active{
     color: #f78631;
 }
@@ -8072,9 +8069,6 @@ a.btn-search.btn-cnte{
 	}
 	.ipd-section .read-more-btn{
 		right: -80%;
-	}
-	.ipd-section.ipd-form-view{
-		margin-top: -45px;
 	}
 	.ipd-section .left-side-info{
 		flex: auto;
