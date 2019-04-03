@@ -8303,10 +8303,7 @@ a.btn-search.btn-cnte{
     color: #f78631;
     font-size: 12px;
 }
-.time-slot-main-listing{
-    flex-shrink: 0;
-    flex-grow: 0;
-}
+
 .nw-time-slot-li:last-child {
 	border-right: 0px;
 }
@@ -8389,10 +8386,7 @@ a.btn-search.btn-cnte{
     .leftBlock div {
         font-size: 11px;
 }
-.time-slot-main-listing{
-    flex-shrink: initial;
-    flex-grow: initial;
-}
+
 .rightBlock a{
 font-size: 11px;
 }
