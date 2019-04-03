@@ -22,7 +22,7 @@ class DoctorCarouselList extends React.Component {
 	render(){
         let { doctorCardData } = this.props
 		return(
-            <div className="widge-content pd-0">
+            <div className="widge-content ct-profile pd-0">
                 <div className="widget-panel">
                     <div className="panel-content pd-0 border-bottom-panel">
                         <div className="docScrollSliderContainer" style={{background: 'transparent'}}>
