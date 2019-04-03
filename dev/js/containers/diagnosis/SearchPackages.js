@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType, getOfferList, toggleOPDCriteria } from '../../actions/index.js'
+import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType, getOfferList, toggleOPDCriteria, togglecompareCriteria,resetPkgCompare } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder, PackageSearchStateBuilder } from '../../helpers/urltoState'
 import SearchPackagesView from '../../components/diagnosis/searchPackages/index.js'
 
@@ -91,7 +91,8 @@ const mapStateToProps = (state, passedProps) => {
         fetchNewResults,
         corporateCoupon,
         currentSearchedCriterias,
-        filterCriteriaPackages
+        filterCriteriaPackages,
+        compare_packages
 
     } = state.SEARCH_CRITERIA_LABS
 
@@ -118,7 +119,8 @@ const mapStateToProps = (state, passedProps) => {
         packagesList,
         currentSearchedCriterias,
         filterCriteriaPackages,
-        offerList
+        offerList,
+        compare_packages
     }
 
 }
@@ -134,7 +136,9 @@ const mapDispatchToProps = (dispatch) => {
         selectSearchType: (type) => dispatch(selectSearchType(type)),
         getFooterData: (url) => dispatch(getFooterData(url)),
         getOfferList: (lat, long) => dispatch(getOfferList(lat, long)),
-        toggleOPDCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filter))
+        toggleOPDCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filter)),
+        togglecompareCriteria: (criteria) => dispatch(togglecompareCriteria(criteria)),
+        resetPkgCompare:() => dispatch(resetPkgCompare())
     }
 }
 

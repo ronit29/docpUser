@@ -9,6 +9,9 @@ import { X_OK } from 'constants';
 class LabProfileCard extends React.Component {
     constructor(props) {
         super(props)
+        this.state={
+            checked:false
+        }
     }
 
     openLab(id, url, test_id, test_name, e) {
@@ -117,8 +120,24 @@ class LabProfileCard extends React.Component {
         if(included_in_user_plan){
             hide_price = true
         }
+        let selectedPkgCompareIds=[]
+        if(this.props.compare_packages){
+            this.props.compare_packages.map((packages, i) => {
+                selectedPkgCompareIds.push(packages.id)
+            })
+        }
         return (
             <div className="pkg-card-container mb-3">
+            {
+                this.props.isCompare?
+                    <div className={selectedPkgCompareIds.indexOf(id)>-1 ? 'pkg-crd-header pkg-crd-green pkg-hd':'pkg-crd-header pkg-hd'}>
+                      <label className="ck-bx">{selectedPkgCompareIds.indexOf(id)>-1 ? 'Added':'Add to compare'}
+                        <input type="checkbox" onClick={this.props.toggleComparePackages.bind(this,id,lab.id,lab.lab_thumbnail,name)} checked={selectedPkgCompareIds.indexOf(id)>-1?true:false} />
+                        <span className="checkmark"></span>
+                      </label>
+                    </div>
+                :''
+            }
                 <div className="pkg-content-section">
                     {
                         !hide_price && offPercent && offPercent > 0 ?

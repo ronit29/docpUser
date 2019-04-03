@@ -249,6 +249,7 @@ return (
                       <a className="add-more-package compare-package-now" href="javascript:void(0);">Compare Now (4)</a>
                     </div>
                   </div>
+                  {/*compare screen*/}
                   <div className="container-fluid pad-all-0">
                     
                     <div className="sticky-multiple-pkgs">

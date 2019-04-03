@@ -311,7 +311,7 @@ class TopBar extends React.Component {
                 */}
 
                 <div className="top-filter-tab-container">
-                      <div className="top-filter-tabs-select"><img src={ASSETS_BASE_URL + "/images/packageCompare/comapre.png"} alt="" /> Category </div>
+                      <div className="top-filter-tabs-select" onClick={this.props.comparePackage.bind(this)}><img src={ASSETS_BASE_URL + "/images/packageCompare/comapre.png"} alt="" /> Compare </div>
                       <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}><img className="sort-filter" src={ASSETS_BASE_URL + "/images/packageCompare/filtersort.png"} alt="" /><span>Sort / Filter</span> </div>
                 </div>
                 </section>

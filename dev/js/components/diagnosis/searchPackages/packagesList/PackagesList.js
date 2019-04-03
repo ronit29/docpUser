@@ -5,6 +5,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import Loader from '../../../commons/Loader'
 import GTM from '../../../../helpers/gtm'
 import BannerCarousel from '../../../commons/Home/bannerCarousel.js';
+import SelectedPkgStrip from './selectedPkgStrip.js'
 
 class packagesList extends React.Component {
     constructor(props) {
@@ -224,6 +225,11 @@ class packagesList extends React.Component {
                             </div>
                             {this.state.loading ? <Loader classType="loaderPagination" /> : ""}
                         </div>
+                }
+                {
+                    this.props.isCompare && this.props.compare_packages.length > 0?
+                    <SelectedPkgStrip {...this.props} toggleComparePackages={this.props.toggleComparePackages.bind(this)}/>
+                    :''
                 }
             </section>
         );
