@@ -21,7 +21,7 @@ class SelectedPkgStrip extends React.Component {
                 selectedPkgCompareIds.push(packages.id)
             })
         }
-        this.props.history.push('/package/compare')      
+        this.props.history.push('/package/compare?package_ids='+selectedPkgCompareIds)      
     }
 
     render() {

@@ -145,3 +145,14 @@ export const resetPkgCompare = () => (dispatch) => {
         payload: null
     })
 }
+
+export const getCompareList = (selectedIds,callback) => (dispatch) => {
+
+    API_GET('/api/v1/diagnostic/compare_lab_packages?package_ids='+selectedIds).then(function (response) {
+        console.log(response)
+        if (callback) callback(response)
+    }).catch(function (error) {
+        if (callback) callback(null)
+    })
+
+}
