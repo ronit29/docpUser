@@ -8248,6 +8248,7 @@ a.btn-search.btn-cnte{
 .more-content.mr-content p,.more-content.mr-content ul li{
 	color: #222;
 	font-size: 14px;
+	text-align: left !important;
 }
 .more-content.mr-content p.slideDocName{
 	font-weight:500;

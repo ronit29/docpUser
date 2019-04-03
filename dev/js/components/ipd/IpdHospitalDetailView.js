@@ -101,7 +101,7 @@ class HospitalDetailView extends React.Component {
 							                    </div>
 							                	{
 							                    	this.props.ipd_hospital_detail.doctors.result.length<this.props.ipd_hospital_detail.doctors.count?
-							                    	<a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewDoctorsClicked.bind(this)}>{`View all ${this.props.ipd_hospital_detail.doctors.count-this.props.ipd_hospital_detail.doctors.result.length} Doctors`}</a>
+							                    	<a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewDoctorsClicked.bind(this)}>{`View all ${this.props.ipd_hospital_detail.doctors.count} Doctors`}</a>
 							                    	:''	
 							                    }
 							                    </div>    	

@@ -168,7 +168,7 @@ class IpdView extends React.Component {
 		            	
 		            	{
 		            		this.props.ipd_info && this.props.ipd_info.hospitals && this.props.ipd_info.hospitals.result && this.props.ipd_info.hospitals.result.length<this.props.ipd_info.hospitals.count?
-				   				<a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewHospitalsClicked.bind(this)}>{`View all ${this.props.ipd_info.hospitals.count-this.props.ipd_info.hospitals.result.length} Hospitals`}</a>
+				   				<a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewHospitalsClicked.bind(this)}>{`View all ${this.props.ipd_info.hospitals.count} Hospitals`}</a>
 				   				:''
 		            	}
 					</div>
@@ -188,7 +188,7 @@ class IpdView extends React.Component {
 	                    }
 	                    {
 	                    	this.props.ipd_info && this.props.ipd_info.doctors && this.props.ipd_info.doctors.result && this.props.ipd_info.doctors.result.length<this.props.ipd_info.doctors.count?
-	                    	<a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewDoctorsClicked.bind(this)}>{`View all ${this.props.ipd_info.doctors.count-this.props.ipd_info.doctors.result.length} Doctors`}</a>
+	                    	<a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewDoctorsClicked.bind(this)}>{`View all ${this.props.ipd_info.doctors.count} Doctors`}</a>
 	                    	:''	
 	                    }
 	                    
