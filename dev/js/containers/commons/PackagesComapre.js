@@ -3,7 +3,7 @@ import LeftBar from '../../components/commons/LeftBar'
 import RightBar from '../../components/commons/RightBar'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import Footer from '../../components/commons/Home/footer'
-  class PackageCompare extends React.Component {
+  class packageCompare extends React.Component {
     constructor(){
       super()
         this.state={
@@ -36,8 +36,8 @@ return (
                     <div className="filter-row sticky-header mbl-stick">
                       <section className="scroll-shadow-bar">
                         <div className="top-filter-tab-container">
-                          <div className="top-filter-tabs-select"><img src={ASSETS_BASE_URL + "/images/PackageCompare/comapre.png"} alt="" /> Category </div>
-                          <div className="top-filter-tabs-select"><img className="sort-filter" src={ASSETS_BASE_URL + "/images/PackageCompare/filtersort.png"} alt="" /><span>Sort / Filter</span> </div>
+                          <div className="top-filter-tabs-select"><img src={ASSETS_BASE_URL + "/images/packageCompare/comapre.png"} alt="" /> Category </div>
+                          <div className="top-filter-tabs-select"><img className="sort-filter" src={ASSETS_BASE_URL + "/images/packageCompare/filtersort.png"} alt="" /><span>Sort / Filter</span> </div>
                         </div>
                       </section>
                     </div>
@@ -107,14 +107,14 @@ return (
                                 <div className="test-included">
                                   <span className="">Includes:</span>
                                   <ul>
-                                    <li><img src={ASSETS_BASE_URL + "/images/PackageCompare/heart.png"} alt="" /> Heart (23) </li>
+                                    <li><img src={ASSETS_BASE_URL + "/images/packageCompare/heart.png"} alt="" /> Heart (23) </li>
                                   </ul>
                                 </div>
                                 <div className="test-included also-included-test">
                                   <span className="">Also includes:</span>
                                   <ul>
-                                    <li><img src={ASSETS_BASE_URL + "/images/PackageCompare/kidney.png"} alt="" /> Kidney (12) </li>
-                                    <li><img src={ASSETS_BASE_URL + "/images/PackageCompare/liver.png"} alt="" /> Liver (11) </li>
+                                    <li><img src={ASSETS_BASE_URL + "/images/packageCompare/kidney.png"} alt="" /> Kidney (12) </li>
+                                    <li><img src={ASSETS_BASE_URL + "/images/packageCompare/liver.png"} alt="" /> Liver (11) </li>
                                   </ul>
                                 </div>
                               </div>
@@ -178,14 +178,14 @@ return (
                                 <div className="test-included">
                                   <span className="">Includes:</span>
                                   <ul>
-                                    <li><img src={ASSETS_BASE_URL + "/images/PackageCompare/heart.png"} alt="" /> Heart (23) </li>
+                                    <li><img src={ASSETS_BASE_URL + "/images/packageCompare/heart.png"} alt="" /> Heart (23) </li>
                                   </ul>
                                 </div>
                                 <div className="test-included also-included-test">
                                   <span className="">Also includes:</span>
                                   <ul>
-                                    <li><img src={ASSETS_BASE_URL + "/images/PackageCompare/kidney.png"} alt="" /> Kidney (12) </li>
-                                    <li><img src={ASSETS_BASE_URL + "/images/PackageCompare/liver.png"} alt="" /> Liver (11) </li>
+                                    <li><img src={ASSETS_BASE_URL + "/images/packageCompare/kidney.png"} alt="" /> Kidney (12) </li>
+                                    <li><img src={ASSETS_BASE_URL + "/images/packageCompare/liver.png"} alt="" /> Liver (11) </li>
                                   </ul>
                                 </div>
                               </div>
@@ -213,31 +213,31 @@ return (
                     <div className="compare-packages">
                       <ul>
                         <li>
-                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/red-cut.png"} alt="" className="end-div" />  
+                          <img src={ASSETS_BASE_URL + "/images/packageCompare/red-cut.png"} alt="" className="end-div" />  
                           <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
                           <br/>
                           Thyocare Aarogyam B Package
                         </li>
                         <li>
-                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/red-cut.png"} alt="" className="end-div" />
+                          <img src={ASSETS_BASE_URL + "/images/packageCompare/red-cut.png"} alt="" className="end-div" />
                           <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
                           <br/>
                           Thyocare Aarogyam B Package
                         </li>
                         <li>
-                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/red-cut.png"} alt="" className="end-div" />
+                          <img src={ASSETS_BASE_URL + "/images/packageCompare/red-cut.png"} alt="" className="end-div" />
                           <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
                           <br/>
                           Thyocare Aarogyam B Package
                         </li>
                         <li>
-                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/red-cut.png"} alt="" className="end-div" />
+                          <img src={ASSETS_BASE_URL + "/images/packageCompare/red-cut.png"} alt="" className="end-div" />
                           <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
                           <br/>
                           Thyocare Aarogyam B Package
                         </li>
                         <li>
-                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/red-cut.png"} alt="" className="end-div" />
+                          <img src={ASSETS_BASE_URL + "/images/packageCompare/red-cut.png"} alt="" className="end-div" />
                           <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
                           <br/>
                           Thyocare Aarogyam B Package
@@ -267,7 +267,7 @@ return (
                       <div className="multiple-pkgs">
                         <ul className="pkgCls pkmkb">
                           <li>
-                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
+                          <img src={ASSETS_BASE_URL + "/images/packageCompare/grey-cross.png"} alt="" className="end-div" />
                           
                             <div className="pkg-hd">Aarogyam B</div>
                             <div className="pkg-hd-by">Available in 5 Labs</div>
@@ -279,7 +279,7 @@ return (
                             <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
                           </li>
                           <li>
-                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
+                          <img src={ASSETS_BASE_URL + "/images/packageCompare/grey-cross.png"} alt="" className="end-div" />
                             
                             <div className="pkg-hd">Aarogyam B</div>
                             <div className="pkg-hd-by">Available in 5 Labs</div>
@@ -291,7 +291,7 @@ return (
                             <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
                           </li>
                           <li>
-                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
+                          <img src={ASSETS_BASE_URL + "/images/packageCompare/grey-cross.png"} alt="" className="end-div" />
                             
                             <div className="pkg-hd">Aarogyam B</div>
                             <div className="pkg-hd-by">Available in 5 Labs</div>
@@ -303,7 +303,7 @@ return (
                             <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
                           </li>
                           <li>
-                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
+                          <img src={ASSETS_BASE_URL + "/images/packageCompare/grey-cross.png"} alt="" className="end-div" />
                             
                             <div className="pkg-hd">Aarogyam B</div>
                             <div className="pkg-hd-by">Available in 5 Labs</div>
@@ -315,7 +315,7 @@ return (
                             <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
                           </li>
                           <li>
-                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
+                          <img src={ASSETS_BASE_URL + "/images/packageCompare/grey-cross.png"} alt="" className="end-div" />
                             
                             <div className="pkg-hd">Aarogyam B</div>
                             <div className="pkg-hd-by">Available in 5 Labs</div>
@@ -375,7 +375,7 @@ return (
                               <li>
                                 <span>LDL Cholestrol</span>
                                 <span>Total Cholesterol</span>
-                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                                 <span>Triglycerides</span>
                                 <span>VLDL Cholesterol</span>
                                 <span>LDL/HdL Ratio</span>
@@ -449,7 +449,7 @@ return (
                               </li>
                               <li>
                                 <span>TriIodothyronine (T3)</span>
-                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img xm-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img xm-img" /></span>
                                 <span>TSH - Thyroid Stimulating Hormone</span>
                               </li>
                               <li>
@@ -480,8 +480,8 @@ return (
                           <div className="top-head-info multiple-pkgs parent-info">
                             <ul className="pkgCls">
                               <li>2</li>
-                              <li><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></li>
-                              <li><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></li>
+                              <li><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></li>
+                              <li><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></li>
                               <li>5</li>
                               <li>5</li>
                             </ul>
@@ -505,16 +505,16 @@ return (
                                 <span>Yes</span>
                               </li>
                               <li>
-                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                               <li>
-                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                               <li>
-                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                 <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                               <li>
-                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                 <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                             </ul>
                           </div>
@@ -537,16 +537,16 @@ return (
                                 <span>Yes</span>
                               </li>
                               <li>
-                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                               <li>
-                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                               <li>
-                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                 <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                               <li>
-                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                 <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                             </ul>
                           </div>
@@ -599,7 +599,7 @@ return (
                               </li>
                               <li>
                                 <span>Blood Urea Nitrogen (BUN)</span>
-                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                                 <span>Creatinine</span>
                                 <span className="last-span">BUN / Creatinine Ratio<span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span></span>
                                 <div className="sub-dropDown">
@@ -680,20 +680,20 @@ return (
                                 <span>LIipase</span>
                               </li>
                               <li>
-                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
-                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                               <li>
-                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
-                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                               <li>
-                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
-                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                 <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
+                                 <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                               <li>
-                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
-                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                 <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
+                                 <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                             </ul>
                           </div>
@@ -734,20 +734,20 @@ return (
                                 <span>Chloride</span>
                               </li>
                               <li>
-                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
-                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                               <li>
-                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
-                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                               <li>
-                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
-                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                 <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
+                                 <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                               <li>
-                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
-                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                 <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
+                                 <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                             </ul>
                           </div>
@@ -770,16 +770,16 @@ return (
                                 <span>Yes</span>
                               </li>
                               <li>
-                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                               <li>
-                                <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                               <li>
-                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                 <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                               <li>
-                                 <span><img src={ASSETS_BASE_URL + "/images/PackageCompare/x.png"} alt="" className="x-img" /></span>
+                                 <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
                               </li>
                             </ul>
                           </div>
@@ -797,4 +797,4 @@ return (
           )
       }
     }
-  export default PackageCompare
+  export default packageCompare

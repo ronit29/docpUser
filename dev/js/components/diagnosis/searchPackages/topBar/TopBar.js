@@ -114,11 +114,12 @@ class TopBar extends React.Component {
     }
 
     handleClose(type) {
-        this.setState({ anchorEl: null, sort_on: type ,dropdown_visible:false}, () => {
-            if (type || type === "") {
-                this.applyFilters()
-            }
-        })
+        this.setState({ anchorEl: null, sort_on: type})
+        // this.setState({ anchorEl: null, sort_on: type ,dropdown_visible:false}, () => {
+        //     if (type || type === "") {
+        //         this.applyFilters()
+        //     }
+        // })
     }
 
     toggleFilter() {
@@ -291,7 +292,7 @@ class TopBar extends React.Component {
                 <div className="col-12 mrng-top-12 d-none d-md-block"><ul className="mrb-10 breadcrumb-list" style={{'wordBreak': 'breakWord'}}><li className="breadcrumb-list-item"><a href="/"><span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span></a></li><span className="breadcrumb-arrow">&gt;</span><li className="breadcrumb-list-item"><span className="fw-500 breadcrumb-title">Full Body Checkup Packages</span></li></ul></div>
                 :''}
                 <section className="scroll-shadow-bar">
-                {
+                {/*
                     this.props.forTaxSaver?'':
                     <div className="top-filter-tab-container">
                         <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} /><span>Sort</span>
@@ -307,7 +308,12 @@ class TopBar extends React.Component {
                         <div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.catIds.length >0 ?'Category ('+this.state.catIds.length+')':'Category'}
                         </div>
                     </div>
-                }
+                */}
+
+                <div className="top-filter-tab-container">
+                      <div className="top-filter-tabs-select"><img src={ASSETS_BASE_URL + "/images/packageCompare/comapre.png"} alt="" /> Category </div>
+                      <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}><img className="sort-filter" src={ASSETS_BASE_URL + "/images/packageCompare/filtersort.png"} alt="" /><span>Sort / Filter</span> </div>
+                </div>
                 </section>
                 {
                     this.state.openFilter ? <div onClick={this.toggleFilter.bind(this)} className="filter-overlay overlay black">
@@ -316,6 +322,13 @@ class TopBar extends React.Component {
                             e.preventDefault()
                         }}>
                             <div className="widget-content">
+                                <div className="filterRow">
+                                    <ul>
+                                    <li className={`drop-list-styling  ${!!!this.state.sort_on ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, "")}> <img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18, marginRight:'10px' }} />Relevance</li>
+                                    <li className={`drop-list-styling ${this.state.sort_on == 'fees' ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, 'fees')}><img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/sortRupee.svg"} style={{ width: 18, marginRight:'10px' }} />Fee</li>
+                                    <li className={`drop-list-styling ${this.state.sort_on == 'distance' ? 'drop-icon-selecter' : ''} `} onClick={this.handleClose.bind(this, 'distance')}><img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} style={{ width: 11, marginRight:'10px' }} />Distance</li>
+                                    </ul>
+                                </div>
                                 <div className="filterRow">
                                     <span className="tl">Price</span>
                                     <span className="tr">&#8377; {this.state.priceRange[0]} to {this.state.priceRange[1]}</span>
@@ -345,6 +358,9 @@ class TopBar extends React.Component {
                                         className="range"
                                         onChange={this.handleRange.bind(this, 'distanceRange')}
                                     />
+                                </div>
+                                <div className="filterRow">
+                                    category
                                 </div>
                             </div>
                             <div className="widget-footer pd-0">
