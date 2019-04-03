@@ -213,31 +213,31 @@ return (
                     <div className="compare-packages">
                       <ul>
                         <li>
-                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />  
+                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/red-cut.png"} alt="" className="end-div" />  
                           <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
                           <br/>
                           Thyocare Aarogyam B Package
                         </li>
                         <li>
-                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
+                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/red-cut.png"} alt="" className="end-div" />
                           <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
                           <br/>
                           Thyocare Aarogyam B Package
                         </li>
                         <li>
-                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
+                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/red-cut.png"} alt="" className="end-div" />
                           <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
                           <br/>
                           Thyocare Aarogyam B Package
                         </li>
                         <li>
-                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
+                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/red-cut.png"} alt="" className="end-div" />
                           <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
                           <br/>
                           Thyocare Aarogyam B Package
                         </li>
                         <li>
-                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
+                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/red-cut.png"} alt="" className="end-div" />
                           <img className="fltr-usr-image-lab" src="https://cdn.docprime.com/media/lab/images/90x60/311bed248054cf976b20f4fde953c845.jpg" />
                           <br/>
                           Thyocare Aarogyam B Package
@@ -250,81 +250,84 @@ return (
                     </div>
                   </div>
                   <div className="container-fluid pad-all-0">
-                    <div className="multi-pkg-cmpre">
-                      <div className="tgle-btn">
-                        <label className="switch">
-                          <span className="tgle-btn-txt"> Show Difference</span>
-                          <input type="checkbox"  />
-                          <span className="slider round"></span>
-                        </label>
+                    
+                    <div className="sticky-multiple-pkgs">
+                      <div className="multi-pkg-cmpre">
+                        <div className="tgle-btn">
+                          <label className="switch">
+                            <span className="tgle-btn-txt"> Show Difference</span>
+                            <input type="checkbox"  />
+                            <span className="slider round"></span>
+                          </label>
+                        </div>
+                        <div className="">
+                          <a href="javascript:void(0);" className="add-more-packages"> + Add More </a>
+                        </div>
                       </div>
-                      <div className="">
-                        <a href="javascript:void(0);" className="add-more-packages"> + Add More </a>
+                      <div className="multiple-pkgs">
+                        <ul className="pkgCls pkmkb">
+                          <li>
+                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
+                          
+                            <div className="pkg-hd">Aarogyam B</div>
+                            <div className="pkg-hd-by">Available in 5 Labs</div>
+                            <h3 className="lab-fltr-dc-name fw-500 pkg-include">40 Tests Included</h3>
+                            <div className="pkg-card-price">
+                            <p className="st-form">Start from <span className="fw-500">₹ 1340</span></p>
+                            </div>
+                            <p className="pkg-discountCpn">Includes coupon</p>
+                            <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
+                          </li>
+                          <li>
+                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
+                            
+                            <div className="pkg-hd">Aarogyam B</div>
+                            <div className="pkg-hd-by">Available in 5 Labs</div>
+                            <h3 className="lab-fltr-dc-name fw-500 pkg-include">40 Tests Included</h3>
+                            <div className="pkg-card-price">
+                            <p className="st-form">Start from <span className="fw-500">₹ 1340</span></p>
+                            </div>
+                            <p className="pkg-discountCpn">Includes coupon</p>
+                            <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
+                          </li>
+                          <li>
+                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
+                            
+                            <div className="pkg-hd">Aarogyam B</div>
+                            <div className="pkg-hd-by">Available in 5 Labs</div>
+                            <h3 className="lab-fltr-dc-name fw-500 pkg-include">40 Tests Included</h3>
+                            <div className="pkg-card-price">
+                            <p className="st-form">Start from <span className="fw-500">₹ 1340</span></p>
+                            </div>
+                            <p className="pkg-discountCpn">Includes coupon</p>
+                            <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
+                          </li>
+                          <li>
+                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
+                            
+                            <div className="pkg-hd">Aarogyam B</div>
+                            <div className="pkg-hd-by">Available in 5 Labs</div>
+                            <h3 className="lab-fltr-dc-name fw-500 pkg-include">40 Tests Included</h3>
+                            <div className="pkg-card-price">
+                            <p className="st-form">Start from <span className="fw-500">₹ 1340</span></p>
+                            </div>
+                            <p className="pkg-discountCpn">Includes coupon</p>
+                            <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
+                          </li>
+                          <li>
+                          <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
+                            
+                            <div className="pkg-hd">Aarogyam B</div>
+                            <div className="pkg-hd-by">Available in 5 Labs</div>
+                            <h3 className="lab-fltr-dc-name fw-500 pkg-include">40 Tests Included</h3>
+                            <div className="pkg-card-price">
+                            <p className="st-form">Start from <span className="fw-500">₹ 1340</span></p>
+                            </div>
+                            <p className="pkg-discountCpn">Includes coupon</p>
+                            <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
+                          </li>
+                        </ul>
                       </div>
-                    </div>
-                    <div className="multiple-pkgs sticky-multiple-pkgs">
-                      <ul className="pkgCls pkmkb">
-                        <li>
-                        <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
-                         
-                          <div className="pkg-hd">Aarogyam B</div>
-                          <div className="pkg-hd-by">By Thyrocare</div>
-                          <h3 className="lab-fltr-dc-name fw-500 pkg-include">40 Tests Included</h3>
-                          <div className="pkg-card-price">
-                            <p className="fw-500">₹ 1340 <span className="pkg-cut-price">₹ 2700</span></p>
-                          </div>
-                          <p className="pkg-discountCpn">Includes coupon</p>
-                          <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
-                        </li>
-                        <li>
-                        <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
-                          
-                          <div className="pkg-hd">Aarogyam B</div>
-                          <div className="pkg-hd-by">By Thyrocare</div>
-                          <h3 className="lab-fltr-dc-name fw-500 pkg-include">40 Tests Included</h3>
-                          <div className="pkg-card-price">
-                            <p className="fw-500">₹ 1340 <span className="pkg-cut-price">₹ 2700</span></p>
-                          </div>
-                          <p className="pkg-discountCpn">Includes coupon</p>
-                          <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
-                        </li>
-                        <li>
-                        <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
-                          
-                          <div className="pkg-hd">Aarogyam B</div>
-                          <div className="pkg-hd-by">By Thyrocare</div>
-                          <h3 className="lab-fltr-dc-name fw-500 pkg-include">40 Tests Included</h3>
-                          <div className="pkg-card-price">
-                            <p className="fw-500">₹ 1340 <span className="pkg-cut-price">₹ 2700</span></p>
-                          </div>
-                          <p className="pkg-discountCpn">Includes coupon</p>
-                          <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
-                        </li>
-                        <li>
-                        <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
-                          
-                          <div className="pkg-hd">Aarogyam B</div>
-                          <div className="pkg-hd-by">By Thyrocare</div>
-                          <h3 className="lab-fltr-dc-name fw-500 pkg-include">40 Tests Included</h3>
-                          <div className="pkg-card-price">
-                            <p className="fw-500">₹ 1340 <span className="pkg-cut-price">₹ 2700</span></p>
-                          </div>
-                          <p className="pkg-discountCpn">Includes coupon</p>
-                          <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
-                        </li>
-                        <li>
-                        <img src={ASSETS_BASE_URL + "/images/PackageCompare/grey-cross.png"} alt="" className="end-div" />
-                          
-                          <div className="pkg-hd">Aarogyam B</div>
-                          <div className="pkg-hd-by">By Thyrocare</div>
-                          <h3 className="lab-fltr-dc-name fw-500 pkg-include">40 Tests Included</h3>
-                          <div className="pkg-card-price">
-                            <p className="fw-500">₹ 1340 <span className="pkg-cut-price">₹ 2700</span></p>
-                          </div>
-                          <p className="pkg-discountCpn">Includes coupon</p>
-                          <a href="javascript:void(0);"><button className="pkg-btn-nw">Book Now </button></a>
-                        </li>
-                      </ul>
                     </div>
                     <div className="pkg-cmpre-list">
                       <div className="hide-div">
@@ -349,7 +352,7 @@ return (
                             <span>Lipid Profile</span>
                             <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                           </div>
-                          <div className="top-head-info multiple-pkgs">
+                          <div className="top-head-info multiple-pkgs ms-info">
                             <ul className="pkgCls">
                               <li>2</li>
                               <li>3</li>
@@ -428,7 +431,7 @@ return (
                             <span>Thyroid Panel 1, Total</span>
                             <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                           </div>
-                          <div className="top-head-info multiple-pkgs">
+                          <div className="top-head-info multiple-pkgs ms-info">
                             <ul className="pkgCls">
                               <li>2</li>
                               <li>3</li>
@@ -487,7 +490,7 @@ return (
                             <span>Vitamin D Total-25 Hydroxy</span>
                             <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                           </div>
-                          <div className="top-head-info multiple-pkgs">
+                          <div className="top-head-info multiple-pkgs ms-info">
                             <ul className="pkgCls">
                               <li>2</li>
                               <li>0</li>
@@ -519,7 +522,7 @@ return (
                             <span>Vitamin B12, active Holo Transcobalamin</span>
                             <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                           </div>
-                          <div className="top-head-info multiple-pkgs">
+                          <div className="top-head-info multiple-pkgs ms-info">
                             <ul className="pkgCls">
                               <li>2</li>
                               <li>0</li>
@@ -568,7 +571,7 @@ return (
                             <span>Kidney Function Test</span>
                             <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                           </div>
-                          <div className="top-head-info multiple-pkgs">
+                          <div className="top-head-info multiple-pkgs ms-info">
                             <ul className="pkgCls">
                               <li>2</li>
                               <li>3</li>
@@ -661,7 +664,7 @@ return (
                             <span>Pancreatic (Acute) Profile</span>
                             <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                           </div>
-                          <div className="top-head-info multiple-pkgs">
+                          <div className="top-head-info multiple-pkgs ms-info">
                             <ul className="pkgCls">
                               <li>2</li>
                               <li>0</li>
@@ -715,7 +718,7 @@ return (
                             <span>Electrolytes</span>
                             <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                           </div>
-                          <div className="top-head-info multiple-pkgs">
+                          <div className="top-head-info multiple-pkgs ms-info">
                             <ul className="pkgCls">
                               <li>2</li>
                               <li>0</li>
@@ -752,7 +755,7 @@ return (
                             <span>Testosterone Total</span>
                             <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                           </div>
-                          <div className="top-head-info multiple-pkgs">
+                          <div className="top-head-info multiple-pkgs ms-info">
                             <ul className="pkgCls">
                               <li>2</li>
                               <li>0</li>
