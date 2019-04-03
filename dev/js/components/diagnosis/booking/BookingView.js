@@ -182,6 +182,7 @@ class BookingView extends React.Component {
         let status = 1
         let lab_thumbnail = ""
         let reports = []
+        let is_thyrocare = null
 
         if (this.state.data) {
             lab = this.state.data.lab
@@ -192,6 +193,7 @@ class BookingView extends React.Component {
             status = this.state.data.status
             lab_thumbnail = this.state.data.lab_thumbnail
             reports = this.state.data.reports || []
+            is_thyrocare = this.state.data.lab?this.state.data.lab.is_thyrocare:null
         }
 
         let summar_utm_tag = ""
@@ -294,7 +296,7 @@ class BookingView extends React.Component {
                                                             <p className="fw-500 text-md mrb-10">Booking ID: <span className="fw-700 text-md">{this.state.data.id}</span></p>
                                                             <p className="text-xs text-light">Details have been sent to your email-id and mobile number.</p>
                                                             {
-                                                                actions.indexOf(6) > -1 && !this.state.hide_button ? <a onClick={this.toggleCancel.bind(this)} href="#" className="text-primary fw-700 text-sm">Cancel Booking</a> : ""
+                                                                actions.indexOf(6) > -1 && !this.state.hide_button && !is_thyrocare ? <a onClick={this.toggleCancel.bind(this)} href="#" className="text-primary fw-700 text-sm">Cancel Booking</a> : ""
                                                             }
                                                         </div>
                                                     </div>
@@ -330,12 +332,17 @@ class BookingView extends React.Component {
                                                             </div>*/}
                                                         </div>
                                                     </div>
-                                                    <div className="thyroCallContainer">
-                                                        <div className="thyroContent">
-                                                            <h4 className="wc-title text-md fw-700">Reschedule Appointment?</h4>
-                                                            <p>If you want to reschedule or cancel appointment, contact us at  <a href="tel:18001239419">1800 123 9419</a></p>
+                                                    {
+                                                        is_thyrocare?
+                                                        <div className="thyroCallContainer">
+                                                            <div className="thyroContent">
+                                                                <h4 className="wc-title text-md fw-700">Reschedule Appointment?</h4>
+                                                                <p>If you want to reschedule or cancel appointment, contact us at  <a href="tel:18001239419">1800 123 9419</a></p>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                        :''
+                                                    }
+                                                    
 
                                                     {
                                                         this.state.data.is_home_pickup ? <div className="widget mrt-10">
