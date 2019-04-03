@@ -142,7 +142,12 @@ class HospitalDetailView extends React.Component {
 		                    			<HospitalAboutUs hospital_data={this.props.ipd_hospital_detail}/>
 		                    			:''	
 		                    		}
-		                    		<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a></div>
+		                    		{
+		                    			this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length?
+		                    			<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a></div>
+		                    			:''	
+		                    		}
+		                    		
 		                    	</div>
 		                    	:<Loader/>	
 	                    	}
