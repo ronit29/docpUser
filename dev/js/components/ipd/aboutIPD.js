@@ -14,14 +14,10 @@ class IPDAboutUs extends React.Component {
 	render(){
 		let { ipd_info } = this.props
 
-		let aboutText =''
-		if(ipd_info  && ipd_info.about && ipd_info.about.details ){
-
-			if(this.state.toggleReadMore){
-				aboutText = ipd_info.about.details
-			}else{
-				aboutText = ipd_info.about.about
-			}	
+		let aboutText =null
+		if(ipd_info  && ipd_info.about&& ipd_info.about.show_about){
+			
+			aboutText = ipd_info.about.about
 		}
 		
 		return(

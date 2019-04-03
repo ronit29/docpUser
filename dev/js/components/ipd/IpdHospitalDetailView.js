@@ -43,6 +43,25 @@ class HospitalDetailView extends React.Component {
       
    	}
 
+   	viewDoctorsClicked(){
+		if(this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length){
+
+
+			let gtmData = {
+	            'Category': 'ConsumerApp', 'Action': 'IpdViewAllDoctorClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-view-all-doctor-clicked', selectedId: this.props.commonSelectedCriterias[0].id || ''
+	        }
+	        GTM.sendEvent({ data: gtmData })
+
+			let criteria = {}
+			criteria.id = this.props.commonSelectedCriterias[0].id
+			criteria.name = this.props.commonSelectedCriterias[0].name
+			criteria.type = 'ipd' 
+			this.props.cloneCommonSelectedCriterias(criteria)
+			this.props.history.push(`/opd/searchresults`)	
+		}
+		
+	}
+
 	render(){
 
 		return(
@@ -71,14 +90,21 @@ class HospitalDetailView extends React.Component {
 		                    		
 		                    		{
 				                    	this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.doctors && this.props.ipd_hospital_detail.doctors.result.length?
-				                    		<div className="hs-card">
-					               			<div className="card-head">Doctors</div>
-					               			{
-							                    this.props.ipd_hospital_detail.doctors.result.map((doctorCard, i) => {
-							                    	return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.doctors.seo} {...this.props}/>
-							                    })
-						                	}
-						                    </div>    	
+				                    		<div>
+					                    		<div className="hs-card">
+						               			<div className="card-head">Doctors</div>
+						               			{
+								                    this.props.ipd_hospital_detail.doctors.result.map((doctorCard, i) => {
+								                    	return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.doctors.seo} {...this.props}/>
+								                    })
+							                	}
+							                    </div>
+							                	{
+							                    	this.props.ipd_hospital_detail.doctors.result.length<this.props.ipd_hospital_detail.doctors.count?
+							                    	<a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewDoctorsClicked.bind(this)}>{`View all ${this.props.ipd_hospital_detail.doctors.count-this.props.ipd_hospital_detail.doctors.result.length} Doctors`}</a>
+							                    	:''	
+							                    }
+							                    </div>    	
 					                    :''
 				                    }
 
