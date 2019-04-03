@@ -55,9 +55,9 @@ class AboutDoctor extends React.Component {
         }
         let aboutTxt
         if (this.props.details.about_web) {
-            if (this.props.details.about_web.length > 100) {
+            if (this.props.details.about_web.length > 300) {
                 if (this.state.readMore) {
-                    aboutTxt = this.props.details.about_web.slice(0, 100) + "..."
+                    aboutTxt = this.props.details.about_web.slice(0, 300) + "..."
                     button = <a className="fw-700 text-primary" style={{ cursor: 'pointer' }} onClick={() => {
                         this.setState({ readMore: !this.state.readMore })
                     }}> READ MORE &#9660;</a>
