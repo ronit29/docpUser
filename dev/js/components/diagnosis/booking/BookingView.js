@@ -159,12 +159,12 @@ class BookingView extends React.Component {
     goToSlotSelector(e) {
         e.preventDefault()
         e.stopPropagation()
-        if(this.state.data.lab && this.state.data.lab.is_thyrocare){
+        if (this.state.data.lab && this.state.data.lab.is_thyrocare) {
             this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true?type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=true`)
-        }else{
+        } else {
             this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true?type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=false`)
         }
-        
+
     }
 
     navigateTo(where, e) {
@@ -242,7 +242,7 @@ class BookingView extends React.Component {
                                 (!this.state.loading && this.state.data) ?
                                     <section className="booking-confirm-screen">
                                         <div className="container-fluid">
-                                            <WhatsAppOptinView {...this.props} profiles={profile} isAppointment ={true}/>
+                                            <WhatsAppOptinView {...this.props} profiles={profile} isAppointment={true} />
                                             <div className="row">
                                                 <div className="col-12">
                                                     <div className="app-timeline book-confirmed-timeline">
@@ -328,6 +328,12 @@ class BookingView extends React.Component {
                                                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} style={{ width: '100%' }} />
                                                                 </a>
                                                             </div>*/}
+                                                        </div>
+                                                    </div>
+                                                    <div className="thyroCallContainer">
+                                                        <div className="thyroContent">
+                                                            <h4 className="wc-title text-md fw-700">Reschedule Appointment?</h4>
+                                                            <p>If you want to reschedule or cancel appointment, contact us at  <a href="tel:18001239419">1800 123 9419</a></p>
                                                         </div>
                                                     </div>
 
