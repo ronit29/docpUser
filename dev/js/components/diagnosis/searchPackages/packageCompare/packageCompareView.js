@@ -32,8 +32,11 @@ import Footer from '../../../commons/Home/footer'
 
       render() {
         let self=this
-        let availableTest=[]
-        let testData=[]
+        let availableTest= []
+        let notAvailableTest= []
+        let testData= []
+        let noTestData = []
+        let testName=[]
        return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
                 <ProfileHeader />
@@ -106,36 +109,35 @@ import Footer from '../../../commons/Home/footer'
                                             cat_info.test_ids.map((test_id, k) => {
                                                  return self.props.data.packages.map((pkg_test, l) => {
                                                     availableTest=pkg_test.tests_included.filter(x=> x.test_id == test_id && x.available)
-                                                    return availableTest.map((av_test, m) => {
-                                                      testData= self.props.data.test_info.filter(x=> x.id == av_test.test_id)
-                                                      return <div key={m}><div className="pkg-crd-header light-orng-header grey-head test-done">
-                                                          <span>{testData[0].name}</span>
-                                                          <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
-                                                    </div>
-                                                    {
-                                                      testData[0].parameter_count && testData[0].parameter_count >=0?
-                                                        <div>
+                                                    notAvailableTest = pkg_test.tests_included.filter(x=> x.test_id == test_id && !x.available)
+                                                    console.log(notAvailableTest)
+                                                    if(availableTest.length>0){
+                                                      testData= self.props.data.test_info.filter(x=> x.id == availableTest[0].test_id)
+                                                      return <div key={l}>
+                                                          <div className="pkg-crd-header light-orng-header grey-head test-done">
+                                                            <span>{testData[0].name}</span>
+                                                            <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
+                                                          </div>
                                                           <div className="top-head-info multiple-pkgs ms-info">
-                                                            <ul className="pkgCls">
-                                                              <li>{testData[0].parameter_count}</li>
-                                                            </ul>
+                                                              <ul className="pkgCls">
+                                                                <li>{testData[0].parameter_count}</li>
+                                                              </ul>
                                                           </div>
-                                                          <div className="top-head-info multiple-pkgs multiple-pkgs-details">
-                                                            <ul className="pkgCls">
-                                                              <li>
-                                                              {
-                                                                testData[0].parameters.map((test_param,n) =>{  return <span key={n}>{test_param}</span> 
-                                                                })
-                                                              }
-                                                            </li>
-                                                            </ul>
-                                                          </div>
+                                                          {
+                                                            testData[0].parameter_count && testData[0].parameter_count >=0?
+                                                                <div className="top-head-info multiple-pkgs multiple-pkgs-details">
+                                                                  <ul className="pkgCls">
+                                                                    <li>
+                                                                    {
+                                                                      testData[0].parameters.map((test_param,n) =>{  return <span key={n}>{test_param}</span> 
+                                                                      })
+                                                                    }
+                                                                  </li>
+                                                                  </ul>
+                                                                </div>
+                                                            :''}
                                                         </div>
-                                                      :''
-                                                    }
-                                                    </div>
-                                                    })
-                                                    
+                                                    }                                                   
                                                  })
 
                                             })
