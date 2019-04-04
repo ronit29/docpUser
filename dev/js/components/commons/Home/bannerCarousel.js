@@ -16,8 +16,9 @@ class BannerCarousel extends React.Component {
 
     componentDidMount() {
         let totalOffers = ''
-        if (this.props.offerList && this.props.sliderLocation) {
-            totalOffers = this.props.offerList.filter(x => x.slider_location == this.props.sliderLocation).length;
+        let filteredBanners = this.getFilteredBanners();
+        if (this.props.offerList && this.props.sliderLocation && filteredBanners) {
+            totalOffers = filteredBanners.length;
             setInterval(() => {
                 let curr_index = this.state.index
                 if (this.state.intervalFlag) {
@@ -204,11 +205,13 @@ class BannerCarousel extends React.Component {
         this.state.distX = touchobj.pageX - this.state.startX
         this.state.distY = touchobj.pageY - this.state.startY
         let elapsedTime = new Date().getTime() - startTime
+        let filteredBanners = this.getFilteredBanners();
         if (elapsedTime <= 400) {
             if (Math.abs(this.state.distX) >= 50 && Math.abs(this.state.distY) <= 100) {
                 if (this.state.distX < 0) {
-                    if (this.props.offerList && this.props.sliderLocation) {
-                        totalOffers = this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length;
+
+                    if (this.props.offerList && this.props.sliderLocation && filteredBanners) {
+                        totalOffers = filteredBanners.length;
                         curr_index = this.state.index
                         curr_index = curr_index + 1
                         if (curr_index >= totalOffers) {
@@ -217,8 +220,8 @@ class BannerCarousel extends React.Component {
                         this.setState({ index: curr_index, intervalFlag: false })
                     }
                 } else {
-                    if (this.props.offerList && this.props.sliderLocation) {
-                        totalOffers = this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length;
+                    if (this.props.offerList && this.props.sliderLocation && filteredBanners) {
+                        totalOffers = filteredBanners.length;
                         curr_index = this.state.index
                         curr_index = curr_index - 1
                         if (curr_index < 0) {
@@ -232,13 +235,9 @@ class BannerCarousel extends React.Component {
     }
 
     getFilteredBanners() {
-
         let filteredOffers = []
         if (this.props.offerList) {
-            // offerVisible = this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation)[this.state.index];
             filteredOffers = this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation);
-
-
             filteredOffers = filteredOffers.filter(offer => {
                 let show_banner = true
                 if (offer.url_params_included && Object.values(offer.url_params_included).length) {
@@ -248,6 +247,16 @@ class BannerCarousel extends React.Component {
                     this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.map((data) => {
                         if (offer.url_params_included['specializations'] && offer.url_params_included['specializations'] == data.id) {
                             show_banner = true
+                        } else {
+                            show_banner = false
+                        }
+                    })
+
+                    this.props.currentSearchedCriterias && this.props.currentSearchedCriterias.map((data) => {
+                        if (offer.url_params_included['test_id'] && offer.url_params_included['test_id'] == data.id) {
+                            show_banner = true
+                        } else {
+                            show_banner = false
                         }
                     })
 
@@ -295,10 +304,16 @@ class BannerCarousel extends React.Component {
                 return show_banner
             })
         }
-
+        return filteredOffers
     }
     render() {
-        let offerVisible = []
+        console.log('sadyusyuisa')
+        console.log(this.props)
+
+        let filteredBanners = this.getFilteredBanners();
+        let offerVisible = filteredBanners[this.state.index]
+
+        console.log(offerVisible)
 
         return (
             <div>
@@ -314,15 +329,15 @@ class BannerCarousel extends React.Component {
                         :
                         <div className={this.props.hideClass ? `banner-carousel-div mrt-20 mrb-20 ${this.props.hideClass}` : `banner-carousel-div mrt-10 mrb-20`}>
                             {
-                                offerVisible && this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length ?
+                                offerVisible && offerVisible.length ?
                                     <img src={offerVisible.image} onTouchStart={this.onTouchStart.bind(this)} onTouchMove={this.onTouchMove.bind(this)} onTouchEnd={this.onTouchEnd.bind(this)} onClick={() => this.navigateTo(offerVisible)} style={offerVisible.url ? { cursor: 'pointer' } : {}} />
                                     : ''
                             }
                             {
-                                this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length > 1 ?
+                                offerVisible && offerVisible.length > 1 ?
                                     <div className="carousel-indicators mrt-10">
                                         {
-                                            this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).map((offer, i) => {
+                                            offerVisible && offerVisible.map((offer, i) => {
                                                 return <span key={i} onClick={() => this.setState({ index: i })} className={this.state.index == i ? "indicator-selected" : ''} ></span>
                                             })
                                         }
