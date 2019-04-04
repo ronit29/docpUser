@@ -5,7 +5,7 @@ import LeftBar from '../../components/commons/LeftBar'
 import RightBar from '../../components/commons/RightBar'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import Footer from '../../components/commons/Home/footer'
-
+import Loader from '../../components/commons/Loader'
 const queryString = require('query-string');
 
 import { getCompareList } from '../../actions/index.js'
@@ -16,7 +16,8 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
     constructor(props){
       super(props)
         this.state={
-          checked:false
+          showCompare:false,
+          data:''
         }
       }
       componentDidMount(){
@@ -25,34 +26,47 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
         }
         let parsed = queryString.parse(this.props.location.search)
         parsed = queryString.parse(window.location.search)
-        console.log(parsed.package_ids)
-        this.props.getCompareList(parsed.package_ids,()=>{
-
+        this.props.getCompareList(parsed.package_ids,(resp)=>{
+          console.log(resp)
+          if(resp){
+            this.setState({'showCompare':true,'data':resp})
+          }
         })
       }  
       render() {
-
-          return (
-            <PackageCompareView />
-                )
-            }
+          if(this.state.showCompare){
+            return (
+              <PackageCompareView {...this.props} data={this.state.data}/>
+                  )
+          }else{
+            return(
+            <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
+                <ProfileHeader />
+                  <section className="pkgComapre container">
+                    <Loader />        
+                  </section>
+                <Footer />
+            </div>
+            )
+          }  
       }
-      const mapStateToProps = (state, passedProps) => {
+    }
+    const mapStateToProps = (state, passedProps) => {
 
-          const {
-              compare_packages
+        const {
+            compare_packages
 
-          } = state.SEARCH_CRITERIA_LABS
+        } = state.SEARCH_CRITERIA_LABS
 
-          return {
-              compare_packages
-          }
+        return {
+            compare_packages
+        }
 
-      }
+    }
 
-      const mapDispatchToProps = (dispatch) => {
-          return {
-              getCompareList:(selectedIds,cb) => dispatch(getCompareList(selectedIds,cb))
-          }
-      }
+    const mapDispatchToProps = (dispatch) => {
+        return {
+            getCompareList:(selectedIds,cb) => dispatch(getCompareList(selectedIds,cb))
+        }
+    }
 export default connect(mapStateToProps, mapDispatchToProps)(packageCompare);
