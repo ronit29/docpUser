@@ -1,5 +1,7 @@
 
 import React, { Component } from 'react';
+import CONFIG from './config'
+
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import HelmetTags from './components/commons/HelmetTags'
@@ -77,7 +79,7 @@ import InsuranceCertificate from  './containers/insurance/InsuranceCertificate.j
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
  */
 
-const routes = [
+let routes = [
 
     { path: '/', exact: true, component: Home, RENDER_ON_SERVER: true },
     { path: '/referral', exact: true, component: Referral },
@@ -160,12 +162,6 @@ const routes = [
     { path: '/tax-saver-health-packages-tc', exact: true, component: TaxSaverTC, RENDER_ON_SERVER: true },
     { path: `/*-tpp`, component: searchTestInfo, RENDER_ON_SERVER: true },
     { path: '/sms/booking', exact: true, component: DirectBooking },
-    { path: '/insurance1', exact: true, component: InsuranceViewUI },
-    { path: '/insurance/insurance-plans', exact: true, component: InsuranceView, RENDER_ON_SERVER: true },
-    { path: '/insurance/insurance-user-details', exact: true, component: InsuranceDetails, RENDER_ON_SERVER: true },
-    { path: '/insurance/insurance-user-details-review', exact: true, component: InsuranceReview, RENDER_ON_SERVER: true },
-    { path: '/insurance/complete', exact: true, component: InsuranceSuccess, RENDER_ON_SERVER: true },
-    { path: '/insurance/certificate', exact: true, component: InsuranceCertificate, RENDER_ON_SERVER: true },
     { path: '/prime/plans', exact: true, component: PrimeCare },
     { path: '/prime/booking', exact: true, component: PrimeCareBooking },
     { path: '/prime/success', exact: true, component: PrimeCareSuccess },
@@ -174,11 +170,24 @@ const routes = [
     { path: '/ipd/:id/getPriceEstimate',exact: true, component: IpdForm},
     { path: '/ipd/searchHospitals',exact: true, component: IpdHospitalSearch},
     { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail},
-    { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail },
-    { path: '*', component: NotFound, NO_MATCH: true },
+    { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail }
 ]
 
+if(CONFIG.ENABLE_INSURANCE){
+    routes = routes.concat([
+        { path: '/insurance1', exact: true, component: InsuranceViewUI },
+        { path: '/insurance/insurance-plans', exact: true, component: InsuranceView, RENDER_ON_SERVER: true },
+        { path: '/insurance/insurance-user-details', exact: true, component: InsuranceDetails, RENDER_ON_SERVER: true },
+        { path: '/insurance/insurance-user-details-review', exact: true, component: InsuranceReview, RENDER_ON_SERVER: true },
+        { path: '/insurance/complete', exact: true, component: InsuranceSuccess, RENDER_ON_SERVER: true },
+        { path: '/insurance/certificate', exact: true, component: InsuranceCertificate, RENDER_ON_SERVER: true },
+        ])
+}
+
+routes.push({ path: '*', component: NotFound, NO_MATCH: true })
+
 class RouterConfig extends Component {
+
 
     static ROUTES = routes
 
