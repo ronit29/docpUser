@@ -88,11 +88,6 @@ class LabView extends React.Component {
                 
               if(test.is_selected){
 
-                //Insusrance not applicable for Packages
-                if(test.is_package) {
-                    is_insurance_applicable = true
-                }
-
                 //Check Selected Tests for Insurance
 
                 if(test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount>=parseInt(test.deal_price)){

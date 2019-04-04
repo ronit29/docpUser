@@ -80,7 +80,7 @@ class LabProfileCard extends React.Component {
         GTM.sendEvent({ data: data })
     }
     render() {
-        let { discounted_price, price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id, number_of_tests, show_details, categories, category_details, address, included_in_user_plan } = this.props.details;
+        let { discounted_price, price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id, number_of_tests, show_details, categories, category_details, address, included_in_user_plan, insurance } = this.props.details;
         distance = Math.ceil(distance / 1000);
         var openingTime = ''
         if (this.props.details.lab_timing) {
@@ -117,11 +117,18 @@ class LabProfileCard extends React.Component {
         if(included_in_user_plan){
             hide_price = true
         }
+
+        let is_insurance_applicable = false
+        if(insurance && insurance.is_insurance_covered && insurance.is_user_insured){
+            is_insurance_applicable = true
+            pickup_text = ""
+        }
+
         return (
             <div className="pkg-card-container mb-3">
                 <div className="pkg-content-section">
                     {
-                        !hide_price && offPercent && offPercent > 0 ?
+                        !is_insurance_applicable && !hide_price && offPercent && offPercent > 0 ?
                             <span className="pkg-ofr-ribbon fw-700">{offPercent}% OFF</span> : ''
                     }
                     <div className="pkg-card-location p-relative">
@@ -161,7 +168,7 @@ class LabProfileCard extends React.Component {
                             <div className="col-4">
                                 <div className="pkg-card-price">
                                     {
-                                       !hide_price && discounted_price ? <p className="fw-500">₹ {parseInt(discounted_price)}
+                                       !is_insurance_applicable && !hide_price && discounted_price ? <p className="fw-500">₹ {parseInt(discounted_price)}
                                             <span className="pkg-cut-price">₹ {parseInt(mrp)}</span></p> : ''
                                     }
                                     {
@@ -172,11 +179,19 @@ class LabProfileCard extends React.Component {
                                     <button className="pkg-btn-nw" style={{ width: '100%' }}>Book Now</button>
                                 </a>
                                 {
-                                    discounted_price != price ? <p className="pkg-discountCpn">Includes coupon</p>
+                                    !is_insurance_applicable && discounted_price != price ? <p className="pkg-discountCpn">Includes coupon</p>
                                         : ""
                                 }
                                 {
-                                    included_in_user_plan?
+                                    is_insurance_applicable?
+                                    <div>
+                                        <p className="cst-doc-price">₹ {0}</p>
+                                        <div className="ins-val-bx">Covered Under Insurance</div>
+                                    </div>
+                                    :'' 
+                                }
+                                {
+                                    included_in_user_plan && !is_insurance_applicable?
                                     <p className="pkg-discountCpn">Docprime Care Benefit</p>
                                     :''
                                 }

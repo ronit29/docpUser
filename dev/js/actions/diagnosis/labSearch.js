@@ -290,6 +290,7 @@ export const resetLabCoupons = () => (dispatch) => {
 		type: RESET_LAB_COUPONS
 	})
 }
+
 export const getPackages = (state = {}, page = 1, from_server = false, searchByUrl = false, cb) => (dispatch) => {
 
 	let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, filterCriteriaPackages } = state
