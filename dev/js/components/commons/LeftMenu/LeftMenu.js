@@ -1,6 +1,7 @@
 import React from 'react';
 import InitialsPicture from '../initialsPicture'
 import STORAGE from '../../../helpers/storage';
+import CONFIG from '../../../config'
 
 class LeftMenu extends React.Component {
 
@@ -69,10 +70,14 @@ class LeftMenu extends React.Component {
                               {/*<li><a href="#"><img src="/assets/images/insurance.png" alt="" className="" />Insurance</a> <a href="#" class="btn-buy-now">Buy Now</a></li>
                               */}
 
-                              <li><a onClick={(e)=>{
-                                e.preventDefault()
-                                this.props.toggleLeftMenu()
-                                this.props.history.push('/insurance/insurance-plans')} } href="#"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"}  alt="" className="" />OPD Insurance<span className={user_insurance_status?'float-right memAct':'float-right memNew'}>{user_insurance_status?'Active':'New'}</span></a></li>
+                              {
+                                CONFIG.ENABLE_INSURANCE?
+                                  <li><a onClick={(e)=>{
+                                    e.preventDefault()
+                                    this.props.toggleLeftMenu()
+                                    this.props.history.push('/insurance/insurance-plans')} } href="#"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"}  alt="" className="" />OPD Insurance<span className={user_insurance_status?'float-right memAct':'float-right memNew'}>{user_insurance_status?'Active':'New'}</span></a></li>
+                              :''
+                              }
                               <li><a onClick={this.isDocCare.bind(this)}><img src="/assets/img/primecae.png" alt="" className="" />Docprime Care
                                   <span className={memberClass}>{memStatus}</span></a></li>
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import TermsConditions from '../../couponSelectionView/termsConditions.js'
 import GTM from '../../../../helpers/gtm'
+import CONFIG from '../../../../config'
 
 
 class ProfileData extends React.Component {
@@ -46,7 +47,7 @@ class ProfileData extends React.Component {
         }
     }
 
-    gotToInsurance(isUserLoginInsured){
+    goToInsurance(isUserLoginInsured){
         if(isUserLoginInsured){
             this.props.history.push('/insurance/certificate')   
         }else{
@@ -204,23 +205,25 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
-                        
-                        <li onClick={this.gotToInsurance.bind(this, isUserLoginInsured)} className="my-profile-item lst-spcng">
-                            <a>
-                                <span className="icon icon-md nav-icon">
-                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} className="img-fluid" />
-                                </span>
-                                <div className="nav-content">
-                                    <h4 className="title app-title">OPD Insurance
-                                        {/* <span className="float-right badge badge-warning">1</span> */}
-                                    </h4>
-                                </div>
-                            </a>
-                            {
-                                isUserLoginInsured?<button className="ins-userdetails-active">Active</button>:<button className="ins-userdetails-buy">Buy Now</button>
-                            }
-                        </li>
-
+                        {
+                        CONFIG.ENABLE_INSURANCE?
+                            <li onClick={this.goToInsurance.bind(this, isUserLoginInsured)} className="my-profile-item lst-spcng">
+                                <a>
+                                    <span className="icon icon-md nav-icon">
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} className="img-fluid" />
+                                    </span>
+                                    <div className="nav-content">
+                                        <h4 className="title app-title">OPD Insurance
+                                            {/* <span className="float-right badge badge-warning">1</span> */}
+                                        </h4>
+                                    </div>
+                                </a>
+                                {
+                                    isUserLoginInsured?<button className="ins-userdetails-active">Active</button>:<button className="ins-userdetails-buy">Buy Now</button>
+                                }
+                            </li>
+                        :''
+                        }
                         <li onClick={this.isDocCare.bind(this)} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">
