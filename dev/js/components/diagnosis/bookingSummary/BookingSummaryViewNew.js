@@ -357,7 +357,7 @@ class BookingSummaryViewNew extends React.Component {
 
             this.props.LABS[this.state.selectedLab].tests.map((test, i) => {
 
-                if(test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount>=parseInt(test.deal_price) && !test.is_package){
+                if(test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount>=parseInt(test.deal_price)){
     
                 }else{
                     is_tests_covered_under_insurance = false
