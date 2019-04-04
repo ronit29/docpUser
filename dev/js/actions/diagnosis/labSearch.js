@@ -383,7 +383,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 
 		if (cb) {
 			// TODO: DO not hardcode page length
-			if (response.result && response.result.length == 20) {
+			if (response.result && response.result.length == 30) {
 				cb(true, true)
 			}else{
 				cb(true)
