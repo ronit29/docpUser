@@ -230,12 +230,76 @@ class BannerCarousel extends React.Component {
             }
         }
     }
-    render() {
 
-        let offerVisible = {}
+    getFilteredBanners() {
+
+        let filteredOffers = []
         if (this.props.offerList) {
-            offerVisible = this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation)[this.state.index];
+            // offerVisible = this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation)[this.state.index];
+            filteredOffers = this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation);
+
+
+            filteredOffers = filteredOffers.filter(offer => {
+                let show_banner = true
+                if (offer.url_params_included && Object.values(offer.url_params_included).length) {
+
+                    //Check for filtered values
+
+                    this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.map((data) => {
+                        let type = data.type
+                        if (offer.url_params_included.type && offer.url_params_included.type == data.id) {
+                            show_banner = true
+                        }
+
+                    })
+
+                    //Check Banners for filters
+
+                    this.props.filterCriteria && Object.entries(this.props.filterCriteria).map((data, key) => {
+                        let type = data[0]
+                        if (type == 'priceRange') {
+                            if (offer.url_params_included['min_fees'] && offer.url_params_included['min_fees'] < data[1][0]) {
+                                show_banner = false
+                            }
+                            if (offer.url_params_included['max_fees'] && offer.url_params_included['max_fees'] > data[1][1]) {
+                                show_banner = false
+                            }
+                        } else if (type == 'distanceRange') {
+                            if (offer.url_params_included['min_distance'] && offer.url_params_included['min_distance'] < data[1][0]) {
+                                show_banner = false
+                            }
+                            if (offer.url_params_included['max_distance'] && offer.url_params_included['max_distance'] > data[1][1]) {
+                                show_banner = false
+                            }
+                        } else if (type == 'sort_on') {
+                            if (offer.url_params_included['sort_on'] && offer.url_params_included['sort_on'].includes(data[1])) {
+                                show_banner = true
+                            }
+                        } else if (type = 'lab_name') {
+                            if (offer.url_params_included['lab_name'] && offer.url_params_included['lab_name'].includes(data[1])) {
+                                show_banner = true
+                            }
+                        } else if (type = 'network_id') {
+                            if (offer.url_params_included['network_id'] && offer.url_params_included['network_id'] != data[1]) {
+                                show_banner = false
+                            }
+                        } else if (type = 'is_available') {
+                            if (offer.url_params_included['is_available'] && offer.url_params_included['is_available'] == true) {
+                                show_banner = true
+                            }
+                        } else if (type = 'is_female') {
+                            if (offer.url_params_included['is_female'] && offer.url_params_included['is_female'] == true) {
+                                show_banner = true
+                            }
+                        }
+                    })
+                }
+                return show_banner
+            })
         }
+
+    }
+    render() {
 
         return (
             <div>
@@ -251,7 +315,7 @@ class BannerCarousel extends React.Component {
                         :
                         <div className={this.props.hideClass ? `banner-carousel-div mrt-20 mrb-20 ${this.props.hideClass}` : `banner-carousel-div mrt-10 mrb-20`}>
                             {
-                                offerVisible && this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length?
+                                offerVisible && this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length ?
                                     <img src={offerVisible.image} onTouchStart={this.onTouchStart.bind(this)} onTouchMove={this.onTouchMove.bind(this)} onTouchEnd={this.onTouchEnd.bind(this)} onClick={() => this.navigateTo(offerVisible)} style={offerVisible.url ? { cursor: 'pointer' } : {}} />
                                     : ''
                             }
