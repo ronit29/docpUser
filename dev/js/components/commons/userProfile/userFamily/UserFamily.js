@@ -78,7 +78,11 @@ class UserFamily extends React.Component {
                                             <li className="fw-500 text-sm">{profiles[id].is_default_user ? "Self/Primary" : "Family Member"}</li>
                                             
                                         </ul>
-                                        <div className="ins-val-bx ins-val-boxes">{profiles[id].is_insured?'Covered Under Insurance':'Not Covered Under Insurance'}</div>
+                                        {
+                                            true?''
+                                            :<div className="ins-val-bx ins-val-boxes">{profiles[id].is_insured?'Covered Under Insurance':'Not Covered Under Insurance'}</div>
+                                               
+                                        }
                                     </div>
                                     <span className="ct-img ct-img-sm arrow-forward-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
                                 </a>
