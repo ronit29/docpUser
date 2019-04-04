@@ -76,7 +76,7 @@ class LabView extends React.Component {
             }
         }
         let is_plan_applicable = false
-        let is_insurance_applicable = true
+        let is_insurance_applicable = false
 
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
 
