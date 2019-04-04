@@ -246,11 +246,9 @@ class BannerCarousel extends React.Component {
                     //Check for filtered values
 
                     this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.map((data) => {
-                        let type = data.type
-                        if (offer.url_params_included.type && offer.url_params_included.type == data.id) {
+                        if (offer.url_params_included['specializations'] && offer.url_params_included['specializations'] == data.id) {
                             show_banner = true
                         }
-
                     })
 
                     //Check Banners for filters
@@ -300,6 +298,7 @@ class BannerCarousel extends React.Component {
 
     }
     render() {
+        let offerVisible = []
 
         return (
             <div>
