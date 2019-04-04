@@ -278,7 +278,7 @@ class TopBar extends React.Component {
                             </div>
                                 <div className="col-12">
                                     <div className="ins-form-radio insradio-on-popup">
-                                        <ul>
+                                        <ul className="">
                                             <li className={`drop-list-styling  ${!!!this.state.sort_on ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, "")}> <img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18, marginRight: '10px' }} />Relevance</li>
                                             <li className={`drop-list-styling ${this.state.sort_on == 'fees' ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, 'fees')}><img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/sortRupee.svg"} style={{ width: 18, marginRight: '10px' }} />Fee</li>
                                             <li className={`drop-list-styling ${this.state.sort_on == 'distance' ? 'drop-icon-selecter' : ''} `} onClick={this.handleClose.bind(this, 'distance')}><img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} style={{ width: 11, marginRight: '10px' }} />Distance</li>
@@ -330,16 +330,20 @@ class TopBar extends React.Component {
                             e.stopPropagation()
                             e.preventDefault()
                         }}>
-                            <div className="widget-content">
-                                <div className="filterRow">
-                                    <ul>
-                                    <li className={`drop-list-styling  ${!!!this.state.sort_on ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, "")}> <img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18, marginRight:'10px' }} />Relevance</li>
-                                    <li className={`drop-list-styling ${this.state.sort_on == 'fees' ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, 'fees')}><img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/sortRupee.svg"} style={{ width: 18, marginRight:'10px' }} />Fee</li>
-                                    <li className={`drop-list-styling ${this.state.sort_on == 'distance' ? 'drop-icon-selecter' : ''} `} onClick={this.handleClose.bind(this, 'distance')}><img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} style={{ width: 11, marginRight:'10px' }} />Distance</li>
+                            <div className="widget-content wd-content">
+                                <div className="filterRow pad-all-0">
+                                    <h4 className="section-sort">Sort By</h4>
+                                    <ul className="sortBy">
+                                    <li className={`drop-list-styling  ${!!!this.state.sort_on ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, "")}> <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18}} /> <br />Relevance</li>
+                                    <li className={`drop-list-styling ${this.state.sort_on == 'fees' ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, 'fees')}><img src={ASSETS_BASE_URL + "/img/sortRupee.svg"} style={{ width: 16, marginTop: '-5px'}} /><br />Fee</li>
+                                    <li className={`drop-list-styling ${this.state.sort_on == 'distance' ? 'drop-icon-selecter' : ''} `} onClick={this.handleClose.bind(this, 'distance')}><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} style={{ width: 14}} /><br />Distance</li>
                                     </ul>
                                 </div>
+                                 <hr className="hr-cls" />
                                 <div className="filterRow">
-                                    <span className="tl">Price</span>
+                                 <h4 className="section-sort">Filter</h4>
+                                   <div style={{position:'relative',marginTop:20}}>
+                                   <span className="tl">Price</span>
                                     <span className="tr">&#8377; {this.state.priceRange[0]} to {this.state.priceRange[1]}</span>
                                     <span className="bl">&#8377; 0</span>
                                     <span className="br">&#8377; 20000</span>
@@ -352,8 +356,10 @@ class TopBar extends React.Component {
                                         className="range"
                                         onChange={this.handleRange.bind(this, 'priceRange')}
                                     />
+                                   </div>
                                 </div>
                                 <div className="filterRow">
+                                    <div style={{position:'relative'}}>
                                     <span className="tl">Distance</span>
                                     <span className="tr">{this.state.distanceRange[0]} to {this.state.distanceRange[1]} KM</span>
                                     <span className="bl">0 KM</span>
@@ -367,13 +373,27 @@ class TopBar extends React.Component {
                                         className="range"
                                         onChange={this.handleRange.bind(this, 'distanceRange')}
                                     />
+                                    </div>
                                 </div>
-                                <div className="filterRow">
-                                    category
+                                <hr className="hr-cls" />
+                                <div className="filterRow pad-all-0">
+                                <h4 className="section-sort">Category</h4>
+                                    <ul className="cat-gry">
+                                        <li><a href="javascript:void(0);" className="selected">Dummy</a></li>
+                                        <li><a href="javascript:void(0);">Dummy</a></li>
+                                        <li><a href="javascript:void(0);">Dummy</a></li>
+                                        <li><a href="javascript:void(0);">Dummy</a></li>
+                                        <li><a href="javascript:void(0);">Dummy</a></li>
+                                        <li><a href="javascript:void(0);" className="selected">Dummy</a></li>
+                                        <li><a href="javascript:void(0);">Dummy</a></li>
+                                        <li><a href="javascript:void(0);">Dummy</a></li>
+                                        <li><a href="javascript:void(0);">Dummy</a></li>
+                                        <li><a href="javascript:void(0);">Dummy</a></li>
+                                    </ul>
                                 </div>
                             </div>
                             <div className="widget-footer pd-0">
-                                <button className="v-btn v-btn-primary btn-block btn-lg" onClick={this.applyFilters.bind(this)}>Apply</button>
+                                <button className="v-btn v-btn-primary btn-block btn-lg pop-btn" onClick={this.applyFilters.bind(this)}>Apply</button>
                             </div>
                         </div>
                     </div> : ""
