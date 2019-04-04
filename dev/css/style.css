@@ -9354,6 +9354,82 @@ border-radius: 4px;
 .last-span .span-img img{
 	width:9px;
 }
+/*================= Package Compare 04-04-2019 ===================*/
+.sortBy li{
+		display: inline-block;
+		width: 33%;
+    	text-align: center;
+}
+.section-sort{
+	font-size: 16px;
+	font-weight: 500;
+}
+.wd-content .filterRow{
+	height: auto;
+	padding: 0px 10px 30px;
+	margin: 15px 0;
+	border: 0;
+}
+.wd-content .filterRow .tl{
+	color: #000;
+	font-weight: 400;
+}
+.wd-content .filterRow .range{
+	margin-top: 50px;
+}
+.wd-content .filterRow .bl,.wd-content .filterRow .br{
+	bottom: -25px;
+}
+.wd-content .filterRow .rc-slider-rail{
+	height: 2px;
+	background-color: #a9a9a9;
+}
+.wd-content .filterRow .rc-slider-track{
+	height: 2px;
+	background-color: #f78631;
+}
+.wd-content .filterRow .rc-slider-handle{
+	height: 18px;
+	width: 18px;
+	margin-top: -9px;
+	background-color: #f78631;
+	border:0;
+	box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.12);
+}
+.wd-content .filterRow .tr{
+	margin-top: -30px;
+}
+.wd-content .filterRow .tl{
+	top: -30px;
+}
+.wd-content .filterRow .hr-cls{
+	border-bottom: 1px solid rgba(0,0,0,0.12);
+	background: transparent;
+}
+.pad-all-0{
+	padding: 0 !important;
+}
+.cat-gry li{
+	display: inline-block;
+}
+.cat-gry li a{
+	border: 1px solid #f78631;
+	border-radius: 30px;
+    color: #f78631;
+    padding: 5px 10px;
+	margin-right: 20px;
+	margin-top: 15px;
+	display: inline-block;
+}
+.cat-gry li a.selected{
+	background: #f78631;
+	color: #fff;
+}
+.pop-btn{
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+/*================= Package Compare 04-04-2019 ===================*/
 @media screen and (max-width: 1200px){
 	.last-span .span-img {
 		right:-8px;
