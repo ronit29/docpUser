@@ -324,9 +324,9 @@ class PatientDetailsNew extends React.Component {
             use_wallet: this.state.use_wallet,
             cart_item: this.state.cart_item,
         }
-        let profileData = {...patient}
-        if(profileData && profileData.whatsapp_optin == null){
-            profileData['whatsapp_optin']= this.state.whatsapp_optin
+        let profileData = { ...patient }
+        if (profileData && profileData.whatsapp_optin == null) {
+            profileData['whatsapp_optin'] = this.state.whatsapp_optin
             this.props.editUserProfile(profileData, profileData.id)
         }
         if (this.props.disCountedOpdPrice && this.props.payment_type == 1 && !is_insurance_applicable) {
@@ -510,7 +510,7 @@ class PatientDetailsNew extends React.Component {
         this.props.selectOpdTimeSLot(slot, false)
     }
 
-    toggleWhatsap(status,e) {
+    toggleWhatsap(status, e) {
         this.setState({ whatsapp_optin: status })
     }
 
@@ -520,19 +520,21 @@ class PatientDetailsNew extends React.Component {
         let hospital = {}
         let patient = null
         let priceData = {}
-        let enabled_for_cod_payment = true
         let is_insurance_applicable = false
         let is_selected_user_insured = false
+        let enabled_for_cod_payment = false
+        let enabled_for_prepaid_payment = false
 
         if (doctorDetails) {
             let { name, qualifications, hospitals, enabled_for_cod } = doctorDetails
-            enabled_for_cod_payment = enabled_for_cod
 
             if (hospitals && hospitals.length) {
                 hospitals.map((hsptl) => {
                     if (hsptl.hospital_id == this.state.selectedClinic) {
                         hospital = hsptl
                     }
+                    enabled_for_cod_payment = hospital.enabled_for_cod
+                    enabled_for_prepaid_payment = hospital.enabled_for_prepaid
                 })
             }
         }
@@ -591,6 +593,8 @@ class PatientDetailsNew extends React.Component {
 
         if (!enabled_for_cod_payment && this.props.payment_type == 2) {
             this.props.select_opd_payment_type(1)
+        } else if (enabled_for_cod_payment && !enabled_for_prepaid_payment) {
+            this.props.select_opd_payment_type(2)
         }
 
         is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
@@ -623,11 +627,11 @@ class PatientDetailsNew extends React.Component {
                                                         />
                                                         <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError}
 
-                                                                timeSlots={this.props.timeSlots}
-                                                                selectTimeSlot={this.selectTimeSlot.bind(this)}
-                                                                doctor_leaves={this.props.doctor_leaves || []}
-                                                                upcoming_slots = {this.props.upcoming_slots || null}
-                                                            />
+                                                            timeSlots={this.props.timeSlots}
+                                                            selectTimeSlot={this.selectTimeSlot.bind(this)}
+                                                            doctor_leaves={this.props.doctor_leaves || []}
+                                                            upcoming_slots={this.props.upcoming_slots || null}
+                                                        />
                                                         <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} />
                                                         {
                                                             Object.values(selectedProcedures).length ?
@@ -692,21 +696,23 @@ class PatientDetailsNew extends React.Component {
 
                                                                 <div className="widget-content">
                                                                     <h4 className="title mb-20">Payment Mode</h4>
+                                                                    {
+                                                                        enabled_for_prepaid_payment ?
+                                                                            <div className="payment-summary-content" onClick={() => {
+                                                                                this.props.select_opd_payment_type(1)
+                                                                            }}>
+                                                                                <div className="payment-detail d-flex">
+                                                                                    <label class="container-radio payment-type-radio">
+                                                                                        <h3>Online Payment</h3>
+                                                                                        <span className="save-upto">Save {percent_discount}%</span>
+                                                                                        <input checked={this.props.payment_type == 1} type="radio" name="payment-mode" />
+                                                                                        <span class="doc-checkmark"></span>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div> : ''
+                                                                    }
 
-                                                                    <div className="payment-summary-content" onClick={() => {
-                                                                        this.props.select_opd_payment_type(1)
-                                                                    }}>
-                                                                        <div className="payment-detail d-flex">
-                                                                            <label class="container-radio payment-type-radio">
-                                                                                <h3>Online Payment</h3>
-                                                                                <span className="save-upto">Save {percent_discount}%</span>
-                                                                                <input checked={this.props.payment_type == 1} type="radio" name="payment-mode" />
-                                                                                <span class="doc-checkmark"></span>
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
                                                                     <hr />
-
 
                                                                     <div className="test-report payment-detail mt-20" onClick={() => {
                                                                         this.props.select_opd_payment_type(2)
@@ -805,7 +811,7 @@ class PatientDetailsNew extends React.Component {
                                                                 </div>
                                                             </div> : ""
                                                         }
-                                                        <WhatsAppOptinView {...this.props} profiles= {patient} toggleWhatsap={this.toggleWhatsap.bind(this)}/>
+                                                        <WhatsAppOptinView {...this.props} profiles={patient} toggleWhatsap={this.toggleWhatsap.bind(this)} />
 
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
                                                             <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
