@@ -115,6 +115,10 @@ const mapStateToProps = (state, passedProps) => {
     const { show404, labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, curr_page, seoData, test_data } = state.LAB_SEARCH
     const { mergeUrlState } = state.SEARCH_CRITERIA_OPD
 
+    const {
+        is_login_user_insured
+    } = state.USER
+
     return {
         selectedLocation,
         selectedCriterias,
@@ -138,7 +142,8 @@ const mapStateToProps = (state, passedProps) => {
         mergeUrlState,
         test_data,
         show404,
-        offerList
+        offerList,
+        is_login_user_insured
     }
 
 }

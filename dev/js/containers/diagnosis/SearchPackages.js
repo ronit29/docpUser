@@ -96,7 +96,8 @@ const mapStateToProps = (state, passedProps) => {
     } = state.SEARCH_CRITERIA_LABS
 
     const {
-        offerList
+        offerList,
+        is_login_user_insured
     } = state.USER
 
     const LABS = state.LAB_SEARCH_DATA
@@ -118,7 +119,8 @@ const mapStateToProps = (state, passedProps) => {
         packagesList,
         currentSearchedCriterias,
         filterCriteriaPackages,
-        offerList
+        offerList,
+        is_login_user_insured
     }
 
 }

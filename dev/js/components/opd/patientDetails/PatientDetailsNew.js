@@ -278,6 +278,38 @@ class PatientDetailsNew extends React.Component {
             return
         }
 
+        //Check if Covered Under Insurance 
+
+        let is_insurance_applicable = false
+        let is_selected_user_insured = false
+
+        if (this.props.selectedSlot && this.props.selectedSlot.date && this.props.DOCTORS[this.state.selectedDoctor]) {
+            let priceData = { ...this.props.selectedSlot.time }
+            let hospitals = this.props.DOCTORS[this.state.selectedDoctor].hospitals
+            let hospital = null
+
+            if (hospitals && hospitals.length) {
+                hospitals.map((hsptl) => {
+                    if (hsptl.hospital_id == this.state.selectedClinic) {
+                        hospital = hsptl
+                    }
+                })
+            }
+
+            if(hospital && hospital.insurance){
+                is_insurance_applicable = (parseInt(priceData.deal_price)<=hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered     
+            }
+        }
+
+        if (this.props.profiles && this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
+
+            is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
+        }
+
+        is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
+
+
+
         this.setState({ loading: true, error: "" })
 
         let start_date = this.props.selectedSlot.date
@@ -297,8 +329,12 @@ class PatientDetailsNew extends React.Component {
             profileData['whatsapp_optin'] = this.state.whatsapp_optin
             this.props.editUserProfile(profileData, profileData.id)
         }
-        if (this.props.disCountedOpdPrice && this.props.payment_type == 1) {
-            postData['coupon_code'] = [this.state.couponCode] || []
+        if (this.props.disCountedOpdPrice && this.props.payment_type == 1 && !is_insurance_applicable) {
+            postData['coupon_code'] = this.state.couponCode?[this.state.couponCode]:[]
+        }
+
+        if(is_insurance_applicable){
+            postData['payment_type'] = 1
         }
 
         let procedure_ids = []
@@ -484,6 +520,8 @@ class PatientDetailsNew extends React.Component {
         let hospital = {}
         let patient = null
         let priceData = {}
+        let is_insurance_applicable = false
+        let is_selected_user_insured = false
         let enabled_for_cod_payment = false
         let enabled_for_prepaid_payment = false
 
@@ -503,11 +541,17 @@ class PatientDetailsNew extends React.Component {
 
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
+            is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
         }
 
         if (this.props.selectedSlot && this.props.selectedSlot.date) {
             priceData = { ...this.props.selectedSlot.time }
             priceData.payable_amount = priceData.deal_price
+
+            if(hospital && hospital.insurance){
+                is_insurance_applicable = (parseInt(priceData.deal_price)<=hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered     
+            }
+             
 
             // reset time slot if doctor/hospital changes
             if (this.props.selectedSlot.selectedClinic != this.state.selectedClinic || this.props.selectedSlot.selectedDoctor != this.state.selectedDoctor) {
@@ -518,6 +562,10 @@ class PatientDetailsNew extends React.Component {
             priceData.mrp = hospital.mrp
             priceData.deal_price = hospital.deal_price
             priceData.payable_amount = hospital.deal_price
+
+            if(hospital.insurance){
+                is_insurance_applicable = (parseInt(hospital.deal_price)<=hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered
+            }
         }
         let treatment_Price = 0, treatment_mrp = 0
         let selectedProcedures = {}
@@ -549,6 +597,13 @@ class PatientDetailsNew extends React.Component {
             this.props.select_opd_payment_type(2)
         }
 
+        is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
+
+        if(is_insurance_applicable){
+            finalPrice = 0
+            priceData.deal_price = 0
+            priceData.mrp = 0
+        }
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -680,7 +735,7 @@ class PatientDetailsNew extends React.Component {
                                                         {/*Payment Mode*/}
 
                                                         {
-                                                            this.props.payment_type == 1 ? <div className="widget mrb-15">
+                                                            !is_insurance_applicable && this.props.payment_type == 1 ? <div className="widget mrb-15">
 
                                                                 <div className="widget-content">
                                                                     <h4 className="title mb-20">Payment Summary</h4>
@@ -721,7 +776,7 @@ class PatientDetailsNew extends React.Component {
 
                                                             </div> : <div className="widget mrb-15">
 
-                                                                    <div className="widget-content">
+                                                                    <div className="widget-content clearfix">
                                                                         <h4 className="title mb-20">Payment Summary</h4>
                                                                         <div className="payment-summary-content">
                                                                             <div className="payment-detail d-flex">
@@ -730,9 +785,10 @@ class PatientDetailsNew extends React.Component {
                                                                             </div>
                                                                         </div>
                                                                         <hr />
-
                                                                         {
-                                                                            priceData ? <div className="test-report payment-detail mt-20">
+                                                                            is_insurance_applicable?
+                                                                            <div className="ins-val-bx">Covered Under Insurance</div>
+                                                                            :priceData ? <div className="test-report payment-detail mt-20">
                                                                                 <h4 className="title payment-amt-label">Amount Payable</h4>
                                                                                 <h5 className="payment-amt-value">&#8377; {parseInt(priceData.mrp) + treatment_mrp}</h5>
                                                                             </div> : ""
@@ -744,7 +800,7 @@ class PatientDetailsNew extends React.Component {
 
 
                                                         {
-                                                            this.props.payment_type == 1 && total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
+                                                            !is_insurance_applicable && this.props.payment_type == 1 && total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
                                                                 <div className="widget-content">
                                                                     <div className="select-pt-form">
                                                                         <div className="referral-select">
