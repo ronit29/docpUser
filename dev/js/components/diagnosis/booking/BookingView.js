@@ -159,12 +159,12 @@ class BookingView extends React.Component {
     goToSlotSelector(e) {
         e.preventDefault()
         e.stopPropagation()
-        if(this.state.data.lab && this.state.data.lab.is_thyrocare){
+        if (this.state.data.lab && this.state.data.lab.is_thyrocare) {
             this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true?type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=true`)
-        }else{
+        } else {
             this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true?type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=false`)
         }
-        
+
     }
 
     navigateTo(where, e) {
@@ -182,6 +182,7 @@ class BookingView extends React.Component {
         let status = 1
         let lab_thumbnail = ""
         let reports = []
+        let is_thyrocare = null
 
         if (this.state.data) {
             lab = this.state.data.lab
@@ -192,6 +193,7 @@ class BookingView extends React.Component {
             status = this.state.data.status
             lab_thumbnail = this.state.data.lab_thumbnail
             reports = this.state.data.reports || []
+            is_thyrocare = this.state.data.lab?this.state.data.lab.is_thyrocare:null
         }
 
         let summar_utm_tag = ""
@@ -242,7 +244,7 @@ class BookingView extends React.Component {
                                 (!this.state.loading && this.state.data) ?
                                     <section className="booking-confirm-screen">
                                         <div className="container-fluid">
-                                            <WhatsAppOptinView {...this.props} profiles={profile} isAppointment ={true}/>
+                                            <WhatsAppOptinView {...this.props} profiles={profile} isAppointment={true} />
                                             <div className="row">
                                                 <div className="col-12">
                                                     <div className="app-timeline book-confirmed-timeline">
@@ -294,7 +296,7 @@ class BookingView extends React.Component {
                                                             <p className="fw-500 text-md mrb-10">Booking ID: <span className="fw-700 text-md">{this.state.data.id}</span></p>
                                                             <p className="text-xs text-light">Details have been sent to your email-id and mobile number.</p>
                                                             {
-                                                                actions.indexOf(6) > -1 && !this.state.hide_button ? <a onClick={this.toggleCancel.bind(this)} href="#" className="text-primary fw-700 text-sm">Cancel Booking</a> : ""
+                                                                actions.indexOf(6) > -1 && !this.state.hide_button && !is_thyrocare ? <a onClick={this.toggleCancel.bind(this)} href="#" className="text-primary fw-700 text-sm">Cancel Booking</a> : ""
                                                             }
                                                         </div>
                                                     </div>
@@ -330,6 +332,17 @@ class BookingView extends React.Component {
                                                             </div>*/}
                                                         </div>
                                                     </div>
+                                                    {
+                                                        is_thyrocare?
+                                                        <div className="thyroCallContainer">
+                                                            <div className="thyroContent">
+                                                                <h4 className="wc-title text-md fw-700">Reschedule Appointment?</h4>
+                                                                <p>If you want to reschedule or cancel appointment, contact us at  <a href="tel:18001239419">1800 123 9419</a></p>
+                                                            </div>
+                                                        </div>
+                                                        :''
+                                                    }
+                                                    
 
                                                     {
                                                         this.state.data.is_home_pickup ? <div className="widget mrt-10">
@@ -350,7 +363,7 @@ class BookingView extends React.Component {
                                                                 <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/clock.svg"} className="visit-time-icon" /></span>Visit Time
 
                                                                     {
-                                                                        actions.indexOf(4) > -1 ? <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""
+                                                                        !is_thyrocare && actions.indexOf(4) > -1 ? <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""
                                                                     }
 
                                                                 </h4>

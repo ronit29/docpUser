@@ -5,23 +5,42 @@ import ProfileHeader from '../DesktopProfileHeader'
 import Loader from '../../commons/Loader'
 import InfoPopup from './careInfoPopup.js'
 import GTM from '../../../helpers/gtm.js'
+import STORAGE from '../../../helpers/storage'
+import CareLoginPopup from './careLoginPopup.js'
 
 class PrimeCareView extends React.Component {
     constructor(props) {
         super(props)
         this.state={
             showInfo:false,
-            infoData:''
+            infoData:'',
+            showLoginPopup:false,
+            selectedPlanId:''
         }
     }
 
     buyNow(plan_id){
         let url = '/prime/booking?plan_id='+plan_id
-        this.props.history.push(url)
+        if (!STORAGE.checkAuth()) {
+            // this.props.history.replace(`/login?callback=`+url)
+            this.setState({'selectedPlanId':plan_id,'showLoginPopup':true})
+        }else{
+            this.props.getIsCareDetails((resp)=>{
+                if(resp && resp.has_active_plan){
+                    this.props.history.push('/prime/success?user_plan='+resp.user_plan_id) 
+                }else{
+                    this.props.history.push(url)        
+                }
+            })
+        }
     }
 
     closeInfo(){
         this.setState({infoData:'',showInfo:false})   
+    }
+
+    hideLoginPopup(){
+        this.setState({showLoginPopup:false})      
     }
 
     testInfo(test) {
@@ -63,7 +82,7 @@ class PrimeCareView extends React.Component {
                     </div>
                 </div>
                 <div className="careSubHeader">
-                    <img className="careSubImg" src={ASSETS_BASE_URL + "/img/subhead.svg"} />
+                    <img className="careSubImg" src={ASSETS_BASE_URL + "/img/shape.png"} />
                     <div className="container">
                         <div className="careTextContSc">
                             <img className="caresubTxt" src={ASSETS_BASE_URL + "/img/careText.png"} />
@@ -86,7 +105,7 @@ class PrimeCareView extends React.Component {
                                                             <p className="carePlans">{value.name}</p>
                                                             <div className="careComparePanel">
                                                                 <p className="carePlanPrice">₹ {parseInt(value.deal_price)}/Yr</p>
-                                                                <p className="carePlanPriceCut">{parseInt(value.mrp)}/Yr</p>
+                                                                <p className="carePlanPriceCut">₹ {parseInt(value.mrp)}/Yr</p>
                                                                 <div className="btn-bgwhite"><button onClick={self.buyNow.bind(self,value.id)}>Buy Now</button></div>
                                                             </div>
                                                         </div>)
@@ -163,6 +182,11 @@ class PrimeCareView extends React.Component {
                 {this.state.showInfo?
                     <InfoPopup infoData={this.state.infoData} closeInfo={this.closeInfo.bind(this)}/>
                 :''}
+                {
+                    this.state.showLoginPopup?
+                    <CareLoginPopup {...this.props} hideLoginPopup={this.hideLoginPopup.bind(this)} selectedPlanId={this.state.selectedPlanId}/>
+                    :''
+                }
             </div>
         )
         }else{
@@ -177,7 +201,7 @@ class PrimeCareView extends React.Component {
                         </div>
                     </div>
                     <div className="careSubHeader">
-                        <img className="careSubImg" src={ASSETS_BASE_URL + "/img/subhead.svg"} />
+                        <img className="careSubImg" src={ASSETS_BASE_URL + "/img/shape.png"} />
                         <div className="container">
                             <div className="careTextContSc">
                                 <img className="caresubTxt" src={ASSETS_BASE_URL + "/img/careText.png"} />

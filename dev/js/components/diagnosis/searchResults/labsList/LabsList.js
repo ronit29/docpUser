@@ -146,7 +146,7 @@ class LabsList extends React.Component {
                                                 if (i == 1 && LABS[labId]) {
 
                                                     return <div key={i}>
-                                                        <div className="no-risk-container mt-3">
+                                                        {/* <div className="no-risk-container mt-3">
                                                             <div className="no-rsk">
                                                                 <div className="rsk-image">
                                                                     <img className="" src={ASSETS_BASE_URL + "/img/customer-icons/group-98.png"} />
@@ -159,7 +159,7 @@ class LabsList extends React.Component {
                                                                     </ul>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div> */}
                                                         {
                                                             this.props.lab_card ?
                                                                 <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
