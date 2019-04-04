@@ -401,6 +401,10 @@ class BookingSummaryViewNew extends React.Component {
 
             GTM.sendEvent({ data: data })
             this.props.addToCart(2, postData).then((res) => {
+                if(!this.state.cart_item){
+                    this.props.clearExtraTests()    
+                }
+                
                 this.props.history.push('/cart')
             }).catch((err) => {
                 let message = "Error adding to cart!"
