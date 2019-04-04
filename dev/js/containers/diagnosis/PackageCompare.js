@@ -27,7 +27,6 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
         let parsed = queryString.parse(this.props.location.search)
         parsed = queryString.parse(window.location.search)
         this.props.getCompareList(parsed.package_ids,(resp)=>{
-          console.log(resp)
           if(resp){
             this.setState({'showCompare':true,'data':resp})
           }
