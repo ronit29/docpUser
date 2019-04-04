@@ -44,7 +44,7 @@ class HospitalDetailView extends React.Component {
    	}
 
    	viewDoctorsClicked(){
-		if(this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length){
+		/*if(this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length){
 
 
 			let gtmData = {
@@ -58,8 +58,23 @@ class HospitalDetailView extends React.Component {
 			criteria.type = 'ipd' 
 			this.props.cloneCommonSelectedCriterias(criteria)
 			this.props.history.push(`/opd/searchresults`)	
-		}
-		
+		}*/
+		let self = this
+		let hospital_id = this.props.match.params.hospitalId
+		let doctor_name=''
+		let hospital_name =''
+		let state = {
+            filterCriteria: {
+            	...self.props.filterCriteria,
+            	hospital_id, doctor_name, hospital_name
+            },
+            nextFilterCriteria: {
+            	...self.props.filterCriteria,
+                hospital_id, doctor_name, hospital_name
+            }
+        }
+		this.props.mergeOPDState(state)
+		this.props.history.push(`/opd/searchresults`)	
 	}
 
 	render(){

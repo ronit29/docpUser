@@ -104,6 +104,7 @@ class LabProfileCard extends React.Component {
 
     bookNowClicked(id, url = '') {
         let slot = { time: {} }
+        this.props.clearExtraTests()
         this.props.selectLabTimeSLot(slot, false)
         this.props.selectLabAppointmentType('home')
         this.mergeTests(id)
