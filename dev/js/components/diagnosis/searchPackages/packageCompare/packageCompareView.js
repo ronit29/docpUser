@@ -32,6 +32,8 @@ import Footer from '../../../commons/Home/footer'
 
       render() {
         let self=this
+        let availableTest=[]
+        let testData=[]
        return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
                 <ProfileHeader />
@@ -102,74 +104,42 @@ import Footer from '../../../commons/Home/footer'
                                           </div>
                                           {
                                             cat_info.test_ids.map((test_id, k) => {
-                                                 console.log(test_id) 
-                                                 self.props.data.packages.map((pkg_test, j) => {
-                                                 console.log(pkg_test.tests_included.filter(x=> x.available))
-                                                 })  
+                                                 return self.props.data.packages.map((pkg_test, l) => {
+                                                    availableTest=pkg_test.tests_included.filter(x=> x.test_id == test_id && x.available)
+                                                    return availableTest.map((av_test, m) => {
+                                                      testData= self.props.data.test_info.filter(x=> x.id == av_test.test_id)
+                                                      return <div key={m}><div className="pkg-crd-header light-orng-header grey-head test-done">
+                                                          <span>{testData[0].name}</span>
+                                                          <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
+                                                    </div>
+                                                    {
+                                                      testData[0].parameter_count && testData[0].parameter_count >=0?
+                                                        <div>
+                                                          <div className="top-head-info multiple-pkgs ms-info">
+                                                            <ul className="pkgCls">
+                                                              <li>{testData[0].parameter_count}</li>
+                                                            </ul>
+                                                          </div>
+                                                          <div className="top-head-info multiple-pkgs multiple-pkgs-details">
+                                                            <ul className="pkgCls">
+                                                              <li>
+                                                              {
+                                                                testData[0].parameters.map((test_param,n) =>{  return <span key={n}>{test_param}</span> 
+                                                                })
+                                                              }
+                                                            </li>
+                                                            </ul>
+                                                          </div>
+                                                        </div>
+                                                      :''
+                                                    }
+                                                    </div>
+                                                    })
+                                                    
+                                                 })
+
                                             })
                                           }
-                                          <div className="pkg-crd-header light-orng-header grey-head test-done">
-                                                  <span>LIPID</span>
-                                                  <span className="span-img"><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
-                                              </div>
-                                          <div className="top-head-info multiple-pkgs ms-info">
-                                            <ul className="pkgCls">
-                                              <li>2</li>
-                                              <li>3</li>
-                                              <li>4</li>
-                                              <li>5</li>
-                                              <li>5</li>
-                                            </ul>
-                                          </div>
-                                          <div className="top-head-info multiple-pkgs multiple-pkgs-details">
-                                            <ul className="pkgCls">
-                                              <li>
-                                                <span>LDL Cholestrol</span>
-                                                <span>Total Cholesterol</span>
-                                                <span>HDL Cholestrol</span>
-                                                <span>Triglycerides</span>
-                                                <span>VLDL Cholesterol</span>
-                                                <span>LDL/HdL Ratio</span>
-                                                <span>TC/HDL Cholesterol Ratio</span>
-                                              </li>
-                                              <li>
-                                                <span>LDL Cholestrol</span>
-                                                <span>Total Cholesterol</span>
-                                                <span><img src={ASSETS_BASE_URL + "/images/packageCompare/x.png"} alt="" className="x-img" /></span>
-                                                <span>Triglycerides</span>
-                                                <span>VLDL Cholesterol</span>
-                                                <span>LDL/HdL Ratio</span>
-                                                <span>TC/HDL Cholesterol Ratio</span>
-                                              </li>
-                                              <li>
-                                                <span>LDL Cholestrol</span>
-                                                <span>Total Cholesterol</span>
-                                                <span>HDL Cholestrol</span>
-                                                <span>Triglycerides</span>
-                                                <span>VLDL Cholesterol</span>
-                                                <span>LDL/HdL Ratio</span>
-                                                <span>TC/HDL Cholesterol Ratio</span>
-                                              </li>
-                                              <li>
-                                                <span>LDL Cholestrol</span>
-                                                <span>Total Cholesterol</span>
-                                                <span>HDL Cholestrol</span>
-                                                <span>Triglycerides</span>
-                                                <span>VLDL Cholesterol</span>
-                                                <span>LDL/HdL Ratio</span>
-                                                <span>TC/HDL Cholesterol Ratio</span>
-                                              </li>
-                                              <li>
-                                                <span>LDL Cholestrol</span>
-                                                <span>Total Cholesterol</span>
-                                                <span>HDL Cholestrol</span>
-                                                <span>Triglycerides</span>
-                                                <span>VLDL Cholesterol</span>
-                                                <span>LDL/HdL Ratio</span>
-                                                <span>TC/HDL Cholesterol Ratio</span>
-                                              </li>
-                                            </ul>
-                                          </div>
                                         </div>
                                       </div>
                                     )
