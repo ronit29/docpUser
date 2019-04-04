@@ -93,6 +93,22 @@ class DateTimePicker extends React.Component {
                 totalDateVisited++
                 offset = new Date(currentDate)
             }
+        }else{
+            //Day 2 for thyrocare
+            offset.setDate(offset.getDate() + 1)
+            let formattedDate = this.getFormattedDate(offset)
+            daySeries.push({
+                dateFormat: new Date(offset),
+                formattedDate: formattedDate
+            })
+
+            //Day 3 for thyrocare
+            offset.setDate(offset.getDate() + 1)
+            formattedDate = this.getFormattedDate(offset)
+            daySeries.push({
+                dateFormat: new Date(offset),
+                formattedDate: formattedDate
+            })            
         }
         this.setState({ daySeries: daySeries  })
     }
