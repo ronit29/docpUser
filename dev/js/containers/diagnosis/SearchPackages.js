@@ -32,8 +32,11 @@ class SearchPackages extends React.Component {
                     if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
                         searchUrl = match.url.toLowerCase()
                     }
-
-                    return store.dispatch(getPackages(state, 1, true, searchUrl, (loadMore, seoData) => {
+                    let page = 1
+                    if (queryParams.page) {
+                        page = parseInt(queryParams.page)
+                    }
+                    return store.dispatch(getPackages(state, page, true, searchUrl, (loadMore, seoData) => {
                         if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
                             getFooterData(match.url.split("/")[1])().then((footerData) => {
                                 footerData = footerData || null
