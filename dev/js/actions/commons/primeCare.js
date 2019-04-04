@@ -31,16 +31,16 @@ export const retrieveCareDetails = (selectedPlan,callback) => (dispatch) => {
 
 }
 
-export const getIsCareDetails = () => (dispatch) => {
+export const getIsCareDetails = (callback) => (dispatch) => {
 
 	return API_GET('/api/v1/subscription_plan/has_plan').then(function (response) {
 		dispatch({
 			type: IS_USER_CARED,
 			payload: response
 		})
-
+		if (callback) callback(response)
 	}).catch(function (error) {
-
+		if (callback) callback(error)
 	})
 
 }
