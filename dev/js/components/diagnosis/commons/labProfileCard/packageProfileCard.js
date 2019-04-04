@@ -174,6 +174,14 @@ class LabProfileCard extends React.Component {
                                     {
                                     hide_price ? <p className="fw-500">₹ 0</p> : ""
                                     }
+                                    {
+                                        is_insurance_applicable?
+                                        <div>
+                                            <p className="cst-doc-price">₹ {0}</p>
+                                            <div className="ins-val-bx">Covered Under Insurance</div>
+                                        </div>
+                                        :'' 
+                                    }
                                 </div>
                                 <a href={this.props.details.lab.url} onClick={(e) => e.preventDefault()}>
                                     <button className="pkg-btn-nw" style={{ width: '100%' }}>Book Now</button>
@@ -181,14 +189,6 @@ class LabProfileCard extends React.Component {
                                 {
                                     !is_insurance_applicable && discounted_price != price ? <p className="pkg-discountCpn">Includes coupon</p>
                                         : ""
-                                }
-                                {
-                                    is_insurance_applicable?
-                                    <div>
-                                        <p className="cst-doc-price">₹ {0}</p>
-                                        <div className="ins-val-bx">Covered Under Insurance</div>
-                                    </div>
-                                    :'' 
                                 }
                                 {
                                     included_in_user_plan && !is_insurance_applicable?
