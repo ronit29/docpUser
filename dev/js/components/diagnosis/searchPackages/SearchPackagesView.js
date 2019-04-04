@@ -113,7 +113,7 @@ class SearchPackagesView extends React.Component {
     }
 
     buildURI(state) {
-        let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, filterCriteriaPackages } = state
+        let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, filterCriteriaPackages, page} = state
         // let testIds = selectedCriterias.filter(x => x.type == 'test').map(x => x.id)
         let lat = 28.644800
         let long = 77.216721
@@ -144,7 +144,6 @@ class SearchPackagesView extends React.Component {
         let package_type=filterCriteriaPackages.packageType || ""
         let test_ids = filterCriteriaPackages.test_ids || ""
         let package_ids = filterCriteriaPackages.package_ids || ""
-        let page=1
         
         let url
         const parsed = queryString.parse(this.props.location.search)
@@ -152,7 +151,7 @@ class SearchPackagesView extends React.Component {
             let package_category_id = parsed.package_category_ids
             url = `${window.location.pathname}?lat=${lat}&long=${long}&package_category_ids=${package_category_id}`
         }else{
-            url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&page=${page}&package_ids=${package_ids}`
+            url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&package_ids=${package_ids}`
         }
 
         if (parsed.scrollbyid) {
@@ -160,6 +159,11 @@ class SearchPackagesView extends React.Component {
             let scrollby_lab_id = parseInt(parsed.scrollbylabid)
             url += `&scrollbyid=${scrollby_test_id || ""}&scrollbylabid=${scrollby_lab_id || ""}`
         }
+
+        if (page > 1) {
+            url += '&page='+page
+        }
+
         return url
     }
 

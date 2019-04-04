@@ -344,7 +344,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 
 	if (!forTaxSaver) {
 
-		url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}&package_ids=${package_ids}`
+		url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}&package_ids=${package_ids}`
 	}
 
 	if (!!filterCriteriaPackages.lab_name) {
@@ -384,10 +384,11 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 		if (cb) {
 			// TODO: DO not hardcode page length
 			if (response.result && response.result.length == 20) {
-				cb(true, response.seo)
+				cb(true, true)
+			}else{
+				cb(true)
 			}
 		}
-		cb(false, response.seo)
 
 	}).catch(function (error) {
 		throw error
