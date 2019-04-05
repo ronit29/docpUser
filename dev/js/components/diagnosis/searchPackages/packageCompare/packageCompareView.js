@@ -12,7 +12,8 @@ const queryString = require('query-string');
       super()
         this.state={
           checked:false,
-          tabsValue:[]
+          tabsValue:[],
+          viewAll:true
         }
     }
 
@@ -31,7 +32,11 @@ const queryString = require('query-string');
     }
 
     bookNow(package_id){
-      console.log(package_id)
+      this.props.setPackageId(package_id, true)
+
+      setTimeout(() => {
+        this.props.history.push('/searchpackages')
+      }, 100)
     }
 
     ButtonHandler(field, event) {
@@ -65,6 +70,16 @@ const queryString = require('query-string');
       this.props.togglecompareCriteria(packages)
       this.props.history.push('/package/compare?package_ids='+ids)
       window.location.reload()
+    }
+
+    viewAll(){
+      let ids =[]
+        if(this.state.viewAll){
+        this.props.data.category_info.map((catIds,i) =>{
+            ids.push(catIds.id)
+        })
+        }
+        this.setState({tabsValue : ids, viewAll:!this.state.viewAll})
     }
 
     render() {
@@ -122,7 +137,7 @@ const queryString = require('query-string');
                       </div>
                       <div className="pkg-cmpre-list">
                         <div className="hide-div">
-                          <a href="javascript:void(0);" className="hide-all">View All <img src={ASSETS_BASE_URL + "/images/down-arrow-o.png"} alt="" /></a>
+                          <a className="hide-all" onClick={this.viewAll.bind(this)}>{this.state.viewAll?'Hide All':'View All'} <img className={this.state.viewAll?'acrd-arw-rotate' : 'acrd-show'} src={ASSETS_BASE_URL + "/images/down-arrow-o.png"} alt="" /></a>
                         </div>
                         {
                           this.props.data.category_info?
@@ -133,7 +148,7 @@ const queryString = require('query-string');
                                         <span className="text-left">{cat_info.name}</span>
                                         <span className={this.state.tabsValue.indexOf(cat_info.id) > -1 ? 'acrd-arw-rotate span-img' : 'acrd-show span-img'} onClick={this.ButtonHandler.bind(this,cat_info.id)}><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                                       </div>
-                                      <div>
+                                      <div className={this.state.tabsValue.indexOf(cat_info.id) > -1 ? 'd-none' : ''}>
                                         <div className="top-head-info multiple-pkgs parent-info category-done">
                                           <ul className="pkgCls">
                                             {
@@ -151,8 +166,8 @@ const queryString = require('query-string');
                                                           <span>{testData[0].name}</span>
                                                           <span className={this.state.tabsValue.indexOf(testData[0].id) > -1 ? 'acrd-arw-rotate span-img' : 'acrd-show span-img'} onClick={this.ButtonHandler.bind(this,testData[0].id)}><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                                                         </div>
-                                                        <div key={k+1}> 
-                                                          <div className="top-head-info multiple-pkgs ms-info">
+                                                        <div key={k+1} className={this.state.tabsValue.indexOf(testData[0].id) > -1 ? 'd-none' : ''}> 
+                                                          {/*<div className="top-head-info multiple-pkgs ms-info">
                                                             <ul className="pkgCls">
                                                               {    
                                                               self.props.data.packages.map((pkg_test, l) => {
@@ -164,7 +179,7 @@ const queryString = require('query-string');
                                                                 })
                                                               }
                                                             </ul>
-                                                          </div>
+                                                          </div>*/}
                                                               <div className="top-head-info multiple-pkgs multiple-pkgs-details">
                                                                 <ul className="pkgCls">
                                                                 {    
@@ -177,7 +192,7 @@ const queryString = require('query-string');
                                                                           })
                                                                         }
                                                                       </li>
-                                                                    :<li>rishab jain</li>
+                                                                    :<li>x</li>
                                                                   })
                                                                 }
                                                                 </ul>
