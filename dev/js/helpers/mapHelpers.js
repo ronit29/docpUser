@@ -2,9 +2,12 @@ import AXIOS from 'axios'
 import CONFIG from '../config/config'
 
 
-export function _autoCompleteService(query, cb) {
+export function _autoCompleteService(query, cb, types = null) {
+
     let url = `${CONFIG.GOOGLE_SERVICE_URL}/autocomplete/${query}`
-    AXIOS.get(url).then((data) => {
+    AXIOS.post(url, {
+        types: types
+    }).then((data) => {
         if (data && data.data) {
             cb(data.data)
         }
@@ -59,11 +62,15 @@ export function _getlocationFromLatLong(lat, long, location_type = 'locality', c
     })
 }
 
-export function _getLocationFromPlaceId(placeId, cb) {
+export function _getLocationFromPlaceId(placeId, cb, modify = false) {
     let url = `${CONFIG.GOOGLE_SERVICE_URL}/location/placeid/${placeId}`
     AXIOS.get(url).then((data) => {
         if (data && data.data) {
             let place = data.data
+            if (modify) {
+                cb(place)
+                return
+            }
             let location_name = place.formatted_address
             let formedName = _getNameforPlaceId(place)
 
