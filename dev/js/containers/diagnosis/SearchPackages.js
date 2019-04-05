@@ -94,7 +94,8 @@ const mapStateToProps = (state, passedProps) => {
         fetchNewResults,
         corporateCoupon,
         currentSearchedCriterias,
-        filterCriteriaPackages
+        filterCriteriaPackages,
+        page
 
     } = state.SEARCH_CRITERIA_LABS
 
@@ -104,7 +105,7 @@ const mapStateToProps = (state, passedProps) => {
     } = state.USER
 
     const LABS = state.LAB_SEARCH_DATA
-    const { labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, packagesList } = state.LAB_SEARCH
+    const { labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, packagesList, curr_page } = state.LAB_SEARCH
 
     return {
         selectedLocation,
@@ -123,7 +124,9 @@ const mapStateToProps = (state, passedProps) => {
         currentSearchedCriterias,
         filterCriteriaPackages,
         offerList,
-        is_login_user_insured
+        is_login_user_insured,
+        page,
+        curr_page
     }
 
 }

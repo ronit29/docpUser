@@ -66,13 +66,18 @@ class SearchPackagesView extends React.Component {
         return params.get(tag)
     }
 
-    getLabList(state = null, page = 1, cb = null) {
+    getLabList(state = null, page = null, cb = null) {
+        if (page === null) {
+            page = this.props.page
+        }
         if (!state) {
             state = this.props
+        } else if (state.page) {
+            page = state.page
         }
 
         this.props.getPackages(state, page, false, null, (...args) => {
-            this.setState({ seoData: args[1] })
+            // this.setState({ seoData: args[1] })
             if (cb) {
                 cb(...args)
             } else {
@@ -151,17 +156,13 @@ class SearchPackagesView extends React.Component {
             let package_category_id = parsed.package_category_ids
             url = `${window.location.pathname}?lat=${lat}&long=${long}&package_category_ids=${package_category_id}`
         }else{
-            url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&package_ids=${package_ids}`
+            url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&package_ids=${package_ids}&page=${page}`
         }
 
         if (parsed.scrollbyid) {
             let scrollby_test_id = parseInt(parsed.scrollbyid)
             let scrollby_lab_id = parseInt(parsed.scrollbylabid)
             url += `&scrollbyid=${scrollby_test_id || ""}&scrollbylabid=${scrollby_lab_id || ""}`
-        }
-
-        if (page > 1) {
-            url += '&page='+page
         }
 
         return url
