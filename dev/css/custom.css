@@ -409,3 +409,101 @@ header .header-title{font-size: 16px; line-height: 50px;}
     display: inline-block;
 }
 /* ============ thyro care ============ */
+/* ============ article Input ============ */
+.articleSearchWidget{
+	background: #f0f0f0;
+    padding: 15px 10px;
+    margin: 10px -15px;
+}
+.articleTypeloc{
+	background: #f0f0f0;
+    padding: 15px 10px;
+    margin: 10px -15px;
+}
+.articleInputContainer{
+    position: relative;
+}
+.artc-inp{
+    width: 100%;
+    border-radius: 5px;
+    outline: 0;
+    border: none;
+    padding: 15px 135px 15px 30px;
+    box-shadow: -1px 1px 4px 0 rgba(0, 0, 0, 0.2);
+}
+.artc-img{
+    position: absolute;
+    left: 8px;
+    margin: auto;
+    width: 16px;
+    top: 12px;
+}
+.artc-btn{
+	position: absolute;
+    right: 0;
+    height: 100%;
+    align-items: center;
+    padding: 0 10px 0 10px;
+    background: 0 0;
+    border-top: transparent;
+    border-bottom: transparent;
+    border-right: transparent;
+    border-left: 1px solid #dcd8d8;
+    cursor: pointer;
+    color: rgba(40,40,40,.8);
+    font-weight: 500;
+    max-width: 120px;
+    min-width: 95px;
+    white-space: nowrap;
+    overflow: hidden;
+	text-overflow: ellipsis;
+	border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.artc-btn-lft{
+	position: absolute;
+    left: 0;
+    height: 100%;
+    align-items: center;
+    padding: 0 10px 0 10px;
+    background: 0 0;
+    border-top: transparent;
+    border-bottom: transparent;
+    border-right: transparent;
+    border-left: 1px solid #dcd8d8;
+    cursor: pointer;
+    color: rgba(40,40,40,.8);
+    font-weight: 500;
+    max-width: 120px;
+    min-width: 95px;
+    white-space: nowrap;
+    overflow: hidden;
+	text-overflow: ellipsis;
+	border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+.artc-btn.artc-disable, .artc-btn-lft.artc-disable{
+    -webkit-filter: grayscale(100%);
+	filter: grayscale(100%);
+	background: #e3e3e3;
+}
+.artc-inp-loc {
+    width: 100%;
+    border-radius: 5px;
+    outline: 0;
+    border: none;
+    padding: 15px 15px 15px 135px;
+    box-shadow: -1px 1px 4px 0 rgba(0, 0, 0, 0.2);
+}
+.artc-img-loc{
+    position: absolute;
+    left: 110px;
+    margin: auto;
+    width: 16px;
+    top: 12px;
+}
+.artc-btn img{
+    margin-right: 5px;
+    width: 12px;
+}
+/* ============ article Input ============ */

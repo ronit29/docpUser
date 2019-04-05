@@ -33,7 +33,7 @@ class Article extends React.Component {
             comment: '',
             articleLoaded: articleLoaded,
             searchCities: [],
-            searchValue:'426'
+            searchValue: '426'
         }
     }
 
@@ -174,7 +174,7 @@ class Article extends React.Component {
             let criteria = {}
             criteria.id = this.state.searchValue
             criteria.name = ''
-            criteria.type = 'speciality' 
+            criteria.type = 'speciality'
             this.props.cloneCommonSelectedCriterias(criteria)
             this.props.history.push(`/opd/searchresults`)
         })
@@ -190,7 +190,7 @@ class Article extends React.Component {
             locationName = this.props.selectedLocation.formatted_address
         }
 
-        let body = {'body':[{'type':'html',content:'<div>Helo</div>'},{'type':'search_widget', content:{lat:'',lng:60,specialization_id:343, location_name:'gurgaon'}}]}
+        let body = { 'body': [{ 'type': 'html', content: '<div>Helo</div>' }, { 'type': 'search_widget', content: { lat: '', lng: 60, specialization_id: 343, location_name: 'gurgaon' } }] }
 
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
@@ -310,6 +310,27 @@ class Article extends React.Component {
                                         </div>
                                     </div>
 
+                                    <div className="articleSearchWidget">
+                                        <div className="articleInputContainer">
+                                            <input className="artc-inp" type="text" placeholder="Search Doctors & Tests" />
+                                            <img className="artc-img" src={ASSETS_BASE_URL + "/images/vall.png"} />
+                                            <button className="artc-btn"><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />Sector 44</button>
+                                        </div>
+                                    </div>
+                                    <div className="articleSearchWidget">
+                                        <div className="articleInputContainer">
+                                            <input className="artc-inp" type="text" placeholder="Search Doctors & Tests" />
+                                            <img className="artc-img" src={ASSETS_BASE_URL + "/images/vall.png"} />
+                                            <button className="artc-btn artc-disable"><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />Sector 44</button>
+                                        </div>
+                                    </div>
+                                    <div className="articleTypeloc">
+                                        <div className="articleInputContainer">
+                                            <button className="artc-btn-lft artc-disable">Sector 44</button>
+                                            <input className="artc-inp-loc" type="text" placeholder="Search Doctors & Tests" />
+                                        </div>
+                                    </div>
+
                                     {
                                         this.state.articleData.header_image ?
                                             <div>
@@ -353,30 +374,30 @@ class Article extends React.Component {
                                     }
 
                                     {
-                                        body.body.map((val,key) => {
+                                        body.body.map((val, key) => {
 
-                                            if(val.type.includes('html')){
-                                               return <div key={key} className="docprime-article" dangerouslySetInnerHTML={{ __html: val.content }}>
+                                            if (val.type.includes('html')) {
+                                                return <div key={key} className="docprime-article" dangerouslySetInnerHTML={{ __html: val.content }}>
                                                 </div>
-                                            }else if(val.type.includes('search_widget')){
+                                            } else if (val.type.includes('search_widget')) {
                                                 return <div key={key}>
-                                                        {
-                                                            val.content.lat && val.content.lng && val.content.location_name?
-                                                                <div>
-                                                                    <input type="text" name="Prince" defaultValue={val.content.location_name} />
-                                                                </div>
-                                                                :<LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' fromCriteria={true} commonSearchPage={true}locationName={locationName} />        
-                                                        }
-                                                        {
-                                                            val.content.specialization_id?
+                                                    {
+                                                        val.content.lat && val.content.lng && val.content.location_name ?
+                                                            <div>
+                                                                <input type="text" name="Prince" defaultValue={val.content.location_name} />
+                                                            </div>
+                                                            : <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' fromCriteria={true} commonSearchPage={true} locationName={locationName} />
+                                                    }
+                                                    {
+                                                        val.content.specialization_id ?
                                                             <input type="text" name="Prince" defaultValue={val.content.specialization_id} />
-                                                            :<input type="text" name="P" value={this.state.searchedSpecialization} onChange={this.inputHandler.bind(this)}/>
+                                                            : <input type="text" name="P" value={this.state.searchedSpecialization} onChange={this.inputHandler.bind(this)} />
 
-                                                        }
+                                                    }
                                                 </div>
 
                                             }
-                                            
+
                                         })
                                     }
 
@@ -403,7 +424,7 @@ class Article extends React.Component {
                                             </section> : ''
                                     }
 
-                                   { /*<div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
+                                    { /*<div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
                                     </div>*/}
                                     {
                                         this.state.articleData && this.state.articleData.last_updated_at ?
