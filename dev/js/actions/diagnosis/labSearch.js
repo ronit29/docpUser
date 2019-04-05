@@ -39,6 +39,7 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 	let min_price = filterCriteria.priceRange[0]
 	let max_price = filterCriteria.priceRange[1]
 	let sort_on = filterCriteria.sort_on || ""
+	let is_insured = filterCriteria.is_insured || false
 
 	// do not check specialization_ids if doctor_name || hospital_name search
 	if (!!filterCriteria.lab_name) {
@@ -51,7 +52,7 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 		url = `/api/v1/diagnostic/labnetworksearchbyurl?url=${searchByUrl.split('/')[1]}&`
 	}
 
-	url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}`
+	url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&is_insurance=${is_insured}`
 
 	if (!!filterCriteria.lab_name) {
 		url += `&name=${filterCriteria.lab_name || ""}`
@@ -289,6 +290,7 @@ export const resetLabCoupons = () => (dispatch) => {
 		type: RESET_LAB_COUPONS
 	})
 }
+
 export const getPackages = (state = {}, page = 1, from_server = false, searchByUrl = false, cb) => (dispatch) => {
 
 	let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, filterCriteriaPackages } = state
