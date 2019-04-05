@@ -129,9 +129,10 @@ export const savePincode = (pincode) => (dispatch) => {
     })
 }
 
-export const togglecompareCriteria = (criteria) => (dispatch) => {
+export const togglecompareCriteria = (criteria,reset) => (dispatch) => {
     dispatch({
         type: TOGGLE_COMPARE_PACKAGE,
+        reset:reset,
         payload: {
             criteria
         }

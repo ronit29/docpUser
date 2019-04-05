@@ -187,9 +187,11 @@ const queryString = require('query-string');
                                                                     availableTest=pkg_test.tests_included.filter(x=> x.test_id == test_id)
                                                                     return availableTest[0].available?
                                                                       <li key={n}>
-                                                                        {
-                                                                          testData[0].parameters.map((test_param,o) =>{  return <span key={o}>{test_param}</span> 
+                                                                        { 
+                                                                          testData[0].parameters.length > 0?testData[0].parameters.map((test_param,o) =>{ 
+                                                                           return <span key={o}>{test_param}</span> 
                                                                           })
+                                                                          : <span>No parameters</span>
                                                                         }
                                                                       </li>
                                                                     :<li>x</li>
@@ -199,8 +201,6 @@ const queryString = require('query-string');
                                                               </div>
                                                         </div> 
                                                 </div>
-                                               
-
                                           })
                                         }
                                       </div>

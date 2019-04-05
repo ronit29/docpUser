@@ -25,8 +25,17 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
             window.scrollTo(0, 0)
         }
         let parsed = queryString.parse(this.props.location.search)
+        let resetCompareData=[]
         this.props.getCompareList(parsed.package_ids,(resp)=>{
           if(resp){
+            let test = {}
+              resp.packages.map((pkg,i) =>{
+                test = {}
+                test.id=pkg.id
+                test.name=pkg.name
+                resetCompareData.push(test)
+              })
+            this.props.togglecompareCriteria(resetCompareData,true)
             this.setState({'showCompare':true,'data':resp})
           }
         })
@@ -65,8 +74,8 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
     const mapDispatchToProps = (dispatch) => {
         return {
             getCompareList:(selectedIds,cb) => dispatch(getCompareList(selectedIds,cb)),
-            togglecompareCriteria: (criteria) => dispatch(togglecompareCriteria(criteria)),
-            setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage)),
+            togglecompareCriteria: (criteria,reset) => dispatch(togglecompareCriteria(criteria,reset)),
+            setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage))
         }
     }
 export default connect(mapStateToProps, mapDispatchToProps)(packageCompare);

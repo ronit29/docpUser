@@ -457,12 +457,16 @@ export default function (state = defaultState, action) {
                 ...state,
                 compare_packages: [].concat(state.compare_packages)
             }
+            if(action.reset){
+                newState.compare_packages = action.payload.criteria
+            }else{
                 let ids = newState.compare_packages.filter(x => x.id == action.payload.criteria.id)
                 if (ids.length) {
                     newState.compare_packages = newState.compare_packages.filter(x => x.id != action.payload.criteria.id)
                 } else {
                     newState.compare_packages.push(action.payload.criteria)
                 }
+            }    
             return newState
         }
 
