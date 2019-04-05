@@ -156,11 +156,10 @@ export default function (state = defaultState, action) {
                 ...state,
                 packagesList: {...state.packagesList}
             }
-            if(newState.packagesList.result){
-                
-                newState.packagesList.result =  newState.packagesList.result.concat(action.payload.result)    
+            if(action.page == 1){
+                newState.packagesList = action.payload
             }else{
-                newState.packagesList = action.payload    
+                newState.packagesList.result =  newState.packagesList.result.concat(action.payload.result)        
             }
             return newState
         }
