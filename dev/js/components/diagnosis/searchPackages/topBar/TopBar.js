@@ -324,8 +324,11 @@ class TopBar extends React.Component {
                                 </div>
                         */}
                         <div className="top-filter-tab-container">
-                            <div className="top-filter-tabs-select" onClick={this.props.comparePackage.bind(this)}><img src={ASSETS_BASE_URL + "/images/packageCompare/comapre.png"} alt="" /> Compare </div>
-                            <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}><img className="sort-filter" src={ASSETS_BASE_URL + "/images/packageCompare/filtersort.png"} alt="" /><span>Sort / Filter</span> </div>
+                            <div className="top-filter-tabs-select" onClick={this.props.comparePackage.bind(this)}><img src={ASSETS_BASE_URL + "/images/packageCompare/comapre.png"} alt="" style={{width: 16}} /> Compare </div>
+                            <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}>
+                                  <img className="sort-filter" src={ASSETS_BASE_URL + "/images/packageCompare/filtersort.png"} alt="" style={{width: 13}} /> 
+                                  <span>Sort / Filter</span> 
+                            </div>
                         </div>
                     </section>
 
@@ -343,7 +346,7 @@ class TopBar extends React.Component {
                             e.preventDefault()
                         }}>
                             <div className="widget-content wd-content">
-                                <div className="filterRow pad-all-0">
+                                <div className="filterRow pad-all-0 mt-0">
                                     <h4 className="section-sort">Sort By</h4>
                                     <ul className="sortBy">
                                     <li className={`drop-list-styling  ${!!!this.state.sort_on ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, "")}> <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18}} /> <br />Relevance</li>
