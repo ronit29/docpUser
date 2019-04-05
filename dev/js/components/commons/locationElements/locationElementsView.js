@@ -211,6 +211,15 @@ class LocationElementsView extends React.Component {
             </div>
         }
 
+        if(this.props.articleSearchPage){
+            return <div className="articleTypeloc">
+                <div className="articleInputContainer">
+                    <button className="artc-btn-lft artc-disable" tooltip={this.props.specialityName}>{this.props.specialityName}</button>
+                    <input className="artc-inp-loc" type="text"  autoComplete="off" placeholder="Location" value={this.state.search} onChange={this.inputHandler.bind(this)} id="doc-input-field" onBlur={this.onblur.bind(this)} onFocus={this.onfocus.bind(this)} />
+                </div>
+            </div>
+        }
+
         return (
             // toggle class : 'doc-select-none'
             <div className="row" style={{ backgroundColor: '#f78316', marginTop: 10, position: 'relative', zIndex: 11 }} id="location_element">
