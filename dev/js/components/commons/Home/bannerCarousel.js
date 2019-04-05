@@ -17,7 +17,7 @@ class BannerCarousel extends React.Component {
     componentDidMount() {
         let totalOffers = ''
         let filteredBanners = this.getFilteredBanners();
-        if (this.props.offerList && this.props.sliderLocation && filteredBanners) {
+        if (this.props.sliderLocation && filteredBanners) {
             totalOffers = filteredBanners.length;
             setInterval(() => {
                 let curr_index = this.state.index
@@ -181,12 +181,14 @@ class BannerCarousel extends React.Component {
             GTM.sendEvent({ data: data })
         }
     }
+
     onTouchStart(event) {
         let touchobj = event.changedTouches[0];
         this.state.startX = touchobj.pageX;
         this.state.startY = touchobj.pageY;
         let startTime = new Date().getTime()
     }
+
     onTouchMove(event) {
         let touchobj = event.changedTouches[0];
         this.state.distX = touchobj.pageX - this.state.startX;
@@ -197,6 +199,7 @@ class BannerCarousel extends React.Component {
             event.returnValue = false;
         }
     }
+
     onTouchEnd(event) {
         let startTime = new Date().getTime()
         let touchobj = event.changedTouches[0]
@@ -209,8 +212,7 @@ class BannerCarousel extends React.Component {
         if (elapsedTime <= 400) {
             if (Math.abs(this.state.distX) >= 50 && Math.abs(this.state.distY) <= 100) {
                 if (this.state.distX < 0) {
-
-                    if (this.props.offerList && this.props.sliderLocation && filteredBanners) {
+                    if (this.props.sliderLocation && filteredBanners) {
                         totalOffers = filteredBanners.length;
                         curr_index = this.state.index
                         curr_index = curr_index + 1
@@ -220,7 +222,7 @@ class BannerCarousel extends React.Component {
                         this.setState({ index: curr_index, intervalFlag: false })
                     }
                 } else {
-                    if (this.props.offerList && this.props.sliderLocation && filteredBanners) {
+                    if (this.props.sliderLocation && filteredBanners) {
                         totalOffers = filteredBanners.length;
                         curr_index = this.state.index
                         curr_index = curr_index - 1
@@ -301,19 +303,69 @@ class BannerCarousel extends React.Component {
                         }
                     })
                 }
+                else if (offer.url_params_excluded && Object.values(offer.url_params_excluded).length) {
+                    this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.map((data) => {
+                        if (offer.url_params_excluded['specializations'] && offer.url_params_excluded['specializations'] == data.id) {
+                            show_banner = false
+                        } else {
+                            show_banner = true
+                        }
+                    })
+                    this.props.currentSearchedCriterias && this.props.currentSearchedCriterias.map((data) => {
+                        if (offer.url_params_excluded['test_id'] && offer.url_params_excluded['test_id'] == data.id) {
+                            show_banner = false
+                        } else {
+                            show_banner = true
+                        }
+                    })
+                    this.props.filterCriteria && Object.entries(this.props.filterCriteria).map((data, key) => {
+                        let type = data[0]
+                        if (type == 'priceRange') {
+                            if (offer.url_params_included['min_fees'] && offer.url_params_included['min_fees'] >= data[1][0]) {
+                                show_banner = false
+                            }
+                            if (offer.url_params_included['max_fees'] && offer.url_params_included['max_fees'] <= data[1][1]) {
+                                show_banner = false
+                            }
+                        } else if (type == 'distanceRange') {
+                            if (offer.url_params_included['min_distance'] && offer.url_params_included['min_distance'] >= data[1][0]) {
+                                show_banner = false
+                            }
+                            if (offer.url_params_included['max_distance'] && offer.url_params_included['max_distance'] <= data[1][1]) {
+                                show_banner = false
+                            }
+                        } else if (type == 'sort_on') {
+                            if (offer.url_params_included['sort_on'] && offer.url_params_included['sort_on'].includes(data[1])) {
+                                show_banner = false
+                            }
+                        } else if (type = 'lab_name') {
+                            if (offer.url_params_included['lab_name'] && offer.url_params_included['lab_name'].includes(data[1])) {
+                                show_banner = false
+                            }
+                        } else if (type = 'network_id') {
+                            if (offer.url_params_included['network_id'] && offer.url_params_included['network_id'] == data[1]) {
+                                show_banner = false
+                            }
+                        } else if (type = 'is_available') {
+                            if (offer.url_params_included['is_available'] && offer.url_params_included['is_available'] == true) {
+                                show_banner = false
+                            }
+                        } else if (type = 'is_female') {
+                            if (offer.url_params_included['is_female'] && offer.url_params_included['is_female'] == true) {
+                                show_banner = false
+                            }
+                        }
+                    })
+                }
                 return show_banner
             })
         }
         return filteredOffers
     }
     render() {
-        console.log('sadyusyuisa')
-        console.log(this.props)
 
         let filteredBanners = this.getFilteredBanners();
         let offerVisible = filteredBanners[this.state.index]
-
-        console.log(offerVisible)
 
         return (
             <div>
@@ -321,7 +373,7 @@ class BannerCarousel extends React.Component {
                     this.props.sliderLocation === "medicine_detail_page" ?
                         <div className="medic-img-slider">
                             {
-                                this.props.offerList.filter(x => x.slider_location === 'medicine_detail_page').map((offer, i) => {
+                                filteredBanners.filter(x => x.slider_location === 'medicine_detail_page').map((offer, i) => {
                                     return <img key={i} src={offer.image} onClick={() => this.navigateTo(offer)} style={offer.url ? { cursor: 'pointer' } : {}} />
                                 })
                             }
@@ -329,15 +381,15 @@ class BannerCarousel extends React.Component {
                         :
                         <div className={this.props.hideClass ? `banner-carousel-div mrt-20 mrb-20 ${this.props.hideClass}` : `banner-carousel-div mrt-10 mrb-20`}>
                             {
-                                offerVisible && offerVisible.length ?
+                                offerVisible && Object.values(offerVisible).length ?
                                     <img src={offerVisible.image} onTouchStart={this.onTouchStart.bind(this)} onTouchMove={this.onTouchMove.bind(this)} onTouchEnd={this.onTouchEnd.bind(this)} onClick={() => this.navigateTo(offerVisible)} style={offerVisible.url ? { cursor: 'pointer' } : {}} />
                                     : ''
                             }
                             {
-                                offerVisible && offerVisible.length > 1 ?
+                                filteredBanners && filteredBanners.length > 1 ?
                                     <div className="carousel-indicators mrt-10">
                                         {
-                                            offerVisible && offerVisible.map((offer, i) => {
+                                            filteredBanners && filteredBanners.map((offer, i) => {
                                                 return <span key={i} onClick={() => this.setState({ index: i })} className={this.state.index == i ? "indicator-selected" : ''} ></span>
                                             })
                                         }
@@ -347,7 +399,6 @@ class BannerCarousel extends React.Component {
                 }
             </div>
         );
-
     }
 }
 
