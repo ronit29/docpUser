@@ -358,7 +358,7 @@ class TopBar extends React.Component {
                                 <div className="filterRow">
                                  <h4 className="section-sort">Filter</h4>
                                    <div style={{position:'relative',marginTop:20}}>
-                                   <span className="tl">Price</span>
+                                    <span className="tl">Price</span>
                                     <span className="tr">&#8377; {this.state.priceRange[0]} to {this.state.priceRange[1]}</span>
                                     <span className="bl">&#8377; 0</span>
                                     <span className="br">&#8377; 20000</span>
