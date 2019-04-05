@@ -1,6 +1,6 @@
 import React from 'react'
 import SnackBar from 'node-snackbar'
-import { _getlocationFromLatLong, _getLocationFromPlaceId } from '../../../helpers/mapHelpers'
+import { _getlocationFromLatLong, _getLocationFromPlaceId, _autoCompleteService } from '../../../helpers/mapHelpers'
 
 class LocationElementsView extends React.Component {
 
@@ -92,22 +92,11 @@ class LocationElementsView extends React.Component {
     }
 
     getLocation(location) {
-        if (typeof google != undefined) {
-            var auto = new google.maps.places.AutocompleteService()
-
-            var request = {
-                input: location,
-                types: ['geocode'],
-                componentRestrictions: { country: 'in' }
-            };
-            if (location) {
-                auto.getPlacePredictions(request, function (results, status) {
-                    results = results || []
-                    this.setState({ searchResults: results })
-                    this.props.getCityListLayout(results)
-                }.bind(this))
-            }
-        }
+        _autoCompleteService(location, function (results, status) {
+            results = results || []
+            this.setState({ searchResults: results })
+            this.props.getCityListLayout(results)
+        }.bind(this))
     }
 
     inputHandler(e) {

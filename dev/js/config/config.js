@@ -24,7 +24,8 @@ const PROD_CONFIG = {
     Tracker: 'docobj',
     API_BASE_URL_ELASTIC_SEARCH: 'https://l74e1dhn67.execute-api.ap-south-1.amazonaws.com/default',
     SEARCH_ELASTIC_VIEW: true,
-    ENABLE_INSURANCE:false
+    ENABLE_INSURANCE: false,
+    GOOGLE_SERVICE_URL: 'https://docprime.com/apils'
 
 }
 
@@ -42,7 +43,8 @@ const STAGING_CONFIG = {
     Tracker: 'docqa',
     API_BASE_URL_ELASTIC_SEARCH: 'https://oxbgjks1i2.execute-api.ap-south-1.amazonaws.com/default',
     SEARCH_ELASTIC_VIEW: true,
-    ENABLE_INSURANCE:false
+    ENABLE_INSURANCE: false,
+    GOOGLE_SERVICE_URL: 'https://docprime.com/apils'
 
 }
 
@@ -61,7 +63,8 @@ const DEV_CONFIG = {
     Tracker: 'docqa',
     API_BASE_URL_ELASTIC_SEARCH: 'https://oxbgjks1i2.execute-api.ap-south-1.amazonaws.com/default',
     SEARCH_ELASTIC_VIEW: true,
-    ENABLE_INSURANCE:false
+    ENABLE_INSURANCE: false,
+    GOOGLE_SERVICE_URL: 'http://localhost:4141/ls'
 }
 
 let CONFIG = { ...BASE_CONFIG, ...DEV_CONFIG }
