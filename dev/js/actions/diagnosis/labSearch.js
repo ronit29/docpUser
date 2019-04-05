@@ -370,6 +370,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 
 			dispatch({
 				type: SEARCH_HEALTH_PACKAGES,
+				page: page,
 				payload: response,
 			})
 		}

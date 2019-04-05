@@ -152,8 +152,16 @@ export default function (state = defaultState, action) {
             return newState
         }
         case SEARCH_HEALTH_PACKAGES: {
-            let newState = { ...state }
-            newState.packagesList = action.payload
+            let newState = {
+                ...state,
+                packagesList: {...state.packagesList}
+            }
+            if(newState.packagesList.result){
+                
+                newState.packagesList.result =  newState.packagesList.result.concat(action.payload.result)    
+            }else{
+                newState.packagesList = action.payload    
+            }
             return newState
         }
     }
