@@ -85,11 +85,7 @@ const queryString = require('query-string');
     render() {
       let self=this
       let availableTest= []
-      let notAvailableTest= []
       let testData= []
-      let noTestData = []
-      let testName=[]
-      console.log(this.state.tabsValue)
      return (
           <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
               <ProfileHeader />
