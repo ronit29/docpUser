@@ -13,6 +13,7 @@ import CommentBox from './ArticleCommentBox.js'
 import SnackBar from 'node-snackbar'
 import Reply from './Reply.js'
 import BannerCarousel from '../Home/bannerCarousel';
+import LocationElements from '../../../containers/commons/locationElements'
 
 // import RelatedArticles from './RelatedArticles'
 
@@ -30,7 +31,9 @@ class Article extends React.Component {
             articleData: articleData,
             replyOpenFor: null,
             comment: '',
-            articleLoaded: articleLoaded
+            articleLoaded: articleLoaded,
+            searchCities: [],
+            searchValue:'426'
         }
     }
 
@@ -39,7 +42,6 @@ class Article extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
-
         if (this.props.match.path.split('-')[1] === 'mddp') {
             let selectedLocation = ''
             let lat = 28.644800
@@ -148,10 +150,47 @@ class Article extends React.Component {
         this.setState({ comment: e.target.value })
     }
 
+    inputHandler(e) {
+
+    }
+
+    getCityListLayout(searchResults = []) {
+        if (searchResults.length) {
+            this.setState({ searchCities: searchResults })
+        } else {
+            this.setState({ searchCities: [] })
+        }
+    }
+
+    selectLocation(city) {
+        this.child.selectLocation((city), () => {
+
+            this.setState({ searchCities: [] })
+            let gtmData = {
+                'Category': 'ConsumerApp', 'Action': 'ArticlePageLocationSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-page-location-selected', selectedId: this.state.searchValue || ''
+            }
+            GTM.sendEvent({ data: gtmData })
+
+            let criteria = {}
+            criteria.id = this.state.searchValue
+            criteria.name = ''
+            criteria.type = 'speciality' 
+            this.props.cloneCommonSelectedCriterias(criteria)
+            this.props.history.push(`/opd/searchresults`)
+        })
+    }
+
     render() {
 
         let isUserLogin = Object.values(this.props.profiles).length || STORAGE.checkAuth()
         let commentsExists = this.state.articleData && this.state.articleData.comments.length ? this.state.articleData.comments.length : null
+
+        let locationName = ""
+        if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+            locationName = this.props.selectedLocation.formatted_address
+        }
+
+        let body = {'body':[{'type':'html',content:'<div>Helo</div>'},{'type':'search_widget', content:{lat:'',lng:60,specialization_id:343, location_name:'gurgaon'}}]}
 
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
@@ -313,8 +352,59 @@ class Article extends React.Component {
                                             </div> : ''
                                     }
 
-                                    <div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
-                                    </div>
+                                    {
+                                        body.body.map((val,key) => {
+
+                                            if(val.type.includes('html')){
+                                               return <div key={key} className="docprime-article" dangerouslySetInnerHTML={{ __html: val.content }}>
+                                                </div>
+                                            }else if(val.type.includes('search_widget')){
+                                                return <div key={key}>
+                                                        {
+                                                            val.content.lat && val.content.lng && val.content.location_name?
+                                                                <div>
+                                                                    <input type="text" name="Prince" defaultValue={val.content.location_name} />
+                                                                </div>
+                                                                :<LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' fromCriteria={true} commonSearchPage={true}locationName={locationName} />        
+                                                        }
+                                                        {
+                                                            val.content.specialization_id?
+                                                            <input type="text" name="Prince" defaultValue={val.content.specialization_id} />
+                                                            :<input type="text" name="P" value={this.state.searchedSpecialization} onChange={this.inputHandler.bind(this)}/>
+
+                                                        }
+                                                </div>
+
+                                            }
+                                            
+                                        })
+                                    }
+
+
+                                    {
+                                        this.state.searchCities.length > 0 ?
+                                            <section>
+                                                <div className="widget mb-10">
+                                                    <div className="common-search-container">
+                                                        <p className="srch-heading">Location Search</p>
+                                                        <div className="common-listing-cont">
+                                                            <ul>
+                                                                {
+                                                                    this.state.searchCities.map((result, i) => {
+                                                                        return <li key={i}>
+                                                                            <p className="" onClick={this.selectLocation.bind(this, result)}>{result.description}</p>
+                                                                        </li>
+                                                                    })
+                                                                }
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </section> : ''
+                                    }
+
+                                   { /*<div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
+                                    </div>*/}
                                     {
                                         this.state.articleData && this.state.articleData.last_updated_at ?
                                             <div className="last-updated text-right">
