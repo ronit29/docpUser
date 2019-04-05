@@ -145,38 +145,46 @@ const queryString = require('query-string');
                                         </div>
                                         {
                                           cat_info.test_ids.map((test_id, k) => {
-                                               return self.props.data.packages.map((pkg_test, l) => {
-                                                  availableTest=pkg_test.tests_included.filter(x=> x.test_id == test_id && x.available)
-                                                  notAvailableTest = pkg_test.tests_included.filter(x=> x.test_id == test_id && !x.available)
-                                                  console.log(notAvailableTest)
-                                                  if(availableTest.length>0){
-                                                    testData= self.props.data.test_info.filter(x=> x.id == availableTest[0].test_id)
-                                                    return <div key={l}>
+                                              testData= self.props.data.test_info.filter(x=> x.id == test_id)
+                                               return <div key={k}>
                                                         <div className="pkg-crd-header light-orng-header grey-head test-done">
                                                           <span>{testData[0].name}</span>
                                                           <span className={this.state.tabsValue.indexOf(testData[0].id) > -1 ? 'acrd-arw-rotate span-img' : 'acrd-show span-img'} onClick={this.ButtonHandler.bind(this,testData[0].id)}><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                                                         </div>
-                                                        <div className="top-head-info multiple-pkgs ms-info">
+                                                        <div key={k+1}> 
+                                                          <div className="top-head-info multiple-pkgs ms-info">
                                                             <ul className="pkgCls">
-                                                              <li>{testData[0].parameter_count}</li>
+                                                              {    
+                                                              self.props.data.packages.map((pkg_test, l) => {
+                                                                availableTest=pkg_test.tests_included.filter(x=> x.test_id == test_id)
+                                                                return availableTest[0].available?
+                                                                        <li key={l}>{testData[0].parameter_count}</li>
+                                                                        :<li>rishab</li>
+                                                                      
+                                                                })
+                                                              }
                                                             </ul>
-                                                        </div>
-                                                        {
-                                                          testData[0].parameter_count && testData[0].parameter_count >=0?
+                                                          </div>
                                                               <div className="top-head-info multiple-pkgs multiple-pkgs-details">
                                                                 <ul className="pkgCls">
-                                                                  <li>
-                                                                  {
-                                                                    testData[0].parameters.map((test_param,n) =>{  return <span key={n}>{test_param}</span> 
-                                                                    })
-                                                                  }
-                                                                </li>
+                                                                {    
+                                                                  self.props.data.packages.map((pkg_test, n) => {
+                                                                    availableTest=pkg_test.tests_included.filter(x=> x.test_id == test_id)
+                                                                    return availableTest[0].available?
+                                                                      <li key={n}>
+                                                                        {
+                                                                          testData[0].parameters.map((test_param,o) =>{  return <span key={o}>{test_param}</span> 
+                                                                          })
+                                                                        }
+                                                                      </li>
+                                                                    :<li>rishab jain</li>
+                                                                  })
+                                                                }
                                                                 </ul>
                                                               </div>
-                                                          :''}
-                                                      </div>
-                                                  }                                                   
-                                               })
+                                                        </div> 
+                                                </div>
+                                               
 
                                           })
                                         }
