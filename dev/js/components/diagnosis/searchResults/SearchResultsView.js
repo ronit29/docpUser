@@ -70,6 +70,13 @@ class SearchResultsView extends React.Component {
                     window.scrollTo(0, 0)
                 }
                 this.setState({ search_id: search_id }, () => {
+
+                    //Check if user insured
+                    if(this.props.is_login_user_insured){
+                        filters.filterCriteria = {...filters.filterCriteria}
+                        filters.filterCriteria.is_insured = true
+                    }
+
                     let new_url = this.buildURI(this.props)
                     this.props.history.replace(new_url)
                     this.props.setLabSearchId(search_id, filters, parsed.page || 1)
@@ -100,6 +107,8 @@ class SearchResultsView extends React.Component {
         const parsed = queryString.parse(props.location.search)
         if (props.location.search.includes('search_id')) {
             search_id = parsed.search_id
+        }else if(this.state.search_id){
+            search_id = this.state.search_id
         }
         if (parsed.page) {
             page = parsed.page || 1
@@ -118,6 +127,13 @@ class SearchResultsView extends React.Component {
             } else {
                 search_id = this.generateSearchId()
                 this.setState({ search_id: search_id }, () => {
+
+                    //Check if user insured
+                    if(props.is_login_user_insured){
+                        filters.filterCriteria = {...filters.filterCriteria}
+                        filters.filterCriteria.is_insured = true
+                    }
+
                     let new_url = this.buildURI(props)
                     this.props.history.replace(new_url)
                     this.props.setLabSearchId(search_id, filters, page)
@@ -231,15 +247,59 @@ class SearchResultsView extends React.Component {
         let sort_on = filterCriteria.sort_on || ""
         let lab_name = filterCriteria.lab_name || ""
         let network_id = filterCriteria.network_id || ""
+        let is_insured = filterCriteria.is_insured || false
 
-        let url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&search_id=${this.state.search_id}`
+
+        let url = ''
+        //Check if any filter applied 
+        let is_filter_applied = false
+
+        if(parseInt(min_price)!= 0){
+            is_filter_applied = true
+        }
+
+        if(parseInt(max_price)!= 20000) {
+            is_filter_applied = true
+        }
+
+        if(parseInt(min_distance)!= 0){
+            is_filter_applied = true
+        }
+
+        if(parseInt(max_distance)!= 15){
+            is_filter_applied = true
+        }
+
+        if(sort_on){
+            is_filter_applied = true
+        }
+
+        if(lab_name) {
+            is_filter_applied = true
+        }
+
+        if(network_id) {
+            is_filter_applied = true
+        }
+
+        let is_params_exist = false
+
+        if(is_filter_applied || !this.state.seoFriendly) {
+
+            url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&search_id=${this.state.search_id}&is_insured=${is_insured}`
+            is_params_exist = true
+        
+        }else if(this.state.seoFriendly) {
+            url = `${window.location.pathname}`
+        }
 
         if (this.state.lab_card) {
-            url += `&lab_card=true`
+            url += `${is_params_exist?'&':'?'}lab_card=true`
+            is_params_exist = true
         }
 
         if (page > 1) {
-            url += `&page=${page}`
+            url += `${is_params_exist?'&':'?'}page=${page}`
         }
 
         return url

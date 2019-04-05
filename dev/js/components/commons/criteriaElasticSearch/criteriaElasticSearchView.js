@@ -442,9 +442,9 @@ class CriteriaElasticSearchView extends React.Component {
                                                                             }
                                                                             GTM.sendEvent({ data: data })
 
-                                                                            this.props.changeSelection(this.state.type, this.state.searchValue)
+                                                                            this.props.changeSelection(this.state.type, this.state.visibleType.name||'')
                                                                         }}>
-                                                                            <p className="p-0 srch-prnsl-txt" >Did you mean: <span className="search-prnsl-rslts">{this.state.searchValue}</span> in <span className="fw-700">{this.state.visibleType.visible_name}</span></p>
+                                                                            <p className="p-0 srch-prnsl-txt" >Did you mean: <span className="search-prnsl-rslts">{this.state.visibleType.name || ''}</span> in <span className="fw-700">{this.state.visibleType.visible_name}</span></p>
                                                                         </div>
                                                                         : ''
                                                                 }

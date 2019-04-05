@@ -7,9 +7,15 @@ const DIST_PATH = path.join(__dirname, './dist')
 
 try {
     let new_ejs_file = fs.readFileSync(DIST_PATH + '/index.new.ejs')
-    let old_ejs_file = fs.readFileSync(DIST_PATH + '/index.ejs')
-    if (new_ejs_file && old_ejs_file) {
-        fs.unlinkSync(DIST_PATH + '/index.ejs')
+    try {
+        let old_ejs_file = fs.readFileSync(DIST_PATH + '/index.ejs')
+        if (old_ejs_file) {
+            fs.unlinkSync(DIST_PATH + '/index.ejs')
+        }
+    } catch (e) {
+        console.log(e)
+    }
+    if (new_ejs_file) {
         fs.renameSync(DIST_PATH + '/index.new.ejs', DIST_PATH + '/index.ejs')
     }
     console.log('BUILD PROCESS SUCCES')

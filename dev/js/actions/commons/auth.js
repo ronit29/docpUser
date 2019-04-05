@@ -1,4 +1,4 @@
-import { SET_SUMMARY_UTM, AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL, CLOSE_POPUP } from '../../constants/types';
+import { SET_SUMMARY_UTM, AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL, CLOSE_POPUP, SELECT_USER_ADDRESS } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import STORAGE from '../../helpers/storage'
 import NAVIGATE from '../../helpers/navigate'
@@ -53,6 +53,11 @@ export const submitOTP = (number, otp, cb) => (dispatch) => {
         dispatch({
             type: SUBMIT_OTP_SUCCESS,
             payload: { token: response.token }
+        })
+
+        dispatch({
+            type: SELECT_USER_ADDRESS,
+            payload: null
         })
 
         if (cb) cb(response);
@@ -144,13 +149,13 @@ export const agentLogin = (token, cb) => (dispatch) => {
 
 export const OTTLogin = (ott) => (dispatch) => {
     return new Promise((resolve, reject) => {
-        API_GET(`/api/v1/user/token/exchange?token=${ott}`).then((data) => {
+        // API_GET(`/api/v1/user/token/exchange?token=${ott}`).then((data) => {
             STORAGE.deleteAuth().then(() => {
                 dispatch({
                     type: RESET_AUTH,
                     payload: {}
                 })
-                STORAGE.setAuthToken(data.token)
+                STORAGE.setAuthToken(ott)
                 API_GET('/api/v1/user/userprofile').then(function (response) {
                     dispatch({
                         type: APPEND_USER_PROFILES,
@@ -161,9 +166,9 @@ export const OTTLogin = (ott) => (dispatch) => {
                     reject(err)
                 })
             })
-        }, (err) => {
-            reject(err)
-        })
+        // }, (err) => {
+        //     reject(err)
+        // })
     })
 }
 

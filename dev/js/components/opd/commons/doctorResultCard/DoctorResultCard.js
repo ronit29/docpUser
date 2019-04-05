@@ -190,6 +190,7 @@ class DoctorProfileCard extends React.Component {
             enabled_for_hospital_booking = hospitals[0].enabled_for_online_booking
             is_procedure = false
 
+            let is_insurance_applicable = hospital.is_insurance_covered && hospital.is_user_insured && deal_price <= hospital.insurance_threshold_amount
             let offPercent = ''
             if (mrp && (discounted_price != null) && (discounted_price < mrp)) {
                 offPercent = parseInt(((mrp - discounted_price) / mrp) * 100);
@@ -202,7 +203,9 @@ class DoctorProfileCard extends React.Component {
                             __html: new_schema
                         }} /> : ""
                     }
-                    <div className="cstm-docCard-content">
+                    
+                    <div className="cstm-docCard-content" onClick={enabled_for_hospital_booking?this.bookNowClicked.bind(this, id, url, hospital.hospital_id || ''):this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')}>
+                    
                         <div className="row no-gutters">
                             <div className="col-8">
                                 <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')} title={display_name}>
@@ -249,11 +252,13 @@ class DoctorProfileCard extends React.Component {
                             </div>
                             <div className="col-4" style={mrp == 0 ? { paddingTop: 40 } : {}}>
                                 {
-                                    enabled_for_hospital_booking && mrp != 0 && this.state.ssrFlag ?
+                                    !is_insurance_applicable && enabled_for_hospital_booking && mrp != 0 && this.state.ssrFlag ?
                                         <p className="cstm-doc-price">Docprime Price</p> : ''
                                 }
                                 {
-                                    enabled_for_hospital_booking && (discounted_price != null) && discounted_price != mrp ?
+                                    is_insurance_applicable?
+                                    ''
+                                    :enabled_for_hospital_booking && (discounted_price != null) && discounted_price != mrp ?
                                         <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
                                         : mrp && mrp != 0 ?
                                             <p className="cst-doc-price">₹ {mrp}</p>
@@ -261,13 +266,21 @@ class DoctorProfileCard extends React.Component {
                                                 <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
                                 }
                                 {
-                                    enabled_for_hospital_booking && offPercent && offPercent > 0 ?
+                                    !is_insurance_applicable && enabled_for_hospital_booking && offPercent && offPercent > 0 ?
                                         <p className="cstm-cpn">{offPercent}% Off
                                             {
                                                 deal_price != discounted_price ?
                                                     <span><br />(includes Coupon)</span> : ''
                                             }
                                         </p> : ''
+                                }
+                                {
+                                    is_insurance_applicable?
+                                    <div>
+                                        <p className="cst-doc-price">₹ {0}</p>
+                                        <div className="ins-val-bx">Covered Under Insurance</div>
+                                    </div>
+                                    :''
                                 }
                                 {
                                     enabled_for_hospital_booking ?
