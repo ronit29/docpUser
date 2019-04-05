@@ -14,6 +14,7 @@ import SnackBar from 'node-snackbar'
 import Reply from './Reply.js'
 import BannerCarousel from '../Home/bannerCarousel';
 import LocationElements from '../../../containers/commons/locationElements'
+import CommonSearch from '../../../containers/commons/CommonSearch.js'
 
 // import RelatedArticles from './RelatedArticles'
 
@@ -369,9 +370,8 @@ class Article extends React.Component {
                                                         }
                                                         {
                                                             val.content.specialization_id?
-                                                            <input type="text" name="Prince" defaultValue={val.content.specialization_id} />
-                                                            :<input type="text" name="P" value={this.state.searchedSpecialization} onChange={this.inputHandler.bind(this)}/>
-
+                                                            <CommonSearch {...this.props}/>
+                                                            :<CommonSearch {...this.props}/>
                                                         }
                                                 </div>
 
