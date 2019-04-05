@@ -294,7 +294,12 @@ export const resetLabCoupons = () => (dispatch) => {
 export const getPackages = (state = {}, page = 1, from_server = false, searchByUrl = false, cb) => (dispatch) => {
 
 	let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, filterCriteriaPackages } = state
-
+	if (page == 1) {
+		dispatch({
+			type: LAB_SEARCH_START,
+			payload: null
+		})
+	}
 	let lat = 28.644800
 	let long = 77.216721
 	let place_id = ""

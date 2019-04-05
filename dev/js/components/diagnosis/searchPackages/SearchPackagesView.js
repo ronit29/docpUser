@@ -211,7 +211,6 @@ class SearchPackagesView extends React.Component {
     }
 
     render() {
-        let LOADED_LABS_SEARCH = true
         let self = this
         if(this.props.forTaxSaver && this.state.isScroll){
             const parsed = queryString.parse(this.props.location.search)
@@ -231,7 +230,7 @@ class SearchPackagesView extends React.Component {
                     title: `${this.props.packagesList.title || ''}`,
                     description: `${this.props.packagesList.description || ''}`
                 }} noIndex={false} />                
-                <CriteriaSearch {...this.props} checkForLoad={LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} bottom_content={this.props.packagesList && this.props.packagesList.count>0 && this.props.packagesList.bottom_content && this.props.packagesList.bottom_content !=null && this.props.forOrganicSearch? this.props.packagesList.bottom_content:''} page={1}>
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} bottom_content={this.props.packagesList && this.props.packagesList.count>0 && this.props.packagesList.bottom_content && this.props.packagesList.bottom_content !=null && this.props.forOrganicSearch? this.props.packagesList.bottom_content:''} page={1}>
                     <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
                     <ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
                     <PackagesLists {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />

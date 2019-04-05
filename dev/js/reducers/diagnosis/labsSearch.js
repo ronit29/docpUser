@@ -161,6 +161,7 @@ export default function (state = defaultState, action) {
             }else{
                 newState.packagesList.result =  newState.packagesList.result.concat(action.payload.result)        
             }
+            newState.LOADED_LABS_SEARCH = true
             return newState
         }
     }
