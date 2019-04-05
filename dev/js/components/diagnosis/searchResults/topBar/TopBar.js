@@ -6,6 +6,7 @@ import SnackBar from 'node-snackbar'
 import LocationElements from '../../../../containers/commons/locationElements'
 import LocationPopup from '../../../../containers/commons/locationPopup'
 import GTM from '../../../../helpers/gtm'
+import STORAGE from '../../../../helpers/storage'
 
 class TopBar extends React.Component {
     constructor(props) {
@@ -21,7 +22,8 @@ class TopBar extends React.Component {
             // showLocationPopup: false,
             // overlayVisible: false,
             // showPopupContainer: true,
-            sortText: 'Relevance'
+            sortText: 'Relevance',
+            is_insured: props.filterCriteria && props.filterCriteria.is_insured?props.filterCriteria.is_insured:false
         }
     }
 
@@ -57,7 +59,8 @@ class TopBar extends React.Component {
         let filterState = {
             priceRange: this.state.priceRange,
             distanceRange: this.state.distanceRange,
-            sort_on: this.state.sort_on
+            sort_on: this.state.sort_on,
+            is_insured: this.state.is_insured
         }
         let data = {
             'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname, 'lowPriceRange': this.state.priceRange[0], 'highPriceRange': this.state.priceRange[1], 'lowDistanceRange': this.state.distanceRange[0], 'highDistanceRange': this.state.distanceRange[1], 'sort_on': this.state.sort_on == "" ? 'relevance' : this.state.sort_on
@@ -192,6 +195,24 @@ class TopBar extends React.Component {
 
     // }
 
+    toggleInsured() {
+        let data = {
+            'Category': 'CoveredUnderLABInsuranceClicked', 'Action': 'CoveredUnderLABInsuranceClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'covered-under-lab-insurance-clicked', 'url': window.location.pathname
+        }
+        GTM.sendEvent({ data: data })
+
+        this.setState({is_insured: !this.state.is_insured}, ()=>{
+
+            let filterState = {
+                priceRange: this.state.priceRange,
+                distanceRange: this.state.distanceRange,
+                sort_on: this.state.sort_on,
+                is_insured: this.state.is_insured
+            }
+            this.props.applyFilters(filterState)    
+        })
+    }
+
     render() {
 
         let sortType = ''
@@ -293,6 +314,15 @@ class TopBar extends React.Component {
                                 </div>
                             </div>
                         </div> : ""
+                    }
+                    {
+                    STORAGE.checkAuth() && this.props.is_login_user_insured
+                        ? <div className="tg-list-item">
+                            <input className="tgl tgl-ios" id="lab_insurance" type="checkbox" checked={this.state.is_insured} onChange={this.toggleInsured.bind(this)} />
+                            <label className="tgl-btn" htmlFor="lab_insurance"></label>
+                            <p>Covered under OPD insurance | <a href="https://qacdn.docprime.com/media/insurer/documents/Group_Out-Patient_CIS_JNLVJju.PDF" target="_blank"><span> Know More</span></a></p>
+                        </div>
+                        : ''
                     }
             </div>
         );

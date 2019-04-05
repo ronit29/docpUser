@@ -203,6 +203,14 @@ class DoctorProfileView extends React.Component {
             nearbyDoctors = this.props.DOCTORS[doctor_id].doctors;
         }
 
+        let is_insurance_applicable = false
+        if(this.state.selectedClinic && this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length){
+            this.props.DOCTORS[doctor_id].hospitals.map((hospital) => {
+                if(hospital.hospital_id == this.state.selectedClinic){
+                    is_insurance_applicable = hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured
+                }
+            })
+        }
         //Check if reviews exist for doctor, if not then pick the google reviews for that doctor/hospital
         let google_rating = {}
         if (this.props.DOCTORS[doctor_id] && !this.props.DOCTORS[doctor_id].display_rating_widget) {
@@ -453,8 +461,12 @@ class DoctorProfileView extends React.Component {
                                                     } */}
                                                     <div className="dpp-btn-book dpp-btn-book-custom" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>
                                                         {/*<p>{`Book Now (₹ ${final_price})`}</p>*/}
-                                                        <p style={{ flex: 2 }}><span style={{ marginTop: '5px', display: 'inline-block' }} className="">Book Now</span></p>
-                                                        <p className="cp-auto" style={{ marginBottom: '8px' }}>*Coupon auto applied on checkout</p>
+                                                        <p style={{ flex: 2 }}><span style={{ marginTop: '5px', display: 'inline-block', lineHeight: 54 }} className="">Book Now</span></p>
+                                                        {
+                                                            is_insurance_applicable?''
+                                                            :<p className="cp-auto" style={{ marginBottom: '8px' }}>*Coupon auto applied on checkout</p>  
+                                                        }
+                                                        
                                                     </div>
                                                 </div>
                                                 :

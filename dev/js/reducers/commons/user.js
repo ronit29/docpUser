@@ -51,6 +51,7 @@ const defaultState = {
     cart: null,
     toggleLeftMenu: false,
     upcoming_appointments:[],
+    is_login_user_insured: null,
     isUserCared:{}
 }
 
@@ -81,6 +82,7 @@ export default function (state = defaultState, action) {
                         newState.primaryMobile = profile.phone_number
                         newState.userName = profile.name
                     }
+                    newState.is_login_user_insured = profile.is_insured
                     newState.defaultProfile = profile.id
                 }
                 profileMap[profile.id] = profile

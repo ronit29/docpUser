@@ -71,6 +71,11 @@ class SearchResultsView extends React.Component {
                     window.scrollTo(0, 0)
                 }
                 this.setState({ search_id: search_id }, () => {
+                    //Check for insured user
+                    if(this.props.is_login_user_insured){
+                        filters.filterCriteria = {...filters.filterCriteria}
+                        filters.filterCriteria.is_insured = true
+                    }
                     let new_url = this.buildURI(this.props)
                     this.props.history.replace(new_url)
                     this.props.setSearchId(search_id, filters, parsed.page || 1)
@@ -132,6 +137,12 @@ class SearchResultsView extends React.Component {
                 this.setState({ search_id: search_id }, () => {
                     let new_url = this.buildURI(props)
                     this.props.history.replace(new_url)
+                    //Check if user insured
+                    if(props.is_login_user_insured){
+                        filters.filterCriteria = {...filters.filterCriteria}
+                        filters.filterCriteria.is_insured = true
+                    }
+
                     this.props.setSearchId(search_id, filters, page)
                 })
             }
@@ -237,6 +248,7 @@ class SearchResultsView extends React.Component {
         let hospital_name = filterCriteria.hospital_name || ""
         let doctor_name = filterCriteria.doctor_name || ""
         let hospital_id = filterCriteria.hospital_id || ""
+        let is_insured = filterCriteria.is_insured || false
 
 
 
@@ -280,7 +292,7 @@ class SearchResultsView extends React.Component {
 
         if(is_filter_applied || !this.state.seoFriendly){
 
-            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}`
+            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}`
 
             is_params_exist= true
 

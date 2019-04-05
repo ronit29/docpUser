@@ -78,6 +78,7 @@ class UserLoginView extends React.Component {
             this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
                 if (exists.token) {
                     const parsed = queryString.parse(this.props.location.search)
+                    this.props.clearInsurance()
                     if (exists.user_exists) {
                         if (parsed.login) {
                             let data = {
