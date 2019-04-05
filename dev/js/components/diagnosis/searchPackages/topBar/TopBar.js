@@ -100,18 +100,18 @@ class TopBar extends React.Component {
         this.setState({ openFilter: false })
     }
 
-    handleOpen(event) {
-        // this.setState({ anchorEl: event.currentTarget })
-        this.setState({
-            dropdown_visible: true
-        });
-    }
+    // handleOpen(event) {
+    //     // this.setState({ anchorEl: event.currentTarget })
+    //     this.setState({
+    //         dropdown_visible: true
+    //     });
+    // }
 
-    hideSortDiv() {
-        this.setState({
-            dropdown_visible: false
-        });
-    }
+    // hideSortDiv() {
+    //     this.setState({
+    //         dropdown_visible: false
+    //     });
+    // }
 
     handleClose(type) {
         this.setState({ anchorEl: null, sort_on: type})
@@ -163,6 +163,18 @@ class TopBar extends React.Component {
         }
     }
 
+    selectCategory(category){
+        let selectedCategoryIds = this.state.catIds
+        if(category){
+            if(selectedCategoryIds.indexOf(category)>-1){
+                selectedCategoryIds = selectedCategoryIds.filter(x=>x!=category) 
+            }else{
+                selectedCategoryIds.push(category)    
+            }
+        }
+        this.setState({catIds: selectedCategoryIds})
+    }
+
     // shortenUrl() {
     //     if (window) {
     //         let url = window.location.href + '&force_location=true'
@@ -185,40 +197,40 @@ class TopBar extends React.Component {
     // popupContainer() {
     //     this.setState({ showPopupContainer: false, showLocationPopup: false });
     // }
-    toggleCategory(event) {
-        this.setState({
-            openCategory: !this.state.openCategory
-        })
-    }
-    closeCategory() {
-        this.setState({
-            openCategory: !this.state.openCategory
-        })
-    }
-    applyCategories(categoryState) {
-        let filterState = {
-            priceRange: this.state.priceRange,
-            distanceRange: this.state.distanceRange,
-            sort_on: this.state.sort_on,
-            max_age: this.state.max_age,
-            min_age: this.state.min_age,
-            gender: this.state.gender,
-            packageType: this.state.packageType,
-            test_ids: this.state.test_ids,
-            package_ids: this.state.package_ids
-        }
-        // let isCategory = false 
-        // if(this.state.initialSelectedCatIds != categoryState.length){
-        //     isCategory = true
-        // }
-        this.props.applyCategories(categoryState, filterState)
-        // this.setState({ openCategory: false ,isCategoryApplied:isCategory,appliedCategoryCount:categoryState.length>0?categoryState.length:''})
-        this.setState({ openCategory: false, catIds: categoryState.length })
+    // toggleCategory(event) {
+    //     this.setState({
+    //         openCategory: !this.state.openCategory
+    //     })
+    // }
+    // closeCategory() {
+    //     this.setState({
+    //         openCategory: !this.state.openCategory
+    //     })
+    // }
+    // applyCategories(categoryState) {
+    //     let filterState = {
+    //         priceRange: this.state.priceRange,
+    //         distanceRange: this.state.distanceRange,
+    //         sort_on: this.state.sort_on,
+    //         max_age: this.state.max_age,
+    //         min_age: this.state.min_age,
+    //         gender: this.state.gender,
+    //         packageType: this.state.packageType,
+    //         test_ids: this.state.test_ids,
+    //         package_ids: this.state.package_ids
+    //     }
+    //     // let isCategory = false 
+    //     // if(this.state.initialSelectedCatIds != categoryState.length){
+    //     //     isCategory = true
+    //     // }
+    //     this.props.applyCategories(categoryState, filterState)
+    //     // this.setState({ openCategory: false ,isCategoryApplied:isCategory,appliedCategoryCount:categoryState.length>0?categoryState.length:''})
+    //     this.setState({ openCategory: false, catIds: categoryState.length })
 
-    }
-    initialSelectedCategory(selectedcategory) {
-        this.setState({ initialSelectedCatIds: selectedcategory.length })
-    }
+    // }
+    // initialSelectedCategory(selectedcategory) {
+    //     this.setState({ initialSelectedCatIds: selectedcategory.length })
+    // }
 
     // goToLocation() {
     //     this.setState({
@@ -379,21 +391,19 @@ class TopBar extends React.Component {
                                     </div>
                                 </div>
                                 <hr className="hr-cls" />
-                                <div className="filterRow pad-all-0">
-                                <h4 className="section-sort">Category</h4>
-                                    <ul className="cat-gry">
-                                        <li><a href="javascript:void(0);" className="selected">Dummy</a></li>
-                                        <li><a href="javascript:void(0);">Dummy</a></li>
-                                        <li><a href="javascript:void(0);">Dummy</a></li>
-                                        <li><a href="javascript:void(0);">Dummy</a></li>
-                                        <li><a href="javascript:void(0);">Dummy</a></li>
-                                        <li><a href="javascript:void(0);" className="selected">Dummy</a></li>
-                                        <li><a href="javascript:void(0);">Dummy</a></li>
-                                        <li><a href="javascript:void(0);">Dummy</a></li>
-                                        <li><a href="javascript:void(0);">Dummy</a></li>
-                                        <li><a href="javascript:void(0);">Dummy</a></li>
-                                    </ul>
-                                </div>
+                                {
+                                    this.props.packagesList.categories && this.props.packagesList.categories.length >0?
+                                    <div className="filterRow pad-all-0">
+                                        <h4 className="section-sort">Category</h4>
+                                        <ul className="cat-gry">
+                                            {
+                                                this.props.packagesList.categories.map((category,i) =>{
+                                                    return <li key={i} id={category.id} onClick={this.selectCategory.bind(this,category.id)}><a href="javascript:void(0);" className={this.state.catIds.indexOf(category.id) > -1?"selected":''}>{category.name}</a></li>
+                                                })
+                                            }
+                                        </ul>
+                                    </div>
+                                :''}
                             </div>
                             <div className="widget-footer pd-0">
                                 <button className="v-btn v-btn-primary btn-block btn-lg pop-btn" onClick={this.applyFilters.bind(this)}>Apply</button>

@@ -128,7 +128,7 @@ class SearchPackagesView extends React.Component {
         packages.img=pckImg
         packages.name=pckName
         this.props.togglecompareCriteria(packages)
-      }
+    }
 
     buildURI(state) {
         let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, filterCriteriaPackages } = state

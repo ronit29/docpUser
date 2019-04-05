@@ -8,7 +8,7 @@ import Footer from '../../components/commons/Home/footer'
 import Loader from '../../components/commons/Loader'
 const queryString = require('query-string');
 
-import { getCompareList } from '../../actions/index.js'
+import { getCompareList, togglecompareCriteria } from '../../actions/index.js'
 import { } from '../../helpers/urltoState'
 import PackageCompareView from '../../components/diagnosis/searchPackages/packageCompare/packageCompareView.js'
 
@@ -25,9 +25,7 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
             window.scrollTo(0, 0)
         }
         let parsed = queryString.parse(this.props.location.search)
-        parsed = queryString.parse(window.location.search)
         this.props.getCompareList(parsed.package_ids,(resp)=>{
-          console.log(resp)
           if(resp){
             this.setState({'showCompare':true,'data':resp})
           }
@@ -66,7 +64,8 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
 
     const mapDispatchToProps = (dispatch) => {
         return {
-            getCompareList:(selectedIds,cb) => dispatch(getCompareList(selectedIds,cb))
+            getCompareList:(selectedIds,cb) => dispatch(getCompareList(selectedIds,cb)),
+            togglecompareCriteria: (criteria) => dispatch(togglecompareCriteria(criteria)),
         }
     }
 export default connect(mapStateToProps, mapDispatchToProps)(packageCompare);
