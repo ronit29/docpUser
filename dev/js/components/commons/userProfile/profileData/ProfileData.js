@@ -1,6 +1,7 @@
 import React from 'react';
 import TermsConditions from '../../couponSelectionView/termsConditions.js'
 import GTM from '../../../../helpers/gtm'
+import CONFIG from '../../../../config'
 
 
 class ProfileData extends React.Component {
@@ -46,6 +47,15 @@ class ProfileData extends React.Component {
         }
     }
 
+    goToInsurance(isUserLoginInsured){
+        if(isUserLoginInsured){
+            this.props.history.push('/insurance/certificate')   
+        }else{
+            this.props.generateInsuranceLead()
+            this.props.history.push('/insurance/insurance-plans')
+        }
+    }    
+
     render() {
 
         let currentRoomId = this.props.USER.currentRoomId
@@ -56,9 +66,11 @@ class ProfileData extends React.Component {
             coupon = this.props.applicableCoupons[0]
         }
 
+        let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)]?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_insured && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user:false
+        
         if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
-          memberClass = 'float-right memAct'
-          memStatus = 'Active'
+            memberClass = 'float-right memAct'
+            memStatus = 'Active'
         }
 
         return (
@@ -193,6 +205,25 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
+                        {
+                        CONFIG.ENABLE_INSURANCE?
+                            <li onClick={this.goToInsurance.bind(this, isUserLoginInsured)} className="my-profile-item lst-spcng">
+                                <a>
+                                    <span className="icon icon-md nav-icon">
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} className="img-fluid" />
+                                    </span>
+                                    <div className="nav-content">
+                                        <h4 className="title app-title">OPD Insurance
+                                            {/* <span className="float-right badge badge-warning">1</span> */}
+                                        </h4>
+                                    </div>
+                                </a>
+                                {
+                                    isUserLoginInsured?<button className="ins-userdetails-active">Active</button>:<button className="ins-userdetails-buy">Buy Now</button>
+                                }
+                            </li>
+                        :''
+                        }
                         <li onClick={this.isDocCare.bind(this)} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">

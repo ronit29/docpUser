@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getHospitaDetails , selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, toggleIPDCriteria } from '../../actions/index.js'
+import { getHospitaDetails , selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, toggleIPDCriteria, mergeOPDState } from '../../actions/index.js'
 
 import IpdHospitalDetailView from '../../components/ipd/IpdHospitalDetailView.js'
 const queryString = require('query-string')
@@ -36,7 +36,8 @@ const mapStateToProps = (state) => {
 	
 	const {
         selectedLocation,
-        locationType
+        locationType,
+        filterCriteria
     } = state.SEARCH_CRITERIA_OPD
 
 	const {
@@ -54,7 +55,8 @@ const mapStateToProps = (state) => {
         HOSPITAL_DETAIL_LOADED,
         commonSelectedCriterias,
         locationFetched,
-        selectedCriterias
+        selectedCriterias,
+        filterCriteria
 	}
 }
 
@@ -65,7 +67,8 @@ const mapDisptachToProps = (dispatch) => {
 		saveProfileProcedures: (doctor_id, clinic_id, procedure_ids, forceAdd) => dispatch(saveProfileProcedures(doctor_id, clinic_id, procedure_ids, forceAdd)),
 		selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
 		cloneCommonSelectedCriterias: (selectedCriterias) => dispatch(cloneCommonSelectedCriterias(selectedCriterias)),
-		toggleIPDCriteria: (criteria, forceAdd) => dispatch(toggleIPDCriteria(criteria, forceAdd))
+		toggleIPDCriteria: (criteria, forceAdd) => dispatch(toggleIPDCriteria(criteria, forceAdd)),
+		mergeOPDState: (state) => dispatch(mergeOPDState(state))
 	}
 }
 export default connect(mapStateToProps, mapDisptachToProps)(HospitalDetail)
