@@ -8887,9 +8887,9 @@ border-radius: 4px;
 	display: inline-block;
 	padding: 2px 0;
 }
-.pkgComapre .filter-title{
+/* .pkgComapre .filter-title{
 	padding-top: 5px;
-}
+} */
 
 .pkgComapre .lab-doc-span{
 	margin-left: 5px;
@@ -9036,7 +9036,7 @@ border-radius: 4px;
 	cursor:pointer;
 }
 .pkmkb .end-div{
-	right:30px;
+	right:20px;
 }
 .pkgComapre .add-more-package{
 	background: #767676;
@@ -9159,6 +9159,9 @@ border-radius: 4px;
 	font-size: 16px;
 	font-weight: 500;
 	margin: 0;
+	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .pkg-hd-by{
 	font-size: 14px;
@@ -9440,7 +9443,7 @@ border-radius: 4px;
 }
 @media screen and (max-width: 991px){
 	.pkgComapre{
-		margin-top: 60px;
+		margin-top: 78px;
 	}
 	.pkgComapre .filter-row{
 		top: 44px;
@@ -9496,10 +9499,10 @@ border-radius: 4px;
 		margin-left:0px;
 	}
 	.pkmkb .end-div{
-		right:15px;
+		right:9px;
 	}
 	.multiple-pkgs ul li{
-		width:33%;
+		width:33.8%;
 	}
 	.pkgComapre .compare-packages ul li{
 		width: 27%;
@@ -9542,6 +9545,11 @@ border-radius: 4px;
 		width:30%;
 	}
 }
+@media screen and (max-width: 466px){
+	.pkg-hd-by{
+		font-size: 10px;
+	}
+}
 @media screen and (max-width: 405px){
 	.x-img.xm-img{
 		margin: 11px 4px;
@@ -9553,7 +9561,7 @@ border-radius: 4px;
 		font-size: 11px;
 	}
 	.pkg-hd-by{
-		font-size: 10px;
+		font-size: 9px;
 	}
 }
 @media screen and (max-width: 360px){

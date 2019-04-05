@@ -103,13 +103,13 @@ const queryString = require('query-string');
                             this.props.data.packages?
                               this.props.data.packages.map((packages, i) => {
                                 return <li key={i}>
-                                     <img src={ASSETS_BASE_URL + "/images/packageCompare/grey-cross.png"} alt="" className="end-div" onClick={this.toggleComparePackages.bind(this,packages.id,'','','')}/>
+                                     <img src={ASSETS_BASE_URL + "/images/packageCompare/red-cut.png"} alt="" className="end-div" onClick={this.toggleComparePackages.bind(this,packages.id,'','','')}/>
                                     
                                       <div className="pkg-hd">{packages.name}</div>
                                       <div className="pkg-hd-by">Available in {packages.total_labs_available} Labs</div>
                                       <h3 className="lab-fltr-dc-name fw-500 pkg-include">{packages.total_parameters_count} Tests Included</h3>
                                       <div className="pkg-card-price">
-                                      <p className="st-form">Start from <span className="fw-500">₹ {packages.minimum_price}</span></p>
+                                      <p className="st-form">Starts from <span className="fw-500">₹ {packages.minimum_price}</span></p>
                                       </div>
                                       <p className="pkg-discountCpn">Includes coupon</p>
                                       <a onClick={this.bookNow.bind(this,packages.id)}><button className="pkg-btn-nw">Book Now </button></a>
