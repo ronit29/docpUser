@@ -114,11 +114,23 @@ class SearchPackagesView extends React.Component {
     }
 
     comparePackage(){
-        this.setState({isCompare:!this.state.isCompare},()=>{
-            if(this.props.compare_packages && this.props.compare_packages.length>0){
-                this.props.resetPkgCompare()
+        if(this.props.packagesList.count == 1){
+            if(this.props.packagesList.result){
+                let packages={}
+                packages.id=this.props.packagesList.result[0].id
+                packages.lab_id=this.props.packagesList.result[0].lab.id
+                packages.img=this.props.packagesList.result[0].lab.lab_thumbnail
+                packages.name=this.props.packagesList.result[0].name
+                this.props.togglecompareCriteria(packages)
+                this.props.history.push('/package/compare?package_ids='+this.props.packagesList.result[0].id)
             }
-        })
+        }else{
+            this.setState({isCompare:!this.state.isCompare},()=>{
+                if(this.props.compare_packages && this.props.compare_packages.length>0){
+                    this.props.resetPkgCompare()
+                }
+            })
+        }   
     }
 
     toggleComparePackages(packageId,labId,pckImg,pckName){
@@ -224,6 +236,7 @@ class SearchPackagesView extends React.Component {
     }
 
     render() {
+        console.log(this.props)
         let LOADED_LABS_SEARCH = true
         let self = this
         const parsed = queryString.parse(this.props.location.search)
@@ -244,10 +257,10 @@ class SearchPackagesView extends React.Component {
                     title: `${this.props.packagesList.title || ''}`,
                     description: `${this.props.packagesList.description || ''}`
                 }} noIndex={false} />                
-                <CriteriaSearch {...this.props} checkForLoad={LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} bottom_content={this.props.packagesList && this.props.packagesList.count>0 && this.props.packagesList.bottom_content && this.props.packagesList.bottom_content !=null && this.props.forOrganicSearch? this.props.packagesList.bottom_content:''} page={1} isPackage={true} isComparable={parsed.package_ids}>
-                    <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} comparePackage={this.comparePackage.bind(this)} isComparable={parsed.package_ids}/>
+                <CriteriaSearch {...this.props} checkForLoad={LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} bottom_content={this.props.packagesList && this.props.packagesList.count>0 && this.props.packagesList.bottom_content && this.props.packagesList.bottom_content !=null && this.props.forOrganicSearch? this.props.packagesList.bottom_content:''} page={1} isPackage={true}>
+                    <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} comparePackage={this.comparePackage.bind(this)} />
                     <ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
-                    <PackagesLists {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} isCompare={this.state.isCompare} toggleComparePackages={this.toggleComparePackages.bind(this)} isComparable={parsed.package_ids}/>
+                    <PackagesLists {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} isCompare={this.state.isCompare} toggleComparePackages={this.toggleComparePackages.bind(this)} />
                 </CriteriaSearch>
                 <Footer footerData={this.state.footerData} />
             </div>
