@@ -196,6 +196,13 @@ class DoctorProfileCard extends React.Component {
                 offPercent = parseInt(((mrp - discounted_price) / mrp) * 100);
             }
 
+            let avgGoogleRating = ''
+            let googleRatingCount = ''
+            if (google_rating && google_rating.avg_rating) {
+                avgGoogleRating = google_rating.avg_rating
+                googleRatingCount = google_rating.rating_count || ''
+            }
+
             return (
                 <div className="cstm-docCard mb-3">
                     {
@@ -301,9 +308,9 @@ class DoctorProfileCard extends React.Component {
                             </h3>
                             {
                                 google_rating && !average_rating ?
-                                    <div style={{ paddingLeft: 20 }}>
-                                        <img src={ASSETS_BASE_URL + '/img/googleRw.png'} style={{ width: 100 }} />
-                                        <RatingStars average_rating={google_rating} width="12px" height="12px" />
+                                    <div className="d-flex align-items-center" style={{ paddingLeft: 20, marginBottom: 8 }}>
+                                        <img src={ASSETS_BASE_URL + '/img/googleRw.png'} style={{ width: 100, marginRight: 4 }} />
+                                        <RatingStars average_rating={avgGoogleRating} rating_count={googleRatingCount} width="12px" height="12px" />
                                     </div> : ''
                             }
                             {

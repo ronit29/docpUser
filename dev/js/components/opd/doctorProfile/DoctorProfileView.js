@@ -21,6 +21,7 @@ import InitialsPicture from '../../commons/initialsPicture';
 import ReviewList from '../../commons/ratingsProfileView/ReviewList.js'
 import RatingGraph from '../../commons/ratingsProfileView/RatingGraph.js'
 import RatingReviewView from '../../commons/ratingsProfileView/ratingReviewView.js'
+import RatingStars from '../../commons/ratingsProfileView/RatingStars';
 
 class DoctorProfileView extends React.Component {
     constructor(props) {
@@ -422,24 +423,24 @@ class DoctorProfileView extends React.Component {
                                                                                 <div className="googleReviewcard">
                                                                                     <img src={ASSETS_BASE_URL + "/img/googleRw.png"} />
                                                                                     {
-                                                                                        selectedClinicName?<p>Reviews for<span>{selectedClinicName}</span></p>:''
+                                                                                        selectedClinicName ? <p>Reviews for<span>{selectedClinicName}</span></p> : ''
                                                                                     }
                                                                                 </div>
-                                                                                <RatingGraph details={google_rating} />
-                                                                                <div className="user-satisfaction-section">
-                                                                                    <div className="row no-gutters">
-
-                                                                                        {
-                                                                                            show_google_rating && google_rating.rating_graph && google_rating.rating_graph.top_compliments ?
-                                                                                                google_rating.rating_graph.top_compliments.map((compliment) => {
-                                                                                                    return <ComplimentListView key={compliment.id} details={compliment} />
-                                                                                                })
-                                                                                                : ''
-                                                                                        }
-
+                                                                                <div className="feed-back-container">
+                                                                                    <div className="row flx-center">
+                                                                                        <div className="col-4">
+                                                                                            {
+                                                                                                google_rating.rating_graph && google_rating.rating_graph.avg_rating ?
+                                                                                                    <RatingStars average_rating={google_rating.rating_graph.avg_rating} width="12px" height="12px" justifyCenter={true} /> : ''
+                                                                                            }
+                                                                                            <div className="feedback-rating-text">
+                                                                                                <p className="feedback-rate">{google_rating.rating_graph.avg_rating}</p>
+                                                                                                <p className="feedback-rate-status">{google_rating.rating_graph.rating_count} ratings
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <ReviewList details={google_rating} />
                                                                             </div>
                                                                         </div>
                                                                         : ""
