@@ -9850,7 +9850,10 @@ input[type=button]{
 @media screen and (max-width: 991px){
 	.ins-val-bx.ins-val-boxes{
 		font-size:11px;
-	}
+    }
+    .head_text_container{
+        display: none;
+    }
 }
 @media screen and (max-width: 480px){
 	.ins-val-bx.ins-val-boxes{
