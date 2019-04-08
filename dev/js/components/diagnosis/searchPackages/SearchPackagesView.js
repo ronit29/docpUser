@@ -236,7 +236,6 @@ class SearchPackagesView extends React.Component {
     }
 
     render() {
-        console.log(this.props)
         let LOADED_LABS_SEARCH = true
         let self = this
         const parsed = queryString.parse(this.props.location.search)

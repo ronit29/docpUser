@@ -51,7 +51,7 @@ class SelectedPkgStrip extends React.Component {
                         Add one more package to compare
                       </div>
                       :
-                      <div className={`add-more-package ${this.props.compare_packages.length >=2 ?'compare-package-now':''}`} onClick={this.comparePackages.bind(this)}>
+                      <div className={`add-more-package ${this.props.compare_packages.length >=2 ?'compare-package-now':''}`} onClick={this.props.compare_packages.length >=1?this.comparePackages.bind(this):''}>
                         <a>Compare Now {this.props.compare_packages && this.props.compare_packages.length>0?`(${this.props.compare_packages.length})`:''}</a>
                       </div>
                     }

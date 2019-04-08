@@ -29,6 +29,7 @@ const queryString = require('query-string');
              });
           }
       }
+
     }
 
     bookNow(package_id){
@@ -82,6 +83,21 @@ const queryString = require('query-string');
         this.setState({tabsValue : ids, viewAll:!this.state.viewAll})
     }
 
+    toggleShowDiff(){
+      let ids=[]
+      let info=[]
+      this.props.data.category_info.map((cat_info, i) => {
+          console.log('catid='+cat_info.id)
+        this.props.data.packages.map((cat_count, j) => {
+          console.log('pkg id='+cat_count.id)
+            info = cat_count.category_parameter_count.filter(x=> x.id==cat_info.id)
+            console.log(info)
+        })
+
+      })
+
+    }
+
     render() {
       let self=this
       let availableTest= []
@@ -101,7 +117,7 @@ const queryString = require('query-string');
                           <div className="tgle-btn">
                             <label className="switch">
                               <span className="tgle-btn-txt"> Show Difference</span>
-                              <input type="checkbox"  />
+                              <input type="checkbox" onClick={this.toggleShowDiff.bind(this)} />
                               <span className="slider round"></span>
                             </label>
                           </div>
@@ -140,7 +156,7 @@ const queryString = require('query-string');
                           this.props.data.category_info?
                               this.props.data.category_info.map((cat_info, i) => {
                                 return (
-                                    <div className="pkg-card-container mb-3" key={i}>
+                                    <div className="pkg-card-container mb-3" key={i} id={'cat_'+cat_info.id}>
                                       <div className="pkg-crd-header light-orng-header">
                                         <span className="text-left">{cat_info.name}</span>
                                         <span className={this.state.tabsValue.indexOf(cat_info.id) > -1 ? 'acrd-arw-rotate span-img' : 'acrd-show span-img'} onClick={this.ButtonHandler.bind(this,cat_info.id)}><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
@@ -192,7 +208,7 @@ const queryString = require('query-string');
                                                                           : <span>No parameters</span>
                                                                         }
                                                                       </li>
-                                                                    :<li>x</li>
+                                                                    :<li><span>x</span></li>
                                                                   })
                                                                 }
                                                                 </ul>

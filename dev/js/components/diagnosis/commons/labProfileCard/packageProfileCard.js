@@ -135,7 +135,7 @@ class LabProfileCard extends React.Component {
 
         return (
             <div className="pkg-card-container mb-3">
-            {
+            {this.props.packagesList.count == 1?'':
                 this.props.isCompare || this.props.compare_packages.length > 0?
                     <div className={selectedPkgCompareIds.indexOf(id)>-1 ? 'pkg-crd-header pkg-crd-green pkg-hd':'pkg-crd-header pkg-hd'}>
                       <label className="ck-bx">{selectedPkgCompareIds.indexOf(id)>-1 ? 'Added':'Add to compare'}
