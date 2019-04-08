@@ -25,9 +25,7 @@ class DesktopProfileHeader extends React.Component {
         }
     }
 
-    navigateTo(where, e) {
-        e.preventDefault()
-        e.stopPropagation()
+    navigateTo(where) {
         this.props.history.push(where)
     }
 

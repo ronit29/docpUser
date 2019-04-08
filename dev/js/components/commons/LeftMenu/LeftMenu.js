@@ -187,25 +187,25 @@ class LeftMenu extends React.Component {
               </ul>
               <div className="seoSetText-container">
                 <p onClick={(e) => {
-                                            e.preventDefault();
-                                            this.navigateTo("/search?from=footer")
-                                        }}>Find Doctor</p>
+                    e.preventDefault();
+                    this.props.history.push("/search?from=footer")
+                }}>Find Doctor</p>
                 <p onClick={(e) => {
-                                            e.preventDefault();
-                                            this.navigateTo("/search?from=footer")
-                                        }}>Lab Tests</p>
+                    e.preventDefault();
+                    this.props.history.push("/search?from=footer")
+                }}>Lab Tests</p>
                 <p onClick={(e) => {
-                                            e.preventDefault();
-                                            this.props.history.push('/searchpackages')
-                                        }}>Health Package</p>
+                    e.preventDefault();
+                    this.props.history.push('/searchpackages')
+                }}>Health Package</p>
                 <p onClick={(e) => {
-                                            e.preventDefault();
-                                            this.navigateTo('/')
-                                        }}>Online Consultation</p>
+                    e.preventDefault();
+                    this.props.history.push('/')
+                }}>Online Consultation</p>
                 <p onClick={(e) => {
-                                        e.preventDefault();
-                                        this.navigateTo("/contact")
-                                    }}>Contact us</p>
+                    e.preventDefault();
+                    this.props.history.push("/contact")
+                }}>Contact us</p>
               </div>
 
               {/*
