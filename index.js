@@ -37,7 +37,7 @@ if (CONFIG.RAVEN_SERVER_DSN_KEY) {
 app.disable('etag');
 app.set('views', path.join(__dirname, '../dist'));
 app.get('/firebase-messaging-sw.js', function (req, res) {
-    res.sendFile(__dirname + '../assets/firebase-messaging-sw.js')
+    res.sendFile(path.join(__dirname, '../assets/firebase-messaging-sw.js'))
 });
 app.use('/assets', Express.static(path.join(__dirname, '../assets')));
 app.use('/dist', Express.static(path.join(__dirname, '../dist')));
