@@ -431,3 +431,8 @@ header .header-title{font-size: 16px; line-height: 50px;}
 	cursor: pointer;
 }
 /* ============ timeSlot-update ============ */
+/* ============ ui fixes ============ */
+.pdng-adjust-cpn{
+	padding: 10px 0 20px 0 !important;
+}
+/* ============ ui fixes ============ */

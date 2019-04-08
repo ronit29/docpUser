@@ -139,7 +139,7 @@ class CommonlySearched extends React.Component {
                 return <li key={i} onClick={this.toggle.bind(this, row)}>
                     <p className={selected ? "click-active" : ""}>{row.name} </p>
                     {
-                        selected ? "" : <img style={{ width: '15px' }} src={ASSETS_BASE_URL + "/img/redirect-arrow.svg"} />
+                        selected ? "" : <img style={{ width: '15px' }} src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                     }
                 </li>
             }
