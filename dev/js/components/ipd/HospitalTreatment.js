@@ -1,4 +1,5 @@
 import React from 'react'
+import GTM from '../../helpers/gtm.js'
 
 class HospitalTreatmentView extends React.Component {
 
@@ -21,12 +22,22 @@ class HospitalTreatmentView extends React.Component {
     })
     
     if(!found){
+      let gtmData = {
+          'Category': 'ConsumerApp', 'Action': 'IpdTreatmentCategoryClickedDetailPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-treatment-category-clicked-detail-page', 'selectedId': id || ''
+      }
+      GTM.sendEvent({ data: gtmData })
+
       treatment.push(id)
     }
     this.setState({treatment: treatment})
   }
 
   goToIpdSearch(id){
+      let gtmData = {
+          'Category': 'ConsumerApp', 'Action': 'IpdTreatmentSelectedDetailPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-treatment-selected-detail-page', 'selectedId': id || ''
+      }
+      GTM.sendEvent({ data: gtmData })
+
       let selectedCriteria = {}
       selectedCriteria.type = 'ipd'
       selectedCriteria.id = id

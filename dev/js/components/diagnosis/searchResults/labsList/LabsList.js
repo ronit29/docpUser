@@ -114,8 +114,8 @@ class LabsList extends React.Component {
             <section className="wrap search-book-result variable-content-section" style={{ paddingTop: 10 }} ref="checkIfExists">
                 {
                     this.state.renderBlock ? <Loader /> :
-                        <div className="container-fluid">
-                            <div className="row">
+                        <div className="container-fluid cardMainPaddingRmv">
+                            <div className="row no-gutters">
 
                                 {/*{Object.entries(this.props.currentSearchedCriterias).map(function ([key, value]) {
                                     if (value.show_details) {
@@ -146,7 +146,7 @@ class LabsList extends React.Component {
                                                 if (i == 1 && LABS[labId]) {
 
                                                     return <div key={i}>
-                                                        <div className="no-risk-container mt-3">
+                                                        {/* <div className="no-risk-container mt-3">
                                                             <div className="no-rsk">
                                                                 <div className="rsk-image">
                                                                     <img className="" src={ASSETS_BASE_URL + "/img/customer-icons/group-98.png"} />
@@ -159,7 +159,7 @@ class LabsList extends React.Component {
                                                                     </ul>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div> */}
                                                         {
                                                             this.props.lab_card ?
                                                                 <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />

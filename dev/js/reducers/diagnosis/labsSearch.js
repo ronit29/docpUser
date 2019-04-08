@@ -7,7 +7,7 @@ const defaultState = {
     LOADED_LABS_SEARCH: false,
     selectedSlot: { time: {} },
     rescheduleSlot: { time: {} },
-    selectedAppointmentType: 'lab',
+    selectedAppointmentType: 'home',
     selectedAddress: null,
     SET_FROM_SERVER: false,
     labCoupons: {},

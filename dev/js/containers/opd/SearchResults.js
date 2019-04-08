@@ -114,10 +114,11 @@ const mapStateToProps = (state, passedProps) => {
     let DOCTORS = state.DOCTORS
     let HOSPITALS = state.HOSPITALS
 
-    let { hospitalList, doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page, ratings, reviews, ratings_title, bottom_content, breadcrumb, seoData, show404 } = state.DOCTOR_SEARCH
+    let { hospitalList, doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page, ratings, reviews, ratings_title, bottom_content, breadcrumb, seoData, show404, canonical_url } = state.DOCTOR_SEARCH
 
     const {
-        offerList
+        offerList,
+        is_login_user_insured
     } = state.USER
 
     return {
@@ -146,7 +147,9 @@ const mapStateToProps = (state, passedProps) => {
         seoData,
         mergeUrlState,
         show404,
-        offerList
+        offerList,
+        is_login_user_insured,
+        canonical_url
     }
 }
 
@@ -158,7 +161,7 @@ const mapDispatchToProps = (dispatch) => {
         getDoctors: (state, page, from_server, searchByUrl, cb, clinic_card) => dispatch(getDoctors(state, page, from_server, searchByUrl, cb, clinic_card)),
         mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
         getDoctorNumber: (doctorId, callback) => dispatch(getDoctorNumber(doctorId, callback)),
-        getFooterData: (url) => dispatch(getFooterData(url)),
+        getFooterData: (url, page) => dispatch(getFooterData(url, page)),
         saveCommonProcedures: (procedure_ids) => dispatch(saveCommonProcedures(procedure_ids)),
         resetProcedureURl: () => dispatch(resetProcedureURl()),
         mergeSelectedCriterias: () => dispatch(mergeSelectedCriterias()),

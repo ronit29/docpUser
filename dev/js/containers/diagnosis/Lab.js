@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabByUrl, getLabById, selectLabTimeSLot, toggleDiagnosisCriteria, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData , getLabTests, savePincode } from '../../actions/index.js'
+import { getLabByUrl, getLabById, selectLabTimeSLot, toggleDiagnosisCriteria, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData , getLabTests, savePincode, getAllRatings } from '../../actions/index.js'
 
 import LabView from '../../components/diagnosis/lab/index.js'
 
@@ -105,7 +105,7 @@ const mapStateToProps = (state, passedProps) => {
     } = state.SEARCH_CRITERIA_LABS
 
     let LABS = state.LABS
-    let { rated_appoinments, profiles, selectedProfile } = state.USER
+    let { rated_appoinments, profiles, selectedProfile, defaultProfile } = state.USER
 
     return {
         lab_test_data,
@@ -115,7 +115,8 @@ const mapStateToProps = (state, passedProps) => {
         profiles,
         selectedProfile,
         currentLabSelectedTests,
-        selectedLocation
+        selectedLocation,
+        defaultProfile
     }
 }
 
@@ -132,7 +133,8 @@ const mapDispatchToProps = (dispatch) => {
         closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
         getFooterData: (url) => dispatch(getFooterData(url)),
         getLabTests: (labId, testName) => dispatch(getLabTests(labId, testName)),
-        savePincode: (pincode) => dispatch(savePincode(pincode))
+        savePincode: (pincode) => dispatch(savePincode(pincode)),
+        getAllRatings: (content_type, object_id, page, cb) => dispatch(getAllRatings(content_type, object_id, page, cb))
     }
 }
 

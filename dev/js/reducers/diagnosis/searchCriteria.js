@@ -7,7 +7,8 @@ const DEFAULT_FILTER_STATE = {
     distanceRange: [0, 15],
     sort_on: null,
     lab_name: "",
-    network_id: ""
+    network_id: "",
+    is_insured: false
 }
 
 const DEFAULT_FILTER_STATE_PACKAGES = {

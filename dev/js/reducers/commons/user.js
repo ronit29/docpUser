@@ -1,4 +1,4 @@
-import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, START_LIVE_CHAT, CLOSE_POPUP, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART, TOGGLE_LEFT_MENU, UPCOMING_APPOINTMENTS } from '../../constants/types';
+import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, START_LIVE_CHAT, CLOSE_POPUP, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART, TOGGLE_LEFT_MENU, UPCOMING_APPOINTMENTS, IS_USER_CARED } from '../../constants/types';
 
 const DUMMY_PROFILE = {
     gender: "m",
@@ -50,7 +50,9 @@ const defaultState = {
     offerList: null,
     cart: null,
     toggleLeftMenu: false,
-    upcoming_appointments:[]
+    upcoming_appointments:[],
+    is_login_user_insured: null,
+    isUserCared:{}
 }
 
 export default function (state = defaultState, action) {
@@ -80,6 +82,7 @@ export default function (state = defaultState, action) {
                         newState.primaryMobile = profile.phone_number
                         newState.userName = profile.name
                     }
+                    newState.is_login_user_insured = profile.is_insured
                     newState.defaultProfile = profile.id
                 }
                 profileMap[profile.id] = profile
@@ -336,7 +339,9 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state
             }
-            newState.selectedSearchType = action.payload
+            if(action.payload.includes('lab') || action.payload.includes('opd') || action.payload.includes('ipd') ){
+                newState.selectedSearchType = action.payload
+            }
             return newState
         }
 
@@ -391,7 +396,16 @@ export default function (state = defaultState, action) {
             }
             newState.upcoming_appointments = action.payload
             return newState
-        }        
+        }
+
+        case IS_USER_CARED: {
+            let newState = {
+                ...state
+            }
+            newState.isUserCared = action.payload
+            return newState
+        }
+        
     }
     return state
 }

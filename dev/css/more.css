@@ -313,7 +313,12 @@ ul.inline-list li {
     margin-left: 3px;
 }
 .overlay.black {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.6);
+    -webkit-animation: FadeIn 0.5s;
+    -moz-animation: FadeIn 0.5s;
+    -ms-animation: FadeIn 0.5s;
+    -o-animation: FadeIn 0.5s;
+    animation: FadeIn 0.5s;
 }
 .filter-overlay{
     display: flex;
@@ -585,8 +590,7 @@ ul.inline-list li {
 @media(max-width: 992px){
     .opd-search-section{
         margin-top: 0;
-        padding-bottom: 42px;
-        /*padding-top: 52px;*/
+        padding-bottom: 80px;
     }
 
 }

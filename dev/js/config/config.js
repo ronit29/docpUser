@@ -23,7 +23,8 @@ const PROD_CONFIG = {
     UAID: 'UA-124740649-1',
     Tracker: 'docobj',
     API_BASE_URL_ELASTIC_SEARCH: 'https://l74e1dhn67.execute-api.ap-south-1.amazonaws.com/default',
-    SEARCH_ELASTIC_VIEW: true
+    SEARCH_ELASTIC_VIEW: true,
+    ENABLE_INSURANCE:false
 
 }
 
@@ -40,12 +41,14 @@ const STAGING_CONFIG = {
     UAID: 'UA-124740649-2',
     Tracker: 'docqa',
     API_BASE_URL_ELASTIC_SEARCH: 'https://oxbgjks1i2.execute-api.ap-south-1.amazonaws.com/default',
-    SEARCH_ELASTIC_VIEW: true
+    SEARCH_ELASTIC_VIEW: true,
+    ENABLE_INSURANCE:false
+
 }
 
 const DEV_CONFIG = {
     // API_BASE_URL: "http://10.0.146.65:8000",
-    API_BASE_URL: "https://qa4.docprime.com",
+    API_BASE_URL: "https://qa3.docprime.com",
     // SOCKET_BASE_URL: "http://10.0.28.67:4444",
     SOCKET_BASE_URL: "https://liveqa.docprime.com",
     // SOCKET_BASE_URL: "http://localhost:4444",
@@ -57,7 +60,8 @@ const DEV_CONFIG = {
     UAID: 'UA-124740649-2',
     Tracker: 'docqa',
     API_BASE_URL_ELASTIC_SEARCH: 'https://oxbgjks1i2.execute-api.ap-south-1.amazonaws.com/default',
-    SEARCH_ELASTIC_VIEW: true
+    SEARCH_ELASTIC_VIEW: true,
+    ENABLE_INSURANCE:false
 }
 
 let CONFIG = { ...BASE_CONFIG, ...DEV_CONFIG }

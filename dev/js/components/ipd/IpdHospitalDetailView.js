@@ -14,15 +14,68 @@ import ReviewList from '../commons/ratingsProfileView/ReviewList.js'
 import HospitalLocations from './HospitalLocations.js'
 import HospitalGallery from './HospitalGallery.js'
 import HospitalAboutUs from './HospitalAboutUs.js'
+import GTM from '../../helpers/gtm.js'
+
+
+//View all rating for hospital ,content_type = 3
+
 class HospitalDetailView extends React.Component {
+
+	componentDidMount(){
+			let gtmData = {
+		    	'Category': 'ConsumerApp', 'Action': 'IpdHospitalDetailPageLanded', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-detail-page-landed', selectedId: this.props.match.params.hospitalId 
+			}
+			GTM.sendEvent({ data: gtmData })		
+	}
 
 	getCostEstimateClicked(hospitalId){
 		if(this.props.commonSelectedCriterias.length){
 			let ipd_id = this.props.commonSelectedCriterias[0].id
+
+			let gtmData = {
+		    	'Category': 'ConsumerApp', 'Action': 'IpdGetCostEstimateClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-get-cost-estimate-clicked', selectedId: ipd_id || '', hospitalId: this.props.match.params.hospitalId || ''
+			}
+			GTM.sendEvent({ data: gtmData })
+
+			
 			this.props.history.push(`/ipd/${ipd_id}/getPriceEstimate?hospital_id=${this.props.match.params.hospitalId}`)		
 		}
       
    	}
+
+   	viewDoctorsClicked(){
+		/*if(this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length){
+
+
+			let gtmData = {
+	            'Category': 'ConsumerApp', 'Action': 'IpdViewAllDoctorClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-view-all-doctor-clicked', selectedId: this.props.commonSelectedCriterias[0].id || ''
+	        }
+	        GTM.sendEvent({ data: gtmData })
+
+			let criteria = {}
+			criteria.id = this.props.commonSelectedCriterias[0].id
+			criteria.name = this.props.commonSelectedCriterias[0].name
+			criteria.type = 'ipd' 
+			this.props.cloneCommonSelectedCriterias(criteria)
+			this.props.history.push(`/opd/searchresults`)	
+		}*/
+		let self = this
+		let hospital_id = this.props.match.params.hospitalId
+		let doctor_name=''
+		let hospital_name =''
+		let state = {
+            filterCriteria: {
+            	...self.props.filterCriteria,
+            	hospital_id, doctor_name, hospital_name
+            },
+            nextFilterCriteria: {
+            	...self.props.filterCriteria,
+                hospital_id, doctor_name, hospital_name
+            }
+        }
+		this.props.mergeOPDState(state)
+		this.props.history.push(`/opd/searchresults`)	
+	}
 
 	render(){
 
@@ -52,14 +105,21 @@ class HospitalDetailView extends React.Component {
 		                    		
 		                    		{
 				                    	this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.doctors && this.props.ipd_hospital_detail.doctors.result.length?
-				                    		<div className="hs-card">
-					               			<div className="card-head">Doctors</div>
-					               			{
-							                    this.props.ipd_hospital_detail.doctors.result.map((doctorCard, i) => {
-							                    	return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.doctors.seo} {...this.props}/>
-							                    })
-						                	}
-						                    </div>    	
+				                    		<div>
+					                    		<div className="hs-card">
+						               			<div className="card-head">Doctors</div>
+						               			{
+								                    this.props.ipd_hospital_detail.doctors.result.map((doctorCard, i) => {
+								                    	return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.doctors.seo} {...this.props}/>
+								                    })
+							                	}
+							                    </div>
+							                	{
+							                    	this.props.ipd_hospital_detail.doctors.result.length<this.props.ipd_hospital_detail.doctors.count?
+							                    	<a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewDoctorsClicked.bind(this)}>{`View all ${this.props.ipd_hospital_detail.doctors.count} Doctors`}</a>
+							                    	:''	
+							                    }
+							                    </div>    	
 					                    :''
 				                    }
 
@@ -97,7 +157,12 @@ class HospitalDetailView extends React.Component {
 		                    			<HospitalAboutUs hospital_data={this.props.ipd_hospital_detail}/>
 		                    			:''	
 		                    		}
-		                    		<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a></div>
+		                    		{
+		                    			this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length?
+		                    			<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a></div>
+		                    			:''	
+		                    		}
+		                    		
 		                    	</div>
 		                    	:<Loader/>	
 	                    	}

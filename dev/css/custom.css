@@ -384,3 +384,50 @@ header .header-title{font-size: 16px; line-height: 50px;}
 .clinic-filter-items>li{white-space: nowrap;}
 .generate-btn{background-color: #9e9e9e; color: #fff;}
 
+/* ============ thyro care ============ */
+@media(max-width: 993px){
+	.thyroCallContainer{
+		margin-left: -15px;
+		margin-right: -15px;
+		border-radius: 0px!important;
+	}
+}
+.thyroCallContainer{
+    background: rgba(248, 150, 49, 0.2);
+   border-radius: 5px;
+}
+.thyroContent{
+    padding: 12px 25px;
+}
+.thyroContent p{
+	font-weight: 500;
+}
+.thyroContent a{
+	color: #f78631;
+    font-size: 15px;
+    cursor: pointer;
+    display: inline-block;
+}
+/* ============ thyro care ============ */
+/* ============ timeSlot-update ============ */
+.time-slot-hdng{
+    color: black;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 4px;
+}
+.align-flex-sp-bt{
+	justify-content: space-between;
+    align-items: center;
+}
+.sl-cal-img{
+	width: 20px;
+	flex-grow: 0;
+    flex-shrink: 0;
+}
+.new-all-slot-cont{
+    flex-grow: 0;
+	flex-shrink: 0;
+	cursor: pointer;
+}
+/* ============ timeSlot-update ============ */

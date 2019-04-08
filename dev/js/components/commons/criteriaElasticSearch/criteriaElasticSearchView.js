@@ -203,7 +203,7 @@ class CriteriaElasticSearchView extends React.Component {
 
             } else if (criteria.action.param.includes('procedure_ids')) {
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value ? criteria.action.value[0] : '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
 
@@ -212,7 +212,7 @@ class CriteriaElasticSearchView extends React.Component {
 
             } else if (criteria.action.param.includes('specializations')) {
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value ? criteria.action.value[0] : '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
 
@@ -375,7 +375,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                             </label>
                                             </div>*/}
                                                         <div className="dtl-radio">
-                                                            <label className="container-radio">Surgery / Procedure
+                                                            <label className="container-radio">Surgery
                                                             <input type="radio" onChange={this.props.changeSelection.bind(this, 'ipd', '')} checked={this.props.selected == 'ipd'} name="radio" />
                                                                 <span className="doc-checkmark"></span>
                                                             </label>
@@ -442,9 +442,9 @@ class CriteriaElasticSearchView extends React.Component {
                                                                             }
                                                                             GTM.sendEvent({ data: data })
 
-                                                                            this.props.changeSelection(this.state.type, this.state.searchValue)
+                                                                            this.props.changeSelection(this.state.type, this.state.visibleType.name||'')
                                                                         }}>
-                                                                            <p className="p-0 srch-prnsl-txt" >Did you mean: <span className="search-prnsl-rslts">{this.state.searchValue}</span> in <span className="fw-700">{this.state.visibleType.visible_name}</span></p>
+                                                                            <p className="p-0 srch-prnsl-txt" >Did you mean: <span className="search-prnsl-rslts">{this.state.visibleType.name || ''}</span> in <span className="fw-700">{this.state.visibleType.visible_name}</span></p>
                                                                         </div>
                                                                         : ''
                                                                 }

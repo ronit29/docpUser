@@ -11,7 +11,8 @@ const DEFAULT_FILTER_STATE = {
     is_available: false,
     doctor_name: "",
     hospital_name: "",
-    hospital_id: ""
+    hospital_id: "",
+    is_insured: false
 }
 
 const defaultState = {

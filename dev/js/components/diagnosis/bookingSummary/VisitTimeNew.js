@@ -48,9 +48,9 @@ class VisitTimeNew extends React.Component {
                         
                         </div>
                     </div>
-                        {
+                        {/*
                             this.props.timeError ? <span className="fw-500 time-error nw-error">Required</span> : ''
-                        }
+                        */}
                 </div>
             </div>
         );

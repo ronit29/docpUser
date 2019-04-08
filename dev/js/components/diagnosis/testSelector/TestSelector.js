@@ -150,7 +150,16 @@ class TestSelectorView extends React.Component {
                 }
                 if (!found) {
                     testIds.push(criteria.id)
-                    tests.push({ ...criteria, test: criteria, ...testVal })
+                    //GET insurance Data
+                    let test_insured=[]
+                    let insurance_data = {} 
+                    if(this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length){
+                        test_insured = this.props.currentLabSelectedTests.filter((x=>x.id == criteria.id))
+                        if(test_insured && test_insured.length && test_insured[0].insurance){
+                            insurance_data = test_insured[0].insurance
+                        }
+                    }
+                    tests.push({ ...criteria, test: criteria, ...testVal, ...insurance_data })
                 }
             })
             tests = labData && labData.tests ? labData.tests.filter((x => testIds.indexOf(x.test.id) > -1)) : []
@@ -213,7 +222,11 @@ class TestSelectorView extends React.Component {
                                                                                     <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
                                                                                     <span className="checkmark" />
                                                                                 </label>
-                                                                                <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                                                                {
+                                                                                    test.insurance && test.insurance.is_insurance_covered && test.insurance.is_user_insured || test.included_in_user_plan?
+                                                                                    <div className="test-price text-sm">&#8377; {0}</div>
+                                                                                    :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                                                                }
                                                                             </li>
                                                                         })
                                                                             : ''
@@ -230,7 +243,11 @@ class TestSelectorView extends React.Component {
                                                                                     <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
                                                                                     <span className="checkmark" />
                                                                                 </label>
-                                                                                <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                                                                {
+                                                                                    test.insurance && test.insurance.is_insurance_covered && test.insurance.is_user_insured || test.included_in_user_plan?
+                                                                                    <div className="test-price text-sm">&#8377; {0}</div>
+                                                                                    :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                                                                }
                                                                             </li>
                                                                         })
                                                                     }

@@ -24,15 +24,23 @@ class PackageTest extends React.Component {
             </span>
         }
         return (
-            <li key={i} style={{ paddingRight: '0px' }} className="clearfix">
+            <li key={i} style={{ paddingRight: '0px' }} className="clearfix pdngRgt">
                 <label className="ck-bx" style={{ fontWeight: '400', fontSize: '14px' }} >
                     <p style={{ paddingRight: '120px' }}>
                         {test.test.name} {test.test.show_details?test_info:''}
                     </p>
                     
                     {
-                        test.number_of_tests ? <span style={{ fontSize: '12px', fontWeight: '600', color: '#757575' }}>{
+                        test.number_of_tests ? <span style={{ fontSize: '12px', fontWeight: '600', color: '#757575',display: 'block', marginTop: 5 }}>{
                             `(includes ${test.number_of_tests} Tests)`}
+                            {
+                                this.props.is_plan_applicable && !this.props.is_insurance_applicable? <p className="pkg-discountCpn" style={{display:'inline-block',float:'right'}}>Docprime Care Benefit</p>:''
+                            }
+                            {
+                                this.props.is_insurance_applicable?
+                                <div className="ins-val-bx">Covered Under Insurance</div>
+                                :''
+                            }
                         </span> : ''
                     }
                     {
@@ -64,8 +72,12 @@ class PackageTest extends React.Component {
                     </button>
                 </div>
                 {
-                    test.hide_price ? "" : <span className="test-price text-sm">₹ {parseInt(deal_price)}<span className="test-mrp">₹ {parseInt(mrp)}</span></span>
+                 this.props.is_plan_applicable || test.hide_price || this.props.is_insurance_applicable? "" : <span className="test-price text-sm">₹ {parseInt(deal_price)}<span className="test-mrp">₹ {parseInt(mrp)}</span></span>
 
+                }
+                    
+                {
+                    this.props.is_plan_applicable || this.props.is_insurance_applicable? <span className="test-price text-sm">₹ 0</span>:''
                 }
                 {/*                 
                 <div>

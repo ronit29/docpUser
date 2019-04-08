@@ -2,6 +2,7 @@ import React from 'react'
 import ResultCount from './result_count.js'
 import Range from 'rc-slider/lib/Range';
 const queryString = require('query-string')
+import GTM from '../../helpers/gtm.js'
 
 class StickyFilter extends React.Component{
 
@@ -26,6 +27,12 @@ class StickyFilter extends React.Component{
 			distance: this.state.distance,
 			provider_ids: this.state.provider_ids
 		}
+
+		let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'IpdHospitalSearchFilterApplied', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-search-filter-applied', 'minDistance':this.state.distance[0], 'maxDistance': this.state.distance[1], 'provider_ids': this.state.provider_ids.join(',') 
+        }
+
+        GTM.sendEvent({ data: gtmData })
 
 		this.setState({lastSelectedProviderIds: this.state.provider_ids, lastSelectedDistance: this.state.distance})
 		let search_id_data = Object.assign({}, this.props.search_id_data)
@@ -93,7 +100,14 @@ class StickyFilter extends React.Component{
 		         <div className="stick-it">
 			           <div className="top-filter-tab-container">
 			              {/*<div className="top-filter-tabs-select"><img src="https://cdn.docprime.com/cp/assets/img/sort.svg" style={{ width: '18px', marginRight: '5px' }} /><span>Sort</span></div>*/}
-			              <div className="top-filter-tabs-select" onClick={()=>this.setState({toggleFilterPopup: true})}><img src="https://cdn.docprime.com/cp/assets/img/filter.svg" style={{ width: '18px', marginRight: '5px' }} /><span>Filter</span></div>
+			              <div className="top-filter-tabs-select" onClick={()=>{
+			              	let gtmData = {
+						            'Category': 'ConsumerApp', 'Action': 'IpdHospitalSearchFilterClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-search-filter-clicked'
+						        }
+						        GTM.sendEvent({ data: gtmData })
+
+			              	this.setState({toggleFilterPopup: true})
+			              }}><img src="https://cdn.docprime.com/cp/assets/img/filter.svg" style={{ width: '18px', marginRight: '5px' }} /><span>Filter</span></div>
 			           </div>
 		           </div>
 		           <ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={seoData} lab_card={false} seoFriendly={false}/>

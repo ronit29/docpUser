@@ -26,7 +26,7 @@ class BannerCarousel extends React.Component {
                         curr_index = 0
                     }
                 }
-                this.setState({ index: curr_index, intervalFlag: !this.state.intervalFlag })
+                this.setState({ index: curr_index, intervalFlag: true })
             }, 5000)
         }
     }
@@ -207,8 +207,8 @@ class BannerCarousel extends React.Component {
         if (elapsedTime <= 400) {
             if (Math.abs(this.state.distX) >= 50 && Math.abs(this.state.distY) <= 100) {
                 if (this.state.distX < 0) {
-                    if (this.props.offerList) {
-                        totalOffers = this.props.offerList.filter(x => x.slider_location === 'home_page').length;
+                    if (this.props.offerList && this.props.sliderLocation) {
+                        totalOffers = this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length;
                         curr_index = this.state.index
                         curr_index = curr_index + 1
                         if (curr_index >= totalOffers) {
@@ -217,8 +217,8 @@ class BannerCarousel extends React.Component {
                         this.setState({ index: curr_index, intervalFlag: false })
                     }
                 } else {
-                    if (this.props.offerList) {
-                        totalOffers = this.props.offerList.filter(x => x.slider_location === 'home_page').length;
+                    if (this.props.offerList && this.props.sliderLocation) {
+                        totalOffers = this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length;
                         curr_index = this.state.index
                         curr_index = curr_index - 1
                         if (curr_index < 0) {
@@ -251,7 +251,7 @@ class BannerCarousel extends React.Component {
                         :
                         <div className={this.props.hideClass ? `banner-carousel-div mrt-20 mrb-20 ${this.props.hideClass}` : `banner-carousel-div mrt-10 mrb-20`}>
                             {
-                                this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length ?
+                                offerVisible && this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length?
                                     <img src={offerVisible.image} onTouchStart={this.onTouchStart.bind(this)} onTouchMove={this.onTouchMove.bind(this)} onTouchEnd={this.onTouchEnd.bind(this)} onClick={() => this.navigateTo(offerVisible)} style={offerVisible.url ? { cursor: 'pointer' } : {}} />
                                     : ''
                             }
