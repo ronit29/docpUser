@@ -7,7 +7,14 @@ const queryString = require('query-string')
 
 class HospitalDetail extends React.Component {
 
-	
+	static loadData(store, match, query){
+		return store.dispatch(getHospitaDetails(match.params.hospitalId, null))
+	}
+
+	static contextTypes = {
+        router: () => null
+    }
+
 	componentDidMount(){
 		if(window){
 			window.scrollTo(0,0)

@@ -13,6 +13,18 @@ class IpdInfoContainer extends React.Component{
 		}
 	}
 
+	static loadData(store, match, query) {
+        /*let title = match.url
+        title = title.substring(1, title.length).toLowerCase()*/
+        let ipd_id = query && query.ipd_id?query.ipd_id:''
+
+        return store.dispatch(getIpdInfo(ipd_id, null))
+    }
+
+    static contextTypes = {
+        router: () => null
+    }
+
 	componentDidMount(){
 		const parsed = queryString.parse(this.props.location.search)
 		if(parsed.ipd_id){

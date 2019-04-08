@@ -166,10 +166,10 @@ let routes = [
     { path: '/prime/booking', exact: true, component: PrimeCareBooking },
     { path: '/prime/success', exact: true, component: PrimeCareSuccess },
     { path: '/compare', exact:true, component: Compare},
-    { path: '/ipdInfo', exact: true, component: IPDInfo},
+    { path: '/ipdInfo', exact: true, component: IPDInfo , RENDER_ON_SERVER: true },
     { path: '/ipd/:id/getPriceEstimate',exact: true, component: IpdForm},
     { path: '/ipd/searchHospitals',exact: true, component: IpdHospitalSearch},
-    { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail},
+    { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail, RENDER_ON_SERVER: true },
     { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail }
 ]
 

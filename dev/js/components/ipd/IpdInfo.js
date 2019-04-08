@@ -32,6 +32,7 @@ class IpdView extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'IPDInfoPageLanded', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-info-page-landed', selectedId: this.props.ipd_id || ''
         }
         GTM.sendEvent({ data: gtmData })
+	        
 
 		Object.keys(this.refs).forEach((prp, i) => {
 			
@@ -138,7 +139,7 @@ class IpdView extends React.Component {
 
 		return(                  		
            <div className ="ipd-section ipdSection">
-           	  <h4 className="section-heading top-sc-head"> <span className="about-head"> {`${this.props.ipd_info?this.props.ipd_info.about.name:''}`} </span>
+           	  <h4 className="section-heading top-sc-head"> <span className="about-head"> {`${this.props.ipd_info?`${this.props.ipd_info.about.name} ${this.props.selectedLocation && this.props.selectedLocation.locality?`in ${this.props.selectedLocation.locality}`:''}  `:''}`} </span>
 					</h4>
               <div className="full-widget mrg-b0 stickyBar">
                  <nav className="tab-head">
@@ -176,7 +177,7 @@ class IpdView extends React.Component {
 					<div id="doctorTab" ref="doctorTab" className="tab-pane fade nav_top_bar">
 						{
 							this.props.ipd_info && this.props.ipd_info.doctors && this.props.ipd_info.doctors.result  && this.props.ipd_info.doctors.result.length && this.props.ipd_info.about && this.props.ipd_info.about.name?
-							<h4 className="section-heading">{`Top Doctors for ${this.props.ipd_info.about.name} `}</h4>
+							<h4 className="section-heading">{`Top Doctors for ${this.props.ipd_info.about.name} ${this.props.selectedLocation && this.props.selectedLocation.locality?`in ${this.props.selectedLocation.locality}`:''} `}</h4>
 							:''	
 						}
 	                    {

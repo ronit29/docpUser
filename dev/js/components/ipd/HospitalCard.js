@@ -3,6 +3,10 @@ import React from 'react'
 
 class HospitalCard extends React.Component {
 
+   toggleProviderPopup(data){
+      this.props.toggleProviderFilter(data)
+   }
+
 	render(){
 		let { data } = this.props
 		let distance = data && data.distance?(Math.round(data.distance) / 1000).toFixed(1):null
@@ -28,7 +32,7 @@ class HospitalCard extends React.Component {
                      </div>*/}
                   </div>
                   <div className="right-side-info">
-                     <img src={data.logo} alt="" className="img-fluid img-hospital" />
+                     <img src={data.logo} className="img-fluid img-hospital" alt={data.name} title={data.name}/>
                   </div>
                </div>
 
@@ -49,7 +53,7 @@ class HospitalCard extends React.Component {
                   <div className="right-side-info">
                      {
                         data.count_of_insurance_provider?
-                        <p className="ins-provider"><img src={ASSETS_BASE_URL + "/images/green-tick.png"} alt="" className="img-tick" />{data.count_of_insurance_provider} Health Insurance Providers</p>
+                        <p className="ins-provider" onClick={this.toggleProviderPopup.bind(this, data.insurance_provider)}><img src={ASSETS_BASE_URL + "/images/green-tick.png"} alt="" className="img-tick" />{data.count_of_insurance_provider} Health Insurance Providers</p>
                         :''
                      }
                      <a href="javascript:void(0);" onClick={()=>this.props.getCostEstimateClicked(data.id)} className="btn-estimate">Get Cost Estimate</a>
