@@ -13,7 +13,9 @@ const queryString = require('query-string');
         this.state={
           checked:false,
           tabsValue:[],
-          viewAll:true
+          viewAll:true,
+          isDiffChecked:false,
+          isDiffTest:''
         }
     }
 
@@ -86,16 +88,29 @@ const queryString = require('query-string');
     toggleShowDiff(){
       let ids=[]
       let info=[]
+      let info_first=''
       this.props.data.category_info.map((cat_info, i) => {
-          console.log('catid='+cat_info.id)
-        this.props.data.packages.map((cat_count, j) => {
-          console.log('pkg id='+cat_count.id)
-            info = cat_count.category_parameter_count.filter(x=> x.id==cat_info.id)
-            console.log(info)
+        info = []
+        cat_info.test_ids.map((test_id, k) => {
+            this.props.data.packages.map((pkg_test, n) => {
+              info=info.concat(pkg_test.tests_included.filter(x=> x.test_id == test_id))
+          })                                                                  
+            info.map((info,k) =>{
+              if(k == 0){
+                info_first = info.available
+              }
+              if(info_first == info.available){
+                ids.push(info.test_id)
+              }
+            })
         })
-
       })
-
+      if(this.state.isDiffChecked){
+        this.setState({isDiffTest:[],isDiffChecked:!this.state.isDiffChecked})
+      }else{
+        this.setState({isDiffTest:ids,isDiffChecked:!this.state.isDiffChecked})
+      }
+      
     }
 
     render() {
@@ -117,7 +132,7 @@ const queryString = require('query-string');
                           <div className="tgle-btn">
                             <label className="switch">
                               <span className="tgle-btn-txt"> Show Difference</span>
-                              <input type="checkbox" onClick={this.toggleShowDiff.bind(this)} />
+                              <input type="checkbox" checked={this.state.isDiffChecked} onClick={this.toggleShowDiff.bind(this)} />
                               <span className="slider round"></span>
                             </label>
                           </div>
@@ -175,7 +190,7 @@ const queryString = require('query-string');
                                         {
                                           cat_info.test_ids.map((test_id, k) => {
                                               testData= self.props.data.test_info.filter(x=> x.id == test_id)
-                                               return <div key={k}>
+                                               return <div key={k} id= {testData[0].id} className={this.state.isDiffChecked && this.state.isDiffTest.indexOf(testData[0].id) == -1?'d-none':''}>
                                                         <div className="pkg-crd-header light-orng-header grey-head test-done">
                                                           <span>{testData[0].name}</span>
                                                           <span className={this.state.tabsValue.indexOf(testData[0].id) > -1 ? 'acrd-arw-rotate span-img' : 'acrd-show span-img'} onClick={this.ButtonHandler.bind(this,testData[0].id)}><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
