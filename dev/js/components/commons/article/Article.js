@@ -384,7 +384,7 @@ class Article extends React.Component {
                                                 return <div key={key}>
                                                         {
                                                             val.content.lat && val.content.lng && val.content.location_name?
-                                                                <CommonSearch {...this.props} location={val.content.location_name} />
+                                                                <CommonSearch {...this.props} location={val.content.location_name} latitude='30.7333' longitude='76.7794'/>
                                                                 :<LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName={locationName} articleSearchPage={true} specialityName='12METALOGY'/>        
                                                         }
                                                 </div>

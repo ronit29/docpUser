@@ -93,7 +93,7 @@ class CommonSearch extends React.Component {
         let IPD_TYPES = ['ipd']
 
         if (this.props.latitude && this.props.longitude) {
-            _getlocationFromLatLong(latitude, longitude, 'city', (locationData) => {
+            _getlocationFromLatLong(this.props.latitude, this.props.longitude, 'city', (locationData) => {
                 if (locationData) {
                     this.props.selectLocation(locationData, 'geoip', true)
                 }
