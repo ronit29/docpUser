@@ -21,10 +21,22 @@ class LocationElementsView extends React.Component {
         if (props.selectedLocation && this.props.selectedLocation) {
             if (this.state.search) {
                 if (props.selectedLocation != this.props.selectedLocation) {
-                    this.setState({ location_object: props.selectedLocation, search: props.selectedLocation.formatted_address })
+
+                    if(props.articleSearchPage){
+                        this.setState({ location_object: props.selectedLocation })
+                    }else{
+                        this.setState({ location_object: props.selectedLocation, search: props.selectedLocation.formatted_address })    
+                    }
+                    
                 }
             } else if (!props.locationType.includes("geo")) {
-                this.setState({ location_object: props.selectedLocation, search: props.selectedLocation.formatted_address })
+
+                if(props.articleSearchPage){
+                    this.setState({ location_object: props.selectedLocation })
+                }else{
+                    this.setState({ location_object: props.selectedLocation, search: props.selectedLocation.formatted_address })    
+                }
+
             }
         }
     }
@@ -32,7 +44,13 @@ class LocationElementsView extends React.Component {
     componentDidMount() {
         this.props.onRef(this)
         if (this.props.locationType && !this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
-            this.setState({ location_object: this.props.selectedLocation, search: this.props.locationName || this.props.selectedLocation.formatted_address })
+
+            if(this.props.articleSearchPage){
+
+            }else{
+                this.setState({ location_object: this.props.selectedLocation, search: this.props.locationName || this.props.selectedLocation.formatted_address })    
+            }
+            
         }
 
         // if (!this.props.isTopbar) {
@@ -66,7 +84,8 @@ class LocationElementsView extends React.Component {
     onfocus() {
         if (!this.props.isTopbar) {
             let search_val = ""
-            if (this.props.locationType && !this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+
+            if (this.props.locationType && !this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address && !this.props.articleSearchPage) {
                 search_val = this.props.locationName || this.props.selectedLocation.formatted_address
             }
             if (this.state.search == search_val) {
@@ -80,7 +99,13 @@ class LocationElementsView extends React.Component {
         if (!this.props.isTopbar) {
             if (!this.state.search) {
                 if (this.props.locationType && !this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
-                    this.setState({ location_object: this.props.selectedLocation, search: this.props.locationName || this.props.selectedLocation.formatted_address })
+
+                    if(this.props.articleSearchPage){
+                        this.setState({ location_object: this.props.selectedLocation })
+                    }else{
+                        this.setState({ location_object: this.props.selectedLocation, search: this.props.locationName || this.props.selectedLocation.formatted_address })    
+                    }
+                    
                 }
                 this.props.getCityListLayout()
             }
@@ -215,7 +240,7 @@ class LocationElementsView extends React.Component {
             return <div className="articleTypeloc">
                 <div className="articleInputContainer">
                     <button className="artc-btn-lft artc-disable" tooltip={this.props.specialityName}>{this.props.specialityName}</button>
-                    <input className="artc-inp-loc" type="text"  autoComplete="off" placeholder="Location" value={this.state.search} onChange={this.inputHandler.bind(this)} id="doc-input-field" onBlur={this.onblur.bind(this)} onFocus={this.onfocus.bind(this)} />
+                    <input className="artc-inp-loc" type="text"  autoComplete="off" placeholder="Location" value={this.state.search} onChange={this.inputHandler.bind(this)} id="doc-input-field" onFocus={this.onfocus.bind(this)} onBlur={this.onblur.bind(this)}/>
                 </div>
             </div>
         }

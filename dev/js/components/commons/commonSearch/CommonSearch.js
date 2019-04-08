@@ -231,10 +231,7 @@ class CommonSearch extends React.Component {
 
         this.props.mergeOPDState(state, true)
 
-        this.props.history.push({
-            pathname: '/opd/searchresults',
-            state: { search_back: true }
-        })
+        this.props.history.push('/opd/searchresults')
     }
 
     searchProceedLAB(lab_name = "", show_all_labs) {
@@ -259,10 +256,7 @@ class CommonSearch extends React.Component {
         }
         GTM.sendEvent({ data: data })
 
-        this.props.history.push({
-            pathname: '/lab/searchresults',
-            state: { search_back: true }
-        })
+        this.props.history.push('/lab/searchresults')
     }
 
     render(){

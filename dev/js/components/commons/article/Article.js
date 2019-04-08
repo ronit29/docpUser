@@ -191,7 +191,7 @@ class Article extends React.Component {
             locationName = this.props.selectedLocation.formatted_address
         }
 
-        let body = { 'body': [{ 'type': 'html', content: '<div>Helo</div>' }, { 'type': 'search_widget', content: { lat: '', lng: 60, specialization_id: 343, location_name: 'Sector 44, Gurgaon ' } }] }
+        let body = { 'body': [{ 'type': 'html', content: '<div>Helo</div>' }, { 'type': 'search_widget', content: { lat: '12', lng: 60, specialization_id: 343, location_name: 'Sector 44, Gurgaon ' } }] }
 
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
