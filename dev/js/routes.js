@@ -7,7 +7,9 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import HelmetTags from './components/commons/HelmetTags'
 
 import Loadable from 'react-loadable'
-const loading = () => <div></div>
+const loading = () => <div class="loading_Linebar_container">
+    <div class="loading_bar_line"></div>
+</div>
 
 /**
  * OPD ROUTES
