@@ -309,8 +309,8 @@ class DoctorProfileCard extends React.Component {
                             {
                                 google_rating && !average_rating ?
                                     <div className="d-flex align-items-center" style={{ paddingLeft: 20, marginBottom: 8 }}>
-                                        <img src={ASSETS_BASE_URL + '/img/googleRw.png'} style={{ width: 100, marginRight: 4 }} />
                                         <RatingStars average_rating={avgGoogleRating} rating_count={googleRatingCount} width="12px" height="12px" />
+                                        <img src={ASSETS_BASE_URL + '/img/googleRw.png'} style={{ width: 100, marginLeft: 6 }} />
                                     </div> : ''
                             }
                             {

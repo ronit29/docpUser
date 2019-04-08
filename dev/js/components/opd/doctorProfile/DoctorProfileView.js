@@ -423,7 +423,7 @@ class DoctorProfileView extends React.Component {
                                                                                 <div className="googleReviewcard">
                                                                                     <img src={ASSETS_BASE_URL + "/img/googleRw.png"} />
                                                                                     {
-                                                                                        selectedClinicName ? <p>Reviews for<span>{selectedClinicName}</span></p> : ''
+                                                                                        selectedClinicName ? <p>Ratings for<span>{selectedClinicName}</span></p> : ''
                                                                                     }
                                                                                 </div>
                                                                                 <div className="feed-back-container">
