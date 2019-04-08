@@ -323,13 +323,16 @@ class TopBar extends React.Component {
                                     </div>
                                 </div>
                         */}
-                        <div className="top-filter-tab-container">
-                            <div className="top-filter-tabs-select" onClick={this.props.comparePackage.bind(this)}><img src={ASSETS_BASE_URL + "/images/packageCompare/comapre.png"} alt="" style={{width: 16}} /> Compare </div>
-                            <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}>
-                                  <img className="sort-filter" src={ASSETS_BASE_URL + "/images/packageCompare/filtersort.png"} alt="" style={{width: 13}} /> 
-                                  <span>Sort / Filter</span> 
+                        {
+                            this.props.forTaxSaver?''
+                            :<div className={"top-filter-tab-container" +(this.props.isComparable !=''?' d-none':'')}>
+                                <div className="top-filter-tabs-select" onClick={this.props.comparePackage.bind(this)}><img src={ASSETS_BASE_URL + "/images/packageCompare/comapre.png"} alt="" style={{width: 16}} /> Compare </div>
+                                <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}>
+                                      <img className="sort-filter" src={ASSETS_BASE_URL + "/images/packageCompare/filtersort.png"} alt="" style={{width: 13}} /> 
+                                      <span>Sort / Filter</span> 
+                                </div>
                             </div>
-                        </div>
+                        }
                     </section>
 
                    

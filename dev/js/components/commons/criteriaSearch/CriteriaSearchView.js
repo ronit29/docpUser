@@ -174,14 +174,13 @@ class CriteriaSearchView extends React.Component {
                 ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-empty.svg'} className="rating-star" />)
             }
         }
-
         return (
             <div className="profile-body-wrap">
                 {
                     this.props.hideHeaderOnMobile ? <div className="hide-762"><ProfileHeader showSearch={true} /></div> : <ProfileHeader showSearch={true} />
                 }
 
-                <section className={"container parent-section book-appointment-section" + (this.props.hideHeaderOnMobile ? " mp0" : "") + (this.props.isPackage?" pkgComapre":"")}>
+                <section className={"container parent-section book-appointment-section" + (this.props.hideHeaderOnMobile ? " mp0" : "") + (this.props.isPackage && this.props.isComparable == ''?" pkgComapre":"")}>
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 

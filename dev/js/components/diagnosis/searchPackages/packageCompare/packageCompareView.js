@@ -114,7 +114,6 @@ const queryString = require('query-string');
                           {
                             this.props.data.packages?
                               this.props.data.packages.map((packages, i) => {
-                                console.log(packages)
                                 return <li key={i}>
                                      <img src={ASSETS_BASE_URL + "/images/packageCompare/red-cut.png"} alt="" className="end-div" onClick={this.toggleComparePackages.bind(this,packages.id,'','','')}/>
                                     
