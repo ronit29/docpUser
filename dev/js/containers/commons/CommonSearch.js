@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import CommonSearchView from '../../components/commons/commonSearch'
-import { getElasticCriteriaResults, cloneCommonSelectedCriterias, mergeOPDState, clearExtraTests, clearAllTests, mergeLABState, toggleDiagnosisCriteria, toggleIPDCriteria } from '../../actions/index.js'
+import { getElasticCriteriaResults, cloneCommonSelectedCriterias, mergeOPDState, clearExtraTests, clearAllTests, mergeLABState, toggleDiagnosisCriteria, toggleIPDCriteria, selectLocation } from '../../actions/index.js'
 
 class CommonSearch extends React.Component {
 
@@ -82,7 +82,8 @@ const mapDispatchToProps = (dispatch) => {
         clearAllTests: () => dispatch(clearAllTests()),
         mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
-        toggleIPDCriteria: (criteria, forceAdd) => dispatch(toggleIPDCriteria(criteria, forceAdd))
+        toggleIPDCriteria: (criteria, forceAdd) => dispatch(toggleIPDCriteria(criteria, forceAdd)),
+        selectLocation: (location, type, fetchNewResults) => dispatch(selectLocation(location, type, fetchNewResults))
 	}
 
 }

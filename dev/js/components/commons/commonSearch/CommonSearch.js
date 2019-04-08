@@ -1,6 +1,7 @@
 import React from 'react'
 import GTM from '../../../helpers/gtm.js'
 import InitialsPicture from '../initialsPicture'
+import { _getlocationFromLatLong } from '../../../helpers/mapHelpers.js'
 
 const debouncer = (fn, delay) => {
     let timer = null
@@ -90,6 +91,14 @@ class CommonSearch extends React.Component {
         let PROCEDURE_TYPES = ['procedure_category', 'procedure']
 
         let IPD_TYPES = ['ipd']
+
+        if (this.props.latitude && this.props.longitude) {
+            _getlocationFromLatLong(latitude, longitude, 'city', (locationData) => {
+                if (locationData) {
+                    this.props.selectLocation(locationData, 'geoip', true)
+                }
+            })
+        }
 
         criteria = Object.assign({}, criteria)
 
