@@ -86,6 +86,7 @@ const queryString = require('query-string');
       let self=this
       let availableTest= []
       let testData= []
+      let cat_info_data=[]
      return (
           <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
               <ProfileHeader />
@@ -113,6 +114,7 @@ const queryString = require('query-string');
                           {
                             this.props.data.packages?
                               this.props.data.packages.map((packages, i) => {
+                                console.log(packages)
                                 return <li key={i}>
                                      <img src={ASSETS_BASE_URL + "/images/packageCompare/red-cut.png"} alt="" className="end-div" onClick={this.toggleComparePackages.bind(this,packages.id,'','','')}/>
                                     
@@ -149,8 +151,9 @@ const queryString = require('query-string');
                                           <ul className="pkgCls">
                                             {
                                               this.props.data.packages.map((cat_count, j) => {
+                                                cat_info_data = cat_count.category_parameter_count.filter(x=> x.id==cat_info.id)
                                                   return(
-                                                    <li key={j}>{cat_count.category_parameter_count[i].count}</li>)
+                                                    <li id={cat_info_data[0].id} key={j}>{cat_info_data[0].count}</li>)
                                             })}
                                           </ul>
                                         </div>
