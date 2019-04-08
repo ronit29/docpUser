@@ -121,7 +121,7 @@ const queryString = require('query-string');
      return (
           <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
               <ProfileHeader />
-                <section className="pkgComapre container">
+                <section className="pkgComapre container" style={{marginTop: 44}}>
                   <div className="row main-row parent-section-row">
                     <LeftBar />
                     {/*compare screen*/}

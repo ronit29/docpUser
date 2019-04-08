@@ -9488,6 +9488,16 @@ border-radius: 4px;
 .compare-packages .fltr-usr-image-lab{
 	width: 40px;
 }
+.pkgComapre .filter-pdng{
+	padding: 10px 0 0;
+}
+.pkgComapre .cancel-overlay-zindex{
+	z-index: 9999 !important;
+}
+.pkgComapre .widget.filter-popup{
+	height: 93%;
+	overflow: auto;
+}
 /*================= Package Compare 04-04-2019 ===================*/
 @media screen and (max-width: 1200px){
 	.last-span .span-img {
