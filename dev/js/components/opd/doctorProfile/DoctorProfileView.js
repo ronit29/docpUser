@@ -222,16 +222,23 @@ class DoctorProfileView extends React.Component {
             }
         }
 
+        let avgRating = ''
+        let ratingCount = ''
+        if (this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].rating_graph && this.props.DOCTORS[doctor_id].rating_graph.avg_rating && this.props.DOCTORS[doctor_id].rating_graph.rating_count) {
+            avgRating = this.props.DOCTORS[doctor_id].rating_graph.avg_rating;
+            ratingCount = this.props.DOCTORS[doctor_id].rating_graph.rating_count;
+        }
+
         let show_google_rating = Object.values(google_rating).length > 0
 
         //Get Selected Clinic/Hospital Name
         let selectedClinicName = ''
 
-        if(this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length && this.state.selectedClinic) {
+        if (this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length && this.state.selectedClinic) {
 
-            let selectedClinicInfo = this.props.DOCTORS[doctor_id].hospitals.filter(x=>x.hospital_id == this.state.selectedClinic)
+            let selectedClinicInfo = this.props.DOCTORS[doctor_id].hospitals.filter(x => x.hospital_id == this.state.selectedClinic)
 
-            selectedClinicName = selectedClinicInfo.length?selectedClinicInfo[0].hospital_name:''
+            selectedClinicName = selectedClinicInfo.length ? selectedClinicInfo[0].hospital_name : ''
         }
 
         return (
@@ -405,7 +412,7 @@ class DoctorProfileView extends React.Component {
                                                                 details={this.props.DOCTORS[doctor_id]}
                                                             />
                                                             {
-                                                                this.props.DOCTORS[doctor_id].display_rating_widget ?
+                                                                avgRating >= 4 || ratingCount >= 5 ?
                                                                     <RatingReviewView id={doctor_id} content_type={2} {...this.props} />
                                                                     : show_google_rating ?
                                                                         <div className="widget-panel">

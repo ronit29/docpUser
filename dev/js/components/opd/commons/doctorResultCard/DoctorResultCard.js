@@ -138,7 +138,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, new_schema, enabled_for_online_booking, discounted_price, parent_url, average_rating, rating_count } = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, new_schema, enabled_for_online_booking, discounted_price, parent_url, average_rating, rating_count, google_rating } = this.props.details
 
         let enabled_for_hospital_booking = true
         let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
@@ -299,6 +299,13 @@ class DoctorProfileCard extends React.Component {
                                         <span> &amp; {hospital_count - 1} More </span> : ''
                                 }
                             </h3>
+                            {
+                                google_rating && !average_rating ?
+                                    <div style={{ paddingLeft: 20 }}>
+                                        <img src={ASSETS_BASE_URL + '/img/googleRw.png'} style={{ width: 100 }} />
+                                        <RatingStars average_rating={google_rating} width="12px" height="12px" />
+                                    </div> : ''
+                            }
                             {
                                 parent_url && parent_url.length ?
                                     <a href={parent_url} onClick={
