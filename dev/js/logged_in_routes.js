@@ -19,7 +19,11 @@ import OrderSummary from './containers/commons/OrderSummary'
 import MobileViewChat from './components/commons/mobileViewChat/MobileViewChat'
 import RatingsView from './containers/commons/RatingsView.js'
 import MyRatings from './containers/commons/MyRatings.js'
-import Offers from './containers/commons/Offers';
+import Offers from './containers/commons/Offers'
+import PrimeCare from './containers/care/primeCare.js'
+import PrimeCareBooking from './containers/care/primeCareBooking.js'
+import PrimeCareSuccess from './containers/care/primeCareSuccess.js'
+import Compare from './containers/commons/ComparePackages.js'
 
 export {
     // UserProfile,
@@ -44,4 +48,8 @@ export {
     RatingsView,
     MyRatings,
     Offers,
+    PrimeCare,
+    PrimeCareBooking,
+    PrimeCareSuccess,
+    Compare,
 }
