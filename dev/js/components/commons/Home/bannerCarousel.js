@@ -321,37 +321,37 @@ class BannerCarousel extends React.Component {
                     this.props.filterCriteria && Object.entries(this.props.filterCriteria).map((data, key) => {
                         let type = data[0]
                         if (type == 'priceRange') {
-                            if (offer.url_params_included['min_fees'] && offer.url_params_included['min_fees'] >= data[1][0]) {
+                            if (offer.url_params_excluded['min_fees'] && offer.url_params_excluded['min_fees'] >= data[1][0]) {
                                 show_banner = false
                             }
-                            if (offer.url_params_included['max_fees'] && offer.url_params_included['max_fees'] <= data[1][1]) {
+                            if (offer.url_params_excluded['max_fees'] && offer.url_params_excluded['max_fees'] <= data[1][1]) {
                                 show_banner = false
                             }
                         } else if (type == 'distanceRange') {
-                            if (offer.url_params_included['min_distance'] && offer.url_params_included['min_distance'] >= data[1][0]) {
+                            if (offer.url_params_excluded['min_distance'] && offer.url_params_excluded['min_distance'] >= data[1][0]) {
                                 show_banner = false
                             }
-                            if (offer.url_params_included['max_distance'] && offer.url_params_included['max_distance'] <= data[1][1]) {
+                            if (offer.url_params_excluded['max_distance'] && offer.url_params_excluded['max_distance'] <= data[1][1]) {
                                 show_banner = false
                             }
                         } else if (type == 'sort_on') {
-                            if (offer.url_params_included['sort_on'] && offer.url_params_included['sort_on'].includes(data[1])) {
+                            if (offer.url_params_excluded['sort_on'] && offer.url_params_excluded['sort_on'].includes(data[1])) {
                                 show_banner = false
                             }
                         } else if (type = 'lab_name') {
-                            if (offer.url_params_included['lab_name'] && offer.url_params_included['lab_name'].includes(data[1])) {
+                            if (offer.url_params_excluded['lab_name'] && offer.url_params_excluded['lab_name'].includes(data[1])) {
                                 show_banner = false
                             }
                         } else if (type = 'network_id') {
-                            if (offer.url_params_included['network_id'] && offer.url_params_included['network_id'] == data[1]) {
+                            if (offer.url_params_excluded['network_id'] && offer.url_params_excluded['network_id'] == data[1]) {
                                 show_banner = false
                             }
                         } else if (type = 'is_available') {
-                            if (offer.url_params_included['is_available'] && offer.url_params_included['is_available'] == true) {
+                            if (offer.url_params_excluded['is_available'] && offer.url_params_excluded['is_available'] == true) {
                                 show_banner = false
                             }
                         } else if (type = 'is_female') {
-                            if (offer.url_params_included['is_female'] && offer.url_params_included['is_female'] == true) {
+                            if (offer.url_params_excluded['is_female'] && offer.url_params_excluded['is_female'] == true) {
                                 show_banner = false
                             }
                         }
