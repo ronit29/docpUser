@@ -8125,6 +8125,7 @@ a.btn-search.btn-cnte{
     .ipd-section .read-more-btn{
 		right: -83%;
 	}
+	
 }
 @media screen and (max-width: 576px){
 	.btn-search-div.btn-apply-div.btn-sbmt {
@@ -8289,6 +8290,29 @@ a.btn-search.btn-cnte{
 .star-img{
     width: 14px;
     vertical-align: 0px;
+}
+.multiple-pkgs.pkmkbTwo ul li{
+	width: 50%;
+}
+.addnewpkg{
+	background: #feede0;
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    font-size: 34px;
+    color: #f78631;
+    border-radius: 50%;
+}
+.addnewpkg span{
+	display: block;
+    margin-top: -2px;
+}
+.addnewpkg-txt{
+	font-size: 14px;
+    color: #f78631;
+    font-weight: 500;
+    line-height: 21px;
+    margin-top: 10px;
 }
 
 

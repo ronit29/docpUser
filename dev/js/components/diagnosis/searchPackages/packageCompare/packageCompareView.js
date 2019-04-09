@@ -145,8 +145,8 @@ const queryString = require('query-string');
                             <a onClick={()=> this.props.history.go(-1)} className="add-more-packages"> + Add More </a>
                           </div>
                         </div>
-                        <div className="multiple-pkgs">
-                          <ul className={"pkgCls pkmkb" + (this.props.data.packages.length <= 2?' pkmkbTwo':'')}>  
+                        <div className={"multiple-pkgs"+ (this.props.data.packages.length <= 2?' pkmkbTwo':'')}>
+                          <ul className="pkgCls pkmkb">  
                           {
                             this.props.data.packages?
                               this.props.data.packages.map((packages, i) => {
@@ -167,7 +167,10 @@ const queryString = require('query-string');
                           }
                           {
                             this.props.data.packages && this.props.data.packages.length == 1?
-                                <li onClick={this.addMore.bind(this)}>Add one more to compare</li>
+                                <li onClick={this.addMore.bind(this)} style={{paddingTop:30, paddingBottom:30}}>
+                                      <div className="addnewpkg"><span className="add-plus">+</span></div>
+                                      <p className="addnewpkg-txt">Add one more <br />to compare</p>
+                                </li>
                             :''
                           }
                           </ul>
@@ -187,7 +190,7 @@ const queryString = require('query-string');
                                         <span className={this.state.tabsValue.indexOf(cat_info.id) > -1 ? 'acrd-arw-rotate span-img' : 'acrd-show span-img'} onClick={this.ButtonHandler.bind(this,cat_info.id)}><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                                       </div>
                                       <div className={this.state.tabsValue.indexOf(cat_info.id) > -1 ? 'd-none' : ''}>
-                                        <div className="top-head-info multiple-pkgs parent-info category-done">
+                                        <div className={"top-head-info multiple-pkgs parent-info category-done" + (this.props.data.packages.length <= 2?' pkmkbTwo':'')}>
                                           <ul className="pkgCls">
                                             {
                                               this.props.data.packages.map((cat_count, j) => {
@@ -219,7 +222,7 @@ const queryString = require('query-string');
                                                               }
                                                             </ul>
                                                           </div>*/}
-                                                              <div className="top-head-info multiple-pkgs multiple-pkgs-details">
+                                                              <div className={"top-head-info multiple-pkgs multiple-pkgs-details" + (this.props.data.packages.length <= 2?' pkmkbTwo':'')}>
                                                                 <ul className="pkgCls">
                                                                 {    
                                                                   self.props.data.packages.map((pkg_test, n) => {
