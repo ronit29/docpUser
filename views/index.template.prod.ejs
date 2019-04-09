@@ -21,7 +21,11 @@
     <meta name="google-site-verification" content="quBX02ihk16wK40RcrNrDlgdq-joSP0hKjaCVgFuYC8" />
     <link rel="icon" href="/assets/fab.png" type="image/png" sizes="16x16">
     <link rel="manifest" href="/assets/manifest.json">
-
+    
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://dis.as.criteo.com">
+    <link rel="preconnect" href="https://gum.criteo.com">
+    <link rel="preconnect" href="https://sslwidget.criteo.com">
 
     <!-- fonts -->
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
@@ -92,6 +96,9 @@
         t.async=1;t.src=e;s=i.getElementsByTagName(g)[0];s.parentNode.insertBefore(t, s);
     })(window, document, '_gscq','script','//widgets.getsitecontrol.com/164492/script.js');
     </script>
+    <% for(var i=0; i<split_bundles.length; i++) {%>
+        <script src="<%-split_bundles[i].publicPath%>"></script>
+    <% } %>
 </body>
 
 </html>

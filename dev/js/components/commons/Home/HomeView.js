@@ -59,11 +59,15 @@ class HomeView extends React.Component {
 		CRITEO.sendData(data)
 
 	}
+	
 
-	navigateTo(where, data, e) {
+	navigateTo(where,type, data, e) {
 		if (e) {
 			e.preventDefault()
 			e.stopPropagation()
+		}
+		if (type) {
+			this.props.selectSearchType(type)
 		}
 		if (where == '/chat') {
 			this.props.history.push(where, data)
@@ -174,6 +178,10 @@ class HomeView extends React.Component {
 		this.props.history.push('/doctorsignup')
 	}
 
+	navigateToOnline(){
+		document.getElementById('cstbox').focus();
+	}
+
 	render() {
 
 		let profileData = this.props.profiles[this.props.selectedProfile]
@@ -195,7 +203,7 @@ class HomeView extends React.Component {
 			slabOrder.push(
 				<div className="col-md-5">
 					<div className="right-card-container">
-						<UpComingAppointmentView {...this.props}/>
+						<UpComingAppointmentView {...this.props} />
 						<HomePageWidget
 							heading="Find a Doctor"
 							discount="50%"
@@ -221,7 +229,7 @@ class HomeView extends React.Component {
 			slabOrder.push(
 				<div className="col-md-5">
 					<div className="right-card-container">
-					<UpComingAppointmentView {...this.props}/>
+						<UpComingAppointmentView {...this.props} />
 						<HomePageWidget
 							heading="Book a Test"
 							discount="50%"
@@ -265,7 +273,7 @@ class HomeView extends React.Component {
 			slabOrder.push(
 				<div className="col-md-5">
 					<div className="right-card-container">
-					<UpComingAppointmentView {...this.props}/>
+						<UpComingAppointmentView {...this.props} />
 						{/* {
                             !!!profileData ?
                                 <div className="home-signup-banner" onClick={this.gotToSignup.bind(this)}>
@@ -354,7 +362,33 @@ class HomeView extends React.Component {
 
 				<ProfileHeader homePage={true} showSearch={true} />
 
-				<div className="sub-header mrg-top"></div>
+				{/* <div className="sub-header mrg-top"></div> */}
+				<div className="headerSubLinkContainer">
+					<div className="container">
+						<div className="head_text_container">
+							<p onClick={(e) => {
+								e.preventDefault();
+								this.navigateTo("/search?from=footer", 'opd')
+							}}>Find Doctor</p>
+							<p onClick={(e) => {
+								e.preventDefault();
+								this.navigateTo("/search?from=footer", 'lab')
+							}}>Lab Tests</p>
+							<p onClick={(e) => {
+								e.preventDefault();
+								this.navigateTo('/searchpackages')
+							}}>Health Package</p>
+							<p onClick={(e) => {
+								e.preventDefault();
+								this.navigateToOnline()
+							}}>Online Consultation</p>
+							{/* <p onClick={(e) => {
+								e.preventDefault();
+								this.navigateTo('/contact')
+							}}>Contact us</p> */}
+						</div>
+					</div>
+				</div>
 				<div className="chat-main-container">
 					<div className="container">
 						<div className="row">

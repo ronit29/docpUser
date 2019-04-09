@@ -338,10 +338,10 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	let test_ids = filterCriteriaPackages.test_ids || ""
 	let package_ids = filterCriteriaPackages.package_ids || ""
 	let package_category_id
-	let url = `/api/v1/diagnostic/package_list?`
+	let url = `/api/v1/diagnostic/packagelist?`
 
 	if (searchByUrl) {
-		url = `/api/v1/diagnostic/package_list?url=${searchByUrl.split('/')[1]}&`
+		url = `/api/v1/diagnostic/packagelist?url=${searchByUrl.split('/')[1]}&`
 	}
 
 	if (forTaxSaver) {
