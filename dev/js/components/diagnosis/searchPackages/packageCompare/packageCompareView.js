@@ -144,9 +144,12 @@ const queryString = require('query-string');
                               <span className="slider round"></span>
                             </label>
                           </div>
+                          {
+                            this.props.data.packages && this.props.data.packages.length != 1?
                           <div className="">
                             <a onClick={()=> this.props.history.go(-1)} className="add-more-packages"> + Add More </a>
                           </div>
+                          :''}
                         </div>
                         <div className="multiple-pkgs">
                           <ul className={"pkgCls pkmkb" + (this.props.data.packages.length <= 2?' pkmkbTwo':'')}>  
