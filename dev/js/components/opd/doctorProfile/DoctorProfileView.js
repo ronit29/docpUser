@@ -419,16 +419,16 @@ class DoctorProfileView extends React.Component {
                                                                         <div className="widget-panel">
                                                                             <h4 className="panel-title mb-rmv">Patient Feedback <a className="rateViewAll">
                                                                             </a></h4>
-                                                                            <div className="panel-content pd-0 border-bottom-panel">
-                                                                                <div className="googleReviewcard">
+                                                                            <div className="panel-content pd-0 border-bottom-panel d-flex align-items-start">
+                                                                                <div className="googleReviewcard" style={{ flex: 1 }}>
                                                                                     <img src={ASSETS_BASE_URL + "/img/googleRw.png"} />
                                                                                     {
                                                                                         selectedClinicName ? <p>Ratings for<span>{selectedClinicName}</span></p> : ''
                                                                                     }
                                                                                 </div>
-                                                                                <div className="feed-back-container">
-                                                                                    <div className="row flx-center">
-                                                                                        <div className="col-4">
+                                                                                <div className="feed-back-container" style={{ flex: 1, marginBottom: 0 }}>
+                                                                                    <div className="row">
+                                                                                        <div className="col-12">
                                                                                             {
                                                                                                 google_rating.rating_graph && google_rating.rating_graph.avg_rating ?
                                                                                                     <RatingStars average_rating={google_rating.rating_graph.avg_rating} width="12px" height="12px" justifyCenter={true} /> : ''
