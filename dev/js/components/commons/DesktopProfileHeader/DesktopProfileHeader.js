@@ -25,7 +25,7 @@ class DesktopProfileHeader extends React.Component {
         }
     }
 
-    navigateTo(where,type) {
+    navigateTo(where, type) {
         if (type) {
             this.props.selectSearchType(type)
         }
@@ -122,7 +122,7 @@ class DesktopProfileHeader extends React.Component {
                                 <span className="top-head-link-divider">|</span>
                                 <span className="top-head-link" onClick={() => this.props.history.push('/doctorsignup')}>Add your lab</span>
                             </div>
-                            <div className="head_text_container">
+                            {/* <div className="head_text_container">
                                 <p onClick={(e) => {
                                             e.preventDefault();
                                             this.navigateTo("/search?from=footer", 'opd')
@@ -143,7 +143,7 @@ class DesktopProfileHeader extends React.Component {
                                             e.preventDefault();
                                             this.navigateTo('/contact')
                                         }}>Contact us</p>
-                            </div>
+                            </div> */}
                             <div style={{ marginLeft: 'auto' }}>
                                 <span className="top-head-text">A group company of </span>
                                 <img src={ASSETS_BASE_URL + "/img/pb-logo-window.svg"} style={{ width: 120 }} />
@@ -173,7 +173,7 @@ class DesktopProfileHeader extends React.Component {
 
                     <div className="row align-items-center">
 
-                        <div className="col-lg-3 col-md-4 col-5 align-items-center pr-0" onClick={() => {
+                        <div className="col-lg-1 col-md-4 col-5 align-items-center pr-0" onClick={() => {
                             this.props.history.push('/')
                         }}>
                             <div className="ham-menu" onClick={(e) => {
@@ -183,15 +183,15 @@ class DesktopProfileHeader extends React.Component {
                             }}>
                                 <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" />
                             </div>
-                            <a className="logo-ancher" href="/" onClick={(e) => e.preventDefault()}>
+                            <a className="logo-ancher logo-width-cut" href="/" onClick={(e) => e.preventDefault()}>
                                 <img className="logo-size d-none d-lg-block" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" />
                                 <img style={{ width: '45px', marginBottom: '5px' }} className="d-lg-none" src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" />
                             </a>
                         </div>
 
 
-                        <div className="col-lg-9 col-md-8 col-8 d-none d-lg-block ml-auto text-right p-0 pl-0">
-                            <div className="header-search-full-widht">
+                        <div className="col-lg-11 col-md-8 col-8 d-none d-lg-block ml-auto text-right p-0 pl-0">
+                            <div className="header-search-full-widht ml-20">
                                 {/* <div className="head-links" onClick={() => {
                                 let data = {
                                     'Category': 'ConsumerApp', 'Action': 'BookDoctorVisitClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'book-doctor-visit-clicked'
@@ -267,6 +267,13 @@ class DesktopProfileHeader extends React.Component {
                                             <span>Login</span>
                                         </div>
                                 }
+                                <div className="head-links" onClick={(e) => {
+                                            e.preventDefault();
+                                            this.navigateTo('/contact')
+                                        }}>
+                                    <img className="cart-icon-mbl" src={ASSETS_BASE_URL + "/img/call-header.png"} style={{ width: '18px' }} />
+                                    <span>Contact Us</span>
+                                </div>
 
                                 {
                                     profileData ? <div className="head-links" onClick={() => {
