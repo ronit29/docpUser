@@ -71,7 +71,7 @@ class PrimeCareView extends React.Component {
         if(this.props.data && Object.keys(this.props.data).length > 0){
         let self = this
         return (
-            <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
+            <div className="profile-body-wrap">
                 {/* <ProfileHeader /> */}
                 <div className="careHeaderBar">
                     <div className="container">
@@ -96,7 +96,6 @@ class PrimeCareView extends React.Component {
                         <div className="col-12 center-column">
                             <div className="container-fluid">
                                 <div className="careMainContainer mrb-15">
-                                    <h5 className="carePlanHeading">Choose a plan that’s right for your loved ones.</h5>
                                     <div className="row no-gutters">
                                         {
                                           this.props.data && this.props.data.plans && this.props.data.plans.length>0?
@@ -191,7 +190,7 @@ class PrimeCareView extends React.Component {
         )
         }else{
             return (
-                <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
+                <div className="profile-body-wrap">
                     <div className="careHeaderBar">
                         <div className="container">
                             <div className="care-logo-container">
