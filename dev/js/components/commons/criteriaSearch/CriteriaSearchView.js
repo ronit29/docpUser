@@ -7,6 +7,7 @@ import ProfileHeader from '../DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 import LocationElements from '../../../containers/commons/locationElements'
 import FixedMobileFooter from '../Home/FixedMobileFooter';
+import PackageCompareStrip from '../../diagnosis/searchPackages/packageCompare/packageCompareStrip.js'
 
 
 const debouncer = (fn, delay) => {
@@ -148,7 +149,6 @@ class CriteriaSearchView extends React.Component {
     }
 
     render() {
-
         let location = "Delhi"
         if (this.props.selectedLocation) {
             location = this.props.selectedLocation.formatted_address.slice(0, 25)
@@ -372,10 +372,15 @@ class CriteriaSearchView extends React.Component {
                     </div>
                 </section>
                 {
-                    this.props.searchPackages ?
+                    this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage?
+                        <PackageCompareStrip {...this.props} />
+                    :''
+                }
+                {
+                    this.props.searchPackages && this.props.compare_packages && this.props.compare_packages.length == 0?
                         <FixedMobileFooter searchPackagePage={true} {...this.props} />
                         :
-                        this.props.searchDoctors || this.props.searchLabs ?
+                        this.props.compare_packages && this.props.compare_packages.length == 0 && this.props.searchDoctors || this.props.searchLabs ?
                             <FixedMobileFooter {...this.props} /> : ''
                 }
             </div>
