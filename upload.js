@@ -56,7 +56,7 @@ function uploadFolder(folderPath, folderName) {
                     Key: `cp/${folderName}/${fileName}`,
                     Body: fileContent,
                     ContentType: content_type,
-                    CacheControl: 'max-age=2592000'
+                    CacheControl: 'max-age=31557600'
                 }, (res) => {
                     console.log(`Successfully uploaded '${fileName}' - ${content_type}`);
                 });
