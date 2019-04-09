@@ -8125,6 +8125,7 @@ a.btn-search.btn-cnte{
     .ipd-section .read-more-btn{
 		right: -83%;
 	}
+	
 }
 @media screen and (max-width: 576px){
 	.btn-search-div.btn-apply-div.btn-sbmt {
@@ -8289,6 +8290,27 @@ a.btn-search.btn-cnte{
 .star-img{
     width: 14px;
     vertical-align: 0px;
+}
+
+.addnewpkg{
+	background: #feede0;
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    font-size: 34px;
+    color: #f78631;
+    border-radius: 50%;
+}
+.addnewpkg span{
+	display: block;
+    margin-top: -2px;
+}
+.addnewpkg-txt{
+	font-size: 14px;
+    color: #f78631;
+    font-weight: 500;
+    line-height: 21px;
+    margin-top: 10px;
 }
 
 
@@ -9101,7 +9123,7 @@ border-radius: 4px;
 } */
 .end-div{
 	position:absolute;
-	width:12px;
+	width:15px;
 	right:9px;
 	cursor:pointer;
 }
@@ -9225,6 +9247,7 @@ border-radius: 4px;
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
 	margin-top: -1px;
+	padding-right: 0;
 }
 .multiple-pkgs li{
 	text-align: center;
@@ -9521,6 +9544,9 @@ border-radius: 4px;
 	height: 93%;
 	overflow: auto;
 }
+.comapre-active{
+	color: #f78631;
+}
 /*================= Package Compare 04-04-2019 ===================*/
 @media screen and (max-width: 1200px){
 	.last-span .span-img {
@@ -9588,7 +9614,7 @@ border-radius: 4px;
 		right:9px;
 	}
 	.multiple-pkgs ul li{
-		width:33.8%;
+		width:38%;
 	}
 	.pkgComapre .compare-packages ul li{
 		width: 27%;
@@ -9629,6 +9655,25 @@ border-radius: 4px;
     }
     .pkgComapre .compare-packages ul li{
 		width:30%;
+		padding-right: 25px;
+	}
+	.pkgComapre .compare-packages.compare-packages-one ul li,.pkgComapre .compare-packages.compare-packages-two ul li{
+		width: 50%;
+	}
+	.pkgComapre .compare-packages.compare-packages-three ul li{
+		width: 34%;
+	}
+	.multiple-pkgs.pkmkbTwo ul li{
+		width: 50%;
+	}
+	.multiple-pkgs.pkmkbThree ul li{
+		width: 33.8%;
+	}
+	.multiple-pkgs.pkmkbTwo .pkg-btn-nw{
+		width: 120px;
+	}
+	.pkg-hd{
+		width: 140px;
 	}
 }
 @media screen and (max-width: 466px){
@@ -9641,7 +9686,7 @@ border-radius: 4px;
 		margin: 11px 4px;
 	} 
 	.pkmkb .end-div{
-		right:9px;
+		right:19px;
 	}
 	.st-form{
 		font-size: 11px;
