@@ -377,7 +377,7 @@ class Insurance extends React.Component {
 
 										<div className="insurance-member-container">
 											<div className="ins-user-details-lisitng">
-												<p class="sub-form-hed">Self</p>
+												<p className="sub-form-hed">Self</p>
 												<ul className="ins-usr-img-para">
 													<li>
 														<div className="img-list-width">
@@ -411,10 +411,10 @@ class Insurance extends React.Component {
 													</li>
 												</ul>
 											</div>
-											<div class="ins-sub-forms sub-input-forms-containers">
-												<hr class="ins-internal-hr" />
+											<div className="ins-sub-forms sub-input-forms-containers">
+												<hr className="ins-internal-hr" />
 												<div className="ins-user-details-lisitng">
-													<p class="sub-form-hed">Member 2</p>
+													<p className="sub-form-hed">Member 2</p>
 													<div className="members-container-padding">
 														<div className="row">
 															<div className="col-6">

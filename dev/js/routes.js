@@ -7,8 +7,8 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import HelmetTags from './components/commons/HelmetTags'
 
 import Loadable from 'react-loadable'
-const loading = () => <div class="loading_Linebar_container">
-    <div class="loading_bar_line"></div>
+const loading = () => <div className="loading_Linebar_container">
+    <div className="loading_bar_line"></div>
 </div>
 
 /**
