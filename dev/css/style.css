@@ -8162,7 +8162,12 @@ a.btn-search.btn-cnte{
         right: 10px;
         width: auto;
         transform: translateY(-22%);
-    } 
+	} 
+	.ipd-section .custom-popup.hlth-ins-pop.ins-pop{
+		transform: translateY(-5%);
+		height: 90%;
+		overflow: auto;
+	}
     .ipd-section .custom-popup.thanks-popup{
     	transform: translateY(-44%);
     }
