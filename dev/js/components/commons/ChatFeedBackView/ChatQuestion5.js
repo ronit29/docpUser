@@ -19,8 +19,18 @@ class ChatQuestion5 extends React.Component {
 
 
 	submit(){
+		let feedback = this.props.chat_feedback.filter(x=>!x.type.includes('ques5'))
+		feedback.push({type: 'ques5', data: this.state.feedback})
 		this.props.saveChatFeedBack('ques5', this.state.feedback)
+		let roomId = this.props.chat_feedback_roomId
+		let postData = {
+			rid: roomId,
+			feedback: feedback
+		}
+
+		this.props.submitChatFeedback(postData)
 		this.props.history.push('/chat/feedback/thanks')
+		
 	}
 
 	render() {

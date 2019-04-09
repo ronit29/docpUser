@@ -1,9 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import ChatFeedBackView from '../../components/commons/ChatFeedBackView'
-import { saveChatFeedBack, submitChatFeedback } from '../../actions/index.js'
+import { saveChatFeedBack, submitChatFeedback, saveChatFeedbackRoomId } from '../../actions/index.js'
+const queryString = require('query-string');
 
 class ChatFeedBack extends React.Component {
+
+	componentDidMount(){
+		const parsed = queryString.parse(this.props.location.search)
+		if(parsed.rid){
+			this.props.saveChatFeedbackRoomId(parsed.rid)
+		}
+	}
 
 	render(){
 		return(
@@ -15,11 +23,13 @@ class ChatFeedBack extends React.Component {
 const mapStateToProps = (state) =>{
 
 	const{
-		chat_feedback
+		chat_feedback,
+		chat_feedback_roomId
 	} = state.USER
 
 	return{
-		chat_feedback
+		chat_feedback,
+		chat_feedback_roomId
 	}
 }
 
@@ -27,7 +37,8 @@ const mapDispatchToProps = ( dispatch) => {
 
 	return{
 		saveChatFeedBack: (type, data) => dispatch(saveChatFeedBack(type, data)),
-		submitChatFeedback: (postData) => dispatch(submitChatFeedback(postData))
+		submitChatFeedback: (postData) => dispatch(submitChatFeedback(postData)),
+		saveChatFeedbackRoomId: (rid) => dispatch(saveChatFeedbackRoomId(rid))
 	}
 }
 
