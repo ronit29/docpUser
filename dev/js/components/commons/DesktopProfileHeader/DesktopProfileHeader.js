@@ -25,7 +25,10 @@ class DesktopProfileHeader extends React.Component {
         }
     }
 
-    navigateTo(where) {
+    navigateTo(where,type) {
+        if (type) {
+            this.props.selectSearchType(type)
+        }
         this.props.history.push(where)
     }
 
@@ -72,7 +75,7 @@ class DesktopProfileHeader extends React.Component {
     }
 
     render() {
-
+        console.log(this.props)
         let profileData = ''
         if (this.props.profiles && this.props.defaultProfile) {
             profileData = this.props.profiles[this.props.defaultProfile]
@@ -122,11 +125,11 @@ class DesktopProfileHeader extends React.Component {
                             <div className="head_text_container">
                                 <p onClick={(e) => {
                                             e.preventDefault();
-                                            this.navigateTo("/search?from=footer")
+                                            this.navigateTo("/search?from=footer", 'opd')
                                         }}>Find Doctor</p>
                                 <p onClick={(e) => {
                                             e.preventDefault();
-                                            this.navigateTo("/search?from=footer")
+                                            this.navigateTo("/search?from=footer", 'lab')
                                         }}>Lab Tests</p>
                                 <p onClick={(e) => {
                                             e.preventDefault();

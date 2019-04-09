@@ -23,7 +23,6 @@ class LeftMenu extends React.Component {
   }
 
   render() {
-
     let user = null
     let thumbnail = null
     let memberClass = 'float-right memNew'
@@ -185,28 +184,6 @@ class LeftMenu extends React.Component {
                     : ''
                 }
               </ul>
-              <div className="seoSetText-container">
-                <p onClick={(e) => {
-                    e.preventDefault();
-                    this.props.history.push("/search?from=footer")
-                }}>Find Doctor</p>
-                <p onClick={(e) => {
-                    e.preventDefault();
-                    this.props.history.push("/search?from=footer")
-                }}>Lab Tests</p>
-                <p onClick={(e) => {
-                    e.preventDefault();
-                    this.props.history.push('/searchpackages')
-                }}>Health Package</p>
-                <p onClick={(e) => {
-                    e.preventDefault();
-                    this.props.history.push('/')
-                }}>Online Consultation</p>
-                <p onClick={(e) => {
-                    e.preventDefault();
-                    this.props.history.push("/contact")
-                }}>Contact us</p>
-              </div>
 
               {/*
                             <ul className="drop-list-menu">
