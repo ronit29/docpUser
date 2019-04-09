@@ -3,17 +3,19 @@ import HospitalCard from './HospitalCard.js'
 import GTM from '../../helpers/gtm.js'
 import InfiniteScroll from 'react-infinite-scroller';
 import Loader from '../commons/Loader'
+const queryString = require('query-string')
 
 class IpdHospitalListView extends React.Component {
 
 	constructor(props){
       super(props)
+      const parsed = queryString.parse(this.props.location.search)
       this.state = {
          toggleFilterPopup: false,
          health_insurance_provider: [],
          hasMore: true,
          loading: false,
-         page: 2
+         page: parsed && parsed.page?parseInt(parsed.page)+1||2:2
       }
    	}
 
