@@ -67,13 +67,18 @@ class SearchPackagesView extends React.Component {
         return params.get(tag)
     }
 
-    getLabList(state = null, page = 1, cb = null) {
+    getLabList(state = null, page = null, cb = null) {
+        if (page === null) {
+            page = this.props.page
+        }
         if (!state) {
             state = this.props
+        } else if (state.page) {
+            page = state.page
         }
 
         this.props.getPackages(state, page, false, null, (...args) => {
-            this.setState({ seoData: args[1] })
+            // this.setState({ seoData: args[1] })
             if (cb) {
                 cb(...args)
             } else {
@@ -143,7 +148,7 @@ class SearchPackagesView extends React.Component {
     }
 
     buildURI(state) {
-        let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, filterCriteriaPackages } = state
+        let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, filterCriteriaPackages, page} = state
         // let testIds = selectedCriterias.filter(x => x.type == 'test').map(x => x.id)
         let lat = 28.644800
         let long = 77.216721
@@ -174,7 +179,6 @@ class SearchPackagesView extends React.Component {
         let package_type=filterCriteriaPackages.packageType || ""
         let test_ids = filterCriteriaPackages.test_ids || ""
         let package_ids = filterCriteriaPackages.package_ids || ""
-        let page=1
         
         let url
         const parsed = queryString.parse(this.props.location.search)
@@ -182,7 +186,7 @@ class SearchPackagesView extends React.Component {
             let package_category_id = parsed.package_category_ids
             url = `${window.location.pathname}?lat=${lat}&long=${long}&package_category_ids=${package_category_id}`
         }else{
-            url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&page=${page}&package_ids=${package_ids}`
+            url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&package_ids=${package_ids}&page=${page}`
         }
 
         if (parsed.scrollbyid) {
@@ -190,6 +194,7 @@ class SearchPackagesView extends React.Component {
             let scrollby_lab_id = parseInt(parsed.scrollbylabid)
             url += `&scrollbyid=${scrollby_test_id || ""}&scrollbylabid=${scrollby_lab_id || ""}`
         }
+
         return url
     }
 
@@ -236,7 +241,6 @@ class SearchPackagesView extends React.Component {
     }
 
     render() {
-        let LOADED_LABS_SEARCH = true
         let self = this
         const parsed = queryString.parse(this.props.location.search)
         if(this.props.forTaxSaver && this.state.isScroll){
@@ -256,8 +260,8 @@ class SearchPackagesView extends React.Component {
                     title: `${this.props.packagesList.title || ''}`,
                     description: `${this.props.packagesList.description || ''}`
                 }} noIndex={false} />                
-                <CriteriaSearch {...this.props} checkForLoad={LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} bottom_content={this.props.packagesList && this.props.packagesList.count>0 && this.props.packagesList.bottom_content && this.props.packagesList.bottom_content !=null && this.props.forOrganicSearch? this.props.packagesList.bottom_content:''} page={1} isPackage={true}>
-                    <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} comparePackage={this.comparePackage.bind(this)} />
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} bottom_content={this.props.packagesList && this.props.packagesList.count>0 && this.props.packagesList.bottom_content && this.props.packagesList.bottom_content !=null && this.props.forOrganicSearch? this.props.packagesList.bottom_content:''} page={1} isPackage={true}>
+                    <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} comparePackage={this.comparePackage.bind(this)}/>
                     <ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
                     <PackagesLists {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} isCompare={this.state.isCompare} toggleComparePackages={this.toggleComparePackages.bind(this)} />
                 </CriteriaSearch>
