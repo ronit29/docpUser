@@ -9055,7 +9055,29 @@ border-radius: 4px;
 	background: #fff;
 	padding: 15px 10px 0;
 }
-
+.pkgComapre .compare-packages-home{
+    box-shadow: 0.8px -3.9px 12px 0 rgba(0, 0, 0, 0.12);
+	background: #fff;
+	padding: 20px 10px;
+}
+.pkgComapre .compare-packages-home{
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.li-btn-compare .pkg-btn-nw{
+	width: auto;
+	padding: 6px 20px;
+	margin-right: 10px;
+}
+.hlth-txt{
+	color: #f78361;
+	font-weight: 500;
+}
+.li-btn-compare span{
+	position: relative;
+	top: 3px;
+}
 .pkgComapre .compare-packages ul{
 	overflow-x: hidden;
 	overflow-x: auto;
