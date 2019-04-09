@@ -10,6 +10,7 @@ import App from './App.js'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { PersistGate } from 'redux-persist/integration/react'
+import Loadable from 'react-loadable';
 
 const middlewares = [thunk]
 /**
@@ -27,16 +28,21 @@ const store = createStore(
 );
 
 /**
- * Wait for persisStore to finish rehydrating, before trying to hydrate client side DOM.
- * This will only re-render nodes which are changed after merging persisted store on the
- * client side.
+ * Wait for all chunks to get merged and then bootstarp the application.
  */
-let persistor = persistStore(store, null, () => {
-    ReactDOM.hydrate(
-        <Provider store={store}>
-            <App />
-        </Provider>,
-        document.getElementById('root')
-    );
-})
+Loadable.preloadReady().then(() => {
+    /**
+     * Wait for persisStore to finish rehydrating, before trying to hydrate client side DOM.
+     * This will only re-render nodes which are changed after merging persisted store on the
+     * client side.
+     */
+    let persistor = persistStore(store, null, () => {
+        ReactDOM.hydrate(
+            <Provider store={store}>
+                <App />
+            </Provider>,
+            document.getElementById('root')
+        );
+    })
+});
 

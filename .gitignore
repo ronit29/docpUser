@@ -6,3 +6,6 @@ dist
 ./dist
 server.js
 .env
+/server
+server
+./server

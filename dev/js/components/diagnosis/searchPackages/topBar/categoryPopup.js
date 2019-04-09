@@ -109,7 +109,7 @@ class CategoryPopup extends React.Component {
                         Select Categories   
                         <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.props.closeCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>                    
                 </div>
-                <div className="terms-condition-div pop-onscreen-scroll pt-0">
+                <div className="terms-condition-div pt-0">
                  <div className="">
                     <div className="ins-form-radio insradio-on-popup">
                         <ul className="list all-test-list mrt-10">

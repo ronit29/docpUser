@@ -105,7 +105,7 @@ const mapStateToProps = (state, passedProps) => {
     } = state.SEARCH_CRITERIA_LABS
 
     let LABS = state.LABS
-    let { rated_appoinments, profiles, selectedProfile } = state.USER
+    let { rated_appoinments, profiles, selectedProfile, defaultProfile } = state.USER
 
     return {
         lab_test_data,
@@ -115,7 +115,8 @@ const mapStateToProps = (state, passedProps) => {
         profiles,
         selectedProfile,
         currentLabSelectedTests,
-        selectedLocation
+        selectedLocation,
+        defaultProfile
     }
 }
 

@@ -53,7 +53,8 @@ const defaultState = {
     upcoming_appointments:[],
     isUserCared:{},
     chat_feedback: [],
-    chat_feedback_roomId: ''
+    chat_feedback_roomId: '',
+    is_login_user_insured: null
 }
 
 export default function (state = defaultState, action) {
@@ -83,6 +84,7 @@ export default function (state = defaultState, action) {
                         newState.primaryMobile = profile.phone_number
                         newState.userName = profile.name
                     }
+                    newState.is_login_user_insured = profile.is_insured
                     newState.defaultProfile = profile.id
                 }
                 profileMap[profile.id] = profile
