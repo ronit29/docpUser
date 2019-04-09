@@ -113,6 +113,11 @@ const queryString = require('query-string');
       
     }
 
+    addMore(){
+      this.props.selectSearchType('lab')
+      this.props.history.push('/search?from=header')
+    }
+
     render() {
       let self=this
       let availableTest= []
@@ -141,7 +146,7 @@ const queryString = require('query-string');
                           </div>
                         </div>
                         <div className="multiple-pkgs">
-                          <ul className="pkgCls pkmkb">  
+                          <ul className={"pkgCls pkmkb" + (this.props.data.packages.length <= 2?' pkmkbTwo':'')}>  
                           {
                             this.props.data.packages?
                               this.props.data.packages.map((packages, i) => {
@@ -158,6 +163,11 @@ const queryString = require('query-string');
                                       <a onClick={this.bookNow.bind(this,packages.id)}><button className="pkg-btn-nw">Book Now </button></a>
                                 </li>
                               })  
+                            :''
+                          }
+                          {
+                            this.props.data.packages && this.props.data.packages.length == 1?
+                                <li onClick={this.addMore.bind(this)}>Add one more to compare</li>
                             :''
                           }
                           </ul>

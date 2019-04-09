@@ -5,6 +5,7 @@ import GTM from '../../../../helpers/gtm.js'
 import { buildOpenBanner } from '../../../../helpers/utils.js'
 import STORAGE from '../../../../helpers/storage'
 import { X_OK } from 'constants';
+import SnackBar from 'node-snackbar'
 
 class SelectedPkgStrip extends React.Component {
     constructor(props) {
@@ -15,13 +16,17 @@ class SelectedPkgStrip extends React.Component {
     }
 
     comparePackages(){
-      let selectedPkgCompareIds=[]
-        if(this.props.compare_packages){
-            this.props.compare_packages.map((packages, i) => {
-                selectedPkgCompareIds.push(packages.id)
-            })
-        }
+      if(this.props.compare_packages.length > 5){
+            SnackBar.show({ pos: 'bottom-center', text: "Max 5 packages can be compared" });
+      }else{
+        let selectedPkgCompareIds=[]
+          if(this.props.compare_packages){
+              this.props.compare_packages.map((packages, i) => {
+                  selectedPkgCompareIds.push(packages.id)
+              })
+          }
         this.props.history.push('/package/compare?package_ids='+selectedPkgCompareIds)      
+      }
     }
 
     render() {
