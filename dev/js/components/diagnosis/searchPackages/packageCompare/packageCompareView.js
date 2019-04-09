@@ -31,6 +31,9 @@ const queryString = require('query-string');
              });
           }
       }
+      if (window) {
+          window.scrollTo(0, 0)
+      }
 
     }
 
@@ -141,11 +144,14 @@ const queryString = require('query-string');
                               <span className="slider round"></span>
                             </label>
                           </div>
+                          {
+                            this.props.data.packages && this.props.data.packages.length != 1?
                           <div className="">
                             <a onClick={()=> this.props.history.go(-1)} className="add-more-packages"> + Add More </a>
                           </div>
+                          :''}
                         </div>
-                        <div className={"multiple-pkgs"+ (this.props.data.packages.length <= 2?' pkmkbTwo':'')}>
+                        <div className={"multiple-pkgs"+ (this.props.data.packages.length <= 2?' pkmkbTwo':this.props.data.packages.length <= 3?' pkmkbThree':'')}>
                           <ul className="pkgCls pkmkb">  
                           {
                             this.props.data.packages?
@@ -190,7 +196,7 @@ const queryString = require('query-string');
                                         <span className={this.state.tabsValue.indexOf(cat_info.id) > -1 ? 'acrd-arw-rotate span-img' : 'acrd-show span-img'} onClick={this.ButtonHandler.bind(this,cat_info.id)}><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                                       </div>
                                       <div className={this.state.tabsValue.indexOf(cat_info.id) > -1 ? 'd-none' : ''}>
-                                        <div className={"top-head-info multiple-pkgs parent-info category-done" + (this.props.data.packages.length <= 2?' pkmkbTwo':'')}>
+                                        <div className={"top-head-info multiple-pkgs parent-info category-done" + (this.props.data.packages.length <= 2?' pkmkbTwo':this.props.data.packages.length <= 3?' pkmkbThree':'')}>
                                           <ul className="pkgCls">
                                             {
                                               this.props.data.packages.map((cat_count, j) => {
