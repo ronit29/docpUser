@@ -95,8 +95,8 @@ const mapStateToProps = (state, passedProps) => {
         corporateCoupon,
         currentSearchedCriterias,
         filterCriteriaPackages,
-        compare_packages,
-        page
+        page,
+        compare_packages
 
     } = state.SEARCH_CRITERIA_LABS
 
@@ -125,10 +125,10 @@ const mapStateToProps = (state, passedProps) => {
         currentSearchedCriterias,
         filterCriteriaPackages,
         offerList,
-        compare_packages,
         is_login_user_insured,
         page,
-        curr_page
+        curr_page,
+        compare_packages
     }
 
 }

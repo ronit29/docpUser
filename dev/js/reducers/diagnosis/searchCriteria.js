@@ -53,7 +53,7 @@ const defaultState = {
     recommended_package: [],
     last_save_searched_date: null,
     selectedPackages: [],
-    compare_packages:[]
+    compare_packages: []
 }
 
 export default function (state = defaultState, action) {
