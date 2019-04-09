@@ -173,7 +173,13 @@ class BannerCarousel extends React.Component {
         }
 
         else if (offer.url) {
-            this.props.history.push(offer.url)
+
+            if (offer.url.startsWith('http')) {
+                window.open(offer.url, '_blank')
+            }
+            else {
+                this.props.history.push(offer.url)
+            }
 
             let data = {
                 'Category': 'ConsumerApp', 'Action': offer.event_name, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': offer.event_name, 'clickedOn': offer.slider_location
