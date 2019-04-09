@@ -209,7 +209,7 @@ return (
                     </div>
                   </div>
                   {/*Package card*/}
-                  <div className="compare-package-footer">
+                  {/* <div className="compare-package-footer">
                     <div className="compare-packages">
                       <ul>
                         <li>
@@ -248,8 +248,17 @@ return (
                       </div>
                       <a className="add-more-package compare-package-now" href="javascript:void(0);">Compare Now (4)</a>
                     </div>
-                  </div>
+                  </div> */}
                   {/*compare screen*/}
+                  <div className="compare-package-footer">
+                    <ul className="compare-packages-home">
+                      <li className="hlth-txt">2 Health Package Selected</li>
+                      <li className="li-btn-compare">
+                        <a href="javascript:void(0);" className="pkg-btn-nw">Compare</a>
+                        <span className=""><img src="https://cdn.docprime.com/cp/assets/img/icons/close.png" alt="" /></span>
+                      </li>
+                    </ul>
+                  </div>
                   <div className="container-fluid pad-all-0">
                     
                     <div className="sticky-multiple-pkgs">
