@@ -60,7 +60,7 @@ class HospitalListView extends React.Component {
 		        	this.state.toggleFilterPopup?
 		        	<div className="ipd-section">
 			        	<div className="custom-overlay" onClick={this.toggleProviderFilter.bind(this)}></div>
-	                    <div className="custom-popup hlth-ins-pop">
+	                    <div className="custom-popup hlth-ins-pop ins-pop">
 	                       <div className="cross-btn"><img src="https://cdn.docprime.com/cp/assets/img/icons/close.png" alt="" onClick={this.toggleProviderFilter.bind(this)}/></div>
 	                       {
 		                       	this.state.health_insurance_provider.length?
