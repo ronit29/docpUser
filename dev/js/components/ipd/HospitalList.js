@@ -44,7 +44,7 @@ class HospitalListView extends React.Component {
 			<div>
 				{
 					ipd_info && ipd_info.about && ipd_info.about.name?
-					<h4 className="section-heading">{`Top Hospitals for ${ipd_info.about.name} ${this.props.selectedLocation && this.props.selectedLocation.locality?`in ${this.props.selectedLocation.locality}`:''}`}</h4>
+					<h2 className="section-heading">{`Top Hospitals for ${ipd_info.about.name} ${this.props.selectedLocation && this.props.selectedLocation.locality?`in ${this.props.selectedLocation.locality}`:''}`}</h2>
 					:''	
 				}
 				

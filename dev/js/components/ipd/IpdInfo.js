@@ -177,7 +177,7 @@ class IpdView extends React.Component {
 					<div id="doctorTab" ref="doctorTab" className="tab-pane fade nav_top_bar">
 						{
 							this.props.ipd_info && this.props.ipd_info.doctors && this.props.ipd_info.doctors.result  && this.props.ipd_info.doctors.result.length && this.props.ipd_info.about && this.props.ipd_info.about.name?
-							<h4 className="section-heading">{`Top Doctors for ${this.props.ipd_info.about.name} ${this.props.selectedLocation && this.props.selectedLocation.locality?`in ${this.props.selectedLocation.locality}`:''} `}</h4>
+							<h2 className="section-heading">{`Top Doctors for ${this.props.ipd_info.about.name} ${this.props.selectedLocation && this.props.selectedLocation.locality?`in ${this.props.selectedLocation.locality}`:''} `}</h2>
 							:''	
 						}
 	                    {

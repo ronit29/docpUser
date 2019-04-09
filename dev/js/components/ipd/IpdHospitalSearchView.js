@@ -149,7 +149,7 @@ class IpdHospitalView extends React.Component{
             state = this.props
         }
 
-        this.props.getIpdHospitals(state, (...args) => {
+        this.props.getIpdHospitals(state, 1, false, null, (...args) => {
             let new_url = this.buildURI(state)
             this.props.history.replace(new_url)
         })
@@ -180,7 +180,7 @@ class IpdHospitalView extends React.Component{
         let max_distance = filterCriteria.distance[1]
         let provider_ids = filterCriteria.provider_ids
 
-        let url = `${window.location.pathname}?ipd_id=${ipd_id}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&search_id=${this.state.search_id}`
+        let url = `${window.location.pathname}?ipd_id=${ipd_id}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&search_id=${this.state.search_id}&lat=${lat}&long=${long}&place_id=${place_id}`
 
         if (page > 1) {
             url += `&page=${page}`

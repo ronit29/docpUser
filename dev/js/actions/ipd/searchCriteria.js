@@ -47,7 +47,7 @@ export const submitIPDForm = (formData, cb) => (dispatch) => {
     })
 }
 
-export const getIpdHospitals = (state, cb) => (dispatch) => {
+export const getIpdHospitals = (state, page=1, fromServer, searchByUrl, cb) => (dispatch) => {
 
     let lat = 28.644800
     let long = 77.216721
@@ -69,7 +69,14 @@ export const getIpdHospitals = (state, cb) => (dispatch) => {
 
     let ipd_id = commonSelectedCriterias.map(x=>x.id)
 
-    let url = `/api/v1/doctor/ipd_procedure/${ipd_id}/hospitals?long=${long}&lat=${lat}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}`
+    let url = `/api/v1/doctor/ipd_procedure/${ipd_id}/hospitals?`
+    
+    if (searchByUrl) {
+        url = `/api/v1/doctor/doctorsearch_by_url?url=${searchByUrl.split('/')[1]}&`
+    }
+
+    url+= `long=${long}&lat=${lat}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&page=${page}`
+
     return API_GET(url).then( function (response) {
 
         let commonCriteria = [response.ipd_procedure]
@@ -93,7 +100,17 @@ export const getIpdHospitals = (state, cb) => (dispatch) => {
             payload: response
         })
 
-        if(cb)cb(true)
+        if(cb){
+
+            if(response.result && response.result.length == 0){
+                cb(false,false)
+
+            }else if(response.result && response.result.length == 20){
+                cb(true, true)
+            }
+
+            cb(false, true)
+        }
 
     }).catch( function (error) {
         dispatch({
