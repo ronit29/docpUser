@@ -1,6 +1,8 @@
 import React from 'react'
 import HospitalCard from './HospitalCard.js'
 import GTM from '../../helpers/gtm.js'
+import InfiniteScroll from 'react-infinite-scroller';
+import Loader from '../commons/Loader'
 
 class IpdHospitalListView extends React.Component {
 
@@ -8,7 +10,10 @@ class IpdHospitalListView extends React.Component {
       super(props)
       this.state = {
          toggleFilterPopup: false,
-         health_insurance_provider: []
+         health_insurance_provider: [],
+         hasMore: true,
+         loading: false,
+         page: 2
       }
    	}
 
@@ -40,17 +45,38 @@ class IpdHospitalListView extends React.Component {
    		this.props.history.push(`/ipd/hospital/${hospitalId}`)
    	}
 
+   	loadMore(page) {
+        this.setState({ hasMore: false, loading: true })
+        this.props.getIpdHospitalList(null, this.state.page, (hasMore) => {
+            this.setState({ loading: false, page: page + 1 })
+            setTimeout(() => {
+                this.setState({ hasMore })
+            }, 1000)
+        })
+
+    }
+
 	render(){
 		let { hospital_list, HOSPITAL_DATA } = this.props
 		return(
 			<div>
 				{
 					hospital_list.length?
-					hospital_list.map((hospitalId, i) => {
-						if(HOSPITAL_DATA[hospitalId]){
-							return <HospitalCard key={i} data={HOSPITAL_DATA[hospitalId]} getCostEstimateClicked={this.getCostEstimateClicked.bind(this)} getHospitalDetailPage={this.getHospitalDetailPage.bind(this)} toggleProviderFilter={this.toggleProviderFilter.bind(this)}/>	
-						}
-					})
+					<InfiniteScroll
+                        pageStart={this.state.page}
+                        loadMore={this.loadMore.bind(this)}
+                        hasMore={this.state.hasMore}
+                        useWindow={true}
+                        initialLoad={false}
+                    >
+                    {
+						hospital_list.map((hospitalId, i) => {
+							if(HOSPITAL_DATA[hospitalId]){
+								return <HospitalCard key={i} data={HOSPITAL_DATA[hospitalId]} getCostEstimateClicked={this.getCostEstimateClicked.bind(this)} getHospitalDetailPage={this.getHospitalDetailPage.bind(this)} toggleProviderFilter={this.toggleProviderFilter.bind(this)}/>	
+							}
+						})
+					}
+					</InfiniteScroll>
 					:''
 				}
 
@@ -88,6 +114,7 @@ class IpdHospitalListView extends React.Component {
                     </div>
                     :''
 		        }
+		        {this.state.loading ? <Loader classType="loaderPagination" /> : ""}
 			</div>	
            
 			)

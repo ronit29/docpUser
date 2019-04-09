@@ -1,4 +1,4 @@
-import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET_IPD_SEARCH_ID, SAVE_IPD_RESULTS_WITH_SEARCHID, GET_IPD_SEARCH_ID_RESULTS, SELECT_IPD_LOCATION_STATUS, GET_IPD_HOSPITAL_DETAIL, CLEAR_IPD_SEARCH_IDS, GET_IPD_HOSPITAL_DETAIL_START, LOADED_IPD_INFO_START } from '../../constants/types';
+import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET_IPD_SEARCH_ID, SAVE_IPD_RESULTS_WITH_SEARCHID, GET_IPD_SEARCH_ID_RESULTS, SELECT_IPD_LOCATION_STATUS, GET_IPD_HOSPITAL_DETAIL, CLEAR_IPD_SEARCH_IDS, GET_IPD_HOSPITAL_DETAIL_START, LOADED_IPD_INFO_START, SET_IPD_HOSPITAL_SEARCH_URL } from '../../constants/types';
 
 const moment = require('moment');
 
@@ -147,16 +147,16 @@ export default function ( state=defaultState, action) {
                 if(action.page == 1){
                     newState.search_id_data[newState.currentSearchId].data = action.payload
 
-                }/*else if(newState.search_id_data[newState.currentSearchId].data){
+                }else if(newState.search_id_data[newState.currentSearchId].data){
                     if(Object.values(newState.search_id_data[newState.currentSearchId].data).length && newState.search_id_data[newState.currentSearchId].data.result){
 
                         newState.search_id_data[newState.currentSearchId].data.result = newState.search_id_data[newState.currentSearchId].data.result.concat(action.payload.result)    
                     }else{
                         newState.search_id_data[newState.currentSearchId].data = action.payload
-                        newState.search_id_data[newState.currentSearchId].clinic_card = action.payload.clinic_card  
+                     
                     }
                     
-                }*/
+                }
                 
             }
             return newState
@@ -225,6 +225,14 @@ export default function ( state=defaultState, action) {
         	}
 
         	newState.IPD_INFO_LOADED = false
+        	return newState
+        }
+
+        case SET_IPD_HOSPITAL_SEARCH_URL :{
+        	let newState = {
+        		...state
+        	}
+        	newState.page = action.page || 1
         	return newState
         }
 

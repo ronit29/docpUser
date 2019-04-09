@@ -54,9 +54,8 @@ class IpdHospitalView extends React.Component{
                         filterCriteria.filterCriteria = filters
                         this.setState({ search_id: parsed.search_id }, () => {
                             let page = 1
-                            /*if (!this.props.fetchNewResults) {
-                                page = parsed.page || 1
-                            }*/
+                            page = parsed.page || 1
+
                             this.props.setIpdSearchId(parsed.search_id, filterCriteria, page)
                         })
                     }
@@ -142,20 +141,30 @@ class IpdHospitalView extends React.Component{
         }
     }
 
-    getIpdHospitalList(state){
-
+    getIpdHospitalList(state, page=null, cb=null){
+        const parsed = queryString.parse(this.props.location.search)
         
         if (!state) {
             state = this.props
         }
 
-        this.props.getIpdHospitals(state, 1, false, null, (...args) => {
+        if(!page && parsed.page){
+            page = parsed.page || 1
+        }else{
+            page = page || 1
+        }
+
+
+        this.props.getIpdHospitals(state, page, false, null, (...args) => {
+
+            if(cb)cb(...args)
             let new_url = this.buildURI(state)
             this.props.history.replace(new_url)
         })
     }
 
 	buildURI(state) {
+        const parsed = queryString.parse(this.props.location.search)
 
         let { selectedLocation, commonSelectedCriterias, filterCriteria, locationType } = state
         
@@ -182,8 +191,8 @@ class IpdHospitalView extends React.Component{
 
         let url = `${window.location.pathname}?ipd_id=${ipd_id}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&search_id=${this.state.search_id}&lat=${lat}&long=${long}&place_id=${place_id}`
 
-        if (page > 1) {
-            url += `&page=${page}`
+        if (parsed.page) {
+            url += `&page=${parsed.page}`
         }
 
         return url
@@ -220,7 +229,7 @@ class IpdHospitalView extends React.Component{
 		                    			hospital_list.length>0?
 		                    			<div className="tab-content">
 								            <div className="tab-pane fade" id="nav-hospital">
-								            	<IpdHospitalList {...this.props} />
+								            	<IpdHospitalList {...this.props} getIpdHospitalList={this.getIpdHospitalList.bind(this)}/>
 											</div>
 							            </div>
 							            :''
