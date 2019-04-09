@@ -31,6 +31,9 @@ const queryString = require('query-string');
              });
           }
       }
+      if (window) {
+          window.scrollTo(0, 0)
+      }
 
     }
 
