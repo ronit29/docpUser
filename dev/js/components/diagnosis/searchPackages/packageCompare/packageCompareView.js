@@ -34,6 +34,26 @@ const queryString = require('query-string');
       if (window) {
           window.scrollTo(0, 0)
       }
+      let ids = []
+      if(this.props.data.packages){
+        this.props.data.packages.map((packages, i) => {
+            ids.push('hide_'+ packages.id)
+        })
+      }
+
+      if (ids.length > 0) {
+        window.onscroll = function() {
+          let abc
+            ids.map((id,i)=>{
+              abc = document.getElementById(id)
+              if (abc.offsetTop == 45) {
+                document.getElementById(id).classList.add("d-none")
+              } else {
+                document.getElementById(id).classList.remove("d-none")
+              }
+            })
+        }
+      }
 
     }
 
@@ -161,7 +181,7 @@ const queryString = require('query-string');
                                     
                                       <div className="pkg-hd">{packages.name}</div>
                                       <div className="pkg-hd-by">Available in {packages.total_labs_available} Labs</div>
-                                      <h3 className="lab-fltr-dc-name fw-500 pkg-include">{packages.total_parameters_count} Tests Included</h3>
+                                      <h3 className="lab-fltr-dc-name fw-500 pkg-include" id={"hide_" + packages.id}>{packages.total_parameters_count} Tests Included</h3>
                                       <div className="pkg-card-price">
                                       <p className="st-form">Starts from <span className="fw-500">₹ {packages.minimum_price}</span></p>
                                       </div>
@@ -239,10 +259,14 @@ const queryString = require('query-string');
                                                                           testData[0].parameters.length > 0?testData[0].parameters.map((test_param,o) =>{ 
                                                                            return <span key={o}>{test_param}</span> 
                                                                           })
-                                                                          : <span>No parameters</span>
+                                                                          : <span>
+                                                                          <img src={ASSETS_BASE_URL + "/images/packageCompare/check-01.svg"} style={{width:'14px'}}/>
+                                                                          </span>
                                                                         }
                                                                       </li>
-                                                                    :<li><span>x</span></li>
+                                                                    :<li><span>
+                                                                          <img src={ASSETS_BASE_URL + "/images/packageCompare/cross-01.svg"} style={{width:'14px'}}/>
+                                                                          </span></li>
                                                                   })
                                                                 }
                                                                 </ul>
