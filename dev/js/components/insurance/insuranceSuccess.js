@@ -149,7 +149,7 @@ class InsuranceFaq extends React.Component{
 											<label className="container-radio">
 
 												<div className="insurance-checkboxes text-center">
-													<input type="checkbox" className="ins-chk-bx" checked={this.state.disease} id={key} data-param='disease_selected' name={`disease_${member_value.id}_${disease_val.id}`} value="" disabled={this.state.no_disease?'true':''} 
+													<input type="checkbox" className="ins-chk-bx" checked={this.state.disease} id={key} data-param='disease_selected' name={`disease_${member_value.id}_${disease_val.id}`} value="" disabled={this.state.no_disease?true:''} 
 													checked={this.state.disease_selected[member_value.id] && this.state.disease_selected[member_value.id].indexOf(disease_val.id)>-1?true:false}/><label 
 													onClick={this.handleChange.bind(this,member_value.id,disease_val.id)} htmlFor="test21"></label>
 											</div>
