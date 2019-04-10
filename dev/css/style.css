@@ -9872,3 +9872,7 @@ input[type=button]{
 .pb-30{
     padding-bottom: 30px !important;
 }
+.ins-no-download{
+	opacity: .2;
+    cursor: not-allowed;
+}
