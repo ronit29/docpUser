@@ -196,7 +196,7 @@ class InsuranceReview extends React.Component{
 												<div className="col-6">
 													<div className="members-listings">
 														<div className="member-list-width">
-															<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/rel.svg"} />
+															<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/hands-01.svg"} />
 														</div>
 														<p style={{'textTransform': 'capitalize'}}>{this.props.self_data_values[val[key]].relation}</p>
 													</div>
@@ -204,7 +204,7 @@ class InsuranceReview extends React.Component{
 												<div className="col-6">
 													<div className="members-listings">
 														<div className="member-list-width">
-															<img style={{ width: '19px' }} className="ins-input-img" src={ASSETS_BASE_URL + "/img/ins-usr.svg"} />
+															<img style={{ width: '19px' }} className="ins-input-img" src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 														</div>
 														{
 															this.props.self_data_values[val[key]].no_lname?
@@ -216,7 +216,7 @@ class InsuranceReview extends React.Component{
 												<div className="col-6">
 													<div className="members-listings">
 														<div className="member-list-width">
-															<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/cal.svg"} />
+															<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
 														</div>
 														<p>{this.props.self_data_values[val[key]].dob}</p>
 													</div>
