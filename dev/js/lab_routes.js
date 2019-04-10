@@ -10,6 +10,7 @@ import HealthPackageAdvisor from './containers/diagnosis/HealthPackageAdvisor';
 import ThyrocarePackage from './containers/diagnosis/ThyrocarePackage';
 import TaxSaverTC from './components/diagnosis/searchPackages/TaxSaverTC.js'
 import DX_SearchPackages from './containers/diagnosis/SearchPackages.js'
+import PackageCompare from './containers/diagnosis/PackageCompare.js'
 
 
 export {
@@ -24,5 +25,6 @@ export {
     HealthPackageAdvisor,
     ThyrocarePackage,
     TaxSaverTC,
-    DX_SearchPackages
+    DX_SearchPackages,
+    PackageCompare
 }

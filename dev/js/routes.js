@@ -135,6 +135,12 @@ const DX_SearchPackages = Loadable({
     loading,
 })
 
+const PackageCompare = Loadable({
+    loader: () => import('./lab_routes').then(c => c.PackageCompare),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
 /**
  * STATIC ROUTES
  */
@@ -514,7 +520,8 @@ let routes = [
     { path: '/ipd/:id/getPriceEstimate', exact: true, component: IpdForm },
     { path: '/ipd/searchHospitals', exact: true, component: IpdHospitalSearch },
     { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail },
-    { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail }
+    { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail },
+    { path: '/package/compare', exact:true, component: PackageCompare},
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {
