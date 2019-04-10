@@ -702,11 +702,11 @@ class PatientDetailsNew extends React.Component {
                                                                                 this.props.select_opd_payment_type(1)
                                                                             }}>
                                                                                 <div className="payment-detail d-flex">
-                                                                                    <label class="container-radio payment-type-radio">
+                                                                                    <label className="container-radio payment-type-radio">
                                                                                         <h3>Online Payment</h3>
                                                                                         <span className="save-upto">Save {percent_discount}%</span>
                                                                                         <input checked={this.props.payment_type == 1} type="radio" name="payment-mode" />
-                                                                                        <span class="doc-checkmark"></span>
+                                                                                        <span className="doc-checkmark"></span>
                                                                                     </label>
                                                                                 </div>
                                                                             </div> : ''

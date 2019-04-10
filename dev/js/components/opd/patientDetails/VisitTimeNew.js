@@ -93,7 +93,7 @@ class VisitTimeNew extends React.Component {
 
     render() {
         let upcomingDate = null
-        if(this.props.upcoming_slots && Object.keys(this.props.upcoming_slots) && Object.keys(this.props.upcoming_slots).length){
+        if (this.props.upcoming_slots && Object.keys(this.props.upcoming_slots) && Object.keys(this.props.upcoming_slots).length) {
             upcomingDate = Object.keys(this.props.upcoming_slots)[0]
             upcomingDate = new Date(upcomingDate)
         }
@@ -108,61 +108,58 @@ class VisitTimeNew extends React.Component {
                 <div className="widget-content pos-relative">
                     <div className="lab-visit-time d-flex jc-spaceb">
                         <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/watch-date.svg"} className="visit-time-icon" /></span>Visit Time</h4>
-                        {
-                            ((this.props.selectedSlot && this.props.selectedSlot.summaryPage) || !date) ?
-                                <div className="float-right  mbl-view-formatting text-right">
-                                    <a href="" className="text-primary fw-700 text-sm" onClick={(e) => {
-                                        e.preventDefault()
-                                        this.viewAllClicked()
-                                    }}> View all</a>
-                                </div>
-                                : ''
-                        }
                     </div>
                     {
-                        ((this.props.selectedSlot && this.props.selectedSlot.summaryPage) || !date )?
-                        <div className='nw-timeslot-container'>
-                            {
-                              this.props.upcoming_slots && Object.values(this.props.upcoming_slots) && Object.values(this.props.upcoming_slots).length?  
-                                <div>
-                                    <p className="avl-time-slot">Next available time slot</p>
-                                    <div className="select-time-listing-container">
-                                        <div className="nw-tm-shift">
-                                            {WEEK_DAYS[upcomingDate.getDay()]}, {upcomingDate.getDate()} {MONTHS[upcomingDate.getMonth()] }:
-                                        </div>
-                                        <div className="time-slot-main-listing">
-                                            <ul className="inline-list nw-time-st">
+                        ((this.props.selectedSlot && this.props.selectedSlot.summaryPage) || !date) ?
+                            <div className='nw-timeslot-container'>
+                                {
+                                    this.props.upcoming_slots && Object.values(this.props.upcoming_slots) && Object.values(this.props.upcoming_slots).length ?
+                                        <div>
+                                            <p className="avl-time-slot">Next available <span className="time-slot-hdng">{WEEK_DAYS[upcomingDate.getDay()]}, {upcomingDate.getDate()} {MONTHS[upcomingDate.getMonth()]}:</span></p>
+                                            <div className="select-time-listing-container align-flex-sp-bt">
+                                                <div className="time-slot-main-listing">
+                                                    <ul className="inline-list nw-time-st">
+                                                        {
+                                                            Object.values(this.props.upcoming_slots)[0].map((time, i) => {
+                                                                return <li key={i} className="nw-time-slot-li" onClick={
+                                                                    this.selectTime.bind(this, time, upcomingDate)}>
+                                                                    <p className={`time-slot-timmings ${this.props.selectedSlot && this.props.selectedSlot.time ? `${this.props.selectedSlot.time.value == time.value ? " time-active" : ''}` : ''}`}
+                                                                    >{time.text} {time.text ? (time.value >= 12 ? 'PM' : 'AM') : ''}</p>
+                                                                </li>
+                                                            })
+                                                        }
+                                                    </ul>
+                                                </div>
                                                 {
-                                                    Object.values(this.props.upcoming_slots)[0].map((time, i)=>{
-                                                        return <li key={i} className="nw-time-slot-li" onClick={
-                                                            this.selectTime.bind(this, time, upcomingDate)}>
-                                                            <p className={`time-slot-timmings ${this.props.selectedSlot && this.props.selectedSlot.time?`${this.props.selectedSlot.time.value == time.value? " time-active" : ''}`:''}`}
-                            >{time.text} {time.text ? (time.value >= 12 ? 'PM' : 'AM') : ''}</p>
-                                                        </li>
-                                                    })
+                                                    ((this.props.selectedSlot && this.props.selectedSlot.summaryPage) || !date) ?
+                                                        <div className="new-all-slot-cont">
+                                                            <a href="" className="text-primary fw-700 text-sm" onClick={(e) => {
+                                                                e.preventDefault()
+                                                                this.viewAllClicked()
+                                                            }}><img className="sl-cal-img" src={ASSETS_BASE_URL + "/img/cal.svg"}/> View all</a>
+                                                        </div>
+                                                        : ''
                                                 }
-                                            </ul>
+                                            </div>
                                         </div>
-                                    </div>  
-                                </div>
-                                :<div>No time slots Available</div>
-                            }
-                        </div>
-                        :<div className="timeAfterSelect text-right">
-                            <h4 className="date-time title">{ date? `${WEEK_DAYS[new Date(date).getDay()]}, ${new Date(date).getDate()} ${MONTHS[new Date(date).getMonth()] }` :''} {time.text ? "|" : ""} {time.text} {time.text ? (time.value >= 12 ? 'PM' : 'AM') : ''}</h4>
-                            {
-                                !this.props.hideChangeTime ? <a href="" onClick={(e) => {
-                                    e.preventDefault()
-                                    e.stopPropagation()
-                                    this.props.navigateTo('time')
-                                }} className="text-primary fw-700 text-sm">{time.text ? "Change" : "Select"} Time</a> : ""
-                            }
-                        </div>             
+                                        : <div>No time slots Available</div>
+                                }
+                            </div>
+                            : <div className="timeAfterSelect text-right">
+                                <h4 className="date-time title">{date ? `${WEEK_DAYS[new Date(date).getDay()]}, ${new Date(date).getDate()} ${MONTHS[new Date(date).getMonth()]}` : ''} {time.text ? "|" : ""} {time.text} {time.text ? (time.value >= 12 ? 'PM' : 'AM') : ''}</h4>
+                                {
+                                    !this.props.hideChangeTime ? <a href="" onClick={(e) => {
+                                        e.preventDefault()
+                                        e.stopPropagation()
+                                        this.props.navigateTo('time')
+                                    }} className="text-primary fw-700 text-sm">{time.text ? "Change" : "Select"} Time</a> : ""
+                                }
+                            </div>
                     }
-                    </div>
-                    {
-                      /*  this.props.timeError ? <span className="fw-500 time-error nw-error">Required</span> : ''*/
-                    }
+                </div>
+                {
+                    /*  this.props.timeError ? <span className="fw-500 time-error nw-error">Required</span> : ''*/
+                }
             </div>
         );
     }

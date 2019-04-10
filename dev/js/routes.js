@@ -6,74 +6,419 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import HelmetTags from './components/commons/HelmetTags'
 
-import SearchCriteria from './containers/opd/SearchCriteria.js'
-import LocationSearch from './containers/opd/LocationSearch.js'
-import SearchResults from './containers/opd/SearchResults.js'
-import DoctorProfile from './containers/opd/DoctorProfile.js'
-import AppointmentSlot from './containers/opd/AppointmentSlot.js'
-import PatientDetails from './containers/opd/PatientDetails.js'
-import Booking_OPD from './containers/opd/Booking.js'
-import AppointmentReschedule from './containers/opd/AppointmentReschedule.js'
+import Loadable from 'react-loadable'
+const loading = () => <div className="loading_Linebar_container">
+    <div className="loading_bar_line"></div>
+</div>
 
-import UserProfile from './containers/commons/UserProfile.js'
-import UserSignup from './containers/commons/UserSignup'
-import UserLogin from './containers/commons/UserLogin'
-import Notifications from './containers/commons/Notifications'
-import Home from './containers/commons/Home'
-import HomeChat from './containers/commons/HomeChat'
-import Wallet from './containers/commons/Wallet'
-import NotFound from './containers/commons/404'
-import Article from './containers/commons/article'
-import ArticleList from './containers/commons/articleList'
+/**
+ * OPD ROUTES
+ */
+const LocationSearch = Loadable({
+    loader: () => import('./opd_routes').then(c => c.LocationSearch),
+    modules: ['./opd_routes'],
+    webpack: () => [require.resolveWeak('./opd_routes')],
+    loading,
+})
+const SearchResults = Loadable({
+    loader: () => import('./opd_routes').then(c => c.SearchResults),
+    modules: ['./opd_routes'],
+    webpack: () => [require.resolveWeak('./opd_routes')],
+    loading,
+})
+const DoctorProfile = Loadable({
+    loader: () => import('./opd_routes').then(c => c.DoctorProfile),
+    modules: ['./opd_routes'],
+    webpack: () => [require.resolveWeak('./opd_routes')],
+    loading,
+})
+const AppointmentSlot = Loadable({
+    loader: () => import('./opd_routes').then(c => c.AppointmentSlot),
+    modules: ['./opd_routes'],
+    webpack: () => [require.resolveWeak('./opd_routes')],
+    loading,
+})
+const PatientDetails = Loadable({
+    loader: () => import('./opd_routes').then(c => c.PatientDetails),
+    modules: ['./opd_routes'],
+    webpack: () => [require.resolveWeak('./opd_routes')],
+    loading,
+})
+const Booking_OPD = Loadable({
+    loader: () => import('./opd_routes').then(c => c.Booking_OPD),
+    modules: ['./opd_routes'],
+    webpack: () => [require.resolveWeak('./opd_routes')],
+    loading,
+})
+const AppointmentReschedule = Loadable({
+    loader: () => import('./opd_routes').then(c => c.AppointmentReschedule),
+    modules: ['./opd_routes'],
+    webpack: () => [require.resolveWeak('./opd_routes')],
+    loading,
+})
+
+
+/**
+ * LAB ROUTES
+ */
+
+const Booking_LAB = Loadable({
+    loader: () => import('./lab_routes').then(c => c.Booking_LAB),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const DX_SearchCriteria = Loadable({
+    loader: () => import('./lab_routes').then(c => c.DX_SearchCriteria),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const DX_SearchResults = Loadable({
+    loader: () => import('./lab_routes').then(c => c.DX_SearchResults),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const Lab = Loadable({
+    loader: () => import('./lab_routes').then(c => c.Lab),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const DX_BookingSummary = Loadable({
+    loader: () => import('./lab_routes').then(c => c.DX_BookingSummary),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const TestSelector = Loadable({
+    loader: () => import('./lab_routes').then(c => c.TestSelector),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const AppointmentSlot_Lab = Loadable({
+    loader: () => import('./lab_routes').then(c => c.AppointmentSlot_Lab),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const HealthPackage = Loadable({
+    loader: () => import('./lab_routes').then(c => c.HealthPackage),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const HealthPackageAdvisor = Loadable({
+    loader: () => import('./lab_routes').then(c => c.HealthPackageAdvisor),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const ThyrocarePackage = Loadable({
+    loader: () => import('./lab_routes').then(c => c.ThyrocarePackage),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const TaxSaverTC = Loadable({
+    loader: () => import('./lab_routes').then(c => c.TaxSaverTC),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+const DX_SearchPackages = Loadable({
+    loader: () => import('./lab_routes').then(c => c.DX_SearchPackages),
+    modules: ['./lab_routes'],
+    webpack: () => [require.resolveWeak('./lab_routes')],
+    loading,
+})
+
+/**
+ * STATIC ROUTES
+ */
+
+
+const Article = Loadable({
+    loader: () => import('./static_routes.js').then(c => c.Article),
+    modules: ['./static_routes.js'],
+    webpack: () => [require.resolveWeak('./static_routes.js')],
+    loading,
+})
+const ArticleList = Loadable({
+    loader: () => import('./static_routes.js').then(c => c.ArticleList),
+    modules: ['./static_routes.js'],
+    webpack: () => [require.resolveWeak('./static_routes.js')],
+    loading,
+})
+const StaticPages = Loadable({
+    loader: () => import('./static_routes.js').then(c => c.StaticPages),
+    modules: ['./static_routes.js'],
+    webpack: () => [require.resolveWeak('./static_routes.js')],
+    loading,
+})
+const CitiesSiteMap = Loadable({
+    loader: () => import('./static_routes.js').then(c => c.CitiesSiteMap),
+    modules: ['./static_routes.js'],
+    webpack: () => [require.resolveWeak('./static_routes.js')],
+    loading,
+})
+const SpecializationSiteMap = Loadable({
+    loader: () => import('./static_routes.js').then(c => c.SpecializationSiteMap),
+    modules: ['./static_routes.js'],
+    webpack: () => [require.resolveWeak('./static_routes.js')],
+    loading,
+})
+const adsBooking = Loadable({
+    loader: () => import('./static_routes.js').then(c => c.adsBooking),
+    modules: ['./static_routes.js'],
+    webpack: () => [require.resolveWeak('./static_routes.js')],
+    loading,
+})
+
+
+/**
+ * IPD ROUTES
+ */
+
+const IPDInfo = Loadable({
+    loader: () => import('./ipd_routes.js').then(c => c.IPDInfo),
+    modules: ['./ipd_routes.js'],
+    webpack: () => [require.resolveWeak('./ipd_routes.js')],
+    loading,
+})
+const IpdForm = Loadable({
+    loader: () => import('./ipd_routes.js').then(c => c.IpdForm),
+    modules: ['./ipd_routes.js'],
+    webpack: () => [require.resolveWeak('./ipd_routes.js')],
+    loading,
+})
+const IpdHospitalSearch = Loadable({
+    loader: () => import('./ipd_routes.js').then(c => c.IpdHospitalSearch),
+    modules: ['./ipd_routes.js'],
+    webpack: () => [require.resolveWeak('./ipd_routes.js')],
+    loading,
+})
+const IpdHospitalDetail = Loadable({
+    loader: () => import('./ipd_routes.js').then(c => c.IpdHospitalDetail),
+    modules: ['./ipd_routes.js'],
+    webpack: () => [require.resolveWeak('./ipd_routes.js')],
+    loading,
+})
+const IpdDetail = Loadable({
+    loader: () => import('./ipd_routes.js').then(c => c.IpdDetail),
+    modules: ['./ipd_routes.js'],
+    webpack: () => [require.resolveWeak('./ipd_routes.js')],
+    loading,
+})
+
+/**
+ * LOGGED IN ROUTES
+ */
+
+
+// const UserProfile = Loadable({
+//     loader: () => import('./logged_in_routes.js').then(c => c.UserProfile),
+//     modules: ['./logged_in_routes.js'],
+//     webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+//     loading,
+// })
+const UserSignup = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.UserSignup),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const UserLogin = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.UserLogin),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const Notifications = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.Notifications),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const Home = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.Home),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const HomeChat = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.HomeChat),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const Wallet = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.Wallet),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const NotFound = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.NotFound),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+// const Payment = Loadable({
+//     loader: () => import('./logged_in_routes.js').then(c => c.Payment),
+//     modules: ['./logged_in_routes.js'],
+//     webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+//     loading,
+// })
+const ChatHistory = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.ChatHistory),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const AgentLogin = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.AgentLogin),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const DirectBooking = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.DirectBooking),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const CouponSelectNewView = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.CouponSelectNewView),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const Search = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.Search),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const searchTestInfo = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.searchTestInfo),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const Referral = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.Referral),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const Cart = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.Cart),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const OrderSummary = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.OrderSummary),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const MobileViewChat = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.MobileViewChat),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const RatingsView = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.RatingsView),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const MyRatings = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.MyRatings),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const Offers = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.Offers),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const PrimeCare = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.PrimeCare),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const PrimeCareBooking = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.PrimeCareBooking),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const PrimeCareSuccess = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.PrimeCareSuccess),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+const Compare = Loadable({
+    loader: () => import('./logged_in_routes.js').then(c => c.Compare),
+    modules: ['./logged_in_routes.js'],
+    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
+    loading,
+})
+
+/**
+ * Insurance Routes
+ */
+const InsuranceView = Loadable({
+    loader: () => import('./insurance_routes.js').then(c => c.InsuranceView),
+    modules: ['./insurance_routes.js'],
+    webpack: () => [require.resolveWeak('./insurance_routes.js')],
+    loading,
+})
+const InsuranceDetails = Loadable({
+    loader: () => import('./insurance_routes.js').then(c => c.InsuranceDetails),
+    modules: ['./insurance_routes.js'],
+    webpack: () => [require.resolveWeak('./insurance_routes.js')],
+    loading,
+})
+const InsuranceReview = Loadable({
+    loader: () => import('./insurance_routes.js').then(c => c.InsuranceReview),
+    modules: ['./insurance_routes.js'],
+    webpack: () => [require.resolveWeak('./insurance_routes.js')],
+    loading,
+})
+const InsuranceSuccess = Loadable({
+    loader: () => import('./insurance_routes.js').then(c => c.InsuranceSuccess),
+    modules: ['./insurance_routes.js'],
+    webpack: () => [require.resolveWeak('./insurance_routes.js')],
+    loading,
+})
+const InsuranceViewUI = Loadable({
+    loader: () => import('./insurance_routes.js').then(c => c.InsuranceViewUI),
+    modules: ['./insurance_routes.js'],
+    webpack: () => [require.resolveWeak('./insurance_routes.js')],
+    loading,
+})
+const InsuranceCertificate = Loadable({
+    loader: () => import('./insurance_routes.js').then(c => c.InsuranceCertificate),
+    modules: ['./insurance_routes.js'],
+    webpack: () => [require.resolveWeak('./insurance_routes.js')],
+    loading,
+})
+
+
 import Payment from './containers/commons/Payment'
-import ChatHistory from './containers/commons/chatHistory'
-import StaticPages from './containers/commons/StaticPages'
-import MobileViewChat from './components/commons/mobileViewChat/MobileViewChat'
-import RatingsView from './containers/commons/RatingsView.js'
-import MyRatings from './containers/commons/MyRatings.js'
+import UserProfile from './containers/commons/UserProfile.js'
 
-import Booking_LAB from './containers/diagnosis/Booking.js'
-import DX_SearchCriteria from './containers/diagnosis/SearchCriteria.js'
-import DX_SearchResults from './containers/diagnosis/SearchResults.js'
-import Lab from './containers/diagnosis/Lab.js'
-import DX_BookingSummary from './containers/diagnosis/BookingSummary.js'
-import TestSelector from './containers/diagnosis/TestSelector'
-import AppointmentSlot_Lab from './containers/diagnosis/AppointmentSlot.js'
-import HealthPackage from './containers/diagnosis/HealthPackage';
-
-import AgentLogin from './containers/commons/agentLogin.js'
-import DirectBooking from './containers/commons/directBooking.js'
-import CouponSelectNewView from './containers/commons/CouponsView.js'
-import CitiesSiteMap from './containers/commons/CitiesSiteMap.js'
-import SpecializationSiteMap from './containers/commons/SpecializationSiteMap'
-import Search from './containers/commons/search'
-import searchTestInfo from './containers/commons/searchTestInfo'
-import adsBooking from './containers/commons/adsBooking.js'
-import DX_SearchPackages from './containers/diagnosis/SearchPackages.js'
-import Offers from './containers/commons/Offers';
-import Referral from './containers/commons/referral'
-import Cart from './containers/commons/cart'
-import OrderSummary from './containers/commons/OrderSummary'
-import HealthPackageAdvisor from './containers/diagnosis/HealthPackageAdvisor';
-import ThyrocarePackage from './containers/diagnosis/ThyrocarePackage';
-import TaxSaverTC from './components/diagnosis/searchPackages/TaxSaverTC.js'
-import PrimeCare from './containers/care/primeCare.js'
-import PrimeCareBooking from './containers/care/primeCareBooking.js'
-import PrimeCareSuccess from './containers/care/primeCareSuccess.js'
-import Compare from './containers/commons/ComparePackages.js'
-import IPDInfo from './containers/ipd/IpdInfo.js'
-import IpdForm from './containers/ipd/IpdForm.js'
-import IpdHospitalSearch from './containers/ipd/IpdHospitalSearch.js'
-import IpdHospitalDetail from './containers/ipd/IpdHospitalDetail.js'
-import IpdDetail from './containers/ipd/IpdDetail.js'
-
-
-import InsuranceView from './containers/insurance/InsuranceView'
-import InsuranceDetails from './containers/insurance/InsuranceDetails'
-import InsuranceReview from './containers/insurance/InsuranceReview'
-import InsuranceSuccess from './containers/insurance/InsuranceSuccess'
-import InsuranceViewUI from  './containers/commons/InsuranceView.js'
-import InsuranceCertificate from  './containers/insurance/InsuranceCertificate.js'
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -107,7 +452,6 @@ let routes = [
     { path: '/offers', exact: true, component: Offers },
     { path: '/cart', exact: true, component: Cart },
 
-    // { path: '/opd', exact: true, component: SearchCriteria },
     { path: '/opd/searchresults', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
     { path: '/opd/searchresults/location=*', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
     { path: '/*-sptcit', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
@@ -120,7 +464,6 @@ let routes = [
     { path: '/opd/appointment/:refId', exact: true, component: Booking_OPD },
     { path: '/opd/reschedule/:refId', exact: true, component: AppointmentReschedule },
 
-    // { path: '/lab', exact: true, component: DX_SearchCriteria },
     { path: '/lab/searchresults', exact: true, component: DX_SearchResults, RENDER_ON_SERVER: true },
     { path: '/lab/searchresults/location=*', exact: true, component: DX_SearchResults, RENDER_ON_SERVER: true },
     { path: '/*-lbcit', exact: true, component: DX_SearchResults, RENDER_ON_SERVER: true },
@@ -153,7 +496,7 @@ let routes = [
     { path: '/speciality-inventory/:speciality', exact: true, component: SpecializationSiteMap, RENDER_ON_SERVER: true },
     { path: '/city-inventory', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
     { path: '/city-inventory/:city', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
-    { path: '/search/testinfo', exact: true, component: searchTestInfo , RENDER_ON_SERVER: true },
+    { path: '/search/testinfo', exact: true, component: searchTestInfo, RENDER_ON_SERVER: true },
     { path: '/bookings', exact: true, component: adsBooking },
     { path: '/full-body-checkup-health-packages', exact: true, component: DX_SearchPackages, RENDER_ON_SERVER: true },
     { path: '/health-package-advisor', exact: true, component: HealthPackageAdvisor, RENDER_ON_SERVER: true },
@@ -162,18 +505,19 @@ let routes = [
     { path: '/tax-saver-health-packages-tc', exact: true, component: TaxSaverTC, RENDER_ON_SERVER: true },
     { path: `/*-tpp`, component: searchTestInfo, RENDER_ON_SERVER: true },
     { path: '/sms/booking', exact: true, component: DirectBooking },
+
     { path: '/prime/plans', exact: true, component: PrimeCare },
     { path: '/prime/booking', exact: true, component: PrimeCareBooking },
     { path: '/prime/success', exact: true, component: PrimeCareSuccess },
-    { path: '/compare', exact:true, component: Compare},
-    { path: '/ipdInfo', exact: true, component: IPDInfo},
-    { path: '/ipd/:id/getPriceEstimate',exact: true, component: IpdForm},
-    { path: '/ipd/searchHospitals',exact: true, component: IpdHospitalSearch},
-    { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail},
+    { path: '/compare', exact: true, component: Compare },
+    { path: '/ipdInfo', exact: true, component: IPDInfo },
+    { path: '/ipd/:id/getPriceEstimate', exact: true, component: IpdForm },
+    { path: '/ipd/searchHospitals', exact: true, component: IpdHospitalSearch },
+    { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail },
     { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail }
 ]
 
-if(CONFIG.ENABLE_INSURANCE){
+if (CONFIG.ENABLE_INSURANCE) {
     routes = routes.concat([
         { path: '/insurance1', exact: true, component: InsuranceViewUI },
         { path: '/insurance/insurance-plans', exact: true, component: InsuranceView, RENDER_ON_SERVER: true },
@@ -181,7 +525,7 @@ if(CONFIG.ENABLE_INSURANCE){
         { path: '/insurance/insurance-user-details-review', exact: true, component: InsuranceReview, RENDER_ON_SERVER: true },
         { path: '/insurance/complete', exact: true, component: InsuranceSuccess, RENDER_ON_SERVER: true },
         { path: '/insurance/certificate', exact: true, component: InsuranceCertificate, RENDER_ON_SERVER: true },
-        ])
+    ])
 }
 
 routes.push({ path: '*', component: NotFound, NO_MATCH: true })

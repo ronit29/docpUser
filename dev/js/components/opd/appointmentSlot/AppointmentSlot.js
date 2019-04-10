@@ -128,10 +128,10 @@ class AppointmentSlot extends React.Component {
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">
-                                                    <SelectedClinic
+                                                    {/*<SelectedClinic
                                                         selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
                                                         selectedClinic={this.state.selectedClinic}
-                                                    />
+                                                    />*/}
 
                                                     {
                                                         this.state.timeSlots ?
