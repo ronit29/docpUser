@@ -417,56 +417,6 @@ const InsuranceCertificate = Loadable({
 
 
 import Payment from './containers/commons/Payment'
-import ChatHistory from './containers/commons/chatHistory'
-import StaticPages from './containers/commons/StaticPages'
-import MobileViewChat from './components/commons/mobileViewChat/MobileViewChat'
-import RatingsView from './containers/commons/RatingsView.js'
-import MyRatings from './containers/commons/MyRatings.js'
-
-import Booking_LAB from './containers/diagnosis/Booking.js'
-import DX_SearchCriteria from './containers/diagnosis/SearchCriteria.js'
-import DX_SearchResults from './containers/diagnosis/SearchResults.js'
-import Lab from './containers/diagnosis/Lab.js'
-import DX_BookingSummary from './containers/diagnosis/BookingSummary.js'
-import TestSelector from './containers/diagnosis/TestSelector'
-import AppointmentSlot_Lab from './containers/diagnosis/AppointmentSlot.js'
-import HealthPackage from './containers/diagnosis/HealthPackage';
-
-import AgentLogin from './containers/commons/agentLogin.js'
-import DirectBooking from './containers/commons/directBooking.js'
-import CouponSelectNewView from './containers/commons/CouponsView.js'
-import CitiesSiteMap from './containers/commons/CitiesSiteMap.js'
-import SpecializationSiteMap from './containers/commons/SpecializationSiteMap'
-import Search from './containers/commons/search'
-import searchTestInfo from './containers/commons/searchTestInfo'
-import adsBooking from './containers/commons/adsBooking.js'
-import DX_SearchPackages from './containers/diagnosis/SearchPackages.js'
-import Offers from './containers/commons/Offers';
-import Referral from './containers/commons/referral'
-import Cart from './containers/commons/cart'
-import OrderSummary from './containers/commons/OrderSummary'
-import HealthPackageAdvisor from './containers/diagnosis/HealthPackageAdvisor';
-import ThyrocarePackage from './containers/diagnosis/ThyrocarePackage';
-import TaxSaverTC from './components/diagnosis/searchPackages/TaxSaverTC.js'
-import PrimeCare from './containers/care/primeCare.js'
-import PrimeCareBooking from './containers/care/primeCareBooking.js'
-import PrimeCareSuccess from './containers/care/primeCareSuccess.js'
-import Compare from './containers/commons/ComparePackages.js'
-import PackageCompareHtml from './containers/commons/PackagesComapre.js'
-import PackageCompare from './containers/diagnosis/PackageCompare.js'
-import IPDInfo from './containers/ipd/IpdInfo.js'
-import IpdForm from './containers/ipd/IpdForm.js'
-import IpdHospitalSearch from './containers/ipd/IpdHospitalSearch.js'
-import IpdHospitalDetail from './containers/ipd/IpdHospitalDetail.js'
-import IpdDetail from './containers/ipd/IpdDetail.js'
-
-
-import InsuranceView from './containers/insurance/InsuranceView'
-import InsuranceDetails from './containers/insurance/InsuranceDetails'
-import InsuranceReview from './containers/insurance/InsuranceReview'
-import InsuranceSuccess from './containers/insurance/InsuranceSuccess'
-import InsuranceViewUI from  './containers/commons/InsuranceView.js'
-import InsuranceCertificate from  './containers/insurance/InsuranceCertificate.js'
 import UserProfile from './containers/commons/UserProfile.js'
 
 
@@ -564,9 +514,7 @@ let routes = [
     { path: '/ipd/:id/getPriceEstimate', exact: true, component: IpdForm },
     { path: '/ipd/searchHospitals', exact: true, component: IpdHospitalSearch },
     { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail },
-    { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail },
-    { path: '/PackageCompareHtml', exact:true, component: PackageCompareHtml},
-    { path: '/package/compare', exact:true, component: PackageCompare},
+    { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail }
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {
