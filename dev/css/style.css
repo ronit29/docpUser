@@ -3465,7 +3465,7 @@ border: 1px solid #aaaa;
 	}
 	.congrats-space{
 		width: 100% !important;
-		margin: 30px auto 30px auto !important;
+		margin: 10px auto 30px auto !important;
 	}
 	.congrats-btn{
 		width: 100% !important;
@@ -9357,10 +9357,10 @@ font-weight: 500
 /* ===============isurance 5th screen=============== */
 .congratulation-section{
 	text-align: center;
-    padding: 15px;
+    padding: 5px;
 }
 .cong-img img{
-	width: 70px;
+	width: 50px;
 }
 .cong-content{
 	margin-top: 15px;
@@ -9444,7 +9444,7 @@ font-weight: 500
 .ins-rd-fist{
     font-weight: 500;
     font-size: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 .ins-radio-main-table{
 	margin-top: 15px;
