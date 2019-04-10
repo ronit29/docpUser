@@ -19,7 +19,7 @@ class InsuranceCommon extends React.Component{
 			<div> 
 				<div className="ins-card-head">
 					<div className="ins-name-head">
-						<img width="140" src={this.props.insurnaceData['insurance'][0].logo} />
+						<img width="120" src={this.props.insurnaceData['insurance'][0].logo} />
 						{/*<p>
 							OPD Insurance by <span>{this.props.insurnaceData['insurance'][0].name}</span>
 						</p>*/}
