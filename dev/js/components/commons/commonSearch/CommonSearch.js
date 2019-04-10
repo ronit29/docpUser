@@ -278,7 +278,10 @@ class CommonSearch extends React.Component {
                 <div className="articleInputContainer">
                     <input className="artc-inp" type="text" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder="Search Doctors & Tests"  onBlur={() => this.focusOut()} />
                     <img className="artc-img" src={ASSETS_BASE_URL + "/images/vall.png"} />
-                    <button className="artc-btn artc-disable"><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} tooltip={this.props.location}/>{this.props.location}</button>
+                    {
+                        this.props.commonSearch?''
+                        :<button className="artc-btn artc-disable"><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{this.props.location}</button>
+                    }
                 </div>
             </div>
 

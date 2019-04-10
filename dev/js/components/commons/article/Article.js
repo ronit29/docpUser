@@ -152,18 +152,38 @@ class Article extends React.Component {
         this.setState({ comment: e.target.value })
     }
 
-    inputHandler(e) {
+    getCityList(key) {
+
+        return this.state.searchCities.length > 0 && this.state.searchWidget==key?
+            <section>
+                <div className="widget mb-10">
+                    <div className="common-search-container">
+                        <p className="srch-heading">Location Search</p>
+                        <div className="common-listing-cont">
+                            <ul>
+                                {
+                                    this.state.searchCities.map((result, i) => {
+                                        return <li key={i}>
+                                            <p className="" onClick={this.selectLocation.bind(this, result)}>{result.description}</p>
+                                        </li>
+                                    })
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section> : ''
 
     }
 
     getCityListLayout(searchResults = [], searchParams={}) {
+        let specialization_id = ''
+        let searchWidget = ''
+        if(searchParams && Object.values(searchParams).length){
+            specialization_id = searchParams.specialityId
+            searchWidget = searchParams.widgetId
+        }
         if (searchResults.length) {
-            let specialization_id = ''
-            let searchWidget = ''
-            if(searchParams && Object.values(searchParams).length){
-                specialization_id = searchParams.specialityId
-                searchWidget = searchParams.widgetId
-            }
             this.setState({ searchCities: searchResults, searchWidget: searchWidget, specialization_id: specialization_id })
         } else {
             this.setState({ searchCities: [], searchWidget: searchWidget, specialization_id: specialization_id })
@@ -179,12 +199,16 @@ class Article extends React.Component {
             }
             GTM.sendEvent({ data: gtmData })
 
-            let criteria = {}
-            criteria.id = this.state.specialization_id
-            criteria.name = ''
-            criteria.type = 'speciality'
-            this.props.cloneCommonSelectedCriterias(criteria)
-            this.props.history.push(`/opd/searchresults`)
+            if(this.state.specialization_id) {
+
+                let criteria = {}
+                criteria.id = this.state.specialization_id
+                criteria.name = ''
+                criteria.type = 'speciality'
+                this.props.cloneCommonSelectedCriterias(criteria)
+                this.props.history.push(`/opd/searchresults`)    
+            }
+            
         })
     }
 
@@ -197,8 +221,6 @@ class Article extends React.Component {
         if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
             locationName = this.props.selectedLocation.formatted_address
         }
-
-       // let body = { 'body': [{ 'type': 'html', content: '<div>Helo</div>' }, { 'type': 'search_widget', content: { lat: '12', lng: 60, specialization_id: 343, location_name: 'Sector 44, Gurgaon ' } }] }
 
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
@@ -318,27 +340,6 @@ class Article extends React.Component {
                                         </div>
                                     </div>
 
-                                    {/*<div className="articleSearchWidget">
-                                        <div className="articleInputContainer">
-                                            <input className="artc-inp" type="text" placeholder="Search Doctors & Tests" />
-                                            <img className="artc-img" src={ASSETS_BASE_URL + "/images/vall.png"} />
-                                            <button className="artc-btn"><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />Sector 44</button>
-                                        </div>
-                                    </div>
-                                    <div className="articleSearchWidget">
-                                        <div className="articleInputContainer">
-                                            <input className="artc-inp" type="text" placeholder="Search Doctors & Tests" />
-                                            <img className="artc-img" src={ASSETS_BASE_URL + "/images/vall.png"} />
-                                            <button className="artc-btn artc-disable"><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />Sector 44</button>
-                                        </div>
-                                    </div>
-                                    <div className="articleTypeloc">
-                                        <div className="articleInputContainer">
-                                            <button className="artc-btn-lft artc-disable">Sector 44</button>
-                                            <input className="artc-inp-loc" type="text" placeholder="Search Doctors & Tests" />
-                                        </div>
-                                    </div>*/}
-
                                     {
                                         this.state.articleData.header_image ?
                                             <div>
@@ -394,31 +395,14 @@ class Article extends React.Component {
                                                             <CommonSearch {...this.props} location={val.content.location_name} latitude={val.content.lat} longitude={val.content.lng}/>
                                                             :val.content.specialization_id?
                                                                 <div>
-                                                                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName={locationName} articleSearchPage={true} specialityName={val.content.specialization_name} specialityId={val.content.specialization_id} widgetId={key}/>
-
-                                                                    {
-                                                                        this.state.searchCities.length > 0 && this.state.searchWidget==key?
-                                                                        <section>
-                                                                            <div className="widget mb-10">
-                                                                                <div className="common-search-container">
-                                                                                    <p className="srch-heading">Location Search</p>
-                                                                                    <div className="common-listing-cont">
-                                                                                        <ul>
-                                                                                            {
-                                                                                                this.state.searchCities.map((result, i) => {
-                                                                                                    return <li key={i}>
-                                                                                                        <p className="" onClick={this.selectLocation.bind(this, result)}>{result.description}</p>
-                                                                                                    </li>
-                                                                                                })
-                                                                                            }
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </section> : ''
-                                                                    }  
+                                                                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName={locationName} articleSearchPage={true} specialityName={val.content.specialization_name} specialityId={val.content.specialization_id} widgetId={key}/>  
+                                                                    {this.getCityList(key)}
                                                                 </div>
-                                                            :''      
+                                                            :<div>
+                                                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName='' widgetId={key} commonSearch={true} articleSearchPage={true}/>   
+                                                                {this.getCityList(key)}
+                                                                <CommonSearch {...this.props} commonSearch={true} />
+                                                            </div>
                                                         }
                                                 </div>
 
