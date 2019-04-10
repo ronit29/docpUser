@@ -9619,6 +9619,8 @@ font-weight: 500;
     border-radius: 4px;
     cursor: pointer;
     padding: 0px 10px;
+    min-width: 79px;
+    text-align: center;
 }
 .border-bg-transprant {
 	border-color:transparent !important;
