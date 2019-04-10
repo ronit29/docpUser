@@ -34,8 +34,8 @@ class Article extends React.Component {
             comment: '',
             articleLoaded: articleLoaded,
             searchCities: [],
-            searchValue: '426',
-            searchWidget: ''
+            searchWidget: '',
+            specialization_id: ''
         }
     }
 
@@ -156,11 +156,17 @@ class Article extends React.Component {
 
     }
 
-    getCityListLayout(searchResults = [], searchWidget) {
+    getCityListLayout(searchResults = [], searchParams={}) {
         if (searchResults.length) {
-            this.setState({ searchCities: searchResults, searchWidget: searchWidget })
+            let specialization_id = ''
+            let searchWidget = ''
+            if(searchParams && Object.values(searchParams).length){
+                specialization_id = searchParams.specialityId
+                searchWidget = searchParams.widgetId
+            }
+            this.setState({ searchCities: searchResults, searchWidget: searchWidget, specialization_id: specialization_id })
         } else {
-            this.setState({ searchCities: [], searchWidget: '' })
+            this.setState({ searchCities: [], searchWidget: searchWidget, specialization_id: specialization_id })
         }
     }
 
@@ -169,12 +175,12 @@ class Article extends React.Component {
 
             this.setState({ searchCities: [] })
             let gtmData = {
-                'Category': 'ConsumerApp', 'Action': 'ArticlePageLocationSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-page-location-selected', selectedId: this.state.searchValue || ''
+                'Category': 'ConsumerApp', 'Action': 'ArticlePageLocationSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-page-location-selected', selectedId: this.state.specialization_id || ''
             }
             GTM.sendEvent({ data: gtmData })
 
             let criteria = {}
-            criteria.id = this.state.searchValue
+            criteria.id = this.state.specialization_id
             criteria.name = ''
             criteria.type = 'speciality'
             this.props.cloneCommonSelectedCriterias(criteria)
@@ -385,9 +391,10 @@ class Article extends React.Component {
                                                 return <div key={key}>
                                                         {
                                                             val.content.lat && val.content.lng && val.content.location_name?
-                                                                <CommonSearch {...this.props} location={val.content.location_name} latitude='30.7333' longitude='76.7794'/>
-                                                                :<div>
-                                                                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName={locationName} articleSearchPage={true} specialityName='12METALOGY' widgetId={key}/>
+                                                            <CommonSearch {...this.props} location={val.content.location_name} latitude={val.content.lat} longitude={val.content.lng}/>
+                                                            :val.content.specialization_id?
+                                                                <div>
+                                                                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName={locationName} articleSearchPage={true} specialityName={val.content.specialization_name} specialityId={val.content.specialization_id} widgetId={key}/>
 
                                                                     {
                                                                         this.state.searchCities.length > 0 && this.state.searchWidget==key?
@@ -410,7 +417,8 @@ class Article extends React.Component {
                                                                             </div>
                                                                         </section> : ''
                                                                     }  
-                                                                </div>      
+                                                                </div>
+                                                            :''      
                                                         }
                                                 </div>
 
