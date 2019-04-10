@@ -34,7 +34,8 @@ class Article extends React.Component {
             comment: '',
             articleLoaded: articleLoaded,
             searchCities: [],
-            searchValue: '426'
+            searchValue: '426',
+            searchWidget: ''
         }
     }
 
@@ -155,11 +156,11 @@ class Article extends React.Component {
 
     }
 
-    getCityListLayout(searchResults = []) {
+    getCityListLayout(searchResults = [], searchWidget) {
         if (searchResults.length) {
-            this.setState({ searchCities: searchResults })
+            this.setState({ searchCities: searchResults, searchWidget: searchWidget })
         } else {
-            this.setState({ searchCities: [] })
+            this.setState({ searchCities: [], searchWidget: '' })
         }
     }
 
@@ -191,7 +192,7 @@ class Article extends React.Component {
             locationName = this.props.selectedLocation.formatted_address
         }
 
-        let body = { 'body': [{ 'type': 'html', content: '<div>Helo</div>' }, { 'type': 'search_widget', content: { lat: '12', lng: 60, specialization_id: 343, location_name: 'Sector 44, Gurgaon ' } }] }
+       // let body = { 'body': [{ 'type': 'html', content: '<div>Helo</div>' }, { 'type': 'search_widget', content: { lat: '12', lng: 60, specialization_id: 343, location_name: 'Sector 44, Gurgaon ' } }] }
 
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
@@ -375,7 +376,7 @@ class Article extends React.Component {
                                     }
 
                                     {
-                                        body.body.map((val, key) => {
+                                        this.state.articleData && this.state.articleData.body_doms && this.state.articleData.body_doms.map((val, key) => {
 
                                             if (val.type.includes('html')) {
                                                 return <div key={key} className="docprime-article" dangerouslySetInnerHTML={{ __html: val.content }}>
@@ -385,36 +386,37 @@ class Article extends React.Component {
                                                         {
                                                             val.content.lat && val.content.lng && val.content.location_name?
                                                                 <CommonSearch {...this.props} location={val.content.location_name} latitude='30.7333' longitude='76.7794'/>
-                                                                :<LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName={locationName} articleSearchPage={true} specialityName='12METALOGY'/>        
+                                                                :<div>
+                                                                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName={locationName} articleSearchPage={true} specialityName='12METALOGY' widgetId={key}/>
+
+                                                                    {
+                                                                        this.state.searchCities.length > 0 && this.state.searchWidget==key?
+                                                                        <section>
+                                                                            <div className="widget mb-10">
+                                                                                <div className="common-search-container">
+                                                                                    <p className="srch-heading">Location Search</p>
+                                                                                    <div className="common-listing-cont">
+                                                                                        <ul>
+                                                                                            {
+                                                                                                this.state.searchCities.map((result, i) => {
+                                                                                                    return <li key={i}>
+                                                                                                        <p className="" onClick={this.selectLocation.bind(this, result)}>{result.description}</p>
+                                                                                                    </li>
+                                                                                                })
+                                                                                            }
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </section> : ''
+                                                                    }  
+                                                                </div>      
                                                         }
                                                 </div>
 
                                             }
 
                                         })
-                                    }
-
-
-                                    {
-                                        this.state.searchCities.length > 0 ?
-                                            <section>
-                                                <div className="widget mb-10">
-                                                    <div className="common-search-container">
-                                                        <p className="srch-heading">Location Search</p>
-                                                        <div className="common-listing-cont">
-                                                            <ul>
-                                                                {
-                                                                    this.state.searchCities.map((result, i) => {
-                                                                        return <li key={i}>
-                                                                            <p className="" onClick={this.selectLocation.bind(this, result)}>{result.description}</p>
-                                                                        </li>
-                                                                    })
-                                                                }
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </section> : ''
                                     }
 
                                     { /*<div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>

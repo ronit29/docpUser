@@ -129,7 +129,7 @@ class LocationElementsView extends React.Component {
                 auto.getPlacePredictions(request, function (results, status) {
                     results = results || []
                     this.setState({ searchResults: results })
-                    this.props.getCityListLayout(results)
+                    this.props.getCityListLayout(results, this.props.widgetId || '')
                 }.bind(this))
             }
         }
