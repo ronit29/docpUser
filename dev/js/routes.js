@@ -11,6 +11,38 @@ const loading = () => <div class="loading_Linebar_container">
     <div class="loading_bar_line"></div>
 </div>
 
+
+// import Home from './containers/commons/Home'
+// import HomeChat from './containers/commons/HomeChat'
+// import Notifications from './containers/commons/Notifications'
+// import ChatHistory from './containers/commons/chatHistory'
+
+const Home = Loadable({
+    loader: () => import('./containers/commons/Home'),
+    modules: ['./containers/commons/Home'],
+    webpack: () => [require.resolveWeak('./containers/commons/Home')],
+    loading,
+})
+const HomeChat = Loadable({
+    loader: () => import('./containers/commons/HomeChat'),
+    modules: ['./containers/commons/HomeChat'],
+    webpack: () => [require.resolveWeak('./containers/commons/HomeChat')],
+    loading,
+})
+const ChatHistory = Loadable({
+    loader: () => import('./containers/commons/Notifications'),
+    modules: ['./containers/commons/Notifications'],
+    webpack: () => [require.resolveWeak('./containers/commons/Notifications')],
+    loading,
+})
+const Notifications = Loadable({
+    loader: () => import('./containers/commons/chatHistory'),
+    modules: ['./containers/commons/chatHistory'],
+    webpack: () => [require.resolveWeak('./containers/commons/chatHistory')],
+    loading,
+})
+
+
 /**
  * OPD ROUTES
  */
@@ -236,24 +268,8 @@ const UserLogin = Loadable({
     webpack: () => [require.resolveWeak('./logged_in_routes.js')],
     loading,
 })
-const Notifications = Loadable({
-    loader: () => import('./logged_in_routes.js').then(c => c.Notifications),
-    modules: ['./logged_in_routes.js'],
-    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
-    loading,
-})
-const Home = Loadable({
-    loader: () => import('./logged_in_routes.js').then(c => c.Home),
-    modules: ['./logged_in_routes.js'],
-    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
-    loading,
-})
-const HomeChat = Loadable({
-    loader: () => import('./logged_in_routes.js').then(c => c.HomeChat),
-    modules: ['./logged_in_routes.js'],
-    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
-    loading,
-})
+
+
 const Wallet = Loadable({
     loader: () => import('./logged_in_routes.js').then(c => c.Wallet),
     modules: ['./logged_in_routes.js'],
@@ -272,12 +288,7 @@ const NotFound = Loadable({
 //     webpack: () => [require.resolveWeak('./logged_in_routes.js')],
 //     loading,
 // })
-const ChatHistory = Loadable({
-    loader: () => import('./logged_in_routes.js').then(c => c.ChatHistory),
-    modules: ['./logged_in_routes.js'],
-    webpack: () => [require.resolveWeak('./logged_in_routes.js')],
-    loading,
-})
+
 const AgentLogin = Loadable({
     loader: () => import('./logged_in_routes.js').then(c => c.AgentLogin),
     modules: ['./logged_in_routes.js'],
@@ -415,6 +426,19 @@ const InsuranceCertificate = Loadable({
     loading,
 })
 
+// const UserProfile = Loadable({
+//     loader: () => import('./containers/commons/UserProfile.js'),
+//     modules: ['./containers/commons/UserProfile.js'],
+//     webpack: () => [require.resolveWeak('./containers/commons/UserProfile.js')],
+//     loading,
+// })
+
+// const Payment = Loadable({
+//     loader: () => import('./containers/commons/Payment'),
+//     modules: ['./containers/commons/Payment'],
+//     webpack: () => [require.resolveWeak('./containers/commons/Payment')],
+//     loading,
+// })
 
 import Payment from './containers/commons/Payment'
 import UserProfile from './containers/commons/UserProfile.js'

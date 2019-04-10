@@ -1,13 +1,10 @@
 // import UserProfile from './containers/commons/UserProfile.js'
 import UserSignup from './containers/commons/UserSignup'
 import UserLogin from './containers/commons/UserLogin'
-import Notifications from './containers/commons/Notifications'
-import Home from './containers/commons/Home'
-import HomeChat from './containers/commons/HomeChat'
+
 import Wallet from './containers/commons/Wallet'
 import NotFound from './containers/commons/404'
 // import Payment from './containers/commons/Payment'
-import ChatHistory from './containers/commons/chatHistory'
 import AgentLogin from './containers/commons/agentLogin.js'
 import DirectBooking from './containers/commons/directBooking.js'
 import CouponSelectNewView from './containers/commons/CouponsView.js'
@@ -29,13 +26,13 @@ export {
     // UserProfile,
     UserSignup,
     UserLogin,
-    Notifications,
-    Home,
-    HomeChat,
+    // Notifications,
+    // Home,
+    // HomeChat,
     Wallet,
     NotFound,
     // Payment,
-    ChatHistory,
+    // ChatHistory,
     AgentLogin,
     DirectBooking,
     CouponSelectNewView,

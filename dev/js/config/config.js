@@ -29,8 +29,8 @@ const PROD_CONFIG = {
 }
 
 const STAGING_CONFIG = {
-    API_BASE_URL: "https://qa.docprime.com",
-    SOCKET_BASE_URL: "https://liveqa.docprime.com",
+    API_BASE_URL: "https://docprime.com",
+    SOCKET_BASE_URL: "https://docprime.com",
     SOCKET_BASE_PATH: "/io",
     RAVEN_DSN_KEY: "https://293dcc01cda545df925ccb2f7837b6a3@sentry.io/1341625",
     RAVEN_SERVER_DSN_KEY: "https://43567a5b14bb4aee988d45a95d55cc9c@sentry.io/1290589",

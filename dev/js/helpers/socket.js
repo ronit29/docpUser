@@ -1,6 +1,6 @@
 import { API_GET } from '../api/api'
 import CONFIG from '../config'
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 import STORAGE from '../helpers/storage'
 
 const SOCKET = (() => {

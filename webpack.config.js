@@ -47,7 +47,7 @@ const client_dev = {
         new reactLoadablePlugin({
             filename: './dist/react-loadable.json',
         }),
-        // new BundleAnalyzerPlugin(),
+        new BundleAnalyzerPlugin(),
     ]
 }
 
@@ -131,15 +131,15 @@ const client_base = {
     },
 
     optimization: {
-        splitChunks: {
-            cacheGroups: {
-                commons: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: "vendor",
-                    chunks: "all"
-                }
-            }
-        },
+        // splitChunks: {
+        //     cacheGroups: {
+        //         commons: {
+        //             test: /[\\/]node_modules[\\/]/,
+        //             name: "vendor",
+        //             chunks: "all"
+        //         }
+        //     }
+        // },
         minimizer: [
             new UglifyJsPlugin({
                 uglifyOptions: {
