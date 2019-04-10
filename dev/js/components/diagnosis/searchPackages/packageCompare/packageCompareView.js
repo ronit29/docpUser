@@ -114,6 +114,7 @@ const queryString = require('query-string');
       let info_first=''
       this.props.data.category_info.map((cat_info, i) => {
         info = []
+        info_first = ''
         cat_info.test_ids.map((test_id, k) => {
             this.props.data.packages.map((pkg_test, n) => {
               info=info.concat(pkg_test.tests_included.filter(x=> x.test_id == test_id))
@@ -122,7 +123,7 @@ const queryString = require('query-string');
               if(k == 0){
                 info_first = info.available
               }
-              if(info_first == info.available){
+              if(info_first !== info.available){
                 ids.push(info.test_id)
               }
             })
