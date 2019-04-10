@@ -1964,3 +1964,12 @@ p.rt-doc-nm{
     cursor: pointer;
     background-color: #fff;
 }
+
+.article-disclaimer{
+    font-size: 12px;
+    font-style: italic;
+}
+
+.article-disclaimer span{
+    font-style: normal;
+}
