@@ -96,7 +96,6 @@ class InsuranceFaq extends React.Component{
 	}
   	}
     render(){
-    	console.log(this.state.no_disease)
     	let self =  this
     	if(Object.keys(this.props.insured_member_list).length>0){
     	return <div className="profile-body-wrap">
