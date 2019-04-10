@@ -247,24 +247,29 @@ class BannerCarousel extends React.Component {
         if (this.props.offerList) {
             filteredOffers = this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation);
             filteredOffers = filteredOffers.filter(offer => {
-                let show_banner = true
+                let show_banner = false
+                let filter_show_banner = true
                 if (offer.url_params_included && Object.values(offer.url_params_included).length) {
 
                     //Check for filtered values
 
                     this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.map((data) => {
-                        if (offer.url_params_included['specializations'] && offer.url_params_included['specializations'] == data.id) {
-                            show_banner = true
-                        } else {
-                            show_banner = false
+                        if (offer.url_params_included['specializations'] && offer.url_params_included['specializations'].length) {
+                            offer.url_params_included['specializations'].map((speciality) => {
+                                if (speciality == data.id) {
+                                    show_banner = true
+                                }
+                            })
                         }
                     })
 
                     this.props.currentSearchedCriterias && this.props.currentSearchedCriterias.map((data) => {
-                        if (offer.url_params_included['test_id'] && offer.url_params_included['test_id'] == data.id) {
-                            show_banner = true
-                        } else {
-                            show_banner = false
+                        if (offer.url_params_included['test_id'] && offer.url_params_included['test_id'].length) {
+                            offer.url_params_included['test_id'].map((test) => {
+                                if (test == data.id) {
+                                    show_banner = true
+                                }
+                            })
                         }
                     })
 
@@ -274,96 +279,110 @@ class BannerCarousel extends React.Component {
                         let type = data[0]
                         if (type == 'priceRange') {
                             if (offer.url_params_included['min_fees'] && offer.url_params_included['min_fees'] < data[1][0]) {
-                                show_banner = false
+                                filter_show_banner = false
                             }
                             if (offer.url_params_included['max_fees'] && offer.url_params_included['max_fees'] > data[1][1]) {
-                                show_banner = false
+                                filter_show_banner = false
                             }
                         } else if (type == 'distanceRange') {
                             if (offer.url_params_included['min_distance'] && offer.url_params_included['min_distance'] < data[1][0]) {
-                                show_banner = false
+                                filter_show_banner = false
                             }
                             if (offer.url_params_included['max_distance'] && offer.url_params_included['max_distance'] > data[1][1]) {
-                                show_banner = false
+                                filter_show_banner = false
                             }
                         } else if (type == 'sort_on') {
                             if (offer.url_params_included['sort_on'] && offer.url_params_included['sort_on'].includes(data[1])) {
-                                show_banner = true
+                                filter_show_banner = true
                             }
                         } else if (type = 'lab_name') {
                             if (offer.url_params_included['lab_name'] && offer.url_params_included['lab_name'].includes(data[1])) {
-                                show_banner = true
+                                filter_show_banner = true
                             }
                         } else if (type = 'network_id') {
                             if (offer.url_params_included['network_id'] && offer.url_params_included['network_id'] != data[1]) {
-                                show_banner = false
+                                filter_show_banner = false
                             }
                         } else if (type = 'is_available') {
                             if (offer.url_params_included['is_available'] && offer.url_params_included['is_available'] == true) {
-                                show_banner = true
+                                filter_show_banner = true
                             }
                         } else if (type = 'is_female') {
                             if (offer.url_params_included['is_female'] && offer.url_params_included['is_female'] == true) {
-                                show_banner = true
+                                filter_show_banner = true
                             }
                         }
                     })
                 }
+
                 else if (offer.url_params_excluded && Object.values(offer.url_params_excluded).length) {
                     this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.map((data) => {
-                        if (offer.url_params_excluded['specializations'] && offer.url_params_excluded['specializations'] == data.id) {
-                            show_banner = false
-                        } else {
-                            show_banner = true
+                        if (offer.url_params_excluded['specializations'] && offer.url_params_excluded['specializations'].length) {
+                            offer.url_params_excluded['specializations'].map((speciality) => {
+                                if (speciality == data.id) {
+                                    show_banner = false
+                                } else {
+                                    show_banner = true
+                                }
+                            })
                         }
                     })
                     this.props.currentSearchedCriterias && this.props.currentSearchedCriterias.map((data) => {
-                        if (offer.url_params_excluded['test_id'] && offer.url_params_excluded['test_id'] == data.id) {
-                            show_banner = false
-                        } else {
-                            show_banner = true
+                        if (offer.url_params_excluded['test_id'] && offer.url_params_excluded['test_id'].length) {
+                            offer.url_params_excluded['test_id'].map((test) => {
+                                if (test == data.id) {
+                                    show_banner = false
+                                } else {
+                                    show_banner = true
+                                }
+                            })
                         }
                     })
                     this.props.filterCriteria && Object.entries(this.props.filterCriteria).map((data, key) => {
                         let type = data[0]
                         if (type == 'priceRange') {
                             if (offer.url_params_excluded['min_fees'] && offer.url_params_excluded['min_fees'] >= data[1][0]) {
-                                show_banner = false
+                                filter_show_banner = false
                             }
                             if (offer.url_params_excluded['max_fees'] && offer.url_params_excluded['max_fees'] <= data[1][1]) {
-                                show_banner = false
+                                filter_show_banner = false
                             }
                         } else if (type == 'distanceRange') {
                             if (offer.url_params_excluded['min_distance'] && offer.url_params_excluded['min_distance'] >= data[1][0]) {
-                                show_banner = false
+                                filter_show_banner = false
                             }
                             if (offer.url_params_excluded['max_distance'] && offer.url_params_excluded['max_distance'] <= data[1][1]) {
-                                show_banner = false
+                                filter_show_banner = false
                             }
                         } else if (type == 'sort_on') {
                             if (offer.url_params_excluded['sort_on'] && offer.url_params_excluded['sort_on'].includes(data[1])) {
-                                show_banner = false
+                                filter_show_banner = false
                             }
                         } else if (type = 'lab_name') {
                             if (offer.url_params_excluded['lab_name'] && offer.url_params_excluded['lab_name'].includes(data[1])) {
-                                show_banner = false
+                                filter_show_banner = false
                             }
                         } else if (type = 'network_id') {
                             if (offer.url_params_excluded['network_id'] && offer.url_params_excluded['network_id'] == data[1]) {
-                                show_banner = false
+                                filter_show_banner = false
                             }
                         } else if (type = 'is_available') {
                             if (offer.url_params_excluded['is_available'] && offer.url_params_excluded['is_available'] == true) {
-                                show_banner = false
+                                filter_show_banner = false
                             }
                         } else if (type = 'is_female') {
                             if (offer.url_params_excluded['is_female'] && offer.url_params_excluded['is_female'] == true) {
-                                show_banner = false
+                                filter_show_banner = false
                             }
                         }
                     })
                 }
-                return show_banner
+
+                else {
+                    show_banner = true
+                    filter_show_banner = true
+                }
+                return show_banner && filter_show_banner
             })
         }
         return filteredOffers
