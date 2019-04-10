@@ -29,13 +29,13 @@ const HomeChat = Loadable({
     webpack: () => [require.resolveWeak('./containers/commons/HomeChat')],
     loading,
 })
-const ChatHistory = Loadable({
+const Notifications = Loadable({
     loader: () => import('./containers/commons/Notifications'),
     modules: ['./containers/commons/Notifications'],
     webpack: () => [require.resolveWeak('./containers/commons/Notifications')],
     loading,
 })
-const Notifications = Loadable({
+const ChatHistory = Loadable({
     loader: () => import('./containers/commons/chatHistory'),
     modules: ['./containers/commons/chatHistory'],
     webpack: () => [require.resolveWeak('./containers/commons/chatHistory')],
