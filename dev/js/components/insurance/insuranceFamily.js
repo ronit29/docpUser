@@ -94,7 +94,7 @@ class InsuranceOthers extends React.Component {
 	handleRelation(field,event) {
 		let relation_value = event.target.value
 		if(relation_value == 'son'){
-			this.setState({title:'mr.',gender:'m'})	
+			this.setState({title:'mast.',gender:'m'})	
   		}else if(relation_value == 'daughter'){
   			this.setState({title:'miss',gender:'f'})	
   		}
@@ -127,7 +127,7 @@ class InsuranceOthers extends React.Component {
 		if(newProfileid !== ''){
 			if(this.props.is_child_only){
 				if(newProfile.gender == 'm'){
-					this.setState({title:'mr.',relation:'son'})
+					this.setState({title:'mast.',relation:'son'})
 				}else if(newProfile.gender == 'f'){
 					this.setState({title:'miss',relation:'daughter'})
 				}
@@ -154,7 +154,7 @@ class InsuranceOthers extends React.Component {
 		let gender_value = event.target.value
 		if(this.props.is_child_only){
 			if(gender_value == 'm'){
-  			this.setState({title:'mr.',relation:'son'})	
+  			this.setState({title:'mast.',relation:'son'})	
 	  		}else if(gender_value == 'f'){
 	  			this.setState({title:'miss',relation:'daughter'})	
 	  		}
@@ -216,18 +216,18 @@ class InsuranceOthers extends React.Component {
         });
     }	
 	render() {
-		console.log(this.props.validateOtherErrors)
-		console.log('validateOtherErrors')
-		console.log(this.props.validateErrors)
-		console.log('validateErrors')
-		console.log(this.props.createApiErrors)
-		console.log('createApiErrors')
-		console.log(this.props.validateDobErrors)
-		console.log('validateDobErrors')
-		console.log(this.props.errorMessages)
-		console.log('errorMessages')
-		console.log(this.props.validatingNames)
-		console.log('validatingNames')
+		// console.log(this.props.validateOtherErrors)
+		// console.log('validateOtherErrors')
+		// console.log(this.props.validateErrors)
+		// console.log('validateErrors')
+		// console.log(this.props.createApiErrors)
+		// console.log('createApiErrors')
+		// console.log(this.props.validateDobErrors)
+		// console.log('validateDobErrors')
+		// console.log(this.props.errorMessages)
+		// console.log('errorMessages')
+		// console.log(this.props.validatingNames)
+		// console.log('validatingNames')
 		let show_createApi_keys_adult = []
 		let show_createApi_keys_child = []
 		let show_createApi_keys_child2 = []

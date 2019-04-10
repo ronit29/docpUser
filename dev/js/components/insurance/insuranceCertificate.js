@@ -165,7 +165,7 @@ class InsuranceCertificateView extends React.Component {
 								</div>
 							</section>									
 							
-								<a className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn text-center" disabled={this.props.showBtn?'':false} style={{ color: "#ffffff" }} href={this.props.get_insured_profile.coi_url} download target="_blank">
+								<a className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn text-center" disabled={this.props.showBtn?true:false} style={{ color: "#ffffff" }} href={this.props.get_insured_profile.coi_url} download target="_blank">
 									Download Certificate of Insurance<span className="foot-btn-sub-span">(Policy Document)</span>
 								</a>
 						</div>
