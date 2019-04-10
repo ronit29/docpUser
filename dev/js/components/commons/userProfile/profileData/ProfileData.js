@@ -231,7 +231,7 @@ class ProfileData extends React.Component {
                                 </span>
                                 <div className="nav-content" style={{width:'100%'}}>
                                     <h4 className="title app-title">Docprime Care 
-                                        <span className={memberClass}>{memStatus}</span>
+                                        <span className="ins-userdetails-buy">{memStatus}</span>
                                     </h4>
                                 </div>
                             </a>
