@@ -35,7 +35,7 @@ class PackageCompareStrip extends React.Component {
 
     render() {
         return (
-            <div className="compare-package-footer">
+            <div className="compare-package-footer cm-footer">
               <ul className="compare-packages-home">
                 <li className="hlth-txt">{this.props.compare_packages.length} Health Package Selected</li>
                 <li className="li-btn-compare">
