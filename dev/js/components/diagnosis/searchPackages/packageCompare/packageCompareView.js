@@ -112,23 +112,32 @@ const queryString = require('query-string');
       let ids=[]
       let info=[]
       let info_first=''
+      let catId = ''
       this.props.data.category_info.map((cat_info, i) => {
+        console.log(cat_info.id)
         info = []
         info_first = ''
         cat_info.test_ids.map((test_id, k) => {
             this.props.data.packages.map((pkg_test, n) => {
               info=info.concat(pkg_test.tests_included.filter(x=> x.test_id == test_id))
-          })                                                                  
+              info[n].package_id = pkg_test.id
+          })                                                               
             info.map((info,k) =>{
               if(k == 0){
                 info_first = info.available
+                catId = cat_info.id
               }
+              // if(info_first === info.available){
+              //   ids.push(catId)
+              // }
               if(info_first !== info.available){
-                ids.push(info.test_id)
+                ids.push(info.test_id) 
               }
             })
         })
       })
+      // console.log('ids')
+      // console.log(ids)
       if(this.state.isDiffChecked){
         this.setState({isDiffTest:[],isDiffChecked:!this.state.isDiffChecked})
       }else{
@@ -147,6 +156,7 @@ const queryString = require('query-string');
       let availableTest= []
       let testData= []
       let cat_info_data=[]
+      // console.log(this.state.isDiffTest)
      return (
           <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
               <ProfileHeader />
@@ -211,7 +221,7 @@ const queryString = require('query-string');
                           this.props.data.category_info?
                               this.props.data.category_info.map((cat_info, i) => {
                                 return (
-                                    <div className="pkg-card-container mb-3" key={i} id={'cat_'+cat_info.id}>
+                                    <div className={"pkg-card-container mb-3" + (this.state.isDiffChecked && this.state.isDiffTest.indexOf(cat_info.id) == -1?'d-none':'')} key={i} id={'cat_'+cat_info.id}>
                                       <div className="pkg-crd-header light-orng-header">
                                         <span className="text-left">{cat_info.name}</span>
                                         <span className={this.state.tabsValue.indexOf(cat_info.id) > -1 ? 'acrd-arw-rotate span-img' : 'acrd-show span-img'} onClick={this.ButtonHandler.bind(this,cat_info.id)}><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
