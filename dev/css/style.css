@@ -9124,7 +9124,7 @@ border-radius: 4px;
 .end-div{
 	position:absolute;
 	width:15px;
-	right:9px;
+	right:0px;
 	cursor:pointer;
 }
 .pkmkb .end-div{
@@ -9548,6 +9548,11 @@ border-radius: 4px;
 	color: #f78631;
 }
 /*================= Package Compare 04-04-2019 ===================*/
+@media screen and (min-width: 992px) and (max-width: 1600px){
+	.pkg-cmpre-list{
+		margin-top: 63px;
+	}
+}
 @media screen and (max-width: 1200px){
 	.last-span .span-img {
 		right:-8px;
@@ -9675,10 +9680,16 @@ border-radius: 4px;
 	.pkg-hd{
 		width: 140px;
 	}
+	.pkgComapre .pkg-crd-header.pkg-hd{
+		width: auto;
+	}
 }
 @media screen and (max-width: 466px){
 	.pkg-hd-by{
 		font-size: 10px;
+	}
+	.end-div{
+		right:10px;
 	}
 }
 @media screen and (max-width: 405px){
@@ -9693,6 +9704,15 @@ border-radius: 4px;
 	}
 	.pkg-hd-by{
 		font-size: 9px;
+	}
+	.pkmkb .pkg-hd{
+		width: 90px;
+	}
+	.pkmkbTwo .pkg-hd{
+		width: 140px;
+	}
+	.pkmkbThree .pkmkb .end-div{
+		right: 15px;
 	}
 }
 @media screen and (max-width: 360px){
