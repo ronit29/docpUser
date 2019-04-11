@@ -9,14 +9,14 @@ class InsuranceCertificate extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-            showBtn:false
+            showBtn:true
         }
     }
 
     componentDidMount(){
         this.props.getInsuredProfile((resp)=>{
             if(resp && resp.coi_url !=''){
-                this.setState({showBtn:true})
+                this.setState({showBtn:false})
             }else{
                 setTimeout(() => {
                     this.props.getInsuredProfile()
