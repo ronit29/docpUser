@@ -167,7 +167,7 @@ class InsuranceInputView extends React.Component{
 					fields.push('dob')
 				}
 
-				if(!param.no_lname){
+				if(!param.no_lname && param.relation !== 'self'){
 					if(param.last_name ==""){
 						is_disable = true
 						fields.push('last_name')	

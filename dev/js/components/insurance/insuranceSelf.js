@@ -111,7 +111,7 @@ class InsuranceSelf extends React.Component{
 	    }
 
 	    this.setState({
-	    	isDisable: true,
+	    	isDisable: profile.isDummyUser?false:true,
 			gender:profile.isDummyUser?'':profile.gender,
 			email:profile.isDummyUser?'':profile.email,
 			dob:profile.isDummyUser?'':profile.dob,
