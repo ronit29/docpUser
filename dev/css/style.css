@@ -9872,3 +9872,21 @@ input[type=button]{
 .pb-30{
     padding-bottom: 30px !important;
 }
+
+.ins-covrd-txt{
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    color: #f78361;
+    border: 1px dashed #f78361;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 4px 8px;
+    max-width: 95px;
+}
+
+.ins-covrd-txt>p{
+    line-height: 12px;
+}
