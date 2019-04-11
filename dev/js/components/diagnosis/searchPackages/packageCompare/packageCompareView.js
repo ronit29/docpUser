@@ -249,7 +249,7 @@ const queryString = require('query-string');
                                                               }
                                                             </ul>
                                                           </div>*/}
-                                                              <div className={"top-head-info multiple-pkgs multiple-pkgs-details" + (this.props.data.packages.length <= 2?' pkmkbTwo':'')}>
+                                                              <div className={"top-head-info multiple-pkgs multiple-pkgs-details" + (this.props.data.packages.length <= 2?' pkmkbTwo':this.props.data.packages.length <= 3?' pkmkbThree':'')}>
                                                                 <ul className="pkgCls">
                                                                 {    
                                                                   self.props.data.packages.map((pkg_test, n) => {
