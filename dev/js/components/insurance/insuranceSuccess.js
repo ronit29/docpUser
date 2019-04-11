@@ -63,8 +63,11 @@ class InsuranceFaq extends React.Component{
   			})
   			member_list.push(mem)
 		},this)
-  	if(Object.keys(this.state.disease_selected).length > 0){
-  		{Object.entries(this.state.disease_selected).map(function([disease_key, value]) {
+	if(!this.state.no_disease && Object.keys(this.state.disease_selected).length == 0){
+		SnackBar.show({ pos: 'bottom-center', text: "Please provide input wherever applicable or select 'None for all' if none of the above is applicable." });
+	}else{
+		if(Object.keys(this.state.disease_selected).length > 0 && !this.state.no_disease){
+			{Object.entries(this.state.disease_selected).map(function([disease_key, value]) {
   			member_new = {}
   			member_new.disease = []
   			{Object.entries(member_list).map(function([k, val]) {
@@ -84,13 +87,12 @@ class InsuranceFaq extends React.Component{
 		},this)}
 		this.props.updateMemberList({"members":member_list_new},(resp) =>{
 			this.props.history.push('/insurance/certificate')
-		})
-	}else if(this.state.no_disease){
-		this.props.updateMemberList({"members":member_list},(resp) =>{
+		})	
+		}else if(this.state.no_disease){
+			this.props.updateMemberList({"members":member_list},(resp) =>{
 			this.props.history.push('/insurance/certificate')
 		})
-	}else{
-		SnackBar.show({ pos: 'bottom-center', text: "Please provide input wherever applicable or select 'None for all' if none of the above is applicable." });
+		}	
 	}
   	}
     render(){
@@ -115,7 +117,7 @@ class InsuranceFaq extends React.Component{
 							<p>
 								Covered by:
 							</p>
-							<img className="border-remove" width="140" src={this.props.insured_member_list.insurer_logo} />
+							<img className="border-remove" width="100" src={this.props.insured_member_list.insurer_logo} />
 						</div>
 					</div>
 				</div>
@@ -123,7 +125,7 @@ class InsuranceFaq extends React.Component{
 					<div className="fnl-radio">
 						<div className="ins-radio-table-container">
 							<p className="ins-rd-fist">All set to go! Your policy has being issued. Just answer some important questions regarding the insured member(s) and you can download the COI</p>
-							{/*<p className="ins-rd-second">Did anyone ever diagnose with the following disease?</p>*/}
+							<p className="ins-rd-second">Ever diagnose with the following disease?</p>
 						</div>
 						<div className="ins-radio-main-table">
 							<table className="table">
@@ -146,7 +148,7 @@ class InsuranceFaq extends React.Component{
 											<label className="container-radio">
 
 												<div className="insurance-checkboxes text-center">
-													<input type="checkbox" className="ins-chk-bx" checked={this.state.disease} id={key} data-param='disease_selected' name={`disease_${member_value.id}_${disease_val.id}`} value="" 
+													<input type="checkbox" className="ins-chk-bx" checked={this.state.disease} id={key} data-param='disease_selected' name={`disease_${member_value.id}_${disease_val.id}`} value="" disabled={this.state.no_disease?true:''} 
 													checked={this.state.disease_selected[member_value.id] && this.state.disease_selected[member_value.id].indexOf(disease_val.id)>-1?true:false}/><label 
 													onClick={this.handleChange.bind(this,member_value.id,disease_val.id)} htmlFor="test21"></label>
 											</div>
