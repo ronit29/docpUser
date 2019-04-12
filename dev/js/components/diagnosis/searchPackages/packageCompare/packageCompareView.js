@@ -84,18 +84,21 @@ const queryString = require('query-string');
     }
 
     toggleComparePackages(packageId,labId,pckImg,pckName){
+      if(document.getElementById(packageId)){
+        document.getElementById(packageId).classList.add('d-none')
+      }
       let packages={}
       packages.id=packageId
       packages.lab_id=labId
       packages.img=pckImg
       packages.name=pckName
-      let newUrl = queryString.parse(this.props.location.search)
-      let ids= newUrl.package_ids
-      ids=ids.split(',')
-      ids = ids.filter(x=> parseInt(x) != packageId)
+      // let newUrl = queryString.parse(this.props.location.search)
+      // let ids= newUrl.package_ids
+      // ids=ids.split(',')
+      // ids = ids.filter(x=> parseInt(x) != packageId)
       this.props.togglecompareCriteria(packages)
-      this.props.history.push('/package/compare?package_ids='+ids)
-      window.location.reload()
+      // this.props.history.push('/package/compare?package_ids='+ids)
+      // window.location.reload()
     }
 
     viewAll(){
@@ -157,7 +160,7 @@ const queryString = require('query-string');
       let testData= []
       let cat_info_data=[]
       // console.log(this.state.isDiffTest)
-      console.log(this.props.data.packages.length)
+      
      return (
           <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
               <ProfileHeader />
@@ -187,7 +190,7 @@ const queryString = require('query-string');
                           {
                             this.props.data.packages?
                               this.props.data.packages.map((packages, i) => {
-                                return <li key={i}>
+                                return <li key={i} id={packages.id}>
                                      <img src={ASSETS_BASE_URL + "/images/packageCompare/red-cut.png"} alt="" className="end-div" onClick={this.toggleComparePackages.bind(this,packages.id,'','','')}/>
                                     
                                       <div className="pkg-hd">{packages.name}</div>
@@ -275,9 +278,17 @@ const queryString = require('query-string');
                                                                           </span>
                                                                         }
                                                                       </li>
-                                                                    :<li><span>
-                                                                          <img src={ASSETS_BASE_URL + "/images/packageCompare/cross-01.svg"} style={{width:'14px'}}/>
-                                                                          </span></li>
+                                                                    :<li>
+                                                                        { 
+                                                                          testData[0].parameters.length > 0?testData[0].parameters.map((test_param,o) =>{ 
+                                                                           return <span key={o}><img className="x-img" src={ASSETS_BASE_URL + "/images/packageCompare/cross-01.svg"} style={{width:'14px'}}/></span> 
+                                                                          })
+                                                                          : <span>
+                                                                          <img src={ASSETS_BASE_URL + "/images/packageCompare/check-01.svg"} style={{width:'14px'}}/>
+                                                                          </span>
+                                                                        }
+
+                                                                    </li>
                                                                   })
                                                                 }
                                                                 </ul>
