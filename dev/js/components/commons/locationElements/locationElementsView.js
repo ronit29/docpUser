@@ -225,7 +225,13 @@ class LocationElementsView extends React.Component {
         if(this.props.articleSearchPage){
             return <div className="articleTypeloc">
                 <div className="articleInputContainer">
-                    <button className="artc-btn-lft artc-disable">{this.props.commonSearch?'Location':this.props.specialityName}</button>
+                    <button className="artc-btn-lft artc-disable">
+                    {
+                        this.props.commonSearch?
+                        <img style={{width: '12px',marginRight: '10px'}} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />
+                        :''
+                    }
+                    {this.props.commonSearch?'Location':this.props.specialityName}</button>
                     <input className={`artc-inp-loc`} type="text"  autoComplete="off" placeholder="Location" value={this.state.search} onChange={this.inputHandler.bind(this)} id="doc-input-field" onFocus={this.onfocus.bind(this)} onBlur={this.onblur.bind(this)}/>
                 </div>
             </div>
