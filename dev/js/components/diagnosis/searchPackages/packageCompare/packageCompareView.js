@@ -37,22 +37,23 @@ const queryString = require('query-string');
       let ids = []
       if(this.props.data.packages){
         this.props.data.packages.map((packages, i) => {
-            ids.push('hide_'+ packages.id)
+            ids.push('hide_av_'+ packages.id)
+            ids.push('hide_strt_'+ packages.id)
+            // ids.push('hide_coupon_'+ packages.id)
         })
       }
 
       if (ids.length > 0) {
-        window.onscroll = function() {
-          let abc
-            ids.map((id,i)=>{
-              abc = document.getElementById(id)
-              if (abc.offsetTop == 45) {
-                document.getElementById(id).classList.add("d-none")
-              } else {
-                document.getElementById(id).classList.remove("d-none")
-              }
-            })
-        }
+          window.onscroll = function() {
+            let abc = document.getElementsByClassName('sticky-multiple-pkgs')[0].offsetTop
+              ids.map((id,i)=>{
+                if (abc >0) {
+                  document.getElementById(id).classList.add("d-none")
+                } else {
+                  document.getElementById(id).classList.remove("d-none")
+                }
+              })
+          }
       }
 
     }
@@ -84,21 +85,21 @@ const queryString = require('query-string');
     }
 
     toggleComparePackages(packageId,labId,pckImg,pckName){
-      if(document.getElementById(packageId)){
-        document.getElementById(packageId).classList.add('d-none')
-      }
+      // if(document.getElementById('pkg_'+packageId)){
+      //   document.getElementById('pkg_'+packageId).classList.add('d-none')
+      // }
       let packages={}
       packages.id=packageId
       packages.lab_id=labId
       packages.img=pckImg
       packages.name=pckName
-      // let newUrl = queryString.parse(this.props.location.search)
-      // let ids= newUrl.package_ids
-      // ids=ids.split(',')
-      // ids = ids.filter(x=> parseInt(x) != packageId)
+      let newUrl = queryString.parse(this.props.location.search)
+      let ids= newUrl.package_ids
+      ids=ids.split(',')
+      ids = ids.filter(x=> parseInt(x) != packageId)
       this.props.togglecompareCriteria(packages)
-      // this.props.history.push('/package/compare?package_ids='+ids)
-      // window.location.reload()
+      this.props.history.push('/package/compare?package_ids='+ids)
+      window.location.reload()
     }
 
     viewAll(){
@@ -191,16 +192,16 @@ const queryString = require('query-string');
                           {
                             this.props.data.packages?
                               this.props.data.packages.map((packages, i) => {
-                                return <li key={i} id={packages.id}>
+                                return <li key={i} id={'pkg_'+packages.id}>
                                      <img src={ASSETS_BASE_URL + "/images/packageCompare/red-cut.png"} alt="" className="end-div" onClick={this.toggleComparePackages.bind(this,packages.id,'','','')}/>
                                     
                                       <div className="pkg-hd">{packages.name}</div>
-                                      <div className="pkg-hd-by">Available in {packages.total_labs_available} Labs</div>
-                                      <h3 className="lab-fltr-dc-name fw-500 pkg-include" id={"hide_" + packages.id}>{packages.total_parameters_count} Tests Included</h3>
+                                      <div className="pkg-hd-by" id={"hide_av_" + packages.id}>Available in {packages.total_labs_available} Labs</div>
+                                      <h3 className="lab-fltr-dc-name fw-500 pkg-include">{packages.total_parameters_count} Tests Included</h3>
                                       <div className="pkg-card-price">
-                                      <p className="st-form">Starts from <span className="fw-500">₹ {packages.minimum_price}</span></p>
+                                      <p className="st-form" id={"hide_strt_" + packages.id}>Starts from <span className="fw-500">₹ {packages.minimum_price}</span></p>
                                       </div>
-                                      <p className="pkg-discountCpn">Includes coupon</p>
+                                      {/*<p className="pkg-discountCpn" id={"hide_coupon_"+ packages.id}>Includes coupon</p>*/}
                                       <a onClick={this.bookNow.bind(this,packages.id)}><button className="pkg-btn-nw">Book Now </button></a>
                                 </li>
                               })  
@@ -285,7 +286,7 @@ const queryString = require('query-string');
                                                                            return <span key={o}><img className="x-img" src={ASSETS_BASE_URL + "/images/packageCompare/cross-01.svg"} style={{width:'14px'}}/></span> 
                                                                           })
                                                                           : <span>
-                                                                          <img src={ASSETS_BASE_URL + "/images/packageCompare/check-01.svg"} style={{width:'14px'}}/>
+                                                                          <img src={ASSETS_BASE_URL + "/images/packageCompare/cross-01.svg"} style={{width:'14px'}}/>
                                                                           </span>
                                                                         }
 
