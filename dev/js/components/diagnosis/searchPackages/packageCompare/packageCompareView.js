@@ -41,19 +41,19 @@ const queryString = require('query-string');
         })
       }
 
-      // if (ids.length > 0) {
-      //   window.onscroll = function() {
-      //     let abc
-      //       ids.map((id,i)=>{
-      //         abc = document.getElementById(id)
-      //         if (abc.offsetTop == 45) {
-      //           document.getElementById(id).classList.add("d-none")
-      //         } else {
-      //           document.getElementById(id).classList.remove("d-none")
-      //         }
-      //       })
-      //   }
-      // }
+      if (ids.length > 0) {
+        window.onscroll = function() {
+          let abc
+            ids.map((id,i)=>{
+              abc = document.getElementById(id)
+              if (abc.offsetTop == 45) {
+                document.getElementById(id).classList.add("d-none")
+              } else {
+                document.getElementById(id).classList.remove("d-none")
+              }
+            })
+        }
+      }
 
     }
 
@@ -160,7 +160,10 @@ const queryString = require('query-string');
       let testData= []
       let cat_info_data=[]
       // console.log(this.state.isDiffTest)
+<<<<<<< HEAD
       
+=======
+>>>>>>> f7b463c7899c099beef0ba1e678b6a9eb83cf6ea
      return (
           <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
               <ProfileHeader />
@@ -171,7 +174,6 @@ const queryString = require('query-string');
                     <div className="container-fluid pad-all-0">
                       
                       <div className="sticky-multiple-pkgs">
-                      {this.props.data.packages && this.props.data.packages.length != 1?
                         <div className="multi-pkg-cmpre">
                           <div className="tgle-btn">
                             <label className="switch">
@@ -180,12 +182,14 @@ const queryString = require('query-string');
                               <span className="slider round"></span>
                             </label>
                           </div>
+                          {
+                            this.props.data.packages && this.props.data.packages.length != 1?
                           <div className="">
                             <a onClick={()=> this.props.history.go(-1)} className="add-more-packages"> + Add More </a>
                           </div>
+                          :''}
                         </div>
-                      :''}
-                        <div className={"multiple-pkgs"+ (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':'')}>
+                        <div className={"multiple-pkgs"+ (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':this.props.data.packages.length <= 4?' pkbclsFour':'')}>
                           <ul className="pkgCls pkbcls">  
                           {
                             this.props.data.packages?
@@ -230,7 +234,7 @@ const queryString = require('query-string');
                                         <span className={this.state.tabsValue.indexOf(cat_info.id) > -1 ? 'acrd-arw-rotate span-img' : 'acrd-show span-img'} onClick={this.ButtonHandler.bind(this,cat_info.id)}><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                                       </div>
                                       <div className={this.state.tabsValue.indexOf(cat_info.id) > -1 ? 'd-none' : ''}>
-                                        <div className={"top-head-info multiple-pkgs parent-info category-done" + (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':'')}>
+                                        <div className={"top-head-info multiple-pkgs parent-info category-done" + (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':this.props.data.packages.length <= 4?' pkbclsFour':'')}>
                                           <ul className="pkgCls">
                                             {
                                               this.props.data.packages.map((cat_count, j) => {
@@ -262,7 +266,7 @@ const queryString = require('query-string');
                                                               }
                                                             </ul>
                                                           </div>*/}
-                                                              <div className={"top-head-info multiple-pkgs multiple-pkgs-details" + (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':'')}>
+                                                              <div className={"top-head-info multiple-pkgs multiple-pkgs-details" + (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':this.props.data.packages.length <= 4?' pkbclsFour':'')}>
                                                                 <ul className="pkgCls">
                                                                 {    
                                                                   self.props.data.packages.map((pkg_test, n) => {
