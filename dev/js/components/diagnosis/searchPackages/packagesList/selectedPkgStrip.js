@@ -30,7 +30,7 @@ class SelectedPkgStrip extends React.Component {
             <div className="compare-package-footer">
                     {
                       this.props.compare_packages && this.props.compare_packages.length > 0?
-                    <div className={"compare-packages" + (this.props.compare_packages && this.props.compare_packages.length == 1 ? ' compare-packages-one':this.props.compare_packages.length ==2 ?' compare-packages-two':this.props.compare_packages.length == 3?' compare-packages-three':'')}>
+                    <div className={"compare-packages" + (this.props.compare_packages && this.props.compare_packages.length == 1 ? ' compare-packages-one':this.props.compare_packages.length ==2 ?' compare-packages-two':this.props.compare_packages.length == 3?' compare-packages-three':this.props.compare_packages.length == 4?' compare-packages-four':'')}>
                     
                         <ul>
                         {
@@ -38,7 +38,9 @@ class SelectedPkgStrip extends React.Component {
                             return(<li key={i}>
                                     <img src={ASSETS_BASE_URL + "/images/packageCompare/red-cut.png"} alt="" className="end-div" onClick={this.props.toggleComparePackages.bind(this,packages.id,packages.lab_id,packages.img,packages.name)}/>  
                                     {/*<img className="fltr-usr-image-lab" src={packages.img} />*/}
+                                  <p className="pkgStripNm">
                                   {packages.name}
+                                  </p>
                                   </li>
                               )
                           })
