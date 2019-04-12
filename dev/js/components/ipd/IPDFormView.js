@@ -8,6 +8,8 @@ import ThankyouPoup from './ipdThankYouScreen.js'
 const queryString = require('query-string')
 import GTM from '../../helpers/gtm.js'
 import BannerCarousel from '../commons/Home/bannerCarousel';
+import Calendar from 'rc-calendar';
+const moment = require('moment');
 
 class IPDFormView extends React.Component {
 
@@ -18,8 +20,10 @@ class IPDFormView extends React.Component {
 			phone_number: '',
 			email: '',
 			gender: '',
-			age: '',
+			dob: '',
 			validateError: [],
+			dateModal: false,
+			formattedDate: '',
 			submitFormSuccess: false
 		}
 	}
@@ -61,8 +65,37 @@ class IPDFormView extends React.Component {
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.defaultProfile && !this.state.name && nextProps.profiles && nextProps.profiles[nextProps.defaultProfile] && !nextProps.profiles[nextProps.defaultProfile].isDummyUser) {
 			let userData = nextProps.profiles[nextProps.defaultProfile]
-			this.setState({ name: userData.name || '', phone_number: userData.phone_number + '' || '', email: userData.email || '', gender: userData.gender || '', age: userData.age || '', })
+			this.setState({ name: userData.name || '', phone_number: userData.phone_number + '' || '', email: userData.email || '', gender: userData.gender || '', dob: userData.dob || '' })
 		}
+	}
+
+	selectDateFromCalendar(date) {
+		if (date) {
+			date = date.toDate()
+			let formattedDate = this.getFormattedDate(date)
+			date = new Date(date).toISOString().split('T')[0]
+			this.setState({ dob: date, formattedDate: formattedDate, dateModal: false })
+		} else {
+			this.setState({ dateModal: false })
+		}
+	}
+
+	getFormattedDate(date) {
+		var dd = date.getDate();
+		var mm = date.getMonth() + 1;
+		var yyyy = date.getFullYear();
+		if (dd < 10) {
+			dd = '0' + dd;
+		}
+		if (mm < 10) {
+			mm = '0' + mm;
+		}
+		var today = dd + '-' + mm + '-' + yyyy;
+		return today
+	}
+
+	openCalendar() {
+		this.setState({ dateModal: true })
 	}
 
 	submitClicked() {
@@ -93,9 +126,9 @@ class IPDFormView extends React.Component {
 			validateError.push('email')
 		}
 
-		if (this.state.age == '') {
+		if (this.state.dob == '') {
 
-			validateError.push('age')
+			validateError.push('dob')
 		}
 
 		if (validateError.length) {
@@ -221,14 +254,27 @@ class IPDFormView extends React.Component {
 												}
 											</div>
 											<div className="form-group fm-grp mrg-mt0">
-												<div className="lbl-txt">Age:</div>
-												<div className="input-form"><input type="number" autoComplete="none" className={`form-control ${this.state.validateError.indexOf('age') > -1 ? 'error-on' : ''}`} name="age" value={this.state.age} onChange={this.inputHandler.bind(this)} /></div>
+												<div className="lbl-txt">Date of birth:</div>
+												<div className="input-form"><input type="text" autoComplete="none" className={`form-control ${this.state.validateError.indexOf('dob') > -1 ? 'error-on' : ''}`} name="dob" value={this.state.formattedDate} onClick={this.openCalendar.bind(this)} onFocus={this.openCalendar.bind(this)} /></div>
 												{
-													this.state.validateError.indexOf('age') > -1 ?
+													this.state.validateError.indexOf('dob') > -1 ?
 														<span className="error-msg">Required</span>
 														: ''
 												}
 											</div>
+											{
+												this.state.dateModal ? <div className="calendar-overlay"><div className="date-picker-modal">
+													<Calendar
+														showWeekNumber={false}
+														defaultValue={moment(new Date())}
+														disabledDate={(date) => {
+															return date.diff(moment((new Date)), 'days') > -1
+														}}
+														showToday
+														onSelect={this.selectDateFromCalendar.bind(this)}
+													/>
+												</div></div> : ""
+											}
 										</div>
 										<div className="btn-search-div btn-apply-div btn-sbmt btncallback">
 											<a href="javascript:void(0);" className="btn-search" onClick={this.submitClicked.bind(this)}>Submit</a>
