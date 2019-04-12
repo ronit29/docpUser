@@ -118,7 +118,6 @@ const queryString = require('query-string');
       let info_first=''
       let catId = ''
       this.props.data.category_info.map((cat_info, i) => {
-        console.log(cat_info.id)
         info = []
         info_first = ''
         cat_info.test_ids.map((test_id, k) => {
@@ -183,7 +182,7 @@ const queryString = require('query-string');
                           {
                             this.props.data.packages && this.props.data.packages.length != 1?
                           <div className="">
-                            <a onClick={()=> this.props.history.go(-1)} className="add-more-packages"> + Add More </a>
+                            <a onClick={()=> this.props.history.push('/searchpackages')} className="add-more-packages"> + Add More </a>
                           </div>
                           :''}
                         </div>
