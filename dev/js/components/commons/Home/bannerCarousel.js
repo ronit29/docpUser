@@ -264,8 +264,8 @@ class BannerCarousel extends React.Component {
                     })
 
                     this.props.currentSearchedCriterias && this.props.currentSearchedCriterias.map((data) => {
-                        if (offer.url_params_included['test_id'] && offer.url_params_included['test_id'].length) {
-                            offer.url_params_included['test_id'].map((test) => {
+                        if (offer.url_params_included['test_ids'] && offer.url_params_included['test_ids'].length) {
+                            offer.url_params_included['test_ids'].map((test) => {
                                 if (test == data.id) {
                                     show_banner = true
                                 }
@@ -328,8 +328,8 @@ class BannerCarousel extends React.Component {
                         }
                     })
                     this.props.currentSearchedCriterias && this.props.currentSearchedCriterias.map((data) => {
-                        if (offer.url_params_excluded['test_id'] && offer.url_params_excluded['test_id'].length) {
-                            offer.url_params_excluded['test_id'].map((test) => {
+                        if (offer.url_params_excluded['test_ids'] && offer.url_params_excluded['test_ids'].length) {
+                            offer.url_params_excluded['test_ids'].map((test) => {
                                 if (test == data.id) {
                                     show_banner = false
                                 } else {
