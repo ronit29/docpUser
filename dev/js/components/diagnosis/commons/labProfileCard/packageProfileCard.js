@@ -5,6 +5,7 @@ import GTM from '../../../../helpers/gtm.js'
 import { buildOpenBanner } from '../../../../helpers/utils.js'
 import STORAGE from '../../../../helpers/storage'
 import { X_OK } from 'constants';
+import SnackBar from 'node-snackbar'
 
 class LabProfileCard extends React.Component {
     constructor(props) {
@@ -82,6 +83,21 @@ class LabProfileCard extends React.Component {
         }
         GTM.sendEvent({ data: data })
     }
+
+    toggleCompare(id,lab_id,lab_thumbnail,name){
+        let selectedPkgCompareIds=[]
+        if(this.props.compare_packages){
+            this.props.compare_packages.map((packages, i) => {
+                selectedPkgCompareIds.push(packages.id)
+            })
+        }
+        if(selectedPkgCompareIds.indexOf(id) == -1 && selectedPkgCompareIds.length == 5){
+            SnackBar.show({ pos: 'bottom-center', text: "Max 5 packages can be compared" });
+        }else{
+            this.props.toggleComparePackages(id,lab_id,lab_thumbnail,name)    
+        }
+    }
+
     render() {
         let { discounted_price, price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id, number_of_tests, show_details, categories, category_details, address, included_in_user_plan, insurance } = this.props.details;
         distance = Math.ceil(distance / 1000);
@@ -126,7 +142,6 @@ class LabProfileCard extends React.Component {
                 selectedPkgCompareIds.push(packages.id)
             })
         }
-
         let is_insurance_applicable = false
         if(insurance && insurance.is_insurance_covered && insurance.is_user_insured){
             is_insurance_applicable = true
@@ -138,7 +153,7 @@ class LabProfileCard extends React.Component {
             {  this.props.isCompare || this.props.compare_packages.length > 0?
                     <div className={selectedPkgCompareIds.indexOf(id)>-1 ? 'pkg-crd-header pkg-crd-green pkg-hd':'pkg-crd-header pkg-hd'}>
                       <label className="ck-bx">{selectedPkgCompareIds.indexOf(id)>-1 ? 'Added':'Add to compare'}
-                        <input type="checkbox" onClick={this.props.toggleComparePackages.bind(this,id,lab.id,lab.lab_thumbnail,name)} checked={selectedPkgCompareIds.indexOf(id)>-1?true:false} />
+                        <input type="checkbox" onClick={this.toggleCompare.bind(this,id,lab.id,lab.lab_thumbnail,name)} checked={selectedPkgCompareIds.indexOf(id)>-1?true:false} />
                         <span className="checkmark"></span>
                       </label>
                     </div>

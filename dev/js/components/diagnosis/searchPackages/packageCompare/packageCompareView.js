@@ -41,19 +41,19 @@ const queryString = require('query-string');
         })
       }
 
-      if (ids.length > 0) {
-        window.onscroll = function() {
-          let abc
-            ids.map((id,i)=>{
-              abc = document.getElementById(id)
-              if (abc.offsetTop == 45) {
-                document.getElementById(id).classList.add("d-none")
-              } else {
-                document.getElementById(id).classList.remove("d-none")
-              }
-            })
-        }
-      }
+      // if (ids.length > 0) {
+      //   window.onscroll = function() {
+      //     let abc
+      //       ids.map((id,i)=>{
+      //         abc = document.getElementById(id)
+      //         if (abc.offsetTop == 45) {
+      //           document.getElementById(id).classList.add("d-none")
+      //         } else {
+      //           document.getElementById(id).classList.remove("d-none")
+      //         }
+      //       })
+      //   }
+      // }
 
     }
 
@@ -157,6 +157,7 @@ const queryString = require('query-string');
       let testData= []
       let cat_info_data=[]
       // console.log(this.state.isDiffTest)
+      console.log(this.props.data.packages.length)
      return (
           <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
               <ProfileHeader />
@@ -167,6 +168,7 @@ const queryString = require('query-string');
                     <div className="container-fluid pad-all-0">
                       
                       <div className="sticky-multiple-pkgs">
+                      {this.props.data.packages && this.props.data.packages.length != 1?
                         <div className="multi-pkg-cmpre">
                           <div className="tgle-btn">
                             <label className="switch">
@@ -175,13 +177,11 @@ const queryString = require('query-string');
                               <span className="slider round"></span>
                             </label>
                           </div>
-                          {
-                            this.props.data.packages && this.props.data.packages.length != 1?
                           <div className="">
                             <a onClick={()=> this.props.history.go(-1)} className="add-more-packages"> + Add More </a>
                           </div>
-                          :''}
                         </div>
+                      :''}
                         <div className={"multiple-pkgs"+ (this.props.data.packages.length <= 2?' pkmkbTwo':this.props.data.packages.length <= 3?' pkmkbThree':'')}>
                           <ul className="pkgCls pkmkb">  
                           {

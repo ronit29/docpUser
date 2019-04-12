@@ -16,17 +16,13 @@ class SelectedPkgStrip extends React.Component {
     }
 
     comparePackages(){
-      if(this.props.compare_packages.length > 5){
-            SnackBar.show({ pos: 'bottom-center', text: "Max 5 packages can be compared" });
-      }else{
         let selectedPkgCompareIds=[]
           if(this.props.compare_packages){
               this.props.compare_packages.map((packages, i) => {
                   selectedPkgCompareIds.push(packages.id)
               })
           }
-        this.props.history.push('/package/compare?package_ids='+selectedPkgCompareIds)      
-      }
+        this.props.history.push('/package/compare?package_ids='+selectedPkgCompareIds)
     }
 
     render() {
