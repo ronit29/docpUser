@@ -353,9 +353,9 @@ class TopBar extends React.Component {
                                 <div className="filterRow pad-all-0 mt-0">
                                     <h4 className="section-sort">Sort By</h4>
                                     <ul className="sortBy">
-                                    <li className={`drop-list-styling  ${!!!this.state.sort_on ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, "")}> <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18}} /> <br />Relevance</li>
-                                    <li className={`drop-list-styling ${this.state.sort_on == 'fees' ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, 'fees')}><img src={ASSETS_BASE_URL + "/img/sortRupee.svg"} style={{ width: 16, marginTop: '-5px'}} /><br />Fee</li>
-                                    <li className={`drop-list-styling ${this.state.sort_on == 'distance' ? 'drop-icon-selecter' : ''} `} onClick={this.handleClose.bind(this, 'distance')}><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} style={{ width: 14}} /><br />Distance</li>
+                                    <li className={`drop-list-styling  ${!!!this.state.sort_on ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, "")}> <span><img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18}} /> </span><br />Relevance</li>
+                                    <li className={`drop-list-styling ${this.state.sort_on == 'fees' ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, 'fees')}><span><img src={ASSETS_BASE_URL + "/img/sortRupee.svg"} style={{ width: 13, marginTop: '-2px'}} /></span><br />Fee</li>
+                                    <li className={`drop-list-styling ${this.state.sort_on == 'distance' ? 'drop-icon-selecter' : ''} `} onClick={this.handleClose.bind(this, 'distance')}><span><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} style={{ width: 11, verticalAlign: '-2px'}} /></span><br />Distance</li>
                                     </ul>
                                 </div>
                                  <hr className="hr-cls" />
