@@ -160,10 +160,7 @@ const queryString = require('query-string');
       let testData= []
       let cat_info_data=[]
       // console.log(this.state.isDiffTest)
-<<<<<<< HEAD
       
-=======
->>>>>>> f7b463c7899c099beef0ba1e678b6a9eb83cf6ea
      return (
           <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
               <ProfileHeader />
