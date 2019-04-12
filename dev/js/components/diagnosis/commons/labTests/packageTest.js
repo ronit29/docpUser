@@ -37,7 +37,7 @@ class PackageTest extends React.Component {
                                 this.props.is_plan_applicable && !this.props.is_insurance_applicable? <p className="pkg-discountCpn" style={{display:'inline-block',float:'right'}}>Docprime Care Benefit</p>:''
                             }
                             {
-                                this.props.is_insurance_applicable?
+                                false && this.props.is_insurance_applicable && this.state.testListVisible?
                                 <div className="ins-val-bx">Covered Under Insurance</div>
                                 :''
                             }
