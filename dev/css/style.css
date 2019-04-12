@@ -9557,10 +9557,10 @@ border-radius: 4px;
 .pkgComapre .cancel-overlay-zindex{
 	z-index: 9999 !important;
 }
-.pkgComapre .widget.filter-popup{
+.widget.filter-popup{
 	height: 93%;
 }
-.pkgComapre .widget.filter-popup.wd-content{
+.widget.filter-popup .wd-content{
 	height: 94%;
 	overflow: auto;
 }
