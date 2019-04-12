@@ -47,7 +47,7 @@ const queryString = require('query-string');
           window.onscroll = function() {
             let abc = document.getElementsByClassName('sticky-multiple-pkgs')[0].offsetTop
               ids.map((id,i)=>{
-                if (abc >0) {
+                if (abc >0 && window.screen.width < 768) {
                   document.getElementById(id).classList.add("d-none")
                 } else {
                   document.getElementById(id).classList.remove("d-none")
@@ -227,9 +227,9 @@ const queryString = require('query-string');
                               this.props.data.category_info.map((cat_info, i) => {
                                 return (
                                     <div className={"pkg-card-container mb-3" + (this.state.isDiffChecked && this.state.isDiffTest.indexOf(cat_info.id) == -1?'d-none':'')} key={i} id={'cat_'+cat_info.id}>
-                                      <div className="pkg-crd-header light-orng-header">
-                                        <span className="text-left">{cat_info.name}</span>
-                                        <span className={this.state.tabsValue.indexOf(cat_info.id) > -1 ? 'acrd-arw-rotate span-img' : 'acrd-show span-img'} onClick={this.ButtonHandler.bind(this,cat_info.id)}><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
+                                      <div className="pkg-crd-header light-orng-header" onClick={this.ButtonHandler.bind(this,cat_info.id)}>
+                                        <span>{cat_info.name}</span>
+                                        <span className={this.state.tabsValue.indexOf(cat_info.id) > -1 ? 'acrd-arw-rotate span-img' : 'acrd-show span-img'}><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                                       </div>
                                       <div className={this.state.tabsValue.indexOf(cat_info.id) > -1 ? 'd-none' : ''}>
                                         <div className={"top-head-info multiple-pkgs parent-info category-done" + (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':this.props.data.packages.length <= 4?' pkbclsFour':'')}>
@@ -238,7 +238,7 @@ const queryString = require('query-string');
                                               this.props.data.packages.map((cat_count, j) => {
                                                 cat_info_data = cat_count.category_parameter_count.filter(x=> x.id==cat_info.id)
                                                   return(
-                                                    <li id={cat_info_data[0].id} key={j}>{cat_info_data[0].count}</li>)
+                                                    <li id={cat_info_data[0].id} key={j}>{cat_info_data[0].count} Test</li>)
                                             })}
                                           </ul>
                                         </div>
@@ -246,26 +246,35 @@ const queryString = require('query-string');
                                           cat_info.test_ids.map((test_id, k) => {
                                               testData= self.props.data.test_info.filter(x=> x.id == test_id)
                                                return <div key={k} id= {testData[0].id} className={this.state.isDiffChecked && this.state.isDiffTest.indexOf(testData[0].id) == -1?'d-none':''}>
-                                                        <div className="pkg-crd-header light-orng-header grey-head test-done">
+                                                        <div className="pkg-crd-header light-orng-header grey-head test-done" onClick={this.ButtonHandler.bind(this,testData[0].id)}>
                                                           <span>{testData[0].name}</span>
-                                                          <span className={this.state.tabsValue.indexOf(testData[0].id) > -1 ? 'acrd-arw-rotate span-img' : 'acrd-show span-img'} onClick={this.ButtonHandler.bind(this,testData[0].id)}><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
+                                                          {
+                                                            testData[0].parameters.length > 0?
+                                                          <span className={this.state.tabsValue.indexOf(testData[0].id) > -1 ? 'acrd-arw-rotate span-img' : 'acrd-show span-img'}><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
+                                                          :''
+                                                          }
                                                         </div>
-                                                        <div key={k+1} className={this.state.tabsValue.indexOf(testData[0].id) > -1 ? 'd-none' : ''}> 
-                                                          {/*<div className="top-head-info multiple-pkgs ms-info">
-                                                            <ul className="pkgCls">
-                                                              {    
-                                                              self.props.data.packages.map((pkg_test, l) => {
-                                                                availableTest=pkg_test.tests_included.filter(x=> x.test_id == test_id)
-                                                                return availableTest[0].available?
-                                                                        <li key={l}>{testData[0].parameter_count}</li>
-                                                                        :<li>rishab</li>
-                                                                      
-                                                                })
-                                                              }
-                                                            </ul>
-                                                          </div>*/}
+                                                        <div className={"top-head-info multiple-pkgs multiple-pkgs-details" + (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':this.props.data.packages.length <= 4?' pkbclsFour':'')}>
+                                                                <ul className="pkgCls testParam new">
+                                                                {    
+                                                                  self.props.data.packages.map((pkg_test, n) => {
+                                                                    availableTest=pkg_test.tests_included.filter(x=> x.test_id == test_id)
+                                                                    return availableTest[0].available?
+                                                                      <li key={n}> 
+                                                                          <span><img src={ASSETS_BASE_URL + "/images/packageCompare/check-01.svg"} style={{width:'14px'}}/>
+                                                                          </span>
+                                                                      </li>
+                                                                    :<li>
+                                                                      <span><img src={ASSETS_BASE_URL + "/images/packageCompare/cross-01.svg"} style={{width:'14px'}}/>
+                                                                          </span>
+                                                                    </li>
+                                                                  })
+                                                                }
+                                                                </ul>
+                                                        </div>
+                                                        <div key={k+1} className={this.state.tabsValue.indexOf(testData[0].id) > -1 ? '' : 'd-none'}>
                                                               <div className={"top-head-info multiple-pkgs multiple-pkgs-details" + (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':this.props.data.packages.length <= 4?' pkbclsFour':'')}>
-                                                                <ul className="pkgCls">
+                                                                <ul className="pkgCls testParam">
                                                                 {    
                                                                   self.props.data.packages.map((pkg_test, n) => {
                                                                     availableTest=pkg_test.tests_included.filter(x=> x.test_id == test_id)
@@ -275,9 +284,7 @@ const queryString = require('query-string');
                                                                           testData[0].parameters.length > 0?testData[0].parameters.map((test_param,o) =>{ 
                                                                            return <span key={o}>{test_param}</span> 
                                                                           })
-                                                                          : <span>
-                                                                          <img src={ASSETS_BASE_URL + "/images/packageCompare/check-01.svg"} style={{width:'14px'}}/>
-                                                                          </span>
+                                                                          : ''
                                                                         }
                                                                       </li>
                                                                     :<li>
@@ -285,9 +292,7 @@ const queryString = require('query-string');
                                                                           testData[0].parameters.length > 0?testData[0].parameters.map((test_param,o) =>{ 
                                                                            return <span key={o}><img className="x-img" src={ASSETS_BASE_URL + "/images/packageCompare/cross-01.svg"} style={{width:'14px'}}/></span> 
                                                                           })
-                                                                          : <span>
-                                                                          <img src={ASSETS_BASE_URL + "/images/packageCompare/cross-01.svg"} style={{width:'14px'}}/>
-                                                                          </span>
+                                                                          : ''
                                                                         }
 
                                                                     </li>
