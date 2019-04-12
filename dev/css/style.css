@@ -9303,7 +9303,7 @@ border-radius: 4px;
     white-space: normal;
     padding: 0 30px 0 0;
 	position: relative;
-	width:20.5%;
+	width:20%;
 }
 .multiple-pkgs ul li:first-child{
 	padding-left: 0;
@@ -9396,9 +9396,11 @@ border-radius: 4px;
 	font-weight: 700;
 }
 .multiple-pkgs-details{
-	/* border-top: 1px solid rgba(0,0,0,0.12); */
+	/* border-top: 1px solid rgba(0,0,0,0.12);
+	   margin: 0 10px;
+	*/
     border-radius: 0;
-    margin: 0 10px;
+    
 }
 .multiple-pkgs-details ul{
 	/* margin: 0 -10px; */
@@ -9583,6 +9585,9 @@ border-radius: 4px;
 .multiple-pkgs.pkbclsThree ul li{
 	width: 33.2%;
 }
+.multiple-pkgs.pkbclsFour ul li{
+	width: 25%;
+}
 .drop-list-styling span{
 	border: 1px solid transparent;
     display: inline-block;
@@ -9730,11 +9735,17 @@ border-radius: 4px;
 	.pkgComapre .compare-packages.compare-packages-three ul li{
 		width: 34%;
 	}
+	.pkgComapre .compare-packages.compare-packages-four ul li{
+		width: 25%;
+	}
 	.multiple-pkgs.pkbclsTwo ul li{
 		width: 50%;
 	}
 	.multiple-pkgs.pkbclsThree ul li{
 		width: 33.2%;
+	}
+	.multiple-pkgs.pkbclsFour ul li{
+		width: 38.2%;
 	}
 	.multiple-pkgs.pkbclsTwo .pkg-btn-nw{
 		width: 120px;
@@ -9751,7 +9762,7 @@ border-radius: 4px;
 		font-size: 10px;
 	}
 	.end-div{
-		right:10px;
+		right:8px;
 	}
 }
 @media screen and (max-width: 405px){
@@ -9768,7 +9779,7 @@ border-radius: 4px;
 		font-size: 9px;
 	}
 	.pkbcls .pkg-hd{
-		width: 80px;
+		width: 100px;
 	}
 	.pkbclsTwo .pkg-hd{
 		width: 140px;

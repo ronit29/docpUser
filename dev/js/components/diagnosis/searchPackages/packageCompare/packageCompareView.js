@@ -182,7 +182,7 @@ const queryString = require('query-string');
                           </div>
                           :''}
                         </div>
-                        <div className={"multiple-pkgs"+ (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':'')}>
+                        <div className={"multiple-pkgs"+ (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':this.props.data.packages.length <= 4?' pkbclsFour':'')}>
                           <ul className="pkgCls pkbcls">  
                           {
                             this.props.data.packages?
@@ -227,7 +227,7 @@ const queryString = require('query-string');
                                         <span className={this.state.tabsValue.indexOf(cat_info.id) > -1 ? 'acrd-arw-rotate span-img' : 'acrd-show span-img'} onClick={this.ButtonHandler.bind(this,cat_info.id)}><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
                                       </div>
                                       <div className={this.state.tabsValue.indexOf(cat_info.id) > -1 ? 'd-none' : ''}>
-                                        <div className={"top-head-info multiple-pkgs parent-info category-done" + (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':'')}>
+                                        <div className={"top-head-info multiple-pkgs parent-info category-done" + (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':this.props.data.packages.length <= 4?' pkbclsFour':'')}>
                                           <ul className="pkgCls">
                                             {
                                               this.props.data.packages.map((cat_count, j) => {
@@ -259,7 +259,7 @@ const queryString = require('query-string');
                                                               }
                                                             </ul>
                                                           </div>*/}
-                                                              <div className={"top-head-info multiple-pkgs multiple-pkgs-details" + (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':'')}>
+                                                              <div className={"top-head-info multiple-pkgs multiple-pkgs-details" + (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':this.props.data.packages.length <= 4?' pkbclsFour':'')}>
                                                                 <ul className="pkgCls">
                                                                 {    
                                                                   self.props.data.packages.map((pkg_test, n) => {
