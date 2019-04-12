@@ -32,8 +32,11 @@ class SearchPackages extends React.Component {
                     if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
                         searchUrl = match.url.toLowerCase()
                     }
-
-                    return store.dispatch(getPackages(state, 1, true, searchUrl, (loadMore, seoData) => {
+                    let page = 1
+                    if (queryParams.page) {
+                        page = parseInt(queryParams.page)
+                    }
+                    return store.dispatch(getPackages(state, page, true, searchUrl, (loadMore, seoData) => {
                         if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
                             getFooterData(match.url.split("/")[1])().then((footerData) => {
                                 footerData = footerData || null
@@ -91,16 +94,18 @@ const mapStateToProps = (state, passedProps) => {
         fetchNewResults,
         corporateCoupon,
         currentSearchedCriterias,
-        filterCriteriaPackages
+        filterCriteriaPackages,
+        page
 
     } = state.SEARCH_CRITERIA_LABS
 
     const {
-        offerList
+        offerList,
+        is_login_user_insured
     } = state.USER
 
     const LABS = state.LAB_SEARCH_DATA
-    const { labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, packagesList } = state.LAB_SEARCH
+    const { labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, packagesList, curr_page } = state.LAB_SEARCH
 
     return {
         selectedLocation,
@@ -118,7 +123,10 @@ const mapStateToProps = (state, passedProps) => {
         packagesList,
         currentSearchedCriterias,
         filterCriteriaPackages,
-        offerList
+        offerList,
+        is_login_user_insured,
+        page,
+        curr_page
     }
 
 }

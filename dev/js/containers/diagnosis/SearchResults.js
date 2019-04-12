@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggle404, mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults, selectSearchType, selectLabTimeSLot, getOfferList, toggleOPDCriteria } from '../../actions/index.js'
+import { toggle404, mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults, selectSearchType, selectLabTimeSLot, getOfferList, toggleOPDCriteria, selectLabAppointmentType } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/diagnosis/searchResults/index.js'
 import NotFoundView from '../../components/commons/notFound'
@@ -115,6 +115,10 @@ const mapStateToProps = (state, passedProps) => {
     const { show404, labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, curr_page, seoData, test_data } = state.LAB_SEARCH
     const { mergeUrlState } = state.SEARCH_CRITERIA_OPD
 
+    const {
+        is_login_user_insured
+    } = state.USER
+
     return {
         selectedLocation,
         selectedCriterias,
@@ -138,7 +142,8 @@ const mapStateToProps = (state, passedProps) => {
         mergeUrlState,
         test_data,
         show404,
-        offerList
+        offerList,
+        is_login_user_insured
     }
 
 }
@@ -158,7 +163,8 @@ const mapDispatchToProps = (dispatch) => {
         toggle404: (status) => dispatch(toggle404(status)),
         selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
         getOfferList: (lat,long) => dispatch(getOfferList(lat,long)),
-        toggleOPDCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filter))
+        toggleOPDCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filter)),
+        selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
     }
 }
 

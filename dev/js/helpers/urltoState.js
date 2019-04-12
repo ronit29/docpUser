@@ -18,7 +18,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let min_distance = parseInt(_getLocationParamBind('min_distance')) || 0
             let max_distance = parseInt(_getLocationParamBind('max_distance')) || 15
             let min_fees = parseInt(_getLocationParamBind('min_fees')) || 0
-            let max_fees = parseInt(_getLocationParamBind('max_fees')) || 1500
+            let max_fees = parseInt(_getLocationParamBind('max_fees')) || 3000
             let sort_on = _getLocationParamBind('sort_on') || null
             let is_available = _getLocationParamBind('is_available') === "true"
             let is_female = _getLocationParamBind('is_female') === "true"
@@ -33,6 +33,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let page = _getLocationParamBind('page') || 1
             page = parseInt(page)
             let hospital_id = _getLocationParamBind('hospital_id') || ""
+            let is_insured = _getLocationParamBind('is_insured') === "true"
 
             let spec = []
             let cond = []
@@ -105,6 +106,10 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
 
             if(hospital_id){
                 filterCriteria.hospital_id = hospital_id
+            }
+
+            if(is_insured){
+                filterCriteria.is_insured = is_insured
             }
 
             filterCriteria.priceRange = [0, 1500]
@@ -228,6 +233,8 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
             let page = _getLocationParamBind('page') || 1
             page = parseInt(page)
 
+            let is_insured = _getLocationParamBind('is_insured') === "true"
+
             let currentSearchedCriterias = []
             if (test_ids) {
                 currentSearchedCriterias = test_ids.split(',').map((x) => {
@@ -249,6 +256,10 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
 
             if (network_id) {
                 filterCriteria.network_id = network_id
+            }
+
+            if(is_insured){
+                filterCriteria.is_insured = is_insured
             }
 
             filterCriteria.priceRange = [0, 20000]
