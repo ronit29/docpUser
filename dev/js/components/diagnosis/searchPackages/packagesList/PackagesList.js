@@ -243,7 +243,7 @@ class packagesList extends React.Component {
                         </div>
                 }
                 {
-                    this.props.isCompare || this.props.compare_packages.length > 0?
+                    !this.props.isCompared && (this.props.isCompare || this.props.compare_packages.length > 0)?
                     <SelectedPkgStrip {...this.props} toggleComparePackages={this.props.toggleComparePackages.bind(this)}/>
                     :''
                 }

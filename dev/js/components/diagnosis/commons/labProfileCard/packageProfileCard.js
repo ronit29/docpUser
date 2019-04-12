@@ -150,7 +150,7 @@ class LabProfileCard extends React.Component {
 
         return (
             <div className="pkg-card-container mb-3">
-            {  this.props.isCompare || this.props.compare_packages.length > 0?
+            {  !this.props.isCompared && (this.props.isCompare || this.props.compare_packages.length > 0)?
                     <div className={selectedPkgCompareIds.indexOf(id)>-1 ? 'pkg-crd-header pkg-crd-green pkg-hd':'pkg-crd-header pkg-hd'}>
                       <label className="ck-bx">{selectedPkgCompareIds.indexOf(id)>-1 ? 'Added':'Add to compare'}
                         <input type="checkbox" onClick={this.toggleCompare.bind(this,id,lab.id,lab.lab_thumbnail,name)} checked={selectedPkgCompareIds.indexOf(id)>-1?true:false} />

@@ -182,6 +182,7 @@ class SearchPackagesView extends React.Component {
         
         let url
         const parsed = queryString.parse(this.props.location.search)
+
         if(this.props.forTaxSaver){
             let package_category_id = parsed.package_category_ids
             url = `${window.location.pathname}?lat=${lat}&long=${long}&package_category_ids=${package_category_id}`
@@ -193,6 +194,10 @@ class SearchPackagesView extends React.Component {
             let scrollby_test_id = parseInt(parsed.scrollbyid)
             let scrollby_lab_id = parseInt(parsed.scrollbylabid)
             url += `&scrollbyid=${scrollby_test_id || ""}&scrollbylabid=${scrollby_lab_id || ""}`
+        }
+
+        if(parsed.isComparable){
+            url += '&isComparable=true'
         }
 
         return url
@@ -252,6 +257,11 @@ class SearchPackagesView extends React.Component {
                self.setState({isScroll:false})
             }
         }
+        let isCompared = false
+
+        if(parsed.isComparable){
+            isCompared = true
+        }
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
@@ -261,9 +271,9 @@ class SearchPackagesView extends React.Component {
                     description: `${this.props.packagesList.description || ''}`
                 }} noIndex={false} />                
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} bottom_content={this.props.packagesList && this.props.packagesList.count>0 && this.props.packagesList.bottom_content && this.props.packagesList.bottom_content !=null && this.props.forOrganicSearch? this.props.packagesList.bottom_content:''} page={1} isPackage={true}>
-                    <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} comparePackage={this.comparePackage.bind(this)} isCompare={this.state.isCompare}/>
+                    <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} comparePackage={this.comparePackage.bind(this)} isCompare={this.state.isCompare} isCompared={isCompared}/>
                     <ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
-                    <PackagesLists {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} isCompare={this.state.isCompare} toggleComparePackages={this.toggleComparePackages.bind(this)} />
+                    <PackagesLists {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} isCompare={this.state.isCompare} toggleComparePackages={this.toggleComparePackages.bind(this)} isCompared={isCompared}/>
                 </CriteriaSearch>
                 <Footer footerData={this.state.footerData} />
             </div>

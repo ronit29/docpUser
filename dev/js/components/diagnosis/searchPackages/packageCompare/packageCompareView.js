@@ -62,7 +62,7 @@ const queryString = require('query-string');
       this.props.setPackageId(package_id, true)
 
       setTimeout(() => {
-        this.props.history.push('/searchpackages')
+        this.props.history.push('/searchpackages?isComparable=true')
       }, 100)
     }
 
