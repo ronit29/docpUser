@@ -59,9 +59,9 @@ class HomeView extends React.Component {
 		CRITEO.sendData(data)
 
 	}
-	
 
-	navigateTo(where,type, data, e) {
+
+	navigateTo(where, type, data, e) {
 		if (e) {
 			e.preventDefault()
 			e.stopPropagation()
@@ -178,7 +178,7 @@ class HomeView extends React.Component {
 		this.props.history.push('/doctorsignup')
 	}
 
-	navigateToOnline(){
+	navigateToOnline() {
 		document.getElementById('cstbox').focus();
 	}
 
@@ -296,27 +296,6 @@ class HomeView extends React.Component {
                                 </div> : ''
                         } */}
 
-						<HomePageWidget
-							heading="Book Doctor Appointment"
-							discount="50%"
-							list={this.props.specializations}
-							searchFunc={(sp) => this.searchDoctor(sp)}
-							searchType="specializations"
-							{...this.props}
-							navTo="/search?from=home"
-							type="opd"
-						/>
-
-						{
-							this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-								<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
-						}
-
-						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
-							<p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>
-							<button className="lap-doc-btn" >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
-						</div> */}
-
 						{
 							this.props.common_package && this.props.common_package.length ?
 								<HomePageWidget
@@ -332,6 +311,27 @@ class HomeView extends React.Component {
 									navTo="/searchpackages"
 								/> : ""
 						}
+
+						{
+							this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+								<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
+						}
+
+						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
+							<p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>
+							<button className="lap-doc-btn" >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
+						</div> */}
+
+						<HomePageWidget
+							heading="Book Doctor Appointment"
+							discount="50%"
+							list={this.props.specializations}
+							searchFunc={(sp) => this.searchDoctor(sp)}
+							searchType="specializations"
+							{...this.props}
+							navTo="/search?from=home"
+							type="opd"
+						/>
 
 						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>
 							<p className="top-head-link card-lab-link">Run a lab? Reach more<span>customers near you</span></p>
