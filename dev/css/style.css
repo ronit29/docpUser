@@ -9661,7 +9661,7 @@ border-radius: 4px;
 	.last-span .span-img{
 		right:0;
 	}
-	.stick-sub-head{
+	.pkgComapre .pkg-crd-header.stick-sub-head{
 		position: sticky;
 		top: 287px;
 		left: 0;
