@@ -125,8 +125,10 @@ class DoctorProfileCard extends React.Component {
                     </InitialsPicture>
                     {is_license_verified ? <span className="fltr-rtng">Verified</span> : ''}
                     {
-                        rating_graph && rating_graph.avg_rating ?
-                            <RatingStars average_rating={rating_graph.avg_rating} rating_count={rating_graph.rating_count || ''} width="10px" height="10px" /> : ''
+                        rating_graph && rating_graph.avg_rating && rating_graph.avg_rating >= 4 ?
+                            <RatingStars average_rating={rating_graph.avg_rating} rating_count={rating_graph.rating_count || ''} width="10px" height="10px" />
+                            : rating_graph && rating_graph.avg_rating && rating_graph.rating_count >= 5 ?
+                                <RatingStars average_rating={rating_graph.avg_rating} rating_count={rating_graph.rating_count} width="10px" height="10px" /> : ''
                     }
                 </div>
 
