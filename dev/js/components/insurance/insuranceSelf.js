@@ -111,7 +111,7 @@ class InsuranceSelf extends React.Component{
 	    }
 
 	    this.setState({
-	    	isDisable: true,
+	    	isDisable: profile.isDummyUser?false:true,
 			gender:profile.isDummyUser?'':profile.gender,
 			email:profile.isDummyUser?'':profile.email,
 			dob:profile.isDummyUser?'':profile.dob,
@@ -357,7 +357,7 @@ class InsuranceSelf extends React.Component{
 						}
 					</div>
 					<div className="col-6">
-						<div className="ins-form-group inp-margin-left">
+						<div className="ins-form-group ins-form-group inp-margin-right  ">
 							<input style={{'textTransform': 'capitalize'}} type="text" id={`last_name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('last_name')> -1?'fill-error':''}`} required autoComplete="none" name="last_name" value={this.state.no_lname?'':this.state.last_name} data-param='last_name' onChange={this.handleChange.bind(this,'last_name')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'last_name')} disabled={this.state.no_lname?'disabled':""} onKeyPress={this.handleNameCharacters.bind(this,'last_name')} disabled={isDisable?'disabled':''}/>
 							<label className={isDisable?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot">*</span>Last Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />

@@ -157,7 +157,7 @@ class DoctorProfileView extends React.Component {
 
     navigateToDoctor(doctor, e) {
         e.preventDefault();
-        this.props.history.push(doctor.url);
+        this.props.history.push(`/${doctor.url}`);
 
         let data = {
             'Category': 'ConsumerApp', 'Action': 'recommendedDoctorClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'recommended-doctor-click', 'DoctorID': doctor.doctor_id

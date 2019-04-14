@@ -115,7 +115,7 @@ export const getInsuredProfile = (callback) => (dispatch) => {
         })
         if(callback) callback(response)
     }).catch(function (error) {
-        if(callback) callback(response)
+        if(callback) callback(error)
     })
 }
 

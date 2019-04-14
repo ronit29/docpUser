@@ -178,9 +178,6 @@ class HomeView extends React.Component {
 		this.props.history.push('/doctorsignup')
 	}
 
-	navigateToOnline(){
-		document.getElementById('cstbox').focus();
-	}
 
 	render() {
 
@@ -366,22 +363,22 @@ class HomeView extends React.Component {
 				<div className="headerSubLinkContainer">
 					<div className="container">
 						<div className="head_text_container">
-							<p onClick={(e) => {
+							<a href="/search" onClick={(e) => {
 								e.preventDefault();
-								this.navigateTo("/search?from=footer", 'opd')
-							}}>Find Doctor</p>
-							<p onClick={(e) => {
+								this.navigateTo("/search", 'opd')
+							}}>Find a Doctor</a>
+							<a href="/search" onClick={(e) => {
 								e.preventDefault();
-								this.navigateTo("/search?from=footer", 'lab')
-							}}>Lab Tests</p>
-							<p onClick={(e) => {
+								this.navigateTo("/search", 'lab')
+							}}>Lab Tests</a>
+							<a href="/full-body-checkup-health-packages" onClick={(e) => {
 								e.preventDefault();
-								this.navigateTo('/searchpackages')
-							}}>Health Package</p>
-							<p onClick={(e) => {
+								this.navigateTo('/full-body-checkup-health-packages')
+							}}>Health Packages</a>
+							<a href="/online-consultation" onClick={(e) => {
 								e.preventDefault();
-								this.navigateToOnline()
-							}}>Online Consultation</p>
+								this.navigateTo('/online-consultation')
+							}}>Online Doctor Consultation</a>
 							{/* <p onClick={(e) => {
 								e.preventDefault();
 								this.navigateTo('/contact')

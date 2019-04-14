@@ -156,7 +156,7 @@ class InsuranceReview extends React.Component{
 						<ul className="ins-usr-img-para">
 							<li>
 								<div className="img-list-width">
-									<img className="ins-input-img" style={{ width: '19px' }} src={ASSETS_BASE_URL + "/img/ins-usr.svg"} />
+									<img className="ins-input-img"  src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 								</div>
 								{
 									self_profile.no_lname?<p style={{'textTransform': 'capitalize'}}>{self_profile.name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>:
@@ -165,19 +165,19 @@ class InsuranceReview extends React.Component{
 							</li>
 							<li>
 								<div className="img-list-width">
-									<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/cal.svg"} />
+									<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
 								</div>
 								<p>{self_profile.dob}</p>
 							</li>
 							<li>
 								<div className="img-list-width">
-									<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/email.svg"} />
+									<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
 								</div>
 								<p>{self_profile.email}</p>
 							</li>
 							<li>
 								<div className="img-list-width">
-									<img className="ins-input-img" style={{ width: '18px' }} src={ASSETS_BASE_URL + "/img/ins-loc.svg"} />
+									<img className="ins-input-img"  src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 								</div>
 								<p style={{'textTransform': 'capitalize'}}>{`${self_profile.address}, ${self_profile.town}, ${self_profile.district}, ${self_profile.state} - ${self_profile.pincode}`}</p>
 							</li>
@@ -196,7 +196,7 @@ class InsuranceReview extends React.Component{
 												<div className="col-6">
 													<div className="members-listings">
 														<div className="member-list-width">
-															<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/rel.svg"} />
+															<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/hands-01.svg"} />
 														</div>
 														<p style={{'textTransform': 'capitalize'}}>{this.props.self_data_values[val[key]].relation}</p>
 													</div>
@@ -204,7 +204,7 @@ class InsuranceReview extends React.Component{
 												<div className="col-6">
 													<div className="members-listings">
 														<div className="member-list-width">
-															<img style={{ width: '19px' }} className="ins-input-img" src={ASSETS_BASE_URL + "/img/ins-usr.svg"} />
+															<img style={{ width: '19px' }} className="ins-input-img" src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 														</div>
 														{
 															this.props.self_data_values[val[key]].no_lname?
@@ -216,7 +216,7 @@ class InsuranceReview extends React.Component{
 												<div className="col-6">
 													<div className="members-listings">
 														<div className="member-list-width">
-															<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/cal.svg"} />
+															<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
 														</div>
 														<p>{this.props.self_data_values[val[key]].dob}</p>
 													</div>
