@@ -2,6 +2,7 @@ import React from 'react'
 import ChatPanel from '../commons/ChatPanel'
 import InsurCommon from './insuranceCommonSection.js'
 import ProfileHeader from '../commons/DesktopProfileHeader'
+import STORAGE from '../../helpers/storage'
 
 class InsuranceReview extends React.Component{
 	constructor(props) {
@@ -234,9 +235,14 @@ class InsuranceReview extends React.Component{
 				</div>
 				</div>
 			</section>
-			<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Pay now (₹ {this.state.selected_plan_price}) 
+			{
+				STORAGE.isAgent()?<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Send SMS (₹ {this.state.selected_plan_price}) 
 			<span className="foot-btn-sub-span">{this.state.gst}</span>
 			</button>
+			:<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Pay now (₹ {this.state.selected_plan_price}) 
+			<span className="foot-btn-sub-span">{this.state.gst}</span>
+			</button>
+			}
 			</div>
 			<ChatPanel />
 			</div>
