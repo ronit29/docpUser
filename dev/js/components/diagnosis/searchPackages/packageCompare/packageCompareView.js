@@ -45,9 +45,9 @@ const queryString = require('query-string');
 
       if (ids.length > 0) {
           window.onscroll = function() {
-            let abc = document.getElementsByClassName('sticky-multiple-pkgs')[0].offsetTop
+            let scrollHeight = document.getElementsByClassName('sticky-multiple-pkgs')[0].offsetTop
               ids.map((id,i)=>{
-                if (abc >0 && window.screen.width < 768) {
+                if (scrollHeight >0 && window.screen.width < 768) {
                   document.getElementById(id).classList.add("d-none")
                 } else {
                   document.getElementById(id).classList.remove("d-none")
@@ -117,6 +117,7 @@ const queryString = require('query-string');
       let info=[]
       let info_first=''
       let catId = ''
+      let testId = ''
       this.props.data.category_info.map((cat_info, i) => {
         info = []
         info_first = ''
@@ -124,23 +125,27 @@ const queryString = require('query-string');
             this.props.data.packages.map((pkg_test, n) => {
               info=info.concat(pkg_test.tests_included.filter(x=> x.test_id == test_id))
               info[n].package_id = pkg_test.id
-          })                                                               
-            info.map((info,k) =>{
-              if(k == 0){
-                info_first = info.available
-                catId = cat_info.id
-              }
-              // if(info_first === info.available){
-              //   ids.push(catId)
-              // }
-              if(info_first !== info.available){
-                ids.push(info.test_id) 
-              }
+              info[n].cat_id = cat_info.id
             })
         })
+        console.log(info)
+        info.map((info,k) =>{
+          // testId = info.test_id
+          // console.log(testId)
+          // if(){
+          //   info_first = info.available
+          //   catId = info.cat_id
+            
+          // }
+          // if(testId === info.test_id  && testId === info.test_id){
+          //   ids.push(info.test_id, catId)
+          // }
+          // if(k != 0 && info_first !== info.available){
+          //   ids.push(testId) 
+          // }
+        })
       })
-      // console.log('ids')
-      // console.log(ids)
+      console.log(ids)
       if(this.state.isDiffChecked){
         this.setState({isDiffTest:[],isDiffChecked:!this.state.isDiffChecked})
       }else{
@@ -225,7 +230,7 @@ const queryString = require('query-string');
                           this.props.data.category_info?
                               this.props.data.category_info.map((cat_info, i) => {
                                 return (
-                                    <div className={"pkg-card-container mb-3" + (this.state.isDiffChecked && this.state.isDiffTest.indexOf(cat_info.id) == -1?'d-none':'')} key={i} id={'cat_'+cat_info.id}>
+                                    <div className={"pkg-card-container mb-3" + (this.state.isDiffChecked && this.state.isDiffTest.indexOf(cat_info.id) == 0?' d-none':'')} key={i} id={'cat_'+cat_info.id}>
                                       <div className="pkg-crd-header light-orng-header" onClick={this.ButtonHandler.bind(this,cat_info.id)}>
                                         <span>{cat_info.name}</span>
                                         <span className={this.state.tabsValue.indexOf(cat_info.id) > -1 ? 'acrd-arw-rotate span-img' : 'acrd-show span-img'}><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
@@ -244,7 +249,7 @@ const queryString = require('query-string');
                                         {
                                           cat_info.test_ids.map((test_id, k) => {
                                               testData= self.props.data.test_info.filter(x=> x.id == test_id)
-                                               return <div key={k} id= {testData[0].id} className={this.state.isDiffChecked && this.state.isDiffTest.indexOf(testData[0].id) == -1?'d-none':''}>
+                                               return <div key={k} id= {testData[0].id} className={this.state.isDiffChecked && this.state.isDiffTest.indexOf(testData[0].id) != -1?' d-none':''}>
                                                         <div className="pkg-crd-header light-orng-header grey-head test-done" onClick={this.ButtonHandler.bind(this,testData[0].id)}>
                                                           <span>{testData[0].name}</span>
                                                           {
