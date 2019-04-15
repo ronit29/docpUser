@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Loader from '../../Loader'
-import Lightbox from '../../../../helpers/lightbox';
+// import Lightbox from '../../../../helpers/lightbox';
+import Lightbox from 'react-image-lightbox';
 
 class UserReportsView extends React.Component {
     constructor(props) {
