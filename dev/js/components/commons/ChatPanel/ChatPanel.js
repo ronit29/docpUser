@@ -8,6 +8,7 @@ import GTM from '../../../helpers/gtm.js'
 import ChatStaticView from './ChatStaticView'
 import RelatedArticles from '../article/RelatedArticles'
 import BannerCarousel from '../Home/bannerCarousel';
+const queryString = require('query-string');
 
 class ChatPanel extends React.Component {
     constructor(props) {
@@ -298,7 +299,9 @@ class ChatPanel extends React.Component {
             symptoms_uri = encodeURIComponent(symptoms_uri)
         }
 
-        let iframe_url = `${CONFIG.CHAT_URL}?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&room=${this.state.roomId}`
+        const parsedHref = queryString.parse(window.location.search);
+
+        let iframe_url = `${CONFIG.CHAT_URL}?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&room=${this.state.roomId}&from_app=${parsedHref.from_app || false}&device_id=${parsedHref.device_id || ''}`
 
         if (this.state.initialMessage && !this.state.showStaticView) {
             iframe_url += `&msg=${this.state.initialMessage}`
