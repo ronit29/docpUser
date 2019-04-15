@@ -1,4 +1,4 @@
-import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, INSURANCE_PAY, SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE , SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE} from '../../constants/types';
+import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, INSURANCE_PAY, SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE , SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, PUSH_USER_DATA} from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
 export const getInsurance = (callback) => (dispatch) => {
@@ -151,4 +151,30 @@ export const generateInsuranceLead = (selectedPlan, callback) => (dispatch) => {
     }).catch(function (error) {
         callback(error, null)
     })
+}
+export const pushUserData = (criteria,callback) => (dispatch) => {
+    return API_POST('/api/v1/insurance/push_insurance_data',criteria).then(function (response) {
+        dispatch({
+            type: PUSH_USER_DATA,
+            payload: response
+        })
+        if(callback) callback(response);
+    }).catch(function (error) {
+        dispatch({
+            type: PUSH_USER_DATA,
+            payload: error,
+        })
+        if(callback) callback(error);
+        throw error
+    })
+
+}
+
+export const retrieveUserData = (callback) => (dispatch) => {
+    API_GET('/api/v1/insurance/show_insurance_data').then(function (response) {
+        if (callback) callback(response)
+    }).catch(function (error) {
+        if (callback) callback(null)
+    })
+
 }

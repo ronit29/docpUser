@@ -1,12 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {userData,insurancePay, resetSelectedInsuranceMembers} from '../../actions/index.js'
+import {userData,insurancePay, resetSelectedInsuranceMembers, retrieveUserData} from '../../actions/index.js'
 import InsuranceReviewView from '../../components/insurance/insuranceReview.js'
 
 class InsuranceReview extends React.Component{
     componentDidMount() {
-            // this.props.getUserProfile()
+            this.props.retrieveUserData((resp)=>{
+                console.log(resp)
+            })
     }
 	render(){
 		return(
@@ -30,7 +32,8 @@ const mapDispatchToProps = (dispatch) => {
         // selectInsurancePlan: (plan,criteria,forceadd) => dispatch(selectInsurancePlan(plan,criteria,forceadd)),
         // userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),
         insurancePay :(criteria,callback) => dispatch(insurancePay(criteria,callback)),
-        resetSelectedInsuranceMembers: () => dispatch(resetSelectedInsuranceMembers())
+        resetSelectedInsuranceMembers: () => dispatch(resetSelectedInsuranceMembers()),
+        retrieveUserData:(cb) =>dispatch(retrieveUserData(cb))
     }
 }
 
