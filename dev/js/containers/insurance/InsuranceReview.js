@@ -1,18 +1,26 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {userData,insurancePay, resetSelectedInsuranceMembers, retrieveUserData} from '../../actions/index.js'
+import {userData,insurancePay, resetSelectedInsuranceMembers, retrieveUserData, sendAgentBookingURL} from '../../actions/index.js'
 import InsuranceReviewView from '../../components/insurance/insuranceReview.js'
 
 class InsuranceReview extends React.Component{
+    constructor(props) {
+        super(props)
+        this.state = {
+            data: null
+        }
+    }
     componentDidMount() {
             this.props.retrieveUserData((resp)=>{
-                console.log(resp)
+                if(resp){
+                    this.setState({data:resp})
+                }
             })
     }
 	render(){
 		return(
-			<InsuranceReviewView {...this.props}/>
+			<InsuranceReviewView {...this.props} data={this.state.data}/>
 			)
 	}
 }
@@ -33,7 +41,8 @@ const mapDispatchToProps = (dispatch) => {
         // userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),
         insurancePay :(criteria,callback) => dispatch(insurancePay(criteria,callback)),
         resetSelectedInsuranceMembers: () => dispatch(resetSelectedInsuranceMembers()),
-        retrieveUserData:(cb) =>dispatch(retrieveUserData(cb))
+        retrieveUserData:(cb) =>dispatch(retrieveUserData(cb)),
+        sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
     }
 }
 
