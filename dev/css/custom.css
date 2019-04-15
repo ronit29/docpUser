@@ -602,12 +602,15 @@ body.lineLoader {
 .about_managment_container{
 	margin-top: 25px;
 }
+.mrng-bottom-20{
+	margin-bottom: 20px;
+}
 .about_mng_cards {
     padding: 15px 15px;
     border-radius: 5px;
     background-color: #ffffff;
     box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.12);
-    margin-bottom: 20px;
+		min-height: 100%;
 }
 .abt-img-text {
     display: flex;
@@ -641,4 +644,5 @@ body.lineLoader {
 .abt-content p:last-child{
 	margin-bottom: 0px;
 }
+
 /* ============ about Us section ============ */

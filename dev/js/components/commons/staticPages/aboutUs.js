@@ -188,7 +188,7 @@ class AboutUs extends React.Component {
                         </div>
                         <div className="about_mng_card_cont">
                             <div className="row">
-                                <div className="col-md-12 col-lg-6">
+                                <div className="col-md-12 col-lg-6 mrng-bottom-20">
                                     <div className="about_mng_cards">
                                         <div className="abt-img-text">
                                             <img src={ASSETS_BASE_URL + "/img/abt-img/ys.png"} />
@@ -199,35 +199,11 @@ class AboutUs extends React.Component {
                                             </div>
                                         </div>
                                         <div className="abt-content">
-                                            <p>
-                                                Yashish Dahiya is the Chief Executive Officer (CEO) and Co-Founder of PolicyBazaar Group of
-                                                    Companies. He has a strong belief that customers in India need more financial cover for
-                                                    death, disease, and disability and the long-term profitability of the insurance industry
-                                                    depends upon how well the industry is focussed on these three. With that, he has built
-                                                Policybazaar.com into a 3,000-crore plus insurance marketplace within a short span of 10years.</p>
-                                            <p>
-                                                Under his leadership, the group company started PaisaBazaar.com, an online financial
-                                               marketplace for investment and lending products in 2014. Today, Paisabazaar.com is India’s
-                                               largest online financial marketplace for loans and credit cards, disbursing loans worth Rs
-                                           6,500 crore annually to more than 450 cities and towns.</p>
-                                            <p>
-                                                With the backing of a host of investors, Yashish has now set his sights on transforming the
-                                                healthcare industry overall with the launch of Docprime.com. This new venture aims to
-                                                redefine the way India seeks quality medical services and make health services accessible,
-                                            available and affordable to masses.</p>
-                                            <p>
-                                                Before starting his entrepreneurial journey with PolicyBazaar.com, he was the Managing
-                                                Director of ebookers.com, a leading pan-European online travel distributor, which was also an
-                                                FTSE 250 company listed on Nasdaq. Yashish was also a management consultant with Bain &amp;
-                                                Co. in their London office. Yashish holds a Bachelor’s Degree in Engineering from IIT Delhi, a
-                                            Post Graduate Diploma in Management from IIM Ahmedabad, and an MBA from INSEAD.</p>
-                                            <p>
-                                                Yashish likes to spend his spare time outdoors, is the current masters national champion in
-                                            swimming and is the fifth fastest Ironman from India across all ages.</p>
+                                            <p>Yashish Dahiya is the Chief Executive Officer (CEO) and Co-Founder of PolicyBazaar Group of Companies. He has built Policybazaar.com into a 3,000-crore plus insurance marketplace within a short span of 10 years. Under his leadership, the group company started PaisaBazaar.com, an online financial marketplace for investment and lending products in 2014.  With the backing of a host of investors, Yashish has now set his sights on transforming the healthcare industry overall with the launch of Docprime.com. Before starting his entrepreneurial journey with PolicyBazaar.com, he was the Managing Director of ebookers.com, a leading pan-European online travel distributor, which was also an FTSE 250 company listed on Nasdaq. Yashish was also a management consultant with Bain & Co. in their London office. Yashish holds a Bachelor’s Degree in Engineering from IIT Delhi, a Post Graduate Diploma in Management from IIM Ahmedabad, and an MBA from INSEAD. Yashish likes to spend his spare time outdoors, is the current masters national champion in swimming and is the fifth fastest Ironman from India across all ages. </p>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-md-12 col-lg-6">
+                                <div className="col-md-12 col-lg-6 mrng-bottom-20">
                                     <div className="about_mng_cards">
                                         <div className="abt-img-text">
                                             <img src={ASSETS_BASE_URL + "/img/abt-img/alk.png"} />
@@ -238,18 +214,11 @@ class AboutUs extends React.Component {
                                             </div>
                                         </div>
                                         <div className="abt-content">
-                                            <p>
-                                                Alok Bansal is the Co-Founder & CFO of PolicyBazaar Group of Companies that owns India’s leading insurtech brand Policybazaar.com, leading lending marketplace Paisabazaar.com and new healthtech venture, Docprime.com. He heads various functions including corporate finance and controllership, tax, treasury, strategic planning, and analytics.
-                                            </p>
-                                            <p>
-                                                He firmly believes that the primary responsibility of a CFO is to accomplish business goals rather than just concentrating on functional goals. According to him, the success of any business lies in working with a team with different mindsets, allowing them the flexibility and freedom to experiment, innovate and contribute. Alok’s core strength lies in strategic thinking, process control, and execution.
-                                            </p>
-                                            <p>Prior to joining PolicyBazaar.com, Alok has worked in various cross-functional leadership roles with Mahindra & Mahindra, iGate Global Solutions and GE. He was recognized as one of the top 100 CFOs in the country by the CFO India Magazine in 2016. Alok has a special interest in science and technology, economic empowerment, education and civil rights.
-                                            </p>
+                                            <p>Alok Bansal is the Co-Founder & CFO of PolicyBazaar Group of Companies . He heads various functions including corporate finance and controllership, tax, treasury, strategic planning, and analytics. He firmly believes that the primary responsibility of a CFO is to accomplish business goals rather than just concentrating on functional goals. According to him, the success of any business lies in working with a team with different mind sets, allowing them the flexibility and freedom to experiment, innovate and contribute. Alok’s core strength lies in strategic thinking, process control, and execution. Prior to joining PolicyBazaar.com, Alok has worked in various cross-functional leadership roles with Mahindra & Mahindra, iGate Global Solutions and GE. He was recognized as one of the top 100 CFOs in the country by the CFO India Magazine in 2016. Alok has a special interest in science and technology, economic empowerment, education and civil rights.</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-md-12 col-lg-6">
+                                <div className="col-md-12 col-lg-6 mrng-bottom-20">
                                     <div className="about_mng_cards">
                                         <div className="abt-img-text">
                                             <img src={ASSETS_BASE_URL + "/img/abt-img/ash.png"} />
@@ -261,22 +230,12 @@ class AboutUs extends React.Component {
                                         </div>
                                         <div className="abt-content">
                                             <p>
-                                                Ashish Gupta is currently the CEO of Docprime.com (A new Health Tech venture by PolicyBazaar Group) and is responsible for running all facets of the business. He is passionate about the health industry and in his present position is committed to build an integrated ecosystem to bridge the gap between doctors and patients. </p>
-                                            <p>
-                                                Prior to this, he served as the Chief Technology Officer (CTO) of Policybazaar.com which he joined in 2015. His main responsibility at the parent company was to provide seamless customer experience to the visitors on the website. Apart from that, he also spearheaded all digital marketing initiatives for the company and helped drive revenue through various market research, product marketing, and content marketing activities.</p>
-                                            <p>
-                                                With an overall experience of 16 years, Ashish has been at a realm of many innovations. At Policybazaar.com he developed an in-house AI chatbot, PBee–a specialized, customized, and standardized customer support system that has the capability of answering almost all general queries made by the customers. The highlight of the software is its ability to provide insurance quotes after carefully analysing specific requirements. He is also the man behind the Self-Video Cashless Claims feature available on PolicyBazaar’s official app that makes claims processing and settlement easier and faster.</p>
-
-                                            <p>
-                                                Before joining the revolutionary online insurance company, Ashish was the Vice-President and CTO at HealthKart, a premier e-health store. He also had his own start-up called CouponVoodoo.com, which aimed at simplifying a shopper’s buying decision based upon pricing.</p>
-
-                                            <p>
-                                                His initial few jobs included being a management trainee with the automotive division of ICI Paints and learning and growing by being involved in other cross-functional roles. Apart from working, he enjoys traveling and exploring other countries or cities. A graduate in Chemical Engineering from IIT Delhi, Ashish loves being behind the wheels and going on long drives.</p>
-
+                                            Ashish Gupta is currently the CEO of Docprime.com and is responsible for running all facets of the business. He is passionate about the health industry and in his present position, committed to build an integrated ecosystem to bridge the gap between doctors and patients.  Prior to this, he served as the Chief Technology Officer (CTO) of Policybazaar.com which he joined in 2015. With an overall experience of 16 years, Ashish has been at a realm of many innovations. Before joining the revolutionary online insurance company, Ashish was the Vice-President and CTO at HealthKart, a premier e-health store. He also had his own start-up called CouponVoodoo.com, which aimed at simplifying a shopper’s buying decision based upon pricing.  His initial few jobs included being a management trainee with the automotive division of ICI Paints and learning and growing by being involved in other cross-functional roles. Apart from working, he enjoys traveling and exploring other countries or cities. A graduate in Chemical Engineering from IIT Delhi, Ashish loves being behind the wheels and going on long drives. 
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-md-12 col-lg-6">
+                                <div className="col-md-12 col-lg-6 mrng-bottom-20">
                                     <div className="about_mng_cards">
                                         <div className="abt-img-text">
                                             <img src={ASSETS_BASE_URL + "/img/abt-img/ruch.png"} />
@@ -287,12 +246,7 @@ class AboutUs extends React.Component {
                                             </div>
                                         </div>
                                         <div className="abt-content">
-                                            <p>
-                                                Richit Ummat is the Co-founder and COO of Docprime.com (A Policybazaar.com Group company). Richit oversees day-to-day operations and processes at Docprime.com. He is also responsible for implementing effective policies in line with the company’s vision and mission. Prior to the current position, Richit served as the Director of Policybazaar.com.
-                                           </p>
-                                            <p>
-                                                Before joining the Policybazaar.com Group, Richit worked with Apollo Munich Health Insurance Company Ltd. where he held various leadership roles across verticals. He also worked as National Sales Manager (Personal loans, Credit cards, EL & LAS) with Dhanlaxmi bank, and as Regional Sales Manager with Reliance Capital. Richit’s expertise lies in building businesses, strategic planning and forging partnerships. He is an MBA from Indian Institute of Foreign Trade. Other than work, his passion lies in travelling and watching movies.
-                                           </p>
+                                            <p>Richit Ummat is the Co-founder and COO of Docprime.com. Richit oversees day-to-day operations and processes at Docprime.com. He is also responsible for implementing effective policies in line with the company’s vision and mission. Prior to the current position, Richit served as the Director of Policybazaar.com. Before joining the Policybazaar.com Group, Richit worked with Apollo Munich Health Insurance Company Ltd. where he held various leadership roles across verticals. He also worked as National Sales Manager (Personal loans, Credit cards, EL & LAS) with Dhanlaxmi bank, and as Regional Sales Manager with Reliance Capital. Richit’s expertise lies in building businesses, strategic planning and forging partnerships. He is an MBA from Indian Institute of Foreign Trade. Other than work, his passion lies in travelling and watching movies. </p>
                                         </div>
                                     </div>
                                 </div>
