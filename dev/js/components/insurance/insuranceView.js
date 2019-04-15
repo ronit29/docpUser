@@ -87,11 +87,9 @@ class Insurance extends React.Component{
         					profilesArray.push(profiles)
         				}
 					})
-				})
-				
+				})				
 				if(membersArray.length == profilesArray.length){
-					Object.entries(membersArray).map(function([key, values]) {
-						
+					Object.entries(membersArray).map(function([key, values]) {						
 						if(membersArray[key].id == profilesArray[key].id){
 							let memberNewdata = values
 		    				let newName =  profilesArray[key].name.split(" ")
