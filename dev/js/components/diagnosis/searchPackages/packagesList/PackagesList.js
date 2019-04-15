@@ -178,16 +178,17 @@ class packagesList extends React.Component {
                                         hasMore={this.state.hasMore}
                                         useWindow={true}
                                     >
-                                    {
-                                        this.props.packagesList && this.props.packagesList.result ? this.props.packagesList.result.map((packages, i) => {
-                                            return <div key={i} id={`scrollById_${packages.id}_${packages.lab.id}`}>
-                                                <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
-                                            </div>
-                                        })
-                                            : ''
-                                    }
-
-                                    {/*<InfiniteScroll
+                                        <ul>
+                                            {
+                                                this.props.packagesList && this.props.packagesList.result ? this.props.packagesList.result.map((packages, i) => {
+                                                    return <li key={i} id={`scrollById_${packages.id}_${packages.lab.id}`}>
+                                                        <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
+                                                    </li>
+                                                })
+                                                    : ''
+                                            }
+                                        </ul>
+                                        {/*<InfiniteScroll
                                         pageStart={0}
                                         loadMore={this.loadMore.bind(this)}
                                         hasMore={this.state.hasMore}

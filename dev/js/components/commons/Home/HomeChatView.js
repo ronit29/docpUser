@@ -305,7 +305,7 @@ class HomeChatView extends React.Component {
 
                 <ProfileHeader homePage={true} showSearch={true} />
 
-                <div className="sub-header mrg-top"></div>
+                <div className="onln-cnslt-head"></div>
                 <div className="chat-main-container">
                     <div className="container">
                         <div className="row">

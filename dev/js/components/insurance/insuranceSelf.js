@@ -32,7 +32,9 @@ class InsuranceSelf extends React.Component{
     	    town_code:'',
     	    selectedDateSpan:new Date(),
     	    no_lname:false,
-    	    isDisable:false
+    	    disableName:false,
+    	    disableEmail:false,
+    	    disableDob:false
 
         }
     	this.handleSubmit = this.handleSubmit.bind(this);
@@ -71,7 +73,7 @@ class InsuranceSelf extends React.Component{
 	    			profile= Object.assign({}, props.self_data_values[0])
 	    		} 
 		    	if(Object.keys(profile).length){
-		    		this.setState({...profile,isDisable:true},() =>{
+		    		this.setState({...profile,disableEmail:profile.email != ''?true:false,disableDob:profile.dob != null?true:false,disableName:profile.name !=''?true:false},() =>{
 		    			if(profile.gender == 'm'){
 							this.setState({title:'mr.'},()=>{
 								 this.handleSubmit()
@@ -111,7 +113,9 @@ class InsuranceSelf extends React.Component{
 	    }
 
 	    this.setState({
-	    	isDisable: true,
+	    	disableEmail:!profile.isDummyUser && profile.email != ''?true:false,
+	    	disableDob: !profile.isDummyUser && profile.dob != null?true:false,
+	    	disableName: !profile.isDummyUser && profile.name !=''?true:false,
 			gender:profile.isDummyUser?'':profile.gender,
 			email:profile.isDummyUser?'':profile.email,
 			dob:profile.isDummyUser?'':profile.dob,
@@ -293,13 +297,13 @@ class InsuranceSelf extends React.Component{
 				})
 			}
 		})}
-		let isDisable = false
-		if(!isDummyUser && this.state.isDisable){
-			if(this.state.name !='' && this.state.dob !='' && this.state.email !=''){
-				isDisable = true
-			}
+		// let isDisable = false
+		// if(!isDummyUser && this.state.isDisable){
+		// 	if(this.state.name !='' && this.state.dob !='' && this.state.email !=''){
+		// 		isDisable = true
+		// 	}
 
-		}
+		// }
 		return(
 				<div>
 				{/*
@@ -332,8 +336,8 @@ class InsuranceSelf extends React.Component{
 					</div>
 					<div className="col-6">
 						<div className="ins-form-group inp-margin-right ">
-							<input style={{'textTransform': 'capitalize'}} type="text" id={`name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('name')> -1?'fill-error':''}`} required autoComplete="nope" name="name" value={this.state.name} data-param='name' onChange={this.handleChange.bind(this,'name')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'name')} disabled={isDisable?'disabled':''} onKeyPress={this.handleNameCharacters.bind(this,'name')}/>
-							<label className={isDisable?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`name_${this.props.member_id}`}><span className="labelDot">*</span>First Name</label>
+							<input style={{'textTransform': 'capitalize'}} type="text" id={`name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('name')> -1?'fill-error':''}`} required autoComplete="nope" name="name" value={this.state.name} data-param='name' onChange={this.handleChange.bind(this,'name')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'name')} disabled={this.state.disableName?'disabled':''} onKeyPress={this.handleNameCharacters.bind(this,'name')}/>
+							<label className={this.state.disableName?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`name_${this.props.member_id}`}><span className="labelDot">*</span>First Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 						</div>
 						{
@@ -347,8 +351,8 @@ class InsuranceSelf extends React.Component{
 					</div>
 					<div className="col-6">
 						<div className="ins-form-group inp-margin-right ">
-							<input style={{'textTransform': 'capitalize'}} type="text" id={`middle_name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('middle_name')> -1?'fill-error':''}`} required autoComplete="none" name="middle_name" value={this.state.no_lname?'':this.state.middle_name}  data-param='middle_name' onChange={this.handleChange.bind(this,'middle_name')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'middle_name')} onKeyPress={this.handleNameCharacters.bind(this,'middle_name')} disabled={this.state.no_lname?'disabled':""} disabled={isDisable?'disabled':''}/>
-							<label className={isDisable?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`middle_name_${this.props.member_id}`}>Middle Name</label>
+							<input style={{'textTransform': 'capitalize'}} type="text" id={`middle_name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('middle_name')> -1?'fill-error':''}`} required autoComplete="none" name="middle_name" value={this.state.no_lname?'':this.state.middle_name}  data-param='middle_name' onChange={this.handleChange.bind(this,'middle_name')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'middle_name')} onKeyPress={this.handleNameCharacters.bind(this,'middle_name')} disabled={this.state.no_lname?'disabled':""} disabled={this.state.disableName?'disabled':''}/>
+							<label className={this.state.disableName?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`middle_name_${this.props.member_id}`}>Middle Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 						</div>
 						{
@@ -357,9 +361,9 @@ class InsuranceSelf extends React.Component{
 						}
 					</div>
 					<div className="col-6">
-						<div className="ins-form-group inp-margin-left">
-							<input style={{'textTransform': 'capitalize'}} type="text" id={`last_name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('last_name')> -1?'fill-error':''}`} required autoComplete="none" name="last_name" value={this.state.no_lname?'':this.state.last_name} data-param='last_name' onChange={this.handleChange.bind(this,'last_name')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'last_name')} disabled={this.state.no_lname?'disabled':""} onKeyPress={this.handleNameCharacters.bind(this,'last_name')} disabled={isDisable?'disabled':''}/>
-							<label className={isDisable?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot">*</span>Last Name</label>
+						<div className="ins-form-group ins-form-group inp-margin-right  ">
+							<input style={{'textTransform': 'capitalize'}} type="text" id={`last_name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('last_name')> -1?'fill-error':''}`} required autoComplete="none" name="last_name" value={this.state.no_lname?'':this.state.last_name} data-param='last_name' onChange={this.handleChange.bind(this,'last_name')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'last_name')} disabled={this.state.no_lname?'disabled':""} onKeyPress={this.handleNameCharacters.bind(this,'last_name')} disabled={this.state.disableName?'disabled':''}/>
+							<label className={this.state.disableName?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot">*</span>Last Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 						</div>
 						{
@@ -406,8 +410,8 @@ class InsuranceSelf extends React.Component{
 					</div>
 					<div className="col-12">
 						<div className="ins-form-group">
-							<input type="text" id={`emails_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('email')> -1?'fill-error':''}`} required autoComplete="none" name="email" value={this.state.email} data-param='email' onChange={this.handleChange.bind(this,'email')} onBlur={this.handleEmail} onFocus={this.handleOnFocus.bind(this,'email')} disabled={isDisable?'disabled':''}/>
-							<label className={isDisable?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`emails_${this.props.member_id}`}><span className="labelDot">*</span>Email</label>
+							<input type="text" id={`emails_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('email')> -1?'fill-error':''}`} required autoComplete="none" name="email" value={this.state.email} data-param='email' onChange={this.handleChange.bind(this,'email')} onBlur={this.handleEmail} onFocus={this.handleOnFocus.bind(this,'email')} disabled={this.state.disableEmail?'disabled':''}/>
+							<label className={this.state.disableEmail?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`emails_${this.props.member_id}`}><span className="labelDot">*</span>Email</label>
 							<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
 						</div>
 						{
@@ -417,7 +421,7 @@ class InsuranceSelf extends React.Component{
 					</div>
 					<div className="col-12">
 						<div className="ins-form-group">
-						 	<input type="button"  id={`isn-date_${this.props.member_id}`} className={`form-control ins-form-control text-left ${this.props.validateErrors.indexOf('dob')> -1?'fill-error':''}`} required autoComplete="none" name="dob" value={this.state.dob?this.state.dob:'yyyy/mm/dd'} data-param='dob' onClick={this.openDateModal.bind(this)} />
+						 	<input type="button"  id={`isn-date_${this.props.member_id}`} className={`form-control ins-form-control text-left ${this.props.validateErrors.indexOf('dob')> -1?'fill-error':''}`} required autoComplete="none" name="dob" value={this.state.dob?this.state.dob:'yyyy/mm/dd'} data-param='dob' onClick={this.openDateModal.bind(this)} disabled={this.state.disableDob?'disabled':false}/>
 							<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Date of birth</label>
     						<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
 							{

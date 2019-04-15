@@ -13,21 +13,22 @@ class DesktopProfileHeader extends React.Component {
         }
     }
 
-   componentWillReceiveProps(nextProps){
-        if(this.state.toggleHamburger != nextProps.toggleLeftMenu){
-            this.setState({toggleHamburger: nextProps.toggleLeftMenu}, ()=>{
-                if(this.state.toggleHamburger){
-                    document.body.style.overflow="hidden"
-                }else{
-                    document.body.style.overflow=""
+    componentWillReceiveProps(nextProps) {
+        if (this.state.toggleHamburger != nextProps.toggleLeftMenu) {
+            this.setState({ toggleHamburger: nextProps.toggleLeftMenu }, () => {
+                if (this.state.toggleHamburger) {
+                    document.body.style.overflow = "hidden"
+                } else {
+                    document.body.style.overflow = ""
                 }
             })
         }
-   }
+    }
 
-    navigateTo(where, e) {
-        e.preventDefault()
-        e.stopPropagation()
+    navigateTo(where, type) {
+        if (type) {
+            this.props.selectSearchType(type)
+        }
         this.props.history.push(where)
     }
 
@@ -69,7 +70,7 @@ class DesktopProfileHeader extends React.Component {
         }
     }
 
-    toggleLeftMenu(){
+    toggleLeftMenu() {
         this.props.toggleLeftMenuBar()
     }
 
@@ -121,6 +122,28 @@ class DesktopProfileHeader extends React.Component {
                                 <span className="top-head-link-divider">|</span>
                                 <span className="top-head-link" onClick={() => this.props.history.push('/doctorsignup')}>Add your lab</span>
                             </div>
+                            {/* <div className="head_text_container">
+                                <p onClick={(e) => {
+                                            e.preventDefault();
+                                            this.navigateTo("/search?from=footer", 'opd')
+                                        }}>Find Doctor</p>
+                                <p onClick={(e) => {
+                                            e.preventDefault();
+                                            this.navigateTo("/search?from=footer", 'lab')
+                                        }}>Lab Tests</p>
+                                <p onClick={(e) => {
+                                            e.preventDefault();
+                                            this.navigateTo('/searchpackages')
+                                        }}>Health Package</p>
+                                <p onClick={(e) => {
+                                            e.preventDefault();
+                                            this.props.history.push('/')
+                                        }}>Online Consultation</p>
+                                <p onClick={(e) => {
+                                            e.preventDefault();
+                                            this.navigateTo('/contact')
+                                        }}>Contact us</p>
+                            </div> */}
                             <div style={{ marginLeft: 'auto' }}>
                                 <span className="top-head-text">A group company of </span>
                                 <img src={ASSETS_BASE_URL + "/img/pb-logo-window.svg"} style={{ width: 120 }} />
@@ -137,36 +160,38 @@ class DesktopProfileHeader extends React.Component {
 
                 <div className="container">
                     {
-                        this.state.toggleHamburger?
-                        <div className="cancel-overlay cl-overlay" onClick={(e) => {
-                        e.stopPropagation()
-                        this.toggleLeftMenu() }}>
-                        </div>
-                        :''
+                        this.state.toggleHamburger ?
+                            <div className="cancel-overlay cl-overlay" onClick={(e) => {
+                                e.stopPropagation()
+                                this.toggleLeftMenu()
+                            }}>
+                            </div>
+                            : ''
                     }
 
-                    <LeftMenu {...this.props} {...this.state} toggleLeftMenu={this.toggleLeftMenu.bind(this)}/>
+                    <LeftMenu {...this.props} {...this.state} toggleLeftMenu={this.toggleLeftMenu.bind(this)} />
 
                     <div className="row align-items-center">
 
-                        <div className="col-lg-3 col-md-4 col-5 align-items-center pr-0" onClick={() => {
+                        <div className="col-lg-1 col-md-4 col-5 align-items-center pr-0" onClick={() => {
                             this.props.history.push('/')
                         }}>
                             <div className="ham-menu" onClick={(e) => {
                                 e.stopPropagation()
-                                document.body.style.overflow="hidden"
-                                this.toggleLeftMenu()}}>
+                                document.body.style.overflow = "hidden"
+                                this.toggleLeftMenu()
+                            }}>
                                 <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" />
                             </div>
-                            <a className="logo-ancher" href="/" onClick={(e) => e.preventDefault()}>
+                            <a className="logo-ancher logo-width-cut" href="/" onClick={(e) => e.preventDefault()}>
                                 <img className="logo-size d-none d-lg-block" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" />
                                 <img style={{ width: '45px', marginBottom: '5px' }} className="d-lg-none" src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" />
                             </a>
                         </div>
 
 
-                        <div className="col-lg-9 col-md-8 col-8 d-none d-lg-block ml-auto text-right p-0 pl-0">
-                            <div className="header-search-full-widht">
+                        <div className="col-lg-11 col-md-8 col-8 d-none d-lg-block ml-auto text-right p-0 pl-0">
+                            <div className="header-search-full-widht ml-20">
                                 {/* <div className="head-links" onClick={() => {
                                 let data = {
                                     'Category': 'ConsumerApp', 'Action': 'BookDoctorVisitClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'book-doctor-visit-clicked'
@@ -242,6 +267,13 @@ class DesktopProfileHeader extends React.Component {
                                             <span>Login</span>
                                         </div>
                                 }
+                                <div className="head-links" onClick={(e) => {
+                                            e.preventDefault();
+                                            this.navigateTo('/contact')
+                                        }}>
+                                    <img className="cart-icon-mbl" src={ASSETS_BASE_URL + "/img/call-header.png"} style={{ width: '18px' }} />
+                                    <span>Contact Us</span>
+                                </div>
 
                                 {
                                     profileData ? <div className="head-links" onClick={() => {
@@ -299,7 +331,7 @@ class DesktopProfileHeader extends React.Component {
                                     this.props.history.push('/cart')
                                 }}>
                                     <div className="p-relative">
-                                        <img className="cart-icon-mbl" src={ASSETS_BASE_URL + "/images/cart-ico.svg"} style={{ width: '24px',marginRight:'8px'}} />
+                                        <img className="cart-icon-mbl" src={ASSETS_BASE_URL + "/images/cart-ico.svg"} style={{ width: '24px', marginRight: '8px' }} />
                                         {
                                             cart_count > 0 ? <span className="cart-count-notify">{cart_count}</span> : ""
                                         }

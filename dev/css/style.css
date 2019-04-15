@@ -1,7 +1,7 @@
 .chat-main-container {
-	position: relative;
-	top: -50px;
-	margin-bottom:-50px;
+    position: relative;
+    top: 12px;
+    margin-bottom: -12px;
 }
 body{
 	-webkit-tap-highlight-color: transparent;
@@ -912,7 +912,8 @@ p.top-head-link.card-lab-link span {
 
 @media(max-width: 380px) {
 	.ins-name-head{
-		flex-direction: column;
+        flex-direction: column;
+        align-items: baseline !important;
 	}
 	.ins-name-head.certificate-width{
 		flex-direction: row !important;
@@ -1108,9 +1109,9 @@ p.top-head-link.card-lab-link span {
 		font-size:13px;
 	}
 	.chat-main-container {
-		position: relative;
-		top: -38px;
-		margin-bottom: -38px;
+        position: relative;
+        top: 12px;
+        margin-bottom: 12px;
 	}
 	.dtl-margin-lg{
 		margin-right: 10px !important;
@@ -3049,6 +3050,7 @@ ul.list-sub-menu a:hover {
     border-radius: 0.2em;
     display: inline-block;
     width: 1.4em;
+    line-height: 1.3;
     height: 1.4em;
     padding-left: 0.2em;
     padding-bottom: 0.3em;
@@ -3463,7 +3465,7 @@ border: 1px solid #aaaa;
 	}
 	.congrats-space{
 		width: 100% !important;
-		margin: 30px auto 30px auto !important;
+		margin: 10px auto 30px auto !important;
 	}
 	.congrats-btn{
 		width: 100% !important;
@@ -4763,7 +4765,7 @@ font-weight: 700;
     margin-bottom: 1.5rem;
 }
 .ins-form-group input {
-    padding-left: 34px;
+    padding-left: 44px;
 }
 .form-control-placeholder {
     position: absolute;
@@ -4771,7 +4773,7 @@ font-weight: 700;
     padding: 4px 4px 0 4px;
     transition: all .2s;
     opacity: .5;
-    left: 30px;
+    left: 40px;
 }
 .ins-form-control:focus+.form-control-placeholder, .ins-form-control:valid+.form-control-placeholder {
     font-size: 85%;
@@ -4785,7 +4787,7 @@ font-weight: 700;
 .ins-form-group img {
     position: absolute;
     top: 0;
-    width: 22px;
+    width: 30px;
     bottom: 0;
     margin: auto;
     left: 8px;
@@ -8847,10 +8849,10 @@ ul.careListing li {
 	display: flex;
     align-items: center;
 }
-.ins-name-head img{
+/* .ins-name-head img{
 	border: solid 1px rgba(117, 117, 117, 0.5);
     padding: 10px;
-}
+} */
 
 .ins-name-head p{
 	margin-left: 15px;
@@ -8862,7 +8864,10 @@ ul.careListing li {
 	display: block;
 }
 .ins-pdf-dwnload{
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 .memNew{
     color: white;
@@ -8883,15 +8888,20 @@ border-radius: 4px;
     cursor: pointer;
 }
 .ins-pdf-dwnload img{ 
-	width: 40px;
-	height: 44px;
-	flex-grow: 0;
-	flex-shrink: 0;
+    width: 30px;
+    height: 34px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-top: 3px;
+    flex-grow: 0;
+    flex-shrink: 0;
 	
 }
 .ins-pdf-dwnload span{ 
-	display: block;
+    display: block;
     margin-top: 6px;
+    flex-grow: 0;
+    flex-shrink: 0;
 }
 .ins-swich-tabs-container{
 	/* padding-bottom: 5px; */
@@ -9003,6 +9013,7 @@ border-radius: 4px;
     border-radius: 0.2em;
     display: inline-block;
     width: 1.4em;
+    line-height: 1.3;
     height: 1.4em;
     padding-left: 0.2em;
     padding-bottom: 0.3em;
@@ -9049,7 +9060,7 @@ border-radius: 4px;
     padding: 4px 4px 0px 4px;
     transition: all 200ms;
     opacity: 0.5;
-    left: 30px;
+    left: 40px;
   }
   .labelDot{
   	display: none;
@@ -9071,7 +9082,7 @@ border-radius: 4px;
   .ins-form-group img{
 	position: absolute;
     top: 0;
-    width: 22px;
+    width: 30px;
     bottom: 0;
     margin: auto;
     left: 8px;
@@ -9209,7 +9220,7 @@ border-radius: 4px;
 	color: #757575;
   }
   .ins-form-group input{
-	padding-left: 34px;
+	padding-left: 44px;
   }
   .ins-form-group input:focus{
 	box-shadow: none;
@@ -9346,10 +9357,10 @@ font-weight: 500
 /* ===============isurance 5th screen=============== */
 .congratulation-section{
 	text-align: center;
-    padding: 15px;
+    padding: 5px;
 }
 .cong-img img{
-	width: 70px;
+	width: 50px;
 }
 .cong-content{
 	margin-top: 15px;
@@ -9433,7 +9444,7 @@ font-weight: 500
 .ins-rd-fist{
     font-weight: 500;
     font-size: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 .ins-radio-main-table{
 	margin-top: 15px;
@@ -9611,6 +9622,9 @@ font-weight: 500;
     height: 20px;
     border-radius: 4px;
     cursor: pointer;
+    padding: 0px 10px;
+    min-width: 79px;
+    text-align: center;
 }
 .border-bg-transprant {
 	border-color:transparent !important;
@@ -9625,11 +9639,11 @@ table.insurance-checkboxes .container-radio{
 .ins-select-drop{
 	width: 100%;
     height: 38px;
-    color: #a4a4a4;
+    color: #1b1818;
     background: white;
     border-color: #d9d9d9;
     display: block;
-    text-indent: 28px;
+    text-indent: 36px;
     outline: none;
 }
 .pading-hr-devider{
@@ -9851,7 +9865,8 @@ input[type=button]{
 @media screen and (max-width: 991px){
 	.ins-val-bx.ins-val-boxes{
 		font-size:11px;
-	}
+    }
+    
 }
 @media screen and (max-width: 480px){
 	.ins-val-bx.ins-val-boxes{
@@ -9862,4 +9877,29 @@ input[type=button]{
 
 .pb-30{
     padding-bottom: 30px !important;
+}
+
+.ins-covrd-txt{
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    color: #f78361;
+    border: 1px dashed #f78361;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 4px 8px;
+    max-width: 95px;
+}
+
+.ins-covrd-txt>p{
+    line-height: 12px;
+}
+.ins-no-download{
+	opacity: .2;
+    cursor: not-allowed;
+}
+.ipd-lst ul {
+	list-style: disc;
 }

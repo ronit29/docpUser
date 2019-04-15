@@ -723,14 +723,14 @@ class BookingSummaryViewNew extends React.Component {
                                                                         <img style={{ width: '22px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/hospital.svg"} />
                                                                     </span>{labDetail.name}</h4>
 
-                                                                    <div className="float-right  mbl-view-formatting text-right">
+                                                                    {/*<div className="float-right  mbl-view-formatting text-right">
                                                                         <a href="" style={{ width: '100px', display: 'inline-block' }} onClick={(e) => {
                                                                             e.preventDefault()
                                                                             e.stopPropagation()
                                                                             this.goToProfile(this.state.selectedLab, labDetail.url)
                                                                         }} className="text-primary fw-700 text-sm">View Profile</a>
 
-                                                                    </div>
+                                                                    </div>*/}
                                                                 </div>
                                                             </div>
                                                         </div>
