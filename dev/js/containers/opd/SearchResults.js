@@ -50,7 +50,7 @@ class SearchResults extends React.Component {
                             resolve({ status: 404 })
                         }
                         if (match.url.includes('-sptcit') || match.url.includes('-sptlitcit')) {
-                            getFooterData(match.url.split("/")[1])().then((footerData) => {
+                            getFooterData(match.url.split("/")[1], queryParams.page || 1)().then((footerData) => {
                                 footerData = footerData || null
                                 resolve({ footerData })
                             }).catch((e) => {
@@ -178,7 +178,7 @@ const mapDispatchToProps = (dispatch) => {
         toggle404: (status) => dispatch(toggle404(status)),
         selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
         saveProfileProcedures: (doctor_id, clinic_id, procedure_ids, forceAdd) => dispatch(saveProfileProcedures(doctor_id, clinic_id, procedure_ids, forceAdd)),
-        getOfferList: (lat,long) => dispatch(getOfferList(lat,long)),
+        getOfferList: (lat, long) => dispatch(getOfferList(lat, long)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filter)),
         resetPkgCompare:() => dispatch(resetPkgCompare())
     }

@@ -87,9 +87,9 @@ class Insurance extends React.Component{
         					profilesArray.push(profiles)
         				}
 					})
-				})
+				})				
 				if(membersArray.length == profilesArray.length){
-					Object.entries(membersArray).map(function([key, values]) {
+					Object.entries(membersArray).map(function([key, values]) {						
 						if(membersArray[key].id == profilesArray[key].id){
 							let memberNewdata = values
 		    				let newName =  profilesArray[key].name.split(" ")
@@ -103,9 +103,22 @@ class Insurance extends React.Component{
 		    				}else{
 		    					memberNewdata.name = newName[0]
 		    				}
-							memberNewdata.email = profilesArray[key].email
-							memberNewdata.dob = profilesArray[key].dob
-							memberNewdata.gender = profilesArray[key].gender
+		    				if(membersArray[key].email != ''){
+		    					memberNewdata.email = membersArray[key].email	
+		    				}else{
+		    					memberNewdata.email = profilesArray[key].email
+		    				}
+
+		    				if(membersArray[key].dob != null || membersArray[key].dob != ''){
+		    					memberNewdata.dob = membersArray[key].dob
+		    				}else{
+		    					memberNewdata.dob = profilesArray[key].dob
+		    				}
+							if(membersArray[key].gender != ''){
+		    					memberNewdata.gender = membersArray[key].gender
+		    				}else{
+		    					memberNewdata.gender = profilesArray[key].gender
+		    				}
 							self.props.userData('memberNewdata', memberNewdata)
 						}
 					})
