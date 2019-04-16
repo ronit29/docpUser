@@ -42,7 +42,7 @@ const mapDispatchToProps = (dispatch) => {
         insurancePay :(criteria,callback) => dispatch(insurancePay(criteria,callback)),
         resetSelectedInsuranceMembers: () => dispatch(resetSelectedInsuranceMembers()),
         retrieveUserData:(cb) =>dispatch(retrieveUserData(cb)),
-        sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
+        sendAgentBookingURL: (orderId, type, purchase_type, cb) => dispatch(sendAgentBookingURL(orderId, type, purchase_type, cb)),
     }
 }
 
