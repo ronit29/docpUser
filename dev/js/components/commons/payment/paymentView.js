@@ -5,7 +5,7 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
-// import Lightbox from '../../../helpers/lightbox';
+import Lightbox from 'react-image-lightbox';
 
 const queryString = require('query-string');
 
@@ -161,7 +161,24 @@ class PaymentView extends React.Component {
                                                             <div className="col-4 text-center">
                                                                 <div className="">
                                                                     <img onClick={() => this.setState({ isOpen: true, photoIndex: 0 })} className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/image2-min.jpg"} />
-                                                                    
+                                                                    {isOpen && (
+                                                                        <Lightbox
+                                                                            mainSrc={images[photoIndex]}
+                                                                            nextSrc={images[(photoIndex + 1) % images.length]}
+                                                                            prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+                                                                            onCloseRequest={() => this.setState({ isOpen: false })}
+                                                                            onMovePrevRequest={() =>
+                                                                                this.setState({
+                                                                                    photoIndex: (photoIndex + images.length - 1) % images.length,
+                                                                                })
+                                                                            }
+                                                                            onMoveNextRequest={() =>
+                                                                                this.setState({
+                                                                                    photoIndex: (photoIndex + 1) % images.length,
+                                                                                })
+                                                                            }
+                                                                        />
+                                                                    )}
                                                                 </div>
                                                             </div>
 
