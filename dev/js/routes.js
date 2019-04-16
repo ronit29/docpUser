@@ -388,8 +388,6 @@ const Payment = Loadable({
     loading,
 })
 
-// import Payment from './containers/commons/Payment'
-// import UserProfile from './containers/commons/UserProfile.js'
 
 
 /**
