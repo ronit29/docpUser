@@ -43,6 +43,7 @@ class PatientDetailsNew extends React.Component {
             profileError: false,
             cart_item: parsed.cart_item,
             whatsapp_optin: true,
+            formData: ''
         }
     }
 
@@ -230,6 +231,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     profileDataCompleted(data) {
+        this.setState({ formData: { ...data } })
         if (data.name == '' || data.gender == '' || data.phoneNumber == '' || data.email == '' || !data.otpVerifySuccess) {
             this.setState({ profileDataFilled: false, showTimeError: false })
         } else if (data.otpVerifySuccess) {
@@ -262,11 +264,17 @@ class PatientDetailsNew extends React.Component {
         }
 
         if (!patient) {
-            this.setState({ profileError: true });
-            SnackBar.show({ pos: 'bottom-center', text: "Please Add Patient" });
-            window.scrollTo(0, 0)
-            return
-
+            if (this.state.formData.name != '' && this.state.formData.gender != '' && this.state.formData.phoneNumber != '' && this.state.formData.email != '' && !this.state.formData.otpVerifySuccess) {
+                this.setState({ profileError: true });
+                SnackBar.show({ pos: 'bottom-center', text: "Please verify your mobile no." });
+                window.scrollTo(0, 0)
+                return
+            } else {
+                this.setState({ profileError: true });
+                SnackBar.show({ pos: 'bottom-center', text: "Please Add Patient" });
+                window.scrollTo(0, 0)
+                return
+            }
         }
 
         if (!this.state.profileDataFilled) {
