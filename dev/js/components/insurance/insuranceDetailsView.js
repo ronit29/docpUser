@@ -167,7 +167,7 @@ class InsuranceInputView extends React.Component{
 					fields.push('dob')
 				}
 
-				if(!param.no_lname){
+				if(!param.no_lname && param.relation !== 'self'){
 					if(param.last_name ==""){
 						is_disable = true
 						fields.push('last_name')	
@@ -220,7 +220,7 @@ class InsuranceInputView extends React.Component{
 						if(param.gender == 'm' && param.title !='mr.'){
 							is_disable = true
 							empty_feilds.push('gender')	
-						}else if(param.gender == 'f' && param.title !='mrs.'){
+						}else if(param.gender == 'f' && param.title=='mr'){
 							is_disable = true
 							empty_feilds.push('gender')	
 						}

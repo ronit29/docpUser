@@ -265,9 +265,7 @@ class CartItem extends React.Component {
                                                 return <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
 
                                                     {
-                                                        is_appointment_insured?
-                                                        <div className="float-right fw-700">Free</div>
-                                                        :included_in_user_plan?
+                                                        is_appointment_insured ||included_in_user_plan?
                                                         <span className="float-right fw-700">₹ 0 </span>
                                                         :<span className="float-right fw-700">₹ {test.deal_price}<span className="test-mrp">₹ {test.mrp}</span>
                                                         </span>

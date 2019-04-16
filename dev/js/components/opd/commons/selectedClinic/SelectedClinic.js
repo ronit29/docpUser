@@ -48,13 +48,13 @@ class SelectedClinic extends React.Component {
         return (
             <div className="widget mrb-15 mrng-top-12">
                 <div className="widget-header dr-qucik-info">
-                    <div>
+                    <div onClick={() => this.profileClick(id, url, hospital_id)} style={{cursor:'pointer'}}>
                         <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-dp docCardIntPic">
-                            <img src={thumbnail} style={{width:'60px', height:'60px'}} className="img-fluid img-round" />
+                            <img src={thumbnail} style={{width:'60px', height:'60px'}} className="img-fluid img-round"/>
                         </InitialsPicture>
                     </div>
-                    <div className="dr-profile" onClick={() => this.profileClick(id, url, hospital_id)}>
-                        <h1 className="dr-name">{display_name}<span className="nwDocViewPrf" >(View Profile)</span></h1>
+                    <div className="dr-profile">
+                        <h1 className="dr-name">{display_name}<span className="nwDocViewPrf" onClick={() => this.profileClick(id, url, hospital_id)}>(View Profile)</span></h1>
                         <p className="clinic-name text-sm">{hospitalName}</p>
                     </div>
                 </div>

@@ -16,8 +16,9 @@ class BannerCarousel extends React.Component {
 
     componentDidMount() {
         let totalOffers = ''
-        if (this.props.offerList && this.props.sliderLocation) {
-            totalOffers = this.props.offerList.filter(x => x.slider_location == this.props.sliderLocation).length;
+        let filteredBanners = this.getFilteredBanners();
+        if (this.props.sliderLocation && filteredBanners) {
+            totalOffers = filteredBanners.length;
             setInterval(() => {
                 let curr_index = this.state.index
                 if (this.state.intervalFlag) {
@@ -172,7 +173,13 @@ class BannerCarousel extends React.Component {
         }
 
         else if (offer.url) {
-            this.props.history.push(offer.url)
+
+            if (offer.url.startsWith('http')) {
+                window.open(offer.url, '_blank')
+            }
+            else {
+                this.props.history.push(offer.url)
+            }
 
             let data = {
                 'Category': 'ConsumerApp', 'Action': offer.event_name, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': offer.event_name, 'clickedOn': offer.slider_location
@@ -180,12 +187,14 @@ class BannerCarousel extends React.Component {
             GTM.sendEvent({ data: data })
         }
     }
+
     onTouchStart(event) {
         let touchobj = event.changedTouches[0];
         this.state.startX = touchobj.pageX;
         this.state.startY = touchobj.pageY;
         let startTime = new Date().getTime()
     }
+
     onTouchMove(event) {
         let touchobj = event.changedTouches[0];
         this.state.distX = touchobj.pageX - this.state.startX;
@@ -196,6 +205,7 @@ class BannerCarousel extends React.Component {
             event.returnValue = false;
         }
     }
+
     onTouchEnd(event) {
         let startTime = new Date().getTime()
         let touchobj = event.changedTouches[0]
@@ -204,11 +214,12 @@ class BannerCarousel extends React.Component {
         this.state.distX = touchobj.pageX - this.state.startX
         this.state.distY = touchobj.pageY - this.state.startY
         let elapsedTime = new Date().getTime() - startTime
+        let filteredBanners = this.getFilteredBanners();
         if (elapsedTime <= 400) {
             if (Math.abs(this.state.distX) >= 50 && Math.abs(this.state.distY) <= 100) {
                 if (this.state.distX < 0) {
-                    if (this.props.offerList && this.props.sliderLocation) {
-                        totalOffers = this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length;
+                    if (this.props.sliderLocation && filteredBanners) {
+                        totalOffers = filteredBanners.length;
                         curr_index = this.state.index
                         curr_index = curr_index + 1
                         if (curr_index >= totalOffers) {
@@ -217,8 +228,8 @@ class BannerCarousel extends React.Component {
                         this.setState({ index: curr_index, intervalFlag: false })
                     }
                 } else {
-                    if (this.props.offerList && this.props.sliderLocation) {
-                        totalOffers = this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length;
+                    if (this.props.sliderLocation && filteredBanners) {
+                        totalOffers = filteredBanners.length;
                         curr_index = this.state.index
                         curr_index = curr_index - 1
                         if (curr_index < 0) {
@@ -230,12 +241,156 @@ class BannerCarousel extends React.Component {
             }
         }
     }
+
+    getFilteredBanners() {
+        let filteredOffers = []
+        if (this.props.offerList) {
+            filteredOffers = this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation);
+            filteredOffers = filteredOffers.filter(offer => {
+                let show_banner = false
+                let filter_show_banner = true
+                if (offer.url_params_included && Object.values(offer.url_params_included).length) {
+
+                    //Check for filtered values
+
+                    this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.map((data) => {
+                        if (offer.url_params_included['specializations'] && offer.url_params_included['specializations'].length) {
+                            offer.url_params_included['specializations'].map((speciality) => {
+                                if (speciality == data.id) {
+                                    show_banner = true
+                                }
+                            })
+                        }
+                    })
+
+                    this.props.currentSearchedCriterias && this.props.currentSearchedCriterias.map((data) => {
+                        if (offer.url_params_included['test_ids'] && offer.url_params_included['test_ids'].length) {
+                            offer.url_params_included['test_ids'].map((test) => {
+                                if (test == data.id) {
+                                    show_banner = true
+                                }
+                            })
+                        }
+                    })
+
+                    //Check Banners for filters
+
+                    this.props.filterCriteria && Object.entries(this.props.filterCriteria).map((data, key) => {
+                        let type = data[0]
+                        if (type == 'priceRange') {
+                            if (offer.url_params_included['min_fees'] && offer.url_params_included['min_fees'] < data[1][0]) {
+                                filter_show_banner = false
+                            }
+                            if (offer.url_params_included['max_fees'] && offer.url_params_included['max_fees'] > data[1][1]) {
+                                filter_show_banner = false
+                            }
+                        } else if (type == 'distanceRange') {
+                            if (offer.url_params_included['min_distance'] && offer.url_params_included['min_distance'] < data[1][0]) {
+                                filter_show_banner = false
+                            }
+                            if (offer.url_params_included['max_distance'] && offer.url_params_included['max_distance'] > data[1][1]) {
+                                filter_show_banner = false
+                            }
+                        } else if (type == 'sort_on') {
+                            if (offer.url_params_included['sort_on'] && offer.url_params_included['sort_on'].includes(data[1])) {
+                                filter_show_banner = true
+                            }
+                        } else if (type = 'lab_name') {
+                            if (offer.url_params_included['lab_name'] && offer.url_params_included['lab_name'].includes(data[1])) {
+                                filter_show_banner = true
+                            }
+                        } else if (type = 'network_id') {
+                            if (offer.url_params_included['network_id'] && offer.url_params_included['network_id'] != data[1]) {
+                                filter_show_banner = false
+                            }
+                        } else if (type = 'is_available') {
+                            if (offer.url_params_included['is_available'] && offer.url_params_included['is_available'] == true) {
+                                filter_show_banner = true
+                            }
+                        } else if (type = 'is_female') {
+                            if (offer.url_params_included['is_female'] && offer.url_params_included['is_female'] == true) {
+                                filter_show_banner = true
+                            }
+                        }
+                    })
+                }
+
+                else if (offer.url_params_excluded && Object.values(offer.url_params_excluded).length) {
+                    this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.map((data) => {
+                        if (offer.url_params_excluded['specializations'] && offer.url_params_excluded['specializations'].length) {
+                            offer.url_params_excluded['specializations'].map((speciality) => {
+                                if (speciality == data.id) {
+                                    show_banner = false
+                                } else {
+                                    show_banner = true
+                                }
+                            })
+                        }
+                    })
+                    this.props.currentSearchedCriterias && this.props.currentSearchedCriterias.map((data) => {
+                        if (offer.url_params_excluded['test_ids'] && offer.url_params_excluded['test_ids'].length) {
+                            offer.url_params_excluded['test_ids'].map((test) => {
+                                if (test == data.id) {
+                                    show_banner = false
+                                } else {
+                                    show_banner = true
+                                }
+                            })
+                        }
+                    })
+                    this.props.filterCriteria && Object.entries(this.props.filterCriteria).map((data, key) => {
+                        let type = data[0]
+                        if (type == 'priceRange') {
+                            if (offer.url_params_excluded['min_fees'] && offer.url_params_excluded['min_fees'] >= data[1][0]) {
+                                filter_show_banner = false
+                            }
+                            if (offer.url_params_excluded['max_fees'] && offer.url_params_excluded['max_fees'] <= data[1][1]) {
+                                filter_show_banner = false
+                            }
+                        } else if (type == 'distanceRange') {
+                            if (offer.url_params_excluded['min_distance'] && offer.url_params_excluded['min_distance'] >= data[1][0]) {
+                                filter_show_banner = false
+                            }
+                            if (offer.url_params_excluded['max_distance'] && offer.url_params_excluded['max_distance'] <= data[1][1]) {
+                                filter_show_banner = false
+                            }
+                        } else if (type == 'sort_on') {
+                            if (offer.url_params_excluded['sort_on'] && offer.url_params_excluded['sort_on'].includes(data[1])) {
+                                filter_show_banner = false
+                            }
+                        } else if (type = 'lab_name') {
+                            if (offer.url_params_excluded['lab_name'] && offer.url_params_excluded['lab_name'].includes(data[1])) {
+                                filter_show_banner = false
+                            }
+                        } else if (type = 'network_id') {
+                            if (offer.url_params_excluded['network_id'] && offer.url_params_excluded['network_id'] == data[1]) {
+                                filter_show_banner = false
+                            }
+                        } else if (type = 'is_available') {
+                            if (offer.url_params_excluded['is_available'] && offer.url_params_excluded['is_available'] == true) {
+                                filter_show_banner = false
+                            }
+                        } else if (type = 'is_female') {
+                            if (offer.url_params_excluded['is_female'] && offer.url_params_excluded['is_female'] == true) {
+                                filter_show_banner = false
+                            }
+                        }
+                    })
+                }
+
+                else {
+                    show_banner = true
+                    filter_show_banner = true
+                }
+                return show_banner && filter_show_banner
+            })
+        }
+        return filteredOffers
+    }
     render() {
 
-        let offerVisible = {}
-        if (this.props.offerList) {
-            offerVisible = this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation)[this.state.index];
-        }
+        let filteredBanners = this.getFilteredBanners();
+        let offerVisible = filteredBanners[this.state.index]
 
         return (
             <div>
@@ -243,7 +398,7 @@ class BannerCarousel extends React.Component {
                     this.props.sliderLocation === "medicine_detail_page" ?
                         <div className="medic-img-slider">
                             {
-                                this.props.offerList.filter(x => x.slider_location === 'medicine_detail_page').map((offer, i) => {
+                                filteredBanners.filter(x => x.slider_location === 'medicine_detail_page').map((offer, i) => {
                                     return <img key={i} src={offer.image} onClick={() => this.navigateTo(offer)} style={offer.url ? { cursor: 'pointer' } : {}} />
                                 })
                             }
@@ -251,15 +406,15 @@ class BannerCarousel extends React.Component {
                         :
                         <div className={this.props.hideClass ? `banner-carousel-div mrt-20 mrb-20 ${this.props.hideClass}` : `banner-carousel-div mrt-10 mrb-20`}>
                             {
-                                offerVisible && this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length?
+                                offerVisible && Object.values(offerVisible).length ?
                                     <img src={offerVisible.image} onTouchStart={this.onTouchStart.bind(this)} onTouchMove={this.onTouchMove.bind(this)} onTouchEnd={this.onTouchEnd.bind(this)} onClick={() => this.navigateTo(offerVisible)} style={offerVisible.url ? { cursor: 'pointer' } : {}} />
                                     : ''
                             }
                             {
-                                this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).length > 1 ?
+                                filteredBanners && filteredBanners.length > 1 ?
                                     <div className="carousel-indicators mrt-10">
                                         {
-                                            this.props.offerList && this.props.offerList.filter(x => x.slider_location === this.props.sliderLocation).map((offer, i) => {
+                                            filteredBanners && filteredBanners.map((offer, i) => {
                                                 return <span key={i} onClick={() => this.setState({ index: i })} className={this.state.index == i ? "indicator-selected" : ''} ></span>
                                             })
                                         }
@@ -269,7 +424,6 @@ class BannerCarousel extends React.Component {
                 }
             </div>
         );
-
     }
 }
 
