@@ -61,7 +61,7 @@ class ChatPanel extends React.Component {
             })
         }
 
-        if (window) {
+        if (typeof window == "object") {
             // handling events sent by iframe
             window.addEventListener('message', function ({ data }) {
                 let eventData = data;
@@ -299,7 +299,7 @@ class ChatPanel extends React.Component {
             symptoms_uri = encodeURIComponent(symptoms_uri)
         }
 
-        const parsedHref = queryString.parse(window.location.search);
+        const parsedHref = queryString.parse(this.props.location.search);
 
         let iframe_url = `${CONFIG.CHAT_URL}?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&room=${this.state.roomId}&from_app=${parsedHref.from_app || false}&device_id=${parsedHref.device_id || ''}`
 
