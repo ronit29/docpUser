@@ -44,6 +44,8 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		if (typeof long === 'function') long = long()
 		locality = selectedLocation.locality || ""
 		sub_locality = selectedLocation.sub_locality || ""
+	}else{
+		locality = "Delhi"
 	}
 
 	let min_distance = filterCriteria.distanceRange[0]
