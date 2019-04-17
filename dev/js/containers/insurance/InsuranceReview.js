@@ -18,9 +18,9 @@ class InsuranceReview extends React.Component{
             this.props.getInsurance((response)=>{
                 if(!response.certificate){
                     this.props.retrieveUserData((resp)=>{
-                        if(resp){
-                            this.setState({data:resp})
-                            this.props.resetUserInsuredData(resp)
+                        if(resp && !resp.error){
+                            this.setState({data:resp.data})
+                            this.props.resetUserInsuredData(resp.data)
                         }
                     })
                 }
