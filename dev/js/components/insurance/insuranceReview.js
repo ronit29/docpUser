@@ -145,13 +145,9 @@ class InsuranceReview extends React.Component{
 	    		// if(this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.profiles[this.props.USER.defaultProfile]){
 	    		// 	isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
 	    		// }
-	    		let membersData = []
-	    		Object.entries(this.props.data.members).map(function([key, value]) {
-	    			membersData.push(value)
-	    		})
 
-	    		let self_profile = membersData.filter(x=> x.relation == 'self')[0]
-	    		let family_profile = membersData.filter(x=> x.relation != 'self')
+	    		let self_profile = this.props.data.members.filter(x=> x.relation == 'self')[0]
+	    		let family_profile = this.props.data.members.filter(x=> x.relation != 'self')
 	    		// if(!isDummyUser){
 	    		// 	self_profile  = Object.assign({}, this.props.self_data_values[this.props.USER.defaultProfile])		
 	    		// }else{
