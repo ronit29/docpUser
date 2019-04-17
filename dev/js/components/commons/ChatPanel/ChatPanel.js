@@ -395,12 +395,12 @@ class ChatPanel extends React.Component {
                                         }
 
                                         <span onClick={this.toggleCancel.bind(this)}>
-                                            <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-rstrt.svg" title="start a new chat" />
+                                            <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/customer-icons/chat-rstrt.svg"} title="start a new chat" />
 
                                         </span>
                                         {
                                             this.state.showChatBlock
-                                                ? <span className="ml-2" onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src="/assets/img/customer-icons/cht-cls.svg" /></span>
+                                                ? <span className="ml-2" onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/customer-icons/cht-cls.svg"} /></span>
                                                 : ''
                                         }
                                     </div>
@@ -437,7 +437,7 @@ class ChatPanel extends React.Component {
 
                 <div className={this.props.homePage ? `chat-footer mt-21` : `chat-footer mt-21 d-none d-md-block`}>
                     <div className="wrng-mssg">
-                        <img style={{ height: 24, width: 24 }} src="/assets/images/warning-icon.png" />
+                        <img style={{ height: 24, width: 24 }} src={ASSETS_BASE_URL + "/images/warning-icon.png"} />
                         <span>
                             Not for emergencies! In the case of emergency please visit a hospital. Chat is only applicable to Indian citizens currently residing in India.</span>
                     </div>

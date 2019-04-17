@@ -80,7 +80,7 @@ class LeftMenu extends React.Component {
                     }} href="#"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} alt="" className="" />OPD Insurance<span className={user_insurance_status ? 'float-right memAct' : 'float-right memNew'}>{user_insurance_status ? 'Active' : 'New'}</span></a></li>
                     : ''
                 }
-                <li><a onClick={this.isDocCare.bind(this)}><img src="/assets/img/primecae.png" alt="" className="" />Docprime Care
+                <li><a onClick={this.isDocCare.bind(this)}><img src={ASSETS_BASE_URL + "/img/primecae.png"} alt="" className="" />Docprime Care
                                   <span className={memberClass}>{memStatus}</span></a></li>
 
                 <li><a onClick={(e) => {
@@ -93,7 +93,7 @@ class LeftMenu extends React.Component {
                   e.preventDefault()
                   this.props.toggleLeftMenu()
                   this.props.history.push('/user/appointments')
-                }} href="#"><img src="/assets/images/my-appointment.png" alt="" className="" />My Appointments</a></li>
+                }} href="#"><img src={ASSETS_BASE_URL + "/images/my-appointment.png"} alt="" className="" />My Appointments</a></li>
 
                 <li><a onClick={(e) => {
                   e.preventDefault()
@@ -107,13 +107,13 @@ class LeftMenu extends React.Component {
                   e.preventDefault()
                   this.props.toggleLeftMenu()
                   this.props.history.push('/referral')
-                }} href="#"><img src="/assets/images/refer-and-earn.png" alt="" className="" />Refer and Earn</a></li>
+                }} href="#"><img src={ASSETS_BASE_URL + "/images/refer-and-earn.png"} alt="" className="" />Refer and Earn</a></li>
 
                 <li className="pos-rel"><a onClick={(e) => {
                   e.preventDefault()
                   this.props.toggleLeftMenu()
                   this.props.history.push('/notifications')
-                }} href="#"><img src="/assets/images/notification.png" alt="" className="" />Notifications</a>
+                }} href="#"><img src={ASSETS_BASE_URL + "/images/notification.png"} alt="" className="" />Notifications</a>
                   {
                     this.props.unread_count ?
                       <div className="notification-count">
@@ -127,7 +127,7 @@ class LeftMenu extends React.Component {
                 <li><a onClick={(e) => {
                   e.preventDefault()
                   this.setState({ toggleProfile: !this.state.toggleProfile })
-                }} href="#" className=""><img src="/assets/images/myprofile.png" alt="" className="pad-B0" />My Profile
+                }} href="#" className=""><img src={ASSETS_BASE_URL + "/images/myprofile.png"} alt="" className="pad-B0" />My Profile
                                 {
                     this.state.toggleProfile ?
                       <img className="up-down-arw" src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="docprime" />
@@ -159,7 +159,7 @@ class LeftMenu extends React.Component {
                 <li><a onClick={(e) => {
                   e.preventDefault()
                   this.setState({ toggleArticles: !this.state.toggleArticles })
-                }} href="#" ><img src="/assets/images/articles.png" alt="" className="" />Articles
+                }} href="#" ><img src={ASSETS_BASE_URL + "/images/articles.png"} alt="" className="" />Articles
                                 {
                     this.state.toggleArticles ?
                       <img className="up-down-arw" src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="docprime" />
