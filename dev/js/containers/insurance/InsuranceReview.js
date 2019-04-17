@@ -16,12 +16,14 @@ class InsuranceReview extends React.Component{
     componentDidMount() {
         let self = this
             this.props.getInsurance((response)=>{
-                this.props.retrieveUserData((resp)=>{
-                    if(resp){
-                        this.setState({data:resp})
-                        this.props.resetUserInsuredData(resp)
-                    }
-                })
+                if(!response.certificate){
+                    this.props.retrieveUserData((resp)=>{
+                        if(resp){
+                            this.setState({data:resp})
+                            this.props.resetUserInsuredData(resp)
+                        }
+                    })
+                }
             })
     }
 	render(){
