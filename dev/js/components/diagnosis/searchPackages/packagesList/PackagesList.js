@@ -14,7 +14,8 @@ class packagesList extends React.Component {
             loading: false,
             renderBlock: false,
             page: 0,
-            readMore: 'search-details-data-less'
+            readMore: 'search-details-data-less',
+            is_insured: props.filterCriteria && props.filterCriteria.is_insured?props.filterCriteria.is_insured:false
         }
     }
 
@@ -166,7 +167,7 @@ class packagesList extends React.Component {
                             }
                             <div className="row no-gutters">
                                 {
-                                    this.props.offerList && this.props.offerList.filter(x => (x.slider_location === 'search_packages_page') || (x.slider_location === 'full_body_chechkup_page') || (x.slider_location === 'tax_saver_packages_page')).length ?
+                                    this.props.offerList && this.props.offerList.filter(x => (x.slider_location === 'search_packages_page') && !this.state.is_insured || (x.slider_location === 'full_body_chechkup_page') || (x.slider_location === 'tax_saver_packages_page')).length ?
                                         <div className="col-12">
                                             <BannerCarousel {...this.props} sliderLocation={this.props.forTaxSaver ? "tax_saver_packages_page" : this.props.forOrganicSearch ? 'full_body_chechkup_page' : 'search_packages_page'} />
                                         </div> : ''
