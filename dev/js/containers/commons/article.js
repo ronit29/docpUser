@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchArticle, getSpecialityFooterData, postComment, getOfferList, toggleOPDCriteria, toggleDiagnosisCriteria } from '../../actions/index.js'
+import { fetchArticle, getSpecialityFooterData, postComment, getOfferList, toggleOPDCriteria, toggleDiagnosisCriteria, cloneCommonSelectedCriterias } from '../../actions/index.js'
 
 import ArticleView from '../../components/commons/article'
 
@@ -55,9 +55,13 @@ const mapStateToProps = (state, passedProps) => {
     let {
         profiles, defaultProfile, offerList
     } = state.USER
+
+    let {
+        selectedLocation
+    } = state.SEARCH_CRITERIA_OPD
     return {
         initialServerData,
-        profiles, defaultProfile, offerList
+        profiles, defaultProfile, offerList, selectedLocation
     }
 }
 
@@ -68,7 +72,8 @@ const mapDispatchToProps = (dispatch) => {
         postComment: (comment, cb) => dispatch(postComment(comment, cb)),
         getOfferList: (lat, long) => dispatch(getOfferList(lat, long)),
         toggleOPDCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filter)),
-        toggleDiagnosisCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filter))
+        toggleDiagnosisCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filter)),
+        cloneCommonSelectedCriterias: (selectedCriterias) => dispatch(cloneCommonSelectedCriterias(selectedCriterias))
     }
 }
 

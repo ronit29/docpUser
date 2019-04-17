@@ -59,9 +59,9 @@ class HomeView extends React.Component {
 		CRITEO.sendData(data)
 
 	}
-	
 
-	navigateTo(where,type, data, e) {
+
+	navigateTo(where, type, data, e) {
 		if (e) {
 			e.preventDefault()
 			e.stopPropagation()
@@ -178,11 +178,14 @@ class HomeView extends React.Component {
 		this.props.history.push('/doctorsignup')
 	}
 
-	navigateToOnline(){
-		document.getElementById('cstbox').focus();
-	}
-
 	render() {
+
+		let topSpecializations = []
+		if (this.props.specializations && this.props.specializations.length && this.props.specializations.length > 5) {
+			topSpecializations = this.props.specializations.slice(0, 5)
+		} else {
+			topSpecializations = this.props.specializations
+		}
 
 		let profileData = this.props.profiles[this.props.selectedProfile]
 		let articles = this.props.articles || []
@@ -207,7 +210,7 @@ class HomeView extends React.Component {
 						<HomePageWidget
 							heading="Find a Doctor"
 							discount="50%"
-							list={this.props.specializations}
+							list={topSpecializations}
 							searchFunc={(sp) => this.searchDoctor(sp)}
 							searchType="specializations"
 							{...this.props}
@@ -296,27 +299,6 @@ class HomeView extends React.Component {
                                 </div> : ''
                         } */}
 
-						<HomePageWidget
-							heading="Book Doctor Appointment"
-							discount="50%"
-							list={this.props.specializations}
-							searchFunc={(sp) => this.searchDoctor(sp)}
-							searchType="specializations"
-							{...this.props}
-							navTo="/search?from=home"
-							type="opd"
-						/>
-
-						{
-							this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-								<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
-						}
-
-						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
-							<p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>
-							<button className="lap-doc-btn" >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
-						</div> */}
-
 						{
 							this.props.common_package && this.props.common_package.length ?
 								<HomePageWidget
@@ -332,6 +314,27 @@ class HomeView extends React.Component {
 									navTo="/searchpackages"
 								/> : ""
 						}
+
+						{
+							this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+								<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
+						}
+
+						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
+							<p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>
+							<button className="lap-doc-btn" >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
+						</div> */}
+
+						<HomePageWidget
+							heading="Book Doctor Appointment"
+							discount="50%"
+							list={topSpecializations}
+							searchFunc={(sp) => this.searchDoctor(sp)}
+							searchType="specializations"
+							{...this.props}
+							navTo="/search?from=home"
+							type="opd"
+						/>
 
 						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>
 							<p className="top-head-link card-lab-link">Run a lab? Reach more<span>customers near you</span></p>
@@ -366,22 +369,22 @@ class HomeView extends React.Component {
 				<div className="headerSubLinkContainer">
 					<div className="container">
 						<div className="head_text_container">
-							<p onClick={(e) => {
+							<a href="/search" onClick={(e) => {
 								e.preventDefault();
-								this.navigateTo("/search?from=footer", 'opd')
-							}}>Find Doctor</p>
-							<p onClick={(e) => {
+								this.navigateTo("/search", 'opd')
+							}}>Find a Doctor</a>
+							<a href="/search" onClick={(e) => {
 								e.preventDefault();
-								this.navigateTo("/search?from=footer", 'lab')
-							}}>Lab Tests</p>
-							<p onClick={(e) => {
+								this.navigateTo("/search", 'lab')
+							}}>Lab Tests</a>
+							<a href="/full-body-checkup-health-packages" onClick={(e) => {
 								e.preventDefault();
-								this.navigateTo('/searchpackages')
-							}}>Health Package</p>
-							<p onClick={(e) => {
+								this.navigateTo('/full-body-checkup-health-packages')
+							}}>Health Packages</a>
+							<a href="/online-consultation" onClick={(e) => {
 								e.preventDefault();
-								this.navigateToOnline()
-							}}>Online Consultation</p>
+								this.navigateTo('/online-consultation')
+							}}>Online Doctor Consultation</a>
 							{/* <p onClick={(e) => {
 								e.preventDefault();
 								this.navigateTo('/contact')

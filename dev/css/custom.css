@@ -409,6 +409,104 @@ header .header-title{font-size: 16px; line-height: 50px;}
     display: inline-block;
 }
 /* ============ thyro care ============ */
+/* ============ article Input ============ */
+.articleSearchWidget{
+	background: #f0f0f0;
+    padding: 15px 10px;
+    margin: 10px -15px;
+}
+.articleTypeloc{
+	background: #f0f0f0;
+    padding: 15px 10px;
+    margin: 10px -15px;
+}
+.articleInputContainer{
+    position: relative;
+}
+.artc-inp{
+    width: 100%;
+    border-radius: 5px;
+    outline: 0;
+    border: none;
+    padding: 15px 135px 15px 30px;
+    box-shadow: -1px 1px 4px 0 rgba(0, 0, 0, 0.2);
+}
+.artc-img{
+    position: absolute;
+    left: 8px;
+    margin: auto;
+    width: 16px;
+    top: 12px;
+}
+.artc-btn{
+	position: absolute;
+    right: 0;
+    height: 100%;
+    align-items: center;
+    padding: 0 10px 0 10px;
+    background: 0 0;
+    border-top: transparent;
+    border-bottom: transparent;
+    border-right: transparent;
+    border-left: 1px solid #dcd8d8;
+    cursor: pointer;
+    color: rgba(40,40,40,.8);
+    font-weight: 500;
+    max-width: 120px;
+    min-width: 95px;
+    white-space: nowrap;
+    overflow: hidden;
+	text-overflow: ellipsis;
+	border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.artc-btn-lft{
+	position: absolute;
+    left: 0;
+    height: 100%;
+    align-items: center;
+    padding: 0 10px 0 10px;
+    background: 0 0;
+    border-top: transparent;
+    border-bottom: transparent;
+    border-right: transparent;
+    border-left: 1px solid #dcd8d8;
+    cursor: pointer;
+    color: rgba(40,40,40,.8);
+    font-weight: 500;
+    max-width: 120px;
+    min-width: 95px;
+    white-space: nowrap;
+    overflow: hidden;
+	text-overflow: ellipsis;
+	border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+.artc-btn.artc-disable, .artc-btn-lft.artc-disable{
+    -webkit-filter: grayscale(100%);
+	filter: grayscale(100%);
+	background: #e3e3e3;
+}
+.artc-inp-loc {
+    width: 100%;
+    border-radius: 5px;
+    outline: 0;
+    border: none;
+    padding: 15px 15px 15px 135px;
+    box-shadow: -1px 1px 4px 0 rgba(0, 0, 0, 0.2);
+}
+.artc-img-loc{
+    position: absolute;
+    left: 110px;
+    margin: auto;
+    width: 16px;
+    top: 12px;
+}
+.artc-btn img{
+    margin-right: 5px;
+    width: 12px;
+}
+/* ============ article Input ============ */
 /* ============ timeSlot-update ============ */
 .time-slot-hdng{
     color: black;
@@ -603,7 +701,7 @@ body.lineLoader {
 .head_text_container{
 	text-align: center;
 }
-.head_text_container p{
+.head_text_container a{
 	display: inline-block;
     color: black;
     padding-right: 12px;
@@ -614,15 +712,16 @@ body.lineLoader {
 	cursor: pointer;
 	font-weight: 500;
 	-webkit-transition: color .2s; 
-        transition: color .2s; 
+				transition: color .2s; 
+				text-decoration: none;
 }
-.head_text_container p:hover{
+.head_text_container a:hover{
 color:  #f78631;
 }
-.head_text_container p:first-child{
+.head_text_container a:first-child{
 	padding-left: 0px;
 }
-.head_text_container p:last-child{
+.head_text_container a:last-child{
 	margin-right: 0px;
 }
 .seoSetText-container{
@@ -650,6 +749,9 @@ color:  #f78631;
 .headerSubLinkContainer{
 	margin-top: 124px;
 }
+div.onln-cnslt-head {
+	margin-top: 126px;
+}
 }
 @media(max-width: 767px) {
 	.head_text_container{
@@ -660,5 +762,60 @@ color:  #f78631;
 	.headerSubLinkContainer{
 		display: none;
 	}
+	div.onln-cnslt-head {
+    margin-top: 0px;
+}
+}
+.onln-cnslt-head{
+	margin-top: 108px;
 }
 /* ============ headerTextUpdate ============ */
+
+/* ============ about Us section ============ */
+.about_managment_container{
+	margin-top: 25px;
+}
+.mrng-bottom-20{
+	margin-bottom: 20px;
+}
+.about_mng_cards {
+    padding: 15px 15px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.12);
+		min-height: 100%;
+}
+.abt-img-text {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.abt-img-text img {
+	width: 65px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+.abt-usr-nm {
+    margin-left: 15px;
+}
+.abt-usr-nm h4 {
+    font-weight: 500;
+    font-size: 16px;
+    border-bottom: 1px solid #f78631;
+    display: inline-block;
+    padding: 0 3px 3px 3px;
+    margin-bottom: 6px;
+}
+.abt-usr-nm p {
+    font-style: italic;
+    color: #565555;
+    font-size: 13px;
+}
+.abt-content p {
+    margin-bottom: 12px;
+}
+.abt-content p:last-child{
+	margin-bottom: 0px;
+}
+
+/* ============ about Us section ============ */
