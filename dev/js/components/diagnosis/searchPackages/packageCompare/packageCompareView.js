@@ -121,6 +121,9 @@ const queryString = require('query-string');
       this.props.data.category_info.map((cat_info, i) => {
         info = []
         info_first = ''
+        this.props.data.packages.map((cat_count, j) => {
+          cat_info_data = cat_info_data.concat(cat_count.category_parameter_count.filter(x=> x.id==cat_info.id))
+        })        
         cat_info.test_ids.map((test_id, k) => {
             this.props.data.packages.map((pkg_test, n) => {
               info=info.concat(pkg_test.tests_included.filter(x=> x.test_id == test_id))
@@ -229,6 +232,7 @@ const queryString = require('query-string');
                         {
                           this.props.data.category_info?
                               this.props.data.category_info.map((cat_info, i) => {
+                                console.log(cat_info.id)
                                 return (
                                     <div className={"pkg-card-container mb-3" + (this.state.isDiffChecked && this.state.isDiffTest.indexOf(cat_info.id) == 0?' d-none':'')} key={i} id={'cat_'+cat_info.id}>
                                       <div className="pkg-crd-header light-orng-header" onClick={this.ButtonHandler.bind(this,cat_info.id)}>
