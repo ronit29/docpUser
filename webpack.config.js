@@ -12,6 +12,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin');
 const reactLoadablePlugin = require('react-loadable/webpack').ReactLoadablePlugin;
+// const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 
 const client_dev = {
     mode: 'development',
@@ -41,13 +42,14 @@ const client_dev = {
         new HtmlWebpackPlugin({
             filename: 'index.ejs',
             template: '!!raw-loader!./views/index.template.ejs',
-            excludeAssets: [/style.*.css/]
+            excludeAssets: [/style.*.css/],
+            inject: false
         }),
         new HtmlWebpackExcludeAssetsPlugin(),
         new reactLoadablePlugin({
             filename: './dist/react-loadable.json',
         }),
-        new BundleAnalyzerPlugin(),
+        // new BundleAnalyzerPlugin(),
     ]
 }
 
@@ -79,7 +81,8 @@ const client_prod = {
         new HtmlWebpackPlugin({
             filename: 'index.new.ejs',
             template: '!!raw-loader!./views/index.template.prod.ejs',
-            excludeAssets: [/style.*.css/]
+            excludeAssets: [/style.*.css/],
+            inject: false
         }),
         new HtmlWebpackExcludeAssetsPlugin(),
         new reactLoadablePlugin({
@@ -116,7 +119,8 @@ const client_staging = {
         new HtmlWebpackPlugin({
             filename: 'index.new.ejs',
             template: '!!raw-loader!./views/index.template.ejs',
-            excludeAssets: [/style.*.css/]
+            excludeAssets: [/style.*.css/],
+            inject: false
         }),
         new HtmlWebpackExcludeAssetsPlugin(),
         new reactLoadablePlugin({

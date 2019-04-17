@@ -13,6 +13,7 @@ const fs = require('fs');
 const DIST_FOLDER = './dist/';
 const Sentry = require('@sentry/node');
 const stats = JSON.parse(_readFileSync(`${DIST_FOLDER}react-loadable.json`))
+const index_bundle = _find_index_bundle()
 
 import { Helmet } from "react-helmet";
 import React from 'react'
@@ -119,7 +120,7 @@ app.all('*', function (req, res) {
             let SSR_TIMER = setTimeout(() => {
                 _serverHit(req, 'server_done')
                 res.render('index.ejs', {
-                    html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, split_bundles
+                    html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles
                 })
             }, 10000)
 
@@ -170,7 +171,7 @@ app.all('*', function (req, res) {
                     _serverHit(req, 'server_done')
                     _serverHit(req, 'server_done_ssr')
                     res.render('index.ejs', {
-                        html, storeData, helmet, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, split_bundles
+                        html, storeData, helmet, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles
                     })
 
                 } catch (e) {
@@ -183,7 +184,7 @@ app.all('*', function (req, res) {
 
                     _serverHit(req, 'server_done')
                     res.render('index.ejs', {
-                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, split_bundles
+                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_fil, index_bundlee, split_bundles
                     })
                 }
 
@@ -205,7 +206,7 @@ app.all('*', function (req, res) {
                     res.status(404)
                     _serverHit(req, 'server_done')
                     res.render('index.ejs', {
-                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, split_bundles
+                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_fil, index_bundlee, split_bundles
                     })
                 }
             })
@@ -217,7 +218,7 @@ app.all('*', function (req, res) {
             }
             _serverHit(req, 'server_done')
             res.render('index.ejs', {
-                html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, split_bundles
+                html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles
             })
         }
 
@@ -243,6 +244,19 @@ Loadable.preloadAll().then(() => {
     });
 })
 
+
+function _find_index_bundle() {
+    let files = fs.readdirSync(DIST_FOLDER)
+    for (let file of files) {
+        if (file.includes('.bundle.js') && file.includes('index')) {
+            if (DOCPRIME_PRODUCTION || DOCPRIME_STAGING) {
+                return process.env.CDN_BASE_URL + 'dist/' + `${file}`
+            } else {
+                return `/dist/${file}`
+            }
+        }
+    }
+}
 
 function _readStyles() {
     return new Promise((resolve, reject) => {
