@@ -9,8 +9,13 @@ class DesktopProfileHeader extends React.Component {
         this.state = {
             headerButtonsState: false,
             medicinePopup: false,
-            toggleHamburger: this.props.toggleLeftMenu || false
+            toggleHamburger: this.props.toggleLeftMenu || false,
+            showLeftMenu: false
         }
+    }
+
+    componentDidMount() {
+        this.setState({ showLeftMenu: true })
     }
 
     componentWillReceiveProps(nextProps) {
@@ -169,7 +174,9 @@ class DesktopProfileHeader extends React.Component {
                             : ''
                     }
 
-                    <LeftMenu {...this.props} {...this.state} toggleLeftMenu={this.toggleLeftMenu.bind(this)} />
+                    {
+                        this.state.showLeftMenu ? <LeftMenu {...this.props} {...this.state} toggleLeftMenu={this.toggleLeftMenu.bind(this)} /> : ""
+                    }
 
                     <div className="row align-items-center">
 
@@ -268,9 +275,9 @@ class DesktopProfileHeader extends React.Component {
                                         </div>
                                 }
                                 <div className="head-links" onClick={(e) => {
-                                            e.preventDefault();
-                                            this.navigateTo('/contact')
-                                        }}>
+                                    e.preventDefault();
+                                    this.navigateTo('/contact')
+                                }}>
                                     <img className="cart-icon-mbl" src={ASSETS_BASE_URL + "/img/call-header.png"} style={{ width: '18px' }} />
                                     <span>Contact Us</span>
                                 </div>
