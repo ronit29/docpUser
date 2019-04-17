@@ -45,14 +45,16 @@ const queryString = require('query-string');
 
       if (ids.length > 0) {
           window.onscroll = function() {
-            let scrollHeight = document.getElementsByClassName('sticky-multiple-pkgs')[0].offsetTop
+            if(document.getElementsByClassName('sticky-multiple-pkgs')){
+              let scrollHeight = document.getElementsByClassName('sticky-multiple-pkgs')[0].offsetTop
               ids.map((id,i)=>{
                 if (scrollHeight >0 && window.screen.width < 768) {
                   document.getElementById(id).classList.add("d-none")
                 } else {
                   document.getElementById(id).classList.remove("d-none")
                 }
-              })
+              }) 
+            }
           }
       }
 

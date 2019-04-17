@@ -458,16 +458,23 @@ export default function (state = defaultState, action) {
                 compare_packages: [].concat(state.compare_packages)
             }
 
+            let selected_packages = [].concat(newState.compare_packages)
+            let found = false
             if(action.reset){
                 newState.compare_packages = action.payload.criteria
-            }else{
-                let ids = newState.compare_packages.filter(x => x.id == action.payload.criteria.id && x.lab_id == action.payload.criteria.lab_id)
-                if (ids.length) {
-                    newState.compare_packages = newState.compare_packages.filter(x => x.id != action.payload.criteria.id && x.lab_id != action.payload.criteria.lab_id)
-                } else {
-                    newState.compare_packages.push(action.payload.criteria)
-                }
-            }    
+            }else{    
+                selected_packages = selected_packages.filter((x) => {
+                  if (x.id == action.payload.criteria.id) {
+                      found = true
+                      return false
+                  }
+                  return true
+                })
+                  if (!found) {
+                      selected_packages.push(action.payload.criteria)
+                  }
+              newState.compare_packages = selected_packages
+            }
             return newState
         }
 

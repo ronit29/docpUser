@@ -26,12 +26,23 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
         }
         let parsed = queryString.parse(this.props.location.search)
         let resetCompareData=[]
+        let data = []
+        let package_ids = parsed.package_ids.split(',')
+        let ids = ''
+        if(package_ids.length > 0){
+          Object.entries(package_ids).map(function ([key, pkg]) {
+            ids = pkg.split('-')
+            data.push({[ids[0]]: parseInt(ids[1])})
+          })
+        }
+
         this.props.getCompareList(parsed.package_ids,(resp)=>{
           if(resp){
             let test = {}
               resp.packages.map((pkg,i) =>{
                 test = {}
                 test.id=pkg.id
+                test.lab_id=''
                 test.name=pkg.name
                 resetCompareData.push(test)
               })
