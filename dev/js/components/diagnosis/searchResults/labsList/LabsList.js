@@ -14,7 +14,8 @@ class LabsList extends React.Component {
             hasMore: false,
             loading: false,
             renderBlock: false,
-            page: 0
+            page: 0,
+            is_insured: props.filterCriteria && props.filterCriteria.is_insured?props.filterCriteria.is_insured:false
         }
     }
 
@@ -128,7 +129,7 @@ class LabsList extends React.Component {
                                 }*/}
 
                                 {
-                                    this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'lab_search_results').length ?
+                                    this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'lab_search_results').length && !this.state.is_insured?
                                         <div className="col-12">
                                             <BannerCarousel {...this.props} sliderLocation="lab_search_results" />
                                         </div> : ''

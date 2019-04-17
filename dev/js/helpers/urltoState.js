@@ -15,6 +15,9 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let long = _getLocationParamBind('long') || ""
             let place_id = _getLocationParamBind('place_id') || ""
 
+            let locality = _getLocationParamBind('locality') || ""
+            let sub_locality = _getLocationParamBind('sub_locality') || ""
+
             let min_distance = parseInt(_getLocationParamBind('min_distance')) || 0
             let max_distance = parseInt(_getLocationParamBind('max_distance')) || 15
             let min_fees = parseInt(_getLocationParamBind('min_fees')) || 0
@@ -140,7 +143,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
 
             let selectedLocation = null
             if (lat && long) {
-                selectedLocation = { geometry: { location: { lat, lng: long } }, place_id, formatted_address: "Delhi" }
+                selectedLocation = { geometry: { location: { lat, lng: long } }, place_id, formatted_address: "Delhi", sub_locality: sub_locality, locality: locality }
             }
 
             if (location_ms) {
