@@ -35,8 +35,8 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
             data.push({[ids[0]]: parseInt(ids[1])})
           })
         }
-
-        this.props.getCompareList(parsed.package_ids,(resp)=>{
+        let dummypakg = '12213,12227,11722'
+        this.props.getCompareList(dummypakg,(resp)=>{
           if(resp){
             let test = {}
               resp.packages.map((pkg,i) =>{
