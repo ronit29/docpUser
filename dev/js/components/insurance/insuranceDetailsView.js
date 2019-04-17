@@ -267,10 +267,7 @@ class InsuranceInputView extends React.Component{
 					let secondDate = new Date(param.dob);
 					let diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
 					if(this.props.selected_plan.threshold.length>0){
-						console.log('self_age='+self_age)
-						console.log('adult2age='+adult2age)
 						let minAgeOfAdults = Math.min(self_age,adult2age)
-						console.log('minAgeOfAdults='+minAgeOfAdults)
 						let adultChildAgeDiff = minAgeOfAdults - childAge
 						let child_age = this.props.selected_plan.threshold[0].child_min_age
 						let child_max_age = this.props.selected_plan.threshold[0].child_max_age
@@ -278,7 +275,6 @@ class InsuranceInputView extends React.Component{
 				  			fields.push('dob')
 				  			is_disable = true			    
 						}
-						console.log(adultChildAgeDiff)
 						if(adultChildAgeDiff < 18){
 							dobError.push('dob')
 				  			is_disable = true
@@ -362,93 +358,29 @@ class InsuranceInputView extends React.Component{
     	if(is_disable && document.getElementById(member_ref)){    		
     		document.getElementById(member_ref).scrollIntoView();
     	}else{
-    		this.SaveFinalData()
+    		this.SaveUserData(this.props)
 			this.props.history.push('/insurance/insurance-user-details-review')
     	}
     }
 
-    SaveFinalData(){
+    SaveUserData(props){
+    	let self = this
     	var insuranceUserData={}
-    	let isDummyUser
-    	insuranceUserData.insurance_plan=this.props.selected_plan.id
-    	insuranceUserData.insurer= this.props.insurnaceData['insurance'][0].id
-    	insuranceUserData.members=[]
-    	let selectedUser = this.props.USER.defaultProfile
-    	let address=''
-    	let email=''
-    	let pincode = ''
-    	let town = ''
-    	let district = ''
-    	let state = ''
-    	let state_code = ''
-    	let city_code = ''
-    	let district_code = ''
-		if(this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.profiles[this.props.USER.defaultProfile]){
-			isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
-		}
-    	if(this.props.self_data_values && this.props.self_data_values[selectedUser] && !isDummyUser){
-    		address = this.props.self_data_values[selectedUser].address
-    		district = this.props.self_data_values[selectedUser].district
-    		pincode = this.props.self_data_values[selectedUser].pincode
-    		email = this.props.self_data_values[selectedUser].email
-    		town = this.props.self_data_values[selectedUser].town
-    		state = this.props.self_data_values[selectedUser].state
-    		state_code = this.props.self_data_values[selectedUser].state_code
-    		city_code = this.props.self_data_values[selectedUser].town_code
-    		district_code = this.props.self_data_values[selectedUser].district_code
-    	}else if(this.props.self_data_values && this.props.self_data_values[0] && isDummyUser){
-    		address = this.props.self_data_values[0].address
-    		district = this.props.self_data_values[0].district
-    		pincode = this.props.self_data_values[0].pincode
-    		email = this.props.self_data_values[0].email
-    		town = this.props.self_data_values[0].town
-    		state = this.props.self_data_values[0].state
-    		state_code = this.props.self_data_values[0].state_code
-    		city_code = this.props.self_data_values[0].town_code
-    		district_code = this.props.self_data_values[0].district_code
-    	}
-
     	var members={}
-    	let currentSelectedProfiles = []
-    	this.props.currentSelectedInsuredMembersId.map((val,key) => {
-    		currentSelectedProfiles.push(val[key])
-    	})
-    		
-    	{Object.entries(this.props.currentSelectedInsuredMembersId).map(function([key, value]) {
-    		let param =this.props.self_data_values[value[key]]
-				members={}
-				members.title=param.title
-				if(param.no_lname){
-					members.middle_name=''
-		    		members.last_name=''	
-				}else{
-					members.middle_name=param.middle_name
-		    		members.last_name=param.last_name
-				}
-		    	
-		    	members.first_name=param.name
-		    	members.address=address
-		    	members.email=email
-		    	members.pincode=pincode
-		    	members.town=town
-		    	members.district=district
-		    	members.state=state
-		    	members.state_code=state_code
-		    	members.city_code=city_code
-		    	members.district_code=district_code
-		    	members.dob=param.dob
-		    	members.member_type=param.member_type
-		    	members.gender=param.gender
-		    	members.profile=param.profile_id
-		    	members.relation=param.relation
-		    	members.user_form_id=param.id
-		    	members.no_lname = param.no_lname
-				return 	insuranceUserData.members.push(members)
-		    
-		},this)}
-		this.props.resetSelectedInsuranceMembers()
+    	insuranceUserData.insurnaceData = props.insurnaceData
+    	insuranceUserData.selected_plan=props.selected_plan.id
+    	insuranceUserData.insurer= props.insurnaceData['insurance'][0].id
+    	insuranceUserData.members= []
+    	insuranceUserData.selected_plan = []
+    	insuranceUserData.currentSelectedInsuredMembersId = this.props.currentSelectedInsuredMembersId
+
+    	Object.entries(this.props.currentSelectedInsuredMembersId).map(function([key, value]) {
+    		members={}
+			members={...self.props.self_data_values[value[key]]}
+			return 	insuranceUserData.members.push(members)
+		})
+    	console.log(insuranceUserData)
 		this.props.pushUserData(insuranceUserData)
-		console.log(insuranceUserData)
     }
     
 	render(){

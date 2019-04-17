@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {userData,insurancePay, resetSelectedInsuranceMembers, retrieveUserData, sendAgentBookingURL} from '../../actions/index.js'
+import {userData,insurancePay, resetSelectedInsuranceMembers, retrieveUserData, sendAgentBookingURL, resetUserInsuredData} from '../../actions/index.js'
 import InsuranceReviewView from '../../components/insurance/insuranceReview.js'
 
 class InsuranceReview extends React.Component{
@@ -12,9 +12,11 @@ class InsuranceReview extends React.Component{
         }
     }
     componentDidMount() {
+        let self = this
             this.props.retrieveUserData((resp)=>{
                 if(resp){
                     this.setState({data:resp})
+                    this.props.resetUserInsuredData(resp)
                 }
             })
     }
@@ -43,6 +45,8 @@ const mapDispatchToProps = (dispatch) => {
         resetSelectedInsuranceMembers: () => dispatch(resetSelectedInsuranceMembers()),
         retrieveUserData:(cb) =>dispatch(retrieveUserData(cb)),
         sendAgentBookingURL: (orderId, type, purchase_type, cb) => dispatch(sendAgentBookingURL(orderId, type, purchase_type, cb)),
+        resetUserInsuredData:(criteria) =>dispatch(resetUserInsuredData(criteria)),
+        
     }
 }
 

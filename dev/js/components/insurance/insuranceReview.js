@@ -23,114 +23,91 @@ class InsuranceReview extends React.Component{
     	let self = this
     	this.setState({selectedProfile:this.props.USER.defaultProfile, selected_plan_price:this.props.selected_plan.amount, ...self.props.self_data_values[this.props.USER.defaultProfile]})  
     }
-  //   proceedPlan(){
-  //   	let success_id
-  //   	var insurance_pay={}
-  //   	// insurance_pay.profile=1
-  //   	let isDummyUser
-  //   	insurance_pay.insurance_plan=this.props.selected_plan.id
-  //   	insurance_pay.insurer= this.props.insurnaceData['insurance'][0].id
-  //   	insurance_pay.members=[]
-  //   	let selectedUser = this.props.USER.defaultProfile
-  //   	let address=''
-  //   	let email=''
-  //   	let pincode = ''
-  //   	let town = ''
-  //   	let district = ''
-  //   	let state = ''
-  //   	let state_code = ''
-  //   	let city_code = ''
-  //   	let district_code = ''
-  //   	// let show_lname_flag = ''
-  //   	// let isDefaultUser
-  //   		if(this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.profiles[this.props.USER.defaultProfile]){
-  //   			// isDefaultUser = this.props.USER.profiles[this.props.USER.defaultProfile].is_default_user
-  //   			isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
-  //   		}
-  //   	if(this.props.self_data_values && this.props.self_data_values[selectedUser] && !isDummyUser){
-  //   		address = this.props.self_data_values[selectedUser].address
-  //   		district = this.props.self_data_values[selectedUser].district
-  //   		pincode = this.props.self_data_values[selectedUser].pincode
-  //   		email = this.props.self_data_values[selectedUser].email
-  //   		town = this.props.self_data_values[selectedUser].town
-  //   		state = this.props.self_data_values[selectedUser].state
-  //   		state_code = this.props.self_data_values[selectedUser].state_code
-  //   		city_code = this.props.self_data_values[selectedUser].town_code
-  //   		district_code = this.props.self_data_values[selectedUser].district_code
-  //   		// show_lname_flag = this.props.self_data_values[selectedUser].show_lname_flag
-  //   	}else if(this.props.self_data_values && this.props.self_data_values[0] && isDummyUser){
-  //   		address = this.props.self_data_values[0].address
-  //   		district = this.props.self_data_values[0].district
-  //   		pincode = this.props.self_data_values[0].pincode
-  //   		email = this.props.self_data_values[0].email
-  //   		town = this.props.self_data_values[0].town
-  //   		state = this.props.self_data_values[0].state
-  //   		state_code = this.props.self_data_values[0].state_code
-  //   		city_code = this.props.self_data_values[0].town_code
-  //   		district_code = this.props.self_data_values[0].district_code
-  //   		// show_lname_flag = this.props.self_data_values[0].show_lname_flag
-  //   	}
-
-  //   	var members={}
-  //   	let currentSelectedProfiles = []
-  //   	this.props.currentSelectedInsuredMembersId.map((val,key) => {
-  //   		currentSelectedProfiles.push(val[key])
-  //   	})
-    		
-  //   	{Object.entries(this.props.currentSelectedInsuredMembersId).map(function([key, value]) {
-  //   		let param =this.props.self_data_values[value[key]]
-		// 		members={}
-		// 		members.title=param.title
-		// 		if(param.no_lname){
-		// 			members.middle_name=''
-		//     		members.last_name=''	
-		// 		}else{
-		// 			members.middle_name=param.middle_name
-		//     		members.last_name=param.last_name
-		// 		}
-		    	
-		//     	members.first_name=param.name
-		//     	members.address=address
-		//     	members.email=email
-		//     	members.pincode=pincode
-		//     	members.town=town
-		//     	members.district=district
-		//     	members.state=state
-		//     	members.state_code=state_code
-		//     	members.city_code=city_code
-		//     	members.district_code=district_code
-		//     	members.dob=param.dob
-		//     	members.member_type=param.member_type
-		//     	members.gender=param.gender
-		//     	members.profile=param.profile_id
-		//     	members.relation=param.relation
-		//     	members.user_form_id=param.id
-		// 		return 	insurance_pay.members.push(members)
-		    
-		// },this)}
-		// console.log(insurance_pay)
-		// this.props.resetSelectedInsuranceMembers()
-		// this.props.insurancePay(insurance_pay,(resp)=>{
-		// 	if(resp.members && resp.members.length >0){
-		// 		this.props.history.push('/insurance/insurance-user-details')
-		// 	}else{
-		// 		if(resp.certificate){
-		// 			this.props.history.push('/insurance/certificate')
-		// 		}else{
-		// 			if(resp.payment_required){
-		// 				this.props.history.push(`/payment/${resp.data.orderId}?refs=opd`)
-		// 			}else{
-		// 				success_id = '/insurance/complete?payment_success=true&id='+resp.data.id
-		// 				this.props.history.push(success_id)
-		// 			}
-		// 		}
-		// 	}			
-		// })
-  //   }
-
     proceedPlan(){
     	let success_id
-    	var insurance_pay={...this.props.data}
+    	var insurance_pay={}
+    	// insurance_pay.profile=1
+    	let isDummyUser
+    	insurance_pay.insurance_plan=this.props.selected_plan.id
+    	insurance_pay.insurer= this.props.insurnaceData['insurance'][0].id
+    	insurance_pay.members=[]
+    	let selectedUser = this.props.USER.defaultProfile
+    	let address=''
+    	let email=''
+    	let pincode = ''
+    	let town = ''
+    	let district = ''
+    	let state = ''
+    	let state_code = ''
+    	let city_code = ''
+    	let district_code = ''
+    	// let show_lname_flag = ''
+    	// let isDefaultUser
+		if(this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.profiles[this.props.USER.defaultProfile]){
+			// isDefaultUser = this.props.USER.profiles[this.props.USER.defaultProfile].is_default_user
+			isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
+		}
+    	if(this.props.self_data_values && this.props.self_data_values[selectedUser] && !isDummyUser){
+    		address = this.props.self_data_values[selectedUser].address
+    		district = this.props.self_data_values[selectedUser].district
+    		pincode = this.props.self_data_values[selectedUser].pincode
+    		email = this.props.self_data_values[selectedUser].email
+    		town = this.props.self_data_values[selectedUser].town
+    		state = this.props.self_data_values[selectedUser].state
+    		state_code = this.props.self_data_values[selectedUser].state_code
+    		city_code = this.props.self_data_values[selectedUser].town_code
+    		district_code = this.props.self_data_values[selectedUser].district_code
+    		// show_lname_flag = this.props.self_data_values[selectedUser].show_lname_flag
+    	}else if(this.props.self_data_values && this.props.self_data_values[0] && isDummyUser){
+    		address = this.props.self_data_values[0].address
+    		district = this.props.self_data_values[0].district
+    		pincode = this.props.self_data_values[0].pincode
+    		email = this.props.self_data_values[0].email
+    		town = this.props.self_data_values[0].town
+    		state = this.props.self_data_values[0].state
+    		state_code = this.props.self_data_values[0].state_code
+    		city_code = this.props.self_data_values[0].town_code
+    		district_code = this.props.self_data_values[0].district_code
+    		// show_lname_flag = this.props.self_data_values[0].show_lname_flag
+    	}
+
+    	var members={}
+    	let currentSelectedProfiles = []
+    	this.props.currentSelectedInsuredMembersId.map((val,key) => {
+    		currentSelectedProfiles.push(val[key])
+    	})
+    		
+    	{Object.entries(this.props.currentSelectedInsuredMembersId).map(function([key, value]) {
+    		let param =this.props.self_data_values[value[key]]
+				members={}
+				members.title=param.title
+				if(param.no_lname){
+					members.middle_name=''
+		    		members.last_name=''	
+				}else{
+					members.middle_name=param.middle_name
+		    		members.last_name=param.last_name
+				}
+		    	
+		    	members.first_name=param.name
+		    	members.address=address
+		    	members.email=email
+		    	members.pincode=pincode
+		    	members.town=town
+		    	members.district=district
+		    	members.state=state
+		    	members.state_code=state_code
+		    	members.city_code=city_code
+		    	members.district_code=district_code
+		    	members.dob=param.dob
+		    	members.member_type=param.member_type
+		    	members.gender=param.gender
+		    	members.profile=param.profile_id
+		    	members.relation=param.relation
+		    	members.user_form_id=param.id
+				return 	insurance_pay.members.push(members)
+		    
+		},this)}
 		console.log(insurance_pay)
 		this.props.resetSelectedInsuranceMembers()
 		this.props.insurancePay(insurance_pay,(resp)=>{
@@ -150,7 +127,6 @@ class InsuranceReview extends React.Component{
 			}			
 		})
     }
-
     sendAgentBookingURL() {
         this.props.sendAgentBookingURL(null, 'sms', 'insurance',(err, res) => {
             if (err) {
@@ -163,15 +139,19 @@ class InsuranceReview extends React.Component{
 
 	render(){	
 		if(this.props.data){	
-			console.log(this.props.data)
 			let self = this
 			let isDummyUser
-			if(this.props.data.members.length>0){
-	    		if(this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.profiles[this.props.USER.defaultProfile]){
-	    			isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
-	    		}
-	    		let self_profile = this.props.data.members.filter(x=> x.relation == 'self')[0]
-	    		let family_profile = this.props.data.members.filter(x=> x.relation != 'self')
+			if(Object.keys(this.props.data.members).length>0){
+	    		// if(this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.profiles[this.props.USER.defaultProfile]){
+	    		// 	isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
+	    		// }
+	    		let membersData = []
+	    		Object.entries(this.props.data.members).map(function([key, value]) {
+	    			membersData.push(value)
+	    		})
+
+	    		let self_profile = membersData.filter(x=> x.relation == 'self')[0]
+	    		let family_profile = membersData.filter(x=> x.relation != 'self')
 	    		// if(!isDummyUser){
 	    		// 	self_profile  = Object.assign({}, this.props.self_data_values[this.props.USER.defaultProfile])		
 	    		// }else{
@@ -199,8 +179,8 @@ class InsuranceReview extends React.Component{
 										<img className="ins-input-img"  src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 									</div>
 									{
-										self_profile.no_lname?<p style={{'textTransform': 'capitalize'}}>{self_profile.first_name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>:
-										<p style={{'textTransform': 'capitalize'}}>{self_profile.first_name} {self_profile.middle_name} {self_profile.last_name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>
+										self_profile.no_lname?<p style={{'textTransform': 'capitalize'}}>{self_profile.name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>:
+										<p style={{'textTransform': 'capitalize'}}>{self_profile.name} {self_profile.middle_name} {self_profile.last_name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>
 									}
 								</li>
 								<li>
@@ -246,8 +226,8 @@ class InsuranceReview extends React.Component{
 														</div>
 														{
 															val.no_lname?
-														<p style={{'textTransform': 'capitalize'}}>{val.first_name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}</p>:
-														<p style={{'textTransform': 'capitalize'}}>{val.first_name} {val.middle_name} {val.last_name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}</p>
+														<p style={{'textTransform': 'capitalize'}}>{val.name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}</p>:
+														<p style={{'textTransform': 'capitalize'}}>{val.name} {val.middle_name} {val.last_name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}</p>
 														}
 													</div>
 												</div>
