@@ -701,7 +701,7 @@ body.lineLoader {
 .head_text_container{
 	text-align: center;
 }
-.head_text_container p{
+.head_text_container a{
 	display: inline-block;
     color: black;
     padding-right: 12px;
@@ -712,15 +712,16 @@ body.lineLoader {
 	cursor: pointer;
 	font-weight: 500;
 	-webkit-transition: color .2s; 
-        transition: color .2s; 
+				transition: color .2s; 
+				text-decoration: none;
 }
-.head_text_container p:hover{
+.head_text_container a:hover{
 color:  #f78631;
 }
-.head_text_container p:first-child{
+.head_text_container a:first-child{
 	padding-left: 0px;
 }
-.head_text_container p:last-child{
+.head_text_container a:last-child{
 	margin-right: 0px;
 }
 .seoSetText-container{
@@ -748,6 +749,9 @@ color:  #f78631;
 .headerSubLinkContainer{
 	margin-top: 124px;
 }
+div.onln-cnslt-head {
+	margin-top: 126px;
+}
 }
 @media(max-width: 767px) {
 	.head_text_container{
@@ -758,5 +762,60 @@ color:  #f78631;
 	.headerSubLinkContainer{
 		display: none;
 	}
+	div.onln-cnslt-head {
+    margin-top: 0px;
+}
+}
+.onln-cnslt-head{
+	margin-top: 108px;
 }
 /* ============ headerTextUpdate ============ */
+
+/* ============ about Us section ============ */
+.about_managment_container{
+	margin-top: 25px;
+}
+.mrng-bottom-20{
+	margin-bottom: 20px;
+}
+.about_mng_cards {
+    padding: 15px 15px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.12);
+		min-height: 100%;
+}
+.abt-img-text {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.abt-img-text img {
+	width: 65px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+.abt-usr-nm {
+    margin-left: 15px;
+}
+.abt-usr-nm h4 {
+    font-weight: 500;
+    font-size: 16px;
+    border-bottom: 1px solid #f78631;
+    display: inline-block;
+    padding: 0 3px 3px 3px;
+    margin-bottom: 6px;
+}
+.abt-usr-nm p {
+    font-style: italic;
+    color: #565555;
+    font-size: 13px;
+}
+.abt-content p {
+    margin-bottom: 12px;
+}
+.abt-content p:last-child{
+	margin-bottom: 0px;
+}
+
+/* ============ about Us section ============ */

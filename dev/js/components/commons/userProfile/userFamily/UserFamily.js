@@ -54,7 +54,7 @@ class UserFamily extends React.Component {
                                         </InitialsPicture>
                                     </span>
                                     <div className="member-details">
-                                        <h4 className="title app-title" style={{ paddingRight: 95, wordBreak: 'break-word' }} >{profiles[id].name}</h4>
+                                        <h4 className="title app-title" style={{ paddingRight: 95, wordBreak: 'break-word', textTransform: 'capitalize' }} >{profiles[id].name}</h4>
                                         <ul className="list">
 
                                             <li className="fw-500 text-sm" style={{ marginBottom: 5 }} >
