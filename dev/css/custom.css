@@ -714,7 +714,8 @@ div.onln-cnslt-head {
     font-size: 13px;
 }
 .abt-content p {
-    margin-bottom: 12px;
+	margin-bottom: 12px;
+	text-align: justify;
 }
 .abt-content p:last-child{
 	margin-bottom: 0px;
