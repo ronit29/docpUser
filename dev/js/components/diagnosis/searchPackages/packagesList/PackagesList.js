@@ -15,7 +15,7 @@ class packagesList extends React.Component {
             renderBlock: false,
             page: 0,
             readMore: 'search-details-data-less',
-            is_insured: props.filterCriteria && props.filterCriteria.is_insured?props.filterCriteria.is_insured:false
+            is_insured: props.filterCriteriaPackages && props.filterCriteriaPackages.is_insured?props.filterCriteriaPackages.is_insured:false
         }
     }
 
