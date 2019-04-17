@@ -194,12 +194,10 @@ export default function (state = defaultState, action) {
             return newState   
         }
         case RESET_INSURED_DATA :{
-             let newState = {
-                ...state
-            }
+             let newState = { ...state }
+            let user_selected_plan = newState.insurnaceData.insurance[0].plans.filter((x => x.id == action.payload.selected_plan_id))
             let members = {}
-            newState.insurnaceData= action.payload.insurnaceData
-            // newState.selected_plan=action.payload.selected_plan            
+            newState.selected_plan = user_selected_plan[0]
             newState.currentSelectedInsuredMembersId = action.payload.currentSelectedInsuredMembersId
             action.payload.members.map((result, i) => {
                 members[result.id] = { ...result }

@@ -262,10 +262,6 @@ class InsuranceReview extends React.Component{
 			}else{
 				return <div></div>
 			}
-		}else{
-			return <div>
-					<Loader />
-				</div>
 		}
 	}
 

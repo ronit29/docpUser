@@ -1,8 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {userData,insurancePay, resetSelectedInsuranceMembers, retrieveUserData, sendAgentBookingURL, resetUserInsuredData} from '../../actions/index.js'
+import {userData,insurancePay, resetSelectedInsuranceMembers, retrieveUserData, sendAgentBookingURL, resetUserInsuredData, getInsurance} from '../../actions/index.js'
 import InsuranceReviewView from '../../components/insurance/insuranceReview.js'
+import Loader from '../../components/commons/Loader'
+import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 
 class InsuranceReview extends React.Component{
     constructor(props) {
@@ -13,17 +15,32 @@ class InsuranceReview extends React.Component{
     }
     componentDidMount() {
         let self = this
-            this.props.retrieveUserData((resp)=>{
-                if(resp){
-                    this.setState({data:resp})
-                    this.props.resetUserInsuredData(resp)
-                }
+            this.props.getInsurance((response)=>{
+                this.props.retrieveUserData((resp)=>{
+                    if(resp){
+                        this.setState({data:resp})
+                        this.props.resetUserInsuredData(resp)
+                    }
+                })
             })
     }
 	render(){
-		return(
-			<InsuranceReviewView {...this.props} data={this.state.data}/>
-			)
+        if(this.props.LOAD_INSURANCE && this.state.data){
+            return(
+            <InsuranceReviewView {...this.props} data={this.state.data}/>
+            )
+        }else{
+            if(this.props.insurnaceData.certificate){
+                this.props.history.push('/insurance/certificate')
+            }
+            return(
+            <div className="profile-body-wrap">
+                <ProfileHeader />
+                <Loader />
+            </div>
+                )
+        }
+		
 	}
 }
 
@@ -37,7 +54,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // getInsurance: (doctorId) => dispatch(getInsurance(doctorId)),
+        getInsurance: (callback) => dispatch(getInsurance(callback)),
         // getUserProfile: () => dispatch(getUserProfile()),
         // selectInsurancePlan: (plan,criteria,forceadd) => dispatch(selectInsurancePlan(plan,criteria,forceadd)),
         // userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),

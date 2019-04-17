@@ -367,11 +367,11 @@ class InsuranceInputView extends React.Component{
     	let self = this
     	var insuranceUserData={}
     	var members={}
-    	insuranceUserData.insurnaceData = props.insurnaceData
-    	insuranceUserData.selected_plan=props.selected_plan.id
-    	insuranceUserData.insurer= props.insurnaceData['insurance'][0].id
+    	// insuranceUserData.insurnaceData = props.insurnaceData
+    	insuranceUserData.selected_plan_id=props.selected_plan.id
+    	// insuranceUserData.insurer= props.insurnaceData['insurance'][0].id
     	insuranceUserData.members= []
-    	insuranceUserData.selected_plan = []
+    	// insuranceUserData.selected_plan = []
     	insuranceUserData.currentSelectedInsuredMembersId = this.props.currentSelectedInsuredMembersId
 
     	Object.entries(this.props.currentSelectedInsuredMembersId).map(function([key, value]) {
