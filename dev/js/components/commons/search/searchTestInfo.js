@@ -91,8 +91,6 @@ class SearchTestView extends React.Component {
         }
 
         this.props.searchTestData(test_id, test_url, lab_id, this.props, no_labs)
-
-        this.props.testDetailMetaData();
     }
 
 
@@ -492,7 +490,7 @@ class SearchTestView extends React.Component {
                                         <div className="col-12 col-md-7 col-lg-7 center-column">
                                             <div className="row">
                                                 <div className="col-12">
-                                                    <p className="fw-500 text-center mrt-10" style={{fontSize:18}}>No Record Found !!</p>
+                                                    <p className="fw-500 text-center mrt-10" style={{ fontSize: 18 }}>No Record Found !!</p>
                                                 </div>
                                             </div>
                                         </div>
