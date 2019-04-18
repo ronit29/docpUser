@@ -163,11 +163,11 @@ class Insurance extends React.Component{
 						<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
 							<section className="profile-book-screen">
 								<div className="widget">
-								<div>
+								{/*<div>
                                     <span style={{ cursor: 'pointer' }} onClick={this.shortenUrl.bind(this)}>
                                         <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
                                     </span>
-                                </div>
+                                </div>*/}
                                     {
                                     	this.state.shortURL ? <div className="shareLinkpopupOverlay" onClick={() => {
 	                                        this.setState({ shortURL: "" }) }}>
