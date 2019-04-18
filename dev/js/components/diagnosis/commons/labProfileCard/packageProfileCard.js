@@ -91,7 +91,7 @@ class LabProfileCard extends React.Component {
                 selectedPkgCompareIds.push(packages.id)
             })
         }
-        if(selectedPkgCompareIds.indexOf(id) == -1 && selectedPkgCompareIds.length == 5){
+        if(selectedPkgCompareIds.indexOf(id) == -1 && selectedPkgCompareIds.length >= 5){
             SnackBar.show({ pos: 'bottom-center', text: "Max 5 packages can be compared" });
         }else{
             this.props.toggleComparePackages(id,lab_id,lab_thumbnail,name)    
@@ -139,8 +139,7 @@ class LabProfileCard extends React.Component {
         let selectedPkgCompareIds=[]
         if(this.props.compare_packages){
             this.props.compare_packages.map((packages, i) => {
-                selectedPkgCompareIds.push(packages.id)
-                selectedPkgCompareIds.push(packages.lab_id)
+                selectedPkgCompareIds.push(packages.id, packages.lab_id)
             })
         }
         let is_insurance_applicable = false
@@ -148,12 +147,11 @@ class LabProfileCard extends React.Component {
             is_insurance_applicable = true
             pickup_text = ""
         }
-        
         return (
             <div className="pkg-card-container mb-3">
             {  !this.props.isCompared && (this.props.isCompare || this.props.compare_packages.length > 0)?
                     <div className={selectedPkgCompareIds.indexOf(id)>-1 && selectedPkgCompareIds.indexOf(lab.id)>-1 ? 'pkg-crd-header pkg-crd-green pkg-hd':'pkg-crd-header pkg-hd'}>
-                      <label className="ck-bx">{selectedPkgCompareIds.indexOf(id)>-1 ? 'Added':'Add to compare'}
+                      <label className="ck-bx">{selectedPkgCompareIds.indexOf(id)>-1 && selectedPkgCompareIds.indexOf(lab.id)>-1 ? 'Added':'Add to compare'}
                         <input type="checkbox" onClick={this.toggleCompare.bind(this,id,lab.id,lab.lab_thumbnail,name)} checked={selectedPkgCompareIds.indexOf(id)>-1 && selectedPkgCompareIds.indexOf(lab.id)>-1?true:false} />
                         <span className="checkmark"></span>
                       </label>

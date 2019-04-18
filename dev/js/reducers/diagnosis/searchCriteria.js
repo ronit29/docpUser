@@ -460,11 +460,12 @@ export default function (state = defaultState, action) {
 
             let selected_packages = [].concat(newState.compare_packages)
             let found = false
+            console.log(action.payload.criteria);
             if(action.reset){
                 newState.compare_packages = action.payload.criteria
             }else{    
                 selected_packages = selected_packages.filter((x) => {
-                  if (x.id == action.payload.criteria.id) {
+                  if (x.id == action.payload.criteria.id && x.lab_id == action.payload.criteria.lab_id) {
                       found = true
                       return false
                   }
