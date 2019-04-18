@@ -12,7 +12,8 @@ class InsurancePopup extends React.Component{
             showOTP: false,
             otp: "",
             otpTimeout: false,
-            error_message:''
+            error_message:'',
+            isLeadTrue:false
         }
     }
     handleChange(profileid,newProfile,event) {
@@ -61,17 +62,28 @@ class InsurancePopup extends React.Component{
 
     submitOTPRequest(number) {
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
-            this.setState({ validationError: "" })
-            this.props.sendOTP(number, (error) => {
-                if (error) {
-                    // this.setState({ validationError: "Could not generate OTP." })
-                } else {
-                    this.setState({ showOTP: true, otpTimeout: true })
-                    setTimeout(() => {
-                        this.setState({ otpTimeout: false })
-                    }, 10000)
-                }
-            })
+            if(this.props.isLead == 'proceed'){
+
+                this.setState({ validationError: "" })
+                this.props.sendOTP(number, (error) => {
+                    if (error) {
+                        // this.setState({ validationError: "Could not generate OTP." })
+                    } else {
+                        this.setState({ showOTP: true, otpTimeout: true })
+                        setTimeout(() => {
+                            this.setState({ otpTimeout: false })
+                        }, 10000)
+                    }
+                })
+            }else{
+                document.getElementsByClassName('mv-header')[0].classList.add('d-none')
+                document.getElementsByClassName('widget-content')[0].classList.add('d-none')
+                this.setState({ isLeadTrue:true })    
+                // this.props.generateInsuranceLead(this.props.selected_plan?this.props.selected_plan.id:'',()=>{
+
+                // })
+                
+            } 
         } else {
             this.setState({ validationError: "Please provide a valid number (10 digits)" })
         }
@@ -171,7 +183,12 @@ class InsurancePopup extends React.Component{
                     </div>
                     <section className="mobile-verification-screen p-3">
                         <div className="widget no-shadow no-round sign-up-container widget cancel-appointment-div cancel-popup">
-                            <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.props.hideLoginPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>                    
+                            <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.props.hideLoginPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>
+                            {   
+                                this.state.isLeadTrue?
+                                <div><p>will get back to you soon</p></div>
+                                :''
+                            }                    
                             <div className="widget-header text-center mv-header">
                                 {/*<h3 className="sign-coupon fw-700">Please login to continue</h3>*/}
                                 <h4 className="fw-500 text-md sign-up-mbl-text">Enter your Mobile Number</h4>
@@ -208,7 +225,9 @@ class InsurancePopup extends React.Component{
                                         </div> :
                                         <div className="text-center">
                                             <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm">
-                                                Continue
+                                                {
+                                                    this.props.isLead == 'proceed'?'Continue':'Submit'
+                                                }
                                         </button>
                                         </div>
                                 }

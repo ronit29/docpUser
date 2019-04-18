@@ -19,7 +19,8 @@ class Insurance extends React.Component{
             gst:'Inclusive of 18% GST',
             selected_plan_data:this.props.selected_plan?this.props.selected_plan:'',
             showPopup:false,
-            shortURL:""
+            shortURL:"",
+            isLead:''
         }
     }
     componentDidMount(){
@@ -136,6 +137,14 @@ class Insurance extends React.Component{
    		}
     }
 
+    proceedLead(type){
+    	this.setState({isLead:type,showPopup: true})
+    	let plan = Object.assign({}, this.state.selected_plan_data)
+    	// this.props.generateInsuranceLead(plan.id,()=>{
+
+    	// })
+    }
+
     hideLoginPopup() {
         this.setState({
             showPopup: false
@@ -218,10 +227,20 @@ class Insurance extends React.Component{
 								</div>
 							</section>
 							{this.state.showPopup ?
-								<InsurPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)}/> : ''
+								<InsurPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead}/> : ''
 							}
-							<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Proceeed {this.state.selected_plan_price} <span className="foot-btn-sub-span">{this.state.gst}</span>
-							</button>
+							{
+								STORAGE.checkAuth()?
+								<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Proceed {this.state.selected_plan_price} <span className="foot-btn-sub-span">{this.state.gst}</span>
+								</button>
+								:
+								<div>
+								<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedLead.bind(this,'proceed')}>Proceed lead {this.state.selected_plan_price} <span className="foot-btn-sub-span">{this.state.gst}</span>
+								</button>
+								<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedLead.bind(this,'interest')}>Interest {this.state.selected_plan_price} <span className="foot-btn-sub-span">{this.state.gst}</span>
+								</button>
+								</div>
+							}
 						</div>
 
 						<ChatPanel />
