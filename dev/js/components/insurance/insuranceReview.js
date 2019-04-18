@@ -138,8 +138,6 @@ class InsuranceReview extends React.Component{
     }
 
 	render(){	
-		console.log(this.props.selected_plan.amount)
-		alert(this.props.selected_plan.amount)
 		if(this.props.data){	
 			let self = this
 			let isDummyUser
