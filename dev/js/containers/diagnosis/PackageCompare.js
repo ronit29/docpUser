@@ -8,7 +8,7 @@ import Footer from '../../components/commons/Home/footer'
 import Loader from '../../components/commons/Loader'
 const queryString = require('query-string');
 
-import { getCompareList, togglecompareCriteria, setPackageId, selectSearchType } from '../../actions/index.js'
+import { getCompareList, togglecompareCriteria, setPackageId, selectSearchType, toggleDiagnosisCriteria, clearExtraTests } from '../../actions/index.js'
 import { } from '../../helpers/urltoState'
 import PackageCompareView from '../../components/diagnosis/searchPackages/packageCompare/packageCompareView.js'
 
@@ -88,6 +88,8 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
             togglecompareCriteria: (criteria,reset) => dispatch(togglecompareCriteria(criteria,reset)),
             setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage)),
             selectSearchType: (type) => dispatch(selectSearchType(type)),
+            toggleDiagnosisCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filter)),
+            clearExtraTests: () => dispatch(clearExtraTests()),
         }
     }
 export default connect(mapStateToProps, mapDispatchToProps)(packageCompare);

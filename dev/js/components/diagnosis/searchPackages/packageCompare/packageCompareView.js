@@ -3,6 +3,7 @@ import LeftBar from '../../../commons/LeftBar'
 import RightBar from '../../../commons/RightBar'
 import ProfileHeader from '../../../commons/DesktopProfileHeader'
 import Footer from '../../../commons/Home/footer'
+import GTM from '../../../../helpers/gtm.js'
 
 const queryString = require('query-string');
 
@@ -60,12 +61,37 @@ const queryString = require('query-string');
 
     }
 
-    bookNow(package_id){
-      this.props.setPackageId(package_id, true)
+    bookNow(id, url, test_id, test_name, e){
+      this.props.clearExtraTests()
+        let testIds = test_id
+        let new_test = {}
+        new_test.extra_test = true
+        new_test.lab_id = id
+        new_test.type = 'test'
+        new_test.name = test_name
+        new_test.id = test_id
+        this.props.toggleDiagnosisCriteria('test', new_test, true)
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'RankOfLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'rank-lab-clicked', 'Rank': this.props.rank + 1
+        }
+        GTM.sendEvent({ data: data })
 
-      setTimeout(() => {
-        this.props.history.push('/searchpackages?isComparable=true')
-      }, 100)
+        data = {
+            'Category': 'ConsumerApp', 'Action': 'LabSelectedByUser', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-selected-by-user', 'LabId': id
+        }
+        GTM.sendEvent({ data: data })
+
+        if (e.ctrlKey || e.metaKey) {
+
+        } else {
+            e.preventDefault();
+
+            if (url) {
+                this.props.history.push(`/${url}`)
+            } else {
+                this.props.history.push(`/lab/${id}`)
+            }
+        }
     }
 
     ButtonHandler(field, event) {
@@ -238,7 +264,7 @@ const queryString = require('query-string');
                                       <p className="st-form" id={"hide_strt_" + packages.id}>Starts from <span className="fw-500">₹ {packages.price}</span></p>
                                       </div>
                                       {/*<p className="pkg-discountCpn" id={"hide_coupon_"+ packages.id}>Includes coupon</p>*/}
-                                      <a onClick={this.bookNow.bind(this,packages.id)}><button className="pkg-btn-nw">Book Now </button></a>
+                                      <a onClick={this.bookNow.bind(this,packages.lab.id,'',packages.id,packages.lab.name)}><button className="pkg-btn-nw">Book Now </button></a>
                                 </li>
                               })  
                             :''
