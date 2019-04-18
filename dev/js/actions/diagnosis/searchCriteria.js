@@ -128,12 +128,3 @@ export const savePincode = (pincode) => (dispatch) => {
         payload: pincode
     })
 }
-
-export const testDetailMetaData = () => (dispatch) => {
-    return API_GET(`/api/v1/diagnostic/test/details?test_ids=12517`).then(function (response) {
-        dispatch({
-            type: TEST_DETAIL_META_DATA,
-            payload: response
-        })
-    })
-}
