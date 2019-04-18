@@ -91,6 +91,8 @@ class SearchTestView extends React.Component {
         }
 
         this.props.searchTestData(test_id, test_url, lab_id, this.props, no_labs)
+
+        this.props.testDetailMetaData();
     }
 
 
