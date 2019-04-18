@@ -2,6 +2,9 @@ import React from 'react'
 import ChatPanel from '../commons/ChatPanel'
 import InsurCommon from './insuranceCommonSection.js'
 import ProfileHeader from '../commons/DesktopProfileHeader'
+import STORAGE from '../../helpers/storage'
+import Loader from '../commons/Loader'
+import SnackBar from 'node-snackbar'
 
 class InsuranceReview extends React.Component{
 	constructor(props) {
@@ -40,10 +43,10 @@ class InsuranceReview extends React.Component{
     	let district_code = ''
     	// let show_lname_flag = ''
     	// let isDefaultUser
-    		if(this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.profiles[this.props.USER.defaultProfile]){
-    			// isDefaultUser = this.props.USER.profiles[this.props.USER.defaultProfile].is_default_user
-    			isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
-    		}
+		if(this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.profiles[this.props.USER.defaultProfile]){
+			// isDefaultUser = this.props.USER.profiles[this.props.USER.defaultProfile].is_default_user
+			isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
+		}
     	if(this.props.self_data_values && this.props.self_data_values[selectedUser] && !isDummyUser){
     		address = this.props.self_data_values[selectedUser].address
     		district = this.props.self_data_values[selectedUser].district
@@ -124,69 +127,80 @@ class InsuranceReview extends React.Component{
 			}			
 		})
     }
-	render(){		
-		let self = this
-		let isDummyUser
-		if(Object.keys(this.props.self_data_values).length>0){
-    		if(this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.profiles[this.props.USER.defaultProfile]){
-    			isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
-    		}
-    		let self_profile
-    		if(!isDummyUser){
-    			self_profile  = Object.assign({}, this.props.self_data_values[this.props.USER.defaultProfile])		
-    		}else{
-    			self_profile  = Object.assign({}, this.props.self_data_values[0])		
-    		}
-		let currentSelectedProfiles = []
-    	this.props.currentSelectedInsuredMembersId.map((val,key) => {
-    		currentSelectedProfiles.push(val[key])
-    	})
-		return(
-			<div className="profile-body-wrap">
-			<ProfileHeader />
-			<section className="container container-top-margin">
-				<div className="row main-row parent-section-row">
-				<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
-				<section className="profile-book-screen">
-				<div className="widget">
-					<InsurCommon {...this.props} is_edit={this.state.is_edit}/>
-				<div className="insurance-member-container">
-		 			<div className="ins-user-details-lisitng">
-						<p className="sub-form-hed">Proposer</p>
-						<ul className="ins-usr-img-para">
-							<li>
-								<div className="img-list-width">
-									<img className="ins-input-img"  src={ASSETS_BASE_URL + "/img/user-01.svg"} />
-								</div>
-								{
-									self_profile.no_lname?<p style={{'textTransform': 'capitalize'}}>{self_profile.name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>:
-									<p style={{'textTransform': 'capitalize'}}>{self_profile.name} {self_profile.middle_name} {self_profile.last_name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>
-								}
-							</li>
-							<li>
-								<div className="img-list-width">
-									<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
-								</div>
-								<p>{self_profile.dob}</p>
-							</li>
-							<li>
-								<div className="img-list-width">
-									<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
-								</div>
-								<p>{self_profile.email}</p>
-							</li>
-							<li>
-								<div className="img-list-width">
-									<img className="ins-input-img"  src={ASSETS_BASE_URL + "/img/location-01.svg"} />
-								</div>
-								<p style={{'textTransform': 'capitalize'}}>{`${self_profile.address}, ${self_profile.town}, ${self_profile.district}, ${self_profile.state} - ${self_profile.pincode}`}</p>
-							</li>
-						</ul>
-					</div>
-					{
-						this.props.currentSelectedInsuredMembersId.map((val,key) => {
-							if(parseInt(val[key]) != self.props.USER.defaultProfile){
-								if(this.props.self_data_values[val[key]].relation != 'self'){
+    sendAgentBookingURL() {
+        this.props.sendAgentBookingURL(null, 'sms', 'insurance',(err, res) => {
+            if (err) {
+                SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
+            } else {
+                SnackBar.show({ pos: 'bottom-center', text: "SMS SENT SUCCESSFULY" })
+            }
+        })
+    }
+
+	render(){	
+		if(this.props.data){	
+			let self = this
+			let isDummyUser
+			if(Object.keys(this.props.data.members).length>0){
+	    		// if(this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.profiles[this.props.USER.defaultProfile]){
+	    		// 	isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
+	    		// }
+
+	    		let self_profile = this.props.data.members.filter(x=> x.relation == 'self')[0]
+	    		let family_profile = this.props.data.members.filter(x=> x.relation != 'self')
+	    		// if(!isDummyUser){
+	    		// 	self_profile  = Object.assign({}, this.props.self_data_values[this.props.USER.defaultProfile])		
+	    		// }else{
+	    		// 	self_profile  = Object.assign({}, this.props.self_data_values[0])		
+	    		// }
+			// let currentSelectedProfiles = []
+	    	//  this.props.currentSelectedInsuredMembersId.map((val,key) => {
+	    	//		currentSelectedProfiles.push(val[key])
+	    	//  })
+			return(
+				<div className="profile-body-wrap">
+				<ProfileHeader />
+				<section className="container container-top-margin">
+					<div className="row main-row parent-section-row">
+					<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
+					<section className="profile-book-screen">
+					<div className="widget">
+						<InsurCommon {...this.props} is_edit={this.state.is_edit}/>
+					<div className="insurance-member-container">
+			 			<div className="ins-user-details-lisitng">
+							<p className="sub-form-hed">Proposer</p>
+							<ul className="ins-usr-img-para">
+								<li>
+									<div className="img-list-width">
+										<img className="ins-input-img"  src={ASSETS_BASE_URL + "/img/user-01.svg"} />
+									</div>
+									{
+										self_profile.no_lname?<p style={{'textTransform': 'capitalize'}}>{self_profile.name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>:
+										<p style={{'textTransform': 'capitalize'}}>{self_profile.name} {self_profile.middle_name} {self_profile.last_name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>
+									}
+								</li>
+								<li>
+									<div className="img-list-width">
+										<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
+									</div>
+									<p>{self_profile.dob}</p>
+								</li>
+								<li>
+									<div className="img-list-width">
+										<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
+									</div>
+									<p>{self_profile.email}</p>
+								</li>
+								<li>
+									<div className="img-list-width">
+										<img className="ins-input-img"  src={ASSETS_BASE_URL + "/img/location-01.svg"} />
+									</div>
+									<p style={{'textTransform': 'capitalize'}}>{`${self_profile.address}, ${self_profile.town}, ${self_profile.district}, ${self_profile.state} - ${self_profile.pincode}`}</p>
+								</li>
+							</ul>
+						</div>
+						{
+							family_profile.map((val,key) => {
 								return <div key={key} className="ins-sub-forms sub-input-forms-containers">
 									<hr className="ins-internal-hr" />
 									<div className="ins-user-details-lisitng">
@@ -198,7 +212,7 @@ class InsuranceReview extends React.Component{
 														<div className="member-list-width">
 															<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/hands-01.svg"} />
 														</div>
-														<p style={{'textTransform': 'capitalize'}}>{this.props.self_data_values[val[key]].relation}</p>
+														<p style={{'textTransform': 'capitalize'}}>{val.relation}</p>
 													</div>
 												</div>
 												<div className="col-6">
@@ -207,9 +221,9 @@ class InsuranceReview extends React.Component{
 															<img style={{ width: '19px' }} className="ins-input-img" src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 														</div>
 														{
-															this.props.self_data_values[val[key]].no_lname?
-														<p style={{'textTransform': 'capitalize'}}>{this.props.self_data_values[val[key]].name} | {this.props.self_data_values[val[key]].gender=='m'?'Male':this.props.self_data_values[val[key]].gender=='f'?'Female':this.props.self_data_values[val[key]].gender=='o'?'Others':''}</p>:
-														<p style={{'textTransform': 'capitalize'}}>{this.props.self_data_values[val[key]].name} {this.props.self_data_values[val[key]].middle_name} {this.props.self_data_values[val[key]].last_name} | {this.props.self_data_values[val[key]].gender=='m'?'Male':this.props.self_data_values[val[key]].gender=='f'?'Female':this.props.self_data_values[val[key]].gender=='o'?'Others':''}</p>
+															val.no_lname?
+														<p style={{'textTransform': 'capitalize'}}>{val.name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}</p>:
+														<p style={{'textTransform': 'capitalize'}}>{val.name} {val.middle_name} {val.last_name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}</p>
 														}
 													</div>
 												</div>
@@ -218,34 +232,36 @@ class InsuranceReview extends React.Component{
 														<div className="member-list-width">
 															<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
 														</div>
-														<p>{this.props.self_data_values[val[key]].dob}</p>
+														<p>{val.dob}</p>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-								}else{
-									return <div></div>
-								}
-							}							
-						})
-					}				
+							})
+						}				
+					</div>
+					</div>
+				</section>
+				{
+					STORAGE.isAgent()?<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.sendAgentBookingURL.bind(this)}>Send SMS (₹ {this.state.selected_plan_price}) 
+				<span className="foot-btn-sub-span">{this.state.gst}</span>
+				</button>
+				:<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Pay now (₹ {this.state.selected_plan_price}) 
+				<span className="foot-btn-sub-span">{this.state.gst}</span>
+				</button>
+				}
 				</div>
+				<ChatPanel />
 				</div>
-			</section>
-			<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Pay now (₹ {this.state.selected_plan_price}) 
-			<span className="foot-btn-sub-span">{this.state.gst}</span>
-			</button>
-			</div>
-			<ChatPanel />
-			</div>
-			</section>
-			</div>
+				</section>
+				</div>
 
-			)
-		}else{
-			return <div></div>
+				)
+			}else{
+				return <div></div>
+			}
 		}
 	}
 
