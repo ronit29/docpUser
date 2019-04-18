@@ -45,7 +45,7 @@ const queryString = require('query-string');
 
       if (ids.length > 0) {
           window.onscroll = function() {
-            if(document.getElementsByClassName('sticky-multiple-pkgs')){
+            if(document.getElementsByClassName('sticky-multiple-pkgs') && document.getElementsByClassName('sticky-multiple-pkgs')[0]){
               let scrollHeight = document.getElementsByClassName('sticky-multiple-pkgs')[0].offsetTop
               ids.map((id,i)=>{
                 if (scrollHeight >0 && window.screen.width < 768) {
@@ -115,46 +115,73 @@ const queryString = require('query-string');
     }
 
     toggleShowDiff(){
-      let ids=[]
-      let info=[]
+      let testIds=[]
+      let catIds = []
+      let test_info=[]
+      let category_info_data = []
       let info_first=''
+      let cat_first = []
       let catId = ''
       let testId = ''
+      let finalIds = []
+
       this.props.data.category_info.map((cat_info, i) => {
-        info = []
+        test_info = []
         info_first = ''
-        this.props.data.packages.map((cat_count, j) => {
-          cat_info_data = cat_info_data.concat(cat_count.category_parameter_count.filter(x=> x.id==cat_info.id))
-        })        
+        let count = 0
         cat_info.test_ids.map((test_id, k) => {
+          test_info = []
             this.props.data.packages.map((pkg_test, n) => {
-              info=info.concat(pkg_test.tests_included.filter(x=> x.test_id == test_id))
-              info[n].package_id = pkg_test.id
-              info[n].cat_id = cat_info.id
+              test_info=test_info.concat(pkg_test.tests_included.filter(x=> x.test_id == test_id))
             })
         })
-        console.log(info)
-        info.map((info,k) =>{
-          // testId = info.test_id
-          // console.log(testId)
-          // if(){
-          //   info_first = info.available
-          //   catId = info.cat_id
-            
-          // }
-          // if(testId === info.test_id  && testId === info.test_id){
-          //   ids.push(info.test_id, catId)
-          // }
-          // if(k != 0 && info_first !== info.available){
-          //   ids.push(testId) 
-          // }
+        test_info.map((info,k) =>{
+          if(k==0){
+            testId = info.test_id
+            info_first = info.available  
+          }
+          
+          if(k !==0 && info_first === info.available){
+            count++
+          } 
+          if(count == (test_info.length - 1)){
+            testIds.push(testId)
+          }
         })
       })
-      console.log(ids)
+
+      this.props.data.category_info.map((cat_info, i) => {
+        category_info_data = []
+        let count  = 0
+        cat_info.test_ids.map((test_id, k) => {
+            this.props.data.packages.map((pkg_test, n) => {
+              category_info_data = category_info_data.concat(pkg_test.tests_included.filter(x=> x.test_id == test_id))
+              category_info_data[n].package_id = pkg_test.id
+              category_info_data[n].cat_id = cat_info.id
+            })
+        })
+        category_info_data.map((info,k) =>{
+          if(k==0){
+            catId = info.cat_id
+
+            info_first = info.available  
+          }
+          
+          if(k !==0 && info_first === info.available){
+            count++
+          }
+          if(count == (category_info_data.length - 1)){
+            catIds.push(catId)
+          }          
+        })
+      })
+
+      finalIds = [...catIds, ...testIds]
+      console.log(finalIds)
       if(this.state.isDiffChecked){
         this.setState({isDiffTest:[],isDiffChecked:!this.state.isDiffChecked})
       }else{
-        this.setState({isDiffTest:ids,isDiffChecked:!this.state.isDiffChecked})
+        this.setState({isDiffTest:finalIds,isDiffChecked:!this.state.isDiffChecked})
       }
       
     }
@@ -208,7 +235,7 @@ const queryString = require('query-string');
                                       <div className="pkg-hd-by" id={"hide_av_" + packages.id}>Available in {packages.total_labs_available} Labs</div>
                                       <h3 className="lab-fltr-dc-name fw-500 pkg-include">{packages.total_parameters_count} Tests Included</h3>
                                       <div className="pkg-card-price">
-                                      <p className="st-form" id={"hide_strt_" + packages.id}>Starts from <span className="fw-500">₹ {packages.minimum_price}</span></p>
+                                      <p className="st-form" id={"hide_strt_" + packages.id}>Starts from <span className="fw-500">₹ {packages.price}</span></p>
                                       </div>
                                       {/*<p className="pkg-discountCpn" id={"hide_coupon_"+ packages.id}>Includes coupon</p>*/}
                                       <a onClick={this.bookNow.bind(this,packages.id)}><button className="pkg-btn-nw">Book Now </button></a>
@@ -234,9 +261,8 @@ const queryString = require('query-string');
                         {
                           this.props.data.category_info?
                               this.props.data.category_info.map((cat_info, i) => {
-                                console.log(cat_info.id)
                                 return (
-                                    <div className={"pkg-card-container mb-3" + (this.state.isDiffChecked && this.state.isDiffTest.indexOf(cat_info.id) == 0?' d-none':'')} key={i} id={'cat_'+cat_info.id}>
+                                    <div className={"pkg-card-container mb-3" + (this.state.isDiffChecked && this.state.isDiffTest.indexOf(cat_info.id) != -1 ?' d-none':'')} key={i} id={'cat_'+cat_info.id}>
                                       <div className="pkg-crd-header light-orng-header" onClick={this.ButtonHandler.bind(this,cat_info.id)}>
                                         <span>{cat_info.name}</span>
                                         <span className={this.state.tabsValue.indexOf(cat_info.id) > -1 ? 'acrd-arw-rotate span-img' : 'acrd-show span-img'}><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>

@@ -37,7 +37,7 @@ class SelectedPkgStrip extends React.Component {
                           this.props.compare_packages.map((packages, i) => {
                             return(<li key={i}>
                                     <img src={ASSETS_BASE_URL + "/images/packageCompare/red-cut.png"} alt="" className="end-div" onClick={this.props.toggleComparePackages.bind(this,packages.id,packages.lab_id,packages.img,packages.name)}/>  
-                                    {/*<img className="fltr-usr-image-lab" src={packages.img} />*/}
+                                    {<img className="fltr-usr-image-lab" src={packages.img} />}
                                   <p className="pkgStripNm">
                                   {packages.name}
                                   </p>

@@ -1,5 +1,5 @@
 import { MERGE_SEARCH_STATE_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SEARCH_TEST_INFO, SAVE_PINCODE, TOGGLE_COMPARE_PACKAGE, RESET_COMPARE_STATE } from '../../constants/types';
-import { API_GET } from '../../api/api.js';
+import { API_GET, API_POST } from '../../api/api.js';
 
 export const loadLabCommonCriterias = () => (dispatch) => {
 
@@ -148,8 +148,9 @@ export const resetPkgCompare = () => (dispatch) => {
 }
 
 export const getCompareList = (selectedIds,callback) => (dispatch) => {
-
-    API_GET('/api/v1/diagnostic/compare_lab_packages?package_ids='+selectedIds).then(function (response) {
+    let postData={}
+    postData.package_lab_ids = selectedIds
+    API_POST('/api/v1/diagnostic/compare_lab_packages', postData).then(function (response) {
         if (callback) callback(response)
     }).catch(function (error) {
         if (callback) callback(null)

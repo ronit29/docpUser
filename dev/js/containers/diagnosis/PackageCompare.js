@@ -32,18 +32,18 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
         if(package_ids.length > 0){
           Object.entries(package_ids).map(function ([key, pkg]) {
             ids = pkg.split('-')
-            data.push({[ids[0]]: parseInt(ids[1])})
+            data.push({package_id:ids[0], lab_id: ids[1]})
           })
         }
-        let dummypakg = '12213,12227,11722'
-        this.props.getCompareList(dummypakg,(resp)=>{
+        this.props.getCompareList(data,(resp)=>{
           if(resp){
             let test = {}
               resp.packages.map((pkg,i) =>{
                 test = {}
                 test.id=pkg.id
-                test.lab_id=''
+                test.lab_id=pkg.lab.id
                 test.name=pkg.name
+                test.img = pkg.lab.thumbnail
                 resetCompareData.push(test)
               })
             this.props.togglecompareCriteria(resetCompareData,true)
