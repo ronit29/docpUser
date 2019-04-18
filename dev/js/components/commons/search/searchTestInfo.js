@@ -292,6 +292,7 @@ class SearchTestView extends React.Component {
                 title = this.props.searchTestInfoData[0].seo.title
                 description = this.props.searchTestInfoData[0].seo.description
             }
+            let breadcrumbs = this.props.searchTestInfoData[0].breadcrumb
             return (
                 <div>
                     <HelmetTags tagsData={{
@@ -311,7 +312,30 @@ class SearchTestView extends React.Component {
                                             showInfo ? <div className="col-12 col-md-7 col-lg-7 center-column">
                                                 <div className="row mrb-20 bottomMargin">
                                                     <div className="col-12">
-                                                        <h3 className="testInfoHeadTitle mrng-top-12"><img style={{ width: '20px' }} src={ASSETS_BASE_URL + "/img/icons/back-arrow.png"} className="img-fluid" onClick={this.closeTestInfo.bind(this)} />{this.props.searchTestInfoData[0].name} </h3>
+                                                        <h1 className="testInfoHeadTitle mrng-top-12"><img style={{ width: '20px' }} src={ASSETS_BASE_URL + "/img/icons/back-arrow.png"} className="img-fluid" onClick={this.closeTestInfo.bind(this)} />{this.props.searchTestInfoData[0].name} </h1>
+
+                                                        {
+                                                            breadcrumbs && breadcrumbs.length ?
+                                                                <ul className="mrb-10 mrt-20 breadcrumb-list" style={{ wordBreak: 'break-word' }}>
+                                                                    {
+                                                                        breadcrumbs.map((breadcrumb, index) => {
+                                                                            return <li key={index} className="breadcrumb-list-item">
+                                                                                <a href={breadcrumb.url} onClick={(e) => {
+                                                                                    e.preventDefault()
+                                                                                    this.props.history.push(`${breadcrumb.url}`)
+                                                                                }}>
+                                                                                    <span className={index !== breadcrumbs.length - 1 ? `fw-500 breadcrumb-title breadcrumb-colored-title` : `fw-500 breadcrumb-title`}>{breadcrumb.title}</span>
+                                                                                </a>
+                                                                                {
+                                                                                    index !== breadcrumbs.length - 1 ?
+                                                                                        <span className="breadcrumb-arrow">&gt;</span> : ''
+                                                                                }
+                                                                            </li>
+                                                                        })
+                                                                    }
+                                                                </ul> : ''
+                                                        }
+
                                                         <div className="widget mrb-15 mrng-top-12">
                                                             <div className="test-info-continer-block border-radius">
                                                                 {this.props.searchTestInfoData[0].show_details ?
