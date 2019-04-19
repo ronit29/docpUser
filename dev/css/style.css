@@ -4852,7 +4852,7 @@ font-weight: 700;
 .nw-cht-border-btn{
     width: 100%;
     height: 7px;
-    background-image: linear-gradient(to left, #f78631, #ff6d00);
+    background: linear-gradient(to left, #1f62d3, #448aff);
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
 }
