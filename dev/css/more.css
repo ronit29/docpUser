@@ -941,6 +941,10 @@ figure>img{
     border: 1px solid #000;
 }
 
+.docprime-article table {
+    width: 100% !important;
+}
+
 .docprime-article td{
     padding: 6px 10px;
 }
