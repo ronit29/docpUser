@@ -296,7 +296,7 @@ class UserSignupView extends React.Component {
                                     <label htmlFor="address">House Address</label>
                                 </div>
                                 <div className="labelWrap">
-                                    <input id="land_mark" name="land_mark" type="text" onChange={this.inputHandler.bind(this)} value={this.state.land_mark} required ref="land_mark" autoComplete="off" />
+                                    <input id="land_mark" name="land_mark" type="text" onChange={this.inputHandler.bind(this)} value={this.state.land_mark} required  autoComplete="off" />
                                     <label htmlFor="land_mark">Land Mark</label>
 
                                     {
