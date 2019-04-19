@@ -79,7 +79,7 @@ class InsurancePopup extends React.Component{
                 document.getElementsByClassName('mv-header')[0].classList.add('d-none')
                 document.getElementsByClassName('widget-content')[0].classList.add('d-none')
                 this.setState({ isLeadTrue:true })    
-                // this.props.generateInsuranceLead(this.props.selected_plan?this.props.selected_plan.id:'',()=>{
+                // this.props.generateInsuranceLead(this.props.selected_plan?this.props.selected_plan.id:'',this.state.phoneNumber,()=>{
 
                 // })
                 
@@ -104,7 +104,7 @@ class InsurancePopup extends React.Component{
                     this.props.getInsurance((resp)=>{
                         if(!resp.certificate){
                             if(Object.keys(self.props.selected_plan).length > 0){
-                                self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',()=>{
+                                self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',this.state.phoneNumber,()=>{
                                 })
                             }
                             if (exists.user_exists) {
@@ -186,7 +186,8 @@ class InsurancePopup extends React.Component{
                             <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.props.hideLoginPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>
                             {   
                                 this.state.isLeadTrue?
-                                <div><p>will get back to you soon</p></div>
+                                <div className="widget-content text-center">
+                                    <h2 className="fw-500 text-md sign-up-mbl-text">will get back to you soon</h2></div>
                                 :''
                             }                    
                             <div className="widget-header text-center mv-header">

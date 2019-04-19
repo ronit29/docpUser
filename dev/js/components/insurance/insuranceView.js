@@ -77,7 +77,7 @@ class Insurance extends React.Component{
         this.props.resetSelectedPlans()
         if (STORAGE.checkAuth()) {
         	if(Object.keys(plan).length > 0){
-        		this.props.generateInsuranceLead(plan.id,()=>{
+        		this.props.generateInsuranceLead(plan.id,'',()=>{
         		})
         	}
         	profileLength = Object.keys(this.props.USER.profiles).length
@@ -139,10 +139,6 @@ class Insurance extends React.Component{
 
     proceedLead(type){
     	this.setState({isLead:type,showPopup: true})
-    	let plan = Object.assign({}, this.state.selected_plan_data)
-    	// this.props.generateInsuranceLead(plan.id,()=>{
-
-    	// })
     }
 
     hideLoginPopup() {
