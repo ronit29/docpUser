@@ -15,6 +15,7 @@ import Reply from './Reply.js'
 import BannerCarousel from '../Home/bannerCarousel';
 import LocationElements from '../../../containers/commons/locationElements'
 import CommonSearch from '../../../containers/commons/CommonSearch.js'
+import FixedMobileFooter from '../Home/FixedMobileFooter'
 
 // import RelatedArticles from './RelatedArticles'
 
@@ -458,6 +459,8 @@ class Article extends React.Component {
                                 : ''
                         }
                     </div>
+                    
+                    <FixedMobileFooter {...this.props} />
                 </section>
                 <Footer />
             </div>

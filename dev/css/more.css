@@ -951,13 +951,13 @@ figure>img{
     }
 }
 
-.related-article{
+.related-article-sub, .related-article{
     padding: 0 10px 10px;
     border-bottom: 1px solid #d3d3d3;
     margin: 0 -10px 10px;
 }
 
-.related-article:last-child{
+.related-article-sub:last-child, .related-article:last-child {
     border-bottom: none;
     padding-bottom: 0;
     margin-bottom: 0;
