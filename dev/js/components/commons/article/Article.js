@@ -13,6 +13,8 @@ import CommentBox from './ArticleCommentBox.js'
 import SnackBar from 'node-snackbar'
 import Reply from './Reply.js'
 import BannerCarousel from '../Home/bannerCarousel';
+import LocationElements from '../../../containers/commons/locationElements'
+import CommonSearch from '../../../containers/commons/CommonSearch.js'
 
 // import RelatedArticles from './RelatedArticles'
 
@@ -30,7 +32,10 @@ class Article extends React.Component {
             articleData: articleData,
             replyOpenFor: null,
             comment: '',
-            articleLoaded: articleLoaded
+            articleLoaded: articleLoaded,
+            searchCities: [],
+            searchWidget: '',
+            specialization_id: ''
         }
     }
 
@@ -39,7 +44,6 @@ class Article extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
-
         if (this.props.match.path.split('-')[1] === 'mddp') {
             let selectedLocation = ''
             let lat = 28.644800
@@ -148,10 +152,75 @@ class Article extends React.Component {
         this.setState({ comment: e.target.value })
     }
 
+    getCityList(key) {
+
+        return this.state.searchCities.length > 0 && this.state.searchWidget==key?
+            <section>
+                <div className="widget mb-10">
+                    <div className="common-search-container">
+                        <p className="srch-heading">Location Search</p>
+                        <div className="common-listing-cont">
+                            <ul>
+                                {
+                                    this.state.searchCities.map((result, i) => {
+                                        return <li key={i}>
+                                            <p className="" onClick={this.selectLocation.bind(this, result)}>{result.description}</p>
+                                        </li>
+                                    })
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section> : ''
+
+    }
+
+    getCityListLayout(searchResults = [], searchParams={}) {
+        let specialization_id = ''
+        let searchWidget = ''
+        if(searchParams && Object.values(searchParams).length){
+            specialization_id = searchParams.specialityId
+            searchWidget = searchParams.widgetId
+        }
+        if (searchResults.length) {
+            this.setState({ searchCities: searchResults, searchWidget: searchWidget, specialization_id: specialization_id })
+        } else {
+            this.setState({ searchCities: [], searchWidget: searchWidget, specialization_id: specialization_id })
+        }
+    }
+
+    selectLocation(city) {
+        this.child.selectLocation((city), () => {
+
+            this.setState({ searchCities: [] })
+            let gtmData = {
+                'Category': 'ConsumerApp', 'Action': 'ArticlePageLocationSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-page-location-selected', selectedId: this.state.specialization_id || ''
+            }
+            GTM.sendEvent({ data: gtmData })
+
+            if(this.state.specialization_id) {
+
+                let criteria = {}
+                criteria.id = this.state.specialization_id
+                criteria.name = ''
+                criteria.type = 'speciality'
+                this.props.cloneCommonSelectedCriterias(criteria)
+                this.props.history.push(`/opd/searchresults`)    
+            }
+            
+        })
+    }
+
     render() {
 
         let isUserLogin = Object.values(this.props.profiles).length || STORAGE.checkAuth()
         let commentsExists = this.state.articleData && this.state.articleData.comments.length ? this.state.articleData.comments.length : null
+
+        let locationName = ""
+        if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+            locationName = this.props.selectedLocation.formatted_address
+        }
 
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
@@ -313,12 +382,47 @@ class Article extends React.Component {
                                             </div> : ''
                                     }
 
-                                    <div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
-                                    </div>
+                                    {
+                                        this.state.articleData && this.state.articleData.body_doms && this.state.articleData.body_doms.map((val, key) => {
+
+                                            if (val.type.includes('html')) {
+                                                return <div key={key} className="docprime-article" dangerouslySetInnerHTML={{ __html: val.content }}>
+                                                </div>
+                                            } else if (val.type.includes('search_widget')) {
+                                                return <div key={key}>
+                                                        {
+                                                            val.content.lat && val.content.lng && val.content.location_name?
+                                                            <CommonSearch {...this.props} location={val.content.location_name} latitude={val.content.lat} longitude={val.content.lng}/>
+                                                            :val.content.specialization_id?
+                                                                <div>
+                                                                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName={locationName} articleSearchPage={true} specialityName={val.content.specialization_name} specialityId={val.content.specialization_id} widgetId={key}/>  
+                                                                    {this.getCityList(key)}
+                                                                </div>
+                                                            :<div>
+                                                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName='' widgetId={key} commonSearch={true} articleSearchPage={true}/>   
+                                                                {this.getCityList(key)}
+                                                                <CommonSearch {...this.props} commonSearch={true} />
+                                                            </div>
+                                                        }
+                                                </div>
+
+                                            }
+
+                                        })
+                                    }
+
+                                    { /*<div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
+                                    </div>*/}
                                     {
                                         this.state.articleData && this.state.articleData.last_updated_at ?
                                             <div className="last-updated text-right">
                                                 <span>Last updated on : {this.state.articleData.last_updated_at}</span>
+                                            </div> : ''
+                                    }
+                                    {
+                                        this.props.match.path.split('-')[1] === 'mddp' ?
+                                            <div className="mrt-20">
+                                                <p className="article-disclaimer"><span className="fw-700">Disclaimer : </span>Docprime doesn’t endorse or take any guarantee of the accuracy or completeness of information provided on its website. Docprime shall not be held responsible for any aspect of healthcare administered with the information provided on its website.</p>
                                             </div> : ''
                                     }
                                 </div> : ""

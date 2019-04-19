@@ -71,6 +71,11 @@ class SearchResultsView extends React.Component {
                     window.scrollTo(0, 0)
                 }
                 this.setState({ search_id: search_id }, () => {
+                    //Check for insured user
+                    if(this.props.is_login_user_insured){
+                        filters.filterCriteria = {...filters.filterCriteria}
+                        filters.filterCriteria.is_insured = true
+                    }
                     let new_url = this.buildURI(this.props)
                     this.props.history.replace(new_url)
                     this.props.setSearchId(search_id, filters, parsed.page || 1)
@@ -110,6 +115,8 @@ class SearchResultsView extends React.Component {
         const parsed = queryString.parse(props.location.search)
         if (props.location.search.includes('search_id')) {
             search_id = parsed.search_id
+        }else if(this.state.search_id) {
+            search_id = this.state.search_id
         }
         if (parsed.page) {
             page = parsed.page || 1
@@ -130,6 +137,12 @@ class SearchResultsView extends React.Component {
                 this.setState({ search_id: search_id }, () => {
                     let new_url = this.buildURI(props)
                     this.props.history.replace(new_url)
+                    //Check if user insured
+                    if(props.is_login_user_insured){
+                        filters.filterCriteria = {...filters.filterCriteria}
+                        filters.filterCriteria.is_insured = true
+                    }
+
                     this.props.setSearchId(search_id, filters, page)
                 })
             }
@@ -213,6 +226,8 @@ class SearchResultsView extends React.Component {
         let lat = 28.644800
         let long = 77.216721
         let place_id = ""
+        let locality = 'Delhi'
+        let sub_locality = ''
 
         if (selectedLocation) {
             place_id = selectedLocation.place_id || ""
@@ -223,6 +238,9 @@ class SearchResultsView extends React.Component {
 
             lat = parseFloat(parseFloat(lat).toFixed(6))
             long = parseFloat(parseFloat(long).toFixed(6))
+
+            locality = selectedLocation.locality || ''
+            sub_locality = selectedLocation.sub_locality || ''
         }
 
         let min_fees = filterCriteria.priceRange[0]
@@ -235,15 +253,66 @@ class SearchResultsView extends React.Component {
         let hospital_name = filterCriteria.hospital_name || ""
         let doctor_name = filterCriteria.doctor_name || ""
         let hospital_id = filterCriteria.hospital_id || ""
+        let is_insured = filterCriteria.is_insured || false
 
-        let url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}`
+
+
+        let url = ''
+ 
+        //Check if any filter applied 
+        let is_filter_applied = false
+
+        if(parseInt(min_fees)!= 0){
+            is_filter_applied = true
+        }
+        if(parseInt(max_fees)!= 3000){
+            is_filter_applied = true
+        }
+        if(parseInt(min_distance)!= 0){
+            is_filter_applied = true
+        }
+        if(parseInt(max_distance)!= 15){
+            is_filter_applied = true
+        }
+        if(sort_on){
+            is_filter_applied = true
+        }
+        if(is_available){
+            is_filter_applied = true
+        }
+        if(is_female){
+            is_filter_applied = true
+        }
+        if(hospital_name){
+            is_filter_applied = true
+        }
+        if(doctor_name){
+            is_filter_applied = true
+        }
+        if(hospital_id){
+            is_filter_applied = true
+        }
+
+        let is_params_exist = false
+
+        if(is_filter_applied || !this.state.seoFriendly){
+
+            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}`
+
+            is_params_exist= true
+
+        }else if(this.state.seoFriendly){
+
+            url = `${window.location.pathname}`
+        }
 
         if (page > 1) {
-            url += `&page=${page}`
+            url += `${is_params_exist?'&':'?'}page=${page}`
+            is_params_exist = true
         }
 
         if (this.state.clinic_card) {
-            url += `&clinic_card=true`
+            url += `${is_params_exist?'&':'?'}clinic_card=true`
         }
 
         return url

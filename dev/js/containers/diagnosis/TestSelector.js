@@ -29,7 +29,8 @@ const mapStateToProps = (state) => {
         selectedLocation,
         selectedCriterias,
         filterCriteria,
-        LOADED_SEARCH_CRITERIA_LAB
+        LOADED_SEARCH_CRITERIA_LAB,
+        currentLabSelectedTests
     } = state.SEARCH_CRITERIA_LABS
 
     let LABS = state.LABS
@@ -38,7 +39,8 @@ const mapStateToProps = (state) => {
         lab_test_data,
         selectedCriterias,
         selectedLocation,
-        LABS
+        LABS,
+        currentLabSelectedTests
     }
 }
 

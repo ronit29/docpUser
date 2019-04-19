@@ -50,7 +50,7 @@ class SearchResults extends React.Component {
                             resolve({ status: 404 })
                         }
                         if (match.url.includes('-sptcit') || match.url.includes('-sptlitcit')) {
-                            getFooterData(match.url.split("/")[1])().then((footerData) => {
+                            getFooterData(match.url.split("/")[1], queryParams.page || 1)().then((footerData) => {
                                 footerData = footerData || null
                                 resolve({ footerData })
                             }).catch((e) => {
@@ -117,7 +117,8 @@ const mapStateToProps = (state, passedProps) => {
     let { hospitalList, doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page, ratings, reviews, ratings_title, bottom_content, breadcrumb, seoData, show404, canonical_url } = state.DOCTOR_SEARCH
 
     const {
-        offerList
+        offerList,
+        is_login_user_insured
     } = state.USER
 
     return {
@@ -147,6 +148,7 @@ const mapStateToProps = (state, passedProps) => {
         mergeUrlState,
         show404,
         offerList,
+        is_login_user_insured,
         canonical_url
     }
 }
@@ -170,7 +172,7 @@ const mapDispatchToProps = (dispatch) => {
         toggle404: (status) => dispatch(toggle404(status)),
         selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
         saveProfileProcedures: (doctor_id, clinic_id, procedure_ids, forceAdd) => dispatch(saveProfileProcedures(doctor_id, clinic_id, procedure_ids, forceAdd)),
-        getOfferList: (lat,long) => dispatch(getOfferList(lat,long)),
+        getOfferList: (lat, long) => dispatch(getOfferList(lat, long)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filter))
     }
 }

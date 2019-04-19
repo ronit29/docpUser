@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { logout, fetchNotifications, getUserProfile, toggleLeftMenuBar, getIsCareDetails } from '../../../actions/index.js'
+import { logout, fetchNotifications, getUserProfile, toggleLeftMenuBar, getIsCareDetails, selectSearchType } from '../../../actions/index.js'
 import STORAGE from '../../../helpers/storage'
 import { withRouter } from 'react-router'
 
@@ -53,7 +53,8 @@ const mapDispatchToProps = (dispatch) => {
         fetchNotifications: (cb) => dispatch(fetchNotifications(cb)),
         getUserProfile: () => dispatch(getUserProfile()),
         getIsCareDetails: () => dispatch(getIsCareDetails()),
-        toggleLeftMenuBar: (toggle, defaultVal) => dispatch(toggleLeftMenuBar(toggle, defaultVal))
+        toggleLeftMenuBar: (toggle, defaultVal) => dispatch(toggleLeftMenuBar(toggle, defaultVal)),
+        selectSearchType: (type) => dispatch(selectSearchType(type)),
     }
 }
 

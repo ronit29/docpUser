@@ -14,7 +14,8 @@ class LabsList extends React.Component {
             hasMore: false,
             loading: false,
             renderBlock: false,
-            page: 0
+            page: 0,
+            is_insured: props.filterCriteria && props.filterCriteria.is_insured?props.filterCriteria.is_insured:false
         }
     }
 
@@ -128,7 +129,7 @@ class LabsList extends React.Component {
                                 }*/}
 
                                 {
-                                    this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'lab_search_results').length ?
+                                    this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'lab_search_results').length && !this.state.is_insured?
                                         <div className="col-12">
                                             <BannerCarousel {...this.props} sliderLocation="lab_search_results" />
                                         </div> : ''
@@ -141,47 +142,23 @@ class LabsList extends React.Component {
                                         hasMore={this.state.hasMore}
                                         useWindow={true}
                                     >
-                                        {
-                                            labList.map((labId, i) => {
-                                                if (i == 1 && LABS[labId]) {
-
-                                                    return <div key={i}>
-                                                        <div className="no-risk-container mt-3">
-                                                            <div className="no-rsk">
-                                                                <div className="rsk-image">
-                                                                    <img className="" src={ASSETS_BASE_URL + "/img/customer-icons/group-98.png"} />
-                                                                </div>
-                                                                <div className="rsk-content">
-                                                                    <h4 className="rsk-hdng">Amazing Savings... No Risks!</h4>
-                                                                    <ul className="rsk-lstng ff">
-                                                                        <li className="lst-bfr">Upto 50% Off on doctor and lab bookings</li>
-                                                                        <li className="lst-bfr">100% money back guarantee -  No questions!</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        {
-                                                            this.props.lab_card ?
-                                                                <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
-                                                                : <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
-                                                        }
-                                                    </div>
-
-                                                } else {
+                                        <ul>
+                                            {
+                                                labList.map((labId, i) => {
                                                     if (LABS[labId]) {
-                                                        return <div key={i}>
+                                                        return <li key={i}>
                                                             {
                                                                 this.props.lab_card ?
                                                                     <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
                                                                     : <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
                                                             }
-                                                        </div>
+                                                        </li>
                                                     } else {
                                                         return ""
                                                     }
-                                                }
-                                            })
-                                        }
+                                                })
+                                            }
+                                        </ul>
                                     </InfiniteScroll>
                                 </div>
                             </div>

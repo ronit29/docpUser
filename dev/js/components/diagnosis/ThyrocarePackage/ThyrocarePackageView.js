@@ -76,7 +76,7 @@ class ThyrocarePackageView extends React.Component {
                     <div className="row main-row parent-section-row">
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             {
-                                this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'health_package_compare_page').length ?
+                                this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'thyrocare_aarogyam_packages_page').length ?
                                     <div className="col-12">
                                         <BannerCarousel {...this.props} sliderLocation="thyrocare_aarogyam_packages_page" />
                                     </div> : ''
@@ -89,19 +89,19 @@ class ThyrocarePackageView extends React.Component {
                                 <div className="static-pk-container sticky-pk-container">
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Aarogyam B <br />(60 Parameters)</p>
-                                            <p className="stc-price-cut">₹ 540 <span>₹ 900</span></p>
+                                            <p className="stc-sub-para">Aarogyam B <br />(Includes 60 tests)</p>
+                                            <p className="stc-price-cut">₹ 499 <span>₹ 750</span></p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Aarogyam C <br />(63 Parameters)</p>
-                                            <p className="stc-price-cut">₹ 750 <span>₹ 1200</span></p>
+                                            <p className="stc-sub-para">Aarogyam C <br />(Includes 63 tests)</p>
+                                            <p className="stc-price-cut">₹ 899 <span>₹ 1100</span></p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Aarogyam 3 <br />(68 Parameters)</p>
+                                            <p className="stc-sub-para">Aarogyam 3 <br />(Includes 68 tests)</p>
                                             <p className="stc-price-cut">₹ 1500 <span>₹ 2000</span></p>
                                         </div>
                                     </div>
@@ -110,7 +110,7 @@ class ThyrocarePackageView extends React.Component {
                                     <div className="static-pkg-top-column">
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">
-                                                29% OFF + ₹ 100
+                                                33% OFF + ₹ 100
                                                 OFF Coupon
                                                                 </p>
                                         </div>
@@ -122,7 +122,7 @@ class ThyrocarePackageView extends React.Component {
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn" style={{ position: 'relative' }} >
                                         <div className="stc-offr-cpn">
-                                            <p className="stc-off-para">30% OFF + ₹ 100 OFF Coupon</p>
+                                            <p className="stc-off-para">18% OFF + ₹ 100 OFF Coupon</p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=12213" onClick={(e) => {

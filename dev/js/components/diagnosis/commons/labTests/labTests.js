@@ -75,8 +75,12 @@ class LabTests extends React.Component {
         let test_info = ''
         let show_details = ''
         let {is_plan_applicable} = this.props
-        
+        let { is_insurance_applicable } = this.props
+
+
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
+            let selectedTestsCount = this.props.currentLabSelectedTests.filter(x=>x.is_selected).length
+
             this.props.currentLabSelectedTests.map((test, i) => {
                 if (test.hide_price) {
                     hide_price = true
@@ -89,9 +93,9 @@ class LabTests extends React.Component {
 
                 if (test.is_package) {
                     if (test.is_selected) {
-                        selectedPackage.push(<PackageTest is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} testInfo={this.testInfo.bind(this)} hide_price={hide_price} />)
+                        selectedPackage.push(<PackageTest is_insurance_applicable ={is_insurance_applicable} is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} testInfo={this.testInfo.bind(this)} hide_price={hide_price} />)
                     } else {
-                        unSelectedPackage.push(<PackageTest is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} hide_price={hide_price} testInfo={this.testInfo.bind(this)} />)
+                        unSelectedPackage.push(<PackageTest is_insurance_applicable ={is_insurance_applicable} is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} hide_price={hide_price} testInfo={this.testInfo.bind(this)} />)
                     }
 
                 } else {
@@ -102,7 +106,8 @@ class LabTests extends React.Component {
                                     <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
                             </span>
                         }
-                        selectedTests.push(hide_price ? <li key={i + "srt"}>
+
+                        selectedTests.push(hide_price? <li key={i + "srt"}>
                             <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                 {test.test.name}
                                 <input type="checkbox" checked={test.is_selected ? true : false} />
@@ -117,9 +122,13 @@ class LabTests extends React.Component {
                                     <span className="checkmark" />
                                 </label>
                                 {
-                                    test.included_in_user_plan?
+                                    is_insurance_applicable || test.included_in_user_plan?
                                         <span className="test-price text-sm">₹ 0 </span>
-                                    :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                    :
+                                    test.deal_price == test.mrp.split('.')[0]?
+                                    <span className="test-price text-sm">&#8377; {test.deal_price}</span>
+                                    :
+                                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                                 }
                             </li>)
                     } else {
@@ -133,9 +142,12 @@ class LabTests extends React.Component {
                                     <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} testInfo={this.testInfo.bind(this,test.test.id,test.test.url)} />
                                     <span className="checkmark" />
                                 </label>
-                                {
-                                    test.included_in_user_plan?
+                                {    
+                                    ( (is_insurance_applicable || !selectedTestsCount) && test.insurance && test.insurance.is_insurance_covered) || test.included_in_user_plan?
                                         <span className="test-price text-sm">₹ 0 </span>
+                                    :
+                                    test.deal_price == test.mrp.split('.')[0]?
+                                    <span className="test-price text-sm">&#8377; {test.deal_price}</span>
                                     :
                                     <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                                 }
@@ -146,6 +158,8 @@ class LabTests extends React.Component {
             selectedTestIds = this.props.currentLabSelectedTests.map(x => x.test_id)
 
         }
+
+
 
         const parsed = queryString.parse(this.props.location.search)
         if (parsed && parsed.price_list && parsed.price_list == 'true') {
@@ -203,9 +217,13 @@ class LabTests extends React.Component {
             extra_price = this.props.data.lab.home_pickup_charges
         }
 
+        if(is_insurance_applicable){
+            pickup_text = ''
+        }
+
         return (
             <div>
-                <div className="widget-content pb-details pb-test nw-listing-pddng">
+                <div className="widget-content pb-details pb-test nw-listing-pddng clearfix">
                     {/* {
                         is_package && number_of_tests ? <h4 className="wc-title text-md fw-700">{number_of_tests} Test Included</h4> : <h4 className="wc-title text-md fw-700">Selected Tests {test_info}
                         </h4>
@@ -217,6 +235,8 @@ class LabTests extends React.Component {
                         {hide_price ? '' : unSelectedTests}
                         {hide_price ? '' : unSelectedPackage}
                     </ul>
+
+                    
                     {
                         pickup_text ? <div className="clearfix">
 
@@ -242,6 +262,11 @@ class LabTests extends React.Component {
                         hide_price ? "" : <div className="pb-view text-right">
                             <a href="javascript:;" className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>View more tests</a>
                         </div>
+                    }
+                    {
+                        is_insurance_applicable?
+                        <div className="ins-val-bx">Covered Under Insurance</div>
+                        :''
                     }
                     {
                         this.state.showPackageInfo ? <PackageInfo content={this.state.packageInfoTest} toggle={this.toggle.bind(this, 'showPackageInfo')} /> : ""

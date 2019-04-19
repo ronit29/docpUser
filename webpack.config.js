@@ -11,6 +11,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin');
+const reactLoadablePlugin = require('react-loadable/webpack').ReactLoadablePlugin;
 
 const client_dev = {
     mode: 'development',
@@ -18,13 +19,14 @@ const client_dev = {
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: '/dist'
+        publicPath: '/dist/',
+        chunkFilename: '[name].bundle.js'
     },
     plugins: [
         new CleanWebpackPlugin(['dist'], {
             verbose: true,
             dry: false,
-            exclude: ['index.ejs']
+            exclude: ['index.ejs', 'react-loadable.json']
         }),
         new MiniCssExtractPlugin({
             filename: "style.css",
@@ -41,7 +43,11 @@ const client_dev = {
             template: '!!raw-loader!./views/index.template.ejs',
             excludeAssets: [/style.*.css/]
         }),
-        new HtmlWebpackExcludeAssetsPlugin()
+        new HtmlWebpackExcludeAssetsPlugin(),
+        new reactLoadablePlugin({
+            filename: './dist/react-loadable.json',
+        }),
+        // new BundleAnalyzerPlugin(),
     ]
 }
 
@@ -50,13 +56,14 @@ const client_prod = {
     output: {
         filename: '[name].[chunkhash].bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: process.env.CDN_BASE_URL + 'dist'
+        publicPath: process.env.CDN_BASE_URL + 'dist/',
+        chunkFilename: '[name].[chunkhash].bundle.js'
     },
     plugins: [
         new CleanWebpackPlugin(['dist'], {
             verbose: true,
             dry: false,
-            exclude: ['index.ejs'],
+            exclude: ['index.ejs', 'react-loadable.json'],
             beforeEmit: true
         }),
         new MiniCssExtractPlugin({
@@ -74,7 +81,10 @@ const client_prod = {
             template: '!!raw-loader!./views/index.template.prod.ejs',
             excludeAssets: [/style.*.css/]
         }),
-        new HtmlWebpackExcludeAssetsPlugin()
+        new HtmlWebpackExcludeAssetsPlugin(),
+        new reactLoadablePlugin({
+            filename: './dist/react-loadable.json',
+        }),
     ]
 }
 
@@ -83,13 +93,14 @@ const client_staging = {
     output: {
         filename: '[name].[chunkhash].bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: process.env.CDN_BASE_URL + 'dist'
+        publicPath: process.env.CDN_BASE_URL + 'dist/',
+        chunkFilename: '[name].[chunkhash].bundle.js'
     },
     plugins: [
         new CleanWebpackPlugin(['dist'], {
             verbose: true,
             dry: false,
-            exclude: ['index.ejs'],
+            exclude: ['index.ejs', 'react-loadable.json'],
             beforeEmit: true
         }),
         new MiniCssExtractPlugin({
@@ -107,13 +118,16 @@ const client_staging = {
             template: '!!raw-loader!./views/index.template.ejs',
             excludeAssets: [/style.*.css/]
         }),
-        new HtmlWebpackExcludeAssetsPlugin()
+        new HtmlWebpackExcludeAssetsPlugin(),
+        new reactLoadablePlugin({
+            filename: './dist/react-loadable.json',
+        }),
     ]
 }
 
 const client_base = {
     entry: {
-        'index': ['babel-polyfill', './dev/js/index.js']
+        'index': ['./dev/js/index.js']
     },
 
     optimization: {
@@ -177,16 +191,21 @@ const serverConfig = {
     mode: 'development',
     devtool: 'inline-source-map',
     plugins: [
+        new CleanWebpackPlugin(['server'], {
+            verbose: true,
+            dry: false,
+            exclude: ['server.js', 'react-loadable.json']
+        }),
         new webpack.DefinePlugin({
             "DOCPRIME_PRODUCTION": process.env.NODE_ENV == 'production',
             "DOCPRIME_STAGING": process.env.NODE_ENV == 'staging',
             "ASSETS_BASE_URL": (process.env.NODE_ENV == 'staging' || process.env.NODE_ENV == 'production') ? (JSON.stringify(process.env.CDN_BASE_URL + "assets")) : JSON.stringify("/assets"),
             "API_BASE_URL": JSON.stringify(process.env.API_BASE_URL) || "",
             "SOCKET_BASE_URL": JSON.stringify(process.env.SOCKET_BASE_URL) || ""
-        }),
+        })
     ],
     output: {
-        path: __dirname,
+        path: path.resolve(__dirname, 'server'),
         filename: 'server.js',
         publicPath: '/'
     },
@@ -234,5 +253,5 @@ module.exports = env => {
         clientConfig = { ...client_base, ...client_prod }
     }
 
-    return [serverConfig, clientConfig]
+    return [clientConfig, serverConfig]
 }

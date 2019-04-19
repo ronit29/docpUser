@@ -105,7 +105,9 @@ class LabProfileCard extends React.Component {
     bookNowClicked(id, url = '') {
         this.props.clearExtraTests()
         let slot = { time: {} }
+        this.props.clearExtraTests()
         this.props.selectLabTimeSLot(slot, false)
+        this.props.selectLabAppointmentType('home')
         this.mergeTests(id)
         this.props.history.push(`/lab/${id}/book`)
     }
@@ -141,7 +143,7 @@ class LabProfileCard extends React.Component {
 
     render() {
         let self = this
-        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price, avg_rating, rating_count } = this.props.details;
+        let { price, lab, distance, is_home_collection_enabled, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, address, name, lab_thumbnail, other_labs, id, url, home_pickup_charges, discounted_price, avg_rating, rating_count, insurance } = this.props.details;
 
         distance = Math.ceil(distance / 1000);
 
@@ -183,7 +185,12 @@ class LabProfileCard extends React.Component {
                 })
             }
         }
-
+        let is_insurance_applicable = false
+        if(insurance && insurance.is_insurance_covered && insurance.is_user_insured){
+            is_insurance_applicable = true
+            pickup_text = ""
+        }
+        
         return (
 
             <div className="cstm-docCard mb-3">
@@ -208,6 +215,7 @@ class LabProfileCard extends React.Component {
                                             </div> : ''
                                     }
                                 </div>
+
                                 <div className="cstm-doc-content-container">
                                     <a href={url} onClick={(e) => {
                                         e.preventDefault();
@@ -229,16 +237,24 @@ class LabProfileCard extends React.Component {
                         </div>
                         <div className="col-4">
                             {
-                                this.state.ssrFlag ?
+                                !is_insurance_applicable && this.state.ssrFlag ?
                                     <p className="cstm-doc-price">Docprime Price</p> : ''
                             }
                             {
-                                discounted_price && !hide_price ?
+                                !is_insurance_applicable && discounted_price && !hide_price ?
                                     <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p> : ''
                             }
                             {
-                                discounted_price != price && !hide_price && offPercent && offPercent > 0 ?
+                                !is_insurance_applicable && discounted_price != price && !hide_price && offPercent && offPercent > 0 ?
                                     <p className="cstm-cpn">{offPercent}% Off <span><br />(includes Coupon)</span></p> : ''
+                            }
+                            {
+                                is_insurance_applicable?
+                                <div>
+                                    <p className="cst-doc-price">₹ {0}</p>
+                                    <div className="ins-val-bx">Covered Under Insurance</div>
+                                </div>
+                                :'' 
                             }
                             <button className="cstm-book-btn">Book Now</button>
                         </div>

@@ -18,6 +18,7 @@ const ACTION = {
 const PRODUCT = {
     1: 'Doctor',
     2: 'Lab',
+    3: 'Insurance',
     4: 'Plan'
 }
 
@@ -34,6 +35,7 @@ const SOURCE_TO = {
 const ENTITY = {
     1: 'Appointment',
     2: 'Appointment',
+    3: '',
     4: ''
 }
 
@@ -105,6 +107,8 @@ class Transactions extends React.Component {
                 this.props.history.push(`/opd/appointment/${id}`)
             }else if(PRODUCT[type] == 'Plan'){
                 this.props.history.push(`/prime/success?user_plan=${id}`)
+            }else if(PRODUCT[type] == 'Insurance'){
+                this.props.history.push(`/insurance/certificate?id=${id}`)
             }
              else {
                 this.props.history.push(`/lab/appointment/${id}`)
