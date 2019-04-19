@@ -63,7 +63,6 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
                   <section className="pkgComapre container">
                     <Loader />        
                   </section>
-                <Footer />
             </div>
             )
           }  

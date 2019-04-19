@@ -35,30 +35,38 @@ const queryString = require('query-string');
       if (window) {
           window.scrollTo(0, 0)
       }
-      let ids = []
-      if(this.props.data.packages){
-        this.props.data.packages.map((packages, i) => {
-            ids.push('hide_av_'+ packages.id)
-            ids.push('hide_strt_'+ packages.id)
-            // ids.push('hide_coupon_'+ packages.id)
-        })
-      }
+      // let ids = []
+      // if(this.props.data.packages){
+      //   this.props.data.packages.map((packages, i) => {
+      //       ids.push('hide_av_'+ packages.id)
+      //       ids.push('hide_strt_'+ packages.id)
+      //       // ids.push('hide_coupon_'+ packages.id)
+      //   })
+      // }
 
-      if (ids.length > 0) {
-          window.onscroll = function() {
-            if(document.getElementsByClassName('sticky-multiple-pkgs') && document.getElementsByClassName('sticky-multiple-pkgs')[0]){
-              let scrollHeight = document.getElementsByClassName('sticky-multiple-pkgs')[0].offsetTop
-              ids.map((id,i)=>{
-                if (scrollHeight >0 && window.screen.width < 768) {
-                  document.getElementById(id).classList.add("d-none")
-                } else {
-                  document.getElementById(id).classList.remove("d-none")
-                }
-              }) 
-            }
-          }
-      }
+      // if (ids.length > 0) {
+      //     window.onscroll = function() {
+      //       if(document.getElementsByClassName('sticky-multiple-pkgs') && document.getElementsByClassName('sticky-multiple-pkgs')[0]){
+      //         let scrollHeight = document.getElementsByClassName('sticky-multiple-pkgs')[0].offsetTop
+      //         ids.map((id,i)=>{
+      //           if (scrollHeight >0 && window.screen.width < 768) {
+      //             document.getElementById(id).classList.add("d-none")
+      //           } else {
+      //             document.getElementById(id).classList.remove("d-none")
+      //           }
+      //         }) 
+      //       }
+      //     }
+      // }
 
+    }
+
+    showLabs(id){
+      this.props.setPackageId(id, true)
+      
+      setTimeout(() => {
+        this.props.history.push('/searchpackages')
+      }, 100)
     }
 
     bookNow(id, url, test_id, test_name, e){
@@ -244,7 +252,7 @@ const queryString = require('query-string');
                           {
                             this.props.data.packages && this.props.data.packages.length != 1?
                           <div className="">
-                            <a onClick={()=> this.props.history.push('/searchpackages')} className="add-more-packages"> + Add More </a>
+                            <a onClick={this.addMore.bind(this)} className="add-more-packages"> + Add More </a>
                           </div>
                           :''}
                         </div>
@@ -304,7 +312,7 @@ const queryString = require('query-string');
                                               this.props.data.packages.map((cat_count, j) => {
                                                 cat_info_data = cat_count.category_parameter_count.filter(x=> x.id==cat_info.id)
                                                   return(
-                                                    <li id={cat_info_data[0].id} key={j}>{cat_info_data[0].count} Test</li>)
+                                                    <li id={cat_info_data[0].id} key={j}>{cat_info_data[0].count > 0?`${cat_info_data[0].count} Test`:'Nil'} </li>)
                                             })}
                                           </ul>
                                         </div>
@@ -312,7 +320,7 @@ const queryString = require('query-string');
                                           cat_info.test_ids.map((test_id, k) => {
                                               testData= self.props.data.test_info.filter(x=> x.id == test_id)
                                                return <div key={k} id= {testData[0].id} className={this.state.isDiffChecked && this.state.isDiffTest.indexOf(testData[0].id) != -1?' d-none':''}>
-                                                        <div className="pkg-crd-header light-orng-header grey-head test-done" onClick={this.ButtonHandler.bind(this,testData[0].id)}>
+                                                        <div className="pkg-crd-header light-orng-header grey-head test-done" onClick={testData[0].parameters.length > 0?this.ButtonHandler.bind(this,testData[0].id):''}>
                                                           <span>{testData[0].name}</span>
                                                           {
                                                             testData[0].parameters.length > 0?
@@ -375,11 +383,29 @@ const queryString = require('query-string');
                                   )
                               })
                         :''}
+                        {
+                          this.props.data.packages?
+                          <div className="pkg-card-container mb-3 available-done">
+                            <div className="pkg-crd-header light-orng-header">
+                              <span>Available Labs</span>
+                            </div>
+                            <div>
+                                <div className={"top-head-info multiple-pkgs parent-info category-done" + (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':this.props.data.packages.length <= 4?' pkbclsFour':'')}>
+                                  <ul className="pkgCls">
+                                    {
+                                      this.props.data.packages.map((packg, i) => {
+                                        return <li onClick={this.showLabs.bind(this,packg.id)} style={{color:'#f78631',cursor:'pointer'}}>{packg.total_labs_available}</li>
+                                      })
+                                    }
+                                  </ul>
+                                </div>
+                            </div>
+                          </div>
+                        :''}
                       </div>
                     </div>
                   </div>
               </section>
-              <Footer />
           </div>
       )
     }
