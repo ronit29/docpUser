@@ -94,6 +94,10 @@ class LabProfileCard extends React.Component {
         if(selectedPkgCompareIds.indexOf(id) == -1 && selectedPkgCompareIds.length >= 5){
             SnackBar.show({ pos: 'bottom-center', text: "Max 5 packages can be compared" });
         }else{
+            let data = {
+            'Category': 'ConsumerApp', 'Action': 'AddedToCompare', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'added-to-compare',  'LabId': lab_id , 'testId':id
+            }
+            GTM.sendEvent({ data: data })
             this.props.toggleComparePackages(id,lab_id,lab_thumbnail,name)    
         }
     }

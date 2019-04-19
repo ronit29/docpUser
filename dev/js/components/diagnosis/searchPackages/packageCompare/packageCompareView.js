@@ -72,12 +72,7 @@ const queryString = require('query-string');
         new_test.id = test_id
         this.props.toggleDiagnosisCriteria('test', new_test, true)
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'RankOfLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'rank-lab-clicked', 'Rank': this.props.rank + 1
-        }
-        GTM.sendEvent({ data: data })
-
-        data = {
-            'Category': 'ConsumerApp', 'Action': 'LabSelectedByUser', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-selected-by-user', 'LabId': id
+            'Category': 'ConsumerApp', 'Action': 'CompareBookNowClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'compare-booknow-click', 'LabId': id , 'testId':test_id
         }
         GTM.sendEvent({ data: data })
 
@@ -141,6 +136,10 @@ const queryString = require('query-string');
     }
 
     toggleShowDiff(){
+      let data = {
+            'Category': 'ConsumerApp', 'Action': 'ShoWDifferenceClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-difference-click'
+        }
+        GTM.sendEvent({ data: data })
       let testIds=[]
       let catIds = []
       let test_info=[]
@@ -258,10 +257,15 @@ const queryString = require('query-string');
                                      <img src={ASSETS_BASE_URL + "/images/packageCompare/red-cut.png"} alt="" className="end-div" onClick={this.toggleComparePackages.bind(this,packages.id,'','','')}/>
                                     
                                       <div className="pkg-hd">{packages.name}</div>
-                                      <div className="pkg-hd-by" id={"hide_av_" + packages.id}>Available in {packages.total_labs_available} Labs</div>
+                                      {/*<div className="pkg-hd-by" id={"hide_av_" + packages.id}>Available in {packages.total_labs_available} Labs</div>*/}
+                                      <div className="pkg-hd-by" id={"hide_av_" + packages.id}>{packages.lab.name}</div>
+                                      
                                       <h3 className="lab-fltr-dc-name fw-500 pkg-include">{packages.total_parameters_count} Tests Included</h3>
                                       <div className="pkg-card-price">
-                                      <p className="st-form" id={"hide_strt_" + packages.id}>Starts from <span className="fw-500">₹ {packages.price}</span></p>
+                                      <p className="fw-500" id={"hide_strt_" + packages.id}>₹ {parseInt(packages.price)}
+                                          <span className="pkg-cut-price">₹ {parseInt(packages.mrp)}</span>
+                                      </p>
+                                      
                                       </div>
                                       {/*<p className="pkg-discountCpn" id={"hide_coupon_"+ packages.id}>Includes coupon</p>*/}
                                       <a onClick={this.bookNow.bind(this,packages.lab.id,'',packages.id,packages.lab.name)}><button className="pkg-btn-nw">Book Now </button></a>

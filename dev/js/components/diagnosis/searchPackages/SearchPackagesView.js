@@ -8,6 +8,7 @@ import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import Footer from '../../commons/Home/footer'
 import ResultCount from './topBar/result_count.js'
+import GTM from '../../../helpers/gtm.js'
 const queryString = require('query-string');
 
 class SearchPackagesView extends React.Component {
@@ -119,6 +120,10 @@ class SearchPackagesView extends React.Component {
     }
 
     comparePackage(){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'CompareButton', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'compare-button'
+        }
+        GTM.sendEvent({ data: data })
         if(this.props.packagesList.count == 1){
             if(this.props.packagesList.result){
                 let packages={}
