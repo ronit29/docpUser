@@ -300,7 +300,7 @@ class ChatPanel extends React.Component {
         }
 
         let parsedHref = ''
-        if (window) {
+        if (typeof window == "object") {
             parsedHref = queryString.parse(window.location.search);
         }
 

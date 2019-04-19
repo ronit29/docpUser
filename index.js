@@ -200,7 +200,6 @@ app.all('*', function (req, res) {
                     })
 
                 } catch (e) {
-
                     if (CONFIG.RAVEN_SERVER_DSN_KEY) {
                         Sentry.captureException(e)
                     }
@@ -209,7 +208,7 @@ app.all('*', function (req, res) {
 
                     _serverHit(req, 'server_done')
                     res.render('index.ejs', {
-                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_fil, index_bundlee, split_bundles
+                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles
                     })
                 }
 
@@ -231,7 +230,7 @@ app.all('*', function (req, res) {
                     res.status(404)
                     _serverHit(req, 'server_done')
                     res.render('index.ejs', {
-                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_fil, index_bundlee, split_bundles
+                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles
                     })
                 }
             })
