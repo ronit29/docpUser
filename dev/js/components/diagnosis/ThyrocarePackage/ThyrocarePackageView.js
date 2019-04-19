@@ -76,7 +76,7 @@ class ThyrocarePackageView extends React.Component {
                     <div className="row main-row parent-section-row">
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             {
-                                this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'health_package_compare_page').length ?
+                                this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'thyrocare_aarogyam_packages_page').length ?
                                     <div className="col-12">
                                         <BannerCarousel {...this.props} sliderLocation="thyrocare_aarogyam_packages_page" />
                                     </div> : ''
