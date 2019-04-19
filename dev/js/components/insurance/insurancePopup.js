@@ -62,25 +62,17 @@ class InsurancePopup extends React.Component{
 
     submitOTPRequest(number) {
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
-            if(this.props.isLead == 'proceed'){
-
-                this.setState({ validationError: "" })
-                this.props.sendOTP(number, (error) => {
-                    if (error) {
-                        // this.setState({ validationError: "Could not generate OTP." })
-                    } else {
-                        this.setState({ showOTP: true, otpTimeout: true })
-                        setTimeout(() => {
-                            this.setState({ otpTimeout: false })
-                        }, 10000)
-                    }
-                })
-            }else{
-                document.getElementsByClassName('mv-header')[0].classList.add('d-none')
-                document.getElementsByClassName('widget-content')[0].classList.add('d-none')
-                this.setState({ isLeadTrue:true })    
-                this.props.generateInsuranceLead(this.props.selected_plan?this.props.selected_plan.id:'',this.state.phoneNumber)
-            } 
+            this.setState({ validationError: "" })
+            this.props.sendOTP(number, (error) => {
+                if (error) {
+                    // this.setState({ validationError: "Could not generate OTP." })
+                } else {
+                    this.setState({ showOTP: true, otpTimeout: true })
+                    setTimeout(() => {
+                        this.setState({ otpTimeout: false })
+                    }, 10000)
+                }
+            })
         } else {
             this.setState({ validationError: "Please provide a valid number (10 digits)" })
         }
@@ -98,19 +90,28 @@ class InsurancePopup extends React.Component{
                 if(exists.code == 'invalid'){
                     this.setState({error_message:exists.message})
                 }else{
-                    this.props.getInsurance((resp)=>{
-                        if(!resp.certificate){
-                            if(Object.keys(self.props.selected_plan).length > 0){
-                                self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',this.state.phoneNumber)
+                    if(Object.keys(self.props.selected_plan).length > 0){
+                        self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',this.state.phoneNumber)
+                    }
+                    if(this.props.isLead == 'proceed'){
+                        this.props.getInsurance((resp)=>{
+                            if(!resp.certificate){
+                                if (exists.user_exists) {
+                                    this.props.history.push('/insurance/insurance-user-details')
+                                }else{
+                                    this.props.history.push('/insurance/insurance-user-details')    
+                                }
                             }
-                            if (exists.user_exists) {
-                                this.props.history.push('/insurance/insurance-user-details')
-                            }else{
-                                this.props.history.push('/insurance/insurance-user-details')    
-                            }
+                            
+                        })
+                    }else{
+                        self.setState({ isLeadTrue:true })       
+                        document.getElementsByClassName('mv-header')[0].classList.add('d-none')
+                        document.getElementsByClassName('verifySection')[0].classList.add('d-none')
+                        if(document.getElementById('terms_condition')){
+                            document.getElementById('terms_condition').click()
                         }
-                        
-                    })
+                    }
                 }    
                    
             })
@@ -190,7 +191,7 @@ class InsurancePopup extends React.Component{
                                 {/*<h3 className="sign-coupon fw-700">Please login to continue</h3>*/}
                                 <h4 className="fw-500 text-md sign-up-mbl-text">Enter your Mobile Number</h4>
                             </div>
-                            <div className="widget-content text-center">
+                            <div className="widget-content text-center verifySection">
                                 <div className="mobile-verification">
                                     <div className="verifi-mob-iocn text-center">
                                         <img src={ASSETS_BASE_URL + "/img/customer-icons/mob.svg"} className="img-fluid" />
@@ -221,10 +222,10 @@ class InsurancePopup extends React.Component{
                                         </button>
                                         </div> :
                                         <div className="text-center">
-                                            <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm">
-                                                {
+                                            <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm">Continue
+                                                {/*
                                                     this.props.isLead == 'proceed'?'Continue':'Submit'
-                                                }
+                                                */}
                                         </button>
                                         </div>
                                 }

@@ -148,9 +148,9 @@ export const generateInsuranceLead = (selectedPlan, number,callback) => (dispatc
         plan.plan_id= selectedPlan
         plan.phone_number = number
     return API_POST(`/api/v1/insurance/lead/create`, plan).then(function (response) {
-        callback(null, response)
+        if(callback) callback(null, response)
     }).catch(function (error) {
-        callback(error, null)
+       if(callback) callback(error, null)
     })
 }
 export const pushUserData = (criteria,callback) => (dispatch) => {
