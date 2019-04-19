@@ -145,6 +145,10 @@ class Insurance extends React.Component {
 		this.setState({ isLead: type, showPopup: true })
 	}
 
+	closeLeadPopup(){
+		this.setState({ showPopup: false })
+	}
+
 	hideLoginPopup() {
 		this.setState({
 			showPopup: false
@@ -168,14 +172,6 @@ class Insurance extends React.Component {
 				<div className="profile-body-wrap">
 					<ProfileHeader />
 					<section className="container container-top-margin">
-						<div className="insu-popup-container">
-							<div className="insu-pop-up">
-								<img className="insPopUp" src={ASSETS_BASE_URL + "/img/tec.svg"} />
-								<p className="ins-main-pera-text">Request Submitted</p>
-								<p className="ins-main-pera-sub-text">Thank You for showing interest. Our team will get back to you shortly.</p>
-								<button className="insupopdonebtn">Done</button>
-							</div>
-						</div>
 						<div className="row main-row parent-section-row">
 							<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
 								<section className="profile-book-screen">
@@ -236,7 +232,7 @@ class Insurance extends React.Component {
 									</div>
 								</section>
 								{this.state.showPopup ?
-									<InsurPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} /> : ''
+									<InsurPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)}/> : ''
 								}
 								{
 									STORAGE.checkAuth() ?

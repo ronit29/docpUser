@@ -105,9 +105,7 @@ class InsurancePopup extends React.Component{
                             
                         })
                     }else{
-                        self.setState({ isLeadTrue:true })       
-                        document.getElementsByClassName('mv-header')[0].classList.add('d-none')
-                        document.getElementsByClassName('verifySection')[0].classList.add('d-none')
+                        self.setState({ isLeadTrue:true, }) 
                         if(document.getElementById('terms_condition')){
                             document.getElementById('terms_condition').click()
                         }
@@ -177,21 +175,26 @@ class InsurancePopup extends React.Component{
             return (
             <div className="col-12 col-md-7  center-column">
                     <div className="cancel-overlay" onClick={this.props.hideLoginPopup.bind(this)}>
-                    </div>
+                    </div>                    
                     <section className="mobile-verification-screen p-3">
+                    {
+                        this.state.isLeadTrue?
+                        <div className="insu-popup-container" onClick={this.props.closeLeadPopup.bind(this)}>
+                            <div className="insu-pop-up">
+                                <img className="insPopUp" src={ASSETS_BASE_URL + "/img/tec.svg"} />
+                                <p className="ins-main-pera-text">Request Submitted</p>
+                                <p className="ins-main-pera-sub-text">Thank You for showing interest. Our team will get back to you shortly.</p>
+                                <button className="insupopdonebtn" onClick={this.props.closeLeadPopup.bind(this)}>Done</button>
+                            </div>
+                        </div>
+                        :
                         <div className="widget no-shadow no-round sign-up-container widget cancel-appointment-div cancel-popup">
-                            <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.props.hideLoginPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>
-                            {   
-                                this.state.isLeadTrue?
-                                <div className="widget-content text-center">
-                                    <h2 className="fw-500 text-md sign-up-mbl-text">will get back to you soon</h2></div>
-                                :''
-                            }                    
+                            <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.props.hideLoginPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>                    
                             <div className="widget-header text-center mv-header">
                                 {/*<h3 className="sign-coupon fw-700">Please login to continue</h3>*/}
                                 <h4 className="fw-500 text-md sign-up-mbl-text">Enter your Mobile Number</h4>
                             </div>
-                            <div className="widget-content text-center verifySection">
+                            <div className="widget-content text-center">
                                 <div className="mobile-verification">
                                     <div className="verifi-mob-iocn text-center">
                                         <img src={ASSETS_BASE_URL + "/img/customer-icons/mob.svg"} className="img-fluid" />
@@ -233,6 +236,7 @@ class InsurancePopup extends React.Component{
 
                             <p className="text-center fw-500 p-3" style={{ fontSize: 12, color: '#8a8a8a' }} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: '#f78631' }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: '#f78631' }} >Privacy Policy.</a></p>
                         </div>
+                    }
                     </section>
             </div> )
         }
