@@ -410,7 +410,7 @@ class InsuranceSelf extends React.Component{
 					</div>
 					<div className="col-12">
 						<div className="ins-form-group">
-							<input type="text" id={`emails_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('email')> -1?'fill-error':''}`} required autoComplete="none" name="email" value={this.state.email} data-param='email' onChange={this.handleChange.bind(this,'email')} onBlur={this.handleEmail} onFocus={this.handleOnFocus.bind(this,'email')} disabled={this.state.disableEmail?'disabled':''} />
+							<input type="text" id={`emails_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('email')> -1?'fill-error':''}`} required autoComplete="none" name="email" value={this.state.email} data-param='email' onChange={this.handleChange.bind(this,'email')} onBlur={this.handleEmail} onFocus={this.handleOnFocus.bind(this,'email')}/>
 							<label className={this.state.disableEmail?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`emails_${this.props.member_id}`}><span className="labelDot">*</span>Email</label>
 							<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
 						</div>
@@ -421,7 +421,7 @@ class InsuranceSelf extends React.Component{
 					</div>
 					<div className="col-12">
 						<div className="ins-form-group">
-						 	<input type="button"  id={`isn-date_${this.props.member_id}`} className={`form-control ins-form-control text-left ${this.props.validateErrors.indexOf('dob')> -1?'fill-error':''}`} required autoComplete="none" name="dob" value={this.state.dob?this.state.dob:'yyyy/mm/dd'} data-param='dob' onClick={this.openDateModal.bind(this)} disabled={this.state.disableDob?'disabled':false}/>
+						 	<input type="button"  id={`isn-date_${this.props.member_id}`} className={`form-control ins-form-control text-left ${this.props.validateErrors.indexOf('dob')> -1?'fill-error':''}`} required autoComplete="none" name="dob" value={this.state.dob?this.state.dob:'yyyy/mm/dd'} data-param='dob' onClick={this.openDateModal.bind(this)}/>
 							<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Date of birth</label>
     						<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
 							{
