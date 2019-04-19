@@ -10,14 +10,14 @@ import CONFIG from "../../../config/index.js";
 // import { FacebookShareButton, TwitterShareButton, FacebookIcon, TwitterIcon, EmailShareButton, EmailIcon } from 'react-share';
 
 const loading = () => <div className="loading_Linebar_container">
-    <div className="loading_bar_line"></div>
+	<div className="loading_bar_line"></div>
 </div>
 
 const ReactShare = Loadable({
-    loader: () => import('react-share'),
-    modules: ['react-share'],
-    webpack: () => [require.resolveWeak('react-share')],
-    loading,
+	loader: () => import('react-share'),
+	modules: ['react-share'],
+	webpack: () => [require.resolveWeak('react-share')],
+	loading,
 })
 
 class ThankYouPopUp extends React.Component {
@@ -99,7 +99,7 @@ class ThankYouPopUp extends React.Component {
 						<p className="thnks-content fw-500">REFER &amp; EARN!</p>
 						<p className="thanks-sub-content mrb-10">Refer your friends & earn ₹ 50</p>
 						{
-							this.props.selectedRating == 4 || this.props.selectedRating == 5 ?
+							ReactShare && ReactShare.FacebookShareButton && (this.props.selectedRating == 4 || this.props.selectedRating == 5) ?
 								<div className="social-ico-styling d-flex">
 									<div className="facebookIcon-styling" onClick={this.gaTracking.bind(this, 'fb')}>
 										<ReactShare.FacebookShareButton
