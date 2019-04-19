@@ -88,7 +88,7 @@ class BasicDetails extends React.Component {
 
     render() {
 
-        let { name, email, gender, phone_number, profile_image, id} = this.props.profileData
+        let { name, email, gender, phone_number, profile_image, id, dob} = this.props.profileData
         profile_image = profile_image || (ASSETS_BASE_URL + "/img/customer-icons/user.png")
         return (
             <section className="myProfile profile-details mrb-15">
