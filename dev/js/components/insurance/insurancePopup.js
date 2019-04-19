@@ -79,10 +79,7 @@ class InsurancePopup extends React.Component{
                 document.getElementsByClassName('mv-header')[0].classList.add('d-none')
                 document.getElementsByClassName('widget-content')[0].classList.add('d-none')
                 this.setState({ isLeadTrue:true })    
-                // this.props.generateInsuranceLead(this.props.selected_plan?this.props.selected_plan.id:'',this.state.phoneNumber,()=>{
-
-                // })
-                
+                this.props.generateInsuranceLead(this.props.selected_plan?this.props.selected_plan.id:'',this.state.phoneNumber)
             } 
         } else {
             this.setState({ validationError: "Please provide a valid number (10 digits)" })
@@ -104,8 +101,7 @@ class InsurancePopup extends React.Component{
                     this.props.getInsurance((resp)=>{
                         if(!resp.certificate){
                             if(Object.keys(self.props.selected_plan).length > 0){
-                                self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',this.state.phoneNumber,()=>{
-                                })
+                                self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',this.state.phoneNumber)
                             }
                             if (exists.user_exists) {
                                 this.props.history.push('/insurance/insurance-user-details')
