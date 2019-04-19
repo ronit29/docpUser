@@ -65,7 +65,7 @@ const queryString = require('query-string');
       this.props.setPackageId(id, true)
       
       setTimeout(() => {
-        this.props.history.push('/searchpackages')
+        this.props.history.push('/searchpackages?isComparable=true')
       }, 100)
     }
 
@@ -116,20 +116,27 @@ const queryString = require('query-string');
     }
 
     toggleComparePackages(packageId,labId,pckImg,pckName){
-      // if(document.getElementById('pkg_'+packageId)){
-      //   document.getElementById('pkg_'+packageId).classList.add('d-none')
-      // }
       let packages={}
       packages.id=packageId
       packages.lab_id=labId
       packages.img=pckImg
       packages.name=pckName
       let newUrl = queryString.parse(this.props.location.search)
-      let ids= newUrl.package_ids
-      ids=ids.split(',')
-      ids = ids.filter(x=> parseInt(x) != packageId)
+      let package_ids = newUrl.package_ids.split(',')
+      let ids = ''
+      let data = []
+      if(package_ids.length > 0){
+          Object.entries(package_ids).map(function ([key, pkg]) {
+            ids = pkg.split('-')
+            data.push({package_id:ids[0], lab_id: ids[1]})
+          })
+      }
+      let test_ids =[]
+      data.map((packages, i) => {
+        test_ids.push(packages.package_id+'-'+packages.lab_id)
+      })
       this.props.togglecompareCriteria(packages)
-      this.props.history.push('/package/compare?package_ids='+ids)
+      this.props.history.push('/package/compare?package_ids='+test_ids)
       window.location.reload()
     }
 
@@ -210,7 +217,6 @@ const queryString = require('query-string');
       })
 
       finalIds = [...catIds, ...testIds]
-      console.log(finalIds)
       if(this.state.isDiffChecked){
         this.setState({isDiffTest:[],isDiffChecked:!this.state.isDiffChecked})
       }else{
@@ -229,7 +235,6 @@ const queryString = require('query-string');
       let availableTest= []
       let testData= []
       let cat_info_data=[]
-      // console.log(this.state.isDiffTest)
       
      return (
           <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
@@ -250,8 +255,8 @@ const queryString = require('query-string');
                             </label>
                           </div>
                           {
-                            this.props.data.packages && this.props.data.packages.length != 1?
-                          <div className="">
+                            this.props.data.packages && this.props.data.packages.length != 1 && this.props.data.packages.length <5?
+                          <div className="" style={{cursor:'pointer'}}>
                             <a onClick={this.addMore.bind(this)} className="add-more-packages"> + Add More </a>
                           </div>
                           :''}
@@ -312,7 +317,7 @@ const queryString = require('query-string');
                                               this.props.data.packages.map((cat_count, j) => {
                                                 cat_info_data = cat_count.category_parameter_count.filter(x=> x.id==cat_info.id)
                                                   return(
-                                                    <li id={cat_info_data[0].id} key={j}>{cat_info_data[0].count > 0?`${cat_info_data[0].count} Test`:'Nil'} </li>)
+                                                    <li id={cat_info_data[0].id} key={j}>{cat_info_data[0].count > 0?`${cat_info_data[0].count}`:'Nil'} {cat_info_data[0].count == 1?'test':'tests'} </li>)
                                             })}
                                           </ul>
                                         </div>
@@ -386,20 +391,16 @@ const queryString = require('query-string');
                         {
                           this.props.data.packages?
                           <div className="pkg-card-container mb-3 available-done">
-                            <div className="pkg-crd-header light-orng-header">
-                              <span>Available Labs</span>
-                            </div>
-                            <div>
                                 <div className={"top-head-info multiple-pkgs parent-info category-done" + (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':this.props.data.packages.length <= 4?' pkbclsFour':'')}>
                                   <ul className="pkgCls">
                                     {
                                       this.props.data.packages.map((packg, i) => {
-                                        return <li onClick={this.showLabs.bind(this,packg.id)} style={{color:'#f78631',cursor:'pointer'}}>{packg.total_labs_available}</li>
+                                        return packg.total_labs_available >0 ?<li onClick={this.showLabs.bind(this,packg.id)} style={{cursor:'pointer'}}>Also available in <span style={{color:'#f78631'}}>{packg.total_labs_available}</span> more labs</li>
+                                        :<li>Nil</li>
                                       })
                                     }
                                   </ul>
                                 </div>
-                            </div>
                           </div>
                         :''}
                       </div>

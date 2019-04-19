@@ -35,7 +35,7 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
             data.push({package_id:ids[0], lab_id: ids[1]})
           })
         }
-        this.props.getCompareList(data,(resp)=>{
+        this.props.getCompareList(data,this.props.selectedLocation,(resp)=>{
           if(resp){
             let test = {}
               resp.packages.map((pkg,i) =>{
@@ -71,19 +71,21 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
     const mapStateToProps = (state, passedProps) => {
 
         const {
-            compare_packages
+            compare_packages,
+            selectedLocation
 
         } = state.SEARCH_CRITERIA_LABS
 
         return {
-            compare_packages
+            compare_packages,
+            selectedLocation
         }
 
     }
 
     const mapDispatchToProps = (dispatch) => {
         return {
-            getCompareList:(selectedIds,cb) => dispatch(getCompareList(selectedIds,cb)),
+            getCompareList:(selectedIds,selectedLocation,cb) => dispatch(getCompareList(selectedIds,selectedLocation,cb)),
             togglecompareCriteria: (criteria,reset) => dispatch(togglecompareCriteria(criteria,reset)),
             setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage)),
             selectSearchType: (type) => dispatch(selectSearchType(type)),
