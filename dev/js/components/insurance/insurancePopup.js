@@ -93,23 +93,22 @@ class InsurancePopup extends React.Component{
                     if(Object.keys(self.props.selected_plan).length > 0){
                         self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',this.state.phoneNumber)
                     }
-                    if(this.props.isLead == 'proceed'){
                         this.props.getInsurance((resp)=>{
                             if(!resp.certificate){
-                                if (exists.user_exists) {
+                                if(this.props.isLead == 'proceed'){
+                                    if (exists.user_exists) {
                                     this.props.history.push('/insurance/insurance-user-details')
+                                    }else{
+                                        this.props.history.push('/insurance/insurance-user-details')    
+                                    }
                                 }else{
-                                    this.props.history.push('/insurance/insurance-user-details')    
+                                    self.setState({ isLeadTrue:true, }) 
+                                    if(document.getElementById('terms_condition')){
+                                        document.getElementById('terms_condition').click()
+                                    }
                                 }
-                            }
-                            
-                        })
-                    }else{
-                        self.setState({ isLeadTrue:true, }) 
-                        if(document.getElementById('terms_condition')){
-                            document.getElementById('terms_condition').click()
-                        }
-                    }
+                            }  
+                        })                    
                 }    
                    
             })
