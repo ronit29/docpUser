@@ -184,11 +184,10 @@
   
     <script type="text/javascript">window.__INITIAL_STATE__ = <%-storeData%></script>
     <script async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFtb27PooaG0yujuykgvPtxi6tvS04Ek0&libraries=places,geometry"></script>
-    <script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
 
     <script type="text/javascript">
         window.VISITOR_INFO = {}
-        var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        /* var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
         var msie = navigator.userAgent.indexOf("MSIE ");
         if(isSafari || msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)){
             console.log("PUSH NOTIFICATIONS NOT SUPPORTED ON SAFARI")
@@ -213,7 +212,7 @@
             jsElm.async = false;
             // finally insert the element to the body element in order to load the script
             document.body.appendChild(jsElm);
-        }
+        } */
     </script>
 
     <!-- Criteo Add Tracking -->

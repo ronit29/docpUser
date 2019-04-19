@@ -1,11 +1,24 @@
 import React from "react";
 import GTM from '../../../helpers/gtm.js';
-import { FacebookShareButton, TwitterShareButton, FacebookIcon, TwitterIcon, EmailShareButton, EmailIcon } from 'react-share';
+import Loadable from 'react-loadable'
 import { fetchReferralCode } from '../../../actions/index.js';
 import STORAGE from "../../../helpers/storage/index.js";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import SnackBar from 'node-snackbar';
 import CONFIG from "../../../config/index.js";
+
+// import { FacebookShareButton, TwitterShareButton, FacebookIcon, TwitterIcon, EmailShareButton, EmailIcon } from 'react-share';
+
+const loading = () => <div className="loading_Linebar_container">
+    <div className="loading_bar_line"></div>
+</div>
+
+const ReactShare = Loadable({
+    loader: () => import('react-share'),
+    modules: ['react-share'],
+    webpack: () => [require.resolveWeak('react-share')],
+    loading,
+})
 
 class ThankYouPopUp extends React.Component {
 	constructor(props) {
@@ -89,37 +102,37 @@ class ThankYouPopUp extends React.Component {
 							this.props.selectedRating == 4 || this.props.selectedRating == 5 ?
 								<div className="social-ico-styling d-flex">
 									<div className="facebookIcon-styling" onClick={this.gaTracking.bind(this, 'fb')}>
-										<FacebookShareButton
+										<ReactShare.FacebookShareButton
 											url="https://docprime.com"
 											quote={social_message}
 											className="button">
-											<FacebookIcon
+											<ReactShare.FacebookIcon
 												size={32}
 												round={false} />
-										</FacebookShareButton>
+										</ReactShare.FacebookShareButton>
 										<span>Share referral link</span>
 									</div>
 									<div className="twitterIcon-styling" onClick={this.gaTracking.bind(this, 'twitter')}>
-										<TwitterShareButton
+										<ReactShare.TwitterShareButton
 											url="https://docprime.com"
 											title={social_message}
 											className="button">
-											<TwitterIcon
+											<ReactShare.TwitterIcon
 												size={32}
 												round={false} />
-										</TwitterShareButton>
+										</ReactShare.TwitterShareButton>
 										<span>Tweet referral link</span>
 									</div>
 									<div className="emailIcon-styling" onClick={this.gaTracking.bind(this, 'email')}>
-										<EmailShareButton
+										<ReactShare.EmailShareButton
 											url="https://docprime.com"
 											subject="Refer to earn"
 											body={`Save upto 50% on doctor appointments and lab tests. Sign up on docprime.com with my code ${this.state.referralCode} and get ₹ 50. Visit ${CONFIG.API_BASE_URL}/login?referral=${this.state.referralCode}`}
 											className="button">
-											<EmailIcon
+											<ReactShare.EmailIcon
 												size={32}
 												round={false} />
-										</EmailShareButton>
+										</ReactShare.EmailShareButton>
 										<span>Email referral link</span>
 									</div>
 									<div className="whtsappIcon-styling" onClick={this.gaTracking.bind(this, 'whtsapp')}>

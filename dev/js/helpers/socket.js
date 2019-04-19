@@ -11,6 +11,9 @@ const SOCKET = (() => {
     const init = (cb) => {
 
         if (!_initialized || !_instance) {
+            if (typeof io == "undefined") {
+                return
+            }
             console.log(' ======== INITIALIZING SOCKET FOR IN-APP NOTIFICATIONS ==========')
 
             //Fetch userid with auth token to create a seperate room
