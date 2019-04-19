@@ -8,6 +8,7 @@ import LabProfileCard from '../../diagnosis/commons/labProfileCard/LabProfileCar
 import Loader from '../../commons/Loader'
 import HelmetTags from '../../commons/HelmetTags'
 import CONFIG from '../../../config'
+import ArticleAuthor from '../articleAuthor/articleAuthor';
 const queryString = require('query-string');
 
 
@@ -293,6 +294,7 @@ class SearchTestView extends React.Component {
                 description = this.props.searchTestInfoData[0].seo.description
             }
             let breadcrumbs = this.props.searchTestInfoData[0].breadcrumb
+            let author = this.props.searchTestInfoData[0].author || null
             return (
                 <div>
                     <HelmetTags tagsData={{
@@ -459,7 +461,7 @@ class SearchTestView extends React.Component {
                                                                 }
                                                                 {
                                                                     labs && labs.count > 0 ?
-                                                                        <div>
+                                                                        <div className="mrb-20">
                                                                             <a className="viewAllLab" onClick={this.searchProceedLAB.bind(this, '')}> View all labs</a>
                                                                         </div>
                                                                         : ''
@@ -468,7 +470,7 @@ class SearchTestView extends React.Component {
 
                                                         {
                                                             this.props.searchTestInfoData[0].frequently_booked_together && this.props.searchTestInfoData[0].frequently_booked_together.value.length > 0 ?
-                                                                <div className="widget mrb-15 mrng-top-12">
+                                                                <div className="widget mrb-15 mrng-top-12 mrb-20">
                                                                     <div className="widget-content">
                                                                         <h5 className="test-duo-heding"> {this.props.searchTestInfoData[0].frequently_booked_together.title}</h5>
                                                                         <ul className="test-duo-listing">
@@ -483,6 +485,21 @@ class SearchTestView extends React.Component {
                                                                 </div>
                                                                 : ''
                                                         }
+
+                                                        {
+                                                            author ?
+                                                                <ArticleAuthor
+                                                                    name={author.name}
+                                                                    profileImage={author.profile_img}
+                                                                    url={author.url}
+                                                                    id={author.id}
+                                                                    speciality={author.speciality[0].name}
+                                                                    experience={author.experience}
+                                                                    publishedDate={this.props.searchTestInfoData[0].published_date || null}
+                                                                    history={this.props.history}
+                                                                /> : ''
+                                                        }
+
                                                     </div>
                                                 </div>
                                                 {!parsed.test_ids ?
