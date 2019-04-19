@@ -40,6 +40,31 @@ app.set('views', path.join(__dirname, '../dist'));
 app.get('/firebase-messaging-sw.js', function (req, res) {
     res.sendFile(path.join(__dirname, '../assets/firebase-messaging-sw.js'))
 });
+app.get('/apple-app-site-association', function (req, res) {
+    res.json({
+        "applinks": {
+            "apps": [],
+            "details": [
+                {
+                    "appID": "29VUWR4N68.com.docprime",
+                    "paths": [
+                        "*"
+                    ]
+                },
+            ]
+        },
+        "webcredentials": {
+            "apps": [
+                "29VUWR4N68.com.docprime",
+            ]
+        },
+        "activitycontinuation": {
+            "apps": [
+                "29VUWR4N68.com.docprime",
+            ]
+        }
+    })
+});
 app.use('/assets', Express.static(path.join(__dirname, '../assets')));
 app.use('/dist', Express.static(path.join(__dirname, '../dist')));
 
