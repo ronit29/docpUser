@@ -266,7 +266,7 @@ class PatientDetailsNew extends React.Component {
         if (!patient) {
             if (this.state.formData.name != '' && this.state.formData.gender != '' && this.state.formData.phoneNumber != '' && this.state.formData.email != '' && !this.state.formData.otpVerifySuccess) {
                 this.setState({ profileError: true });
-                SnackBar.show({ pos: 'bottom-center', text: "Please verify your mobile no." });
+                SnackBar.show({ pos: 'bottom-center', text: "Please verify your mobile no. to continue" });
                 window.scrollTo(0, 0)
                 return
             } else {
