@@ -72,7 +72,7 @@ class InsuranceCommon extends React.Component{
 									}) 
 						        }
 						        {this.state.toggle == 'one'?
-						        <div><a style={{paddingLeft: '12px',fontWeight: '500',fontSize: '12px',color:'#f78631',textDecoration: 'underline',cursor: 'pointer'}} onClick={()=> this.setState({toggle:'two'})}>T&C apply</a>
+						        <div><a style={{paddingLeft: '12px',fontWeight: '500',fontSize: '12px',color:'#f78631',textDecoration: 'underline',cursor: 'pointer'}} href={this.props.insurnaceData['insurance'][0].insurer_document} download target="_blank" id="terms_condition">T&C apply</a>
 						        </div>
 						        :''
 						        }	
