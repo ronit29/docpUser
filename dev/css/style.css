@@ -9905,3 +9905,77 @@ input[type=button]{
 .ipd-lst ul {
 	list-style: disc;
 }
+.insuBtnsContainer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    background: #f78631;
+    padding: 7px 10px;
+}
+.insu-left-white-btn{
+    height: 100%;
+    border: none;
+    background: white;
+    padding: 10px 10px;
+    color: #f78631;
+    cursor: pointer;
+    width: 65%;
+}
+.insu-right-orng-btn{
+    background: #f78631;
+    width: 100%;
+    border: none;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+}
+.insu-popup-container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: #000000d1;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.insu-pop-up {
+    background: white;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 320px;
+    width: 90%;
+}
+.insPopUp {
+    width: 50px;
+    margin-bottom: 10px;
+}
+.ins-main-pera-text {
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 10px;
+    color: #f78631;
+}
+.ins-main-pera-sub-text {
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+.insupopdonebtn {
+    background: #f78631;
+    background-image: linear-gradient(to left,#f78631,#ff6d00);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    padding: 8px 20px;
+    margin-top: 5px;
+    cursor: pointer;
+}
