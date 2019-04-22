@@ -121,7 +121,7 @@ class DoctorProfileCard extends React.Component {
             <div className="widget-header dr-qucik-info doc-gold-padding">
                 <div className="fltr-crd-img text-center">
                     <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-dp">
-                        <img src={thumbnail} className="img-fluid img-round" alt={display_name} title={display_name} />
+                        <img src={thumbnail} className="img-fluid img-round" alt={`${display_name}, ${this.getQualificationStr(general_specialization || '')}`} title={display_name} />
                     </InitialsPicture>
                     {is_license_verified ? <span className="fltr-rtng">Verified</span> : ''}
                     {
