@@ -13,6 +13,7 @@ import CommentBox from './ArticleCommentBox.js'
 import SnackBar from 'node-snackbar'
 import Reply from './Reply.js'
 import BannerCarousel from '../Home/bannerCarousel';
+import ArticleAuthor from '../articleAuthor/articleAuthor';
 import LocationElements from '../../../containers/commons/locationElements'
 import CommonSearch from '../../../containers/commons/CommonSearch.js'
 import FixedMobileFooter from '../Home/FixedMobileFooter'
@@ -102,15 +103,6 @@ class Article extends React.Component {
     whatsappClick() {
         if (window) {
             window.open(`https://wa.me/?text=${document.URL}`);
-        }
-    }
-
-    authorClick(e) {
-        e.preventDefault()
-        if (this.state.articleData.author.url) {
-            this.props.history.push(this.state.articleData.author.url)
-        } else {
-            this.props.history.push(`/opd/doctor/${this.state.articleData.author.id}`)
         }
     }
 
@@ -356,31 +348,16 @@ class Article extends React.Component {
 
                                     {
                                         this.state.articleData && this.state.articleData.author ?
-                                            <div className="article-author-div mrb-20">
-                                                <InitialsPicture className="initialsPicture-ds initialsPicture-author" name={this.state.articleData.author.name} has_image={!!this.state.articleData.author.profile_img} >
-                                                    <img className="fltr-usr-image img-round" src={this.state.articleData.author.profile_img} alt={`Dr. ${this.state.articleData.author.name}`} title={`Dr. ${this.state.articleData.author.name}`} />
-                                                </InitialsPicture>
-                                                <div className="author-dtls">
-                                                    <div className="author-name-div">
-                                                        <span style={{ margin: '0 6px 0 0' }}>Written By :</span>
-                                                        {
-                                                            this.state.articleData.author.url ?
-                                                                <a href={`/${this.state.articleData.author.url}`} onClick={(e) => this.authorClick(e)}>
-                                                                    <h3 className="fw-500 text-primary">{`Dr. ${this.state.articleData.author.name}`}</h3>
-                                                                </a> :
-                                                                <a href={`/opd/doctor/${this.state.articleData.author.id}`} onClick={(e) => this.authorClick(e)}>
-                                                                    <h3 className="fw-500 text-primary">{`Dr. ${this.state.articleData.author.name}`}</h3>
-                                                                </a>
-                                                        }
-                                                    </div>
-                                                    <div className="author-exp-div">
-                                                        <span>{this.state.articleData.author.speciality[0].name} | {this.state.articleData.author.experience} years of experience</span>
-                                                    </div>
-                                                    <div className="article-date">
-                                                        <span>Published Date : {this.state.articleData.published_date}</span>
-                                                    </div>
-                                                </div>
-                                            </div> : ''
+                                            <ArticleAuthor
+                                                name={this.state.articleData.author.name}
+                                                profileImage={this.state.articleData.author.profile_img}
+                                                url={this.state.articleData.author.url}
+                                                id={this.state.articleData.author.id}
+                                                speciality={this.state.articleData.author.speciality[0].name}
+                                                experience={this.state.articleData.author.experience}
+                                                publishedDate={this.state.articleData.published_date}
+                                                history={this.props.history}
+                                            /> : ''
                                     }
 
                                     {

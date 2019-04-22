@@ -2629,7 +2629,8 @@ font-weight: 500;
 }
 .sitemap-title{
 	font-size: 17px;
-	margin: 20px 0 8px;
+    margin: 20px 0 8px;
+    text-transform: capitalize;
 }
 .anchor-data-style{
 	display: block;
@@ -4388,7 +4389,8 @@ input.rc-calendar-input {
 	justify-content: space-between;
 	align-items: center;
 	cursor: pointer;
-	background:white;
+    background:white;
+    font-size: 14px;
 }
 .acrd-sub-content{
 	padding: 10px;
