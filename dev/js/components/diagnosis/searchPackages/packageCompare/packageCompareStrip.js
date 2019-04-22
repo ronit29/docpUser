@@ -22,7 +22,7 @@ class PackageCompareStrip extends React.Component {
         let selectedPkgCompareIds=[]
           if(this.props.compare_packages){
               this.props.compare_packages.map((packages, i) => {
-                  selectedPkgCompareIds.push(packages.id)
+                  selectedPkgCompareIds.push(packages.id+'-'+packages.lab_id)
               })
           }
         this.props.history.push('/package/compare?package_ids='+selectedPkgCompareIds)      

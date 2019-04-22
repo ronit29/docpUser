@@ -11,6 +11,7 @@ import Accordian from './Accordian'
 import FixedMobileFooter from './FixedMobileFooter'
 import BannerCarousel from './bannerCarousel';
 import UpComingAppointmentView from './upComingAppointment.js'
+import PackageCompareStrip from '../../diagnosis/searchPackages/packageCompare/packageCompareStrip.js'
 const queryString = require('query-string');
 import CRITEO from '../../../helpers/criteo.js'
 
@@ -400,8 +401,12 @@ class HomeView extends React.Component {
 					</div>
 
 					<Accordian />
-
-					<FixedMobileFooter {...this.props} />
+					{
+                    this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage?
+                        <PackageCompareStrip {...this.props} />
+                    :
+                    <FixedMobileFooter {...this.props} />
+                	}
 
 				</div>
 				<Footer specialityFooterData={this.state.specialityFooterData} />
