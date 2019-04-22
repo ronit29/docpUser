@@ -54,22 +54,22 @@ class Careers extends React.Component {
 					description: ("Fine career opportunity at docprime, India's one stop health care solution.")
 				}} />
 				<div className="laptop-img-div absolute-images">
-					<img src="/assets/img/career/laptop.png" />
+					<img src={ASSETS_BASE_URL + "/img/career/laptop.png"}/>
 				</div>
 				<div className="pages-img-div absolute-images">
-					<img src="/assets/img/career/pages.png" />
+					<img src={ASSETS_BASE_URL + "/img/career/pages.png"} />
 				</div>
 				<div className="container careers-container">
 					<div className="row">
 						<div className="col-12 col-md-6 hiring-col">
 							<div className="hiring-heading-div">
-								<img src="/assets/img/career/hiring.png" className="hiring-img" />
+								<img src={ASSETS_BASE_URL + "/img/career/hiring.png"} className="hiring-img" />
 								<h1 className="hiring-heading">We Are Hiring !</h1>
 							</div>
 							<div className="hiring-desc-div">
 								<h3 className="hiring-desc">We are hiring for multiple positions.</h3>
 							</div>
-							<img src="/assets/img/career/arrow.svg" className="careers-arrow-img absolute-images" />
+							<img src={ASSETS_BASE_URL + "/img/career/arrow.svg"} className="careers-arrow-img absolute-images" />
 						</div>
 						<div className="col-12 col-md-6 hiring-col">
 							<div className="hiring-form-div">
@@ -99,7 +99,7 @@ class Careers extends React.Component {
 									<div className="upload-resume-div">
 										<label className="resume-label" htmlFor="upload-resume">Upload Resume</label>
 										<div className="careers-upload-btn">
-											<img src="/assets/img/career/upload.svg" className="upload-icon" />
+											<img src={ASSETS_BASE_URL + "/img/career/upload.svg"} className="upload-icon" />
 											<p className="careers-upload-text">Upload</p>
 										</div>
 										<div className="careers-input-file"><input type="file" name="resume" id="upload-resume" onChange={(e) => this.filePicker(e)} required /></div>
@@ -110,7 +110,7 @@ class Careers extends React.Component {
 								</form>
 							</div>
 							<div className="coffee-img-div absolute-images">
-								<img src="/assets/img/career/coffee.png" className="coffee-img" />
+								<img src={ASSETS_BASE_URL + "/img/career/coffee.png"} className="coffee-img" />
 							</div>
 						</div>
 					</div>
@@ -118,19 +118,19 @@ class Careers extends React.Component {
 				<div className="container-fluid absolute-images">
 					<div className="row career-img-row">
 						<div className="bag-img career-img-div">
-							<img src="/assets/img/career/bag.png" className="career-img" />
+							<img src={ASSETS_BASE_URL + "/img/career/bag.png"} className="career-img" />
 						</div>
 						<div className="specs-img career-img-div">
-							<img src="/assets/img/career/specs.png" className="career-img" />
+							<img src={ASSETS_BASE_URL + "/img/career/specs.png"} className="career-img" />
 						</div>
 						<div className="pen-img career-img-div">
-							<img src="/assets/img/career/pen.png" className="career-img" />
+							<img src={ASSETS_BASE_URL + "/img/career/pen.png"} className="career-img" />
 						</div>
 						<div className="cv-img career-img-div">
-							<img src="/assets/img/career/cv.png" className="career-img" />
+							<img src={ASSETS_BASE_URL + "/img/career/cv.png"} className="career-img" />
 						</div>
 						<div className="exam-img career-img-div">
-							<img src="/assets/img/career/exam.png" className="career-img" />
+							<img src={ASSETS_BASE_URL + "/img/career/exam.png"} className="career-img" />
 						</div>
 					</div>
 				</div>

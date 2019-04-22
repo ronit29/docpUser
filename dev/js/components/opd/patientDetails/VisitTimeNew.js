@@ -2,7 +2,7 @@ import React from 'react';
 import GTM from '../../../helpers/gtm';
 const MONTHS = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
 const WEEK_DAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
-const moment = require('moment');
+// const moment = require('moment');
 
 class VisitTimeNew extends React.Component {
     constructor(props) {

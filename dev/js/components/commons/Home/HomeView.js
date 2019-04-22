@@ -129,35 +129,6 @@ class HomeView extends React.Component {
 		GTM.sendEvent({ data: data })
 	}
 
-	isSelectedLocationNearDelhi(selectedLocation) {
-		try {
-			if (selectedLocation) {
-				let { geometry } = selectedLocation
-
-				var latitude1 = 28.644800;
-				var longitude1 = 77.216721;
-				var latitude2 = geometry.location.lat;
-				if (typeof geometry.location.lat == 'function') {
-					latitude2 = geometry.location.lat()
-				}
-				var longitude2 = geometry.location.lng;
-				if (typeof geometry.location.lng == 'function') {
-					longitude2 = geometry.location.lng()
-				}
-				var distance = 0
-
-				if (typeof google != undefined) {
-					var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2));
-				}
-
-				return (distance / 1000) < 50
-			}
-			return false
-		} catch (e) {
-			return true
-		}
-	}
-
 	gotToSignup() {
 		let data = {
 			'Category': 'ConsumerApp', 'Action': 'HomepageBannerSignupClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'homepage-banner-signup-clicked'

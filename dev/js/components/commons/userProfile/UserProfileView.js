@@ -1,6 +1,5 @@
 import React from 'react';
 
-import ProfileSlider from '../profileSlider/index.js'
 import ProfileData from './profileData/index.js'
 import Appointments from './userAppointments'
 import Family from './userFamily'
@@ -65,14 +64,12 @@ class UserProfileView extends React.Component {
 
                                         <Route exact path={`${this.props.match.url}/`} render={(props) => {
                                             return <Section_Component {...this.props} title="My Profile">
-                                                {/* <ProfileSlider {...this.props} /> */}
                                                 <ProfileData  {...this.props} {...props} />
                                             </Section_Component>
                                         }} />
 
                                         <Route exact path={`${this.props.match.url}/appointments`} render={(props) => {
                                             return <Section_Component {...this.props} title="My Appointments">
-                                                {/* <ProfileSlider {...this.props} /> */}
                                                 <Appointments  {...this.props} {...props} />
                                             </Section_Component>
                                         }} />

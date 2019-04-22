@@ -32,10 +32,14 @@ class Home extends React.Component {
             this.props.getUserProfile()
             this.props.getUpComingAppointment()
         }
+
         // this.props.fetchHeatlhTip()
         // this.props.fetchArticles()
-        this.props.loadOPDCommonCriteria(this.props.selectedLocation.locality || 'Delhi')
-        this.props.loadLabCommonCriterias()
+        if (!this.props.common_tests.length || !this.props.common_package.length || !this.props.specializations.length) {
+            this.props.loadOPDCommonCriteria(this.props.selectedLocation.locality || 'Delhi')
+            this.props.loadLabCommonCriterias()
+        }
+
         this.props.resetFilters()
         this.props.clearExtraTests()
     }

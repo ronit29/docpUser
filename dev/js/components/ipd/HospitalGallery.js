@@ -1,5 +1,6 @@
 import React from 'react'
-import Lightbox from '../../helpers/lightbox';
+// import Lightbox from '../../helpers/lightbox';
+import Lightbox from 'react-image-lightbox';
 
 class HospitalGalleryView extends React.Component {
 

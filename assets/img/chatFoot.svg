@@ -1,10 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="241" height="151">
-    <defs>
-        <linearGradient id="a" x1="100%" x2="0%" y1="0%" y2="0%">
-            <stop offset="0%" stop-color="#F78631"/>
-            <stop offset="100%" stop-color="#FF6D00"/>
-        </linearGradient>
-    </defs>
-    <path fill="#EF5350" fill-rule="evenodd" d="M71 0h98c16.569 0 23 8.431 23 25l12 105c0 7.393 10.284 15.113 20.294 15.55 12.63.551 22.603 5.044 9.706 4.45L4 151c-10.06 0 2.766-4.219 15.751-6.626C27.66 142.907 35 136.508 35 130L46 24C46 7.431 54.431 0 71 0z"/>
-    <path fill="url(#a)" d="M71 0h98c16.569 0 23 8.431 23 25l12 105c0 7.393 10.284 15.113 20.294 15.55 12.63.551 22.603 5.044 9.706 4.45L4 151c-10.06 0 2.766-4.219 15.751-6.626C27.66 142.907 35 136.508 35 130L46 24C46 7.431 54.431 0 71 0z"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 239.6 131" style="enable-background:new 0 0 239.6 131;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill-rule:evenodd;clip-rule:evenodd;fill:url(#_-e-Rounded_Rectangle_4850_1_);}
+</style>
+<linearGradient id="_-e-Rounded_Rectangle_4850_1_" gradientUnits="userSpaceOnUse" x1="-2.034896e-02" y1="65.5232" x2="239.6191" y2="65.5232">
+	<stop  offset="0" style="stop-color:#448AFF"/>
+	<stop  offset="1" style="stop-color:#1F62D3"/>
+</linearGradient>
+<path id="_-e-Rounded_Rectangle_4850" class="st0" d="M70.6,0h98c16.6,0,23,8.4,23,25l12,85c0,7.4,10.3,15.1,20.3,15.6
+	c12.6,0.6,22.6,6,9.7,5.4H3.6c-10.1,0,2.8-4.2,15.8-6.6c7.9-1.5,15.2-7.9,15.2-14.4l11-86C45.6,7.4,54.1,0,70.6,0z"/>
 </svg>

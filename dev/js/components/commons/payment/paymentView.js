@@ -5,7 +5,7 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
-import Lightbox from '../../../helpers/lightbox';
+import Lightbox from 'react-image-lightbox';
 
 const queryString = require('query-string');
 

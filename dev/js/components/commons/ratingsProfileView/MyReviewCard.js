@@ -70,7 +70,7 @@ class MyReviewCard extends React.Component {
                             <div className="clnc-add">{this.state.data.address}</div>
                         </div>
                         <div className="rating-sec">
-                            <span className="rating-img"><img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /> {this.state.data.ratings} </span>
+                            <span className="rating-img"><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/satr-wt.svg"} /> {this.state.data.ratings} </span>
                             <span className="clnc-nam">{this.state.data.compliments}</span>
                             <div className="clnc-nam pad-t6 rate-mg-top">{this.state.data.review}</div>
                         </div>
