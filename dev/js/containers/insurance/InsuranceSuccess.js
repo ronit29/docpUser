@@ -3,8 +3,16 @@ import {connect} from 'react-redux'
 
 import { getInsuranceMemberList,updateMemberList} from '../../actions/index.js'
 import InsuranceSuccessComp from '../../components/insurance/insuranceSuccess.js'
+import GTM from '../../helpers/gtm.js'
 
 class InsuranceSuccess extends React.Component{
+
+    componentDidMount() {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'OpdInsuranceBooked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-insurance-booked'
+        }
+        GTM.sendEvent({ data: data })
+    }
 
 	render(){
 		return(
