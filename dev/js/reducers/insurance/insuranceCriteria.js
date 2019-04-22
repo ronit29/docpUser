@@ -1,4 +1,4 @@
-import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES,SELF_DATA,INSURANCE_PAY,SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE, SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE} from '../../constants/types';
+import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES,SELF_DATA,INSURANCE_PAY,SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE, SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, RESET_INSURED_DATA} from '../../constants/types';
 
 const defaultState = {
 insurnaceData: {},
@@ -191,6 +191,18 @@ export default function (state = defaultState, action) {
             newState.self_data_values={}
             newState.selected_plan={}
             newState.currentSelectedInsuredMembersId = []
+            return newState   
+        }
+        case RESET_INSURED_DATA :{
+             let newState = { ...state }
+            let user_selected_plan = newState.insurnaceData.insurance[0].plans.filter((x => x.id == action.payload.selected_plan_id))
+            let members = {}
+            newState.selected_plan = user_selected_plan[0]
+            newState.currentSelectedInsuredMembersId = action.payload.currentSelectedInsuredMembersId
+            action.payload.members.map((result, i) => {
+                members[result.id] = { ...result }
+            })
+            newState.self_data_values = members
             return newState   
         }
     }
