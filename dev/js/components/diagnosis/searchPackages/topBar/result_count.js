@@ -263,7 +263,7 @@ class ResultCount extends React.Component {
                                         <div style={{ padding: '10px 0px' }}>
                                             <div className="d-flex justify-content-between" style={{ alignItems: 'flex-start' }} >
                                                 <div style={{ flex: 1 }}>
-                                                    <p>{this.props.packagesList?this.props.packagesList.count:""} Results found for 
+                                                    <p>{this.props.packagesList?this.props.packagesList.count:""} Results for 
                                                         <h1 className="search-result-heading">
                                                         <span className="fw-700"> {this.props.forOrganicSearch?'Full Body Checkup Packages':this.props.forTaxSaver?'Health Packages':'selected categories'}</span>
                                                         </h1>

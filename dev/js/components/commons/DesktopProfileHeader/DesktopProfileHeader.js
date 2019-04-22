@@ -75,6 +75,10 @@ class DesktopProfileHeader extends React.Component {
         }
     }
 
+    openLocation(){
+        this.props.history.push('/locationsearch')
+    }
+
     toggleLeftMenu() {
         this.props.toggleLeftMenuBar()
     }
@@ -222,13 +226,15 @@ class DesktopProfileHeader extends React.Component {
 
                                 {
                                     hideSearch ? "" : <div className="head-links hed-links-search-flex">
-                                        <div className="serch-nw-inputs new-home-full-widht" onClick={this.openSearch.bind(this)}>
-                                            <div className="header-serach-input-div">
-                                                <span>Search Doctors &amp; Tests</span>
+                                        <div className="serch-nw-inputs new-home-full-widht" >
+                                            <div onClick={this.openSearch.bind(this)}> 
+                                                <div className="header-serach-input-div">
+                                                    <span>Search Doctors &amp; Tests</span>
+                                                </div>
+                                                {/* <input className="new-srch-inp" placeholder="Search Doctors, Tests, & Procedures" id="doc-input-field" /> */}
+                                                <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                                             </div>
-                                            {/* <input className="new-srch-inp" placeholder="Search Doctors, Tests, & Procedures" id="doc-input-field" /> */}
-                                            <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                            <button style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} /> {location}</button>
+                                            <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} /> {location}</button>
                                         </div>
                                     </div>
                                 }
@@ -375,13 +381,15 @@ class DesktopProfileHeader extends React.Component {
 
                         <div className="col-12 d-lg-none">
                             {
-                                this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" onClick={this.openSearch.bind(this)}>
-                                    <div className="header-serach-input-div">
-                                        <span>Search Doctors &amp; Tests</span>
+                                this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" >
+                                    <div onClick={this.openSearch.bind(this)}>
+                                        <div className="header-serach-input-div">
+                                            <span>Search Doctors &amp; Tests</span>
+                                        </div>
+                                        {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
+                                        <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                                     </div>
-                                    {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
-                                    <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                    <button style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
+                                    <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
                                 </div> : ""
                             }
                         </div>
