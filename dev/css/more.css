@@ -937,6 +937,30 @@ figure>img{
     padding-left: 16px;
 }
 
+.docprime-article table, .docprime-article tr, .docprime-article th, .docprime-article td {
+    border: 1px solid #000;
+}
+
+.docprime-article table {
+    width: 100% !important;
+}
+
+.docprime-article td{
+    padding: 6px 10px;
+}
+
+.docprime-article a:not([href]) {
+    display: block;
+    position: relative;
+    top: -110px;
+    visibility: hidden;
+}
+@media(max-width: 992px){
+    .docprime-article a:not([href]) {
+        top:-50px;
+    }
+}
+
 .related-articles-div{
     padding: 10px;
     box-shadow: 0 1px 5px rgba(0,0,0,.12), 1px 1px 4px rgba(0,0,0,.24);
