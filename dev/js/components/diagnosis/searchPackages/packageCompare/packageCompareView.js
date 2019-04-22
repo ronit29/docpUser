@@ -288,7 +288,7 @@ const queryString = require('query-string');
                           }
                           {
                             this.props.data.packages && this.props.data.packages.length == 1?
-                                <li onClick={this.addMore.bind(this)} style={{paddingTop:30, paddingBottom:30}}>
+                                <li onClick={this.addMore.bind(this)} style={{cursor:'pointer',paddingTop:30, paddingBottom:30}}>
                                       <div className="addnewpkg"><span className="add-plus">+</span></div>
                                       <p className="addnewpkg-txt">Add one more <br />to compare</p>
                                 </li>
