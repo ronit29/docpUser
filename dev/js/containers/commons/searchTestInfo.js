@@ -20,7 +20,7 @@ class searchTestInfo extends React.Component {
         }
 
         return new Promise((resolve, reject) => {
-            store.dispatch(searchTestData(query.test_ids || '', seo_url, query.lab_id || '', {}, false,(data) => {
+            store.dispatch(searchTestData(query.test_ids || '', seo_url, query.lab_id || '', {}, false, (data) => {
                 resolve({})
             }))
         })
@@ -43,7 +43,6 @@ const mapStateToProps = (state) => {
     let { selectedCriterias, searchTestInfoData, search_id_data, selectedLocation, locationType, currentSearchedCriterias, filterCriteria } = state.SEARCH_CRITERIA_LABS
     return {
         selectedCriterias, searchTestInfoData, search_id_data, selectedLocation, locationType, currentSearchedCriterias, filterCriteria
-
     }
 
 }
@@ -57,7 +56,6 @@ const mapDispatchToProps = (dispatch) => {
         mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
         clearAllTests: () => dispatch(clearAllTests()),
         selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule))
-
     }
 }
 
