@@ -126,17 +126,17 @@ const queryString = require('query-string');
       let ids = ''
       let data = []
       if(package_ids.length > 0){
-          Object.entries(package_ids).map(function ([key, pkg]) {
-            ids = pkg.split('-')
-            data.push({package_id:ids[0], lab_id: ids[1]})
-          })
+        Object.entries(package_ids).map(function ([key, pkg]) {
+          ids = pkg.split('-')
+          if(parseInt(ids[0]) == parseInt(packageId) && parseInt(ids[1]) == parseInt(labId)){
+            
+          }else{
+            data.push(ids[0]+'-'+ids[1])
+          }
+        })
       }
-      let test_ids =[]
-      data.map((packages, i) => {
-        test_ids.push(packages.package_id+'-'+packages.lab_id)
-      })
       this.props.togglecompareCriteria(packages)
-      this.props.history.push('/package/compare?package_ids='+test_ids)
+      this.props.history.push('/package/compare?package_ids='+data)
       window.location.reload()
     }
 
@@ -267,7 +267,7 @@ const queryString = require('query-string');
                             this.props.data.packages?
                               this.props.data.packages.map((packages, i) => {
                                 return <li key={i} id={'pkg_'+packages.id}>
-                                     <img src={ASSETS_BASE_URL + "/images/packageCompare/red-cut.png"} alt="" className="end-div" onClick={this.toggleComparePackages.bind(this,packages.id,'','','')}/>
+                                     <img src={ASSETS_BASE_URL + "/images/packageCompare/red-cut.png"} alt="" className="end-div" onClick={this.toggleComparePackages.bind(this,packages.id,packages.lab.id,packages.lab.thumbnail,packages.lab.name)}/>
                                     
                                       <div className="pkg-hd">{packages.name}</div>
                                       {/*<div className="pkg-hd-by" id={"hide_av_" + packages.id}>Available in {packages.total_labs_available} Labs</div>*/}
@@ -395,7 +395,7 @@ const queryString = require('query-string');
                                   <ul className="pkgCls">
                                     {
                                       this.props.data.packages.map((packg, i) => {
-                                        return packg.total_labs_available >0 ?<li onClick={this.showLabs.bind(this,packg.id)} style={{cursor:'pointer'}}>Also available in <span style={{color:'#f78631'}}>{packg.total_labs_available}</span> more labs</li>
+                                        return packg.total_labs_available >0 ?<li onClick={this.showLabs.bind(this,packg.id)} style={{cursor:'pointer'}}>Available in <span style={{color:'#f78631'}}>{packg.total_labs_available}</span> more labs</li>
                                         :<li>Nil</li>
                                       })
                                     }
