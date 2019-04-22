@@ -63,7 +63,7 @@ class ReviewPopUp extends React.Component {
                     <div className="home-rating-card">
                         <div className="rate-card-header">
                             Share your Feedback
-                                <span><img onClick={this.declineRating.bind(this, this.props.obj.type, this.state.data.id)} src="/assets/img/customer-icons/rt-close.svg" className="img-fluid" /></span>
+                                <span><img onClick={this.declineRating.bind(this, this.props.obj.type, this.state.data.id)} src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} className="img-fluid" /></span>
                         </div>
                         <div className="rate-card-doc-dtls">
                             <img src={this.props.obj.thumbnail} className="img-fluid img-round " />

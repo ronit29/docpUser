@@ -279,7 +279,7 @@ class LabProfileCard extends React.Component {
                                     {
                                         other_labs.map((olab, x) => {
                                             return <li key={x}>
-                                                <p className="showBookTestListImg"><img src="/assets/img/new-loc-ico.svg" style={{ marginRight: '8px', width: "12px" }} />{olab.address} | {Math.ceil(olab.distance / 1000)} km</p>
+                                                <p className="showBookTestListImg"><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} style={{ marginRight: '8px', width: "12px" }} />{olab.address} | {Math.ceil(olab.distance / 1000)} km</p>
                                                 <button className="showBookTestListBtn" onClick={this.bookNowClicked.bind(this, olab.id, olab.url)}>Book Now</button>
                                             </li>
                                         })
@@ -303,11 +303,11 @@ class LabProfileCard extends React.Component {
                                 {
                                     this.state.openViewMore ?
                                         <div className="text-right" style={{ marginLeft: 'auto' }}>
-                                            <img style={{ margin: '5px' }} className="acrd-show" src="/assets/img/customer-icons/dropdown-arrow.svg" />
+                                            <img style={{ margin: '5px' }} className="acrd-show" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                         </div>
                                         :
                                         <div className="text-right" style={{ marginLeft: 'auto' }}>
-                                            <img style={{ margin: '5px' }} src="/assets/img/customer-icons/dropdown-arrow.svg" />
+                                            <img style={{ margin: '5px' }} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                                         </div>
                                 }
                             </div> : ''

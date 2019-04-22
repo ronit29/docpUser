@@ -15,7 +15,7 @@ class InfoPopup extends React.Component {
                <div className="widget cancel-appointment-div cancel-popup">
                   <div className="widget-header text-center action-screen-header">
                      <p className="fw-500 cancel-appointment-head">{information_text[0].info_title}</p>
-                     <img src="/assets/img/icons/close.png" className="close-modal" onClick={() => {this.props.closeInfo()}} />
+                     <img src={ASSETS_BASE_URL + "/img/icons/close.png"} className="close-modal" onClick={() => {this.props.closeInfo()}} />
                      <hr/>
                   </div>
                   <div className="cancel-policy-text" style={{paddingTop: 0}}>

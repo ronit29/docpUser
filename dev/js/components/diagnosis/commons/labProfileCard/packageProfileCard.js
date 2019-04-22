@@ -132,7 +132,7 @@ class LabProfileCard extends React.Component {
                             <span className="pkg-ofr-ribbon fw-700">{offPercent}% OFF</span> : ''
                     }
                     <div className="pkg-card-location p-relative">
-                        <p><img className="fltr-loc-ico" src="/assets/img/new-loc-ico.svg" style={{ width: '12px', height: '18px' }} /> {lab.locality} {lab.city} </p><span className="kmTrunate"> | {distance} Km</span>
+                        <p><img className="fltr-loc-ico" src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} style={{ width: '12px', height: '18px' }} /> {lab.locality} {lab.city} </p><span className="kmTrunate"> | {distance} Km</span>
                     </div>
                     <div className="pkg-card-content">
                         <div className="row no-gutters" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>

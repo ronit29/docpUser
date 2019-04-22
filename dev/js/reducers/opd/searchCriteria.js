@@ -1,6 +1,6 @@
-import { MERGE_SEARCH_STATE_LAB, FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS , SAVE_RESULTS_WITH_SEARCHID, MERGE_URL_STATE, SET_URL_PAGE, SET_NEXT_SEARCH_CRITERIA, CLEAR_OPD_SEARCH_ID } from '../../constants/types';
+import { MERGE_SEARCH_STATE_LAB, FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SAVE_COMMON_PROCEDURES, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS, SAVE_RESULTS_WITH_SEARCHID, MERGE_URL_STATE, SET_URL_PAGE, SET_NEXT_SEARCH_CRITERIA, CLEAR_OPD_SEARCH_ID } from '../../constants/types';
 
-const moment = require('moment');
+// const moment = require('moment');
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 3000],
     distanceRange: [0, 15],
@@ -31,13 +31,13 @@ const defaultState = {
     commonSelectedCriterias: [],
     page: 1,
     procedures: [],
-    search_id_data : {},
+    search_id_data: {},
     nextSelectedCriterias: [],
     nextFilterCriteria: DEFAULT_FILTER_STATE,
-    currentSearchId:'',
-    mergeUrlState:false,
+    currentSearchId: '',
+    mergeUrlState: false,
     last_save_searched_date: null,
-    ipd_procedures:[]
+    ipd_procedures: []
 }
 
 export default function (state = defaultState, action) {
@@ -62,7 +62,7 @@ export default function (state = defaultState, action) {
                 ...state,
                 selectedCriterias: [].concat(state.selectedCriterias),
                 filterCriteria: { ...state.filterCriteria },
-                nextFilterCriteria: {...state.nextFilterCriteria}
+                nextFilterCriteria: { ...state.nextFilterCriteria }
             }
 
             newState.filterCriteria.doctor_name = ""
@@ -159,9 +159,9 @@ export default function (state = defaultState, action) {
         }
 
         case MERGE_SEARCH_STATE_LAB: {
-            let newState = {...state }
+            let newState = { ...state }
 
-            if(action.payload.selectedLocation){
+            if (action.payload.selectedLocation) {
                 newState.selectedLocation = action.payload.selectedLocation
             }
 
@@ -247,13 +247,13 @@ export default function (state = defaultState, action) {
         case SET_SEARCH_ID: {
             let newState = {
                 ...state,
-                commonSelectedCriterias:[...state.commonSelectedCriterias],
-                search_id_data: {...state.search_id_data}
+                commonSelectedCriterias: [...state.commonSelectedCriterias],
+                search_id_data: { ...state.search_id_data }
             }
-            if(!newState.last_save_searched_date){
+            if (!newState.last_save_searched_date) {
                 newState.last_save_searched_date = new Date()
             }
-           newState.search_id_data[action.searchId] = {}
+            newState.search_id_data[action.searchId] = {}
             newState.search_id_data[action.searchId].commonSelectedCriterias = action.payload.commonSelectedCriterias
             newState.search_id_data[action.searchId].filterCriteria = action.payload.filterCriteria
             newState.search_id_data[action.searchId].data = {}
@@ -273,7 +273,7 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state
             }
-            if(newState.search_id_data && newState.search_id_data[action.searchId]){
+            if (newState.search_id_data && newState.search_id_data[action.searchId]) {
                 newState.commonSelectedCriterias = newState.search_id_data[action.searchId].commonSelectedCriterias
                 newState.filterCriteria = newState.search_id_data[action.searchId].filterCriteria
                 newState.currentSearchId = action.searchId
@@ -286,26 +286,26 @@ export default function (state = defaultState, action) {
         case SAVE_RESULTS_WITH_SEARCHID: {
             let newState = {
                 ...state,
-                search_id_data: {...state.search_id_data}
+                search_id_data: { ...state.search_id_data }
             }
-            if(newState.search_id_data && newState.search_id_data[newState.currentSearchId]){
-                
+            if (newState.search_id_data && newState.search_id_data[newState.currentSearchId]) {
+
                 newState.search_id_data[newState.currentSearchId] = Object.assign(newState.search_id_data[newState.currentSearchId])
-                if(action.page == 1){
+                if (action.page == 1) {
                     newState.search_id_data[newState.currentSearchId].data = action.payload
                     newState.search_id_data[newState.currentSearchId].clinic_card = action.payload.clinic_card
 
-                }else if(newState.search_id_data[newState.currentSearchId].data){
-                    if(Object.values(newState.search_id_data[newState.currentSearchId].data).length && newState.search_id_data[newState.currentSearchId].data.result){
+                } else if (newState.search_id_data[newState.currentSearchId].data) {
+                    if (Object.values(newState.search_id_data[newState.currentSearchId].data).length && newState.search_id_data[newState.currentSearchId].data.result) {
 
-                        newState.search_id_data[newState.currentSearchId].data.result = newState.search_id_data[newState.currentSearchId].data.result.concat(action.payload.result)    
-                    }else{
+                        newState.search_id_data[newState.currentSearchId].data.result = newState.search_id_data[newState.currentSearchId].data.result.concat(action.payload.result)
+                    } else {
                         newState.search_id_data[newState.currentSearchId].data = action.payload
-                        newState.search_id_data[newState.currentSearchId].clinic_card = action.payload.clinic_card  
+                        newState.search_id_data[newState.currentSearchId].clinic_card = action.payload.clinic_card
                     }
-                    
+
                 }
-                
+
             }
             return newState
         }
@@ -319,7 +319,7 @@ export default function (state = defaultState, action) {
             return newState
         }
 
-        case SET_URL_PAGE:{
+        case SET_URL_PAGE: {
             let newState = {
                 ...state
             }
@@ -339,11 +339,13 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state
             }
-            if(newState.last_save_searched_date){
-                let currentTime = moment(new Date())
-                let lastSearchTime = moment(new Date(newState.last_save_searched_date))
-                let diffDays = currentTime.diff(lastSearchTime, 'days')
-                if(diffDays>2){
+            if (newState.last_save_searched_date) {
+                const date1 = new Date()
+                const date2 = new Date(newState.last_save_searched_date)
+                const diffTime = Math.abs(date1.getTime() - date2.getTime())
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+
+                if (diffDays > 2) {
                     newState.search_id_data = {}
                     newState.last_save_searched_date = null
                 }
