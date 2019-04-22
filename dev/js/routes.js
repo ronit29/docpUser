@@ -176,6 +176,12 @@ const adsBooking = Loadable({
     webpack: () => [require.resolveWeak('./static_routes.js')],
     loading,
 })
+const TestsList = Loadable({
+    loader: () => import('./static_routes.js').then(c => c.TestsList),
+    modules: ['./static_routes.js'],
+    webpack: () => [require.resolveWeak('./static_routes.js')],
+    loading,
+})
 
 
 /**
@@ -496,6 +502,7 @@ let routes = [
     { path: '/speciality-inventory/:speciality', exact: true, component: SpecializationSiteMap, RENDER_ON_SERVER: true },
     { path: '/city-inventory', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
     { path: '/city-inventory/:city', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
+    { path: '/tests', exact: true, component: TestsList, RENDER_ON_SERVER: true },
     { path: '/search/testinfo', exact: true, component: searchTestInfo, RENDER_ON_SERVER: true },
     { path: '/bookings', exact: true, component: adsBooking },
     { path: '/full-body-checkup-health-packages', exact: true, component: DX_SearchPackages, RENDER_ON_SERVER: true },

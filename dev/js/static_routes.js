@@ -4,7 +4,7 @@ import StaticPages from './containers/commons/StaticPages'
 import CitiesSiteMap from './containers/commons/CitiesSiteMap.js'
 import SpecializationSiteMap from './containers/commons/SpecializationSiteMap'
 import adsBooking from './containers/commons/adsBooking.js'
-
+import TestsList from './containers/commons/testsList.js'
 
 export {
     Article,
@@ -13,4 +13,5 @@ export {
     CitiesSiteMap,
     SpecializationSiteMap,
     adsBooking,
+    TestsList
 }
