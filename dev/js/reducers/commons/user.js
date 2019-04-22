@@ -50,9 +50,10 @@ const defaultState = {
     offerList: null,
     cart: null,
     toggleLeftMenu: false,
-    upcoming_appointments:[],
+    leftMenuOpenFirstTime: false,
+    upcoming_appointments: [],
     is_login_user_insured: null,
-    isUserCared:{}
+    isUserCared: {}
 }
 
 export default function (state = defaultState, action) {
@@ -339,7 +340,7 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state
             }
-            if(action.payload.includes('lab') || action.payload.includes('opd') || action.payload.includes('ipd') ){
+            if (action.payload.includes('lab') || action.payload.includes('opd') || action.payload.includes('ipd')) {
                 newState.selectedSearchType = action.payload
             }
             return newState
@@ -387,6 +388,8 @@ export default function (state = defaultState, action) {
                 newState.toggleLeftMenu = !newState.toggleLeftMenu
             }
 
+            newState.leftMenuOpenFirstTime = true
+
             return newState
         }
 
@@ -405,7 +408,7 @@ export default function (state = defaultState, action) {
             newState.isUserCared = action.payload
             return newState
         }
-        
+
     }
     return state
 }

@@ -641,7 +641,13 @@ class BookingSummaryViewNew extends React.Component {
 
                 return <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
                     {
-                        is_corporate || is_insurance_applicable || is_plan_applicable? <span className="float-right fw-700">₹ 0 </span>: <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
+                        is_corporate || is_insurance_applicable || is_plan_applicable ?
+                        <span className="float-right fw-700">₹ 0 </span>
+                        :
+                        price == twp.mrp ?
+                        <span className="float-right fw-700">&#8377; {price}</span>
+                        :
+                        <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
                         </span>
                     }
                     <span className="test-name-item">{twp.test.name}</span>
@@ -723,14 +729,14 @@ class BookingSummaryViewNew extends React.Component {
                                                                         <img style={{ width: '22px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/hospital.svg"} />
                                                                     </span>{labDetail.name}</h4>
 
-                                                                    <div className="float-right  mbl-view-formatting text-right">
+                                                                    {/*<div className="float-right  mbl-view-formatting text-right">
                                                                         <a href="" style={{ width: '100px', display: 'inline-block' }} onClick={(e) => {
                                                                             e.preventDefault()
                                                                             e.stopPropagation()
                                                                             this.goToProfile(this.state.selectedLab, labDetail.url)
                                                                         }} className="text-primary fw-700 text-sm">View Profile</a>
 
-                                                                    </div>
+                                                                    </div>*/}
                                                                 </div>
                                                             </div>
                                                         </div>

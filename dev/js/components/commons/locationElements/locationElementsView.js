@@ -32,7 +32,9 @@ class LocationElementsView extends React.Component {
     componentDidMount() {
         this.props.onRef(this)
         if (this.props.locationType && !this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+
             this.setState({ location_object: this.props.selectedLocation, search: this.props.locationName || this.props.selectedLocation.formatted_address })
+
         }
 
         // if (!this.props.isTopbar) {
@@ -66,6 +68,7 @@ class LocationElementsView extends React.Component {
     onfocus() {
         if (!this.props.isTopbar) {
             let search_val = ""
+
             if (this.props.locationType && !this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
                 search_val = this.props.locationName || this.props.selectedLocation.formatted_address
             }
@@ -95,7 +98,15 @@ class LocationElementsView extends React.Component {
         _autoCompleteService(location, function (results, status) {
             results = results || []
             this.setState({ searchResults: results })
-            this.props.getCityListLayout(results)
+
+            //Search widget data identifiers
+            let widget = {}
+            widget.widgetId = this.props.widgetId || ''
+            if (this.props.specialityId) {
+
+                widget.specialityId = this.props.specialityId || ''
+            }
+            this.props.getCityListLayout(results, widget)
         }.bind(this))
     }
 
@@ -197,6 +208,21 @@ class LocationElementsView extends React.Component {
                 <input className="new-srch-inp" autoComplete="off" placeholder="Location" value={this.state.search} onChange={this.inputHandler.bind(this)} id="doc-input-field" onBlur={this.onblur.bind(this)} onFocus={this.onfocus.bind(this)} />
                 <img className="srch-inp-img" src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />
                 <button className="srch-inp-btn-img" onClick={this.detectLocation.bind(this)}>Auto Detect <img src={ASSETS_BASE_URL + "/img/loc-track.svg"} /></button>
+            </div>
+        }
+
+        if (this.props.articleSearchPage) {
+            return <div className="articleTypeloc">
+                <div className="articleInputContainer">
+                    <button className="artc-btn-lft artc-disable">
+                        {
+                            this.props.commonSearch ?
+                                <img style={{ width: '12px', marginRight: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />
+                                : ''
+                        }
+                        {this.props.commonSearch ? 'Location' : this.props.specialityName}</button>
+                    <input className={`artc-inp-loc`} type="text" autoComplete="off" placeholder="Location" value={this.state.search} onChange={this.inputHandler.bind(this)} id="doc-input-field" onFocus={this.onfocus.bind(this)} onBlur={this.onblur.bind(this)} />
+                </div>
             </div>
         }
 

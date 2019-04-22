@@ -32,7 +32,8 @@ require('../css/static.css')
 require('../css/slider.css')
 require('../css/snackbar.css')
 require('../css/cropper.css')
-require('./helpers/lightbox/style.css')
+require('react-image-lightbox/style.css')
+// require('./helpers/lightbox/style.css')
 require('../css/date.css')
 require('../css/style.css')
 
@@ -203,7 +204,9 @@ class App extends React.Component {
             this.props.mergeUrlState(true)
         }
 
-        this.props.loadLabCommonCriterias()
+        if (!this.props.common_tests.length || !this.props.common_package.length) {
+            this.props.loadLabCommonCriterias()
+        }
 
 
     }
@@ -247,8 +250,13 @@ const mapStateToProps = (state) => {
         token
     } = state.AUTH
 
+    const {
+        common_tests,
+        common_package
+    } = state.SEARCH_CRITERIA_LABS
+
     return {
-        selectedLocation, profiles, selectedProfile, token, summary_utm, summary_utm_validity
+        selectedLocation, profiles, selectedProfile, token, summary_utm, summary_utm_validity, common_tests, common_package
     }
 }
 

@@ -167,7 +167,7 @@ class InsuranceInputView extends React.Component{
 					fields.push('dob')
 				}
 
-				if(!param.no_lname){
+				if(!param.no_lname && param.relation !== 'self'){
 					if(param.last_name ==""){
 						is_disable = true
 						fields.push('last_name')	
@@ -220,7 +220,7 @@ class InsuranceInputView extends React.Component{
 						if(param.gender == 'm' && param.title !='mr.'){
 							is_disable = true
 							empty_feilds.push('gender')	
-						}else if(param.gender == 'f' && param.title !='mrs.'){
+						}else if(param.gender == 'f' && param.title=='mr'){
 							is_disable = true
 							empty_feilds.push('gender')	
 						}
@@ -267,10 +267,7 @@ class InsuranceInputView extends React.Component{
 					let secondDate = new Date(param.dob);
 					let diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
 					if(this.props.selected_plan.threshold.length>0){
-						console.log('self_age='+self_age)
-						console.log('adult2age='+adult2age)
 						let minAgeOfAdults = Math.min(self_age,adult2age)
-						console.log('minAgeOfAdults='+minAgeOfAdults)
 						let adultChildAgeDiff = minAgeOfAdults - childAge
 						let child_age = this.props.selected_plan.threshold[0].child_min_age
 						let child_max_age = this.props.selected_plan.threshold[0].child_max_age
@@ -278,7 +275,6 @@ class InsuranceInputView extends React.Component{
 				  			fields.push('dob')
 				  			is_disable = true			    
 						}
-						console.log(adultChildAgeDiff)
 						if(adultChildAgeDiff < 18){
 							dobError.push('dob')
 				  			is_disable = true
@@ -362,8 +358,29 @@ class InsuranceInputView extends React.Component{
     	if(is_disable && document.getElementById(member_ref)){    		
     		document.getElementById(member_ref).scrollIntoView();
     	}else{
+    		this.SaveUserData(this.props)
 			this.props.history.push('/insurance/insurance-user-details-review')
     	}
+    }
+
+    SaveUserData(props){
+    	let self = this
+    	var insuranceUserData={}
+    	var members={}
+    	// insuranceUserData.insurnaceData = props.insurnaceData
+    	insuranceUserData.selected_plan_id=props.selected_plan.id
+    	// insuranceUserData.insurer= props.insurnaceData['insurance'][0].id
+    	insuranceUserData.members= []
+    	// insuranceUserData.selected_plan = []
+    	insuranceUserData.currentSelectedInsuredMembersId = this.props.currentSelectedInsuredMembersId
+
+    	Object.entries(this.props.currentSelectedInsuredMembersId).map(function([key, value]) {
+    		members={}
+			members={...self.props.self_data_values[value[key]]}
+			return 	insuranceUserData.members.push(members)
+		})
+    	console.log(insuranceUserData)
+		this.props.pushUserData(insuranceUserData)
     }
     
 	render(){

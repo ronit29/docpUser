@@ -13,6 +13,9 @@ import CommentBox from './ArticleCommentBox.js'
 import SnackBar from 'node-snackbar'
 import Reply from './Reply.js'
 import BannerCarousel from '../Home/bannerCarousel';
+import ArticleAuthor from '../articleAuthor/articleAuthor';
+import LocationElements from '../../../containers/commons/locationElements'
+import CommonSearch from '../../../containers/commons/CommonSearch.js'
 
 // import RelatedArticles from './RelatedArticles'
 
@@ -30,7 +33,10 @@ class Article extends React.Component {
             articleData: articleData,
             replyOpenFor: null,
             comment: '',
-            articleLoaded: articleLoaded
+            articleLoaded: articleLoaded,
+            searchCities: [],
+            searchWidget: '',
+            specialization_id: ''
         }
     }
 
@@ -39,7 +45,6 @@ class Article extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
-
         if (this.props.match.path.split('-')[1] === 'mddp') {
             let selectedLocation = ''
             let lat = 28.644800
@@ -100,15 +105,6 @@ class Article extends React.Component {
         }
     }
 
-    authorClick(e) {
-        e.preventDefault()
-        if (this.state.articleData.author.url) {
-            this.props.history.push(this.state.articleData.author.url)
-        } else {
-            this.props.history.push(`/opd/doctor/${this.state.articleData.author.id}`)
-        }
-    }
-
     commentReplyClicked(id) {
         this.setState({ replyOpenFor: id })
     }
@@ -148,10 +144,75 @@ class Article extends React.Component {
         this.setState({ comment: e.target.value })
     }
 
+    getCityList(key) {
+
+        return this.state.searchCities.length > 0 && this.state.searchWidget==key?
+            <section>
+                <div className="widget mb-10">
+                    <div className="common-search-container">
+                        <p className="srch-heading">Location Search</p>
+                        <div className="common-listing-cont">
+                            <ul>
+                                {
+                                    this.state.searchCities.map((result, i) => {
+                                        return <li key={i}>
+                                            <p className="" onClick={this.selectLocation.bind(this, result)}>{result.description}</p>
+                                        </li>
+                                    })
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section> : ''
+
+    }
+
+    getCityListLayout(searchResults = [], searchParams={}) {
+        let specialization_id = ''
+        let searchWidget = ''
+        if(searchParams && Object.values(searchParams).length){
+            specialization_id = searchParams.specialityId
+            searchWidget = searchParams.widgetId
+        }
+        if (searchResults.length) {
+            this.setState({ searchCities: searchResults, searchWidget: searchWidget, specialization_id: specialization_id })
+        } else {
+            this.setState({ searchCities: [], searchWidget: searchWidget, specialization_id: specialization_id })
+        }
+    }
+
+    selectLocation(city) {
+        this.child.selectLocation((city), () => {
+
+            this.setState({ searchCities: [] })
+            let gtmData = {
+                'Category': 'ConsumerApp', 'Action': 'ArticlePageLocationSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'article-page-location-selected', selectedId: this.state.specialization_id || ''
+            }
+            GTM.sendEvent({ data: gtmData })
+
+            if(this.state.specialization_id) {
+
+                let criteria = {}
+                criteria.id = this.state.specialization_id
+                criteria.name = ''
+                criteria.type = 'speciality'
+                this.props.cloneCommonSelectedCriterias(criteria)
+                this.props.history.push(`/opd/searchresults`)    
+            }
+            
+        })
+    }
+
     render() {
 
         let isUserLogin = Object.values(this.props.profiles).length || STORAGE.checkAuth()
         let commentsExists = this.state.articleData && this.state.articleData.comments.length ? this.state.articleData.comments.length : null
+
+        let locationName = ""
+        if (this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+            locationName = this.props.selectedLocation.formatted_address
+        }
 
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
@@ -286,39 +347,59 @@ class Article extends React.Component {
 
                                     {
                                         this.state.articleData && this.state.articleData.author ?
-                                            <div className="article-author-div mrb-20">
-                                                <InitialsPicture className="initialsPicture-ds initialsPicture-author" name={this.state.articleData.author.name} has_image={!!this.state.articleData.author.profile_img} >
-                                                    <img className="fltr-usr-image img-round" src={this.state.articleData.author.profile_img} alt={`Dr. ${this.state.articleData.author.name}`} title={`Dr. ${this.state.articleData.author.name}`} />
-                                                </InitialsPicture>
-                                                <div className="author-dtls">
-                                                    <div className="author-name-div">
-                                                        <span style={{ margin: '0 6px 0 0' }}>Written By :</span>
-                                                        {
-                                                            this.state.articleData.author.url ?
-                                                                <a href={`/${this.state.articleData.author.url}`} onClick={(e) => this.authorClick(e)}>
-                                                                    <h3 className="fw-500 text-primary">{`Dr. ${this.state.articleData.author.name}`}</h3>
-                                                                </a> :
-                                                                <a href={`/opd/doctor/${this.state.articleData.author.id}`} onClick={(e) => this.authorClick(e)}>
-                                                                    <h3 className="fw-500 text-primary">{`Dr. ${this.state.articleData.author.name}`}</h3>
-                                                                </a>
-                                                        }
-                                                    </div>
-                                                    <div className="author-exp-div">
-                                                        <span>{this.state.articleData.author.speciality[0].name} | {this.state.articleData.author.experience} years of experience</span>
-                                                    </div>
-                                                    <div className="article-date">
-                                                        <span>Published Date : {this.state.articleData.published_date}</span>
-                                                    </div>
-                                                </div>
-                                            </div> : ''
+                                            <ArticleAuthor
+                                                name={this.state.articleData.author.name}
+                                                profileImage={this.state.articleData.author.profile_img}
+                                                url={this.state.articleData.author.url}
+                                                id={this.state.articleData.author.id}
+                                                speciality={this.state.articleData.author.speciality[0].name}
+                                                experience={this.state.articleData.author.experience}
+                                                publishedDate={this.state.articleData.published_date}
+                                                history={this.props.history}
+                                            /> : ''
                                     }
 
-                                    <div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
-                                    </div>
+                                    {
+                                        this.state.articleData && this.state.articleData.body_doms && this.state.articleData.body_doms.map((val, key) => {
+
+                                            if (val.type.includes('html')) {
+                                                return <div key={key} className="docprime-article" dangerouslySetInnerHTML={{ __html: val.content }}>
+                                                </div>
+                                            } else if (val.type.includes('search_widget')) {
+                                                return <div key={key}>
+                                                        {
+                                                            val.content.lat && val.content.lng && val.content.location_name?
+                                                            <CommonSearch {...this.props} location={val.content.location_name} latitude={val.content.lat} longitude={val.content.lng}/>
+                                                            :val.content.specialization_id?
+                                                                <div>
+                                                                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName={locationName} articleSearchPage={true} specialityName={val.content.specialization_name} specialityId={val.content.specialization_id} widgetId={key}/>  
+                                                                    {this.getCityList(key)}
+                                                                </div>
+                                                            :<div>
+                                                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName='' widgetId={key} commonSearch={true} articleSearchPage={true}/>   
+                                                                {this.getCityList(key)}
+                                                                <CommonSearch {...this.props} commonSearch={true} />
+                                                            </div>
+                                                        }
+                                                </div>
+
+                                            }
+
+                                        })
+                                    }
+
+                                    { /*<div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
+                                    </div>*/}
                                     {
                                         this.state.articleData && this.state.articleData.last_updated_at ?
                                             <div className="last-updated text-right">
                                                 <span>Last updated on : {this.state.articleData.last_updated_at}</span>
+                                            </div> : ''
+                                    }
+                                    {
+                                        this.props.match.path.split('-')[1] === 'mddp' ?
+                                            <div className="mrt-20">
+                                                <p className="article-disclaimer"><span className="fw-700">Disclaimer : </span>Docprime doesn’t endorse or take any guarantee of the accuracy or completeness of information provided on its website. Docprime shall not be held responsible for any aspect of healthcare administered with the information provided on its website.</p>
                                             </div> : ''
                                     }
                                 </div> : ""

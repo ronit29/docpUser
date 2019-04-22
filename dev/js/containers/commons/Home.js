@@ -32,10 +32,14 @@ class Home extends React.Component {
             this.props.getUserProfile()
             this.props.getUpComingAppointment()
         }
+
         // this.props.fetchHeatlhTip()
         // this.props.fetchArticles()
-        this.props.loadOPDCommonCriteria()
-        this.props.loadLabCommonCriterias()
+        if (!this.props.common_tests.length || !this.props.common_package.length || !this.props.specializations.length) {
+            this.props.loadOPDCommonCriteria()
+            this.props.loadLabCommonCriterias()
+        }
+
         this.props.resetFilters()
         this.props.clearExtraTests()
     }
@@ -76,7 +80,7 @@ const mapStateToProps = (state, passedProps) => {
     let filterCriteria_opd = state.SEARCH_CRITERIA_OPD.filterCriteria
 
     return {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList,  upcoming_appointments
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, upcoming_appointments
     }
 }
 

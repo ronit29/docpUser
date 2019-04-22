@@ -79,6 +79,8 @@ class LabTests extends React.Component {
 
 
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
+            let selectedTestsCount = this.props.currentLabSelectedTests.filter(x=>x.is_selected).length
+
             this.props.currentLabSelectedTests.map((test, i) => {
                 if (test.hide_price) {
                     hide_price = true
@@ -122,7 +124,11 @@ class LabTests extends React.Component {
                                 {
                                     is_insurance_applicable || test.included_in_user_plan?
                                         <span className="test-price text-sm">₹ 0 </span>
-                                    :<span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                    :
+                                    test.deal_price == test.mrp.split('.')[0]?
+                                    <span className="test-price text-sm">&#8377; {test.deal_price}</span>
+                                    :
+                                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                                 }
                             </li>)
                     } else {
@@ -137,8 +143,11 @@ class LabTests extends React.Component {
                                     <span className="checkmark" />
                                 </label>
                                 {    
-                                    is_insurance_applicable || test.included_in_user_plan?
+                                    ( (is_insurance_applicable || !selectedTestsCount) && test.insurance && test.insurance.is_insurance_covered) || test.included_in_user_plan?
                                         <span className="test-price text-sm">₹ 0 </span>
+                                    :
+                                    test.deal_price == test.mrp.split('.')[0]?
+                                    <span className="test-price text-sm">&#8377; {test.deal_price}</span>
                                     :
                                     <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                                 }

@@ -6,6 +6,7 @@ import InsurPopup from './insurancePopup.js'
 import InsurCommon from './insuranceCommonSection.js'
 import STORAGE from '../../helpers/storage'
 import Loader from '../commons/Loader'
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 class Insurance extends React.Component{
 	constructor(props) {
@@ -17,7 +18,8 @@ class Insurance extends React.Component{
             selected_plan_price:this.props.selected_plan?this.props.selected_plan.amount:'',
             gst:'Inclusive of 18% GST',
             selected_plan_data:this.props.selected_plan?this.props.selected_plan:'',
-            showPopup:false
+            showPopup:false,
+            shortURL:""
         }
     }
     componentDidMount(){
@@ -87,9 +89,9 @@ class Insurance extends React.Component{
         					profilesArray.push(profiles)
         				}
 					})
-				})
+				})				
 				if(membersArray.length == profilesArray.length){
-					Object.entries(membersArray).map(function([key, values]) {
+					Object.entries(membersArray).map(function([key, values]) {						
 						if(membersArray[key].id == profilesArray[key].id){
 							let memberNewdata = values
 		    				let newName =  profilesArray[key].name.split(" ")
@@ -103,9 +105,22 @@ class Insurance extends React.Component{
 		    				}else{
 		    					memberNewdata.name = newName[0]
 		    				}
-							memberNewdata.email = profilesArray[key].email
-							memberNewdata.dob = profilesArray[key].dob
-							memberNewdata.gender = profilesArray[key].gender
+		    				if(membersArray[key].email != ''){
+		    					memberNewdata.email = membersArray[key].email	
+		    				}else{
+		    					memberNewdata.email = profilesArray[key].email
+		    				}
+
+		    				if(membersArray[key].dob != null || membersArray[key].dob != ''){
+		    					memberNewdata.dob = membersArray[key].dob
+		    				}else{
+		    					memberNewdata.dob = profilesArray[key].dob
+		    				}
+							if(membersArray[key].gender != ''){
+		    					memberNewdata.gender = membersArray[key].gender
+		    				}else{
+		    					memberNewdata.gender = profilesArray[key].gender
+		    				}
 							self.props.userData('memberNewdata', memberNewdata)
 						}
 					})
@@ -127,6 +142,17 @@ class Insurance extends React.Component{
         });
     }
 
+    shortenUrl() {
+        if (window) {
+            let url = window.location.href + '&force_location=true'
+            this.props.urlShortner(url, (err, data) => {
+                if (!err) {
+                    this.setState({ shortURL: data.tiny_url })
+                }
+            })
+        }
+    }
+
 	render(){
 		if(this.props.LOAD_INSURANCE){
 			return(
@@ -137,6 +163,30 @@ class Insurance extends React.Component{
 						<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
 							<section className="profile-book-screen">
 								<div className="widget">
+								{/*<div>
+                                    <span style={{ cursor: 'pointer' }} onClick={this.shortenUrl.bind(this)}>
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
+                                    </span>
+                                </div>*/}
+                                    {
+                                    	this.state.shortURL ? <div className="shareLinkpopupOverlay" onClick={() => {
+	                                        this.setState({ shortURL: "" }) }}>
+	                                        <div className="shareLinkpopup" onClick={(e) => {
+	                                            e.stopPropagation()
+	                                        }}>
+	                                            <p>{this.state.shortURL}</p>
+	                                            <CopyToClipboard text={this.state.shortURL}
+	                                                onCopy={() => {
+	                                                    SnackBar.show({ pos: 'bottom-center', text: "Shortened URL Copied." });
+	                                                    this.setState({ shortURL: "" })
+	                                                }}>
+	                                                <span className="shrelinkBtn">
+	                                                    <button>Copy</button>
+	                                                </span>
+	                                            </CopyToClipboard>
+	                                        </div>
+	                                    </div> : ""
+                                    }
 									<InsurCommon {...this.props} isSelectPlan={true} is_checked={this.state.is_checked}/>
 									{/* coverage listing */}
 									<div className="coverage-list-container border-bg-transprant">

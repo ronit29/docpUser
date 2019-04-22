@@ -8,6 +8,7 @@ import GTM from '../../../helpers/gtm.js'
 import ChatStaticView from './ChatStaticView'
 import RelatedArticles from '../article/RelatedArticles'
 import BannerCarousel from '../Home/bannerCarousel';
+const queryString = require('query-string');
 
 class ChatPanel extends React.Component {
     constructor(props) {
@@ -60,7 +61,7 @@ class ChatPanel extends React.Component {
             })
         }
 
-        if (window) {
+        if (typeof window == "object") {
             // handling events sent by iframe
             window.addEventListener('message', function ({ data }) {
                 let eventData = data;
@@ -298,7 +299,12 @@ class ChatPanel extends React.Component {
             symptoms_uri = encodeURIComponent(symptoms_uri)
         }
 
-        let iframe_url = `${CONFIG.CHAT_URL}?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&room=${this.state.roomId}`
+        let parsedHref = ''
+        if (typeof window == "object") {
+            parsedHref = queryString.parse(window.location.search);
+        }
+
+        let iframe_url = `${CONFIG.CHAT_URL}?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&room=${this.state.roomId}&from_app=${parsedHref.from_app || false}&device_id=${parsedHref.device_id || ''}`
 
         if (this.state.initialMessage && !this.state.showStaticView) {
             iframe_url += `&msg=${this.state.initialMessage}`
@@ -392,12 +398,12 @@ class ChatPanel extends React.Component {
                                         }
 
                                         <span onClick={this.toggleCancel.bind(this)}>
-                                            <img style={{ width: 26 }} src="/assets/img/customer-icons/chat-rstrt.svg" title="start a new chat" />
+                                            <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/customer-icons/chat-rstrt.svg"} title="start a new chat" />
 
                                         </span>
                                         {
                                             this.state.showChatBlock
-                                                ? <span className="ml-2" onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src="/assets/img/customer-icons/cht-cls.svg" /></span>
+                                                ? <span className="ml-2" onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/customer-icons/cht-cls.svg"} /></span>
                                                 : ''
                                         }
                                     </div>
@@ -406,7 +412,7 @@ class ChatPanel extends React.Component {
                                 {/* chat Body */}
                                 <div className="chat-body">
                                     {
-                                        STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? `chat-iframe ${this.state.iframeLoading ? 'd-none' : ''}` : `chat-iframe-inner float-chat-height ${this.state.iframeLoading ? 'd-none' : ''}`} src={iframe_url} ref="chat_frame"></iframe>
+                                        STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? `chat-iframe ${this.state.iframeLoading ? 'd-none' : ''}` : `chat-iframe-inner float-chat-height ${this.state.iframeLoading ? 'd-none' : ''}`} src={iframe_url} allow="microphone;camera" ref="chat_frame"></iframe>
                                     }
                                     {
                                         this.state.iframeLoading ?
@@ -434,7 +440,7 @@ class ChatPanel extends React.Component {
 
                 <div className={this.props.homePage ? `chat-footer mt-21` : `chat-footer mt-21 d-none d-md-block`}>
                     <div className="wrng-mssg">
-                        <img style={{ height: 24, width: 24 }} src="/assets/images/warning-icon.png" />
+                        <img style={{ height: 24, width: 24 }} src={ASSETS_BASE_URL + "/images/warning-icon.png"} />
                         <span>
                             Not for emergencies! In the case of emergency please visit a hospital. Chat is only applicable to Indian citizens currently residing in India.</span>
                     </div>

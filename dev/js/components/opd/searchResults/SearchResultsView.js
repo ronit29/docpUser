@@ -226,6 +226,8 @@ class SearchResultsView extends React.Component {
         let lat = 28.644800
         let long = 77.216721
         let place_id = ""
+        let locality = 'Delhi'
+        let sub_locality = ''
 
         if (selectedLocation) {
             place_id = selectedLocation.place_id || ""
@@ -236,6 +238,9 @@ class SearchResultsView extends React.Component {
 
             lat = parseFloat(parseFloat(lat).toFixed(6))
             long = parseFloat(parseFloat(long).toFixed(6))
+
+            locality = selectedLocation.locality || ''
+            sub_locality = selectedLocation.sub_locality || ''
         }
 
         let min_fees = filterCriteria.priceRange[0]
@@ -292,7 +297,7 @@ class SearchResultsView extends React.Component {
 
         if(is_filter_applied || !this.state.seoFriendly){
 
-            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}`
+            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}`
 
             is_params_exist= true
 
