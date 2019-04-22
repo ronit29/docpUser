@@ -174,7 +174,7 @@ class Insurance extends React.Component {
 					<section className="container container-top-margin">
 						<div className="row main-row parent-section-row">
 							<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
-								<section className="profile-book-screen">
+								<section className="profile-book-screen" style={{position:'relative'}}>
 									<div className="widget">
 										{/*<div>
                                     <span style={{ cursor: 'pointer' }} onClick={this.shortenUrl.bind(this)}>
@@ -228,9 +228,14 @@ class Insurance extends React.Component {
 												</tbody>
 											</table>
 										</div>
-										{/* coverage listing */}
+										{/* coverage listing */}										
 									</div>
+									<div style={{position:'absolute', bottom:'-40px', right:'15px'}}><a className="fw-500" href="/terms" style={{color:"#f78631"}} onClick={(e) => {
+									e.preventDefaut();
+									this.props.history.push('/terms')
+								}}>Website T&C Apply</a></div>
 								</section>
+
 								{this.state.showPopup ?
 									<InsurPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)}/> : ''
 								}
