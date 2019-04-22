@@ -113,17 +113,20 @@ class HomeView extends React.Component {
 	}
 
 	searchDoctor(speciality) {
-		speciality.type = 'speciality'
-		this.props.toggleOPDCriteria('speciality', speciality, true)
-
+		if (speciality.url) {
+			this.props.history.push(`/${speciality.url}`)
+		}
+		else {
+			speciality.type = 'speciality'
+			this.props.toggleOPDCriteria('speciality', speciality, true)
+			setTimeout(() => {
+				this.props.history.push('/opd/searchresults')
+			}, 100)
+		}
 		let data = {
 			'Category': 'ConsumerApp', 'Action': 'SelectedDoctorSpecializations', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'selected-doctor-specializations', 'selected': speciality.name || '', 'selectedId': speciality.id || ''
 		}
 		GTM.sendEvent({ data: data })
-
-		setTimeout(() => {
-			this.props.history.push('/opd/searchresults')
-		}, 100)
 	}
 
 	isSelectedLocationNearDelhi(selectedLocation) {

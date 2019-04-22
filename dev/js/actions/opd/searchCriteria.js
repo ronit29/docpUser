@@ -2,9 +2,9 @@ import { FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, SET_FETCH_RESULTS_LA
 import { API_GET } from '../../api/api.js';
 import GTM from '../../helpers/gtm'
 
-export const loadOPDCommonCriteria = () => (dispatch) => {
+export const loadOPDCommonCriteria = (city) => (dispatch) => {
 
-    return API_GET('/api/v1/doctor/commonconditions').then(function (response) {
+    return API_GET(`/api/v1/doctor/commonconditions?city=${city}`).then(function (response) {
         dispatch({
             type: LOAD_SEARCH_CRITERIA_OPD,
             payload: response

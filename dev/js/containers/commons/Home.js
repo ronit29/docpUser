@@ -34,7 +34,7 @@ class Home extends React.Component {
         }
         // this.props.fetchHeatlhTip()
         // this.props.fetchArticles()
-        this.props.loadOPDCommonCriteria()
+        this.props.loadOPDCommonCriteria(this.props.selectedLocation.locality || 'Delhi')
         this.props.loadLabCommonCriterias()
         this.props.resetFilters()
         this.props.clearExtraTests()
@@ -76,14 +76,14 @@ const mapStateToProps = (state, passedProps) => {
     let filterCriteria_opd = state.SEARCH_CRITERIA_OPD.filterCriteria
 
     return {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList,  upcoming_appointments
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, upcoming_appointments
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         loadLabCommonCriterias: () => dispatch(loadLabCommonCriterias()),
-        loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
+        loadOPDCommonCriteria: (city) => dispatch(loadOPDCommonCriteria(city)),
         toggleOPDCriteria: (type, criteria, forceAdd, filters) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filters)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd, filters) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filters)),
         getUserProfile: () => dispatch(getUserProfile()),
