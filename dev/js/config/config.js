@@ -24,7 +24,7 @@ const PROD_CONFIG = {
     Tracker: 'docobj',
     API_BASE_URL_ELASTIC_SEARCH: 'https://l74e1dhn67.execute-api.ap-south-1.amazonaws.com/default',
     SEARCH_ELASTIC_VIEW: true,
-    ENABLE_INSURANCE: false,
+    ENABLE_INSURANCE: true,
     GOOGLE_SERVICE_URL: 'https://docprime.com/ls'
 
 }
@@ -43,7 +43,7 @@ const STAGING_CONFIG = {
     Tracker: 'docqa',
     API_BASE_URL_ELASTIC_SEARCH: 'https://oxbgjks1i2.execute-api.ap-south-1.amazonaws.com/default',
     SEARCH_ELASTIC_VIEW: true,
-    ENABLE_INSURANCE: false,
+    ENABLE_INSURANCE: true,
     GOOGLE_SERVICE_URL: 'https://docprime.com/ls'
 
 }
@@ -63,7 +63,7 @@ const DEV_CONFIG = {
     Tracker: 'docqa',
     API_BASE_URL_ELASTIC_SEARCH: 'https://oxbgjks1i2.execute-api.ap-south-1.amazonaws.com/default',
     SEARCH_ELASTIC_VIEW: true,
-    ENABLE_INSURANCE: false,
+    ENABLE_INSURANCE: true,
     GOOGLE_SERVICE_URL: 'https://docprime.com/ls'
 }
 
