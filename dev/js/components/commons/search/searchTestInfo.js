@@ -8,6 +8,7 @@ import LabProfileCard from '../../diagnosis/commons/labProfileCard/LabProfileCar
 import Loader from '../../commons/Loader'
 import HelmetTags from '../../commons/HelmetTags'
 import CONFIG from '../../../config'
+import ArticleAuthor from '../articleAuthor/articleAuthor';
 const queryString = require('query-string');
 
 
@@ -292,6 +293,8 @@ class SearchTestView extends React.Component {
                 title = this.props.searchTestInfoData[0].seo.title
                 description = this.props.searchTestInfoData[0].seo.description
             }
+            let breadcrumbs = this.props.searchTestInfoData[0].breadcrumb
+            let author = this.props.searchTestInfoData[0].author || null
             return (
                 <div>
                     <HelmetTags tagsData={{
@@ -311,7 +314,30 @@ class SearchTestView extends React.Component {
                                             showInfo ? <div className="col-12 col-md-7 col-lg-7 center-column">
                                                 <div className="row mrb-20 bottomMargin">
                                                     <div className="col-12">
-                                                        <h3 className="testInfoHeadTitle mrng-top-12"><img style={{ width: '20px' }} src={ASSETS_BASE_URL + "/img/icons/back-arrow.png"} className="img-fluid" onClick={this.closeTestInfo.bind(this)} />{this.props.searchTestInfoData[0].name} </h3>
+                                                        <h1 className="testInfoHeadTitle mrng-top-12"><img style={{ width: '20px' }} src={ASSETS_BASE_URL + "/img/icons/back-arrow.png"} className="img-fluid" onClick={this.closeTestInfo.bind(this)} />{this.props.searchTestInfoData[0].name} </h1>
+
+                                                        {
+                                                            breadcrumbs && breadcrumbs.length ?
+                                                                <ul className="mrb-10 mrt-20 breadcrumb-list" style={{ wordBreak: 'break-word' }}>
+                                                                    {
+                                                                        breadcrumbs.map((breadcrumb, index) => {
+                                                                            return <li key={index} className="breadcrumb-list-item">
+                                                                                <a href={breadcrumb.url} onClick={(e) => {
+                                                                                    e.preventDefault()
+                                                                                    this.props.history.push(`${breadcrumb.url}`)
+                                                                                }}>
+                                                                                    <span className={index !== breadcrumbs.length - 1 ? `fw-500 breadcrumb-title breadcrumb-colored-title` : `fw-500 breadcrumb-title`}>{breadcrumb.title}</span>
+                                                                                </a>
+                                                                                {
+                                                                                    index !== breadcrumbs.length - 1 ?
+                                                                                        <span className="breadcrumb-arrow">&gt;</span> : ''
+                                                                                }
+                                                                            </li>
+                                                                        })
+                                                                    }
+                                                                </ul> : ''
+                                                        }
+
                                                         <div className="widget mrb-15 mrng-top-12">
                                                             <div className="test-info-continer-block border-radius">
                                                                 {this.props.searchTestInfoData[0].show_details ?
@@ -319,7 +345,7 @@ class SearchTestView extends React.Component {
                                                                         <div className={`tst-main-acrd-data ${self.state.tabsValue.indexOf('test_' + resp_test_id) > -1 ? 'hide' : ''}`}>
                                                                             {about_test.value != "" ?
                                                                                 <div className="test-sub-accordion">
-                                                                                    <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'about_test_' + resp_test_id)}>{about_test.title} <span className={self.state.tabsValue.indexOf('about_test_' + resp_test_id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
+                                                                                    <h2 className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'about_test_' + resp_test_id)}>{about_test.title} <span className={self.state.tabsValue.indexOf('about_test_' + resp_test_id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></h2>
                                                                                     <div className={`acrd-sub-content ${self.state.tabsValue.indexOf('about_test_' + resp_test_id) > -1 ? 'hide' : ''}`}>
                                                                                         <div dangerouslySetInnerHTML={{ __html: about_test.value }}></div>
                                                                                     </div>
@@ -328,7 +354,7 @@ class SearchTestView extends React.Component {
                                                                             }
                                                                             {why_get_tested.value != "" ?
                                                                                 <div className="test-sub-accordion">
-                                                                                    <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'why_get_tested_' + resp_test_id)}>{why_get_tested.title} <span className={self.state.tabsValue.indexOf('why_get_tested_' + resp_test_id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
+                                                                                    <h2 className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'why_get_tested_' + resp_test_id)}>{why_get_tested.title} <span className={self.state.tabsValue.indexOf('why_get_tested_' + resp_test_id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></h2>
                                                                                     <div className={`acrd-sub-content ${self.state.tabsValue.indexOf('why_get_tested_' + resp_test_id) > -1 ? 'hide' : ''}`}>
                                                                                         <div dangerouslySetInnerHTML={{ __html: why_get_tested.value }}></div>
                                                                                     </div>
@@ -337,7 +363,7 @@ class SearchTestView extends React.Component {
                                                                             }
                                                                             {test_may_include.value.length > 0 ?
                                                                                 <div className="test-sub-accordion">
-                                                                                    <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'test_include_' + resp_test_id)}>{test_may_include.title} <span className={self.state.tabsValue.indexOf('test_include_' + resp_test_id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
+                                                                                    <h2 className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'test_include_' + resp_test_id)}>{test_may_include.title} <span className={self.state.tabsValue.indexOf('test_include_' + resp_test_id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></h2>
                                                                                     <div className={`acrd-sub-content ${self.state.tabsValue.indexOf('test_include_' + resp_test_id) > -1 ? 'hide' : ''}`}>
                                                                                         <ul>
                                                                                             {Object.entries(test_may_include.value).map(function ([k, test_include]) {
@@ -351,13 +377,13 @@ class SearchTestView extends React.Component {
 
                                                                             {this_package_will_include.tests && this_package_will_include.tests.length > 0 ?
                                                                                 <div className="test-sub-accordion">
-                                                                                    <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'test_include_' + resp_test_id)}>{this_package_will_include.title} <span className={self.state.tabsValue.indexOf('test_include_' + resp_test_id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
+                                                                                    <h2 className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'test_include_' + resp_test_id)}>{this_package_will_include.title} <span className={self.state.tabsValue.indexOf('test_include_' + resp_test_id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></h2>
                                                                                     <div className={`acrd-sub-content ${self.state.tabsValue.indexOf('test_include_' + resp_test_id) > -1 ? 'hide' : ''}`}>
                                                                                         <ul>
                                                                                             {Object.entries(this_package_will_include.tests).map(function ([k, test_include]) {
                                                                                                 return <li key={k} id={test_include.id} className="mb-rmv">
                                                                                                     <div>
-                                                                                                        <button className="tst-sub-acrd-heading padding-btn-adjust" onClick={self.ButtonHandler.bind(self, 'test_include_' + test_include.id)}>{test_include.name} {test_include.parameters && test_include.parameters.length > 0 ? <span className={self.state.tabsValue.indexOf('test_include_' + test_include.id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span> : ''}</button>
+                                                                                                        <h2 className="tst-sub-acrd-heading padding-btn-adjust" onClick={self.ButtonHandler.bind(self, 'test_include_' + test_include.id)}>{test_include.name} {test_include.parameters && test_include.parameters.length > 0 ? <span className={self.state.tabsValue.indexOf('test_include_' + test_include.id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span> : ''}</h2>
                                                                                                     </div>
                                                                                                     {
                                                                                                         test_include.parameters && test_include.parameters.length > 0 ?
@@ -378,7 +404,7 @@ class SearchTestView extends React.Component {
 
                                                                             {preparations.value != '' ?
                                                                                 <div className="test-sub-accordion">
-                                                                                    <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'test_preparations_' + resp_test_id)}>{preparations.title}<span className={self.state.tabsValue.indexOf('test_preparations_' + resp_test_id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
+                                                                                    <h2 className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'test_preparations_' + resp_test_id)}>{preparations.title}<span className={self.state.tabsValue.indexOf('test_preparations_' + resp_test_id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></h2>
                                                                                     <div className={`acrd-sub-content ${self.state.tabsValue.indexOf('test_preparations_' + resp_test_id) > -1 ? 'hide' : ''}`}>
                                                                                         <div dangerouslySetInnerHTML={{ __html: preparations.value }}>
                                                                                         </div>
@@ -388,7 +414,7 @@ class SearchTestView extends React.Component {
                                                                             }
                                                                             {faqs.length > 0 ?
                                                                                 <div className="test-sub-accordion">
-                                                                                    <button className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'test_faq_' + resp_test_id)}>{faqs[0].title} <span className={self.state.tabsValue.indexOf('test_faq_' + resp_test_id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></button>
+                                                                                    <h2 className="tst-sub-acrd-heading" onClick={self.ButtonHandler.bind(self, 'test_faq_' + resp_test_id)}>{faqs[0].title} <span className={self.state.tabsValue.indexOf('test_faq_' + resp_test_id) > -1 ? 'acrd-arw-rotate' : 'acrd-show'}><img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></span></h2>
                                                                                     <div className={`acrd-sub-content ${self.state.tabsValue.indexOf('test_faq_' + resp_test_id) > -1 ? 'hide' : ''}`}>
                                                                                         {faqs.length > 0 ? Object.entries(faqs).map(function ([k, faq]) {
                                                                                             return <div key={k}>
@@ -435,7 +461,7 @@ class SearchTestView extends React.Component {
                                                                 }
                                                                 {
                                                                     labs && labs.count > 0 ?
-                                                                        <div>
+                                                                        <div className="mrb-20">
                                                                             <a className="viewAllLab" onClick={this.searchProceedLAB.bind(this, '')}> View all labs</a>
                                                                         </div>
                                                                         : ''
@@ -444,7 +470,7 @@ class SearchTestView extends React.Component {
 
                                                         {
                                                             this.props.searchTestInfoData[0].frequently_booked_together && this.props.searchTestInfoData[0].frequently_booked_together.value.length > 0 ?
-                                                                <div className="widget mrb-15 mrng-top-12">
+                                                                <div className="widget mrb-15 mrng-top-12 mrb-20">
                                                                     <div className="widget-content">
                                                                         <h5 className="test-duo-heding"> {this.props.searchTestInfoData[0].frequently_booked_together.title}</h5>
                                                                         <ul className="test-duo-listing">
@@ -459,6 +485,21 @@ class SearchTestView extends React.Component {
                                                                 </div>
                                                                 : ''
                                                         }
+
+                                                        {
+                                                            author ?
+                                                                <ArticleAuthor
+                                                                    name={author.name}
+                                                                    profileImage={author.profile_img}
+                                                                    url={author.url}
+                                                                    id={author.id}
+                                                                    speciality={author.speciality[0].name}
+                                                                    experience={author.experience}
+                                                                    publishedDate={this.props.searchTestInfoData[0].published_date || null}
+                                                                    history={this.props.history}
+                                                                /> : ''
+                                                        }
+
                                                     </div>
                                                 </div>
                                                 {!parsed.test_ids ?
@@ -490,7 +531,7 @@ class SearchTestView extends React.Component {
                                         <div className="col-12 col-md-7 col-lg-7 center-column">
                                             <div className="row">
                                                 <div className="col-12">
-                                                    <p className="fw-500 text-center mrt-10" style={{fontSize:18}}>No Record Found !!</p>
+                                                    <p className="fw-500 text-center mrt-10" style={{ fontSize: 18 }}>No Record Found !!</p>
                                                 </div>
                                             </div>
                                         </div>

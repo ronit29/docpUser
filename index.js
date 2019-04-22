@@ -241,7 +241,6 @@ app.all('*', function (req, res) {
                     })
 
                 } catch (e) {
-
                     if (CONFIG.RAVEN_SERVER_DSN_KEY) {
                         Sentry.captureException(e)
                     }

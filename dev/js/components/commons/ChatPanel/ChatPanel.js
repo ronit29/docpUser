@@ -299,7 +299,10 @@ class ChatPanel extends React.Component {
             symptoms_uri = encodeURIComponent(symptoms_uri)
         }
 
-        const parsedHref = queryString.parse(this.props.location.search);
+        let parsedHref = ''
+        if (typeof window == "object") {
+            parsedHref = queryString.parse(window.location.search);
+        }
 
         let iframe_url = `${CONFIG.CHAT_URL}?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&room=${this.state.roomId}&from_app=${parsedHref.from_app || false}&device_id=${parsedHref.device_id || ''}`
 
