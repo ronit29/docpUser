@@ -415,6 +415,13 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.common_utm_tags = [].concat(newState.common_utm_tags)
+            newState.common_utm_tags = newState.common_utm_tags.filter((x)=> {
+                if(x.type==action.actionType){
+                    return false
+                }
+                return true
+
+            })
             let tags = {...action.payload}
             tags.type = action.actionType
             newState.common_utm_tags.push(tags)
