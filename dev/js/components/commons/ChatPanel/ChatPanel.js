@@ -155,6 +155,7 @@ class ChatPanel extends React.Component {
                             // this.props.startLiveChat(false, this.state.selectedLocation)
                             this.setState({ initialMessage: "", selectedRoom: null, })
                             this.props.setChatRoomId(null)
+                            this.props.unSetCommonUtmTags('chat')
                             // this.props.history.go(-1)
                             break
                         }
@@ -222,6 +223,7 @@ class ChatPanel extends React.Component {
         this.dispatchCustomEvent.call(this, 'close_frame')
         this.setState({ showCancel: !this.state.showCancel })
         this.props.setChatRoomId(null)
+        this.props.unSetCommonUtmTags('chat')
     }
 
     toggleCancel(e) {
@@ -322,6 +324,13 @@ class ChatPanel extends React.Component {
             }
         }
 
+        if(this.props.USER && this.props.USER.common_utm_tags && this.props.USER.common_utm_tags.length){
+            let religareTag = this.props.USER.common_utm_tags.filter(x=>x.type == 'chat' && x.utm_source=='religare')
+
+            if(religareTag.length){
+                iframe_url += `&source=religare&visitid=${religareTag[0].visitorId}`   
+            }
+        }
         let chatBtnContent1 = ''
         let chatBtnContent2 = ''
         if (this.props.articleData && this.props.articleData.title) {
