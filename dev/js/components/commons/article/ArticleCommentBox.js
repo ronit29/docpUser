@@ -21,7 +21,7 @@ class CommmentView extends React.Component{
 		e.preventDefault()
 		if(!this.state.comment){
             setTimeout(() => {
-                    SnackBar.show({ pos: 'bottom-center', text: "Please write valid comment" })
+                    SnackBar.show({ pos: 'bottom-center', text: "Please write valid comment." })
                 }, 500)
             return
         }
@@ -37,12 +37,16 @@ class CommmentView extends React.Component{
 				this.setState({comment:'', name:'',email: '' })
 				this.props.getArticleData()
 				setTimeout(() => {
-                    SnackBar.show({ pos: 'bottom-center', text: "Comment Posted Sucessfully, Awaiting moderation" })
+                    SnackBar.show({ pos: 'bottom-center', text: "Comment Posted Sucessfully, Awaiting moderation." })
                 }, 500)
 			}else{
+				var error_message = "Could not post your comment, Try again!"
+				if (error.error != undefined && error.error != '') {
+					error_message = error.error
+				}
 				setTimeout(() => {
-	                SnackBar.show({ pos: 'bottom-center', text: "Could not post your comment, Try again!" })
-	            }, 500)
+					SnackBar.show({ pos: 'bottom-center', text: error_message })
+				}, 500)
 			}
 		})
 		return
