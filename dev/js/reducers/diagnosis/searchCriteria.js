@@ -402,7 +402,7 @@ export default function (state = defaultState, action) {
             newState.pincode = action.payload
             return newState
         }
-        case TOGGLE_PACKAGE_ID:{
+        case TOGGLE_PACKAGE_ID: {
             let newState = {
                 ...state,
                 filterCriteriaPackages: { ...state.filterCriteriaPackages }
