@@ -7,6 +7,7 @@ import CancelPopup from './cancelPopup'
 import GTM from '../../../helpers/gtm.js'
 import ChatStaticView from './ChatStaticView'
 import RelatedArticles from '../article/RelatedArticles'
+import RecentArticles from '../article/RecentArticles'
 import BannerCarousel from '../Home/bannerCarousel';
 const queryString = require('query-string');
 
@@ -339,12 +340,17 @@ class ChatPanel extends React.Component {
         } else if (this.props.newChatBtn || this.props.newChatBtnAds) {
             chatBtnContent1 = <span style={{ fontSize: 18 }} ><img style={{ marginRight: 8, width: 24, verticalAlign: 'middle' }} src={ASSETS_BASE_URL + "/img/customer-icons/headphone.svg"} />Get help with your bookings</span>
         }
+        
+        let recentArticles = false
+        if (this.props.articleData && this.props.articleData.recent_articles) {
+            recentArticles = this.props.articleData.recent_articles
+        }
 
         return (
             <div>
                 {
-                    this.props.homePage || this.props.mobilechatview || this.props.noChatButton ? '' :
-                        this.props.articleData || this.props.newChatBtn || this.props.newChatBtnAds ?
+                    this.props.homePage || this.props.mobilechatview || this.props.noChatButton || this.props.articleData ? '' :
+                        this.props.newChatBtn || this.props.newChatBtnAds ?
                             <section className="chat-article-btn fixed horizontal bottom no-round d-md-none fw-500 text-center" onClick={() => this.chatBtnClick()} >{chatBtnContent1}
                                 <span>{chatBtnContent2}</span>
                             </section> : ""
@@ -456,14 +462,23 @@ class ChatPanel extends React.Component {
                 </div>
 
                 {
-                    this.props.articleData && this.props.articleData.linked.length ?
+                    this.props.articleData ?
                         <div className="related-articles-div">
                             {
-                                this.props.articleData.linked.map((linkedArticle, i) => {
-                                    return <RelatedArticles key={i} linkedArticle={linkedArticle} {...this.props} />
-                                })
+                                this.props.articleData.linked.length ?
+                                    <div className="related-article-sub">
+                                        {
+                                            this.props.articleData.linked.map((linkedArticle, i) => {
+                                                return <RelatedArticles key={i} linkedArticle={linkedArticle} {...this.props} />
+                                            })
+                                        }
+                                    </div> : ''
                             }
-                        </div> : ""
+                            {
+                                recentArticles && recentArticles.items && recentArticles.items.length ?
+                                    <RecentArticles recentArticlesItems={recentArticles.items} recentArticleTitle={recentArticles.title} /> : ''
+                            }
+                        </div> : ''
                 }
                 {
                     this.props.homePage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
