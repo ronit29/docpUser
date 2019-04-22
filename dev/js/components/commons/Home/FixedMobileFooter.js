@@ -24,7 +24,7 @@ class FixedMobileFooter extends React.Component {
         return (
             <div className="mobileViewStaticChat d-md-none">
                 <div className="nw-chat-card">
-                    <div className="chat-div-containers" style={this.props.selectedSearchType === 'opd' || this.props.selectedSearchType === 'procedures' ? { borderTop: '2px solid #f78631' } : {}} onClick={() => {
+                    <div className="chat-div-containers" style={this.props.selectedSearchType === 'opd' || this.props.selectedSearchType === 'procedures' ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
                         let data = {
                             'Category': 'ConsumerApp', 'Action': 'MobileFooterBookDoctorsClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-book-doctors-clicked'
                         }
@@ -36,7 +36,7 @@ class FixedMobileFooter extends React.Component {
                         </div>
                         <span>Doctors</span>
                     </div>
-                    <div className="chat-div-containers" style={this.props.selectedSearchType === 'lab' ? { borderTop: '2px solid #f78631' } : {}} onClick={() => {
+                    <div className="chat-div-containers" style={this.props.selectedSearchType === 'lab' ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
                         let data = {
                             'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-book-test-clicked'
                         }
@@ -59,12 +59,12 @@ class FixedMobileFooter extends React.Component {
                         <div className="nw-mid-container-with-img" style={{ zIndex: '1', color: 'white' }}>
                             <span style={{ fontSize: 11 }}>Free Online</span>
                             <div className="">
-                                <img style={{ width: 24 }} src={ASSETS_BASE_URL + "/img/chatbt.svg"} />
+                                <img style={{ width: 30, position:'relative', top: '-5px' }} src={ASSETS_BASE_URL + "/img/chatbt.svg"} />
                             </div>
                             <span style={{ fontSize: 11 }}>Doctor Consult</span>
                         </div>
                     </div>
-                    <div className="chat-div-containers" style={this.props.searchPackagePage ? { borderTop: '2px solid #f78631' } : {}} onClick={() => {
+                    <div className="chat-div-containers" style={this.props.searchPackagePage ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
                         let data = {
                             'Category': 'ConsumerApp', 'Action': 'MobileFooterBookPackageClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-book-package-clicked'
                         }
@@ -76,7 +76,7 @@ class FixedMobileFooter extends React.Component {
                         </div>
                         <span>Packages</span>
                     </div>
-                    <div className="chat-div-containers" style={this.props.offersPage ? { borderTop: '2px solid #f78631' } : {}} onClick={() => {
+                    <div className="chat-div-containers" style={this.props.offersPage ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
                         let data = {
                             'Category': 'ConsumerApp', 'Action': 'MobileFooterOffersClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-offers-clicked'
                         }

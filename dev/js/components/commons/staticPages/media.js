@@ -46,7 +46,7 @@ class Media extends React.Component {
 								<div className="media-contact-items-div">
 									<div className="media-contact-item">
 										<div className="media-contact-subitem">
-											<img src="/assets/img/media/email-icon.svg" style={{ verticalAlign: 'middle' }} className="media-contact-icon" />
+											<img src={ASSETS_BASE_URL + "/img/media/email-icon.svg"} style={{ verticalAlign: 'middle' }} className="media-contact-icon" />
 										</div>
 										<div className="media-contact-subitem">
 											<p className="media-contact-text">media@docprime.com</p>
@@ -54,7 +54,7 @@ class Media extends React.Component {
 									</div>
 									<div className="media-contact-item media-location-item">
 										<div className="media-contact-subitem media-location-subitem">
-											<img src="/assets/img/media/media-loc.svg" className="media-contact-icon" />
+											<img src={ASSETS_BASE_URL + "/img/media/media-loc.svg"} className="media-contact-icon" />
 										</div>
 										<div className="media-contact-subitem">
 											<p className="media-contact-text">Plot no</p>
@@ -68,7 +68,7 @@ class Media extends React.Component {
 					</div>
 					<div className="col-12 col-lg-6">
 						<div className="media-div-head">
-							<img src="/assets/img/media/newspaper.png" />
+							<img src={ASSETS_BASE_URL + "/img/media/newspaper.png"} />
 							<span>Press Releases</span>
 						</div>
 						<div className="media-div-card">
@@ -96,7 +96,7 @@ class Media extends React.Component {
 							  Speaking on the latest venture, Yashish Dahiya, Co-founder &amp; CEO, PolicyBazaar Group of Companies said: "We will be building a team of certified and quality medical professionals to give free online consultations to customers. This shall be supported by a robust offline network. AI will play a key role in helping us build this in scale and efficiency. Our vision is to change customer behavior in the healthcare space by making the consumer shift to online medical consultation from offline by building an easy to use, convenient and trustworthy solution. We believe that healthcare space has huge potential to disrupt, and can follow the same growth trajectory as the digital insurance space which initially faced a similar kind of consumer inertia that this space faces."
                 India has one of the lowest ratios for a doctor per 1,000 people amongst the developing countries. Having a physical interaction with a medical practitioner is not only a time-consuming process but also an expensive one, especially in the private sector. Even though government hospitals and state-run health centers offer consultations either free of cost or at subsidized pricing, it's not easy to get an access to these services.</p>
 							<div className="media-icons-div">
-								<a href="http://www.asiainsurancepost.com/health/policybazaars-promoter-offer-free-online-medical-consultations" rel="nofollow" target="_blank"><img src="/assets/img/media/asinsurance-blwh.png" onmouseover="this.src='/assets/img/media/asinsurance-color.png'" onmouseout="this.src='/assets/img/media/asinsurance-blwh.png'" /></a>
+								<a href="http://www.asiainsurancepost.com/health/policybazaars-promoter-offer-free-online-medical-consultations" rel="nofollow" target="_blank"><img src={ASSETS_BASE_URL + "/img/media/asinsurance-blwh.png"} onmouseover="this.src='/assets/img/media/asinsurance-color.png'" onmouseout="this.src='/assets/img/media/asinsurance-blwh.png'" /></a>
 							</div>
 						</div>
 						<div className="media-div-card">
@@ -134,7 +134,7 @@ class Media extends React.Component {
 								<div className="media-contact-items-div">
 									<div className="media-contact-item">
 										<div className="media-contact-subitem">
-											<img src="/assets/img/media/email-icon.svg" style={{ verticalAlign: 'middle' }} className="media-contact-icon" />
+											<img src={ASSETS_BASE_URL + "/img/media/email-icon.svg"} style={{ verticalAlign: 'middle' }} className="media-contact-icon" />
 										</div>
 										<div className="media-contact-subitem">
 											<p className="media-contact-text">media@docprime.com</p>
@@ -142,7 +142,7 @@ class Media extends React.Component {
 									</div>
 									<div className="media-contact-item media-location-item">
 										<div className="media-contact-subitem media-location-subitem">
-											<img src="/assets/img/media/media-loc.svg" className="media-contact-icon" />
+											<img src={ASSETS_BASE_URL + "/img/media/media-loc.svg"} className="media-contact-icon" />
 										</div>
 										<div className="media-contact-subitem">
 											<p className="media-contact-text">Plot no</p>

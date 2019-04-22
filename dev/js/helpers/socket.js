@@ -1,6 +1,6 @@
 import { API_GET } from '../api/api'
 import CONFIG from '../config'
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 import STORAGE from '../helpers/storage'
 
 const SOCKET = (() => {
@@ -11,6 +11,9 @@ const SOCKET = (() => {
     const init = (cb) => {
 
         if (!_initialized || !_instance) {
+            if (typeof io == "undefined") {
+                return
+            }
             console.log(' ======== INITIALIZING SOCKET FOR IN-APP NOTIFICATIONS ==========')
 
             //Fetch userid with auth token to create a seperate room

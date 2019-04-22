@@ -154,7 +154,7 @@ class ClinicResultCard extends React.Component {
                         }
                         <div className="fltr-lctn-dtls">
                             <p>
-                                <img className="fltr-loc-ico" width="12px" height="18px" src="/assets/img/new-loc-ico.svg" />
+                                <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />
                                 <span>{distance} Km</span>
                             </p>
                         </div>
@@ -250,7 +250,7 @@ class ClinicResultCard extends React.Component {
                             <div style={{ paddingRight: '8px' }}><p>Hide</p>
                             </div>
                             <div className="text-right acrd-show">
-                                <img className="" style={{ margin: '5px' }} src="/assets/img/customer-icons/dropdown-arrow.svg" />
+                                <img className="" style={{ margin: '5px' }} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                             </div>
                         </div> : ""
                     }
