@@ -8,7 +8,7 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
-import { set_summary_utm, getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState, mergeUrlState, getCartItems, loadLabCommonCriterias, toggleLeftMenuBar, clearLabSearchId, clearOpdSearchId, clearIpdSearchId } from './actions/index.js'
+import { set_summary_utm, getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState, mergeUrlState, getCartItems, loadLabCommonCriterias, toggleLeftMenuBar, clearLabSearchId, clearOpdSearchId, clearIpdSearchId, setCommonUtmTags } from './actions/index.js'
 import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from './helpers/urltoState.js'
 
@@ -131,6 +131,16 @@ class App extends React.Component {
                 referrer: document.referrer || ''
             }
             this.props.setUTMTags(utm_tags)
+
+            //Set UTM Source for Chat
+
+            if(parsed.utm_source && parsed.utm_source.includes('religare')) {
+                let tags = {
+                    utm_source: parsed.utm_source,
+                    visitorId: parsed.visitid || ''
+                }
+                this.props.setCommonUtmTags('chat',tags)
+            }
 
             // set summary page utm_source
             if (parsed.utm_source == 'alpha_december_18') {
@@ -283,7 +293,8 @@ const mapDispatchToProps = (dispatch) => {
         toggleLeftMenuBar: (toggle, defaultVal) => dispatch(toggleLeftMenuBar(toggle, defaultVal)),
         clearLabSearchId: () => dispatch(clearLabSearchId()),
         clearOpdSearchId: () => dispatch(clearOpdSearchId()),
-        clearIpdSearchId: () => dispatch(clearIpdSearchId())
+        clearIpdSearchId: () => dispatch(clearIpdSearchId()),
+        setCommonUtmTags: (type, tag) => dispatch(setCommonUtmTags(type, tag))
     }
 
 }
