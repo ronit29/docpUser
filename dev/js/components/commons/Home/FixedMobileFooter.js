@@ -45,7 +45,7 @@ class FixedMobileFooter extends React.Component {
                         this.navigateTo('/insurance/insurance-plans')
                     }}>
                         <div className="nw-img-with-content">
-                            <img style={{ width: '20px' }} className="opdUpico" src={ASSETS_BASE_URL + "/img/opdNewIco.png"} />
+                            <img style={{ width: '20px' }} className="opdUpico" src={ASSETS_BASE_URL + "/img/opdNewIco.svg"} />
                         </div>
                         <span>OPD Insurance</span>
                         <p className="opdNewShow">New</p>
