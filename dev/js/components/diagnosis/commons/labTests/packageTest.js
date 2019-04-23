@@ -67,9 +67,13 @@ class PackageTest extends React.Component {
                         </button>*/}
 
                     </span>
-                    <button className="pkg-info-btn info-san" onClick={() => this.packageNameClick()}>
-                        <span className="">{this.state.testListVisible ? 'Hide details' : 'View details'}</span>
-                    </button>
+                    {
+                        this.props.is_insurance_applicable?''
+                        :<button className="pkg-info-btn info-san" onClick={() => this.packageNameClick()}>
+                            <span className="">{this.state.testListVisible ? 'Hide details' : 'View details'}</span>
+                        </button>
+                    }
+                    
                 </div>
                 {
                  this.props.is_plan_applicable || test.hide_price || this.props.is_insurance_applicable? "" : <span className="test-price text-sm">₹ {parseInt(deal_price)}<span className="test-mrp">₹ {parseInt(mrp)}</span></span>
@@ -97,7 +101,7 @@ class PackageTest extends React.Component {
                     </span>
                 </div> */}
                 {
-                    this.state.testListVisible ?
+                    !this.props.is_insurance_applicable && this.state.testListVisible ?
                         <ul className="list drop-down-list lisitng-in-lab">
                             {
                                 test_package.map((pack, j) => {

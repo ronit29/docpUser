@@ -118,7 +118,7 @@ class LabTests extends React.Component {
                             : <li key={i + "srt"}>
                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                     {test.test.name} {test.test.show_details ? test_info : ''}
-                                    <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} testInfo={this.testInfo.bind(this)} />
+                                    <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} />
                                     <span className="checkmark" />
                                 </label>
                                 {
@@ -139,7 +139,7 @@ class LabTests extends React.Component {
                             : <li key={i + "srt"}>
                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                     {test.test.name}
-                                    <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} testInfo={this.testInfo.bind(this,test.test.id,test.test.url)} />
+                                    <input type="checkbox" checked={test.is_selected ? true : false} onChange={this.toggleTest.bind(this, test)} />
                                     <span className="checkmark" />
                                 </label>
                                 {    
