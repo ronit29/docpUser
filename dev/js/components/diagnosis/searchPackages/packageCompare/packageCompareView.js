@@ -4,7 +4,6 @@ import RightBar from '../../../commons/RightBar'
 import ProfileHeader from '../../../commons/DesktopProfileHeader'
 import Footer from '../../../commons/Home/footer'
 import GTM from '../../../../helpers/gtm.js'
-import Loader from '../../../commons/Loader'
 
 const queryString = require('query-string');
 
@@ -317,8 +316,10 @@ const queryString = require('query-string');
                                             {
                                               this.props.data.packages.map((cat_count, j) => {
                                                 cat_info_data = cat_count.category_parameter_count.filter(x=> x.id==cat_info.id)
-                                                  return(
-                                                    <li id={cat_info_data[0].id} key={j}>{cat_info_data[0].count > 0?`${cat_info_data[0].count}`:'Nil'} {cat_info_data[0].count == 1?'test':'tests'} </li>)
+                                                  return cat_info_data[0].count > 0?
+                                                  <li id={cat_info_data[0].id} key={j}>{cat_info_data[0].count} {cat_info_data[0].count == 1?'test':'tests'} </li>
+                                                  :<li id={cat_info_data[0].id} key={j}>Nil</li>
+                                                    
                                             })}
                                           </ul>
                                         </div>
@@ -410,35 +411,7 @@ const queryString = require('query-string');
               </section>
           </div>
       )
-      }else{
-         return( <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
-                <ProfileHeader />
-                  <section className="pkgComapre container">
-                    {this.props.showCompare &&  this.props.data == null?
-                    <div className="row main-row parent-section-row">
-                      <LeftBar />
-                      <div className="container-fluid pad-all-0">
-                        <div className="widget">
-                          <div className="multiple-pkgs pkbclsTwo">
-                            <ul className="pkgCls pkbcls" style={{'text-align':'center'}}>
-                              <li onClick={this.addMore.bind(this)} style={{cursor:'pointer',paddingTop:30, paddingBottom:30}}>
-                                    <div className="addnewpkg"><span className="add-plus">+</span></div>
-                                    <p className="addnewpkg-txt">Add packages <br />to compare</p>
-                              </li>
-                              <li onClick={this.addMore.bind(this)} style={{cursor:'pointer',paddingTop:30, paddingBottom:30}}>
-                                    <div className="addnewpkg"><span className="add-plus">+</span></div>
-                                    <p className="addnewpkg-txt">Add packages <br />to compare</p>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>    
-                      </div>
-                    </div>
-                    :<Loader />        
-                    }
-                  </section>
-          </div>)
-        }
+      }
     }
 }
   export default PackageCompareView

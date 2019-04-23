@@ -5,6 +5,7 @@ import LeftBar from '../../components/commons/LeftBar'
 import RightBar from '../../components/commons/RightBar'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import Footer from '../../components/commons/Home/footer'
+import Loader from '../../components/commons/Loader'
 
 const queryString = require('query-string');
 
@@ -50,13 +51,21 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
           }
         })
         }else{
-          this.setState({'showCompare':true})
+          this.props.history.push('/searchpackages')
         }
       }  
       render() {
-        return (
-          <PackageCompareView {...this.props} data={this.state.data} showCompare={this.state.showCompare}/>  
+        if(this.state.showCompare){
+        return ( <PackageCompareView {...this.props} data={this.state.data} showCompare={this.state.showCompare}/>  
           )
+        }else{
+          return( <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
+                <ProfileHeader />
+                  <section className="pkgComapre container">
+                    <Loader />        
+                  </section>
+          </div>)
+        }
       }
     }
     const mapStateToProps = (state, passedProps) => {

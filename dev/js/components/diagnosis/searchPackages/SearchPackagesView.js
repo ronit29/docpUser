@@ -132,7 +132,7 @@ class SearchPackagesView extends React.Component {
                 packages.img=this.props.packagesList.result[0].lab.lab_thumbnail
                 packages.name=this.props.packagesList.result[0].name
                 this.props.togglecompareCriteria(packages)
-                this.props.history.push('/package/compare?package_ids='+this.props.packagesList.result[0].id)
+                this.props.history.push('/package/compare?package_ids='+this.props.packagesList.result[0].id+'-'+this.props.packagesList.result[0].lab.id)
             }
         }else{
             this.setState({isCompare:!this.state.isCompare},()=>{
