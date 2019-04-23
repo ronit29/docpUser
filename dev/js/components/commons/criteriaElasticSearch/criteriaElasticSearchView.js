@@ -268,8 +268,13 @@ class CriteriaElasticSearchView extends React.Component {
                     criteria.test_type = ''
                 }
                 this.setState({ searchValue: "" })
-                this.props.toggleLabTests('test', criteria, this.state.searchValue)
 
+                if(criteria.is_package && criteria.is_package[0]){
+                    this.props.togglePackages('test', criteria, this.state.searchValue)
+                }else{
+                    this.props.toggleLabTests('test', criteria, this.state.searchValue)
+                }
+                
                 // if (!criteria.is_package[0]) {
 
                 // }

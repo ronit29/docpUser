@@ -320,7 +320,7 @@ class SearchElasticView extends React.Component {
             <section>
                 <div id="map" style={{ display: 'none' }}></div>
                 <div className="container-fluid">
-                    <CriteriaElasticSearch {...this.props} checkForLoad={true} title={title} type={this.props.selectedSearchType} paddingTopClass={true} searchProceed={searchProceed} showResults={showResults} focusInput={this.state.focusInput} hideHeaderOnMobile={true} toggleLabTests={this.toggleLabTests.bind(this)} toggleIpd={this.toggleIpd.bind(this)} searchElasticView={true} toggleFixedMobileFooter={this.toggleFixedMobileFooter.bind(this)}>
+                    <CriteriaElasticSearch {...this.props} checkForLoad={true} title={title} type={this.props.selectedSearchType} paddingTopClass={true} searchProceed={searchProceed} showResults={showResults} focusInput={this.state.focusInput} hideHeaderOnMobile={true} toggleLabTests={this.toggleLabTests.bind(this)} toggleIpd={this.toggleIpd.bind(this)} searchElasticView={true} toggleFixedMobileFooter={this.toggleFixedMobileFooter.bind(this)} togglePackages={this.togglePackages.bind(this)}>
                         <section className="opd-search-section mbl-pdng-zero">
 
                             {/*
