@@ -608,35 +608,48 @@ class InsuranceSelf extends React.Component{
 					</div>
 					<div className="col-12">
 						<div className="ins-form-group autocomplete">
-						<input style={{'textTransform': 'capitalize'}} type="text" id="userState" className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state')> -1?'fill-error':''}`} required autoComplete="none" name="state" value={this.state.state} data-param='state' onChange={this.handleState.bind(this,'state')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'state')} data-state-code={this.state.state_code}/>
+							<input style={{'textTransform': 'capitalize'}} type="text" id="userState" className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state')> -1?'fill-error':''}`} required autoComplete="none" name="state" value={this.state.state} data-param='state' onChange={this.handleState.bind(this,'state')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'state')} data-state-code={this.state.state_code}/>
 							<label className="form-control-placeholder" htmlFor={`isnstate_${this.props.member_id}`}>State</label>
 							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
+						{
+							this.props.validateErrors.indexOf('state')> -1?
+							commonMsgSpan:''
+						}
+						{
+							show_createApi_keys.indexOf('state')> -1?
+							<span className="fill-error-span">{this.props.createApiErrors.state[0]}</span>:''	
+						}
 					</div>
-					{
-						this.state.state_code != ''?
-						<div className="col-12">
-							<div className="ins-form-group autocomplete">
+					<div className="col-12">
+						{this.state.state_code != ''?
+						<div className="ins-form-group autocomplete">
 							<input style={{'textTransform': 'capitalize'}} type="text" id="userDistrict" className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state')> -1?'fill-error':''}`} required autoComplete="none" name="district" value={this.state.district} data-param='district' onChange={this.handleDistrict.bind(this,'district')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'district')} data-state-code={this.state.district_code}/>
 								<label className="form-control-placeholder" htmlFor={`isndistrict_${this.props.member_id}`}>District</label>
 								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
-							</div>
 						</div>
 						:<div onClick={this.showAlert.bind(this)}> 
 							<input style={{'textTransform': 'capitalize',fontWeight: '100',    color: 'gray'}} type="text" id={`isndistrict_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('district')> -1?'fill-error':''}`} required autoComplete="none" name="district" value="Select District" disabled data-param='district'/>
-								<label className="form-control-placeholder datePickerLabel" htmlFor={`isndistrict_${this.props.member_id}`}>District</label>
-								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
+							<label className="form-control-placeholder datePickerLabel" htmlFor={`isndistrict_${this.props.member_id}`}>District</label>
+							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 
 						</div>
-					}
-					{
-						this.state.district_code != ''?
-						<div className="col-12">
-							<div className="ins-form-group autocomplete">
-							<input style={{'textTransform': 'capitalize'}} type="text" id="userTown" className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state')> -1?'fill-error':''}`} required autoComplete="none" name="town" value={this.state.town} data-param='town' onChange={this.handleTown.bind(this,'town')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'town')} data-state-code={this.state.town_code}/>
-								<label className="form-control-placeholder" htmlFor={`isndistrict_${this.props.member_id}`}>Town</label>
-								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
-							</div>
+						}
+						{	
+							this.props.validateErrors.indexOf('district')> -1?
+							commonMsgSpan:''
+						}
+						{
+								show_createApi_keys.indexOf('district')> -1?
+								<span className="fill-error-span">{this.props.createApiErrors.district[0]}</span>:''	
+						}
+					</div>
+					<div className="col-12">
+					{this.state.district_code != ''?
+						<div className="ins-form-group autocomplete">
+						<input style={{'textTransform': 'capitalize'}} type="text" id="userTown" className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state')> -1?'fill-error':''}`} required autoComplete="none" name="town" value={this.state.town} data-param='town' onChange={this.handleTown.bind(this,'town')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'town')} data-state-code={this.state.town_code}/>
+							<label className="form-control-placeholder" htmlFor={`isndistrict_${this.props.member_id}`}>Town</label>
+							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
 						:<div onClick={this.showAlert.bind(this)}> 
 							<input style={{'textTransform': 'capitalize',fontWeight: '100',    color: 'gray'}} type="text" id={`isndistrict_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('town')> -1?'fill-error':''}`} required autoComplete="none" name="town" value="Select Town" disabled data-param='town'/>
@@ -644,7 +657,16 @@ class InsuranceSelf extends React.Component{
 								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 
 						</div>
-					}	
+					}
+					{
+						this.props.validateErrors.indexOf('town')> -1?
+						commonMsgSpan:''
+					}
+					{
+							show_createApi_keys.indexOf('town')> -1?
+							<span className="fill-error-span">{this.props.createApiErrors.town[0]}</span>:''	
+					}
+					</div>	
 					{/*<div className="col-12">
 						<div className="ins-form-group">
 							<select className={`ins-select-drop ${this.props.validateErrors.indexOf('state')> -1?'fill-error':''}`} id="state_dropdown" onChange={this.handleState.bind(this)} value={this.state.state}>
