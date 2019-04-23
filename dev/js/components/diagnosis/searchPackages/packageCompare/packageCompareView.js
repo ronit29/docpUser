@@ -418,15 +418,21 @@ const queryString = require('query-string');
                     <div className="row main-row parent-section-row">
                       <LeftBar />
                       <div className="container-fluid pad-all-0">
-                          <div className="widget">
+                        <div className="widget">
+                          <div className="multiple-pkgs pkbclsTwo">
                             <ul className="pkgCls pkbcls" style={{'text-align':'center'}}>
+                              <li onClick={this.addMore.bind(this)} style={{cursor:'pointer',paddingTop:30, paddingBottom:30}}>
+                                    <div className="addnewpkg"><span className="add-plus">+</span></div>
+                                    <p className="addnewpkg-txt">Add packages <br />to compare</p>
+                              </li>
                               <li onClick={this.addMore.bind(this)} style={{cursor:'pointer',paddingTop:30, paddingBottom:30}}>
                                     <div className="addnewpkg"><span className="add-plus">+</span></div>
                                     <p className="addnewpkg-txt">Add packages <br />to compare</p>
                               </li>
                             </ul>
                           </div>
-                        </div>
+                        </div>    
+                      </div>
                     </div>
                     :<Loader />        
                     }
