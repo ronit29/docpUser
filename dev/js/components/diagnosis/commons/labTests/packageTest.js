@@ -31,7 +31,7 @@ class PackageTest extends React.Component {
                     </p>
                     
                     {
-                        test.number_of_tests ? <span style={{ fontSize: '12px', fontWeight: '600', color: '#757575',display: 'block', marginTop: 5 }}>{
+                        test.number_of_tests ? <span style={{ fontSize: '12px', fontWeight: '600', color: '#757575',display: 'block', marginTop: 5 }}>{this.props.is_insurance_applicable?'':
                             `(includes ${test.number_of_tests} Tests)`}
                             {
                                 this.props.is_plan_applicable && !this.props.is_insurance_applicable? <p className="pkg-discountCpn" style={{display:'inline-block',float:'right'}}>Docprime Care Benefit</p>:''
