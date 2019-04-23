@@ -29,12 +29,11 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
         let data = []
         let package_ids = parsed.package_ids.split(',')
         let ids = ''
-        if(package_ids.length > 0){
+        if(package_ids.length > 0 && package_ids !=""){
           Object.entries(package_ids).map(function ([key, pkg]) {
             ids = pkg.split('-')
             data.push({package_id:ids[0], lab_id: ids[1]})
           })
-        }
         this.props.getCompareList(data,this.props.selectedLocation,(resp)=>{
           if(resp){
             let test = {}
@@ -50,6 +49,9 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
             this.setState({'showCompare':true,'data':resp})
           }
         })
+        }else{
+          this.setState({'showCompare':true})
+        }
       }  
       render() {
         return (

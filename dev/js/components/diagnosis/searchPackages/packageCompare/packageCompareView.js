@@ -236,7 +236,7 @@ const queryString = require('query-string');
       let availableTest= []
       let testData= []
       let cat_info_data=[]
-    if(this.props.showCompare){
+    if(this.props.showCompare && this.props.data != null){
      return (
           <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
               <ProfileHeader />
@@ -414,7 +414,7 @@ const queryString = require('query-string');
          return( <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
                 <ProfileHeader />
                   <section className="pkgComapre container">
-                    {this.props.data == null?
+                    {this.props.showCompare &&  this.props.data == null?
                     <div className="row main-row parent-section-row">
                       <LeftBar />
                       <div className="container-fluid pad-all-0">
