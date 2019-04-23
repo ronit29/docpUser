@@ -1,17 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabByUrl, getLabById, selectLabTimeSLot, toggleDiagnosisCriteria, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData , getLabTests, savePincode, getAllRatings } from '../../actions/index.js'
+import { getLabByUrl, getLabById, selectLabTimeSLot, toggleDiagnosisCriteria, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, getLabTests, savePincode, getAllRatings } from '../../actions/index.js'
 
 import LabView from '../../components/diagnosis/lab/index.js'
 
 class Lab extends React.Component {
     constructor(props) {
         super(props)
+        let l_id = this.props.match.params.id || this.get_lab_id_by_url(this.props.match.url)
         this.state = {
-            selectedLab: this.props.match.params.id || null,
+            selectedLab: l_id,
             defaultTest: []
         }
+    }
+
+    get_lab_id_by_url(url) {
+        for (let l_id in this.props.LABS) {
+            if (this.props.LABS[l_id].lab && url.includes(this.props.LABS[l_id].lab.url)) {
+                return l_id
+            }
+        }
+        return null
     }
 
     static loadData(store, match) {

@@ -38,6 +38,12 @@ require('../css/date.css')
 require('../css/style.css')
 
 const logPageView = () => {
+
+    // change landing page status
+    if(window.location.pathname != window.LANDING_PATHNAME){
+        window.ON_LANDING_PAGE = false
+    }
+
     let ch_route = window.location.pathname
     // window.location.pathname -> changed route
     if (window.ch_route == ch_route) {
