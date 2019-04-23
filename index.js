@@ -13,6 +13,16 @@ const fs = require('fs');
 const DIST_FOLDER = './dist/';
 const Sentry = require('@sentry/node');
 const stats = JSON.parse(_readFileSync(`${DIST_FOLDER}react-loadable.json`))
+const index_bundle = _find_index_bundle()
+
+let cache = {
+    html: "",
+    storeData: "",
+    helmet: null,
+    split_bundles: []
+}
+
+let last_cache_time = null
 
 import { Helmet } from "react-helmet";
 import React from 'react'
@@ -39,6 +49,31 @@ app.set('views', path.join(__dirname, '../dist'));
 app.get('/firebase-messaging-sw.js', function (req, res) {
     res.sendFile(path.join(__dirname, '../assets/firebase-messaging-sw.js'))
 });
+app.get('/apple-app-site-association', function (req, res) {
+    res.json({
+        "applinks": {
+            "apps": [],
+            "details": [
+                {
+                    "appID": "29VUWR4N68.com.docprime",
+                    "paths": [
+                        "*"
+                    ]
+                },
+            ]
+        },
+        "webcredentials": {
+            "apps": [
+                "29VUWR4N68.com.docprime",
+            ]
+        },
+        "activitycontinuation": {
+            "apps": [
+                "29VUWR4N68.com.docprime",
+            ]
+        }
+    })
+});
 app.use('/assets', Express.static(path.join(__dirname, '../assets')));
 app.use('/dist', Express.static(path.join(__dirname, '../dist')));
 
@@ -51,6 +86,29 @@ app.all('*', function (req, res) {
 
         let css_file = styleFiles[0]
         let bootstrap_file = styleFiles[1]
+
+        // use cache
+        if (req.path == "/" && last_cache_time) {
+            var startTime = last_cache_time
+            var endTime = new Date()
+            var difference = endTime.getTime() - startTime.getTime()
+            var resultInMinutes = Math.round(difference / 60000)
+
+            if (resultInMinutes > 30) {
+                last_cache_time = null
+                cache = {
+                    html: "",
+                    storeData: "",
+                    helmet: null,
+                    split_bundles: []
+                }
+            } else {
+                res.render('index.ejs', {
+                    html: cache.html, storeData: cache.storeData, helmet: cache.helmet, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles: cache.split_bundles
+                })
+                return
+            }
+        }
 
         /** 
          *  Track API calls for funneling 
@@ -119,7 +177,7 @@ app.all('*', function (req, res) {
             let SSR_TIMER = setTimeout(() => {
                 _serverHit(req, 'server_done')
                 res.render('index.ejs', {
-                    html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, split_bundles
+                    html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles
                 })
             }, 10000)
 
@@ -169,12 +227,20 @@ app.all('*', function (req, res) {
 
                     _serverHit(req, 'server_done')
                     _serverHit(req, 'server_done_ssr')
+
+                    // populate cache
+                    if (req.path == "/") {
+                        last_cache_time = new Date()
+                        cache = {
+                            storeData, html, helmet, split_bundles
+                        }
+                    }
+
                     res.render('index.ejs', {
-                        html, storeData, helmet, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, split_bundles
+                        html, storeData, helmet, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles
                     })
 
                 } catch (e) {
-
                     if (CONFIG.RAVEN_SERVER_DSN_KEY) {
                         Sentry.captureException(e)
                     }
@@ -183,7 +249,7 @@ app.all('*', function (req, res) {
 
                     _serverHit(req, 'server_done')
                     res.render('index.ejs', {
-                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, split_bundles
+                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles
                     })
                 }
 
@@ -205,7 +271,7 @@ app.all('*', function (req, res) {
                     res.status(404)
                     _serverHit(req, 'server_done')
                     res.render('index.ejs', {
-                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, split_bundles
+                        html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles
                     })
                 }
             })
@@ -217,7 +283,7 @@ app.all('*', function (req, res) {
             }
             _serverHit(req, 'server_done')
             res.render('index.ejs', {
-                html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, split_bundles
+                html: "", storeData: "{}", helmet: null, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles
             })
         }
 
@@ -243,6 +309,19 @@ Loadable.preloadAll().then(() => {
     });
 })
 
+
+function _find_index_bundle() {
+    let files = fs.readdirSync(DIST_FOLDER)
+    for (let file of files) {
+        if (file.includes('.bundle.js') && file.includes('index')) {
+            if (DOCPRIME_PRODUCTION || DOCPRIME_STAGING) {
+                return process.env.CDN_BASE_URL + 'dist/' + `${file}`
+            } else {
+                return `/dist/${file}`
+            }
+        }
+    }
+}
 
 function _readStyles() {
     return new Promise((resolve, reject) => {

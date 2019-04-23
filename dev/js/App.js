@@ -8,7 +8,7 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
-import { set_summary_utm, getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState, mergeUrlState, getCartItems, loadLabCommonCriterias, toggleLeftMenuBar, clearLabSearchId, clearOpdSearchId, clearIpdSearchId } from './actions/index.js'
+import { set_summary_utm, getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState, mergeUrlState, getCartItems, loadLabCommonCriterias, toggleLeftMenuBar, clearLabSearchId, clearOpdSearchId, clearIpdSearchId, setCommonUtmTags } from './actions/index.js'
 import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from './helpers/urltoState.js'
 
@@ -32,7 +32,8 @@ require('../css/static.css')
 require('../css/slider.css')
 require('../css/snackbar.css')
 require('../css/cropper.css')
-require('./helpers/lightbox/style.css')
+require('react-image-lightbox/style.css')
+// require('./helpers/lightbox/style.css')
 require('../css/date.css')
 require('../css/style.css')
 
@@ -131,6 +132,16 @@ class App extends React.Component {
             }
             this.props.setUTMTags(utm_tags)
 
+            //Set UTM Source for Chat
+
+            if(parsed.utm_source && parsed.utm_source.includes('religare')) {
+                let tags = {
+                    utm_source: parsed.utm_source,
+                    visitorId: parsed.visitid || ''
+                }
+                this.props.setCommonUtmTags('chat',tags)
+            }
+
             // set summary page utm_source
             if (parsed.utm_source == 'alpha_december_18') {
                 let validity = new Date()
@@ -203,7 +214,9 @@ class App extends React.Component {
             this.props.mergeUrlState(true)
         }
 
-        this.props.loadLabCommonCriterias()
+        if (!this.props.common_tests.length || !this.props.common_package.length) {
+            this.props.loadLabCommonCriterias()
+        }
 
 
     }
@@ -247,8 +260,13 @@ const mapStateToProps = (state) => {
         token
     } = state.AUTH
 
+    const {
+        common_tests,
+        common_package
+    } = state.SEARCH_CRITERIA_LABS
+
     return {
-        selectedLocation, profiles, selectedProfile, token, summary_utm, summary_utm_validity
+        selectedLocation, profiles, selectedProfile, token, summary_utm, summary_utm_validity, common_tests, common_package
     }
 }
 
@@ -275,7 +293,8 @@ const mapDispatchToProps = (dispatch) => {
         toggleLeftMenuBar: (toggle, defaultVal) => dispatch(toggleLeftMenuBar(toggle, defaultVal)),
         clearLabSearchId: () => dispatch(clearLabSearchId()),
         clearOpdSearchId: () => dispatch(clearOpdSearchId()),
-        clearIpdSearchId: () => dispatch(clearIpdSearchId())
+        clearIpdSearchId: () => dispatch(clearIpdSearchId()),
+        setCommonUtmTags: (type, tag) => dispatch(setCommonUtmTags(type, tag))
     }
 
 }

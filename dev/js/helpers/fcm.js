@@ -10,6 +10,10 @@ const FCM = (() => {
     const init = () => {
         try {
 
+            if (typeof firebase == "undefined") {
+                return
+            }
+
             if (window.firebase && messaging == null) {
                 firebase.initializeApp(CONFIG.FCM_CONFIG)
                 if (firebase && firebase.messaging) {

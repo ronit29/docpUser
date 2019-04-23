@@ -59,7 +59,7 @@ class EditReviewPopUp extends React.Component {
                     <div className="home-rating-card review-popup">
                         <div className="rate-card-header">
                             Edit your Feedback
-                                <span><img onClick={this.declineRating.bind(this)} src="/assets/img/customer-icons/rt-close.svg" className="img-fluid" /></span>
+                                <span><img onClick={this.declineRating.bind(this)} src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} className="img-fluid" /></span>
                         </div>
                         <div className="rate-card-doc-dtls">
                             <img src={this.state.data.icon} className="img-fluid img-round " />
