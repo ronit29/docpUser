@@ -1,17 +1,18 @@
-import { GET_CITIES_MAP, GET_CITIES_SPECIALITIES , GET_SPECIALITIES_CITIES, GET_SPECIALITIES_MAP} from '../../constants/types';
+import { GET_CITIES_MAP, GET_CITIES_SPECIALITIES, GET_SPECIALITIES_CITIES, GET_SPECIALITIES_MAP, GET_TESTS_ALPHABETICALLY } from '../../constants/types';
 
 const defaultState = {
 	citiesMap: [],
 	citiesMapSpecialities: {},
 	specialitiesMap: [],
-	specialitiesMapCities: {}
+	specialitiesMapCities: {},
+	alphabeticalTests: []
 }
 
 export default function (state = defaultState, action) {
 
 	switch (action.type) {
 
-		case GET_CITIES_MAP : {
+		case GET_CITIES_MAP: {
 
 			let newState = {
 				...state
@@ -29,7 +30,7 @@ export default function (state = defaultState, action) {
 			return newState
 		}
 
-		case GET_SPECIALITIES_MAP : {
+		case GET_SPECIALITIES_MAP: {
 
 			let newState = {
 				...state
@@ -44,6 +45,15 @@ export default function (state = defaultState, action) {
 				...state
 			}
 			newState.specialitiesMapCities = action.payload
+			return newState
+		}
+
+		case GET_TESTS_ALPHABETICALLY: {
+			let newState = {
+				...state
+			}
+			newState.alphabeticalTests = action.payload
+			newState.selectedAlphabet = action.payload.key
 			return newState
 		}
 	}

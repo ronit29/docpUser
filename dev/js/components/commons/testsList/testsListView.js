@@ -8,15 +8,24 @@ class TestsListView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            selectedChar: 0
         }
     }
 
     componentDidMount() {
+        this.props.getTestsAlphabetically('a')
+    }
 
+    alphabetClick(index) {
+        this.props.getTestsAlphabetically(String.fromCharCode(97 + index))
+        this.setState({ selectedChar: index })
     }
 
     render() {
+        let alphabets = []
+        for (let i = 0; i <= 25; i++) {
+            alphabets.push(<div key={i} className={i == this.state.selectedChar ? 'charSelected' : ''} onClick={() => this.alphabetClick(i)}><span>{String.fromCharCode(65 + i)}</span></div>)
+        }
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader {...this.props} />
@@ -45,23 +54,30 @@ class TestsListView extends React.Component {
                             <div>
                                 <h1 className="fw-500 sitemap-title">Tests Index</h1>
                             </div>
+                            <div className="d-flex align-items-center mrb-10 mrt-20 test-index-div">
+                                {alphabets}
+                            </div>
                             <div className="row sitemap-row">
-                                <div className="col-12 col-md-6 col-lg-4">
-                                    <div className="anchor-data-style">
-                                        <a href="/speciality-inventory/275">Oral &amp; MaxilloFacial Surgeon</a>
-                                        <span className="sitemap-right-arrow">
-                                            <img src="/assets/img/customer-icons/arrow-forward-right.svg" />
-                                        </span>
-                                    </div>
-                                </div>
-                                <div className="col-12 col-md-6 col-lg-4">
-                                    <div className="anchor-data-style">
-                                        <a href="/speciality-inventory/332">Homeopathic Specialist</a>
-                                        <span className="sitemap-right-arrow">
-                                            <img src="/assets/img/customer-icons/arrow-forward-right.svg" />
-                                        </span>
-                                    </div>
-                                </div>
+                                {
+                                    this.props.alphabeticalTests && this.props.alphabeticalTests.tests && this.props.alphabeticalTests.tests.length && (String.fromCharCode(97 + this.state.selectedChar) == this.props.selectedAlphabet) ?
+                                        this.props.alphabeticalTests.tests.map((test, index) => {
+                                            return <div key={index} className="col-12 col-md-6 col-lg-4">
+                                                <div className="anchor-data-style">
+                                                    {
+                                                        test.url ?
+                                                            <div>
+                                                                <a href={`/${test.url}`}>{test.name}</a>
+                                                                <span className="sitemap-right-arrow">
+                                                                    <img src="/assets/img/customer-icons/arrow-forward-right.svg" />
+                                                                </span>
+                                                            </div>
+                                                            :
+                                                            <span style={{ cursor: 'auto' }} >{test.name}</span>
+                                                    }
+                                                </div>
+                                            </div>
+                                        }) : ''
+                                }
                             </div>
                         </div>
                     </div>
