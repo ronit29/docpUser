@@ -749,8 +749,9 @@ class BookingSummaryViewNew extends React.Component {
                                                                     </span>Test</h4>
                                                                     <div className="float-right  mbl-view-formatting text-right">
                                                                         {
-                                                                            is_insurance_applicable || is_corporate ?""
-                                                                            :<a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more/Remove tests</a>
+                                                                            STORAGE.isAgent() || (!is_insurance_applicable && !is_corporate) ?
+                                                                            <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more/Remove tests</a>
+                                                                            :''
                                                                         }
                                                                         {
                                                                             this.props.LABS[this.state.selectedLab].tests && this.props.LABS[this.state.selectedLab].tests.length?''
@@ -962,7 +963,7 @@ class BookingSummaryViewNew extends React.Component {
 
                             <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
                                 {
-                                    !is_corporate ?
+                                    !is_corporate && !is_insurance_applicable?
                                         <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                         } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true)}>
