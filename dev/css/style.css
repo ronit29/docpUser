@@ -4888,7 +4888,6 @@ font-weight: 700;
 }
 .top-filter-tabs-select{
 	padding: 5px 0;
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;

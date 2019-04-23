@@ -820,3 +820,45 @@ div.onln-cnslt-head {
 }
 
 /* ============ about Us section ============ */
+/* ============ new filter section ============ */
+.locationTestFilter {
+	width: 70%;
+	flex-shrink: 0;
+	flex-grow: 0;
+	padding: 0 8px !important;
+}
+.newStickyfilter {
+	font-size: 12px;
+	font-weight: 500;
+}
+.newStickyfilter span {
+	color: #f78631;
+}
+.newStickyfilter span img{
+cursor: pointer;
+}
+.top-filter-tabs-select.newSortFilterbar {
+	width: 30%;
+	flex-grow: 0;
+	flex-shrink: 0;
+	padding: 0 10px;
+	font-size: 12px;
+}
+.filterNotification{
+	position: absolute;
+	background: #f78631;
+	color: white;
+	font-weight: 500;
+	top: -8px;
+	left: -10px;
+	padding: 2px;
+	height: 16px;
+	width: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 30px;
+	font-size: 11px;
+	border: 1px solid white;
+}
+/* ============ new filter section ============ */
