@@ -25,6 +25,7 @@ class SelectedPkgStrip extends React.Component {
           let data = {
             'Category': 'ConsumerApp', 'Action': 'Comparison', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'comparison-button', 'selected_test_id': selectedPkgCompareIds
           }
+          GTM.sendEvent({ data: data })
         this.props.history.push('/package/compare?package_ids='+selectedPkgCompareIds)
     }
 

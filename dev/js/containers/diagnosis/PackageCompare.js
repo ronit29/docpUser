@@ -5,7 +5,7 @@ import LeftBar from '../../components/commons/LeftBar'
 import RightBar from '../../components/commons/RightBar'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import Footer from '../../components/commons/Home/footer'
-import Loader from '../../components/commons/Loader'
+
 const queryString = require('query-string');
 
 import { getCompareList, togglecompareCriteria, setPackageId, selectSearchType, toggleDiagnosisCriteria, clearExtraTests } from '../../actions/index.js'
@@ -17,7 +17,7 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
       super(props)
         this.state={
           showCompare:false,
-          data:''
+          data:null
         }
       }
       componentDidMount(){
@@ -52,20 +52,9 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
         })
       }  
       render() {
-          if(this.state.showCompare){
-            return (
-              <PackageCompareView {...this.props} data={this.state.data}/>
-                  )
-          }else{
-            return(
-            <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
-                <ProfileHeader />
-                  <section className="pkgComapre container">
-                    <Loader />        
-                  </section>
-            </div>
-            )
-          }  
+        return (
+          <PackageCompareView {...this.props} data={this.state.data} showCompare={this.state.showCompare}/>  
+          )
       }
     }
     const mapStateToProps = (state, passedProps) => {

@@ -121,7 +121,7 @@ class SearchPackagesView extends React.Component {
 
     comparePackage(){
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'CompareButton', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'compare-button'
+            'Category': 'ConsumerApp', 'Action': 'CompareButton', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'compare-button-click'
         }
         GTM.sendEvent({ data: data })
         if(this.props.packagesList.count == 1){

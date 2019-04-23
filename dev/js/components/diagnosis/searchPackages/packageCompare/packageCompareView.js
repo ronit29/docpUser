@@ -4,6 +4,7 @@ import RightBar from '../../../commons/RightBar'
 import ProfileHeader from '../../../commons/DesktopProfileHeader'
 import Footer from '../../../commons/Home/footer'
 import GTM from '../../../../helpers/gtm.js'
+import Loader from '../../../commons/Loader'
 
 const queryString = require('query-string');
 
@@ -235,7 +236,7 @@ const queryString = require('query-string');
       let availableTest= []
       let testData= []
       let cat_info_data=[]
-      
+    if(this.props.showCompare){
      return (
           <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
               <ProfileHeader />
@@ -409,6 +410,29 @@ const queryString = require('query-string');
               </section>
           </div>
       )
+      }else{
+         return( <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
+                <ProfileHeader />
+                  <section className="pkgComapre container">
+                    {this.props.data == null?
+                    <div className="row main-row parent-section-row">
+                      <LeftBar />
+                      <div className="container-fluid pad-all-0">
+                          <div className="widget">
+                            <ul className="pkgCls pkbcls" style={{'text-align':'center'}}>
+                              <li onClick={this.addMore.bind(this)} style={{cursor:'pointer',paddingTop:30, paddingBottom:30}}>
+                                    <div className="addnewpkg"><span className="add-plus">+</span></div>
+                                    <p className="addnewpkg-txt">Add packages <br />to compare</p>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                    </div>
+                    :<Loader />        
+                    }
+                  </section>
+          </div>)
+        }
     }
 }
   export default PackageCompareView
