@@ -749,7 +749,8 @@ class BookingSummaryViewNew extends React.Component {
                                                                     </span>Test</h4>
                                                                     <div className="float-right  mbl-view-formatting text-right">
                                                                         {
-                                                                            !is_corporate ? <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more/Remove tests</a> : ""
+                                                                            is_insurance_applicable || is_corporate ?""
+                                                                            :<a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more/Remove tests</a>
                                                                         }
                                                                     </div>
                                                                 </div>
