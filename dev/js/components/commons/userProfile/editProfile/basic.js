@@ -12,7 +12,8 @@ class BasicDetails extends React.Component {
         this.state = {
             dataUrl: null,
             loading: false,
-            formattedDate:''
+            formattedDate:'',
+            is_default_user: this.props.profileData.is_default_user
         }
     }
 
@@ -119,6 +120,11 @@ class BasicDetails extends React.Component {
         return today
     }
 
+    handleDefaultUser(value){
+        this.setState({'is_default_user':value})
+        this.props.updateProfile('is_default_user', value)
+    }
+
     render() {
 
         let { name, email, gender, phone_number, profile_image, id, dob} = this.props.profileData
@@ -127,6 +133,11 @@ class BasicDetails extends React.Component {
             <section className="myProfile profile-details mrb-15">
                 {
                     this.state.loading ? "" : <div className="widget no-shadow no-radius">
+                        <div className="defaultProfile">
+                            <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}
+                            >Make Primary Profile<input type="checkbox" onClick={this.handleDefaultUser.bind(this, !this.state.is_default_user)} checked={
+                                this.state.is_default_user}/><span className="checkmark"></span></label>
+                        </div>
                         <div className="widget-content">
                             <div className="profile-icon">
                                 <img src={profile_image} style={{ width: '100%', cursor: 'pointer' }} className="img-fluid img-round" onClick={() => {
