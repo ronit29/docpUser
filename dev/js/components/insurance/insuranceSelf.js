@@ -1,6 +1,7 @@
 import React from 'react'
 import SnackBar from 'node-snackbar'
 import Calendar from 'rc-calendar'
+import StateCityAutoComplete from './stateCityAutoComplete.js'
 const moment = require('moment')
 
 class InsuranceSelf extends React.Component{
@@ -243,27 +244,27 @@ class InsuranceSelf extends React.Component{
             this.setState({ dateModal: false })
         }
     }
-    handleState(event) {
-		var event = document.getElementById("state_dropdown")
-		this.setState({state: event.options[event.selectedIndex].value, state_code: event.options[event.selectedIndex].id},() =>{
-			this.handleSubmit(event)
+ //    handleState(event) {
+	// 	var event = document.getElementById("state_dropdown")
+	// 	this.setState({state: event.options[event.selectedIndex].value, state_code: event.options[event.selectedIndex].id},() =>{
+	// 		this.handleSubmit(event)
 			
-		})
-	}
-	handleDistrict(event) {
-		var event = document.getElementById("district_dropdown")
-		this.setState({district: event.options[event.selectedIndex].value, district_code: event.options[event.selectedIndex].id},() =>{
-			this.handleSubmit(event)
+	// 	})
+	// }
+	// handleDistrict(event) {
+	// 	var event = document.getElementById("district_dropdown")
+	// 	this.setState({district: event.options[event.selectedIndex].value, district_code: event.options[event.selectedIndex].id},() =>{
+	// 		this.handleSubmit(event)
 			
-		})
-	}
-	handleTown(event) {
-		var event = document.getElementById("town_dropdown")
-		this.setState({town: event.options[event.selectedIndex].value, town_code: event.options[event.selectedIndex].id},() =>{
-			this.handleSubmit(event)
+	// 	})
+	// }
+	// handleTown(event) {
+	// 	var event = document.getElementById("town_dropdown")
+	// 	this.setState({town: event.options[event.selectedIndex].value, town_code: event.options[event.selectedIndex].id},() =>{
+	// 		this.handleSubmit(event)
 			
-		})
-	}
+	// 	})
+	// }
 	handleLastname(event){
 		this.setState({no_lname:!this.state.no_lname},() =>{
 			this.handleSubmit(event)
@@ -272,6 +273,164 @@ class InsuranceSelf extends React.Component{
 	showAlert(){
 		SnackBar.show({ pos: 'bottom-center', text: "Please select state first" });
 	}
+
+	handleState(feild,event){
+		this.setState({
+    		[event.target.getAttribute('data-param')] : event.target.value
+    	})
+    	let states = []
+    	Object.entries(this.props.insurnaceData['state']).map(function([key, value]) {
+    		states.push({'code':value.gst_code, 'name':value.state_name})
+    		// states.push([value.gst_code=value.state_name])
+    		// states.push(value.state_name)
+    	})
+     this.autocomplete(document.getElementById("userState"), states, 'isState');   
+    }
+
+    handleDistrict(feild,event) {
+    	let self =  this
+    	this.setState({
+    		[event.target.getAttribute('data-param')] : event.target.value
+    	})
+    	let districts_opt = []
+    	Object.entries(this.props.insurnaceData['state']).map(function([key, value]) {	
+			if(self.state.state_code && self.state.state_code !='' && self.state.state !='' && self.state.state_code == value.gst_code){
+				Object.entries(value.district).map(function([k, districts]) {
+					districts_opt.push({'code':districts.district_code, 'name':districts.district_name})
+				})
+			}
+		})
+     	this.autocomplete(document.getElementById("userDistrict"), districts_opt, 'isDistrict');   
+    }
+
+    handleTown(feild,event) {
+    	let self =  this
+    	this.setState({
+    		[event.target.getAttribute('data-param')] : event.target.value
+    	})
+    	let city_opt = []
+    	Object.entries(this.props.insurnaceData['state']).map(function([key, value]) {	
+			if(self.state.state_code && self.state.state_code !='' && self.state.state !='' && self.state.state_code == value.gst_code){
+				Object.entries(value.cities).map(function([k, city]) {
+					city_opt.push({'code':city.city_code, 'name':city.city_name})
+				})
+			}
+		})
+     	this.autocomplete(document.getElementById("userTown"), city_opt, 'isTown');   
+    }
+
+ 	autocomplete(inp, arr,type) {
+	    let self = this
+	    var currentFocus;
+
+	     inp.addEventListener("input", function(e) {
+	      var a, b, i, val = this.value;
+	      /*close any already open lists of autocompleted values*/
+	      self.closeAllLists(type);
+	      if (!val) { return false;}
+	      currentFocus = -1;
+	      /*create a DIV element that will contain the items (values):*/
+	      a = document.createElement("DIV");
+	      a.setAttribute("id", this.id + "autocomplete-list");
+	      a.setAttribute("class", "autocomplete-items");
+	      /*append the DIV element as a child of the autocomplete container:*/
+	      this.parentNode.appendChild(a);
+	      /*for each item in the array...*/
+	      for (i = 0; i < arr.length; i++) {
+	        /*check if the item starts with the same letters as the text field value:*/
+	        if (arr[i].name.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+	          /*create a DIV element for each matching element:*/
+	          b = document.createElement("DIV");
+	          /*make the matching letters bold:*/
+	          b.innerHTML = "<strong>" + arr[i].name.substr(0, val.length) + "</strong>";
+	          b.innerHTML += arr[i].name.substr(val.length);
+	          /*insert a input field that will hold the current array item's value:*/
+	          b.innerHTML += "<input type='hidden' value='" + arr[i].name + "' id='" + arr[i].code + "'>";
+	          /*execute a function when someone clicks on the item value (DIV element):*/
+	          b.addEventListener("click", function(e) {
+	              /*insert the value for the autocomplete text field:*/
+	            inp.value = this.getElementsByTagName("input")[0].value;
+	          		if(type == 'isState'){
+	     				self.setState({state:inp.value,state_code:this.getElementsByTagName("input")[0].id})
+					}else if(type == 'isDistrict'){
+						self.setState({district:inp.value,district_code:this.getElementsByTagName("input")[0].id})
+					}else if(type == 'isTown'){
+						self.setState({town:inp.value,town_code:this.getElementsByTagName("input")[0].id})
+					}
+	          		
+	     			self.handleSubmit();
+	              /*close the list of autocompleted values,
+	              (or any other open lists of autocompleted values:*/
+	              self.closeAllLists(type);
+	          });
+	          a.appendChild(b);
+	        }
+	      }
+	  	})
+		  /*execute a function presses a key on the keyboard:*/
+		  inp.addEventListener("keydown", function(e) {
+		      var x = document.getElementById(this.id + "autocomplete-list");
+		      if (x) x = x.getElementsByTagName("div");
+		      if (e.keyCode == 40) {
+		        /*If the arrow DOWN key is pressed,
+		        increase the currentFocus variable:*/
+		        currentFocus++;
+		        /*and and make the current item more visible:*/
+		        self.addActive(x);
+		      } else if (e.keyCode == 38) { //up
+		        /*If the arrow UP key is pressed,
+		        decrease the currentFocus variable:*/
+		        currentFocus--;
+		        /*and and make the current item more visible:*/
+		        self.addActive(x);
+		      } else if (e.keyCode == 13) {
+		        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+		        e.preventDefault();
+		        if (currentFocus > -1) {
+		          /*and simulate a click on the "active" item:*/
+		          if (x) x[currentFocus].click();
+		        }
+		      }
+		  })
+	}
+
+  	addActive(x) {
+	    /*a function to classify an item as "active":*/
+	    if (!x) return false;
+	    /*start by removing the "active" class on all items:*/
+	    this.removeActive(x);
+	    if (currentFocus >= x.length) currentFocus = 0;
+	    if (currentFocus < 0) currentFocus = (x.length - 1);
+	    /*add class "autocomplete-active":*/
+	    x[currentFocus].classList.add("autocomplete-active");
+  	}
+  
+	removeActive(x) {
+	    /*a function to remove the "active" class from all autocomplete items:*/
+	    for (var i = 0; i < x.length; i++) {
+	      x[i].classList.remove("autocomplete-active");
+	    }
+	}
+
+	closeAllLists(elmnt,type) {
+	    /*close all autocomplete lists in the document,
+	    except the one passed as an argument:*/
+	    let inp
+	    if(type == 'isState'){
+	    	inp = document.getElementById("userState")
+	    }else if(type == 'isDistrict'){
+	    	inp = document.getElementById("userDistrict")
+	    }else if(type == 'isTown'){
+	    	inp = document.getElementById("userTown")
+	    }
+	    var x = document.getElementsByClassName("autocomplete-items");
+	    for (var i = 0; i < x.length; i++) {
+	      if (elmnt != x[i] && elmnt != inp) {
+	        x[i].parentNode.removeChild(x[i]);
+	      }
+	    }
+	}
+
 	render(){
 		let self = this
 		let show_createApi_keys = []
@@ -448,6 +607,45 @@ class InsuranceSelf extends React.Component{
 						}
 					</div>
 					<div className="col-12">
+						<div className="ins-form-group autocomplete">
+						<input style={{'textTransform': 'capitalize'}} type="text" id="userState" className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state')> -1?'fill-error':''}`} required autoComplete="none" name="state" value={this.state.state} data-param='state' onChange={this.handleState.bind(this,'state')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'state')} data-state-code={this.state.state_code}/>
+							<label className="form-control-placeholder" htmlFor={`isnstate_${this.props.member_id}`}>State</label>
+							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
+						</div>
+					</div>
+					{
+						this.state.state_code != ''?
+						<div className="col-12">
+							<div className="ins-form-group autocomplete">
+							<input style={{'textTransform': 'capitalize'}} type="text" id="userDistrict" className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state')> -1?'fill-error':''}`} required autoComplete="none" name="district" value={this.state.district} data-param='district' onChange={this.handleDistrict.bind(this,'district')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'district')} data-state-code={this.state.district_code}/>
+								<label className="form-control-placeholder" htmlFor={`isndistrict_${this.props.member_id}`}>District</label>
+								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
+							</div>
+						</div>
+						:<div onClick={this.showAlert.bind(this)}> 
+							<input style={{'textTransform': 'capitalize',fontWeight: '100',    color: 'gray'}} type="text" id={`isndistrict_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('district')> -1?'fill-error':''}`} required autoComplete="none" name="district" value="Select District" disabled data-param='district'/>
+								<label className="form-control-placeholder datePickerLabel" htmlFor={`isndistrict_${this.props.member_id}`}>District</label>
+								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
+
+						</div>
+					}
+					{
+						this.state.district_code != ''?
+						<div className="col-12">
+							<div className="ins-form-group autocomplete">
+							<input style={{'textTransform': 'capitalize'}} type="text" id="userTown" className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state')> -1?'fill-error':''}`} required autoComplete="none" name="town" value={this.state.town} data-param='town' onChange={this.handleTown.bind(this,'town')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'town')} data-state-code={this.state.town_code}/>
+								<label className="form-control-placeholder" htmlFor={`isndistrict_${this.props.member_id}`}>Town</label>
+								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
+							</div>
+						</div>
+						:<div onClick={this.showAlert.bind(this)}> 
+							<input style={{'textTransform': 'capitalize',fontWeight: '100',    color: 'gray'}} type="text" id={`isndistrict_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('town')> -1?'fill-error':''}`} required autoComplete="none" name="town" value="Select Town" disabled data-param='town'/>
+								<label className="form-control-placeholder datePickerLabel" htmlFor={`isndistrict_${this.props.member_id}`}>Town</label>
+								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
+
+						</div>
+					}	
+					{/*<div className="col-12">
 						<div className="ins-form-group">
 							<select className={`ins-select-drop ${this.props.validateErrors.indexOf('state')> -1?'fill-error':''}`} id="state_dropdown" onChange={this.handleState.bind(this)} value={this.state.state}>
 								<option data-param="state"  hidden id={0} value="select_state" value="state">Select State</option>
@@ -455,7 +653,7 @@ class InsuranceSelf extends React.Component{
 									return <option key={key} data-param="state" id={value.gst_code} value={value.state_name}>{value.state_name}</option>
 								})}
 							</select>
-							{/*<input style={{'textTransform': 'capitalize'}} type="text" id={`isnstate_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state')> -1?'fill-error':''}`} required autoComplete="none" name="state" value={this.state.state} data-param='state' onChange={this.handleChange.bind(this,'state')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'state')}/>*/}
+							{/*<input style={{'textTransform': 'capitalize'}} type="text" id={`isnstate_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state')> -1?'fill-error':''}`} required autoComplete="none" name="state" value={this.state.state} data-param='state' onChange={this.handleChange.bind(this,'state')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'state')}/>
 							<label className="form-control-placeholder datePickerLabel" htmlFor={`isnstate_${this.props.member_id}`}>*State</label>
 							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
@@ -467,8 +665,8 @@ class InsuranceSelf extends React.Component{
 							show_createApi_keys.indexOf('state')> -1?
 							<span className="fill-error-span">{this.props.createApiErrors.state[0]}</span>:''	
 						}
-					</div>
-					<div className="col-12">
+					</div>*/}
+					{/*<div className="col-12">
 						<div className="ins-form-group">
 							{
 								this.state.state == ''?
@@ -492,7 +690,7 @@ class InsuranceSelf extends React.Component{
 
 							{/*<input style={{'textTransform': 'capitalize'}} type="text" id={`isndistrict_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('district')> -1?'fill-error':''}`} required autoComplete="none" name="district" value={this.state.district} data-param='district' onChange={this.handleChange.bind(this,'district')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'district')} />
 							<label className="form-control-placeholder" htmlFor={`isndistrict_${this.props.member_id}`}>District</label>
-							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />*/}
+							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
 						{	
 							this.props.validateErrors.indexOf('district')> -1?
@@ -503,7 +701,8 @@ class InsuranceSelf extends React.Component{
 								<span className="fill-error-span">{this.props.createApiErrors.district[0]}</span>:''	
 						}
 					</div>
-					<div className="col-12">
+					*/}
+					{/*<div className="col-12">
 						<div className="ins-form-group">
 							{
 								this.state.state == ''?<div onClick={this.showAlert.bind(this)}> 
@@ -523,7 +722,7 @@ class InsuranceSelf extends React.Component{
 
 							{/*<input style={{'textTransform': 'capitalize'}} type="text" id={`isntown${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('town')> -1?'fill-error':''}`} required autoComplete="none" name="town" value={this.state.town} data-param='town' onChange={this.handleChange.bind(this,'town')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'town')}/>
 							<label className="form-control-placeholder" htmlFor={`isntown${this.props.member_id}`}>Town</label>
-							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />*/}
+							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
 						{
 							this.props.validateErrors.indexOf('town')> -1?
@@ -533,7 +732,7 @@ class InsuranceSelf extends React.Component{
 								show_createApi_keys.indexOf('town')> -1?
 								<span className="fill-error-span">{this.props.createApiErrors.town[0]}</span>:''	
 						}
-					</div>
+					</div>*/}
 					<div className="col-12">
 						<div className="ins-form-group">
 							<input style={{'textTransform': 'capitalize'}} type="text" id={`insaddress${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('address')> -1?'fill-error':''}`} required autoComplete="none" name="address" value={this.state.address} data-param='address' onChange={this.handleChange.bind(this,'address')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'address')} />
