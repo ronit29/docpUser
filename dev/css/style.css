@@ -1112,7 +1112,7 @@ p.top-head-link.card-lab-link span {
 	.chat-main-container {
         position: relative;
         top: 12px;
-        margin-bottom: 12px;
+        margin-bottom: 22px;
 	}
 	.dtl-margin-lg{
 		margin-right: 10px !important;
@@ -9909,4 +9909,22 @@ input[type=button]{
     width: 30px;
     margin: 8px 0px;
     cursor: pointer;
+}
+.banner-cont-height{
+    position: relative;
+}
+.hidderBanner{
+    visibility: hidden;
+}
+.divHeight{
+    height: 0;
+    padding-bottom: 25.5%;
+    margin: 20px 0px;
+}
+.home-slider-position{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    margin: auto;
 }
