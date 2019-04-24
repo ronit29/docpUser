@@ -9990,6 +9990,19 @@ input[type=button]{
     margin-top: 5px;
     cursor: pointer;
 }
+.autocomplete-items{
+	position: absolute;
+    left: 0;
+    right: 0;
+    max-height: 200px;
+    background: #ffffff;
+    border-bottom: 1px solid #dadada;
+    border-left: 1px solid #dadada;
+    border-right: 1px solid #dadada;
+    z-index: 99;
+    padding: 3px 10px;
+    overflow: auto;
+}
 .opdNewHeaderOfr{
     position: absolute;
     right: -15px;
