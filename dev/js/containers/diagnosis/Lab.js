@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabByUrl, getLabById, selectLabTimeSLot, toggleDiagnosisCriteria, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, getLabTests, savePincode, getAllRatings } from '../../actions/index.js'
+import { getLabByUrl, getLabById, selectLabTimeSLot, toggleDiagnosisCriteria, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, getLabTests, savePincode, getAllRatings, selectSearchType } from '../../actions/index.js'
 
 import LabView from '../../components/diagnosis/lab/index.js'
 
@@ -144,7 +144,8 @@ const mapDispatchToProps = (dispatch) => {
         getFooterData: (url) => dispatch(getFooterData(url)),
         getLabTests: (labId, testName) => dispatch(getLabTests(labId, testName)),
         savePincode: (pincode) => dispatch(savePincode(pincode)),
-        getAllRatings: (content_type, object_id, page, cb) => dispatch(getAllRatings(content_type, object_id, page, cb))
+        getAllRatings: (content_type, object_id, page, cb) => dispatch(getAllRatings(content_type, object_id, page, cb)),
+        selectSearchType: (type) => dispatch(selectSearchType(type))
     }
 }
 
