@@ -71,7 +71,13 @@ class ChoosePatientNewView extends React.Component {
                     self.props.profileDataCompleted(this.state)
                     self.props.createProfile(this.state, (err, res) => {
                         //self.setState({data:true})
-                        self.props.getUserProfile()
+                        self.props.getUserProfile().then(()=>{
+
+                            if(self.props.is_lab){
+                                self.props.clearTestForInsured()
+                            }
+                        })
+
                     })
                 })
             } else {

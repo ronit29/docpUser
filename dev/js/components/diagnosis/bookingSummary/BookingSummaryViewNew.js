@@ -96,15 +96,6 @@ class BookingSummaryViewNew extends React.Component {
             this.props.resetLabCoupons()
             return
         }
-        if(nextProps.defaultProfile != this.props.defaultProfile && nextProps.defaultProfile){
-
-            if(nextProps.profiles[nextProps.defaultProfile] && nextProps.profiles[nextProps.defaultProfile].is_insured) {
-                this.props.clearExtraTests()
-                this.props.getLabById(this.props.match.params.id)
-                return
-            }
-            
-        }
         if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests && nextProps.LABS[this.state.selectedLab].tests.length) {
 
             // bases cases
@@ -258,14 +249,14 @@ class BookingSummaryViewNew extends React.Component {
             case "lab": {
                 return <div>
                     <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.state.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} />
-                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} />
+                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} />
                 </div>
             }
 
             case "home": {
                 return <div>
                     <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.state.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} />
-                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} />
+                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)}/>
                     {
                         patient ?
                             <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
@@ -572,6 +563,15 @@ class BookingSummaryViewNew extends React.Component {
 
     toggleWhatsap(status, e) {
         this.setState({ whatsapp_optin: status })
+    }
+
+    clearTestForInsured(){
+        if(this.props.defaultProfile && this.props.profiles[this.props.defaultProfile] && this.props.profiles[this.props.defaultProfile].is_insured){
+
+            this.props.clearExtraTests()
+            this.props.getLabById(this.props.match.params.id)
+            return            
+        }
     }
 
     render() {
@@ -978,7 +978,7 @@ class BookingSummaryViewNew extends React.Component {
 
                             <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
                                 {
-                                    STORAGE.isAgent() || (!is_corporate && !is_insurance_applicable)?
+                                    STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured)?
                                         <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                         } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true)}>
