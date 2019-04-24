@@ -133,15 +133,6 @@ class BasicDetails extends React.Component {
             <section className="myProfile profile-details mrb-15">
                 {
                     this.state.loading ? "" : <div className="widget no-shadow no-radius">
-                        {
-                            this.props.show_default_checkBox?
-                            <div className="defaultProfile text-right">
-                                <label className="ck-bx d-inline" style={{ fontWeight: '600', fontSize: '14px' }}
-                            >Make Primary Profile<input type="checkbox" onClick={this.handleDefaultUser.bind(this, !this.state.is_default_user)} checked={
-                                this.state.is_default_user}/><span className="checkmark"></span></label>
-                            </div>
-                            :''
-                        }
                         <div className="widget-content">
                             <div className="profile-icon">
                                 <img src={profile_image} style={{ width: '100%', cursor: 'pointer' }} className="img-fluid img-round" onClick={() => {
@@ -185,7 +176,7 @@ class BasicDetails extends React.Component {
                                     this.state.dateModal ? <div className="calendar-overlay"><div className="date-picker-modal">
                                         <Calendar
                                             showWeekNumber={false}
-                                            defaultValue={moment(dob)}
+                                            defaultValue={moment(dob == null?new Date():dob)}
                                             disabledDate={(date) => {
                                                 return date.diff(moment((new Date)), 'days') > -1
                                             }}
@@ -213,6 +204,15 @@ class BasicDetails extends React.Component {
                                 this.props.manageAddress()
                             }}>Manage My Address<span><img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} className="list-arrow-rt" style={{ marginLeft: 8, width: 7 }}></img></span></a> */}
                             </form>
+                            {
+                            this.props.show_default_checkBox?
+                            <div className="defaultProfile">
+                                <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}
+                            >Make Primary Profile<input type="checkbox" onClick={this.handleDefaultUser.bind(this, !this.state.is_default_user)} checked={
+                                this.state.is_default_user}/><span className="checkmark"></span></label>
+                            </div>
+                            :''
+                            }
                         </div>
                     </div>
                 }
