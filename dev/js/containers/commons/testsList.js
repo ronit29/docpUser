@@ -16,12 +16,14 @@ class TestsList extends React.Component {
 const mapStateToProps = (state) => {
     const {
         alphabeticalTests,
-        selectedAlphabet
+        selectedAlphabet,
+        testIndexLoading
     } = state.SITE_MAP
 
     return {
         alphabeticalTests,
-        selectedAlphabet
+        selectedAlphabet,
+        testIndexLoading
     }
 }
 

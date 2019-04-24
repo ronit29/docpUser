@@ -1,4 +1,4 @@
-import { GET_CITIES_MAP, GET_CITIES_SPECIALITIES, GET_SPECIALITIES_CITIES, GET_SPECIALITIES_MAP, GET_TESTS_ALPHABETICALLY } from '../../constants/types';
+import { GET_CITIES_MAP, GET_CITIES_SPECIALITIES, GET_SPECIALITIES_CITIES, GET_SPECIALITIES_MAP, GET_TESTS_ALPHABETICALLY, GET_TESTS_FLAG } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 export const getCitiesMap = (city = "", page = 0) => (dispatch) => {
@@ -68,12 +68,17 @@ export const getSpecialitiesMap = (speciality = "", page = 0, cb) => (dispatch) 
 	})
 }
 
-export const getTestsAlphabetically = (character = 'a') => (dispatch) => {
+export const getTestsAlphabetically = (character) => (dispatch) => {
 	let url = `/api/v1/diagnostic/test/list_by_alphabet?alphabet=${character}`
+	dispatch({
+		type: GET_TESTS_FLAG,
+		flag: true
+	})
 	return API_GET(url).then(function (response) {
 		dispatch({
 			type: GET_TESTS_ALPHABETICALLY,
-			payload: response
+			payload: response,
+			flag: false
 		})
 	}).catch(function (error) {
 

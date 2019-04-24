@@ -1,11 +1,12 @@
-import { GET_CITIES_MAP, GET_CITIES_SPECIALITIES, GET_SPECIALITIES_CITIES, GET_SPECIALITIES_MAP, GET_TESTS_ALPHABETICALLY } from '../../constants/types';
+import { GET_CITIES_MAP, GET_CITIES_SPECIALITIES, GET_SPECIALITIES_CITIES, GET_SPECIALITIES_MAP, GET_TESTS_ALPHABETICALLY, GET_TESTS_FLAG } from '../../constants/types';
 
 const defaultState = {
 	citiesMap: [],
 	citiesMapSpecialities: {},
 	specialitiesMap: [],
 	specialitiesMapCities: {},
-	alphabeticalTests: []
+	alphabeticalTests: [],
+	testIndexLoading: true
 }
 
 export default function (state = defaultState, action) {
@@ -48,12 +49,21 @@ export default function (state = defaultState, action) {
 			return newState
 		}
 
+		case GET_TESTS_FLAG: {
+			let newState = {
+				...state
+			}
+			newState.testIndexLoading = action.flag
+			return newState
+		}
+
 		case GET_TESTS_ALPHABETICALLY: {
 			let newState = {
 				...state
 			}
 			newState.alphabeticalTests = action.payload
 			newState.selectedAlphabet = action.payload.key
+			newState.testIndexLoading = action.flag
 			return newState
 		}
 	}

@@ -1,5 +1,5 @@
 import React from 'react'
-import ProfileHeader from '../DesktopProfileHeader/DesktopProfileHeader';
+import ProfileHeader from '../DesktopProfileHeader';
 import HelmetTags from '../HelmetTags';
 import CONFIG from '../../../config/config';
 
@@ -13,19 +13,33 @@ class TestsListView extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getTestsAlphabetically('a')
+        this.updateData(this.state.selectedChar)
+    }
+
+    getCharacter(index) {
+        return String.fromCharCode(97 + index)
+    }
+
+    updateData(index) {
+        let character = this.getCharacter(index)
+        this.props.getTestsAlphabetically(character)
     }
 
     alphabetClick(index) {
-        this.props.getTestsAlphabetically(String.fromCharCode(97 + index))
         this.setState({ selectedChar: index })
+        this.updateData(index)
+    }
+
+    getAlphabets() {
+        let alphabets = []
+        for (let i = 0; i <= 25; i++) {
+            alphabets.push(String.fromCharCode(65 + i))
+        }
+        return alphabets
     }
 
     render() {
-        let alphabets = []
-        for (let i = 0; i <= 25; i++) {
-            alphabets.push(<div key={i} className={i == this.state.selectedChar ? 'charSelected' : ''} onClick={() => this.alphabetClick(i)}><span>{String.fromCharCode(65 + i)}</span></div>)
-        }
+        let alphabets = this.getAlphabets()
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader {...this.props} />
@@ -55,20 +69,26 @@ class TestsListView extends React.Component {
                                 <h1 className="fw-500 sitemap-title">Tests Index</h1>
                             </div>
                             <div className="d-flex align-items-center mrb-10 mrt-20 test-index-div">
-                                {alphabets}
+                                {
+                                    alphabets && alphabets.length ?
+                                        alphabets.map((character, i) => {
+                                            return <div key={i} className={i == this.state.selectedChar ? 'charSelected' : ''} onClick={() => this.alphabetClick(i)}>
+                                                <span>{character}</span>
+                                            </div>
+                                        }) : ''
+                                }
                             </div>
                             <div className="row sitemap-row">
                                 {
                                     this.props.alphabeticalTests && this.props.alphabeticalTests.tests && this.props.alphabeticalTests.tests.length && (String.fromCharCode(97 + this.state.selectedChar) == this.props.selectedAlphabet) ?
                                         this.props.alphabeticalTests.tests.map((test, index) => {
                                             return <div key={index} className="col-12 col-md-6 col-lg-4">
-                                                <div className="anchor-data-style">
+                                                <div className="anchor-data-style" onClick={test.url ? () => this.props.history.push(`/${test.url}`) : ''}>
                                                     {
                                                         test.url ?
                                                             <div>
                                                                 <a href={`/${test.url}`} onClick={(e) => {
                                                                     e.preventDefault()
-                                                                    this.props.history.push(`/${test.url}`)
                                                                 }}>{test.name}</a>
                                                                 <span className="sitemap-right-arrow">
                                                                     <img src="/assets/img/customer-icons/arrow-forward-right.svg" />
@@ -79,7 +99,9 @@ class TestsListView extends React.Component {
                                                     }
                                                 </div>
                                             </div>
-                                        }) : ''
+                                        })
+                                        : !!!this.props.testIndexLoading ?
+                                            <div className="col-12 fw-500 text-center mrt-20" style={{ fontSize: 18 }} >No record Found !!</div> : ''
                                 }
                             </div>
                         </div>
