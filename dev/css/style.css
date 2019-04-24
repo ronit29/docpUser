@@ -9288,12 +9288,10 @@ border-radius: 4px;
 }
 .pkg-hd{
 	font-size: 16px;
-	font-weight: 500;
-	margin: 0;
-	text-overflow: ellipsis;
-    overflow: hidden;
-	white-space: nowrap;
-	padding: 0 10px;
+    font-weight: 500;
+    padding: 0 10px;
+	min-height: 75px;
+	margin-right: 10px;
 }
 .pkg-hd-by{
 	font-size: 14px;
@@ -9668,7 +9666,8 @@ border-radius: 4px;
 		font-weight:400 !important;
 	}
 	.pkg-hd{
-		font-size:14px;
+		font-size: 12px;
+		padding: 0;
 	}
 	.pkg-hd-by{
 		font-size:12px;
@@ -9789,9 +9788,7 @@ border-radius: 4px;
 	.multiple-pkgs.pkbclsTwo .pkg-btn-nw{
 		width: 120px;
 	}
-	.pkg-hd{
-		width: 140px;
-	}
+	
 	.pkgComapre .pkg-crd-header.pkg-hd{
 		width: auto;
 	}
@@ -9828,9 +9825,7 @@ border-radius: 4px;
 	}
 }
 @media screen and (max-width: 360px){
-	.pkg-hd{
-		font-size:13px;
-	}
+	
 	.pkg-hd-by{
 		font-size:11px;
 	}
