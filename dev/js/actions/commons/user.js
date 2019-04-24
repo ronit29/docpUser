@@ -634,7 +634,7 @@ export const saveChatFeedBack = (ques, data)  => (dispatch) => {
 
 export const submitChatFeedback = (postData) => (dispatch) => {
 
-	return API_POST('http://chatapi.docprime.com/postfeedback', postData).then(function (response) {
+	return API_POST('https://chatapi.docprime.com/postfeedback', postData).then(function (response) {
 		dispatch({
 			type: SUBMIT_CHAT_FEEDBACK
 		})
