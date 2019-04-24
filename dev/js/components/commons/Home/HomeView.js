@@ -343,6 +343,12 @@ class HomeView extends React.Component {
 				<div className="headerSubLinkContainer">
 					<div className="container">
 						<div className="head_text_container">
+						<a href="/insurance/insurance-plans" onClick={(e) => {
+								e.preventDefault();
+								this.navigateTo("/insurance/insurance-plans")
+							}}>OPD Insurance 
+							<span className="opdNewHeaderOfr">New</span>
+							</a>
 							<a href="/search" onClick={(e) => {
 								e.preventDefault();
 								this.navigateTo("/search", 'opd')
