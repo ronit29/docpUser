@@ -574,6 +574,11 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
+    searchTests(){
+        this.props.selectSearchType('lab')
+        this.props.history.push('/search')
+    }
+
     render() {
         let tests = []
         let finalPrice = 0
@@ -769,7 +774,8 @@ class BookingSummaryViewNew extends React.Component {
                                                                             :''
                                                                         }
                                                                         {
-                                                                            this.props.LABS[this.state.selectedLab].tests && this.props.LABS[this.state.selectedLab].tests.length?''
+                                                                            this.props.LABS[this.state.selectedLab].tests && !this.props.LABS[this.state.selectedLab].tests.length && is_default_user_insured?
+                                                                            <a style={{ cursor: 'pointer' }} onClick={this.searchTests.bind(this)} className="text-primary fw-700 text-sm">Search tests</a>
                                                                             :''
                                                                         }
                                                                     </div>

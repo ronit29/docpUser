@@ -60,6 +60,12 @@ class LabTests extends React.Component {
         }
         GTM.sendEvent({ data: data })
     }
+
+    searchTests(){
+        this.props.selectSearchType('lab')
+        this.props.history.push('/search')
+    }
+
     render() {
 
         let is_package = false
@@ -77,6 +83,7 @@ class LabTests extends React.Component {
         let {is_plan_applicable} = this.props
         let { is_insurance_applicable } = this.props
         let is_user_insured = false
+        let selectedTestsCount = 0
 
         //For Insured Person Remove unselected Tests/Packages
 
@@ -86,7 +93,7 @@ class LabTests extends React.Component {
 
 
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
-            let selectedTestsCount = this.props.currentLabSelectedTests.filter(x=>x.is_selected).length
+            selectedTestsCount = this.props.currentLabSelectedTests.filter(x=>x.is_selected).length
 
             this.props.currentLabSelectedTests.map((test, i) => {
                 if (test.hide_price) {
@@ -285,6 +292,15 @@ class LabTests extends React.Component {
                         </div>
                         :''
                     }
+
+                    {
+                        is_user_insured && !selectedTestsCount?
+                        <div className="pb-view text-right">
+                            <a href="javascript:;" className="link-text text-md fw-700" onClick={this.searchTests.bind(this)}>Search tests</a>
+                        </div>
+                        :''
+                    }
+
                     {
                         is_insurance_applicable?
                         <div className="ins-val-bx">Covered Under Insurance</div>
