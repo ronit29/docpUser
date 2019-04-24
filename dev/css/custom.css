@@ -714,6 +714,7 @@ body.lineLoader {
 	-webkit-transition: color .2s; 
 				transition: color .2s; 
 				text-decoration: none;
+				position: relative;
 }
 .head_text_container a:hover{
 color:  #f78631;
