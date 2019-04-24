@@ -96,6 +96,15 @@ class BookingSummaryViewNew extends React.Component {
             this.props.resetLabCoupons()
             return
         }
+        if(nextProps.defaultProfile != this.props.defaultProfile && nextProps.defaultProfile){
+
+            if(nextProps.profiles[nextProps.defaultProfile] && nextProps.profiles[nextProps.defaultProfile].is_insured) {
+                this.props.clearExtraTests()
+                this.props.getLabById(this.props.match.params.id)
+                return
+            }
+            
+        }
         if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests && nextProps.LABS[this.state.selectedLab].tests.length) {
 
             // bases cases
@@ -580,6 +589,7 @@ class BookingSummaryViewNew extends React.Component {
         let is_insurance_applicable = false
         let is_tests_covered_under_insurance = false
         let is_selected_user_insured = false
+        let is_default_user_insured = false
 
         let is_plan_applicable = false
         let is_tests_covered_under_plan = true
@@ -588,6 +598,11 @@ class BookingSummaryViewNew extends React.Component {
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
+
+        }
+
+        if(this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]){
+            is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
         }
 
 
@@ -749,7 +764,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                     </span>Test</h4>
                                                                     <div className="float-right  mbl-view-formatting text-right">
                                                                         {
-                                                                            STORAGE.isAgent() || (!is_insurance_applicable && !is_corporate) ?
+                                                                            STORAGE.isAgent() || (!is_default_user_insured && !is_corporate) ?
                                                                             <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more/Remove tests</a>
                                                                             :''
                                                                         }

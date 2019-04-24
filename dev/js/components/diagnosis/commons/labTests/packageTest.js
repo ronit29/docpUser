@@ -19,13 +19,13 @@ class PackageTest extends React.Component {
         let test_package = test.package || []
         let test_info
         if (test.test.show_details) {
-            test_info= <span style={{'marginRight':'5px',marginTop:'2px',display:'inline-block'}} onClick={this.props.testInfo.bind(this,test.test.id,test.test.url)}>
+            test_info= <span style={{'marginRight':'5px',marginTop:'2px',display:'inline-block', 'cursor':'pointer'}} onClick={this.props.testInfo.bind(this,test.test.id,test.test.url)}>
                     <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
             </span>
         }
         return (
             <li key={i} style={{ paddingRight: '0px' }} className="clearfix pdngRgt">
-                <label className="ck-bx" style={{ fontWeight: '400', fontSize: '14px' }} >
+                <label className={`${this.props.is_user_insured?'':'ck-bx'}`} style={{ fontWeight: '400', fontSize: '14px' }} >
                     <p style={{ paddingRight: '120px' }}>
                         {test.test.name} {test.test.show_details?test_info:''}
                     </p>
@@ -36,15 +36,11 @@ class PackageTest extends React.Component {
                             {
                                 this.props.is_plan_applicable && !this.props.is_insurance_applicable? <p className="pkg-discountCpn" style={{display:'inline-block',float:'right'}}>Docprime Care Benefit</p>:''
                             }
-                            {
-                                false && this.props.is_insurance_applicable && this.state.testListVisible?
-                                <div className="ins-val-bx">Covered Under Insurance</div>
-                                :''
-                            }
                         </span> : ''
                     }
                     {
-                        this.props.hide_price ?
+                        this.props.is_user_insured?''   
+                        :this.props.hide_price ?
                             <input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false} />
                             : <input type="checkbox" value="on" checked={this.props.test.is_selected ? true : false} onChange={(e) => {
                                 this.props.toggleTest(test)
@@ -52,7 +48,10 @@ class PackageTest extends React.Component {
 
                     }
 
-                    <span className="checkmark"></span>
+                    {
+                        this.props.is_user_insured?''
+                        :<span className="checkmark"></span>
+                    }
 
                 </label>
                 <div className="pdng-left-pkg">
