@@ -66,7 +66,10 @@ class TestsListView extends React.Component {
                                                     {
                                                         test.url ?
                                                             <div>
-                                                                <a href={`/${test.url}`}>{test.name}</a>
+                                                                <a href={`/${test.url}`} onClick={(e) => {
+                                                                    e.preventDefault()
+                                                                    this.props.history.push(`/${test.url}`)
+                                                                }}>{test.name}</a>
                                                                 <span className="sitemap-right-arrow">
                                                                     <img src="/assets/img/customer-icons/arrow-forward-right.svg" />
                                                                 </span>
