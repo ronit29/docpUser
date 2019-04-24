@@ -15,7 +15,7 @@ class PackageTest extends React.Component {
 
     render() {
         let { i, test, toggle } = this.props
-        let { deal_price, mrp, pre_test_info } = test
+        let { deal_price, mrp, pre_test_info, insurance } = test
         let test_package = test.package || []
         let test_info
         if (test.test.show_details) {
@@ -68,7 +68,7 @@ class PackageTest extends React.Component {
 
                     </span>
                     {
-                        this.props.is_insurance_applicable?''
+                        ( (this.props.is_insurance_applicable || !this.props.selectedTestsCount) && insurance.is_insurance_covered) || !test_package.length?''
                         :<button className="pkg-info-btn info-san" onClick={() => this.packageNameClick()}>
                             <span className="">{this.state.testListVisible ? 'Hide details' : 'View details'}</span>
                         </button>
@@ -76,12 +76,12 @@ class PackageTest extends React.Component {
                     
                 </div>
                 {
-                 this.props.is_plan_applicable || test.hide_price || this.props.is_insurance_applicable? "" : <span className="test-price text-sm">₹ {parseInt(deal_price)}<span className="test-mrp">₹ {parseInt(mrp)}</span></span>
+                 this.props.is_plan_applicable || test.hide_price || ( (this.props.is_insurance_applicable || !this.props.selectedTestsCount) && insurance.is_insurance_covered)? "" : <span className="test-price text-sm">₹ {parseInt(deal_price)}<span className="test-mrp">₹ {parseInt(mrp)}</span></span>
 
                 }
                     
                 {
-                    this.props.is_plan_applicable || this.props.is_insurance_applicable? <span className="test-price text-sm">₹ 0</span>:''
+                    this.props.is_plan_applicable || ( (this.props.is_insurance_applicable || !this.props.selectedTestsCount) && insurance.is_insurance_covered)? <span className="test-price text-sm">₹ 0</span>:''
                 }
                 {/*                 
                 <div>

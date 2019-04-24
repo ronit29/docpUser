@@ -93,9 +93,9 @@ class LabTests extends React.Component {
 
                 if (test.is_package) {
                     if (test.is_selected) {
-                        selectedPackage.push(<PackageTest is_insurance_applicable ={is_insurance_applicable} is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} testInfo={this.testInfo.bind(this)} hide_price={hide_price} />)
+                        selectedPackage.push(<PackageTest is_insurance_applicable ={is_insurance_applicable} is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} testInfo={this.testInfo.bind(this)} hide_price={hide_price} selectedTestsCount={selectedTestsCount}/>)
                     } else {
-                        unSelectedPackage.push(<PackageTest is_insurance_applicable ={is_insurance_applicable} is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} hide_price={hide_price} testInfo={this.testInfo.bind(this)} />)
+                        unSelectedPackage.push(<PackageTest is_insurance_applicable ={is_insurance_applicable} is_plan_applicable={is_plan_applicable} key={i} i={i} test={test} toggle={this.toggle.bind(this)} toggleTest={this.toggleTest.bind(this)} hide_price={hide_price} testInfo={this.testInfo.bind(this)} selectedTestsCount={selectedTestsCount}/>)
                     }
 
                 } else {
@@ -232,8 +232,8 @@ class LabTests extends React.Component {
                     <ul className="list all-test-list pdngRgt">
                         {selectedTests}
                         {selectedPackage}
-                        {hide_price ? '' : unSelectedTests}
-                        {hide_price ? '' : unSelectedPackage}
+                        {hide_price || is_insurance_applicable? '' : unSelectedTests}
+                        {hide_price || is_insurance_applicable? '' : unSelectedPackage}
                     </ul>
 
                     
