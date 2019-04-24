@@ -607,7 +607,7 @@ class InsuranceSelf extends React.Component{
 								<label className="form-control-placeholder" htmlFor={`isndistrict_${this.props.member_id}`}>District</label>
 								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
-						:<div onClick={this.showAlert.bind(this)}> 
+						:<div className="ins-form-group" onClick={this.showAlert.bind(this)}> 
 							<input style={{'textTransform': 'capitalize',fontWeight: '100',    color: 'gray'}} type="text" id={`isndistrict_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('district')> -1?'fill-error':''}`} required autoComplete="none" name="district" value="Select District" disabled data-param='district'/>
 							<label className="form-control-placeholder datePickerLabel" htmlFor={`isndistrict_${this.props.member_id}`}>District</label>
 							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
@@ -630,7 +630,7 @@ class InsuranceSelf extends React.Component{
 							<label className="form-control-placeholder" htmlFor={`isndistrict_${this.props.member_id}`}>Town</label>
 							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
-						:<div onClick={this.showAlert.bind(this)}> 
+						:<div className="ins-form-group" onClick={this.showAlert.bind(this)}> 
 							<input style={{'textTransform': 'capitalize',fontWeight: '100',    color: 'gray'}} type="text" id={`isndistrict_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('town')> -1?'fill-error':''}`} required autoComplete="none" name="town" value="Select Town" disabled data-param='town'/>
 								<label className="form-control-placeholder datePickerLabel" htmlFor={`isndistrict_${this.props.member_id}`}>Town</label>
 								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
