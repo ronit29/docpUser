@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType, getOfferList, toggleOPDCriteria } from '../../actions/index.js'
+import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType, getOfferList, toggleOPDCriteria, selectLabAppointmentType, selectLabTimeSLot } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder, PackageSearchStateBuilder } from '../../helpers/urltoState'
 import SearchPackagesView from '../../components/diagnosis/searchPackages/index.js'
 
@@ -142,7 +142,9 @@ const mapDispatchToProps = (dispatch) => {
         selectSearchType: (type) => dispatch(selectSearchType(type)),
         getFooterData: (url) => dispatch(getFooterData(url)),
         getOfferList: (lat, long) => dispatch(getOfferList(lat, long)),
-        toggleOPDCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filter))
+        toggleOPDCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filter)),
+        selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
+        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule))
     }
 }
 
