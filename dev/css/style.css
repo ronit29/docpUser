@@ -4816,15 +4816,26 @@ font-weight: 700;
 	display: flex;
 }
 .chat-div-containers {
-	display: flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     width: 16%;
-	margin: 0px 4px;
-	height: 50px;
-	cursor: pointer;
-	padding-top: 6px;
+    margin: 0px 4px;
+    height: 60px;
+    cursor: pointer;
+    padding-top: 6px;
+    position: relative;
+}
+.opdNewShow{
+    position: absolute;
+    right: -15px;
+    font-size: 10px;
+    background: #F44336;
+    color: white;
+    font-weight: 500;
+    padding: 0 3px;
+    border-radius: 4px;
 }
 .nw-img-with-content {
     height: 25px;
@@ -10929,4 +10940,19 @@ input[type=button]{
     padding: 8px 20px;
     margin-top: 5px;
     cursor: pointer;
+}
+.opdNewHeaderOfr{
+    position: absolute;
+    right: -15px;
+    top: 4px;
+    font-size: 10px;
+    background: #F44336;
+    color: white;
+    font-weight: 500;
+    padding: 0 5px;
+    border-radius: 4px;
+}
+.opdUpico{
+    position: relative;
+    top:-3px;
 }

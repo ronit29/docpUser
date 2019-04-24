@@ -72,6 +72,33 @@ class LabProfileCard extends React.Component {
             }
         }
     }
+
+    bookNowClicked(id, url, test_id, test_name, e) {
+        let slot = { time: {} }
+        this.props.clearExtraTests()
+        this.props.selectLabTimeSLot(slot, false)
+        this.props.selectLabAppointmentType('home')
+
+        let new_test = {}
+        new_test.extra_test = true
+        new_test.lab_id = id
+        new_test.type = 'test'
+        new_test.name = test_name
+        new_test.id = test_id
+        this.props.toggleDiagnosisCriteria('test', new_test, true)
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'RankOfLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'rank-lab-clicked', 'Rank': this.props.rank + 1
+        }
+        GTM.sendEvent({ data: data })
+
+        data = {
+            'Category': 'ConsumerApp', 'Action': 'LabSelectedByUser', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-selected-by-user', 'LabId': id
+        }
+        GTM.sendEvent({ data: data })
+        this.props.history.push(`/lab/${id}/book`)
+    }
+
+
     testInfo(test_id) {
         let lab_id = this.props.details.lab.id
         // let selected_test_ids = this.props.lab_test_data[this.props.selectedLab] || []
@@ -171,7 +198,7 @@ class LabProfileCard extends React.Component {
                         <p><img className="fltr-loc-ico" src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} style={{ width: '12px', height: '18px' }} /> {lab.locality} {lab.city} </p><span className="kmTrunate"> | {distance} Km</span>
                     </div>
                     <div className="pkg-card-content">
-                        <div className="row no-gutters" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
+                        <div className="row no-gutters" onClick={this.bookNowClicked.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
                             <div className="col-8">
                                 <div className="pkg-cardleft-img">
                                     <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
@@ -239,7 +266,7 @@ class LabProfileCard extends React.Component {
                             <ul>
                                 {
                                     category_details.map((category_detail, k) => {
-                                        return <li className="pkgIncludeList" key={k} id={k} onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
+                                        return <li className="pkgIncludeList" key={k} id={k} onClick={this.bookNowClicked.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
                                             {category_detail.icon ?
                                                 <img style={{ width: '20px', marginRight: '5px' }} src={category_detail.icon} />
                                                 : ''}
