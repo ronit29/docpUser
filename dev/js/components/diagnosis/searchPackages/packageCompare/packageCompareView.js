@@ -391,7 +391,7 @@ const queryString = require('query-string');
                                   )
                               })
                         :''}
-                        {
+                        {/*
                           this.props.data.packages?
                           <div className="pkg-card-container mb-3 available-done">
                                 <div className={"top-head-info multiple-pkgs parent-info category-done" + (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':this.props.data.packages.length <= 4?' pkbclsFour':'')}>
@@ -406,6 +406,7 @@ const queryString = require('query-string');
                                 </div>
                           </div>
                         :''}
+                      */}
                       </div>
                     </div>
                   </div>
