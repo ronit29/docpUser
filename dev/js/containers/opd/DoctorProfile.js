@@ -10,23 +10,33 @@ const queryString = require('query-string');
 class DoctorProfile extends React.Component {
     constructor(props) {
         super(props)
+        let d_id = this.props.match.params.id || this.get_doctor_id_by_url(this.props.match.url)
         this.state = {
-            selectedDoctor: this.props.match.params.id || null,
+            selectedDoctor: d_id,
             is_procedure: false,
             hospital_id: ''
         }
     }
 
-    static loadData(store, match,queryData={}) {
+    get_doctor_id_by_url(url) {
+        for (let d_id in this.props.DOCTORS) {
+            if (this.props.DOCTORS[d_id].url && url.includes(this.props.DOCTORS[d_id].url)) {
+                return d_id
+            }
+        }
+        return null
+    }
+
+    static loadData(store, match, queryData = {}) {
         if (match.params.id) {
-            return store.dispatch(getDoctorById(match.params.id,queryData.hospital_id || '',queryData.procedure_ids || [], queryData.category_ids ||[]))
+            return store.dispatch(getDoctorById(match.params.id, queryData.hospital_id || '', queryData.procedure_ids || [], queryData.category_ids || []))
         } else {
             let url = match.url
             if (url) {
                 url = url.split("/")[1]
             }
             return new Promise((resolve, reject) => {
-                store.dispatch(getDoctorByUrl(url, queryData.hospital_id ||'', queryData.procedure_ids || [], queryData.category_ids ||[] , (doctor_id, url) => {
+                store.dispatch(getDoctorByUrl(url, queryData.hospital_id || '', queryData.procedure_ids || [], queryData.category_ids || [], (doctor_id, url) => {
                     if (doctor_id) {
                         if (match.url.includes('-dpp')) {
                             getFooterData(match.url.split("/")[1])().then((footerData) => {
@@ -58,7 +68,7 @@ class DoctorProfile extends React.Component {
         let is_procedure = false
         let category_ids = []
         let procedure_ids = []
-        
+
         if (parsed) {
             hospital_id = parsed.hospital_id || ''
             is_procedure = parsed.is_procedure || false
@@ -67,18 +77,23 @@ class DoctorProfile extends React.Component {
         }
 
         if (this.props.match.params.id) {
-            this.props.getDoctorById(this.props.match.params.id, hospital_id, procedure_ids, category_ids)
-            this.setState({ hospital_id: hospital_id, is_procedure: is_procedure})
+            if (!this.state.selectedDoctor) {
+                this.props.getDoctorById(this.props.match.params.id, hospital_id, procedure_ids, category_ids)
+            }
+            this.setState({ hospital_id: hospital_id, is_procedure: is_procedure })
         } else {
             let url = this.props.match.url
             if (url) {
                 url = url.split("/")[1]
             }
-            this.props.getDoctorByUrl(url, hospital_id, procedure_ids, category_ids, (doctor_id) => {
-                if (doctor_id) {
-                    this.setState({ selectedDoctor: doctor_id, hospital_id: hospital_id, is_procedure: is_procedure})
-                }
-            })
+            if (!this.state.selectedDoctor) {
+                this.props.getDoctorByUrl(url, hospital_id, procedure_ids, category_ids, (doctor_id) => {
+                    if (doctor_id) {
+                        this.setState({ selectedDoctor: doctor_id })
+                    }
+                })
+            }
+            this.setState({ hospital_id: hospital_id, is_procedure: is_procedure })
         }
 
         //always clear selected time at doctor profile
@@ -97,7 +112,7 @@ class DoctorProfile extends React.Component {
     render() {
 
         return (
-            <DoctorProfileView {...this.props} selectedDoctor={this.state.selectedDoctor} {...this.state}/>
+            <DoctorProfileView {...this.props} selectedDoctor={this.state.selectedDoctor} {...this.state} />
         );
     }
 }
