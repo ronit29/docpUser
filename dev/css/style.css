@@ -9247,12 +9247,14 @@ border-radius: 4px;
 }
 
 
+
 .pkgComapre .multi-pkg-cmpre{
 	display: flex;
     justify-content: space-between;
     align-items: center;
 	padding: 15px 10px;
 	background-color: #f8f8f8;
+	
 }
 .pkgComapre .tgle-btn-txt{
 	margin-left: 50px;
@@ -10950,4 +10952,22 @@ input[type=button]{
 .opdUpico{
     position: relative;
     top:-3px;
+}
+.ease-hide{
+	-webkit-transition: all 1s -0.5s ease-out;-webkit-transition: all 1s -0.5s ease-out;
+    -moz-transition: all 1s -0.5s ease-out;
+    -o-transition: all 1s -0.5s ease-out;
+    -ms-transition: all 1s -0.5s ease-out;
+    transition: all 1s -0.5s ease-out;
+    -moz-transition: all 1s -0.5s ease-out;
+    -o-transition: all 1s -0.5s ease-out;
+    -ms-transition: all 1s -0.5s ease-out;
+    transition: all 1s -0.5s ease-out;
+}
+.easehideadd{
+	      height: 0px;
+    padding: 0px 15px !important;
+    overflow: hidden;
+    opacity: 0;
+    margin: 0;
 }

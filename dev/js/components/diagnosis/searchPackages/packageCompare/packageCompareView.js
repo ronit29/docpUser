@@ -49,11 +49,11 @@ const queryString = require('query-string');
               let scrollHeight = document.getElementsByClassName('sticky-multiple-pkgs')[0].offsetTop
               ids.map((id,i)=>{
                 if (scrollHeight >0 && window.screen.width < 768) {
-                  document.getElementById('showDiff').classList.add("d-none")
-                  document.getElementById(id).classList.add("d-none")
+                  document.getElementById('showDiff').classList.add("easehideadd")
+                  document.getElementById(id).classList.add("easehideadd")
                 } else {
-                  document.getElementById('showDiff').classList.remove("d-none")
-                  document.getElementById(id).classList.remove("d-none")
+                  document.getElementById('showDiff').classList.remove("easehideadd")
+                  document.getElementById(id).classList.remove("easehideadd")
                 }
               }) 
             }
@@ -247,7 +247,7 @@ const queryString = require('query-string');
                     <div className="container-fluid pad-all-0">
                       
                       <div className="sticky-multiple-pkgs">
-                        <div className="multi-pkg-cmpre" id="showDiff">
+                        <div className="multi-pkg-cmpre ease-hide" id="showDiff">
                           <div className="tgle-btn">
                             <label className="switch">
                               <span className="tgle-btn-txt"> Show Difference</span>
@@ -272,7 +272,7 @@ const queryString = require('query-string');
                                     
                                       <div className="pkg-hd">{packages.name}</div>
                                       {/*<div className="pkg-hd-by" id={"hide_av_" + packages.id}>Available in {packages.total_labs_available} Labs</div>*/}
-                                      <div className="pkg-hd-by fw-500" id={"hide_av_" + packages.id+'_'+packages.lab.id}>{packages.lab.name}</div>
+                                      <div className="pkg-hd-by fw-500 ease-hide" id={"hide_av_" + packages.id+'_'+packages.lab.id}>{packages.lab.name}</div>
                                       
                                       <h3 className="lab-fltr-dc-name fw-500 pkg-include">{packages.total_parameters_count} Tests Included</h3>
                                       <div className="pkg-card-price">
