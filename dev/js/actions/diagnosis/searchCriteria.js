@@ -148,7 +148,6 @@ export const resetPkgCompare = () => (dispatch) => {
 }
 
 export const getCompareList = (selectedIds,selectedLocation,callback) => (dispatch) => {
-    console.log(selectedLocation)
     let lat = 28.644800
     let long = 77.216721
     if (selectedLocation) {
