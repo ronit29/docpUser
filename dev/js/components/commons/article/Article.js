@@ -24,12 +24,22 @@ class Article extends React.Component {
     constructor(props) {
         super(props)
         let footerData = null
+
         let articleData = null
         let articleLoaded = false
+
         if (this.props.initialServerData) {
             articleData = this.props.initialServerData.articleData
             articleLoaded = true
         }
+
+        let articleId = this.props.match.url
+        articleId = articleId.toLowerCase().substring(1, articleId.length)
+        if (this.props.articleData && this.props.articleData[articleId]) {
+            articleData = this.props.articleData[articleId]
+            articleLoaded = true
+        }
+
         this.state = {
             articleData: articleData,
             replyOpenFor: null,
@@ -42,7 +52,10 @@ class Article extends React.Component {
     }
 
     componentDidMount() {
-        this.getArticleData()
+        if (!this.state.articleData) {
+            this.getArticleData()
+        }
+
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -147,7 +160,7 @@ class Article extends React.Component {
 
     getCityList(key) {
 
-        return this.state.searchCities.length > 0 && this.state.searchWidget==key?
+        return this.state.searchCities.length > 0 && this.state.searchWidget == key ?
             <section>
                 <div className="widget mb-10">
                     <div className="common-search-container">
@@ -169,10 +182,10 @@ class Article extends React.Component {
 
     }
 
-    getCityListLayout(searchResults = [], searchParams={}) {
+    getCityListLayout(searchResults = [], searchParams = {}) {
         let specialization_id = ''
         let searchWidget = ''
-        if(searchParams && Object.values(searchParams).length){
+        if (searchParams && Object.values(searchParams).length) {
             specialization_id = searchParams.specialityId
             searchWidget = searchParams.widgetId
         }
@@ -192,16 +205,16 @@ class Article extends React.Component {
             }
             GTM.sendEvent({ data: gtmData })
 
-            if(this.state.specialization_id) {
+            if (this.state.specialization_id) {
 
                 let criteria = {}
                 criteria.id = this.state.specialization_id
                 criteria.name = ''
                 criteria.type = 'speciality'
                 this.props.cloneCommonSelectedCriterias(criteria)
-                this.props.history.push(`/opd/searchresults`)    
+                this.props.history.push(`/opd/searchresults`)
             }
-            
+
         })
     }
 
@@ -368,20 +381,20 @@ class Article extends React.Component {
                                                 </div>
                                             } else if (val.type.includes('search_widget')) {
                                                 return <div key={key}>
-                                                        {
-                                                            val.content.lat && val.content.lng && val.content.location_name?
-                                                            <CommonSearch {...this.props} location={val.content.location_name} latitude={val.content.lat} longitude={val.content.lng}/>
-                                                            :val.content.specialization_id?
+                                                    {
+                                                        val.content.lat && val.content.lng && val.content.location_name ?
+                                                            <CommonSearch {...this.props} location={val.content.location_name} latitude={val.content.lat} longitude={val.content.lng} />
+                                                            : val.content.specialization_id ?
                                                                 <div>
-                                                                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName={locationName} articleSearchPage={true} specialityName={val.content.specialization_name} specialityId={val.content.specialization_id} widgetId={key}/>  
+                                                                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName={locationName} articleSearchPage={true} specialityName={val.content.specialization_name} specialityId={val.content.specialization_id} widgetId={key} />
                                                                     {this.getCityList(key)}
                                                                 </div>
-                                                            :<div>
-                                                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName='' widgetId={key} commonSearch={true} articleSearchPage={true}/>   
-                                                                {this.getCityList(key)}
-                                                                <CommonSearch {...this.props} commonSearch={true} />
-                                                            </div>
-                                                        }
+                                                                : <div>
+                                                                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName='' widgetId={key} commonSearch={true} articleSearchPage={true} />
+                                                                    {this.getCityList(key)}
+                                                                    <CommonSearch {...this.props} commonSearch={true} />
+                                                                </div>
+                                                    }
                                                 </div>
 
                                             }
@@ -436,7 +449,7 @@ class Article extends React.Component {
                                 : ''
                         }
                     </div>
-                    
+
                     <FixedMobileFooter {...this.props} />
                 </section>
                 <Footer />
