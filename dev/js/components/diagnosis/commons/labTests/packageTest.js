@@ -31,7 +31,7 @@ class PackageTest extends React.Component {
                     </p>
                     
                     {
-                        test.number_of_tests ? <span style={{ fontSize: '12px', fontWeight: '600', color: '#757575',display: 'block', marginTop: 5 }}>{
+                        test.number_of_tests ? <span style={{ fontSize: '12px', fontWeight: '600', color: '#757575',display: 'block', marginTop: 5 }}>{this.props.is_insurance_applicable?'':
                             `(includes ${test.number_of_tests} Tests)`}
                             {
                                 this.props.is_plan_applicable && !this.props.is_insurance_applicable? <p className="pkg-discountCpn" style={{display:'inline-block',float:'right'}}>Docprime Care Benefit</p>:''
@@ -67,9 +67,13 @@ class PackageTest extends React.Component {
                         </button>*/}
 
                     </span>
-                    <button className="pkg-info-btn info-san" onClick={() => this.packageNameClick()}>
-                        <span className="">{this.state.testListVisible ? 'Hide details' : 'View details'}</span>
-                    </button>
+                    {
+                        this.props.is_insurance_applicable?''
+                        :<button className="pkg-info-btn info-san" onClick={() => this.packageNameClick()}>
+                            <span className="">{this.state.testListVisible ? 'Hide details' : 'View details'}</span>
+                        </button>
+                    }
+                    
                 </div>
                 {
                  this.props.is_plan_applicable || test.hide_price || this.props.is_insurance_applicable? "" : <span className="test-price text-sm">₹ {parseInt(deal_price)}<span className="test-mrp">₹ {parseInt(mrp)}</span></span>
@@ -97,7 +101,7 @@ class PackageTest extends React.Component {
                     </span>
                 </div> */}
                 {
-                    this.state.testListVisible ?
+                    !this.props.is_insurance_applicable && this.state.testListVisible ?
                         <ul className="list drop-down-list lisitng-in-lab">
                             {
                                 test_package.map((pack, j) => {
