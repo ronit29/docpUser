@@ -159,7 +159,7 @@ class LeftMenu extends React.Component {
                 <li><a onClick={(e) => {
                   e.preventDefault()
                   this.setState({ toggleArticles: !this.state.toggleArticles })
-                }} href="#" ><img src="/assets/images/articles.png" alt="" className="" />Articles
+                }} href="#" ><img src="/assets/images/articles.png" alt="" className="" />Resources
                                 {
                     this.state.toggleArticles ?
                       <img className="up-down-arw" src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="docprime" />
@@ -179,7 +179,13 @@ class LeftMenu extends React.Component {
                         e.preventDefault();
                         this.props.toggleLeftMenu()
                         this.props.history.push("/all-medicines")
-                      }} href="#">All Medicines</a></li>
+                      }} href="#" className="pad-B0">All Medicines</a></li>
+
+                      <li ><a onClick={(e) => {
+                        e.preventDefault();
+                        this.props.toggleLeftMenu()
+                        this.props.history.push("/tests")
+                      }} href="#">All Tests</a></li>
                     </div>
                     : ''
                 }
@@ -216,7 +222,7 @@ class LeftMenu extends React.Component {
                     }} href="#">Login</a></li>
                 }
               </ul>
-              
+
 
             </div>
           </div>

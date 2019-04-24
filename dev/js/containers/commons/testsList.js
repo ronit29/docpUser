@@ -5,10 +5,6 @@ import { getTestsAlphabetically } from '../../actions/index.js'
 
 class TestsList extends React.Component {
 
-    componentDidMount() {
-
-    }
-
     render() {
 
         return (
