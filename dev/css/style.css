@@ -9420,7 +9420,7 @@ border-radius: 4px;
 	text-align: center;
 }
 .parent-info ul li{
-	font-weight: 700;
+	font-weight: 500; 
 }
 .multiple-pkgs-details{
 	/* border-top: 1px solid rgba(0,0,0,0.12);
@@ -9664,7 +9664,6 @@ border-radius: 4px;
 	}
 	.pkgComapre .multiple-pkgs h3.pkg-include{
 		display:inline-block;
-		font-size:9px;
 		font-weight:400 !important;
 	}
 	.pkg-hd{
