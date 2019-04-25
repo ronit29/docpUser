@@ -344,12 +344,12 @@ class CriteriaElasticSearchView extends React.Component {
                         <LeftBar />
 
                         <div className="col-12 col-md-7 col-lg-7 center-column pt-0">
-
+                            <img className="search-back-main-ico" src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} onClick={()=> this.props.history.goBack()}/>
                             {
                                 // goback decides if search bar will be shown
-                                this.props.goBack ? "" : <div className="widget mb-10 mrng-top-20">
+                                this.props.goBack ? "" : <div className="widget mb-10">
                                     <div className="search-top-container">
-                                        <p className="srch-heading">Search</p>
+                                        {/* <p className="srch-heading">Search</p> */}
                                         <div className="serch-nw-inputs-container">
 
                                             <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' fromCriteria={true} commonSearchPage={true} />
@@ -405,8 +405,8 @@ class CriteriaElasticSearchView extends React.Component {
                                 this.state.searchCities.length > 0 ?
                                     <section>
                                         <div className="widget searchMargin">
-                                            <div className="common-search-container">
-                                                <p className="srch-heading">Location Search</p>
+                                            <div className="common-search-container pt-0">
+                                                {/* <p className="srch-heading">Location Search</p> */}
                                                 <div className="common-listing-cont">
                                                     <ul>
                                                         {
@@ -432,7 +432,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                     this.state.searchResults.length || this.state.searchValue ?
                                                         <div className="widget searchMargin" >
                                                             <div className="common-search-container">
-                                                                <p className="srch-heading">Search Results</p>
+                                                                {/* <p className="srch-heading">Search Results</p> */}
                                                                 {
                                                                     !this.state.searchCities.length && this.state.type && (this.state.searchValue || Object.values(this.state.currentTestType).length) ?
                                                                         <div style={{ cursor: 'pointer' }} onClick={() => {
@@ -442,7 +442,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                             }
                                                                             GTM.sendEvent({ data: data })
 
-                                                                            this.props.changeSelection(this.state.type, this.state.visibleType.name||'')
+                                                                            this.props.changeSelection(this.state.type, this.state.visibleType.name || '')
                                                                         }}>
                                                                             <p className="p-0 srch-prnsl-txt" >Did you mean: <span className="search-prnsl-rslts">{this.state.visibleType.name || ''}</span> in <span className="fw-700">{this.state.visibleType.visible_name}</span></p>
                                                                         </div>
