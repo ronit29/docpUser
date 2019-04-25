@@ -540,7 +540,8 @@ background: black;
 
 .ofr-top-header {
 	background-color: #e46608;
-	padding: 7px 0px;
+    padding: 7px 0px;
+    min-height: 35px;
 }
 
 .pb-img-size {
@@ -1111,7 +1112,7 @@ p.top-head-link.card-lab-link span {
 	.chat-main-container {
         position: relative;
         top: 12px;
-        margin-bottom: 12px;
+        margin-bottom: 22px;
 	}
 	.dtl-margin-lg{
 		margin-right: 10px !important;
@@ -3702,7 +3703,7 @@ padding-top: 0px !important;
 }
 .common-listing-cont li p{
 	width: 100%;
-    padding: 14px 5px;
+    padding: 10px 5px;
     font-weight: 500;
 	color: #757575;
 	font-size: 12px;
@@ -7133,7 +7134,8 @@ p.cstm-card-loc-set span {
     margin-right: 8px;
 }
 .cstm-doc-img-container img{
-	width: 50px;
+    width: 50px;
+    font-size: .5em;
 }
 .cstm-varify{
 	background: #55a740;
@@ -10017,4 +10019,28 @@ input[type=button]{
 .opdUpico{
     position: relative;
     top:-3px;
+}
+
+.search-back-main-ico{
+    width: 30px;
+    margin: 8px 0px;
+    cursor: pointer;
+}
+.banner-cont-height{
+    position: relative;
+}
+.hidderBanner{
+    visibility: hidden;
+}
+.divHeight{
+    height: 0;
+    padding-bottom: 25.5%;
+    margin: 20px 0px;
+}
+.home-slider-position{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    margin: auto;
 }

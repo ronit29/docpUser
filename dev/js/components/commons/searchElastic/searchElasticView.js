@@ -240,7 +240,7 @@ class SearchElasticView extends React.Component {
         let commonSearched = ''
 
         if (this.props.selectedSearchType.includes('opd')) {
-            title = "speciality, doctor, hospital, disease"
+            title = "Search for doctor, hospital, specialty"
             searchProceed = this.searchProceedOPD.bind(this)
             showResults = this.showDoctors.bind(this)
 
@@ -254,7 +254,7 @@ class SearchElasticView extends React.Component {
             />
 
         } else if (this.props.selectedSearchType.includes('lab')) {
-            title = "test, lab, health package"
+            title = "Search for test, lab, health package"
             searchProceed = this.searchProceedLAB.bind(this)
             showResults = this.showLabs.bind(this)
 
@@ -284,7 +284,7 @@ class SearchElasticView extends React.Component {
             />
         } else if (this.props.selectedSearchType.includes('ipd')) {
 
-            title = "Search Surgery/Procedure"
+            title = "Search for surgery, procedure"
             searchProceed = this.searchProceedIPD.bind(this)
             showResults = this.showIPD.bind(this)
 
