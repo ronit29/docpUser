@@ -49,10 +49,10 @@ const queryString = require('query-string');
               let scrollHeight = document.getElementsByClassName('sticky-multiple-pkgs')[0].offsetTop
               ids.map((id,i)=>{
                 if (scrollHeight >0 && window.screen.width < 768) {
-                  document.getElementById('showDiff').classList.add("easehideadd")
+                  // document.getElementById('showDiff').classList.add("easehideadd")
                   document.getElementById(id).classList.add("easehideadd")
                 } else {
-                  document.getElementById('showDiff').classList.remove("easehideadd")
+                  // document.getElementById('showDiff').classList.remove("easehideadd")
                   document.getElementById(id).classList.remove("easehideadd")
                 }
               }) 
