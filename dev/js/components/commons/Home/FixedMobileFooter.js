@@ -1,11 +1,21 @@
 import React from 'react';
 import GTM from '../../../helpers/gtm.js'
+import { connect } from 'react-redux';
+
+import { getDownloadAppBannerList } from '../../../actions/index.js'
+
 
 class FixedMobileFooter extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
 
+        }
+    }
+
+    componentDidMount(){
+        if(this.props.app_download_list && !this.props.app_download_list.length){
+            this.props.getDownloadAppBannerList()
         }
     }
 
@@ -21,6 +31,21 @@ class FixedMobileFooter extends React.Component {
     }
 
     render() {
+
+        let downloadAppButtonData = {}
+        if(this.props.history && this.props.history.length==2){
+            
+            if(this.props.app_download_list && this.props.app_download_list.length){
+
+                this.props.app_download_list.map((banner)=> {
+                    if(banner.isenabled && ( this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with) ) ) {
+                        downloadAppButtonData = banner
+                    }
+                })
+            }
+            
+        }
+
         return (
             <div className="mobileViewStaticChat d-md-none">
                 <div className="nw-chat-card">
@@ -36,6 +61,14 @@ class FixedMobileFooter extends React.Component {
                         </div>
                         <span>Book Doctors</span>
                     </div>
+
+                    {
+                        downloadAppButtonData && Object.values(downloadAppButtonData).length?
+                        <a className="downloadBtn" href={downloadAppButtonData.URL} >
+                            <button className="dwnlAppBtn">Download App</button>
+                        </a>
+                        :''
+                    }
 
                     <div className="chat-div-containers" style={this.props.selectedSearchType === 'lab' ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
                         let data = {
@@ -98,4 +131,20 @@ class FixedMobileFooter extends React.Component {
     }
 }
 
-export default FixedMobileFooter
+const mapStateToProps = (state) => {
+    const {
+        app_download_list
+    } = state.USER
+    return{
+        app_download_list
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+
+    return{
+        getDownloadAppBannerList : () => dispatch(getDownloadAppBannerList()) 
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FixedMobileFooter)

@@ -58,6 +58,9 @@ class DoctorProfileView extends React.Component {
                 }
             })
         }
+        if(this.props.app_download_list && !this.props.app_download_list.length){
+            this.props.getDownloadAppBannerList()
+        }
         this.setState({ searchShown: true })
     }
 
@@ -242,6 +245,20 @@ class DoctorProfileView extends React.Component {
             selectedClinicName = selectedClinicInfo.length ? selectedClinicInfo[0].hospital_name : ''
         }
 
+        let downloadAppButtonData = {}
+        if(this.props.history && this.props.history.length==2){
+            
+            if(this.props.app_download_list && this.props.app_download_list.length){
+
+                this.props.app_download_list.map((banner)=> {
+                    if(banner.isenabled && ( this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with)) ) {
+                        downloadAppButtonData = banner
+                    }
+                })
+            }
+            
+        }
+
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
@@ -287,10 +304,14 @@ class DoctorProfileView extends React.Component {
                             {
                                 this.props.DOCTORS[doctor_id] ?
 
-                                    <section className="dr-profile-screen p-relative" style={{ paddingBottom: 0 }}>
-                                        <div className="downloadBtn">
-                                            <button className="dwnlAppBtn">Download App</button>
-                                        </div>
+                                    <section className="dr-profile-screen" style={{ paddingBottom: 0 }}>
+                                        {
+                                            downloadAppButtonData && Object.values(downloadAppButtonData).length?
+                                            <a className="downloadBtn" href={downloadAppButtonData.URL}>
+                                                <button className="dwnlAppBtn">Download App</button>
+                                            </a>
+                                            :''
+                                        }
 
                                         <HelmetTags tagsData={{
                                             title: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).title,

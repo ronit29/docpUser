@@ -16,6 +16,9 @@ class LabDetails extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+        if(this.props.app_download_list && !this.props.app_download_list.length){
+            this.props.getDownloadAppBannerList()
+        }
     }
 
     render() {
@@ -23,11 +26,32 @@ class LabDetails extends React.Component {
         let { about, address, lab_image, lat, long, name, primary_mobile, city, sublocality, locality, lab_thumbnail } = this.props.data.lab
         let { lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data } = this.props.data
 
+        let downloadAppButtonData = {}
+        if(this.props.history && this.props.history.length==2){
+            
+            if(this.props.app_download_list && this.props.app_download_list.length){
+
+                this.props.app_download_list.map((banner)=> {
+                    if(banner.isenabled && ( this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with)) ){
+                        downloadAppButtonData = banner
+                    }
+                })
+            }
+            
+        }
+
         return (
             <section className="profile-book-screen">
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12">
+                            {
+                                downloadAppButtonData && Object.values(downloadAppButtonData).length?
+                                <a className="downloadBtn" href={downloadAppButtonData.URL}>
+                                    <button className="dwnlAppBtn">Download App</button>
+                                </a>
+                                :''
+                            }
                             {this.props.data.lab.unrated_appointment ? <RatingProfileCard {...this.props} details={this.props.data.lab.unrated_appointment} /> : ""}
 
                             <div className="widget mrb-15">
