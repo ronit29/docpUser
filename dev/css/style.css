@@ -9035,7 +9035,7 @@ border-radius: 4px;
 .pkgComapre .pkg-crd-header {
     background: #ddedd9;
     color: #55a740;
-    padding: 10px;
+    padding: 9px;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
     position: relative;
@@ -9438,7 +9438,7 @@ border-radius: 4px;
     justify-content: center;
     align-items: center;
 	font-size:13px;
-	min-height: 30px;
+	min-height: 21px;
 	margin:0px 0;
 }
 /* .multiple-pkgs.multiple-pkgs-details ul li:after{
@@ -10966,7 +10966,7 @@ input[type=button]{
 }
 .easehideadd{
 	      height: 0px;
-    padding: 0px 15px !important;
+    /* padding: 0px 15px !important; */
     overflow: hidden;
     opacity: 0;
     margin: 0;
