@@ -128,7 +128,7 @@ const mapStateToProps = (state, passedProps) => {
     }
 
     let DOCTORS = state.DOCTOR_PROFILES
-    let { rated_appoinments, profiles, selectedProfile, primaryMobile, app_download_list } = state.USER
+    let { rated_appoinments, profiles, selectedProfile, primaryMobile, app_download_list, device_info } = state.USER
 
     const {
         selectedCriterias,
@@ -144,7 +144,7 @@ const mapStateToProps = (state, passedProps) => {
     } = state.DOCTOR_SEARCH
 
     return {
-        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, selectedLocation, fetchNewResults, commonProcedurers, selectedDoctorProcedure, profileCommonProcedures, primaryMobile, filterCriteria, app_download_list
+        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, selectedLocation, fetchNewResults, commonProcedurers, selectedDoctorProcedure, profileCommonProcedures, primaryMobile, filterCriteria, app_download_list, device_info
     }
 }
 

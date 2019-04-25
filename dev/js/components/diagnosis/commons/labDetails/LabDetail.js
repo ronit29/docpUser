@@ -27,7 +27,7 @@ class LabDetails extends React.Component {
         let { lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data } = this.props.data
 
         let downloadAppButtonData = {}
-        if(this.props.history && this.props.history.length==2){
+        if(this.props.history && (this.props.history.length==2 || this.props.history.length==1)){
             
             if(this.props.app_download_list && this.props.app_download_list.length){
 
@@ -48,7 +48,14 @@ class LabDetails extends React.Component {
                             {
                                 downloadAppButtonData && Object.values(downloadAppButtonData).length?
                                 <a className="downloadBtn" href={downloadAppButtonData.URL}>
-                                    <button className="dwnlAppBtn">Download App</button>
+                                    <button className="dwnlAppBtn">
+                                    {
+                                        !this.props.device_info?''
+                                        :(this.props.device_info.toLowerCase().includes('iphone') || this.props.device_info.toLowerCase().includes('ipad'))?
+                                        <img style={{width:'13px', marginRight:'5px'}} src={ASSETS_BASE_URL + "/img/appl.svg"} />
+                                        :<img style={{width:'13px', marginRight:'5px'}} src={ASSETS_BASE_URL + "/img/andr.svg"} />
+                                    }
+                                    Download App</button>
                                 </a>
                                 :''
                             }

@@ -33,7 +33,7 @@ class FixedMobileFooter extends React.Component {
     render() {
 
         let downloadAppButtonData = {}
-        if(this.props.history && this.props.history.length==2){
+        if(this.props.history && (this.props.history.length==2 || this.props.history.length||1) ){
             
             if(this.props.app_download_list && this.props.app_download_list.length){
 
@@ -45,7 +45,6 @@ class FixedMobileFooter extends React.Component {
             }
             
         }
-
         return (
             <div className="mobileViewStaticChat d-md-none">
                 <div className="nw-chat-card">
@@ -65,7 +64,15 @@ class FixedMobileFooter extends React.Component {
                     {
                         downloadAppButtonData && Object.values(downloadAppButtonData).length?
                         <a className="downloadBtn" href={downloadAppButtonData.URL} >
-                            <button className="dwnlAppBtn">Download App</button>
+                            <button className="dwnlAppBtn">
+                            {
+                                !this.props.device_info?''
+                                :(this.props.device_info.toLowerCase().includes('iphone') || this.props.device_info.toLowerCase().includes('ipad'))?
+                                <img style={{width:'13px', marginRight:'5px'}} src={ASSETS_BASE_URL + "/img/appl.svg"} />
+                                :<img style={{width:'13px', marginRight:'5px'}} src={ASSETS_BASE_URL + "/img/andr.svg"} />
+                            }
+                                                    
+                            Download App</button>
                         </a>
                         :''
                     }
@@ -133,10 +140,12 @@ class FixedMobileFooter extends React.Component {
 
 const mapStateToProps = (state) => {
     const {
-        app_download_list
+        app_download_list,
+        device_info
     } = state.USER
     return{
-        app_download_list
+        app_download_list,
+        device_info
     }
 }
 
