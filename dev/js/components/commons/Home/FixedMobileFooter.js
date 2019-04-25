@@ -33,7 +33,7 @@ class FixedMobileFooter extends React.Component {
     render() {
 
         let downloadAppButtonData = {}
-        if(this.props.history && (this.props.history.length==2 || this.props.history.length||1) ){
+        if(this.props.history && (this.props.history.length==2 || this.props.history.length==1) ){
             
             if(this.props.app_download_list && this.props.app_download_list.length){
 
