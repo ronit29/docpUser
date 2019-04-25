@@ -2,6 +2,7 @@ import React from 'react'
 import ProfileHeader from '../DesktopProfileHeader';
 import HelmetTags from '../HelmetTags';
 import CONFIG from '../../../config/config';
+import Footer from '../Home/footer';
 
 class TestsListView extends React.Component {
 
@@ -107,6 +108,7 @@ class TestsListView extends React.Component {
                         </div>
                     </div>
                 </section>
+                <Footer />
             </div>
         )
     }
