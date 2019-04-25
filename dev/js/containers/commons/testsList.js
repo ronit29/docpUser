@@ -5,6 +5,14 @@ import { getTestsAlphabetically } from '../../actions/index.js'
 
 class TestsList extends React.Component {
 
+    static loadData(store, match) {
+        return store.dispatch(getTestsAlphabetically('a'))
+    }
+
+    static contextTypes = {
+        router: () => null
+    }
+
     render() {
 
         return (

@@ -41,6 +41,7 @@ class TestsListView extends React.Component {
 
     render() {
         let alphabets = this.getAlphabets()
+        let selectedAlphabet = this.getCharacter(this.state.selectedChar)
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader {...this.props} />
@@ -81,7 +82,7 @@ class TestsListView extends React.Component {
                             </div>
                             <div className="row sitemap-row">
                                 {
-                                    this.props.alphabeticalTests && this.props.alphabeticalTests.tests && this.props.alphabeticalTests.tests.length && (String.fromCharCode(97 + this.state.selectedChar) == this.props.selectedAlphabet) ?
+                                    this.props.alphabeticalTests && this.props.alphabeticalTests.tests && this.props.alphabeticalTests.tests.length && (selectedAlphabet == this.props.selectedAlphabet) ?
                                         this.props.alphabeticalTests.tests.map((test, index) => {
                                             return <div key={index} className="col-12 col-md-6 col-lg-4">
                                                 <div className="anchor-data-style" onClick={test.url ? () => this.props.history.push(`/${test.url}`) : ''}>
