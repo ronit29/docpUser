@@ -12,7 +12,8 @@ class BasicDetails extends React.Component {
         this.state = {
             dataUrl: null,
             loading: false,
-            formattedDate:''
+            formattedDate:'',
+            is_default_user: this.props.profileData.is_default_user
         }
     }
 
@@ -119,6 +120,11 @@ class BasicDetails extends React.Component {
         return today
     }
 
+    handleDefaultUser(value){
+        this.setState({'is_default_user':value})
+        this.props.updateProfile('is_default_user', value)
+    }
+
     render() {
 
         let { name, email, gender, phone_number, profile_image, id, dob} = this.props.profileData
@@ -170,7 +176,7 @@ class BasicDetails extends React.Component {
                                     this.state.dateModal ? <div className="calendar-overlay"><div className="date-picker-modal">
                                         <Calendar
                                             showWeekNumber={false}
-                                            defaultValue={moment(dob)}
+                                            defaultValue={moment(dob == null?new Date():dob)}
                                             disabledDate={(date) => {
                                                 return date.diff(moment((new Date)), 'days') > -1
                                             }}
@@ -198,6 +204,15 @@ class BasicDetails extends React.Component {
                                 this.props.manageAddress()
                             }}>Manage My Address<span><img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} className="list-arrow-rt" style={{ marginLeft: 8, width: 7 }}></img></span></a> */}
                             </form>
+                            {
+                            this.props.show_default_checkBox?
+                            <div className="defaultProfile">
+                                <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}
+                            >Make Primary Profile<input type="checkbox" onClick={this.handleDefaultUser.bind(this, !this.state.is_default_user)} checked={
+                                this.state.is_default_user}/><span className="checkmark"></span></label>
+                            </div>
+                            :''
+                            }
                         </div>
                     </div>
                 }
