@@ -80,34 +80,40 @@ class LabView extends React.Component {
 
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
 
-            let selectedTests = this.props.currentLabSelectedTests.filter(x=>x.is_selected)
-            is_plan_applicable = selectedTests.length?true:false
-            is_insurance_applicable = selectedTests.length?true:false
+            let selectedTests = this.props.currentLabSelectedTests.filter(x => x.is_selected)
+            is_plan_applicable = selectedTests.length ? true : false
+            is_insurance_applicable = selectedTests.length ? true : false
 
             this.props.currentLabSelectedTests.map((test, i) => {
-                
-              if(test.is_selected){
 
-                //Check Selected Tests for Insurance
+                if (test.is_selected) {
 
-                if(test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount>=parseInt(test.deal_price)){
+                    //Check Selected Tests for Insurance
 
-                }else{
-                    is_insurance_applicable = false
+                    if (test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount >= parseInt(test.deal_price)) {
+
+                    } else {
+                        is_insurance_applicable = false
+                    }
+
+                    //Check for User Plans
+
+                    if (test.included_in_user_plan) {
+
+                    } else {
+                        is_plan_applicable = false
+                    }
                 }
-
-                //Check for User Plans
-
-                if(test.included_in_user_plan){
-                    
-                }else{
-                    is_plan_applicable = false
-                }  
-              } 
 
 
 
             })
+        }
+
+        // check if this was the landing page
+        let landing_page = false
+        if (typeof window == 'object' && window.ON_LANDING_PAGE) {
+            landing_page = true
         }
 
         return (
@@ -151,7 +157,7 @@ class LabView extends React.Component {
                             </header> */}
 
                             {
-                                (this.props.LABS[lab_id] && this.props.LABS[lab_id].tests) ?
+                                (this.props.LABS[lab_id] && this.props.LABS[lab_id].tests) || landing_page ?
                                     <div>
 
                                         <HelmetTags tagsData={{
@@ -160,18 +166,18 @@ class LabView extends React.Component {
                                             canonicalUrl: `${CONFIG.API_BASE_URL}${seo_url || this.props.match.url}`
                                         }} noIndex={false && !this.state.seoFriendly} />
 
-                                        <LabDetails {...this.props} is_insurance_applicable = {is_insurance_applicable} data={this.props.LABS[lab_id]} is_plan_applicable={is_plan_applicable} />
+                                        <LabDetails {...this.props} is_insurance_applicable={is_insurance_applicable} data={this.props.LABS[lab_id]} is_plan_applicable={is_plan_applicable} />
 
                                         <button disabled={
                                             this.props.currentLabSelectedTests.filter(x => x.is_selected).length < 1
                                         } onClick={this.bookLab.bind(this)} className="pdng-adjust-cpn ratbtn-btn p-3 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn">
                                             {
-                                                is_insurance_applicable || is_plan_applicable?''
-                                                :<span className="coupon-auto-applied-lab">*Coupon auto applied on checkout</span>    
+                                                is_insurance_applicable || is_plan_applicable ? ''
+                                                    : <span className="coupon-auto-applied-lab">*Coupon auto applied on checkout</span>
                                             }
                                             Book
-                                            <span className="text-xs selected-option static-btn book-right-align-text" style={{ verticalAlign: 2, marginRight: 8 , marginLeft: 10}}>({this.props.currentLabSelectedTests.filter(x => x.is_selected).length} Selected) </span>
-                                            
+                                            <span className="text-xs selected-option static-btn book-right-align-text" style={{ verticalAlign: 2, marginRight: 8, marginLeft: 10 }}>({this.props.currentLabSelectedTests.filter(x => x.is_selected).length} Selected) </span>
+
                                         </button>
 
                                     </div> : <Loader />
