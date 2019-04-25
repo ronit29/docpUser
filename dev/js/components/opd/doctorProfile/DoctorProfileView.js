@@ -205,9 +205,9 @@ class DoctorProfileView extends React.Component {
         }
 
         let is_insurance_applicable = false
-        if(this.state.selectedClinic && this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length){
+        if (this.state.selectedClinic && this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length) {
             this.props.DOCTORS[doctor_id].hospitals.map((hospital) => {
-                if(hospital.hospital_id == this.state.selectedClinic){
+                if (hospital.hospital_id == this.state.selectedClinic) {
                     is_insurance_applicable = hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured
                 }
             })
@@ -412,6 +412,17 @@ class DoctorProfileView extends React.Component {
                                                             <ProfessionalGraph
                                                                 details={this.props.DOCTORS[doctor_id]}
                                                             />
+
+                                                            {/* this one is rating */}
+                                                            <div className="widget-panel">
+                                                                <div className="panel-content ratecardBrdr">
+                                                                    <div className="rateUrDoc">
+                                                                        <p>Rate your Doctor here</p>
+                                                                        <button>Rate Now</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            {/* this one is rating */}
                                                             {
                                                                 avgRating >= 4 || ratingCount >= 5 ?
                                                                     <RatingReviewView id={doctor_id} content_type={2} {...this.props} />
@@ -471,10 +482,10 @@ class DoctorProfileView extends React.Component {
                                                         {/*<p>{`Book Now (₹ ${final_price})`}</p>*/}
                                                         <p style={{ flex: 2 }}><span style={{ marginTop: '5px', display: 'inline-block' }}>Book Now</span></p>
                                                         {
-                                                            is_insurance_applicable?''
-                                                            :<p className="cp-auto" style={{ marginBottom: '8px' }}>*Coupon auto applied on checkout</p>  
+                                                            is_insurance_applicable ? ''
+                                                                : <p className="cp-auto" style={{ marginBottom: '8px' }}>*Coupon auto applied on checkout</p>
                                                         }
-                                                        
+
                                                     </div>
                                                 </div>
                                                 :

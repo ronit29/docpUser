@@ -821,3 +821,31 @@ div.onln-cnslt-head {
 }
 
 /* ============ about Us section ============ */
+/* ============ rate your doc ============ */
+.rateUrDoc{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.rateUrDoc p{
+	font-size: 14px;
+	font-weight: 500;
+	flex-shrink: 0;
+	flex-grow: 0;
+}
+.rateUrDoc button{
+	background-image: linear-gradient(to left,#f78631,#ff6d00);
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+	padding: 8px 10px;
+	margin-top: 5px;
+	flex-shrink: 0;
+	font-weight: 500;
+	flex-grow: 0;
+}
+.ratecardBrdr{
+	border-top: 1px solid rgba(0, 0, 0, .12);
+}
+/* ============ rate your doc ============ */
