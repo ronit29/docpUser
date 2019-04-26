@@ -164,7 +164,7 @@ class SearchElasticView extends React.Component {
     }
 
     toggleLabTests(type, criteria, searchString = "") {
-        if(criteria.is_package[0]){
+        if(criteria.is_package && criteria.is_package[0]){
             this.togglePackages('',criteria)
         }else{
             let data = {
@@ -204,7 +204,6 @@ class SearchElasticView extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'PackageSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'package-selected', 'selected': criteria.name || '', 'selectedId': criteria.id || '', 'searched': 'autosuggest', 'searchString': searchString
         }
         GTM.sendEvent({ data: data })
-        console.log(criteria)
         // this.props.toggleSearchPackages(criteria)
         this.props.setPackageId(criteria.id)
         setTimeout(() => {
