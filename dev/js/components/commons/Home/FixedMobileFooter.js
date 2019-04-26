@@ -89,10 +89,10 @@ class FixedMobileFooter extends React.Component {
 
                     <div className="chat-div-containers" style={this.props.selectedSearchType === 'lab' ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
                         let data = {
-                            'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-book-test-clicked'
+                            'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-insurance-clicked'
                         }
                         GTM.sendEvent({ data: data })
-                        this.navigateTo('/insurance/insurance-plans')
+                        this.navigateTo('/insurance/insurance-plans?utm_source=mobile-footer-insurance-clicked')
                     }}>
                         <div className="nw-img-with-content">
                             <img style={{ width: '20px' }} className="opdUpico" src={ASSETS_BASE_URL + "/img/opdNewIco.svg"} />

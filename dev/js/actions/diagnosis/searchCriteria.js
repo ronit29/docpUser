@@ -1,5 +1,5 @@
-import { MERGE_SEARCH_STATE_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SEARCH_TEST_INFO, SAVE_PINCODE } from '../../constants/types';
-import { API_GET } from '../../api/api.js';
+import { MERGE_SEARCH_STATE_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SEARCH_TEST_INFO, SAVE_PINCODE, TOGGLE_COMPARE_PACKAGE, RESET_COMPARE_STATE } from '../../constants/types';
+import { API_GET, API_POST } from '../../api/api.js';
 
 export const loadLabCommonCriterias = () => (dispatch) => {
 
@@ -127,4 +127,45 @@ export const savePincode = (pincode) => (dispatch) => {
         type: SAVE_PINCODE,
         payload: pincode
     })
+}
+
+export const togglecompareCriteria = (criteria,reset) => (dispatch) => {
+    dispatch({
+        type: TOGGLE_COMPARE_PACKAGE,
+        reset:reset,
+        payload: {
+            criteria
+        }
+    })
+}
+
+export const resetPkgCompare = () => (dispatch) => {
+
+    dispatch({
+        type: RESET_COMPARE_STATE,
+        payload: null
+    })
+}
+
+export const getCompareList = (selectedIds,selectedLocation,callback) => (dispatch) => {
+    let lat = 28.644800
+    let long = 77.216721
+    if (selectedLocation) {
+        lat = selectedLocation.geometry.location.lat
+        long = selectedLocation.geometry.location.lng
+
+        if (typeof lat === 'function') lat = lat()
+        if (typeof long === 'function') long = long()
+
+    }
+    let postData={}
+    postData.package_lab_ids = selectedIds
+    postData['lat'] = lat
+    postData['long'] = long
+    API_POST('/api/v1/diagnostic/compare_lab_packages', postData).then(function (response) {
+        if (callback) callback(response)
+    }).catch(function (error) {
+        if (callback) callback(null)
+    })
+
 }
