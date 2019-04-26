@@ -14,7 +14,7 @@ class Home extends React.Component {
     static loadData(store, match) {
         return new Promise((resolve, reject) => {
             getSpecialityFooterData((footerData) => {
-                Promise.all([store.dispatch(loadOPDCommonCriteria('Delhi')), store.dispatch(loadLabCommonCriterias())]).then(() => {
+                Promise.all([store.dispatch(loadOPDCommonCriteria()), store.dispatch(loadLabCommonCriterias())]).then(() => {
                     resolve({ footerData: (footerData || null) })
                 }).catch((e) => {
                     reject()
