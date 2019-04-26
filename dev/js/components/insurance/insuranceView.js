@@ -9,6 +9,8 @@ import Loader from '../commons/Loader'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { AssertionError } from 'assert';
 const queryString = require('query-string');
+import HelmetTags from '../commons/HelmetTags'
+import CONFIG from '../../config'
 
 class Insurance extends React.Component {
 	constructor(props) {
@@ -175,6 +177,11 @@ class Insurance extends React.Component {
 			return (
 				<div className="profile-body-wrap">
 					<ProfileHeader />
+					<HelmetTags tagsData={{
+                    	canonicalUrl: `${CONFIG.API_BASE_URL}/insurance/insurance-plans`,
+                    	title: 'OPD Insurance | Buy OPD Insurance Cover | OPD Cover',
+                    	description: 'OPD Insurance: Buy OPD insurance cover & get cashless benefits on lab tests & doctor consultation with a network of over 15000 doctors and 2000 labs.'
+                	}} noIndex={false} />                
 					<section className="container container-top-margin">
 						<div className="row main-row parent-section-row">
 							<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
