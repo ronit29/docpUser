@@ -161,7 +161,6 @@ class DoctorProfileCard extends React.Component {
                 {
                     this.props.recommendDocs && this.state.ssrFlag ?
                         <div className="notAvldocBtnContainer mrt-10">
-                            <button className="notAvldocBtn">Book Now</button>
                             <p className="notAvlDoc"><span className="fw-700">Not Bookable</span>: See bookable doctors with great discounts below <a onClick={this.props.viewAllDocClick.bind(this, this.props.nearbyDoctors)} className="text-primary fw-600 d-inline-block"> {this.props.nearbyDoctors.count >= 1 && this.props.nearbyDoctors.doctors_url ? '(View All)' : ''}</a></p>
                         </div> : ''
                 }

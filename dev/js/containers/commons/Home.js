@@ -35,8 +35,8 @@ class Home extends React.Component {
 
         // this.props.fetchHeatlhTip()
         // this.props.fetchArticles()
-        if (!this.props.common_tests.length || !this.props.common_package.length || !this.props.specializations.length) {
-            this.props.loadOPDCommonCriteria()
+        if (!this.props.common_tests.length || !this.props.common_package.length || !this.props.specializations.length || this.props.selectedLocation.locality) {
+            this.props.loadOPDCommonCriteria(this.props.selectedLocation.locality || 'Delhi')
             this.props.loadLabCommonCriterias()
         }
 
@@ -87,7 +87,7 @@ const mapStateToProps = (state, passedProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         loadLabCommonCriterias: () => dispatch(loadLabCommonCriterias()),
-        loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
+        loadOPDCommonCriteria: (city) => dispatch(loadOPDCommonCriteria(city)),
         toggleOPDCriteria: (type, criteria, forceAdd, filters) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filters)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd, filters) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filters)),
         getUserProfile: () => dispatch(getUserProfile()),
