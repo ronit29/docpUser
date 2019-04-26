@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, getUpcomingAppointments, getLabBookingSummary, updateLabAppointment, selectLabTimeSLot, retryPaymentLAB, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp, setCorporateCoupon,editUserProfile} from '../../actions/index.js'
+import { getCartItems, getUpcomingAppointments, getLabBookingSummary, updateLabAppointment, selectLabTimeSLot, retryPaymentLAB, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp, setCorporateCoupon,editUserProfile, resetPkgCompare} from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 import BookingView from '../../components/diagnosis/booking/BookingView.js'
 
@@ -14,6 +14,7 @@ class Booking extends React.Component {
         if (STORAGE.checkAuth()) {
             this.props.getCartItems()
         }
+        this.props.resetPkgCompare()
     }
 
     render() {
@@ -50,6 +51,7 @@ const mapDispatchToProps = (dispatch) => {
         setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon)),
         getCartItems: () => dispatch(getCartItems()),
         editUserProfile: (profileData, profileId, cb) => dispatch(editUserProfile(profileData, profileId, cb)),
+        resetPkgCompare:() => dispatch(resetPkgCompare())
     }
 }
 
