@@ -289,10 +289,16 @@ class HomeView extends React.Component {
 								/> : ""
 						}
 
-						{
-							this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-								<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
-						}
+						<div className="banner-cont-height">
+							<div className="hidderBanner banner-carousel-div d-md-none">
+								<div className="divHeight"></div>
+							</div>
+							{
+								this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+									<BannerCarousel {...this.props} hideClass="d-md-none home-slider-position" sliderLocation="home_page" /> : ''
+							}
+						</div>
+
 
 						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
 							<p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>
