@@ -88,7 +88,7 @@ class FixedMobileFooter extends React.Component {
                             <img style={{ width: '20px' }} className="opdUpico" src={ASSETS_BASE_URL + "/img/opdNewIco.svg"} />
                         </div>
                         <span>OPD Insurance</span>
-                        <p className="opdNewShow">New</p>
+                        {/* <p className="opdNewShow">New</p> */}
                     </div>
 
                     <div className="chat-div-containers" style={{ width: "36%" }} onClick={() => {
