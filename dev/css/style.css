@@ -2165,7 +2165,7 @@ p.comment-para-status{
     position: relative;
     border-bottom: 1px solid rgba(0, 0, 0, .12);
     padding-bottom: 5px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
 }
 .rate-card-header span{
@@ -2174,7 +2174,7 @@ p.comment-para-status{
 	cursor: pointer;
 }
 .rate-card-header span img{
-	width:15px;
+	width:12px;
  }
 .rate-card-doc-dtls{
     display: flex;

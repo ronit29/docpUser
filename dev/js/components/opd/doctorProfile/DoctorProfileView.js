@@ -299,6 +299,22 @@ class DoctorProfileView extends React.Component {
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">
+                                                    <div className="raiting-popup">
+                                                        <div className="home-rating-card">
+                                                            <div className="rate-card-header">
+                                                            <span className="rate-pop-back"><img src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} className="img-fluid" /></span>
+                                                                Rate your Experience
+                                                                <span><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} className="img-fluid" /></span>
+                                                            </div>
+                                                            <div className="rate-seceltion-cont">
+                                                                <p>Dr. Satish Kumar Gadis Clinic</p>
+                                                                <p>UPHI - The Wellness & Surgical Centre</p>
+                                                                <p>Dr. Satish Kumar Gadis Clinic</p>
+                                                                <p class="rt-par-select">Thu - 2:00 PM to 6:00 PM</p>
+                                                                <p>Thu - 2:00 PM to 6:00 PM</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
                                                     {
                                                         this.props.DOCTORS[doctor_id].unrated_appointment

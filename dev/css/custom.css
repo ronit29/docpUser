@@ -848,4 +848,29 @@ div.onln-cnslt-head {
 .ratecardBrdr{
 	border-top: 1px solid rgba(0, 0, 0, .12);
 }
+.rate-seceltion-cont{
+	padding-top: 12px;
+	max-height: 300px;
+	overflow-y: scroll;
+}
+.rate-seceltion-cont p{
+	margin-bottom: 7px;
+	color: #757575;
+	cursor: pointer;
+}
+.rate-seceltion-cont p:hover{
+	color: #f78835;
+	font-weight: 500;
+}
+.rate-seceltion-cont p.rt-par-select{
+	color: #f78835;
+	font-weight: 500;
+}
+span.rate-pop-back{
+	left: 0;
+	display: inline-table;
+}
+span.rate-pop-back img{
+	width: 26px !important;
+}
 /* ============ rate your doc ============ */
