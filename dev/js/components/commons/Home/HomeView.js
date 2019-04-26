@@ -351,8 +351,12 @@ class HomeView extends React.Component {
 					<div className="container">
 						<div className="head_text_container">
 						<a href="/insurance/insurance-plans" onClick={(e) => {
+							let data = {
+                            'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-navbar-insurance-clicked'
+                        	}
+                        	GTM.sendEvent({ data: data })
 								e.preventDefault();
-								this.navigateTo("/insurance/insurance-plans")
+								this.navigateTo("/insurance/insurance-plans?utm_source=desktop-navbar-insurance-clicked")
 							}}>OPD Insurance 
 							<span className="opdNewHeaderOfr">New</span>
 							</a>

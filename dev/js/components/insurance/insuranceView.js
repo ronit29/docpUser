@@ -8,6 +8,9 @@ import STORAGE from '../../helpers/storage'
 import Loader from '../commons/Loader'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { AssertionError } from 'assert';
+const queryString = require('query-string');
+import HelmetTags from '../commons/HelmetTags'
+import CONFIG from '../../config'
 
 class Insurance extends React.Component {
 	constructor(props) {
@@ -64,11 +67,13 @@ class Insurance extends React.Component {
 	}
 	proceedPlan() {
 		let self = this
+		let parsed = queryString.parse(this.props.location.search)
 		let plan = Object.assign({}, this.state.selected_plan_data)
 		let profileLength
 		let memberStoreDataLength
 		let membersArray = []
 		let profilesArray = []
+		let utm_source
 		// plan.plan_name = this.props.insurnaceData['insurance'][0].name
 		// plan.logo = this.props.insurnaceData['insurance'][0].logo 
 		// plan.insurer_document = this.props.insurnaceData['insurance'][0].insurer_document   	
@@ -82,7 +87,8 @@ class Insurance extends React.Component {
 				phoneNumber = this.props.USER.primaryMobile
 			}
 			if (Object.keys(plan).length > 0) {
-				this.props.generateInsuranceLead(plan.id, phoneNumber)
+				utm_source = parsed.utm_source
+				this.props.generateInsuranceLead(plan.id, phoneNumber,utm_source)
 			}
 			profileLength = Object.keys(this.props.USER.profiles).length
 			memberStoreDataLength = Object.keys(this.props.self_data_values).length
@@ -171,6 +177,11 @@ class Insurance extends React.Component {
 			return (
 				<div className="profile-body-wrap">
 					<ProfileHeader />
+					<HelmetTags tagsData={{
+                    	canonicalUrl: `${CONFIG.API_BASE_URL}/insurance/insurance-plans`,
+                    	title: 'OPD Insurance | Buy OPD Insurance Cover | OPD Cover',
+                    	description: 'OPD Insurance: Buy OPD insurance cover & get cashless benefits on lab tests & doctor consultation with a network of over 15000 doctors and 2000 labs.'
+                	}} noIndex={false} />                
 					<section className="container container-top-margin">
 						<div className="row main-row parent-section-row">
 							<div className="col-12 col-md-7 col-lg-7 ins-main-padding">

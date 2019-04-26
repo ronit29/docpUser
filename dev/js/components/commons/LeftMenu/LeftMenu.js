@@ -79,7 +79,7 @@ class LeftMenu extends React.Component {
                       <li><a onClick={(e) => {
                         e.preventDefault()
                         this.props.toggleLeftMenu()
-                        this.props.history.push('/insurance/insurance-plans')
+                        this.props.history.push('/insurance/insurance-plans?utm_source=mobile-leftmenu-insurance-clicked')
                       }} href="#"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} alt="" className="" />OPD Insurance<span className={user_insurance_status ? 'float-right memAct' : 'float-right memNew'}>{user_insurance_status ? 'Active' : 'New'}</span></a></li>
                       : ''
                   }

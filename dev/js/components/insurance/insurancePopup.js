@@ -79,11 +79,13 @@ class InsurancePopup extends React.Component{
     }
 
     verifyOTP() {
+        let parsed = queryString.parse(this.props.location.search)
         let self = this
         if (!this.state.otp) {
             this.setState({ validationError: "Please enter OTP" })
             return
         }
+        let utm_source = parsed.utm_source
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
             this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
@@ -91,7 +93,7 @@ class InsurancePopup extends React.Component{
                     this.setState({error_message:exists.message})
                 }else{
                     if(Object.keys(self.props.selected_plan).length > 0){
-                        self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',this.state.phoneNumber)
+                        self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',this.state.phoneNumber, utm_source)
                     }
                         this.props.getInsurance((resp)=>{
                             if(!resp.certificate){
