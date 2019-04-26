@@ -5,6 +5,7 @@ import LabTests from '../labTests'
 import RatingProfileCard from '../../../commons/ratingsProfileView/RatingProfileCard.js'
 import { buildOpenBanner } from '../../../../helpers/utils.js'
 import RatingReviewView from '../../../commons/ratingsProfileView/ratingReviewView.js'
+import GTM from '../../../../helpers/gtm.js'
 
 class LabDetails extends React.Component {
 
@@ -18,6 +19,16 @@ class LabDetails extends React.Component {
         }
         if(this.props.app_download_list && !this.props.app_download_list.length){
             this.props.getDownloadAppBannerList()
+        }
+    }
+
+    downloadButton(data){
+        let gtmTrack = {
+            'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-clicked', 'starts_with':data.starts_with?data.starts_with:'', 'ends_with': data.ends_with?data.ends_with:''
+        }
+        GTM.sendEvent({ data: gtmTrack })
+        if(window){
+            window.open(data.URL, '_self')
         }
     }
 
@@ -47,7 +58,7 @@ class LabDetails extends React.Component {
                         <div className="col-12">
                             {
                                 downloadAppButtonData && Object.values(downloadAppButtonData).length?
-                                <a className="downloadBtn" href={downloadAppButtonData.URL}>
+                                <a className="downloadBtn" href="javascript:void(0);" onClick={this.downloadButton.bind(this, downloadAppButtonData)}>
                                     <button className="dwnlAppBtn">
                                     {
                                         !this.props.device_info?''

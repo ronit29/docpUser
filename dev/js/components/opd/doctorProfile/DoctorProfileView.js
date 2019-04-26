@@ -178,6 +178,16 @@ class DoctorProfileView extends React.Component {
 
     }
 
+    downloadButton(data){
+        let gtmTrack = {
+            'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-clicked', 'starts_with':data.starts_with?data.starts_with:'', 'ends_with': data.ends_with?data.ends_with:''
+        }
+        GTM.sendEvent({ data: gtmTrack })
+        if(window){
+            window.open(data.URL, '_self')
+        }
+    }
+
     render() {
 
         let doctor_id = this.props.selectedDoctor
@@ -307,11 +317,11 @@ class DoctorProfileView extends React.Component {
                                     <section className="dr-profile-screen" style={{ paddingBottom: 0 }}>
                                         {
                                             downloadAppButtonData && Object.values(downloadAppButtonData).length?
-                                            <a className="downloadBtn" href={downloadAppButtonData.URL}>
+                                            <a className="downloadBtn" href="javascript:void(0);" onClick={this.downloadButton.bind(this, downloadAppButtonData)}>
 
                                                 <button className="dwnlAppBtn">
                                                 {
-                                                    !this.state.device_info?''
+                                                    !this.props.device_info?''
                                                     :(this.props.device_info.toLowerCase().includes('iphone') || this.props.device_info.toLowerCase().includes('ipad'))?
                                                     <img style={{width:'13px', marginRight:'5px'}} src={ASSETS_BASE_URL + "/img/appl.svg"} />
                                                     :<img style={{width:'13px', marginRight:'5px'}} src={ASSETS_BASE_URL + "/img/andr.svg"} />
