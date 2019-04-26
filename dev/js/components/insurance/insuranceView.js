@@ -8,6 +8,7 @@ import STORAGE from '../../helpers/storage'
 import Loader from '../commons/Loader'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { AssertionError } from 'assert';
+const queryString = require('query-string');
 
 class Insurance extends React.Component {
 	constructor(props) {
@@ -64,11 +65,13 @@ class Insurance extends React.Component {
 	}
 	proceedPlan() {
 		let self = this
+		let parsed = queryString.parse(this.props.location.search)
 		let plan = Object.assign({}, this.state.selected_plan_data)
 		let profileLength
 		let memberStoreDataLength
 		let membersArray = []
 		let profilesArray = []
+		let utm_source
 		// plan.plan_name = this.props.insurnaceData['insurance'][0].name
 		// plan.logo = this.props.insurnaceData['insurance'][0].logo 
 		// plan.insurer_document = this.props.insurnaceData['insurance'][0].insurer_document   	
@@ -82,7 +85,8 @@ class Insurance extends React.Component {
 				phoneNumber = this.props.USER.primaryMobile
 			}
 			if (Object.keys(plan).length > 0) {
-				this.props.generateInsuranceLead(plan.id, phoneNumber)
+				utm_source = parsed.utm_source
+				this.props.generateInsuranceLead(plan.id, phoneNumber,utm_source)
 			}
 			profileLength = Object.keys(this.props.USER.profiles).length
 			memberStoreDataLength = Object.keys(this.props.self_data_values).length
