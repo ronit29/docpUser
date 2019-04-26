@@ -32,7 +32,7 @@ class FixedMobileFooter extends React.Component {
 
     downloadButton(data){
         let gtmTrack = {
-            'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-clicked', 'starts_with':data.starts_with?data.starts_with:'', 'ends_with': data.ends_with?data.ends_with:''
+            'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-clicked', 'starts_with':data.starts_with?data.starts_with:'', 'ends_with': data.ends_with?data.ends_with:'', 'device': this.props.device_info
         }
         GTM.sendEvent({ data: gtmTrack })
         if(window){
