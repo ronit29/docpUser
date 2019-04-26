@@ -323,8 +323,8 @@ class DoctorProfileView extends React.Component {
                                                 {
                                                     !this.props.device_info?''
                                                     :(this.props.device_info.toLowerCase().includes('iphone') || this.props.device_info.toLowerCase().includes('ipad'))?
-                                                    <img style={{width:'13px', marginRight:'5px'}} src={ASSETS_BASE_URL + "/img/appl.svg"} />
-                                                    :<img style={{width:'13px', marginRight:'5px'}} src={ASSETS_BASE_URL + "/img/andr.svg"} />
+                                                    <img style={{width:'13px', marginRight:'5px',marginTop: '-1px'}} src={ASSETS_BASE_URL + "/img/appl1.svg"} />
+                                                    :<img style={{width:'13px', marginRight:'5px'}} src={ASSETS_BASE_URL + "/img/andr1.svg"} />
                                                 }
                                                 Download App
 
