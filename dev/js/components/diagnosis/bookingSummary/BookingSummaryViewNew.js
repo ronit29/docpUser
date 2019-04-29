@@ -331,8 +331,12 @@ class BookingSummaryViewNew extends React.Component {
             return
         }
 
-        this.setState({ loading: true, error: "" })
+        // React guarantees that setState inside interactive events (such as click) is flushed at browser event boundary
+        if(this.state.loading){
+            return
+        }
 
+        this.setState({ loading: true, error: "" })
 
         let is_insurance_applicable = false
         let is_tests_covered_under_insurance = false
