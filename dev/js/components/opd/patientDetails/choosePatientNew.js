@@ -71,7 +71,13 @@ class ChoosePatientNewView extends React.Component {
                     self.props.profileDataCompleted(this.state)
                     self.props.createProfile(this.state, (err, res) => {
                         //self.setState({data:true})
-                        self.props.getUserProfile()
+                        self.props.getUserProfile().then(()=>{
+
+                            if(self.props.is_lab){
+                                self.props.clearTestForInsured()
+                            }
+                        })
+
                     })
                 })
             } else {
@@ -163,7 +169,7 @@ class ChoosePatientNewView extends React.Component {
                                     <img style={{ width: '20px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
                                 </span>Patient</h4>
                                 <div className="float-right  mbl-view-formatting text-right">
-                                    <h4 className="date-time title">{this.props.patient ? this.props.patient.name : ""} </h4>
+                                    <h4 className="date-time title" style={{textTransform:'capitalize'}} >{this.props.patient ? this.props.patient.name : ""} </h4>
                                     <a href="#" onClick={(e) => {
                                         e.preventDefault()
                                         e.stopPropagation()

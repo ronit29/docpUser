@@ -15,6 +15,7 @@ import AUTH from './commons/auth.js'
 import SITE_MAP from './commons/siteMap.js'
 import LAB_SEARCH_DATA from './diagnosis/labSearchData.js'
 import ELASTIC_SEARCH from './commons/elasticSearch.js'
+import INSURANCE from './insurance/insuranceCriteria.js'
 import SEARCH_CRITERIA_IPD from './ipd/searchCriteria.js'
 
 const persistConfig = {
@@ -38,19 +39,19 @@ const LAB_LIST_PRESIST = {
 const USER_PERSIST = {
     key: 'USER',
     storage: storage,
-    whitelist: ['summary_utm_validity', 'summary_utm', 'chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted', 'userPhoneNo', 'selectedSearchType']
+    whitelist: ['summary_utm_validity', 'summary_utm', 'chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted', 'userPhoneNo', 'selectedSearchType', 'common_utm_tags', 'app_download_list']
 }
 
 const OPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_OPD',
     storage: storage,
-    blacklist: ['fetchNewResults', 'getNewUrl', 'commonProcedurers', 'page', 'mergeUrlState']
+    blacklist: ['fetchNewResults', 'getNewUrl', 'commonProcedurers', 'page', 'mergeUrlState', 'specializations']
 }
 
 const LAB_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_LABS',
     storage: storage,
-    blacklist: ['fetchNewResults', 'page']
+    blacklist: ['fetchNewResults', 'page', 'common_tests', 'common_package']
 }
 
 const AUTH_PERSIST = {
@@ -59,6 +60,11 @@ const AUTH_PERSIST = {
     whitelist: []
 }
 
+const INSURANCE_LIST_PRESIST = {
+    key: 'INSURANCE',
+    storage: storage,
+    whitelist: ['insurnaceData','self_data_values','selected_plan','currentSelectedInsuredMembersId','create_payment_resp']
+}
 const IPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_IPD',
     storage: storage,
@@ -79,6 +85,7 @@ const allReducers = combineReducers({
     DOCTOR_PROFILES,
     LAB_SEARCH_DATA,
     ELASTIC_SEARCH,
+    INSURANCE: persistReducer(INSURANCE_LIST_PRESIST,INSURANCE),
     SEARCH_CRITERIA_IPD: persistReducer(IPD_SEARCH_PERSIST, SEARCH_CRITERIA_IPD)
 });
 

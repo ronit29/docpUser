@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType } from '../../actions/index.js'
+import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType, getOfferList, toggleOPDCriteria, selectLabAppointmentType, selectLabTimeSLot, resetPkgCompare, togglecompareCriteria } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder, PackageSearchStateBuilder } from '../../helpers/urltoState'
 import SearchPackagesView from '../../components/diagnosis/searchPackages/index.js'
 
@@ -32,8 +32,11 @@ class SearchPackages extends React.Component {
                     if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
                         searchUrl = match.url.toLowerCase()
                     }
-
-                    return store.dispatch(getPackages(state, 1, true, searchUrl, (loadMore, seoData) => {
+                    let page = 1
+                    if (queryParams.page) {
+                        page = parseInt(queryParams.page)
+                    }
+                    return store.dispatch(getPackages(state, page, true, searchUrl, (loadMore, seoData) => {
                         if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
                             getFooterData(match.url.split("/")[1])().then((footerData) => {
                                 footerData = footerData || null
@@ -57,6 +60,12 @@ class SearchPackages extends React.Component {
 
     static contextTypes = {
         router: () => null
+    }
+
+    componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
     }
 
     render() {
@@ -85,12 +94,19 @@ const mapStateToProps = (state, passedProps) => {
         fetchNewResults,
         corporateCoupon,
         currentSearchedCriterias,
-        filterCriteriaPackages
+        filterCriteriaPackages,
+        page,
+        compare_packages
 
     } = state.SEARCH_CRITERIA_LABS
 
+    const {
+        offerList,
+        is_login_user_insured
+    } = state.USER
+
     const LABS = state.LAB_SEARCH_DATA
-    const { labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, packagesList } = state.LAB_SEARCH
+    const { labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, packagesList, curr_page } = state.LAB_SEARCH
 
     return {
         selectedLocation,
@@ -107,7 +123,12 @@ const mapStateToProps = (state, passedProps) => {
         corporateCoupon,
         packagesList,
         currentSearchedCriterias,
-        filterCriteriaPackages
+        filterCriteriaPackages,
+        offerList,
+        is_login_user_insured,
+        page,
+        curr_page,
+        compare_packages
     }
 
 }
@@ -116,12 +137,18 @@ const mapDispatchToProps = (dispatch) => {
     return {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
         getPackages: (state, page, from_server, searchByUrl, cb) => dispatch(getPackages(state, page, from_server, searchByUrl, cb)),
-        toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
+        toggleDiagnosisCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filter)),
         getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
         clearExtraTests: () => dispatch(clearExtraTests()),
         mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
         selectSearchType: (type) => dispatch(selectSearchType(type)),
-        getFooterData: (url) => dispatch(getFooterData(url))
+        getFooterData: (url) => dispatch(getFooterData(url)),
+        getOfferList: (lat, long) => dispatch(getOfferList(lat, long)),
+        toggleOPDCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filter)),
+        togglecompareCriteria: (criteria) => dispatch(togglecompareCriteria(criteria)),
+        resetPkgCompare:() => dispatch(resetPkgCompare()),
+        selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
+        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule))
     }
 }
 

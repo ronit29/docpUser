@@ -136,7 +136,9 @@ class ClinicSelector extends React.Component {
                                     : <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
                                         <div className="clearfix">
                                             {
-                                                hospital.enabled_for_online_booking ?
+                                                hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.deal_price) <=hospital.insurance.insurance_threshold_amount?
+                                                <span className="test-price txt-ornage">₹ {0}</span>
+                                                :hospital.enabled_for_online_booking ?
                                                     <span className="test-price txt-ornage">₹ {hospital.deal_price}
                                                         {
                                                             parseInt(hospital.deal_price) == parseInt(hospital.mrp)
@@ -151,6 +153,12 @@ class ClinicSelector extends React.Component {
                                         </div>
                                     </div>
                             }
+
+                            {
+                                hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.deal_price) <=hospital.insurance.insurance_threshold_amount?
+                                <div className="ins-val-bx">Covered Under Insurance</div>
+                                :''
+                            }
                             <div className="dtl-cnslt-fee pb-list">
 
                                 <div className="clearfix">
@@ -164,7 +172,7 @@ class ClinicSelector extends React.Component {
                                 </div>
                             </div>
                             <div className="address-bg-color">
-                                <div className="row">
+                                <div className="row no-gutters">
                                     <div className="col-10">
                                         <div className="add-content">
                                             <span className="add-span">Address:</span>

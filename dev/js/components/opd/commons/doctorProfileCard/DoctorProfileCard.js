@@ -2,16 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import InitialsPicture from '../../../commons/initialsPicture'
 import GTM from '../../../../helpers/gtm.js'
+import RatingStars from '../../../commons/ratingsProfileView/RatingStars';
 
 class DoctorProfileCard extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            ssrFlag: false
+        }
     }
 
     componentDidMount() {
         if (window) {
             window.scrollTo(0, 0)
         }
+        this.setState({ ssrFlag: true })
     }
 
     getQualificationStr(qualificationSpecialization) {
@@ -57,7 +62,7 @@ class DoctorProfileCard extends React.Component {
         GTM.sendEvent({ data: data })
 
         // handle doctor name, hospital name
-        
+
         let state = {
             filterCriteria: {
                 ...this.props.filterCriteria,
@@ -111,19 +116,19 @@ class DoctorProfileCard extends React.Component {
             // })
         }
         let doc_name = name.split(' ')
+
         return (
             <div className="widget-header dr-qucik-info doc-gold-padding">
                 <div className="fltr-crd-img text-center">
                     <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-dp">
-                        <img src={thumbnail} className="img-fluid img-round" alt={display_name} title={display_name} />
+                        <img src={thumbnail} className="img-fluid img-round" alt={`${display_name}, ${this.getQualificationStr(general_specialization || '')}`} title={display_name} />
                     </InitialsPicture>
                     {is_license_verified ? <span className="fltr-rtng">Verified</span> : ''}
                     {
-                        rating_graph && rating_graph.avg_rating ?
-                            <div className="d-flex justify-content-center" style={{ marginTop: 5, alignItems: 'baseline' }} >
-                                <span className="text-primary fw-500" style={{ fontSize: 12, marginRight: 4 }} >{parseFloat(rating_graph.avg_rating).toFixed(1)}</span>
-                                <img src={ASSETS_BASE_URL + '/img/customer-icons/star.svg'} style={{ width: 10, height: 'auto' }} />
-                            </div> : ''
+                        rating_graph && rating_graph.avg_rating && rating_graph.avg_rating >= 4 ?
+                            <RatingStars average_rating={rating_graph.avg_rating} rating_count={rating_graph.rating_count || ''} width="10px" height="10px" />
+                            : rating_graph && rating_graph.avg_rating && rating_graph.rating_count >= 5 ?
+                                <RatingStars average_rating={rating_graph.avg_rating} rating_count={rating_graph.rating_count} width="10px" height="10px" /> : ''
                     }
                 </div>
 
@@ -154,13 +159,10 @@ class DoctorProfileCard extends React.Component {
                     }
                 </div>
                 {
-                        this.props.recommendDocs ?
-                <div className="notAvldocBtnContainer mrt-10">
-                    <button className="notAvldocBtn">Book Now</button>
-                    
-                        <p className="notAvlDoc"><span className="fw-700">Not Bookable</span>: See bookable doctors with great discounts below <a onClick={this.props.viewAllDocClick.bind(this,this.props.nearbyDoctors)} className="text-primary fw-600 d-inline-block"> {this.props.nearbyDoctors.count >= 1 && this.props.nearbyDoctors.doctors_url?'(View All)':''}</a></p>
-                </div>
-                : ''
+                    this.props.recommendDocs && this.state.ssrFlag ?
+                        <div className="notAvldocBtnContainer mrt-10">
+                            <p className="notAvlDoc"><span className="fw-700">Not Bookable</span>: See bookable doctors with great discounts below <a onClick={this.props.viewAllDocClick.bind(this, this.props.nearbyDoctors)} className="text-primary fw-600 d-inline-block"> {this.props.nearbyDoctors.count >= 1 && this.props.nearbyDoctors.doctors_url ? '(View All)' : ''}</a></p>
+                        </div> : ''
                 }
             </div>
         );

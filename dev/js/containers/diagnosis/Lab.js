@@ -1,17 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabByUrl, getLabById, selectLabTimeSLot, toggleDiagnosisCriteria, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData , getLabTests } from '../../actions/index.js'
+import { getLabByUrl, getLabById, selectLabTimeSLot, toggleDiagnosisCriteria, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, getLabTests, savePincode, getAllRatings, selectSearchType, getDownloadAppBannerList } from '../../actions/index.js'
 
 import LabView from '../../components/diagnosis/lab/index.js'
 
 class Lab extends React.Component {
     constructor(props) {
         super(props)
+        let l_id = this.props.match.params.id || this.get_lab_id_by_url(this.props.match.url)
         this.state = {
-            selectedLab: this.props.match.params.id || null,
+            selectedLab: l_id,
             defaultTest: []
         }
+    }
+
+    get_lab_id_by_url(url) {
+        for (let l_id in this.props.LABS) {
+            if (this.props.LABS[l_id].lab && url.includes(this.props.LABS[l_id].lab.url)) {
+                return l_id
+            }
+        }
+        return null
     }
 
     static loadData(store, match) {
@@ -105,7 +115,7 @@ const mapStateToProps = (state, passedProps) => {
     } = state.SEARCH_CRITERIA_LABS
 
     let LABS = state.LABS
-    let { rated_appoinments, profiles, selectedProfile } = state.USER
+    let { rated_appoinments, profiles, selectedProfile, defaultProfile, app_download_list, device_info } = state.USER
 
     return {
         lab_test_data,
@@ -115,7 +125,10 @@ const mapStateToProps = (state, passedProps) => {
         profiles,
         selectedProfile,
         currentLabSelectedTests,
-        selectedLocation
+        selectedLocation,
+        defaultProfile,
+        app_download_list,
+        device_info
     }
 }
 
@@ -131,7 +144,11 @@ const mapDispatchToProps = (dispatch) => {
         closeAppointmentRating: (doctorId, callback) => dispatch(closeAppointmentRating(doctorId, callback)),
         closeAppointmentPopUp: (id, callback) => dispatch(closeAppointmentPopUp(id, callback)),
         getFooterData: (url) => dispatch(getFooterData(url)),
-        getLabTests: (labId, testName) => dispatch(getLabTests(labId, testName))
+        getLabTests: (labId, testName) => dispatch(getLabTests(labId, testName)),
+        savePincode: (pincode) => dispatch(savePincode(pincode)),
+        getAllRatings: (content_type, object_id, page, cb) => dispatch(getAllRatings(content_type, object_id, page, cb)),
+        selectSearchType: (type) => dispatch(selectSearchType(type)),
+        getDownloadAppBannerList: () => dispatch(getDownloadAppBannerList())
     }
 }
 

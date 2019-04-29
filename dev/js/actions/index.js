@@ -7,7 +7,10 @@ import * as AUTH_ACTIONS from './commons/auth.js'
 import * as SITE_MAP from './commons/siteMap.js'
 import * as ELASTIC_SEARCH from './commons/elasticSearch.js'
 import * as ADS_BOOKING from './commons/adsBooking.js'
+import * as INSURANCE_ACTIONS from './insurance/insuranceCriteria.js'
+import * as CARE_DETAILS from './commons/primeCare.js'
 import * as SEARCH_CRITERIA_IPD from './ipd/searchCriteria.js'
+
 module.exports = Object.assign({},
     SEARCH_CRITERIA_OPD,
     SEARCH_CRITERIA_LABS,
@@ -18,5 +21,7 @@ module.exports = Object.assign({},
     SITE_MAP,
     ELASTIC_SEARCH,
     ADS_BOOKING,
+    INSURANCE_ACTIONS,
+    CARE_DETAILS,
     SEARCH_CRITERIA_IPD
 )

@@ -154,7 +154,7 @@ class ClinicResultCard extends React.Component {
                         }
                         <div className="fltr-lctn-dtls">
                             <p>
-                                <img className="fltr-loc-ico" width="12px" height="18px" src="/assets/img/new-loc-ico.svg" />
+                                <img className="fltr-loc-ico" width="12px" height="18px" src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />
                                 <span>{distance} Km</span>
                             </p>
                         </div>
@@ -190,14 +190,19 @@ class ClinicResultCard extends React.Component {
                                         enabled_for_online_booking && discount ? <span className="filtr-offer ofr-ribbon fw-700">{discount}% OFF</span> : ""
                                     }
 
-                                    <p className="fltr-prices">₹ {finalProcedureDealPrice}
-                                        {
-                                            finalProcedureMrp == finalProcedureDealPrice ? "" : <span className="fltr-cut-price">₹ {finalProcedureMrp}</span>
-                                        }
-                                    </p>
+                                    {
+                                        enabled_for_online_booking?
+                                        <p className="fltr-prices">₹ {finalProcedureDealPrice}
+                                            {
+                                                finalProcedureMrp == finalProcedureDealPrice ? "" : <span className="fltr-cut-price">₹ {finalProcedureMrp}</span>
+                                            }
+                                        </p>
+                                        :<p className="fltr-prices">₹ {finalProcedureMrp}</p>    
+                                    }
+                                    
                                     <div className="signup-off-container">
                                         {
-                                            discounted_price != deal_price ? <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span> : ""
+                                            enabled_for_online_booking && discounted_price != deal_price ? <span className="signup-off-doc-green" style={{ fontSize: 12 }} >Includes coupon discount</span> : ""
                                         }
                                         {
                                             !discounted_price && !is_procedure ?
@@ -245,7 +250,7 @@ class ClinicResultCard extends React.Component {
                             <div style={{ paddingRight: '8px' }}><p>Hide</p>
                             </div>
                             <div className="text-right acrd-show">
-                                <img className="" style={{ margin: '5px' }} src="/assets/img/customer-icons/dropdown-arrow.svg" />
+                                <img className="" style={{ margin: '5px' }} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                             </div>
                         </div> : ""
                     }

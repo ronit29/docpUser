@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, getOPDBookingSummary, updateOPDAppointment, selectOpdTimeSLot, retryPaymentOPD, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp,OTTLogin, getUnratedAppointment,closeAppointmentRating,editUserProfile} from '../../actions/index.js'
+import { getCartItems, getOPDBookingSummary, updateOPDAppointment, selectOpdTimeSLot, retryPaymentOPD, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp,OTTLogin, getUnratedAppointment,closeAppointmentRating,editUserProfile, resetPkgCompare} from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 import BookingView from '../../components/opd/booking/BookingView.js'
 
@@ -19,7 +19,8 @@ class Booking extends React.Component {
             this.props.getCartItems()
         }else{
             this.props.history.push('/')
-        }    
+        } 
+        this.props.resetPkgCompare()   
     }
 
     render() {
@@ -60,6 +61,7 @@ const mapDispatchToProps = (dispatch) => {
         getUnratedAppointment: (callback) => dispatch(getUnratedAppointment(callback)),
         closeAppointmentRating: (doctorId, callback) => dispatch(closeAppointmentRating(doctorId, callback)),
         editUserProfile: (profileData, profileId, cb) => dispatch(editUserProfile(profileData, profileId, cb)),
+        resetPkgCompare:() => dispatch(resetPkgCompare()),
     }
 }
 

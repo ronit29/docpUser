@@ -39,6 +39,7 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 	let min_price = filterCriteria.priceRange[0]
 	let max_price = filterCriteria.priceRange[1]
 	let sort_on = filterCriteria.sort_on || ""
+	let is_insured = filterCriteria.is_insured || false
 
 	// do not check specialization_ids if doctor_name || hospital_name search
 	if (!!filterCriteria.lab_name) {
@@ -51,7 +52,7 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 		url = `/api/v1/diagnostic/labnetworksearchbyurl?url=${searchByUrl.split('/')[1]}&`
 	}
 
-	url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}`
+	url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&is_insurance=${is_insured}`
 
 	if (!!filterCriteria.lab_name) {
 		url += `&name=${filterCriteria.lab_name || ""}`
@@ -172,8 +173,8 @@ export const getLabByUrl = (lab_url, testIds = [], cb) => (dispatch) => {
 	})
 }
 
-export const getLabTimeSlots = (labId, pickup, callback) => (dispatch) => {
-	let url = `/api/v1/diagnostic/labtiming?lab=${labId}&pickup=${pickup}`
+export const getLabTimeSlots = (labId, pickup, pincode, date, callback) => (dispatch) => {
+	let url = `/api/v1/diagnostic/labtiming_new?lab=${labId}&pickup=${pickup}&pincode=${pincode}&date=${date}`
 	return API_GET(url).then(function (response) {
 		callback(response)
 	}).catch(function (error) {
@@ -289,10 +290,16 @@ export const resetLabCoupons = () => (dispatch) => {
 		type: RESET_LAB_COUPONS
 	})
 }
+
 export const getPackages = (state = {}, page = 1, from_server = false, searchByUrl = false, cb) => (dispatch) => {
 
 	let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, filterCriteriaPackages } = state
-
+	if (page == 1) {
+		dispatch({
+			type: LAB_SEARCH_START,
+			payload: null
+		})
+	}
 	let lat = 28.644800
 	let long = 77.216721
 	let place_id = ""
@@ -344,7 +351,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 
 	if (!forTaxSaver) {
 
-		url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}&package_ids=${package_ids}`
+		url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}&package_ids=${package_ids}`
 	}
 
 	if (!!filterCriteriaPackages.lab_name) {
@@ -370,6 +377,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 
 			dispatch({
 				type: SEARCH_HEALTH_PACKAGES,
+				page: page,
 				payload: response,
 			})
 		}
@@ -382,12 +390,16 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 		}
 
 		if (cb) {
+			// if no results redirect to 404 page
+			if (response.result && response.result.length == 0) {
+				cb(false, true)
+			}
 			// TODO: DO not hardcode page length
-			if (response.result && response.result.length == 20) {
-				cb(true, response.seo)
+			if (response.result && response.result.length == 30) {
+				cb(true)
 			}
 		}
-		cb(false, response.seo)
+		cb(false)
 
 	}).catch(function (error) {
 		throw error
@@ -427,7 +439,8 @@ export const getLabSearchIdResults = (searchId, response) => (dispatch) => {
 
 }
 
-export const setPackageId = (package_id, isHomePage) => (dispatch) => {
+export const setPackageId = (package_id, isHomePage) =>(dispatch) =>{
+
 	dispatch({
 		type: TOGGLE_PACKAGE_ID,
 		package_id: package_id,

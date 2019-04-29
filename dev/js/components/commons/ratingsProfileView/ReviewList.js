@@ -12,9 +12,9 @@ class ReviewList extends React.Component {
         <div>
 
           {this.props.details.rating.map(rating =>
-            <div className="usr-feed-comment" key={rating.id}>
+            <div className="usr-feed-comment" key={`${rating.id}+'_'+${rating.user_name}`}>
               <div className="comment-status-content">
-                <span>{rating.ratings} <img className="img-fluid" src="/assets/img/customer-icons/satr-wt.svg" /></span>
+                <span>{rating.ratings} <img className="img-fluid" src={ASSETS_BASE_URL + "/img/customer-icons/satr-wt.svg"} /></span>
                 <p className="feed-sts-heading">{rating.compliment}</p>
               </div>
               <p className="usr-comments-pera">{rating.review}</p>

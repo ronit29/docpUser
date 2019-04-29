@@ -4,6 +4,8 @@ import BasicDetails from './basic'
 import MedialDetails from './medical'
 import Loader from '../../Loader'
 import WhatsAppOptinView from '../../WhatsAppOptin/WhatsAppOptinView.js'
+import SnackBar from 'node-snackbar'
+
 
 class EditProfile extends React.Component {
     constructor(props) {
@@ -41,10 +43,21 @@ class EditProfile extends React.Component {
             return <Loader />
         }
 
+        let show_default_checkBox= true
+        if(this.props.USER && this.props.USER.profiles){
+            if(Object.keys(this.props.USER.profiles).length > 0){
+               Object.entries(this.props.USER.profiles).map(function([key, value]) {
+                    if(show_default_checkBox && value.is_insured){
+                        show_default_checkBox = false
+                    }
+                })
+            }
+        }
+
         switch (this.state.selectedTab) {
             case 0: {
                 return <div style={{marginBottom:'60px'}}>
-                            <BasicDetails {...this.props} manageAddress={this.manageAddress.bind(this)} profileData={this.state.profileData} updateProfile={this.updateProfile.bind(this)} proceedUpdate={this.proceedUpdate.bind(this)} errors={this.state.errors} toggleOpenCrop={this.toggleOpenCrop.bind(this)}/>
+                            <BasicDetails {...this.props} manageAddress={this.manageAddress.bind(this)} profileData={this.state.profileData} updateProfile={this.updateProfile.bind(this)} proceedUpdate={this.proceedUpdate.bind(this)} errors={this.state.errors} toggleOpenCrop={this.toggleOpenCrop.bind(this)} show_default_checkBox={show_default_checkBox}/>
                                 <WhatsAppOptinView {...this.props} toggleWhatsap={this.toggleWhatsap.bind(this)} profiles={this.state.profileData}/>
                         </div>
 
@@ -111,7 +124,18 @@ class EditProfile extends React.Component {
                 this.state.profileData.whatsapp_optin = this.state.whatsapp_optin == null ?true: this.state.whatsapp_optin
                 this.props.editUserProfile(this.state.profileData, this.state.profileData.id, (err, data) => {
                     this.setState({ loading: false })
-                    this.props.history.go(-1)
+                    if(err){
+                        if(err.message){
+                            setTimeout(() => {
+                                SnackBar.show({ pos: 'bottom-center', text: err.message })
+                            }, 500)   
+                            return  
+                        }
+                    }
+
+                    this.props.history.go(-1)    
+                    
+                    
                 })
             }
         })

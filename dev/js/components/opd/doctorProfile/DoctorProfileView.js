@@ -1,8 +1,6 @@
 import React from 'react';
 
 import Loader from '../../commons/Loader'
-import ReviewList from '../../commons/ratingsProfileView/ReviewList.js'
-import RatingGraph from '../../commons/ratingsProfileView/RatingGraph.js'
 import RatingProfileCard from '../../commons/ratingsProfileView/RatingProfileCard.js'
 import ComplimentListView from '../../commons/ratingsProfileView/ComplimentListView.js'
 import DoctorProfileCard from '../commons/doctorProfileCard'
@@ -20,6 +18,10 @@ import ContactPoupView from '../doctorProfile/ContactPopup.js'
 
 import GTM from '../../../helpers/gtm.js'
 import InitialsPicture from '../../commons/initialsPicture';
+import ReviewList from '../../commons/ratingsProfileView/ReviewList.js'
+import RatingGraph from '../../commons/ratingsProfileView/RatingGraph.js'
+import RatingReviewView from '../../commons/ratingsProfileView/ratingReviewView.js'
+import RatingStars from '../../commons/ratingsProfileView/RatingStars';
 
 class DoctorProfileView extends React.Component {
     constructor(props) {
@@ -55,6 +57,9 @@ class DoctorProfileView extends React.Component {
                     this.setState({ footerData: footerData })
                 }
             })
+        }
+        if(this.props.app_download_list && !this.props.app_download_list.length){
+            this.props.getDownloadAppBannerList()
         }
         this.setState({ searchShown: true })
     }
@@ -155,7 +160,7 @@ class DoctorProfileView extends React.Component {
 
     navigateToDoctor(doctor, e) {
         e.preventDefault();
-        this.props.history.push(doctor.url);
+        this.props.history.push(`/${doctor.url}`);
 
         let data = {
             'Category': 'ConsumerApp', 'Action': 'recommendedDoctorClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'recommended-doctor-click', 'DoctorID': doctor.doctor_id
@@ -171,6 +176,16 @@ class DoctorProfileView extends React.Component {
 
         window.open(nearbyDoctors.doctors_url, '_self');
 
+    }
+
+    downloadButton(data){
+        let gtmTrack = {
+            'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-clicked', 'starts_with':data.starts_with?data.starts_with:'', 'ends_with': data.ends_with?data.ends_with:'', 'device': this.props.device_info
+        }
+        GTM.sendEvent({ data: gtmTrack })
+        if(window){
+            window.open(data.URL, '_self')
+        }
     }
 
     render() {
@@ -200,6 +215,58 @@ class DoctorProfileView extends React.Component {
         let nearbyDoctors = {}
         if (this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].doctors && Object.keys(this.props.DOCTORS[doctor_id].doctors).length) {
             nearbyDoctors = this.props.DOCTORS[doctor_id].doctors;
+        }
+
+        let is_insurance_applicable = false
+        if (this.state.selectedClinic && this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length) {
+            this.props.DOCTORS[doctor_id].hospitals.map((hospital) => {
+                if (hospital.hospital_id == this.state.selectedClinic) {
+                    is_insurance_applicable = hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured
+                }
+            })
+        }
+        //Check if reviews exist for doctor, if not then pick the google reviews for that doctor/hospital
+        let google_rating = {}
+        if (this.props.DOCTORS[doctor_id] && !this.props.DOCTORS[doctor_id].display_rating_widget) {
+
+            if (this.props.DOCTORS[doctor_id].google_rating && this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic] && this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating && this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating.length) {
+
+                google_rating.rating = this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating
+                google_rating.rating_graph = this.props.DOCTORS[doctor_id].google_rating[this.state.selectedClinic].google_rating_graph
+            }
+        }
+
+        let avgRating = ''
+        let ratingCount = ''
+        if (this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].rating_graph && this.props.DOCTORS[doctor_id].rating_graph.avg_rating && this.props.DOCTORS[doctor_id].rating_graph.rating_count) {
+            avgRating = this.props.DOCTORS[doctor_id].rating_graph.avg_rating;
+            ratingCount = this.props.DOCTORS[doctor_id].rating_graph.rating_count;
+        }
+
+        let show_google_rating = Object.values(google_rating).length > 0
+
+        //Get Selected Clinic/Hospital Name
+        let selectedClinicName = ''
+
+        if (this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length && this.state.selectedClinic) {
+
+            let selectedClinicInfo = this.props.DOCTORS[doctor_id].hospitals.filter(x => x.hospital_id == this.state.selectedClinic)
+
+            selectedClinicName = selectedClinicInfo.length ? selectedClinicInfo[0].hospital_name : ''
+        }
+
+        let downloadAppButtonData = {}
+        if(this.props.history && (this.props.history.length==2 || this.props.history.length==1)){
+            
+            if(this.props.app_download_list && this.props.app_download_list.length){
+
+                this.props.app_download_list.map((banner)=> {
+                    if(banner.isenabled && ( this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with)) ) {
+                        downloadAppButtonData = banner
+                    }
+                })
+            }
+            
         }
 
         return (
@@ -248,6 +315,23 @@ class DoctorProfileView extends React.Component {
                                 this.props.DOCTORS[doctor_id] ?
 
                                     <section className="dr-profile-screen" style={{ paddingBottom: 0 }}>
+                                        {
+                                            downloadAppButtonData && Object.values(downloadAppButtonData).length?
+                                            <a className="downloadBtn" href="javascript:void(0);" onClick={this.downloadButton.bind(this, downloadAppButtonData)}>
+
+                                                <button className="dwnlAppBtn">
+                                                {
+                                                    !this.props.device_info?''
+                                                    :(this.props.device_info.toLowerCase().includes('iphone') || this.props.device_info.toLowerCase().includes('ipad'))?
+                                                    <img style={{width:'13px', marginRight:'5px',marginTop: '-1px'}} src={ASSETS_BASE_URL + "/img/appl1.svg"} />
+                                                    :<img style={{width:'13px', marginRight:'5px'}} src={ASSETS_BASE_URL + "/img/andr1.svg"} />
+                                                }
+                                                Download App
+
+                                                </button>
+                                            </a>
+                                            :''
+                                        }
 
                                         <HelmetTags tagsData={{
                                             title: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).title,
@@ -275,9 +359,9 @@ class DoctorProfileView extends React.Component {
                                                             getDoctorNumber={this.props.getDoctorNumber}
                                                             recommendDocs={nearbyDoctors.result && nearbyDoctors.result.length}
                                                             viewAllDocClick={this.viewAllDocClick.bind(this)}
-                                                            nearbyDoctors= {nearbyDoctors?nearbyDoctors:''}
-                                                            isSeoFriendly= {this.state.seoFriendly}
-                                                            isOrganic = {this.state.isOrganic}
+                                                            nearbyDoctors={nearbyDoctors ? nearbyDoctors : ''}
+                                                            isSeoFriendly={this.state.seoFriendly}
+                                                            isOrganic={this.state.isOrganic}
                                                             {...this.props}
                                                         />
                                                         {
@@ -372,24 +456,39 @@ class DoctorProfileView extends React.Component {
                                                             <ProfessionalGraph
                                                                 details={this.props.DOCTORS[doctor_id]}
                                                             />
-                                                            {this.props.DOCTORS[doctor_id].display_rating_widget ?
-                                                                <div className="widget-panel">
-                                                                    <h4 className="panel-title mb-rmv">Patient Feedback <a className="rateViewAll"><span onClick={() => this.props.history.push(`/view-all-ratings?content_type=2&id=` + doctor_id)}>View All</span></a></h4>
-                                                                    <div className="panel-content pd-0 border-bottom-panel">
-                                                                        <RatingGraph details={this.props.DOCTORS[doctor_id]} />
-                                                                        <div className="user-satisfaction-section">
-                                                                            <div className="row no-gutters">
-                                                                                {(typeof (this.props.DOCTORS[doctor_id].rating_graph) != "undefined" && this.props.DOCTORS[doctor_id].rating_graph != null && this.props.DOCTORS[doctor_id].rating_graph) ?
-                                                                                    this.props.DOCTORS[doctor_id].rating_graph.top_compliments.map(compliment =>
-                                                                                        <ComplimentListView key={compliment.id} details={compliment} />
-                                                                                    ) : <div></div>}
-
+                                                            {
+                                                                avgRating >= 4 || ratingCount >= 5 ?
+                                                                    <RatingReviewView id={doctor_id} content_type={2} {...this.props} />
+                                                                    : show_google_rating ?
+                                                                        <div className="widget-panel">
+                                                                            <h4 className="panel-title mb-rmv">Patient Feedback <a className="rateViewAll">
+                                                                            </a></h4>
+                                                                            <div className="panel-content pd-0 border-bottom-panel d-flex align-items-start">
+                                                                                <div className="googleReviewcard" style={{ flex: 1 }}>
+                                                                                    <img src={ASSETS_BASE_URL + "/img/googleRw.png"} />
+                                                                                    {
+                                                                                        selectedClinicName ? <p>Ratings for<span>{selectedClinicName}</span></p> : ''
+                                                                                    }
+                                                                                </div>
+                                                                                <div className="feed-back-container" style={{ flex: 1, marginBottom: 0 }}>
+                                                                                    <div className="row">
+                                                                                        <div className="col-12">
+                                                                                            {
+                                                                                                google_rating.rating_graph && google_rating.rating_graph.avg_rating ?
+                                                                                                    <RatingStars average_rating={google_rating.rating_graph.avg_rating} width="12px" height="12px" justifyCenter={true} /> : ''
+                                                                                            }
+                                                                                            <div className="feedback-rating-text">
+                                                                                                <p className="feedback-rate">{google_rating.rating_graph.avg_rating}</p>
+                                                                                                <p className="feedback-rate-status">{google_rating.rating_graph.rating_count} ratings
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                        <ReviewList details={this.props.DOCTORS[doctor_id]} />
-                                                                    </div>
-                                                                </div> :
-                                                                ""}
+                                                                        : ""
+                                                            }
                                                         </div>
                                                     </div>
                                                 </div>
@@ -414,8 +513,12 @@ class DoctorProfileView extends React.Component {
                                                     } */}
                                                     <div className="dpp-btn-book dpp-btn-book-custom" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>
                                                         {/*<p>{`Book Now (₹ ${final_price})`}</p>*/}
-                                                        <p style={{ flex: 2 }}><span style={{ marginTop: '5px', display: 'inline-block' }} className="">Book Now</span></p>
-                                                        <p className="cp-auto" style={{ marginBottom: '8px' }}>*Coupon auto applied on checkout</p>
+                                                        <p style={{ flex: 2 }}><span style={{ marginTop: '5px', display: 'inline-block' }}>Book Now</span></p>
+                                                        {
+                                                            is_insurance_applicable ? ''
+                                                                : <p className="cp-auto" style={{ marginBottom: '8px' }}>*Coupon auto applied on checkout</p>
+                                                        }
+
                                                     </div>
                                                 </div>
                                                 :

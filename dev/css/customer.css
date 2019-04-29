@@ -653,7 +653,7 @@ text-align: left;
 		}
 		.no-risk-container{
 			position: relative;
-			right: -15px;
+			right: -5px;
 		}
 }
 .rsk-image{
@@ -1516,6 +1516,9 @@ p.rt-doc-nm{
     justify-content: center;
     align-items: center;
     width: 100%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    min-height: 8px;
 }
 
 .carousel-indicators span{
@@ -1954,4 +1957,22 @@ p.rt-doc-nm{
 
 .dw-info p{
     color: #fff;
+}
+
+.vw-all-static{
+    padding: 4px 6px;
+    border: 1px solid #f78631;
+    font-size: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.article-disclaimer{
+    font-size: 12px;
+    font-style: italic;
+}
+
+.article-disclaimer span{
+    font-style: normal;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 
-import { setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests, getUserReviews, getRatingCompliments, updateAppointmentRating, OTTLogin, getCartItems } from '../../actions/index.js'
+import { setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests, getUserReviews, getRatingCompliments, updateAppointmentRating, OTTLogin, getCartItems, getIsCareDetails, generateInsuranceLead} from '../../actions/index.js'
 
 import STORAGE from '../../helpers/storage'
 
@@ -38,6 +38,7 @@ class UserProfile extends React.Component {
             this.props.getUserAddress()
             this.props.getCoupons({})
             this.props.getCartItems()
+            this.props.getIsCareDetails()
         }
 
     }
@@ -57,12 +58,14 @@ const mapStateToProps = (state) => {
     const USER = state.USER
 
     const {
-        applicableCoupons
+        applicableCoupons,
+        isUserCared
     } = state.USER
 
     return {
         USER,
-        applicableCoupons
+        applicableCoupons,
+        isUserCared
     }
 }
 
@@ -88,6 +91,8 @@ const mapDispatchToProps = (dispatch) => {
         setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon)),
         clearExtraTests: () => dispatch(clearExtraTests()),
         getCartItems: () => dispatch(getCartItems()),
+        generateInsuranceLead:(selectedPlan, cb) => dispatch(generateInsuranceLead(selectedPlan,cb)),
+        getIsCareDetails: () => dispatch(getIsCareDetails()),
     }
 }
 

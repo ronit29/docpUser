@@ -1,5 +1,7 @@
 import React from 'react'
-import Lightbox from '../../helpers/lightbox';
+// import Lightbox from '../../helpers/lightbox';
+import GTM from '../../helpers/gtm.js'
+import Lightbox from 'react-image-lightbox';
 
 class HospitalInfoView extends React.Component{
 
@@ -71,7 +73,7 @@ class HospitalInfoView extends React.Component{
                       <div className="hsptl-img">
                         {
                           hospital_data.images.slice(0,4).map((image, i)=> {
-                            return <span key={i}><img style = {{cursor: 'pointer'}} src={image.original} alt="" onClick={() => this.setState({ isOpen: true, photoIndex: i })}/></span>
+                            return <span key={i}><div className="bg-img-box" style = {{backgroundImage : `url(${image.original})`}}   onClick={() => this.setState({ isOpen: true, photoIndex: i })}></div></span>
                           })
                         }
                         {isOpen && (
@@ -123,7 +125,12 @@ class HospitalInfoView extends React.Component{
                       <div className="hsptl-title hsptl-cntc hs-tle">Contact:</div>
                       <div className="hsptl-title hsptl-add"> {hospital_data.contact_number}</div>
                       <div className="hsptl-title"> 
-                        <a style={{borderRadius: '25px'}} href={`tel:${hospital_data.contact_number}`} className="dpp-btn-book d-lg-none d-flex"><img src={ASSETS_BASE_URL + "/images/call-round.png"} alt="" className="img-fluid img-map" style={{width: '20px'}} />
+                        <a style={{borderRadius: '25px'}} href={`tel:${hospital_data.contact_number}`} className="dpp-btn-book d-lg-none d-flex"><img src={ASSETS_BASE_URL + "/images/call-round.png"} alt="" className="img-fluid img-map" style={{width: '20px'}} onClick={()=>{
+                            let gtmData = {
+                                'Category': 'ConsumerApp', 'Action': 'IpdHospitalContactClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-contact-clicked'
+                            }
+                            GTM.sendEvent({ data: gtmData })
+                        }}/>
                         </a>
                       </div>
                     </li>

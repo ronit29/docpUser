@@ -78,10 +78,21 @@ class CartItem extends React.Component {
             this.props.selectOpdTimeSLot(timeSlot, false)
 
             if (data.actual_data.coupon_code) {
-                this.props.applyCoupons('1', { code: data.actual_data.coupon_code[0], coupon_id: data.data.coupons[0].id, is_cashback: data.data.coupons[0].is_cashback ? true : false }, data.data.coupons[0].id, data.actual_data.doctor)
+                let coupon_id = ''
+                let is_cashback= false
+                let coupon_code = data.actual_data.coupon_code.length?data.actual_data.coupon_code[0]:''
+                if(data.data.coupons && data.data.coupons.length){
+                    coupon_id = data.data.coupons[0].id
+                    is_cashback = data.data.coupons[0].is_cashback 
+
+                }
+                if(coupon_code){
+                    this.props.applyCoupons('1', { code: coupon_code, coupon_id: coupon_id, is_cashback: is_cashback }, coupon_id, data.actual_data.doctor)    
+                }
+                
             }
 
-            if (data.actual_data.payment_type >= 0) {
+            if (data.actual_data.payment_type >= 0 && data.actual_data.payment_type <= 2) {
                 this.props.select_opd_payment_type(data.actual_data.payment_type)
             }
         }
@@ -103,6 +114,10 @@ class CartItem extends React.Component {
             this.props.toggleDiagnosisCriteria('test', curr, true)
         }
 
+        if(data.actual_data && data.actual_data.pincode){
+            this.props.savePincode(data.actual_data.pincode)
+        }
+
         this.props.selectProfile(data.actual_data.profile)
         if (data.valid) {
             let time_slot = this.buildLabTimeSlot(data)
@@ -112,7 +127,20 @@ class CartItem extends React.Component {
             }
             this.props.selectLabTimeSLot(timeSlot, false)
             if (data.actual_data.coupon_code) {
-                this.props.applyCoupons('2', { code: data.actual_data.coupon_code[0], coupon_id: data.data.coupons[0].id, is_cashback: data.data.coupons[0].is_cashback ? true : false }, data.data.coupons[0].id, data.actual_data.lab)
+
+                let coupon_id = ''
+                let is_cashback= false
+                let coupon_code = data.actual_data.coupon_code.length?data.actual_data.coupon_code[0]:''
+                if(data.data.coupons && data.data.coupons.length){
+                    coupon_id = data.data.coupons[0].id
+                    is_cashback = data.data.coupons[0].is_cashback 
+
+                }
+
+                if(coupon_code){
+                    this.props.applyCoupons('2', { code: coupon_code, coupon_id: coupon_id, is_cashback: is_cashback }, coupon_id, data.actual_data.lab)    
+                }
+                
             }
             if (data.actual_data.is_home_pickup) {
                 this.props.selectLabAppointmentType('home')
@@ -133,12 +161,11 @@ class CartItem extends React.Component {
 
         let { valid, product_id, mrp, deal_price, id } = this.props
         let { lab, tests, doctor, hospital, coupons, profile, date, thumbnail, procedures } = this.props.data
-        let { is_home_pickup, payment_type } = this.props.actual_data
+        let { is_home_pickup, payment_type, insurance_message, is_appointment_insured, included_in_user_plan } = this.props.actual_data
 
         if (date) {
             date = new Date(date)
         }
-
         return (
             <div>
                 <div className="widget mrb-15 mrng-top-12 p-relative">
@@ -149,8 +176,13 @@ class CartItem extends React.Component {
                             !valid ? <p className="appointmentPassed">Your appointment date and time has passed.</p> : ""
                         } */}
 
-                        {
-                            payment_type == 1 ? <div className="shopng-cart-price">
+                        {   
+                            is_appointment_insured?
+                            <div className="shopng-cart-price ins-val-bx">Covered Under Insurance</div>
+                            :
+                            included_in_user_plan?
+                            <div className="shopng-cart-price ins-val-bx pkg-discountCpn">Docprime Care Benefit</div>
+                            :payment_type == 1 ? <div className="shopng-cart-price">
                                 {
                                     mrp ? <p>₹ {deal_price} <span className="shopng-cart-price-cut">₹ {mrp}</span></p> : ""
                                 }
@@ -232,8 +264,13 @@ class CartItem extends React.Component {
                                             tests.map((test, i) => {
                                                 return <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
 
-                                                    <span className="float-right fw-700">₹ {test.deal_price}<span className="test-mrp">₹ {test.mrp}</span>
-                                                    </span>
+                                                    {
+                                                        is_appointment_insured ||included_in_user_plan?
+                                                        <span className="float-right fw-700">₹ 0 </span>
+                                                        :<span className="float-right fw-700">₹ {test.deal_price}<span className="test-mrp">₹ {test.mrp}</span>
+                                                        </span>
+                                                    }
+                                                    
                                                     <span className="test-name-item">{test.test_name}</span>
                                                 </p>
                                             })

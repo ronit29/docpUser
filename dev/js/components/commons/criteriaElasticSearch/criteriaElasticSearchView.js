@@ -73,10 +73,11 @@ class CriteriaElasticSearchView extends React.Component {
         let searchString = e.target.value.trim()
         if (searchString.length) {
             this.getSearchResults()
+            this.props.toggleFixedMobileFooter(false)
         } else {
             this.setState({ searchResults: [] })
+            this.props.toggleFixedMobileFooter(true)
         }
-
     }
 
     getSearchResults() {
@@ -105,7 +106,7 @@ class CriteriaElasticSearchView extends React.Component {
         let PROCEDURE_TYPES = ['procedure_category', 'procedure']
 
         let IPD_TYPES = ['ipd']
-        
+
         let type = ''
         let visibleType = ''
         let filterResults = this.props.getElasticCriteriaResults(this.state.searchValue.trim(), this.props.type.includes('package') ? 'test' : this.props.type, location)
@@ -124,9 +125,9 @@ class CriteriaElasticSearchView extends React.Component {
 
                     type = 'opd'
                     visibleType = searchResults.suggestion[0]
-                }else if(IPD_TYPES.indexOf(searchResults.suggestion[0].type)>-1 && this.props.type !='ipd'){
+                } else if (IPD_TYPES.indexOf(searchResults.suggestion[0].type) > -1 && this.props.type != 'ipd') {
                     type = 'ipd'
-                    visibleType = searchResults.suggestion[0]                    
+                    visibleType = searchResults.suggestion[0]
                 }
 
                 /*else if(PROCEDURE_TYPES.indexOf(searchResults.suggestion[0].type)>-1 && this.props.type !='procedures'){
@@ -202,7 +203,7 @@ class CriteriaElasticSearchView extends React.Component {
 
             } else if (criteria.action.param.includes('procedure_ids')) {
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value ? criteria.action.value[0] : '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
 
@@ -211,7 +212,7 @@ class CriteriaElasticSearchView extends React.Component {
 
             } else if (criteria.action.param.includes('specializations')) {
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value ? criteria.action.value[0] : '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
                 }
                 GTM.sendEvent({ data: data })
 
@@ -237,7 +238,7 @@ class CriteriaElasticSearchView extends React.Component {
             this.setState({ searchValue: "" })
             this.props.showResults('opd')
 
-        }else if(this.props.type.includes('ipd')){
+        } else if (this.props.type.includes('ipd')) {
             let data = {
                 'Category': 'ConsumerApp', 'Action': 'IPDNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
             }
@@ -343,12 +344,12 @@ class CriteriaElasticSearchView extends React.Component {
                         <LeftBar />
 
                         <div className="col-12 col-md-7 col-lg-7 center-column pt-0">
-
+                            <img className="search-back-main-ico" src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} onClick={()=> this.props.history.goBack()}/>
                             {
                                 // goback decides if search bar will be shown
-                                this.props.goBack ? "" : <div className="widget mb-10 mrng-top-20">
+                                this.props.goBack ? "" : <div className="widget mb-10">
                                     <div className="search-top-container">
-                                        <p className="srch-heading">Search</p>
+                                        {/* <p className="srch-heading">Search</p> */}
                                         <div className="serch-nw-inputs-container">
 
                                             <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' fromCriteria={true} commonSearchPage={true} />
@@ -374,7 +375,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                             </label>
                                             </div>*/}
                                                         <div className="dtl-radio">
-                                                            <label className="container-radio">Surgery / Procedure
+                                                            <label className="container-radio">Surgery
                                                             <input type="radio" onChange={this.props.changeSelection.bind(this, 'ipd', '')} checked={this.props.selected == 'ipd'} name="radio" />
                                                                 <span className="doc-checkmark"></span>
                                                             </label>
@@ -404,8 +405,8 @@ class CriteriaElasticSearchView extends React.Component {
                                 this.state.searchCities.length > 0 ?
                                     <section>
                                         <div className="widget searchMargin">
-                                            <div className="common-search-container">
-                                                <p className="srch-heading">Location Search</p>
+                                            <div className="common-search-container pt-0">
+                                                {/* <p className="srch-heading">Location Search</p> */}
                                                 <div className="common-listing-cont">
                                                     <ul>
                                                         {
@@ -431,7 +432,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                     this.state.searchResults.length || this.state.searchValue ?
                                                         <div className="widget searchMargin" >
                                                             <div className="common-search-container">
-                                                                <p className="srch-heading">Search Results</p>
+                                                                {/* <p className="srch-heading">Search Results</p> */}
                                                                 {
                                                                     !this.state.searchCities.length && this.state.type && (this.state.searchValue || Object.values(this.state.currentTestType).length) ?
                                                                         <div style={{ cursor: 'pointer' }} onClick={() => {
@@ -441,9 +442,9 @@ class CriteriaElasticSearchView extends React.Component {
                                                                             }
                                                                             GTM.sendEvent({ data: data })
 
-                                                                            this.props.changeSelection(this.state.type, this.state.searchValue)
+                                                                            this.props.changeSelection(this.state.type, this.state.visibleType.name || '')
                                                                         }}>
-                                                                            <p className="p-0 srch-prnsl-txt" >Did you mean: <span className="search-prnsl-rslts">{this.state.searchValue}</span> in <span className="fw-700">{this.state.visibleType.visible_name}</span></p>
+                                                                            <p className="p-0 srch-prnsl-txt" >Did you mean: <span className="search-prnsl-rslts">{this.state.visibleType.name || ''}</span> in <span className="fw-700">{this.state.visibleType.visible_name}</span></p>
                                                                         </div>
                                                                         : ''
                                                                 }
@@ -476,12 +477,12 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                             {cat.name}
                                                                                             {
                                                                                                 this.props.type.includes('ipd')
-                                                                                                ?<span className="search-span-sub">IPD Procedures</span>
-                                                                                                :cat.is_package && cat.is_package.length && cat.is_package[0]?
-                                                                                                <span className="search-span-sub">Health Package {cat.number_of_tests && cat.number_of_tests.length && cat.number_of_tests[0]?` | ${cat.number_of_tests[0]} Test Included`:''}</span>
-                                                                                                :cat.type == "hospital"
-                                                                                                    ? <span className="search-span-sub">{cat.locality && Array.isArray(cat.locality) ? cat.locality.join(', ') : cat.visible_name}</span>
-                                                                                                    : <span className="search-span-sub">{cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name) ? cat.primary_name.slice(0, 2).join(', ') : cat.visible_name}</span>
+                                                                                                    ? <span className="search-span-sub">IPD Procedures</span>
+                                                                                                    : cat.is_package && cat.is_package.length && cat.is_package[0] ?
+                                                                                                        <span className="search-span-sub">Health Package {cat.number_of_tests && cat.number_of_tests.length && cat.number_of_tests[0] ? ` | ${cat.number_of_tests[0]} Test Included` : ''}</span>
+                                                                                                        : cat.type == "hospital"
+                                                                                                            ? <span className="search-span-sub">{cat.locality && Array.isArray(cat.locality) ? cat.locality.join(', ') : cat.visible_name}</span>
+                                                                                                            : <span className="search-span-sub">{cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name) ? cat.primary_name.slice(0, 2).join(', ') : cat.visible_name}</span>
                                                                                             }
                                                                                         </p>
                                                                                     </div>

@@ -1,9 +1,29 @@
-export function _getlocationFromLatLong(lat, long, location_type = 'locality', cb) {
-    if (typeof google != undefined && lat && long) {
-        var latlng = { lat: parseFloat(parseFloat(lat).toFixed(6)), lng: parseFloat(parseFloat(long).toFixed(6)) };
+import AXIOS from 'axios'
+import CONFIG from '../config/config'
 
-        let geocoder = new google.maps.Geocoder
-        geocoder.geocode({ 'location': latlng }, (results, status) => {
+
+export function _autoCompleteService(query, cb, types = null) {
+
+    let url = `${CONFIG.GOOGLE_SERVICE_URL}/autocomplete/${query}`
+    AXIOS.post(url, {
+        types: types
+    }).then((data) => {
+        if (data && data.data) {
+            cb(data.data)
+        }
+    }).catch((e) => {
+        cb([])
+    })
+}
+
+export function _getlocationFromLatLong(lat, long, location_type = 'locality', cb) {
+    var lat_c = parseFloat(parseFloat(lat).toFixed(6))
+    var long_c = parseFloat(parseFloat(long).toFixed(6))
+
+    let url = `${CONFIG.GOOGLE_SERVICE_URL}/location/latlong/${lat_c}/${long_c}`
+    AXIOS.get(url).then((data) => {
+        if (data && data.data) {
+            let results = data.data
             if (results && results[0]) {
                 let results_to_pick = results[0]
                 results.map((x) => {
@@ -30,26 +50,34 @@ export function _getlocationFromLatLong(lat, long, location_type = 'locality', c
                     formatted_address: location_name,
                     name: location_name,
                     place_id: "",
-                    geometry: { location: { lat, lng: long } }
+                    geometry: { location: { lat, lng: long } },
+                    locality: locality,
+                    sub_locality: sub_locality
                 }
                 cb(location_object)
             }
-        })
-    }
+        }
+    }).catch((e) => {
+        // cb([])
+    })
 }
 
-export function _getLocationFromPlaceId(placeId, cb) {
-    if (typeof google != undefined) {
-        let map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: 28, lng: 77 },
-            zoom: 15
-        })
-        let service = new google.maps.places.PlacesService(map);
-        service.getDetails({
-            reference: placeId
-        }, function (place, status) {
+export function _getLocationFromPlaceId(placeId, cb, modify = false) {
+    let url = `${CONFIG.GOOGLE_SERVICE_URL}/location/placeid/${placeId}`
+    AXIOS.get(url).then((data) => {
+        if (data && data.data) {
+            let place = data.data
+            if (modify) {
+                cb(place)
+                return
+            }
             let location_name = place.formatted_address
             let formedName = _getNameforPlaceId(place)
+
+            //Get Locality & SubLocality
+            let locality = _getNameFromLocation(place, 'locality')
+            let sub_locality = _getNameFromLocation(place, 'sublocality')
+
             if (formedName) {
                 location_name = formedName
             }
@@ -58,13 +86,17 @@ export function _getLocationFromPlaceId(placeId, cb) {
                 formatted_address: location_name,
                 name: location_name,
                 place_id: place.place_id,
-                geometry: place.geometry
+                geometry: place.geometry,
+                locality: locality,
+                sub_locality: sub_locality
             }
-
             cb(location_object)
-
-        }.bind(this))
-    }
+        } else {
+            // cb(null)
+        }
+    }).catch((e) => {
+        // cb(null)
+    })
 }
 
 export function _getNameforPlaceId(result) {
@@ -108,7 +140,7 @@ export function _getNameFromLocation(result, type) {
                     }
                 }
             }
-            if(name){
+            if (name) {
                 break
             }
         }

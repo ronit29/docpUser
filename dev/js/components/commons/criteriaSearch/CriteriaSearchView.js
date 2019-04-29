@@ -6,7 +6,8 @@ import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 import LocationElements from '../../../containers/commons/locationElements'
-// import FixedMobileFooter from '../Home/FixedMobileFooter';
+import FixedMobileFooter from '../Home/FixedMobileFooter';
+import PackageCompareStrip from '../../diagnosis/searchPackages/packageCompare/packageCompareStrip.js'
 
 
 const debouncer = (fn, delay) => {
@@ -148,7 +149,6 @@ class CriteriaSearchView extends React.Component {
     }
 
     render() {
-
         let location = "Delhi"
         if (this.props.selectedLocation) {
             location = this.props.selectedLocation.formatted_address.slice(0, 25)
@@ -174,14 +174,13 @@ class CriteriaSearchView extends React.Component {
                 ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-empty.svg'} className="rating-star" />)
             }
         }
-
         return (
             <div className="profile-body-wrap">
                 {
                     this.props.hideHeaderOnMobile ? <div className="hide-762"><ProfileHeader showSearch={true} /></div> : <ProfileHeader showSearch={true} />
                 }
 
-                <section className={"container parent-section book-appointment-section" + (this.props.hideHeaderOnMobile ? " mp0" : "")}>
+                <section className={"container parent-section book-appointment-section" + (this.props.hideHeaderOnMobile ? " mp0" : "") + (this.props.isPackage ?" pkgComapre":"")}>
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
@@ -372,13 +371,18 @@ class CriteriaSearchView extends React.Component {
                         }
                     </div>
                 </section>
-                {/*
-                    this.props.searchPackages ?
+                {
+                    this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage?
+                        <PackageCompareStrip {...this.props} />
+                    :''
+                }
+                {
+                    this.props.searchPackages && this.props.compare_packages && this.props.compare_packages.length == 0?
                         <FixedMobileFooter searchPackagePage={true} {...this.props} />
                         :
-                        this.props.searchDoctors || this.props.searchLabs ?
+                        this.props.compare_packages && this.props.compare_packages.length == 0 && (this.props.searchDoctors || this.props.searchLabs) ?
                             <FixedMobileFooter {...this.props} /> : ''
-                */}
+                }
             </div>
         );
     }

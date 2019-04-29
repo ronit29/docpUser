@@ -6,3 +6,8 @@ dist
 ./dist
 server.js
 .env
+/server
+server
+./server
+deploy.sh
+package-lock.json

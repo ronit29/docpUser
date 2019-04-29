@@ -7,7 +7,7 @@ const defaultState = {
     LOADED_LABS_SEARCH: false,
     selectedSlot: { time: {} },
     rescheduleSlot: { time: {} },
-    selectedAppointmentType: 'lab',
+    selectedAppointmentType: 'home',
     selectedAddress: null,
     SET_FROM_SERVER: false,
     labCoupons: {},
@@ -152,8 +152,16 @@ export default function (state = defaultState, action) {
             return newState
         }
         case SEARCH_HEALTH_PACKAGES: {
-            let newState = { ...state }
-            newState.packagesList = action.payload
+            let newState = {
+                ...state,
+                packagesList: {...state.packagesList}
+            }
+            if(action.page == 1){
+                newState.packagesList = action.payload
+            }else{
+                newState.packagesList.result =  newState.packagesList.result.concat(action.payload.result)        
+            }
+            newState.LOADED_LABS_SEARCH = true
             return newState
         }
     }

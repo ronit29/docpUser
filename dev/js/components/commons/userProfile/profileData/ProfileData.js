@@ -1,6 +1,7 @@
 import React from 'react';
 import TermsConditions from '../../couponSelectionView/termsConditions.js'
 import GTM from '../../../../helpers/gtm'
+import CONFIG from '../../../../config'
 
 
 class ProfileData extends React.Component {
@@ -38,12 +39,38 @@ class ProfileData extends React.Component {
         window.location.href = `/lab/searchresults?test_ids=${test_ids.join(',')}&network_id=${network_id}`
     }
 
+    isDocCare(){
+        if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
+            this.props.history.push('/prime/success?user_plan='+this.props.isUserCared.user_plan_id) 
+        }else{
+            this.props.history.push('/prime/plans') 
+        }
+    }
+
+    goToInsurance(isUserLoginInsured){
+        if(isUserLoginInsured){
+            this.props.history.push('/insurance/certificate')   
+        }else{
+            this.props.generateInsuranceLead()
+            this.props.history.push('/insurance/insurance-plans?utm_source=profile-insurance-clicked')
+        }
+    }    
+
     render() {
 
         let currentRoomId = this.props.USER.currentRoomId
         let coupon = null
+        let memberClass = 'float-right ins-userdetails-buy'
+        let memStatus = 'New'
         if (this.props.applicableCoupons && this.props.applicableCoupons.length) {
             coupon = this.props.applicableCoupons[0]
+        }
+
+        let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)]?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_insured && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user:false
+        
+        if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
+            memberClass = 'float-right ins-userdetails-active'
+            memStatus = 'Active'
         }
 
         return (
@@ -140,10 +167,10 @@ class ProfileData extends React.Component {
                         }}>
                             <div className="usr-dtls-off-act">
                                 <p className="usr-dtls-strt-txt">
-                                    <img src="/assets/img/customer-icons/refer.svg" className="img-fluid" />REFER &amp; EARN</p>
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/refer.svg"} className="img-fluid" />REFER &amp; EARN</p>
                             </div>
                             <div className="ofr-img-txt">
-                                <div className="box-img-cont"><img src="/assets/img/step-2.png" className="img-fluid" /></div>
+                                <div className="box-img-cont"><img src={ASSETS_BASE_URL + "/img/step-2.png"} className="img-fluid" /></div>
                                 <div className="ofr-contnt">
                                     <p className="ofr-bkg">
                                         Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight: '0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> on completion of their first order</p>
@@ -178,6 +205,37 @@ class ProfileData extends React.Component {
                                 </div>
                             </a>
                         </li> */}
+                        {
+                        CONFIG.ENABLE_INSURANCE?
+                            <li onClick={this.goToInsurance.bind(this, isUserLoginInsured)} className="my-profile-item lst-spcng">
+                                <a>
+                                    <span className="icon icon-md nav-icon">
+                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} className="img-fluid" />
+                                    </span>
+                                    <div className="nav-content">
+                                        <h4 className="title app-title">OPD Insurance
+                                            {/* <span className="float-right badge badge-warning">1</span> */}
+                                        </h4>
+                                    </div>
+                                </a>
+                                {
+                                    isUserLoginInsured?<button className="ins-userdetails-active">Active</button>:<button className="ins-userdetails-buy">Buy Now</button>
+                                }
+                            </li>
+                        :''
+                        }
+                        <li onClick={this.isDocCare.bind(this)} className="my-profile-item lst-spcng">
+                            <a>
+                                <span className="icon icon-md nav-icon">
+                                    <img src={ASSETS_BASE_URL + "/img/primecae.png"} className="img-fluid" />
+                                </span>
+                                <div className="nav-content" style={{width:'100%'}}>
+                                    <h4 className="title app-title">Docprime Care 
+                                        <button className={memberClass}>{memStatus}</button>
+                                    </h4>
+                                </div>
+                            </a>
+                        </li>
                         <li onClick={this.gotTo.bind(this, 'onlinePrescriptions')} className="my-profile-item lst-spcng">
                             <a>
                                 <span className="icon icon-md nav-icon">

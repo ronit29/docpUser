@@ -1,15 +1,19 @@
 import React from 'react'
 import IpdAboutUs from './aboutIPD.js'
+import IpdInfoViewMore from './IpdAboutUs.js'
 import HospitalList from './HospitalList.js'
 import DoctorResultCard from '../opd/commons/doctorResultCard'
 import Loader from '../commons/Loader'
+import GTM from '../../helpers/gtm.js'
+
 
 class IpdView extends React.Component {
 
 	constructor(props){
 		super(props)
 		this.state = {
-			toggleTabType: 'aboutTab'
+			toggleTabType: 'aboutTab',
+			toggleReadMore: false
 		}
 	}
 
@@ -23,6 +27,12 @@ class IpdView extends React.Component {
 		var i = 0
 
 		let headerHeight = 0
+
+		let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'IPDInfoPageLanded', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-info-page-landed', selectedId: this.props.ipd_id || ''
+        }
+        GTM.sendEvent({ data: gtmData })
+
 		Object.keys(this.refs).forEach((prp, i) => {
 			
 			if(document.getElementsByClassName('stickyBar') && document.getElementsByClassName('stickyBar')[0]){
@@ -35,13 +45,21 @@ class IpdView extends React.Component {
 		let self = this
 		if(window && document){
 			window.onscroll = function() {
-		    var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
-
+		    var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
 		    for (i in sections) {
 		    	if(self.refs[i]){
-		    		if ((self.refs[i].offsetTop +  headerHeight )<= scrollPosition) {
-				      	self.setState({toggleTabType: i})
-				    }
+
+		    		if(i.includes('readMoreView')){
+		    			if(scrollPosition > (self.refs['readMoreView'].offsetTop +  headerHeight )){
+					    	self.setState({toggleTabType: 'aboutTab'})
+					    }
+		    		}else{
+
+		    			if ((self.refs[i].offsetTop +  headerHeight )<= scrollPosition) {
+					      	self.setState({toggleTabType: i})
+					    }	
+		    		}
+		    		
 		    	}
 		    }
 		  }	
@@ -50,20 +68,28 @@ class IpdView extends React.Component {
 
 	toggleTabs(type){
 		if(document.getElementById(type)){
+			let gtmData = {
+	            'Category': 'ConsumerApp', 'Action': 'IpdTabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-tab-clicked', selectedId: this.props.ipd_id || '', type: type
+	        }
+	        GTM.sendEvent({ data: gtmData })
+
 			var elmnt = document.getElementById(type)
 			
 			let headerHeight = 0
 			if(document.getElementsByClassName('stickyBar') && document.getElementsByClassName('stickyBar')[0]){
-				headerHeight = document.getElementById(type).offsetTop - 50 //document.getElementsByClassName('stickyBar')[0].offsetTop + 100
+				headerHeight = this.refs[type].offsetTop -45
 			}
 			this.setState({toggleTabType: type})
-			//elmnt.scrollIntoView(true)
 			window.scrollTo(0,headerHeight)
 
 		}
 	}
 
 	viewHospitalsClicked(){
+		let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'IpdViewAllHospitalClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-view-all-hospital-clicked', selectedId: this.props.ipd_id || ''
+        }
+        GTM.sendEvent({ data: gtmData })
 		this.props.mergeIpdCriteria({
 			commonSelectedCriterias: this.props.commonSelectedCriterias,
 			nextSelectedCriterias: this.props.commonSelectedCriterias
@@ -73,6 +99,12 @@ class IpdView extends React.Component {
 
 	viewDoctorsClicked(){
 		if(this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length){
+
+
+			let gtmData = {
+	            'Category': 'ConsumerApp', 'Action': 'IpdViewAllDoctorClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-view-all-doctor-clicked', selectedId: this.props.commonSelectedCriterias[0].id || ''
+	        }
+	        GTM.sendEvent({ data: gtmData })
 
 			let criteria = {}
 			criteria.id = this.props.commonSelectedCriterias[0].id
@@ -85,7 +117,21 @@ class IpdView extends React.Component {
 	}
 
 	getCostEstimateClicked(){
+		let gtmData = {
+	    	'Category': 'ConsumerApp', 'Action': 'IpdGetCostEstimateClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-get-cost-estimate-clicked', selectedId: this.props.ipd_id || ''
+		}
+		GTM.sendEvent({ data: gtmData })
 		this.props.history.push(`/ipd/${this.props.ipd_id}/getPriceEstimate`)
+	}
+
+	readMoreClicked(){
+		this.setState({toggleReadMore: true})
+		if(this.refs['readMoreView']){
+			let headerHeight = this.refs['readMoreView'].offsetTop -45
+			window.scrollTo(0,headerHeight)	
+		}
+		
+
 	}
 
 	render(){
@@ -110,7 +156,7 @@ class IpdView extends React.Component {
                </div>
                <div className="tab-content" >
                		<div id="aboutTab" ref="aboutTab" className="nav_top_bar">
-               			<IpdAboutUs {...this.props} id="aboutTab"/>
+               			<IpdAboutUs {...this.props} id="aboutTab" readMoreClicked={this.readMoreClicked.bind(this)}/>
                		</div> 
                    	
 		            <div id="hospitalTab" ref="hospitalTab" className="tab-pane fade" className="nav_top_bar">
@@ -122,7 +168,7 @@ class IpdView extends React.Component {
 		            	
 		            	{
 		            		this.props.ipd_info && this.props.ipd_info.hospitals && this.props.ipd_info.hospitals.result && this.props.ipd_info.hospitals.result.length<this.props.ipd_info.hospitals.count?
-				   				<a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewHospitalsClicked.bind(this)}>View all Hospitals</a>
+				   				<a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewHospitalsClicked.bind(this)}>{`View all ${this.props.ipd_info.hospitals.count} Hospitals`}</a>
 				   				:''
 		            	}
 					</div>
@@ -142,16 +188,20 @@ class IpdView extends React.Component {
 	                    }
 	                    {
 	                    	this.props.ipd_info && this.props.ipd_info.doctors && this.props.ipd_info.doctors.result && this.props.ipd_info.doctors.result.length<this.props.ipd_info.doctors.count?
-	                    	<a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewDoctorsClicked.bind(this)}>View all Doctors</a>
+	                    	<a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewDoctorsClicked.bind(this)}>{`View all ${this.props.ipd_info.doctors.count} Doctors`}</a>
 	                    	:''	
 	                    }
 	                    
 	                    
 	                </div>
+
+	                <div ref="readMoreView" className="tab-pane fade nav_top_bar">
+	                	<IpdInfoViewMore {...this.props}/>
+	               	</div>
 	            </div>
 	            <div className="btn-search-div btn-apply-div btn-sbmt">
                      <a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a>
-                  </div>
+                </div>
             </div>
 			)
 	}

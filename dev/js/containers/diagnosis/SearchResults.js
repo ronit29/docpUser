@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggle404, mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults, selectSearchType, selectLabTimeSLot } from '../../actions/index.js'
+import { toggle404, mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults, selectSearchType, selectLabTimeSLot, getOfferList, toggleOPDCriteria, selectLabAppointmentType, resetPkgCompare } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/diagnosis/searchResults/index.js'
 import NotFoundView from '../../components/commons/notFound'
@@ -104,12 +104,21 @@ const mapStateToProps = (state, passedProps) => {
         search_id_data,
         nextSelectedCriterias,
         currentSearchedCriterias,
-        nextFilterCriteria
+        nextFilterCriteria,
+        compare_packages,
     } = state.SEARCH_CRITERIA_LABS
+
+    const {
+        offerList
+    } = state.USER
 
     const LABS = state.LAB_SEARCH_DATA
     const { show404, labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, curr_page, seoData, test_data } = state.LAB_SEARCH
     const { mergeUrlState } = state.SEARCH_CRITERIA_OPD
+
+    const {
+        is_login_user_insured
+    } = state.USER
 
     return {
         selectedLocation,
@@ -133,7 +142,10 @@ const mapStateToProps = (state, passedProps) => {
         seoData,
         mergeUrlState,
         test_data,
-        show404
+        show404,
+        offerList,
+        is_login_user_insured,
+        compare_packages
     }
 
 }
@@ -151,7 +163,11 @@ const mapDispatchToProps = (dispatch) => {
         getLabSearchIdResults: (searchId, searchResults) => dispatch(getLabSearchIdResults(searchId, searchResults)),
         selectSearchType: (type) => dispatch(selectSearchType(type)),
         toggle404: (status) => dispatch(toggle404(status)),
-        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule))
+        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
+        getOfferList: (lat,long) => dispatch(getOfferList(lat,long)),
+        toggleOPDCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filter)),
+        selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
+        resetPkgCompare:() => dispatch(resetPkgCompare())
     }
 }
 

@@ -15,7 +15,7 @@ class LabView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            collapse: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            collapse: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
             expandClick: true,
             expandText: 'Expand All'
         }
@@ -69,6 +69,10 @@ class LabView extends React.Component {
         }
     }
 
+    viewAllClick() {
+        this.props.history.push('/full-body-checkup-health-packages')
+    }
+
     render() {
         return (
             <div className="profile-body-wrap">
@@ -86,26 +90,29 @@ class LabView extends React.Component {
                                         <BannerCarousel {...this.props} sliderLocation="health_package_compare_page" />
                                     </div> : ''
                             }
-                            <h4 className="mrng-top-12">Top full body checkup packages</h4>
+                            <div className="d-flex justify-content-between mrt-10" style={{ padding: '0 15px' }} >
+                                <h4 className="fw-500" style={{ fontSize: 16, flex: 1, marginRight: 4 }}>Top full body checkup packages</h4>
+                                <button onClick={() => this.viewAllClick()} className="vw-all-static text-primary fw-500">View all</button>
+                            </div>
                             <div className="widget mrt-10 ct-profile skin-white border-bottom-radious gold-relative">
                                 <div className="static-pk-container sticky-pk-container">
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Aarogyam 1.7 Special (Thyrocare)</p>
-                                            <p className="stc-price-cut">₹ 1340<span>₹ 2700</span></p>
-                                        </div>
-                                    </div>
-                                    <div className="static-pkg-top-column">
-                                        <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Aarogyam B
-                                                                (Thyrocare)</p>
-                                            <p className="stc-price-cut">₹ 490 <span>₹ 740</span></p>
+                                            <p className="stc-sub-para">Pro Aarogyam 1.7 (Thyrocare) <br />(Includes 86 tests)</p>
+                                            <p className="stc-price-cut">₹ 2000<span>₹ 2400</span></p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">MET Healthy Youth (25 YRS & Above)</p>
-                                            <p className="stc-price-cut">₹ 899 <span>₹ 3640</span></p>
+                                            <p className="stc-sub-para">Aarogyam B
+                                                                (Thyrocare) <br />(Includes 60 tests)</p>
+                                            <p className="stc-price-cut">₹ 499 <span>₹ 750</span></p>
+                                        </div>
+                                    </div>
+                                    <div className="static-pkg-top-column">
+                                        <div className="stc-pkg-sub">
+                                            <p className="stc-sub-para">MET Healthy Youth (25 YRS & Above) <br />(Includes 56 tests)</p>
+                                            <p className="stc-price-cut">₹ 1099 <span>₹ 3640</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +120,7 @@ class LabView extends React.Component {
                                     <div className="static-pkg-top-column" style={{ position: 'relative' }}>
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">
-                                                46% OFF + ₹ 100
+                                                16% OFF + ₹ 100
                                                 OFF Coupon
                                                                 </p>
                                         </div>
@@ -128,7 +135,7 @@ class LabView extends React.Component {
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-offr-cpn">
-                                            <p className="stc-off-para">20% OFF + ₹ 100 OFF Coupon</p>
+                                            <p className="stc-off-para">33% OFF + ₹ 100 OFF Coupon</p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=12227" onClick={(e) => {
@@ -140,7 +147,7 @@ class LabView extends React.Component {
                                     <div className="static-pkg-top-column">
                                         <div className="stc-offr-cpn">
                                             <p className="stc-off-para">
-                                                72% OFF + ₹ 100
+                                                69% OFF + ₹ 100
                                                 OFF Coupon
                                                                 </p>
                                         </div>
@@ -184,7 +191,7 @@ class LabView extends React.Component {
                                         <div className="stc-acrd-content text-center">
                                             <div className="acrd-stc-data">
                                                 <p>
-                                                    88
+                                                    86
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -1215,7 +1222,7 @@ class LabView extends React.Component {
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
                                                 <p>
-                                                    4
+                                                    3
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -1271,7 +1278,7 @@ class LabView extends React.Component {
                                         <div className="stc-acrd-content pb-0 text-center">
                                             <div className="acrd-stc-data">
                                                 <p>
-                                                    4
+                                                    2
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data mid-border-mrgn">
@@ -1583,7 +1590,7 @@ class LabView extends React.Component {
                                             </div> : ''
                                         }
                                     </div>
-                                    <div className="stc-accord-container">
+                                    {/*<div className="stc-accord-container">
                                         <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 13)}>
                                             <p>Pancreatic (Acute) Profile</p>
                                             <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
@@ -1621,8 +1628,8 @@ class LabView extends React.Component {
                                                             </ul>
                                                         </div>
                                                         <div className="acrd-stc-data mid-border-mrgn">
-                                                            {/*<p>Acute pancreatitis or acute pancreatic necrosis is a sudden inflammation of the pancreas. It can have severe complications and high mortality despite treatment.
-                                                                            </p>*/}
+                                                            <p>Acute pancreatitis or acute pancreatic necrosis is a sudden inflammation of the pancreas. It can have severe complications and high mortality despite treatment.
+                                                                            </p>
                                                         </div>
                                                         <div className="acrd-stc-data">
                                                             <p>
@@ -1631,7 +1638,7 @@ class LabView extends React.Component {
                                                     </div>
                                                 </div> : ''
                                         }
-                                    </div>
+                                    </div>*/}
                                     <div className="stc-accord-container">
                                         <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 14)}>
                                             <p>Arthritis Profile</p>
@@ -1664,6 +1671,285 @@ class LabView extends React.Component {
                                                             <ul className="stc-data-ul-list">
                                                                 <li><p>Anti Nuclear Antibodies(ANA)</p></li>
                                                                 <li><p>Anti CCP(ACPP)</p></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="acrd-stc-data mid-border-mrgn">
+                                                            <p>
+                                                            </p>
+                                                        </div>
+                                                        <div className="acrd-stc-data">
+                                                            <p>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div> : ''
+                                        }
+                                    </div>
+                                    <div className="stc-accord-container">
+                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 15)}>
+                                            <p>Thyroxine - T4 Free</p>
+                                            <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
+                                        </div>
+                                        <div className="stc-acrd-content pb-0 text-center">
+                                            <div className="acrd-stc-data">
+                                                <p>
+                                                    1
+                                                                            </p>
+                                            </div>
+                                            <div className="acrd-stc-data mid-border-mrgn">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                            </p>
+                                            </div>
+                                        </div>
+                                        {
+                                            this.state.collapse[15] ?
+                                                <div>
+                                                    <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                                        <div className="acrd-stc-data">
+                                                            <p>
+                                                            </p>
+                                                            <ul className="stc-data-ul-list">
+                                                                <li><p>This test is advised when the results of a thyroid-stimulating hormone test are unusual. It is performed to determine the underlying cause affecting the level of thyroid hormone in the body.</p></li>
+                                                                <li><p>Some ailments that may affect the functioning of the thyroid are:</p></li>
+                                                                <li><p>Anti CCP(ACPP)</p></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="acrd-stc-data mid-border-mrgn">
+                                                            <p>
+                                                            </p>
+                                                        </div>
+                                                        <div className="acrd-stc-data">
+                                                            <p>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div> : ''
+                                        }
+                                    </div>
+                                    <div className="stc-accord-container">
+                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 16)}>
+                                            <p>Triiodothyronine (T3)</p>
+                                            <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
+                                        </div>
+                                        <div className="stc-acrd-content pb-0 text-center">
+                                            <div className="acrd-stc-data">
+                                                <p>
+                                                    1
+                                                                            </p>
+                                            </div>
+                                            <div className="acrd-stc-data mid-border-mrgn">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                            </p>
+                                            </div>
+                                        </div>
+                                        {
+                                            this.state.collapse[16] ?
+                                                <div>
+                                                    <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                                        <div className="acrd-stc-data">
+                                                            <p>
+                                                            </p>
+                                                            <ul className="stc-data-ul-list">
+                                                                <li><p>Thyroid produces a hormone called triiodothyronine or T3 which along with other hormones regulate body's temperature, metabolism and heart rate. A T3 test is conducted to evaluate the levels of this hormone in the blood and diagnose a thyroid problem.</p></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="acrd-stc-data mid-border-mrgn">
+                                                            <p>
+                                                            </p>
+                                                        </div>
+                                                        <div className="acrd-stc-data">
+                                                            <p>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div> : ''
+                                        }
+                                    </div>
+                                    <div className="stc-accord-container">
+                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 17)}>
+                                            <p>Lipase</p>
+                                            <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
+                                        </div>
+                                        <div className="stc-acrd-content pb-0 text-center">
+                                            <div className="acrd-stc-data">
+                                                <p>
+                                                    1
+                                                                            </p>
+                                            </div>
+                                            <div className="acrd-stc-data mid-border-mrgn">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                            </p>
+                                            </div>
+                                        </div>
+                                        {
+                                            this.state.collapse[17] ?
+                                                <div>
+                                                    <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                                        <div className="acrd-stc-data">
+                                                            <p>
+                                                            </p>
+                                                            <ul className="stc-data-ul-list">
+                                                                <li><p>Lipase test is conducted as an initial diagnosis for the conditions like acute pancreatic, celiac disease and pancreatic cancer.</p></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="acrd-stc-data mid-border-mrgn">
+                                                            <p>
+                                                            </p>
+                                                        </div>
+                                                        <div className="acrd-stc-data">
+                                                            <p>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div> : ''
+                                        }
+                                    </div>
+                                    <div className="stc-accord-container">
+                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 18)}>
+                                            <p>Amylase Serum</p>
+                                            <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
+                                        </div>
+                                        <div className="stc-acrd-content pb-0 text-center">
+                                            <div className="acrd-stc-data">
+                                                <p>
+                                                    1
+                                                                            </p>
+                                            </div>
+                                            <div className="acrd-stc-data mid-border-mrgn">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                            </p>
+                                            </div>
+                                        </div>
+                                        {
+                                            this.state.collapse[18] ?
+                                                <div>
+                                                    <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                                        <div className="acrd-stc-data">
+                                                            <p>
+                                                            </p>
+                                                            <ul className="stc-data-ul-list">
+                                                                <li><p>This test is usually advised if the doctor suspects pancreatitis. Increase in the level of this enzyme may cause pancreatic disorders such as pancreatic cancer, pancreatic pseudocyst, or pancreatic abscess.</p></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="acrd-stc-data mid-border-mrgn">
+                                                            <p>
+                                                            </p>
+                                                        </div>
+                                                        <div className="acrd-stc-data">
+                                                            <p>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div> : ''
+                                        }
+                                    </div>
+                                    <div className="stc-accord-container">
+                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 19)}>
+                                            <p>TSH - Thyroid Stimulating Hormone</p>
+                                            <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
+                                        </div>
+                                        <div className="stc-acrd-content pb-0 text-center">
+                                            <div className="acrd-stc-data">
+                                                <p>
+                                                    1
+                                                                            </p>
+                                            </div>
+                                            <div className="acrd-stc-data mid-border-mrgn">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                            </p>
+                                            </div>
+                                        </div>
+                                        {
+                                            this.state.collapse[19] ?
+                                                <div>
+                                                    <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                                        <div className="acrd-stc-data">
+                                                            <p>
+                                                            </p>
+                                                            <ul className="stc-data-ul-list">
+                                                                <li><p>Anti Nuclear Antibodies(ANA)</p></li>
+                                                                <li><p>Anti CCP(ACPP)</p></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="acrd-stc-data mid-border-mrgn">
+                                                            <p>
+                                                            </p>
+                                                        </div>
+                                                        <div className="acrd-stc-data">
+                                                            <p>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div> : ''
+                                        }
+                                    </div>
+                                    <div className="stc-accord-container">
+                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 20)}>
+                                            <p>Ferritin</p>
+                                            <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
+                                        </div>
+                                        <div className="stc-acrd-content pb-0 text-center">
+                                            <div className="acrd-stc-data">
+                                                <p>
+                                                    1
+                                                                            </p>
+                                            </div>
+                                            <div className="acrd-stc-data mid-border-mrgn">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                            </p>
+                                            </div>
+                                        </div>
+                                        {
+                                            this.state.collapse[20] ?
+                                                <div>
+                                                    <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                                        <div className="acrd-stc-data">
+                                                            <p>
+                                                            </p>
+                                                            <ul className="stc-data-ul-list">
+                                                            <li><p>The test measures the amount of TSH in the body to –</p>
+                                                            <p>•&nbsp;&nbsp;&nbsp; Check for symptoms of thyroid disease</p>
+                                                            <p>•&nbsp;&nbsp;&nbsp; Track the improvement of an ongoing thyroid treatment</p>
+                                                            <p>•&nbsp;&nbsp;&nbsp; Screen for thyroid symptoms during pregnancy</p>
+                                                            <p>•&nbsp;&nbsp;&nbsp; Screen for thyroid related symptoms in infants</p></li>
+                                                            <li><p><strong>What it measures?</strong></p>
+                                                            <p>The test is used to measure the amount of Thyroid Stimulating Hormone in the blood and check if the thyroid gland is functioning properly. The test is a diagnostic measure for conditions like Hyperthyroidism and Hypothyroidism.</p></li>
                                                             </ul>
                                                         </div>
                                                         <div className="acrd-stc-data mid-border-mrgn">

@@ -33,6 +33,8 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	let lat = 28.644800
 	let long = 77.216721
 	let place_id = ""
+	let locality = ""
+	let sub_locality = ""
 
 	if (selectedLocation) {
 		lat = selectedLocation.geometry.location.lat
@@ -40,6 +42,10 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		place_id = selectedLocation.place_id || ""
 		if (typeof lat === 'function') lat = lat()
 		if (typeof long === 'function') long = long()
+		locality = selectedLocation.locality || ""
+		sub_locality = selectedLocation.sub_locality || ""
+	}else{
+		locality = "Delhi"
 	}
 
 	let min_distance = filterCriteria.distanceRange[0]
@@ -49,6 +55,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	let sort_on = filterCriteria.sort_on || ""
 	let is_available = filterCriteria.is_available
 	let is_female = filterCriteria.is_female
+	let is_insured = filterCriteria.is_insured || false
 
 	// do not check specialization_ids if doctor_name || hospital_name search
 	if (!!filterCriteria.doctor_name || !!filterCriteria.hospital_name) {
@@ -69,7 +76,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		url = `/api/v1/doctor/doctorsearchbyhospital?`
 	}
 
-	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&ipd_procedure_ids=${ipd_ids || ""}`
+	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&ipd_procedure_ids=${ipd_ids || ""}&city=${locality}&locality=${sub_locality}&is_insurance=${is_insured?true:false}`
 
 	if (!!filterCriteria.doctor_name) {
 		url += `&doctor_name=${filterCriteria.doctor_name || ""}`
@@ -254,7 +261,7 @@ export const selectOpdTimeSLot = (slot, reschedule = false, appointmentId = null
 }
 
 export const getTimeSlots = (doctorId, clinicId, callback) => (dispatch) => {
-	return API_GET(`/api/v1/doctor/doctortiming?doctor_id=${doctorId}&hospital_id=${clinicId}`).then(function (response) {
+	return API_GET(`/api/v1/doctor/doctortiming_new?doctor_id=${doctorId}&hospital_id=${clinicId}`).then(function (response) {
 		callback(response)
 	}).catch(function (error) {
 
@@ -354,8 +361,8 @@ export const resetOpdCoupons = () => (dispatch) => {
 	})
 }
 
-export const getFooterData = (url) => (dispatch) => {
-	return API_GET(`/api/v1/location/dynamicfooters?url=${url}`).then(function (response) {
+export const getFooterData = (url, page=1) => (dispatch) => {
+	return API_GET(`/api/v1/location/dynamicfooters?url=${url}&page=${page}`).then(function (response) {
 		return response
 	}).catch(function (error) {
 

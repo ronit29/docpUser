@@ -3,19 +3,33 @@ import { connect } from 'react-redux';
 import { getUserProfile, setChatRoomId } from '../../../actions/index.js'
 
 import { withRouter } from 'react-router'
-import { getChatDoctorById, resetFilters, clearExtraTests, selectLocation, loginViaChat, startLiveChat , toggleDiagnosisCriteria, toggleOPDCriteria} from '../../../actions/index.js'
+import { getChatDoctorById, resetFilters, clearExtraTests, selectLocation, loginViaChat, startLiveChat, toggleDiagnosisCriteria, toggleOPDCriteria, unSetCommonUtmTags } from '../../../actions/index.js'
 
 import ChatPanelView from './ChatPanel'
 
 class ChatPanel extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            ssrFlag: this.props.homePage
+        }
+    }
+
+    componentDidMount() {
+        this.setState({ ssrFlag: true })
     }
 
     render() {
-
+        let ct_style = this.props.homePage ? "col-md-7 mb-3" : this.props.colClass ? "col-lg-4 col-md-5 mb-3" : this.props.newChatBtnAds ? '' : "col-md-5 mb-3"
+        if (this.props.homePage && !this.props.chatPage)
+            ct_style = "col-md-7 mb-3 d-none d-md-block"
         return (
-            <ChatPanelView {...this.props} />
+            <div className={ct_style}>
+                {
+                    this.state.ssrFlag ?
+                        <ChatPanelView {...this.props} /> : ''
+                }
+            </div>
         )
     }
 }
@@ -49,7 +63,8 @@ const mapDispatchToProps = (dispatch) => {
         setChatRoomId: (roomId) => dispatch(setChatRoomId(roomId)),
         startLiveChat: (started, deleteRoomId) => dispatch(startLiveChat(started, deleteRoomId)),
         toggleDiagnosisCriteria: (type, test, forceAdd, filters) => dispatch(toggleDiagnosisCriteria(type, test, forceAdd, filters)),
-        toggleOPDCriteria: (type, test, forceAdd, filters) => dispatch(toggleOPDCriteria(type, test, forceAdd, filters))
+        toggleOPDCriteria: (type, test, forceAdd, filters) => dispatch(toggleOPDCriteria(type, test, forceAdd, filters)),
+        unSetCommonUtmTags: (type, tags) => dispatch(unSetCommonUtmTags(type, tags))
     }
 }
 

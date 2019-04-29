@@ -6,6 +6,7 @@ import SnackBar from 'node-snackbar'
 import LocationElements from '../../../../containers/commons/locationElements'
 import LocationPopup from '../../../../containers/commons/locationPopup'
 import GTM from '../../../../helpers/gtm'
+import STORAGE from '../../../../helpers/storage'
 
 class TopBar extends React.Component {
     constructor(props) {
@@ -21,7 +22,8 @@ class TopBar extends React.Component {
             // showLocationPopup: false,
             // overlayVisible: false,
             // showPopupContainer: true,
-            sortText: 'Relevance'
+            sortText: 'Relevance',
+            is_insured: props.filterCriteria && props.filterCriteria.is_insured?props.filterCriteria.is_insured:false
         }
     }
 
@@ -57,7 +59,8 @@ class TopBar extends React.Component {
         let filterState = {
             priceRange: this.state.priceRange,
             distanceRange: this.state.distanceRange,
-            sort_on: this.state.sort_on
+            sort_on: this.state.sort_on,
+            is_insured: this.state.is_insured
         }
         let data = {
             'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname, 'lowPriceRange': this.state.priceRange[0], 'highPriceRange': this.state.priceRange[1], 'lowDistanceRange': this.state.distanceRange[0], 'highDistanceRange': this.state.distanceRange[1], 'sort_on': this.state.sort_on == "" ? 'relevance' : this.state.sort_on
@@ -183,7 +186,7 @@ class TopBar extends React.Component {
     //             if (redirect_to) {
     //                 location_url += `?redirect_to=${redirect_to}`
     //             }
-        
+
     //     let data = {
     //         'Category': 'ChangeLocationDoctorResultsPopUp', 'Action': 'change-location-doctor-results-PopUp', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'change-location-doctor-results-PopUp', 'url': window.location.pathname
     //     }
@@ -192,8 +195,26 @@ class TopBar extends React.Component {
 
     // }
 
+    toggleInsured() {
+        let data = {
+            'Category': 'CoveredUnderLABInsuranceClicked', 'Action': 'CoveredUnderLABInsuranceClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'covered-under-lab-insurance-clicked', 'url': window.location.pathname
+        }
+        GTM.sendEvent({ data: data })
+
+        this.setState({is_insured: !this.state.is_insured}, ()=>{
+
+            let filterState = {
+                priceRange: this.state.priceRange,
+                distanceRange: this.state.distanceRange,
+                sort_on: this.state.sort_on,
+                is_insured: this.state.is_insured
+            }
+            this.props.applyFilters(filterState)    
+        })
+    }
+
     render() {
-        
+
         let sortType = ''
         if (this.state.sort_on) {
             sortType = this.state.sort_on.charAt(0).toUpperCase() + this.state.sort_on.slice(1);
@@ -209,7 +230,7 @@ class TopBar extends React.Component {
         // }
 
         return (
-            <div className="filter-row sticky-header mbl-stick">
+            <div>
                 {this.state.dropdown_visible ?
                     <div>
                         <div className="cancel-overlay cancel-overlay-zindex" onClick={this.hideSortDiv.bind(this)}>
@@ -230,67 +251,79 @@ class TopBar extends React.Component {
 
                         </div>
                     </div> : ""}
-                <section className="scroll-shadow-bar">
-                    <div className="top-filter-tab-container">
-                        <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} /><span>Sort</span>
-                            {
-                                this.state.sort_on != null ? <span className="applied-filter-noti-new" /> : ""
-                            }
-                        </div>
-                        <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}><img src={ASSETS_BASE_URL + "/img/filter.svg"} style={{ width: 18 }} /><span>Filter</span>
-                            {
-                                this.isFilterApplied.call(this) ? <span className="applied-filter-noti-new" /> : ""
-                            }
-                        </div>
-                        {/*<div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.catIds.length >0 ?'Category ('+this.state.catIds.length+')':'Category'}
+                <div className="filter-row sticky-header mbl-stick">
+                    <section className="scroll-shadow-bar">
+                        <div className="top-filter-tab-container">
+                            <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} /><span>Sort</span>
+                                {
+                                    this.state.sort_on != null ? <span className="applied-filter-noti-new" /> : ""
+                                }
+                            </div>
+                            <div className="top-filter-tabs-select" onClick={this.toggleFilter.bind(this)}><img src={ASSETS_BASE_URL + "/img/filter.svg"} style={{ width: 18 }} /><span>Filter</span>
+                                {
+                                    this.isFilterApplied.call(this) ? <span className="applied-filter-noti-new" /> : ""
+                                }
+                            </div>
+                            {/*<div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.catIds.length >0 ?'Category ('+this.state.catIds.length+')':'Category'}
                         </div>*/}
-                    </div>
-
-                </section>
-                {
-                    this.state.openFilter ? <div onClick={this.toggleFilter.bind(this)} className="filter-overlay overlay black">
-                        <div className="widget filter-popup" onClick={(e) => {
-                            e.stopPropagation()
-                            e.preventDefault()
-                        }}>
-                            <div className="widget-content">
-                                <div className="filterRow">
-                                    <span className="tl">Price</span>
-                                    <span className="tr">&#8377; {this.state.priceRange[0]} to {this.state.priceRange[1]}</span>
-                                    <span className="bl">&#8377; 0</span>
-                                    <span className="br">&#8377; 20000</span>
-
-                                    <Range
-                                        min={0}
-                                        max={20000}
-                                        value={this.state.priceRange}
-                                        step={100}
-                                        className="range"
-                                        onChange={this.handleRange.bind(this, 'priceRange')}
-                                    />
-                                </div>
-                                <div className="filterRow">
-                                    <span className="tl">Distance</span>
-                                    <span className="tr">{this.state.distanceRange[0]} to {this.state.distanceRange[1]} KM</span>
-                                    <span className="bl">0 KM</span>
-                                    <span className="br">50 KM</span>
-
-                                    <Range
-                                        min={0}
-                                        max={50}
-                                        value={this.state.distanceRange}
-                                        step={1}
-                                        className="range"
-                                        onChange={this.handleRange.bind(this, 'distanceRange')}
-                                    />
-                                </div>
-                            </div>
-                            <div className="widget-footer pd-0">
-                                <button className="v-btn v-btn-primary btn-block btn-lg" onClick={this.applyFilters.bind(this)}>Apply</button>
-                            </div>
                         </div>
-                    </div> : ""
-                }
+
+                    </section>
+                    
+                </div>
+                {
+                        this.state.openFilter ? <div onClick={this.toggleFilter.bind(this)} className="filter-overlay overlay black cancel-overlay-zindex">
+                            <div className="widget filter-popup" onClick={(e) => {
+                                e.stopPropagation()
+                                e.preventDefault()
+                            }}>
+                                <div className="widget-content">
+                                    <div className="filterRow">
+                                        <span className="tl">Price</span>
+                                        <span className="tr">&#8377; {this.state.priceRange[0]} to {this.state.priceRange[1]}</span>
+                                        <span className="bl">&#8377; 0</span>
+                                        <span className="br">&#8377; 20000</span>
+
+                                        <Range
+                                            min={0}
+                                            max={20000}
+                                            value={this.state.priceRange}
+                                            step={100}
+                                            className="range"
+                                            onChange={this.handleRange.bind(this, 'priceRange')}
+                                        />
+                                    </div>
+                                    <div className="filterRow">
+                                        <span className="tl">Distance</span>
+                                        <span className="tr">{this.state.distanceRange[0]} to {this.state.distanceRange[1]} KM</span>
+                                        <span className="bl">0 KM</span>
+                                        <span className="br">50 KM</span>
+
+                                        <Range
+                                            min={0}
+                                            max={50}
+                                            value={this.state.distanceRange}
+                                            step={1}
+                                            className="range"
+                                            onChange={this.handleRange.bind(this, 'distanceRange')}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="widget-footer pd-0">
+                                    <button className="v-btn v-btn-primary btn-block btn-lg" onClick={this.applyFilters.bind(this)}>Apply</button>
+                                </div>
+                            </div>
+                        </div> : ""
+                    }
+                    {
+                    STORAGE.checkAuth() && this.props.is_login_user_insured
+                        ? <div className="tg-list-item">
+                            <input className="tgl tgl-ios" id="lab_insurance" type="checkbox" checked={this.state.is_insured} onChange={this.toggleInsured.bind(this)} />
+                            <label className="tgl-btn" htmlFor="lab_insurance"></label>
+                            <p>Covered under OPD insurance | <a href="https://qacdn.docprime.com/media/insurer/documents/Group_Out-Patient_CIS_JNLVJju.PDF" target="_blank"><span> Know More</span></a></p>
+                        </div>
+                        : ''
+                    }
             </div>
         );
     }
