@@ -2008,3 +2008,13 @@ p.rt-doc-nm{
 .charSelected>span{
     color: #fff !important;
 }
+
+.inline-speciality{
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.inline-speciality h2{
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
