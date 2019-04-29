@@ -7,6 +7,9 @@ export const getIpdInfo = (ipd_id, selectedLocation) => (dispatch) => {
     let lat = 28.644800
     let long = 77.216721
     let place_id = ""
+    let locality = ""
+    let sub_locality = ""
+
 
     dispatch({
         type: LOADED_IPD_INFO_START
@@ -18,9 +21,13 @@ export const getIpdInfo = (ipd_id, selectedLocation) => (dispatch) => {
         place_id = selectedLocation.place_id || ""
         if (typeof lat === 'function') lat = lat()
         if (typeof long === 'function') long = long()
+        locality = selectedLocation.locality || ""
+        sub_locality = selectedLocation.sub_locality || ""
+    }else{
+        locality = 'Delhi'
     }
 
-    return API_GET(`/api/v1/doctor/ipd_procedure/${ipd_id}?long=${long}&lat=${lat}`).then(function (response) {
+    return API_GET(`/api/v1/doctor/ipd_procedure/${ipd_id}?long=${long}&lat=${lat}&city=${locality}`).then(function (response) {
         dispatch({
             type: LOADED_IPD_INFO,
             payload: response

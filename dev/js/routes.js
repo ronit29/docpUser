@@ -481,6 +481,7 @@ let routes = [
     { path: '/prime/success', exact: true, component: PrimeCareSuccess },
     { path: '/compare', exact:true, component: Compare},
     { path: '/ipdInfo', exact: true, component: IPDInfo , RENDER_ON_SERVER: true },
+    { path: '/*-IPDP', exact: true, component: IPDInfo , RENDER_ON_SERVER: true },
     { path: '/ipd/:id/getPriceEstimate',exact: true, component: IpdForm},
     { path: '/ipd/searchHospitals',exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
     { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail, RENDER_ON_SERVER: true },
