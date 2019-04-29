@@ -25,19 +25,24 @@ class HomePagePackageWidget extends React.Component {
            <div className="pakg-slider-container">
                 <div className="pkgSliderHeading">
                     <h5>Book Health Packages</h5>
-                    <span>View All</span>
+                    <span onClick={this.navigateTo.bind(this, this.props.navTo)}>View All</span>
                 </div>
                 <div className="pkgSliderContainer">
-                    <div className="pkgcustCards">
-                        <span style={{fontSize:'10px'}} className="ofr-ribbon home-ofr-ribbon">50% Off</span>
-                        <img className="img-fluid" src="https://cdn.docprime.com/media/diagnostic/common_package_icons/thyro.png" />
-                        <p className="pkgtstName">Aarogyam 1.7 Special</p>
-                        <p className="newpkgInclude">88 tests included </p>
-                        <button className="pkgOutBtn">
-                            <p className="pkg-main-btn-prc">₹ 1299</p>
-                            <p className="pkg-main-btn-prc-cut">₹ 1499</p>
-                        </button>
-                    </div>
+                    {
+                        this.props.list.map((listItem, i) => {
+                        return <div className="pkgcustCards" key={i} onClick={this.props.searchFunc.bind(this, listItem)}>
+                            {/*<span style={{fontSize:'10px'}} className="ofr-ribbon home-ofr-ribbon">{this.props.discount} Off</span>*/}
+                            <img className="img-fluid" src={listItem.icon} />
+                            <p className="pkgtstName">{listItem.name}</p>
+                            <p className="newpkgInclude">{listItem.no_of_tests} tests included </p>
+                            <p className="" style={{color:'green'}}>{parseInt(((listItem.mrp - listItem.agreed_price) / listItem.mrp) * 100)}% Off</p>
+                            <button className="pkgOutBtn">
+                                <p className="pkg-main-btn-prc">₹ {listItem.agreed_price}</p>
+                                <p className="pkg-main-btn-prc-cut">₹ {listItem.mrp}</p>
+                            </button>
+                        </div>
+                        })
+                    }
                 </div>
             </div>
         )
