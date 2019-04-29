@@ -153,13 +153,31 @@ class HomeView extends React.Component {
 		this.props.history.push('/doctorsignup')
 	}
 
+	getTopList(list) {
+		let topList = []
+		if (list.length > 5) {
+			topList = list.slice(0, 5)
+		} else {
+			topList = list
+		}
+		return topList
+	}
+
 	render() {
 
 		let topSpecializations = []
-		if (this.props.specializations && this.props.specializations.length && this.props.specializations.length > 5) {
-			topSpecializations = this.props.specializations.slice(0, 5)
-		} else {
-			topSpecializations = this.props.specializations
+		if (this.props.specializations && this.props.specializations.length) {
+			topSpecializations = this.getTopList(this.props.specializations)
+		}
+
+		let topTests = []
+		if (this.props.common_tests && this.props.common_tests.length) {
+			topTests = this.getTopList(this.props.common_tests)
+		}
+
+		let topPackages = []
+		if (this.props.common_package && this.props.common_package.length) {
+			topPackages = this.getTopList(this.props.common_package)
 		}
 
 		let profileData = this.props.profiles[this.props.selectedProfile]
@@ -211,7 +229,7 @@ class HomeView extends React.Component {
 						<HomePageWidget
 							heading="Book a Test"
 							discount="50%"
-							list={this.props.common_tests}
+							list={topTests}
 							searchFunc={(ct) => this.searchLab(ct, false)}
 							searchType="tests"
 							{...this.props}
@@ -224,7 +242,7 @@ class HomeView extends React.Component {
 								<HomePageWidget
 									heading="Health Packages"
 									discount="50%"
-									list={this.props.common_package}
+									list={topPackages}
 									searchFunc={(ct) => this.searchLab(ct, true)}
 									type="package"
 									searchType="packages"
@@ -279,7 +297,7 @@ class HomeView extends React.Component {
 								<HomePageWidget
 									heading="Health Packages"
 									discount="50%"
-									list={this.props.common_package}
+									list={topPackages}
 									searchFunc={(ct) => this.searchLab(ct, true)}
 									type="package"
 									searchType="packages"
@@ -325,7 +343,7 @@ class HomeView extends React.Component {
 						<HomePageWidget
 							heading="Book a Test"
 							discount="50%"
-							list={this.props.common_tests}
+							list={topTests}
 							searchFunc={(ct) => this.searchLab(ct, false)}
 							searchType="tests"
 							{...this.props}
@@ -350,14 +368,14 @@ class HomeView extends React.Component {
 				<div className="headerSubLinkContainer">
 					<div className="container">
 						<div className="head_text_container">
-						<a href="/insurance/insurance-plans" onClick={(e) => {
-							let data = {
-                            'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-navbar-insurance-clicked'
-                        	}
-                        	GTM.sendEvent({ data: data })
+							<a href="/insurance/insurance-plans" onClick={(e) => {
+								let data = {
+									'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-navbar-insurance-clicked'
+								}
+								GTM.sendEvent({ data: data })
 								e.preventDefault();
 								this.navigateTo("/insurance/insurance-plans?utm_source=desktop-navbar-insurance-clicked")
-							}}>OPD Insurance 
+							}}>OPD Insurance
 							<span className="opdNewHeaderOfr">New</span>
 							</a>
 							<a href="/search" onClick={(e) => {
@@ -392,11 +410,11 @@ class HomeView extends React.Component {
 
 					<Accordian />
 					{
-                    this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage?
-                        <PackageCompareStrip {...this.props} />
-                    :
-                    <FixedMobileFooter {...this.props} />
-                	}
+						this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage ?
+							<PackageCompareStrip {...this.props} />
+							:
+							<FixedMobileFooter {...this.props} />
+					}
 
 				</div>
 				<Footer specialityFooterData={this.state.specialityFooterData} />
