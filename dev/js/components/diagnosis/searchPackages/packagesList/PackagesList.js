@@ -133,7 +133,7 @@ class packagesList extends React.Component {
                 }
                 {
                     this.state.renderBlock ? <Loader /> :
-                        <div className="container-fluid cardMainPaddingRmv">
+                        <div className="container-fluid cardMainPaddingRmv" style={{minHeight: '60vh'}}>
                             {
                                 this.props.forOrganicSearch && this.props.packagesList && this.props.packagesList.count > 0 ?
                                     <div className="search-result-card-collpase">
