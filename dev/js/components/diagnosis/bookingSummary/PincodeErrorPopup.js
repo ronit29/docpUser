@@ -11,7 +11,7 @@ class PincodePopupError extends React.Component {
 	                <div className="widget pos-relative">
 	                    <div className="widget-content padiing-srch-el pad-srch">
 	                    <div className="cross-btn" onClick={()=>this.props.toggle()}>
-	                        <img src="/assets/img/icons/close.png" alt="close" />
+	                        <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" />
 	                    </div>
 	                    	<h4 className="alrt-head">Alert !</h4>
 	                        <p className="srch-el-conent">

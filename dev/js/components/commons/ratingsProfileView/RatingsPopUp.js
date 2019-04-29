@@ -125,7 +125,7 @@ class RatingsPopUp extends React.Component {
                         <div className="home-rating-card">
                             <div className="rate-card-header">
                                 Rate your Experience
-                        <span><img onClick={this.declineRating.bind(this, data_obj.type, this.state.data.id)} src="/assets/img/customer-icons/rt-close.svg" className="img-fluid" /></span>
+                        <span><img onClick={this.declineRating.bind(this, data_obj.type, this.state.data.id)} src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} className="img-fluid" /></span>
                             </div>
                             <div className="rate-card-doc-dtls">
                                 {

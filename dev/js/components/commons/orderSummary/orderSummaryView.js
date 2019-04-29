@@ -111,10 +111,10 @@ class OrderSummaryView extends React.Component {
                                                                 {
                                                                     item.payment_type==3?<span>{item.data.profile && item.data.profile.name?item.data.profile.name:''}</span>
                                                                     :item.payment_type == 1 || item.payment_type == 4? <p>
-                                                                        <img src="/assets/img/rupee-icon.svg" alt="rupee-icon" className="icon-rupee" />
+                                                                        <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />
                                                                         {" " + item.effective_price}
                                                                     </p> : <p>
-                                                                            <img src="/assets/img/rupee-icon.svg" alt="rupee-icon" className="icon-rupee" />
+                                                                            <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />
                                                                             {" " + item.mrp}
                                                                         </p>
                                                                 }
@@ -143,7 +143,7 @@ class OrderSummaryView extends React.Component {
                                                             </div>
                                                             <div className="shopping-card-details-list">
                                                                 <ul>
-                                                                    <li className="cart-viewdtls-container"><p><span className="shpng-dtls-ico"><img src="/assets/img/watch-date.svg" style={{ marginTop: '2px', width: '15px' }} /></span>{(new Date(item.time_slot_start)).toLocaleDateString()} | {(new Date(item.time_slot_start)).toLocaleTimeString()}</p>
+                                                                    <li className="cart-viewdtls-container"><p><span className="shpng-dtls-ico"><img src={ASSETS_BASE_URL + "/img/watch-date.svg"} style={{ marginTop: '2px', width: '15px' }} /></span>{(new Date(item.time_slot_start)).toLocaleDateString()} | {(new Date(item.time_slot_start)).toLocaleTimeString()}</p>
                                                                         <span onClick={this.viewDetail.bind(this, item)} className="float-right cart-viewdtls-btn">{item.booking_id ? "View Detail" : "View in Cart"}</span>
                                                                     </li>
                                                                 </ul>

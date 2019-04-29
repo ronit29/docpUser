@@ -5,6 +5,7 @@ import LabTests from '../labTests'
 import RatingProfileCard from '../../../commons/ratingsProfileView/RatingProfileCard.js'
 import { buildOpenBanner } from '../../../../helpers/utils.js'
 import RatingReviewView from '../../../commons/ratingsProfileView/ratingReviewView.js'
+import GTM from '../../../../helpers/gtm.js'
 
 class LabDetails extends React.Component {
 
@@ -16,6 +17,20 @@ class LabDetails extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+        if(this.props.app_download_list && !this.props.app_download_list.length){
+            this.props.getDownloadAppBannerList()
+        }
+    }
+
+    downloadButton(data){
+        let gtmTrack = {
+            'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-clicked', 'starts_with':data.starts_with?data.starts_with:'', 'ends_with': data.ends_with?data.ends_with:'',
+            'device': this.props.device_info
+        }
+        GTM.sendEvent({ data: gtmTrack })
+        if(window){
+            window.open(data.URL, '_self')
+        }
     }
 
     render() {
@@ -23,11 +38,39 @@ class LabDetails extends React.Component {
         let { about, address, lab_image, lat, long, name, primary_mobile, city, sublocality, locality, lab_thumbnail } = this.props.data.lab
         let { lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data } = this.props.data
 
+        let downloadAppButtonData = {}
+        if(this.props.history && (this.props.history.length==2 || this.props.history.length==1)){
+            
+            if(this.props.app_download_list && this.props.app_download_list.length){
+
+                this.props.app_download_list.map((banner)=> {
+                    if(banner.isenabled && ( this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with)) ){
+                        downloadAppButtonData = banner
+                    }
+                })
+            }
+            
+        }
+
         return (
             <section className="profile-book-screen">
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12">
+                            {
+                                downloadAppButtonData && Object.values(downloadAppButtonData).length?
+                                <a className="downloadBtn" href="javascript:void(0);" onClick={this.downloadButton.bind(this, downloadAppButtonData)}>
+                                    <button className="dwnlAppBtn">
+                                    {
+                                        !this.props.device_info?''
+                                        :(this.props.device_info.toLowerCase().includes('iphone') || this.props.device_info.toLowerCase().includes('ipad'))?
+                                        <img style={{width:'13px', marginRight:'5px',marginTop: '-1px'}} src={ASSETS_BASE_URL + "/img/appl1.svg"} />
+                                        :<img style={{width:'13px', marginRight:'5px'}} src={ASSETS_BASE_URL + "/img/andr1.svg"} />
+                                    }
+                                    Download App</button>
+                                </a>
+                                :''
+                            }
                             {this.props.data.lab.unrated_appointment ? <RatingProfileCard {...this.props} details={this.props.data.lab.unrated_appointment} /> : ""}
 
                             <div className="widget mrb-15">

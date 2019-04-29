@@ -7,7 +7,7 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import SnackBar from 'node-snackbar'
 import GTM from '../../../helpers/gtm.js'
-import { _getlocationFromLatLong, _getLocationFromPlaceId } from '../../../helpers/mapHelpers'
+import { _autoCompleteService, _getlocationFromLatLong, _getLocationFromPlaceId } from '../../../helpers/mapHelpers'
 import ExpansionPanel from '../../diagnosis/commons/labTests/expansionPanel';
 const queryString = require('query-string');
 
@@ -28,22 +28,10 @@ class LocationSearch extends React.Component {
     }
 
     getLocation(location) {
-        if (typeof google == undefined) {
-            return
-        }
-        var auto = new google.maps.places.AutocompleteService()
-
-        var request = {
-            input: location,
-            types: ['geocode'],
-            componentRestrictions: { country: 'in' }
-        };
-        if (location) {
-            auto.getPlacePredictions(request, function (results, status) {
-                results = results || []
-                this.setState({ searchResults: results })
-            }.bind(this))
-        }
+        _autoCompleteService(location, function (results, status) {
+            results = results || []
+            this.setState({ searchResults: results })
+        }.bind(this))
     }
 
     inputHandler(e) {

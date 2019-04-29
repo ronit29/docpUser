@@ -36,7 +36,7 @@ class RatingGraph extends React.Component {
                         </div>
                         <div className="col-7 border-lft">
                             <div className="feed-status-container">
-                                <span className="feed-progress-point">5<img src="/assets/img/customer-icons/star-dark.svg" /></span>
+                                <span className="feed-progress-point">5<img src={ASSETS_BASE_URL + "/img/customer-icons/star-dark.svg"} /></span>
                                 <div className="rating-progress">
                                     <div className="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="30" style={this.getRatingPercent(fivestar_progress)}>
                                         <span className="sr-only"></span>
@@ -45,7 +45,7 @@ class RatingGraph extends React.Component {
                                 <span className="feed-progress-count">{fivestar_progress['count']}</span>
                             </div>
                             <div className="feed-status-container">
-                                <span className="feed-progress-point">4<img src="/assets/img/customer-icons/star-dark.svg" /></span>
+                                <span className="feed-progress-point">4<img src={ASSETS_BASE_URL + "/img/customer-icons/star-dark.svg"} /></span>
                                 <div className="rating-progress">
                                     <div className="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={this.getRatingPercent(fourstar_progress)}>
                                         <span className="sr-only"></span>
@@ -54,7 +54,7 @@ class RatingGraph extends React.Component {
                                 <span className="feed-progress-count">{fourstar_progress['count']}</span>
                             </div>
                             <div className="feed-status-container">
-                                <span className="feed-progress-point">3<img src="/assets/img/customer-icons/star-dark.svg" /></span>
+                                <span className="feed-progress-point">3<img src={ASSETS_BASE_URL + "/img/customer-icons/star-dark.svg"} /></span>
                                 <div className="rating-progress">
                                     <div className="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={this.getRatingPercent(threestar_progress)}>
                                         <span className="sr-only"></span>
@@ -63,7 +63,7 @@ class RatingGraph extends React.Component {
                                 <span className="feed-progress-count">{threestar_progress['count']}</span>
                             </div>
                             <div className="feed-status-container">
-                                <span className="feed-progress-point">2<img src="/assets/img/customer-icons/star-dark.svg" /></span>
+                                <span className="feed-progress-point">2<img src={ASSETS_BASE_URL + "/img/customer-icons/star-dark.svg"} /></span>
                                 <div className="rating-progress">
                                     <div className="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={this.getRatingPercent(twostar_progress)}>
                                         <span className="sr-only"></span>
@@ -72,7 +72,7 @@ class RatingGraph extends React.Component {
                                 <span className="feed-progress-count">{twostar_progress['count']}</span>
                             </div>
                             <div className="feed-status-container">
-                                <span className="feed-progress-point">1<img src="/assets/img/customer-icons/star-dark.svg" /></span>
+                                <span className="feed-progress-point">1<img src={ASSETS_BASE_URL + "/img/customer-icons/star-dark.svg"} /></span>
                                 <div className="rating-progress">
                                     <div className="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style={this.getRatingPercent(onestar_progress)}>
                                         <span className="sr-only"></span>

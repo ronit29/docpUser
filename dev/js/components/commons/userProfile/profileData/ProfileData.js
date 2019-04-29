@@ -52,7 +52,7 @@ class ProfileData extends React.Component {
             this.props.history.push('/insurance/certificate')   
         }else{
             this.props.generateInsuranceLead()
-            this.props.history.push('/insurance/insurance-plans')
+            this.props.history.push('/insurance/insurance-plans?utm_source=profile-insurance-clicked')
         }
     }    
 
@@ -167,10 +167,10 @@ class ProfileData extends React.Component {
                         }}>
                             <div className="usr-dtls-off-act">
                                 <p className="usr-dtls-strt-txt">
-                                    <img src="/assets/img/customer-icons/refer.svg" className="img-fluid" />REFER &amp; EARN</p>
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/refer.svg"} className="img-fluid" />REFER &amp; EARN</p>
                             </div>
                             <div className="ofr-img-txt">
-                                <div className="box-img-cont"><img src="/assets/img/step-2.png" className="img-fluid" /></div>
+                                <div className="box-img-cont"><img src={ASSETS_BASE_URL + "/img/step-2.png"} className="img-fluid" /></div>
                                 <div className="ofr-contnt">
                                     <p className="ofr-bkg">
                                         Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight: '0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> on completion of their first order</p>

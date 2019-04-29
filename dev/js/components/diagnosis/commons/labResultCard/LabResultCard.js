@@ -97,7 +97,7 @@ class LabResultCard extends React.Component {
                 <div className="fltr-crd-top-container">
                     <div className="fltr-lctn-dtls">
                         <p>
-                            <img className="fltr-loc-ico" style={{ width: 12, height: 18 }} src="/assets/img/customer-icons/map-marker-blue.svg" />
+                            <img className="fltr-loc-ico" style={{ width: 12, height: 18 }} src={ASSETS_BASE_URL + "/img/customer-icons/map-marker-blue.svg"} />
                             <span className="fltr-loc-txt">{lab.locality}{lab.locality ? "," : ""} {lab.city}</span>
                             <span>&nbsp;|&nbsp;{distance} Km</span>
                         </p>
@@ -172,7 +172,7 @@ class LabResultCard extends React.Component {
                         </div> : ""
                     }
                     <div className="text-right" style={{ marginLeft: 'auto' }}>
-                        <img src="/assets/img/customer-icons/clock-black.svg" />
+                        <img src={ASSETS_BASE_URL + "/img/customer-icons/clock-black.svg"} />
                         {buildOpenBanner(lab_timing, lab_timing_data, next_lab_timing, next_lab_timing_data)}
                     </div>
                 </div>
