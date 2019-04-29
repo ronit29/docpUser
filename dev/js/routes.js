@@ -133,6 +133,13 @@ const NotFound = Loadable({
     loading,
 })
 
+const PackageCompare = Loadable({
+    loader: () => import('./containers/diagnosis/PackageCompare.js'),
+    modules: ['./containers/diagnosis/PackageCompare.js'],
+    webpack: () => [require.resolveWeak('./containers/diagnosis/PackageCompare.js')],
+    loading,
+})
+
 const LocationSearch = Loadable({
     loader: () => import('./containers/opd/LocationSearch.js'),
     modules: ['./containers/opd/LocationSearch.js'],
@@ -485,7 +492,9 @@ let routes = [
     { path: '/ipd/:id/getPriceEstimate',exact: true, component: IpdForm},
     { path: '/ipd/searchHospitals',exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
     { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail, RENDER_ON_SERVER: true },
-    { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail }
+    { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail },
+
+    { path: '/package/compare', exact:true, component: PackageCompare}
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {

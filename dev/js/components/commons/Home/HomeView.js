@@ -11,6 +11,7 @@ import Accordian from './Accordian'
 import FixedMobileFooter from './FixedMobileFooter'
 import BannerCarousel from './bannerCarousel';
 import UpComingAppointmentView from './upComingAppointment.js'
+import PackageCompareStrip from '../../diagnosis/searchPackages/packageCompare/packageCompareStrip.js'
 const queryString = require('query-string');
 import CRITEO from '../../../helpers/criteo.js'
 
@@ -113,17 +114,20 @@ class HomeView extends React.Component {
 	}
 
 	searchDoctor(speciality) {
-		speciality.type = 'speciality'
-		this.props.toggleOPDCriteria('speciality', speciality, true)
-
+		if (speciality.url) {
+			this.props.history.push(`/${speciality.url}`)
+		}
+		else {
+			speciality.type = 'speciality'
+			this.props.toggleOPDCriteria('speciality', speciality, true)
+			setTimeout(() => {
+				this.props.history.push('/opd/searchresults')
+			}, 100)
+		}
 		let data = {
 			'Category': 'ConsumerApp', 'Action': 'SelectedDoctorSpecializations', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'selected-doctor-specializations', 'selected': speciality.name || '', 'selectedId': speciality.id || ''
 		}
 		GTM.sendEvent({ data: data })
-
-		setTimeout(() => {
-			this.props.history.push('/opd/searchresults')
-		}, 100)
 	}
 
 	gotToSignup() {
@@ -347,8 +351,12 @@ class HomeView extends React.Component {
 					<div className="container">
 						<div className="head_text_container">
 						<a href="/insurance/insurance-plans" onClick={(e) => {
+							let data = {
+                            'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-navbar-insurance-clicked'
+                        	}
+                        	GTM.sendEvent({ data: data })
 								e.preventDefault();
-								this.navigateTo("/insurance/insurance-plans")
+								this.navigateTo("/insurance/insurance-plans?utm_source=desktop-navbar-insurance-clicked")
 							}}>OPD Insurance 
 							<span className="opdNewHeaderOfr">New</span>
 							</a>
@@ -383,8 +391,12 @@ class HomeView extends React.Component {
 					</div>
 
 					<Accordian />
-
-					<FixedMobileFooter {...this.props} />
+					{
+                    this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage?
+                        <PackageCompareStrip {...this.props} />
+                    :
+                    <FixedMobileFooter {...this.props} />
+                	}
 
 				</div>
 				<Footer specialityFooterData={this.state.specialityFooterData} />
