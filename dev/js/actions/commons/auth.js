@@ -150,25 +150,25 @@ export const agentLogin = (token, cb) => (dispatch) => {
 export const OTTLogin = (ott) => (dispatch) => {
     return new Promise((resolve, reject) => {
         // API_GET(`/api/v1/user/token/exchange?token=${ott}`).then((data) => {
-            STORAGE.deleteAuth().then(() => {
-                dispatch({
-                    type: RESET_AUTH,
-                    payload: {}
-                })
-                STORAGE.setAuthToken(ott)
-                API_GET('/api/v1/user/userprofile').then(function (response) {
+        STORAGE.deleteAuth().then(() => {
+            dispatch({
+                type: RESET_AUTH,
+                payload: {}
+            })
+            STORAGE.setAuthToken(ott)
+            API_GET('/api/v1/user/userprofile').then(function (response) {
+                API_GET('/api/v1/user/userid').then((data) => {
+                    STORAGE.setUserId(data.user_id)
                     dispatch({
                         type: APPEND_USER_PROFILES,
                         payload: response
                     })
                     resolve()
-                }).catch(function (error) {
-                    reject(err)
                 })
+            }).catch(function (error) {
+                reject(err)
             })
-        // }, (err) => {
-        //     reject(err)
-        // })
+        })
     })
 }
 
