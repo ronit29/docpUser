@@ -183,6 +183,13 @@ const TestsList = Loadable({
     loading,
 })
 
+const IpdList = Loadable({
+    loader: () => import('./containers/commons/ipdLists.js'),
+    modules: ['./containers/commons/ipdLists.js'],
+    webpack: () => [require.resolveWeak('./containers/commons/ipdLists.js')],
+    loading,
+})
+
 
 /**
  * IPD ROUTES
@@ -508,6 +515,8 @@ let routes = [
     { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail, RENDER_ON_SERVER: true },
     { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail },
     { path: '/package/compare', exact: true, component: PackageCompare },
+    { path: '/procedures', exact: true, component: IpdList, RENDER_ON_SERVER: true }
+
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {

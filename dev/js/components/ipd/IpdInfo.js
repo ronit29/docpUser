@@ -170,8 +170,32 @@ class IpdView extends React.Component {
                     description: this.getMetaTagsData(this.props.ipd_info.seo).description
                 }} noIndex={!this.state.seoFriendly} />
 
-           	  <h4 className="section-heading top-sc-head"> <span className="about-head"> {`${this.props.ipd_info?`${this.props.ipd_info.about.name} ${this.props.selectedLocation && this.props.selectedLocation.locality?`in ${this.props.selectedLocation.locality}`:''}  `:''}`} </span>
-					</h4>
+                <ul className="mrb-10 mrt-20 breadcrumb-list" style={{ wordBreak: 'break-word' }}>
+	                <li className="breadcrumb-list-item">
+	                    <a href="/" onClick={(e) => {
+	                        e.preventDefault()
+	                        this.props.history.push('/')
+	                    }}>
+	                        <span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span>
+	                    </a>
+	                    <span className="breadcrumb-arrow">&gt;</span>
+	                </li>
+	                <li className="breadcrumb-list-item">
+	                	<a href="/" onClick={(e) => {
+	                        e.preventDefault()
+	                        this.props.history.push('/procedures')
+	                    }}>
+	                    <span className="fw-500 breadcrumb-title  breadcrumb-colored-title">All Procedures</span>
+	                    </a>
+	                    <span className="breadcrumb-arrow">&gt;</span>
+	                </li>
+	                <li className="breadcrumb-list-item">
+	                    <span className="fw-500 breadcrumb-title">{this.props.ipd_info?`${this.props.ipd_info.about.name}`:''}</span>
+	                </li>
+	            </ul>
+
+           	  <h1 className="section-heading top-sc-head"> <span className="about-head"> {`${this.props.ipd_info?`${this.props.ipd_info.about.name} ${this.props.ipd_info && this.props.ipd_info.seo?`in ${this.props.ipd_info.seo.location}`:''}  `:''}`} </span>
+					</h1>
               <div className="full-widget mrg-b0 stickyBar">
                  <nav className="tab-head">
                     <div className="">
@@ -208,7 +232,7 @@ class IpdView extends React.Component {
 					<div id="doctorTab" ref="doctorTab" className="tab-pane fade nav_top_bar">
 						{
 							this.props.ipd_info && this.props.ipd_info.doctors && this.props.ipd_info.doctors.result  && this.props.ipd_info.doctors.result.length && this.props.ipd_info.about && this.props.ipd_info.about.name?
-							<h2 className="section-heading">{`Top Doctors for ${this.props.ipd_info.about.name} ${this.props.selectedLocation && this.props.selectedLocation.locality?`in ${this.props.selectedLocation.locality}`:''} `}</h2>
+							<h2 className="section-heading">{`Top ${this.props.ipd_info.about.name} Doctors ${this.props.ipd_info.seo?`in ${this.props.ipd_info.seo.location}`:''} `}</h2>
 							:''	
 						}
 	                    {
