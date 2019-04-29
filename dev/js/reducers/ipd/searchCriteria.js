@@ -27,7 +27,9 @@ const defaultState = {
 	getNewResults: true,
 	ipd_hospital_detail: {},
 	HOSPITAL_DETAIL_LOADED: false,
-	locationFetched: false
+	locationFetched: false,
+	hospitalSearchSeoData: null,
+	hospitalCanonicalUrl: null
 }
 
 export default function ( state=defaultState, action) {
@@ -89,6 +91,9 @@ export default function ( state=defaultState, action) {
 			newState.getNewResults = false
 			newState.fetchNewResults = false
 
+			newState.hospitalSearchSeoData = action.payload && action.payload.seo?action.payload.seo:null 
+			newState.hospitalCanonicalUrl = action.payload && action.payload.canonical_url?action.payload.canonical_url:null
+
 			action.payload && action.payload.result && action.payload.result.map((hospital) => {
 				if(newState.hospital_list.indexOf(hospital.id)>-1){
 
@@ -96,7 +101,7 @@ export default function ( state=defaultState, action) {
 					newState.hospital_list = newState.hospital_list.concat(hospital.id)
 				}
 				if(newState.HOSPITAL_DATA[hospital.id]){
-					newState.HOSPITAL_DATA[hospital.id] = Object.assign({}, newState.HOSPITAL_DATA[hospital.id], ...hospital)
+					newState.HOSPITAL_DATA[hospital.id] = Object.assign({}, newState.HOSPITAL_DATA[hospital.id], hospital)
 				}else{
 					newState.HOSPITAL_DATA[hospital.id] = {...hospital}					
 				}

@@ -22,7 +22,7 @@ class IpdHospitals extends React.Component {
                 	store.dispatch(mergeIpdCriteria(state))
 
                 	let searchUrl = null
-                    if (match.url.includes('-IPDP')) {
+                    if (match.url.includes('-ipdhp')) {
                         searchUrl = match.url.toLowerCase()
                     }
 
@@ -88,7 +88,9 @@ const mapStateToProps = (state) => {
 		nextSelectedCriterias,
 		fetchNewResults,
 		getNewResults,
-		locationFetched
+		locationFetched,
+		hospitalSearchSeoData,
+		hospitalCanonicalUrl
 	} = state.SEARCH_CRITERIA_IPD
 
 	return {
@@ -106,7 +108,9 @@ const mapStateToProps = (state) => {
 		nextSelectedCriterias,
 		fetchNewResults,
 		getNewResults,
-		locationFetched
+		locationFetched,
+		hospitalSearchSeoData,
+		hospitalCanonicalUrl
 	}
 }
 

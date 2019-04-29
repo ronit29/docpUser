@@ -2,7 +2,7 @@ import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm'
 
-export const getIpdInfo = (ipd_id, selectedLocation) => (dispatch) => {
+export const getIpdInfo = (ipd_id, selectedLocation, url=null, cb) => (dispatch) => {
 
     let lat = 28.644800
     let long = 77.216721
@@ -27,13 +27,22 @@ export const getIpdInfo = (ipd_id, selectedLocation) => (dispatch) => {
         locality = 'Delhi'
     }
 
-    return API_GET(`/api/v1/doctor/ipd_procedure/${ipd_id}?long=${long}&lat=${lat}&city=${locality}`).then(function (response) {
+    let api_url = ''
+
+    if(url) {
+        api_url = `api/v1/doctor/ipd_procedure_by_url/${url}?city=${locality}`
+    }else{
+        api_url = `/api/v1/doctor/ipd_procedure/${ipd_id}?long=${long}&lat=${lat}&city=${locality}`
+    }
+
+    return API_GET(api_url).then(function (response) {
         dispatch({
             type: LOADED_IPD_INFO,
             payload: response
         })
+        if(cb) cb(response)
     }).catch( function(error) {
-        
+        if(cb) cb(null)
     })
 }
 
@@ -79,7 +88,7 @@ export const getIpdHospitals = (state, page=1, fromServer, searchByUrl, cb) => (
     let url = `/api/v1/doctor/ipd_procedure/${ipd_id}/hospitals?`
     
     if (searchByUrl) {
-        url = `/api/v1/doctor/doctorsearch_by_url?url=${searchByUrl.split('/')[1]}&`
+        url = `/api/v1/doctor/ipd_procedure_hospitals_by_url/${searchByUrl.split('/')[1]}?`
     }
 
     url+= `long=${long}&lat=${lat}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&page=${page}`

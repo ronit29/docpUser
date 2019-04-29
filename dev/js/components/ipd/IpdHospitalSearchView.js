@@ -8,6 +8,8 @@ import Footer from '../commons/Home/footer'
 import StickyTopBarFilter from './StickyTopBarFilter.js'
 const queryString = require('query-string')
 import GTM from '../../helpers/gtm.js'
+import HelmetTags from '../commons/HelmetTags'
+import CONFIG from '../../config'
 
 class IpdHospitalView extends React.Component{
 
@@ -15,7 +17,9 @@ class IpdHospitalView extends React.Component{
 		super(props)
 		this.state = {
 			search_id: '',
-            setSearchId: false
+            setSearchId: false,
+            seoFriendly: this.props.match.url.includes('-ipdhp')
+
 		}
 	}
 
@@ -189,10 +193,37 @@ class IpdHospitalView extends React.Component{
         let max_distance = filterCriteria.distance[1]
         let provider_ids = filterCriteria.provider_ids
 
-        let url = `${window.location.pathname}?ipd_id=${ipd_id}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&search_id=${this.state.search_id}&lat=${lat}&long=${long}&place_id=${place_id}`
+        let url = ''
+
+        //Check if any filter applied 
+        let is_filter_applied = false
+        let is_params_exist = false
+
+        
+        if (parseInt(min_distance) != 0) {
+            is_filter_applied = true
+        }
+        if (parseInt(max_distance) != 20) {
+            is_filter_applied = true
+        }
+        if (provider_ids && provider_ids.length) {
+            is_filter_applied = true
+        }
+
+        if(is_filter_applied || !this.state.seoFriendly) {
+
+            url = `${window.location.pathname}?ipd_id=${ipd_id}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&search_id=${this.state.search_id}&lat=${lat}&long=${long}&place_id=${place_id}`
+
+            is_params_exist = true
+
+
+        }else if(this.state.seoFriendly) {
+
+            url = `${window.location.pathname}`
+        }
 
         if (parsed.page) {
-            url += `&page=${parsed.page}`
+            url += `${is_params_exist ? '&' : '?'}page=${parsed.page}`
         }
 
         return url
@@ -213,10 +244,28 @@ class IpdHospitalView extends React.Component{
 		this.getIpdHospitalList(this.props)
 	}
 
+    getMetaTagsData(seoData) {
+        let title = "Hospital Search"
+        if (this.state.seoFriendly) {
+            title = ""
+        }
+        let description = ""
+        if (seoData) {
+            title = seoData.title?seoData.title:title
+            description = seoData.description || ""
+        }
+        return { title, description }
+    }
+
 	render(){
 		let { hospital_list } = this.props
 		return(
 				<div className="profile-body-wrap">
+                <HelmetTags tagsData={{
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+                    title: this.getMetaTagsData(this.props.hospitalSearchSeoData).title,
+                    description: this.getMetaTagsData(this.props.hospitalSearchSeoData).description
+                }} noIndex={!this.state.seoFriendly} />
                 <ProfileHeader showSearch={true} />
 	                <section className="container parent-section book-appointment-section breadcrumb-mrgn">
 

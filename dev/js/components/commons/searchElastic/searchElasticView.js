@@ -215,16 +215,21 @@ class SearchElasticView extends React.Component {
 
     }
 
-    showIPD(id) {
+    showIPD(id, url=null) {
 
-        this.props.history.push(`/ipdInfo?ipd_id=${id}`)
+        if(url){
+            this.props.history.push(`/${url}`)
+        }else{
+            this.props.history.push(`/ipdInfo?ipd_id=${id}`)
+        }
+        
     }
 
     toggleIpd(type, criteria, searchString = "") {
         let selectedCriteria = { ...criteria }
         selectedCriteria.type = 'ipd'
         this.props.toggleIPDCriteria(selectedCriteria, true)
-        this.showIPD(criteria.id)
+        this.showIPD(criteria.id, criteria.url)
     }
 
     toggleFixedMobileFooter(toShow) {

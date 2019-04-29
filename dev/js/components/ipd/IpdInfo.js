@@ -5,6 +5,9 @@ import HospitalList from './HospitalList.js'
 import DoctorResultCard from '../opd/commons/doctorResultCard'
 import Loader from '../commons/Loader'
 import GTM from '../../helpers/gtm.js'
+import HelmetTags from '../commons/HelmetTags'
+import CONFIG from '../../config'
+
 
 
 class IpdView extends React.Component {
@@ -13,7 +16,8 @@ class IpdView extends React.Component {
 		super(props)
 		this.state = {
 			toggleTabType: 'aboutTab',
-			toggleReadMore: false
+			toggleReadMore: false,
+			seoFriendly: this.props.match.url.includes('-ipdp')
 		}
 	}
 
@@ -26,13 +30,7 @@ class IpdView extends React.Component {
 		var sections = {};
 		var i = 0
 
-		let headerHeight = 0
-
-		let gtmData = {
-            'Category': 'ConsumerApp', 'Action': 'IPDInfoPageLanded', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-info-page-landed', selectedId: this.props.ipd_id || ''
-        }
-        GTM.sendEvent({ data: gtmData })
-	        
+		let headerHeight = 0	        
 
 		Object.keys(this.refs).forEach((prp, i) => {
 			
@@ -95,7 +93,15 @@ class IpdView extends React.Component {
 			commonSelectedCriterias: this.props.commonSelectedCriterias,
 			nextSelectedCriterias: this.props.commonSelectedCriterias
 		})
-		this.props.history.push(`/ipd/searchHospitals`)
+
+		if(this.props.ipd_info && this.props.ipd_info.hospitals && this.props.ipd_info.hospitals.canonical_url){
+
+			this.props.history.push(`/${this.props.ipd_info.hospitals.canonical_url}`)
+		}else{
+
+			this.props.history.push(`/ipd/searchHospitals`)
+		}
+		
 	}
 
 	viewDoctorsClicked(){
@@ -112,7 +118,15 @@ class IpdView extends React.Component {
 			criteria.name = this.props.commonSelectedCriterias[0].name
 			criteria.type = 'ipd' 
 			this.props.cloneCommonSelectedCriterias(criteria)
-			this.props.history.push(`/opd/searchresults`)	
+
+			if(this.props.ipd_info && this.props.ipd_info.doctors && this.props.ipd_info.doctors.canonical_url){
+
+				this.props.history.push(`/${this.props.ipd_info.doctors.canonical_url}`)
+			}else{
+
+				this.props.history.push(`/opd/searchresults`)
+			}
+				
 		}
 		
 	}
@@ -131,14 +145,31 @@ class IpdView extends React.Component {
 			let headerHeight = this.refs['readMoreView'].offsetTop -45
 			window.scrollTo(0,headerHeight)	
 		}
-		
-
 	}
+
+	getMetaTagsData(seoData) {
+        let title = "IPD Procedure Page"
+        if (this.state.seoFriendly) {
+            title = ""
+        }
+        let description = ""
+        if (seoData) {
+            title = seoData.title || ""
+            description = seoData.description || ""
+        }
+        return { title, description }
+    }
 
 	render(){
 
 		return(                  		
            <div className ="ipd-section ipdSection">
+           	  <HelmetTags tagsData={{
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+                    title: this.getMetaTagsData(this.props.ipd_info.seo).title,
+                    description: this.getMetaTagsData(this.props.ipd_info.seo).description
+                }} noIndex={!this.state.seoFriendly} />
+
            	  <h4 className="section-heading top-sc-head"> <span className="about-head"> {`${this.props.ipd_info?`${this.props.ipd_info.about.name} ${this.props.selectedLocation && this.props.selectedLocation.locality?`in ${this.props.selectedLocation.locality}`:''}  `:''}`} </span>
 					</h4>
               <div className="full-widget mrg-b0 stickyBar">
