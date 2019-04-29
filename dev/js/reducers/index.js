@@ -39,19 +39,19 @@ const LAB_LIST_PRESIST = {
 const USER_PERSIST = {
     key: 'USER',
     storage: storage,
-    whitelist: ['summary_utm_validity', 'summary_utm', 'chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted', 'userPhoneNo', 'selectedSearchType']
+    whitelist: ['summary_utm_validity', 'summary_utm', 'chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted', 'userPhoneNo', 'selectedSearchType', 'common_utm_tags']
 }
 
 const OPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_OPD',
     storage: storage,
-    blacklist: ['fetchNewResults', 'getNewUrl', 'commonProcedurers', 'page', 'mergeUrlState']
+    blacklist: ['fetchNewResults', 'getNewUrl', 'commonProcedurers', 'page', 'mergeUrlState', 'specializations']
 }
 
 const LAB_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_LABS',
     storage: storage,
-    blacklist: ['fetchNewResults', 'page']
+    blacklist: ['fetchNewResults', 'page', 'common_tests', 'common_package']
 }
 
 const AUTH_PERSIST = {

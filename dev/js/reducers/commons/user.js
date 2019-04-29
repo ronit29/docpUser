@@ -1,4 +1,4 @@
-import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, START_LIVE_CHAT, CLOSE_POPUP, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART, TOGGLE_LEFT_MENU, UPCOMING_APPOINTMENTS, IS_USER_CARED } from '../../constants/types';
+import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, START_LIVE_CHAT, CLOSE_POPUP, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART, TOGGLE_LEFT_MENU, UPCOMING_APPOINTMENTS, IS_USER_CARED, SET_COMMON_UTM_TAGS, UNSET_COMMON_UTM_TAGS, APPEND_ARTICLE_DATA } from '../../constants/types';
 
 const DUMMY_PROFILE = {
     gender: "m",
@@ -50,9 +50,12 @@ const defaultState = {
     offerList: null,
     cart: null,
     toggleLeftMenu: false,
-    upcoming_appointments:[],
+    leftMenuOpenFirstTime: false,
+    upcoming_appointments: [],
     is_login_user_insured: null,
-    isUserCared:{}
+    isUserCared: {},
+    common_utm_tags: [],
+    articleData: {}
 }
 
 export default function (state = defaultState, action) {
@@ -339,7 +342,7 @@ export default function (state = defaultState, action) {
             let newState = {
                 ...state
             }
-            if(action.payload.includes('lab') || action.payload.includes('opd') || action.payload.includes('ipd') ){
+            if (action.payload.includes('lab') || action.payload.includes('opd') || action.payload.includes('ipd')) {
                 newState.selectedSearchType = action.payload
             }
             return newState
@@ -387,6 +390,8 @@ export default function (state = defaultState, action) {
                 newState.toggleLeftMenu = !newState.toggleLeftMenu
             }
 
+            newState.leftMenuOpenFirstTime = true
+
             return newState
         }
 
@@ -405,7 +410,42 @@ export default function (state = defaultState, action) {
             newState.isUserCared = action.payload
             return newState
         }
-        
+
+        case SET_COMMON_UTM_TAGS: {
+            let newState = {
+                ...state
+            }
+            newState.common_utm_tags = [].concat(newState.common_utm_tags)
+            newState.common_utm_tags = newState.common_utm_tags.filter((x) => {
+                if (x.type == action.actionType) {
+                    return false
+                }
+                return true
+
+            })
+            let tags = { ...action.payload }
+            tags.type = action.actionType
+            newState.common_utm_tags.push(tags)
+            return newState
+        }
+
+        case UNSET_COMMON_UTM_TAGS: {
+            let newState = {
+                ...state
+            }
+            newState.common_utm_tags = newState.common_utm_tags.filter(x => x.type != action.actionType)
+            return newState
+        }
+
+        case APPEND_ARTICLE_DATA: {
+            let newState = {
+                ...state,
+                articleData: { ...state.articleData }
+            }
+            newState.articleData[action.payload.url] = action.payload
+            return newState
+        }
+
     }
     return state
 }

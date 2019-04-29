@@ -9,3 +9,5 @@ server.js
 /server
 server
 ./server
+deploy.sh
+package-lock.json

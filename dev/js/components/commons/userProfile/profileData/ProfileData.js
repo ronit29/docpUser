@@ -60,7 +60,7 @@ class ProfileData extends React.Component {
 
         let currentRoomId = this.props.USER.currentRoomId
         let coupon = null
-        let memberClass = 'float-right memNew'
+        let memberClass = 'float-right ins-userdetails-buy'
         let memStatus = 'New'
         if (this.props.applicableCoupons && this.props.applicableCoupons.length) {
             coupon = this.props.applicableCoupons[0]
@@ -69,7 +69,7 @@ class ProfileData extends React.Component {
         let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)]?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_insured && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user:false
         
         if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
-            memberClass = 'float-right memAct'
+            memberClass = 'float-right ins-userdetails-active'
             memStatus = 'Active'
         }
 
@@ -167,10 +167,10 @@ class ProfileData extends React.Component {
                         }}>
                             <div className="usr-dtls-off-act">
                                 <p className="usr-dtls-strt-txt">
-                                    <img src="/assets/img/customer-icons/refer.svg" className="img-fluid" />REFER &amp; EARN</p>
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/refer.svg"} className="img-fluid" />REFER &amp; EARN</p>
                             </div>
                             <div className="ofr-img-txt">
-                                <div className="box-img-cont"><img src="/assets/img/step-2.png" className="img-fluid" /></div>
+                                <div className="box-img-cont"><img src={ASSETS_BASE_URL + "/img/step-2.png"} className="img-fluid" /></div>
                                 <div className="ofr-contnt">
                                     <p className="ofr-bkg">
                                         Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight: '0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> on completion of their first order</p>
@@ -231,7 +231,7 @@ class ProfileData extends React.Component {
                                 </span>
                                 <div className="nav-content" style={{width:'100%'}}>
                                     <h4 className="title app-title">Docprime Care 
-                                        <span className={memberClass}>{memStatus}</span>
+                                        <button className={memberClass}>{memStatus}</button>
                                     </h4>
                                 </div>
                             </a>

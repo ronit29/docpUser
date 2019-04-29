@@ -23,7 +23,8 @@ class TopBar extends React.Component {
             is_available: false,
             is_insured:props.filterCriteria && props.filterCriteria.is_insured?props.filterCriteria.is_insured:false,
             // shortURL: "",
-            dropdown_visible: false
+            dropdown_visible: false,
+            hospital_id:props.filterCriteria && props.filterCriteria.hospital_id?props.filterCriteria.hospital_id:''
             // showLocationPopup: false,
             // overlayVisible: false,
             // showPopupContainer: true
@@ -78,7 +79,8 @@ class TopBar extends React.Component {
             is_available: this.state.is_available,
             sits_at_clinic: this.state.sits_at_clinic,
             sits_at_hospital: this.state.sits_at_hospital,
-            is_insured: this.state.is_insured
+            is_insured: this.state.is_insured,
+            hospital_id: this.state.hospital_id
         }
         let data = {
             'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'available_today': this.state.is_available, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'lowPriceRange': this.state.priceRange[0], 'highPriceRange': this.state.priceRange[1], 'lowDistanceRange': this.state.distanceRange[0], 'highDistanceRange': this.state.distanceRange[1], 'is_female': this.state.is_female, 'sort_on': this.state.sort_on == "" ? 'relevance' : this.state.sort_on
@@ -184,7 +186,8 @@ class TopBar extends React.Component {
                 is_available: this.state.is_available,
                 sits_at_clinic: this.state.sits_at_clinic,
                 sits_at_hospital: this.state.sits_at_hospital,
-                is_insured: this.state.is_insured
+                is_insured: this.state.is_insured,
+                hospital_id: this.state.hospital_id
             }
             this.props.applyFilters(filterState)    
         })
@@ -255,7 +258,7 @@ class TopBar extends React.Component {
         //       }
         //     }
         // }
-
+       
         return (
             <div>
                 {this.state.dropdown_visible ?

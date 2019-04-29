@@ -50,13 +50,13 @@ class UserFamily extends React.Component {
                                 <a>
                                     <span className="icon icon-lg member-icon">
                                         <InitialsPicture name={profiles[id].name} has_image={profiles[id].profile_image} className="initialsPicture-family">
-                                            <img style={{width:'60px', height:'60px'}} src={profiles[id].profile_image} className="img-fluid img-round" />
+                                            <img style={{ width: '60px', height: '60px' }} src={profiles[id].profile_image} className="img-fluid img-round" />
                                         </InitialsPicture>
                                     </span>
                                     <div className="member-details">
-                                        <h4 className="title app-title">{profiles[id].name}</h4>
+                                        <h4 className="title app-title" style={{ paddingRight: 95, wordBreak: 'break-word', textTransform: 'capitalize' }} >{profiles[id].name}</h4>
                                         <ul className="list">
-                        
+
                                             <li className="fw-500 text-sm" style={{ marginBottom: 5 }} >
                                                 {
                                                     profiles[id].gender == 'o' ? "" :
@@ -69,20 +69,23 @@ class UserFamily extends React.Component {
                                                 }
                                                 {GENDER[profiles[id].gender]}</li>
 
-                                                {
-                                                    profiles[id].dob?
+                                            {
+                                                profiles[id].dob ?
                                                     <li className="fw-500 text-sm">{profiles[id].dob}</li>
-                                                    :''
-                                                }
-                                                
+                                                    : ''
+                                            }
+
                                             <li className="fw-500 text-sm">{profiles[id].is_default_user ? "Self/Primary" : "Family Member"}</li>
-                                            
+
                                         </ul>
-                                        {
-                                            true?''
-                                            :<div className="ins-val-bx ins-val-boxes">{profiles[id].is_insured?'Covered Under Insurance':'Not Covered Under Insurance'}</div>
-                                               
-                                        }
+                                        <div className="ins-covrd-txt">
+                                            {
+                                                profiles[id].is_insured ?
+                                                    <p>Covered<br />Under Insurance</p>
+                                                    :
+                                                    <p>Not Covered<br />Under Insurance</p>
+                                            }
+                                        </div>
                                     </div>
                                     <span className="ct-img ct-img-sm arrow-forward-right"><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
                                 </a>

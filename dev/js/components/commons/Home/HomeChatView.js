@@ -91,35 +91,6 @@ class HomeChatView extends React.Component {
         }, 100)
     }
 
-    isSelectedLocationNearDelhi(selectedLocation) {
-        try {
-            if (selectedLocation) {
-                let { geometry } = selectedLocation
-
-                var latitude1 = 28.644800;
-                var longitude1 = 77.216721;
-                var latitude2 = geometry.location.lat;
-                if (typeof geometry.location.lat == 'function') {
-                    latitude2 = geometry.location.lat()
-                }
-                var longitude2 = geometry.location.lng;
-                if (typeof geometry.location.lng == 'function') {
-                    longitude2 = geometry.location.lng()
-                }
-                var distance = 0
-
-                if (typeof google != undefined) {
-                    var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2));
-                }
-
-                return (distance / 1000) < 50
-            }
-            return false
-        } catch (e) {
-            return true
-        }
-    }
-
     gotToSignup() {
         let data = {
             'Category': 'ConsumerApp', 'Action': 'HomepageBannerSignupClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'homepage-banner-signup-clicked'
@@ -144,6 +115,14 @@ class HomeChatView extends React.Component {
     }
 
     render() {
+
+        let topSpecializations = []
+        if (this.props.specializations && this.props.specializations.length && this.props.specializations.length > 5) {
+            topSpecializations = this.props.specializations.slice(0, 5)
+        } else {
+            topSpecializations = this.props.specializations
+        }
+
         let profileData = this.props.profiles[this.props.selectedProfile]
         let articles = this.props.articles || []
         const parsed = queryString.parse(this.props.location.search)
@@ -160,7 +139,7 @@ class HomeChatView extends React.Component {
 
         if (this.props.device_info != "desktop" && SlabSequence) {
 
-            slabOrder.push(<ChatPanel homePage={true} chatPage={true}/>)
+            slabOrder.push(<ChatPanel homePage={true} chatPage={true} />)
             slabOrder.push(
                 <div className="col-md-5">
                     <div className="right-card-container">
@@ -168,7 +147,7 @@ class HomeChatView extends React.Component {
                         <HomePageWidget
                             heading="Find a Doctor"
                             discount="50%"
-                            list={this.props.specializations}
+                            list={topSpecializations}
                             searchFunc={(sp) => this.searchDoctor(sp)}
                             searchType="specializations"
                             {...this.props}
@@ -204,10 +183,14 @@ class HomeChatView extends React.Component {
                                     discount="50%"
                                     list={this.props.common_package}
                                     searchFunc={(ct) => this.searchLab(ct, true)}
-                                    type="lab"
+                                    type="package"
+                                    searchType="packages"
+                                    {...this.props}
+                                    linkTo="/full-body-checkup-health-packages?from=home"
+                                    // navTo="/health-package-advisor"
+                                    navTo="/searchpackages"
                                 /> : ""
                         }
-
                     </div>
                 </div>)
 
@@ -219,8 +202,8 @@ class HomeChatView extends React.Component {
             }
 
         } else {
- 
-            slabOrder.push(<ChatPanel homePage={true} chatPage={true}/>)
+
+            slabOrder.push(<ChatPanel homePage={true} chatPage={true} />)
             slabOrder.push(
                 <div className="col-md-5">
                     <div className="right-card-container">
@@ -250,7 +233,7 @@ class HomeChatView extends React.Component {
                         <HomePageWidget
                             heading="Find a Doctor"
                             discount="50%"
-                            list={this.props.specializations}
+                            list={topSpecializations}
                             searchFunc={(sp) => this.searchDoctor(sp)}
                             searchType="specializations"
                             {...this.props}
@@ -270,7 +253,12 @@ class HomeChatView extends React.Component {
                                     discount="50%"
                                     list={this.props.common_package}
                                     searchFunc={(ct) => this.searchLab(ct, true)}
-                                    type="lab"
+                                    type="package"
+                                    searchType="packages"
+                                    {...this.props}
+                                    linkTo="/full-body-checkup-health-packages?from=home"
+                                    // navTo="/health-package-advisor"
+                                    navTo="/searchpackages"
                                 /> : ""
                         }
 
@@ -305,7 +293,7 @@ class HomeChatView extends React.Component {
 
                 <ProfileHeader homePage={true} showSearch={true} />
 
-                <div className="sub-header mrg-top"></div>
+                <div className="onln-cnslt-head"></div>
                 <div className="chat-main-container">
                     <div className="container">
                         <div className="row">

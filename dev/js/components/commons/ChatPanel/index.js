@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getUserProfile, setChatRoomId } from '../../../actions/index.js'
 
 import { withRouter } from 'react-router'
-import { getChatDoctorById, resetFilters, clearExtraTests, selectLocation, loginViaChat, startLiveChat, toggleDiagnosisCriteria, toggleOPDCriteria } from '../../../actions/index.js'
+import { getChatDoctorById, resetFilters, clearExtraTests, selectLocation, loginViaChat, startLiveChat, toggleDiagnosisCriteria, toggleOPDCriteria, unSetCommonUtmTags } from '../../../actions/index.js'
 
 import ChatPanelView from './ChatPanel'
 
@@ -63,7 +63,8 @@ const mapDispatchToProps = (dispatch) => {
         setChatRoomId: (roomId) => dispatch(setChatRoomId(roomId)),
         startLiveChat: (started, deleteRoomId) => dispatch(startLiveChat(started, deleteRoomId)),
         toggleDiagnosisCriteria: (type, test, forceAdd, filters) => dispatch(toggleDiagnosisCriteria(type, test, forceAdd, filters)),
-        toggleOPDCriteria: (type, test, forceAdd, filters) => dispatch(toggleOPDCriteria(type, test, forceAdd, filters))
+        toggleOPDCriteria: (type, test, forceAdd, filters) => dispatch(toggleOPDCriteria(type, test, forceAdd, filters)),
+        unSetCommonUtmTags: (type, tags) => dispatch(unSetCommonUtmTags(type, tags))
     }
 }
 

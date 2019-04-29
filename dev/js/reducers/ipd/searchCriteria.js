@@ -1,6 +1,6 @@
 import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET_IPD_SEARCH_ID, SAVE_IPD_RESULTS_WITH_SEARCHID, GET_IPD_SEARCH_ID_RESULTS, SELECT_IPD_LOCATION_STATUS, GET_IPD_HOSPITAL_DETAIL, CLEAR_IPD_SEARCH_IDS, GET_IPD_HOSPITAL_DETAIL_START, LOADED_IPD_INFO_START } from '../../constants/types';
 
-const moment = require('moment');
+// const moment = require('moment');
 
 const DEFAULT_HOSPITAL_FILTER_STATE = {
 	distance:[0,20],
@@ -199,9 +199,12 @@ export default function ( state=defaultState, action) {
         		...state
         	}
         	if(newState.last_save_searched_date){
-                let currentTime = moment(new Date())
-                let lastSearchTime = moment(new Date(newState.last_save_searched_date))
-                let diffDays = currentTime.diff(lastSearchTime, 'days')
+
+				const date1 = new Date()
+                const date2 = new Date(newState.last_save_searched_date)
+                const diffTime = Math.abs(date1.getTime() - date2.getTime())
+				const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+				
                 if(diffDays>2){
                     newState.search_id_data = {}
                     newState.last_save_searched_date = null

@@ -60,10 +60,14 @@ class HomeView extends React.Component {
 
 	}
 
-	navigateTo(where, data, e) {
+
+	navigateTo(where, type, data, e) {
 		if (e) {
 			e.preventDefault()
 			e.stopPropagation()
+		}
+		if (type) {
+			this.props.selectSearchType(type)
 		}
 		if (where == '/chat') {
 			this.props.history.push(where, data)
@@ -122,35 +126,6 @@ class HomeView extends React.Component {
 		}, 100)
 	}
 
-	isSelectedLocationNearDelhi(selectedLocation) {
-		try {
-			if (selectedLocation) {
-				let { geometry } = selectedLocation
-
-				var latitude1 = 28.644800;
-				var longitude1 = 77.216721;
-				var latitude2 = geometry.location.lat;
-				if (typeof geometry.location.lat == 'function') {
-					latitude2 = geometry.location.lat()
-				}
-				var longitude2 = geometry.location.lng;
-				if (typeof geometry.location.lng == 'function') {
-					longitude2 = geometry.location.lng()
-				}
-				var distance = 0
-
-				if (typeof google != undefined) {
-					var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2));
-				}
-
-				return (distance / 1000) < 50
-			}
-			return false
-		} catch (e) {
-			return true
-		}
-	}
-
 	gotToSignup() {
 		let data = {
 			'Category': 'ConsumerApp', 'Action': 'HomepageBannerSignupClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'homepage-banner-signup-clicked'
@@ -176,6 +151,13 @@ class HomeView extends React.Component {
 
 	render() {
 
+		let topSpecializations = []
+		if (this.props.specializations && this.props.specializations.length && this.props.specializations.length > 5) {
+			topSpecializations = this.props.specializations.slice(0, 5)
+		} else {
+			topSpecializations = this.props.specializations
+		}
+
 		let profileData = this.props.profiles[this.props.selectedProfile]
 		let articles = this.props.articles || []
 		const parsed = queryString.parse(this.props.location.search)
@@ -195,11 +177,11 @@ class HomeView extends React.Component {
 			slabOrder.push(
 				<div className="col-md-5">
 					<div className="right-card-container">
-						<UpComingAppointmentView {...this.props}/>
+						<UpComingAppointmentView {...this.props} />
 						<HomePageWidget
 							heading="Find a Doctor"
 							discount="50%"
-							list={this.props.specializations}
+							list={topSpecializations}
 							searchFunc={(sp) => this.searchDoctor(sp)}
 							searchType="specializations"
 							{...this.props}
@@ -221,7 +203,7 @@ class HomeView extends React.Component {
 			slabOrder.push(
 				<div className="col-md-5">
 					<div className="right-card-container">
-					<UpComingAppointmentView {...this.props}/>
+						<UpComingAppointmentView {...this.props} />
 						<HomePageWidget
 							heading="Book a Test"
 							discount="50%"
@@ -265,7 +247,7 @@ class HomeView extends React.Component {
 			slabOrder.push(
 				<div className="col-md-5">
 					<div className="right-card-container">
-					<UpComingAppointmentView {...this.props}/>
+						<UpComingAppointmentView {...this.props} />
 						{/* {
                             !!!profileData ?
                                 <div className="home-signup-banner" onClick={this.gotToSignup.bind(this)}>
@@ -288,27 +270,6 @@ class HomeView extends React.Component {
                                 </div> : ''
                         } */}
 
-						<HomePageWidget
-							heading="Book Doctor Appointment"
-							discount="50%"
-							list={this.props.specializations}
-							searchFunc={(sp) => this.searchDoctor(sp)}
-							searchType="specializations"
-							{...this.props}
-							navTo="/search?from=home"
-							type="opd"
-						/>
-
-						{
-							this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-								<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
-						}
-
-						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
-							<p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>
-							<button className="lap-doc-btn" >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
-						</div> */}
-
 						{
 							this.props.common_package && this.props.common_package.length ?
 								<HomePageWidget
@@ -324,6 +285,33 @@ class HomeView extends React.Component {
 									navTo="/searchpackages"
 								/> : ""
 						}
+
+						<div className="banner-cont-height">
+							<div className="hidderBanner banner-carousel-div d-md-none">
+								<div className="divHeight"></div>
+							</div>
+							{
+								this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+									<BannerCarousel {...this.props} hideClass="d-md-none home-slider-position" sliderLocation="home_page" /> : ''
+							}
+						</div>
+
+
+						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
+							<p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>
+							<button className="lap-doc-btn" >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
+						</div> */}
+
+						<HomePageWidget
+							heading="Book Doctor Appointment"
+							discount="50%"
+							list={topSpecializations}
+							searchFunc={(sp) => this.searchDoctor(sp)}
+							searchType="specializations"
+							{...this.props}
+							navTo="/search?from=home"
+							type="opd"
+						/>
 
 						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>
 							<p className="top-head-link card-lab-link">Run a lab? Reach more<span>customers near you</span></p>
@@ -354,7 +342,39 @@ class HomeView extends React.Component {
 
 				<ProfileHeader homePage={true} showSearch={true} />
 
-				<div className="sub-header mrg-top"></div>
+				{/* <div className="sub-header mrg-top"></div> */}
+				<div className="headerSubLinkContainer">
+					<div className="container">
+						<div className="head_text_container">
+						<a href="/insurance/insurance-plans" onClick={(e) => {
+								e.preventDefault();
+								this.navigateTo("/insurance/insurance-plans")
+							}}>OPD Insurance 
+							<span className="opdNewHeaderOfr">New</span>
+							</a>
+							<a href="/search" onClick={(e) => {
+								e.preventDefault();
+								this.navigateTo("/search", 'opd')
+							}}>Find a Doctor</a>
+							<a href="/search" onClick={(e) => {
+								e.preventDefault();
+								this.navigateTo("/search", 'lab')
+							}}>Lab Tests</a>
+							<a href="/full-body-checkup-health-packages" onClick={(e) => {
+								e.preventDefault();
+								this.navigateTo('/full-body-checkup-health-packages')
+							}}>Health Packages</a>
+							<a href="/online-consultation" onClick={(e) => {
+								e.preventDefault();
+								this.navigateTo('/online-consultation')
+							}}>Online Doctor Consultation</a>
+							{/* <p onClick={(e) => {
+								e.preventDefault();
+								this.navigateTo('/contact')
+							}}>Contact us</p> */}
+						</div>
+					</div>
+				</div>
 				<div className="chat-main-container">
 					<div className="container">
 						<div className="row">

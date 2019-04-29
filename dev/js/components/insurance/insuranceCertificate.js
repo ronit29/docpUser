@@ -18,6 +18,8 @@ class InsuranceCertificateView extends React.Component {
 	}
 
 	render() {
+		console.log(this.props.showBtn)
+		console.log(this.props.get_insured_profile.coi_url)
 		if (Object.keys(this.props.get_insured_profile).length > 0) {
 			let primaryMember
 			let FamilyMembers
@@ -96,7 +98,7 @@ class InsuranceCertificateView extends React.Component {
 											<img width="100" src="https://qacdn.docprime.com/media/insurer/images/apllogo.png" />
 											{/*<p className="fw-500">OPD Insurance <br />by <span className="fw-700">Apollo Munich</span></p>*/}
 											<p className="fw-500">Group Out-patient Insurance</p>
-											<div>
+											<div style={{flexGrow:'0',flexShrink: '0'}}>
 												<img width="30" src={ASSETS_BASE_URL + "/img/chk-green.svg"} style={{ verticalAlign: '-31px' }} />
 												<span className="fw-500" style={{ color: '#4fc243', verticalAlign: '-21px' }} >Active</span>
 											</div>
@@ -165,7 +167,7 @@ class InsuranceCertificateView extends React.Component {
 								</div>
 							</section>									
 							
-								<a className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn text-center" disabled={this.props.showBtn?'':false} style={{ color: "#ffffff" }} href={this.props.get_insured_profile.coi_url} download target="_blank">
+								<a className={"v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn text-center" +(this.props.showBtn?'ins-no-download':'')} style={{ color: "#ffffff" }} href={this.props.get_insured_profile.coi_url} download target="_blank">
 									Download Certificate of Insurance<span className="foot-btn-sub-span">(Policy Document)</span>
 								</a>
 						</div>
