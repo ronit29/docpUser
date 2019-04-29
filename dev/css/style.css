@@ -10714,6 +10714,81 @@ input[type=button]{
     border-radius: 4px;
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0), 0 3px 6px rgba(0, 0, 0, 0.08);
 }
+/* ==================== new package styling ==================== */
+.pakg-slider-container{
+
+}
+.pkgSliderHeading{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+.pkgSliderHeading h5{
+	font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 0;
+    color: #000;
+}
+.pkgSliderHeading span{
+	color: #f78631;
+    font-weight: 500;
+    cursor: pointer;
+}
+.pkgSliderContainer{
+    white-space: nowrap;
+    overflow: auto;
+}
+.pkgcustCards{
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 1px 5px rgba(0,0,0,.12), 1px 1px 4px rgba(0,0,0,.24);
+    border: 0;
+    border-radius: 5px;
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 203px;
+    padding: 42px 10px;
+    position: relative;
+    margin-bottom: 40px;
+    display: inline-block;
+    margin-right: 15px;
+    margin-left: 2px;
+}
+.pkgtstName{
+	margin: 5px 0;
+    font-weight: 500;
+    white-space: normal;
+    padding: 0px 20px;
+    min-height: 36px;
+}
+.newpkgInclude{
+    border: 1px dashed #f46c06;
+    border-radius: 4px;
+    color: #f78631;
+}
+.pkgOutBtn{
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 150px;
+    padding: 5px 0;
+    color: white;
+    border: none;
+    background: #f78631;
+    border-radius: 6px;
+}
+.pkg-main-btn-prc{
+    font-size: 15px;
+    font-weight: 500;
+}
+.pkg-main-btn-prc-cut{
+	font-size: 12px;
+    text-decoration: line-through;
+}
+/* ==================== new package styling ==================== */
 .medic-img-slider img {
     width: 250px;
     margin-right: 20px;
