@@ -13,8 +13,10 @@ import CommentBox from './ArticleCommentBox.js'
 import SnackBar from 'node-snackbar'
 import Reply from './Reply.js'
 import BannerCarousel from '../Home/bannerCarousel';
+import ArticleAuthor from '../articleAuthor/articleAuthor';
 import LocationElements from '../../../containers/commons/locationElements'
 import CommonSearch from '../../../containers/commons/CommonSearch.js'
+import FixedMobileFooter from '../Home/FixedMobileFooter'
 
 // import RelatedArticles from './RelatedArticles'
 
@@ -22,12 +24,22 @@ class Article extends React.Component {
     constructor(props) {
         super(props)
         let footerData = null
+
         let articleData = null
         let articleLoaded = false
+
         if (this.props.initialServerData) {
             articleData = this.props.initialServerData.articleData
             articleLoaded = true
         }
+
+        let articleId = this.props.match.url
+        articleId = articleId.toLowerCase().substring(1, articleId.length)
+        if (this.props.articleData && this.props.articleData[articleId]) {
+            articleData = this.props.articleData[articleId]
+            articleLoaded = true
+        }
+
         this.state = {
             articleData: articleData,
             replyOpenFor: null,
@@ -40,7 +52,10 @@ class Article extends React.Component {
     }
 
     componentDidMount() {
-        this.getArticleData()
+        if (!this.state.articleData) {
+            this.getArticleData()
+        }
+
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -104,15 +119,6 @@ class Article extends React.Component {
         }
     }
 
-    authorClick(e) {
-        e.preventDefault()
-        if (this.state.articleData.author.url) {
-            this.props.history.push(this.state.articleData.author.url)
-        } else {
-            this.props.history.push(`/opd/doctor/${this.state.articleData.author.id}`)
-        }
-    }
-
     commentReplyClicked(id) {
         this.setState({ replyOpenFor: id })
     }
@@ -154,7 +160,7 @@ class Article extends React.Component {
 
     getCityList(key) {
 
-        return this.state.searchCities.length > 0 && this.state.searchWidget==key?
+        return this.state.searchCities.length > 0 && this.state.searchWidget == key ?
             <section>
                 <div className="widget mb-10">
                     <div className="common-search-container">
@@ -176,10 +182,10 @@ class Article extends React.Component {
 
     }
 
-    getCityListLayout(searchResults = [], searchParams={}) {
+    getCityListLayout(searchResults = [], searchParams = {}) {
         let specialization_id = ''
         let searchWidget = ''
-        if(searchParams && Object.values(searchParams).length){
+        if (searchParams && Object.values(searchParams).length) {
             specialization_id = searchParams.specialityId
             searchWidget = searchParams.widgetId
         }
@@ -199,16 +205,16 @@ class Article extends React.Component {
             }
             GTM.sendEvent({ data: gtmData })
 
-            if(this.state.specialization_id) {
+            if (this.state.specialization_id) {
 
                 let criteria = {}
                 criteria.id = this.state.specialization_id
                 criteria.name = ''
                 criteria.type = 'speciality'
                 this.props.cloneCommonSelectedCriterias(criteria)
-                this.props.history.push(`/opd/searchresults`)    
+                this.props.history.push(`/opd/searchresults`)
             }
-            
+
         })
     }
 
@@ -355,31 +361,16 @@ class Article extends React.Component {
 
                                     {
                                         this.state.articleData && this.state.articleData.author ?
-                                            <div className="article-author-div mrb-20">
-                                                <InitialsPicture className="initialsPicture-ds initialsPicture-author" name={this.state.articleData.author.name} has_image={!!this.state.articleData.author.profile_img} >
-                                                    <img className="fltr-usr-image img-round" src={this.state.articleData.author.profile_img} alt={`Dr. ${this.state.articleData.author.name}`} title={`Dr. ${this.state.articleData.author.name}`} />
-                                                </InitialsPicture>
-                                                <div className="author-dtls">
-                                                    <div className="author-name-div">
-                                                        <span style={{ margin: '0 6px 0 0' }}>Written By :</span>
-                                                        {
-                                                            this.state.articleData.author.url ?
-                                                                <a href={`/${this.state.articleData.author.url}`} onClick={(e) => this.authorClick(e)}>
-                                                                    <h3 className="fw-500 text-primary">{`Dr. ${this.state.articleData.author.name}`}</h3>
-                                                                </a> :
-                                                                <a href={`/opd/doctor/${this.state.articleData.author.id}`} onClick={(e) => this.authorClick(e)}>
-                                                                    <h3 className="fw-500 text-primary">{`Dr. ${this.state.articleData.author.name}`}</h3>
-                                                                </a>
-                                                        }
-                                                    </div>
-                                                    <div className="author-exp-div">
-                                                        <span>{this.state.articleData.author.speciality[0].name} | {this.state.articleData.author.experience} years of experience</span>
-                                                    </div>
-                                                    <div className="article-date">
-                                                        <span>Published Date : {this.state.articleData.published_date}</span>
-                                                    </div>
-                                                </div>
-                                            </div> : ''
+                                            <ArticleAuthor
+                                                name={this.state.articleData.author.name}
+                                                profileImage={this.state.articleData.author.profile_img}
+                                                url={this.state.articleData.author.url}
+                                                id={this.state.articleData.author.id}
+                                                speciality={this.state.articleData.author.speciality[0].name}
+                                                experience={this.state.articleData.author.experience}
+                                                publishedDate={this.state.articleData.published_date}
+                                                history={this.props.history}
+                                            /> : ''
                                     }
 
                                     {
@@ -390,20 +381,20 @@ class Article extends React.Component {
                                                 </div>
                                             } else if (val.type.includes('search_widget')) {
                                                 return <div key={key}>
-                                                        {
-                                                            val.content.lat && val.content.lng && val.content.location_name?
-                                                            <CommonSearch {...this.props} location={val.content.location_name} latitude={val.content.lat} longitude={val.content.lng}/>
-                                                            :val.content.specialization_id?
+                                                    {
+                                                        val.content.lat && val.content.lng && val.content.location_name ?
+                                                            <CommonSearch {...this.props} location={val.content.location_name} latitude={val.content.lat} longitude={val.content.lng} />
+                                                            : val.content.specialization_id ?
                                                                 <div>
-                                                                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName={locationName} articleSearchPage={true} specialityName={val.content.specialization_name} specialityId={val.content.specialization_id} widgetId={key}/>  
+                                                                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName={locationName} articleSearchPage={true} specialityName={val.content.specialization_name} specialityId={val.content.specialization_id} widgetId={key} />
                                                                     {this.getCityList(key)}
                                                                 </div>
-                                                            :<div>
-                                                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName='' widgetId={key} commonSearch={true} articleSearchPage={true}/>   
-                                                                {this.getCityList(key)}
-                                                                <CommonSearch {...this.props} commonSearch={true} />
-                                                            </div>
-                                                        }
+                                                                : <div>
+                                                                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName='' widgetId={key} commonSearch={true} articleSearchPage={true} />
+                                                                    {this.getCityList(key)}
+                                                                    <CommonSearch {...this.props} commonSearch={true} />
+                                                                </div>
+                                                    }
                                                 </div>
 
                                             }
@@ -458,6 +449,8 @@ class Article extends React.Component {
                                 : ''
                         }
                     </div>
+
+                    <FixedMobileFooter {...this.props} />
                 </section>
                 <Footer />
             </div>

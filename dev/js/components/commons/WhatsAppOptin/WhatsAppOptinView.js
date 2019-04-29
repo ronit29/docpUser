@@ -1,5 +1,6 @@
 import React from 'react';
 import SnackBar from 'node-snackbar'
+import GTM from '../../../helpers/gtm.js'
 
 class WhatsAppOptinView extends React.Component {
     constructor(props) {
@@ -43,6 +44,10 @@ class WhatsAppOptinView extends React.Component {
             })
         }else{
             this.setState({ whatsapp_optin_View: status },() =>{
+                let data = {
+                'Category': 'ConsumerApp', 'Action': 'Whatsaptoggled', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'Whatsap-toggled'
+                }
+                GTM.sendEvent({ data: data })
                 this.props.toggleWhatsap(status)            
             })
         }    

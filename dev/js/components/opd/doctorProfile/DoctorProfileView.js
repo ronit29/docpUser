@@ -58,6 +58,9 @@ class DoctorProfileView extends React.Component {
                 }
             })
         }
+        if(this.props.app_download_list && !this.props.app_download_list.length){
+            this.props.getDownloadAppBannerList()
+        }
         this.setState({ searchShown: true })
     }
 
@@ -175,6 +178,16 @@ class DoctorProfileView extends React.Component {
 
     }
 
+    downloadButton(data){
+        let gtmTrack = {
+            'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-clicked', 'starts_with':data.starts_with?data.starts_with:'', 'ends_with': data.ends_with?data.ends_with:'', 'device': this.props.device_info
+        }
+        GTM.sendEvent({ data: gtmTrack })
+        if(window){
+            window.open(data.URL, '_self')
+        }
+    }
+
     render() {
 
         let doctor_id = this.props.selectedDoctor
@@ -205,9 +218,9 @@ class DoctorProfileView extends React.Component {
         }
 
         let is_insurance_applicable = false
-        if(this.state.selectedClinic && this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length){
+        if (this.state.selectedClinic && this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].hospitals && this.props.DOCTORS[doctor_id].hospitals.length) {
             this.props.DOCTORS[doctor_id].hospitals.map((hospital) => {
-                if(hospital.hospital_id == this.state.selectedClinic){
+                if (hospital.hospital_id == this.state.selectedClinic) {
                     is_insurance_applicable = hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured
                 }
             })
@@ -240,6 +253,20 @@ class DoctorProfileView extends React.Component {
             let selectedClinicInfo = this.props.DOCTORS[doctor_id].hospitals.filter(x => x.hospital_id == this.state.selectedClinic)
 
             selectedClinicName = selectedClinicInfo.length ? selectedClinicInfo[0].hospital_name : ''
+        }
+
+        let downloadAppButtonData = {}
+        if(this.props.history && (this.props.history.length==2 || this.props.history.length==1)){
+            
+            if(this.props.app_download_list && this.props.app_download_list.length){
+
+                this.props.app_download_list.map((banner)=> {
+                    if(banner.isenabled && ( this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with)) ) {
+                        downloadAppButtonData = banner
+                    }
+                })
+            }
+            
         }
 
         return (
@@ -288,6 +315,23 @@ class DoctorProfileView extends React.Component {
                                 this.props.DOCTORS[doctor_id] ?
 
                                     <section className="dr-profile-screen" style={{ paddingBottom: 0 }}>
+                                        {
+                                            downloadAppButtonData && Object.values(downloadAppButtonData).length?
+                                            <a className="downloadBtn" href="javascript:void(0);" onClick={this.downloadButton.bind(this, downloadAppButtonData)}>
+
+                                                <button className="dwnlAppBtn">
+                                                {
+                                                    !this.props.device_info?''
+                                                    :(this.props.device_info.toLowerCase().includes('iphone') || this.props.device_info.toLowerCase().includes('ipad'))?
+                                                    <img style={{width:'13px', marginRight:'5px',marginTop: '-1px'}} src={ASSETS_BASE_URL + "/img/appl1.svg"} />
+                                                    :<img style={{width:'13px', marginRight:'5px'}} src={ASSETS_BASE_URL + "/img/andr1.svg"} />
+                                                }
+                                                Download App
+
+                                                </button>
+                                            </a>
+                                            :''
+                                        }
 
                                         <HelmetTags tagsData={{
                                             title: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).title,
@@ -471,10 +515,10 @@ class DoctorProfileView extends React.Component {
                                                         {/*<p>{`Book Now (₹ ${final_price})`}</p>*/}
                                                         <p style={{ flex: 2 }}><span style={{ marginTop: '5px', display: 'inline-block' }}>Book Now</span></p>
                                                         {
-                                                            is_insurance_applicable?''
-                                                            :<p className="cp-auto" style={{ marginBottom: '8px' }}>*Coupon auto applied on checkout</p>  
+                                                            is_insurance_applicable ? ''
+                                                                : <p className="cp-auto" style={{ marginBottom: '8px' }}>*Coupon auto applied on checkout</p>
                                                         }
-                                                        
+
                                                     </div>
                                                 </div>
                                                 :

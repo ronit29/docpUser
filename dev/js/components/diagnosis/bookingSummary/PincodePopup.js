@@ -45,7 +45,7 @@ class PincodePoupupView extends React.Component {
                 <div className="popup-error popup-timeslot">
                     <div className="error-head">Check time slot !</div>
                     <div className="cross-btn" onClick={()=>this.props.toggle()}>
-                        <img src="/assets/img/icons/close.png" alt="close" />
+                        <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" />
                     </div>
                     <div className="checking-loc">
                         <p className="error-msg">Please enter your pincode, so that we can find the best available time slot </p>
@@ -54,7 +54,7 @@ class PincodePoupupView extends React.Component {
                         </div>
                     </div>
                     <div className ="wait-for-loc">
-                         <img src="/assets/img/loader_orange.gif" alt="loader" />
+                         <img src={ASSETS_BASE_URL + "/img/loader_orange.gif"} alt="loader" />
                          <p className="error-msg">Please wait, while we are finding best available time for you</p>
                     </div>
                     <a href="Javascript:void(0);" onClick={this.submitPincode.bind(this)} className="btn-chk-avl">Check Availability</a>

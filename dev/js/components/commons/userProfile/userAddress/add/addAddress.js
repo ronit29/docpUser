@@ -1,5 +1,6 @@
 import React from 'react';
 import SnackBar from 'node-snackbar'
+import { _getlocationFromLatLong, _getLocationFromPlaceId, _autoCompleteService } from '../../../../../helpers/mapHelpers.js'
 
 class UserSignupView extends React.Component {
     constructor(props) {
@@ -35,32 +36,14 @@ class UserSignupView extends React.Component {
     }
 
     getLocation(location, resultField) {
-        if (typeof google != undefined) {
-            var auto = new google.maps.places.AutocompleteService()
-
-            var request = {
-                input: location,
-                types: ['establishment'],
-                componentRestrictions: { country: 'in' }
-            };
-
-            if (resultField == 'locality_results') {
-                request = {
-                    input: location,
-                    types: ['(regions)'],
-                    componentRestrictions: { country: 'in' }
-                };
-            }
-
-            if (location) {
-                auto.getPlacePredictions(request, function (results, status) {
-                    results = results || []
-                    this.setState({ [resultField]: results })
-                }.bind(this))
-            } else {
-                this.setState({ [resultField]: [] })
-            }
+        let types = ['establishment']
+        if (resultField == 'locality_results') {
+            types = ['(regions)']
         }
+        _autoCompleteService(location, function (results, status) {
+            results = results || []
+            this.setState({ [resultField]: results })
+        }.bind(this), types)
     }
 
     componentDidMount() {
@@ -184,20 +167,11 @@ class UserSignupView extends React.Component {
     }
 
     selectLocation(location, type) {
-        if (typeof google == undefined) {
-            return
-        }
-        let map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: 28, lng: 77 },
-            zoom: 15
-        })
-        let service = new google.maps.places.PlacesService(map);
-        service.getDetails({
-            reference: location.reference
-        }, function (place, status) {
+        
+        _getLocationFromPlaceId(location.reference, (place) => {
             let { place_id, formatted_address, geometry, name } = place
-            let lat = geometry.location.lat()
-            let long = geometry.location.lng()
+            let lat = geometry.location.lat
+            let long = geometry.location.lng
 
             if (type == 'land_mark') {
                 this.setState({
@@ -220,8 +194,7 @@ class UserSignupView extends React.Component {
                     locality_results: []
                 })
             }
-
-        }.bind(this))
+        }, true)
     }
 
     closeResults(e) {

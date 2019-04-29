@@ -3,13 +3,17 @@ import Cropper from 'react-cropper';
 const Compress = require('compress.js')
 import SnackBar from 'node-snackbar'
 import Loader from '../../Loader'
+import Calendar from 'rc-calendar';
+const moment = require('moment');
 
 class BasicDetails extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             dataUrl: null,
-            loading: false
+            loading: false,
+            formattedDate:'',
+            is_default_user: this.props.profileData.is_default_user
         }
     }
 
@@ -80,10 +84,45 @@ class BasicDetails extends React.Component {
         return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
     }
 
-    handleEnterPress(e){
+    handleEnterPress(e){ 
         if(e.key === 'Enter'){
             this.props.proceedUpdate(e);
         }
+    }
+
+    openCalendar(){
+        this.setState({dateModal:true})
+    }
+
+    selectDateFromCalendar(date) {
+        if (date) {
+            date = date.toDate()
+            let formattedDate = this.getFormattedDate(date)
+            date = new Date(date).toISOString().split('T')[0]
+            this.setState({formattedDate:formattedDate, dateModal: false})
+            this.props.updateProfile('dob', formattedDate)
+        } else {
+            this.setState({ dateModal: false })
+        }
+    }
+
+    getFormattedDate(date){
+        var dd = date.getDate();
+        var mm = date.getMonth()+1; 
+        var yyyy = date.getFullYear();
+        if(dd<10){
+            dd='0'+dd;
+        }
+        if(mm<10){
+            mm='0'+mm;
+        }
+        var today = yyyy+'-'+mm+'-'+dd;
+        return today
+    }
+
+    handleDefaultUser(value){
+        this.setState({'is_default_user':value})
+        this.props.updateProfile('is_default_user', value)
     }
 
     render() {
@@ -129,6 +168,23 @@ class BasicDetails extends React.Component {
                                         <label className="radio-inline"><input type="radio" name="optradio" checked={gender == "o"} value={'o'} onChange={this.handleChange.bind(this, 'gender')} />Other</label>
                                     </div>
                                 </div>
+                                <div className="labelWrap">
+                                    <input id="dob" name="dob" type="text" value={this.state.formattedDate == ''?dob:this.state.formattedDate} onClick={this.openCalendar.bind(this)} required ref="dob" onKeyPress={this.handleEnterPress.bind(this)} onFocus={this.openCalendar.bind(this)}/>
+                                    <label htmlFor="dob">Date of Birth</label>
+                                </div>
+                                {   
+                                    this.state.dateModal ? <div className="calendar-overlay"><div className="date-picker-modal">
+                                        <Calendar
+                                            showWeekNumber={false}
+                                            defaultValue={moment(dob == null?new Date():dob)}
+                                            disabledDate={(date) => {
+                                                return date.diff(moment((new Date)), 'days') > -1
+                                            }}
+                                            showToday
+                                            onSelect={this.selectDateFromCalendar.bind(this)}
+                                        />
+                                    </div></div> : ""
+                                }
                                 {/* <div className="labelWrap">
                                 <input value={name} onChange={this.handleChange.bind(this, 'name')} id="age" name="lname" type="text" required />
                                 <label htmlFor="age">Age</label>
@@ -148,6 +204,15 @@ class BasicDetails extends React.Component {
                                 this.props.manageAddress()
                             }}>Manage My Address<span><img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} className="list-arrow-rt" style={{ marginLeft: 8, width: 7 }}></img></span></a> */}
                             </form>
+                            {
+                            this.props.show_default_checkBox?
+                            <div className="defaultProfile">
+                                <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}
+                            >Make Primary Profile<input type="checkbox" onClick={this.handleDefaultUser.bind(this, !this.state.is_default_user)} checked={
+                                this.state.is_default_user}/><span className="checkmark"></span></label>
+                            </div>
+                            :''
+                            }
                         </div>
                     </div>
                 }

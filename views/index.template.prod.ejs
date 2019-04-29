@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    
+
     <% if(helmet){ %>
         <%-helmet.title.toString()%>
         <%-helmet.meta.toString()%>
@@ -21,15 +21,141 @@
     <meta name="google-site-verification" content="quBX02ihk16wK40RcrNrDlgdq-joSP0hKjaCVgFuYC8" />
     <link rel="icon" href="/assets/fab.png" type="image/png" sizes="16x16">
     <link rel="manifest" href="/assets/manifest.json">
-    
+
     <!-- Preconnect -->
     <link rel="preconnect" href="https://dis.as.criteo.com">
     <link rel="preconnect" href="https://gum.criteo.com">
     <link rel="preconnect" href="https://sslwidget.criteo.com">
 
-    <!-- fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+
+    <% for(var i=0; i<split_bundles.length; i++) {%>
+        <script defer src="<%-split_bundles[i].publicPath%>"></script>
+    <% } %>
+
+    <script defer src="<%-index_bundle%>"></script>
+
+    <style>/* vietnamese */
+        @font-face {
+          font-family: 'Quicksand';
+          font-style: normal;
+          font-weight: 300;
+          font-display: swap;
+        
+          src: local('Quicksand Light'), local('Quicksand-Light'), url(https://fonts.gstatic.com/s/quicksand/v9/6xKodSZaM9iE8KbpRA_pgHYYQML_FYzokA9q.woff2) format('woff2');
+          unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+        }
+        /* latin-ext */
+        @font-face {
+          font-family: 'Quicksand';
+          font-style: normal;
+          font-weight: 300;
+          font-display: swap;
+        
+          src: local('Quicksand Light'), local('Quicksand-Light'), url(https://fonts.gstatic.com/s/quicksand/v9/6xKodSZaM9iE8KbpRA_pgHYYQcL_FYzokA9q.woff2) format('woff2');
+          unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+        /* latin */
+        @font-face {
+          font-family: 'Quicksand';
+          font-style: normal;
+        
+          font-display: swap;
+          font-weight: 300;
+          src: local('Quicksand Light'), local('Quicksand-Light'), url(https://fonts.gstatic.com/s/quicksand/v9/6xKodSZaM9iE8KbpRA_pgHYYT8L_FYzokA.woff2) format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        /* vietnamese */
+        @font-face {
+          font-family: 'Quicksand';
+          font-style: normal;
+        
+          font-display: swap;
+          font-weight: 400;
+          src: local('Quicksand Regular'), local('Quicksand-Regular'), url(https://fonts.gstatic.com/s/quicksand/v9/6xKtdSZaM9iE8KbpRA_hJFQNYuDyP7bh.woff2) format('woff2');
+          unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+        }
+        /* latin-ext */
+        @font-face {
+          font-family: 'Quicksand';
+          font-style: normal;
+        
+          font-display: swap;
+          font-weight: 400;
+          src: local('Quicksand Regular'), local('Quicksand-Regular'), url(https://fonts.gstatic.com/s/quicksand/v9/6xKtdSZaM9iE8KbpRA_hJVQNYuDyP7bh.woff2) format('woff2');
+          unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+        /* latin */
+        @font-face {
+          font-family: 'Quicksand';
+          font-style: normal;
+        
+          font-display: swap;
+          font-weight: 400;
+          src: local('Quicksand Regular'), local('Quicksand-Regular'), url(https://fonts.gstatic.com/s/quicksand/v9/6xKtdSZaM9iE8KbpRA_hK1QNYuDyPw.woff2) format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        /* vietnamese */
+        @font-face {
+          font-family: 'Quicksand';
+          font-style: normal;
+        
+          font-display: swap;
+          font-weight: 500;
+          src: local('Quicksand Medium'), local('Quicksand-Medium'), url(https://fonts.gstatic.com/s/quicksand/v9/6xKodSZaM9iE8KbpRA_p2HcYQML_FYzokA9q.woff2) format('woff2');
+          unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+        }
+        /* latin-ext */
+        @font-face {
+          font-family: 'Quicksand';
+          font-style: normal;
+        
+          font-display: swap;
+          font-weight: 500;
+          src: local('Quicksand Medium'), local('Quicksand-Medium'), url(https://fonts.gstatic.com/s/quicksand/v9/6xKodSZaM9iE8KbpRA_p2HcYQcL_FYzokA9q.woff2) format('woff2');
+          unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+        /* latin */
+        @font-face {
+          font-family: 'Quicksand';
+          font-style: normal;
+        
+          font-display: swap;
+          font-weight: 500;
+          src: local('Quicksand Medium'), local('Quicksand-Medium'), url(https://fonts.gstatic.com/s/quicksand/v9/6xKodSZaM9iE8KbpRA_p2HcYT8L_FYzokA.woff2) format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        /* vietnamese */
+        @font-face {
+          font-family: 'Quicksand';
+          font-style: normal;
+        
+          font-display: swap;
+          font-weight: 700;
+          src: local('Quicksand Bold'), local('Quicksand-Bold'), url(https://fonts.gstatic.com/s/quicksand/v9/6xKodSZaM9iE8KbpRA_pkHEYQML_FYzokA9q.woff2) format('woff2');
+          unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+        }
+        /* latin-ext */
+        @font-face {
+          font-family: 'Quicksand';
+          font-style: normal;
+        
+          font-display: swap;
+          font-weight: 700;
+          src: local('Quicksand Bold'), local('Quicksand-Bold'), url(https://fonts.gstatic.com/s/quicksand/v9/6xKodSZaM9iE8KbpRA_pkHEYQcL_FYzokA9q.woff2) format('woff2');
+          unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+        /* latin */
+        @font-face {
+          font-family: 'Quicksand';
+          font-style: normal;
+        
+          font-display: swap;
+          font-weight: 700;
+          src: local('Quicksand Bold'), local('Quicksand-Bold'), url(https://fonts.gstatic.com/s/quicksand/v9/6xKodSZaM9iE8KbpRA_pkHEYT8L_FYzokA.woff2) format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }</style>
     
+
     <style><%-bootstrap_file%></style>
     <style><%-css_file%></style>
     
@@ -43,10 +169,6 @@
     </script>
     <!-- End Google Tag Manager -->
 
-    <!-- Criteo Add Tracking -->
-    <script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" async="true"></script>
-    <!--End Criteo Add Tracking -->
-
 </head>
 
 <body>
@@ -55,50 +177,22 @@
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MMCG3T7" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
-    
+
     <div id="root"><%-html%></div>
     <div id="map" style={{ display: 'none' }}></div>
-    
+  
     <script type="text/javascript">window.__INITIAL_STATE__ = <%-storeData%></script>
-    <script async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFtb27PooaG0yujuykgvPtxi6tvS04Ek0&libraries=places,geometry"></script>
-    
+
     <script type="text/javascript">
         window.VISITOR_INFO = {}
-        var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-        var msie = navigator.userAgent.indexOf("MSIE ");
-        if(isSafari || msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)){
-            console.log("PUSH NOTIFICATIONS NOT SUPPORTED ON SAFARI")
-        }
-        else {
-            // DOM: Create the script element
-            var jsElm1 = document.createElement("script");
-            // set the type attribute
-            jsElm1.type = "application/javascript";
-            // make the script element load file
-            jsElm1.src = 'https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js';
-            jsElm1.async = false;
-            // finally insert the element to the body element in order to load the script
-            document.body.appendChild(jsElm1);
+        window.LANDING_PATHNAME = window.location.pathname
+        window.ON_LANDING_PAGE = true
+    </script>
 
-            // DOM: Create the script element
-            var jsElm = document.createElement("script");
-            // set the type attribute
-            jsElm.type = "application/javascript";
-            // make the script element load file
-            jsElm.src = 'https://www.gstatic.com/firebasejs/5.0.1/firebase-messaging.js';
-            jsElm.async = false;
-            // finally insert the element to the body element in order to load the script
-            document.body.appendChild(jsElm);
-        }
-    </script>
-    <script>
-    (function (w,i,d,g,e,t,s) {w[d] = w[d]||[];t= i.createElement(g);
-        t.async=1;t.src=e;s=i.getElementsByTagName(g)[0];s.parentNode.insertBefore(t, s);
-    })(window, document, '_gscq','script','//widgets.getsitecontrol.com/164492/script.js');
-    </script>
-    <% for(var i=0; i<split_bundles.length; i++) {%>
-        <script src="<%-split_bundles[i].publicPath%>"></script>
-    <% } %>
+    <!-- Criteo Add Tracking -->
+    <script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" defer></script>
+    <!--End Criteo Add Tracking -->
+
 </body>
 
 </html>

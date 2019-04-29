@@ -1,4 +1,4 @@
-import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, ADD_OPD_COUPONS, ADD_LAB_COUPONS, START_LIVE_CHAT, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART, TOGGLE_LEFT_MENU, UPCOMING_APPOINTMENTS } from '../../constants/types';
+import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, ADD_OPD_COUPONS, ADD_LAB_COUPONS, START_LIVE_CHAT, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART, TOGGLE_LEFT_MENU, UPCOMING_APPOINTMENTS, SET_COMMON_UTM_TAGS, UNSET_COMMON_UTM_TAGS, APPEND_ARTICLE_DATA, GET_APP_DOWNLOAD_BANNER_LIST } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 
@@ -236,6 +236,10 @@ export const fetchArticle = (id, preview = null, cb) => (dispatch) => {
 		url += `?preview=1`
 	}
 	API_GET(url).then(function (response) {
+		dispatch({
+			type: APPEND_ARTICLE_DATA,
+			payload: response
+		})
 		if (cb) cb(null, response);
 	}).catch(function (error) {
 		if (cb) cb(error, null);
@@ -620,6 +624,35 @@ export const getUpComingAppointment = () => (dispatch) => {
 		})
 
 	}).catch(function (error) {
+
+	})
+}
+
+export const setCommonUtmTags = (type = 'chat', tag) => (dispatch) => {
+	dispatch({
+		type: SET_COMMON_UTM_TAGS,
+		payload: tag,
+		actionType: type
+	})
+}
+
+export const unSetCommonUtmTags = (type, tags) => (dispatch) => {
+	dispatch({
+		type: UNSET_COMMON_UTM_TAGS,
+		payload: tags,
+		actionType: type
+	})
+}
+
+export const getDownloadAppBannerList = () => (dispatch) => {
+
+	return API_GET('/api/v1/common/get_key_data?key=AppInstall').then( function (response){
+		dispatch({
+			type: GET_APP_DOWNLOAD_BANNER_LIST,
+			payload: response
+		})
+
+	}).catch( function (e){
 
 	})
 }
