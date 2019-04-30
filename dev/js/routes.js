@@ -452,6 +452,7 @@ let routes = [
     { path: '/opd/searchresults/location=*', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
     { path: '/*-sptcit', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
     { path: '/*-sptlitcit', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
+    { path: '/*-ipddp', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
     { path: '/opd/doctor/:id', exact: true, component: DoctorProfile, RENDER_ON_SERVER: true },
     { path: '/*-dpp', exact: true, component: DoctorProfile, RENDER_ON_SERVER: true },
     { path: '/opd/doctor/:id/:clinicId/book', exact: true, component: AppointmentSlot },
@@ -515,7 +516,7 @@ let routes = [
     { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail, RENDER_ON_SERVER: true },
     { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail },
     { path: '/package/compare', exact: true, component: PackageCompare },
-    { path: '/procedures', exact: true, component: IpdList, RENDER_ON_SERVER: true }
+    { path: '/ipd-procedures', exact: true, component: IpdList, RENDER_ON_SERVER: true }
 
 ]
 

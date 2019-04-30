@@ -7,7 +7,7 @@ import Loader from '../commons/Loader'
 import GTM from '../../helpers/gtm.js'
 import HelmetTags from '../commons/HelmetTags'
 import CONFIG from '../../config'
-
+import BreadCrumbView from './breadCrumb.js'
 
 
 class IpdView extends React.Component {
@@ -170,7 +170,7 @@ class IpdView extends React.Component {
                     description: this.getMetaTagsData(this.props.ipd_info.seo).description
                 }} noIndex={!this.state.seoFriendly} />
 
-                <ul className="mrb-10 mrt-20 breadcrumb-list" style={{ wordBreak: 'break-word' }}>
+                {/*<ul className="mrb-10 mrt-20 breadcrumb-list" style={{ wordBreak: 'break-word' }}>
 	                <li className="breadcrumb-list-item">
 	                    <a href="/" onClick={(e) => {
 	                        e.preventDefault()
@@ -192,7 +192,13 @@ class IpdView extends React.Component {
 	                <li className="breadcrumb-list-item">
 	                    <span className="fw-500 breadcrumb-title">{this.props.ipd_info?`${this.props.ipd_info.about.name}`:''}</span>
 	                </li>
-	            </ul>
+	            </ul>*/}
+
+	            {
+	            	this.props.ipd_info && this.props.ipd_info.breadcrumb?
+	            	<BreadCrumbView breadcrumb={this.props.ipd_info.breadcrumb} {...this.props}/>
+	            	:''
+	            }
 
            	  <h1 className="section-heading top-sc-head"> <span className="about-head"> {`${this.props.ipd_info?`${this.props.ipd_info.about.name} ${this.props.ipd_info && this.props.ipd_info.seo?`in ${this.props.ipd_info.seo.location}`:''}  `:''}`} </span>
 					</h1>
