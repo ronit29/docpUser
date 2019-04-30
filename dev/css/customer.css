@@ -1976,3 +1976,35 @@ p.rt-doc-nm{
 .article-disclaimer span{
     font-style: normal;
 }
+
+.test-index-div{
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.test-index-div div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #f78631;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    margin: 0 10px 5px 0;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.test-index-div div>span{
+    color: #f78631;
+    font-size: 14px;
+}
+
+.charSelected {
+    background-color: #f78631 !important;
+    cursor: auto !important;
+}
+
+.charSelected>span{
+    color: #fff !important;
+}

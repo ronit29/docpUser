@@ -5,7 +5,7 @@ export default ({ toggle, closeChat }) => {
         <div className="cancel-overlay" onClick={toggle}></div>
         <div className="widget cancel-appointment-div payment-popup">
             <div className="widget-header text-center">
-                <p className="fw-500 cancel-appointment-head">Are you sure you want to start a new chat?</p>
+                <p className="fw-500 cancel-appointment-head">Are you sure you want to close this chat?</p>
             </div>
             <hr />
             <a href="javascript:;">

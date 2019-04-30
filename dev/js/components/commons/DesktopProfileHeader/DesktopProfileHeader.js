@@ -236,7 +236,7 @@ class DesktopProfileHeader extends React.Component {
                                 <div className="head-links">
                                     <div className="head-dropdowns">
                                         <img style={{ height: 20, width: 18 }} src={ASSETS_BASE_URL + "/img/articals.svg"} />
-                                        <span>Articles</span>
+                                        <span>Resources</span>
                                         <ul className="list-sub-menu">
                                             <li><a href="/all-medicines" onClick={(e) => {
                                                 e.preventDefault();
@@ -247,6 +247,10 @@ class DesktopProfileHeader extends React.Component {
                                                 e.preventDefault();
                                                 this.props.history.push("/all-diseases")
                                             }}>All Diseases</a></li>
+                                            <li><a href="/tests" onClick={(e) => {
+                                                e.preventDefault();
+                                                this.props.history.push("/tests")
+                                            }}>All Tests</a></li>
                                         </ul>
                                     </div>
                                 </div>

@@ -176,6 +176,18 @@ const Booking_OPD = Loadable({
     webpack: () => [require.resolveWeak('./containers/opd/Booking.js')],
     loading,
 })
+const TestsList = Loadable({
+    loader: () => import('./containers/commons/testsList.js'),
+    modules: ['./containers/commons/testsList.js'],
+    webpack: () => [require.resolveWeak('./containers/commons/testsList.js')],
+    loading,
+})
+
+
+/**
+ * IPD ROUTES
+ */
+
 const AppointmentReschedule = Loadable({
     loader: () => import('./containers/opd/AppointmentReschedule.js'),
     modules: ['./containers/opd/AppointmentReschedule.js'],
@@ -479,6 +491,7 @@ let routes = [
     { path: '/speciality-inventory/:speciality', exact: true, component: SpecializationSiteMap, RENDER_ON_SERVER: true },
     { path: '/city-inventory', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
     { path: '/city-inventory/:city', exact: true, component: CitiesSiteMap, RENDER_ON_SERVER: true },
+    { path: '/tests', exact: true, component: TestsList, RENDER_ON_SERVER: true },
     { path: '/search/testinfo', exact: true, component: searchTestInfo, RENDER_ON_SERVER: true },
     { path: '/bookings', exact: true, component: adsBooking },
     { path: '/full-body-checkup-health-packages', exact: true, component: DX_SearchPackages, RENDER_ON_SERVER: true },
@@ -498,7 +511,7 @@ let routes = [
     { path: '/ipd/searchHospitals', exact: true, component: IpdHospitalSearch },
     { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail },
     { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail },
-    { path: '/package/compare', exact:true, component: PackageCompare},
+    { path: '/package/compare', exact: true, component: PackageCompare },
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {
