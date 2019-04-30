@@ -11,7 +11,7 @@ class HospitalCard extends React.Component {
 		let { data } = this.props
 		let distance = data && data.distance?(Math.round(data.distance) / 1000).toFixed(1):null
 		return(
-			<div className="widget">
+			<li className="widget">
                <div className="loc-info">
                   <img src="https://cdn.docprime.com/cp/assets/img/new-loc-ico.svg" alt="loc" className="img-loc" />
                   <p>{`${data.address} ${distance?` | ${distance} Km`:''}` }</p>
@@ -40,12 +40,12 @@ class HospitalCard extends React.Component {
                   <div className="left-side-info">
                      {
                      	data.bed_count?
-                     	<div className="hos-certified hs-certified"><img src={ASSETS_BASE_URL + "/images/bed.png"} alt="" className="img-bed" />{data.bed_count} beds</div>
+                     	<div className="hos-certified hs-certified"><img src={ASSETS_BASE_URL + "/images/bed.png"} alt="" className="img-bed" /><h3 className="dsply-inline">{data.bed_count} beds</h3></div>
                      	:''	
                      }
                      {
                      	data.multi_speciality?
-                     	<div className="hos-certified"><img src={ASSETS_BASE_URL + "/images/multi-speciality.png"} alt="" className="img-splty" />Multi Speciality</div>
+                     	<div className="hos-certified"><img src={ASSETS_BASE_URL + "/images/multi-speciality.png"} alt="" className="img-splty" /><h3 className="dsply-inline">Multi Speciality</h3></div>
                      	:''	
                      }
                      
@@ -59,7 +59,7 @@ class HospitalCard extends React.Component {
                      <a href="javascript:void(0);" onClick={()=>this.props.getCostEstimateClicked(data.id)} className="btn-estimate">Get Cost Estimate</a>
                   </div>
                </div>
-            </div>
+            </li>
 			)
 	}
 }

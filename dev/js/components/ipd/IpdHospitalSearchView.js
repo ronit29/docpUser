@@ -10,6 +10,7 @@ const queryString = require('query-string')
 import GTM from '../../helpers/gtm.js'
 import HelmetTags from '../commons/HelmetTags'
 import CONFIG from '../../config'
+import BreadCrumbView from './breadCrumb.js'
 
 class IpdHospitalView extends React.Component{
 
@@ -158,8 +159,12 @@ class IpdHospitalView extends React.Component{
             page = page || 1
         }
 
+        let searchUrl = null
+        if (state.match.url.includes('-ipdhp')) {
+            searchUrl = state.match.url.toLowerCase()
+        }
 
-        this.props.getIpdHospitals(state, page, false, null, (...args) => {
+        this.props.getIpdHospitals(state, page, false, searchUrl, (...args) => {
 
             if(cb)cb(...args)
             let new_url = this.buildURI(state)
@@ -259,16 +264,47 @@ class IpdHospitalView extends React.Component{
 
 	render(){
 		let { hospital_list } = this.props
+        let url = `${CONFIG.API_BASE_URL}${this.props.location.pathname}`
+        url = url.replace(/&page=\d{1,}/, "")
+        let page = ""
+        let curr_page = parseInt(this.props.page)
+        let prev = ""
+        if (curr_page > 1) {
+            page = `?page=${curr_page}`
+            prev = url
+            if (curr_page > 2) {
+                prev += `?page=${curr_page - 1}`
+            }
+        }
+        let next = ""
+        let count = this.props.hospital_search_results && this.props.hospital_search_results.count?parseInt(this.props.hospital_search_results.count):0
+
+        if (count > curr_page * 20) {
+            next = url + `?page=${curr_page + 1}`
+        }
+
+        // do not set rel next/prev for non seoFriendly pages
+        if (!this.state.seoFriendly) {
+            next = ""
+            prev = ""
+        }
+
 		return(
 				<div className="profile-body-wrap">
                 <HelmetTags tagsData={{
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
                     title: this.getMetaTagsData(this.props.hospitalSearchSeoData).title,
-                    description: this.getMetaTagsData(this.props.hospitalSearchSeoData).description
+                    description: this.getMetaTagsData(this.props.hospitalSearchSeoData).description,
+                    prev: prev,
+                    next: next
                 }} noIndex={!this.state.seoFriendly} />
                 <ProfileHeader showSearch={true} />
 	                <section className="container parent-section book-appointment-section breadcrumb-mrgn">
-
+                        {
+                            this.props.hospitalBreadcrumb && this.props.hospitalBreadcrumb.length?
+                            <BreadCrumbView breadcrumb={this.props.hospitalBreadcrumb} {...this.props}/>
+                            :''
+                        }
 		                <div className="row main-row parent-section-row">
 		                    <LeftBar />
 		                    <div className="col-12 col-md-7 col-lg-7 center-column">

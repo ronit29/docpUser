@@ -71,6 +71,7 @@ class IpdHospitalListView extends React.Component {
                         useWindow={true}
                         initialLoad={false}
                     >
+                    <ul>
                     {
 						hospital_list.map((hospitalId, i) => {
 							if(HOSPITAL_DATA[hospitalId]){
@@ -78,6 +79,7 @@ class IpdHospitalListView extends React.Component {
 							}
 						})
 					}
+					</ul>
 					</InfiniteScroll>
 					:''
 				}

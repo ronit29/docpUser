@@ -29,7 +29,8 @@ const defaultState = {
 	HOSPITAL_DETAIL_LOADED: false,
 	locationFetched: false,
 	hospitalSearchSeoData: null,
-	hospitalCanonicalUrl: null
+	hospitalCanonicalUrl: null,
+	hospitalBreadcrumb: []
 }
 
 export default function ( state=defaultState, action) {
@@ -93,6 +94,7 @@ export default function ( state=defaultState, action) {
 
 			newState.hospitalSearchSeoData = action.payload && action.payload.seo?action.payload.seo:null 
 			newState.hospitalCanonicalUrl = action.payload && action.payload.canonical_url?action.payload.canonical_url:null
+			newState.hospitalBreadcrumb = action.payload && action.payload.breadcrumb?action.payload.breadcrumb:[]
 
 			action.payload && action.payload.result && action.payload.result.map((hospital) => {
 				if(newState.hospital_list.indexOf(hospital.id)>-1){

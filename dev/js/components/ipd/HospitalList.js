@@ -47,7 +47,7 @@ class HospitalListView extends React.Component {
 					<h2 className="section-heading">{`Top ${ipd_info.about.name} Hospitals ${ipd_info.seo?`in ${this.props.ipd_info.seo.location}`:''}`}</h2>
 					:''	
 				}
-				
+				<ul>
 				{
 					hospitalList && hospitalList.result?
 					hospitalList.result.map((hospital, i) => {
@@ -55,6 +55,7 @@ class HospitalListView extends React.Component {
 					})
 					:''
 				}
+				</ul>
 
 				{
 		        	this.state.toggleFilterPopup?

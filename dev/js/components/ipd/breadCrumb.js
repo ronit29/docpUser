@@ -5,10 +5,10 @@ class BreadcrumbView extends React.Component {
 	render(){
 
 		return(
-			<section className="container parent-section book-appointment-section breadcrumb-mrgn">
+			<section>
                 {
                 	this.props.breadcrumb && this.props.breadcrumb.length ?
-                    <section className="col-12 mrng-top-12 d-none d-md-block">
+                    <section className="">
                         <ul className="mrb-10 breadcrumb-list breadcrumb-list-ul" style={{ 'wordBreak': 'breakWord' }}>
                             {
                                 this.props.breadcrumb.map((data, key) => {
