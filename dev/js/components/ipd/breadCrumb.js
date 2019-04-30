@@ -23,7 +23,7 @@ class BreadcrumbView extends React.Component {
                                                     {
                                                         key == 0 || key == this.props.breadcrumb.length - 1
                                                             ? <span className="fw-500 breadcrumb-title breadcrumb-colored-title">{data.title}</span>
-                                                            : <h2 className="fw-500 breadcrumb-title breadcrumb-colored-title d-inline-blck">{data.title}</h2>
+                                                            : <span className="fw-500 breadcrumb-title breadcrumb-colored-title d-inline-blck">{data.title}</span>
                                                     }
                                                 </a>
                                         }
