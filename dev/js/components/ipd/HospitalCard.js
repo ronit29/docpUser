@@ -21,7 +21,7 @@ class HospitalCard extends React.Component {
                      <a href={`/ipd/hospital/${data.id}`} onClick={(e) => {
                         e.preventDefault()
                         this.props.getHospitalDetailPage(data.id)
-                     }}><h3 className="section-heading">{data.name}</h3></a>
+                     }}><h2 className="section-heading">{data.name}</h2></a>
                      {
                      	data.certifications && data.certifications.length?
                      	<div className="hos-certified"><img src={ASSETS_BASE_URL + "/images/certified.png"} className="img-certified" />{data.certifications.length?data.certifications.join(' | '):''}</div>
