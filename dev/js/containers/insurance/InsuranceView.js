@@ -17,7 +17,11 @@ class Insurance extends React.Component{
     }
 
     componentDidMount() {
-        this.props.getInsurance()
+        this.props.getInsurance(resp=>{
+            if(!resp.certificate && STORAGE.checkAuth()){
+                this.props.generateInsuranceLead()
+            }
+        })
         if (STORAGE.checkAuth()) {
             this.props.getUserProfile()
         }
