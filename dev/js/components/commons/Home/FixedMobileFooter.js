@@ -92,7 +92,7 @@ class FixedMobileFooter extends React.Component {
                             'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-insurance-clicked'
                         }
                         GTM.sendEvent({ data: data })
-                        this.navigateTo('/insurance/insurance-plans?utm_source=mobile-footer-insurance-clicked')
+                        this.navigateTo('/insurance/insurance-plans?source=mobile-footer-insurance-clicked')
                     }}>
                         <div className="nw-img-with-content">
                             <img style={{ width: '20px' }} className="opdUpico" src={ASSETS_BASE_URL + "/img/opdNewIco.svg"} />
