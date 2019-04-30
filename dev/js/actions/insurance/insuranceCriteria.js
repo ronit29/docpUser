@@ -187,3 +187,12 @@ export const resetUserInsuredData = (criteria) => (dispatch) => {
         payload:criteria
     })
 }
+
+export const cancelInsurance = (callback) => (dispatch) => {
+    API_GET('/api/v1/insurance/cancel').then(function (response) {
+        if (callback) callback(response)
+    }).catch(function (error) {
+        if (callback) callback(null)
+    })
+
+}

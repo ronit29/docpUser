@@ -7,19 +7,30 @@ class InsuranceCertificateView extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-
+			showCancelPopup:false
 		}
 	}
 
-	 getGetOrdinal(n) {
+	getGetOrdinal(n) {
    	var s=["th","st","nd","rd"],
-       v=n%100;
-   return n+(s[(v-20)%10]||s[v]||s[0]);
+       	v=n%100;
+   		return n+(s[(v-20)%10]||s[v]||s[0]);
+	}
+
+	cancelPolicy(){
+		console.log(this.props.get_insured_profile)
+		if(1){
+			this.props.history.push('/insurance/cancelpolicy')
+		}else{
+			this.setState({showCancelPopup:true})
+		}
+	}
+
+	hideCancelPolicyPopup(){
+		this.setState({showCancelPopup:false})
 	}
 
 	render() {
-		console.log(this.props.showBtn)
-		console.log(this.props.get_insured_profile.coi_url)
 		if (Object.keys(this.props.get_insured_profile).length > 0) {
 			let primaryMember
 			let FamilyMembers
@@ -40,6 +51,22 @@ class InsuranceCertificateView extends React.Component {
 			let expiryDate = expiry_date.split(" ")
 			return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
 				<ProfileHeader />
+				{!this.state.showCancelPopup?
+					<section className="error-msg-pop">
+		                <div className="cancel-overlay"></div>
+		                <div className="popup-error" style={{ width: '300px' }}>
+		                    <div className="error-head"><img className="errorInfoImg" src={ASSETS_BASE_URL + "/img/infoerror.svg"} />{"Alert"}</div>
+		                    <div className="cross-btn">
+		                        <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" onClick={this.hideCancelPolicyPopup.bind(this)} />
+		                    </div>
+		                    <p className="error-msg">Your policy cannot be cancelled as you have already completed atleast 1 claim under your policy</p>
+		                    <p className="error-msg">for any other query you can call us at <span>
+		                    	1800-123-9419
+		                    </span></p>
+		                </div>
+		            </section>
+                :''
+				}
 				<section className="container parent-section book-appointment-section container-top-margin">
 					<div className="row main-row parent-section-row">
 						<div className="col-12 col-md-7 col-lg-7">
@@ -166,7 +193,9 @@ class InsuranceCertificateView extends React.Component {
 									</div>
 								</div>
 							</section>									
-							
+								<a onClick={this.cancelPolicy.bind(this)}>
+									cancel policy
+								</a>
 								<a className={"v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn text-center" +(this.props.showBtn?'ins-no-download':'')} style={{ color: "#ffffff" }} href={this.props.get_insured_profile.coi_url} download target="_blank">
 									Download Certificate of Insurance<span className="foot-btn-sub-span">(Policy Document)</span>
 								</a>
