@@ -356,10 +356,10 @@ class BookingView extends React.Component {
                                                             }}>
                                                                 <div className="usr-dtls-off-act">
                                                                     <p className="wc-title text-md fw-700 card-nm-ovrlpng">
-                                                                        <img src="/assets/img/customer-icons/refer.svg" className="img-fluid  img-f-1" />Refer &amp; Earn</p>
+                                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/refer.svg"} className="img-fluid  img-f-1" />Refer &amp; Earn</p>
                                                                 </div>
                                                                 <div className="ofr-img-txt">
-                                                                    <div className="box-img-cont"><img src="/assets/img/step-2.png" className="img-fluid" /></div>
+                                                                    <div className="box-img-cont"><img src={ASSETS_BASE_URL + "/img/step-2.png"} className="img-fluid" /></div>
                                                                     <div className="ofr-contnt">
                                                                         <p className="add-info fw-500 add-info-p">
                                                                             Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight: '0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> on completion of their first order </p>

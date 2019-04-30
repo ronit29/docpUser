@@ -14,15 +14,16 @@ class InsuranceCertificate extends React.Component{
     }
 
     componentDidMount(){
-        this.props.getInsuredProfile((resp)=>{
-            if(resp && resp.coi_url !=''){
-                this.setState({showBtn:true})
-            }else{
-                setTimeout(() => {
-                    this.props.getInsuredProfile()
-                }, 500)
-            }
-        } )      
+        this.props.getInsuredProfile()
+        // this.props.getInsuredProfile((resp)=>{
+        //     if(resp && resp.coi_url !=''){
+        //         this.setState({showBtn:false})
+        //     }else{
+        //         setTimeout(() => {
+        //             this.props.getInsuredProfile()
+        //         }, 500)
+        //     }
+        // } )      
     }
 	render(){
 		return(

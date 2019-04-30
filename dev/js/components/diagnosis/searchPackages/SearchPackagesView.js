@@ -8,6 +8,7 @@ import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import Footer from '../../commons/Home/footer'
 import ResultCount from './topBar/result_count.js'
+import GTM from '../../../helpers/gtm.js'
 const queryString = require('query-string');
 
 class SearchPackagesView extends React.Component {
@@ -23,7 +24,8 @@ class SearchPackagesView extends React.Component {
             seoData, footerData,
             showError: false,
             showChatWithus: false,
-            isScroll:true
+            isScroll:true,
+            isCompare:false
         }
     }
 
@@ -117,6 +119,39 @@ class SearchPackagesView extends React.Component {
         }
     }
 
+    comparePackage(){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'CompareButton', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'compare-button-click'
+        }
+        GTM.sendEvent({ data: data })
+        if(this.props.packagesList.count == 1){
+            if(this.props.packagesList.result){
+                let packages={}
+                packages.id=this.props.packagesList.result[0].id
+                packages.lab_id=this.props.packagesList.result[0].lab.id
+                packages.img=this.props.packagesList.result[0].lab.lab_thumbnail
+                packages.name=this.props.packagesList.result[0].name
+                this.props.togglecompareCriteria(packages)
+                this.props.history.push('/package/compare?package_ids='+this.props.packagesList.result[0].id+'-'+this.props.packagesList.result[0].lab.id)
+            }
+        }else{
+            this.setState({isCompare:!this.state.isCompare},()=>{
+                if(this.props.compare_packages && this.props.compare_packages.length>0){
+                    this.props.resetPkgCompare()
+                }
+            })
+        }   
+    }
+
+    toggleComparePackages(packageId,labId,pckImg,pckName){
+        let packages={}
+        packages.id=packageId
+        packages.lab_id=labId
+        packages.img=pckImg
+        packages.name=pckName
+        this.props.togglecompareCriteria(packages)
+    }
+
     buildURI(state) {
         let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, filterCriteriaPackages, page} = state
         // let testIds = selectedCriterias.filter(x => x.type == 'test').map(x => x.id)
@@ -152,6 +187,7 @@ class SearchPackagesView extends React.Component {
         
         let url
         const parsed = queryString.parse(this.props.location.search)
+
         if(this.props.forTaxSaver){
             let package_category_id = parsed.package_category_ids
             url = `${window.location.pathname}?lat=${lat}&long=${long}&package_category_ids=${package_category_id}`
@@ -165,36 +201,11 @@ class SearchPackagesView extends React.Component {
             url += `&scrollbyid=${scrollby_test_id || ""}&scrollbylabid=${scrollby_lab_id || ""}`
         }
 
-        return url
-    }
-
-    isSelectedLocationNearDelhi() {
-        try {
-            if (this.props.selectedLocation) {
-                let { geometry } = this.props.selectedLocation
-
-                var latitude1 = 28.644800;
-                var longitude1 = 77.216721;
-                var latitude2 = geometry.location.lat;
-                if (typeof geometry.location.lat == 'function') {
-                    latitude2 = geometry.location.lat()
-                }
-                var longitude2 = geometry.location.lng;
-                if (typeof geometry.location.lng == 'function') {
-                    longitude2 = geometry.location.lng()
-                }
-                var distance = 0
-                
-                if (typeof google != undefined) {
-                    var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2));
-                }
-
-                return (distance / 1000) < 50
-            }
-            return true
-        } catch (e) {
-            return true
+        if(parsed.isComparable){
+            url += '&isComparable=true'
         }
+
+        return url
     }
 
     getMetaTagsData(seoData) {
@@ -212,8 +223,8 @@ class SearchPackagesView extends React.Component {
 
     render() {
         let self = this
+        const parsed = queryString.parse(this.props.location.search)
         if(this.props.forTaxSaver && this.state.isScroll){
-            const parsed = queryString.parse(this.props.location.search)
             let scrollby_test_id = parseInt(parsed.scrollbyid)
             let scrollby_lab_id = parseInt(parsed.scrollbylabid)
             let url_id= `scrollById_${scrollby_test_id}_${scrollby_lab_id}`
@@ -221,6 +232,11 @@ class SearchPackagesView extends React.Component {
                window.scrollTo(0, document.getElementById(url_id).offsetTop+250)
                self.setState({isScroll:false})
             }
+        }
+        let isCompared = false
+
+        if(parsed.isComparable){
+            isCompared = true
         }
         return (
             <div>
@@ -230,10 +246,10 @@ class SearchPackagesView extends React.Component {
                     title: `${this.props.packagesList.title || ''}`,
                     description: `${this.props.packagesList.description || ''}`
                 }} noIndex={false} />                
-                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} bottom_content={this.props.packagesList && this.props.packagesList.count>0 && this.props.packagesList.bottom_content && this.props.packagesList.bottom_content !=null && this.props.forOrganicSearch? this.props.packagesList.bottom_content:''} page={1}>
-                    <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
+                <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} bottom_content={this.props.packagesList && this.props.packagesList.count>0 && this.props.packagesList.bottom_content && this.props.packagesList.bottom_content !=null && this.props.forOrganicSearch? this.props.packagesList.bottom_content:''} page={1} isPackage={true}>
+                    <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} comparePackage={this.comparePackage.bind(this)} isCompare={this.state.isCompare} isCompared={isCompared}/>
                     <ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
-                    <PackagesLists {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
+                    <PackagesLists {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} isCompare={this.state.isCompare} toggleComparePackages={this.toggleComparePackages.bind(this)} isCompared={isCompared}/>
                 </CriteriaSearch>
                 <Footer footerData={this.state.footerData} />
             </div>

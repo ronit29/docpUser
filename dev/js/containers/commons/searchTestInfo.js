@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { searchTestData, selectedCriterias, searchTestInfoData, toggleDiagnosisCriteria, setLabSearchId, clearExtraTests, mergeLABState, clearAllTests, selectLabTimeSLot } from '../../actions/index.js'
+import { searchTestData, selectedCriterias, searchTestInfoData, toggleDiagnosisCriteria, setLabSearchId, clearExtraTests, mergeLABState, clearAllTests, selectLabTimeSLot, selectLabAppointmentType } from '../../actions/index.js'
 
 import SearchTestView from '../../components/commons/search/searchTestInfo.js'
 
@@ -20,7 +20,7 @@ class searchTestInfo extends React.Component {
         }
 
         return new Promise((resolve, reject) => {
-            store.dispatch(searchTestData(query.test_ids || '', seo_url, query.lab_id || '', {}, false,(data) => {
+            store.dispatch(searchTestData(query.test_ids || '', seo_url, query.lab_id || '', {}, false, (data) => {
                 resolve({})
             }))
         })
@@ -43,7 +43,6 @@ const mapStateToProps = (state) => {
     let { selectedCriterias, searchTestInfoData, search_id_data, selectedLocation, locationType, currentSearchedCriterias, filterCriteria } = state.SEARCH_CRITERIA_LABS
     return {
         selectedCriterias, searchTestInfoData, search_id_data, selectedLocation, locationType, currentSearchedCriterias, filterCriteria
-
     }
 
 }
@@ -56,8 +55,8 @@ const mapDispatchToProps = (dispatch) => {
         setLabSearchId: (searchId, filters, setDefault) => dispatch(setLabSearchId(searchId, filters, setDefault)),
         mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
         clearAllTests: () => dispatch(clearAllTests()),
-        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule))
-
+        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
+        selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type))
     }
 }
 

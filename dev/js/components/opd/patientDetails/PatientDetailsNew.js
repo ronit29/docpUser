@@ -43,6 +43,7 @@ class PatientDetailsNew extends React.Component {
             profileError: false,
             cart_item: parsed.cart_item,
             whatsapp_optin: true,
+            formData: ''
         }
     }
 
@@ -230,6 +231,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     profileDataCompleted(data) {
+        this.setState({ formData: { ...data } })
         if (data.name == '' || data.gender == '' || data.phoneNumber == '' || data.email == '' || !data.otpVerifySuccess) {
             this.setState({ profileDataFilled: false, showTimeError: false })
         } else if (data.otpVerifySuccess) {
@@ -262,11 +264,17 @@ class PatientDetailsNew extends React.Component {
         }
 
         if (!patient) {
-            this.setState({ profileError: true });
-            SnackBar.show({ pos: 'bottom-center', text: "Please Add Patient" });
-            window.scrollTo(0, 0)
-            return
-
+            if (this.state.formData.name != '' && this.state.formData.gender != '' && this.state.formData.phoneNumber != '' && this.state.formData.email != '' && !this.state.formData.otpVerifySuccess) {
+                this.setState({ profileError: true });
+                SnackBar.show({ pos: 'bottom-center', text: "Please verify your mobile no. to continue" });
+                window.scrollTo(0, 0)
+                return
+            } else {
+                this.setState({ profileError: true });
+                SnackBar.show({ pos: 'bottom-center', text: "Please Add Patient" });
+                window.scrollTo(0, 0)
+                return
+            }
         }
 
         if (!this.state.profileDataFilled) {
@@ -308,8 +316,10 @@ class PatientDetailsNew extends React.Component {
 
         is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
 
-
-
+        // React guarantees that setState inside interactive events (such as click) is flushed at browser event boundary
+        if(this.state.loading){
+            return
+        }
         this.setState({ loading: true, error: "" })
 
         let start_date = this.props.selectedSlot.date
@@ -702,11 +712,11 @@ class PatientDetailsNew extends React.Component {
                                                                                 this.props.select_opd_payment_type(1)
                                                                             }}>
                                                                                 <div className="payment-detail d-flex">
-                                                                                    <label class="container-radio payment-type-radio">
+                                                                                    <label className="container-radio payment-type-radio">
                                                                                         <h3>Online Payment</h3>
                                                                                         <span className="save-upto">Save {percent_discount}%</span>
                                                                                         <input checked={this.props.payment_type == 1} type="radio" name="payment-mode" />
-                                                                                        <span class="doc-checkmark"></span>
+                                                                                        <span className="doc-checkmark"></span>
                                                                                     </label>
                                                                                 </div>
                                                                             </div> : ''
@@ -800,7 +810,7 @@ class PatientDetailsNew extends React.Component {
 
 
                                                         {
-                                                            !is_insurance_applicable && this.props.payment_type == 1 && total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
+                                                            !is_insurance_applicable && this.props.payment_type == 1 && total_wallet_balance && total_wallet_balance > 0 && (parseInt(priceData.mrp) + treatment_mrp) > 0 ? <div className="widget mrb-15">
                                                                 <div className="widget-content">
                                                                     <div className="select-pt-form">
                                                                         <div className="referral-select">

@@ -5,6 +5,7 @@ import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 import Footer from '../../commons/Home/footer'
 import BannerCarousel from '../../commons/Home/bannerCarousel';
+import HelmetTags from '../../commons/HelmetTags';
 
 class ThyrocarePackageView extends React.Component {
     constructor(props) {
@@ -74,9 +75,13 @@ class ThyrocarePackageView extends React.Component {
                 <ProfileHeader />
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
+                        <HelmetTags tagsData={{
+                            title: 'Compare top Aarogyam packages from Thyrocare | Book Online & Save upto 50%',
+                            description: 'Compare and book Aarogyam full body health checkup packages from Thyrocare at docprime.com. Avail exclusive discounts & save upto 50%. Get free home sample collection and online reports on time.'
+                        }} />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             {
-                                this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'health_package_compare_page').length ?
+                                this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'thyrocare_aarogyam_packages_page').length ?
                                     <div className="col-12">
                                         <BannerCarousel {...this.props} sliderLocation="thyrocare_aarogyam_packages_page" />
                                     </div> : ''

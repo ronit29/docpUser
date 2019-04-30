@@ -5,6 +5,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import Loader from '../../../commons/Loader'
 import GTM from '../../../../helpers/gtm'
 import BannerCarousel from '../../../commons/Home/bannerCarousel.js';
+import SelectedPkgStrip from './selectedPkgStrip.js'
 
 class packagesList extends React.Component {
     constructor(props) {
@@ -132,7 +133,7 @@ class packagesList extends React.Component {
                 }
                 {
                     this.state.renderBlock ? <Loader /> :
-                        <div className="container-fluid cardMainPaddingRmv">
+                        <div className="container-fluid cardMainPaddingRmv" style={{minHeight: '60vh'}}>
                             {
                                 this.props.forOrganicSearch && this.props.packagesList && this.props.packagesList.count > 0 ?
                                     <div className="search-result-card-collpase">
@@ -178,16 +179,17 @@ class packagesList extends React.Component {
                                         hasMore={this.state.hasMore}
                                         useWindow={true}
                                     >
-                                    {
-                                        this.props.packagesList && this.props.packagesList.result ? this.props.packagesList.result.map((packages, i) => {
-                                            return <div key={i} id={`scrollById_${packages.id}_${packages.lab.id}`}>
-                                                <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
-                                            </div>
-                                        })
-                                            : ''
-                                    }
-
-                                    {/*<InfiniteScroll
+                                        <ul>
+                                            {
+                                                this.props.packagesList && this.props.packagesList.result ? this.props.packagesList.result.map((packages, i) => {
+                                                    return <li key={i} id={`scrollById_${packages.id}_${packages.lab.id}`}>
+                                                        <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
+                                                    </li>
+                                                })
+                                                    : ''
+                                            }
+                                        </ul>
+                                        {/*<InfiniteScroll
                                         pageStart={0}
                                         loadMore={this.loadMore.bind(this)}
                                         hasMore={this.state.hasMore}
@@ -240,6 +242,11 @@ class packagesList extends React.Component {
                             </div>
                             {this.state.loading ? <Loader classType="loaderPagination" /> : ""}
                         </div>
+                }
+                {
+                    !this.props.isCompared && (this.props.isCompare || this.props.compare_packages.length > 0)?
+                    <SelectedPkgStrip {...this.props} toggleComparePackages={this.props.toggleComparePackages.bind(this)}/>
+                    :''
                 }
             </section>
         );

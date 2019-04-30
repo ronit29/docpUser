@@ -1516,6 +1516,9 @@ p.rt-doc-nm{
     justify-content: center;
     align-items: center;
     width: 100%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    min-height: 8px;
 }
 
 .carousel-indicators span{
@@ -1963,4 +1966,45 @@ p.rt-doc-nm{
     border-radius: 5px;
     cursor: pointer;
     background-color: #fff;
+}
+
+.article-disclaimer{
+    font-size: 12px;
+    font-style: italic;
+}
+
+.article-disclaimer span{
+    font-style: normal;
+}
+
+.test-index-div{
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.test-index-div div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #f78631;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    margin: 0 10px 5px 0;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.test-index-div div>span{
+    color: #f78631;
+    font-size: 14px;
+}
+
+.charSelected {
+    background-color: #f78631 !important;
+    cursor: auto !important;
+}
+
+.charSelected>span{
+    color: #fff !important;
 }

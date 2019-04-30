@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { getInsurance, selectInsurancePlan , saveCurrentSelectedMembers,resetSelectedInsuranceMembers,resetSelectedPlans,sendOTP, submitOTP, resetAuth, getUserProfile, userData, generateInsuranceLead } from '../../actions/index.js'
+import { getInsurance, selectInsurancePlan , saveCurrentSelectedMembers,resetSelectedInsuranceMembers,resetSelectedPlans,sendOTP, submitOTP, resetAuth, getUserProfile, userData, generateInsuranceLead, urlShortner } from '../../actions/index.js'
 import InsuranceComponent from '../../components/insurance/insuranceView.js'
 import Loader from '../../components/commons/Loader'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
@@ -60,7 +60,8 @@ const mapDispatchToProps = (dispatch) => {
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
         resetAuth: () => dispatch(resetAuth()),
         userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),
-        generateInsuranceLead:(selectedPlan, cb) => dispatch(generateInsuranceLead(selectedPlan,cb))
+        generateInsuranceLead:(selectedPlan,number,cb) => dispatch(generateInsuranceLead(selectedPlan,number,cb)),
+        urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
     }
 }
 
