@@ -18,8 +18,7 @@ class InsuranceCertificateView extends React.Component {
 	}
 
 	cancelPolicy(){
-		console.log(this.props.get_insured_profile)
-		if(1){
+		if(this.props.get_insured_profile && this.props.get_insured_profile.is_cancel_allowed){
 			this.props.history.push('/insurance/cancelpolicy')
 		}else{
 			this.setState({showCancelPopup:true})
@@ -51,7 +50,7 @@ class InsuranceCertificateView extends React.Component {
 			let expiryDate = expiry_date.split(" ")
 			return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
 				<ProfileHeader />
-				{!this.state.showCancelPopup?
+				{this.state.showCancelPopup?
 					<section className="error-msg-pop">
 		                <div className="cancel-overlay"></div>
 		                <div className="popup-error" style={{ width: '300px' }}>

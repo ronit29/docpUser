@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { getInsuredProfile} from '../../actions/index.js'
+import { cancelInsurance} from '../../actions/index.js'
 import InsuranceCancellationView from '../../components/insurance/insuranceCancellation.js'
 
 class InsuranceCancellation extends React.Component{
