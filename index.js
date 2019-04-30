@@ -12,7 +12,7 @@ const axios = require('axios')
 const fs = require('fs');
 const DIST_FOLDER = './dist/';
 const Sentry = require('@sentry/node');
-const stats = JSON.parse(_readFileSync(`${DIST_FOLDER}react-loadable.json`))
+const stats = JSON.parse(_readFileSync(`${DIST_FOLDER}asset-loadable.json`))
 const index_bundle = _find_index_bundle()
 
 let cache = {
@@ -37,7 +37,8 @@ import allReducers from './dev/js/reducers/index.js';
 import { matchPath } from 'react-router-dom'
 import CONFIG from './dev/js/config'
 import Loadable from 'react-loadable';
-import { getBundles } from 'react-loadable/webpack'
+// import { getBundles } from 'react-loadable/webpack'
+// import { getBundles } from 'react-loadable-ssr-addon';
 
 if (CONFIG.RAVEN_SERVER_DSN_KEY) {
     Sentry.init({ dsn: CONFIG.RAVEN_SERVER_DSN_KEY })
@@ -200,7 +201,7 @@ app.all('*', function (req, res) {
                     /**
                      * Store preloaded module's path- required while appending chunk in template
                      */
-                    let modules = []
+                    const modules = []
                     const html = ReactDOMServer.renderToString(
                         <Loadable.Capture report={moduleName => modules.push(moduleName)}>
                             <Provider store={store}>
@@ -219,7 +220,7 @@ app.all('*', function (req, res) {
                     )
 
                     // split bundles based on react-loadbale.json stats - built via webpack
-                    split_bundles = getBundles(stats, modules)
+                    split_bundles = _getBundles(stats, modules)
                     const helmet = Helmet.renderStatic()
 
                     // clear timer to mark success in SSR
@@ -383,4 +384,25 @@ function _serverHit(req, type = 'server') {
 
 function _readFileSync(filename) {
     return fs.readFileSync(filename, 'utf-8')
+}
+
+function _getBundles(stats, modules=[]){
+    if(!modules.length){
+        return []
+    }
+
+    let r_module = modules[0]
+    let required_bundles = stats.origins[r_module]
+    if(!required_bundles || !required_bundles.length){
+        return []
+    }
+
+    let split_bundles = []
+    for(let b of required_bundles){
+        let curr_bundle = stats.assets[b]
+        if(curr_bundle && curr_bundle.js && curr_bundle.js.length){
+            split_bundles.push(curr_bundle.js[0])
+        }
+    }
+    return split_bundles
 }
