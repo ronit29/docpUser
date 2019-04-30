@@ -35,6 +35,19 @@ class HomeChatView extends React.Component {
         this.props.getSpecialityFooterData((cb) => {
             this.setState({ specialityFooterData: cb });
         });
+
+        let selectedLocation = ''
+        let lat = 28.644800
+        let long = 77.216721
+        if (this.props.selectedLocation) {
+            selectedLocation = this.props.selectedLocation;
+            lat = selectedLocation.geometry.location.lat
+            long = selectedLocation.geometry.location.lng
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
+
+        this.props.getOfferList(lat, long);
     }
 
     navigateTo(where, data, e) {
@@ -139,7 +152,7 @@ class HomeChatView extends React.Component {
 
         if (this.props.device_info != "desktop" && SlabSequence) {
 
-            slabOrder.push(<ChatPanel homePage={true} chatPage={true} />)
+            slabOrder.push(<ChatPanel homePage={true} chatPage={true} offerList={this.props.offerList} />)
             slabOrder.push(
                 <div className="col-md-5">
                     <div className="right-card-container">
@@ -203,7 +216,7 @@ class HomeChatView extends React.Component {
 
         } else {
 
-            slabOrder.push(<ChatPanel homePage={true} chatPage={true} />)
+            slabOrder.push(<ChatPanel homePage={true} chatPage={true} offerList={this.props.offerList} />)
             slabOrder.push(
                 <div className="col-md-5">
                     <div className="right-card-container">
