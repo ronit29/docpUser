@@ -412,15 +412,16 @@ class ChatPanel extends React.Component {
                                             </span> : ""
                                         }
 
-                                        <span onClick={this.toggleCancel.bind(this)}>
-                                            <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/customer-icons/chat-rstrt.svg"} title="start a new chat" />
-
-                                        </span>
+                                        
                                         {
                                             this.state.showChatBlock
-                                                ? <span className="ml-2" onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/customer-icons/cht-cls.svg"} /></span>
+                                                ? <span  onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatminimize.svg"} /></span>
                                                 : ''
                                         }
+                                        <span className="ml-2" onClick={this.toggleCancel.bind(this)}>
+                                            <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatclose.svg"} title="start a new chat" />
+
+                                        </span>
                                     </div>
                                 </div>
                                 {/* chat header */}
