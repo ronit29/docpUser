@@ -101,7 +101,7 @@ class ChatStatic extends React.Component {
                     <div className="cht-head-rqst-btn" style={{ width: 64 }}>
                         {
                             this.props.showChatBlock
-                                ? <span className="ml-2" onClick={this.props.hideStaticChat.bind(this)}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/customer-icons/cht-cls.svg"} /></span>
+                                ? <span className="ml-2" onClick={this.props.hideStaticChat.bind(this)}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatminimize.svg"} /></span>
                                 : ''
                         }
                     </div>
