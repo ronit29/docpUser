@@ -2011,7 +2011,9 @@ p.rt-doc-nm{
 
 .inline-speciality{
     display: inline-block;
-    margin-right: 4px;
+    margin-right: 4px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
 }
 
 .inline-speciality h2{

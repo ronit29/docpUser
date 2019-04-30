@@ -147,11 +147,11 @@ class DoctorProfileCard extends React.Component {
                                         e.preventDefault();
                                         this.props.history.push(`/${speciality.url}`)
                                     }}>
-                                        <h2 className="inline-speciality" className="desg">{`${index == general_specialization.length - 1 ? `${speciality.name}` : `${speciality.name},`}`}</h2>
+                                        <h2 className="desg">{`${index == general_specialization.length - 1 ? `${speciality.name}` : `${speciality.name},`}`}</h2>
                                     </a>
                                 }
                                 else {
-                                    return <h2 key={index} className="desg">{speciality.name}</h2>
+                                    return <h2 key={index} className="desg inline-speciality">{`${index == general_specialization.length - 1 ? `${speciality.name}` : `${speciality.name},`}`}</h2>
                                 }
                             }) : ''
                     }
