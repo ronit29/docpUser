@@ -72,25 +72,54 @@ class InsuranceCancellationView extends React.Component {
 												<span className="fw-500" style={{ color: '#4fc243', verticalAlign: '-21px' }} >Active</span>
 											</div>
 										</div>
+									</div>
+									<div className="ins-flex justify-content-between ins-date-row mrb-0">
+										<div className="ins-date text-center">
+											<p className="fw-500 mrb-5">Policy issue Date</p>
+											{/* <p className="fw-700">{`${this.getGetOrdinal(purchaseDate[2])} ${purchaseDate[1]} ${purchaseDate[3]}`}</p> */}
+											<p className="fw-700">30th Apr 2019</p>
 										</div>
-										<div className="ins-flex justify-content-between ins-date-row mrb-0">
-											<div className="ins-date text-center">
-												<p className="fw-500 mrb-5">Policy issue Date</p>
-												{/* <p className="fw-700">{`${this.getGetOrdinal(purchaseDate[2])} ${purchaseDate[1]} ${purchaseDate[3]}`}</p> */}
-												<p className="fw-700">30th Apr 2019</p>
-											</div>
-											<div className="ins-date text-center">
-												<p className="fw-500 mrb-5">Policy expiry Date</p>
-												{/* <p className="fw-700">{`${this.getGetOrdinal(expiryDate[2])} ${expiryDate[1]} ${expiryDate[3]}`}</p> */}
-												<p className="fw-700">29th Apr 2020</p>
-											</div>
-											<div className="ins-date text-center">
-												<p className="fw-500 mrb-5">Policy Number</p>
-												{/* <p className="fw-700">{this.props.get_insured_profile.policy_number}</p> */}
-												<p className="fw-700">dummynumber00000089</p>
-											</div>
+										<div className="ins-date text-center">
+											<p className="fw-500 mrb-5">Policy expiry Date</p>
+											{/* <p className="fw-700">{`${this.getGetOrdinal(expiryDate[2])} ${expiryDate[1]} ${expiryDate[3]}`}</p> */}
+											<p className="fw-700">29th Apr 2020</p>
 										</div>
-									
+										<div className="ins-date text-center">
+											<p className="fw-500 mrb-5">Policy Number</p>
+											{/* <p className="fw-700">{this.props.get_insured_profile.policy_number}</p> */}
+											<p className="fw-700">dummynumber00000089</p>
+										</div>
+									</div>
+									<div className="widget-content">
+										<h5 className="fw-500">Cancellation policy</h5>
+										<div className="ins-cancel-table">
+											<table className="table">
+												<tbody>
+													<tr>
+														<td >100% Refund</td>
+														<td className="fw-500">15 days from Policy date</td>
+													</tr>
+													<tr>
+														<td >100% Refund</td>
+														<td className="fw-500">15 days from Policy date</td>
+													</tr>
+													<tr>
+														<td >100% Refund</td>
+														<td className="fw-500">15 days from Policy date</td>
+													</tr>
+													<tr>
+														<td >100% Refund</td>
+														<td className="fw-500">15 days from Policy date</td>
+													</tr>
+													<tr>
+														<td >No Refund</td>
+														<td className="fw-500">Atleast 1 completed Claim</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<p>On cancellation of policy all your active appointments will also be cancelled</p>
+									</div>
 								</div>
 							</section>
 							<a className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn text-center" style={{ color: "#ffffff" }} onClick={this.cancelPolicy.bind(this)}>cancel policy
