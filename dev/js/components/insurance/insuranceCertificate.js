@@ -118,16 +118,29 @@ class InsuranceCertificateView extends React.Component {
 								</section>*/}
 								<div className="widget">
 									<div className="widget-content">
-										<p className="fw-500 ins-congo-text text-primary text-center mrb-10">Congratulations !</p>
-										<p className="fw-500 text-center mrb-10">Your Group Out-patient Insurance has been issued</p>
+										{this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 1?
+										<div>
+											<p className="fw-500 ins-congo-text text-primary text-center mrb-10">Congratulations !</p>
+											<p className="fw-500 text-center mrb-10">Your Group Out-patient Insurance has been issued</p>
+										</div>
+										:''}
 										<div className="ins-flex mrb-20">
 											<img width="100" src="https://qacdn.docprime.com/media/insurer/images/apllogo.png" />
 											{/*<p className="fw-500">OPD Insurance <br />by <span className="fw-700">Apollo Munich</span></p>*/}
 											<p className="fw-500">Group Out-patient Insurance</p>
-											<div style={{flexGrow:'0',flexShrink: '0'}}>
-												<img width="30" src={ASSETS_BASE_URL + "/img/chk-green.svg"} style={{ verticalAlign: '-31px' }} />
-												<span className="fw-500" style={{ color: '#4fc243', verticalAlign: '-21px' }} >Active</span>
-											</div>
+											{this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 1?
+												<div style={{flexGrow:'0',flexShrink: '0'}}>
+													<img width="30" src={ASSETS_BASE_URL + "/img/chk-green.svg"} style={{ verticalAlign: '-31px' }} />
+													<span className="fw-500" style={{ color: '#4fc243', verticalAlign: '-21px' }} >Active</span>
+												</div>
+												:''
+											}
+											{this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 4?
+												<p className="fw-500 text-center mrb-10">Your cancellation request has been initiated</p>
+												:this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 5?
+												<p className="fw-500 text-center mrb-10">Your insurance policy is onhold</p>
+											:''
+											}
 										</div>
 										{/*<div className="ins-flex mrb-10">
 											<img src={ASSETS_BASE_URL + '/img/customer-icons/pdf.png'} />
@@ -191,13 +204,16 @@ class InsuranceCertificateView extends React.Component {
 										</div>
 									</div>
 								</div>
-							</section>									
-							<div className="sticky-btn fixed insuBtnsContainer">
-											<button className="insu-left-white-btn" onClick={this.cancelPolicy.bind(this)} style={{color:this.props.get_insured_profile.is_cancel_allowed?'#f78631':'#757575' }}>Cancel policy
-											</button>
-											<a className="insu-right-orng-btn foot-btn-Anchr" href={this.props.get_insured_profile.coi_url} download target="_blank">Download Certificate of Insurance <span className="foot-btn-sub-span">(Policy Document)</span>
-											</a>
-							</div>
+							</section>
+							{
+								this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 1?
+									<div className="sticky-btn fixed insuBtnsContainer">
+										<button className="insu-left-white-btn" onClick={this.cancelPolicy.bind(this)} style={{color:this.props.get_insured_profile.is_cancel_allowed?'#f78631':'#757575' }}>Cancel policy
+										</button>
+										<a className="insu-right-orng-btn foot-btn-Anchr" href={this.props.get_insured_profile.coi_url} download target="_blank">Download Certificate of Insurance <span className="foot-btn-sub-span">(Policy Document)</span>
+										</a>
+									</div>
+							:''}
 								{/*<a onClick={this.cancelPolicy.bind(this)}>
 									cancel policy
 								</a>
