@@ -23,13 +23,13 @@ class HomePagePackageWidget extends React.Component {
     
 
     scroll(type){
-        var elmnt = document.getElementById("myDIV")
+        var elmnt = document.getElementById("pkgSlider")
         if(type == 'right'){
-            document.getElementById("myDIV").scrollLeft +=350
+            document.getElementById("pkgSlider").scrollLeft +=350
             document.getElementById('leftArrow').classList.remove("d-none")
         }else{
-            document.getElementById("myDIV").scrollLeft -=350
-            if(document.getElementById("myDIV").scrollLeft == 0){
+            document.getElementById("pkgSlider").scrollLeft -=350
+            if(document.getElementById("pkgSlider").scrollLeft == 0){
                 document.getElementById('leftArrow').classList.add("d-none")
             }
         }
@@ -42,7 +42,7 @@ class HomePagePackageWidget extends React.Component {
                     <h5>Book Health Packages</h5>
                     <span onClick={this.navigateTo.bind(this, this.props.navTo)}>View All</span>
                 </div>
-                <div className="pkgSliderContainer" id="myDIV">
+                <div className="pkgSliderContainer" id="pkgSlider">
                     {
                         this.props.list.map((listItem, i) => {
                             return <div className="pkgcustCards" key={i} onClick={this.props.searchFunc.bind(this, listItem)}>
@@ -52,11 +52,17 @@ class HomePagePackageWidget extends React.Component {
                                 </div>
                                 <p className="pkgtstName">{listItem.name}</p>
                                 <p className="newpkgInclude">{listItem.no_of_tests} tests included </p>
-                                <p className="nwpkgofrpera" style={{ color: 'green' }}>{parseInt(((listItem.mrp - listItem.agreed_price) / listItem.mrp) * 100)}% Off</p>
-                                <button className="pkgOutBtn">
-                                    <p className="pkg-main-btn-prc">₹ {listItem.agreed_price}</p>
-                                    <p className="pkg-main-btn-prc-cut">₹ {listItem.mrp}</p>
-                                </button>
+                                {
+                                    listItem.mrp && listItem.agreed_price?
+                                    <p className="nwpkgofrpera" style={{ color: 'green' }}>{parseInt(((listItem.mrp - listItem.agreed_price) / listItem.mrp) * 100)}% Off</p>
+                                :''}
+                                {
+                                    listItem.mrp && listItem.agreed_price?
+                                    <button className="pkgOutBtn">
+                                        <p className="pkg-main-btn-prc">₹ {listItem.agreed_price}</p>
+                                        <p className="pkg-main-btn-prc-cut">₹ {listItem.mrp}</p>
+                                    </button>
+                                :''}
                             </div>
                         })
                     }
