@@ -16,10 +16,19 @@ import HospitalGallery from './HospitalGallery.js'
 import HospitalAboutUs from './HospitalAboutUs.js'
 import GTM from '../../helpers/gtm.js'
 import BreadCrumbView from './breadCrumb.js'
+import HelmetTags from '../commons/HelmetTags'
+import CONFIG from '../../config'
 
 //View all rating for hospital ,content_type = 3
 
 class HospitalDetailView extends React.Component {
+	
+	constructor(props){
+		super(props)
+		this.state = {
+			seoFriendly: this.props.match.url.includes('-hpp')
+		}
+	}
 
 	componentDidMount(){
 			let gtmData = {
@@ -77,11 +86,29 @@ class HospitalDetailView extends React.Component {
 		this.props.history.push(`/opd/searchresults`)	
 	}
 
+	getMetaTagsData(seoData) {
+        let title = "Hospital Profile Page"
+        if (this.state.seoFriendly) {
+            title = ""
+        }
+        let description = ""
+        if (seoData) {
+            title = seoData.title?seoData.title:title
+            description = seoData.description || ""
+        }
+        return { title, description }
+    }
+
 	render(){
 
 		return(
 			<div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
+                <HelmetTags tagsData={{
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+                    title: this.getMetaTagsData(this.props.ipd_hospital_detail?this.props.ipd_hospital_detail.seo:null).title,
+                    description: this.getMetaTagsData(this.props.ipd_hospital_detail?this.props.ipd_hospital_detail.seo:null).description
+                }} noIndex={!this.state.seoFriendly} />
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">
                 	{
                         this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.breadcrumb?
