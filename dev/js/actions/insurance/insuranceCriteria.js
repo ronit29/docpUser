@@ -194,5 +194,12 @@ export const cancelInsurance = (callback) => (dispatch) => {
     }).catch(function (error) {
         if (callback) callback(null)
     })
+}
 
+export const cancelledInsuranceDetails = (callback) => (dispatch) => {
+    API_GET('/api/v1/insurance/cancel-master').then(function (response) {
+        if (callback) callback(response)
+    }).catch(function (error) {
+        if (callback) callback(null)
+    })
 }

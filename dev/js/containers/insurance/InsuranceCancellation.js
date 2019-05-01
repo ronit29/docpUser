@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { cancelInsurance} from '../../actions/index.js'
+import { cancelInsurance, cancelledInsuranceDetails} from '../../actions/index.js'
 import InsuranceCancellationView from '../../components/insurance/insuranceCancellation.js'
 
 class InsuranceCancellation extends React.Component{
@@ -9,11 +9,14 @@ class InsuranceCancellation extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-
+            data:null
         }
     }
 
     componentDidMount(){
+        this.props.cancelledInsuranceDetails(resp =>{
+            console.log(resp)
+        })
     }
 	render(){
 		return(
@@ -34,7 +37,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
 
         cancelInsurance :(cb) => dispatch(cancelInsurance(cb)),
-        
+        cancelledInsuranceDetails:(cb) => dispatch(cancelledInsuranceDetails(cb))
     }
 }
 
