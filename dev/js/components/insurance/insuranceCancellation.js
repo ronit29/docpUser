@@ -32,7 +32,7 @@ class InsuranceCancellationView extends React.Component {
 				}
 			})
 		} else {
-			this.setState({ showCancelPopup: false })
+			this.setState({ showCancelPopup: false})
 		}
 	}
 
@@ -113,6 +113,10 @@ class InsuranceCancellationView extends React.Component {
 														})
 														:''
 													}
+													<tr>
+														<td >No Refund</td>
+														<td className="fw-500">Atleast 1 completed Claim</td>
+													</tr>
 												</tbody>
 											</table>
 										</div>
@@ -131,22 +135,22 @@ class InsuranceCancellationView extends React.Component {
 						<div className="row main-row parent-section-row">
 							<div className="col-12 col-md-7 col-lg-7">
 								<section className="profile-book-screen">
-									<div className="widget">
+									<div className="widget-content mrb-10">
+										<p className="fw-500 text-center">
+											Your Policy DPHEALTHOPD12345 cancellation request has been initiated
+										</p>
+									</div>
+									<div className="widget mrb-10">
 										<div className="widget-content">
-											<div>
-												<p>
-													Your Policy DPHEALTHOPD12345 cancellation request has been initiated
-												</p>
-											</div>
-											<div>
-												<p>Our team will get in touch with you shortly</p>
-												<p> An email and sms has been sent to your registered email id and mobile number regarding the same </p>
-											</div>
-											<div>
-												<p>
-												For any other query you contact us at 1800-123-9419 customercare@docprime.com
-												</p>
-											</div>
+											<p className="mrb-10">Our team will get in touch with you shortly</p>
+											<p> An email and sms has been sent to your registered email id and mobile number regarding the same </p>
+										</div>
+									</div>
+									<div className="widget mrb-10">
+										<div className="widget-content">
+											<p> For any other query you contact us at </p>
+											<p className="fw-500">1800-123-9419 </p>
+											<p className="fw-500"> customercare@docprime.com</p>
 										</div>
 									</div>
 								</section>
