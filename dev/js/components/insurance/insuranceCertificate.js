@@ -135,13 +135,13 @@ class InsuranceCertificateView extends React.Component {
 												</div>
 												:''
 											}
-											{this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 4?
+										</div>
+										{this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 4?
 												<p className="fw-500 text-center mrb-10">Your cancellation request has been initiated</p>
 												:this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 5?
 												<p className="fw-500 text-center mrb-10">Your insurance policy is onhold</p>
-											:''
-											}
-										</div>
+										:''
+										}
 										{/*<div className="ins-flex mrb-10">
 											<img src={ASSETS_BASE_URL + '/img/customer-icons/pdf.png'} />
 											<p className="fw-500 mr-0">Please find attached the certificate of insurance for the issued policy</p>
