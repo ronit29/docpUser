@@ -36,7 +36,8 @@ class InsuranceCancellationView extends React.Component {
 	}
 
 	render() {
-		if (1) {
+		if (this.props.data) {
+			console.log(this.props.data)
 			return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
 				<ProfileHeader />
 				{this.state.showCancelPopup ?
