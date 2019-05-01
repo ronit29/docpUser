@@ -7,7 +7,8 @@ class InsuranceCancellationView extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			showCancelPopup: false
+			showCancelPopup: false,
+			showCancelSection:true
 		}
 	}
 
@@ -25,7 +26,7 @@ class InsuranceCancellationView extends React.Component {
 		if (type == 1) {
 			this.props.cancelInsurance(resp => {
 				if (resp.success) {
-					this.setState({ showCancelPopup: false })
+					this.setState({ showCancelPopup: false, showCancelSection:false })
 				} else {
 					this.setState({ showCancelPopup: false })
 				}
@@ -37,7 +38,16 @@ class InsuranceCancellationView extends React.Component {
 
 	render() {
 		if (this.props.data) {
-			console.log(this.props.data)
+			var purchase_date = new Date(this.props.data.purchase_date)
+			let purchase_time = purchase_date.toTimeString()
+			let purchaseTime = purchase_time.split(" ")
+			purchase_date = purchase_date.toDateString()
+			let purchaseDate = purchase_date.split(" ")
+			let expiry_date = new Date(this.props.data.expiry_date)
+			let expiry_time = expiry_date.toTimeString()
+			let expiryTime = expiry_time.split(" ")
+			expiry_date = expiry_date.toDateString()
+			let expiryDate = expiry_date.split(" ")
 			return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
 				<ProfileHeader />
 				{this.state.showCancelPopup ?
@@ -59,7 +69,8 @@ class InsuranceCancellationView extends React.Component {
 					</div>
 					: ''
 				}
-				<section className="container parent-section book-appointment-section container-top-margin">
+				{this.state.showCancelSection?
+					<section className="container parent-section book-appointment-section container-top-margin">
 					<div className="row main-row parent-section-row">
 						<div className="col-12 col-md-7 col-lg-7">
 							<section className="profile-book-screen">
@@ -77,18 +88,15 @@ class InsuranceCancellationView extends React.Component {
 									<div className="ins-flex justify-content-between ins-date-row mrb-0">
 										<div className="ins-date text-center">
 											<p className="fw-500 mrb-5">Policy issue Date</p>
-											{/* <p className="fw-700">{`${this.getGetOrdinal(purchaseDate[2])} ${purchaseDate[1]} ${purchaseDate[3]}`}</p> */}
-											<p className="fw-700">30th Apr 2019</p>
+											<p className="fw-700">{`${this.getGetOrdinal(purchaseDate[2])} ${purchaseDate[1]} ${purchaseDate[3]}`}</p> 
 										</div>
 										<div className="ins-date text-center">
 											<p className="fw-500 mrb-5">Policy expiry Date</p>
-											{/* <p className="fw-700">{`${this.getGetOrdinal(expiryDate[2])} ${expiryDate[1]} ${expiryDate[3]}`}</p> */}
-											<p className="fw-700">29th Apr 2020</p>
+											<p className="fw-700">{`${this.getGetOrdinal(expiryDate[2])} ${expiryDate[1]} ${expiryDate[3]}`}</p>
 										</div>
 										<div className="ins-date text-center">
 											<p className="fw-500 mrb-5">Policy Number</p>
-											{/* <p className="fw-700">{this.props.get_insured_profile.policy_number}</p> */}
-											<p className="fw-700">dummynumber00000089</p>
+											<p className="fw-700">{this.props.data.policy_number}</p>
 										</div>
 									</div>
 									<div className="widget-content">
@@ -96,26 +104,15 @@ class InsuranceCancellationView extends React.Component {
 										<div className="ins-cancel-table">
 											<table className="table">
 												<tbody>
-													<tr>
-														<td >100% Refund</td>
-														<td className="fw-500">15 days from Policy date</td>
-													</tr>
-													<tr>
-														<td >100% Refund</td>
-														<td className="fw-500">15 days from Policy date</td>
-													</tr>
-													<tr>
-														<td >100% Refund</td>
-														<td className="fw-500">15 days from Policy date</td>
-													</tr>
-													<tr>
-														<td >100% Refund</td>
-														<td className="fw-500">15 days from Policy date</td>
-													</tr>
-													<tr>
-														<td >No Refund</td>
-														<td className="fw-500">Atleast 1 completed Claim</td>
-													</tr>
+													{this.props.data.cancel_master && this.props.data.cancel_master.length >0?
+														Object.entries(this.props.data.cancel_master).map(function ([key, value]) {
+															return <tr>
+																	<td >{value.refund_percentage}% Refund</td>
+																	<td className="fw-500">{value.max_days} days from Policy date</td>
+																</tr>
+														})
+														:''
+													}
 												</tbody>
 											</table>
 										</div>
@@ -128,7 +125,35 @@ class InsuranceCancellationView extends React.Component {
 						</div>
 						<ChatPanel />
 					</div>
-				</section>
+					</section>
+				:
+					<section className="container parent-section book-appointment-section container-top-margin">
+						<div className="row main-row parent-section-row">
+							<div className="col-12 col-md-7 col-lg-7">
+								<section className="profile-book-screen">
+									<div className="widget">
+										<div className="widget-content">
+											<div>
+												<p>
+													Your Policy DPHEALTHOPD12345 cancellation request has been initiated
+												</p>
+											</div>
+											<div>
+												<p>Our team will get in touch with you shortly</p>
+												<p> An email and sms has been sent to your registered email id and mobile number regarding the same </p>
+											</div>
+											<div>
+												<p>
+												For any other query you contact us at 1800-123-9419 customercare@docprime.com
+												</p>
+											</div>
+										</div>
+									</div>
+								</section>
+							</div>
+						</div>
+					</section>
+				}
 			</div>
 		} else {
 			return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >

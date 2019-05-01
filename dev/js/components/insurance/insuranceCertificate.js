@@ -20,7 +20,6 @@ class InsuranceCertificateView extends React.Component {
 	cancelPolicy(){
 		if(this.props.get_insured_profile && this.props.get_insured_profile.is_cancel_allowed){
 			this.props.history.push('/insurance/cancelpolicy')
-			// this.setState({showCancelPopup:true})
 		}else{
 			this.setState({showCancelPopup:true})
 		}
@@ -194,7 +193,7 @@ class InsuranceCertificateView extends React.Component {
 								</div>
 							</section>									
 							<div className="sticky-btn fixed insuBtnsContainer">
-											<button className="insu-left-white-btn" onClick={this.cancelPolicy.bind(this)}>Cancel policy
+											<button className="insu-left-white-btn" onClick={this.cancelPolicy.bind(this)} style={{color:this.props.get_insured_profile.is_cancel_allowed?'#f78631':'#757575' }}>Cancel policy
 											</button>
 											<a className="insu-right-orng-btn foot-btn-Anchr" href={this.props.get_insured_profile.coi_url} download target="_blank">Download Certificate of Insurance <span className="foot-btn-sub-span">(Policy Document)</span>
 											</a>
