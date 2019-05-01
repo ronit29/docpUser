@@ -25,13 +25,15 @@ class HomePagePackageWidget extends React.Component {
     scroll(type){
         var elmnt = document.getElementById("pkgSlider")
         if(type == 'right'){
-            document.getElementById("pkgSlider").scrollLeft +=350
-            document.getElementById('leftArrow').classList.remove("d-none")
+            elmnt.scroll({top: 0, left: 350, behavior: 'smooth' })
+            // document.getElementById("pkgSlider").scrollLeft +=350
+            // document.getElementById('leftArrow').classList.remove("d-none")
         }else{
-            document.getElementById("pkgSlider").scrollLeft -=350
-            if(document.getElementById("pkgSlider").scrollLeft == 0){
-                document.getElementById('leftArrow').classList.add("d-none")
-            }
+            elmnt.scroll({top: 0, left: -350, behavior: 'smooth' })
+            // document.getElementById("pkgSlider").scrollLeft -=350
+            // if(document.getElementById("pkgSlider").scrollLeft == 0){
+            //     document.getElementById('leftArrow').classList.add("d-none")
+            // }
         }
     }
 
@@ -68,7 +70,7 @@ class HomePagePackageWidget extends React.Component {
                     }
                 </div>
                 <div className="pkglftRhtbtncont">
-                        <div className="pkg-btnlft d-none" id="leftArrow" onClick={this.scroll.bind(this,'left')}><img src={ASSETS_BASE_URL +"/img/customer-icons/dropdown-arrow.svg"} /></div>
+                        <div className="pkg-btnlft" id="leftArrow" onClick={this.scroll.bind(this,'left')}><img src={ASSETS_BASE_URL +"/img/customer-icons/dropdown-arrow.svg"} /></div>
                         <div className="pkg-btnrgt" onClick={this.scroll.bind(this,'right')}><img src={ASSETS_BASE_URL +"/img/customer-icons/dropdown-arrow.svg"} /></div>
                     </div>
             </div>
