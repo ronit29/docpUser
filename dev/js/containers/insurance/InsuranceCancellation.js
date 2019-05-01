@@ -15,12 +15,12 @@ class InsuranceCancellation extends React.Component{
 
     componentDidMount(){
         this.props.cancelledInsuranceDetails(resp =>{
-            console.log(resp)
+            this.setState({data:resp})
         })
     }
 	render(){
 		return(
-			<InsuranceCancellationView {...this.props}/>
+			<InsuranceCancellationView {...this.props} data={this.state.data}/>
 			)
 	}
 }
