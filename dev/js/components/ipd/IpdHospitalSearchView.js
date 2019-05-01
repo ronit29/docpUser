@@ -19,7 +19,7 @@ class IpdHospitalView extends React.Component{
 		this.state = {
 			search_id: '',
             setSearchId: false,
-            seoFriendly: this.props.match.url.includes('-ipdhp')
+            seoFriendly: this.props.match.url.includes('-ipdhp') || this.props.match.url.includes('-hspcit') || this.props.match.url.includes('-hsplitcit')
 
 		}
 	}
@@ -160,7 +160,7 @@ class IpdHospitalView extends React.Component{
         }
 
         let searchUrl = null
-        if (state.match.url.includes('-ipdhp')) {
+        if (state.match.url.includes('-ipdhp') || state.match.url.includes('-hspcit') || state.match.url.includes('-hsplitcit')) {
             searchUrl = state.match.url.toLowerCase()
         }
 
@@ -299,32 +299,37 @@ class IpdHospitalView extends React.Component{
                     next: next
                 }} noIndex={!this.state.seoFriendly} />
                 <ProfileHeader showSearch={true} />
-	                <section className="container parent-section book-appointment-section breadcrumb-mrgn">
-                        {
-                            this.props.hospitalBreadcrumb && this.props.hospitalBreadcrumb.length?
-                            <BreadCrumbView breadcrumb={this.props.hospitalBreadcrumb} {...this.props}/>
-                            :''
-                        }
-		                <div className="row main-row parent-section-row">
-		                    <LeftBar />
-		                    <div className="col-12 col-md-7 col-lg-7 center-column">
-		                    	<StickyTopBarFilter {...this.props} fetchNewResults={this.getMoreResults.bind(this)}/>
-		                    	<div className ="ipd-section">
-		                    		{
-		                    			hospital_list.length>0?
-		                    			<div className="tab-content">
-								            <div className="tab-pane fade" id="nav-hospital">
-								            	<IpdHospitalList {...this.props} getIpdHospitalList={this.getIpdHospitalList.bind(this)}/>
-											</div>
-							            </div>
-							            :''
-		                    		}
-		                    		
-		                    	</div>
-		                    </div>
-		                    <RightBar extraClass=" chat-float-btn-2"/>
-		                </div>
-		            </section>
+                    {
+                        this.props.HOSPITAL_SEARCH_DATA_LOADED?
+                        <section className="container parent-section book-appointment-section breadcrumb-mrgn">
+                            {
+                                this.props.hospitalBreadcrumb && this.props.hospitalBreadcrumb.length?
+                                <BreadCrumbView breadcrumb={this.props.hospitalBreadcrumb} {...this.props}/>
+                                :''
+                            }
+                            <div className="row main-row parent-section-row">
+                                <LeftBar />
+                                <div className="col-12 col-md-7 col-lg-7 center-column">
+                                    <StickyTopBarFilter {...this.props} fetchNewResults={this.getMoreResults.bind(this)}/>
+                                    <div className ="ipd-section">
+                                        {
+                                            hospital_list.length>0?
+                                            <div className="tab-content">
+                                                <div className="tab-pane fade" id="nav-hospital">
+                                                    <IpdHospitalList {...this.props} getIpdHospitalList={this.getIpdHospitalList.bind(this)}/>
+                                                </div>
+                                            </div>
+                                            :''
+                                        }
+                                        
+                                    </div>
+                                </div>
+                                <RightBar extraClass=" chat-float-btn-2"/>
+                            </div>
+                        </section>
+                        :<Loader />
+                    }
+	                
                     {
                         this.props.hospital_bottom_content && this.props.hospital_bottom_content.length && parseInt(this.props.page) == 1 ?
                             <div className="col-12 mrt-20">

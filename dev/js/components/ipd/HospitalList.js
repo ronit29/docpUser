@@ -30,12 +30,18 @@ class HospitalListView extends React.Component {
       
    	}
 
-   	getHospitalDetailPage(hospitalId){
+   	getHospitalDetailPage(hospitalId, url=null){
    		let gtmData = {
             'Category': 'ConsumerApp', 'Action': 'HospitalDetailClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-detail-clicked', 'selectedId': hospitalId || ''
         }
         GTM.sendEvent({ data: gtmData })
-   		this.props.history.push(`/ipd/hospital/${hospitalId}`)	
+        
+        if(url){
+        	this.props.history.push(`/${url}`)
+        }else{
+        	this.props.history.push(`/ipd/hospital/${hospitalId}`)
+        }
+   			
    	}
 
 	render(){

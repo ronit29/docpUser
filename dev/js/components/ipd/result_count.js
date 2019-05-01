@@ -65,7 +65,7 @@ class TopBar extends React.Component {
                 if (i != 0) {
                     final += ', '
                 }
-                final += `${curr.name}`
+                final += `${curr.name?curr.name:''}`
                 return final
             }, "")
         }

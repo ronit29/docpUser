@@ -15,7 +15,7 @@ class IpdHospitalListView extends React.Component {
          health_insurance_provider: [],
          hasMore: true,
          loading: false,
-         page: parsed && parsed.page?parseInt(parsed.page)+1||2:2,
+         page: parsed && parsed.page?parseInt(parsed.page)||1:1,
          readMore: 'search-details-data-less'
       }
    	}
@@ -39,19 +39,24 @@ class IpdHospitalListView extends React.Component {
       
    	}
 
-   	getHospitalDetailPage(hospitalId){
+   	getHospitalDetailPage(hospitalId, url=null){
    		let gtmData = {
             'Category': 'ConsumerApp', 'Action': 'HospitalDetailClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-detail-clicked', 'selectedId': hospitalId || ''
         }
         GTM.sendEvent({ data: gtmData })
    		
-   		this.props.history.push(`/ipd/hospital/${hospitalId}`)
+   		if(url){
+   			this.props.history.push(`/${url}`)
+   		}else{
+   			this.props.history.push(`/ipd/hospital/${hospitalId}`)	
+   		}
+   		
    	}
 
    	loadMore(page) {
         this.setState({ hasMore: false, loading: true })
-        this.props.getIpdHospitalList(null, this.state.page, (hasMore) => {
-            this.setState({ loading: false, page: page + 1 })
+        this.props.getIpdHospitalList(null, page, (hasMore) => {
+            this.setState({ loading: false})
             setTimeout(() => {
                 this.setState({ hasMore })
             }, 1000)
@@ -71,32 +76,32 @@ class IpdHospitalListView extends React.Component {
 		return(
 			<div>
 				{
-                    this.props.hospital_search_content && this.props.hospital_search_content != '' && parseInt(this.props.page) == 1 ?
-                    <div className="search-result-card-collpase">
-                        <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.hospital_search_content }} >
-                        </div>
+            this.props.hospital_search_content && this.props.hospital_search_content != '' && parseInt(this.props.page) == 1 ?
+            <div className="search-result-card-collpase">
+                <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.hospital_search_content }} >
+                </div>
 
-                        {this.state.readMore && this.state.readMore != '' ?
-                            <span className="rd-more" onClick={() => this.setState({ readMore: '' })}>Read More</span>
-                            : ''
-                        }
-
-                        {this.state.readMore == '' ?
-                            <span className="rd-more" onClick={this.toggleScroll.bind(this)}>Read Less</span>
-                            : ''
-                        }
-                    </div>
+                {this.state.readMore && this.state.readMore != '' ?
+                    <span className="rd-more" onClick={() => this.setState({ readMore: '' })}>Read More</span>
                     : ''
                 }
+
+                {this.state.readMore == '' ?
+                    <span className="rd-more" onClick={this.toggleScroll.bind(this)}>Read Less</span>
+                    : ''
+                }
+            </div>
+            : ''
+        }
 				{
 					hospital_list.length?
 					<InfiniteScroll
-                        pageStart={this.state.page}
-                        loadMore={this.loadMore.bind(this)}
-                        hasMore={this.state.hasMore}
-                        useWindow={true}
-                        initialLoad={false}
-                    >
+              pageStart={this.state.page}
+              loadMore={this.loadMore.bind(this)}
+              hasMore={this.state.hasMore}
+              useWindow={true}
+              initialLoad={false}
+          >
                     <ul>
                     {
 						hospital_list.map((hospitalId, i) => {

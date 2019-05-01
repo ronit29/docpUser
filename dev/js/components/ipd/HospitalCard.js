@@ -16,11 +16,11 @@ class HospitalCard extends React.Component {
                   <img src="https://cdn.docprime.com/cp/assets/img/new-loc-ico.svg" alt="loc" className="img-loc" />
                   <p>{`${data.address} ${distance?` | ${distance} Km`:''}` }</p>
                </div>
-               <div className="hospital-info" style={{cursor:'pointer'}} onClick={()=>this.props.getHospitalDetailPage(data.id)}>
+               <div className="hospital-info" style={{cursor:'pointer'}} onClick={()=>this.props.getHospitalDetailPage(data.id, data.url||null)}>
                   <div className="left-side-info">
                      <a href={`/ipd/hospital/${data.id}`} onClick={(e) => {
                         e.preventDefault()
-                        this.props.getHospitalDetailPage(data.id)
+                        this.props.getHospitalDetailPage(data.id, data.url||null)
                      }}><h2 className="section-heading">{data.name}</h2></a>
                      {
                      	data.certifications && data.certifications.length?

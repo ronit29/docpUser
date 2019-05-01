@@ -8,7 +8,11 @@ const queryString = require('query-string')
 class HospitalDetail extends React.Component {
 
 	static loadData(store, match, query){
-		return store.dispatch(getHospitaDetails(match.params.hospitalId, null))
+		let searchUrl = null
+        if (match.url.includes('-hpp') ) {
+            searchUrl = match.url.toLowerCase()
+        }
+		return store.dispatch(getHospitaDetails(match.params.hospitalId, null, searchUrl))
 	}
 
 	static contextTypes = {
@@ -19,12 +23,20 @@ class HospitalDetail extends React.Component {
 		if(window){
 			window.scrollTo(0,0)
 		}
-		this.props.getHospitaDetails(this.props.match.params.hospitalId, this.props.selectedLocation)
+		let searchUrl = null
+        if (this.props.match.url.includes('-hpp') ) {
+            searchUrl = this.props.match.url.toLowerCase()
+        }
+		this.props.getHospitaDetails(this.props.match.params.hospitalId, this.props.selectedLocation, searchUrl)
 	}
 
 	componentWillReceiveProps(nextProps) {
 		if(this.props.locationFetched != nextProps.locationFetched){
-			this.props.getHospitaDetails(this.props.match.params.hospitalId, nextProps.selectedLocation)
+			let searchUrl = null
+	        if (this.props.match.url.includes('-hpp') ) {
+	            searchUrl = this.props.match.url.toLowerCase()
+	        }
+			this.props.getHospitaDetails(this.props.match.params.hospitalId, nextProps.selectedLocation, searchUrl)
 			if(window){
 				window.scrollTo(0,0)
 			}
@@ -70,7 +82,7 @@ const mapStateToProps = (state) => {
 const mapDisptachToProps = (dispatch) => {
 
 	return{
-		getHospitaDetails:(hospitalId, selectedLocation) => dispatch(getHospitaDetails(hospitalId, selectedLocation)),
+		getHospitaDetails:(hospitalId, selectedLocation, searchByUrl) => dispatch(getHospitaDetails(hospitalId, selectedLocation, searchByUrl)),
 		saveProfileProcedures: (doctor_id, clinic_id, procedure_ids, forceAdd) => dispatch(saveProfileProcedures(doctor_id, clinic_id, procedure_ids, forceAdd)),
 		selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
 		cloneCommonSelectedCriterias: (selectedCriterias) => dispatch(cloneCommonSelectedCriterias(selectedCriterias)),

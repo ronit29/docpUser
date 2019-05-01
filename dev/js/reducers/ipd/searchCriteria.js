@@ -1,4 +1,4 @@
-import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET_IPD_SEARCH_ID, SAVE_IPD_RESULTS_WITH_SEARCHID, GET_IPD_SEARCH_ID_RESULTS, SELECT_IPD_LOCATION_STATUS, GET_IPD_HOSPITAL_DETAIL, CLEAR_IPD_SEARCH_IDS, GET_IPD_HOSPITAL_DETAIL_START, LOADED_IPD_INFO_START } from '../../constants/types';
+import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET_IPD_SEARCH_ID, SAVE_IPD_RESULTS_WITH_SEARCHID, GET_IPD_SEARCH_ID_RESULTS, SELECT_IPD_LOCATION_STATUS, GET_IPD_HOSPITAL_DETAIL, CLEAR_IPD_SEARCH_IDS, GET_IPD_HOSPITAL_DETAIL_START, LOADED_IPD_INFO_START, START_HOSPITAL_SEARCH } from '../../constants/types';
 
 // const moment = require('moment');
 
@@ -32,7 +32,8 @@ const defaultState = {
 	hospitalCanonicalUrl: null,
 	hospitalBreadcrumb: [],
 	hospital_search_content: '',
-	hospital_bottom_content: ''
+	hospital_bottom_content: '',
+	HOSPITAL_SEARCH_DATA_LOADED: false
 }
 
 export default function ( state=defaultState, action) {
@@ -84,7 +85,7 @@ export default function ( state=defaultState, action) {
 		case GET_IPD_HOSPITALS: {
 			let newState = {
 				...state,
-				hospital_list: []
+				hospital_list: [].concat(state.hospital_list)
 			}
 			newState.hospital_search_results = {
 				insurance_providers: action.payload.health_insurance_providers ||[],
@@ -93,7 +94,8 @@ export default function ( state=defaultState, action) {
 
 			newState.getNewResults = false
 			newState.fetchNewResults = false
-
+			newState.HOSPITAL_SEARCH_DATA_LOADED = true
+			
 			if(action.payload){
 
 				newState.hospitalSearchSeoData = action.payload.seo?action.payload.seo:null 
@@ -103,6 +105,11 @@ export default function ( state=defaultState, action) {
 				newState.hospital_bottom_content = action.payload.bottom_content?action.payload.bottom_content:null
 				newState.hospital_search_content = action.payload.search_content?action.payload.search_content:null
 
+			}
+
+			let page = action.page?parseInt(action.page):1
+			if(page == 1) {
+				newState.hospital_list = []
 			}
 
 			
@@ -126,6 +133,14 @@ export default function ( state=defaultState, action) {
 				...state,
 				...action.payload
 			}
+			return newState
+		}
+
+		case START_HOSPITAL_SEARCH: {
+			let newState = {
+				...state
+			}
+			newState.HOSPITAL_SEARCH_DATA_LOADED = false
 			return newState
 		}
 
