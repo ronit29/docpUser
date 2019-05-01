@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { clearAllTests, toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList, setPackageId, getUpComingAppointment,resetPkgCompare } from '../../actions/index.js'
+import { clearAllTests, toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList, setPackageId, getUpComingAppointment, resetPkgCompare } from '../../actions/index.js'
 
 import HomeView from '../../components/commons/Home'
 import STORAGE from '../../helpers/storage'
@@ -36,7 +36,11 @@ class Home extends React.Component {
         // this.props.fetchHeatlhTip()
         // this.props.fetchArticles()
         if (!this.props.common_tests.length || !this.props.common_package.length || !this.props.specializations.length || (this.props.selectedLocation && this.props.selectedLocation.locality)) {
-            this.props.loadOPDCommonCriteria(this.props.selectedLocation.locality)
+            let city = ''
+            if (this.props.selectedLocation && this.props.selectedLocation.locality) {
+                city = this.props.selectedLocation.locality
+            }
+            this.props.loadOPDCommonCriteria(city)
             this.props.loadLabCommonCriterias()
         }
 
@@ -102,7 +106,7 @@ const mapDispatchToProps = (dispatch) => {
         clearAllTests: () => dispatch(clearAllTests()),
         setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage)),
         getUpComingAppointment: () => dispatch(getUpComingAppointment()),
-        resetPkgCompare: () =>dispatch(resetPkgCompare())
+        resetPkgCompare: () => dispatch(resetPkgCompare())
     }
 }
 

@@ -166,7 +166,7 @@ const mapDispatchToProps = (dispatch) => {
         getDoctorNo: (doctorData, cb) => dispatch(getDoctorNo(doctorData, cb)),
         toggleOPDCriteria: (type, criteria, forceAdd) => dispatch(toggleOPDCriteria(type, criteria, forceAdd)),
         getAllRatings: (content_type, object_id, page, cb) => dispatch(getAllRatings(content_type, object_id, page, cb)),
-        getDownloadAppBannerList: () => dispatch(getDownloadAppBannerList())
+        getDownloadAppBannerList: (cb) => dispatch(getDownloadAppBannerList(cb))
     }
 }
 
