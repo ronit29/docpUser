@@ -4751,6 +4751,14 @@ font-weight: 700;
 .insurance-member-container {
     padding: 15px;
 }
+.foot-btn-Anchr{
+	padding: 0px 10px;
+	font-size: 12px;
+	text-align: center;
+}
+.foot-btn-Anchr:hover, .foot-btn-Anchr:active{
+	color: white;
+}
 .insurance-member-container h4 {
     padding: 0;
     margin-bottom: 12px;
@@ -4796,6 +4804,11 @@ font-weight: 700;
     left: 8px;
     border-right: 1px solid rgba(0,0,0,.2);
     padding-right: 6px;
+}
+p.error-msg.subAlertins{
+	margin-top: 8px;
+    border-top: 1px solid #f1f1f1;
+    padding-top: 8px;
 }
 /* ============= temp style container ================= */
 

@@ -20,6 +20,7 @@ class InsuranceCertificateView extends React.Component {
 	cancelPolicy(){
 		if(this.props.get_insured_profile && this.props.get_insured_profile.is_cancel_allowed){
 			this.props.history.push('/insurance/cancelpolicy')
+			// this.setState({showCancelPopup:true})
 		}else{
 			this.setState({showCancelPopup:true})
 		}
@@ -59,7 +60,7 @@ class InsuranceCertificateView extends React.Component {
 		                        <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" onClick={this.hideCancelPolicyPopup.bind(this)} />
 		                    </div>
 		                    <p className="error-msg">Your policy cannot be cancelled as you have already completed atleast 1 claim under your policy</p>
-		                    <p className="error-msg">for any other query you can call us at <span>
+		                    <p className="error-msg subAlertins">for any other query you can call us at <span>
 		                    	1800-123-9419
 		                    </span></p>
 		                </div>
@@ -192,12 +193,18 @@ class InsuranceCertificateView extends React.Component {
 									</div>
 								</div>
 							</section>									
-								<a onClick={this.cancelPolicy.bind(this)}>
+							<div className="sticky-btn fixed insuBtnsContainer">
+											<button className="insu-left-white-btn" onClick={this.cancelPolicy.bind(this)}>Cancel policy
+											</button>
+											<a className="insu-right-orng-btn foot-btn-Anchr" href={this.props.get_insured_profile.coi_url} download target="_blank">Download Certificate of Insurance <span className="foot-btn-sub-span">(Policy Document)</span>
+											</a>
+							</div>
+								{/*<a onClick={this.cancelPolicy.bind(this)}>
 									cancel policy
 								</a>
 								<a className={"v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn text-center" +(this.props.showBtn?'ins-no-download':'')} style={{ color: "#ffffff" }} href={this.props.get_insured_profile.coi_url} download target="_blank">
 									Download Certificate of Insurance<span className="foot-btn-sub-span">(Policy Document)</span>
-								</a>
+													</a>*/}
 						</div>
 						<ChatPanel />
 					</div>
