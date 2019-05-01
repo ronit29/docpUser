@@ -129,7 +129,7 @@ export const getIpdHospitals = (state, page=1, fromServer, searchByUrl, cb) => (
             if(response.result && response.result.length == 0){
                 if(cb) cb(false,false)
 
-            }else if(response.result && response.result.length == 20){
+            }else if(response.result && response.result.length == 50){
                 if(cb) cb(true, true)
             }
 

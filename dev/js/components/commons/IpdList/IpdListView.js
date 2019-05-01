@@ -86,7 +86,7 @@ class TestsListView extends React.Component {
                                     this.props.alphabeticalIpdTests && this.props.alphabeticalIpdTests.ipd_procedures && this.props.alphabeticalIpdTests.ipd_procedures.length && (selectedAlphabet == this.props.selectedIpdListAlphabet) ?
                                         this.props.alphabeticalIpdTests.ipd_procedures.map((test, index) => {
                                             return <div key={index} className="col-12 col-md-6 col-lg-4">
-                                                <div className="anchor-data-style" onClick={test.url ? () => this.props.history.push(`/${test.url}`) : ()=>{}}>
+                                                <div className="anchor-data-style" onClick={() => this.props.history.push(`/${test.url?test.url:`ipdInfo?ipd_id=${test.id}`}`) }>
                                                     {
                                                         test.url ?
                                                             <div>
