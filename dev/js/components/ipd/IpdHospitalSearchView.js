@@ -325,6 +325,14 @@ class IpdHospitalView extends React.Component{
 		                    <RightBar extraClass=" chat-float-btn-2"/>
 		                </div>
 		            </section>
+                    {
+                        this.props.hospital_bottom_content && this.props.hospital_bottom_content.length && parseInt(this.props.page) == 1 ?
+                            <div className="col-12 mrt-20">
+                                <div className="search-result-card-collpase" dangerouslySetInnerHTML={{ __html: this.props.hospital_bottom_content }}>
+                                </div>
+                            </div>
+                            : ''
+                    }
 		            <Footer />
 	           	</div>
 

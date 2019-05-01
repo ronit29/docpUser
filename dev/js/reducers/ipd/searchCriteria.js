@@ -30,7 +30,9 @@ const defaultState = {
 	locationFetched: false,
 	hospitalSearchSeoData: null,
 	hospitalCanonicalUrl: null,
-	hospitalBreadcrumb: []
+	hospitalBreadcrumb: [],
+	hospital_search_content: '',
+	hospital_bottom_content: ''
 }
 
 export default function ( state=defaultState, action) {
@@ -92,10 +94,18 @@ export default function ( state=defaultState, action) {
 			newState.getNewResults = false
 			newState.fetchNewResults = false
 
-			newState.hospitalSearchSeoData = action.payload && action.payload.seo?action.payload.seo:null 
-			newState.hospitalCanonicalUrl = action.payload && action.payload.canonical_url?action.payload.canonical_url:null
-			newState.hospitalBreadcrumb = action.payload && action.payload.breadcrumb?action.payload.breadcrumb:[]
+			if(action.payload){
 
+				newState.hospitalSearchSeoData = action.payload.seo?action.payload.seo:null 
+				newState.hospitalCanonicalUrl = action.payload.canonical_url?action.payload.canonical_url:null
+				newState.hospitalBreadcrumb = action.payload.breadcrumb?action.payload.breadcrumb:[]
+
+				newState.hospital_bottom_content = action.payload.bottom_content?action.payload.bottom_content:null
+				newState.hospital_search_content = action.payload.search_content?action.payload.search_content:null
+
+			}
+
+			
 			action.payload && action.payload.result && action.payload.result.map((hospital) => {
 				if(newState.hospital_list.indexOf(hospital.id)>-1){
 

@@ -91,7 +91,9 @@ const mapStateToProps = (state) => {
 		locationFetched,
 		hospitalSearchSeoData,
 		hospitalCanonicalUrl,
-		hospitalBreadcrumb
+		hospitalBreadcrumb,
+		hospital_search_content,
+		hospital_bottom_content
 	} = state.SEARCH_CRITERIA_IPD
 
 	return {
@@ -112,7 +114,9 @@ const mapStateToProps = (state) => {
 		locationFetched,
 		hospitalSearchSeoData,
 		hospitalCanonicalUrl,
-		hospitalBreadcrumb
+		hospitalBreadcrumb,
+		hospital_search_content,
+		hospital_bottom_content
 	}
 }
 

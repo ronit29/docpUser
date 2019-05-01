@@ -15,7 +15,8 @@ class IpdHospitalListView extends React.Component {
          health_insurance_provider: [],
          hasMore: true,
          loading: false,
-         page: parsed && parsed.page?parseInt(parsed.page)+1||2:2
+         page: parsed && parsed.page?parseInt(parsed.page)+1||2:2,
+         readMore: 'search-details-data-less'
       }
    	}
 
@@ -58,10 +59,35 @@ class IpdHospitalListView extends React.Component {
 
     }
 
+    toggleScroll() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+        this.setState({ readMore: 'search-details-data-less' })
+    }
+
 	render(){
 		let { hospital_list, HOSPITAL_DATA } = this.props
 		return(
 			<div>
+				{
+                    this.props.hospital_search_content && this.props.hospital_search_content != '' && parseInt(this.props.page) == 1 ?
+                    <div className="search-result-card-collpase">
+                        <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.hospital_search_content }} >
+                        </div>
+
+                        {this.state.readMore && this.state.readMore != '' ?
+                            <span className="rd-more" onClick={() => this.setState({ readMore: '' })}>Read More</span>
+                            : ''
+                        }
+
+                        {this.state.readMore == '' ?
+                            <span className="rd-more" onClick={this.toggleScroll.bind(this)}>Read Less</span>
+                            : ''
+                        }
+                    </div>
+                    : ''
+                }
 				{
 					hospital_list.length?
 					<InfiniteScroll
