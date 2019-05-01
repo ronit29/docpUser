@@ -483,13 +483,12 @@ class ChatPanel extends React.Component {
                 }
                 {
                     this.props.homePage && !this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-                        <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
-                }
-                {
-                    this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'online_consultation').length ?
-                        <div className="mrt-20">
-                            <BannerCarousel {...this.props} sliderLocation="online_consultation" />
-                        </div> : ''
+                        <BannerCarousel {...this.props} sliderLocation="home_page" />
+                        :
+                        this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'online_consultation').length ?
+                            <div className="mrt-20">
+                                <BannerCarousel {...this.props} sliderLocation="online_consultation" />
+                            </div> : ''
                 }
             </div>
         );
