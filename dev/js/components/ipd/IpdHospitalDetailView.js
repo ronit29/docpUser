@@ -127,7 +127,7 @@ class HospitalDetailView extends React.Component {
 				                    	this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.doctors && this.props.ipd_hospital_detail.doctors.result.length?
 				                    		<div>
 					                    		<div className="hs-card">
-						               			<div className="card-head">Doctors</div>
+						               			<div className="card-head"><h2 className="dsply-ipd-hdng">Doctors</h2></div>
 						               			{
 								                    this.props.ipd_hospital_detail.doctors.result.map((doctorCard, i) => {
 								                    	return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.doctors.seo} {...this.props}/>
@@ -158,7 +158,7 @@ class HospitalDetailView extends React.Component {
 				                    {
 				                    	this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.rating_graph && this.props.ipd_hospital_detail.rating_graph.star_count && this.props.ipd_hospital_detail.display_rating_widget?
 				                    	<div className="hs-card">
-					               			<div className="card-head">Patient Feedback</div>
+					               			<div className="card-head"><h2 className="dsply-ipd-hdng">Patient Feedback</h2></div>
 				                    		<RatingGraph details = {this.props.ipd_hospital_detail}/>
 				                   		</div>
 				                    	:''

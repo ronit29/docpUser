@@ -297,7 +297,7 @@ class IpdHospitalView extends React.Component{
                     description: this.getMetaTagsData(this.props.hospitalSearchSeoData).description,
                     prev: prev,
                     next: next
-                }} noIndex={!this.state.seoFriendly} />
+                }} />
                 <ProfileHeader showSearch={true} />
                     {
                         this.props.HOSPITAL_SEARCH_DATA_LOADED?
