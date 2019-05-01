@@ -53,7 +53,7 @@ class ClinicSelector extends React.Component {
 
         if (!this.props.selectedClinic) {
             if (hospitals && hospitals.length) {
-                this.props.selectClinic(hospitals[0].hospital_id, hospitals[0].enabled_for_online_booking, 0, hospitals[0].deal_price || 0, hospitals[0].show_contact)
+                this.props.selectClinic(hospitals[0].hospital_id, hospitals[0].enabled_for_online_booking, 0, hospitals[0].discounted_price || 0, hospitals[0].show_contact)
             }
         }
 
@@ -123,7 +123,7 @@ class ClinicSelector extends React.Component {
                     hospitals.map((hospital, i) => {
                         return <div key={i} className="panel-content pnl-bottom-border">
                             <div className="dtl-radio">
-                                <label className="container-radio" onClick={() => { this.props.selectClinic(hospital.hospital_id, hospital.enabled_for_online_booking, i, hospital.deal_price, hospital.show_contact) }}><h3 className="fw-500" style={{ display: 'inline', fontSize: 'inherit' }} >{hospital.hospital_name}</h3>
+                                <label className="container-radio" onClick={() => { this.props.selectClinic(hospital.hospital_id, hospital.enabled_for_online_booking, i, hospital.discounted_price, hospital.show_contact) }}><h3 className="fw-500" style={{ display: 'inline', fontSize: 'inherit' }} >{hospital.hospital_name}</h3>
                                     {
                                         this.props.selectedClinic == hospital.hospital_id ? <input type="radio" checked name="radio" /> : <input type="radio" name="radio" />
                                     }
@@ -136,12 +136,12 @@ class ClinicSelector extends React.Component {
                                     : <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
                                         <div className="clearfix">
                                             {
-                                                hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.deal_price) <=hospital.insurance.insurance_threshold_amount?
+                                                hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount?
                                                 <span className="test-price txt-ornage">₹ {0}</span>
                                                 :hospital.enabled_for_online_booking ?
-                                                    <span className="test-price txt-ornage">₹ {hospital.deal_price}
+                                                    <span className="test-price txt-ornage">₹ {hospital.discounted_price}
                                                         {
-                                                            parseInt(hospital.deal_price) == parseInt(hospital.mrp)
+                                                            parseInt(hospital.discounted_price) == parseInt(hospital.mrp)
                                                                 ? ''
                                                                 : <span className="test-mrp">₹ {hospital.mrp}</span>
                                                         }
@@ -155,7 +155,7 @@ class ClinicSelector extends React.Component {
                             }
 
                             {
-                                hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.deal_price) <=hospital.insurance.insurance_threshold_amount?
+                                hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount?
                                 <div className="ins-val-bx">Covered Under Insurance</div>
                                 :''
                             }
@@ -163,7 +163,7 @@ class ClinicSelector extends React.Component {
 
                                 <div className="clearfix">
                                     {
-                                        STORAGE.checkAuth() || hospital.deal_price < 100 || (false && this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories) ?
+                                        STORAGE.checkAuth() || hospital.discounted_price < 100 || (false && this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories) ?
                                             ''
                                             : enabled_for_online_booking ?
                                                 <span className="signup-off-doc" style={{ float: 'right' }} >+ &#8377; 100 OFF <b>on Signup</b> </span>
@@ -217,7 +217,7 @@ class ClinicSelector extends React.Component {
 
                                             <div className="clearfix">
                                                 {
-                                                    STORAGE.checkAuth() || hospital.deal_price < 100 ?
+                                                    STORAGE.checkAuth() || hospital.discounted_price < 100 ?
                                                         ''
                                                         : <span className="signup-off-doc" style={{ float: 'right' }} >+ &#8377; 100 OFF <b>on Signup</b> </span>
                                                 }
@@ -227,9 +227,9 @@ class ClinicSelector extends React.Component {
                                             <div className="clearfix">
                                                 {
                                                     hospital.enabled_for_online_booking ?
-                                                        <span className="test-price txt-ornage">₹ {hospital.deal_price}
+                                                        <span className="test-price txt-ornage">₹ {hospital.discounted_price}
                                                             {
-                                                                parseInt(hospital.deal_price) == parseInt(hospital.mrp)
+                                                                parseInt(hospital.discounted_price) == parseInt(hospital.mrp)
                                                                     ? ''
                                                                     : <span className="test-mrp">₹ {hospital.mrp}</span>
                                                             }
@@ -262,7 +262,7 @@ class ClinicSelector extends React.Component {
                                                                 </div> */}
                                                                 {
                                                                     hospital.enabled_for_online_booking ?
-                                                                        <p className="pr-prices">₹ {category.deal_price}<span className="pr-cut-price">₹ {category.mrp}</span></p>
+                                                                        <p className="pr-prices">₹ {category.discounted_price}<span className="pr-cut-price">₹ {category.mrp}</span></p>
                                                                         :
                                                                         <p className="pr-prices">₹ {category.mrp}</p>
                                                                 }
