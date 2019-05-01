@@ -585,6 +585,7 @@ class BookingSummaryViewNew extends React.Component {
 
     render() {
         let tests = []
+        let tests_with_price = []
         let finalPrice = 0
         let finalMrp = 0
         let home_pickup_charges = 0
@@ -649,8 +650,8 @@ class BookingSummaryViewNew extends React.Component {
 
         if (this.props.LABS[this.state.selectedLab]) {
             labDetail = this.props.LABS[this.state.selectedLab].lab
-
-            tests = this.props.LABS[this.state.selectedLab].tests.map((twp, i) => {
+            
+            this.props.LABS[this.state.selectedLab].tests.map((twp, i) => {
                 if (twp.hide_price) {
                     is_corporate = true
                 }
@@ -663,8 +664,9 @@ class BookingSummaryViewNew extends React.Component {
                 finalPrice += parseFloat(price)
                 finalMrp += parseFloat(mrp)
 
-                return <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
-                    {
+                tests.push(
+                    <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
+                    {/*
                         is_corporate || is_insurance_applicable || is_plan_applicable ?
                         <span className="float-right fw-700">₹ 0 </span>
                         :
@@ -673,14 +675,29 @@ class BookingSummaryViewNew extends React.Component {
                         :
                         <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
                         </span>
-                    }
+                    */}
                     <span className="test-name-item">{twp.test.name}</span>
                     {
                         is_plan_applicable ?
                             <p className="pkg-discountCpn" style={{ display: 'inline-block', float: 'right', marginTop: '5px' }}>Docprime Care Benefit</p>
                             : ''
                     }
-                </p>
+                </p>)
+                
+                tests_with_price.push(
+                    <div className="payment-detail d-flex">
+                        <p>{twp.test.name}</p>
+                        {
+                            is_corporate || is_insurance_applicable || is_plan_applicable ?
+                            <p>&#8377; 0</p>
+                            :
+                            price == twp.mrp ?
+                            <p>&#8377; {price}</p>
+                            :
+                            <p>&#8377; {parseFloat(twp.mrp)}</p>
+                        }
+                    </div>
+                )
             })
 
             center_visit_enabled = labDetail.center_visit_enabled
@@ -875,10 +892,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 </div>
                                                                                 :
                                                                                 <div className="payment-summary-content">
-                                                                                    <div className="payment-detail d-flex">
-                                                                                        <p>Lab Fees</p>
-                                                                                        <p>&#8377; {finalMrp}</p>
-                                                                                    </div>
+                                                                                    {tests_with_price}
                                                                                     {
                                                                                         (total_price && is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
                                                                                             <p className="payment-content">Home Pickup Charges</p>
