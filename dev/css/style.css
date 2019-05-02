@@ -854,6 +854,12 @@ p.top-head-link.card-lab-link span {
 	.sticky-pk-container-2{
 		top: 129px !important;
 	}
+	.pkglftRhtbtncont{
+		display: none;
+	}
+	.pkgcustCards{
+		margin-bottom: 0px !important;
+	}
 
 }
 @media(max-width: 470px) {
@@ -5886,6 +5892,9 @@ button.add-shpng-cart-btn.update-btn {
    .cl-overlay{
    	display: block;
    }
+   .pkgSliderContainer{
+    margin: 0 -15px;
+}
 }
 
 
@@ -10735,6 +10744,147 @@ input[type=button]{
     border-radius: 4px;
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0), 0 3px 6px rgba(0, 0, 0, 0.08);
 }
+/* ==================== new package styling ==================== */
+.pakg-slider-container{
+position: relative;
+}
+.pkgSliderHeading{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+.pkgSliderHeading h5{
+	font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 0;
+    color: #000;
+}
+.pkgSliderHeading span{
+	color: #f78631;
+    font-weight: 500;
+    cursor: pointer;
+}
+.pkgSliderContainer{
+	white-space: nowrap;
+    overflow: auto;
+    padding: 3px 15px;
+}
+.pkgcustCards{
+	text-align: center;
+	text-align: center;
+    background-color: #ffffff;
+    box-shadow: 0 1px 5px rgba(76, 76, 76, 0.12), 1px 1px 4px rgba(128, 128, 128, 0.24);
+    border: 0;
+    border-radius: 5px;
+    min-width: 160px;
+    max-width: 160px;
+    min-height: 125px;
+    padding: 5px;
+    position: relative;
+    margin-bottom: 25px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-left: 2px;
+}
+
+.pkgtstName{
+	margin: 5px 0;
+    font-weight: 500;
+    white-space: normal;
+    padding: 0px 5px;
+    min-height: 35px;
+    font-size: 12px;
+}
+.newpkgInclude{
+	border: 1px dashed #f46c06;
+    border-radius: 4px;
+    color: #f78631;
+    display: inline-block;
+    padding: 0 5px;
+    font-weight: 500;
+}
+.nwpkgofrpera{
+	font-weight: 500;
+    font-size: 12px;
+    margin-top: 6px;
+}
+.pkgcardImgCont{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pkgcardImgCont img {
+    width: 82px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.pkgOutBtn{
+    position: absolute;
+    bottom: -16px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 125px;
+    padding: 2px 0;
+    color: white;
+    border: none;
+    background: #f78631;
+    border-radius: 6px;
+}
+.pkg-main-btn-prc{
+    font-size: 14px;
+    font-weight: 500;
+}
+.pkg-main-btn-prc-cut{
+	font-size: 12px;
+    text-decoration: line-through;
+}
+.pkglftRhtbtncont{
+
+}
+.pkg-btnlft{
+	-ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    position: absolute;
+    top: 0;
+    left: -10px;
+    bottom: 0;
+    margin: auto;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 50px;
+    box-shadow: 0 1px 5px rgba(76, 76, 76, 0.24), 1px 1px 4px rgba(128, 128, 128, 0.32);
+    cursor: pointer;
+}
+.pkg-btnrgt{
+	-ms-transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    transform: rotate(270deg);
+    position: absolute;
+    top: 0;
+    right: -25px;
+    bottom: 0;
+    margin: auto;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 50px;
+    box-shadow: 0 1px 5px rgba(76, 76, 76, 0.24), 1px 1px 4px rgba(128, 128, 128, 0.32);
+    cursor: pointer;
+
+}
+/* ==================== new package styling ==================== */
 .medic-img-slider img {
     width: 250px;
     margin-right: 20px;

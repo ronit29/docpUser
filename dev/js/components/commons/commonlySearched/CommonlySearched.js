@@ -144,11 +144,15 @@ class CommonlySearched extends React.Component {
                 </li>
             }
         })
-
         return (
             <div className="widget mb-10">
                 <div className="common-search-container">
-                    <p className="srch-heading">{this.props.heading}</p>
+                    <p className="srch-heading">{this.props.heading} 
+                        {this.props.isPackage?
+                        <span style={{float:'right',color:'#f78631'}} onClick={()=> this.props.history.push('/searchpackages')}>View all</span>
+                        :''
+                        }
+                    </p>
 
                     <div className="common-listing-cont">
                         <ul>
