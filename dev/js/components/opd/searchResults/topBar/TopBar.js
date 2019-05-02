@@ -293,7 +293,15 @@ class TopBar extends React.Component {
                             <div className="pop-top-heading">
                                 Sort/Filter
                         </div>
-                            <div className="col-12">
+                            <div className="sorting-main-container">
+                                <div className="sort-lft-cont">
+                                    <h5 className="sort-headings">Sort by</h5>
+                                    <div className="sort-slider-scroll">
+                                        <div className="sort-cards-list"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* <div className="col-12">
                                 <div className="ins-form-radio insradio-on-popup">
                                     <ul>
                                         <li className={`drop-list-styling  ${!!!this.state.sort_on ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, "")}> <img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18, marginRight: '10px' }} />Relevance</li>
@@ -302,7 +310,7 @@ class TopBar extends React.Component {
                                         <li className={`drop-list-styling ${this.state.sort_on == 'experience' ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, 'experience')}><img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/expr.svg"} style={{ width: 16, marginRight: '10px' }} />Experience</li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> */}
 
                         </div>
                     </div> : ""}
