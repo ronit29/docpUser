@@ -124,7 +124,7 @@ class InsuranceCancellationView extends React.Component {
 									</div>
 								</div>
 							</section>
-							<a className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn text-center" style={{ color: "#ffffff" }} onClick={this.cancelPolicy.bind(this)}>cancel policy
+							<a className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn text-center" style={{ color: "#ffffff" }} onClick={this.cancelPolicy.bind(this)}>Cancel Policy
 								</a>
 						</div>
 						<ChatPanel />

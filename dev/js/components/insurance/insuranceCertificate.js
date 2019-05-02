@@ -137,9 +137,9 @@ class InsuranceCertificateView extends React.Component {
 											}
 										</div>
 										{this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 4?
-												<p className="fw-500 text-center mrb-10">Your cancellation request has been initiated</p>
+												<p className="fw-500 text-center mrb-10">Your insurance policy is onhold</p>	
 												:this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 5?
-												<p className="fw-500 text-center mrb-10">Your insurance policy is onhold</p>
+												<p className="fw-500 text-center mrb-10">Your cancellation request has been initiated</p>
 										:''
 										}
 										{/*<div className="ins-flex mrb-10">
@@ -208,7 +208,7 @@ class InsuranceCertificateView extends React.Component {
 							{
 								this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 1?
 									<div className="sticky-btn fixed insuBtnsContainer">
-										<button className="insu-left-white-btn" onClick={this.cancelPolicy.bind(this)} style={{color:this.props.get_insured_profile.is_cancel_allowed?'#f78631':'#757575' }}>Cancel policy
+										<button className="insu-left-white-btn" onClick={this.cancelPolicy.bind(this)} style={{color:this.props.get_insured_profile.is_cancel_allowed?'#f78631':'#757575' }}>Cancel Policy
 										</button>
 										<a className="insu-right-orng-btn foot-btn-Anchr" href={this.props.get_insured_profile.coi_url} download target="_blank">Download Certificate of Insurance <span className="foot-btn-sub-span">(Policy Document)</span>
 										</a>
