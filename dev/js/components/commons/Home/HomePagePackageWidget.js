@@ -26,14 +26,25 @@ class HomePagePackageWidget extends React.Component {
         var elmnt = document.getElementById("pkgSlider")
         let outerDivWidth = document.getElementsByClassName("pkgSliderContainer")[0].offsetWidth
         let childDivWidth = document.getElementsByClassName('pkgCardsList')[0].offsetWidth
-        let cardWidth = Math.ceil(childDivWidth/document.getElementsByClassName('pkgCardsList')[0].childElementCount)
+        let cardCount = document.getElementsByClassName('pkgCardsList')[0].childElementCount
+        let cardWidth = Math.ceil(childDivWidth/cardCount)
+
         let leftScroll = document.getElementById("pkgSlider").scrollLeft
         let scrollVal = Math.floor(outerDivWidth/cardWidth) *cardWidth
+        let cardEnd = cardCount *cardWidth
         
         if(type == 'right'){
             elmnt.scroll({left: leftScroll + scrollVal, behavior: 'smooth' })
+            if(cardEnd <=leftScroll+scrollVal+outerDivWidth){
+               document.getElementById('leftArrow').classList.add("d-none") 
+            }
+            document.getElementById('RightArrow').classList.remove("d-none")
         }else{
             elmnt.scroll({left: leftScroll - scrollVal, behavior: 'smooth' })
+            if(leftScroll-scrollVal <= 0){
+                document.getElementById('RightArrow').classList.add("d-none")
+            }
+            document.getElementById('leftArrow').classList.remove("d-none") 
         }
     }
 
@@ -72,8 +83,8 @@ class HomePagePackageWidget extends React.Component {
                     </div>
                 </div>
                 <div className="pkglftRhtbtncont">
-                        <div className="pkg-btnlft" id="leftArrow" onClick={this.scroll.bind(this,'left')}><img src={ASSETS_BASE_URL +"/img/customer-icons/dropdown-arrow.svg"} /></div>
-                        <div className="pkg-btnrgt" onClick={this.scroll.bind(this,'right')}><img src={ASSETS_BASE_URL +"/img/customer-icons/dropdown-arrow.svg"} /></div>
+                        <div className="pkg-btnlft d-none" id="RightArrow" onClick={this.scroll.bind(this,'left')}><img src={ASSETS_BASE_URL +"/img/customer-icons/dropdown-arrow.svg"} /></div>
+                        <div className="pkg-btnrgt" id="leftArrow" onClick={this.scroll.bind(this,'right')}><img src={ASSETS_BASE_URL +"/img/customer-icons/dropdown-arrow.svg"} /></div>
                     </div>
             </div>
         )
