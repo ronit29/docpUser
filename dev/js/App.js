@@ -38,6 +38,12 @@ require('../css/date.css')
 require('../css/style.css')
 
 const logPageView = () => {
+
+    // change landing page status
+    if (window.location.pathname != window.LANDING_PATHNAME) {
+        window.ON_LANDING_PAGE = false
+    }
+
     let ch_route = window.location.pathname
     // window.location.pathname -> changed route
     if (window.ch_route == ch_route) {
@@ -57,8 +63,27 @@ import RatingsPopUp from './components/commons/ratingsProfileView/RatingsPopUp.j
 class App extends React.Component {
     constructor(props) {
         super(props)
+
+        const parsed = queryString.parse(window.location.search)
+
+        let source = ''
+        if (parsed.utm_source) {
+            source = parsed.utm_source
+        } else if (document.referrer) {
+            source = document.referrer
+        }
+
+        let utm_tags = {
+            utm_source: parsed.utm_source || '',
+            utm_medium: parsed.utm_medium || '',
+            utm_term: parsed.utm_term || '',
+            utm_campaign: parsed.utm_campaign || '',
+            source: source,
+            referrer: document.referrer || ''
+        }
+
         this.state = {
-            
+            utm_tags, utm_source: source
         }
     }
 
@@ -109,41 +134,26 @@ class App extends React.Component {
          */
         if (parsed) {
 
-            let source = ''
-
-            if (parsed.utm_source) {
-                source = parsed.utm_source
-            } else if (document.referrer) {
-                source = document.referrer
-            }
-
             let data = {
-                'Category': 'ConsumerApp', 'Action': 'UTMevents', 'event': 'utm-events', 'utm_source': parsed.utm_source || '', 'utm_medium': parsed.utm_medium || '', 'utm_term': parsed.utm_term || '', 'utm_campaign': parsed.utm_campaign || '', 'addToGA': false, 'source': source, 'referrer': document.referrer || ''
+                'Category': 'ConsumerApp', 'Action': 'UTMevents', 'event': 'utm-events', 'utm_source': this.state.utm_tags.utm_source || '', 'utm_medium': this.state.utm_tags.utm_medium || '', 'utm_term': this.state.utm_tags.utm_term || '', 'utm_campaign': this.state.utm_tags.utm_campaign || '', 'addToGA': false, 'source': this.state.utm_source, 'referrer': document.referrer || ''
             }
             GTM.sendEvent({ data: data })
 
-            let utm_tags = {
-                utm_source: parsed.utm_source || '',
-                utm_medium: parsed.utm_medium || '',
-                utm_term: parsed.utm_term || '',
-                utm_campaign: parsed.utm_campaign || '',
-                source: source,
-                referrer: document.referrer || ''
-            }
-            this.props.setUTMTags(utm_tags)
+
+            this.props.setUTMTags(this.state.utm_tags)
 
             //Set UTM Source for Chat
 
-            if(parsed.utm_source && parsed.utm_source.includes('religare')) {
+            if (this.state.utm_source && this.state.utm_source.includes('religare')) {
                 let tags = {
-                    utm_source: parsed.utm_source,
+                    utm_source: this.state.utm_source,
                     visitorId: parsed.visitid || ''
                 }
-                this.props.setCommonUtmTags('chat',tags)
+                this.props.setCommonUtmTags('chat', tags)
             }
 
             // set summary page utm_source
-            if (parsed.utm_source == 'alpha_december_18') {
+            if (this.state.utm_source == 'alpha_december_18') {
                 let validity = new Date()
                 validity.setDate(validity.getDate() + 7)
                 this.props.set_summary_utm(true, validity)
@@ -218,21 +228,19 @@ class App extends React.Component {
             this.props.loadLabCommonCriterias()
         }
 
-
     }
 
-    toggleLeftMenu(toggle, defaultVal){
-        if(document.getElementById('is_header') && document.getElementById('is_header').offsetHeight){
+    toggleLeftMenu(toggle, defaultVal) {
+        if (document.getElementById('is_header') && document.getElementById('is_header').offsetHeight) {
             this.props.toggleLeftMenuBar(toggle, defaultVal)
         }
     }
 
 
-
     render() {
 
         return (
-            <Swipeable onSwipedLeft={(eventData) => this.toggleLeftMenu(false, true) }>
+            <Swipeable onSwipedLeft={(eventData) => this.toggleLeftMenu(false, true)}>
                 <NotificationsBoot />
                 <BrowserRouter>
                     <div>

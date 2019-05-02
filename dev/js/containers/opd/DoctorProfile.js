@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, mergeOPDState, toggleProfileProcedures, saveProfileProcedures, getDoctorNo, toggleOPDCriteria, getAllRatings } from '../../actions/index.js'
+import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, mergeOPDState, toggleProfileProcedures, saveProfileProcedures, getDoctorNo, toggleOPDCriteria, getAllRatings, getDownloadAppBannerList } from '../../actions/index.js'
 
 import DoctorProfileView from '../../components/opd/doctorProfile/index.js'
 const queryString = require('query-string');
@@ -10,23 +10,33 @@ const queryString = require('query-string');
 class DoctorProfile extends React.Component {
     constructor(props) {
         super(props)
+        let d_id = this.props.match.params.id || this.get_doctor_id_by_url(this.props.match.url)
         this.state = {
-            selectedDoctor: this.props.match.params.id || null,
+            selectedDoctor: d_id,
             is_procedure: false,
             hospital_id: ''
         }
     }
 
-    static loadData(store, match,queryData={}) {
+    get_doctor_id_by_url(url) {
+        for (let d_id in this.props.DOCTORS) {
+            if (this.props.DOCTORS[d_id].url && url.includes(this.props.DOCTORS[d_id].url)) {
+                return d_id
+            }
+        }
+        return null
+    }
+
+    static loadData(store, match, queryData = {}) {
         if (match.params.id) {
-            return store.dispatch(getDoctorById(match.params.id,queryData.hospital_id || '',queryData.procedure_ids || [], queryData.category_ids ||[]))
+            return store.dispatch(getDoctorById(match.params.id, queryData.hospital_id || '', queryData.procedure_ids || [], queryData.category_ids || []))
         } else {
             let url = match.url
             if (url) {
                 url = url.split("/")[1]
             }
             return new Promise((resolve, reject) => {
-                store.dispatch(getDoctorByUrl(url, queryData.hospital_id ||'', queryData.procedure_ids || [], queryData.category_ids ||[] , (doctor_id, url) => {
+                store.dispatch(getDoctorByUrl(url, queryData.hospital_id || '', queryData.procedure_ids || [], queryData.category_ids || [], (doctor_id, url) => {
                     if (doctor_id) {
                         if (match.url.includes('-dpp')) {
                             getFooterData(match.url.split("/")[1])().then((footerData) => {
@@ -58,7 +68,7 @@ class DoctorProfile extends React.Component {
         let is_procedure = false
         let category_ids = []
         let procedure_ids = []
-        
+
         if (parsed) {
             hospital_id = parsed.hospital_id || ''
             is_procedure = parsed.is_procedure || false
@@ -67,18 +77,23 @@ class DoctorProfile extends React.Component {
         }
 
         if (this.props.match.params.id) {
-            this.props.getDoctorById(this.props.match.params.id, hospital_id, procedure_ids, category_ids)
-            this.setState({ hospital_id: hospital_id, is_procedure: is_procedure})
+            if (!this.state.selectedDoctor || !this.props.DOCTORS[this.state.selectedDoctor]) {
+                this.props.getDoctorById(this.props.match.params.id, hospital_id, procedure_ids, category_ids)
+            }
+            this.setState({ hospital_id: hospital_id, is_procedure: is_procedure })
         } else {
             let url = this.props.match.url
             if (url) {
                 url = url.split("/")[1]
             }
-            this.props.getDoctorByUrl(url, hospital_id, procedure_ids, category_ids, (doctor_id) => {
-                if (doctor_id) {
-                    this.setState({ selectedDoctor: doctor_id, hospital_id: hospital_id, is_procedure: is_procedure})
-                }
-            })
+            if (!this.state.selectedDoctor || !this.props.DOCTORS[this.state.selectedDoctor]) {
+                this.props.getDoctorByUrl(url, hospital_id, procedure_ids, category_ids, (doctor_id) => {
+                    if (doctor_id) {
+                        this.setState({ selectedDoctor: doctor_id })
+                    }
+                })
+            }
+            this.setState({ hospital_id: hospital_id, is_procedure: is_procedure })
         }
 
         //always clear selected time at doctor profile
@@ -97,7 +112,7 @@ class DoctorProfile extends React.Component {
     render() {
 
         return (
-            <DoctorProfileView {...this.props} selectedDoctor={this.state.selectedDoctor} {...this.state}/>
+            <DoctorProfileView {...this.props} selectedDoctor={this.state.selectedDoctor} {...this.state} />
         );
     }
 }
@@ -113,7 +128,7 @@ const mapStateToProps = (state, passedProps) => {
     }
 
     let DOCTORS = state.DOCTOR_PROFILES
-    let { rated_appoinments, profiles, selectedProfile, primaryMobile } = state.USER
+    let { rated_appoinments, profiles, selectedProfile, primaryMobile, app_download_list, device_info } = state.USER
 
     const {
         selectedCriterias,
@@ -129,7 +144,7 @@ const mapStateToProps = (state, passedProps) => {
     } = state.DOCTOR_SEARCH
 
     return {
-        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, selectedLocation, fetchNewResults, commonProcedurers, selectedDoctorProcedure, profileCommonProcedures, primaryMobile, filterCriteria
+        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, selectedLocation, fetchNewResults, commonProcedurers, selectedDoctorProcedure, profileCommonProcedures, primaryMobile, filterCriteria, app_download_list, device_info
     }
 }
 
@@ -150,7 +165,8 @@ const mapDispatchToProps = (dispatch) => {
         saveProfileProcedures: (doctor_id, clinic_id) => dispatch(saveProfileProcedures(doctor_id, clinic_id)),
         getDoctorNo: (doctorData, cb) => dispatch(getDoctorNo(doctorData, cb)),
         toggleOPDCriteria: (type, criteria, forceAdd) => dispatch(toggleOPDCriteria(type, criteria, forceAdd)),
-        getAllRatings: (content_type, object_id, page, cb) => dispatch(getAllRatings(content_type, object_id, page, cb))
+        getAllRatings: (content_type, object_id, page, cb) => dispatch(getAllRatings(content_type, object_id, page, cb)),
+        getDownloadAppBannerList: (cb) => dispatch(getDownloadAppBannerList(cb))
     }
 }
 

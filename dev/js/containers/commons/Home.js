@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { clearAllTests, toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList, setPackageId, getUpComingAppointment } from '../../actions/index.js'
+import { clearAllTests, toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList, setPackageId, getUpComingAppointment, resetPkgCompare } from '../../actions/index.js'
 
 import HomeView from '../../components/commons/Home'
 import STORAGE from '../../helpers/storage'
@@ -35,8 +35,12 @@ class Home extends React.Component {
 
         // this.props.fetchHeatlhTip()
         // this.props.fetchArticles()
-        if (!this.props.common_tests.length || !this.props.common_package.length || !this.props.specializations.length) {
-            this.props.loadOPDCommonCriteria()
+        if (!this.props.common_tests.length || !this.props.common_package.length || !this.props.specializations.length || (this.props.selectedLocation && this.props.selectedLocation.locality)) {
+            let city = ''
+            if (this.props.selectedLocation && this.props.selectedLocation.locality) {
+                city = this.props.selectedLocation.locality
+            }
+            this.props.loadOPDCommonCriteria(city)
             this.props.loadLabCommonCriterias()
         }
 
@@ -69,7 +73,8 @@ const mapStateToProps = (state, passedProps) => {
         LOADED_SEARCH_CRITERIA_LAB,
         common_tests,
         common_package,
-        selectedLocation
+        selectedLocation,
+        compare_packages
     } = state.SEARCH_CRITERIA_LABS
     let filterCriteria_lab = state.SEARCH_CRITERIA_LABS.filterCriteria
 
@@ -80,14 +85,14 @@ const mapStateToProps = (state, passedProps) => {
     let filterCriteria_opd = state.SEARCH_CRITERIA_OPD.filterCriteria
 
     return {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, upcoming_appointments
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, upcoming_appointments, compare_packages
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         loadLabCommonCriterias: () => dispatch(loadLabCommonCriterias()),
-        loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
+        loadOPDCommonCriteria: (city) => dispatch(loadOPDCommonCriteria(city)),
         toggleOPDCriteria: (type, criteria, forceAdd, filters) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filters)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd, filters) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filters)),
         getUserProfile: () => dispatch(getUserProfile()),
@@ -101,6 +106,7 @@ const mapDispatchToProps = (dispatch) => {
         clearAllTests: () => dispatch(clearAllTests()),
         setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage)),
         getUpComingAppointment: () => dispatch(getUpComingAppointment()),
+        resetPkgCompare: () => dispatch(resetPkgCompare())
     }
 }
 

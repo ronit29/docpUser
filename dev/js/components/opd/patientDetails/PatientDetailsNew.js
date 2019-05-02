@@ -316,8 +316,10 @@ class PatientDetailsNew extends React.Component {
 
         is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
 
-
-
+        // React guarantees that setState inside interactive events (such as click) is flushed at browser event boundary
+        if(this.state.loading){
+            return
+        }
         this.setState({ loading: true, error: "" })
 
         let start_date = this.props.selectedSlot.date

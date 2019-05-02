@@ -91,18 +91,7 @@ class HospitalDetailView extends React.Component {
 	                    		this.props.HOSPITAL_DETAIL_LOADED?
 	                    		<div className ="ipd-section">
 		                    		<HospitalInfo hospital_data={this.props.ipd_hospital_detail}/>
-		                    		{
-		                    			this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.services && this.props.ipd_hospital_detail.services.length?
-		                    			<HospitalServices hospital_data={this.props.ipd_hospital_detail}/>
-		                    			:''	 	
-		                    		}
-		                    		
-		                    		{
-		                    			this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.ipd_procedure_categories && this.props.ipd_hospital_detail.ipd_procedure_categories.length?
-		                    			<HospitalTreatment hospital_data={this.props.ipd_hospital_detail} {...this.props}/>
-		                    			:''	
-		                    		}
-		                    		
+
 		                    		{
 				                    	this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.doctors && this.props.ipd_hospital_detail.doctors.result.length?
 				                    		<div>
@@ -122,6 +111,18 @@ class HospitalDetailView extends React.Component {
 							                    </div>    	
 					                    :''
 				                    }
+		                    		
+		                    		{
+		                    			this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.ipd_procedure_categories && this.props.ipd_hospital_detail.ipd_procedure_categories.length?
+		                    			<HospitalTreatment hospital_data={this.props.ipd_hospital_detail} {...this.props}/>
+		                    			:''	
+		                    		}
+
+		                    		{
+		                    			this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.services && this.props.ipd_hospital_detail.services.length?
+		                    			<HospitalServices hospital_data={this.props.ipd_hospital_detail}/>
+		                    			:''	 	
+		                    		}
 
 				                    {
 				                    	this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.rating_graph && this.props.ipd_hospital_detail.rating_graph.star_count && this.props.ipd_hospital_detail.display_rating_widget?

@@ -52,7 +52,7 @@ class ProfileData extends React.Component {
             this.props.history.push('/insurance/certificate')   
         }else{
             this.props.generateInsuranceLead()
-            this.props.history.push('/insurance/insurance-plans')
+            this.props.history.push('/insurance/insurance-plans?source=profile-insurance-clicked')
         }
     }    
 

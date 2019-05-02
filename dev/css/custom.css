@@ -714,6 +714,7 @@ body.lineLoader {
 	-webkit-transition: color .2s; 
 				transition: color .2s; 
 				text-decoration: none;
+				position: relative;
 }
 .head_text_container a:hover{
 color:  #f78631;
@@ -862,3 +863,31 @@ cursor: pointer;
 	border: 1px solid white;
 }
 /* ============ new filter section ============ */
+/* ============ download app btn ============ */
+@media(max-width: 767px){
+	.downloadBtn{
+		position: fixed;
+			z-index: 999;
+			left: 0;
+			right: 0;
+			margin: auto;
+			bottom: 90px;
+			width: 40%;
+			text-align: center;
+			display: block !important;
+	}
+}
+.downloadBtn{
+		display: none;
+}
+.dwnlAppBtn{
+	box-shadow: 0px 9px 21px 0 rgba(0, 0, 0, 0.2);
+	border: none;
+	background-image: linear-gradient(to left,#f78631,#ff6d00);
+	padding: 8px 12px;
+	border-radius: 4px;
+	font-weight: 500;
+	cursor: pointer;
+	color: white;
+}
+/* ============ download app btn ============ */

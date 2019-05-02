@@ -5,10 +5,14 @@ import GTM from '../../../../helpers/gtm.js'
 import { buildOpenBanner } from '../../../../helpers/utils.js'
 import STORAGE from '../../../../helpers/storage'
 import { X_OK } from 'constants';
+import SnackBar from 'node-snackbar'
 
 class LabProfileCard extends React.Component {
     constructor(props) {
         super(props)
+        this.state={
+            checked:false
+        }
     }
 
     openLab(id, url, test_id, test_name, e) {
@@ -68,6 +72,33 @@ class LabProfileCard extends React.Component {
             }
         }
     }
+
+    bookNowClicked(id, url, test_id, test_name, e) {
+        let slot = { time: {} }
+        this.props.clearExtraTests()
+        this.props.selectLabTimeSLot(slot, false)
+        this.props.selectLabAppointmentType('home')
+
+        let new_test = {}
+        new_test.extra_test = true
+        new_test.lab_id = id
+        new_test.type = 'test'
+        new_test.name = test_name
+        new_test.id = test_id
+        this.props.toggleDiagnosisCriteria('test', new_test, true)
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'RankOfLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'rank-lab-clicked', 'Rank': this.props.rank + 1
+        }
+        GTM.sendEvent({ data: data })
+
+        data = {
+            'Category': 'ConsumerApp', 'Action': 'LabSelectedByUser', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-selected-by-user', 'LabId': id
+        }
+        GTM.sendEvent({ data: data })
+        this.props.history.push(`/lab/${id}/book`)
+    }
+
+
     testInfo(test_id) {
         let lab_id = this.props.details.lab.id
         // let selected_test_ids = this.props.lab_test_data[this.props.selectedLab] || []
@@ -79,6 +110,25 @@ class LabProfileCard extends React.Component {
         }
         GTM.sendEvent({ data: data })
     }
+
+    toggleCompare(id,lab_id,lab_thumbnail,name){
+        let selectedPkgCompareIds=[]
+        if(this.props.compare_packages){
+            this.props.compare_packages.map((packages, i) => {
+                selectedPkgCompareIds.push(packages.id)
+            })
+        }
+        if(selectedPkgCompareIds.indexOf(id) == -1 && selectedPkgCompareIds.length >= 5){
+            SnackBar.show({ pos: 'bottom-center', text: "Max 5 packages can be compared" });
+        }else{
+            let data = {
+            'Category': 'ConsumerApp', 'Action': 'AddedToCompare', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'added-to-compare',  'LabId': lab_id , 'testId':id
+            }
+            GTM.sendEvent({ data: data })
+            this.props.toggleComparePackages(id,lab_id,lab_thumbnail,name)    
+        }
+    }
+
     render() {
         let { discounted_price, price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id, number_of_tests, show_details, categories, category_details, address, included_in_user_plan, insurance } = this.props.details;
         distance = Math.ceil(distance / 1000);
@@ -117,15 +167,28 @@ class LabProfileCard extends React.Component {
         if(included_in_user_plan){
             hide_price = true
         }
-
+        let selectedPkgCompareIds=[]
+        if(this.props.compare_packages){
+            this.props.compare_packages.map((packages, i) => {
+                selectedPkgCompareIds.push(packages.id, packages.lab_id)
+            })
+        }
         let is_insurance_applicable = false
         if(insurance && insurance.is_insurance_covered && insurance.is_user_insured){
             is_insurance_applicable = true
             pickup_text = ""
         }
-
         return (
             <div className="pkg-card-container mb-3">
+            {  !this.props.isCompared && (this.props.isCompare || this.props.compare_packages.length > 0)?
+                    <div className={selectedPkgCompareIds.indexOf(id)>-1 && selectedPkgCompareIds.indexOf(lab.id)>-1 ? 'pkg-crd-header pkg-crd-green ':'pkg-crd-header '} style={{padding:'5px'}}>
+                      <label className="ck-bx">{selectedPkgCompareIds.indexOf(id)>-1 && selectedPkgCompareIds.indexOf(lab.id)>-1 ? 'Added':'Add to compare'}
+                        <input type="checkbox" onClick={this.toggleCompare.bind(this,id,lab.id,lab.lab_thumbnail,name)} checked={selectedPkgCompareIds.indexOf(id)>-1 && selectedPkgCompareIds.indexOf(lab.id)>-1?true:false} />
+                        <span className="checkmark"></span>
+                      </label>
+                    </div>
+                :''
+            }
                 <div className="pkg-content-section">
                     {
                         !is_insurance_applicable && !hide_price && offPercent && offPercent > 0 ?
@@ -135,7 +198,7 @@ class LabProfileCard extends React.Component {
                         <p><img className="fltr-loc-ico" src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} style={{ width: '12px', height: '18px' }} /> {lab.locality} {lab.city} </p><span className="kmTrunate"> | {distance} Km</span>
                     </div>
                     <div className="pkg-card-content">
-                        <div className="row no-gutters" onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
+                        <div className="row no-gutters" onClick={this.bookNowClicked.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
                             <div className="col-8">
                                 <div className="pkg-cardleft-img">
                                     <InitialsPicture name={lab.name} has_image={!!lab.lab_thumbnail} className="initialsPicture-ls">
@@ -203,7 +266,7 @@ class LabProfileCard extends React.Component {
                             <ul>
                                 {
                                     category_details.map((category_detail, k) => {
-                                        return <li className="pkgIncludeList" key={k} id={k} onClick={this.openLab.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
+                                        return <li className="pkgIncludeList" key={k} id={k} onClick={this.bookNowClicked.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
                                             {category_detail.icon ?
                                                 <img style={{ width: '20px', marginRight: '5px' }} src={category_detail.icon} />
                                                 : ''}
