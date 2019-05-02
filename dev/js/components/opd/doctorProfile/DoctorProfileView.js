@@ -58,10 +58,46 @@ class DoctorProfileView extends React.Component {
                 }
             })
         }
+
         if(this.props.app_download_list && !this.props.app_download_list.length){
-            this.props.getDownloadAppBannerList()
+
+            this.props.getDownloadAppBannerList((resp)=>{
+                if(resp && resp.length && resp[0].data){
+                    this.showDownloadAppWidget(resp[0].data)
+                }
+            })
+        }else{
+            this.showDownloadAppWidget(this.props.app_download_list)
         }
+
         this.setState({ searchShown: true })
+    }
+
+    showDownloadAppWidget(dataList){
+        let landing_page = false
+        if (typeof window == 'object' && window.ON_LANDING_PAGE) {
+            landing_page = true
+        }
+
+        let downloadAppButtonData = {}
+
+        if(landing_page && dataList && dataList.length){
+
+            dataList.map((banner)=> {
+                if(banner.isenabled && ( this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with) ) ) {
+                    downloadAppButtonData = banner
+                }
+            })
+        }
+
+
+        if(Object.values(downloadAppButtonData).length){
+            
+            let gtmTrack = {
+                'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonVisible', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-visible', 'starts_with':downloadAppButtonData.starts_with?downloadAppButtonData.starts_with:'', 'ends_with': downloadAppButtonData.ends_with?downloadAppButtonData.ends_with:'', 'device': this.props.device_info
+            }
+            GTM.sendEvent({ data: gtmTrack })
+        }
     }
 
     getMetaTagsData(seoData) {
@@ -255,18 +291,20 @@ class DoctorProfileView extends React.Component {
             selectedClinicName = selectedClinicInfo.length ? selectedClinicInfo[0].hospital_name : ''
         }
 
-        let downloadAppButtonData = {}
-        if(this.props.history && (this.props.history.length==2 || this.props.history.length==1)){
-            
-            if(this.props.app_download_list && this.props.app_download_list.length){
+        let landing_page = false
+        if (typeof window == 'object' && window.ON_LANDING_PAGE) {
+            landing_page = true
+        }
 
-                this.props.app_download_list.map((banner)=> {
-                    if(banner.isenabled && ( this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with)) ) {
-                        downloadAppButtonData = banner
-                    }
-                })
-            }
-            
+        let downloadAppButtonData = {}
+        
+        if(landing_page && this.props.app_download_list && this.props.app_download_list.length){
+
+            this.props.app_download_list.map((banner)=> {
+                if(banner.isenabled && ( this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with)) ) {
+                    downloadAppButtonData = banner
+                }
+            })
         }
 
         return (

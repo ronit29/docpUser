@@ -73,7 +73,7 @@ class Insurance extends React.Component {
 		let memberStoreDataLength
 		let membersArray = []
 		let profilesArray = []
-		let utm_source
+		let source
 		// plan.plan_name = this.props.insurnaceData['insurance'][0].name
 		// plan.logo = this.props.insurnaceData['insurance'][0].logo 
 		// plan.insurer_document = this.props.insurnaceData['insurance'][0].insurer_document   	
@@ -87,8 +87,8 @@ class Insurance extends React.Component {
 				phoneNumber = this.props.USER.primaryMobile
 			}
 			if (Object.keys(plan).length > 0) {
-				utm_source = parsed.utm_source
-				this.props.generateInsuranceLead(plan.id, phoneNumber,utm_source)
+				source = parsed.source
+				this.props.generateInsuranceLead(plan.id, phoneNumber,source)
 			}
 			profileLength = Object.keys(this.props.USER.profiles).length
 			memberStoreDataLength = Object.keys(this.props.self_data_values).length

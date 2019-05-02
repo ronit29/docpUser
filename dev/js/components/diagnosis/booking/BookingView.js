@@ -277,7 +277,7 @@ class BookingView extends React.Component {
                                                         (this.state.data.otp && status == 5) ? <div className="widget mrb-10">
                                                             <div className="widget-content">
                                                                 <p className="fw-500 text-md mrb-10">Unique Confirmation Code: <span className="fw-700 text-md">{this.state.data.otp}</span></p>
-                                                                <p className="text-xs text-light">Share this code with doctor at the time of your appointment</p>
+                                                                <p className="text-xs text-light">Share this code with lab at the time of your appointment</p>
                                                             </div>
                                                         </div> : ""
                                                     }
