@@ -857,6 +857,9 @@ p.top-head-link.card-lab-link span {
 	.pkglftRhtbtncont{
 		display: none;
 	}
+	.pkgcustCards{
+		margin-bottom: 0px !important;
+	}
 
 }
 @media(max-width: 470px) {
@@ -10760,7 +10763,7 @@ position: relative;
     position: relative;
     margin-bottom: 25px;
     display: inline-block;
-    margin-right: 15px;
+    margin-right: 10px;
     margin-left: 2px;
 }
 
