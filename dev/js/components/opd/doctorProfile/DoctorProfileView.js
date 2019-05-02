@@ -395,9 +395,16 @@ class DoctorProfileView extends React.Component {
                                                                                                     </InitialsPicture>
                                                                                                 </div>
                                                                                                 <div className="slideDocContent">
-                                                                                                    <a href={`/${doctor.url}`} onClick={(e) => this.navigateToDoctor(doctor, e)}>
-                                                                                                        <p className="slideDocName">{doctor.display_name}</p>
-                                                                                                    </a>
+                                                                                                    {
+                                                                                                        doctor.url ?
+                                                                                                            <a href={`/${doctor.url}`} onClick={(e) => this.navigateToDoctor(doctor, e)}>
+                                                                                                                <p className="slideDocName">{doctor.display_name}</p>
+                                                                                                            </a>
+                                                                                                            :
+                                                                                                            <a href="javascript:;" style={{ cursor: 'auto' }}>
+                                                                                                                <p className="slideDocName">{doctor.display_name}</p>
+                                                                                                            </a>
+                                                                                                    }
                                                                                                     <p className="slideDocExp">{doctor.experience_years} Years of Experience</p>
                                                                                                     {
                                                                                                         doctor.qualifications && doctor.qualifications.length ?
