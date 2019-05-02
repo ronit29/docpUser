@@ -297,11 +297,89 @@ class TopBar extends React.Component {
                                 <div className="sort-lft-cont">
                                     <h5 className="sort-headings">Sort by</h5>
                                     <div className="sort-slider-scroll">
-                                        <div className="sort-cards-list"></div>
+                                        <div className="sort-cards-list">
+                                            <div className="srt-lst-img">
+                                                <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
+                                            </div>
+                                            <p>Relevance</p>
+                                        </div>
+                                        <div className="sort-cards-list">
+                                            <div className="srt-lst-img">
+                                                <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
+                                            </div>
+                                            <p>Price Low to High</p>
+                                        </div>
+                                        <div className="sort-cards-list">
+                                            <div className="srt-lst-img">
+                                                <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
+                                            </div>
+                                            <p>Price High to Low</p>
+                                        </div>
+                                        <div className="sort-cards-list">
+                                            <div className="srt-lst-img">
+                                                <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
+                                            </div>
+                                            <p>Distance</p>
+                                        </div>
+                                        <div className="sort-cards-list">
+                                            <div className="srt-lst-img">
+                                                <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
+                                            </div>
+                                            <p>Experience</p>
+                                        </div>
+                                        <div className="sort-cards-list">
+                                            <div className="srt-lst-img">
+                                                <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
+                                            </div>
+                                            <p>Rating</p>
+                                        </div>
+                                        <div className="sort-cards-list">
+                                            <div className="srt-lst-img">
+                                                <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
+                                            </div>
+                                            <p>Relevance</p>
+                                        </div>
+                                        <div className="sort-cards-list">
+                                            <div className="srt-lst-img">
+                                                <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
+                                            </div>
+                                            <p>Relevance</p>
+                                        </div>
+
                                     </div>
                                 </div>
-                            </div>
-                            {/* <div className="col-12">
+                                <div className="sorting-btns-cont">
+                                    <h5 className="sort-headings">Ratings</h5>
+                                    <div className="sortbtncard">
+                                        <button className="sortBtns"><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   3.0 +</button>
+                                        <button className="sortBtns"> <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.0 +</button>
+                                        <button className="sortBtns"><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.5 +</button>
+                                    </div>
+                                </div>
+                                <div className="sorting-btns-cont">
+                                    <h5 className="sort-headings">Availability</h5>
+                                    <div className="sortbtncard">
+                                        <button className="sortBtns">Today</button>
+                                        <button className="sortBtns">Tommorow</button>
+                                        <button className="sortBtns srtBtnAct">Next 3 Days</button>
+                                    </div>
+                                </div>
+                                <div className="sorting-btns-cont">
+                                    <h5 className="sort-headings">Gender</h5>
+                                    <div className="sortbtncard justyfy-twoBtns">
+                                        <button className="sortBtns">Male</button>
+                                        <button className="sortBtns">Female</button>
+                                    </div>
+                                </div>
+                                <div className="sorting-btns-cont">
+                                    <h5 className="sort-headings">Hospital Type</h5>
+                                    <div className="sortbtncard justyfy-twoBtns">
+                                        <button className="sortBtns">Clinic</button>
+                                        <button className="sortBtns">Hospital</button>
+                                    </div>
+                                </div>
+                                    </div>
+                                    {/* <div className="col-12">
                                 <div className="ins-form-radio insradio-on-popup">
                                     <ul>
                                         <li className={`drop-list-styling  ${!!!this.state.sort_on ? 'drop-icon-selecter' : ''}`} onClick={this.handleClose.bind(this, "")}> <img className="drop-icon-selecter-selected" src={ASSETS_BASE_URL + "/img/checks.svg"} style={{ width: 18 }} /><img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18, marginRight: '10px' }} />Relevance</li>
@@ -312,57 +390,57 @@ class TopBar extends React.Component {
                                 </div>
                             </div> */}
 
-                        </div>
-                    </div> : ""}
-
+                                </div>
+                            </div> : ""}
+        
                 <div className="filter-row sticky-header mbl-stick">
 
-                    {this.props.breadcrumb && this.props.breadcrumb.length ?
-                        <div className="col-12 mrng-top-12 d-none d-md-block">
-                            <ul className="mrb-10 breadcrumb-list breadcrumb-list-ul" style={{ 'wordBreak': 'breakWord' }}>
-                                {
-                                    this.props.breadcrumb && this.props.breadcrumb.length ?
-                                        this.props.breadcrumb.map((data, key) => {
-                                            return <li className="breadcrumb-list-item" key={key}>
-                                                {
-                                                    key == this.props.breadcrumb.length - 1 ?
-                                                        <span>{data.title}</span>
-                                                        : <a href={data.url} title={data.link_title || data.title} onClick={(e) => {
-                                                            e.preventDefault();
-                                                            this.props.history.push((key == 0 || key == this.props.breadcrumb.length - 1) ? data.url : `/${data.url}`)
-                                                        }}>{key == 0 || key == this.props.breadcrumb.length - 1 ? <span className="fw-500 breadcrumb-title breadcrumb-colored-title">{data.title}</span> : <h2 className="fw-500 breadcrumb-title breadcrumb-colored-title d-inline-blck">{data.title}</h2>}</a>
-                                                }
-                                                {
-                                                    key != this.props.breadcrumb.length - 1 ?
-                                                        <span className="breadcrumb-arrow">&gt;</span>
-                                                        : ''
-                                                }
-                                            </li>
-                                        })
-                                        : ''
+                                {this.props.breadcrumb && this.props.breadcrumb.length ?
+                                    <div className="col-12 mrng-top-12 d-none d-md-block">
+                                        <ul className="mrb-10 breadcrumb-list breadcrumb-list-ul" style={{ 'wordBreak': 'breakWord' }}>
+                                            {
+                                                this.props.breadcrumb && this.props.breadcrumb.length ?
+                                                    this.props.breadcrumb.map((data, key) => {
+                                                        return <li className="breadcrumb-list-item" key={key}>
+                                                            {
+                                                                key == this.props.breadcrumb.length - 1 ?
+                                                                    <span>{data.title}</span>
+                                                                    : <a href={data.url} title={data.link_title || data.title} onClick={(e) => {
+                                                                        e.preventDefault();
+                                                                        this.props.history.push((key == 0 || key == this.props.breadcrumb.length - 1) ? data.url : `/${data.url}`)
+                                                                    }}>{key == 0 || key == this.props.breadcrumb.length - 1 ? <span className="fw-500 breadcrumb-title breadcrumb-colored-title">{data.title}</span> : <h2 className="fw-500 breadcrumb-title breadcrumb-colored-title d-inline-blck">{data.title}</h2>}</a>
+                                                            }
+                                                            {
+                                                                key != this.props.breadcrumb.length - 1 ?
+                                                                    <span className="breadcrumb-arrow">&gt;</span>
+                                                                    : ''
+                                                            }
+                                                        </li>
+                                                    })
+                                                    : ''
+                                            }
+                                        </ul>
+                                    </div>
+                                    : ''
                                 }
-                            </ul>
-                        </div>
-                        : ''
-                    }
 
-                    <section className="scroll-shadow-bar">
-                        <div className="top-filter-tab-container">
-                            <div className="top-filter-tabs-select locationTestFilter" >
-                                <p className="newStickyfilter">
-                                    25 Results foundLiver Function Test <span>in Policy bazaar Sector 44 Gurgaon <img style={{ width: '11px', height: '15px', marginLeft: '7px' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} /> </span>
-                                </p>
-                            </div>
-                            <div className="top-filter-tabs-select newSortFilterbar" onClick={() => this.setState({ new_dropdown_visible: true })}>
-                                <div className="p-relative">
-                                    <img style={{ width: '14px' }} src={ASSETS_BASE_URL + "/img/filtersort.png"} />
-                                    <p className="filterNotification">3</p>
-                                </div>
-                                <span>Sort/Filter</span>
-                            </div>
+                                <section className="scroll-shadow-bar">
+                                    <div className="top-filter-tab-container">
+                                        <div className="top-filter-tabs-select locationTestFilter" >
+                                            <p className="newStickyfilter">
+                                                25 Results foundLiver Function Test <span>in Policy bazaar Sector 44 Gurgaon <img style={{ width: '11px', height: '15px', marginLeft: '7px' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} /> </span>
+                                            </p>
+                                        </div>
+                                        <div className="top-filter-tabs-select newSortFilterbar" onClick={() => this.setState({ new_dropdown_visible: true })}>
+                                            <div className="p-relative">
+                                                <img style={{ width: '14px' }} src={ASSETS_BASE_URL + "/img/filtersort.png"} />
+                                                <p className="filterNotification">3</p>
+                                            </div>
+                                            <span>Sort/Filter</span>
+                                        </div>
 
-                            {/* old design */}
-                            {/* <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} /><span>Sort</span>
+                                        {/* old design */}
+                                        {/* <div className="top-filter-tabs-select" onClick={this.handleOpen.bind(this)}><img src={ASSETS_BASE_URL + "/img/sort.svg"} style={{ width: 18 }} /><span>Sort</span>
                                 {
                                     this.state.sort_on != null ? <span className="applied-filter-noti-new" /> : ""
                                 }
@@ -372,105 +450,105 @@ class TopBar extends React.Component {
                                     this.isFilterApplied.call(this) ? <span className="applied-filter-noti-new" /> : ""
                                 }
                             </div> */}
-                            {/*<div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.catIds.length >0 ?'Category ('+this.state.catIds.length+')':'Category'}
+                                        {/*<div className="top-filter-tabs-select" onClick={this.toggleCategory.bind(this)}><img src={ASSETS_BASE_URL + "/img/categories.svg"} style={{ width: 18 }} /> {this.state.catIds.length >0 ?'Category ('+this.state.catIds.length+')':'Category'}
                         </div>*/}
-                            {/* old design */}
+                                        {/* old design */}
+                                    </div>
+                                </section>
+
+                            </div>
+                            {
+                                this.state.openFilter ? <div onClick={this.toggleFilter.bind(this)} className="filter-overlay overlay black cancel-overlay-zindex">
+                                    <div className="widget filter-popup" onClick={(e) => {
+                                        e.stopPropagation()
+                                        e.preventDefault()
+                                    }}>
+                                        <div className="widget-content">
+                                            <div className="filterRow filterRowShort">
+                                                <span className="tl filterLabel">Available Today</span>
+                                                <div className="filterInput">
+                                                    <input type="checkbox" name="is_available" checked={!!this.state.is_available} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" />
+                                                    <span className="opd-filter-checkbox"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="widget-content">
+                                            <div className="filterRow filterSitsAt">
+                                                <span className="tl">Sits At</span>
+                                                <div className="checkFilter">
+                                                    <input type="checkbox" name="sits_at_clinic" checked={!!this.state.sits_at_clinic} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" style={{ top: 39, left: 20 }} />
+                                                    <span className="opd-filter-checkbox" style={{ top: 39, left: 20 }}></span>
+                                                </div>
+                                                <span className="checkFilterLabel">Clinic</span>
+                                                <div className="checkFilter">
+                                                    <input type="checkbox" name="sits_at_hospital" checked={!!this.state.sits_at_hospital} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" style={{ top: 39, left: 128 }} />
+                                                    <span className="opd-filter-checkbox" style={{ top: 39, left: 128 }}></span>
+                                                </div>
+                                                <span className="checkFilterLabel">Hospital</span>
+                                            </div>
+                                        </div>
+                                        <div className="widget-content">
+                                            <div className="filterRow">
+                                                <span className="tl">Fees</span>
+                                                <span className="tr">&#8377; {this.state.priceRange[0]} to {this.state.priceRange[1]}</span>
+                                                <span className="bl">&#8377; 0</span>
+                                                <span className="br">&#8377; 3000</span>
+
+                                                <Range
+                                                    min={0}
+                                                    max={3000}
+                                                    value={this.state.priceRange}
+                                                    step={100}
+                                                    className="range"
+                                                    onChange={this.handleRange.bind(this, 'priceRange')}
+                                                />
+                                            </div>
+                                            <div className="filterRow">
+                                                <span className="tl">Distance</span>
+                                                <span className="tr">{this.state.distanceRange[0]} to {this.state.distanceRange[1]} KM</span>
+                                                <span className="bl">0 KM</span>
+                                                <span className="br">50 KM</span>
+
+                                                <Range
+                                                    min={0}
+                                                    max={50}
+                                                    value={this.state.distanceRange}
+                                                    step={1}
+                                                    className="range"
+                                                    onChange={this.handleRange.bind(this, 'distanceRange')}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="widget-content">
+                                            <div className="filterRow filterRowFemaleDoc">
+                                                <span className="tl filterLabel">Female Doctor</span>
+                                                <div className="filterInput">
+                                                    {/* <Checkbox name="is_female" checked={!!this.state.is_female} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" /> */}
+                                                    <input type="checkbox" name="is_female" checked={!!this.state.is_female} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" />
+                                                    <span className="opd-filter-checkbox"></span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div className="widget-footer pd-0">
+                                            <button className="v-btn v-btn-primary btn-block btn-lg" onClick={this.applyFilters.bind(this)}>Apply</button>
+                                        </div>
+                                    </div>
+                                </div> : ""
+                            }
+                            {
+                                STORAGE.checkAuth() && this.props.is_login_user_insured
+                                    ? <div className="tg-list-item">
+                                        <input className="tgl tgl-ios" id="lab_insurance" type="checkbox" checked={this.state.is_insured} onChange={this.toggleInsured.bind(this)} />
+                                        <label className="tgl-btn" htmlFor="lab_insurance"></label>
+                                        <p>Covered under OPD insurance | <a href="https://qacdn.docprime.com/media/insurer/documents/Group_Out-Patient_CIS_JNLVJju.PDF" target="_blank"><span> Know More</span></a></p>
+                                    </div>
+                                    : ''
+                            }
                         </div>
-                    </section>
-
-                </div>
-                {
-                    this.state.openFilter ? <div onClick={this.toggleFilter.bind(this)} className="filter-overlay overlay black cancel-overlay-zindex">
-                        <div className="widget filter-popup" onClick={(e) => {
-                            e.stopPropagation()
-                            e.preventDefault()
-                        }}>
-                            <div className="widget-content">
-                                <div className="filterRow filterRowShort">
-                                    <span className="tl filterLabel">Available Today</span>
-                                    <div className="filterInput">
-                                        <input type="checkbox" name="is_available" checked={!!this.state.is_available} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" />
-                                        <span className="opd-filter-checkbox"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="widget-content">
-                                <div className="filterRow filterSitsAt">
-                                    <span className="tl">Sits At</span>
-                                    <div className="checkFilter">
-                                        <input type="checkbox" name="sits_at_clinic" checked={!!this.state.sits_at_clinic} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" style={{ top: 39, left: 20 }} />
-                                        <span className="opd-filter-checkbox" style={{ top: 39, left: 20 }}></span>
-                                    </div>
-                                    <span className="checkFilterLabel">Clinic</span>
-                                    <div className="checkFilter">
-                                        <input type="checkbox" name="sits_at_hospital" checked={!!this.state.sits_at_hospital} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" style={{ top: 39, left: 128 }} />
-                                        <span className="opd-filter-checkbox" style={{ top: 39, left: 128 }}></span>
-                                    </div>
-                                    <span className="checkFilterLabel">Hospital</span>
-                                </div>
-                            </div>
-                            <div className="widget-content">
-                                <div className="filterRow">
-                                    <span className="tl">Fees</span>
-                                    <span className="tr">&#8377; {this.state.priceRange[0]} to {this.state.priceRange[1]}</span>
-                                    <span className="bl">&#8377; 0</span>
-                                    <span className="br">&#8377; 3000</span>
-
-                                    <Range
-                                        min={0}
-                                        max={3000}
-                                        value={this.state.priceRange}
-                                        step={100}
-                                        className="range"
-                                        onChange={this.handleRange.bind(this, 'priceRange')}
-                                    />
-                                </div>
-                                <div className="filterRow">
-                                    <span className="tl">Distance</span>
-                                    <span className="tr">{this.state.distanceRange[0]} to {this.state.distanceRange[1]} KM</span>
-                                    <span className="bl">0 KM</span>
-                                    <span className="br">50 KM</span>
-
-                                    <Range
-                                        min={0}
-                                        max={50}
-                                        value={this.state.distanceRange}
-                                        step={1}
-                                        className="range"
-                                        onChange={this.handleRange.bind(this, 'distanceRange')}
-                                    />
-                                </div>
-                            </div>
-                            <div className="widget-content">
-                                <div className="filterRow filterRowFemaleDoc">
-                                    <span className="tl filterLabel">Female Doctor</span>
-                                    <div className="filterInput">
-                                        {/* <Checkbox name="is_female" checked={!!this.state.is_female} onChange={this.handleInput.bind(this)} className="checkFilter float-right filterInput" /> */}
-                                        <input type="checkbox" name="is_female" checked={!!this.state.is_female} onChange={this.handleInput.bind(this)} className="opd-filter-hidden-checkbox" />
-                                        <span className="opd-filter-checkbox"></span>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div className="widget-footer pd-0">
-                                <button className="v-btn v-btn-primary btn-block btn-lg" onClick={this.applyFilters.bind(this)}>Apply</button>
-                            </div>
-                        </div>
-                    </div> : ""
+                        );
+                    }
                 }
-                {
-                    STORAGE.checkAuth() && this.props.is_login_user_insured
-                        ? <div className="tg-list-item">
-                            <input className="tgl tgl-ios" id="lab_insurance" type="checkbox" checked={this.state.is_insured} onChange={this.toggleInsured.bind(this)} />
-                            <label className="tgl-btn" htmlFor="lab_insurance"></label>
-                            <p>Covered under OPD insurance | <a href="https://qacdn.docprime.com/media/insurer/documents/Group_Out-Patient_CIS_JNLVJju.PDF" target="_blank"><span> Know More</span></a></p>
-                        </div>
-                        : ''
-                }
-            </div>
-        );
-    }
-}
-
-
-export default TopBar
+                
+                
+                export default TopBar

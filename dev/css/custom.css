@@ -891,3 +891,73 @@ cursor: pointer;
 	color: white;
 }
 /* ============ download app btn ============ */
+/* ============ sort new design ============ */
+.sorting-main-container{
+
+}
+.sort-lft-cont{
+
+}
+.sort-headings{
+	font-size: 14px;
+	font-weight: 500;
+}
+.sort-slider-scroll{
+	margin: 15px 0px;
+	white-space: nowrap;
+	overflow-y: auto;
+}
+.sort-cards-list{
+	display: inline-block;
+	text-align: center;
+	height: 100px;
+	min-height: 100px;
+	min-width: 90px;
+	max-width: 90px;
+	border-radius: 10px;
+	margin-right: 5px;
+}
+.sort-cards-list p{
+font-weight: 500;
+white-space: normal;
+}
+.srt-lst-img{
+	min-height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.srt-lst-img img{
+	font-weight: 500;
+	white-space: normal;
+}
+.sorting-btns-cont{
+	border-top: 1px solid #e6e6e6;
+	padding: 10px 0;
+}
+.sortbtncard{
+	display: flex;
+	justify-content: space-between;
+	margin: 10px 0px;
+}
+button.sortBtns {
+	background: white;
+	border: 1px solid #f78631;
+	border-radius: 4px;
+	padding: 8px 0px;
+	min-width: 100px;
+	font-size: 13px;
+	margin-right: 19px;
+}
+button.sortBtns.srtBtnAct {
+	background: #f78631;
+    color: white;
+}
+img.srt-star-img {
+	width: 15px;
+	margin-right: 1px;
+}
+.justyfy-twoBtns{
+	justify-content: flex-start;
+}
+/* ============ sort new design ============ */
