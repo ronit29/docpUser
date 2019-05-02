@@ -374,7 +374,7 @@ class HomeView extends React.Component {
 								}
 								GTM.sendEvent({ data: data })
 								e.preventDefault();
-								this.navigateTo("/insurance/insurance-plans?utm_source=desktop-navbar-insurance-clicked")
+								this.navigateTo("/insurance/insurance-plans?source=desktop-navbar-insurance-clicked")
 							}}>OPD Insurance
 							<span className="opdNewHeaderOfr">New</span>
 							</a>
