@@ -74,7 +74,7 @@ class AppointmentList extends React.Component {
         let date = new Date(time_slot_start)
 
         return (
-            <li style={{ position: 'relative', paddingTop: 25, cursor: 'unset' }}>
+            <li style={{ position: 'relative', paddingTop: 32, cursor: 'unset' }}>
                 <span className="icon consultant-dp">
                     <InitialsPicture name={(doctor_name || lab_name)} has_image={!!(doctor_thumbnail || lab_thumbnail)} className="initialsPicture-appointment" style={{ position: 'relative' }}>
                         <img src={doctor_thumbnail || lab_thumbnail} className="img-fluid img-round my-appont-img" />
@@ -100,6 +100,10 @@ class AppointmentList extends React.Component {
                 </div>
                 <span className="arrow-custom-right" style={{ cursor: 'pointer' }} onClick={this.openAppointment.bind(this, type, id)}><img src={ASSETS_BASE_URL + "/img/customer-icons/arrow-forward-right.svg"} /></span>
                 {this.getStatus(status)}
+                {
+                    id ?
+                        <span className="fw-500" style={{ position: 'absolute', top: 4, left: 8, fontSize: 12 }}>{`Booking id : ${id}`}</span> : ''
+                }
                 {
                     invoices && invoices.length === 1 && (!this.props.data.reports || !this.props.data.reports.length) ?
                         <div className="mrt-20" style={{ padding: '0 30px' }} onClick={() => this.invoiceClick(invoices[0])}>

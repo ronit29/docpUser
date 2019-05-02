@@ -360,6 +360,7 @@ class SearchElasticView extends React.Component {
                                         selectedSearchType={this.props.selectedSearchType}
                                         selected={[]/*this.props.dataState.selectedCriterias.filter(x => x.type == 'test')*/}
                                         toggle={this.togglePackages.bind(this)}
+                                        isPackage = {true}
                                     /> : ''
                             }
 
