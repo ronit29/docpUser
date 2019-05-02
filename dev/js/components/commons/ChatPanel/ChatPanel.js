@@ -8,6 +8,7 @@ import GTM from '../../../helpers/gtm.js'
 import ChatStaticView from './ChatStaticView'
 import RelatedArticles from '../article/RelatedArticles'
 import RecentArticles from '../article/RecentArticles'
+import TableOfContent from '../article/TableOfContent'
 import BannerCarousel from '../Home/bannerCarousel';
 const queryString = require('query-string');
 
@@ -258,6 +259,8 @@ class ChatPanel extends React.Component {
     chatBtnClick() {
         if (this.props.articleData) {
             this.setState({ showChatBlock: true, additionClasses: "" });
+        } else if (this.props.searchTestInfoData) {
+            this.setState({ showChatBlock: true, additionClasses: "" });
         } else if (this.props.newChatBtn) {
             this.props.history.push('/mobileviewchat?botagent=true&force_start=true');
             let data = {
@@ -349,7 +352,7 @@ class ChatPanel extends React.Component {
         return (
             <div>
                 {
-                    this.props.homePage || this.props.mobilechatview || this.props.noChatButton || this.props.articleData ? '' :
+                    this.props.homePage || this.props.mobilechatview || this.props.noChatButton || this.props.articleData || this.props.searchTestInfoData ? '' :
                         this.props.newChatBtn || this.props.newChatBtnAds ?
                             <section className="chat-article-btn fixed horizontal bottom no-round d-md-none fw-500 text-center" onClick={() => this.chatBtnClick()} >{chatBtnContent1}
                                 <span>{chatBtnContent2}</span>
@@ -360,6 +363,12 @@ class ChatPanel extends React.Component {
                     // <div className="new-chat-fixed-btn d-md-none" onClick={() => this.newChatBtnClick()}>
                     //     <img src={ASSETS_BASE_URL + '/img/customer-icons/chat-btn-new.svg'} />
                     // </div>
+                }
+                {
+                    this.props.searchTestInfoData && this.props.updateTabsValues && this.props.resp_test_id ?
+                        <div className="table-of-content-desktop mt-21">
+                            <TableOfContent searchTestInfoData={this.props.searchTestInfoData} updateTabsValues={this.props.updateTabsValues} resp_test_id={this.props.resp_test_id} />
+                        </div> : ''
                 }
                 <div className={this.state.showChatBlock ? "floating-chat " : ""}>
                     {
