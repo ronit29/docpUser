@@ -12,6 +12,7 @@ import FixedMobileFooter from './FixedMobileFooter'
 import BannerCarousel from './bannerCarousel';
 import UpComingAppointmentView from './upComingAppointment.js'
 import PackageCompareStrip from '../../diagnosis/searchPackages/packageCompare/packageCompareStrip.js'
+import HomePagePackageWidget from './HomePagePackageWidget.js'
 const queryString = require('query-string');
 import CRITEO from '../../../helpers/criteo.js'
 
@@ -85,6 +86,7 @@ class HomeView extends React.Component {
 	}
 
 	searchLab(test, isPackage = false) {
+		console.log(test)
 		let data
 		if (isPackage) {
 			test.type = 'package'
@@ -239,7 +241,7 @@ class HomeView extends React.Component {
 
 						{
 							this.props.common_package && this.props.common_package.length ?
-								<HomePageWidget
+								<HomePagePackageWidget
 									heading="Health Packages"
 									discount="50%"
 									list={topPackages}
@@ -294,7 +296,7 @@ class HomeView extends React.Component {
 
 						{
 							this.props.common_package && this.props.common_package.length ?
-								<HomePageWidget
+								<HomePagePackageWidget
 									heading="Health Packages"
 									discount="50%"
 									list={topPackages}

@@ -2,6 +2,7 @@ import React from 'react';
 import InitialsPicture from '../initialsPicture'
 import STORAGE from '../../../helpers/storage';
 import CONFIG from '../../../config'
+import GTM from '../../../helpers/gtm.js'
 
 class LeftMenu extends React.Component {
 
@@ -77,6 +78,10 @@ class LeftMenu extends React.Component {
                   {
                     CONFIG.ENABLE_INSURANCE ?
                       <li><a onClick={(e) => {
+                        let data = {
+                        'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuInsuranceClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-insurance-clicked'
+                      }
+                      GTM.sendEvent({ data: data })
                         e.preventDefault()
                         this.props.toggleLeftMenu()
                         this.props.history.push('/insurance/insurance-plans?source=mobile-leftmenu-insurance-clicked')
