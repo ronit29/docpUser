@@ -24,16 +24,16 @@ class HomePagePackageWidget extends React.Component {
 
     scroll(type){
         var elmnt = document.getElementById("pkgSlider")
+        let outerDivWidth = document.getElementsByClassName("pkgSliderContainer")[0].offsetWidth
+        let childDivWidth = document.getElementsByClassName('pkgCardsList')[0].offsetWidth
+        let cardWidth = Math.ceil(childDivWidth/document.getElementsByClassName('pkgCardsList')[0].childElementCount)
+        let leftScroll = document.getElementById("pkgSlider").scrollLeft
+        let scrollVal = Math.floor(outerDivWidth/cardWidth) *cardWidth
+        
         if(type == 'right'){
-            elmnt.scroll({top: 0, left: 350, behavior: 'smooth' })
-            // document.getElementById("pkgSlider").scrollLeft +=350
-            // document.getElementById('leftArrow').classList.remove("d-none")
+            elmnt.scroll({left: leftScroll + scrollVal, behavior: 'smooth' })
         }else{
-            elmnt.scroll({top: 0, left: -350, behavior: 'smooth' })
-            // document.getElementById("pkgSlider").scrollLeft -=350
-            // if(document.getElementById("pkgSlider").scrollLeft == 0){
-            //     document.getElementById('leftArrow').classList.add("d-none")
-            // }
+            elmnt.scroll({left: leftScroll - scrollVal, behavior: 'smooth' })
         }
     }
 
@@ -45,6 +45,7 @@ class HomePagePackageWidget extends React.Component {
                     <span onClick={this.navigateTo.bind(this, this.props.navTo)}>View All</span>
                 </div>
                 <div className="pkgSliderContainer" id="pkgSlider">
+                    <div className='pkgCardsList d-inline-block'>
                     {
                         this.props.list.map((listItem, i) => {
                             return <div className="pkgcustCards" key={i} onClick={this.props.searchFunc.bind(this, listItem)}>
@@ -68,6 +69,7 @@ class HomePagePackageWidget extends React.Component {
                             </div>
                         })
                     }
+                    </div>
                 </div>
                 <div className="pkglftRhtbtncont">
                         <div className="pkg-btnlft" id="leftArrow" onClick={this.scroll.bind(this,'left')}><img src={ASSETS_BASE_URL +"/img/customer-icons/dropdown-arrow.svg"} /></div>

@@ -10762,9 +10762,7 @@ position: relative;
     margin-right: 15px;
     margin-left: 2px;
 }
-.pkgcustCards:last-child{
-	margin-right: 0px;
-}
+
 .pkgtstName{
 	margin: 5px 0;
     font-weight: 500;
