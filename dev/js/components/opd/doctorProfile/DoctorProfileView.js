@@ -214,12 +214,12 @@ class DoctorProfileView extends React.Component {
 
     }
 
-    downloadButton(data){
+    downloadButton(data) {
         let gtmTrack = {
-            'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-clicked', 'starts_with':data.starts_with?data.starts_with:'', 'ends_with': data.ends_with?data.ends_with:'', 'device': this.props.device_info
+            'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-clicked', 'starts_with': data.starts_with ? data.starts_with : '', 'ends_with': data.ends_with ? data.ends_with : '', 'device': this.props.device_info
         }
         GTM.sendEvent({ data: gtmTrack })
-        if(window){
+        if (window) {
             window.open(data.URL, '_self')
         }
     }
@@ -354,21 +354,21 @@ class DoctorProfileView extends React.Component {
 
                                     <section className="dr-profile-screen" style={{ paddingBottom: 0 }}>
                                         {
-                                            downloadAppButtonData && Object.values(downloadAppButtonData).length?
-                                            <a className="downloadBtn" href="javascript:void(0);" onClick={this.downloadButton.bind(this, downloadAppButtonData)}>
+                                            downloadAppButtonData && Object.values(downloadAppButtonData).length ?
+                                                <a className="downloadBtn" href="javascript:void(0);" onClick={this.downloadButton.bind(this, downloadAppButtonData)}>
 
-                                                <button className="dwnlAppBtn">
-                                                {
-                                                    !this.props.device_info?''
-                                                    :(this.props.device_info.toLowerCase().includes('iphone') || this.props.device_info.toLowerCase().includes('ipad'))?
-                                                    <img style={{width:'13px', marginRight:'5px',marginTop: '-1px'}} src={ASSETS_BASE_URL + "/img/appl1.svg"} />
-                                                    :<img style={{width:'13px', marginRight:'5px'}} src={ASSETS_BASE_URL + "/img/andr1.svg"} />
-                                                }
-                                                Download App
+                                                    <button className="dwnlAppBtn">
+                                                        {
+                                                            !this.props.device_info ? ''
+                                                                : (this.props.device_info.toLowerCase().includes('iphone') || this.props.device_info.toLowerCase().includes('ipad')) ?
+                                                                    <img style={{ width: '13px', marginRight: '5px', marginTop: '-1px' }} src={ASSETS_BASE_URL + "/img/appl1.svg"} />
+                                                                    : <img style={{ width: '13px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/andr1.svg"} />
+                                                        }
+                                                        Download App
 
                                                 </button>
-                                            </a>
-                                            :''
+                                                </a>
+                                                : ''
                                         }
 
                                         <HelmetTags tagsData={{
@@ -422,7 +422,7 @@ class DoctorProfileView extends React.Component {
                                                                                 {
                                                                                     nearbyDoctors.result && nearbyDoctors.result.length ?
                                                                                         nearbyDoctors.result.map((doctor, id) => {
-                                                                                            return <a href={`/${doctor.url}`} className="docSlideCard" key={id} onClick={(e) => this.navigateToDoctor(doctor, e)}>
+                                                                                            return <div className="docSlideCard" key={id} style={{ cursor: 'auto' }}>
                                                                                                 <div className="docSlideHead">
                                                                                                     {/* {   // RATING CODE BELOW, DONT DELETE
                                                                                                         doctor.rating_graph.avg_rating ?
@@ -433,7 +433,16 @@ class DoctorProfileView extends React.Component {
                                                                                                     </InitialsPicture>
                                                                                                 </div>
                                                                                                 <div className="slideDocContent">
-                                                                                                    <p className="slideDocName">{doctor.display_name}</p>
+                                                                                                    {
+                                                                                                        doctor.url ?
+                                                                                                            <a href={`/${doctor.url}`} onClick={(e) => this.navigateToDoctor(doctor, e)}>
+                                                                                                                <p className="slideDocName">{doctor.display_name}</p>
+                                                                                                            </a>
+                                                                                                            :
+                                                                                                            <a href="javascript:;" style={{ cursor: 'auto' }}>
+                                                                                                                <p className="slideDocName">{doctor.display_name}</p>
+                                                                                                            </a>
+                                                                                                    }
                                                                                                     <p className="slideDocExp">{doctor.experience_years} Years of Experience</p>
                                                                                                     {
                                                                                                         doctor.qualifications && doctor.qualifications.length ?
@@ -453,10 +462,10 @@ class DoctorProfileView extends React.Component {
                                                                                                         <span className="slideNamePrc">₹ {doctor.deal_price}</span><span className="slideCutPrc">₹ {doctor.mrp}</span>
                                                                                                     </div>
                                                                                                     <div className="slidBookBtn">
-                                                                                                        <button>Book Now</button>
+                                                                                                        <button style={{ cursor: 'pointer' }} onClick={(e) => this.navigateToDoctor(doctor, e)}>Book Now</button>
                                                                                                     </div>
                                                                                                 </div>
-                                                                                            </a>
+                                                                                            </div>
                                                                                         }) : ''
                                                                                 }
                                                                                 {/* {
