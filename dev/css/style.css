@@ -10442,11 +10442,16 @@ font-weight: 500
 }
 .ins-rd-second{
     font-weight: 500;
+    font-size: 14px;
 }
 .ins-rd-fist{
     font-weight: 500;
-    font-size: 15px;
+    font-size: 14px;
     margin-bottom: 10px;
+}
+.ins-rd-third{
+    color: #ff0000;
+    font-size: 11px;
 }
 .ins-radio-main-table{
 	margin-top: 15px;
