@@ -7295,7 +7295,7 @@ button.cstm-view-btn {
 	flex-grow: 0;
 	flex-shrink: 0;
 }
-.cstm-cpn{
+p.cstm-cpn{
 	color: #55a740;
     text-align: right;
     font-size: 10px;

@@ -39,7 +39,6 @@ class ClinicSelector extends React.Component {
     }
 
     procedurePopUp(hospital_id) {
-
         this.setState({ vieMoreProcedures: true, selectedId: hospital_id })
     }
 
@@ -133,7 +132,7 @@ class ClinicSelector extends React.Component {
                             {
                                 false && this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories
                                     ? ''
-                                    : <div className="dtl-cnslt-fee pb-list cnslt-fee-style">
+                                    : <div className="dtl-cnslt-fee pb-list cnslt-fee-style mb-0">
                                         <div className="clearfix">
                                             {
                                                 hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount?
@@ -155,22 +154,36 @@ class ClinicSelector extends React.Component {
                             }
 
                             {
+                                hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && 
+                                parseInt(hospital.discounted_price) <= hospital.insurance.insurance_threshold_amount ? '' :
+                                hospital.enabled_for_online_booking && hospital.discounted_price < hospital.mrp ?
+                                    <p className="cstm-cpn">{parseInt(((hospital.mrp - hospital.discounted_price) / hospital.mrp) * 100)}% Off
+                                        {
+                                            hospital.agreed_price != hospital.discounted_price ?
+                                                <span><br />(includes Coupon)</span> : ''
+                                        }
+                                    </p> : ''
+                            }
+
+                            {
                                 hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount?
                                 <div className="ins-val-bx">Covered Under Insurance</div>
-                                :''
+                                : ''
                             }
-                            <div className="dtl-cnslt-fee pb-list">
+                            {/*
+                                <div className="dtl-cnslt-fee pb-list">
 
-                                <div className="clearfix">
-                                    {
-                                        STORAGE.checkAuth() || hospital.discounted_price < 100 || (false && this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories) ?
-                                            ''
-                                            : enabled_for_online_booking ?
-                                                <span className="signup-off-doc" style={{ float: 'right' }} >+ &#8377; 100 OFF <b>on Signup</b> </span>
-                                                : ''
-                                    }
+                                    <div className="clearfix">
+                                        {
+                                            STORAGE.checkAuth() || hospital.discounted_price < 100 || (false && this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories) ?
+                                                ''
+                                                : enabled_for_online_booking ?
+                                                    <span className="signup-off-doc" style={{ float: 'right' }} >+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                                    : ''
+                                        }
+                                    </div>
                                 </div>
-                            </div>
+                            */}
                             <div className="address-bg-color">
                                 <div className="row no-gutters">
                                     <div className="col-10">
