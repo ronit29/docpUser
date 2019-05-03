@@ -9313,10 +9313,10 @@ border-radius: 4px;
 	text-align: center;
 }
 .pkg-hd{
-	font-size: 16px;
+	font-size: 14px;
     font-weight: 500;
     padding: 0 10px;
-	min-height: 70px;
+	min-height: 60px;
 	margin-right: 10px;
 }
 .pkg-hd-by{
@@ -9816,6 +9816,9 @@ border-radius: 4px;
 	
 	.pkgComapre .pkg-crd-header.pkg-hd{
 		width: auto;
+	}
+	.pkg-hd{
+		min-height: 72px;
 	}
 }
 @media screen and (max-width: 466px){

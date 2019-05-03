@@ -448,7 +448,7 @@ class InsuranceInputView extends React.Component{
 								<InsurCommon {...this.props} is_edit={this.state.is_edit}/>
 								<div className="insurance-member-container pt-2">
 									<h4 className="mb-0">Insured Member Details</h4>
-									<p className="plcy-cancel">wrong information might lead to policy cancellation.</p>
+									<p className="plcy-cancel">(Incorrect member details may lead to policy cancellation)</p>
 									<p className="fill-error-span fw-500 text-right d-block" style={{marginTop:'0px', fontSize: '11px'}}>*All fields are mandatory
 									</p>
 									<div className="insurance-member-details">
