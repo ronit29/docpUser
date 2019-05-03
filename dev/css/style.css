@@ -10276,7 +10276,14 @@ margin-left: 5px;
 .ins-cancel-table{
 	margin: 10px 0;
 }
-
+.plcy-cancel{
+margin-bottom: 10px;
+font-size: 11px;
+color: #F44336;
+}
+.pt-2{
+padding-top: 2px;
+}
 /* =================== insurance style =================== */
 
 /* ==========================fourth screen========================== */
