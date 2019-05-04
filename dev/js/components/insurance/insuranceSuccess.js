@@ -97,7 +97,10 @@ class InsuranceFaq extends React.Component{
   	}
     render(){
     	let self =  this
+    	let is_women_only = []
     	if(Object.keys(this.props.insured_member_list).length>0){
+    		is_women_only = this.props.insured_member_list.members.filter(x=>x.gender == 'f' && (x.relation== 'self' ||x.relation == 'spouse'))
+
     	return <div className="profile-body-wrap">
             <ProfileHeader />
             <section className="container parent-section book-appointment-section text-center container-top-margin">
@@ -121,7 +124,7 @@ class InsuranceFaq extends React.Component{
 						</div>
 					</div>
 				</div>
-				<div className="widget" style={{marginBottom:'70px'}}>
+				<div className="widget" style={{marginBottom:is_women_only.length>0?'10px':'70px'}}>
 					<div className="fnl-radio">
 						<div className="ins-radio-table-container">
 							<p className="ins-rd-fist">All set to go! Just answer some important questions regarding the insured member(s) and you can download the COI</p>
@@ -142,7 +145,8 @@ class InsuranceFaq extends React.Component{
 								</thead>
 								<tbody>
 									{Object.entries(this.props.insured_member_list.disease).map(function([key, disease_val]) {
-										return <tr key={key}>
+										return !disease_val.is_female_related?
+										 <tr key={key}>
 											<td><p>{disease_val.disease}</p></td>
 											{Object.entries(this.props.insured_member_list.members).map(function([key, member_value]) {
 											return <td key={key}>
@@ -153,18 +157,52 @@ class InsuranceFaq extends React.Component{
 													checked={this.state.disease_selected[member_value.id] && this.state.disease_selected[member_value.id].indexOf(disease_val.id)>-1?true:false}/><label 
 													onClick={this.handleChange.bind(this,member_value.id,disease_val.id)} htmlFor="test21"></label>
 											</div>
-
 												
 											</label>
 											</td>
 											},this)}
 										</tr>
+										:''
 										},this)}
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
+				{
+					is_women_only && is_women_only.length > 0?
+					<div className="widget" style={{marginBottom:'70px'}}>
+					<div className="fnl-radio">
+						<div className="ins-radio-main-table">
+							<table className="table">
+								<tbody>
+									{Object.entries(this.props.insured_member_list.disease).map(function([key, disease_val]) {
+										return disease_val.is_female_related?
+										<tr key={key}>
+											<td><p>{disease_val.disease}</p></td>
+											{Object.entries(this.props.insured_member_list.members).map(function([key, member_value]) {
+											return <td key={key}>
+											<label className="container-radio">
+												{member_value.gender == 'f' && (member_value.relation == 'self' || member_value.relation == 'spouse')?
+												<div className="insurance-checkboxes text-center">
+													<input type="checkbox" className="ins-chk-bx" checked={this.state.disease} id={key} data-param='disease_selected' name={`disease_${member_value.id}_${disease_val.id}`} value="" disabled={this.state.no_disease?true:''} 
+													checked={this.state.disease_selected[member_value.id] && this.state.disease_selected[member_value.id].indexOf(disease_val.id)>-1?true:false}/><label 
+													onClick={this.handleChange.bind(this,member_value.id,disease_val.id)} htmlFor="test21"></label>
+												</div>
+												:''}
+												
+											</label>
+											</td>
+											},this)}
+										</tr>
+										:''
+										},this)}
+								</tbody>
+							</table>
+						</div>
+					</div>
+					</div>
+				:''}
 			</section>
 			<button className="congrats-btn v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.submitPlan.bind(this)}><p style={{fontWeight:'500', fontSize:'15px'}}>Submit & Download Certficate of Insurance</p>
 			</button>
