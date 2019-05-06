@@ -2633,9 +2633,12 @@ font-weight: 500;
     margin: 20px 0 8px;
     text-transform: capitalize;
 }
+.tests-brdr-btm{
+	border-bottom: 1px solid #f2f2f2;
+}
 .anchor-data-style{
 	display: block;
-	border-bottom: 1px solid #f2f2f2;
+	
 	position: relative;
 	padding: 10px 50px 10px 10px;
 	cursor: pointer;
