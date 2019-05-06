@@ -2,13 +2,15 @@ import { MERGE_SEARCH_STATE_LAB, FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_O
 
 // const moment = require('moment');
 const DEFAULT_FILTER_STATE = {
-    priceRange: [0, 3000],
-    distanceRange: [0, 15],
-    sort_on: null,
+    //priceRange: [0, 3000],
+    //distanceRange: [0, 15],
+    //sort_on: null,
+    sort_order: null,
     sits_at_clinic: false,
     sits_at_hospital: false,
-    is_female: false,
-    is_available: false,
+    gender: null,
+    availability: [],
+    rating: [],
     doctor_name: "",
     hospital_name: "",
     hospital_id: "",

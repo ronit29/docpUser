@@ -21,7 +21,7 @@ class TopBar extends React.Component {
             sort_order: null,
             rating: [],
             availability: [],
-            gender: '',
+            gender: null,
             sits_at_clinic: false,
             sits_at_hospital: false,
             specialization: [],
@@ -62,19 +62,17 @@ class TopBar extends React.Component {
 
     applyFilters() {
         let filterState = {
-            priceRange: this.state.priceRange,
-            distanceRange: this.state.distanceRange,
-            sits_at: this.state.sits_at,
             sort_order: this.state.sort_order,
-            is_female: this.state.is_female,
-            is_available: this.state.is_available,
+            gender: this.state.gender,
+            availability: this.state.availability,
+            rating: this.state.rating,
             sits_at_clinic: this.state.sits_at_clinic,
             sits_at_hospital: this.state.sits_at_hospital,
             is_insured: this.state.is_insured,
             hospital_id: this.state.hospital_id
         }
         let data = {
-            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'available_today': this.state.is_available, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'lowPriceRange': this.state.priceRange[0], 'highPriceRange': this.state.priceRange[1], 'lowDistanceRange': this.state.distanceRange[0], 'highDistanceRange': this.state.distanceRange[1], 'is_female': this.state.is_female, 'sort_order': this.state.sort_order == "" ? 'relevance' : this.state.sort_order
+            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order||''
         }
         GTM.sendEvent({ data: data })
         this.props.applyFilters(filterState)
@@ -121,7 +119,7 @@ class TopBar extends React.Component {
                 sort_order: null,
                 rating: [],
                 availability: [],
-                gender: '',
+                gender: null,
                 sits_at_clinic: false,
                 sits_at_hospital: false
             }

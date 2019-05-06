@@ -259,7 +259,7 @@ class SearchResultsView extends React.Component {
             locality = selectedLocation.locality || ''
             sub_locality = selectedLocation.sub_locality || ''
         }
-
+/*
         let min_fees = filterCriteria.priceRange[0]
         let max_fees = filterCriteria.priceRange[1]
         let min_distance = filterCriteria.distanceRange[0]
@@ -267,6 +267,14 @@ class SearchResultsView extends React.Component {
         let sort_on = filterCriteria.sort_on || ""
         let is_available = filterCriteria.is_available
         let is_female = filterCriteria.is_female
+
+*/
+        let sort_order = filterCriteria.sort_order || ""
+        let availability = filterCriteria.availability || []
+        let rating = filterCriteria.rating || []
+        let gender = filterCriteria.gender || ''
+
+
         let hospital_name = filterCriteria.hospital_name || ""
         let doctor_name = filterCriteria.doctor_name || ""
         let hospital_id = filterCriteria.hospital_id || ""
@@ -279,25 +287,18 @@ class SearchResultsView extends React.Component {
         //Check if any filter applied 
         let is_filter_applied = false
 
-        if (parseInt(min_fees) != 0) {
+        if (sort_order) {
             is_filter_applied = true
         }
-        if (parseInt(max_fees) != 3000) {
+        if (availability && availability.length) {
             is_filter_applied = true
         }
-        if (parseInt(min_distance) != 0) {
+
+        if (rating && rating.length) {
             is_filter_applied = true
         }
-        if (parseInt(max_distance) != 15) {
-            is_filter_applied = true
-        }
-        if (sort_on) {
-            is_filter_applied = true
-        }
-        if (is_available) {
-            is_filter_applied = true
-        }
-        if (is_female) {
+
+        if (gender) {
             is_filter_applied = true
         }
         if (hospital_name) {
@@ -314,7 +315,7 @@ class SearchResultsView extends React.Component {
 
         if (is_filter_applied || !this.state.seoFriendly) {
 
-            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}`
+            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&rating=${rating}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}`
 
             is_params_exist = true
 

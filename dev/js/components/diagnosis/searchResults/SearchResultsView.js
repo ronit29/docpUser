@@ -245,12 +245,20 @@ class SearchResultsView extends React.Component {
             lat = parseFloat(parseFloat(lat).toFixed(6))
             long = parseFloat(parseFloat(long).toFixed(6))
         }
-
+/*
         let min_distance = filterCriteria.distanceRange[0]
         let max_distance = filterCriteria.distanceRange[1]
         let min_price = filterCriteria.priceRange[0]
         let max_price = filterCriteria.priceRange[1]
         let sort_on = filterCriteria.sort_on || ""
+*/
+
+        let sort_order = filterCriteria.sort_order || ""
+        let availability = filterCriteria.availability || []
+        let rating = filterCriteria.rating || []
+        let home_visit = filterCriteria.home_visit || false
+        let lab_visit = filterCriteria.lab_visit || false
+
         let lab_name = filterCriteria.lab_name || ""
         let network_id = filterCriteria.network_id || ""
         let is_insured = filterCriteria.is_insured || false
@@ -260,23 +268,23 @@ class SearchResultsView extends React.Component {
         //Check if any filter applied 
         let is_filter_applied = false
 
-        if (parseInt(min_price) != 0) {
+        if (sort_order) {
             is_filter_applied = true
         }
 
-        if (parseInt(max_price) != 20000) {
+        if(availability && availability.length) {
             is_filter_applied = true
         }
 
-        if (parseInt(min_distance) != 0) {
+        if(rating && rating.length) {
             is_filter_applied = true
         }
 
-        if (parseInt(max_distance) != 15) {
+        if(home_visit) {
             is_filter_applied = true
         }
 
-        if (sort_on) {
+        if(lab_visit) {
             is_filter_applied = true
         }
 
@@ -292,7 +300,7 @@ class SearchResultsView extends React.Component {
 
         if (is_filter_applied || !this.state.seoFriendly) {
 
-            url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&search_id=${this.state.search_id}&is_insured=${is_insured}`
+            url = `${window.location.pathname}?test_ids=${testIds || ""}&lat=${lat}&long=${long}&sort_order=${sort_order}&availability=${availability}&home_visit=${home_visit}&lab_visit=${lab_visit}&rating=${rating}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&search_id=${this.state.search_id}&is_insured=${is_insured}`
             is_params_exist = true
 
         } else if (this.state.seoFriendly) {

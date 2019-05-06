@@ -3,9 +3,13 @@ import { MERGE_SEARCH_STATE_OPD, SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_E
 // const moment = require('moment');
 
 const DEFAULT_FILTER_STATE = {
-    priceRange: [0, 20000],
-    distanceRange: [0, 15],
-    sort_on: null,
+    //priceRange: [0, 20000],
+    //distanceRange: [0, 15],
+    sort_order: null,
+    rating: [],
+    availability: [],
+    home_visit: false,
+    lab_visit: false,
     lab_name: "",
     network_id: "",
     is_insured: false

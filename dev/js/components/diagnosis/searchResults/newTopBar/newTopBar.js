@@ -59,13 +59,15 @@ class TopBar extends React.Component {
 
     applyFilters() {
         let filterState = {
-            priceRange: this.state.priceRange,
-            distanceRange: this.state.distanceRange,
             sort_order: this.state.sort_order,
+            availability: this.state.availability,
+            rating: this.state.rating,
+            home_visit: this.state.home_visit || false,
+            lab_visit: this.state.lab_visit || false,
             is_insured: this.state.is_insured
         }
         let data = {
-            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname, 'lowPriceRange': this.state.priceRange[0], 'highPriceRange': this.state.priceRange[1], 'lowDistanceRange': this.state.distanceRange[0], 'highDistanceRange': this.state.distanceRange[1], 'sort_order': this.state.sort_order == "" ? 'relevance' : this.state.sort_order
+            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname,'sort_order': this.state.sort_order|| '', 'availability': this.state.availability, 'rating': this.state.rating, 'lab_visit': this.state.lab_visit, 'home_visit': this.state.home_visit
         }
         GTM.sendEvent({ data: data })
         this.props.applyFilters(filterState)
@@ -196,10 +198,13 @@ class TopBar extends React.Component {
 
         this.setState({is_insured: !this.state.is_insured}, ()=>{
 
+            
             let filterState = {
-                priceRange: this.state.priceRange,
-                distanceRange: this.state.distanceRange,
                 sort_order: this.state.sort_order,
+                availability: this.state.availability,
+                rating: this.state.rating,
+                home_visit: this.state.home_visit || false,
+                lab_visit: this.state.lab_visit || false,
                 is_insured: this.state.is_insured
             }
             this.props.applyFilters(filterState)    

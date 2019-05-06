@@ -18,13 +18,22 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let locality = _getLocationParamBind('locality') || ""
             let sub_locality = _getLocationParamBind('sub_locality') || ""
 
-            let min_distance = parseInt(_getLocationParamBind('min_distance')) || 0
-            let max_distance = parseInt(_getLocationParamBind('max_distance')) || 15
-            let min_fees = parseInt(_getLocationParamBind('min_fees')) || 0
-            let max_fees = parseInt(_getLocationParamBind('max_fees')) || 3000
-            let sort_on = _getLocationParamBind('sort_on') || null
-            let is_available = _getLocationParamBind('is_available') === "true"
-            let is_female = _getLocationParamBind('is_female') === "true"
+            //let min_distance = parseInt(_getLocationParamBind('min_distance')) || 0
+            //let max_distance = parseInt(_getLocationParamBind('max_distance')) || 15
+            //let min_fees = parseInt(_getLocationParamBind('min_fees')) || 0
+            //let max_fees = parseInt(_getLocationParamBind('max_fees')) || 3000
+            //let sort_on = _getLocationParamBind('sort_on') || null
+            //let is_available = _getLocationParamBind('is_available') === "true"
+            //let is_female = _getLocationParamBind('is_female') === "true"
+            
+            let sort_order = _getLocationParamBind('sort_order') || null
+            let availability = _getLocationParamBind('availability') || []
+            let rating = _getLocationParamBind('rating') || []
+            let gender = _getLocationParamBind('gender') || null
+            let sits_at_clinic = _getLocationParamBind('sits_at_clinic') === "true"
+            let sits_at_hospital = _getLocationParamBind('sits_at_hospital') === "true"
+
+
             let doctor_name = _getLocationParamBind('doctor_name')
             doctor_name = doctor_name || ""
             let hospital_name = _getLocationParamBind('hospital_name')
@@ -96,7 +105,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let commonSelectedCriterias = [...cond, ...spec, ...procedures, ...procedure_categories, ...ipd_ids]
 
             let filterCriteria = {
-                min_fees, max_fees, sort_on, is_available, is_female, min_distance, max_distance
+                sort_order, gender, availability, rating, sits_at_hospital, sits_at_clinic
             }
 
             if (doctor_name) {
@@ -114,14 +123,6 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             if(is_insured){
                 filterCriteria.is_insured = is_insured
             }
-
-            filterCriteria.priceRange = [0, 1500]
-            filterCriteria.priceRange[0] = filterCriteria.min_fees
-            filterCriteria.priceRange[1] = filterCriteria.max_fees
-
-            filterCriteria.distanceRange = [0, 15]
-            filterCriteria.distanceRange[0] = filterCriteria.min_distance
-            filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
             if (!isServer && !location_ms) {
                 if (place_id) {
@@ -223,11 +224,18 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
             let lat = _getLocationParamBind('lat') || ""
             let long = _getLocationParamBind('long') || ""
             let place_id = _getLocationParamBind('place_id') || ""
-            let min_distance = parseInt(_getLocationParamBind('min_distance')) || 0
+            /*let min_distance = parseInt(_getLocationParamBind('min_distance')) || 0
             let max_distance = parseInt(_getLocationParamBind('max_distance')) || 15
             let min_price = parseInt(_getLocationParamBind('min_price')) || 0
             let max_price = parseInt(_getLocationParamBind('max_price')) || 20000
-            let sort_on = _getLocationParamBind('sort_on') || null
+            */
+            let sort_order = _getLocationParamBind('sort_order') || null
+            let rating = _getLocationParamBind('rating') || []
+            let availability = _getLocationParamBind('availability') || []
+            let home_visit = _getLocationParamBind('home_visit') ==="true"
+            let lab_visit = _getLocationParamBind('lab_visit') ==="true"
+            
+
             let lab_name = _getLocationParamBind('lab_name') || ""
             lab_name = lab_name || ""
             let network_id = _getLocationParamBind('network_id') || ""
@@ -250,7 +258,7 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
             }
 
             let filterCriteria = {
-                min_price, max_price, min_distance, max_distance, sort_on
+                sort_order, availability, rating, home_visit, lab_visit
             }
 
             if (lab_name) {
@@ -264,14 +272,6 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
             if(is_insured){
                 filterCriteria.is_insured = is_insured
             }
-
-            filterCriteria.priceRange = [0, 20000]
-            filterCriteria.priceRange[0] = filterCriteria.min_price
-            filterCriteria.priceRange[1] = filterCriteria.max_price
-
-            filterCriteria.distanceRange = [0, 15]
-            filterCriteria.distanceRange[0] = filterCriteria.min_distance
-            filterCriteria.distanceRange[1] = filterCriteria.max_distance
 
             if (!isServer && !location_ms) {
                 if (place_id) {
