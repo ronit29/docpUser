@@ -16,19 +16,26 @@ class TopBar extends React.Component {
             openFilter: false,
             priceRange: [0, 3000],
             distanceRange: [0, 15],
-            sort_on: null,
-            sits_at_clinic: false,
-            sits_at_hospital: false,
             is_female: false,
             is_available: false,
             is_insured: props.filterCriteria && props.filterCriteria.is_insured ? props.filterCriteria.is_insured : false,
             // shortURL: "",
             dropdown_visible: false,
             hospital_id: props.filterCriteria && props.filterCriteria.hospital_id ? props.filterCriteria.hospital_id : '',
-            new_dropdown_visible: false
+            new_dropdown_visible: false,
             // showLocationPopup: false,
             // overlayVisible: false,
-            // showPopupContainer: true
+            // showPopupContainer: true,
+
+            //New filters
+            previous_filters: {},
+            sort_on: '',
+            rating: '',
+            available_filter: '',
+            gender_filter: '',
+            sits_at_clinic: false,
+            sits_at_hospital: false,
+            specialization: []
         }
     }
 
@@ -95,12 +102,6 @@ class TopBar extends React.Component {
         // this.setState({ anchorEl: event.currentTarget })
         this.setState({
             dropdown_visible: true
-        });
-    }
-
-    hideSortDiv() {
-        this.setState({
-            dropdown_visible: false
         });
     }
 
@@ -194,6 +195,8 @@ class TopBar extends React.Component {
         })
     }
 
+
+
     // shortenUrl() {
     //     if (window) {
     //         let url = window.location.href + '&force_location=true'
@@ -237,6 +240,77 @@ class TopBar extends React.Component {
     //     GTM.sendEvent({ data: data })
     //     this.props.history.push(location_url)
     // }
+
+    toggleAllFilters(type, val) {
+        this.setState({[type]: val})
+    }
+
+    sortFilterClicked() {
+        let currentFilters = {
+            sort_on: this.state.sort_on,
+            rating: this.state.rating,
+            available_filter: this.state.available_filter,
+            gender_filter: this.state.gender_filter,
+            sits_at_clinic: this.state.sits_at_clinic,
+            sits_at_hospital: this.state.sits_at_hospital,
+            specialization: []
+        }
+        this.setState({ new_dropdown_visible: true, previous_filters: currentFilters })
+    }
+
+    hideSortDiv() {
+        
+        let filters = {}
+        if(this.isDataFiltered(this.state.previous_filters)){
+
+            filters = this.state.previous_filters
+        }else{
+
+            filters = {
+                sort_on: this.state.sort_on,
+                rating: this.state.rating,
+                available_filter: this.state.available_filter,
+                gender_filter: this.state.gender_filter,
+                sits_at_clinic: this.state.sits_at_clinic,
+                sits_at_hospital: this.state.sits_at_hospital,
+                specialization: []
+            }
+        }
+        this.setState({
+            dropdown_visible: false,
+            new_dropdown_visible: false,
+            previous_filters: filters
+        });
+    }
+
+    isDataFiltered(filterData={}) {
+
+        if ( filterData && Object.values(filterData).length ) {
+
+        }else {
+
+            filterData = {
+                priceRange: [0, 3000],
+                distanceRange: [0, 15],
+                sits_at_clinic: false,
+                sits_at_hospital: false,
+                is_female: false,
+                is_available: false
+            }
+        }
+        try {
+            let filterCount = 0
+            for (let filter in filterData) {
+                
+                if (def[filter] != this.state[filter]) {
+                    filterCount++
+                }
+            }
+            return filterCount
+        } catch (e) {
+            return false
+        }
+    }
 
     render() {
 
@@ -297,85 +371,85 @@ class TopBar extends React.Component {
                                 <div className="sort-lft-cont">
                                     <h5 className="sort-headings">Sort by</h5>
                                     <div className="sort-slider-scroll">
-                                        <div className="sort-cards-list">
+                                        <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_on', '')}>
                                             <div className="srt-lst-img">
                                                 <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
                                             </div>
                                             <p>Relevance</p>
                                         </div>
-                                        <div className="sort-cards-list">
+                                        <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_on', 'low_to_high')}>
                                             <div className="srt-lst-img">
                                                 <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
                                             </div>
                                             <p>Price Low to High</p>
                                         </div>
-                                        <div className="sort-cards-list">
+                                        <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_on', 'high_to_low')}>
                                             <div className="srt-lst-img">
                                                 <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
                                             </div>
                                             <p>Price High to Low</p>
                                         </div>
-                                        <div className="sort-cards-list">
+                                        <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_on', 'distance')}>
                                             <div className="srt-lst-img">
                                                 <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
                                             </div>
                                             <p>Distance</p>
                                         </div>
-                                        <div className="sort-cards-list">
+                                        <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_on', 'experience')}>
                                             <div className="srt-lst-img">
                                                 <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
                                             </div>
                                             <p>Experience</p>
-                                        </div>
-                                        <div className="sort-cards-list">
+                                        </div>{/*
+                                        <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_on', '')}>
                                             <div className="srt-lst-img">
                                                 <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
                                             </div>
                                             <p>Rating</p>
                                         </div>
-                                        <div className="sort-cards-list">
+                                        <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_on', '')}>
                                             <div className="srt-lst-img">
                                                 <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
                                             </div>
                                             <p>Relevance</p>
                                         </div>
-                                        <div className="sort-cards-list">
+                                        <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_on', '')}>
                                             <div className="srt-lst-img">
                                                 <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
                                             </div>
                                             <p>Relevance</p>
-                                        </div>
+                                        </div>*/}
 
                                     </div>
                                 </div>
                                 <div className="sorting-btns-cont">
                                     <h5 className="sort-headings">Ratings</h5>
                                     <div className="sortbtncard">
-                                        <button className="sortBtns"><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   3.0 +</button>
-                                        <button className="sortBtns"> <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.0 +</button>
-                                        <button className="sortBtns"><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.5 +</button>
+                                        <button className={`sortBtns ${this.state.rating=='3'?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'rating', '3')}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   3.0 +</button>
+                                        <button className={`sortBtns ${this.state.rating=='4'?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'rating', '4')}> <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.0 +</button>
+                                        <button className={`sortBtns ${this.state.rating=='4.5'?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'rating', '4.5')}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.5 +</button>
                                     </div>
                                 </div>
                                 <div className="sorting-btns-cont">
                                     <h5 className="sort-headings">Availability</h5>
                                     <div className="sortbtncard">
-                                        <button className="sortBtns">Today</button>
-                                        <button className="sortBtns">Tommorow</button>
-                                        <button className="sortBtns srtBtnAct">Next 3 Days</button>
+                                        <button className={`sortBtns ${this.state.available_filter=='0'?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'available_filter', '0')}>Today</button>
+                                        <button className={`sortBtns ${this.state.available_filter=='1'?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'available_filter', '1')}>Tommorow</button>
+                                        <button className={`sortBtns ${this.state.available_filter=='3'?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'available_filter', '3')}>Next 3 Days</button>
                                     </div>
                                 </div>
                                 <div className="sorting-btns-cont">
                                     <h5 className="sort-headings">Gender</h5>
                                     <div className="sortbtncard justyfy-twoBtns">
-                                        <button className="sortBtns">Male</button>
-                                        <button className="sortBtns">Female</button>
+                                        <button  className={`sortBtns ${this.state.gender_filter=='m'?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'gender_filter', 'm')}>Male</button>
+                                        <button className={`sortBtns ${this.state.gender_filter=='f'?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'gender_filter', 'f')}>Female</button>
                                     </div>
                                 </div>
                                 <div className="sorting-btns-cont">
                                     <h5 className="sort-headings">Hospital Type</h5>
                                     <div className="sortbtncard justyfy-twoBtns">
-                                        <button className="sortBtns">Clinic</button>
-                                        <button className="sortBtns">Hospital</button>
+                                        <button className={`sortBtns ${this.state.sits_at_clinic?'srtBtnAct':''}`}  onClick={this.toggleAllFilters.bind(this, 'sits_at_clinic', !this.state.sits_at_clinic)}>Clinic</button>
+                                        <button className={`sortBtns ${this.state.sits_at_hospital?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'sits_at_hospital', !this.state.sits_at_hospital)}>Hospital</button>
                                     </div>
                                 </div>
                                     </div>
@@ -431,7 +505,7 @@ class TopBar extends React.Component {
                                                 25 Results foundLiver Function Test <span>in Policy bazaar Sector 44 Gurgaon <img style={{ width: '11px', height: '15px', marginLeft: '7px' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} /> </span>
                                             </p>
                                         </div>
-                                        <div className="top-filter-tabs-select newSortFilterbar" onClick={() => this.setState({ new_dropdown_visible: true })}>
+                                        <div className="top-filter-tabs-select newSortFilterbar" onClick={this.sortFilterClicked.bind(this)}>
                                             <div className="p-relative">
                                                 <img style={{ width: '14px' }} src={ASSETS_BASE_URL + "/img/filtersort.png"} />
                                                 <p className="filterNotification">3</p>
