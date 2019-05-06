@@ -124,8 +124,9 @@ class InsuranceFaq extends React.Component{
 				<div className="widget" style={{marginBottom:'70px'}}>
 					<div className="fnl-radio">
 						<div className="ins-radio-table-container">
-							<p className="ins-rd-fist">All set to go! Your policy has being issued. Just answer some important questions regarding the insured member(s) and you can download the COI</p>
-							<p className="ins-rd-second">Ever diagnose with the following disease?</p>
+							<p className="ins-rd-fist">All set to go! Just answer some important questions regarding the insured member(s) and you can download the COI</p>
+							<p className="ins-rd-second">Ever diagnose with the following medical disease?</p>
+							<p className="ins-rd-third">All pre-existing conditions are covered under the policy and disclosure will not affect the policy terms.</p>
 						</div>
 						<div className="ins-radio-main-table">
 							<table className="table">
