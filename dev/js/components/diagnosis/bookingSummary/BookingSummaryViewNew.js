@@ -45,7 +45,8 @@ class BookingSummaryViewNew extends React.Component {
             cart_item: parsed.cart_item,
             pincode: this.props.pincode,
             whatsapp_optin: true,
-            pincodeMismatchError: false
+            pincodeMismatchError: false,
+            coupon_loading: false
         }
     }
 
@@ -138,37 +139,46 @@ class BookingSummaryViewNew extends React.Component {
 
             // if coupon already applied just set discount price.
             if (nextProps.labCoupons[this.state.selectedLab] && nextProps.labCoupons[this.state.selectedLab].length) {
-
                 if (this.props.LABS[this.state.selectedLab] != nextProps.LABS[this.state.selectedLab] || this.props.selectedAppointmentType != nextProps.selectedAppointmentType) {
-
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupons = nextProps.labCoupons[this.state.selectedLab]
-                    this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '' })
-                    this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item)
+                    this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item, (err, data) => {
+                        if (!err) {
+                            this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '' })
+                        } else {
+                            this.setState({coupon_loading: true})
+                            this.getAndApplyBestCoupons(nextProps)
+                        }
+                    })
                 }
                 return
             }
 
             // if no coupon is applied
             if (!nextProps.labCoupons[this.state.selectedLab] || (nextProps.labCoupons[this.state.selectedLab] && nextProps.labCoupons[this.state.selectedLab].length == 0)) {
-                if (nextProps.couponAutoApply) {
-                    let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
-
-                    this.props.getCoupons({
-                        productId: 2, deal_price: finalPrice, lab_id: this.state.selectedLab, test_ids: test_ids, profile_id: nextProps.selectedProfile, cart_item: this.state.cart_item,
-                        cb: (coupons) => {
-                            if (coupons && coupons[0]) {
-                                this.props.applyCoupons('2', coupons[0], coupons[0].coupon_id, this.state.selectedLab)
-                                this.props.applyLabCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item)
-                                this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
-                            } else {
-                                this.props.resetLabCoupons()
-                            }
-                        }
-                    })
-                }
+                this.getAndApplyBestCoupons(nextProps)
             }
+        }
+    }
+    
+    getAndApplyBestCoupons(nextProps) {
+        if (nextProps.couponAutoApply) {
+            let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
+
+            this.props.getCoupons({
+                productId: 2, deal_price: finalPrice, lab_id: this.state.selectedLab, test_ids: test_ids, profile_id: nextProps.selectedProfile, cart_item: this.state.cart_item,
+                cb: (coupons) => {
+                    if (coupons && coupons[0]) {
+                        this.props.applyCoupons('2', coupons[0], coupons[0].coupon_id, this.state.selectedLab)
+                        this.props.applyLabCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item)
+                        this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
+                    } else {
+                        this.props.resetLabCoupons()
+                    }
+                    this.setState({coupon_loading: false})
+                }
+            })
         }
     }
 
@@ -858,17 +868,25 @@ class BookingSummaryViewNew extends React.Component {
                                                                                     }
                                                                                 </div>
                                                                             </div> :
-                                                                            <div className="widget-content d-flex jc-spaceb" >
-                                                                                <div className="d-flex">
-                                                                                    <span className="coupon-img">
-                                                                                        <img src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} className="visit-time-icon" />
-                                                                                    </span>
-                                                                                    <h4 className="title coupon-text">
-                                                                                        HAVE A COUPON?
-                                                                                    </h4>
-                                                                                </div>
-                                                                                <div className="visit-time-icon coupon-icon-arrow">
-                                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+                                                                            <div>
+                                                                                {
+                                                                                    this.state.coupon_loading ?
+                                                                                        <div className="loading_Linebar_container">
+                                                                                            <div className="loading_bar_line"></div>
+                                                                                        </div> : ''
+                                                                                }
+                                                                                <div className="widget-content d-flex jc-spaceb" >
+                                                                                    <div className="d-flex">
+                                                                                        <span className="coupon-img">
+                                                                                            <img src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} className="visit-time-icon" />
+                                                                                        </span>
+                                                                                        <h4 className="title coupon-text">
+                                                                                            HAVE A COUPON?
+                                                                                        </h4>
+                                                                                    </div>
+                                                                                    <div className="visit-time-icon coupon-icon-arrow">
+                                                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                     }
