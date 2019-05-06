@@ -276,7 +276,7 @@ const queryString = require('query-string');
                                       
                                       <h3 className="lab-fltr-dc-name fw-500 pkg-include">{packages.total_parameters_count} Tests Included</h3>
                                       <div className="pkg-card-price">
-                                      <p className="fw-500" id={"hide_strt_" + packages.id}>₹ {parseInt(packages.price)}
+                                      <p className="fw-500" id={"hide_strt_" + packages.id}>₹ {parseInt(packages.discounted_price)}
                                           <span className="pkg-cut-price">₹ {parseInt(packages.mrp)}</span>
                                       </p>
                                       
