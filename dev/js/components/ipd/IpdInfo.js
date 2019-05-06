@@ -200,7 +200,7 @@ class IpdView extends React.Component {
 	            	:''
 	            }
 
-           	  <h1 className="section-heading top-sc-head"> <span className="about-head"> {`${this.props.ipd_info?`${this.props.ipd_info.about.name} ${this.props.ipd_info && this.props.ipd_info.seo?`in ${this.props.ipd_info.seo.location}`:''}  `:''}`} </span>
+           	  <h1 className="section-heading top-sc-head"> <span className="about-head"> {`${this.props.ipd_info?`${this.props.ipd_info.about.name} Cost ${this.props.ipd_info && this.props.ipd_info.seo?`in ${this.props.ipd_info.seo.location}`:''}  `:''}`} </span>
 					</h1>
               <div className="full-widget mrg-b0 stickyBar">
                  <nav className="tab-head">
@@ -238,7 +238,7 @@ class IpdView extends React.Component {
 					<div id="doctorTab" ref="doctorTab" className="tab-pane fade nav_top_bar">
 						{
 							this.props.ipd_info && this.props.ipd_info.doctors && this.props.ipd_info.doctors.result  && this.props.ipd_info.doctors.result.length && this.props.ipd_info.about && this.props.ipd_info.about.name?
-							<h2 className="section-heading">{`Top ${this.props.ipd_info.about.name} Doctors ${this.props.ipd_info.seo?`in ${this.props.ipd_info.seo.location}`:''} `}</h2>
+							<h2 className="section-heading">{`Best ${this.props.ipd_info.about.name} Doctors ${this.props.ipd_info.seo?`in ${this.props.ipd_info.seo.location}`:''} `}</h2>
 							:''	
 						}
 	                    {
