@@ -4,6 +4,8 @@ import RightBar from '../../../commons/RightBar'
 import ProfileHeader from '../../../commons/DesktopProfileHeader'
 import Footer from '../../../commons/Home/footer'
 import GTM from '../../../../helpers/gtm.js'
+import HelmetTags from '../../../commons/HelmetTags'
+import CONFIG from '../../../../config'
 
 const queryString = require('query-string');
 
@@ -239,6 +241,11 @@ const queryString = require('query-string');
     if(this.props.showCompare && this.props.data != null){
      return (
           <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
+              <HelmetTags tagsData={{
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}`,
+                    title: `${this.props.data.title || ''}`,
+                    // description: `${this.props.data.description || ''}`
+                }} noIndex={false} />                
               <ProfileHeader />
                 <section className="pkgComapre container" style={{marginTop: 44}}>
                   <div className="row main-row parent-section-row">
