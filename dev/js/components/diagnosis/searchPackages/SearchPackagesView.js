@@ -2,7 +2,7 @@ import React from 'react';
 
 import PackagesLists from '../searchPackages/packagesList/index.js'
 import CriteriaSearch from '../../commons/criteriaSearch'
-import TopBar from './topBar'
+import TopBar from './topBar/newTopBar.js'
 import NAVIGATE from '../../../helpers/navigate/index.js';
 import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
