@@ -77,6 +77,7 @@ class IpdHospitalView extends React.Component{
                 if (window) {
                     window.scrollTo(0, 0)
                 }
+                this.props.mergeIpdCriteria({fetchNewResults:false})
                 this.setState({ search_id: search_id }, () => {
                     let new_url = this.buildURI(this.props)
                     this.props.history.replace(new_url)
