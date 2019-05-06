@@ -94,7 +94,7 @@ class FixedMobileFooter extends React.Component {
             })
         }
         return (
-            <div className="mobileViewStaticChat d-md-none">
+            <div className={`mobileViewStaticChat d-md-none ${this.props.hideFooter?'smth-ftr-scrl':''}`}>
                 <div className="nw-chat-card">
                     <div className="chat-div-containers" style={this.props.selectedSearchType === 'opd' || this.props.selectedSearchType === 'procedures' ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
                         let data = {

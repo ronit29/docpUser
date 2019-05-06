@@ -2,7 +2,7 @@ import React from 'react';
 
 import DoctorsList from '../searchResults/doctorsList/index.js'
 import CriteriaSearch from '../../commons/criteriaSearch'
-import TopBar from './topBar'
+import TopBar from './newTopBar'
 import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import NAVIGATE from '../../../helpers/navigate'
@@ -26,7 +26,8 @@ class SearchResultsView extends React.Component {
             clinic_card: this.props.location.search.includes('clinic_card') || null,
             showError: false,
             search_id: '',
-            setSearchId: false
+            setSearchId: false,
+            scrollPosition: 0
         }
     }
 
@@ -107,6 +108,17 @@ class SearchResultsView extends React.Component {
         // if (window) {
         //     window.scrollTo(0, 0)
         // }
+        let self = this
+        let scrollPosition = 0
+        if(window && document) {
+            window.onscroll = function() {
+                scrollPosition = document.documentElement.scrollTop
+                setTimeout(()=> {
+                    console.log(scrollPosition);console.log(document.documentElement.scrollTop);console.log('aaaaaaaaa')
+                    self.setState({scrollPosition: scrollPosition> document.documentElement.scrollTop})
+                },4000)
+            }
+        }
     }
 
     componentWillReceiveProps(props) {
@@ -400,6 +412,11 @@ class SearchResultsView extends React.Component {
             landing_page = true
         }
 
+        let hideFooter = false
+        if(document) {
+            hideFooter = this.state.scrollPosition
+        }
+        
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
@@ -413,14 +430,14 @@ class SearchResultsView extends React.Component {
                     next: next
                 }} />
 
-                <CriteriaSearch {...this.props} checkForLoad={landing_page || this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card} newChatBtn={true} searchDoctors={true}>
+                <CriteriaSearch {...this.props} checkForLoad={landing_page || this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card} newChatBtn={true} searchDoctors={true} hideFooter={hideFooter}>
                     {
                         this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
                             <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
-                            <ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
-                            {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
-                                <img src={ASSETS_BASE_URL + "/img/banners/banner_doc.png"} className="banner-img" />
-                            </div> */}
+                            {
+                                /*<ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
+                                */
+                            }
                             <DoctorsList {...this.props} getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
 
                             {
