@@ -2,7 +2,7 @@ import React from 'react';
 
 import LabsList from '../searchResults/labsList/index.js'
 import CriteriaSearch from '../../commons/criteriaSearch'
-import TopBar from './topBar'
+import TopBar from './newTopBar'
 import NAVIGATE from '../../../helpers/navigate/index.js';
 import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
@@ -364,7 +364,8 @@ class SearchResultsView extends React.Component {
                     {
                         this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
                             <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} lab_card={!!this.state.lab_card} seoFriendly={this.state.seoFriendly} />
-                            <ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} lab_card={!!this.state.lab_card} seoFriendly={this.state.seoFriendly} />
+                            {/*<ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} lab_card={!!this.state.lab_card} seoFriendly={this.state.seoFriendly} />
+                            */}
                             {/*
                         <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                             <img src={ASSETS_BASE_URL + "/img/banners/banner_lab.png"} className="banner-img" />
