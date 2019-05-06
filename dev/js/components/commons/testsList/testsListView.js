@@ -50,7 +50,7 @@ class TestsListView extends React.Component {
                     description: 'Tests Index: Find detailed information about test preparation, procedure, normal ranges, duration and more.',
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
                 }} />
-                <section className="container dp-container-div">
+                <section className="container dp-container-div test-list-container">
                     <div className="row main-row parent-section-row">
                         <div className="col-12">
                             <ul className="mrb-10 mrt-20 breadcrumb-list" style={{ wordBreak: 'break-word' }}>
@@ -109,7 +109,7 @@ class TestsListView extends React.Component {
                         </div>
                     </div>
                 </section>
-                <Footer />
+                <Footer testsListPage={true} />
             </div>
         )
     }
