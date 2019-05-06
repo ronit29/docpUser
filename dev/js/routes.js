@@ -512,6 +512,7 @@ let routes = [
     { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail },
     { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail },
     { path: '/package/compare', exact: true, component: PackageCompare },
+    { path: '/*-hpcp', exact: true, component: PackageCompare },
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {

@@ -147,7 +147,7 @@ export const resetPkgCompare = () => (dispatch) => {
     })
 }
 
-export const getCompareList = (selectedIds,selectedLocation,callback) => (dispatch) => {
+export const getCompareList = (selectedIds,selectedLocation,searchByUrl,callback) => (dispatch) => {
     let lat = 28.644800
     let long = 77.216721
     if (selectedLocation) {
@@ -159,10 +159,15 @@ export const getCompareList = (selectedIds,selectedLocation,callback) => (dispat
 
     }
     let postData={}
-    postData.package_lab_ids = selectedIds
+    postData.package_lab_ids = selectedIds    
+    postData.url = searchByUrl    
     postData['lat'] = lat
     postData['long'] = long
-    API_POST('/api/v1/diagnostic/compare_lab_packages', postData).then(function (response) {
+    let url = '/api/v1/diagnostic/compare_lab_packages'
+    if(searchByUrl){
+        url = '/api/v1/diagnostic/compare_lab_packages_by_url'
+    }
+    API_POST(url, postData).then(function (response) {
         if (callback) callback(response)
     }).catch(function (error) {
         if (callback) callback(null)
