@@ -26,16 +26,21 @@ class IpdHospitalListView extends React.Component {
    	}
 
 	getCostEstimateClicked(hospitalId){
-		if(this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length){
-			let ipd_id = this.props.commonSelectedCriterias[0].id
 		
-			let gtmData = {
-		    	'Category': 'ConsumerApp', 'Action': 'IpdGetCostEstimateClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-get-cost-estimate-clicked', selectedId: ipd_id || '', hospitalId: hospitalId || ''
-			}
-			GTM.sendEvent({ data: gtmData })
 
-			this.props.history.push(`/ipd/${ipd_id}/getPriceEstimate?hospital_id=${hospitalId}`)
+		let ipd_id = this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length?this.props.commonSelectedCriterias[0].id:''
+	
+		let gtmData = {
+	    	'Category': 'ConsumerApp', 'Action': 'IpdGetCostEstimateClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-get-cost-estimate-clicked', selectedId: ipd_id || '', hospitalId: hospitalId || ''
 		}
+		GTM.sendEvent({ data: gtmData })
+
+    if(ipd_id){
+      this.props.history.push(`/ipd/${ipd_id}/getPriceEstimate?hospital_id=${hospitalId}`)
+    }else{
+      this.props.history.push(`/ipd/price/getPriceEstimate?hospital_id=${hospitalId}`)  
+    }
+		
       
    	}
 
@@ -73,6 +78,8 @@ class IpdHospitalListView extends React.Component {
 
 	render(){
 		let { hospital_list, HOSPITAL_DATA } = this.props
+    let ipd_id = this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length?this.props.commonSelectedCriterias[0].id:null
+
 		return(
 			<div>
 				{
@@ -106,7 +113,7 @@ class IpdHospitalListView extends React.Component {
                     {
 						hospital_list.map((hospitalId, i) => {
 							if(HOSPITAL_DATA[hospitalId]){
-								return <HospitalCard key={i} data={HOSPITAL_DATA[hospitalId]} getCostEstimateClicked={this.getCostEstimateClicked.bind(this)} getHospitalDetailPage={this.getHospitalDetailPage.bind(this)} toggleProviderFilter={this.toggleProviderFilter.bind(this)}/>	
+								return <HospitalCard key={i} data={HOSPITAL_DATA[hospitalId]} getCostEstimateClicked={this.getCostEstimateClicked.bind(this)} getHospitalDetailPage={this.getHospitalDetailPage.bind(this)} toggleProviderFilter={this.toggleProviderFilter.bind(this)} noIpd={ipd_id?false:true}/>	
 							}
 						})
 					}

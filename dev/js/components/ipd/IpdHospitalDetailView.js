@@ -31,24 +31,24 @@ class HospitalDetailView extends React.Component {
 	}
 
 	componentDidMount(){
+		let hospital_id = this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ?this.props.ipd_hospital_detail.id: this.props.match.params.hospitalId||''
 			let gtmData = {
-		    	'Category': 'ConsumerApp', 'Action': 'IpdHospitalDetailPageLanded', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-detail-page-landed', selectedId: this.props.match.params.hospitalId 
+		    	'Category': 'ConsumerApp', 'Action': 'IpdHospitalDetailPageLanded', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-detail-page-landed', selectedId: hospital_id
 			}
 			GTM.sendEvent({ data: gtmData })		
 	}
 
-	getCostEstimateClicked(hospitalId){
-		if(this.props.commonSelectedCriterias.length){
-			let ipd_id = this.props.commonSelectedCriterias[0].id
+	getCostEstimateClicked(){
 
-			let gtmData = {
-		    	'Category': 'ConsumerApp', 'Action': 'IpdGetCostEstimateClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-get-cost-estimate-clicked', selectedId: ipd_id || '', hospitalId: this.props.match.params.hospitalId || ''
-			}
-			GTM.sendEvent({ data: gtmData })
-
-			
-			this.props.history.push(`/ipd/${ipd_id}/getPriceEstimate?hospital_id=${this.props.match.params.hospitalId}`)		
+		let ipd_id = this.props.commonSelectedCriterias.length?this.props.commonSelectedCriterias[0].id:null
+		let hospital_id = this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ?this.props.ipd_hospital_detail.id: ''
+		let gtmData = {
+	    	'Category': 'ConsumerApp', 'Action': 'IpdGetCostEstimateClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-get-cost-estimate-clicked', selectedId: ipd_id || '', hospitalId: hospital_id
 		}
+		GTM.sendEvent({ data: gtmData })
+
+		
+		this.props.history.push(`/ipd/${ipd_id?ipd_id:'price'}/getPriceEstimate?hospital_id=${hospital_id}`)
       
    	}
 
@@ -69,7 +69,7 @@ class HospitalDetailView extends React.Component {
 			this.props.history.push(`/opd/searchresults`)	
 		}*/
 		let self = this
-		let hospital_id = this.props.match.params.hospitalId
+		let hospital_id = this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ?this.props.ipd_hospital_detail.id: ''
 		let doctor_name=''
 		let hospital_name =''
 		let state = {
@@ -189,11 +189,8 @@ class HospitalDetailView extends React.Component {
 		                    			<HospitalAboutUs hospital_data={this.props.ipd_hospital_detail}/>
 		                    			:''	
 		                    		}
-		                    		{
-		                    			this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length?
-		                    			<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a></div>
-		                    			:''	
-		                    		}
+
+		                    		<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">{this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length ?'Get Cost Estimate':'Know More'}</a></div>
 		                    		
 		                    	</div>
 		                    	:<Loader/>	

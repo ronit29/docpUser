@@ -13,7 +13,7 @@ class IPDForm extends React.Component {
 		if (!this.props.defaultProfile && STORAGE.checkAuth()) {
 			this.props.getUserProfile()
 		}
-		if (this.props.match.params.id) {
+		if (this.props.match.params.id && this.props.match.params.id!='price') {
 			this.props.getIpdInfo(this.props.match.params.id)
 		}
 

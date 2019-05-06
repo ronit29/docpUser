@@ -27,7 +27,8 @@ class HospitalDetail extends React.Component {
         if (this.props.match.url.includes('-hpp') ) {
             searchUrl = this.props.match.url.toLowerCase()
         }
-		this.props.getHospitaDetails(this.props.match.params.hospitalId, this.props.selectedLocation, searchUrl)
+        let hospitalId = searchUrl?'':this.props.match.params.hospitalId
+		this.props.getHospitaDetails(hospitalId, this.props.selectedLocation, searchUrl)
 	}
 
 	componentWillReceiveProps(nextProps) {

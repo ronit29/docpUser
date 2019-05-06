@@ -107,9 +107,13 @@ class IPDFormView extends React.Component {
 
 
 			this.setState({ validateError: validateError })
+			let ipd_id = this.props.match.params.id
+			if(ipd_id.includes('price')){
+				ipd_id = 999
+			}
 			let formData = {
 				...this.state,
-				ipd_procedure: this.props.match.params.id
+				ipd_procedure: ipd_id
 			}
 
 			if (parsed.hospital_id) {
@@ -144,7 +148,7 @@ class IPDFormView extends React.Component {
 					<div className="row main-row parent-section-row">
 						<LeftBar />
 						{
-							this.props.IPD_INFO_LOADED ?
+							this.props.IPD_INFO_LOADED || this.props.match.params.id=='price'?
 								<div className="col-12 col-md-7 col-lg-7 center-column">
 									{
 										this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'ipd_lead_form').length ?
@@ -153,7 +157,12 @@ class IPDFormView extends React.Component {
 											</div> : ''
 									}
 									<div className="ipd-section ipd-form-view mt-0">
-										<h4 className="section-heading pt-0">{`Get Cost Estimate of ${ipd_info.about.name}`}</h4>
+										{
+											this.props.match.params.id!='price'?
+											<h4 className="section-heading pt-0">{`Get Cost Estimate of ${ipd_info.about.name}`}</h4>
+											:''	
+										}
+										
 										<div className="lead-form">
 											<p>Please provide your details below and our Medical Experts will contact you shortly</p>
 											{/*<ul class="med-help">
