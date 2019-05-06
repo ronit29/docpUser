@@ -44,13 +44,19 @@ class UserLoginView extends React.Component {
         }
     }
 
-    submitOTPRequest(number) {
+    submitOTPRequest(number, resendFlag = false) {
         const parsed = queryString.parse(this.props.location.search)
-        let analyticData = {
-            'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': number, 'pageSource': parsed.login || ''
+        if (resendFlag) {
+            let analyticData = {
+                'Category': 'ConsumerApp', 'Action': 'ResendOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp-request', 'mobileNo': number, 'pageSource': parsed.login || ''
+            }
+            GTM.sendEvent({ data: analyticData })
+        } else {
+            let analyticData = {
+                'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': number, 'pageSource': parsed.login || ''
+            }
+            GTM.sendEvent({ data: analyticData })
         }
-        GTM.sendEvent({ data: analyticData })
-
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
             this.props.sendOTP(number, (error) => {
@@ -184,7 +190,7 @@ class UserLoginView extends React.Component {
                                                     <br /><br />
                                                     <input type="number" className="fc-input text-center" placeholder="Enter OTP" value={this.state.otp} onChange={this.inputHandler.bind(this)} name="otp" onKeyPress={this._handleKeyPress.bind(this)} />
                                                     {
-                                                        this.state.otpTimeout ? "" : <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)}>Resend ?</a>
+                                                        this.state.otpTimeout ? "" : <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true)}>Resend ?</a>
                                                     }
                                                 </div> : ""
                                             }
