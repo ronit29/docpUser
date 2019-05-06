@@ -9313,10 +9313,10 @@ border-radius: 4px;
 	text-align: center;
 }
 .pkg-hd{
-	font-size: 16px;
+	font-size: 14px;
     font-weight: 500;
     padding: 0 10px;
-	min-height: 70px;
+	min-height: 60px;
 	margin-right: 10px;
 }
 .pkg-hd-by{
@@ -9817,6 +9817,9 @@ border-radius: 4px;
 	.pkgComapre .pkg-crd-header.pkg-hd{
 		width: auto;
 	}
+	.pkg-hd{
+		min-height: 72px;
+	}
 }
 @media screen and (max-width: 466px){
 	.pkg-hd-by{
@@ -10276,7 +10279,14 @@ margin-left: 5px;
 .ins-cancel-table{
 	margin: 10px 0;
 }
-
+.plcy-cancel{
+margin-bottom: 10px;
+font-size: 11px;
+color: #F44336;
+}
+.pt-2{
+padding-top: 2px;
+}
 /* =================== insurance style =================== */
 
 /* ==========================fourth screen========================== */
@@ -10432,11 +10442,16 @@ font-weight: 500
 }
 .ins-rd-second{
     font-weight: 500;
+    font-size: 14px;
 }
 .ins-rd-fist{
     font-weight: 500;
-    font-size: 15px;
+    font-size: 14px;
     margin-bottom: 10px;
+}
+.ins-rd-third{
+    color: #ff0000;
+    font-size: 11px;
 }
 .ins-radio-main-table{
 	margin-top: 15px;
