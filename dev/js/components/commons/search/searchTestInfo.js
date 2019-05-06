@@ -460,7 +460,7 @@ class SearchTestView extends React.Component {
                                                                     style={{ height: 'auto', marginBottom: '10px' }}>
 
                                                                     {/*this.props.packagesList?this.props.packagesList.count:''*/}
-                                                                    {labs && labs.count ? labs.count : ''} Results found for
+                                                                    {labs && labs.count ? labs.count : '0'} Results found for
                                                                     <h1 className="search-result-heading">
                                                                         <span className="fw-700"> {SearchedCritera}</span>
                                                                     </h1>
