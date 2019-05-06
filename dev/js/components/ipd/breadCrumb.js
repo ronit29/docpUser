@@ -9,7 +9,7 @@ class BreadcrumbView extends React.Component {
                 {
                 	this.props.breadcrumb && this.props.breadcrumb.length ?
                     <section className="">
-                        <ul className="mrb-10 breadcrumb-list breadcrumb-list-ul" style={{ 'wordBreak': 'breakWord' }}>
+                        <ul className="mrb-10 breadcrumb-list breadcrumb-list-ul" style={{ 'wordBreak': 'breakWord', marginTop:'0px', marginBottom:'10px' }}>
                             {
                                 this.props.breadcrumb.map((data, key) => {
                                     return <li className="breadcrumb-list-item" key={key}>

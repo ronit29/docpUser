@@ -14,7 +14,7 @@ class InfoView extends React.Component {
 		return(
 			<div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
-                <section className="container parent-section book-appointment-section pkgComapre">
+                <section className="container parent-section book-appointment-section breadcrumb-mrgn">
 
 	                <div className="row main-row parent-section-row">
 	                    <LeftBar />
