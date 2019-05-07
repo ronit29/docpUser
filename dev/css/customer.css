@@ -2008,3 +2008,25 @@ p.rt-doc-nm{
 .charSelected>span{
     color: #fff !important;
 }
+
+.inline-speciality{
+    display: inline-block;
+    margin-right: 4px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.inline-speciality h2{
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+@media(min-width:993px){
+    .test-list-container{
+        min-height: 100vh !important;
+        padding-bottom: 370px !important;
+    }
+    .stick-btm-footer{
+        margin-top: -370px !important;
+    }
+}
