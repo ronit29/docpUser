@@ -270,19 +270,22 @@ const queryString = require('query-string');
                                 return <li key={i} id={'pkg_'+packages.id}>
                                      <img src={ASSETS_BASE_URL + "/images/packageCompare/red-cut.png"} alt="" className="end-div" onClick={this.toggleComparePackages.bind(this,packages.id,packages.lab.id,packages.lab.thumbnail,packages.lab.name)}/>
                                     
-                                      <div className="pkg-hd">{packages.name}</div>
+                                      <div className="pkg-hd">{packages.name} {packages.total_parameters_count>0?
+                                        `(${packages.total_parameters_count} tests)`:''} </div>
                                       {/*<div className="pkg-hd-by" id={"hide_av_" + packages.id}>Available in {packages.total_labs_available} Labs</div>*/}
                                       <div className="pkg-hd-by fw-500 ease-hide" id={"hide_av_" + packages.id+'_'+packages.lab.id}>{packages.lab.name}</div>
                                       
-                                      <h3 className="lab-fltr-dc-name fw-500 pkg-include">{packages.total_parameters_count} Tests Included</h3>
-                                      <div className="pkg-card-price">
-                                      <p className="fw-500" id={"hide_strt_" + packages.id}>₹ {parseInt(packages.price)}
-                                          <span className="pkg-cut-price">₹ {parseInt(packages.mrp)}</span>
-                                      </p>
+                                      {/* <h3 className="lab-fltr-dc-name fw-500 pkg-include">{packages.total_parameters_count} Tests Included</h3> */}
+                                      {/* <div className="pkg-card-price">
+                                     
                                       
-                                      </div>
+                                      </div> */}
                                       {/*<p className="pkg-discountCpn" id={"hide_coupon_"+ packages.id}>Includes coupon</p>*/}
-                                      <a onClick={this.bookNow.bind(this,packages.lab.id,'',packages.id,packages.lab.name)}><button className="pkg-btn-nw">Book Now </button></a>
+                                      <a onClick={this.bookNow.bind(this,packages.lab.id,'',packages.id,packages.lab.name)}><button className="pkg-btn-nw">
+                                      <p className="fw-500" id={"hide_strt_" + packages.id}>₹ {parseInt(packages.price)}
+                                          <span className="pkg-cut-price" style={{color:'#ffffff'}}>₹ {parseInt(packages.mrp)}</span>
+                                      </p>
+                                       </button></a>
                                 </li>
                               })  
                             :''

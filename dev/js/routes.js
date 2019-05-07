@@ -273,6 +273,12 @@ const InsuranceCertificate = Loadable({
     webpack: () => [require.resolveWeak('./containers/insurance/InsuranceCertificate.js')],
     loading,
 })
+const InsuranceCancellation = Loadable({
+    loader: () => import('./containers/insurance/InsuranceCancellation.js'),
+    modules: ['./containers/insurance/InsuranceCancellation.js'],
+    webpack: () => [require.resolveWeak('./containers/insurance/InsuranceCancellation.js')],
+    loading,
+})
 const IPDInfo = Loadable({
     loader: () => import('./containers/ipd/IpdInfo.js'),
     modules: ['./containers/ipd/IpdInfo.js'],
@@ -531,6 +537,7 @@ if (CONFIG.ENABLE_INSURANCE) {
         { path: '/insurance/insurance-user-details-review', exact: true, component: InsuranceReview, RENDER_ON_SERVER: true },
         { path: '/insurance/complete', exact: true, component: InsuranceSuccess, RENDER_ON_SERVER: true },
         { path: '/insurance/certificate', exact: true, component: InsuranceCertificate, RENDER_ON_SERVER: true },
+        { path: '/insurance/cancelpolicy', exact: true, component: InsuranceCancellation, RENDER_ON_SERVER: true },
     ])
 }
 

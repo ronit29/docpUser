@@ -7,19 +7,29 @@ class InsuranceCertificateView extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-
+			showCancelPopup:false
 		}
 	}
 
-	 getGetOrdinal(n) {
+	getGetOrdinal(n) {
    	var s=["th","st","nd","rd"],
-       v=n%100;
-   return n+(s[(v-20)%10]||s[v]||s[0]);
+       	v=n%100;
+   		return n+(s[(v-20)%10]||s[v]||s[0]);
+	}
+
+	cancelPolicy(){
+		if(this.props.get_insured_profile && this.props.get_insured_profile.is_cancel_allowed){
+			this.props.history.push('/insurance/cancelpolicy')
+		}else{
+			this.setState({showCancelPopup:true})
+		}
+	}
+
+	hideCancelPolicyPopup(){
+		this.setState({showCancelPopup:false})
 	}
 
 	render() {
-		console.log(this.props.showBtn)
-		console.log(this.props.get_insured_profile.coi_url)
 		if (Object.keys(this.props.get_insured_profile).length > 0) {
 			let primaryMember
 			let FamilyMembers
@@ -40,6 +50,22 @@ class InsuranceCertificateView extends React.Component {
 			let expiryDate = expiry_date.split(" ")
 			return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
 				<ProfileHeader />
+				{this.state.showCancelPopup?
+					<section className="error-msg-pop">
+		                <div className="cancel-overlay"></div>
+		                <div className="popup-error" style={{ width: '300px' }}>
+		                    <div className="error-head"><img className="errorInfoImg" src={ASSETS_BASE_URL + "/img/infoerror.svg"} />{"Alert"}</div>
+		                    <div className="cross-btn">
+		                        <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" onClick={this.hideCancelPolicyPopup.bind(this)} />
+		                    </div>
+		                    <p className="error-msg">Your policy cannot be cancelled as you have already completed atleast 1 claim under your policy</p>
+		                    <p className="error-msg subAlertins">for any other query you can call us at <span>
+		                    	1800-123-9419
+		                    </span></p>
+		                </div>
+		            </section>
+                :''
+				}
 				<section className="container parent-section book-appointment-section container-top-margin">
 					<div className="row main-row parent-section-row">
 						<div className="col-12 col-md-7 col-lg-7">
@@ -92,17 +118,30 @@ class InsuranceCertificateView extends React.Component {
 								</section>*/}
 								<div className="widget">
 									<div className="widget-content">
-										<p className="fw-500 ins-congo-text text-primary text-center mrb-10">Congratulations !</p>
-										<p className="fw-500 text-center mrb-10">Your Group Out-patient Insurance has been issued</p>
+										{this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 1?
+										<div>
+											<p className="fw-500 ins-congo-text text-primary text-center mrb-10">Congratulations !</p>
+											<p className="fw-500 text-center mrb-10">Your Group Out-patient Insurance has been issued</p>
+										</div>
+										:''}
 										<div className="ins-flex mrb-20">
 											<img width="100" src="https://qacdn.docprime.com/media/insurer/images/apllogo.png" />
 											{/*<p className="fw-500">OPD Insurance <br />by <span className="fw-700">Apollo Munich</span></p>*/}
 											<p className="fw-500">Group Out-patient Insurance</p>
-											<div style={{flexGrow:'0',flexShrink: '0'}}>
-												<img width="30" src={ASSETS_BASE_URL + "/img/chk-green.svg"} style={{ verticalAlign: '-31px' }} />
-												<span className="fw-500" style={{ color: '#4fc243', verticalAlign: '-21px' }} >Active</span>
-											</div>
+											{this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 1?
+												<div style={{flexGrow:'0',flexShrink: '0'}}>
+													<img width="30" src={ASSETS_BASE_URL + "/img/chk-green.svg"} style={{ verticalAlign: '-31px' }} />
+													<span className="fw-500" style={{ color: '#4fc243', verticalAlign: '-21px' }} >Active</span>
+												</div>
+												:''
+											}
 										</div>
+										{this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 4?
+												<p className="fw-500 text-center mrb-10">Your insurance policy is onhold</p>	
+												:this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 5?
+												<p className="fw-500 text-center mrb-10">Your cancellation request has been initiated</p>
+										:''
+										}
 										{/*<div className="ins-flex mrb-10">
 											<img src={ASSETS_BASE_URL + '/img/customer-icons/pdf.png'} />
 											<p className="fw-500 mr-0">Please find attached the certificate of insurance for the issued policy</p>
@@ -165,11 +204,22 @@ class InsuranceCertificateView extends React.Component {
 										</div>
 									</div>
 								</div>
-							</section>									
-							
+							</section>
+							{
+								this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 1?
+									<div className="sticky-btn fixed insuBtnsContainer">
+										<button className="insu-left-white-btn" onClick={this.cancelPolicy.bind(this)} style={{color:this.props.get_insured_profile.is_cancel_allowed?'#f78631':'#757575' }}>Cancel Policy
+										</button>
+										<a className="insu-right-orng-btn foot-btn-Anchr" href={this.props.get_insured_profile.coi_url} download target="_blank">Download Certificate of Insurance <span className="foot-btn-sub-span">(Policy Document)</span>
+										</a>
+									</div>
+							:''}
+								{/*<a onClick={this.cancelPolicy.bind(this)}>
+									cancel policy
+								</a>
 								<a className={"v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn text-center" +(this.props.showBtn?'ins-no-download':'')} style={{ color: "#ffffff" }} href={this.props.get_insured_profile.coi_url} download target="_blank">
 									Download Certificate of Insurance<span className="foot-btn-sub-span">(Policy Document)</span>
-								</a>
+													</a>*/}
 						</div>
 						<ChatPanel />
 					</div>

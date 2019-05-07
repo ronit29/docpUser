@@ -644,15 +644,16 @@ export const unSetCommonUtmTags = (type, tags) => (dispatch) => {
 	})
 }
 
-export const getDownloadAppBannerList = () => (dispatch) => {
+export const getDownloadAppBannerList = (cb) => (dispatch) => {
 
 	return API_GET('/api/v1/common/get_key_data?key=AppInstall').then( function (response){
 		dispatch({
 			type: GET_APP_DOWNLOAD_BANNER_LIST,
 			payload: response
 		})
+		if(cb)cb(response)
 
 	}).catch( function (e){
-
+		if(cb)cb(null)
 	})
 }

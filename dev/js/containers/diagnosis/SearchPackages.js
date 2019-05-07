@@ -102,7 +102,8 @@ const mapStateToProps = (state, passedProps) => {
 
     const {
         offerList,
-        is_login_user_insured
+        is_login_user_insured,
+        insurance_status
     } = state.USER
 
     const LABS = state.LAB_SEARCH_DATA
@@ -128,7 +129,8 @@ const mapStateToProps = (state, passedProps) => {
         is_login_user_insured,
         page,
         curr_page,
-        compare_packages
+        compare_packages,
+        insurance_status
     }
 
 }
