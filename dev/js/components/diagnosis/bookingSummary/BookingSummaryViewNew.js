@@ -143,9 +143,10 @@ class BookingSummaryViewNew extends React.Component {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupons = nextProps.labCoupons[this.state.selectedLab]
-                    this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item, (err, data) => {
+                    let validCoupon = this.getValidCoupon(labCoupons)
+                    this.props.applyLabCoupons('2', validCoupon.code, validCoupon.coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item, (err, data) => {
                         if (!err) {
-                            this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '' })
+                            this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '' })
                         } else {
                             this.setState({coupon_loading: true})
                             this.getAndApplyBestCoupons(nextProps)
@@ -162,6 +163,17 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
     
+    getValidCoupon(coupons) {
+        let validCoupon = null
+        for (var index in coupons) {
+            if (coupons[index].valid) {
+                validCoupon = coupons[index]
+                break
+            }
+        }
+        return validCoupon
+    }
+
     getAndApplyBestCoupons(nextProps) {
         if (nextProps.couponAutoApply) {
             let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
@@ -169,10 +181,11 @@ class BookingSummaryViewNew extends React.Component {
             this.props.getCoupons({
                 productId: 2, deal_price: finalPrice, lab_id: this.state.selectedLab, test_ids: test_ids, profile_id: nextProps.selectedProfile, cart_item: this.state.cart_item,
                 cb: (coupons) => {
-                    if (coupons && coupons[0]) {
-                        this.props.applyCoupons('2', coupons[0], coupons[0].coupon_id, this.state.selectedLab)
-                        this.props.applyLabCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item)
-                        this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
+                    let validCoupon = this.getValidCoupon(coupons)
+                    if (coupons && validCoupon) {
+                        this.props.applyCoupons('2', validCoupon, validCoupon.coupon_id, this.state.selectedLab)
+                        this.props.applyLabCoupons('2', validCoupon.code, validCoupon.coupon_id, this.state.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item)
+                        this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '' })
                     } else {
                         this.props.resetLabCoupons()
                     }
@@ -741,6 +754,7 @@ class BookingSummaryViewNew extends React.Component {
         }
 
         let labCoupons = this.props.labCoupons[this.state.selectedLab] || []
+        let validCoupon = this.getValidCoupon(labCoupons)
 
         let amtBeforeCoupon = 0
         let total_price = finalPrice
@@ -852,17 +866,17 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 </div>
                                                                                 <div className=" d-flex">
                                                                                     <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
-                                                                                        {labCoupons[0].code}
+                                                                                        {validCoupon.code}
                                                                                     </h4>
                                                                                     {
                                                                                         is_corporate ? "" : <span className="visit-time-icon coupon-icon"><img onClick={(e) => {
                                                                                             e.stopPropagation();
                                                                                             let analyticData = {
-                                                                                                'Category': 'ConsumerApp', 'Action': 'LabCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-removed', 'couponId': labCoupons[0].coupon_id
+                                                                                                'Category': 'ConsumerApp', 'Action': 'LabCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-removed', 'couponId': validCoupon.coupon_id
                                                                                             }
                                                                                             GTM.sendEvent({ data: analyticData })
                                                                                             this.setState({couponCode: '', couponId:''})
-                                                                                            this.props.removeLabCoupons(this.state.selectedLab, labCoupons[0].coupon_id)
+                                                                                            this.props.removeLabCoupons(this.state.selectedLab, validCoupon.coupon_id)
                                                                                         }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
                                                                                         </span>
                                                                                     }
