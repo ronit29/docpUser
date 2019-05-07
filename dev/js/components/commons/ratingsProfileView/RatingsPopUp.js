@@ -104,7 +104,9 @@ class RatingsPopUp extends React.Component {
 
     thanYouButton = () => {
         this.setState({ rating_done: false })
-        this.props.popUpState()
+        if (typeof (this.props.unverified) != 'undefined' && this.props.unverified) {
+            this.props.popUpState()
+        }
     }
 
     submitRating = (post_data, flag) => {
