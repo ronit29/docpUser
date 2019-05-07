@@ -26,7 +26,7 @@ class SpecialitiesMap extends React.Component {
 								if (!this.state.showMore && i >= 20) {
 									style = { display: 'none' }
 								}
-								return <div style={style} key={i} className="col-12 col-md-6 col-lg-4" onClick={() => this.props.history.push(`/speciality-inventory/${city.specialization_id}`)}>
+								return <div style={style} key={i} className="col-12 col-md-6 col-lg-4 tests-brdr-btm" onClick={() => this.props.history.push(`/speciality-inventory/${city.specialization_id}`)}>
 									<div className="anchor-data-style">
 										<a href={`/speciality-inventory/${city.specialization_id}`} onClick={(e) => e.preventDefault()} >{city.specialization}</a>
 										<span className="sitemap-right-arrow">
