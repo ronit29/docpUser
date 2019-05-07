@@ -72,7 +72,7 @@ class SearchResultsView extends React.Component {
                 this.setState({ search_id: search_id }, () => {
 
                     //Check if user insured
-                    if (this.props.is_login_user_insured) {
+                    if (this.props.is_login_user_insured && this.props.insurance_status == 1) {
                         filters.filterCriteria = { ...filters.filterCriteria }
                         filters.filterCriteria.is_insured = true
                     }
@@ -129,7 +129,7 @@ class SearchResultsView extends React.Component {
                 this.setState({ search_id: search_id }, () => {
 
                     //Check if user insured
-                    if (props.is_login_user_insured) {
+                    if (props.is_login_user_insured && props.insurance_status == 1) {
                         filters.filterCriteria = { ...filters.filterCriteria }
                         filters.filterCriteria.is_insured = true
                     }

@@ -892,6 +892,34 @@ cursor: pointer;
 	cursor: pointer;
 	color: white;
 }
+.pkg-card-price-offr {
+	border-top: 1px solid #e6e6e6;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	padding: 5px 0 2px 0;
+}
+.pkg-prc-ct{
+
+}
+.pkg-prc-ct p{
+	color: #f78631;
+	font-weight: 500;
+	display: flex;
+	align-items: center;
+}
+.pkg-prc-ct p span.pkg-ofr-cut-prc{
+	font-size: 12px;
+	text-decoration: line-through;
+	margin-left: 4px;
+	font-weight: 400;
+	color: #757575;
+}
+.pkg-hlth-offer{
+	color: #0eb558;
+	font-weight: 500;
+	font-size: 11px;
+}
 /* ============ download app btn ============ */
 /* ============ sort new design ============ */
 .sorting-main-container{

@@ -325,11 +325,11 @@ class ChatPanel extends React.Component {
             }
         }
 
-        if(this.props.USER && this.props.USER.common_utm_tags && this.props.USER.common_utm_tags.length){
-            let religareTag = this.props.USER.common_utm_tags.filter(x=>x.type == 'chat' && x.utm_source=='religare')
+        if (this.props.USER && this.props.USER.common_utm_tags && this.props.USER.common_utm_tags.length) {
+            let religareTag = this.props.USER.common_utm_tags.filter(x => x.type == 'chat' && x.utm_source == 'religare')
 
-            if(religareTag.length){
-                iframe_url += `&source=religare&visitid=${religareTag[0].visitorId}`   
+            if (religareTag.length) {
+                iframe_url += `&source=religare&visitid=${religareTag[0].visitorId}`
             }
         }
         let chatBtnContent1 = ''
@@ -340,7 +340,7 @@ class ChatPanel extends React.Component {
         } else if (this.props.newChatBtn || this.props.newChatBtnAds) {
             chatBtnContent1 = <span style={{ fontSize: 18 }} ><img style={{ marginRight: 8, width: 24, verticalAlign: 'middle' }} src={ASSETS_BASE_URL + "/img/customer-icons/headphone.svg"} />Get help with your bookings</span>
         }
-        
+
         let recentArticles = false
         if (this.props.articleData && this.props.articleData.recent_articles) {
             recentArticles = this.props.articleData.recent_articles
@@ -412,10 +412,10 @@ class ChatPanel extends React.Component {
                                             </span> : ""
                                         }
 
-                                        
+
                                         {
                                             this.state.showChatBlock
-                                                ? <span  onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatminimize.svg"} /></span>
+                                                ? <span onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatminimize.svg"} /></span>
                                                 : ''
                                         }
                                         <span className="ml-2" onClick={this.toggleCancel.bind(this)}>
@@ -482,8 +482,13 @@ class ChatPanel extends React.Component {
                         </div> : ''
                 }
                 {
-                    this.props.homePage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-                        <BannerCarousel {...this.props} sliderLocation="home_page" /> : ''
+                    this.props.homePage && !this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+                        <BannerCarousel {...this.props} sliderLocation="home_page" />
+                        :
+                        this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'online_consultation').length ?
+                            <div className="mrt-20">
+                                <BannerCarousel {...this.props} sliderLocation="online_consultation" />
+                            </div> : ''
                 }
             </div>
         );

@@ -611,7 +611,7 @@ class TopBar extends React.Component {
                                 </div> : ""
                             }
                             {
-                                STORAGE.checkAuth() && this.props.is_login_user_insured
+                                STORAGE.checkAuth() && this.props.is_login_user_insured && this.props.insurance_status == 1
                                     ? <div className="tg-list-item">
                                         <input className="tgl tgl-ios" id="lab_insurance" type="checkbox" checked={this.state.is_insured} onChange={this.toggleInsured.bind(this)} />
                                         <label className="tgl-btn" htmlFor="lab_insurance"></label>

@@ -56,7 +56,8 @@ const defaultState = {
     isUserCared: {},
     common_utm_tags: [],
     articleData: {},
-    app_download_list: []
+    app_download_list: [],
+    insurance_status: null
 }
 
 export default function (state = defaultState, action) {
@@ -87,6 +88,7 @@ export default function (state = defaultState, action) {
                         newState.userName = profile.name
                     }
                     newState.is_login_user_insured = profile.is_insured
+                    newState.insurance_status = profile.insurance_status
                     newState.defaultProfile = profile.id
                 }
                 profileMap[profile.id] = profile
