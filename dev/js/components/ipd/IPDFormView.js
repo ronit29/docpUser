@@ -109,7 +109,7 @@ class IPDFormView extends React.Component {
 			this.setState({ validateError: validateError })
 			let ipd_id = this.props.match.params.id
 			if(ipd_id.includes('price')){
-				ipd_id = 999
+				ipd_id = ''
 			}
 			let formData = {
 				...this.state,
@@ -123,7 +123,7 @@ class IPDFormView extends React.Component {
 			this.props.submitIPDForm(formData, (error, response) => {
 				if (!error && response) {
 					let gtmData = {
-						'Category': 'ConsumerApp', 'Action': 'IpdLeadGenerationSuccess', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'ipd-lead-generation-success', selectedId: this.props.match.params.id, 'hospitalId': parsed.hospital_id ? parsed.hospital_id : ''
+						'Category': 'ConsumerApp', 'Action': 'IpdLeadGenerationSuccess', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'ipd-lead-generation-success', selectedId: ipd_id, 'hospitalId': parsed.hospital_id ? parsed.hospital_id : ''
 					}
 					GTM.sendEvent({ data: gtmData })
 					this.setState({ submitFormSuccess: true })
