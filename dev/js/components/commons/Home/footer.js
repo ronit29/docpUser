@@ -26,7 +26,7 @@ class Footer extends React.Component {
         }
 
         return (
-            <footer className="profile-footer">
+            <footer className={`${this.props.testsListPage ? `profile-footer stick-btm-footer` : `profile-footer`}`}>
                 {
                     menu.length > 0 ?
                         <div className="container-fluid footer-2">
@@ -82,7 +82,7 @@ class Footer extends React.Component {
                         </div> : ''
                 }
 
-                <section className="container-fluid mrt-20">
+                <section className={`${this.props.testsListPage ? `container-fluid mrt-0` : `container-fluid mrt-20`}`}>
                     <div className="row">
                         <div className="col-12 col-md-2">
                             <div className="footer-links">

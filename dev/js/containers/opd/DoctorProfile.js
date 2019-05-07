@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, mergeOPDState, toggleProfileProcedures, saveProfileProcedures, getDoctorNo, toggleOPDCriteria, getAllRatings } from '../../actions/index.js'
+import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, mergeOPDState, toggleProfileProcedures, saveProfileProcedures, getDoctorNo, toggleOPDCriteria, getAllRatings, getDownloadAppBannerList } from '../../actions/index.js'
 
 import DoctorProfileView from '../../components/opd/doctorProfile/index.js'
 const queryString = require('query-string');
@@ -77,22 +77,22 @@ class DoctorProfile extends React.Component {
         }
 
         if (this.props.match.params.id) {
-            // if (!this.state.selectedDoctor) {
+            if (!this.state.selectedDoctor || !this.props.DOCTORS[this.state.selectedDoctor]) {
                 this.props.getDoctorById(this.props.match.params.id, hospital_id, procedure_ids, category_ids)
-            // }
+            }
             this.setState({ hospital_id: hospital_id, is_procedure: is_procedure })
         } else {
             let url = this.props.match.url
             if (url) {
                 url = url.split("/")[1]
             }
-            // if (!this.state.selectedDoctor) {
+            if (!this.state.selectedDoctor || !this.props.DOCTORS[this.state.selectedDoctor]) {
                 this.props.getDoctorByUrl(url, hospital_id, procedure_ids, category_ids, (doctor_id) => {
                     if (doctor_id) {
                         this.setState({ selectedDoctor: doctor_id })
                     }
                 })
-            // }
+            }
             this.setState({ hospital_id: hospital_id, is_procedure: is_procedure })
         }
 
@@ -110,7 +110,6 @@ class DoctorProfile extends React.Component {
     }
 
     render() {
-
         return (
             <DoctorProfileView {...this.props} selectedDoctor={this.state.selectedDoctor} {...this.state} />
         );
@@ -128,7 +127,7 @@ const mapStateToProps = (state, passedProps) => {
     }
 
     let DOCTORS = state.DOCTOR_PROFILES
-    let { rated_appoinments, profiles, selectedProfile, primaryMobile } = state.USER
+    let { rated_appoinments, profiles, selectedProfile, primaryMobile, app_download_list, device_info } = state.USER
 
     const {
         selectedCriterias,
@@ -144,7 +143,7 @@ const mapStateToProps = (state, passedProps) => {
     } = state.DOCTOR_SEARCH
 
     return {
-        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, selectedLocation, fetchNewResults, commonProcedurers, selectedDoctorProcedure, profileCommonProcedures, primaryMobile, filterCriteria
+        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, selectedLocation, fetchNewResults, commonProcedurers, selectedDoctorProcedure, profileCommonProcedures, primaryMobile, filterCriteria, app_download_list, device_info
     }
 }
 
@@ -165,7 +164,8 @@ const mapDispatchToProps = (dispatch) => {
         saveProfileProcedures: (doctor_id, clinic_id) => dispatch(saveProfileProcedures(doctor_id, clinic_id)),
         getDoctorNo: (doctorData, cb) => dispatch(getDoctorNo(doctorData, cb)),
         toggleOPDCriteria: (type, criteria, forceAdd) => dispatch(toggleOPDCriteria(type, criteria, forceAdd)),
-        getAllRatings: (content_type, object_id, page, cb) => dispatch(getAllRatings(content_type, object_id, page, cb))
+        getAllRatings: (content_type, object_id, page, cb) => dispatch(getAllRatings(content_type, object_id, page, cb)),
+        getDownloadAppBannerList: (cb) => dispatch(getDownloadAppBannerList(cb))
     }
 }
 

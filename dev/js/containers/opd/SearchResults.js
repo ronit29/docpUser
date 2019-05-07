@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggle404, getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures, resetProcedureURl, setSearchId, getSearchIdResults, selectSearchType, setNextSearchCriteria, getOfferList, toggleDiagnosisCriteria, selectOpdTimeSLot, saveProfileProcedures } from '../../actions/index.js'
+import { toggle404, getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures, resetProcedureURl, setSearchId, getSearchIdResults, selectSearchType, setNextSearchCriteria, getOfferList, toggleDiagnosisCriteria, selectOpdTimeSLot, saveProfileProcedures, resetPkgCompare } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder, mergeSelectedCriterias } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/opd/searchResults/index.js'
 import NotFoundView from '../../components/commons/notFound'
@@ -111,6 +111,11 @@ const mapStateToProps = (state, passedProps) => {
         mergeUrlState
     } = state.SEARCH_CRITERIA_OPD
 
+    const {
+        compare_packages
+
+    } = state.SEARCH_CRITERIA_LABS
+
     let DOCTORS = state.DOCTORS
     let HOSPITALS = state.HOSPITALS
 
@@ -118,7 +123,8 @@ const mapStateToProps = (state, passedProps) => {
 
     const {
         offerList,
-        is_login_user_insured
+        is_login_user_insured,
+        insurance_status
     } = state.USER
 
     return {
@@ -149,7 +155,9 @@ const mapStateToProps = (state, passedProps) => {
         show404,
         offerList,
         is_login_user_insured,
-        canonical_url
+        insurance_status,
+        canonical_url,
+        compare_packages
     }
 }
 
@@ -173,7 +181,8 @@ const mapDispatchToProps = (dispatch) => {
         selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
         saveProfileProcedures: (doctor_id, clinic_id, procedure_ids, forceAdd) => dispatch(saveProfileProcedures(doctor_id, clinic_id, procedure_ids, forceAdd)),
         getOfferList: (lat, long) => dispatch(getOfferList(lat, long)),
-        toggleDiagnosisCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filter))
+        toggleDiagnosisCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filter)),
+        resetPkgCompare:() => dispatch(resetPkgCompare())
     }
 }
 

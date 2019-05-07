@@ -2,9 +2,9 @@ import { FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, SET_FETCH_RESULTS_LA
 import { API_GET } from '../../api/api.js';
 import GTM from '../../helpers/gtm'
 
-export const loadOPDCommonCriteria = () => (dispatch) => {
+export const loadOPDCommonCriteria = (city = 'Delhi') => (dispatch) => {
 
-    return API_GET('/api/v1/doctor/commonconditions').then(function (response) {
+    return API_GET(`/api/v1/doctor/commonconditions?city=${city}`).then(function (response) {
         dispatch({
             type: LOAD_SEARCH_CRITERIA_OPD,
             payload: response
@@ -36,6 +36,7 @@ export const selectLocation = (location, type = 'geo', fetchNewResults = true) =
     let place_id = ""
     let location_name = ""
     let userAgent = ""
+    let city_name = ""
 
     if (location) {
         place_id = location.place_id || ""
@@ -47,6 +48,7 @@ export const selectLocation = (location, type = 'geo', fetchNewResults = true) =
         lat = parseFloat(parseFloat(lat).toFixed(6))
         long = parseFloat(parseFloat(long).toFixed(6))
         location_name = location.name || location.formatted_address
+        city_name = location.locality
     }
 
     if (navigator) {
@@ -55,11 +57,13 @@ export const selectLocation = (location, type = 'geo', fetchNewResults = true) =
 
     let data = {
         'Category': 'ConsumerApp', 'Action': 'ChangeLocation', 'event': 'change-location', location: {
-            lat, long, place_id, location_name, type
+            lat, long, place_id, location_name, type, city_name
         }, userAgent
     }
 
     GTM.sendEvent({ data: data })
+
+    loadOPDCommonCriteria(location_name)(dispatch)
 
     return Promise.all([
         dispatch({

@@ -23,6 +23,7 @@ import RatingGraph from '../../commons/ratingsProfileView/RatingGraph.js'
 import RatingReviewView from '../../commons/ratingsProfileView/ratingReviewView.js'
 import RatingStars from '../../commons/ratingsProfileView/RatingStars';
 import HospitalPopUp from '../../commons/ratingsProfileView/HospitalPopUp.js'
+import STORAGE from '../../../helpers/storage'
 
 class DoctorProfileView extends React.Component {
     constructor(props) {
@@ -60,7 +61,46 @@ class DoctorProfileView extends React.Component {
                 }
             })
         }
+
+        if(this.props.app_download_list && !this.props.app_download_list.length){
+
+            this.props.getDownloadAppBannerList((resp)=>{
+                if(resp && resp.length && resp[0].data){
+                    this.showDownloadAppWidget(resp[0].data)
+                }
+            })
+        }else{
+            this.showDownloadAppWidget(this.props.app_download_list)
+        }
+
         this.setState({ searchShown: true })
+    }
+
+    showDownloadAppWidget(dataList){
+        let landing_page = false
+        if (typeof window == 'object' && window.ON_LANDING_PAGE) {
+            landing_page = true
+        }
+
+        let downloadAppButtonData = {}
+
+        if(landing_page && dataList && dataList.length){
+
+            dataList.map((banner)=> {
+                if(banner.isenabled && ( this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with) ) ) {
+                    downloadAppButtonData = banner
+                }
+            })
+        }
+
+
+        if(Object.values(downloadAppButtonData).length){
+            
+            let gtmTrack = {
+                'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonVisible', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-visible', 'starts_with':downloadAppButtonData.starts_with?downloadAppButtonData.starts_with:'', 'ends_with': downloadAppButtonData.ends_with?downloadAppButtonData.ends_with:'', 'device': this.props.device_info
+            }
+            GTM.sendEvent({ data: gtmTrack })
+        }
     }
 
     getMetaTagsData(seoData) {
@@ -185,6 +225,16 @@ class DoctorProfileView extends React.Component {
         this.setState({ displayHospitalRatingBlock: 0 })
     }
 
+    downloadButton(data) {
+        let gtmTrack = {
+            'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-clicked', 'starts_with': data.starts_with ? data.starts_with : '', 'ends_with': data.ends_with ? data.ends_with : '', 'device': this.props.device_info
+        }
+        GTM.sendEvent({ data: gtmTrack })
+        if (window) {
+            window.open(data.URL, '_self')
+        }
+    }
+
     render() {
 
         let doctor_id = this.props.selectedDoctor
@@ -252,6 +302,22 @@ class DoctorProfileView extends React.Component {
             selectedClinicName = selectedClinicInfo.length ? selectedClinicInfo[0].hospital_name : ''
         }
 
+        let landing_page = false
+        if (typeof window == 'object' && window.ON_LANDING_PAGE) {
+            landing_page = true
+        }
+
+        let downloadAppButtonData = {}
+        
+        if(landing_page && this.props.app_download_list && this.props.app_download_list.length){
+
+            this.props.app_download_list.map((banner)=> {
+                if(banner.isenabled && ( this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with)) ) {
+                    downloadAppButtonData = banner
+                }
+            })
+        }
+
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
@@ -298,6 +364,23 @@ class DoctorProfileView extends React.Component {
                                 this.props.DOCTORS[doctor_id] ?
 
                                     <section className="dr-profile-screen" style={{ paddingBottom: 0 }}>
+                                        {
+                                            downloadAppButtonData && Object.values(downloadAppButtonData).length ?
+                                                <a className="downloadBtn" href="javascript:void(0);" onClick={this.downloadButton.bind(this, downloadAppButtonData)}>
+
+                                                    <button className="dwnlAppBtn">
+                                                        {
+                                                            !this.props.device_info ? ''
+                                                                : (this.props.device_info.toLowerCase().includes('iphone') || this.props.device_info.toLowerCase().includes('ipad')) ?
+                                                                    <img style={{ width: '13px', marginRight: '5px', marginTop: '-1px' }} src={ASSETS_BASE_URL + "/img/appl1.svg"} />
+                                                                    : <img style={{ width: '13px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/andr1.svg"} />
+                                                        }
+                                                        Download App
+
+                                                </button>
+                                                </a>
+                                                : ''
+                                        }
 
                                         <HelmetTags tagsData={{
                                             title: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).title,
@@ -354,7 +437,7 @@ class DoctorProfileView extends React.Component {
                                                                                 {
                                                                                     nearbyDoctors.result && nearbyDoctors.result.length ?
                                                                                         nearbyDoctors.result.map((doctor, id) => {
-                                                                                            return <a href={`/${doctor.url}`} className="docSlideCard" key={id} onClick={(e) => this.navigateToDoctor(doctor, e)}>
+                                                                                            return <div className="docSlideCard" key={id} style={{ cursor: 'auto' }}>
                                                                                                 <div className="docSlideHead">
                                                                                                     {/* {   // RATING CODE BELOW, DONT DELETE
                                                                                                         doctor.rating_graph.avg_rating ?
@@ -365,7 +448,16 @@ class DoctorProfileView extends React.Component {
                                                                                                     </InitialsPicture>
                                                                                                 </div>
                                                                                                 <div className="slideDocContent">
-                                                                                                    <p className="slideDocName">{doctor.display_name}</p>
+                                                                                                    {
+                                                                                                        doctor.url ?
+                                                                                                            <a href={`/${doctor.url}`} onClick={(e) => this.navigateToDoctor(doctor, e)}>
+                                                                                                                <p className="slideDocName">{doctor.display_name}</p>
+                                                                                                            </a>
+                                                                                                            :
+                                                                                                            <a href="javascript:;" style={{ cursor: 'auto' }}>
+                                                                                                                <p className="slideDocName">{doctor.display_name}</p>
+                                                                                                            </a>
+                                                                                                    }
                                                                                                     <p className="slideDocExp">{doctor.experience_years} Years of Experience</p>
                                                                                                     {
                                                                                                         doctor.qualifications && doctor.qualifications.length ?
@@ -385,10 +477,10 @@ class DoctorProfileView extends React.Component {
                                                                                                         <span className="slideNamePrc">₹ {doctor.deal_price}</span><span className="slideCutPrc">₹ {doctor.mrp}</span>
                                                                                                     </div>
                                                                                                     <div className="slidBookBtn">
-                                                                                                        <button>Book Now</button>
+                                                                                                        <button style={{ cursor: 'pointer' }} onClick={(e) => this.navigateToDoctor(doctor, e)}>Book Now</button>
                                                                                                     </div>
                                                                                                 </div>
-                                                                                            </a>
+                                                                                            </div>
                                                                                         }) : ''
                                                                                 }
                                                                                 {/* {
@@ -428,14 +520,16 @@ class DoctorProfileView extends React.Component {
                                                             />
 
                                                             {/* this one is rating */}
-                                                            <div className="widget-panel">
-                                                                <div className="panel-content ratecardBrdr">
-                                                                    <div className="rateUrDoc">
-                                                                        <p>Rate your Doctor here</p>
-                                                                        <button onClick={this.display_hospital_rating_block}>Rate Now</button>
+                                                            { STORAGE.checkAuth() ? 
+                                                                <div className="widget-panel">
+                                                                    <div className="panel-content ratecardBrdr">
+                                                                        <div className="rateUrDoc">
+                                                                            <p>Rate your Doctor here</p>
+                                                                            <button onClick={this.display_hospital_rating_block}>Rate Now</button>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </div>
+                                                                </div> : "" 
+                                                            }
                                                             {/* this one is rating */}
                                                             {
                                                                 avgRating >= 4 || ratingCount >= 5 ?

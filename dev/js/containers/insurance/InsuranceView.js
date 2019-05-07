@@ -6,6 +6,7 @@ import InsuranceComponent from '../../components/insurance/insuranceView.js'
 import Loader from '../../components/commons/Loader'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import STORAGE from '../../helpers/storage'
+const queryString = require('query-string');
 
 class Insurance extends React.Component{
 
@@ -17,7 +18,12 @@ class Insurance extends React.Component{
     }
 
     componentDidMount() {
-        this.props.getInsurance()
+        let parsed = queryString.parse(this.props.location.search)
+        this.props.getInsurance(resp=>{
+            if(!resp.certificate && STORAGE.checkAuth()){
+                this.props.generateInsuranceLead('','',parsed.source)
+            }
+        })
         if (STORAGE.checkAuth()) {
             this.props.getUserProfile()
         }

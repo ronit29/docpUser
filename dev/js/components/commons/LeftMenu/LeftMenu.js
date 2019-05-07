@@ -2,6 +2,7 @@ import React from 'react';
 import InitialsPicture from '../initialsPicture'
 import STORAGE from '../../../helpers/storage';
 import CONFIG from '../../../config'
+import GTM from '../../../helpers/gtm.js'
 
 class LeftMenu extends React.Component {
 
@@ -77,9 +78,13 @@ class LeftMenu extends React.Component {
                   {
                     CONFIG.ENABLE_INSURANCE ?
                       <li><a onClick={(e) => {
+                        let data = {
+                        'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuInsuranceClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-insurance-clicked'
+                      }
+                      GTM.sendEvent({ data: data })
                         e.preventDefault()
                         this.props.toggleLeftMenu()
-                        this.props.history.push('/insurance/insurance-plans')
+                        this.props.history.push('/insurance/insurance-plans?source=mobile-leftmenu-insurance-clicked')
                       }} href="#"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} alt="" className="" />OPD Insurance<span className={user_insurance_status ? 'float-right memAct' : 'float-right memNew'}>{user_insurance_status ? 'Active' : 'New'}</span></a></li>
                       : ''
                   }
@@ -162,7 +167,7 @@ class LeftMenu extends React.Component {
                   <li><a onClick={(e) => {
                     e.preventDefault()
                     this.setState({ toggleArticles: !this.state.toggleArticles })
-                  }} href="#" ><img src={ASSETS_BASE_URL + "/images/articles.png"} alt="" className="" />Articles
+                  }} href="#" ><img src={ASSETS_BASE_URL + "/images/articles.png"} alt="" className="" />Resources
                                   {
                       this.state.toggleArticles ?
                         <img className="up-down-arw" src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="docprime" />
@@ -178,11 +183,17 @@ class LeftMenu extends React.Component {
                           this.props.history.push("/all-diseases")
                         }} href="#" className="pad-B0">All Diseases</a></li>
 
-                        <li ><a onClick={(e) => {
-                          e.preventDefault();
-                          this.props.toggleLeftMenu()
-                          this.props.history.push("/all-medicines")
-                        }} href="#">All Medicines</a></li>
+                      <li ><a onClick={(e) => {
+                        e.preventDefault();
+                        this.props.toggleLeftMenu()
+                        this.props.history.push("/all-medicines")
+                      }} href="#" className="pad-B0">All Medicines</a></li>
+
+                      <li ><a onClick={(e) => {
+                        e.preventDefault();
+                        this.props.toggleLeftMenu()
+                        this.props.history.push("/tests")
+                      }} href="#">All Tests</a></li>
                       </div>
                       : ''
                   }

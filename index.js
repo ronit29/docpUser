@@ -49,7 +49,7 @@ app.set('views', path.join(__dirname, '../dist'));
 app.get('/firebase-messaging-sw.js', function (req, res) {
     res.sendFile(path.join(__dirname, '../assets/firebase-messaging-sw.js'))
 });
-app.get('/apple-app-site-association', function (req, res) {
+app.get('/disbaled-apple-app-site-association', function (req, res) {
     res.json({
         "applinks": {
             "apps": [],

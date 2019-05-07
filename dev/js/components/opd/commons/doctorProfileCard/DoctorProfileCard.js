@@ -139,7 +139,22 @@ class DoctorProfileCard extends React.Component {
                             <p className="diff-suggestion">Looking for a different <span onClick={this.searchProceedOPD.bind(this, doc_name[0], '', '')}>Dr. {doc_name[0]}?</span></p>
                         :''
                     */}
-                    <h2 className="desg">{this.getQualificationStr(general_specialization || '')}</h2>
+                    {
+                        general_specialization && general_specialization.length ?
+                            general_specialization.map((speciality, index) => {
+                                if (speciality.url) {
+                                    return <a className="inline-speciality" key={index} href={speciality.url} onClick={(e) => {
+                                        e.preventDefault();
+                                        this.props.history.push(`/${speciality.url}`)
+                                    }}>
+                                        <h2 className="desg">{`${index == general_specialization.length - 1 ? `${speciality.name}` : `${speciality.name},`}`}</h2>
+                                    </a>
+                                }
+                                else {
+                                    return <h2 key={index} className="desg inline-speciality">{`${index == general_specialization.length - 1 ? `${speciality.name}` : `${speciality.name},`}`}</h2>
+                                }
+                            }) : ''
+                    }
                     {/* {
                         general_specialization && general_specialization.length > 3 ?
                             <h2 className="desg">{qualificationStr} & <span style={{ cursor: 'pointer', color: '#f78631' }} onClick={() => this.moreQualificationClick()}>{general_specialization.length - 3} more</span></h2>
@@ -161,7 +176,6 @@ class DoctorProfileCard extends React.Component {
                 {
                     this.props.recommendDocs && this.state.ssrFlag ?
                         <div className="notAvldocBtnContainer mrt-10">
-                            <button className="notAvldocBtn">Book Now</button>
                             <p className="notAvlDoc"><span className="fw-700">Not Bookable</span>: See bookable doctors with great discounts below <a onClick={this.props.viewAllDocClick.bind(this, this.props.nearbyDoctors)} className="text-primary fw-600 d-inline-block"> {this.props.nearbyDoctors.count >= 1 && this.props.nearbyDoctors.doctors_url ? '(View All)' : ''}</a></p>
                         </div> : ''
                 }
