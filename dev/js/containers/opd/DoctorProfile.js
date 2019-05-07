@@ -77,22 +77,22 @@ class DoctorProfile extends React.Component {
         }
 
         if (this.props.match.params.id) {
-            if (!this.state.selectedDoctor) {
+            // if (!this.state.selectedDoctor) {
                 this.props.getDoctorById(this.props.match.params.id, hospital_id, procedure_ids, category_ids)
-            }
+            // }
             this.setState({ hospital_id: hospital_id, is_procedure: is_procedure })
         } else {
             let url = this.props.match.url
             if (url) {
                 url = url.split("/")[1]
             }
-            if (!this.state.selectedDoctor) {
+            // if (!this.state.selectedDoctor) {
                 this.props.getDoctorByUrl(url, hospital_id, procedure_ids, category_ids, (doctor_id) => {
                     if (doctor_id) {
                         this.setState({ selectedDoctor: doctor_id })
                     }
                 })
-            }
+            // }
             this.setState({ hospital_id: hospital_id, is_procedure: is_procedure })
         }
 

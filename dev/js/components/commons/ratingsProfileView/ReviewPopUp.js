@@ -33,6 +33,7 @@ class ReviewPopUp extends React.Component {
         })
         this.props.submit({}, 1)
         this.setState({ data: null })
+        this.props.popUpState()
     }
 
     handleReviewChange(e) {
@@ -65,6 +66,13 @@ class ReviewPopUp extends React.Component {
                             Share your Feedback
                                 <span><img onClick={this.declineRating.bind(this, this.props.obj.type, this.state.data.id)} src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} className="img-fluid" /></span>
                         </div>
+                        {
+                            typeof (this.props.selectedHospital) != 'undefined' && this.props.selectedHospital.id ?
+
+                                <div className="rate-seceltion-cont">
+                                    <p className="rt-par-select">{this.props.selectedHospital.hospital_name}</p>
+                                </div> : ""
+                        }
                         <div className="rate-card-doc-dtls">
                             <img src={this.props.obj.thumbnail} className="img-fluid img-round " />
                             <div className="rate-doc-dtl">

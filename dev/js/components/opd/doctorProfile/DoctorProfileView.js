@@ -22,6 +22,7 @@ import ReviewList from '../../commons/ratingsProfileView/ReviewList.js'
 import RatingGraph from '../../commons/ratingsProfileView/RatingGraph.js'
 import RatingReviewView from '../../commons/ratingsProfileView/ratingReviewView.js'
 import RatingStars from '../../commons/ratingsProfileView/RatingStars';
+import HospitalPopUp from '../../commons/ratingsProfileView/HospitalPopUp.js'
 
 class DoctorProfileView extends React.Component {
     constructor(props) {
@@ -43,7 +44,8 @@ class DoctorProfileView extends React.Component {
             openContactPopup: false,
             clinicPhoneNo: {},
             show_contact: '',
-            isOrganic: this.props.location.search.includes('hospital_id')
+            isOrganic: this.props.location.search.includes('hospital_id'),
+            displayHospitalRatingBlock: 0,
         }
     }
 
@@ -175,6 +177,14 @@ class DoctorProfileView extends React.Component {
 
     }
 
+    display_hospital_rating_block = () => {
+        this.setState({ displayHospitalRatingBlock: 1 })
+    }
+
+    hospitalPopUpState(){
+        this.setState({ displayHospitalRatingBlock: 0 })
+    }
+
     render() {
 
         let doctor_id = this.props.selectedDoctor
@@ -299,22 +309,10 @@ class DoctorProfileView extends React.Component {
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">
-                                                    <div className="raiting-popup">
-                                                        <div className="home-rating-card">
-                                                            <div className="rate-card-header">
-                                                            <span className="rate-pop-back"><img src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} className="img-fluid" /></span>
-                                                                Rate your Experience
-                                                                <span><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} className="img-fluid" /></span>
-                                                            </div>
-                                                            <div className="rate-seceltion-cont">
-                                                                <p>Dr. Satish Kumar Gadis Clinic</p>
-                                                                <p>UPHI - The Wellness & Surgical Centre</p>
-                                                                <p>Dr. Satish Kumar Gadis Clinic</p>
-                                                                <p class="rt-par-select">Thu - 2:00 PM to 6:00 PM</p>
-                                                                <p>Thu - 2:00 PM to 6:00 PM</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    {/* Hospital Selection Block */}
+                                                    { this.state.displayHospitalRatingBlock ?
+                                                         <HospitalPopUp {...this.props} doctor_details = {this.props.DOCTORS[doctor_id]} popUpState={this.hospitalPopUpState.bind(this)} /> : ""
+                                                    }
 
                                                     {
                                                         this.props.DOCTORS[doctor_id].unrated_appointment
@@ -434,7 +432,7 @@ class DoctorProfileView extends React.Component {
                                                                 <div className="panel-content ratecardBrdr">
                                                                     <div className="rateUrDoc">
                                                                         <p>Rate your Doctor here</p>
-                                                                        <button>Rate Now</button>
+                                                                        <button onClick={this.display_hospital_rating_block}>Rate Now</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
