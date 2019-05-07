@@ -277,7 +277,7 @@ class BookingView extends React.Component {
                                                         (this.state.data.otp && status == 5) ? <div className="widget mrb-10">
                                                             <div className="widget-content">
                                                                 <p className="fw-500 text-md mrb-10">Unique Confirmation Code: <span className="fw-700 text-md">{this.state.data.otp}</span></p>
-                                                                <p className="text-xs text-light">Share this code with doctor at the time of your appointment</p>
+                                                                <p className="text-xs text-light">Share this code with lab at the time of your appointment</p>
                                                             </div>
                                                         </div> : ""
                                                     }
@@ -401,10 +401,10 @@ class BookingView extends React.Component {
                                                                 }}>
                                                                     <div className="usr-dtls-off-act">
                                                                         <p className="wc-title text-md fw-700 card-nm-ovrlpng">
-                                                                            <img src="/assets/img/customer-icons/refer.svg" className="img-fluid  img-f-1" />Refer &amp; Earn</p>
+                                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/refer.svg"} className="img-fluid  img-f-1" />Refer &amp; Earn</p>
                                                                     </div>
                                                                     <div className="ofr-img-txt">
-                                                                        <div className="box-img-cont"><img src="/assets/img/step-2.png" className="img-fluid" /></div>
+                                                                        <div className="box-img-cont"><img src={ASSETS_BASE_URL + "/img/step-2.png"} className="img-fluid" /></div>
                                                                         <div className="ofr-contnt">
                                                                             <p className="add-info fw-500 add-info-p">
                                                                                 Invite your friends on docprime.com and earn <b className="fw-500 drk-blk"><img style={{ width: '8px', marginTop: '4px', marginRight: '0px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} /> 50</b> on completion of their first order </p>

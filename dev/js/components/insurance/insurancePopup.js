@@ -12,7 +12,8 @@ class InsurancePopup extends React.Component{
             showOTP: false,
             otp: "",
             otpTimeout: false,
-            error_message:''
+            error_message:'',
+            isLeadTrue:false
         }
     }
     handleChange(profileid,newProfile,event) {
@@ -78,31 +79,38 @@ class InsurancePopup extends React.Component{
     }
 
     verifyOTP() {
+        let parsed = queryString.parse(this.props.location.search)
         let self = this
         if (!this.state.otp) {
             this.setState({ validationError: "Please enter OTP" })
             return
         }
+        let source = parsed.source
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
             this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
                 if(exists.code == 'invalid'){
                     this.setState({error_message:exists.message})
                 }else{
-                    this.props.getInsurance((resp)=>{
-                        if(!resp.certificate){
-                            if(Object.keys(self.props.selected_plan).length > 0){
-                                self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',()=>{
-                                })
-                            }
-                            if (exists.user_exists) {
-                                this.props.history.push('/insurance/insurance-user-details')
-                            }else{
-                                this.props.history.push('/insurance/insurance-user-details')    
-                            }
-                        }
-                        
-                    })
+                    if(Object.keys(self.props.selected_plan).length > 0){
+                        self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',this.state.phoneNumber, source)
+                    }
+                        this.props.getInsurance((resp)=>{
+                            if(!resp.certificate){
+                                if(this.props.isLead == 'proceed'){
+                                    if (exists.user_exists) {
+                                    this.props.history.push('/insurance/insurance-user-details')
+                                    }else{
+                                        this.props.history.push('/insurance/insurance-user-details')    
+                                    }
+                                }else{
+                                    self.setState({ isLeadTrue:true, }) 
+                                    if(document.getElementById('terms_condition')){
+                                        document.getElementById('terms_condition').click()
+                                    }
+                                }
+                            }  
+                        })                    
                 }    
                    
             })
@@ -168,8 +176,19 @@ class InsurancePopup extends React.Component{
             return (
             <div className="col-12 col-md-7  center-column">
                     <div className="cancel-overlay" onClick={this.props.hideLoginPopup.bind(this)}>
-                    </div>
+                    </div>                    
                     <section className="mobile-verification-screen p-3">
+                    {
+                        this.state.isLeadTrue?
+                        <div className="insu-popup-container" onClick={this.props.closeLeadPopup.bind(this)}>
+                            <div className="insu-pop-up">
+                                <img className="insPopUp" src={ASSETS_BASE_URL + "/img/tec.svg"} />
+                                <p className="ins-main-pera-text">Request Submitted</p>
+                                <p className="ins-main-pera-sub-text">Thank You for showing interest. Our team will get back to you shortly.</p>
+                                <button className="insupopdonebtn" onClick={this.props.closeLeadPopup.bind(this)}>Done</button>
+                            </div>
+                        </div>
+                        :
                         <div className="widget no-shadow no-round sign-up-container widget cancel-appointment-div cancel-popup">
                             <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.props.hideLoginPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>                    
                             <div className="widget-header text-center mv-header">
@@ -207,8 +226,10 @@ class InsurancePopup extends React.Component{
                                         </button>
                                         </div> :
                                         <div className="text-center">
-                                            <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm">
-                                                Continue
+                                            <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm">Continue
+                                                {/*
+                                                    this.props.isLead == 'proceed'?'Continue':'Submit'
+                                                */}
                                         </button>
                                         </div>
                                 }
@@ -216,6 +237,7 @@ class InsurancePopup extends React.Component{
 
                             <p className="text-center fw-500 p-3" style={{ fontSize: 12, color: '#8a8a8a' }} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: '#f78631' }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: '#f78631' }} >Privacy Policy.</a></p>
                         </div>
+                    }
                     </section>
             </div> )
         }

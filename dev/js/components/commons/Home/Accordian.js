@@ -24,7 +24,7 @@ class Accordian extends React.Component {
                             </div>
                             <div className={this.state.accordianShow ? "acdn-body mrt-10 acdn-block" : "acdn-body mrt-10 acdn-none"}>
                                 <hr className="acdn-hr" />
-                                <h3 className="fw-500 mrb-10 acdn-heading">Free Family Doctor for Life</h3>
+                                {/* <h3 className="fw-500 mrb-10 acdn-heading">Free Family Doctor for Life</h3> */}
                                 <p className="text-sm mrb-10">
                                     The enormously low ratio of doctors to patients is one of the biggest challenges for the country’s healthcare system. And that’s why docprime endeavors to bridge the gap between doctors and patients with our cutting-edge technology powered platform to deliver high-quality healthcare anytime anywhere.
                                     </p>

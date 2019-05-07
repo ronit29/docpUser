@@ -9,8 +9,13 @@ class DesktopProfileHeader extends React.Component {
         this.state = {
             headerButtonsState: false,
             medicinePopup: false,
-            toggleHamburger: this.props.toggleLeftMenu || false
+            toggleHamburger: this.props.toggleLeftMenu || false,
+            showLeftMenu: false
         }
+    }
+
+    componentDidMount() {
+        this.setState({ showLeftMenu: true })
     }
 
     componentWillReceiveProps(nextProps) {
@@ -169,7 +174,9 @@ class DesktopProfileHeader extends React.Component {
                             : ''
                     }
 
-                    <LeftMenu {...this.props} {...this.state} toggleLeftMenu={this.toggleLeftMenu.bind(this)} />
+                    {
+                        this.state.showLeftMenu ? <LeftMenu {...this.props} {...this.state} toggleLeftMenu={this.toggleLeftMenu.bind(this)} /> : ""
+                    }
 
                     <div className="row align-items-center">
 
@@ -184,8 +191,8 @@ class DesktopProfileHeader extends React.Component {
                                 <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" />
                             </div>
                             <a className="logo-ancher logo-width-cut" href="/" onClick={(e) => e.preventDefault()}>
-                                <img className="logo-size d-none d-lg-block" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" />
-                                <img style={{ width: '45px', marginBottom: '5px' }} className="d-lg-none" src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" />
+                                <div className="d-none d-lg-block" style={{minHeight: '54px'}}><img className="logo-size" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" /></div>
+                                <div style={{minHeight: '35px'}} className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
                             </a>
                         </div>
 
@@ -229,7 +236,7 @@ class DesktopProfileHeader extends React.Component {
                                 <div className="head-links">
                                     <div className="head-dropdowns">
                                         <img style={{ height: 20, width: 18 }} src={ASSETS_BASE_URL + "/img/articals.svg"} />
-                                        <span>Articles</span>
+                                        <span>Resources</span>
                                         <ul className="list-sub-menu">
                                             <li><a href="/all-medicines" onClick={(e) => {
                                                 e.preventDefault();
@@ -240,6 +247,10 @@ class DesktopProfileHeader extends React.Component {
                                                 e.preventDefault();
                                                 this.props.history.push("/all-diseases")
                                             }}>All Diseases</a></li>
+                                            <li><a href="/tests" onClick={(e) => {
+                                                e.preventDefault();
+                                                this.props.history.push("/tests")
+                                            }}>All Tests</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -268,9 +279,9 @@ class DesktopProfileHeader extends React.Component {
                                         </div>
                                 }
                                 <div className="head-links" onClick={(e) => {
-                                            e.preventDefault();
-                                            this.navigateTo('/contact')
-                                        }}>
+                                    e.preventDefault();
+                                    this.navigateTo('/contact')
+                                }}>
                                     <img className="cart-icon-mbl" src={ASSETS_BASE_URL + "/img/call-header.png"} style={{ width: '18px' }} />
                                     <span>Contact Us</span>
                                 </div>

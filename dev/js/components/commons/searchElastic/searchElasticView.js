@@ -164,35 +164,39 @@ class SearchElasticView extends React.Component {
     }
 
     toggleLabTests(type, criteria, searchString = "") {
-        let data = {
-            'Category': 'ConsumerApp', 'Action': 'TestSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-selected', 'selected': criteria.name || '', 'selectedId': criteria.id || '', 'searched': 'autosuggest', 'searchString': searchString
-        }
-        GTM.sendEvent({ data: data })
-
-        let selectedTestIds = []
-        // this.props.dataState.selectedCriterias.map((x) => {
-        //     if (x.test_type) {
-        //         selectedTestIds.push(x.test_type)
-        //     }
-        // })
-        if (selectedTestIds.length && criteria.test_type) {
-            if (selectedTestIds.indexOf(criteria.test_type) == -1) {
-                this.setState({ currentTestType: criteria, searchString: searchString })
-                let data = {
-                    'Category': 'ConsumerApp', 'Action': 'PopUpOpenLabTestError', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'popup-open-lab-test-error', 'selected': criteria.name || '', 'selectedId': criteria.id || '', 'searched': 'autosuggest', 'searchString': searchString
-                }
-                GTM.sendEvent({ data: data })
-                return
+        if(criteria.is_package && criteria.is_package[0]){
+            this.togglePackages('',criteria)
+        }else{
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'TestSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-selected', 'selected': criteria.name || '', 'selectedId': criteria.id || '', 'searched': 'autosuggest', 'searchString': searchString
             }
-        }
-        if (document.getElementById('search_results_view')) {
-            document.getElementById('search_results_view').scrollIntoView()
-        }
+            GTM.sendEvent({ data: data })
 
-        this.props.toggleDiagnosisCriteria('test', criteria, true)
-        setTimeout(() => {
-            this.showLabs()
-        }, 100)
+            let selectedTestIds = []
+            // this.props.dataState.selectedCriterias.map((x) => {
+            //     if (x.test_type) {
+            //         selectedTestIds.push(x.test_type)
+            //     }
+            // })
+            if (selectedTestIds.length && criteria.test_type) {
+                if (selectedTestIds.indexOf(criteria.test_type) == -1) {
+                    this.setState({ currentTestType: criteria, searchString: searchString })
+                    let data = {
+                        'Category': 'ConsumerApp', 'Action': 'PopUpOpenLabTestError', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'popup-open-lab-test-error', 'selected': criteria.name || '', 'selectedId': criteria.id || '', 'searched': 'autosuggest', 'searchString': searchString
+                    }
+                    GTM.sendEvent({ data: data })
+                    return
+                }
+            }
+            if (document.getElementById('search_results_view')) {
+                document.getElementById('search_results_view').scrollIntoView()
+            }
+
+            this.props.toggleDiagnosisCriteria('test', criteria, true)
+            setTimeout(() => {
+                this.showLabs()
+            }, 100)
+        }
     }
 
     togglePackages(type, criteria, searchString = "") {
@@ -200,7 +204,6 @@ class SearchElasticView extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'PackageSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'package-selected', 'selected': criteria.name || '', 'selectedId': criteria.id || '', 'searched': 'autosuggest', 'searchString': searchString
         }
         GTM.sendEvent({ data: data })
-
         // this.props.toggleSearchPackages(criteria)
         this.props.setPackageId(criteria.id)
         setTimeout(() => {
@@ -240,7 +243,7 @@ class SearchElasticView extends React.Component {
         let commonSearched = ''
 
         if (this.props.selectedSearchType.includes('opd')) {
-            title = "speciality, doctor, hospital, disease"
+            title = "Search for doctor, hospital, specialty"
             searchProceed = this.searchProceedOPD.bind(this)
             showResults = this.showDoctors.bind(this)
 
@@ -254,7 +257,7 @@ class SearchElasticView extends React.Component {
             />
 
         } else if (this.props.selectedSearchType.includes('lab')) {
-            title = "test, lab, health package"
+            title = "Search for test, lab, health package"
             searchProceed = this.searchProceedLAB.bind(this)
             showResults = this.showLabs.bind(this)
 
@@ -284,7 +287,7 @@ class SearchElasticView extends React.Component {
             />
         } else if (this.props.selectedSearchType.includes('ipd')) {
 
-            title = "Search Surgery/Procedure"
+            title = "Search for surgery, procedure"
             searchProceed = this.searchProceedIPD.bind(this)
             showResults = this.showIPD.bind(this)
 
@@ -357,6 +360,7 @@ class SearchElasticView extends React.Component {
                                         selectedSearchType={this.props.selectedSearchType}
                                         selected={[]/*this.props.dataState.selectedCriterias.filter(x => x.type == 'test')*/}
                                         toggle={this.togglePackages.bind(this)}
+                                        isPackage = {true}
                                     /> : ''
                             }
 

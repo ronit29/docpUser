@@ -249,14 +249,14 @@ class BookingSummaryViewNew extends React.Component {
             case "lab": {
                 return <div>
                     <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.state.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} />
-                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} />
+                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} />
                 </div>
             }
 
             case "home": {
                 return <div>
                     <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.state.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} />
-                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} />
+                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)}/>
                     {
                         patient ?
                             <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
@@ -331,8 +331,12 @@ class BookingSummaryViewNew extends React.Component {
             return
         }
 
-        this.setState({ loading: true, error: "" })
+        // React guarantees that setState inside interactive events (such as click) is flushed at browser event boundary
+        if(this.state.loading){
+            return
+        }
 
+        this.setState({ loading: true, error: "" })
 
         let is_insurance_applicable = false
         let is_tests_covered_under_insurance = false
@@ -565,6 +569,20 @@ class BookingSummaryViewNew extends React.Component {
         this.setState({ whatsapp_optin: status })
     }
 
+    clearTestForInsured(){
+        if(this.props.defaultProfile && this.props.profiles[this.props.defaultProfile] && this.props.profiles[this.props.defaultProfile].is_insured){
+
+            this.props.clearExtraTests()
+            this.props.getLabById(this.props.match.params.id)
+            return            
+        }
+    }
+
+    searchTests(){
+        this.props.selectSearchType('lab')
+        this.props.history.push('/search')
+    }
+
     render() {
         let tests = []
         let finalPrice = 0
@@ -580,6 +598,7 @@ class BookingSummaryViewNew extends React.Component {
         let is_insurance_applicable = false
         let is_tests_covered_under_insurance = false
         let is_selected_user_insured = false
+        let is_default_user_insured = false
 
         let is_plan_applicable = false
         let is_tests_covered_under_plan = true
@@ -588,6 +607,11 @@ class BookingSummaryViewNew extends React.Component {
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
+
+        }
+
+        if(this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]){
+            is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
         }
 
 
@@ -641,7 +665,13 @@ class BookingSummaryViewNew extends React.Component {
 
                 return <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
                     {
-                        is_corporate || is_insurance_applicable || is_plan_applicable? <span className="float-right fw-700">₹ 0 </span>: <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
+                        is_corporate || is_insurance_applicable || is_plan_applicable ?
+                        <span className="float-right fw-700">₹ 0 </span>
+                        :
+                        price == twp.mrp ?
+                        <span className="float-right fw-700">&#8377; {price}</span>
+                        :
+                        <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
                         </span>
                     }
                     <span className="test-name-item">{twp.test.name}</span>
@@ -743,7 +773,14 @@ class BookingSummaryViewNew extends React.Component {
                                                                     </span>Test</h4>
                                                                     <div className="float-right  mbl-view-formatting text-right">
                                                                         {
-                                                                            !is_corporate ? <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more/Remove tests</a> : ""
+                                                                            STORAGE.isAgent() || (!is_default_user_insured && !is_corporate) ?
+                                                                            <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more/Remove tests</a>
+                                                                            :''
+                                                                        }
+                                                                        {
+                                                                            this.props.LABS[this.state.selectedLab].tests && !this.props.LABS[this.state.selectedLab].tests.length && is_default_user_insured?
+                                                                            <a style={{ cursor: 'pointer' }} onClick={this.searchTests.bind(this)} className="text-primary fw-700 text-sm">Search tests</a>
+                                                                            :''
                                                                         }
                                                                     </div>
                                                                 </div>
@@ -951,7 +988,7 @@ class BookingSummaryViewNew extends React.Component {
 
                             <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
                                 {
-                                    !is_corporate ?
+                                    STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured)?
                                         <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                         } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true)}>

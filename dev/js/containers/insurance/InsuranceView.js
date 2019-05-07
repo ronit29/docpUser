@@ -1,11 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { getInsurance, selectInsurancePlan , saveCurrentSelectedMembers,resetSelectedInsuranceMembers,resetSelectedPlans,sendOTP, submitOTP, resetAuth, getUserProfile, userData, generateInsuranceLead } from '../../actions/index.js'
+import { getInsurance, selectInsurancePlan , saveCurrentSelectedMembers,resetSelectedInsuranceMembers,resetSelectedPlans,sendOTP, submitOTP, resetAuth, getUserProfile, userData, generateInsuranceLead, urlShortner } from '../../actions/index.js'
 import InsuranceComponent from '../../components/insurance/insuranceView.js'
 import Loader from '../../components/commons/Loader'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import STORAGE from '../../helpers/storage'
+const queryString = require('query-string');
 
 class Insurance extends React.Component{
 
@@ -17,7 +18,12 @@ class Insurance extends React.Component{
     }
 
     componentDidMount() {
-        this.props.getInsurance()
+        let parsed = queryString.parse(this.props.location.search)
+        this.props.getInsurance(resp=>{
+            if(!resp.certificate && STORAGE.checkAuth()){
+                this.props.generateInsuranceLead('','',parsed.source)
+            }
+        })
         if (STORAGE.checkAuth()) {
             this.props.getUserProfile()
         }
@@ -60,7 +66,8 @@ const mapDispatchToProps = (dispatch) => {
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
         resetAuth: () => dispatch(resetAuth()),
         userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),
-        generateInsuranceLead:(selectedPlan, cb) => dispatch(generateInsuranceLead(selectedPlan,cb))
+        generateInsuranceLead:(selectedPlan,number,cb) => dispatch(generateInsuranceLead(selectedPlan,number,cb)),
+        urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
     }
 }
 

@@ -1,6 +1,7 @@
 import React from 'react'
-import Lightbox from '../../helpers/lightbox';
+// import Lightbox from '../../helpers/lightbox';
 import GTM from '../../helpers/gtm.js'
+import Lightbox from 'react-image-lightbox';
 
 class HospitalInfoView extends React.Component{
 

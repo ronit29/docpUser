@@ -11,6 +11,8 @@ import Accordian from './Accordian'
 import FixedMobileFooter from './FixedMobileFooter'
 import BannerCarousel from './bannerCarousel';
 import UpComingAppointmentView from './upComingAppointment.js'
+import PackageCompareStrip from '../../diagnosis/searchPackages/packageCompare/packageCompareStrip.js'
+import HomePagePackageWidget from './HomePagePackageWidget.js'
 const queryString = require('query-string');
 import CRITEO from '../../../helpers/criteo.js'
 
@@ -59,9 +61,9 @@ class HomeView extends React.Component {
 		CRITEO.sendData(data)
 
 	}
-	
 
-	navigateTo(where,type, data, e) {
+
+	navigateTo(where, type, data, e) {
 		if (e) {
 			e.preventDefault()
 			e.stopPropagation()
@@ -84,6 +86,7 @@ class HomeView extends React.Component {
 	}
 
 	searchLab(test, isPackage = false) {
+		console.log(test)
 		let data
 		if (isPackage) {
 			test.type = 'package'
@@ -113,46 +116,20 @@ class HomeView extends React.Component {
 	}
 
 	searchDoctor(speciality) {
-		speciality.type = 'speciality'
-		this.props.toggleOPDCriteria('speciality', speciality, true)
-
+		if (speciality.url) {
+			this.props.history.push(`/${speciality.url}`)
+		}
+		else {
+			speciality.type = 'speciality'
+			this.props.toggleOPDCriteria('speciality', speciality, true)
+			setTimeout(() => {
+				this.props.history.push('/opd/searchresults')
+			}, 100)
+		}
 		let data = {
 			'Category': 'ConsumerApp', 'Action': 'SelectedDoctorSpecializations', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'selected-doctor-specializations', 'selected': speciality.name || '', 'selectedId': speciality.id || ''
 		}
 		GTM.sendEvent({ data: data })
-
-		setTimeout(() => {
-			this.props.history.push('/opd/searchresults')
-		}, 100)
-	}
-
-	isSelectedLocationNearDelhi(selectedLocation) {
-		try {
-			if (selectedLocation) {
-				let { geometry } = selectedLocation
-
-				var latitude1 = 28.644800;
-				var longitude1 = 77.216721;
-				var latitude2 = geometry.location.lat;
-				if (typeof geometry.location.lat == 'function') {
-					latitude2 = geometry.location.lat()
-				}
-				var longitude2 = geometry.location.lng;
-				if (typeof geometry.location.lng == 'function') {
-					longitude2 = geometry.location.lng()
-				}
-				var distance = 0
-
-				if (typeof google != undefined) {
-					var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2));
-				}
-
-				return (distance / 1000) < 50
-			}
-			return false
-		} catch (e) {
-			return true
-		}
 	}
 
 	gotToSignup() {
@@ -178,11 +155,32 @@ class HomeView extends React.Component {
 		this.props.history.push('/doctorsignup')
 	}
 
-	navigateToOnline(){
-		document.getElementById('cstbox').focus();
+	getTopList(list) {
+		let topList = []
+		if (list.length > 5) {
+			topList = list.slice(0, 5)
+		} else {
+			topList = list
+		}
+		return topList
 	}
 
 	render() {
+
+		let topSpecializations = []
+		if (this.props.specializations && this.props.specializations.length) {
+			topSpecializations = this.getTopList(this.props.specializations)
+		}
+
+		let topTests = []
+		if (this.props.common_tests && this.props.common_tests.length) {
+			topTests = this.getTopList(this.props.common_tests)
+		}
+
+		let topPackages = []
+		if (this.props.common_package && this.props.common_package.length) {
+			topPackages = this.getTopList(this.props.common_package)
+		}
 
 		let profileData = this.props.profiles[this.props.selectedProfile]
 		let articles = this.props.articles || []
@@ -207,7 +205,7 @@ class HomeView extends React.Component {
 						<HomePageWidget
 							heading="Find a Doctor"
 							discount="50%"
-							list={this.props.specializations}
+							list={topSpecializations}
 							searchFunc={(sp) => this.searchDoctor(sp)}
 							searchType="specializations"
 							{...this.props}
@@ -233,7 +231,7 @@ class HomeView extends React.Component {
 						<HomePageWidget
 							heading="Book a Test"
 							discount="50%"
-							list={this.props.common_tests}
+							list={topTests}
 							searchFunc={(ct) => this.searchLab(ct, false)}
 							searchType="tests"
 							{...this.props}
@@ -243,10 +241,10 @@ class HomeView extends React.Component {
 
 						{
 							this.props.common_package && this.props.common_package.length ?
-								<HomePageWidget
+								<HomePagePackageWidget
 									heading="Health Packages"
 									discount="50%"
-									list={this.props.common_package}
+									list={topPackages}
 									searchFunc={(ct) => this.searchLab(ct, true)}
 									type="package"
 									searchType="packages"
@@ -296,33 +294,12 @@ class HomeView extends React.Component {
                                 </div> : ''
                         } */}
 
-						<HomePageWidget
-							heading="Book Doctor Appointment"
-							discount="50%"
-							list={this.props.specializations}
-							searchFunc={(sp) => this.searchDoctor(sp)}
-							searchType="specializations"
-							{...this.props}
-							navTo="/search?from=home"
-							type="opd"
-						/>
-
-						{
-							this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-								<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
-						}
-
-						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
-							<p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>
-							<button className="lap-doc-btn" >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
-						</div> */}
-
 						{
 							this.props.common_package && this.props.common_package.length ?
-								<HomePageWidget
+								<HomePagePackageWidget
 									heading="Health Packages"
 									discount="50%"
-									list={this.props.common_package}
+									list={topPackages}
 									searchFunc={(ct) => this.searchLab(ct, true)}
 									type="package"
 									searchType="packages"
@@ -333,6 +310,33 @@ class HomeView extends React.Component {
 								/> : ""
 						}
 
+						<div className="banner-cont-height">
+							<div className="hidderBanner banner-carousel-div d-md-none">
+								<div className="divHeight"></div>
+							</div>
+							{
+								this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+									<BannerCarousel {...this.props} hideClass="d-md-none home-slider-position" sliderLocation="home_page" /> : ''
+							}
+						</div>
+
+
+						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
+							<p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>
+							<button className="lap-doc-btn" >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
+						</div> */}
+
+						<HomePageWidget
+							heading="Book Doctor Appointment"
+							discount="50%"
+							list={topSpecializations}
+							searchFunc={(sp) => this.searchDoctor(sp)}
+							searchType="specializations"
+							{...this.props}
+							navTo="/search?from=home"
+							type="opd"
+						/>
+
 						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>
 							<p className="top-head-link card-lab-link">Run a lab? Reach more<span>customers near you</span></p>
 							<button className="lap-doc-btn">Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
@@ -341,7 +345,7 @@ class HomeView extends React.Component {
 						<HomePageWidget
 							heading="Book a Test"
 							discount="50%"
-							list={this.props.common_tests}
+							list={topTests}
 							searchFunc={(ct) => this.searchLab(ct, false)}
 							searchType="tests"
 							{...this.props}
@@ -366,22 +370,32 @@ class HomeView extends React.Component {
 				<div className="headerSubLinkContainer">
 					<div className="container">
 						<div className="head_text_container">
-							<p onClick={(e) => {
+							<a href="/insurance/insurance-plans" onClick={(e) => {
+								let data = {
+									'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-navbar-insurance-clicked'
+								}
+								GTM.sendEvent({ data: data })
 								e.preventDefault();
-								this.navigateTo("/search?from=footer", 'opd')
-							}}>Find Doctor</p>
-							<p onClick={(e) => {
+								this.navigateTo("/insurance/insurance-plans?source=desktop-navbar-insurance-clicked")
+							}}>OPD Insurance
+							<span className="opdNewHeaderOfr">New</span>
+							</a>
+							<a href="/search" onClick={(e) => {
 								e.preventDefault();
-								this.navigateTo("/search?from=footer", 'lab')
-							}}>Lab Tests</p>
-							<p onClick={(e) => {
+								this.navigateTo("/search", 'opd')
+							}}>Find a Doctor</a>
+							<a href="/search" onClick={(e) => {
 								e.preventDefault();
-								this.navigateTo('/searchpackages')
-							}}>Health Package</p>
-							<p onClick={(e) => {
+								this.navigateTo("/search", 'lab')
+							}}>Lab Tests</a>
+							<a href="/full-body-checkup-health-packages" onClick={(e) => {
 								e.preventDefault();
-								this.navigateToOnline()
-							}}>Online Consultation</p>
+								this.navigateTo('/full-body-checkup-health-packages')
+							}}>Health Packages</a>
+							<a href="/online-consultation" onClick={(e) => {
+								e.preventDefault();
+								this.navigateTo('/online-consultation')
+							}}>Online Doctor Consultation</a>
 							{/* <p onClick={(e) => {
 								e.preventDefault();
 								this.navigateTo('/contact')
@@ -397,8 +411,12 @@ class HomeView extends React.Component {
 					</div>
 
 					<Accordian />
-
-					<FixedMobileFooter {...this.props} />
+					{
+						this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage ?
+							<PackageCompareStrip {...this.props} />
+							:
+							<FixedMobileFooter {...this.props} />
+					}
 
 				</div>
 				<Footer specialityFooterData={this.state.specialityFooterData} />

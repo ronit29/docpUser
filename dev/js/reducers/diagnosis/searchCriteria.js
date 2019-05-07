@@ -1,6 +1,6 @@
-import { MERGE_SEARCH_STATE_OPD, SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SAVE_CURRENT_LAB_PROFILE_TESTS, SEARCH_TEST_INFO, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE, CLEAR_LAB_SEARCH_ID, TOGGLE_PACKAGE_ID, TOGGLE_SEARCH_PACKAGES, SAVE_PINCODE } from '../../constants/types';
+import { MERGE_SEARCH_STATE_OPD, SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, RESET_FILTER_STATE, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION_DIAGNOSIS, MERGE_SEARCH_STATE_LAB, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_DEFAULT_LAB_TESTS, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SAVE_CURRENT_LAB_PROFILE_TESTS, SEARCH_TEST_INFO, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE, CLEAR_LAB_SEARCH_ID, TOGGLE_PACKAGE_ID, TOGGLE_SEARCH_PACKAGES, SAVE_PINCODE, TOGGLE_COMPARE_PACKAGE, RESET_COMPARE_STATE } from '../../constants/types';
 
-const moment = require('moment');
+// const moment = require('moment');
 
 const DEFAULT_FILTER_STATE = {
     priceRange: [0, 20000],
@@ -52,7 +52,8 @@ const defaultState = {
     filterCriteriaPackages: DEFAULT_FILTER_STATE_PACKAGES,
     recommended_package: [],
     last_save_searched_date: null,
-    selectedPackages: []
+    selectedPackages: [],
+    compare_packages: []
 }
 
 export default function (state = defaultState, action) {
@@ -401,7 +402,7 @@ export default function (state = defaultState, action) {
             newState.pincode = action.payload
             return newState
         }
-        case TOGGLE_PACKAGE_ID:{
+        case TOGGLE_PACKAGE_ID: {
             let newState = {
                 ...state,
                 filterCriteriaPackages: { ...state.filterCriteriaPackages }
@@ -440,14 +441,48 @@ export default function (state = defaultState, action) {
                 ...state
             }
             if (newState.last_save_searched_date) {
-                let currentTime = moment(new Date())
-                let lastSearchTime = moment(new Date(newState.last_save_searched_date))
-                let diffDays = currentTime.diff(lastSearchTime, 'days')
+                const date1 = new Date()
+                const date2 = new Date(newState.last_save_searched_date)
+                const diffTime = Math.abs(date1.getTime() - date2.getTime())
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+
                 if (diffDays > 2) {
                     newState.search_id_data = {}
                     newState.last_save_searched_date = null
                 }
             }
+            return newState
+        }
+
+        case TOGGLE_COMPARE_PACKAGE: {
+            let newState = {
+                ...state,
+                compare_packages: [].concat(state.compare_packages)
+            }
+
+            let selected_packages = [].concat(newState.compare_packages)
+            let found = false
+            if(action.reset){
+                newState.compare_packages = action.payload.criteria
+            }else{    
+                selected_packages = selected_packages.filter((x) => {
+                  if (x.id == action.payload.criteria.id && x.lab_id == action.payload.criteria.lab_id) {
+                      found = true
+                      return false
+                  }
+                  return true
+                })
+                  if (!found) {
+                      selected_packages.push(action.payload.criteria)
+                  }
+              newState.compare_packages = selected_packages
+            }
+            return newState
+        }
+
+        case RESET_COMPARE_STATE:{
+            let newState = { ...state }
+            newState.compare_packages = defaultState.compare_packages
             return newState
         }
 
