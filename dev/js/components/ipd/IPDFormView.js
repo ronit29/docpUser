@@ -154,7 +154,7 @@ class IPDFormView extends React.Component {
 										<BannerCarousel {...this.props} sliderLocation="ipd_lead_form" />
 									</div> : ''
 							}
-							<div className="ipd-section ipd-form-view mt-0">
+							<div className="ipd-section ipd-form-view" style={{'marginTop': '11px'}}>
 								{
 									this.props.match.params.id!='price' && ipd_info.about.name?
 									<h4 className="section-heading pt-0">{`Get Cost Estimate of ${ipd_info.about.name}`}</h4>
