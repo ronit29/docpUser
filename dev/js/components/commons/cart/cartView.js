@@ -95,7 +95,7 @@ class CartView extends React.Component {
     }
 
     processCart(total_price) {
-        if(!this.state.showConfirmationPopup && total_price != 0){
+        if(!this.state.showConfirmationPopup && total_price == 0){
             this.setState({showConfirmationPopup:true})
             return
         }
