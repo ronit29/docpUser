@@ -20,6 +20,7 @@ import ProcedureView from './procedureView.js'
 import BookingError from './bookingErrorPopUp.js'
 import { APPEND_HEALTH_TIP } from '../../../constants/types';
 import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
+import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup.js'
 
 class PatientDetailsNew extends React.Component {
     constructor(props) {
@@ -43,7 +44,8 @@ class PatientDetailsNew extends React.Component {
             profileError: false,
             cart_item: parsed.cart_item,
             whatsapp_optin: true,
-            formData: ''
+            formData: '',
+            showConfirmationPopup:false
         }
     }
 
@@ -254,7 +256,7 @@ class PatientDetailsNew extends React.Component {
         return null
     }
 
-    proceed(datePicked, patient, addToCart, e) {
+    proceed(datePicked, patient, addToCart,total_price, e) {
 
         if (!datePicked) {
             this.setState({ showTimeError: true });
@@ -286,6 +288,10 @@ class PatientDetailsNew extends React.Component {
             return
         }
 
+        if(!this.state.showConfirmationPopup && !addToCart && total_price == 0){
+            this.setState({showConfirmationPopup:true})
+            return
+        }
         //Check if Covered Under Insurance 
 
         let is_insurance_applicable = false
@@ -524,6 +530,17 @@ class PatientDetailsNew extends React.Component {
         this.setState({ whatsapp_optin: status })
     }
 
+    priceConfirmationPopup(choice){
+        if(!choice){
+            this.setState({showConfirmationPopup:choice})
+        }else{
+            this.setState({showConfirmationPopup:''})
+            if(document.getElementById('confirm_booking')){
+                document.getElementById('confirm_booking').click()
+            }
+        }
+    }
+
     render() {
         let doctorDetails = this.props.DOCTORS[this.state.selectedDoctor]
         let doctorCoupons = this.props.doctorCoupons[this.state.selectedDoctor] || []
@@ -617,6 +634,11 @@ class PatientDetailsNew extends React.Component {
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
+                {
+                    this.state.showConfirmationPopup?
+                    <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)}/>
+                    :''
+                }
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
@@ -855,7 +877,7 @@ class PatientDetailsNew extends React.Component {
 
                                 <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true)}>
+                                } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true,total_price)}>
                                     {
                                         this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
                                     }
@@ -863,9 +885,9 @@ class PatientDetailsNew extends React.Component {
                                 </button>
 
                                 {
-                                    STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" data-disabled={
+                                    STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                    } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false)}>{this.getBookingButtonText(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp))}</button>
+                                    } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false,total_price)}>{this.getBookingButtonText(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp))}</button>
                                 }
                             </div>
                         </div>

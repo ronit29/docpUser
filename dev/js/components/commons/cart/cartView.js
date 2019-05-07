@@ -10,6 +10,7 @@ const queryString = require('query-string');
 import STORAGE from '../../../helpers/storage'
 import SnackBar from 'node-snackbar'
 import GTM from '../../../helpers/gtm';
+import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup.js'
 
 class CartView extends React.Component {
     constructor(props) {
@@ -19,7 +20,8 @@ class CartView extends React.Component {
         super(props)
         this.state = {
             use_wallet: true,
-            error: parsed.error_message || ""
+            error: parsed.error_message || "",
+            showConfirmationPopup:false
         }
     }
 
@@ -92,7 +94,11 @@ class CartView extends React.Component {
         }
     }
 
-    processCart() {
+    processCart(total_price) {
+        if(!this.state.showConfirmationPopup && total_price != 0){
+            this.setState({showConfirmationPopup:true})
+            return
+        }
         this.props.processCartItems(this.state.use_wallet).then((data) => {
             if (data.payment_required) {
                 this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
@@ -141,6 +147,17 @@ class CartView extends React.Component {
         })
     }
 
+    priceConfirmationPopup(choice){
+        if(!choice){
+            this.setState({showConfirmationPopup:choice})
+        }else{
+            this.setState({showConfirmationPopup:''})
+            if(document.getElementById('confirm_booking')){
+                document.getElementById('confirm_booking').click()
+            }
+        }
+    }
+
     render() {
 
         let { cart } = this.props
@@ -178,6 +195,11 @@ class CartView extends React.Component {
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
+                {
+                    this.state.showConfirmationPopup?
+                    <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)}/>
+                    :''
+                }
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
@@ -305,7 +327,7 @@ class CartView extends React.Component {
                                                     GTM.sendEvent({ data: data });
 
                                                 }}>Add more to cart</button>
-                                                <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.processCart.bind(this)}>{this.getBookingButtonText(total_wallet_balance, total_deal_price - total_coupon_discount)}</button>
+                                                <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" onClick={this.processCart.bind(this, total_deal_price - total_coupon_discount)}>{this.getBookingButtonText(total_wallet_balance, total_deal_price - total_coupon_discount)}</button>
                                             </div> : ""
                                         }
 

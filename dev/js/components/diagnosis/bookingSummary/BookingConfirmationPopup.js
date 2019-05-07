@@ -14,7 +14,7 @@ class BookingConfirmationPopup extends React.Component {
 			<div className="search-el-popup">
 				<div className="widget">
 					<div className="widget-content padiing-srch-el">
-						<p className="srch-el-conent">Are you sure you want to cancel your policy?</p>
+						<p className="srch-el-conent">Do you wish to continue?</p>
 						<div className="search-el-btn-container">
 							<button onClick={this.props.priceConfirmationPopup.bind(this, true)}>Yes</button>
 							<span className="src-el-btn-border"></span>
