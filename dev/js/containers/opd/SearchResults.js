@@ -34,7 +34,7 @@ class SearchResults extends React.Component {
                     store.dispatch(mergeOPDState(state))
 
                     let searchUrl = null
-                    if (match.url.includes('-sptcit') || match.url.includes('-sptlitcit')) {
+                    if (match.url.includes('-sptcit') || match.url.includes('-sptlitcit') || match.url.includes('-ipddp')) {
                         searchUrl = match.url.toLowerCase()
                     }
                     let clinic_card = false
@@ -49,7 +49,7 @@ class SearchResults extends React.Component {
                         if (noResults) {
                             resolve({ status: 404 })
                         }
-                        if (match.url.includes('-sptcit') || match.url.includes('-sptlitcit')) {
+                        if (match.url.includes('-sptcit') || match.url.includes('-sptlitcit') || match.url.includes('-ipddp')) {
                             getFooterData(match.url.split("/")[1], queryParams.page || 1)().then((footerData) => {
                                 footerData = footerData || null
                                 resolve({ footerData })
