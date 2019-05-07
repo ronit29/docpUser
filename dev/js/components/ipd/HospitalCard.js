@@ -18,7 +18,7 @@ class HospitalCard extends React.Component {
                </div>
                <div className="hospital-info" style={{cursor:'pointer'}} onClick={()=>this.props.getHospitalDetailPage(data.id, data.url||null)}>
                   <div className="left-side-info">
-                     <a href={`/ipd/hospital/${data.id}`} onClick={(e) => {
+                     <a href={`${data.url?data.url:`/ipd/hospital/${data.id}`}`} onClick={(e) => {
                         e.preventDefault()
                         this.props.getHospitalDetailPage(data.id, data.url||null)
                      }}><h2 className="section-heading">{data.name}</h2></a>
