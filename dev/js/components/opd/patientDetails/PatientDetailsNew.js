@@ -256,7 +256,7 @@ class PatientDetailsNew extends React.Component {
         return null
     }
 
-    proceed(datePicked, patient, addToCart,total_price, e) {
+    proceed(datePicked, patient, addToCart,total_price,total_wallet_balance, e) {
 
         if (!datePicked) {
             this.setState({ showTimeError: true });
@@ -319,7 +319,7 @@ class PatientDetailsNew extends React.Component {
 
         // React guarantees that setState inside interactive events (such as click) is flushed at browser event boundary
 
-        if(!this.state.showConfirmationPopup && !addToCart && (total_price == 0 || is_insurance_applicable)){
+        if(!this.state.showConfirmationPopup && !addToCart && (total_price == 0 || is_insurance_applicable || (this.state.use_wallet && total_wallet_balance>0))){
             this.setState({showConfirmationPopup:true})
             return
         }
@@ -878,7 +878,7 @@ class PatientDetailsNew extends React.Component {
 
                                 <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
                                     !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true,total_price)}>
+                                } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true,total_price,total_wallet_balance)}>
                                     {
                                         this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
                                     }
@@ -888,7 +888,7 @@ class PatientDetailsNew extends React.Component {
                                 {
                                     STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                    } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false,total_price)}>{this.getBookingButtonText(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp))}</button>
+                                    } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false,total_price,total_wallet_balance)}>{this.getBookingButtonText(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp))}</button>
                                 }
                             </div>
                         </div>

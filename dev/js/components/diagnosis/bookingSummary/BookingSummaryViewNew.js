@@ -277,7 +277,7 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    proceed(testPicked, addressPicked, datePicked, patient, addToCart,total_price, e) {
+    proceed(testPicked, addressPicked, datePicked, patient, addToCart,total_price,total_wallet_balance, e) {
 
         if (!testPicked) {
             SnackBar.show({ pos: 'bottom-center', text: "Please select some tests." });
@@ -338,7 +338,7 @@ class BookingSummaryViewNew extends React.Component {
             return
         }
 
-        if(!this.state.showConfirmationPopup && !addToCart && total_price == 0){
+        if(!this.state.showConfirmationPopup && !addToCart && (total_price == 0 || (this.state.use_wallet && total_wallet_balance>0))){
             this.setState({showConfirmationPopup:true})
             return
         }
@@ -1013,7 +1013,7 @@ class BookingSummaryViewNew extends React.Component {
                                     STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured)?
                                         <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                        } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true,total_price)}>
+                                        } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true,total_price, total_wallet_balance)}>
                                             {
                                                 this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
                                             }
@@ -1025,7 +1025,7 @@ class BookingSummaryViewNew extends React.Component {
                                 {
                                     STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust pdd-12" id="confirm_booking" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                    } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false,total_price)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
+                                    } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false,total_price,total_wallet_balance)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
                                 }
                             </div>
 
