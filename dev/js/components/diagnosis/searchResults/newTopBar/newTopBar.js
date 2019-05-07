@@ -16,7 +16,7 @@ class TopBar extends React.Component {
             dropdown_visible: false,
             // overlayVisible: false,
             // showPopupContainer: true,
-            is_insured: props.filterCriteria && props.filterCriteria.is_insured?props.filterCriteria.is_insured:false,
+            is_insured: props.filterCriteria && props.filterCriteria.is_insured ? props.filterCriteria.is_insured : false,
             //New filters
             previous_filters: {},
             sort_order: null,
@@ -67,20 +67,20 @@ class TopBar extends React.Component {
             is_insured: this.state.is_insured
         }
         let data = {
-            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname,'sort_order': this.state.sort_order|| '', 'availability': this.state.availability, 'avg_ratings': this.state.avg_ratings, 'lab_visit': this.state.lab_visit, 'home_visit': this.state.home_visit
+            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname, 'sort_order': this.state.sort_order || '', 'availability': this.state.availability, 'avg_ratings': this.state.avg_ratings, 'lab_visit': this.state.lab_visit, 'home_visit': this.state.home_visit
         }
         GTM.sendEvent({ data: data })
         this.props.applyFilters(filterState)
         this.setState({ openFilter: false })
     }
 
-    toggleAllFilters(type, val, isArray=false) {
+    toggleAllFilters(type, val, isArray = false) {
         let value = val
-        if(isArray){
+        if (isArray) {
             value = []
             value.push(val)
         }
-        this.setState({[type]: value})
+        this.setState({ [type]: value })
     }
 
     handleClose(type) {
@@ -158,11 +158,11 @@ class TopBar extends React.Component {
         this.setState({ dropdown_visible: true, previous_filters: currentFilters })
     }
 
-    isDataFiltered(filterData={}) {
+    isDataFiltered(filterData = {}) {
 
-        if ( filterData && Object.values(filterData).length ) {
+        if (filterData && Object.values(filterData).length) {
 
-        }else {
+        } else {
 
             filterData = {
                 sort_order: null,
@@ -176,11 +176,11 @@ class TopBar extends React.Component {
             let filterCount = 0
             for (let filter in filterData) {
 
-                if(filter == 'availability' || filter =='avg_ratings'){
-                    if(filterData[filter].length) {
-                        filterCount++    
+                if (filter == 'availability' || filter == 'avg_ratings') {
+                    if (filterData[filter].length) {
+                        filterCount++
                     }
-                }else if (filterData[filter] != this.state[filter]) {
+                } else if (filterData[filter] != this.state[filter]) {
                     filterCount++
                 }
             }
@@ -196,9 +196,9 @@ class TopBar extends React.Component {
         }
         GTM.sendEvent({ data: data })
 
-        this.setState({is_insured: !this.state.is_insured}, ()=>{
+        this.setState({ is_insured: !this.state.is_insured }, () => {
 
-            
+
             let filterState = {
                 sort_order: this.state.sort_order,
                 availability: this.state.availability,
@@ -207,7 +207,7 @@ class TopBar extends React.Component {
                 lab_visit: this.state.lab_visit || false,
                 is_insured: this.state.is_insured
             }
-            this.props.applyFilters(filterState)    
+            this.props.applyFilters(filterState)
         })
     }
 
@@ -236,7 +236,10 @@ class TopBar extends React.Component {
                     <div>
                         <div className="cancel-overlay cancel-overlay-zindex" onClick={this.handleClose.bind(this)}>
                         </div>
-                        <div className="widget cancel-appointment-div cancel-popup onscreen-scroll">
+                        <div className="widget cancel-appointment-div cancel-popup overflow-hidden pb-0">
+                            <div className="cross-btn" onClick={() => this.props.toggle()}>
+                                <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" />
+                            </div>
                             <div className="pop-top-heading">
                                 Sort/Filter
                             </div>
@@ -307,26 +310,30 @@ class TopBar extends React.Component {
                                 <div className="sorting-btns-cont">
                                     <h5 className="sort-headings">Ratings</h5>
                                     <div className="sortbtncard">
-                                        <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('3')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '3', true)}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   3.0 +</button>
-                                        <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4', true)}> <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.0 +</button>
-                                        <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4.5')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4.5', true)}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.5 +</button>
+                                        <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('3') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '3', true)}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />   3.0 +</button>
+                                        <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4', true)}> <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />   4.0 +</button>
+                                        <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4.5') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4.5', true)}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />   4.5 +</button>
                                     </div>
                                 </div>
                                 <div className="sorting-btns-cont">
                                     <h5 className="sort-headings">Availability</h5>
                                     <div className="sortbtncard">
-                                        <button className={`sortBtns ${this.state.availability && this.state.availability.length &&this.state.availability.indexOf('1')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'availability', '1', true)}>Today</button>
-                                        <button className={`sortBtns ${this.state.availability && this.state.availability.length && this.state.availability.indexOf('2')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'availability', '2', true)}>Tommorow</button>
-                                        <button className={`sortBtns ${this.state.availability && this.state.availability.length && this.state.availability.indexOf('3')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'availability', '3', true)}>Next 3 Days</button>
+                                        <button className={`sortBtns ${this.state.availability && this.state.availability.length && this.state.availability.indexOf('1') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'availability', '1', true)}>Today</button>
+                                        <button className={`sortBtns ${this.state.availability && this.state.availability.length && this.state.availability.indexOf('2') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'availability', '2', true)}>Tommorow</button>
+                                        <button className={`sortBtns ${this.state.availability && this.state.availability.length && this.state.availability.indexOf('3') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'availability', '3', true)}>Next 3 Days</button>
                                     </div>
                                 </div>
                                 <div className="sorting-btns-cont">
                                     <h5 className="sort-headings">Hospital Type</h5>
                                     <div className="sortbtncard justyfy-twoBtns">
-                                        <button className={`sortBtns ${this.state.home_visit?'srtBtnAct':''}`}  onClick={this.toggleAllFilters.bind(this, 'home_visit', !this.state.home_visit)}>Home Visit</button>
-                                        <button className={`sortBtns ${this.state.lab_visit?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'lab_visit', !this.state.lab_visit)}>Lab Visit</button>
+                                        <button className={`sortBtns ${this.state.home_visit ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'home_visit', !this.state.home_visit)}>Home Visit</button>
+                                        <button className={`sortBtns ${this.state.lab_visit ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'lab_visit', !this.state.lab_visit)}>Lab Visit</button>
                                     </div>
                                 </div>
+                            </div>
+                            <div className="pop-foot-btns-cont">
+                                <button className="add-shpng-cart-btn">Reset</button>
+                                <button className="v-btn-primary book-btn-mrgn-adjust">Apply Filter</button>
                             </div>
                         </div>
                     </div> : ""
@@ -338,23 +345,23 @@ class TopBar extends React.Component {
                             <div className="top-filter-tabs-select locationTestFilter" >
                                 <p className="newStickyfilter">
 
-                                {this.props.count} Results {criteriaStr ? "for " : ""}{criteriaStr}
+                                    {this.props.count} Results {criteriaStr ? "for " : ""}{criteriaStr}
 
-                                {
-                                    locationName?
-                                    <span onClick={this.goToLocation.bind(this)} >{` in ${locationName}`}<img style={{ width: '11px', height: '15px', marginLeft: '7px' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} /> 
-                                    </span>
-                                    :''
-                                }
+                                    {
+                                        locationName ?
+                                            <span onClick={this.goToLocation.bind(this)} >{` in ${locationName}`}<img style={{ width: '11px', height: '15px', marginLeft: '7px' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
+                                            </span>
+                                            : ''
+                                    }
                                 </p>
                             </div>
                             <div className="top-filter-tabs-select newSortFilterbar" onClick={this.sortFilterClicked.bind(this)}>
                                 <div className="p-relative">
                                     <img style={{ width: '14px' }} src={ASSETS_BASE_URL + "/img/filtersort.png"} />
                                     {
-                                        this.isDataFiltered()?
-                                        <p className="filterNotification">{this.isDataFiltered()}</p>
-                                        :''    
+                                        this.isDataFiltered() ?
+                                            <p className="filterNotification">{this.isDataFiltered()}</p>
+                                            : ''
                                     }
                                 </div>
                                 <span>Sort/Filter</span>
@@ -365,8 +372,8 @@ class TopBar extends React.Component {
 
                 {
                     this.state.showLocationPopup ?
-                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
-                    : ''
+                        <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
+                        : ''
                 }
 
                 {
@@ -381,13 +388,13 @@ class TopBar extends React.Component {
                         : ''
                 }
                 {
-                STORAGE.checkAuth() && this.props.is_login_user_insured && this.props.insurance_status == 1
-                    ? <div className="tg-list-item">
-                        <input className="tgl tgl-ios" id="lab_insurance" type="checkbox" checked={this.state.is_insured} onChange={this.toggleInsured.bind(this)} />
-                        <label className="tgl-btn" htmlFor="lab_insurance"></label>
-                        <p>Covered under OPD insurance | <a href="https://qacdn.docprime.com/media/insurer/documents/Group_Out-Patient_CIS_JNLVJju.PDF" target="_blank"><span> Know More</span></a></p>
-                    </div>
-                    : ''
+                    STORAGE.checkAuth() && this.props.is_login_user_insured && this.props.insurance_status == 1
+                        ? <div className="tg-list-item">
+                            <input className="tgl tgl-ios" id="lab_insurance" type="checkbox" checked={this.state.is_insured} onChange={this.toggleInsured.bind(this)} />
+                            <label className="tgl-btn" htmlFor="lab_insurance"></label>
+                            <p>Covered under OPD insurance | <a href="https://qacdn.docprime.com/media/insurer/documents/Group_Out-Patient_CIS_JNLVJju.PDF" target="_blank"><span> Know More</span></a></p>
+                        </div>
+                        : ''
                 }
             </div>
         );

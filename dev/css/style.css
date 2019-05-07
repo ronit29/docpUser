@@ -4919,12 +4919,15 @@ p.error-msg.subAlertins{
 	min-height: 44px;
 }
 .top-filter-tabs-select{
-	padding: 5px 0;
+    padding: 5px 0;
+    flex: 1;
     display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     font-weight: 500;
-    color: #000000;
-    border-right: 1px solid rgba(0, 0, 0, .2);
+    color: #000;
+    border-right: 1px solid rgba(0,0,0,.2);
     position: relative;
 }
 .top-filter-tabs-select:last-child{
@@ -5153,6 +5156,7 @@ font-size: 13px;
 	cursor: pointer;
 	width: 16px;
 	height: 16px;
+	z-index: 9;
 }
 .cross-btn img{
 	width: 100%;
@@ -9603,9 +9607,9 @@ border-radius: 4px;
 .pkgComapre .filter-pdng{
 	padding: 10px 0 0;
 }
-.pkgComapre .cancel-overlay-zindex{
+/* .pkgComapre .cancel-overlay-zindex{
 	z-index: 9999 !important;
-}
+} */
 .widget.filter-popup{
 	height: 93%;
 }
