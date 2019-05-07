@@ -18,8 +18,8 @@ class ChoosePatientNewView extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ ...this.props.filled_patient_details })
         if (!this.props.patient) {
+            this.setState({ ...this.props.filled_patient_details })
             this.profileValidation()
         }
     }
@@ -159,7 +159,6 @@ class ChoosePatientNewView extends React.Component {
 
     }
     render() {
-        console.log(this.state)
         return (
             <div className={`widget mrb-15 ${this.props.profileError ? 'rnd-error-nm' : ''}`}>
                 {
