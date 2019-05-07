@@ -56,7 +56,7 @@ class HospitalCard extends React.Component {
                   <div className="right-side-info">
                      {
                         data.count_of_insurance_provider?
-                        <p className="ins-provider" style={{cursor:'pointer'}} onClick={this.toggleProviderPopup.bind(this, data.insurance_provider)}><img src={ASSETS_BASE_URL + "/images/green-tick.png"} alt="" className="img-tick" />{data.count_of_insurance_provider} Health Insurance Providers</p>
+                        <p className="ins-provider" /*style={{cursor:'pointer'}} onClick={this.toggleProviderPopup.bind(this, data.insurance_provider)}*/><img src={ASSETS_BASE_URL + "/images/green-tick.png"} alt="" className="img-tick" />{data.count_of_insurance_provider} Health Insurance Providers</p>
                         :''
                      }
                      <a href="javascript:void(0);" onClick={()=>this.props.getCostEstimateClicked(data.id)} className="btn-estimate">{this.props.noIpd?'Know More':'Get Cost Estimate'}</a>

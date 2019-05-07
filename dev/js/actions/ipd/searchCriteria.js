@@ -128,8 +128,11 @@ export const getIpdHospitals = (state, page=1, fromServer, searchByUrl, cb) => (
     
 
     return API_GET(url).then( function (response) {
+        let commonCriteria = []
 
-        let commonCriteria = [response.ipd_procedure]
+        if(response.ipd_procedure && response.ipd_procedure.id) {
+            commonCriteria = [response.ipd_procedure]
+        }
 
         dispatch({
             type: MERGE_IPD_CRITERIA,
