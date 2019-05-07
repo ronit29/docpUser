@@ -18,6 +18,7 @@ class ChoosePatientNewView extends React.Component {
     }
 
     componentDidMount() {
+        this.setState({ ...this.props.filled_patient_details })
         if (!this.props.patient) {
             this.profileValidation()
         }
@@ -158,7 +159,7 @@ class ChoosePatientNewView extends React.Component {
 
     }
     render() {
-
+        console.log(this.state)
         return (
             <div className={`widget mrb-15 ${this.props.profileError ? 'rnd-error-nm' : ''}`}>
                 {
@@ -194,19 +195,19 @@ class ChoosePatientNewView extends React.Component {
                                     <div className="slt-label-radio">
                                         <div className="dtl-radio">
                                             <label className="container-radio">Male
-                                    <input type="radio" name="gender" name="gender" onClick={() => this.setState({ 'gender': 'm' })} onBlur={this.profileValidation.bind(this)} />
+                                    <input type="radio" name="gender" name="gender" checked={this.state.gender == 'm'} onClick={() => this.setState({ 'gender': 'm' })} onBlur={this.profileValidation.bind(this)} />
                                                 <span className="doc-checkmark"></span>
                                             </label>
                                         </div>
                                         <div className="dtl-radio">
                                             <label className="container-radio">Female
-                                    <input type="radio" name="gender" value="m" name="gender" onClick={() => this.setState({ 'gender': 'f' })} onBlur={this.profileValidation.bind(this)} />
+                                    <input type="radio" name="gender" value="m" name="gender" checked={this.state.gender == 'f'} onClick={() => this.setState({ 'gender': 'f' })} onBlur={this.profileValidation.bind(this)} />
                                                 <span className="doc-checkmark"></span>
                                             </label>
                                         </div>
                                         <div className="dtl-radio">
                                             <label className="container-radio">Other
-                                    <input type="radio" name="gender" name="gender" onClick={() => this.setState({ 'gender': 'o' })} onBlur={this.profileValidation.bind(this)} />
+                                    <input type="radio" name="gender" name="gender" checked={this.state.gender == 'o'} onClick={() => this.setState({ 'gender': 'o' })} onBlur={this.profileValidation.bind(this)} />
                                                 <span className="doc-checkmark"></span>
                                             </label>
                                         </div>

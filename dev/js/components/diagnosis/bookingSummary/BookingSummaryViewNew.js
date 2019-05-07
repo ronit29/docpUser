@@ -269,6 +269,7 @@ class BookingSummaryViewNew extends React.Component {
 
     profileDataCompleted(data) {
         if (data.name == '' || data.gender == '' || data.phoneNumber == '' || data.email == '' || !data.otpVerifySuccess) {
+            this.props.patientDetails(data)
             this.setState({ profileDataFilled: false })
         } else if (data.otpVerifySuccess) {
             this.setState({ profileDataFilled: true })
