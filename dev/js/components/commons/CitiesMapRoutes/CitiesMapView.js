@@ -25,7 +25,7 @@ class CitiesMap extends React.Component {
 								if (!this.state.showMore && i >= 20) {
 									style = { display: 'none' }
 								}
-								return <div style={style} className="col-12 col-md-6 col-lg-4" key={i} onClick={() => { this.props.history.push(`/city-inventory/${city.toLowerCase()}`) }}>
+								return <div style={style} className="col-12 col-md-6 col-lg-4 tests-brdr-btm" key={i} onClick={() => { this.props.history.push(`/city-inventory/${city.toLowerCase()}`) }}>
 									<div className="anchor-data-style">
 										<a href={`/city-inventory/${city.toLowerCase()}`} onClick={(e) => { e.preventDefault(); }}>{city}</a>
 										<span className="sitemap-right-arrow">

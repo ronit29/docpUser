@@ -2020,3 +2020,13 @@ p.rt-doc-nm{
     margin-top: 0 !important;
     margin-bottom: 0 !important;
 }
+
+@media(min-width:993px){
+    .test-list-container{
+        min-height: 100vh !important;
+        padding-bottom: 370px !important;
+    }
+    .stick-btm-footer{
+        margin-top: -370px !important;
+    }
+}

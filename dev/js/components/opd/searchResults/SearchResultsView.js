@@ -22,7 +22,7 @@ class SearchResultsView extends React.Component {
         this.state = {
             //seoData, 
             footerData,
-            seoFriendly: this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit'),
+            seoFriendly: this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit') || this.props.match.url.includes('-ipddp'),
             clinic_card: this.props.location.search.includes('clinic_card') || null,
             showError: false,
             search_id: '',
@@ -325,7 +325,7 @@ class SearchResultsView extends React.Component {
 
     getDoctorList(state = null, page = null, cb = null) {
         let searchUrl = null
-        if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit')) {
+        if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit') || this.props.match.url.includes('-ipddp')) {
             searchUrl = this.props.match.url.toLowerCase()
         }
         if (page === null) {
