@@ -6,7 +6,7 @@ const DEFAULT_FILTER_STATE = {
     //priceRange: [0, 20000],
     //distanceRange: [0, 15],
     sort_order: null,
-    rating: [],
+    avg_rating: [],
     availability: [],
     home_visit: false,
     lab_visit: false,
@@ -16,9 +16,13 @@ const DEFAULT_FILTER_STATE = {
 }
 
 const DEFAULT_FILTER_STATE_PACKAGES = {
-    priceRange: [0, 20000],
+    /*priceRange: [0, 20000],
     distanceRange: [0, 15],
-    sort_on: null,
+    */
+    sort_order: null,
+    avg_rating: [],
+    home_visit: false,
+    lab_visit: false,
     lab_name: "",
     network_id: "",
     catIds: [],

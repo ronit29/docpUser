@@ -59,7 +59,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 
 	let sort_order = filterCriteria.sort_order || ""
 	let availability = filterCriteria.availability || []
-	let rating = filterCriteria.rating || []
+	let avg_ratings = filterCriteria.avg_ratings || []
 	let gender = filterCriteria.gender || ''
 	let is_insured = filterCriteria.is_insured || false
 
@@ -82,7 +82,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		url = `/api/v1/doctor/doctorsearchbyhospital?`
 	}
 
-	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&sort_order=${sort_order}&availability=${availability}&rating=${rating}&gender=${gender}&page=${page}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&ipd_procedure_ids=${ipd_ids || ""}&city=${locality}&locality=${sub_locality}&is_insurance=${is_insured?true:false}`
+	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&sort_order=${sort_order}&availability=${availability}&avg_ratings=${avg_ratings}&gender=${gender}&page=${page}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&ipd_procedure_ids=${ipd_ids || ""}&city=${locality}&locality=${sub_locality}&is_insurance=${is_insured?true:false}`
 
 	if (!!filterCriteria.doctor_name) {
 		url += `&doctor_name=${filterCriteria.doctor_name || ""}`

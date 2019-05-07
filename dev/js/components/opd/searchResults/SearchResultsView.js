@@ -271,7 +271,7 @@ class SearchResultsView extends React.Component {
 */
         let sort_order = filterCriteria.sort_order || ""
         let availability = filterCriteria.availability || []
-        let rating = filterCriteria.rating || []
+        let avg_ratings = filterCriteria.avg_ratings || []
         let gender = filterCriteria.gender || ''
 
 
@@ -294,7 +294,7 @@ class SearchResultsView extends React.Component {
             is_filter_applied = true
         }
 
-        if (rating && rating.length) {
+        if (avg_ratings && avg_ratings.length) {
             is_filter_applied = true
         }
 
@@ -315,7 +315,7 @@ class SearchResultsView extends React.Component {
 
         if (is_filter_applied || !this.state.seoFriendly) {
 
-            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&rating=${rating}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}`
+            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}`
 
             is_params_exist = true
 

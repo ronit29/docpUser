@@ -19,7 +19,7 @@ class TopBar extends React.Component {
             //New filters
             previous_filters: {},
             sort_order: null,
-            rating: [],
+            avg_ratings: [],
             availability: [],
             gender: null,
             sits_at_clinic: false,
@@ -65,7 +65,7 @@ class TopBar extends React.Component {
             sort_order: this.state.sort_order,
             gender: this.state.gender,
             availability: this.state.availability,
-            rating: this.state.rating,
+            avg_ratings: this.state.avg_ratings,
             sits_at_clinic: this.state.sits_at_clinic,
             sits_at_hospital: this.state.sits_at_hospital,
             is_insured: this.state.is_insured,
@@ -99,7 +99,7 @@ class TopBar extends React.Component {
     sortFilterClicked() {
         let currentFilters = {
             sort_order: this.state.sort_order,
-            rating: this.state.rating,
+            avg_ratings: this.state.avg_ratings,
             availability: this.state.availability,
             gender: this.state.gender,
             sits_at_clinic: this.state.sits_at_clinic,
@@ -117,7 +117,7 @@ class TopBar extends React.Component {
 
             filterData = {
                 sort_order: null,
-                rating: [],
+                avg_ratings: [],
                 availability: [],
                 gender: null,
                 sits_at_clinic: false,
@@ -128,7 +128,7 @@ class TopBar extends React.Component {
             let filterCount = 0
             for (let filter in filterData) {
                 
-                if(filter == 'availability' || filter =='rating'){
+                if(filter == 'availability' || filter =='avg_ratings'){
                     if(filterData[filter].length) {
                         filterCount++    
                     }
@@ -295,9 +295,9 @@ class TopBar extends React.Component {
                                 <div className="sorting-btns-cont">
                                     <h5 className="sort-headings">Ratings</h5>
                                     <div className="sortbtncard">
-                                        <button className={`sortBtns ${this.state.rating && this.state.rating.length && this.state.rating.indexOf('3')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'rating', '3', true)}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   3.0 +</button>
-                                        <button className={`sortBtns ${this.state.rating && this.state.rating.length && this.state.rating.indexOf('4')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'rating', '4', true)}> <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.0 +</button>
-                                        <button className={`sortBtns ${this.state.rating && this.state.rating.length && this.state.rating.indexOf('4.5')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'rating', '4.5', true)}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.5 +</button>
+                                        <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('3')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '3', true)}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   3.0 +</button>
+                                        <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4', true)}> <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.0 +</button>
+                                        <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4.5')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4.5', true)}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.5 +</button>
                                     </div>
                                 </div>
                                 <div className="sorting-btns-cont">

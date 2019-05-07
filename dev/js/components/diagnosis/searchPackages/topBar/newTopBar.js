@@ -34,7 +34,7 @@ class TopBar extends React.Component {
             package_ids: '',
             previous_filters: {},
             sort_order: null,
-            rating: [],
+            avg_ratings: [],
             home_visit: false,
             lab_visit: false,
         }
@@ -84,7 +84,7 @@ class TopBar extends React.Component {
     applyFilters() {
         let filterState = {
             sort_order: this.state.sort_order || '',
-            rating: this.state.rating ||'',
+            avg_ratings: this.state.avg_ratings ||'',
             home_visit: this.state.home_visit || false,
             lab_visit: this.state.lab_visit ||false,
             gender: this.state.gender,
@@ -94,7 +94,7 @@ class TopBar extends React.Component {
             package_ids: this.state.package_ids
         }
         let data = {
-            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname, 'sort_order': this.state.sort_order || '', 'rating': this.state.rating||[], 'home_visit': this.state.home_visit || '', 'lab_visit': this.state.lab_visit || ''
+            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname, 'sort_order': this.state.sort_order || '', 'rating': this.state.avg_ratings||[], 'home_visit': this.state.home_visit || '', 'lab_visit': this.state.lab_visit || ''
         }
         GTM.sendEvent({ data: data })
         this.props.applyFilters(filterState)
@@ -167,7 +167,7 @@ class TopBar extends React.Component {
 
             filterData = {
                 sort_order: null,
-                rating: [],
+                avg_ratings: [],
                 availability: [],
                 home_visit: false,
                 lab_visit: false,
@@ -177,7 +177,7 @@ class TopBar extends React.Component {
             let filterCount = 0
             for (let filter in filterData) {
 
-                if(filter == 'availability' || filter =='rating'){
+                if(filter == 'availability' || filter =='avg_ratings'){
                     if(filterData[filter].length) {
                         filterCount++    
                     }
@@ -219,11 +219,6 @@ class TopBar extends React.Component {
             for (var i = 0; i < this.props.currentSearchedCriterias.length; i++) {
                 selectedTests.push(this.props.currentSearchedCriterias[i].id);
             }
-        }
-
-        let sortType = ''
-        if (this.state.sort_on) {
-            sortType = this.state.sort_on.charAt(0).toUpperCase() + this.state.sort_on.slice(1);
         }
 
         return (
@@ -331,9 +326,9 @@ class TopBar extends React.Component {
                                 <div className="sorting-btns-cont">
                                     <h5 className="sort-headings">Ratings</h5>
                                     <div className="sortbtncard">
-                                        <button className={`sortBtns ${this.state.rating && this.state.rating.length && this.state.rating.indexOf('3')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'rating', '3', true)}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   3.0 +</button>
-                                        <button className={`sortBtns ${this.state.rating && this.state.rating.length && this.state.rating.indexOf('4')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'rating', '4', true)}> <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.0 +</button>
-                                        <button className={`sortBtns ${this.state.rating && this.state.rating.length && this.state.rating.indexOf('4.5')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'rating', '4.5', true)}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.5 +</button>
+                                        <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('3')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '3', true)}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   3.0 +</button>
+                                        <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4', true)}> <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.0 +</button>
+                                        <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4.5')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4.5', true)}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.5 +</button>
                                     </div>
                                 </div>
                                 <div className="sorting-btns-cont">
@@ -343,6 +338,22 @@ class TopBar extends React.Component {
                                         <button className={`sortBtns ${this.state.lab_visit?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'lab_visit', !this.state.lab_visit)}>Lab Visit</button>
                                     </div>
                                 </div>
+
+                                {
+                                    this.props.packagesList.categories && this.props.packagesList.categories.length >0?
+                                    <div className="sorting-btns-cont">
+                                        <h5 className="sort-headings">Category</h5>
+                                        <div className="sortbtncard justyfy-twoBtns">
+                                            <ul className="cat-gry">
+                                            {
+                                                this.props.packagesList.categories.map((category,i) =>{
+                                                    return <li key={i} id={category.id} onClick={this.selectCategory.bind(this,category.id)}><a href="javascript:void(0);" className={this.state.catIds.indexOf(category.id) > -1?"selected":''}>{category.name}</a></li>
+                                                })
+                                            }
+                                        </ul>
+                                        </div>
+                                    </div>:''
+                                }
                             </div>
                         </div>
                     </div> : ""

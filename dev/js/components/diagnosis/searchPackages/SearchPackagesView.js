@@ -101,11 +101,18 @@ class SearchPackagesView extends React.Component {
     applyCategories(categoryState,filterstate) {
         let newCategoryState = {}
         newCategoryState['catIds'] = categoryState
-        newCategoryState['distanceRange']=filterstate.distanceRange
+
+        /*newCategoryState['distanceRange']=filterstate.distanceRange
         newCategoryState['priceRange']=filterstate.priceRange
         newCategoryState['sort_on']=filterstate.sort_on
-        newCategoryState['max_age'] = filterstate.max_age
         newCategoryState['max_price'] = filterstate.max_price
+        
+        */
+        newCategoryState['sort_order'] = filterstate.sort_order
+        newCategoryState['avg_ratings'] = filterstate.avg_ratings
+        newCategoryState['home_visit'] = filterstate.home_visit
+        newCategoryState['lab_visit'] = filterstate.lab_visit
+        newCategoryState['max_age'] = filterstate.max_age
         newCategoryState['min_age'] = filterstate.min_age
         newCategoryState['gender'] = filterstate.gender
         newCategoryState['packageType'] = filterstate.packageType
@@ -171,11 +178,17 @@ class SearchPackagesView extends React.Component {
         }
 
         let cat_ids = filterCriteriaPackages.catIds || ""
-        let min_distance = filterCriteriaPackages.distanceRange[0]
+
+        /*let min_distance = filterCriteriaPackages.distanceRange[0]
         let max_distance = filterCriteriaPackages.distanceRange[1]
         let min_price = filterCriteriaPackages.priceRange[0]
         let max_price = filterCriteriaPackages.priceRange[1]
         let sort_on = filterCriteriaPackages.sort_on || ""
+        */
+        let sort_order = filterCriteriaPackages.sort_order || ""
+        let avg_ratings = filterCriteriaPackages.avg_ratings || ""
+        let home_visit = filterCriteriaPackages.home_visit || false
+        let lab_visit = filterCriteriaPackages.lab_visit || false
         let lab_name = filterCriteriaPackages.lab_name || ""
         let network_id = filterCriteriaPackages.network_id || ""
         let max_age=filterCriteriaPackages.max_age || ""
@@ -192,7 +205,7 @@ class SearchPackagesView extends React.Component {
             let package_category_id = parsed.package_category_ids
             url = `${window.location.pathname}?lat=${lat}&long=${long}&package_category_ids=${package_category_id}`
         }else{
-            url = `${window.location.pathname}?min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&package_ids=${package_ids}&page=${page}`
+            url = `${window.location.pathname}?lat=${lat}&long=${long}&sort_order=${sort_order}&avg_ratings=${avg_ratings}&home_visit=${home_visit}&lab_visit=${lab_visit}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&package_ids=${package_ids}&page=${page}`
         }
 
         if (parsed.scrollbyid) {

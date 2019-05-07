@@ -42,7 +42,7 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 	*/
 	let sort_order = filterCriteria.sort_order || ""
     let availability = filterCriteria.availability || []
-    let rating = filterCriteria.rating || []
+    let avg_ratings = filterCriteria.avg_ratings || []
     let home_visit = filterCriteria.home_visit || false
     let lab_visit = filterCriteria.lab_visit || false
 
@@ -59,7 +59,7 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 		url = `/api/v1/diagnostic/labnetworksearchbyurl?url=${searchByUrl.split('/')[1]}&`
 	}
 
-	url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&sort_order=${sort_order}&rating=${rating}&availability=${availability}&home_visit=${home_visit}&lab_visit=${lab_visit}&page=${page}&is_insurance=${is_insured}`
+	url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&sort_order=${sort_order}&avg_ratings=${avg_ratings}&availability=${availability}&home_visit=${home_visit}&lab_visit=${lab_visit}&page=${page}&is_insurance=${is_insured}`
 
 	if (!!filterCriteria.lab_name) {
 		url += `&name=${filterCriteria.lab_name || ""}`
@@ -332,11 +332,17 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 
 	}
 
-	let min_distance = filterCriteriaPackages.distanceRange[0]
+	/*let min_distance = filterCriteriaPackages.distanceRange[0]
 	let max_distance = filterCriteriaPackages.distanceRange[1]
 	let min_price = filterCriteriaPackages.priceRange[0]
 	let max_price = filterCriteriaPackages.priceRange[1]
 	let sort_on = filterCriteriaPackages.sort_on || ""
+	*/
+	let sort_order = filterCriteriaPackages.sort_order || ""
+	let avg_ratings = filterCriteriaPackages.avg_ratings || ""
+	let home_visit = filterCriteriaPackages.home_visit || false
+	let lab_visit = filterCriteriaPackages.lab_visit || false
+
 	let catIds = filterCriteriaPackages.catIds || ""
 	let max_age = filterCriteriaPackages.max_age || ""
 	let min_age = filterCriteriaPackages.min_age || ""
@@ -358,7 +364,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 
 	if (!forTaxSaver) {
 
-		url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}&package_ids=${package_ids}`
+		url += `long=${long || ""}&lat=${lat || ""}&sort_order=${sort_order}&avg_ratings=${avg_ratings}&home_visit=${home_visit}&lab_visit=${lab_visit}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}&package_ids=${package_ids}`
 	}
 
 	if (!!filterCriteriaPackages.lab_name) {

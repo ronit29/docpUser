@@ -20,7 +20,7 @@ class TopBar extends React.Component {
             //New filters
             previous_filters: {},
             sort_order: null,
-            rating: [],
+            avg_ratings: [],
             availability: [],
             home_visit: false,
             lab_visit: false,
@@ -61,13 +61,13 @@ class TopBar extends React.Component {
         let filterState = {
             sort_order: this.state.sort_order,
             availability: this.state.availability,
-            rating: this.state.rating,
+            avg_ratings: this.state.avg_ratings,
             home_visit: this.state.home_visit || false,
             lab_visit: this.state.lab_visit || false,
             is_insured: this.state.is_insured
         }
         let data = {
-            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname,'sort_order': this.state.sort_order|| '', 'availability': this.state.availability, 'rating': this.state.rating, 'lab_visit': this.state.lab_visit, 'home_visit': this.state.home_visit
+            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname,'sort_order': this.state.sort_order|| '', 'availability': this.state.availability, 'avg_ratings': this.state.avg_ratings, 'lab_visit': this.state.lab_visit, 'home_visit': this.state.home_visit
         }
         GTM.sendEvent({ data: data })
         this.props.applyFilters(filterState)
@@ -151,7 +151,7 @@ class TopBar extends React.Component {
     sortFilterClicked() {
         let currentFilters = {
             sort_order: this.state.sort_order,
-            rating: this.state.rating,
+            avg_ratings: this.state.avg_ratings,
             availability: this.state.availability,
             specialization: []
         }
@@ -166,7 +166,7 @@ class TopBar extends React.Component {
 
             filterData = {
                 sort_order: null,
-                rating: [],
+                avg_ratings: [],
                 availability: [],
                 home_visit: false,
                 lab_visit: false,
@@ -176,7 +176,7 @@ class TopBar extends React.Component {
             let filterCount = 0
             for (let filter in filterData) {
 
-                if(filter == 'availability' || filter =='rating'){
+                if(filter == 'availability' || filter =='avg_ratings'){
                     if(filterData[filter].length) {
                         filterCount++    
                     }
@@ -202,7 +202,7 @@ class TopBar extends React.Component {
             let filterState = {
                 sort_order: this.state.sort_order,
                 availability: this.state.availability,
-                rating: this.state.rating,
+                avg_ratings: this.state.avg_ratings,
                 home_visit: this.state.home_visit || false,
                 lab_visit: this.state.lab_visit || false,
                 is_insured: this.state.is_insured
@@ -307,9 +307,9 @@ class TopBar extends React.Component {
                                 <div className="sorting-btns-cont">
                                     <h5 className="sort-headings">Ratings</h5>
                                     <div className="sortbtncard">
-                                        <button className={`sortBtns ${this.state.rating && this.state.rating.length && this.state.rating.indexOf('3')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'rating', '3', true)}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   3.0 +</button>
-                                        <button className={`sortBtns ${this.state.rating && this.state.rating.length && this.state.rating.indexOf('4')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'rating', '4', true)}> <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.0 +</button>
-                                        <button className={`sortBtns ${this.state.rating && this.state.rating.length && this.state.rating.indexOf('4.5')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'rating', '4.5', true)}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.5 +</button>
+                                        <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('3')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '3', true)}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   3.0 +</button>
+                                        <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4', true)}> <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.0 +</button>
+                                        <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4.5')>-1?'srtBtnAct':''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4.5', true)}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"}/>   4.5 +</button>
                                     </div>
                                 </div>
                                 <div className="sorting-btns-cont">
