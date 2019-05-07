@@ -29,7 +29,11 @@ class Search extends React.Component {
             window.scroll(0, 0)
         }
         //opd
-        this.props.loadOPDCommonCriteria()
+        let locality = ''
+        if(this.props.OPD_STATE && this.props.OPD_STATE.selectedLocation){
+            locality = this.props.OPD_STATE.selectedLocation.locality||''
+        }
+        this.props.loadOPDCommonCriteria(locality)
         this.props.resetFilters()
         // lab
         this.props.loadLabCommonCriterias()
@@ -173,7 +177,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         // opd
-        loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
+        loadOPDCommonCriteria: (selectedLocation) => dispatch(loadOPDCommonCriteria(selectedLocation)),
         toggleOPDCriteria: (type, criteria) => dispatch(toggleOPDCriteria(type, criteria)),
         getOPDCriteriaResults: (searchString, callback) => dispatch(getOPDCriteriaResults(searchString, callback)),
         resetFilters: () => dispatch(resetFilters()),

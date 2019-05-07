@@ -35,7 +35,7 @@ class PackageCompareStrip extends React.Component {
 
     render() {
         return (
-            <div className="compare-package-footer cm-footer">
+            <section className="compare-package-footer cm-footer">
               <ul className="compare-packages-home">
                 <li className="hlth-txt">{this.props.compare_packages.length} Health Package Selected</li>
                 <li className="li-btn-compare">
@@ -43,7 +43,7 @@ class PackageCompareStrip extends React.Component {
                   <span className=""><img src="https://cdn.docprime.com/cp/assets/img/icons/close.png" alt=""  onClick={this.clearPackage.bind(this)}/></span>
                 </li>
               </ul>
-            </div>  
+            </section>  
         )
     }
 }
