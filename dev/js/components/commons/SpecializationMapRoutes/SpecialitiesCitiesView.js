@@ -101,7 +101,7 @@ class SpecialitiesCitiesMap extends React.Component {
 										<div className="row">
 										{
 											city.speciality_url_title.map((speciality, i) => {
-												return <div key={i} className="col-md-6" onClick={this.goToSpeciality.bind(this, speciality.url)} >
+												return <div key={i} className="col-md-6 tests-brdr-btm" onClick={this.goToSpeciality.bind(this, speciality.url)} >
 												<div className="anchor-data-style">
 													<a href={`/${speciality.url}`} onClick={(e) => { e.preventDefault() }} >{`${speciality.title}`}</a>
 													<span className="sitemap-right-arrow">
