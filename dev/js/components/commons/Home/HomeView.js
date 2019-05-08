@@ -316,11 +316,29 @@ class HomeView extends React.Component {
 								<div className="divHeight"></div>
 							</div>
 							<div className="banner-home-scrollable">
-								<img src="https://cdn.docprime.com/media/banner/images/doctor-appointments-50.png" />
-								<img src="https://cdn.docprime.com/media/banner/images/Artboard_14_LCo4nYO.png" />
-								<img src="https://cdn.docprime.com/media/banner/images/Artboard_11_1.png" />
+								<img src="https://cdn.docprime.com/media/banner/images/doctor-appointments-50.png" loading="lazy" />
+								<img src="https://cdn.docprime.com/media/banner/images/Artboard_14_LCo4nYO.png" loading="lazy" />
+								<img src="https://cdn.docprime.com/media/banner/images/Artboard_11_1.png" loading="lazy" />
 							</div>
 						</div>
+						{/* x ray landing page cards */}
+						<div className="xray-container">
+							<h1 className="xray-heading">Chest X-rays</h1>
+							<div className="xray-cards">
+								<div className="row no-gutters">
+									<div className="col-7">
+										<p className="xrayCardMainHeading">AP & LAT  View</p>
+										<p className="xrayCardSubHeading">Available in 224 Labs </p>
+									</div>
+									<div className="col-5 text-right">
+										<p className="xray-strtng">Starting at</p>
+										<p className="xray-pffer">Save upto 40% <span className="xray-price">₹ 700</span></p>
+										<button className="xrayBtn">Select Lab</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						{/* x ray landing page cards */}
 
 						<div className="banner-cont-height">
 							<div className="hidderBanner banner-carousel-div d-md-none">
