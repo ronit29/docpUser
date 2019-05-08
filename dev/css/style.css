@@ -11209,3 +11209,18 @@ position: relative;
 	font-size: 16px;
     font-weight: 500;
 }
+.ulListing-stl ul{
+	list-style: disc !important;
+	padding-left: 15px;
+
+}
+.ulListing-stl ul li strong{
+	display: block;
+	font-weight: 400;
+}
+
+.ulListing-stl ul li b{
+	display: block;
+	font-weight: 400;
+}
+

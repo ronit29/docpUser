@@ -57,7 +57,7 @@ class HospitalListView extends React.Component {
 				{
 					hospitalList && hospitalList.result?
 					hospitalList.result.map((hospital, i) => {
-						return <HospitalCard key={i} data={hospital} getCostEstimateClicked={this.getCostEstimateClicked.bind(this)} getHospitalDetailPage={this.getHospitalDetailPage.bind(this)} toggleProviderFilter={this.toggleProviderFilter.bind(this)}/>
+						return <HospitalCard key={i} data={hospital} getCostEstimateClicked={this.getCostEstimateClicked.bind(this)} getHospitalDetailPage={this.getHospitalDetailPage.bind(this)} toggleProviderFilter={this.toggleProviderFilter.bind(this)} {...this.props}/>
 					})
 					:''
 				}
