@@ -92,7 +92,7 @@ class DoctorsNearMeView extends React.Component {
                                 {
                                     this.props.articleList.length ?
                                         this.props.articleList.map((property, index) => {
-                                            return <div className="col-12 col-md-6 col-lg-4" key={index}>
+                                            return <div className="col-12 col-md-6 col-lg-4 tests-brdr-btm" key={index}>
                                                 <div className="anchor-data-style">
                                                     <a href={`/${property.url}`} onClick={
                                                         (e) => {

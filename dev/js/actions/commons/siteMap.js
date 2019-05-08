@@ -1,4 +1,4 @@
-import { GET_CITIES_MAP, GET_CITIES_SPECIALITIES, GET_SPECIALITIES_CITIES, GET_SPECIALITIES_MAP, GET_TESTS_ALPHABETICALLY, GET_TESTS_FLAG, GET_INSURANCE_NETWORK, SET_NETWORK_TYPE } from '../../constants/types';
+import { GET_CITIES_MAP, GET_CITIES_SPECIALITIES, GET_SPECIALITIES_CITIES, GET_SPECIALITIES_MAP, GET_TESTS_ALPHABETICALLY, GET_TESTS_FLAG, GET_INSURANCE_NETWORK, SET_NETWORK_TYPE, START_FETCHING_IPD_LIST, GET_IPD_ALPHABETICALLY } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 export const getCitiesMap = (city = "", page = 0) => (dispatch) => {
@@ -101,5 +101,23 @@ export const setNetworkType = (type) => (dispatch) => {
 	dispatch({
 		type: SET_NETWORK_TYPE,
 		payload: type
+	})
+}
+
+export const getIPDAlphabetically = (character) => (dispatch) => {
+	let url = `/api/v1/doctor/ipd_procedure/list_by_alphabet?alphabet=${character}`
+	dispatch({
+		type: START_FETCHING_IPD_LIST,
+		flag: true
+	})
+	return API_GET(url).then(function (response) {
+		dispatch({
+			type: GET_IPD_ALPHABETICALLY,
+			payload: response,
+			flag: false,
+			character: character
+		})
+	}).catch(function (error) {
+
 	})
 }

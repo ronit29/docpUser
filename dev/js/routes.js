@@ -183,6 +183,13 @@ const TestsList = Loadable({
     loading,
 })
 
+const IpdList = Loadable({
+    loader: () => import('./containers/commons/ipdLists.js'),
+    modules: ['./containers/commons/ipdLists.js'],
+    webpack: () => [require.resolveWeak('./containers/commons/ipdLists.js')],
+    loading,
+})
+
 
 /**
  * IPD ROUTES
@@ -457,6 +464,7 @@ let routes = [
     { path: '/opd/searchresults/location=*', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
     { path: '/*-sptcit', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
     { path: '/*-sptlitcit', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
+    { path: '/*-ipddp', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
     { path: '/opd/doctor/:id', exact: true, component: DoctorProfile, RENDER_ON_SERVER: true },
     { path: '/*-dpp', exact: true, component: DoctorProfile, RENDER_ON_SERVER: true },
     { path: '/opd/doctor/:id/:clinicId/book', exact: true, component: AppointmentSlot },
@@ -511,13 +519,20 @@ let routes = [
     { path: '/prime/plans', exact: true, component: PrimeCare },
     { path: '/prime/booking', exact: true, component: PrimeCareBooking },
     { path: '/prime/success', exact: true, component: PrimeCareSuccess },
-    { path: '/compare', exact: true, component: Compare },
-    { path: '/ipdInfo', exact: true, component: IPDInfo },
-    { path: '/ipd/:id/getPriceEstimate', exact: true, component: IpdForm },
-    { path: '/ipd/searchHospitals', exact: true, component: IpdHospitalSearch },
-    { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail },
+    { path: '/compare', exact:true, component: Compare},
+    { path: '/ipdInfo', exact: true, component: IPDInfo , RENDER_ON_SERVER: true },
+    { path: '/*-ipdp', exact: true, component: IPDInfo , RENDER_ON_SERVER: true },
+    { path: '/ipd/:id/getPriceEstimate',exact: true, component: IpdForm},
+    { path: '/ipd/searchHospitals',exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
+    { path: '/*-ipdhp',exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
+    { path: '/*-hspcit',exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
+    { path: '/*-hsplitcit',exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
+    { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail, RENDER_ON_SERVER: true },
+    { path: '/*-hpp', exact: true, component: IpdHospitalDetail, RENDER_ON_SERVER: true },
     { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail },
     { path: '/package/compare', exact: true, component: PackageCompare },
+    { path: '/ipd-procedures', exact: true, component: IpdList, RENDER_ON_SERVER: true }
+
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {

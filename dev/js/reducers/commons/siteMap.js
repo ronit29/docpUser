@@ -1,4 +1,4 @@
-import { GET_CITIES_MAP, GET_CITIES_SPECIALITIES, GET_SPECIALITIES_CITIES, GET_SPECIALITIES_MAP, GET_TESTS_ALPHABETICALLY, GET_TESTS_FLAG, GET_INSURANCE_NETWORK, SET_NETWORK_TYPE } from '../../constants/types';
+import { GET_CITIES_MAP, GET_CITIES_SPECIALITIES, GET_SPECIALITIES_CITIES, GET_SPECIALITIES_MAP, GET_TESTS_ALPHABETICALLY, GET_TESTS_FLAG, GET_INSURANCE_NETWORK, SET_NETWORK_TYPE, START_FETCHING_IPD_LIST, GET_IPD_ALPHABETICALLY } from '../../constants/types';
 
 const defaultState = {
 	citiesMap: [],
@@ -7,8 +7,11 @@ const defaultState = {
 	specialitiesMapCities: {},
 	alphabeticalTests: [],
 	insuranceNetwork: [],
+	networkType: 'doctor',
 	testIndexLoading: true,
-	networkType: 'doctor'
+	alphabeticalIpdTests: [],
+	selectedIpdListAlphabet: '',
+	ipdIndexLoading: true
 }
 
 export default function (state = defaultState, action) {
@@ -83,6 +86,24 @@ export default function (state = defaultState, action) {
 				...state
 			}
 			newState.networkType = action.payload
+			return newState
+		}
+
+		case START_FETCHING_IPD_LIST: {
+			let newState = {
+				...state
+			}
+			newState.ipdIndexLoading = action.flag
+			return newState
+		}
+
+		case GET_IPD_ALPHABETICALLY: {
+			let newState = {
+				...state
+			}
+			newState.alphabeticalIpdTests = action.payload
+			newState.selectedIpdListAlphabet = action.character
+			newState.ipdIndexLoading = action.flag
 			return newState
 		}
 	}
