@@ -18,12 +18,13 @@ class TopBar extends React.Component {
             // showPopupContainer: true,
             is_insured: props.filterCriteria && props.filterCriteria.is_insured ? props.filterCriteria.is_insured : false,
             //New filters
+            sort_on: null,
             previous_filters: {},
             sort_order: null,
             avg_ratings: [],
             availability: [],
-            home_visit: false,
-            lab_visit: false,
+            home_visit: true,
+            lab_visit: true,
             shortURL: "",
             showLocationPopup: false,
         }
@@ -59,15 +60,16 @@ class TopBar extends React.Component {
 
     applyFilters() {
         let filterState = {
+            sort_on: this.state.sort_on,
             sort_order: this.state.sort_order,
             availability: this.state.availability,
             avg_ratings: this.state.avg_ratings,
-            home_visit: this.state.home_visit || false,
-            lab_visit: this.state.lab_visit || false,
+            home_visit: this.state.home_visit,
+            lab_visit: this.state.lab_visit,
             is_insured: this.state.is_insured
         }
         let data = {
-            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname, 'sort_order': this.state.sort_order || '', 'availability': this.state.availability, 'avg_ratings': this.state.avg_ratings, 'lab_visit': this.state.lab_visit, 'home_visit': this.state.home_visit
+            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-filter-clicked', 'url': window.location.pathname, 'sort_order': this.state.sort_order || '', 'availability': this.state.availability, 'avg_ratings': this.state.avg_ratings, 'lab_visit': this.state.lab_visit, 'home_visit': this.state.home_visit, 'sort_on': this.state.sort_on
         }
         GTM.sendEvent({ data: data })
         this.props.applyFilters(filterState)
@@ -83,13 +85,22 @@ class TopBar extends React.Component {
         this.setState({ [type]: value })
     }
 
-    handleClose(e, reset=false) {
+    handleClose(reset=false, e) {
 
         if(reset) {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'ResetLabFilter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'reset-lab-filter', 'url': window.location.pathname, 'sort_order': this.state.sort_order || '', 'availability': this.state.availability, 'avg_ratings': this.state.avg_ratings, 'lab_visit': this.state.lab_visit, 'home_visit': this.state.home_visit, 'sort_on': this.state.sort_on
+            }
+            GTM.sendEvent({ data: data })
+
             this.setState({
                 ...this.state.previous_filters
             })
         }else {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'CloseLabFilter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'close-lab-filter', 'url': window.location.pathname, 'sort_order': this.state.sort_order || '', 'availability': this.state.availability, 'avg_ratings': this.state.avg_ratings, 'lab_visit': this.state.lab_visit, 'home_visit': this.state.home_visit, 'sort_on': this.state.sort_on
+            }
+            GTM.sendEvent({ data: data })
             this.setState({
                 dropdown_visible: false,
                 ...this.state.previous_filters
@@ -157,6 +168,7 @@ class TopBar extends React.Component {
 
     sortFilterClicked() {
         let currentFilters = {
+            sort_on: this.state.sort_on,
             sort_order: this.state.sort_order,
             avg_ratings: this.state.avg_ratings,
             availability: this.state.availability,
@@ -172,11 +184,11 @@ class TopBar extends React.Component {
         } else {
 
             filterData = {
-                sort_order: null,
+                sort_on: null,
                 avg_ratings: [],
                 availability: [],
-                home_visit: false,
-                lab_visit: false,
+                home_visit: true,
+                lab_visit: true,
             }
         }
         try {
@@ -207,11 +219,12 @@ class TopBar extends React.Component {
 
 
             let filterState = {
+                sort_on: this.state.sort_on,
                 sort_order: this.state.sort_order,
                 availability: this.state.availability,
                 avg_ratings: this.state.avg_ratings,
-                home_visit: this.state.home_visit || false,
-                lab_visit: this.state.lab_visit || false,
+                home_visit: this.state.home_visit,
+                lab_visit: this.state.lab_visit,
                 is_insured: this.state.is_insured
             }
             this.props.applyFilters(filterState)
@@ -241,10 +254,10 @@ class TopBar extends React.Component {
             <div>
                 {this.state.dropdown_visible ?
                     <div>
-                        <div className="cancel-overlay cancel-overlay-zindex" onClick={this.handleClose.bind(this)}>
+                        <div className="cancel-overlay cancel-overlay-zindex" onClick={this.handleClose.bind(this, false)}>
                         </div>
                         <div className="widget cancel-appointment-div cancel-popup overflow-hidden pb-0">
-                            <div className="cross-btn" onClick={this.handleClose.bind(this)}>
+                            <div className="cross-btn" onClick={this.handleClose.bind(this, false)}>
                                 <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" />
                             </div>
                             <div className="pop-top-heading">

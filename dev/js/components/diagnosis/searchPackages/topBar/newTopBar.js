@@ -35,8 +35,8 @@ class TopBar extends React.Component {
             previous_filters: {},
             sort_order: null,
             avg_ratings: [],
-            home_visit: false,
-            lab_visit: false,
+            home_visit: true,
+            lab_visit: true,
         }
     }
 
@@ -85,8 +85,8 @@ class TopBar extends React.Component {
         let filterState = {
             sort_order: this.state.sort_order || '',
             avg_ratings: this.state.avg_ratings || '',
-            home_visit: this.state.home_visit || false,
-            lab_visit: this.state.lab_visit || false,
+            home_visit: this.state.home_visit || true,
+            lab_visit: this.state.lab_visit || true,
             gender: this.state.gender,
             packageType: this.state.packageType,
             catIds: this.state.catIds,
@@ -114,21 +114,20 @@ class TopBar extends React.Component {
     //     });
     // }
 
-    handleClose(type) {
-        this.setState({ openFilter: false })
+    handleClose(e, reset=false) {
+        if(reset) {
+            this.setState({ openFilter: false }) 
+        }else{
+            this.setState({ openFilter: false })
+        }
     }
 
     sortFilterClicked() {
         this.setState({
-            openFilter: !this.state.openFilter
+            openFilter: true
         })
     }
 
-    handleRange(type, range) {
-        this.setState({
-            [type]: range
-        })
-    }
 
     // getCriteriaString(selectedCriterias) {
     //     if (selectedCriterias && selectedCriterias.length) {
@@ -142,22 +141,6 @@ class TopBar extends React.Component {
     //     }
     // }
 
-    isFilterApplied() {
-        const def = {
-            priceRange: [0, 20000],
-            distanceRange: [0, 15]
-        }
-        try {
-            for (let filter in def) {
-                if (def[filter][0] != this.state[filter][0] || def[filter][1] != this.state[filter][1]) {
-                    return true
-                }
-            }
-            return false
-        } catch (e) {
-            return false
-        }
-    }
 
     isDataFiltered(filterData = {}) {
 

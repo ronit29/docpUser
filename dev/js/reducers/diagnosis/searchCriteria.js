@@ -8,8 +8,8 @@ const DEFAULT_FILTER_STATE = {
     sort_order: null,
     avg_rating: [],
     availability: [],
-    home_visit: false,
-    lab_visit: false,
+    home_visit: true,
+    lab_visit: true,
     lab_name: "",
     network_id: "",
     is_insured: false
@@ -21,8 +21,8 @@ const DEFAULT_FILTER_STATE_PACKAGES = {
     */
     sort_order: null,
     avg_rating: [],
-    home_visit: false,
-    lab_visit: false,
+    home_visit: true,
+    lab_visit: true,
     lab_name: "",
     network_id: "",
     catIds: [],

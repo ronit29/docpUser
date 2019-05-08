@@ -293,33 +293,54 @@ class TopBar extends React.Component {
                                     <div className="sort-lft-cont">
                                         <h5 className="sort-headings">Sort by</h5>
                                         <div className="sort-slider-scroll">
-                                            <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_on', '', false)}>
+                                            <div className={`sort-cards-list ${this.state.sort_on==''?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', '', false)}>
                                                 <div className="srt-lst-img">
-                                                    <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
+                                                    {
+                                                        this.state.sort_on==''?
+                                                        <img src={ASSETS_BASE_URL + "/img/popupicon/rv-relevence.svg"} style={{ width: 18 }} />
+                                                        :<img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
+                                                    }
                                                 </div>
                                                 <p>Relevance</p>
                                             </div>
-                                            <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_on', 'price_asc', false)}>
+                                            <div className={`sort-cards-list ${this.state.sort_on=='fees' && this.state.sort_order=='asc'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'price_asc', false)}>
                                                 <div className="srt-lst-img">
-                                                    <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
+                                                    {
+                                                        this.state.sort_on=='fees' && this.state.sort_order=='asc'?
+                                                        <img src={ASSETS_BASE_URL + "/img/popupicon/rv-pricesort.svg"} style={{ width: 18 }} />
+                                                        :<img src={ASSETS_BASE_URL + "/img/popupicon/pricesort.svg"} style={{ width: 18 }} />
+                                                    }
+                                                    
                                                 </div>
                                                 <p>Price Low to High</p>
                                             </div>
-                                            <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_on', 'price_desc', false)}>
+                                            <div className={`sort-cards-list ${this.state.sort_on=='fees' && this.state.sort_order=='desc'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'price_desc', false)}>
                                                 <div className="srt-lst-img">
-                                                    <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
+                                                    {
+                                                        this.state.sort_on=='fees' && this.state.sort_order=='desc'?
+                                                        <img src={ASSETS_BASE_URL + "/img/popupicon/rv-priceup.svg"} style={{ width: 18 }} />
+                                                        :<img src={ASSETS_BASE_URL + "/img/popupicon/priceup.svg"} style={{ width: 18 }} />
+                                                    }
                                                 </div>
                                                 <p>Price High to Low</p>
                                             </div>
-                                            <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_on', 'distance', false)}>
+                                            <div className={`sort-cards-list ${this.state.sort_on=='distance'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'distance', false)}>
                                                 <div className="srt-lst-img">
-                                                    <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
+                                                    {
+                                                        this.state.sort_on=='distance'?
+                                                        <img src={ASSETS_BASE_URL + "/img/popupicon/rv-locations.svg"} style={{ width: 14 }} />
+                                                        :<img src={ASSETS_BASE_URL + "/img/popupicon/locations.svg"} style={{ width: 14 }} />
+                                                    }
                                                 </div>
                                                 <p>Distance</p>
                                             </div>
-                                            <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_on', 'experience', false)}>
+                                            <div className={`sort-cards-list ${this.state.sort_on=='experience'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'experience', false)}>
                                                 <div className="srt-lst-img">
-                                                    <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
+                                                    {
+                                                        this.state.sort_on=='experience'?
+                                                        <img src={ASSETS_BASE_URL + "/img/popupicon/rv-expr.svg"} style={{ width: 18 }} />
+                                                        :<img src={ASSETS_BASE_URL + "/img/popupicon/expr.svg"} style={{ width: 18 }} />
+                                                    }
                                                 </div>
                                                 <p>Experience</p>
                                             </div>
@@ -328,9 +349,29 @@ class TopBar extends React.Component {
                                     <div className="sorting-btns-cont">
                                         <h5 className="sort-headings">Ratings</h5>
                                         <div className="sortbtncard">
-                                            <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('3') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '3', true)}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />   3.0 +</button>
-                                            <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4', true)}> <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />   4.0 +</button>
-                                            <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4.5') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4.5', true)}><img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />   4.5 +</button>
+                                            <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('3') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '3', true)}>
+                                                
+                                                {
+                                                    this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('3') > -1 ?
+                                                    <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
+                                                    :<img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />
+                                                }
+                                                   3.0 +</button>
+                                            <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4', true)}>
+                                                {
+                                                    this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4')>-1?
+                                                    <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
+                                                    :<img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} /> 
+                                                }
+                                               4.0 +</button>
+                                            <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4.5') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4.5', true)}>
+
+                                                {
+                                                    this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4.5')>-1?
+                                                    <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
+                                                    :<img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />
+                                                }
+                                                   4.5 +</button>
                                         </div>
                                     </div>
                                     <div className="sorting-btns-cont">
