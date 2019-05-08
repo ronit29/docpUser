@@ -310,6 +310,18 @@ class HomeView extends React.Component {
 								/> : ""
 						}
 
+
+						<div className="banner-cont-height">
+							<div className="hidderBanner banner-carousel-div d-md-none">
+								<div className="divHeight"></div>
+							</div>
+							<div className="banner-home-scrollable">
+								<img src="https://cdn.docprime.com/media/banner/images/doctor-appointments-50.png" />
+								<img src="https://cdn.docprime.com/media/banner/images/Artboard_14_LCo4nYO.png" />
+								<img src="https://cdn.docprime.com/media/banner/images/Artboard_11_1.png" />
+							</div>
+						</div>
+
 						<div className="banner-cont-height">
 							<div className="hidderBanner banner-carousel-div d-md-none">
 								<div className="divHeight"></div>
