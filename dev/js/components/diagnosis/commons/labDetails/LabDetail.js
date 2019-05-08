@@ -148,7 +148,7 @@ class LabDetails extends React.Component {
                                     {
                                         STORAGE.isAgent() || ( !this.props.hide_price && !this.props.is_user_insured)?
                                         <div className="serch-nw-inputs mb-0" onClick={this.openTests.bind(this)}>
-                                            <input type="text" autocomplete="off" className="d-block clkInput new-srch-doc-lab" id="search_bar" value="" placeholder="Search more tests by this provider"/>
+                                            <input type="text" autocomplete="off" className="d-block clkInput new-srch-doc-lab" id="search_bar" value="" placeholder="Search tests"/>
                                             <img className="srch-inp-img" src="https://cdn.docprime.com/cp/assets/img/shape-srch.svg" style={{width: '15px'}}/>
                                         </div>
                                     :''
