@@ -272,6 +272,8 @@ class BookingSummaryViewNew extends React.Component {
             this.props.patientDetails(data)
             this.setState({ profileDataFilled: false })
         } else if (data.otpVerifySuccess) {
+            let clear_data = {}
+            this.props.patientDetails(clear_data)
             this.setState({ profileDataFilled: true })
         }
     }

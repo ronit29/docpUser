@@ -233,8 +233,11 @@ class PatientDetailsNew extends React.Component {
     profileDataCompleted(data) {
         this.setState({ formData: { ...data } })
         if (data.name == '' || data.gender == '' || data.phoneNumber == '' || data.email == '' || !data.otpVerifySuccess) {
+            this.props.patientDetails(data)
             this.setState({ profileDataFilled: false, showTimeError: false })
         } else if (data.otpVerifySuccess) {
+            let clear_data = {}
+            this.props.patientDetails(clear_data)
             this.setState({ profileDataFilled: true, showTimeError: false, profileError: false })
         }
     }
