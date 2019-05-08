@@ -192,6 +192,8 @@ class BookingSummaryViewNew extends React.Component {
                     this.setState({coupon_loading: false})
                 }
             })
+        } else {
+            this.setState({coupon_loading: false})
         }
     }
 
