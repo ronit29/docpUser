@@ -928,7 +928,7 @@ cursor: pointer;
 /* ============ sort new design ============ */
 .sorting-main-container{
 	overflow: scroll;
-	max-height: 450px;
+	max-height: 70vh;
 }
 .sort-lft-cont{
 
@@ -996,11 +996,11 @@ button.sortBtns {
 	border: 1px solid #f78631;
 	border-radius: 4px;
 	padding: 8px 0px;
-	min-width: 100px;
+	min-width: 90px;
 	font-size: 13px;
 	margin-right: 19px;
 }
-.button.sortBtns:last-child{
+button.sortBtns:last-child{
 	margin-right: 0px;
 }
 button.sortBtns.srtBtnAct {

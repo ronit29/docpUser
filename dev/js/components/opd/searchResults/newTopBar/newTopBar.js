@@ -267,33 +267,33 @@ class TopBar extends React.Component {
                                     <div className="sort-lft-cont">
                                         <h5 className="sort-headings">Sort by</h5>
                                         <div className="sort-slider-scroll">
-                                            <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_order', '')}>
+                                            <div className="sort-cards-list chitActive" onClick={this.toggleAllFilters.bind(this, 'sort_order', '')}>
                                                 <div className="srt-lst-img">
-                                                    <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
+                                                    <img src={ASSETS_BASE_URL + "/img/popupicon/rv-relevence.svg"} style={{ width: 18 }} />
                                                 </div>
                                                 <p>Relevance</p>
                                             </div>
                                             <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_order', 'low_to_high')}>
                                                 <div className="srt-lst-img">
-                                                    <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
+                                                    <img src={ASSETS_BASE_URL + "/img/popupicon/pricesort.svg"} style={{ width: 18 }} />
                                                 </div>
                                                 <p>Price Low to High</p>
                                             </div>
                                             <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_order', 'high_to_low')}>
                                                 <div className="srt-lst-img">
-                                                    <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
+                                                    <img src={ASSETS_BASE_URL + "/img/popupicon/priceup.svg"} style={{ width: 18 }} />
                                                 </div>
                                                 <p>Price High to Low</p>
                                             </div>
                                             <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_order', 'distance')}>
                                                 <div className="srt-lst-img">
-                                                    <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
+                                                    <img src={ASSETS_BASE_URL + "/img/popupicon/locations.svg"} style={{ width: 14 }} />
                                                 </div>
                                                 <p>Distance</p>
                                             </div>
                                             <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_order', 'experience')}>
                                                 <div className="srt-lst-img">
-                                                    <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
+                                                    <img src={ASSETS_BASE_URL + "/img/popupicon/expr.svg"} style={{ width: 18 }} />
                                                 </div>
                                                 <p>Experience</p>
                                             </div>
