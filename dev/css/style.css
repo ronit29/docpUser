@@ -9532,6 +9532,9 @@ border-radius: 4px;
 .last-span .span-img img{
 	width:9px;
 }
+.pkgMrgnAdjst{
+
+}
 /*================= Package Compare 04-04-2019 ===================*/
 .sortBy li{
 		display: inline-block;
@@ -9679,6 +9682,9 @@ border-radius: 4px;
 	}
 }
 @media screen and (max-width: 991px){
+	.pkgMrgnAdjst {
+     margin-top: 44px !important;
+     }
 	.pkgComapre{
 		margin-top: 78px;
 	}

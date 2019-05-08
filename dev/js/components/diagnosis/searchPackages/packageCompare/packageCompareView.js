@@ -255,14 +255,14 @@ const queryString = require('query-string');
                     // description: `${this.props.data.description || ''}`
                 }} noIndex={false} />                
               <ProfileHeader />
-              <section className="pkgComapre container" style={{marginTop: 44}}>
+              <section className="pkgComapre container pkgMrgnAdjst" >
                   <div className="row main-row parent-section-row">
                     <LeftBar />
                     {/*compare screen*/}
                     <div className="container-fluid pad-all-0">
-                      <div className="pkgSliderHeading"><h5>{this.props.data.title}</h5></div>
+                      <div className="pkgSliderHeading mrt-20"><h5 style={{fontSize:'16px', paddingLeft:'10px'}} >{this.props.data.title}</h5></div>
                       {this.props.data.search_content?
-                        <div className="search-result-card-collpase">
+                        <div className="search-result-card-collpase" style={{borderRadius: '0px'}}>
                             <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.data.search_content }} >
                             </div>
 
