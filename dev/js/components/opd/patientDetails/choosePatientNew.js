@@ -19,8 +19,9 @@ class ChoosePatientNewView extends React.Component {
 
     componentDidMount() {
         if (!this.props.patient) {
-            this.setState({ ...this.props.filled_patient_details })
-            this.profileValidation()
+            this.setState({ ...this.props.saved_patient_details },()=>{
+                this.profileValidation()
+            })
         }
     }
 
