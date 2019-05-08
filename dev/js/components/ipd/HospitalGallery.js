@@ -17,7 +17,7 @@ class HospitalGalleryView extends React.Component {
 		let { photoIndex, isOpen } = this.state
 		return(
 			<div className="hs-card">
-	           <div className="card-head">Photo Gallery</div>   
+	           <div className="card-head"><h2 className="dsply-ipd-hdng">Photo Gallery</h2></div>   
 	           <div className="card-body clearfix">
 	             <ul className="hs-accordian hs-image-gallery">
 

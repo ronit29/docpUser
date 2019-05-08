@@ -1,4 +1,4 @@
-import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET_IPD_SEARCH_ID, SAVE_IPD_RESULTS_WITH_SEARCHID, GET_IPD_SEARCH_ID_RESULTS, SELECT_IPD_LOCATION_STATUS, GET_IPD_HOSPITAL_DETAIL, CLEAR_IPD_SEARCH_IDS, GET_IPD_HOSPITAL_DETAIL_START, LOADED_IPD_INFO_START } from '../../constants/types';
+import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET_IPD_SEARCH_ID, SAVE_IPD_RESULTS_WITH_SEARCHID, GET_IPD_SEARCH_ID_RESULTS, SELECT_IPD_LOCATION_STATUS, GET_IPD_HOSPITAL_DETAIL, CLEAR_IPD_SEARCH_IDS, GET_IPD_HOSPITAL_DETAIL_START, LOADED_IPD_INFO_START, START_HOSPITAL_SEARCH } from '../../constants/types';
 
 // const moment = require('moment');
 
@@ -27,7 +27,13 @@ const defaultState = {
 	getNewResults: true,
 	ipd_hospital_detail: {},
 	HOSPITAL_DETAIL_LOADED: false,
-	locationFetched: false
+	locationFetched: false,
+	hospitalSearchSeoData: null,
+	hospitalCanonicalUrl: null,
+	hospitalBreadcrumb: [],
+	hospital_search_content: '',
+	hospital_bottom_content: '',
+	HOSPITAL_SEARCH_DATA_LOADED: false
 }
 
 export default function ( state=defaultState, action) {
@@ -79,7 +85,7 @@ export default function ( state=defaultState, action) {
 		case GET_IPD_HOSPITALS: {
 			let newState = {
 				...state,
-				hospital_list: []
+				hospital_list: [].concat(state.hospital_list)
 			}
 			newState.hospital_search_results = {
 				insurance_providers: action.payload.health_insurance_providers ||[],
@@ -88,7 +94,25 @@ export default function ( state=defaultState, action) {
 
 			newState.getNewResults = false
 			newState.fetchNewResults = false
+			newState.HOSPITAL_SEARCH_DATA_LOADED = true
+			
+			if(action.payload){
 
+				newState.hospitalSearchSeoData = action.payload.seo?action.payload.seo:null 
+				newState.hospitalCanonicalUrl = action.payload.canonical_url?action.payload.canonical_url:null
+				newState.hospitalBreadcrumb = action.payload.breadcrumb?action.payload.breadcrumb:[]
+
+				newState.hospital_bottom_content = action.payload.bottom_content?action.payload.bottom_content:null
+				newState.hospital_search_content = action.payload.search_content?action.payload.search_content:null
+
+			}
+
+			let page = action.page?parseInt(action.page):1
+			if(page == 1) {
+				newState.hospital_list = []
+			}
+
+			
 			action.payload && action.payload.result && action.payload.result.map((hospital) => {
 				if(newState.hospital_list.indexOf(hospital.id)>-1){
 
@@ -96,7 +120,7 @@ export default function ( state=defaultState, action) {
 					newState.hospital_list = newState.hospital_list.concat(hospital.id)
 				}
 				if(newState.HOSPITAL_DATA[hospital.id]){
-					newState.HOSPITAL_DATA[hospital.id] = Object.assign({}, newState.HOSPITAL_DATA[hospital.id], ...hospital)
+					newState.HOSPITAL_DATA[hospital.id] = Object.assign({}, newState.HOSPITAL_DATA[hospital.id], hospital)
 				}else{
 					newState.HOSPITAL_DATA[hospital.id] = {...hospital}					
 				}
@@ -109,6 +133,14 @@ export default function ( state=defaultState, action) {
 				...state,
 				...action.payload
 			}
+			return newState
+		}
+
+		case START_HOSPITAL_SEARCH: {
+			let newState = {
+				...state
+			}
+			newState.HOSPITAL_SEARCH_DATA_LOADED = false
 			return newState
 		}
 
@@ -147,16 +179,16 @@ export default function ( state=defaultState, action) {
                 if(action.page == 1){
                     newState.search_id_data[newState.currentSearchId].data = action.payload
 
-                }/*else if(newState.search_id_data[newState.currentSearchId].data){
+                }else if(newState.search_id_data[newState.currentSearchId].data){
                     if(Object.values(newState.search_id_data[newState.currentSearchId].data).length && newState.search_id_data[newState.currentSearchId].data.result){
 
                         newState.search_id_data[newState.currentSearchId].data.result = newState.search_id_data[newState.currentSearchId].data.result.concat(action.payload.result)    
                     }else{
                         newState.search_id_data[newState.currentSearchId].data = action.payload
-                        newState.search_id_data[newState.currentSearchId].clinic_card = action.payload.clinic_card  
+                     
                     }
                     
-                }*/
+                }
                 
             }
             return newState
