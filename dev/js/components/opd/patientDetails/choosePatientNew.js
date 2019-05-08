@@ -92,7 +92,7 @@ class ChoosePatientNewView extends React.Component {
         this.props.profileDataCompleted(this.state)
     }
 
-    verify() {
+    verify(resendFlag = false) {
         let self = this
 
         if (!this.state.name.match(/^[a-zA-Z ]+$/)) {
@@ -131,10 +131,17 @@ class ChoosePatientNewView extends React.Component {
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
 
-            let analyticData = {
-                'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage'
+            if(resendFlag){
+                let analyticData = {
+                    'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage'
+                }
+                GTM.sendEvent({ data: analyticData })
+            } else {
+                let analyticData = {
+                    'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage'
+                }
+                GTM.sendEvent({ data: analyticData })
             }
-            GTM.sendEvent({ data: analyticData })
 
             this.props.sendOTP(this.state.phoneNumber, (error) => {
                 if (error) {
@@ -221,7 +228,7 @@ class ChoosePatientNewView extends React.Component {
                                     <input className="slt-text-input" autoComplete="off" type="number" placeholder="" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} onBlur={this.profileValidation.bind(this)} />
                                     {
                                         this.state.showVerify ?
-                                            <button className="mobile-fill-btn" onClick={this.verify.bind(this)}>Verify</button>
+                                            <button className="mobile-fill-btn" onClick={()=>this.verify()}>Verify</button>
                                             : ''
                                     }
                                 </div>
@@ -233,7 +240,7 @@ class ChoosePatientNewView extends React.Component {
                                                 <input className="slt-text-input" autoComplete="off" type="number" onKeyPress={this.handleOtpContinuePress.bind(this)} onChange={this.inputHandler.bind(this)} name="otp" placeholder="Enter OTP " />
                                                 <button className="mobile-fill-btn" onClick={this.submitOTPRequest.bind(this)}>Submit</button>
                                             </div>
-                                            <span className="resend-otp-btn" onClick={this.verify.bind(this)}>Resend OTP</span>
+                                            <span className="resend-otp-btn" onClick={()=>this.verify(true)}>Resend OTP</span>
                                         </div>
                                         : ''
                                 }
