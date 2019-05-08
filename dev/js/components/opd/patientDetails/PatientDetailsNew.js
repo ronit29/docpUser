@@ -107,11 +107,10 @@ class PatientDetailsNew extends React.Component {
                     treatment_Price = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
                 }
                 let deal_price = this.props.selectedSlot.time.deal_price + treatment_Price
-                let validCoupon = this.getValidCoupon(doctorCoupons)
 
-                this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item, (err, data) => {
+                this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item, (err, data) => {
                         if (!err) {
-                            this.setState({ couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '', is_cashback: validCoupon.is_cashback })
+                            this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', is_cashback: doctorCoupons[0].is_cashback })
                         } else {
                             this.setState({coupon_loading: true})
                             this.getAndApplyBestCoupons(nextProps, deal_price)
@@ -125,11 +124,10 @@ class PatientDetailsNew extends React.Component {
                     treatment_Price = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
                 }
                 deal_price += treatment_Price
-                let validCoupon = this.getValidCoupon(doctorCoupons)
 
-                this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item, (err, data) => {
+                this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item, (err, data) => {
                         if (!err) {
-                            this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '' })
+                            this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' })
                         } else {
                             this.setState({coupon_loading: true})
                             this.getAndApplyBestCoupons(nextProps, deal_price)
@@ -178,11 +176,15 @@ class PatientDetailsNew extends React.Component {
         this.props.getCoupons({
             productId: 1, deal_price: deal_price, doctor_id: this.state.selectedDoctor, hospital_id: this.state.selectedClinic, profile_id: this.props.selectedProfile, procedures_ids: this.getProcedureIds(this.props), cart_item: this.state.cart_item,
             cb: (coupons) => {
-                let validCoupon = this.getValidCoupon(coupons)
-                if (coupons && validCoupon) {
-                    this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '' })
-                    this.props.applyCoupons('1', validCoupon, validCoupon.coupon_id, this.state.selectedDoctor)
-                    this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item)
+                if (coupons) {
+                    let validCoupon = this.getValidCoupon(coupons)
+                    if (validCoupon) {
+                        this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '' })
+                        this.props.applyCoupons('1', validCoupon, validCoupon.coupon_id, this.state.selectedDoctor)
+                        this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item)
+                    } else {
+                        this.props.resetOpdCoupons()
+                    }
                 } else {
                     this.props.resetOpdCoupons()
                 }
@@ -221,15 +223,15 @@ class PatientDetailsNew extends React.Component {
                     }
 
                     deal_price += treatment_Price
-                    let validCoupon = this.getValidCoupon(doctorCoupons)
-                    this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item, (err, data) => {
+                    // let validCoupon = this.getValidCoupon(doctorCoupons)
+                    this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item, (err, data) => {
                         if (!err) {
-                            this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '', couponApplied: true })
+                            this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', couponApplied: true })
                         } else {
                             this.setState({coupon_loading: true})
                             this.getAndApplyBestCoupons(nextProps, deal_price)
                         }
-                })
+                    })
                 }
             } else {
                 let deal_price = 0
@@ -250,11 +252,16 @@ class PatientDetailsNew extends React.Component {
                     this.props.getCoupons({
                         productId: 1, deal_price: deal_price, doctor_id: this.state.selectedDoctor, hospital_id: this.state.selectedClinic, profile_id: nextProps.selectedProfile, procedures_ids: this.getProcedureIds(nextProps), cart_item: this.state.cart_item,
                         cb: (coupons) => {
-                            let validCoupon = this.getValidCoupon(coupons)
-                            if (coupons && validCoupon) {
-                                this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '', couponApplied: true })
-                                this.props.applyCoupons('1', validCoupon, validCoupon.coupon_id, this.state.selectedDoctor)
-                                this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item)
+                            if (coupons) {
+                                let validCoupon = this.getValidCoupon(coupons)
+                                if (validCoupon) {
+                                    this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '', couponApplied: true })
+                                    this.props.applyCoupons('1', validCoupon, validCoupon.coupon_id, this.state.selectedDoctor)
+                                    this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item)
+                                } else {
+                                    this.setState({ couponApplied: true })
+                                    this.props.resetOpdCoupons()
+                                }
                             } else {
                                 this.setState({ couponApplied: true })
                                 this.props.resetOpdCoupons()

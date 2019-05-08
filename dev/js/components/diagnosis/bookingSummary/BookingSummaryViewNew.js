@@ -143,10 +143,9 @@ class BookingSummaryViewNew extends React.Component {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupons = nextProps.labCoupons[this.state.selectedLab]
-                    let validCoupon = this.getValidCoupon(labCoupons)
-                    this.props.applyLabCoupons('2', validCoupon.code, validCoupon.coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item, (err, data) => {
+                    this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item, (err, data) => {
                         if (!err) {
-                            this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '' })
+                            this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '' })
                         } else {
                             this.setState({coupon_loading: true})
                             this.getAndApplyBestCoupons(nextProps)
@@ -181,13 +180,19 @@ class BookingSummaryViewNew extends React.Component {
             this.props.getCoupons({
                 productId: 2, deal_price: finalPrice, lab_id: this.state.selectedLab, test_ids: test_ids, profile_id: nextProps.selectedProfile, cart_item: this.state.cart_item,
                 cb: (coupons) => {
-                    let validCoupon = this.getValidCoupon(coupons)
-                    if (coupons && validCoupon) {
-                        this.props.applyCoupons('2', validCoupon, validCoupon.coupon_id, this.state.selectedLab)
-                        this.props.applyLabCoupons('2', validCoupon.code, validCoupon.coupon_id, this.state.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item)
-                        this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '' })
+                    if (coupons) {
+                        let validCoupon = this.getValidCoupon(coupons)
+                        if(validCoupon) {
+                            this.props.applyCoupons('2', validCoupon, validCoupon.coupon_id, this.state.selectedLab)
+                            this.props.applyLabCoupons('2', validCoupon.code, validCoupon.coupon_id, this.state.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item)
+                            this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '' })
+                        }else {
+                            this.props.resetLabCoupons()
+                            this.setState({ couponCode: "", couponId: '', is_cashback: false })
+                        }
                     } else {
                         this.props.resetLabCoupons()
+                        this.setState({ couponCode: "", couponId: '', is_cashback: false })
                     }
                     this.setState({coupon_loading: false})
                 }
