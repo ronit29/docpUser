@@ -219,9 +219,9 @@ class SearchResultsView extends React.Component {
         let search_id_data = Object.assign({}, this.props.search_id_data)
         const parsed = queryString.parse(this.props.location.search)
 
-        if (this.props.search_id_data && this.props.search_id_data[parsed.search_id]) {
-            search_id_data[parsed.search_id].filterCriteria = filterState
-            search_id_data[parsed.search_id].page = 1
+        if (this.props.search_id_data && this.state.search_id && this.props.search_id_data[this.state.search_id]) {
+            search_id_data[this.state.search_id].filterCriteria = filterState
+            search_id_data[this.state.search_id].page = 1
         }
         this.props.mergeOPDState({ filterCriteria: filterState, search_id_data: search_id_data, page: 1 })
         // this.props.setSearchId(this.state.search_id, filterState, false)
@@ -268,11 +268,14 @@ class SearchResultsView extends React.Component {
         let is_available = filterCriteria.is_available
         let is_female = filterCriteria.is_female
 
-*/
+*/      
+        let sort_on = filterCriteria.sort_on || ""
         let sort_order = filterCriteria.sort_order || ""
         let availability = filterCriteria.availability || []
         let avg_ratings = filterCriteria.avg_ratings || []
         let gender = filterCriteria.gender || ''
+        let sits_at_hospital = filterCriteria.sits_at_hospital
+        let sits_at_clinic = filterCriteria.sits_at_clinic
 
 
         let hospital_name = filterCriteria.hospital_name || ""
@@ -287,7 +290,7 @@ class SearchResultsView extends React.Component {
         //Check if any filter applied 
         let is_filter_applied = false
 
-        if (sort_order) {
+        if (sort_on) {
             is_filter_applied = true
         }
         if (availability && availability.length) {
@@ -315,7 +318,7 @@ class SearchResultsView extends React.Component {
 
         if (is_filter_applied || !this.state.seoFriendly) {
 
-            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}`
+            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}&sits_at_hospital=${sits_at_hospital}&sits_at_clinic=${sits_at_clinic}`
 
             is_params_exist = true
 

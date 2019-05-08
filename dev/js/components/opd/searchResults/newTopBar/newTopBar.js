@@ -18,12 +18,13 @@ class TopBar extends React.Component {
             hospital_id: props.filterCriteria && props.filterCriteria.hospital_id ? props.filterCriteria.hospital_id : '',
             //New filters
             previous_filters: {},
+            sort_on: null,
             sort_order: null,
             avg_ratings: [],
             availability: [],
             gender: null,
-            sits_at_clinic: false,
-            sits_at_hospital: false,
+            sits_at_clinic: true,
+            sits_at_hospital: true,
             specialization: [],
             shortURL: "",
             showLocationPopup: false,
@@ -62,6 +63,7 @@ class TopBar extends React.Component {
 
     applyFilters() {
         let filterState = {
+            sort_on: this.state.sort_on,
             sort_order: this.state.sort_order,
             gender: this.state.gender,
             availability: this.state.availability,
@@ -72,22 +74,29 @@ class TopBar extends React.Component {
             hospital_id: this.state.hospital_id
         }
         let data = {
-            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || ''
+            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on||''
         }
         GTM.sendEvent({ data: data })
         this.props.applyFilters(filterState)
         this.setState({ openFilter: false })
     }
 
-    handleClose(e, reset=false) {
+    handleClose(reset=false, e) {
 
         if(reset){
-
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'ResetOpdFilter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'reset-opd-filter', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on||''
+            }
+            GTM.sendEvent({ data: data })
             this.setState({
               ...this.state.previous_filters
             })
 
         }else{
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'CloseOpdFilter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'close-opd-filter', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on||''
+            }
+            GTM.sendEvent({ data: data })
             this.setState({
                 dropdown_visible: false,
                 ...this.state.previous_filters
@@ -96,17 +105,29 @@ class TopBar extends React.Component {
 
     }
 
-    toggleAllFilters(type, val, isArray = false) {
+    toggleAllFilters(type, val, isArray = false, e) {
         let value = val
         if (isArray) {
             value = []
             value.push(val)
         }
-        this.setState({ [type]: value })
+        if(type.includes('sort_on') ) {
+
+            if(val.includes('price_asc') || val.includes('price_desc') ){
+
+                this.setState({sort_on: 'fees', sort_order: val.includes('price_asc')?'asc':'desc'})
+            }else {
+                this.setState({ sort_on: value, sort_order: null })    
+            }
+        }else {
+            this.setState({ [type]: value })    
+        }
+        
     }
 
     sortFilterClicked() {
         let currentFilters = {
+            sort_on: this.state.sort_on,
             sort_order: this.state.sort_order,
             avg_ratings: this.state.avg_ratings,
             availability: this.state.availability,
@@ -125,19 +146,23 @@ class TopBar extends React.Component {
         } else {
 
             filterData = {
-                sort_order: null,
+                sort_on: null,
                 avg_ratings: [],
                 availability: [],
                 gender: null,
-                sits_at_clinic: false,
-                sits_at_hospital: false
+                sits_at_clinic: true,
+                sits_at_hospital: true
             }
         }
         try {
             let filterCount = 0
             for (let filter in filterData) {
                 
-                if(filter.includes('availability') || filter.includes('avg_ratings')){
+                if(filter.includes('sits_at_clinic') || filter.includes('sits_at_hospital')){
+                    if(this.state[filter]){
+                        filterCount++
+                    }
+                } else if(filter.includes('availability') || filter.includes('avg_ratings')){
                     if(this.state[filter].length) {
                         filterCount++    
                     }
@@ -225,6 +250,7 @@ class TopBar extends React.Component {
                 is_insured: this.state.is_insured,
                 hospital_id: this.state.hospital_id,
                 sort_order: this.state.sort_order,
+                sort_on: this.state.sort_on,
                 avg_ratings: this.state.avg_ratings,
                 availability: this.state.availability,
                 gender: this.state.gender,
@@ -254,10 +280,10 @@ class TopBar extends React.Component {
                 {
                     this.state.dropdown_visible ?
                         <div>
-                            <div className="cancel-overlay cancel-overlay-zindex" onClick={this.handleClose.bind(this)}>
+                            <div className="cancel-overlay cancel-overlay-zindex" onClick={this.handleClose.bind(this, false)}>
                             </div>
                             <div className="widget cancel-appointment-div cancel-popup overflow-hidden pb-0">
-                                <div className="cross-btn" onClick={this.handleClose.bind(this)}>
+                                <div className="cross-btn" onClick={this.handleClose.bind(this, false)}>
                                     <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" />
                                 </div>
                                 <div className="pop-top-heading">
@@ -267,31 +293,31 @@ class TopBar extends React.Component {
                                     <div className="sort-lft-cont">
                                         <h5 className="sort-headings">Sort by</h5>
                                         <div className="sort-slider-scroll">
-                                            <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_order', '')}>
+                                            <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_on', '', false)}>
                                                 <div className="srt-lst-img">
                                                     <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
                                                 </div>
                                                 <p>Relevance</p>
                                             </div>
-                                            <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_order', 'low_to_high')}>
+                                            <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_on', 'price_asc', false)}>
                                                 <div className="srt-lst-img">
                                                     <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
                                                 </div>
                                                 <p>Price Low to High</p>
                                             </div>
-                                            <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_order', 'high_to_low')}>
+                                            <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_on', 'price_desc', false)}>
                                                 <div className="srt-lst-img">
                                                     <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
                                                 </div>
                                                 <p>Price High to Low</p>
                                             </div>
-                                            <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_order', 'distance')}>
+                                            <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_on', 'distance', false)}>
                                                 <div className="srt-lst-img">
                                                     <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
                                                 </div>
                                                 <p>Distance</p>
                                             </div>
-                                            <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_order', 'experience')}>
+                                            <div className="sort-cards-list" onClick={this.toggleAllFilters.bind(this, 'sort_on', 'experience', false)}>
                                                 <div className="srt-lst-img">
                                                     <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
                                                 </div>
@@ -318,15 +344,15 @@ class TopBar extends React.Component {
                                     <div className="sorting-btns-cont">
                                         <h5 className="sort-headings">Gender</h5>
                                         <div className="sortbtncard justyfy-twoBtns">
-                                            <button className={`sortBtns ${this.state.gender == 'm' ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'gender', 'm')}>Male</button>
-                                            <button className={`sortBtns ${this.state.gender == 'f' ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'gender', 'f')}>Female</button>
+                                            <button className={`sortBtns ${this.state.gender == 'm' ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'gender', 'm', false)}>Male</button>
+                                            <button className={`sortBtns ${this.state.gender == 'f' ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'gender', 'f', false)}>Female</button>
                                         </div>
                                     </div>
                                     <div className="sorting-btns-cont">
                                         <h5 className="sort-headings">Hospital Type</h5>
                                         <div className="sortbtncard justyfy-twoBtns">
-                                            <button className={`sortBtns ${this.state.sits_at_clinic ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'sits_at_clinic', !this.state.sits_at_clinic)}>Clinic</button>
-                                            <button className={`sortBtns ${this.state.sits_at_hospital ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'sits_at_hospital', !this.state.sits_at_hospital)}>Hospital</button>
+                                            <button className={`sortBtns ${this.state.sits_at_clinic ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'sits_at_clinic', !this.state.sits_at_clinic, false)}>Clinic</button>
+                                            <button className={`sortBtns ${this.state.sits_at_hospital ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'sits_at_hospital', !this.state.sits_at_hospital, false)}>Hospital</button>
                                         </div>
                                     </div>
                                 </div>

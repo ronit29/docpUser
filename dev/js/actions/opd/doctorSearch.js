@@ -56,12 +56,14 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	let is_available = filterCriteria.is_available
 	let is_female = filterCriteria.is_female
 	*/
-
+	let sort_on = filterCriteria.sort_on || ""
 	let sort_order = filterCriteria.sort_order || ""
 	let availability = filterCriteria.availability || []
 	let avg_ratings = filterCriteria.avg_ratings || []
 	let gender = filterCriteria.gender || ''
 	let is_insured = filterCriteria.is_insured || false
+	let sits_at_clinic = filterCriteria.sits_at_clinic
+	let sits_at_hospital = filterCriteria.sits_at_hospital
 
 	// do not check specialization_ids if doctor_name || hospital_name search
 	if (!!filterCriteria.doctor_name || !!filterCriteria.hospital_name) {
@@ -82,7 +84,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		url = `/api/v1/doctor/doctorsearchbyhospital?`
 	}
 
-	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&sort_order=${sort_order}&availability=${availability}&avg_ratings=${avg_ratings}&gender=${gender}&page=${page}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&ipd_procedure_ids=${ipd_ids || ""}&city=${locality}&locality=${sub_locality}&is_insurance=${is_insured?true:false}`
+	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&avg_ratings=${avg_ratings}&gender=${gender}&page=${page}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&ipd_procedure_ids=${ipd_ids || ""}&city=${locality}&locality=${sub_locality}&is_insurance=${is_insured?true:false}&sits_at_clinic=${sits_at_clinic}&sits_at_hospital=${sits_at_hospital}`
 
 	if (!!filterCriteria.doctor_name) {
 		url += `&doctor_name=${filterCriteria.doctor_name || ""}`

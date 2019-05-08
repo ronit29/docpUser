@@ -22,10 +22,10 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             //let max_distance = parseInt(_getLocationParamBind('max_distance')) || 15
             //let min_fees = parseInt(_getLocationParamBind('min_fees')) || 0
             //let max_fees = parseInt(_getLocationParamBind('max_fees')) || 3000
-            //let sort_on = _getLocationParamBind('sort_on') || null
             //let is_available = _getLocationParamBind('is_available') === "true"
             //let is_female = _getLocationParamBind('is_female') === "true"
             
+            let sort_on = _getLocationParamBind('sort_on') || null
             let sort_order = _getLocationParamBind('sort_order') || null
             let availability = _getLocationParamBind('availability') || []
             let avg_ratings = _getLocationParamBind('avg_ratings') || []
@@ -105,7 +105,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let commonSelectedCriterias = [...cond, ...spec, ...procedures, ...procedure_categories, ...ipd_ids]
 
             let filterCriteria = {
-                sort_order, gender, availability, avg_ratings, sits_at_hospital, sits_at_clinic
+                sort_order, gender, availability, avg_ratings, sits_at_hospital, sits_at_clinic, sort_on
             }
 
             if (doctor_name) {
@@ -229,6 +229,7 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
             let min_price = parseInt(_getLocationParamBind('min_price')) || 0
             let max_price = parseInt(_getLocationParamBind('max_price')) || 20000
             */
+            let sort_on = _getLocationParamBind('sort_on') || null
             let sort_order = _getLocationParamBind('sort_order') || null
             let avg_ratings = _getLocationParamBind('avg_ratings') || []
             let availability = _getLocationParamBind('availability') || []
@@ -258,7 +259,7 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
             }
 
             let filterCriteria = {
-                sort_order, availability, avg_ratings, home_visit, lab_visit
+                sort_order, availability, avg_ratings, home_visit, lab_visit, sort_on
             }
 
             if (lab_name) {
@@ -374,8 +375,8 @@ export function PackageSearchStateBuilder(selectLocation, querParams, isServer =
             let max_distance = parseInt(_getLocationParamBind('max_distance')) || 15
             let min_price = parseInt(_getLocationParamBind('min_price')) || 0
             let max_price = parseInt(_getLocationParamBind('max_price')) || 20000
-            let sort_on = _getLocationParamBind('sort_on') || null
             */
+            let sort_on = _getLocationParamBind('sort_on') || null
             let sort_order = _getLocationParamBind('sort_order') || null
             let avg_rating = _getLocationParamBind('avg_rating') || []
             let home_visit = _getLocationParamBind('home_visit') === "true"
@@ -409,7 +410,7 @@ export function PackageSearchStateBuilder(selectLocation, querParams, isServer =
             // }
 
             let filterCriteriaPackages = {
-                sort_order, max_age, min_age, package_type, gender, catIds, test_ids, package_ids, package_category_ids, avg_rating, lab_visit, home_visit
+                sort_order, max_age, min_age, package_type, gender, catIds, test_ids, package_ids, package_category_ids, avg_rating, lab_visit, home_visit, sort_on
             }
 
             if (lab_name) {
