@@ -79,7 +79,7 @@ class StickyFilter extends React.Component{
         })
     }
 	render(){
-		let seoData = {}
+		let seoData = this.props.hospitalSearchSeoData
 		let { hospital_search_results } = this.props
 		let health_insurance_provider = []
 
