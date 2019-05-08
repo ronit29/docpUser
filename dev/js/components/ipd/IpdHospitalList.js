@@ -113,7 +113,7 @@ class IpdHospitalListView extends React.Component {
                     {
 						hospital_list.map((hospitalId, i) => {
 							if(HOSPITAL_DATA[hospitalId]){
-								return <HospitalCard key={i} data={HOSPITAL_DATA[hospitalId]} getCostEstimateClicked={this.getCostEstimateClicked.bind(this)} getHospitalDetailPage={this.getHospitalDetailPage.bind(this)} toggleProviderFilter={this.toggleProviderFilter.bind(this)} noIpd={ipd_id?false:true}/>	
+								return <HospitalCard key={i} data={HOSPITAL_DATA[hospitalId]} getCostEstimateClicked={this.getCostEstimateClicked.bind(this)} getHospitalDetailPage={this.getHospitalDetailPage.bind(this)} toggleProviderFilter={this.toggleProviderFilter.bind(this)} noIpd={ipd_id?false:true} {...this.props}/>	
 							}
 						})
 					}
