@@ -24,13 +24,16 @@ class Insurance extends React.Component {
 			selected_plan_data: this.props.selected_plan ? this.props.selected_plan : '',
 			showPopup: false,
 			shortURL: "",
-			isLead: ''
+			isLead: '',
+			checkIdleTimeout:true
 		}
 	}
 	componentDidMount() {
-		// if (STORAGE.checkAuth()) {
-		// 	this.props.getUserProfile()
-		// }
+		let parsed = queryString.parse(this.props.location.search)
+		if (!STORAGE.checkAuth() && parsed.source == 'opd_insurance_online_consultation') {
+			this.setState({checkIdleTimeout:false, showPopup:true})
+		}
+
 		let selectedId = this.props.selected_plan ? this.props.selected_plan.id : ''
 		if (selectedId) {
 			this.selectPlan(this.props.selected_plan)
@@ -40,7 +43,30 @@ class Insurance extends React.Component {
 				this.textInput.click()
 			}
 		}
+		if(this.state.checkIdleTimeout){
+			this.inactivityTime()
+		}
 	}
+
+	inactivityTime() {
+    var time;
+    let self =  this
+    window.onload = resetTimer;
+    document.onmousemove = resetTimer;
+    document.onkeypress = resetTimer;
+    resetTimer()
+	    function stop() {
+	        self.setState({checkIdleTimeout:false, showPopup:true})
+	    }
+
+	    function resetTimer() {
+	        clearTimeout(time);
+	        if(self.state.checkIdleTimeout){
+	        	time = setTimeout(stop, 10000)	
+	        }
+	    }
+	}
+
 	componentWillReceiveProps(props) {
 		// let self = this
 		// let selectedId = this.props.selected_plan?this.props.selected_plan.id:''
