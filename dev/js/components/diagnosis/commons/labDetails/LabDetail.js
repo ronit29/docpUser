@@ -135,8 +135,8 @@ class LabDetails extends React.Component {
                                     </span> */}
                                     </p>
                                     <ul className="list time-contact">
-                                        <li>
-                                            <span className="fw-700 text-sm">Timing: -</span>
+                                        <li className="uTimingPara">
+                                            <span className="fw-700 text-sm">Timing: </span>
                                             {buildOpenBanner(lab_timing, lab_timing_data, next_lab_timing, next_lab_timing_data)}
                                         </li>
                                         {/* <li>
