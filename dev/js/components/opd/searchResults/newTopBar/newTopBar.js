@@ -79,12 +79,21 @@ class TopBar extends React.Component {
         this.setState({ openFilter: false })
     }
 
-    handleClose(type) {
+    handleClose(e, reset=false) {
 
-        this.setState({
-            dropdown_visible: false,
-            ...this.state.previous_filters
-        });
+        if(reset){
+
+            this.setState({
+              ...this.state.previous_filters
+            })
+
+        }else{
+            this.setState({
+                dropdown_visible: false,
+                ...this.state.previous_filters
+            })
+        }
+
     }
 
     toggleAllFilters(type, val, isArray = false) {
@@ -204,6 +213,28 @@ class TopBar extends React.Component {
         }
     }
 
+    toggleInsured() {
+        let data = {
+            'Category': 'CoveredUnderOPDInsuranceClicked', 'Action': 'CoveredUnderLABInsuranceClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'covered-under-opd-insurance-clicked', 'url': window.location.pathname
+        }
+        GTM.sendEvent({ data: data })
+
+        this.setState({ is_insured: !this.state.is_insured }, () => {
+
+            let filterState = {
+                sits_at: this.state.sits_at,
+                sort_order: this.state.sort_order,
+                is_female: this.state.is_female,
+                is_available: this.state.is_available,
+                sits_at_clinic: this.state.sits_at_clinic,
+                sits_at_hospital: this.state.sits_at_hospital,
+                is_insured: this.state.is_insured,
+                hospital_id: this.state.hospital_id
+            }
+            this.props.applyFilters(filterState)
+        })
+    }
+
     render() {
 
         let ipd_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'ipd').map(x => x.id)
@@ -225,7 +256,7 @@ class TopBar extends React.Component {
                             <div className="cancel-overlay cancel-overlay-zindex" onClick={this.handleClose.bind(this)}>
                             </div>
                             <div className="widget cancel-appointment-div cancel-popup overflow-hidden pb-0">
-                                <div className="cross-btn" onClick={() => this.props.toggle()}>
+                                <div className="cross-btn" onClick={this.handleClose.bind(this)}>
                                     <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" />
                                 </div>
                                 <div className="pop-top-heading">
@@ -299,8 +330,8 @@ class TopBar extends React.Component {
                                     </div>
                                 </div>
                                 <div className="pop-foot-btns-cont">
-                                    <button className="add-shpng-cart-btn">Reset</button>
-                                    <button className="v-btn-primary book-btn-mrgn-adjust">Apply Filter</button>
+                                    <button className="add-shpng-cart-btn" onClick={this.handleClose.bind(this, true)}>Reset</button>
+                                    <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.applyFilters.bind(this)}>Apply Filter</button>
                                 </div>
                             </div>
                         </div> : ""

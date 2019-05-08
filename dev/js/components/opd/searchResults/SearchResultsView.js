@@ -110,11 +110,11 @@ class SearchResultsView extends React.Component {
         // }
         let self = this
         let scrollPosition = 0
-        if(window && document) {
+        if(window && document && false) {
             window.onscroll = function() {
                 scrollPosition = document.documentElement.scrollTop
                 setTimeout(()=> {
-                    console.log(scrollPosition);console.log(document.documentElement.scrollTop);console.log('aaaaaaaaa')
+                    //console.log(scrollPosition);console.log(document.documentElement.scrollTop);console.log('aaaaaaaaa')
                     self.setState({scrollPosition: scrollPosition> document.documentElement.scrollTop})
                 },4000)
             }
