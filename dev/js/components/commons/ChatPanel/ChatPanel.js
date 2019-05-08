@@ -257,9 +257,7 @@ class ChatPanel extends React.Component {
     }
 
     chatBtnClick() {
-        if (this.props.articleData) {
-            this.setState({ showChatBlock: true, additionClasses: "" });
-        } else if (this.props.searchTestInfoData) {
+        if (this.props.articleData || this.props.searchTestInfoData) {
             this.setState({ showChatBlock: true, additionClasses: "" });
         } else if (this.props.newChatBtn) {
             this.props.history.push('/mobileviewchat?botagent=true&force_start=true');
