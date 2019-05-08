@@ -146,6 +146,12 @@ class InsuranceCertificateView extends React.Component {
 											<img src={ASSETS_BASE_URL + '/img/customer-icons/pdf.png'} />
 											<p className="fw-500 mr-0">Please find attached the certificate of insurance for the issued policy</p>
 										</div>*/}
+										<div style={{display:'flex',alignItems:'center',justifyContent:'flex-end'}}>
+											<a style={{fontWeight: '500',fontSize: '12px',color:'#f78631',textDecoration: 'underline',cursor: 'pointer'}} href='/insurance/network' onClick={(e)=>{
+												e.preventDefault();
+												this.props.history.push('/insurance/network')
+											}}>View Network</a>
+										</div>
 									</div>
 									<div className="ins-flex justify-content-between ins-date-row mrb-0">
 										<div className="ins-date text-center">

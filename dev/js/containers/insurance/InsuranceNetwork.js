@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { } from '../../actions/index.js'
+import { getInsuranceNetworks, setNetworkType } from '../../actions/index.js'
 import InsuranceNetworkView from '../../components/insurance/InsuranceNetworkView.js'
 
 class InsuranceNetwork extends React.Component {
@@ -13,17 +13,29 @@ class InsuranceNetwork extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return {
+    const {
+        insuranceNetwork,
+        inputString,
+        networkType
+    } = state.SITE_MAP
 
+    const {
+        selectedLocation
+    } = state.SEARCH_CRITERIA_OPD
+
+    return {
+        insuranceNetwork,
+        inputString,
+        selectedLocation,
+        networkType
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        getInsuranceNetworks: (lat, long, type, searchString) => dispatch(getInsuranceNetworks(lat, long, type, searchString)),
+        setNetworkType: (type) => dispatch(setNetworkType(type))
     }
 }
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(InsuranceNetwork)

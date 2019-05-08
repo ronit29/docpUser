@@ -1,4 +1,4 @@
-import { GET_CITIES_MAP, GET_CITIES_SPECIALITIES, GET_SPECIALITIES_CITIES, GET_SPECIALITIES_MAP, GET_TESTS_ALPHABETICALLY, GET_TESTS_FLAG } from '../../constants/types';
+import { GET_CITIES_MAP, GET_CITIES_SPECIALITIES, GET_SPECIALITIES_CITIES, GET_SPECIALITIES_MAP, GET_TESTS_ALPHABETICALLY, GET_TESTS_FLAG, GET_INSURANCE_NETWORK, SET_NETWORK_TYPE } from '../../constants/types';
 
 const defaultState = {
 	citiesMap: [],
@@ -6,7 +6,9 @@ const defaultState = {
 	specialitiesMap: [],
 	specialitiesMapCities: {},
 	alphabeticalTests: [],
-	testIndexLoading: true
+	insuranceNetwork: [],
+	testIndexLoading: true,
+	networkType: 'doctor'
 }
 
 export default function (state = defaultState, action) {
@@ -64,6 +66,23 @@ export default function (state = defaultState, action) {
 			newState.alphabeticalTests = action.payload
 			newState.selectedAlphabet = action.payload.key
 			newState.testIndexLoading = action.flag
+			return newState
+		}
+
+		case GET_INSURANCE_NETWORK: {
+			let newState = {
+				...state
+			}
+			newState.insuranceNetwork = action.payload
+			newState.inputString = action.payload.starts_with
+			return newState
+		}
+
+		case SET_NETWORK_TYPE: {
+			let newState = {
+				...state
+			}
+			newState.networkType = action.payload
 			return newState
 		}
 	}

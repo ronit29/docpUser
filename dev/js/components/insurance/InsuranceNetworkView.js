@@ -6,37 +6,92 @@ class InsuranceNetworkView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            doctorSelected: true,
-            labSelected: false,
+            type: this.props.networkType,
             searchValue: '',
-            placeholder: 'Search Doctors',
+            placeholder: '',
             searchCities: [],
-            selectedChar: 0
+            selectedChar: 0,
+            showAlphabets: true
         }
     }
 
     componentDidMount() {
-
+        if (window) {
+            window.scrollTo(0, 0);
+        }
+        let searchString = this.getCharacter(this.state.selectedChar)
+        this.updateInsuranceNetwork(this.state.type, searchString)
+        this.setState({ placeholder: `Search ${this.state.type}` })
     }
 
-    docTabClick() {
-        this.setState({
-            doctorSelected: true,
-            labSelected: false,
-            placeholder: 'Search Doctors'
-        })
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.selectedLocation != this.props.selectedLocation) {
+            let selectedLocation = ''
+            let lat = 28.644800
+            let long = 77.216721
+            selectedLocation = nextProps.selectedLocation;
+            lat = selectedLocation.geometry.location.lat
+            long = selectedLocation.geometry.location.lng
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+            let searchString = this.getCharacter(this.state.selectedChar)
+            this.props.getInsuranceNetworks(lat, long, this.state.type, searchString)
+        }
     }
 
-    labTabClick() {
-        this.setState({
-            doctorSelected: false,
-            labSelected: true,
-            placeholder: 'Search Labs'
-        })
+    getCharacter(index) {
+        return String.fromCharCode(97 + index)
+    }
+
+    updateInsuranceNetwork(type, string) {
+        let { lat, long } = this.getLocation()
+        this.props.getInsuranceNetworks(lat, long, type, string)
+    }
+
+    getLocation() {
+        let selectedLocation = ''
+        let lat = 28.644800
+        let long = 77.216721
+        if (this.props.selectedLocation) {
+            selectedLocation = this.props.selectedLocation;
+            lat = selectedLocation.geometry.location.lat
+            long = selectedLocation.geometry.location.lng
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
+        return { lat, long }
+    }
+
+    tabClick(type) {
+        if (type == 'doctor') {
+            this.setState({
+                type: type,
+                placeholder: 'Search doctor',
+                searchValue: ''
+            })
+        }
+        else if (type == 'lab') {
+            this.setState({
+                type: type,
+                placeholder: 'Search lab',
+                searchValue: ''
+            })
+        }
+        let searchString = this.getCharacter(this.state.selectedChar)
+        this.updateInsuranceNetwork(type, searchString)
+        this.props.setNetworkType(type)
     }
 
     inputHandler(e) {
         this.setState({ searchValue: e.target.value })
+        if (e.target.value) {
+            this.setState({ showAlphabets: false })
+            this.updateInsuranceNetwork(this.state.type, e.target.value)
+        } else {
+            this.setState({ showAlphabets: true })
+            let searchString = this.getCharacter(this.state.selectedChar)
+            this.updateInsuranceNetwork(this.state.type, searchString)
+        }
     }
 
     selectLocation(city) {
@@ -53,12 +108,13 @@ class InsuranceNetworkView extends React.Component {
         }
     }
 
-    getCharacter(index) {
-        return String.fromCharCode(97 + index)
-    }
-
     alphabetClick(index) {
         this.setState({ selectedChar: index })
+        let searchString = this.getCharacter(index)
+        this.updateInsuranceNetwork(this.state.type, searchString)
+        if (window) {
+            window.scrollTo(0, 0)
+        }
     }
 
     getAlphabets() {
@@ -69,9 +125,17 @@ class InsuranceNetworkView extends React.Component {
         return alphabets
     }
 
+    resultClick(id, url) {
+        if (url) {
+            this.props.history.push(`/${url}`)
+        }
+        else {
+            this.props.history.push(`/opd/doctor/${id}`)
+        }
+    }
+
     render() {
         let alphabets = this.getAlphabets()
-        let selectedAlphabet = this.getCharacter(this.state.selectedChar)
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader {...this.props} />
@@ -82,10 +146,10 @@ class InsuranceNetworkView extends React.Component {
                                 <div className="row">
                                     <div className="col-12">
                                         <div className="ntwrk-tabs">
-                                            <div className="text-center" onClick={() => this.docTabClick()} style={this.state.doctorSelected ? { borderBottom: '2px solid #f78631' } : {}}>
+                                            <div className="text-center" onClick={() => this.tabClick('doctor')} style={this.state.type == 'doctor' ? { borderBottom: '2px solid #f78631' } : {}}>
                                                 <p className="fw-500">Doctors</p>
                                             </div>
-                                            <div className="text-center" onClick={() => this.labTabClick()} style={this.state.labSelected ? { borderBottom: '2px solid #f78631' } : {}}>
+                                            <div className="text-center" onClick={() => this.tabClick('lab')} style={this.state.type == 'lab' ? { borderBottom: '2px solid #f78631' } : {}}>
                                                 <p className="fw-500">Diagnostic Labs</p>
                                             </div>
                                         </div>
@@ -122,57 +186,49 @@ class InsuranceNetworkView extends React.Component {
                                         }
                                         {
                                             this.state.searchCities.length == 0 ?
-                                                <section className="widget mrb-20">
+                                                <section className="widget searchMargin">
                                                     {
-                                                        <div style={{ padding: '6px 0px 0px' }}>
-                                                            {
-                                                                this.state.doctorSelected ?
-                                                                    <p className="fw-500" style={{ paddingLeft: 10, marginBottom: 4 }}>200 Doctors covered under insurance</p>
-                                                                    :
-                                                                    <p className="fw-500" style={{ paddingLeft: 10, marginBottom: 4 }}>200 Labs covered under insurance</p>
-                                                            }
-                                                            <ul className="ntwrk-alpha">
+                                                        this.state.showAlphabets ?
+                                                            <div className="ntwrk-alpha-div">
                                                                 {
-                                                                    alphabets && alphabets.length ?
-                                                                        alphabets.map((character, i) => {
-                                                                            return <li key={i} onClick={() => this.alphabetClick(i)} style={i == this.state.selectedChar ? { cursor: 'auto' } : { cursor: 'pointer' }} >
-                                                                                <span className={i == this.state.selectedChar ? 'alphaSelected ntwrk-char fw-500' : 'ntwrk-char fw-500'}>{character}</span>
-                                                                            </li>
-                                                                        }) : ''
+                                                                    this.props.insuranceNetwork && this.props.insuranceNetwork.total_count ?
+                                                                        <p className="fw-500" style={{ paddingLeft: 10, marginBottom: 4 }}>{this.props.insuranceNetwork.total_count} {this.state.type}s covered under insurance</p>
+                                                                        : ''
                                                                 }
-                                                            </ul>
-                                                        </div>
+                                                                <ul className="ntwrk-alpha">
+                                                                    {
+                                                                        alphabets && alphabets.length ?
+                                                                            alphabets.map((character, i) => {
+                                                                                return <li key={i} onClick={() => this.alphabetClick(i)} style={i == this.state.selectedChar ? { cursor: 'auto' } : { cursor: 'pointer' }} >
+                                                                                    <span className={i == this.state.selectedChar ? 'alphaSelected ntwrk-char fw-500' : 'ntwrk-char fw-500'}>{character}</span>
+                                                                                </li>
+                                                                            }) : ''
+                                                                    }
+                                                                </ul>
+                                                            </div> : ''
                                                     }
                                                     <div>
-                                                        <ul>
-                                                            <li className="ntwrk-list-item">
-                                                                <div className="ntwrk-list-content">
-                                                                    <p className="ntwrk-list-content-name fw-500">AD Diagnostic Lab</p>
-                                                                    <p className="ntwrk-list-content-city fw-500">Gurgaon</p>
-                                                                </div>
-                                                                <div className="ntwrk-list-dist">
-                                                                    <p className="fw-500">3 km</p>
-                                                                </div>
-                                                            </li>
-                                                            <li className="ntwrk-list-item">
-                                                                <div className="ntwrk-list-content">
-                                                                    <p className="ntwrk-list-content-name fw-500">AD Diagnostic Lab</p>
-                                                                    <p className="ntwrk-list-content-city fw-500">Gurgaon</p>
-                                                                </div>
-                                                                <div className="ntwrk-list-dist">
-                                                                    <p className="fw-500">3 km</p>
-                                                                </div>
-                                                            </li>
-                                                            <li className="ntwrk-list-item">
-                                                                <div className="ntwrk-list-content">
-                                                                    <p className="ntwrk-list-content-name fw-500">AD Diagnostic Lab</p>
-                                                                    <p className="ntwrk-list-content-city fw-500">Gurgaon</p>
-                                                                </div>
-                                                                <div className="ntwrk-list-dist">
-                                                                    <p className="fw-500">3 km</p>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
+                                                        {
+                                                            this.props.insuranceNetwork && this.props.insuranceNetwork.results && this.props.insuranceNetwork.results.length ?
+                                                                <ul>
+                                                                    {
+                                                                        this.props.insuranceNetwork.results.map((result, index) => {
+                                                                            return <li key={index} className="ntwrk-list-item" onClick={() => this.resultClick(result.id, result.url)}>
+                                                                                <div className="ntwrk-list-content">
+                                                                                    <p className="ntwrk-list-content-name fw-500">{result.name}</p>
+                                                                                    <p className="ntwrk-list-content-city fw-500">{result.city}</p>
+                                                                                </div>
+                                                                                <div className="ntwrk-list-dist">
+                                                                                    <p className="fw-500">{result.distance} km</p>
+                                                                                </div>
+                                                                            </li>
+                                                                        })
+                                                                    }
+                                                                </ul>
+                                                                :
+                                                                this.props.insuranceNetwork && this.props.insuranceNetwork.results && !this.props.insuranceNetwork.results.length ?
+                                                                    <p className="fw-500 text-center" style={{ fontSize: 18, padding: '15px 0px' }} >No results found !!</p> : ''
+                                                        }
                                                     </div>
                                                 </section> : ""
                                         }

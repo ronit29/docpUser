@@ -2109,10 +2109,22 @@ p.rt-doc-nm{
 
 .ntwrk-char{
     color: #757575;
-    font-size: 12px;
+    font-size: 14px;
     display: block;
 }
 
 .alphaSelected{
     color: #f78631;
+}
+
+.ntwrk-alpha-div{
+    padding: 6px 0px 0px;
+    position: sticky;
+    top: 16px;
+}
+
+@media(min-width:993px){
+    .ntwrk-alpha-div{
+        top: 79px;
+    }
 }
