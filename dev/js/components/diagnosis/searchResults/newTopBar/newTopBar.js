@@ -83,12 +83,19 @@ class TopBar extends React.Component {
         this.setState({ [type]: value })
     }
 
-    handleClose(type) {
+    handleClose(e, reset=false) {
 
-        this.setState({
-            dropdown_visible: false,
-            ...this.state.previous_filters
-        });
+        if(reset) {
+            this.setState({
+                ...this.state.previous_filters
+            })
+        }else {
+            this.setState({
+                dropdown_visible: false,
+                ...this.state.previous_filters
+            })
+        }
+        
     }
 
     getCriteriaString(selectedCriterias) {
@@ -177,7 +184,7 @@ class TopBar extends React.Component {
             for (let filter in filterData) {
 
                 if (filter == 'availability' || filter == 'avg_ratings') {
-                    if (filterData[filter].length) {
+                    if (this.state[filter].length) {
                         filterCount++
                     }
                 } else if (filterData[filter] != this.state[filter]) {
@@ -237,7 +244,7 @@ class TopBar extends React.Component {
                         <div className="cancel-overlay cancel-overlay-zindex" onClick={this.handleClose.bind(this)}>
                         </div>
                         <div className="widget cancel-appointment-div cancel-popup overflow-hidden pb-0">
-                            <div className="cross-btn" onClick={() => this.props.toggle()}>
+                            <div className="cross-btn" onClick={this.handleClose.bind(this)}>
                                 <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" />
                             </div>
                             <div className="pop-top-heading">
@@ -332,7 +339,7 @@ class TopBar extends React.Component {
                                 </div>
                             </div>
                             <div className="pop-foot-btns-cont">
-                                <button className="add-shpng-cart-btn">Reset</button>
+                                <button className="add-shpng-cart-btn" onClick={this.handleClose.bind(this, true)}>Reset</button>
                                 <button className="v-btn-primary book-btn-mrgn-adjust">Apply Filter</button>
                             </div>
                         </div>

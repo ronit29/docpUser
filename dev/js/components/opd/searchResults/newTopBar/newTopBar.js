@@ -136,10 +136,10 @@ class TopBar extends React.Component {
         try {
             let filterCount = 0
             for (let filter in filterData) {
-
-                if (filter == 'availability' || filter == 'avg_ratings') {
-                    if (filterData[filter].length) {
-                        filterCount++
+                
+                if(filter.includes('availability') || filter.includes('avg_ratings')){
+                    if(this.state[filter].length) {
+                        filterCount++    
                     }
                 } else if (filterData[filter] != this.state[filter]) {
                     filterCount++
@@ -222,14 +222,15 @@ class TopBar extends React.Component {
         this.setState({ is_insured: !this.state.is_insured }, () => {
 
             let filterState = {
-                sits_at: this.state.sits_at,
+                is_insured: this.state.is_insured,
+                hospital_id: this.state.hospital_id,
                 sort_order: this.state.sort_order,
-                is_female: this.state.is_female,
-                is_available: this.state.is_available,
+                avg_ratings: this.state.avg_ratings,
+                availability: this.state.availability,
+                gender: this.state.gender,
                 sits_at_clinic: this.state.sits_at_clinic,
                 sits_at_hospital: this.state.sits_at_hospital,
-                is_insured: this.state.is_insured,
-                hospital_id: this.state.hospital_id
+                specialization: []
             }
             this.props.applyFilters(filterState)
         })
