@@ -6,6 +6,7 @@ import RatingProfileCard from '../../../commons/ratingsProfileView/RatingProfile
 import { buildOpenBanner } from '../../../../helpers/utils.js'
 import RatingReviewView from '../../../commons/ratingsProfileView/ratingReviewView.js'
 import GTM from '../../../../helpers/gtm.js'
+import STORAGE from '../../../../helpers/storage'
 
 class LabDetails extends React.Component {
 
@@ -67,6 +68,15 @@ class LabDetails extends React.Component {
         if(window){
             window.open(data.URL, '_self')
         }
+    }
+
+    openTests() {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'UserSelectingAddRemoveLabTests', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'user-selecting-add-remove-lab-tests'
+        }
+        GTM.sendEvent({ data: data })
+
+        this.props.history.push(`/lab/${this.props.data.lab.id}/tests`)
     }
 
     render() {
@@ -135,6 +145,14 @@ class LabDetails extends React.Component {
                                             <span className="open-close">{" Call Now"}</span>
                                         </li> */}
                                     </ul>
+                                    {
+                                        STORAGE.isAgent() || ( !this.props.hide_price && !this.props.is_user_insured)?
+                                        <div className="serch-nw-inputs mb-0" onClick={this.openTests.bind(this)}>
+                                            <input type="text" autocomplete="off" className="d-block clkInput new-srch-doc-lab" id="search_bar" value="" placeholder="Search more tests by this provider"/>
+                                            <img className="srch-inp-img" src="https://cdn.docprime.com/cp/assets/img/shape-srch.svg" style={{width: '15px'}}/>
+                                        </div>
+                                    :''
+                                    }
                                 </div>
 
                                 <LabTests {...this.props} />
