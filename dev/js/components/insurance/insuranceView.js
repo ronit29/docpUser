@@ -36,8 +36,9 @@ class Insurance extends React.Component {
 		// if (STORAGE.checkAuth()) {
 		// 	this.props.getUserProfile()
 		// }
+		let lead_data = queryString.parse(this.props.location.search)
 		let phoneNumber = ''
-		if (!STORAGE.checkAuth() && parsed.page_source == 'banner') {
+		if (!STORAGE.checkAuth() && lead_data.page_source == 'banner') {
 			this.setState({checkIdleTimeout:false, showPopup:true, popupClass: 'translucent-popup', overlayClass: 'white-overlay', identifyUserClick:'bannerClick'})
 		let data = {
 				'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopup', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-click', 'click_value': 'bannerClick'
@@ -48,7 +49,6 @@ class Insurance extends React.Component {
 		if (STORAGE.checkAuth() && this.props.USER && this.props.USER.primaryMobile != '') {
             phoneNumber = this.props.USER.primaryMobile
         }
-        let lead_data = queryString.parse(this.props.location.search)
         this.props.generateInsuranceLead('',phoneNumber,lead_data)
 		let selectedId = this.props.selected_plan ? this.props.selected_plan.id : ''
 		if (selectedId) {
