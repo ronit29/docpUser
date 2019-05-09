@@ -1519,3 +1519,41 @@ span.free-ofr-ribbon:after {
     line-height: 14px;
     margin-bottom: 4px;
 }
+
+/* Test Blog Styles */
+.tst-main-acrd-data a#about-test, .tst-main-acrd-data a#why-get-tested,
+.tst-main-acrd-data a#test-includes, .tst-main-acrd-data a#package-includes,
+.tst-main-acrd-data a#test-preparations, .tst-main-acrd-data a#test-faq {
+    display: block;
+    position: relative;
+    top: -108px;
+    visibility: hidden;
+}
+
+.table-of-content-desktop {
+    display: block;
+}
+
+.table-of-content-mobile {
+    display: none;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .tst-main-acrd-data a.anchor-link {
+        top: -90px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .tst-main-acrd-data a.anchor-link {
+        top: 0px !important;
+    }
+
+    .table-of-content-desktop {
+        display: none;
+    }
+
+    .table-of-content-mobile {
+        display: block;
+    }
+}

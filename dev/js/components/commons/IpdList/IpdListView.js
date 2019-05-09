@@ -23,7 +23,7 @@ class TestsListView extends React.Component {
 
     updateData(index) {
         let character = this.getCharacter(index)
-        this.props.getTestsAlphabetically(character)
+        this.props.getIPDAlphabetically(character)
     }
 
     alphabetClick(index) {
@@ -42,15 +42,16 @@ class TestsListView extends React.Component {
     render() {
         let alphabets = this.getAlphabets()
         let selectedAlphabet = this.getCharacter(this.state.selectedChar)
+        let data = this.props
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader {...this.props} />
                 <HelmetTags tagsData={{
-                    title: 'Tests Index | Details, Preparation, Procedure and Normal Range',
-                    description: 'Tests Index: Find detailed information about test preparation, procedure, normal ranges, duration and more.',
+                    title: 'Procedures Index | Details, Preparation, Procedure and Normal Range',
+                    description: 'Procedures Index: Find detailed information about test preparation, procedure, normal ranges, duration and more.',
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
                 }} />
-                <section className="container dp-container-div test-list-container">
+                <section className="container dp-container-div">
                     <div className="row main-row parent-section-row">
                         <div className="col-12">
                             <ul className="mrb-10 mrt-20 breadcrumb-list" style={{ wordBreak: 'break-word' }}>
@@ -64,11 +65,11 @@ class TestsListView extends React.Component {
                                     <span className="breadcrumb-arrow">&gt;</span>
                                 </li>
                                 <li className="breadcrumb-list-item">
-                                    <span className="fw-500 breadcrumb-title">Tests</span>
+                                    <span className="fw-500 breadcrumb-title">Procedures</span>
                                 </li>
                             </ul>
                             <div>
-                                <h1 className="fw-500 sitemap-title">Tests Index</h1>
+                                <h1 className="fw-500 sitemap-title">Procedure Index</h1>
                             </div>
                             <div className="d-flex align-items-center mrb-10 mrt-20 test-index-div">
                                 {
@@ -82,10 +83,10 @@ class TestsListView extends React.Component {
                             </div>
                             <div className="row sitemap-row">
                                 {
-                                    this.props.alphabeticalTests && this.props.alphabeticalTests.tests && this.props.alphabeticalTests.tests.length && (selectedAlphabet == this.props.selectedAlphabet) ?
-                                        this.props.alphabeticalTests.tests.map((test, index) => {
+                                    this.props.alphabeticalIpdTests && this.props.alphabeticalIpdTests.ipd_procedures && this.props.alphabeticalIpdTests.ipd_procedures.length && (selectedAlphabet == this.props.selectedIpdListAlphabet) ?
+                                        this.props.alphabeticalIpdTests.ipd_procedures.map((test, index) => {
                                             return <div key={index} className="col-12 col-md-6 col-lg-4 tests-brdr-btm">
-                                                <div className="anchor-data-style" onClick={test.url ? () => this.props.history.push(`/${test.url}`) : ''}>
+                                                <div className="anchor-data-style" onClick={() => this.props.history.push(`/${test.url?test.url:`ipdInfo?ipd_id=${test.id}`}`) }>
                                                     {
                                                         test.url ?
                                                             <div>
@@ -97,19 +98,19 @@ class TestsListView extends React.Component {
                                                                 </span>
                                                             </div>
                                                             :
-                                                            <span style={{ cursor: 'auto' }} >{test.name}</span>
+                                                            <span style={{ cursor: 'pointer' }} >{test.name}</span>
                                                     }
                                                 </div>
                                             </div>
                                         })
-                                        : !!!this.props.testIndexLoading ?
+                                        : !!!this.props.ipdIndexLoading ?
                                             <div className="col-12 fw-500 text-center mrt-20" style={{ fontSize: 18 }} >No record Found !!</div> : ''
                                 }
                             </div>
                         </div>
                     </div>
                 </section>
-                <Footer testsListPage={true} />
+                <Footer />
             </div>
         )
     }

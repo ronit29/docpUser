@@ -215,16 +215,21 @@ class SearchElasticView extends React.Component {
 
     }
 
-    showIPD(id) {
+    showIPD(id, url=null) {
 
-        this.props.history.push(`/ipdInfo?ipd_id=${id}`)
+        if(url){
+            this.props.history.push(`/${url}`)
+        }else{
+            this.props.history.push(`/ipdInfo?ipd_id=${id}`)
+        }
+        
     }
 
     toggleIpd(type, criteria, searchString = "") {
         let selectedCriteria = { ...criteria }
         selectedCriteria.type = 'ipd'
         this.props.toggleIPDCriteria(selectedCriteria, true)
-        this.showIPD(criteria.id)
+        this.showIPD(criteria.id, criteria.url)
     }
 
     toggleFixedMobileFooter(toShow) {
@@ -381,7 +386,7 @@ class SearchElasticView extends React.Component {
                                                     required) cannot be booked together. Do you want to search ${this.state.currentTestType.name}  test instead ?`}</p>
                                                     <div className="search-el-btn-container">
                                                         <button onClick={this.clickPopUp.bind(this, 1)}>Yes</button>
-                                                        <span className="src-el-btn-border"></span>
+                                                        {/* <span className="src-el-btn-border"></span> */}
                                                         <button onClick={this.clickPopUp.bind(this, 2)}>No</button>
                                                     </div>
                                                 </div>

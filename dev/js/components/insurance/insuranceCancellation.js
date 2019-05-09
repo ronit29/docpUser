@@ -58,7 +58,7 @@ class InsuranceCancellationView extends React.Component {
 									<p className="srch-el-conent">Are you sure you want to cancel your policy?</p>
 									<div className="search-el-btn-container">
 										<button onClick={this.clickPopUp.bind(this, 1)}>Yes</button>
-										<span className="src-el-btn-border"></span>
+										{/* <span className="src-el-btn-border"></span> */}
 										<button onClick={this.clickPopUp.bind(this, 2)}>No</button>
 									</div>
 								</div>

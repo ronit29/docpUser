@@ -140,19 +140,23 @@ class IPDFormView extends React.Component {
 
 
 			this.setState({ validateError: validateError })
+			let ipd_id = this.props.match.params.id
+			if (ipd_id.includes('price')) {
+				ipd_id = ''
+			}
 			let formData = {
 				...this.state,
-				ipd_procedure: this.props.match.params.id
+				ipd_procedure: ipd_id
 			}
 
 			if (parsed.hospital_id) {
 				formData.hospital = parsed.hospital_id
 			}
 
-			this.props.submitIPDForm(formData, (error, response) => {
+			this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
 				if (!error && response) {
 					let gtmData = {
-						'Category': 'ConsumerApp', 'Action': 'IpdLeadGenerationSuccess', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'ipd-lead-generation-success', selectedId: this.props.match.params.id, 'hospitalId': parsed.hospital_id ? parsed.hospital_id : ''
+						'Category': 'ConsumerApp', 'Action': 'IpdLeadGenerationSuccess', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'ipd-lead-generation-success', selectedId: ipd_id, 'hospitalId': parsed.hospital_id ? parsed.hospital_id : ''
 					}
 					GTM.sendEvent({ data: gtmData })
 					this.setState({ submitFormSuccess: true })
@@ -176,82 +180,78 @@ class IPDFormView extends React.Component {
 
 					<div className="row main-row parent-section-row">
 						<LeftBar />
-						{
-							this.props.IPD_INFO_LOADED ?
-								<div className="col-12 col-md-7 col-lg-7 center-column">
-									{
-										this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'ipd_lead_form').length ?
-											<div className="col-12 mrb-20">
-												<BannerCarousel {...this.props} sliderLocation="ipd_lead_form" />
-											</div> : ''
-									}
-									<div className="ipd-section ipd-form-view mt-0">
+						<div className="col-12 col-md-7 col-lg-7 center-column">
+							{
+								this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'ipd_lead_form').length ?
+									<div className="col-12 mrb-20">
+										<BannerCarousel {...this.props} sliderLocation="ipd_lead_form" />
+									</div> : ''
+							}
+							<div className="ipd-section ipd-form-view" style={{ 'marginTop': '11px' }}>
+								{
+									this.props.match.params.id != 'price' && ipd_info.about && ipd_info.about.name ?
 										<h4 className="section-heading pt-0">{`Get Cost Estimate of ${ipd_info.about.name}`}</h4>
-										<div className="lead-form">
-											<p>Please provide your details below and our Medical Experts will contact you shortly</p>
-											{/*<ul class="med-help">
-			                    			 <li><img src={ASSETS_BASE_URL + "/images/tick.png"} alt="" />Find the right Doctor and Hospital </li>
-			                    			 <li><img src={ASSETS_BASE_URL + "/images/tick.png"} alt="" />Comparing Surgery/Procedure cost</li>
-			                    			 <li><img src={ASSETS_BASE_URL + "/images/tick.png"} alt="" />Managing Hospital Process</li>
-		                    			 </ul>*/}
-										</div>
-										<div className="info-popup">
-											{/*<div className="pop-head">{ipd_info.about.name}</div>*/}
-											<div className="form-group fm-grp mt-0">
-												<div className="lbl-txt">Name:</div>
-												<div className="input-form"><input type="text" autoComplete="none" className={`form-control ${this.state.validateError.indexOf('name') > -1 ? 'error-on' : ''}`} name="name" value={this.state.name} onChange={this.inputHandler.bind(this)} /></div>
-												{
-													this.state.validateError.indexOf('name') > -1 ?
-														<span className="error-msg">Required</span>
-														: ''
-												}
-											</div>
-											<div className="form-group fm-grp">
-												<div className="lbl-txt">Mobile No:</div>
-												<div className="input-form"><input type="number" autoComplete="none" className={`form-control ${this.state.validateError.indexOf('phone_number') > -1 ? 'error-on' : ''}`} name="phone_number" value={this.state.phone_number} onChange={this.inputHandler.bind(this)} /></div>
-												{
-													this.state.validateError.indexOf('phone_number') > -1 ?
-														<span className="error-msg">Required</span>
-														: ''
-												}
-											</div>
-											<div className="form-group fm-grp emailForm">
-												<div className="lbl-txt">Email Id:</div>
-												<div className="input-form"><input type="text" autoComplete="none" className={`form-control ${this.state.validateError.indexOf('email') > -1 ? 'error-on' : ''}`} name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} /></div>
-												{
-													this.state.validateError.indexOf('email') > -1 ?
-														<span className="error-msg">Required</span>
-														: ''
-												}
+										: ''
+								}
 
+								<div className="lead-form">
+									<p>Please provide your details below and our Medical Experts will contact you shortly</p>
+									{/*<ul class="med-help">
+	                    			 <li><img src={ASSETS_BASE_URL + "/images/tick.png"} alt="" />Find the right Doctor and Hospital </li>
+	                    			 <li><img src={ASSETS_BASE_URL + "/images/tick.png"} alt="" />Comparing Surgery/Procedure cost</li>
+	                    			 <li><img src={ASSETS_BASE_URL + "/images/tick.png"} alt="" />Managing Hospital Process</li>
+                    			 </ul>*/}
+								</div>
+								<div className="info-popup">
+									{/*<div className="pop-head">{ipd_info.about.name}</div>*/}
+									<div className="form-group fm-grp mt-0">
+										<div className="lbl-txt">Name:</div>
+										<div className="input-form"><input type="text" autoComplete="none" className={`form-control ${this.state.validateError.indexOf('name') > -1 ? 'error-on' : ''}`} name="name" value={this.state.name} onChange={this.inputHandler.bind(this)} /></div>
+										{
+											this.state.validateError.indexOf('name') > -1 ?
+												<span className="error-msg">Required</span>
+												: ''
+										}
+									</div>
+									<div className="form-group fm-grp">
+										<div className="lbl-txt">Mobile No:</div>
+										<div className="input-form"><input type="number" autoComplete="none" className={`form-control ${this.state.validateError.indexOf('phone_number') > -1 ? 'error-on' : ''}`} name="phone_number" value={this.state.phone_number} onChange={this.inputHandler.bind(this)} /></div>
+										{
+											this.state.validateError.indexOf('phone_number') > -1 ?
+												<span className="error-msg">Required</span>
+												: ''
+										}
+									</div>
+									<div className="form-group fm-grp emailForm">
+										<div className="lbl-txt">Email Id:</div>
+										<div className="input-form"><input type="text" autoComplete="none" className={`form-control ${this.state.validateError.indexOf('email') > -1 ? 'error-on' : ''}`} name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} /></div>
+										{
+											this.state.validateError.indexOf('email') > -1 ?
+												<span className="error-msg">Required</span>
+												: ''
+										}
+
+									</div>
+									<div className="form-group fm-grp mrg-mb0">
+										<div className="lbl-txt gender-label">Gender:</div>
+										<div className="input-form dis-flx">
+											<div className="dtl-radio">
+												<label className="container-radio">Male
+												<input type="radio" name="gender" value="on" checked={this.state.gender == 'm'} onChange={() => this.setState({ gender: 'm' })} />
+													<span className="doc-checkmark"></span>
+												</label>
 											</div>
-											<div className="form-group fm-grp mrg-mb0">
-												<div className="lbl-txt gender-label">Gender:</div>
-												<div className="input-form dis-flx">
-													<div className="dtl-radio">
-														<label className="container-radio">Male
-					                              <input type="radio" name="gender" value="on" checked={this.state.gender == 'm'} onChange={() => this.setState({ gender: 'm' })} />
-															<span className="doc-checkmark"></span>
-														</label>
-													</div>
-													<div className="dtl-radio">
-														<label className="container-radio">Female
-					                              <input type="radio" name="gender" value="on" checked={this.state.gender == 'f'} onClick={() => this.setState({ gender: 'f' })} />
-															<span className="doc-checkmark"></span>
-														</label>
-													</div>
-													<div className="dtl-radio">
-														<label className="container-radio">Others
-					                              <input type="radio" name="gender" value="on" checked={this.state.gender == 'o'} onClick={() => this.setState({ gender: 'o' })} />
-															<span className="doc-checkmark"></span>
-														</label>
-													</div>
-												</div>
-												{
-													this.state.validateError.indexOf('gender') > -1 ?
-														<span className="error-msg gender-error-msg">Required</span>
-														: ''
-												}
+											<div className="dtl-radio">
+												<label className="container-radio">Female
+												<input type="radio" name="gender" value="on" checked={this.state.gender == 'f'} onClick={() => this.setState({ gender: 'f' })} />
+													<span className="doc-checkmark"></span>
+												</label>
+											</div>
+											<div className="dtl-radio">
+												<label className="container-radio">Others
+												<input type="radio" name="gender" value="on" checked={this.state.gender == 'o'} onClick={() => this.setState({ gender: 'o' })} />
+													<span className="doc-checkmark"></span>
+												</label>
 											</div>
 											<div className="form-group fm-grp mrg-mt0">
 												<div className="lbl-txt">Date of birth:</div>
@@ -276,24 +276,37 @@ class IPDFormView extends React.Component {
 												</div></div> : ""
 											}
 										</div>
-										<div className="btn-search-div btn-apply-div btn-sbmt btncallback">
-											<a href="javascript:void(0);" className="btn-search" onClick={this.submitClicked.bind(this)}>Submit</a>
-										</div>
 										{
-											this.state.submitFormSuccess ?
-												<ThankyouPoup {...this.props} />
+											this.state.validateError.indexOf('gender') > -1 ?
+												<span className="error-msg gender-error-msg">Required</span>
 												: ''
 										}
-
+									</div>
+									<div className="form-group fm-grp mrg-mt0">
+										<div className="lbl-txt">Age:</div>
+										<div className="input-form"><input type="number" autoComplete="none" className={`form-control ${this.state.validateError.indexOf('age') > -1 ? 'error-on' : ''}`} name="age" value={this.state.age} onChange={this.inputHandler.bind(this)} /></div>
+										{
+											this.state.validateError.indexOf('age') > -1 ?
+												<span className="error-msg">Required</span>
+												: ''
+										}
 									</div>
 								</div>
-								: ''
-						}
+								<div className="btn-search-div btn-apply-div btn-sbmt btncallback">
+									<a href="javascript:void(0);" className="btn-search" onClick={this.submitClicked.bind(this)}>Submit</a>
+								</div>
+								{
+									this.state.submitFormSuccess ?
+										<ThankyouPoup {...this.props} />
+										: ''
+								}
+
+							</div>
+						</div>
 						<RightBar extraClass=" chat-float-btn-2" />
 					</div>
 				</section>
 			</div>
-
 		)
 	}
 }
