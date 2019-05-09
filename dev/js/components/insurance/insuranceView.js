@@ -25,13 +25,15 @@ class Insurance extends React.Component {
 			showPopup: false,
 			shortURL: "",
 			isLead: '',
-			checkIdleTimeout:true
+			checkIdleTimeout:true,
+			popupClass: '',
+			overlayClass: ''
 		}
 	}
 	componentDidMount() {
 		let parsed = queryString.parse(this.props.location.search)
 		if (!STORAGE.checkAuth() && parsed.page_source == 'banner') {
-			this.setState({checkIdleTimeout:false, showPopup:true})
+			this.setState({checkIdleTimeout:false, showPopup:true, popupClass: 'translucent-popup', overlayClass: 'white-overlay'})
 		}
 
 		let selectedId = this.props.selected_plan ? this.props.selected_plan.id : ''
@@ -44,6 +46,7 @@ class Insurance extends React.Component {
 			}
 		}
 		if(this.state.checkIdleTimeout && !STORAGE.checkAuth()){
+			this.setState({popupClass: 'translucent-popup', overlayClass: 'white-overlay'})
 			this.inactivityTime()
 		}
 	}
@@ -65,7 +68,7 @@ class Insurance extends React.Component {
 	    function resetTimer() {
 	        clearTimeout(time);
 	        if(self.state.checkIdleTimeout){
-	        	time = setTimeout(stop, 10000)	
+	        	time = setTimeout(stop, 5000)	
 	        }
 	    }
 	}
@@ -277,7 +280,7 @@ class Insurance extends React.Component {
 								</section>
 
 								{this.state.showPopup ?
-									<InsurPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)}/> : ''
+									<InsurPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} popupClass={this.state.popupClass} overlayClass={this.state.overlayClass} /> : ''
 								}
 								{
 									STORAGE.checkAuth() ?

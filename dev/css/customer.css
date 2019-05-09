@@ -2030,3 +2030,13 @@ p.rt-doc-nm{
         margin-top: -370px !important;
     }
 }
+
+.translucent-popup{
+    background-color: rgba(0, 0, 0, 0.8);
+    top: 45px !important;
+    bottom: unset !important;
+}
+
+.white-overlay{
+    background-color: transparent !important;
+}

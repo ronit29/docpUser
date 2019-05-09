@@ -99,14 +99,12 @@ class InsurancePopup extends React.Component{
                             if(!resp.certificate){
                                 if(this.props.isLead == 'proceed'){
                                     if (exists.user_exists) {
-                                        this.props.closeLeadPopup()
-                                    // this.props.history.push('/insurance/insurance-user-details')
+                                    this.props.history.push('/insurance/insurance-user-details')
                                     }else{
-                                        this.props.closeLeadPopup()
-                                        // this.props.history.push('/insurance/insurance-user-details')    
+                                        this.props.history.push('/insurance/insurance-user-details')    
                                     }
                                 }else{
-                                    self.setState({ isLeadTrue:true }) 
+                                    self.setState({ isLeadTrue:true, }) 
                                     if(document.getElementById('terms_condition')){
                                         document.getElementById('terms_condition').click()
                                     }
@@ -177,7 +175,7 @@ class InsurancePopup extends React.Component{
         }else{
             return (
             <div className="col-12 col-md-7  center-column">
-                    <div className="cancel-overlay" onClick={this.props.hideLoginPopup.bind(this)}>
+                    <div className={`cancel-overlay ${this.props.overlayClass}`} onClick={this.props.hideLoginPopup.bind(this)}>
                     </div>                    
                     <section className="mobile-verification-screen p-3">
                     {
@@ -191,11 +189,11 @@ class InsurancePopup extends React.Component{
                             </div>
                         </div>
                         :
-                        <div className="widget no-shadow no-round sign-up-container widget cancel-appointment-div cancel-popup">
-                            <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.props.hideLoginPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>                    
+                        <div className={`widget no-shadow no-round sign-up-container widget cancel-appointment-div cancel-popup ${this.props.popupClass}`}>
+                            <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.props.hideLoginPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/close-white.svg"} style={{ width: 14 }} /></span>
                             <div className="widget-header text-center mv-header">
                                 {/*<h3 className="sign-coupon fw-700">Please login to continue</h3>*/}
-                                <h4 className="fw-500 text-md sign-up-mbl-text">Enter your Mobile Number</h4>
+                                <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? {color:'#fff'}:{}} >Enter your Mobile Number</h4>
                             </div>
                             <div className="widget-content text-center">
                                 <div className="mobile-verification">
@@ -237,7 +235,7 @@ class InsurancePopup extends React.Component{
                                 }
                             </div>
 
-                            <p className="text-center fw-500 p-3" style={{ fontSize: 12, color: '#8a8a8a' }} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: '#f78631' }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: '#f78631' }} >Privacy Policy.</a></p>
+                            <p className="text-center fw-500 p-3" style={this.props.popupClass != '' ? {fontSize: 12,color:'#fff'}:{fontSize: 12,color: '#8a8a8a'}} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: '#f78631' }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: '#f78631' }} >Privacy Policy.</a></p>
                         </div>
                     }
                     </section>
