@@ -147,7 +147,7 @@ export const generateInsuranceLead = (selectedPlan, number,lead_data,callback) =
     let plan={}
         plan.plan_id= selectedPlan
         plan.phone_number = number
-        plan.lead_data = source
+        plan.lead_data = lead_data
     return API_POST(`/api/v1/insurance/lead/create`, plan).then(function (response) {
         if(callback) callback(null, response)
     }).catch(function (error) {
