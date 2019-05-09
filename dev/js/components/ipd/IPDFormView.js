@@ -156,7 +156,7 @@ class IPDFormView extends React.Component {
 							}
 							<div className="ipd-section ipd-form-view" style={{'marginTop': '11px'}}>
 								{
-									this.props.match.params.id!='price' && ipd_info.about.name?
+									this.props.match.params.id!='price' && ipd_info.about && ipd_info.about.name?
 									<h4 className="section-heading pt-0">{`Get Cost Estimate of ${ipd_info.about.name}`}</h4>
 									:''	
 								}

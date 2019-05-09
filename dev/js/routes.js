@@ -279,6 +279,12 @@ const InsuranceCancellation = Loadable({
     webpack: () => [require.resolveWeak('./containers/insurance/InsuranceCancellation.js')],
     loading,
 })
+const InsuranceNetwork = Loadable({
+    loader: () => import('./containers/insurance/InsuranceNetwork.js'),
+    modules: ['./containers/insurance/InsuranceNetwork.js'],
+    webpack: () => [require.resolveWeak('./containers/insurance/InsuranceNetwork.js')],
+    loading,
+})
 const IPDInfo = Loadable({
     loader: () => import('./containers/ipd/IpdInfo.js'),
     modules: ['./containers/ipd/IpdInfo.js'],
@@ -525,6 +531,7 @@ let routes = [
     { path: '/*-hpp', exact: true, component: IpdHospitalDetail, RENDER_ON_SERVER: true },
     { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail },
     { path: '/package/compare', exact: true, component: PackageCompare },
+    { path: '/*-hpcp', exact: true, component: PackageCompare },
     { path: '/ipd-procedures', exact: true, component: IpdList, RENDER_ON_SERVER: true }
 
 ]
@@ -538,6 +545,7 @@ if (CONFIG.ENABLE_INSURANCE) {
         { path: '/insurance/complete', exact: true, component: InsuranceSuccess, RENDER_ON_SERVER: true },
         { path: '/insurance/certificate', exact: true, component: InsuranceCertificate, RENDER_ON_SERVER: true },
         { path: '/insurance/cancelpolicy', exact: true, component: InsuranceCancellation, RENDER_ON_SERVER: true },
+        { path: '/insurance/network', exact: true, component: InsuranceNetwork, RENDER_ON_SERVER: true }
     ])
 }
 

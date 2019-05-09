@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions, editUserProfile, savePincode, clearExtraTests, selectSearchType } from '../../actions/index.js'
+import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions, editUserProfile, savePincode, clearExtraTests, selectSearchType, patientDetails } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/index.js'
@@ -48,7 +48,8 @@ const mapStateToProps = (state) => {
         selectedCriterias,
         lab_test_data,
         corporateCoupon,
-        pincode
+        pincode,
+        saved_patient_details
     } = state.SEARCH_CRITERIA_LABS
     const { selectedProfile, profiles, address, userWalletBalance, userCashbackBalance, isUserCared, defaultProfile } = state.USER
     let LABS = state.LABS
@@ -60,7 +61,7 @@ const mapStateToProps = (state) => {
         lab_test_data,
         LABS,
         selectedProfile, profiles, selectedSlot, selectedAppointmentType, address, selectedAddress, labCoupons, disCountedLabPrice,
-        couponAutoApply, userWalletBalance, userCashbackBalance, pincode, isUserCared, defaultProfile
+        couponAutoApply, userWalletBalance, userCashbackBalance, pincode, isUserCared, defaultProfile, saved_patient_details
     }
 }
 
@@ -89,7 +90,8 @@ const mapDispatchToProps = (dispatch) => {
         getCartItems: () => dispatch(getCartItems()),
         editUserProfile: (profileData, profileId, cb) => dispatch(editUserProfile(profileData, profileId, cb)),
         clearExtraTests: () => dispatch(clearExtraTests()),
-        selectSearchType: (type) => dispatch(selectSearchType(type))
+        selectSearchType: (type) => dispatch(selectSearchType(type)),
+        patientDetails:(criteria) => dispatch(patientDetails(criteria))
     }
 }
 
