@@ -108,6 +108,7 @@ class SearchPackagesView extends React.Component {
         newCategoryState['max_price'] = filterstate.max_price
         
         */
+        newCategoryState['sort_on'] = filterstate.sort_on
         newCategoryState['sort_order'] = filterstate.sort_order
         newCategoryState['avg_ratings'] = filterstate.avg_ratings
         newCategoryState['home_visit'] = filterstate.home_visit
@@ -183,8 +184,8 @@ class SearchPackagesView extends React.Component {
         let max_distance = filterCriteriaPackages.distanceRange[1]
         let min_price = filterCriteriaPackages.priceRange[0]
         let max_price = filterCriteriaPackages.priceRange[1]
-        let sort_on = filterCriteriaPackages.sort_on || ""
         */
+        let sort_on = filterCriteriaPackages.sort_on || ""
         let sort_order = filterCriteriaPackages.sort_order || ""
         let avg_ratings = filterCriteriaPackages.avg_ratings || ""
         let home_visit = filterCriteriaPackages.home_visit || false
@@ -205,7 +206,7 @@ class SearchPackagesView extends React.Component {
             let package_category_id = parsed.package_category_ids
             url = `${window.location.pathname}?lat=${lat}&long=${long}&package_category_ids=${package_category_id}`
         }else{
-            url = `${window.location.pathname}?lat=${lat}&long=${long}&sort_order=${sort_order}&avg_ratings=${avg_ratings}&home_visit=${home_visit}&lab_visit=${lab_visit}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&package_ids=${package_ids}&page=${page}`
+            url = `${window.location.pathname}?lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&avg_ratings=${avg_ratings}&home_visit=${home_visit}&lab_visit=${lab_visit}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&package_ids=${package_ids}&page=${page}`
         }
 
         if (parsed.scrollbyid) {

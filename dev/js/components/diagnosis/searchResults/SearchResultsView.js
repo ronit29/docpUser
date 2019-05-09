@@ -252,7 +252,7 @@ class SearchResultsView extends React.Component {
         let max_price = filterCriteria.priceRange[1]
         let sort_on = filterCriteria.sort_on || ""
 */
-
+        let sort_on = filterCriteria.sort_on || ""
         let sort_order = filterCriteria.sort_order || ""
         let availability = filterCriteria.availability || []
         let avg_ratings = filterCriteria.avg_ratings || []
@@ -268,7 +268,7 @@ class SearchResultsView extends React.Component {
         //Check if any filter applied 
         let is_filter_applied = false
 
-        if (sort_order) {
+        if (sort_on) {
             is_filter_applied = true
         }
 
@@ -300,7 +300,7 @@ class SearchResultsView extends React.Component {
 
         if (is_filter_applied || !this.state.seoFriendly) {
 
-            url = `${window.location.pathname}?test_ids=${testIds || ""}&lat=${lat}&long=${long}&sort_order=${sort_order}&availability=${availability}&home_visit=${home_visit}&lab_visit=${lab_visit}&avg_ratings=${avg_ratings}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&search_id=${this.state.search_id}&is_insured=${is_insured}`
+            url = `${window.location.pathname}?test_ids=${testIds || ""}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&home_visit=${home_visit}&lab_visit=${lab_visit}&avg_ratings=${avg_ratings}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&search_id=${this.state.search_id}&is_insured=${is_insured}`
             is_params_exist = true
 
         } else if (this.state.seoFriendly) {

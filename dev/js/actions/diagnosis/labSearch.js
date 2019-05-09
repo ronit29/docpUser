@@ -40,6 +40,7 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 	let max_price = filterCriteria.priceRange[1]
 	let sort_on = filterCriteria.sort_on || ""
 	*/
+	let sort_on = filterCriteria.sort_on || ""
 	let sort_order = filterCriteria.sort_order || ""
     let availability = filterCriteria.availability || []
     let avg_ratings = filterCriteria.avg_ratings || []
@@ -59,7 +60,7 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 		url = `/api/v1/diagnostic/labnetworksearchbyurl?url=${searchByUrl.split('/')[1]}&`
 	}
 
-	url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&sort_order=${sort_order}&avg_ratings=${avg_ratings}&availability=${availability}&home_visit=${home_visit}&lab_visit=${lab_visit}&page=${page}&is_insurance=${is_insured}`
+	url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&sort_on=${sort_on}&sort_order=${sort_order}&avg_ratings=${avg_ratings}&availability=${availability}&home_visit=${home_visit}&lab_visit=${lab_visit}&page=${page}&is_insurance=${is_insured}`
 
 	if (!!filterCriteria.lab_name) {
 		url += `&name=${filterCriteria.lab_name || ""}`
@@ -338,6 +339,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	let max_price = filterCriteriaPackages.priceRange[1]
 	let sort_on = filterCriteriaPackages.sort_on || ""
 	*/
+	let sort_on = filterCriteriaPackages.sort_on || ""
 	let sort_order = filterCriteriaPackages.sort_order || ""
 	let avg_ratings = filterCriteriaPackages.avg_ratings || ""
 	let home_visit = filterCriteriaPackages.home_visit || false
@@ -364,7 +366,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 
 	if (!forTaxSaver) {
 
-		url += `long=${long || ""}&lat=${lat || ""}&sort_order=${sort_order}&avg_ratings=${avg_ratings}&home_visit=${home_visit}&lab_visit=${lab_visit}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}&package_ids=${package_ids}`
+		url += `long=${long || ""}&lat=${lat || ""}&sort_on=${sort_on}&sort_order=${sort_order}&avg_ratings=${avg_ratings}&home_visit=${home_visit}&lab_visit=${lab_visit}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}&package_ids=${package_ids}`
 	}
 
 	if (!!filterCriteriaPackages.lab_name) {

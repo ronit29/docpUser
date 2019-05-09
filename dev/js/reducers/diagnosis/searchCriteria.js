@@ -5,6 +5,7 @@ import { MERGE_SEARCH_STATE_OPD, SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_E
 const DEFAULT_FILTER_STATE = {
     //priceRange: [0, 20000],
     //distanceRange: [0, 15],
+    sort_on: null,
     sort_order: null,
     avg_rating: [],
     availability: [],

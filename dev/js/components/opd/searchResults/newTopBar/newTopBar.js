@@ -77,8 +77,13 @@ class TopBar extends React.Component {
             'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on||''
         }
         GTM.sendEvent({ data: data })
-        this.props.applyFilters(filterState)
-        this.setState({ openFilter: false })
+
+        let ifAnyFilterApplied = this.isDataFiltered({}, true)
+        if(ifAnyFilterApplied) {
+            this.props.applyFilters(filterState)    
+        }
+        
+        this.setState({ dropdown_visible: false })
     }
 
     handleClose(reset=false, e) {
@@ -108,8 +113,18 @@ class TopBar extends React.Component {
     toggleAllFilters(type, val, isArray = false, e) {
         let value = val
         if (isArray) {
-            value = []
-            value.push(val)
+            let selectedVal = [].concat(this.state[type]) || []
+            let found = false
+            value = selectedVal.filter((data)=> {
+                if(data==val){
+                    found = true
+                    return false
+                }
+                return true
+            })
+            if(!found){
+                value.push(val)    
+            }
         }
         if(type.includes('sort_on') ) {
 
@@ -139,9 +154,39 @@ class TopBar extends React.Component {
         this.setState({ dropdown_visible: true, previous_filters: currentFilters })
     }
 
-    isDataFiltered(filterData = {}) {
+    isDataFiltered(filterData = {}, checkIfAnyFilterAppliled= false) {
 
-        if (filterData && Object.values(filterData).length) {
+        if (checkIfAnyFilterAppliled) {
+
+            try {
+                let filterCount = 0
+                for (let filter in this.state.previous_filters) {
+
+                    if (filter.includes('availability') || filter.includes('avg_ratings') ) {
+                        
+                        if (this.state.previous_filters[filter] && this.state[filter].length != this.state.previous_filters[filter].length) {
+                            
+                            filterCount++
+                            break;
+                        }else {
+
+                            for(let arrFliter=0;arrFliter<this.state[filter].length; arrFliter++) {
+                                if(this.state.previous_filters[filter].indexOf(this.state[filter][arrFliter])==-1){
+                                    filterCount++
+                                    break;
+                                }
+                            }
+                        }
+
+                    } else if(this.state[filter] && this.state[filter] != this.state.previous_filters[filter]){
+                        filterCount++
+                        break;
+                    }
+                }
+                return filterCount
+            } catch (e) {
+                return false
+            }
 
         } else {
 
@@ -150,16 +195,17 @@ class TopBar extends React.Component {
                 avg_ratings: [],
                 availability: [],
                 gender: null,
-                sits_at_clinic: true,
-                sits_at_hospital: true
+                hospital_type: ''
+                /*sits_at_clinic: true,
+                sits_at_hospital: true*/
             }
         }
         try {
             let filterCount = 0
             for (let filter in filterData) {
                 
-                if(filter.includes('sits_at_clinic') || filter.includes('sits_at_hospital')){
-                    if(this.state[filter]){
+                if(filter.includes('hospital_type')){
+                    if(this.state['sits_at_clinic'] || this.state['sits_at_hospital']){
                         filterCount++
                     }
                 } else if(filter.includes('availability') || filter.includes('avg_ratings')){
