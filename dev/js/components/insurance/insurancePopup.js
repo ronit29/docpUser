@@ -201,7 +201,14 @@ class InsurancePopup extends React.Component{
                             <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.props.hideLoginPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/close-white.svg"} style={{ width: 14 }} /></span>
                             <div className="widget-header text-center mv-header">
                                 {/*<h3 className="sign-coupon fw-700">Please login to continue</h3>*/}
-                                <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? {color:'#fff'}:{}} >Enter your Mobile Number</h4>
+                                {this.props.identifyUserClick == 'userClick'?
+                                    <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? {color:'#fff'}:{}} >Enter your Mobile Number</h4>
+                                    :this.props.identifyUserClick == 'AutoClick'?
+                                    <div>
+                                        <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? {color:'#fff'}:{}} >Want to know more about OPD Insurance</h4>
+                                        <h6 className="text-md sign-up-mbl-text" style={this.props.popupClass != '' ? {color:'#fff'}:{}} >Enter your Mobile Number</h6>
+                                    </div>
+                                    :<h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? {color:'#fff'}:{}} >Please Enter your Mobile Number to proceed</h4>}
                             </div>
                             <div className="widget-content text-center">
                                 <div className="mobile-verification">
