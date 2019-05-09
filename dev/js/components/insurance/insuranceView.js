@@ -33,7 +33,10 @@ class Insurance extends React.Component {
 		}
 	}
 	componentDidMount() {
-		let parsed = queryString.parse(this.props.location.search)
+		// if (STORAGE.checkAuth()) {
+		// 	this.props.getUserProfile()
+		// }
+		let phoneNumber = ''
 		if (!STORAGE.checkAuth() && parsed.page_source == 'banner') {
 			this.setState({checkIdleTimeout:false, showPopup:true, popupClass: 'translucent-popup', overlayClass: 'white-overlay', identifyUserClick:'bannerClick'})
 		let data = {
@@ -42,7 +45,11 @@ class Insurance extends React.Component {
 
 		GTM.sendEvent({ data: data })
 		}
-
+		if (STORAGE.checkAuth() && this.props.USER && this.props.USER.primaryMobile != '') {
+            phoneNumber = this.props.USER.primaryMobile
+        }
+        let lead_data = queryString.parse(this.props.location.search)
+        this.props.generateInsuranceLead('',phoneNumber,lead_data)
 		let selectedId = this.props.selected_plan ? this.props.selected_plan.id : ''
 		if (selectedId) {
 			this.selectPlan(this.props.selected_plan)
@@ -116,7 +123,7 @@ class Insurance extends React.Component {
 		let memberStoreDataLength
 		let membersArray = []
 		let profilesArray = []
-		let source
+		let lead_data
 		// plan.plan_name = this.props.insurnaceData['insurance'][0].name
 		// plan.logo = this.props.insurnaceData['insurance'][0].logo 
 		// plan.insurer_document = this.props.insurnaceData['insurance'][0].insurer_document   	
@@ -130,8 +137,8 @@ class Insurance extends React.Component {
 				phoneNumber = this.props.USER.primaryMobile
 			}
 			if (Object.keys(plan).length > 0) {
-				source = parsed.source
-				this.props.generateInsuranceLead(plan.id, phoneNumber,source)
+				lead_data = parsed
+				this.props.generateInsuranceLead(plan.id, phoneNumber,lead_data)
 			}
 			profileLength = Object.keys(this.props.USER.profiles).length
 			memberStoreDataLength = Object.keys(this.props.self_data_values).length

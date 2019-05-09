@@ -11238,3 +11238,15 @@ position: relative;
 	font-weight: 400;
 }
 
+input.clkInput{
+    background: #f3f3f3;
+    margin-top: 5px;
+}
+.uTimingPara {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.uTimingPara p{
+	margin-left: 3px;
+}
