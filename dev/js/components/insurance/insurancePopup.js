@@ -85,7 +85,7 @@ class InsurancePopup extends React.Component{
             this.setState({ validationError: "Please enter OTP" })
             return
         }
-        let source = parsed.source
+        let source = parsed
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
             this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {

@@ -87,7 +87,7 @@ class Insurance extends React.Component {
 				phoneNumber = this.props.USER.primaryMobile
 			}
 			if (Object.keys(plan).length > 0) {
-				source = parsed.source
+				source = parsed
 				this.props.generateInsuranceLead(plan.id, phoneNumber,source)
 			}
 			profileLength = Object.keys(this.props.USER.profiles).length
