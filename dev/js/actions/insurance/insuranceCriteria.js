@@ -1,9 +1,12 @@
 import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, INSURANCE_PAY, SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE , SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, PUSH_USER_DATA, RESET_INSURED_DATA} from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
-export const getInsurance = (callback) => (dispatch) => {
-
-    return API_GET('/api/v1/insurance/list').then(function (response) {
+export const getInsurance = (is_endorsement,callback) => (dispatch) => {
+    let endorse
+    if(is_endorsement){
+        endorse = 'is_endorsement='+is_endorsement
+    }
+    return API_GET('/api/v1/insurance/list?'+endorse).then(function (response) {
         dispatch({
             type: GET_INSURANCE,
             payload: response

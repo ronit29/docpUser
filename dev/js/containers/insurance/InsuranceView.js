@@ -19,7 +19,7 @@ class Insurance extends React.Component{
 
     componentDidMount() {
         let parsed = queryString.parse(this.props.location.search)
-        this.props.getInsurance(resp=>{
+        this.props.getInsurance('',resp=>{
             if(!resp.certificate){
                 this.props.generateInsuranceLead('','',parsed)
             }
@@ -57,7 +57,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getInsurance: (callback) => dispatch(getInsurance(callback)),
+        getInsurance: (is_endorsement,callback) => dispatch(getInsurance(is_endorsement,callback)),
         getUserProfile: () => dispatch(getUserProfile()),
         selectInsurancePlan: (plan,criteria) => dispatch(selectInsurancePlan(plan,criteria)),
         // saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),

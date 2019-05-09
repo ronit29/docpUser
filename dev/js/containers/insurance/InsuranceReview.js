@@ -15,7 +15,7 @@ class InsuranceReview extends React.Component{
     }
     componentDidMount() {
         let self = this
-            this.props.getInsurance((response)=>{
+            this.props.getInsurance('',(response)=>{
                 if(!response.certificate){
                     this.props.retrieveUserData((resp)=>{
                         if(resp && !resp.error){
@@ -56,7 +56,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getInsurance: (callback) => dispatch(getInsurance(callback)),
+        getInsurance: (is_endorsement,callback) => dispatch(getInsurance(is_endorsement,callback)),
         // getUserProfile: () => dispatch(getUserProfile()),
         // selectInsurancePlan: (plan,criteria,forceadd) => dispatch(selectInsurancePlan(plan,criteria,forceadd)),
         // userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),

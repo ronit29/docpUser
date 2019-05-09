@@ -1,12 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { userData,selectInsuranceProfile, saveCurrentSelectedMembers, pushUserData, resetSelectedInsuranceMembers} from '../../actions/index.js'
+import { userData,selectInsuranceProfile, saveCurrentSelectedMembers, pushUserData, resetSelectedInsuranceMembers, getInsurance} from '../../actions/index.js'
 import InsuranceComponentView from '../../components/insurance/insuranceEndorsementDetailsView.js'
 
 class InsuranceEndorsementDetails extends React.Component{
     componentDidMount() {
             //this.props.getUserProfile()
+            this.props.getInsurance(true,(resp)=>{
+
+            })
     }
 	render(){
 		return(
@@ -25,6 +28,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        getInsurance: (is_endorsement,callback) => dispatch(getInsurance(is_endorsement,callback)),
         userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),
         selectInsuranceProfile :(newProfileid,member_id,newProfile,param_id) => dispatch(selectInsuranceProfile(newProfileid,member_id,newProfile,param_id)),
         saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),
