@@ -11,6 +11,7 @@ import { AssertionError } from 'assert';
 const queryString = require('query-string');
 import HelmetTags from '../commons/HelmetTags'
 import CONFIG from '../../config'
+import GTM from '../../helpers/gtm.js'
 
 class Insurance extends React.Component {
 	constructor(props) {
@@ -27,13 +28,19 @@ class Insurance extends React.Component {
 			isLead: '',
 			checkIdleTimeout:true,
 			popupClass: '',
-			overlayClass: ''
+			overlayClass: '',
+			identifyUserClick:''
 		}
 	}
 	componentDidMount() {
 		let parsed = queryString.parse(this.props.location.search)
 		if (!STORAGE.checkAuth() && parsed.page_source == 'banner') {
-			this.setState({checkIdleTimeout:false, showPopup:true, popupClass: 'translucent-popup', overlayClass: 'white-overlay'})
+			this.setState({checkIdleTimeout:false, showPopup:true, popupClass: 'translucent-popup', overlayClass: 'white-overlay', identifyUserClick:'bannerClick'})
+		let data = {
+				'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopup', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-click', 'click_value': 'bannerClick'
+			}
+
+		GTM.sendEvent({ data: data })
 		}
 
 		let selectedId = this.props.selected_plan ? this.props.selected_plan.id : ''
@@ -59,9 +66,13 @@ class Insurance extends React.Component {
     document.onkeypress = resetTimer;
     resetTimer()
 	    function stop() {
-	        self.setState({checkIdleTimeout:false})
+	    	let data = {
+				'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopup', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-click', 'click_value': 'AutoClick'
+				}
+				GTM.sendEvent({ data: data })
 	        if(document.getElementById('proceedLead')){
 	        	document.getElementById('proceedLead').click()
+	        	self.setState({checkIdleTimeout:false, identifyUserClick:'AutoClick'})
 	        }
 	    }
 
@@ -180,7 +191,13 @@ class Insurance extends React.Component {
 	}
 
 	proceedLead(type) {
-		this.setState({ isLead: type, showPopup: true })
+		if(!this.state.checkIdleTimeout){
+			let data = {
+				'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopup', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-click', 'click_value': 'userClick', type:type
+			}
+			GTM.sendEvent({ data: data })
+		}
+		this.setState({ isLead: type, showPopup: true, identifyUserClick:'userClick' })
 	}
 
 	closeLeadPopup(){
@@ -280,7 +297,7 @@ class Insurance extends React.Component {
 								</section>
 
 								{this.state.showPopup ?
-									<InsurPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} popupClass={this.state.popupClass} overlayClass={this.state.overlayClass} /> : ''
+									<InsurPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} popupClass={this.state.popupClass} overlayClass={this.state.overlayClass} identifyUserClick={this.state.identifyUserClick}/> : ''
 								}
 								{
 									STORAGE.checkAuth() ?

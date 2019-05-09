@@ -99,9 +99,17 @@ class InsurancePopup extends React.Component{
                             if(!resp.certificate){
                                 if(this.props.isLead == 'proceed'){
                                     if (exists.user_exists) {
-                                    this.props.history.push('/insurance/insurance-user-details')
+                                       if(this.props.identifyUserClick == 'userClick'){
+                                            this.props.history.push('/insurance/insurance-user-details')
+                                        }else{
+                                            this.props.closeLeadPopup()
+                                        } 
                                     }else{
-                                        this.props.history.push('/insurance/insurance-user-details')    
+                                        if(this.props.identifyUserClick == 'userClick'){
+                                            this.props.history.push('/insurance/insurance-user-details')
+                                        }else{
+                                            this.props.closeLeadPopup()
+                                        }
                                     }
                                 }else{
                                     self.setState({ isLeadTrue:true, }) 
