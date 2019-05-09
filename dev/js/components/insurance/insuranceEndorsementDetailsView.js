@@ -384,6 +384,7 @@ class InsuranceEndoresmentInputView extends React.Component{
     }
     
 	render(){
+		console.log(this.props.endorseData.length>0)
 		let child
 		let adult
 		let userProfile

@@ -5,15 +5,18 @@ import { userData,selectInsuranceProfile, saveCurrentSelectedMembers, pushUserDa
 import InsuranceComponentView from '../../components/insurance/insuranceEndorsementDetailsView.js'
 
 class InsuranceEndorsementDetails extends React.Component{
-    componentDidMount() {
-            //this.props.getUserProfile()
-            this.props.getInsurance(true,(resp)=>{
 
-            })
+    componentDidMount() {
+        //this.props.getUserProfile()
+        this.props.getInsurance(true,(resp)=>{
+            // console.log(resp)
+            // alert('s')
+        })
     }
 	render(){
+        let abc = [{'relation':'self'},{'relation':'spouse'},{'relation':'child'},{'relation':'child'}]
 		return(
-			<InsuranceComponentView {...this.props}/>
+			<InsuranceComponentView {...this.props} endorseData={abc}/>
 		)
 	}
 }
