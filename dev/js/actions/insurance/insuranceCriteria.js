@@ -143,11 +143,16 @@ export const clearInsurance = () => (dispatch) =>{
             type: CLEAR_INSURANCE
         })
 }
-export const generateInsuranceLead = (selectedPlan, number,source,callback) => (dispatch) => {
+export const generateInsuranceLead = (selectedPlan, number,lead_data,callback) => (dispatch) => {
     let plan={}
         plan.plan_id= selectedPlan
-        plan.phone_number = number
-        plan.source = source
+        plan.phone_number=''
+        if(number == '' && lead_data.phone_number){
+            plan.phone_number = lead_data.phone_number
+        }else{
+            plan.phone_number = number
+        }
+        plan.lead_data = lead_data
     return API_POST(`/api/v1/insurance/lead/create`, plan).then(function (response) {
         if(callback) callback(null, response)
     }).catch(function (error) {
