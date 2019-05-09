@@ -31,6 +31,12 @@ class Insurance extends React.Component {
 		// if (STORAGE.checkAuth()) {
 		// 	this.props.getUserProfile()
 		// }
+		let phoneNumber = ''
+		if (STORAGE.checkAuth() && this.props.USER && this.props.USER.primaryMobile != '') {
+            phoneNumber = this.props.USER.primaryMobile
+        }
+        let lead_data = queryString.parse(this.props.location.search)
+        this.props.generateInsuranceLead('',phoneNumber,lead_data)
 		let selectedId = this.props.selected_plan ? this.props.selected_plan.id : ''
 		if (selectedId) {
 			this.selectPlan(this.props.selected_plan)

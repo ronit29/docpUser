@@ -18,21 +18,16 @@ class Insurance extends React.Component{
     }
 
     componentDidMount() {
-        let phoneNumber = ''
         
         if (STORAGE.checkAuth()) {
             this.props.getUserProfile()
         }
-
-        if (STORAGE.checkAuth() && this.props.USER && this.props.USER.primaryMobile != '') {
-            phoneNumber = this.props.USER.primaryMobile
-        }
-        let lead_data = queryString.parse(this.props.location.search)
-        this.props.getInsurance(resp=>{
+        /*this.props.getInsurance(resp=>{
             if(!resp.certificate){
                 this.props.generateInsuranceLead('',phoneNumber,lead_data)
             }
-        })
+        })*/
+        this.props.getInsurance()
     }
 	render(){
         if(this.props.LOAD_INSURANCE){
