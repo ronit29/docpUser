@@ -260,7 +260,9 @@ const queryString = require('query-string');
                     <LeftBar />
                     {/*compare screen*/}
                     <div className="container-fluid pad-all-0">
-                      <div className="pkgSliderHeading mrt-20"><h5 style={{fontSize:'16px', paddingLeft:'10px'}} >{this.props.data.title}</h5></div>
+                      {this.props.data.title?
+                        <div className="pkgSliderHeading mrt-20"><h5 style={{fontSize:'16px', paddingLeft:'10px'}} >{this.props.data.title}</h5></div>
+                      :''}
                       {this.props.data.search_content?
                         <div className="search-result-card-collpase" style={{borderRadius: '0px'}}>
                             <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.data.search_content }} >

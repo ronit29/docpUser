@@ -85,7 +85,7 @@ class InsurancePopup extends React.Component{
             this.setState({ validationError: "Please enter OTP" })
             return
         }
-        let source = parsed.source
+        let lead_data = parsed
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
             this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
@@ -93,15 +93,23 @@ class InsurancePopup extends React.Component{
                     this.setState({error_message:exists.message})
                 }else{
                     if(Object.keys(self.props.selected_plan).length > 0){
-                        self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',this.state.phoneNumber, source)
+                        self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',this.state.phoneNumber,lead_data)
                     }
                         this.props.getInsurance((resp)=>{
                             if(!resp.certificate){
                                 if(this.props.isLead == 'proceed'){
                                     if (exists.user_exists) {
-                                    this.props.history.push('/insurance/insurance-user-details')
+                                       if(this.props.identifyUserClick == 'userClick'){
+                                            this.props.history.push('/insurance/insurance-user-details')
+                                        }else{
+                                            this.props.closeLeadPopup()
+                                        } 
                                     }else{
-                                        this.props.history.push('/insurance/insurance-user-details')    
+                                        if(this.props.identifyUserClick == 'userClick'){
+                                            this.props.history.push('/insurance/insurance-user-details')
+                                        }else{
+                                            this.props.closeLeadPopup()
+                                        }
                                     }
                                 }else{
                                     self.setState({ isLeadTrue:true, }) 
@@ -193,7 +201,14 @@ class InsurancePopup extends React.Component{
                             <span className="float-right" style={{cursor: 'pointer', marginRight: '10px'}} onClick={this.props.hideLoginPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/close-white.svg"} style={{ width: 14 }} /></span>
                             <div className="widget-header text-center mv-header">
                                 {/*<h3 className="sign-coupon fw-700">Please login to continue</h3>*/}
-                                <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? {color:'#fff'}:{}} >Enter your Mobile Number</h4>
+                                {this.props.identifyUserClick == 'userClick'?
+                                    <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? {color:'#fff'}:{}} >Enter your Mobile Number</h4>
+                                    :this.props.identifyUserClick == 'AutoClick'?
+                                    <div>
+                                        <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? {color:'#fff'}:{}} >Want to know more about OPD Insurance</h4>
+                                        <h6 className="text-md sign-up-mbl-text" style={this.props.popupClass != '' ? {color:'#fff'}:{}} >Enter your Mobile Number</h6>
+                                    </div>
+                                    :<h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? {color:'#fff'}:{}} >Please Enter your Mobile Number to proceed</h4>}
                             </div>
                             <div className="widget-content text-center">
                                 <div className="mobile-verification">
