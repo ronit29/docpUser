@@ -147,6 +147,10 @@ export const generateInsuranceLead = (selectedPlan, number,lead_data,callback) =
     let plan={}
         plan.plan_id= selectedPlan
         plan.phone_number=''
+        plan.source=''
+        if(lead_data.source){
+            plan.source = lead_data.source
+        }
         if(number == '' && lead_data.phone_number){
             plan.phone_number = lead_data.phone_number
         }else{
