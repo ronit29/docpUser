@@ -195,6 +195,7 @@ class Insurance extends React.Component {
 			let data = {
 				'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopup', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-click', 'click_value': 'userClick', type:type
 			}
+			this.setState({popupClass: '', overlayClass: ''})
 			GTM.sendEvent({ data: data })
 		}
 		this.setState({ isLead: type, showPopup: true, identifyUserClick:'userClick' })
