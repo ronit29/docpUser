@@ -18,15 +18,21 @@ class Insurance extends React.Component{
     }
 
     componentDidMount() {
-        let parsed = queryString.parse(this.props.location.search)
-        this.props.getInsurance(resp=>{
-            if(!resp.certificate){
-                this.props.generateInsuranceLead('','',parsed)
-            }
-        })
+        let phoneNumber = ''
+        
         if (STORAGE.checkAuth()) {
             this.props.getUserProfile()
         }
+
+        if (STORAGE.checkAuth() && this.props.USER && this.props.USER.primaryMobile != '') {
+            phoneNumber = this.props.USER.primaryMobile
+        }
+        let lead_data = queryString.parse(this.props.location.search)
+        this.props.getInsurance(resp=>{
+            if(!resp.certificate){
+                this.props.generateInsuranceLead('',phoneNumber,lead_data)
+            }
+        })
     }
 	render(){
         if(this.props.LOAD_INSURANCE){
@@ -66,7 +72,7 @@ const mapDispatchToProps = (dispatch) => {
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
         resetAuth: () => dispatch(resetAuth()),
         userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),
-        generateInsuranceLead:(selectedPlan,number,cb) => dispatch(generateInsuranceLead(selectedPlan,number,cb)),
+        generateInsuranceLead:(selectedPlan,number,lead_data,cb) => dispatch(generateInsuranceLead(selectedPlan,number,lead_data,cb)),
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
     }
 }
