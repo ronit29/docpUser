@@ -148,10 +148,10 @@ export const generateInsuranceLead = (selectedPlan, number,lead_data,callback) =
         plan.plan_id= selectedPlan
         plan.phone_number=''
         plan.source=''
-        if(lead_data.source){
+        if(lead_data && lead_data.source){
             plan.source = lead_data.source
         }
-        if(number == '' && lead_data.phone_number){
+        if(number == '' && lead_data &&  lead_data.phone_number){
             plan.phone_number = lead_data.phone_number
         }else{
             plan.phone_number = number
