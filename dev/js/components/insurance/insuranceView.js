@@ -30,7 +30,7 @@ class Insurance extends React.Component {
 	}
 	componentDidMount() {
 		let parsed = queryString.parse(this.props.location.search)
-		if (!STORAGE.checkAuth() && parsed.source == 'opd_insurance_online_consultation') {
+		if (!STORAGE.checkAuth() && parsed.page_source == 'banner') {
 			this.setState({checkIdleTimeout:false, showPopup:true})
 		}
 
@@ -43,7 +43,7 @@ class Insurance extends React.Component {
 				this.textInput.click()
 			}
 		}
-		if(this.state.checkIdleTimeout){
+		if(this.state.checkIdleTimeout && !STORAGE.checkAuth()){
 			this.inactivityTime()
 		}
 	}
@@ -56,7 +56,10 @@ class Insurance extends React.Component {
     document.onkeypress = resetTimer;
     resetTimer()
 	    function stop() {
-	        self.setState({checkIdleTimeout:false, showPopup:true})
+	        self.setState({checkIdleTimeout:false})
+	        if(document.getElementById('proceedLead')){
+	        	document.getElementById('proceedLead').click()
+	        }
 	    }
 
 	    function resetTimer() {
@@ -284,7 +287,7 @@ class Insurance extends React.Component {
 										<div className="sticky-btn fixed insuBtnsContainer">
 											<button className="insu-left-white-btn" onClick={this.proceedLead.bind(this, 'interest')}>Click here to know more
 											</button>
-											<button className="insu-right-orng-btn" onClick={this.proceedLead.bind(this, 'proceed')}>Proceed {this.state.selected_plan_price} <span className="foot-btn-sub-span">{this.state.gst}</span>
+											<button className="insu-right-orng-btn" id="proceedLead" onClick={this.proceedLead.bind(this, 'proceed')}>Proceed {this.state.selected_plan_price} <span className="foot-btn-sub-span">{this.state.gst}</span>
 											</button>
 										</div>
 								}
