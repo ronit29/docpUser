@@ -172,7 +172,7 @@ class ResultCount extends React.Component {
     }
 
     overlayClick() {
-        this.setState({ overlayVisible: false, searchCities: [] });
+        this.setState({ overlayVisible: false, searchCities: [], showLocationPopup: false });
         if(document.getElementById('location_element')){
             document.getElementById('location_element').style.zIndex ='0'
         }
@@ -337,10 +337,8 @@ class ResultCount extends React.Component {
                         </div>
                         {
                             this.state.showLocationPopup ?
-                                this.props.lab_card && this.state.showPopupContainer ?
-                                    <LocationPopup {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} criteriaString={criteriaStr} popupContainer={() => this.popupContainer()} />
-                                    : <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
-                                : ''
+                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
+                                :''
                         }
 
                         {
