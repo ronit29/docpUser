@@ -2031,8 +2031,21 @@ p.rt-doc-nm{
     }
 }
 
-/* insurance networks */
+.translucent-popup{
+    background-color: rgba(0, 0, 0, 0.8);
+}
 
+@media(max-width:992px){
+    .translucent-popup{
+        top: 45px !important;
+        bottom: unset !important;
+    }
+}
+
+.white-overlay{
+    background-color: transparent !important;
+/* insurance networks */
+}
 .ntwrk-tabs{
     display: flex;
     align-items: center;
