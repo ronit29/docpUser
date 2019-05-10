@@ -286,12 +286,12 @@ class LabTests extends React.Component {
                                 <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
                             </div>
                     }
-                    {
+                    {/*
                         STORAGE.isAgent() || ( !hide_price && !is_user_insured) ? <div className="pb-view text-right">
                             <a href="javascript:;" className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>View more tests</a>
                         </div>
                         :''
-                    }
+                    */}
 
                     {
                         is_user_insured && !selectedTestsCount?

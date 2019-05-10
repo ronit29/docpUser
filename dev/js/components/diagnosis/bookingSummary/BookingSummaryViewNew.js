@@ -19,6 +19,7 @@ import BookingError from '../../opd/patientDetails/bookingErrorPopUp.js';
 import PincodePopup from './PincodePopup.js'
 import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 import PincodeErrorPopup from './PincodeErrorPopup.js'
+import BookingConfirmationPopup from './BookingConfirmationPopup.js'
 
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
@@ -45,7 +46,8 @@ class BookingSummaryViewNew extends React.Component {
             cart_item: parsed.cart_item,
             pincode: this.props.pincode,
             whatsapp_optin: true,
-            pincodeMismatchError: false
+            pincodeMismatchError: false,
+            showConfirmationPopup:false
         }
     }
 
@@ -269,13 +271,16 @@ class BookingSummaryViewNew extends React.Component {
 
     profileDataCompleted(data) {
         if (data.name == '' || data.gender == '' || data.phoneNumber == '' || data.email == '' || !data.otpVerifySuccess) {
+            this.props.patientDetails(data)
             this.setState({ profileDataFilled: false })
         } else if (data.otpVerifySuccess) {
+            let clear_data = {}
+            this.props.patientDetails(clear_data)
             this.setState({ profileDataFilled: true })
         }
     }
 
-    proceed(testPicked, addressPicked, datePicked, patient, addToCart, e) {
+    proceed(testPicked, addressPicked, datePicked, patient, addToCart,total_price,total_wallet_balance, e) {
 
         if (!testPicked) {
             SnackBar.show({ pos: 'bottom-center', text: "Please select some tests." });
@@ -333,6 +338,11 @@ class BookingSummaryViewNew extends React.Component {
 
         // React guarantees that setState inside interactive events (such as click) is flushed at browser event boundary
         if(this.state.loading){
+            return
+        }
+
+        if(!this.state.showConfirmationPopup && !addToCart && (total_price == 0 || (this.state.use_wallet && total_wallet_balance>0))){
+            this.setState({showConfirmationPopup:true})
             return
         }
 
@@ -459,7 +469,6 @@ class BookingSummaryViewNew extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'LabConfirmBookingClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-confirm-booking-clicked'
         }
         GTM.sendEvent({ data: analyticData })
-
         this.props.createLABAppointment(postData, (err, data) => {
             if (!err) {
                 this.props.removeLabCoupons(this.state.selectedLab, this.state.couponId)
@@ -581,6 +590,17 @@ class BookingSummaryViewNew extends React.Component {
     searchTests(){
         this.props.selectSearchType('lab')
         this.props.history.push('/search')
+    }
+
+    priceConfirmationPopup(choice){
+        if(!choice){
+            this.setState({showConfirmationPopup:choice})
+        }else{
+            this.setState({showConfirmationPopup:''})
+            if(document.getElementById('confirm_booking')){
+                document.getElementById('confirm_booking').click()
+            }
+        }
     }
 
     render() {
@@ -735,6 +755,11 @@ class BookingSummaryViewNew extends React.Component {
 
             <div className="profile-body-wrap">
                 <ProfileHeader />
+                {
+                    this.state.showConfirmationPopup?
+                    <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)}/>
+                    :''
+                }
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
@@ -991,7 +1016,7 @@ class BookingSummaryViewNew extends React.Component {
                                     STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured)?
                                         <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                        } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true)}>
+                                        } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true,total_price, total_wallet_balance)}>
                                             {
                                                 this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
                                             }
@@ -1001,9 +1026,9 @@ class BookingSummaryViewNew extends React.Component {
                                 }
 
                                 {
-                                    STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust pdd-12" data-disabled={
+                                    STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust pdd-12" id="confirm_booking" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                    } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
+                                    } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false,total_price,total_wallet_balance)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
                                 }
                             </div>
 

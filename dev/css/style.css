@@ -2639,9 +2639,12 @@ font-weight: 500;
     margin: 20px 0 8px;
     text-transform: capitalize;
 }
+.tests-brdr-btm{
+	border-bottom: 1px solid #f2f2f2;
+}
 .anchor-data-style{
 	display: block;
-	border-bottom: 1px solid #f2f2f2;
+	
 	position: relative;
 	padding: 10px 50px 10px 10px;
 	cursor: pointer;
@@ -3768,24 +3771,32 @@ padding-top: 0px !important;
 }
 .srch-el-conent{
 	text-align: center;
-    font-weight: 500;
+	font-weight: 500;
+	font-size: 16px;
 }
 .search-el-btn-container{
 	text-align: center;
-    margin-top: 20px;
     display: flex;
     justify-content: space-evenly;
+    padding: 10px 0;
+    margin-top: 15px;
 }
 .search-el-btn-container button {
-    background: white;
+	background: white;
     border: transparent;
     color: #f78631;
     font-weight: 500;
-	font-size: 18px;
-	cursor: pointer;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 7px 0;
+	flex: 1;
+	border-right: 1px solid #ece7e7;
+}
+.search-el-btn-container button:last-child {
+	border:none;
 }
 .widget-content.padiing-srch-el{
-	padding:25px;
+	padding:15px 0px 10px 0px;
 }
 .src-el-btn-border{
 	width: 1px;
@@ -8202,7 +8213,12 @@ a.btn-search.btn-cnte{
         right: 10px;
         width: auto;
         transform: translateY(-22%);
-    } 
+	} 
+	.ipd-section .custom-popup.hlth-ins-pop.ins-pop{
+		transform: translateY(-5%);
+		height: 90%;
+		overflow: auto;
+	}
     .ipd-section .custom-popup.thanks-popup{
     	transform: translateY(-44%);
     }
@@ -9524,6 +9540,9 @@ border-radius: 4px;
 .last-span .span-img img{
 	width:9px;
 }
+.pkgMrgnAdjst{
+
+}
 /*================= Package Compare 04-04-2019 ===================*/
 .sortBy li{
 		display: inline-block;
@@ -9671,6 +9690,9 @@ border-radius: 4px;
 	}
 }
 @media screen and (max-width: 991px){
+	.pkgMrgnAdjst {
+     margin-top: 44px !important;
+     }
 	.pkgComapre{
 		margin-top: 78px;
 	}
@@ -11192,4 +11214,39 @@ position: relative;
     bottom: 0;
     width: 100%;
     margin: auto;
+}
+.dsply-inline{
+    font-size: 12px;
+    display: inline-block;
+}
+.dsply-ipd-hdng{
+	font-size: 16px;
+    font-weight: 500;
+}
+.ulListing-stl ul{
+	list-style: disc !important;
+	padding-left: 15px;
+
+}
+.ulListing-stl ul li strong{
+	display: block;
+	font-weight: 400;
+}
+
+.ulListing-stl ul li b{
+	display: block;
+	font-weight: 400;
+}
+
+input.clkInput{
+    background: #f3f3f3;
+    margin-top: 5px;
+}
+.uTimingPara {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.uTimingPara p{
+	margin-left: 3px;
 }

@@ -245,6 +245,7 @@ class CriteriaElasticSearchView extends React.Component {
             GTM.sendEvent({ data: data })
             let ipdData = Object.assign({}, criteria)
             ipdData.id = criteria.action.value[0]
+            ipdData.url = null
             this.props.toggleIpd('ipd', ipdData, this.state.searchValue)
 
         } else {
