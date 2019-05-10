@@ -781,7 +781,6 @@ class BookingSummaryViewNew extends React.Component {
         }
 
         let labCoupons = this.props.labCoupons[this.state.selectedLab] || []
-        let validCoupon = this.getValidCoupon(labCoupons)
 
         let amtBeforeCoupon = 0
         let total_price = finalPrice
@@ -898,17 +897,17 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 </div>
                                                                                 <div className=" d-flex">
                                                                                     <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
-                                                                                        {validCoupon.code}
+                                                                                        {labCoupons[0].code}
                                                                                     </h4>
                                                                                     {
                                                                                         is_corporate ? "" : <span className="visit-time-icon coupon-icon"><img onClick={(e) => {
                                                                                             e.stopPropagation();
                                                                                             let analyticData = {
-                                                                                                'Category': 'ConsumerApp', 'Action': 'LabCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-removed', 'couponId': validCoupon.coupon_id
+                                                                                                'Category': 'ConsumerApp', 'Action': 'LabCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-removed', 'couponId': labCoupons[0].coupon_id
                                                                                             }
                                                                                             GTM.sendEvent({ data: analyticData })
                                                                                             this.setState({couponCode: '', couponId:''})
-                                                                                            this.props.removeLabCoupons(this.state.selectedLab, validCoupon.coupon_id)
+                                                                                            this.props.removeLabCoupons(this.state.selectedLab, labCoupons[0].coupon_id)
                                                                                         }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
                                                                                         </span>
                                                                                     }

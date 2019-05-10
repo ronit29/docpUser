@@ -115,7 +115,7 @@ class PatientDetailsNew extends React.Component {
                             this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', is_cashback: doctorCoupons[0].is_cashback })
                         } else {
                             this.setState({coupon_loading: true})
-                            this.getAndApplyBestCoupons(nextProps, deal_price)
+                            this.getAndApplyBestCoupons(deal_price)
                         }
                 })
             } else if (hospital) {
@@ -132,7 +132,7 @@ class PatientDetailsNew extends React.Component {
                             this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' })
                         } else {
                             this.setState({coupon_loading: true})
-                            this.getAndApplyBestCoupons(nextProps, deal_price)
+                            this.getAndApplyBestCoupons(deal_price)
                         }
                 })
 
@@ -154,7 +154,7 @@ class PatientDetailsNew extends React.Component {
             deal_price += treatment_Price
             //auto apply coupon if no coupon is apllied
             if (this.state.selectedDoctor && deal_price && this.props.couponAutoApply) {
-                this.getAndApplyBestCoupons(nextProps, deal_price)
+                this.getAndApplyBestCoupons(deal_price)
             } else {
                 this.props.resetOpdCoupons()
             }
@@ -174,7 +174,7 @@ class PatientDetailsNew extends React.Component {
         return validCoupon
     }
 
-    getAndApplyBestCoupons(nextProps, deal_price=0) {
+    getAndApplyBestCoupons(deal_price=0) {
         this.props.getCoupons({
             productId: 1, deal_price: deal_price, doctor_id: this.state.selectedDoctor, hospital_id: this.state.selectedClinic, profile_id: this.props.selectedProfile, procedures_ids: this.getProcedureIds(this.props), cart_item: this.state.cart_item,
             cb: (coupons) => {
@@ -231,7 +231,7 @@ class PatientDetailsNew extends React.Component {
                             this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', couponApplied: true })
                         } else {
                             this.setState({coupon_loading: true})
-                            this.getAndApplyBestCoupons(nextProps, deal_price)
+                            this.getAndApplyBestCoupons(deal_price)
                         }
                     })
                 }
@@ -595,7 +595,6 @@ class PatientDetailsNew extends React.Component {
     render() {
         let doctorDetails = this.props.DOCTORS[this.state.selectedDoctor]
         let doctorCoupons = this.props.doctorCoupons[this.state.selectedDoctor] || []
-        let validCoupon = this.getValidCoupon(doctorCoupons)
         let hospital = {}
         let patient = null
         let priceData = {}
@@ -740,17 +739,17 @@ class PatientDetailsNew extends React.Component {
                                                                                 </div>
                                                                                 <div className=" d-flex">
                                                                                     <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
-                                                                                        {validCoupon.code}
+                                                                                        {doctorCoupons[0].code}
                                                                                     </h4>
                                                                                     <span className="visit-time-icon coupon-icon">
                                                                                         <img onClick={(e) => {
                                                                                             e.stopPropagation();
                                                                                             let analyticData = {
                                                                                                 'Category': 'ConsumerApp', 'Action': 'OpdCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'opd-coupons-removed',
-                                                                                                'couponId': validCoupon.coupon_id
+                                                                                                'couponId': doctorCoupons[0].coupon_id
                                                                                             }
                                                                                             GTM.sendEvent({ data: analyticData })
-                                                                                            this.props.removeCoupons(this.state.selectedDoctor, validCoupon.coupon_id)
+                                                                                            this.props.removeCoupons(this.state.selectedDoctor, doctorCoupons[0].coupon_id)
                                                                                         }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
                                                                                     </span>
                                                                                 </div>
