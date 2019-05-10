@@ -429,6 +429,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 							validatingNames={this.state.validatingNames||[]}
 							is_endorsement = {true}
 							user_data={this.props.endorsed_member_data.members.filter(x=>x.relation == 'spouse')}
+							member_type={'adult'}
 						/>
 			}
 		
@@ -455,6 +456,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 									validatingNames={this.state.validatingNames||[]}
 									is_endorsement = {true}
 									user_data={this.props.endorsed_member_data.members.filter(x=>x.relation != 'self' && x.relation !='spouse' && x.id==data[i] )}
+									member_type={'child'}
 								/>
 					}
 				})
@@ -475,14 +477,14 @@ class InsuranceEndoresmentInputView extends React.Component{
 									<p className="fill-error-span fw-500 text-right d-block" style={{marginTop:'0px', fontSize: '11px'}}>*All fields are mandatory
 									</p>
 									<div className="insurance-member-details">
-										<InsurSelf {...this.props} checkForValidation ={this.checkForValidation.bind(this)} id={`member_${this.props.currentSelectedInsuredMembersId[0]['0']}`} member_id={this.props.currentSelectedInsuredMembersId[0]['0']} validateErrors={this.state.validateErrors['0'] || []} validateOtherErrors={this.state.validateOtherErrors['0'] || []} createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} errorMessages={this.state.errorMessages} is_endorsement = {true} user_data={this.props.endorsed_member_data.members.filter(x=>x.relation == 'self')}/>
+										<InsurSelf {...this.props} checkForValidation ={this.checkForValidation.bind(this)} id={`member_${this.props.currentSelectedInsuredMembersId[0]['0']}`} member_id={this.props.currentSelectedInsuredMembersId[0]['0']} validateErrors={this.state.validateErrors['0'] || []} validateOtherErrors={this.state.validateOtherErrors['0'] || []} createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} errorMessages={this.state.errorMessages} is_endorsement = {true} user_data={this.props.endorsed_member_data.members.filter(x=>x.relation == 'self')} member_type={'adult'}/>
 										{adult}
 										{child}
 									</div>
 								</div>
 							</div>
 						</section>		
-							<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Confirm (₹ {this.state.selected_plan_price})
+							<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Update (₹ {this.state.selected_plan_price})
 								<span className="foot-btn-sub-span">{this.state.gst}</span>
 							</button>
 						</div>

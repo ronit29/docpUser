@@ -248,3 +248,13 @@ export const retrieveEndorsedData = (callback) => (dispatch) => {
     })
 
 }
+
+export const createEndorsementData = (criteria,callback) => (dispatch) => {
+    return API_POST('/api/v1/insurance/endorsement/create',criteria).then(function (response) {
+        if(callback) callback(response);
+    }).catch(function (error) {
+        if(callback) callback(error);
+        throw error
+    })
+
+}

@@ -41,7 +41,7 @@ class InsuranceOthers extends React.Component {
 	    			})
 			}else{
 				if(this.props.user_data && this.props.user_data.length > 0){
-	    			this.setState({...this.props.user_data[0], name:this.props.user_data[0].first_name},()=>{
+	    			this.setState({...this.props.user_data[0], name:this.props.user_data[0].first_name,member_type:this.props.member_type},()=>{
 	    				this.handleSubmit()
 	    			})
 				}

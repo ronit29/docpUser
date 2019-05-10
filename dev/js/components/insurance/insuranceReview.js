@@ -41,6 +41,7 @@ class InsuranceReview extends React.Component{
     	let state_code = ''
     	let city_code = ''
     	let district_code = ''
+    	let endorsedSelf
     	// let show_lname_flag = ''
     	// let isDefaultUser
 		if(this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.profiles[this.props.USER.defaultProfile]){
@@ -69,7 +70,24 @@ class InsuranceReview extends React.Component{
     		city_code = this.props.self_data_values[0].town_code
     		district_code = this.props.self_data_values[0].district_code
     		// show_lname_flag = this.props.self_data_values[0].show_lname_flag
+    	}else if(this.props.self_data_values && this.props.is_endorsement){
+    		Object.entries(this.props.self_data_values).map(function([key, value]) {
+    			if(value.relation == 'self'){
+    				endorsedSelf = value
+    			}
+    		})
+    		address = endorsedSelf.address
+    		district = endorsedSelf.district
+    		district_code = endorsedSelf.district_code
+    		pincode = endorsedSelf.pincode
+    		email = endorsedSelf.email
+    		town = endorsedSelf.town
+    		city_code = endorsedSelf.city_code
+    		state = endorsedSelf.state
+    		state_code = endorsedSelf.state_code
+    		// show_lname_flag = this.props.self_data_values[0].show_lname_flag
     	}
+
 
     	var members={}
     	let currentSelectedProfiles = []
@@ -109,23 +127,29 @@ class InsuranceReview extends React.Component{
 		    
 		},this)}
 		console.log(insurance_pay)
-		this.props.resetSelectedInsuranceMembers()
-		this.props.insurancePay(insurance_pay,(resp)=>{
-			if(resp.members && resp.members.length >0){
-				this.props.history.push('/insurance/insurance-user-details')
-			}else{
-				if(resp.certificate){
-					this.props.history.push('/insurance/certificate')
+		if(this.props.is_endorsement){
+			this.props.createEndorsementData(insurance_pay,(resp)=>{
+
+			})
+		}else{
+			this.props.resetSelectedInsuranceMembers()
+			this.props.insurancePay(insurance_pay,(resp)=>{
+				if(resp.members && resp.members.length >0){
+					this.props.history.push('/insurance/insurance-user-details')
 				}else{
-					if(resp.payment_required){
-						this.props.history.push(`/payment/${resp.data.orderId}?refs=opd`)
+					if(resp.certificate){
+						this.props.history.push('/insurance/certificate')
 					}else{
-						success_id = '/insurance/complete?payment_success=true&id='+resp.data.id
-						this.props.history.push(success_id)
+						if(resp.payment_required){
+							this.props.history.push(`/payment/${resp.data.orderId}?refs=opd`)
+						}else{
+							success_id = '/insurance/complete?payment_success=true&id='+resp.data.id
+							this.props.history.push(success_id)
+						}
 					}
-				}
-			}			
-		})
+				}			
+			})
+		}
     }
     sendAgentBookingURL() {
         this.props.sendAgentBookingURL(null, 'sms', 'insurance',(err, res) => {
@@ -248,8 +272,10 @@ class InsuranceReview extends React.Component{
 					STORAGE.isAgent()?<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.sendAgentBookingURL.bind(this)}>Send SMS (₹ {this.state.selected_plan_price}) 
 				<span className="foot-btn-sub-span">{this.state.gst}</span>
 				</button>
-				:<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Pay now (₹ {this.state.selected_plan_price}) 
-				<span className="foot-btn-sub-span">{this.state.gst}</span>
+				:<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>{this.props.is_endorsement?'Submit':`Pay Now (₹${this.state.selected_plan_price})` }
+				{
+					this.props.is_endorsement?'':<span className="foot-btn-sub-span">{this.state.gst}</span>
+				}
 				</button>
 				}
 				</div>

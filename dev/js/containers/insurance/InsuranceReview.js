@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {userData,insurancePay, resetSelectedInsuranceMembers, retrieveUserData, sendAgentBookingURL, resetUserInsuredData, getInsurance,retrieveEndorsedData} from '../../actions/index.js'
+import {userData,insurancePay, resetSelectedInsuranceMembers, retrieveUserData, sendAgentBookingURL, resetUserInsuredData, getInsurance,retrieveEndorsedData, createEndorsementData} from '../../actions/index.js'
 import InsuranceReviewView from '../../components/insurance/insuranceReview.js'
 import Loader from '../../components/commons/Loader'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
@@ -11,7 +11,8 @@ class InsuranceReview extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-            data: null
+            data: null,
+            is_endorsement:false
         }
     }
     componentDidMount() {
@@ -21,7 +22,7 @@ class InsuranceReview extends React.Component{
             this.props.getInsurance(true,(response)=>{
                 if(!response.certificate){
                     this.props.retrieveEndorsedData((resp)=>{
-                        this.setState({data:resp.data})
+                        this.setState({data:resp.data,is_endorsement:true})
                     })
                 }
             })
@@ -41,7 +42,7 @@ class InsuranceReview extends React.Component{
 	render(){
         if(this.props.LOAD_INSURANCE && this.state.data){
             return(
-            <InsuranceReviewView {...this.props} data={this.state.data}/>
+            <InsuranceReviewView {...this.props} data={this.state.data} is_endorsement={this.state.is_endorsement}/>
             )
         }else{
             if(this.props.insurnaceData.certificate){
@@ -77,7 +78,8 @@ const mapDispatchToProps = (dispatch) => {
         retrieveUserData:(cb) =>dispatch(retrieveUserData(cb)),
         sendAgentBookingURL: (orderId, type, purchase_type, cb) => dispatch(sendAgentBookingURL(orderId, type, purchase_type, cb)),
         resetUserInsuredData:(criteria) =>dispatch(resetUserInsuredData(criteria)),
-        retrieveEndorsedData:(cb) =>dispatch(retrieveEndorsedData(cb))
+        retrieveEndorsedData:(cb) =>dispatch(retrieveEndorsedData(cb)),
+        createEndorsementData:(cb) =>dispatch(createEndorsementData(cb))
         
     }
 }
