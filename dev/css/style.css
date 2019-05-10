@@ -5922,8 +5922,9 @@ button.add-shpng-cart-btn.update-btn {
 		width: 80%;
 	}
 	
-   .pkgSliderContainer{
-    margin: 0 -15px;
+   div.pkgSliderContainer{
+	margin: 0 -15px;
+	padding: 2px 15px 2px 15px;
 }
 }
 
@@ -10824,7 +10825,7 @@ position: relative;
 .pkgSliderContainer{
 	white-space: nowrap;
     overflow: auto;
-    padding: 3px 15px;
+	padding: 2px 15px 2px 0px;
 }
 .pkgcustCards{
 	text-align: center;
@@ -10841,7 +10842,8 @@ position: relative;
     margin-bottom: 16px;
     display: inline-block;
     margin-right: 10px;
-    margin-left: 2px;
+	margin-left: 2px;
+	cursor: pointer;
 }
 
 .pkgtstName{
