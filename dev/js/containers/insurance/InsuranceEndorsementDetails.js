@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Loader from '../../components/commons/Loader'
 
-import { userData,selectInsuranceProfile, saveCurrentSelectedMembers, pushUserData, resetSelectedInsuranceMembers, getInsurance, getEndorsedMemberList} from '../../actions/index.js'
+import { userData,selectInsuranceProfile, saveCurrentSelectedMembers, pushUserData, resetSelectedInsuranceMembers, getInsurance, getEndorsedMemberList, pushUserEndorsedData} from '../../actions/index.js'
 import InsuranceComponentView from '../../components/insurance/insuranceEndorsementDetailsView.js'
 
 class InsuranceEndorsementDetails extends React.Component{
@@ -14,18 +14,16 @@ class InsuranceEndorsementDetails extends React.Component{
         }
     }
     componentDidMount() {
-        //this.props.getUserProfile()
         let self = this
         this.props.getEndorsedMemberList((mem_resp)=>{
-            console.log(mem_resp)
-            this.setState({members_data:mem_resp})
+            if(mem_resp){
+                this.setState({members_data:mem_resp})
+            }
         })
         this.props.getInsurance(true,(resp)=>{
-            // console.log(resp)
             if(resp){
-             this.setState({insurance_data:resp})   
+                this.setState({insurance_data:resp})   
             }
-            // alert('s')
         })
     }
 	render(){
@@ -58,7 +56,8 @@ const mapDispatchToProps = (dispatch) => {
         saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),
         pushUserData :(criteria,callback) => dispatch(pushUserData(criteria,callback)),
         resetSelectedInsuranceMembers: () => dispatch(resetSelectedInsuranceMembers()),
-        getEndorsedMemberList:(callback) => dispatch(getEndorsedMemberList(callback))
+        getEndorsedMemberList:(callback) => dispatch(getEndorsedMemberList(callback)),
+        pushUserEndorsedData :(criteria,callback) => dispatch(pushUserEndorsedData(criteria,callback)),        
     }
 }
 

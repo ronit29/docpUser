@@ -229,3 +229,22 @@ export const getEndorsedMemberList = (callback) => (dispatch) => {
     })
 
 }
+
+export const pushUserEndorsedData = (criteria,callback) => (dispatch) => {
+    return API_POST('/api/v1/insurance/push_endorsement_data',criteria).then(function (response) {
+        if(callback) callback(response);
+    }).catch(function (error) {
+        if(callback) callback(error);
+        throw error
+    })
+
+}
+
+export const retrieveEndorsedData = (callback) => (dispatch) => {
+    API_GET('/api/v1/insurance/show_endorsement_data').then(function (response) {
+        if (callback) callback(response)
+    }).catch(function (error) {
+        if (callback) callback(null)
+    })
+
+}

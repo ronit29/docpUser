@@ -368,7 +368,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 			}
 			// validating is user had changed anything	
 			if(this.props.endorsed_member_data.members.length == Object.keys(this.props.self_data_values).length){
-				let abcd = []
+				
 				for(var i =0;i < this.props.endorsed_member_data.members.length;i++) {
 					let id = this.props.endorsed_member_data.members[i].id
 					if(this.props.self_data_values[id]) {
@@ -382,14 +382,14 @@ class InsuranceEndoresmentInputView extends React.Component{
 						} 
 					}
 				}
-			} 
+			}
 			console.log(member_ref)
 		this.setState({validateErrors: validatingErrors,validateOtherErrors: validatingOtherErrors,validatingNames:invalidname,validateDobErrors:validatingDobErrors,errorMessages:errorMessagesObj})
     	if(is_disable && document.getElementById(member_ref)){    		
     		document.getElementById(member_ref).scrollIntoView();
     	}else{
-    		// this.SaveUserData(this.props)
-			// this.props.history.push('/insurance/insurance-user-details-review')
+    		this.SaveUserData(this.props)
+			this.props.history.push('/insurance/insurance-user-details-review?is_endorsement=true')
     	}
     }
 
@@ -397,20 +397,14 @@ class InsuranceEndoresmentInputView extends React.Component{
     	let self = this
     	var insuranceUserData={}
     	var members={}
-    	// insuranceUserData.insurnaceData = props.insurnaceData
-    	insuranceUserData.selected_plan_id=props.selected_plan.id
-    	// insuranceUserData.insurer= props.insurnaceData['insurance'][0].id
     	insuranceUserData.members= []
-    	// insuranceUserData.selected_plan = []
-    	insuranceUserData.currentSelectedInsuredMembersId = this.props.currentSelectedInsuredMembersId
-
     	Object.entries(this.props.currentSelectedInsuredMembersId).map(function([key, value]) {
     		members={}
 			members={...self.props.self_data_values[value[key]]}
 			return 	insuranceUserData.members.push(members)
 		})
     	console.log(insuranceUserData)
-		this.props.pushUserData(insuranceUserData)
+		this.props.pushUserEndorsedData(insuranceUserData)
     }
     
 	render(){

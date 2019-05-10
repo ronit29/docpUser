@@ -1,10 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {userData,insurancePay, resetSelectedInsuranceMembers, retrieveUserData, sendAgentBookingURL, resetUserInsuredData, getInsurance} from '../../actions/index.js'
+import {userData,insurancePay, resetSelectedInsuranceMembers, retrieveUserData, sendAgentBookingURL, resetUserInsuredData, getInsurance,retrieveEndorsedData} from '../../actions/index.js'
 import InsuranceReviewView from '../../components/insurance/insuranceReview.js'
 import Loader from '../../components/commons/Loader'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
+const queryString = require('query-string');
 
 class InsuranceReview extends React.Component{
     constructor(props) {
@@ -15,6 +16,16 @@ class InsuranceReview extends React.Component{
     }
     componentDidMount() {
         let self = this
+        let parsed = queryString.parse(this.props.location.search)
+        if(parsed.is_endorsement){
+            this.props.getInsurance(true,(response)=>{
+                if(!response.certificate){
+                    this.props.retrieveEndorsedData((resp)=>{
+                        this.setState({data:resp.data})
+                    })
+                }
+            })
+        }else{
             this.props.getInsurance(false,(response)=>{
                 if(!response.certificate){
                     this.props.retrieveUserData((resp)=>{
@@ -25,6 +36,7 @@ class InsuranceReview extends React.Component{
                     })
                 }
             })
+        }
     }
 	render(){
         if(this.props.LOAD_INSURANCE && this.state.data){
@@ -65,6 +77,7 @@ const mapDispatchToProps = (dispatch) => {
         retrieveUserData:(cb) =>dispatch(retrieveUserData(cb)),
         sendAgentBookingURL: (orderId, type, purchase_type, cb) => dispatch(sendAgentBookingURL(orderId, type, purchase_type, cb)),
         resetUserInsuredData:(criteria) =>dispatch(resetUserInsuredData(criteria)),
+        retrieveEndorsedData:(cb) =>dispatch(retrieveEndorsedData(cb))
         
     }
 }
