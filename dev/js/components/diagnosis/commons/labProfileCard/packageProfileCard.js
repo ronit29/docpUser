@@ -176,7 +176,6 @@ class LabProfileCard extends React.Component {
         let is_insurance_applicable = false
         if(insurance && insurance.is_insurance_covered && insurance.is_user_insured){
             is_insurance_applicable = true
-            pickup_text = ""
         }
         return (
             <div className="pkg-card-container mb-3">
