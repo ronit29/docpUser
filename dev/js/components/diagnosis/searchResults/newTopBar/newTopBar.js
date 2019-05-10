@@ -18,13 +18,13 @@ class TopBar extends React.Component {
             // showPopupContainer: true,
             is_insured: props.filterCriteria && props.filterCriteria.is_insured ? props.filterCriteria.is_insured : false,
             //New filters
-            sort_on: null,
             previous_filters: {},
-            sort_order: null,
-            avg_ratings: [],
+            sort_on: '',
+            sort_order: '',
+            avg_ratings: '',
             availability: [],
-            home_visit: true,
-            lab_visit: true,
+            home_visit: false,
+            lab_visit: false,
             shortURL: "",
             showLocationPopup: false,
         }
@@ -102,12 +102,24 @@ class TopBar extends React.Component {
 
             if(val.includes('price_asc') || val.includes('price_desc') ){
 
-                this.setState({sort_on: 'fees', sort_order: val.includes('price_asc')?'asc':'desc'})
+                if(this.state[type]=='fees' && ( (this.state['sort_order']=='asc' && val.includes('price_asc') ) || (this.state['sort_order']=='desc' && val.includes('price_desc') ) ) ){
+                    this.setState({sort_on: null, sort_order: null})
+                }else{
+                    this.setState({sort_on: 'fees', sort_order: val.includes('price_asc')?'asc':'desc'})
+                }
+
             }else {
-                this.setState({ sort_on: value, sort_order: null })    
+                this.setState({ sort_on: this.state[type]==value?null:value, sort_order: null })    
             }
+        }else if(type.includes('lab_visit') || type.includes('home_visit')){
+
+                if(this.state[type]) {
+                    this.setState({[type]: !this.state[type]})
+                }else {
+                    this.setState({'lab_visit': type.includes('lab_visit')?value:!value, 'home_visit': type.includes('home_visit')?value:!value})
+                }
         }else {
-            this.setState({ [type]: value })    
+            this.setState({ [type]: this.state[type]==value?'':value })     
         }
     }
 
@@ -119,8 +131,17 @@ class TopBar extends React.Component {
             }
             GTM.sendEvent({ data: data })
 
+            let resetFilters = {
+                sort_on: '',
+                sort_order: '',
+                avg_ratings: '',
+                home_visit: false,
+                lab_visit: false,
+                availability: []
+            }
+
             this.setState({
-                ...this.state.previous_filters
+                ...resetFilters
             })
         }else {
             let data = {
@@ -197,8 +218,7 @@ class TopBar extends React.Component {
             sort_on: this.state.sort_on,
             sort_order: this.state.sort_order,
             avg_ratings: this.state.avg_ratings,
-            availability: this.state.availability,
-            specialization: [],
+            availability: [].concat(this.state.availability) || [],
             home_visit: this.state.home_visit,
             lab_visit: this.state.lab_visit
         }
@@ -242,12 +262,9 @@ class TopBar extends React.Component {
         } else {
 
             filterData = {
-                sort_on: null,
-                avg_ratings: [],
+                avg_ratings: '',
                 availability: [],
                 hospital_type: ''
-                /*home_visit: true,
-                lab_visit: true,*/
             }
 
             try {
@@ -258,7 +275,7 @@ class TopBar extends React.Component {
                         if(this.state['lab_visit'] || this.state['home_visit']){
                             filterCount++
                         }
-                    }else if (filter == 'availability' || filter == 'avg_ratings') {
+                    }else if (filter == 'availability') {
                         if (this.state[filter].length) {
                             filterCount++
                         }
@@ -415,23 +432,23 @@ class TopBar extends React.Component {
                                 <div className="sorting-btns-cont">
                                     <h5 className="sort-headings">Ratings</h5>
                                     <div className="sortbtncard">
-                                        <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('3') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '3', true)}>
+                                        <button className={`sortBtns ${this.state.avg_ratings =='3'? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '3', false)}>
                                             {
-                                                this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('3') > -1 ?
+                                                this.state.avg_ratings =='3'?
                                                 <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
                                                 :<img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />
                                             }
                                               3.0 +</button>
-                                        <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4', true)}>
+                                        <button className={`sortBtns ${this.state.avg_ratings =='4'? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4', false)}>
                                             {
-                                                this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4')>-1?
+                                                this.state.avg_ratings =='4'?
                                                 <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
                                                 :<img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} /> 
                                             }
                                            4.0 +</button>
-                                        <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4.5') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4.5', true)}>
+                                        <button className={`sortBtns ${this.state.avg_ratings =='4.5'? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4.5', false)}>
                                             {
-                                                this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4.5')>-1?
+                                                this.state.avg_ratings=='4.5'?
                                                 <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
                                                 :<img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />
                                             }
@@ -442,12 +459,12 @@ class TopBar extends React.Component {
                                     <h5 className="sort-headings">Availability</h5>
                                     <div className="sortbtncard">
                                         <button className={`sortBtns ${this.state.availability && this.state.availability.length && this.state.availability.indexOf('1') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'availability', '1', true)}>Today</button>
-                                        <button className={`sortBtns ${this.state.availability && this.state.availability.length && this.state.availability.indexOf('2') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'availability', '2', true)}>Tommorow</button>
+                                        <button className={`sortBtns ${this.state.availability && this.state.availability.length && this.state.availability.indexOf('2') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'availability', '2', true)}>Tomorrow</button>
                                         <button className={`sortBtns ${this.state.availability && this.state.availability.length && this.state.availability.indexOf('3') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'availability', '3', true)}>Next 3 Days</button>
                                     </div>
                                 </div>
                                 <div className="sorting-btns-cont">
-                                    <h5 className="sort-headings">Hospital Type</h5>
+                                    <h5 className="sort-headings">Visit Type</h5>
                                     <div className="sortbtncard justyfy-twoBtns">
                                         <button className={`sortBtns ${this.state.home_visit ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'home_visit', !this.state.home_visit, false)}>Home Visit</button>
                                         <button className={`sortBtns ${this.state.lab_visit ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'lab_visit', !this.state.lab_visit, false)}>Lab Visit</button>

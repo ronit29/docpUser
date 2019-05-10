@@ -255,7 +255,7 @@ class SearchResultsView extends React.Component {
         let sort_on = filterCriteria.sort_on || ""
         let sort_order = filterCriteria.sort_order || ""
         let availability = filterCriteria.availability || []
-        let avg_ratings = filterCriteria.avg_ratings || []
+        let avg_ratings = filterCriteria.avg_ratings || ''
         let home_visit = filterCriteria.home_visit || false
         let lab_visit = filterCriteria.lab_visit || false
 

@@ -33,11 +33,11 @@ class TopBar extends React.Component {
             test_ids: '',
             package_ids: '',
             previous_filters: {},
-            sort_on: null,
-            sort_order: null,
-            avg_ratings: [],
-            home_visit: true,
-            lab_visit: true,
+            sort_on: '',
+            sort_order: '',
+            avg_ratings: '',
+            home_visit: false,
+            lab_visit: false,
         }
     }
 
@@ -86,7 +86,7 @@ class TopBar extends React.Component {
         let filterState = {
             sort_on: this.state.sort_on,
             sort_order: this.state.sort_order,
-            avg_ratings: this.state.avg_ratings || [],
+            avg_ratings: this.state.avg_ratings || '',
             home_visit: this.state.home_visit,
             lab_visit: this.state.lab_visit,
             gender: this.state.gender,
@@ -116,8 +116,18 @@ class TopBar extends React.Component {
             }
             GTM.sendEvent({ data: data })
 
+            let resetFilters = {
+                sort_on: '',
+                sort_order: '',
+                avg_ratings: '',
+                home_visit: false,
+                lab_visit: false,
+                gender: '',
+                catIds: []
+            }
+
             this.setState({
-                ...this.state.previous_filters
+                ...resetFilters
             })
         }else {
             let data = {
@@ -137,14 +147,11 @@ class TopBar extends React.Component {
         let currentFilters = {
             sort_on: this.state.sort_on,
             sort_order: this.state.sort_order,
-            avg_ratings: this.state.avg_ratings || [],
+            avg_ratings: this.state.avg_ratings || '',
             home_visit: this.state.home_visit,
             lab_visit: this.state.lab_visit,
             gender: this.state.gender,
-            packageType: this.state.packageType,
-            catIds: this.state.catIds,
-            test_ids: this.state.test_ids,
-            package_ids: this.state.package_ids
+            catIds: [].concat(this.state.catIds) || []
         }
 
         this.setState({
@@ -160,7 +167,7 @@ class TopBar extends React.Component {
                 let filterCount = 0
                 for (let filter in this.state.previous_filters) {
 
-                    if (filter.includes('avg_ratings') || filter.includes('catIds') ) {
+                    if (filter.includes('catIds') ) {
                         
                         if (this.state.previous_filters[filter] && this.state[filter].length != this.state.previous_filters[filter].length) {
                             
@@ -188,12 +195,9 @@ class TopBar extends React.Component {
         } else {
 
             filterData = {
-                sort_on: null,
-                avg_ratings: [],
+                avg_ratings: '',
                 hospital_type: '',
                 catIds: []
-                /*home_visit: false,
-                lab_visit: false*/
             }
         }
         try {
@@ -204,7 +208,7 @@ class TopBar extends React.Component {
                     if(this.state['lab_visit'] || this.state['home_visit']){
                         filterCount++
                     }
-                }else if (filter == 'avg_ratings' || filter =='catIds') {
+                }else if (filter =='catIds') {
                     if (this.state[filter].length) {
                         filterCount++
                     }
@@ -251,12 +255,24 @@ class TopBar extends React.Component {
 
             if(val.includes('price_asc') || val.includes('price_desc') ){
 
-                this.setState({sort_on: 'fees', sort_order: val.includes('price_asc')?'asc':'desc'})
+                if(this.state[type]=='fees' && ( (this.state['sort_order']=='asc' && val.includes('price_asc') ) || (this.state['sort_order']=='desc' && val.includes('price_desc') ) ) ){
+                    this.setState({sort_on: null, sort_order: null})
+                }else{
+                    this.setState({sort_on: 'fees', sort_order: val.includes('price_asc')?'asc':'desc'})
+                }
+
             }else {
-                this.setState({ sort_on: value, sort_order: null })    
+                this.setState({ sort_on: this.state[type]==value?null:value, sort_order: null })
             }
+        }else if(type.includes('lab_visit') || type.includes('home_visit')){
+
+                if(this.state[type]) {
+                    this.setState({[type]: !this.state[type]})
+                }else {
+                    this.setState({'lab_visit': type.includes('lab_visit')?value:!value, 'home_visit': type.includes('home_visit')?value:!value})
+                }
         }else {
-            this.setState({ [type]: value })    
+            this.setState({ [type]: this.state[type]==value?'':value })  
         }
     }
 
@@ -327,7 +343,7 @@ class TopBar extends React.Component {
                                                 </div>
                                                 <p>Distance</p>
                                             </div>
-                                            <div className={`sort-cards-list ${this.state.sort_on=='rating'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', '', false)}>
+                                            <div className={`sort-cards-list ${this.state.sort_on=='rating'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'rating', false)}>
                                                 <div className="srt-lst-img">
                                                     {
                                                         this.state.sort_on=='rating'?
@@ -342,25 +358,25 @@ class TopBar extends React.Component {
                                     <div className="sorting-btns-cont">
                                         <h5 className="sort-headings">Ratings</h5>
                                         <div className="sortbtncard">
-                                            <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('3') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '3', true)}>
+                                            <button className={`sortBtns ${this.state.avg_ratings =='3' ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '3', false)}>
 
                                                 {
-                                                    this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('3') > -1 ?
+                                                    this.state.avg_ratings =='3' ?
                                                     <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
                                                     :<img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />
                                                 }  
                                                  3.0 +</button>
-                                            <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4', true)}> 
+                                            <button className={`sortBtns ${this.state.avg_ratings =='4'? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4', false)}> 
 
                                                 {
-                                                    this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4')>-1?
+                                                    this.state.avg_ratings =='4'?
                                                     <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
                                                     :<img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} /> 
                                                 } 
                                                   4.0 +</button>
-                                            <button className={`sortBtns ${this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4.5') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4.5', true)}>
+                                            <button className={`sortBtns ${this.state.avg_ratings =='4.5' ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4.5', false)}>
                                                 {
-                                                    this.state.avg_ratings && this.state.avg_ratings.length && this.state.avg_ratings.indexOf('4.5')>-1?
+                                                    this.state.avg_ratings =='4.5'?
                                                     <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
                                                     :<img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />
                                                 }
@@ -368,7 +384,7 @@ class TopBar extends React.Component {
                                         </div>
                                     </div>
                                     <div className="sorting-btns-cont">
-                                        <h5 className="sort-headings">Hospital Type</h5>
+                                        <h5 className="sort-headings">Visit Type</h5>
                                         <div className="sortbtncard justyfy-twoBtns">
                                             <button className={`sortBtns ${this.state.home_visit ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'home_visit', !this.state.home_visit, false)}>Home Visit</button>
                                             <button className={`sortBtns ${this.state.lab_visit ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'lab_visit', !this.state.lab_visit, false)}>Lab Visit</button>

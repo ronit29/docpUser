@@ -25,11 +25,11 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             //let is_available = _getLocationParamBind('is_available') === "true"
             //let is_female = _getLocationParamBind('is_female') === "true"
             
-            let sort_on = _getLocationParamBind('sort_on') || null
-            let sort_order = _getLocationParamBind('sort_order') || null
+            let sort_on = _getLocationParamBind('sort_on') || ''
+            let sort_order = _getLocationParamBind('sort_order') || ''
             let availability = _getLocationParamBind('availability') || []
-            let avg_ratings = _getLocationParamBind('avg_ratings') || []
-            let gender = _getLocationParamBind('gender') || null
+            let avg_ratings = _getLocationParamBind('avg_ratings') || ''
+            let gender = _getLocationParamBind('gender') || ''
             let sits_at_clinic = _getLocationParamBind('sits_at_clinic') === "true"
             let sits_at_hospital = _getLocationParamBind('sits_at_hospital') === "true"
 
@@ -229,9 +229,9 @@ export function labSearchStateBuilder(selectLocation, querParams, isServer = fal
             let min_price = parseInt(_getLocationParamBind('min_price')) || 0
             let max_price = parseInt(_getLocationParamBind('max_price')) || 20000
             */
-            let sort_on = _getLocationParamBind('sort_on') || null
-            let sort_order = _getLocationParamBind('sort_order') || null
-            let avg_ratings = _getLocationParamBind('avg_ratings') || []
+            let sort_on = _getLocationParamBind('sort_on') || ''
+            let sort_order = _getLocationParamBind('sort_order') || ''
+            let avg_ratings = _getLocationParamBind('avg_ratings') || ''
             let availability = _getLocationParamBind('availability') || []
             let home_visit = _getLocationParamBind('home_visit') ==="true"
             let lab_visit = _getLocationParamBind('lab_visit') ==="true"
@@ -376,9 +376,9 @@ export function PackageSearchStateBuilder(selectLocation, querParams, isServer =
             let min_price = parseInt(_getLocationParamBind('min_price')) || 0
             let max_price = parseInt(_getLocationParamBind('max_price')) || 20000
             */
-            let sort_on = _getLocationParamBind('sort_on') || null
-            let sort_order = _getLocationParamBind('sort_order') || null
-            let avg_rating = _getLocationParamBind('avg_rating') || []
+            let sort_on = _getLocationParamBind('sort_on') || ''
+            let sort_order = _getLocationParamBind('sort_order') || ''
+            let avg_rating = _getLocationParamBind('avg_rating') || ''
             let home_visit = _getLocationParamBind('home_visit') === "true"
             let lab_visit = _getLocationParamBind('lab_visit') === "true"
 
