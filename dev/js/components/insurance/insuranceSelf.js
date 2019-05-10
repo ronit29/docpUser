@@ -58,7 +58,7 @@ class InsuranceSelf extends React.Component{
 				// 	})
 				// }
 			//})
-    	}else{
+    	}else if(this.props.is_endorsement){
     		if(Object.keys(this.props.self_data_values).length>0){
     			profile= Object.assign({}, this.props.self_data_values[this.props.user_data[0].id])
     			this.setState({...profile},()=>{

@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Loader from '../../components/commons/Loader'
 
-import { userData,selectInsuranceProfile, saveCurrentSelectedMembers, pushUserData, resetSelectedInsuranceMembers, getInsurance, getEndorsedMemberList, pushUserEndorsedData} from '../../actions/index.js'
+import { userData,selectInsuranceProfile, saveCurrentSelectedMembers, pushUserData, resetSelectedInsuranceMembers, getInsurance, getEndorsedMemberList, pushUserEndorsedData, selectInsurancePlan} from '../../actions/index.js'
 import InsuranceComponentView from '../../components/insurance/insuranceEndorsementDetailsView.js'
 
 class InsuranceEndorsementDetails extends React.Component{
@@ -17,14 +17,15 @@ class InsuranceEndorsementDetails extends React.Component{
         let self = this
         this.props.getEndorsedMemberList((mem_resp)=>{
             if(mem_resp){
-                this.setState({members_data:mem_resp})
+                this.props.getInsurance(true,(resp)=>{
+                    if(resp && resp.insurance){
+                        let plan = resp.insurance[0].plans.filter(x=>x.id == mem_resp.insurance_plan)[0]
+                        this.props.selectInsurancePlan('plan', plan)
+                        this.setState({members_data:mem_resp , insurance_data:resp})
+                    }
+                })
             }
-        })
-        this.props.getInsurance(true,(resp)=>{
-            if(resp){
-                this.setState({insurance_data:resp})   
-            }
-        })
+        }) 
     }
 	render(){
         if(this.state.members_data && this.state.insurance_data){
@@ -57,7 +58,8 @@ const mapDispatchToProps = (dispatch) => {
         pushUserData :(criteria,callback) => dispatch(pushUserData(criteria,callback)),
         resetSelectedInsuranceMembers: () => dispatch(resetSelectedInsuranceMembers()),
         getEndorsedMemberList:(callback) => dispatch(getEndorsedMemberList(callback)),
-        pushUserEndorsedData :(criteria,callback) => dispatch(pushUserEndorsedData(criteria,callback)),        
+        pushUserEndorsedData :(criteria,callback) => dispatch(pushUserEndorsedData(criteria,callback)),
+        selectInsurancePlan: (plan,criteria) => dispatch(selectInsurancePlan(plan,criteria)),        
     }
 }
 

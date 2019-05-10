@@ -189,7 +189,7 @@ class InsuranceReview extends React.Component{
 					<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
 					<section className="profile-book-screen">
 					<div className="widget">
-						<InsurCommon {...this.props} is_edit={this.state.is_edit}/>
+						<InsurCommon {...this.props} is_edit={this.state.is_edit} is_edit_endorsment={this.props.is_endorsement}/>
 					<div className="insurance-member-container">
 			 			<div className="ins-user-details-lisitng">
 							<p className="sub-form-hed">Proposer</p>
