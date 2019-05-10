@@ -36,8 +36,8 @@ class InsuranceEndoresmentInputView extends React.Component{
     	}
     	let card
     	let membersId = []
-    	if(this.props.endorseData.length>0){
-    		card = this.props.endorseData.map((member, i) => {
+    	if(this.props.endorseData && this.props.endorseData.members.length>0){
+    		card = this.props.endorseData.members.map((member, i) => {
 						membersId.push({[i]: member.id})
 					})
     		console.log(membersId)

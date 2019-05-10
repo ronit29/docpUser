@@ -1,8 +1,8 @@
-import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, INSURANCE_PAY, SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE , SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, PUSH_USER_DATA, RESET_INSURED_DATA} from '../../constants/types';
+import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, INSURANCE_PAY, SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE , SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, PUSH_USER_DATA, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST} from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
 export const getInsurance = (is_endorsement,callback) => (dispatch) => {
-    
+
     return API_GET('/api/v1/insurance/list?is_endorsement='+is_endorsement).then(function (response) {
         dispatch({
             type: GET_INSURANCE,
@@ -211,4 +211,21 @@ export const cancelledInsuranceDetails = (callback) => (dispatch) => {
     }).catch(function (error) {
         if (callback) callback(null)
     })
+}
+
+export const getEndorsedMemberList = (callback) => (dispatch) => {
+    return API_GET('/api/v1/insurance/endorsement').then(function (response) {
+        dispatch({
+            type: ENDORSED_MEMBER_LIST,
+            payload: response
+        })
+        if(callback) callback(response)
+    }).catch(function (error) {
+        dispatch({
+            type: ENDORSED_MEMBER_LIST,
+            payload: null
+        })
+        if (callback) callback(null)
+    })
+
 }

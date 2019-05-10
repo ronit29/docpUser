@@ -27,7 +27,7 @@ class Insurance extends React.Component{
                 this.props.generateInsuranceLead('',phoneNumber,lead_data)
             }
         })*/
-        this.props.getInsurance(false)
+        this.props.getInsurance()
     }
 	render(){
         if(this.props.LOAD_INSURANCE){

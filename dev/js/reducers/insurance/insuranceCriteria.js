@@ -1,4 +1,4 @@
-import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES,SELF_DATA,INSURANCE_PAY,SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE, SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, RESET_INSURED_DATA} from '../../constants/types';
+import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES,SELF_DATA,INSURANCE_PAY,SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE, SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST} from '../../constants/types';
 
 const defaultState = {
 insurnaceData: {},
@@ -9,6 +9,7 @@ members_data_value:{},
 insured_member_list:{},
 member_list_updated:{},
 get_insured_profile:{},
+endorsed_member_data:{},
 LOAD_INSURANCE: false,
 currentSelectedInsuredMembersId: []
 }
@@ -204,6 +205,12 @@ export default function (state = defaultState, action) {
             })
             newState.self_data_values = members
             return newState   
+        }
+        case ENDORSED_MEMBER_LIST :{
+            let newState = { ...state }
+            console.log(action.payload)
+            newState.endorsed_member_data = action.payload
+            return newState
         }
     }
     return state
