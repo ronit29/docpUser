@@ -382,10 +382,10 @@ class InsuranceSelf extends React.Component{
 		  if (x) x = x.getElementsByTagName("div");
 			  if (e.keyCode == 40) {
 			    currentFocus++;
-			    self.addActive(x);
+			    self.addActive(x, currentFocus);
 			  } else if (e.keyCode == 38) {
 			    currentFocus--;
-			    self.addActive(x);
+			    self.addActive(x, currentFocus);
 			  } else if (e.keyCode == 13) {
 			    e.preventDefault();
 			    if (currentFocus > -1) {
@@ -395,7 +395,7 @@ class InsuranceSelf extends React.Component{
 		})
 	}
 
-  	addActive(x) {
+  	addActive(x, currentFocus) {
 	    if (!x) return false;
 	    this.removeActive(x);
 	    if (currentFocus >= x.length) currentFocus = 0;

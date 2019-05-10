@@ -403,7 +403,6 @@ class InsuranceEndoresmentInputView extends React.Component{
 			members={...self.props.self_data_values[value[key]]}
 			return 	insuranceUserData.members.push(members)
 		})
-    	console.log(insuranceUserData)
 		this.props.pushUserEndorsedData(insuranceUserData)
     }
     
@@ -484,8 +483,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 								</div>
 							</div>
 						</section>		
-							<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Update (₹ {this.state.selected_plan_price})
-								<span className="foot-btn-sub-span">{this.state.gst}</span>
+							<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Update
 							</button>
 						</div>
 					<ChatPanel />

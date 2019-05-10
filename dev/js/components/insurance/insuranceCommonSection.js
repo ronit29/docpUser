@@ -15,7 +15,6 @@ class InsuranceCommon extends React.Component{
     	this.setState({selectedProfile:this.props.USER.defaultProfile, selected_plan_price:this.props.selected_plan.amount, ...self.props.self_data_values[this.props.USER.defaultProfile]})
     }
 	render(){
-		console.log(this.props.is_edit_endorsment)
 			return (
 			<div> 
 				<div className="ins-card-head">

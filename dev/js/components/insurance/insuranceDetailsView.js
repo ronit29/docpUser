@@ -379,7 +379,6 @@ class InsuranceInputView extends React.Component{
 			members={...self.props.self_data_values[value[key]]}
 			return 	insuranceUserData.members.push(members)
 		})
-    	console.log(insuranceUserData)
 		this.props.pushUserData(insuranceUserData)
     }
     
