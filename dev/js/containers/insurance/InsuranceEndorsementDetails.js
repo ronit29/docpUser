@@ -1,23 +1,39 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import Loader from '../../components/commons/Loader'
 
 import { userData,selectInsuranceProfile, saveCurrentSelectedMembers, pushUserData, resetSelectedInsuranceMembers, getInsurance} from '../../actions/index.js'
 import InsuranceComponentView from '../../components/insurance/insuranceEndorsementDetailsView.js'
 
 class InsuranceEndorsementDetails extends React.Component{
-
+    constructor(props) {
+        super(props)
+        this.state = {
+            data:null    
+        }
+    }
     componentDidMount() {
         //this.props.getUserProfile()
         this.props.getInsurance(true,(resp)=>{
             // console.log(resp)
+            if(resp){
+                this.setState({data:resp})
+            }
             // alert('s')
         })
     }
 	render(){
-        let abc = [{'relation':'self'},{'relation':'spouse'},{'relation':'child'},{'relation':'child'}]
-		return(
-			<InsuranceComponentView {...this.props} endorseData={abc}/>
-		)
+        let abc = [{'relation':'self','id':'0000'},{'relation':'spouse','id':'1111'},{'relation':'child','id':'22222'},{'relation':'child','id':'3222'}]
+        if(this.state.data){
+    		return(
+    			<InsuranceComponentView {...this.props} endorseData={abc}/>
+    		)
+        }else{
+            return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
+                
+                <Loader/>
+            </div>
+        }
 	}
 }
 

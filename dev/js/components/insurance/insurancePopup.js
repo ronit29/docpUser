@@ -95,7 +95,7 @@ class InsurancePopup extends React.Component{
                     if(Object.keys(self.props.selected_plan).length > 0){
                         self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',this.state.phoneNumber, source)
                     }
-                        this.props.getInsurance((resp)=>{
+                        this.props.getInsurance(false,(resp)=>{
                             if(!resp.certificate){
                                 if(this.props.isLead == 'proceed'){
                                     if (exists.user_exists) {

@@ -19,7 +19,7 @@ class Insurance extends React.Component{
 
     componentDidMount() {
         let parsed = queryString.parse(this.props.location.search)
-        this.props.getInsurance('',resp=>{
+        this.props.getInsurance(false,resp=>{
             if(!resp.certificate){
                 this.props.generateInsuranceLead('','',parsed)
             }

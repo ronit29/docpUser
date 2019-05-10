@@ -34,6 +34,17 @@ class InsuranceEndoresmentInputView extends React.Component{
     	if(window){
     		window.scrollTo(0,0)
     	}
+    	let card
+    	let membersId = []
+    	if(this.props.endorseData.length>0){
+    		card = this.props.endorseData.map((member, i) => {
+						membersId.push({[i]: member.id})
+					})
+    		console.log(membersId)
+    		this.props.saveCurrentSelectedMembers(membersId)
+			this.setState({ saveMembers: true})
+
+    	}
     	this.setState({...self.props.self_data_values, selected_plan_price:this.props.selected_plan.amount})
     	if(this.props.create_payment_resp){
     		if(this.props.create_payment_resp.members && this.props.create_payment_resp.members.length >0){
@@ -44,55 +55,56 @@ class InsuranceEndoresmentInputView extends React.Component{
     }
 
     componentWillReceiveProps(props){
-    	let card
-    	let self = this
-    	let isDummyUser
-    	if(!this.state.saveMembers && Object.keys(props.selected_plan).length >0 && props.USER.defaultProfile && !props.currentSelectedInsuredMembersId.length){
-    		// let loginUser = props.USER.selectedProfile
-    		let loginUser = props.USER.defaultProfile
-    		let membersId = []
-    		let isDefaultUser
-    		if(props.USER.profiles && Object.keys(props.USER.profiles).length && props.USER.profiles[props.USER.defaultProfile]){
-    			isDefaultUser = props.USER.profiles[props.USER.defaultProfile].is_default_user
-    		}
-    		isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
-    		if(!isDummyUser){
-	    		membersId.push({'0':loginUser})
-	    		var n = (props.selected_plan.adult_count + props.selected_plan.child_count) - 1;
-				if(n !== 0){
-					card = [...Array(n)].map((e, i) => {
-						membersId.push({[i+1]: i+1})
-					})
-				}
-			}else{
-				membersId.push({'0':0})
-				var n = (props.selected_plan.adult_count + props.selected_plan.child_count) - 1;
-				if(n !== 0){
-					card = [...Array(n)].map((e, i) => {
-						membersId.push({[i+1]: i+1})
-					})
-				}
-			}
-			props.saveCurrentSelectedMembers(membersId)
-			this.setState({ saveMembers: true})
-    	}
-    	let profileLength = Object.keys(props.USER.profiles).length;
-		let currentSelectedProfiles = []
-		let show_selected_profile = []
-        this.props.currentSelectedInsuredMembersId.map((val,key) => {
-            currentSelectedProfiles.push(val[key])
-        })
-	    if(profileLength > 0){
-	    	if(!props.USER.profiles[props.USER.defaultProfile].isDummyUser){
-				{Object.entries(props.USER.profiles).map(function([key, value]) {
+    	// let card
+    	// let self = this
+    	// let isDummyUser
+    	// let membersId = []
+  //   	if(!this.state.saveMembers && Object.keys(props.selected_plan).length >0 && props.USER.defaultProfile && !props.currentSelectedInsuredMembersId.length){
+  //   		// let loginUser = props.USER.selectedProfile
+  //   		let loginUser = props.USER.defaultProfile
+  //   		let membersId = []
+  //   		let isDefaultUser
+  //   		if(props.USER.profiles && Object.keys(props.USER.profiles).length && props.USER.profiles[props.USER.defaultProfile]){
+  //   			isDefaultUser = props.USER.profiles[props.USER.defaultProfile].is_default_user
+  //   		}
+  //   		isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
+  //   		if(!isDummyUser){
+	 //    		membersId.push({'0':loginUser})
+	 //    		var n = (props.selected_plan.adult_count + props.selected_plan.child_count) - 1;
+		// 		if(n !== 0){
+		// 			card = [...Array(n)].map((e, i) => {
+		// 				membersId.push({[i+1]: i+1})
+		// 			})
+		// 		}
+		// 	}else{
+		// 		membersId.push({'0':0})
+		// 		var n = (props.selected_plan.adult_count + props.selected_plan.child_count) - 1;
+		// 		if(n !== 0){
+		// 			card = [...Array(n)].map((e, i) => {
+		// 				membersId.push({[i+1]: i+1})
+		// 			})
+		// 		}
+		// 	}
+		// 	props.saveCurrentSelectedMembers(membersId)
+		// 	this.setState({ saveMembers: true})
+  //   	}
+  //   	let profileLength = Object.keys(props.USER.profiles).length;
+		// let currentSelectedProfiles = []
+		// let show_selected_profile = []
+  //       this.props.currentSelectedInsuredMembersId.map((val,key) => {
+  //           currentSelectedProfiles.push(val[key])
+  //       })
+	 //    if(profileLength > 0){
+	 //    	if(!props.USER.profiles[props.USER.defaultProfile].isDummyUser){
+		// 		{Object.entries(props.USER.profiles).map(function([key, value]) {
 
-					if(currentSelectedProfiles.indexOf(parseInt(key)) == -1 && key !== props.USER.defaultProfile){
-						show_selected_profile.push(key)
-					}
-				})}
-				self.setState({show_selected_profiles : show_selected_profile})
-			}
-		}
+		// 			if(currentSelectedProfiles.indexOf(parseInt(key)) == -1 && key !== props.USER.defaultProfile){
+		// 				show_selected_profile.push(key)
+		// 			}
+		// 		})}
+		// 		self.setState({show_selected_profiles : show_selected_profile})
+		// 	}
+		// }
     }
 
     checkForValidation(profile_data, member_id){
@@ -384,7 +396,6 @@ class InsuranceEndoresmentInputView extends React.Component{
     }
     
 	render(){
-		console.log(this.props.endorseData.length>0)
 		let child
 		let adult
 		let userProfile

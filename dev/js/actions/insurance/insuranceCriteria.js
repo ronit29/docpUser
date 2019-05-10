@@ -2,11 +2,8 @@ import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, 
 import { API_GET,API_POST } from '../../api/api.js';
 
 export const getInsurance = (is_endorsement,callback) => (dispatch) => {
-    let endorse
-    if(is_endorsement){
-        endorse = 'is_endorsement='+is_endorsement
-    }
-    return API_GET('/api/v1/insurance/list?'+endorse).then(function (response) {
+    
+    return API_GET('/api/v1/insurance/list?is_endorsement='+is_endorsement).then(function (response) {
         dispatch({
             type: GET_INSURANCE,
             payload: response
