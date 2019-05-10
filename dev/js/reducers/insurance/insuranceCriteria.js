@@ -208,8 +208,7 @@ export default function (state = defaultState, action) {
         }
         case ENDORSED_MEMBER_LIST :{
             let newState = { ...state }
-            console.log(action.payload)
-            newState.endorsed_member_data = action.payload
+            newState.endorsed_member_data.members = action.payload.members
             return newState
         }
     }

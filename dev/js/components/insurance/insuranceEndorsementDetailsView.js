@@ -141,12 +141,13 @@ class InsuranceEndoresmentInputView extends React.Component{
     	let fullnameObj={}
     	let isDummyUser
     	if(Object.keys(this.props.self_data_values).length > 0){
-    		isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
-    		if(!isDummyUser){
-    			self_profile  = Object.assign({}, this.props.self_data_values[this.props.USER.defaultProfile])	
-    		}else{
-    			self_profile  = Object.assign({}, this.props.self_data_values[0])
-    		}
+    		// isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
+    		// if(!isDummyUser){
+    		// 	self_profile  = Object.assign({}, this.props.self_data_values[this.props.USER.defaultProfile])	
+    		// }else{
+    		// 	self_profile  = Object.assign({}, this.props.self_data_values[0])
+    		// }
+    		self_profile  = Object.assign({}, this.props.self_data_values[0])
     	}
     	this.props.currentSelectedInsuredMembersId.map((val,key) => {
     		if(Object.keys(this.props.self_data_values).length > 0){
@@ -365,12 +366,30 @@ class InsuranceEndoresmentInputView extends React.Component{
 				is_disable = true
 				errorMessagesObj.sameName = '*Name of the members cannot be same'
 			}
+			// validating is user had changed anything	
+			if(this.props.endorsed_member_data.members.length == Object.keys(this.props.self_data_values).length){
+				let abcd = []
+				for(var i =0;i < this.props.endorsed_member_data.members.length;i++) {
+					let id = this.props.endorsed_member_data.members[i].id
+					if(this.props.self_data_values[id]) {
+						let selectedProfile = this.props.self_data_values[id]
+						let selectedApiProfile = this.props.endorsed_member_data.members[i]
+						for(let j in  selectedApiProfile ) {
+							if(selectedProfile[j] != selectedApiProfile[j]) {
+								is_disable = true
+								member_ref = `member_${id}`
+							}
+						} 
+					}
+				}
+			} 
+			console.log(member_ref)
 		this.setState({validateErrors: validatingErrors,validateOtherErrors: validatingOtherErrors,validatingNames:invalidname,validateDobErrors:validatingDobErrors,errorMessages:errorMessagesObj})
     	if(is_disable && document.getElementById(member_ref)){    		
     		document.getElementById(member_ref).scrollIntoView();
     	}else{
-    		this.SaveUserData(this.props)
-			this.props.history.push('/insurance/insurance-user-details-review')
+    		// this.SaveUserData(this.props)
+			// this.props.history.push('/insurance/insurance-user-details-review')
     	}
     }
 

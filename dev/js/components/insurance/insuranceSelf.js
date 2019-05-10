@@ -470,7 +470,7 @@ class InsuranceSelf extends React.Component{
 					<label className="ck-bx" onChange={this.handleLastname.bind(this)} style={{'fontWeight': '400', 'fontSize': '14'}}>I dont have last name<input type="checkbox" checked={this.state.no_lname} value="on"/>
 					<span className="checkmark"></span></label>
 				</div>
-				<div className="row no-gutters" id={isDummyUser?'member_0':`member_${this.props.USER.defaultProfile}`}>
+				<div className="row no-gutters" id={isDummyUser?'member_0':this.props.is_endorsement?`member_${this.props.member_id}`:`member_${this.props.USER.defaultProfile}`}>
 					<div className="col-12">
 						{
 							this.props.selected_plan.adult_count== 2?
