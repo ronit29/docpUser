@@ -43,8 +43,8 @@ class InsuranceSelf extends React.Component{
     	this.handleEmail = this.handleEmail.bind(this);
     }
     componentDidMount(){
-    	let profile 
-    	if(this.props.self_data_values[this.props.USER.defaultProfile]){
+    	let profile
+    	if(this.props.self_data_values[this.props.USER.defaultProfile] && !this.props.is_endorsement){
     		profile= Object.assign({}, this.props.self_data_values[this.props.USER.defaultProfile])
     		this.getUserDetails(profile)
  			//this.setState({...this.props.self_data_values[this.props.USER.defaultProfile]},()=>{
@@ -58,13 +58,27 @@ class InsuranceSelf extends React.Component{
 				// 	})
 				// }
 			//})
+    	}else{
+    		if(Object.keys(this.props.self_data_values).length>0){
+    			profile= Object.assign({}, this.props.self_data_values[this.props.user_data[0].id])
+    			this.setState({...profile},()=>{
+	    				this.handleSubmit()
+	    			})
+    		}else{
+    			if(this.props.user_data && this.props.user_data.length > 0){
+	    			this.setState({...this.props.user_data[0], name:this.props.user_data[0].first_name},()=>{
+	    				this.handleSubmit()
+	    			})
+    			}
+    		}
+    		
     	}
     }
     componentWillReceiveProps(props) {
     	let newName=[]
     	let self = this
     	let profileLength = Object.keys(props.USER.profiles).length;
-    	if(profileLength > 0 && this.state.profile_flag){
+    	if(profileLength > 0 && this.state.profile_flag && !props.is_endorsement){
 	    	if(Object.keys(props.self_data_values).length>0){
 	    		let isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
 	    		let profile
@@ -96,6 +110,8 @@ class InsuranceSelf extends React.Component{
 					newName =  profile.name.split(" ")
 					this.getUserDetails(profile)
     		}	    	
+    	}else{
+
     	}
     }
     getUserDetails(profile){

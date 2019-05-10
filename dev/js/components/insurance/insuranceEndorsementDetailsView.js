@@ -40,7 +40,6 @@ class InsuranceEndoresmentInputView extends React.Component{
     		card = this.props.endorseData.members.map((member, i) => {
 						membersId.push({[i]: member.id})
 					})
-    		console.log(membersId)
     		this.props.saveCurrentSelectedMembers(membersId)
 			this.setState({ saveMembers: true})
 
@@ -399,15 +398,11 @@ class InsuranceEndoresmentInputView extends React.Component{
 		let child
 		let adult
 		let userProfile
-		let selectedProfileId = parseInt(this.props.USER.defaultProfile)
-		if(Object.keys(this.props.selected_plan).length >0){
-		
-			userProfile = Object.assign({}, this.props.USER.profiles[this.props.USER.defaultProfile])
-			
+		if(this.props.endorseData && this.props.endorseData.members.length>0 && this.props.currentSelectedInsuredMembersId.length >0){
 			if(this.props.selected_plan.adult_count == 2 && this.props.currentSelectedInsuredMembersId.length>1){
-			
 				adult = <InsurOthers {...this.props} 
-							self_gender={userProfile.gender} 
+							// self_gender={userProfile.gender} 
+							self_gender='m'
 							param_id = {'1'} 
 							member_id={this.props.currentSelectedInsuredMembersId[1]['1']} 
 							checkForValidation ={this.checkForValidation.bind(this)} 
@@ -419,6 +414,8 @@ class InsuranceEndoresmentInputView extends React.Component{
 							validateDobErrors={[]} 
 							errorMessages={this.state.errorMessages} 
 							validatingNames={this.state.validatingNames||[]}
+							is_endorsement = {true}
+							user_data={this.props.endorsed_member_data.members.filter(x=>x.relation == 'spouse')}
 						/>
 			}
 		
@@ -443,12 +440,13 @@ class InsuranceEndoresmentInputView extends React.Component{
 									validateDobErrors={this.state.validateDobErrors[i] || []} 
 									errorMessages={this.state.errorMessages} 
 									validatingNames={this.state.validatingNames||[]}
+									is_endorsement = {true}
+									user_data={this.props.endorsed_member_data.members.filter(x=>x.relation != 'self' && x.relation !='spouse' && x.id==data[i] )}
 								/>
 					}
 				})
 			}
 
-		}
 		return(
 			<div className="profile-body-wrap">
 	            <ProfileHeader /> 
@@ -464,7 +462,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 									<p className="fill-error-span fw-500 text-right d-block" style={{marginTop:'0px', fontSize: '11px'}}>*All fields are mandatory
 									</p>
 									<div className="insurance-member-details">
-										<InsurSelf {...this.props} checkForValidation ={this.checkForValidation.bind(this)} id={`member_${this.props.USER.defaultProfile}`} member_id={this.props.USER.defaultProfile} validateErrors={this.state.validateErrors['0'] || []} validateOtherErrors={this.state.validateOtherErrors['0'] || []} createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} errorMessages={this.state.errorMessages}/>
+										<InsurSelf {...this.props} checkForValidation ={this.checkForValidation.bind(this)} id={`member_${this.props.currentSelectedInsuredMembersId[0]['0']}`} member_id={this.props.currentSelectedInsuredMembersId[0]['0']} validateErrors={this.state.validateErrors['0'] || []} validateOtherErrors={this.state.validateOtherErrors['0'] || []} createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} errorMessages={this.state.errorMessages} is_endorsement = {true} user_data={this.props.endorsed_member_data.members.filter(x=>x.relation == 'self')}/>
 										{adult}
 										{child}
 									</div>
@@ -480,6 +478,9 @@ class InsuranceEndoresmentInputView extends React.Component{
 				</section>
 			</div>
 			)
+		}else{
+			return <div></div>
+		}
 	}
 	
 }

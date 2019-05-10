@@ -31,37 +31,55 @@ class InsuranceOthers extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
+	componentDidMount(){
+		let profile
+		if(this.props.is_endorsement){
+			if(Object.keys(this.props.self_data_values).length>0){
+				profile= Object.assign({}, this.props.self_data_values[this.props.user_data[0].id])
+				this.setState({...profile},()=>{
+	    				this.handleSubmit()
+	    			})
+			}else{
+				if(this.props.user_data && this.props.user_data.length > 0){
+	    			this.setState({...this.props.user_data[0], name:this.props.user_data[0].first_name},()=>{
+	    				this.handleSubmit()
+	    			})
+				}
+			}
+		}
+	}
+
 	componentWillReceiveProps(props) {
 		let self = this
 		let adult_title
 		let adult_gender
-		if(props.self_data_values[props.member_id]){
-
-			let profile = Object.assign({}, this.props.self_data_values[this.props.member_id])
-			let nextProfile = Object.assign({}, props.self_data_values[props.member_id])
-			if (JSON.stringify(this.state) != JSON.stringify(nextProfile)) {
-				this.setState({ ...nextProfile })
+		if(!props.is_endorsement){
+			if(props.self_data_values[props.member_id]){
+				let profile = Object.assign({}, this.props.self_data_values[this.props.member_id])
+				let nextProfile = Object.assign({}, props.self_data_values[props.member_id])
+				if (JSON.stringify(this.state) != JSON.stringify(nextProfile)) {
+					this.setState({ ...nextProfile })
+				}
+			}else if(props.member_id && !this.state.setDefault){
+				if(props.self_gender == 'm'){
+					adult_title = 'mrs.'
+					adult_gender = 'f'
+				}else if(props.self_gender == 'f'){
+					adult_title = 'mr.'
+					adult_gender = 'm'
+				}
+				this.setState({id: props.member_id, setDefault:true}, () => {
+					if(this.props.is_child_only){
+						this.setState({member_type:'child'},() =>{
+							self.handleSubmit()
+						})
+					}else{
+						this.setState({member_type:'adult',relation:'spouse',title:adult_title,gender:adult_gender,only_adult:true},() =>{
+							self.handleSubmit()
+						})
+					}					
+				})
 			}
-
-		}else if(props.member_id && !this.state.setDefault){
-			if(props.self_gender == 'm'){
-				adult_title = 'mrs.'
-				adult_gender = 'f'
-			}else if(props.self_gender == 'f'){
-				adult_title = 'mr.'
-				adult_gender = 'm'
-			}
-			this.setState({id: props.member_id, setDefault:true}, () => {
-				if(this.props.is_child_only){
-					this.setState({member_type:'child'},() =>{
-						self.handleSubmit()
-					})
-				}else{
-					this.setState({member_type:'adult',relation:'spouse',title:adult_title,gender:adult_gender,only_adult:true},() =>{
-						self.handleSubmit()
-					})
-				}					
-			})
 		}
 	}
 	handleTitle(field, event) {

@@ -9,7 +9,7 @@ class InsuranceEndorsementDetails extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-            data:null,
+            insurance_data:null,
             members_data:null    
         }
     }
@@ -23,14 +23,13 @@ class InsuranceEndorsementDetails extends React.Component{
         this.props.getInsurance(true,(resp)=>{
             // console.log(resp)
             if(resp){
-             this.setState({data:resp})   
+             this.setState({insurance_data:resp})   
             }
             // alert('s')
         })
     }
 	render(){
-        let abc = [{'relation':'self','id':'0000'},{'relation':'spouse','id':'1111'},{'relation':'child','id':'22222'},{'relation':'child','id':'3222'}]
-        if(this.state.members_data){
+        if(this.state.members_data && this.state.insurance_data){
     		return(
     			<InsuranceComponentView {...this.props} endorseData={this.state.members_data}/>
     		)
