@@ -1124,6 +1124,18 @@ p.top-head-link.card-lab-link span {
 		margin-right: 10px !important;
 	}
 }
+@media(min-width: 992px) {
+.col-lg-cstm-1 {
+	-ms-flex: 0 0 16.666667%;
+	flex: 0 0 11.666667%;
+	max-width: 11.666667%;
+}
+.col-lg-cstm-11 {
+	-ms-flex: 0 0 83.333333%;
+	flex: 0 0 88.333333%;
+	max-width: 88.333333%;
+}
+}
 
 @media (max-height: 355px) {
 	.float-chat-height {
@@ -5673,7 +5685,7 @@ button.add-shpng-cart-btn.update-btn {
     top: 0;
     left: -100%;
     transition: all ease-in-out .5s;
-    width: 80%;
+    width: 25%;
 }
 
 .left-menu{
@@ -5860,7 +5872,6 @@ button.add-shpng-cart-btn.update-btn {
 }
 .ham-menu{
 	float: left;
-	display: none;
 	cursor: pointer;
 }
 .ham-menu img{
@@ -5877,16 +5888,27 @@ button.add-shpng-cart-btn.update-btn {
     margin-top: 10px;
     margin-right: 0;
 }
-.cl-overlay{
+/* .cl-overlay{
 	display: none;
-}
+} */
 .pos-rel{
 	position: relative;
+}
+.col-d-width-ease{
+	left: 0;
+	transition: all ease-in-out .5s;
+}
+
+.cl-overlay{
+	display: block;
 }
 @media screen and (max-width: 991px){
 	.ham-menu img{
 		margin-top: 15px;
 		height: 13px;
+	}
+	.col-d-width{
+		width: 35%;
 	}
 }
 @media screen and (max-width: 767px){
@@ -5896,13 +5918,10 @@ button.add-shpng-cart-btn.update-btn {
 	.doc-header{
 		z-index: 999;
 	}
-	.col-d-width-ease{
-		left: 0;
-		transition: all ease-in-out .5s;
-   }
-   .cl-overlay{
-   	display: block;
-   }
+	.col-d-width{
+		width: 80%;
+	}
+	
    .pkgSliderContainer{
     margin: 0 -15px;
 }
