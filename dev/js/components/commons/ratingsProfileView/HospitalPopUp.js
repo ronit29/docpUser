@@ -58,8 +58,8 @@ class HospitalPopUp extends React.Component {
             return (<div className="raiting-popup">
                 <div className="home-rating-card">
                     <div className="rate-card-header">
-                    <span className="rate-pop-back"><img src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} className="img-fluid" /></span>
-                        Rate your Experience
+                    {/* <span className="rate-pop-back"><img src={ASSETS_BASE_URL + "/img/customer-icons/back-icon.png"} className="img-fluid" /></span> */}
+                        Choose Clinic to rate Doctor
                         <span><img onClick={this.declineRating.bind(this)} src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} className="img-fluid" /></span>
                     </div>
                     <div className="rate-seceltion-cont">
