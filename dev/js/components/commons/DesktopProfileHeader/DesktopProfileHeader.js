@@ -180,7 +180,7 @@ class DesktopProfileHeader extends React.Component {
 
                     <div className="row align-items-center">
 
-                        <div className="col-lg-1 col-md-4 col-5 align-items-center pr-0" onClick={() => {
+                        <div className="col-lg-cstm-1 col-md-4 col-5 align-items-center pr-0" onClick={() => {
                             this.props.history.push('/')
                         }}>
                             <div className="ham-menu" onClick={(e) => {
@@ -197,7 +197,7 @@ class DesktopProfileHeader extends React.Component {
                         </div>
 
 
-                        <div className="col-lg-11 col-md-8 col-8 d-none d-lg-block ml-auto text-right p-0 pl-0">
+                        <div className="col-lg-cstm-11 col-md-8 col-8 d-none d-lg-block ml-auto text-right p-0 pl-0">
                             <div className="header-search-full-widht ml-20">
                                 {/* <div className="head-links" onClick={() => {
                                 let data = {
