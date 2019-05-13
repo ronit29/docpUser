@@ -65,7 +65,7 @@ class TopBar extends React.Component {
                 if (i != 0) {
                     final += ', '
                 }
-                final += `${curr.name}`
+                final += `${curr.name?curr.name:''}`
                 return final
             }, "")
         }
@@ -165,9 +165,9 @@ class TopBar extends React.Component {
                                     </ul>
                                 </div>
                                 <div className="filter-title">
-                                    {this.props.hospital_search_results && this.props.hospital_search_results.count?this.props.hospital_search_results.count: 'No'} Hospitals {criteriaStr ? "for" : ""}
+                                    {this.props.hospital_search_results && this.props.hospital_search_results.count?this.props.hospital_search_results.count: 'No'} results found {criteriaStr ? "for Best " : "for "}
                                     <h1 className="search-result-heading">
-                                        <span className="fw-700"> {criteriaStr} </span>
+                                        <span className="fw-700"> {`${criteriaStr?criteriaStr:''} Hospitals`} </span>
                                         <span className="search-result-span" onClick={
                                             this.goToLocation.bind(this)}>
                                             {

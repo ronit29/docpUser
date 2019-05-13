@@ -25,7 +25,7 @@ class CitiesSpecialitiesView extends React.Component {
 								if (!this.state.showMore && i >= 20) {
 									style = { display: 'none' }
 								}
-								return <div style={style} className="col-12 col-md-6" key={i} onClick={() => { this.props.history.push(`/${city.url}`) }}>
+								return <div style={style} className="col-12 col-md-6 tests-brdr-btm" key={i} onClick={() => { this.props.history.push(`/${city.url}`) }}>
 									<div className="anchor-data-style">
 										<a href={`/${city.url}`} onClick={(e) => { e.preventDefault() }}>{`${city.title}`}</a>
 										<span className="sitemap-count">{`(${city.count})`}</span>

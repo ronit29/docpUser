@@ -18,7 +18,7 @@ class PincodePopupError extends React.Component {
 	                            It looks like pincode and address you have entered are not of the same location.Please change one of them to proceed</p>
 	                        <div className="search-el-btn-container">
 	                            <button onClick={()=>this.props.clickPopUp(1)}>Change Pincode</button>
-	                            <span className="src-el-btn-border"></span>
+	                            {/* <span className="src-el-btn-border"></span> */}
 	                            <button onClick={()=>this.props.clickPopUp(2)}>Change Address</button>
 	                        </div>
 	                    </div>
