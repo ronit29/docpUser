@@ -86,7 +86,6 @@ class InsuranceReview extends React.Component{
     		city_code = endorsedSelf.city_code
     		state = endorsedSelf.state
     		state_code = endorsedSelf.state_code
-    		is_change=true
     		// show_lname_flag = this.props.self_data_values[0].show_lname_flag
     	}
 
@@ -96,7 +95,7 @@ class InsuranceReview extends React.Component{
     	this.props.currentSelectedInsuredMembersId.map((val,key) => {
     		currentSelectedProfiles.push(val[key])
     	})
-    		
+    	let is_member_updated	
     	{Object.entries(this.props.currentSelectedInsuredMembersId).map(function([key, value]) {
     		let param =this.props.self_data_values[value[key]]
 				members={}
@@ -107,6 +106,15 @@ class InsuranceReview extends React.Component{
 				}else{
 					members.middle_name=param.middle_name
 		    		members.last_name=param.last_name
+				}
+
+				if(this.props.members_proofs && this.props.members_proofs.length>0){
+					is_member_updated = this.props.members_proofs.filter((x=>x.id == param.id))
+					if(is_member_updated && is_member_updated.length > 0){
+						members.is_change=true
+					}else{
+						members.is_change=false
+					}
 				}
 		    	
 		    	members.first_name=param.name
@@ -125,7 +133,6 @@ class InsuranceReview extends React.Component{
 		    	members.profile=param.profile_id
 		    	members.relation=param.relation
 		    	members.user_form_id=param.id
-		    	members.is_change=is_change
 				return 	insurance_pay.members.push(members)
 		    
 		},this)}
