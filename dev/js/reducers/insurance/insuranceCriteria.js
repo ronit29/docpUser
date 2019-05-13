@@ -217,14 +217,24 @@ export default function (state = defaultState, action) {
                 ...state,
                 members_proofs: [].concat(state.members_proofs)
             }
-            console.log(action.payload)
             let ids
             if(newState.members_proofs.length > 0){
-                ids = newState.members_proofs.filter(x=>x.id == action.payload.id)
-                if(ids.length){
-                    console.log(ids)
+
+                let found = []
+                newState.members_proofs = newState.members_proofs.filter((data)=> {
+
+                    if(data.id == action.payload.id) {
+                        found.push(data)
+                        return false
+                    }
+                    return true
+                })
+
+                if(found) {
+                    let data = Object.assign({}, found[0], action.payload)    
+                    newState.members_proofs.push(data)
                 }else{
-                    newState.members_proofs.push(action.payload)    
+                    newState.members_proofs.push(action.payload)
                 }
             }else{
                 newState.members_proofs.push(action.payload)

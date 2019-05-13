@@ -407,7 +407,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 		this.props.pushUserEndorsedData(insuranceUserData)
     }
 
-    pickFile(member_id,e) {
+    pickFile(member_id,img_type,e) {
         if (e.target.files && e.target.files[0]) {
             const compress = new Compress()
             let file = e.target.files[0]
@@ -422,7 +422,7 @@ class InsuranceEndoresmentInputView extends React.Component{
                 const file = Compress.convertBase64ToFile(base64str, imgExt)
                 this.getBase64(file, (dataUrl) => {
                     // this.props.toggleOpenCrop()
-                    this.finishCrop(dataUrl,member_id)
+                    this.finishCrop(dataUrl,member_id,img_type)
                     this.setState({ dataUrl })
                 })
             }).catch((e) => {
@@ -446,6 +446,7 @@ class InsuranceEndoresmentInputView extends React.Component{
     finishCrop(dataUrl, member_id,img_type) {
         let file_blob_data = this.dataURItoBlob(dataUrl)
         let mem_data={}
+        let existingData
         this.setState({
             dataUrl: null,
             // loading: true
@@ -455,8 +456,38 @@ class InsuranceEndoresmentInputView extends React.Component{
             let form_data = new FormData()
             form_data.append("profile_image", file_blob_data, "imageFilename.jpeg")
             mem_data.id = member_id
-            mem_data.front_img = file_blob_data.size
-            mem_data.back_img = file_blob_data.type
+            mem_data.img_type = img_type
+            if(this.props.members_proofs.length > 0){
+            	existingData =this.props.members_proofs.filter((x=>x.id == member_id))
+            	if(existingData.length > 0){
+            		if(img_type== 'img1'){
+		            	mem_data.front_img = file_blob_data.size	
+		            	mem_data.back_img = existingData[0].back_img
+		            }
+		            if(img_type== 'img2'){
+		            	mem_data.front_img = existingData[0].front_img
+		            	mem_data.back_img = file_blob_data.type
+		            }
+            	}else{
+            		if(img_type== 'img1'){
+		            	mem_data.front_img = file_blob_data.size	
+		            	mem_data.back_img = ''
+		            }
+		            if(img_type== 'img2'){
+		            	mem_data.front_img = ''
+		            	mem_data.back_img = file_blob_data.type
+		            }
+            	}
+            }else{
+            	if(img_type == 'img1'){
+            		mem_data.front_img = file_blob_data.size	
+            		mem_data.back_img = ''
+	            }
+	            if(img_type == 'img2'){
+	            	mem_data.front_img = ''
+	            	mem_data.back_img = file_blob_data.type
+	            }
+            }
             this.props.storeMemberProofs(mem_data)
             this.props.uploadProof(form_data, member_id, (err, data) => {
             	// if(data){
