@@ -456,6 +456,7 @@ class InsuranceEndoresmentInputView extends React.Component{
             form_data.append("profile_image", file_blob_data, "imageFilename.jpeg")
             mem_data.id = member_id
             mem_data.front_img = file_blob_data.size
+            mem_data.back_img = file_blob_data.type
             this.props.storeMemberProofs(mem_data)
             this.props.uploadProof(form_data, member_id, (err, data) => {
             	// if(data){

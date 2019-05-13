@@ -789,10 +789,17 @@ class InsuranceSelf extends React.Component{
 				</div>
 				<div id={`member_${this.props.member_id}_upload`}>
 					<span className="cam-icon" onClick={() => {
-                            document.getElementById('imageFilePicker_'+this.props.member_id).click()
-                            document.getElementById('imageFilePicker_'+this.props.member_id).value = ""
+                            document.getElementById('imageFilePicker_'+this.props.member_id+'_img1').click()
+                            document.getElementById('imageFilePicker_'+this.props.member_id+'_img1').value = ""
                         }}>Upload
-                        <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}`} onChange={this.props.uploadProof.bind(this,this.props.member_id)} />
+                        <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_img1`} onChange={this.props.uploadProof.bind(this,this.props.member_id,'img1')} />
+                    </span>
+                    <br/>
+                    <span className="cam-icon" onClick={() => {
+                            document.getElementById('imageFilePicker_'+this.props.member_id+'_img2').click()
+                            document.getElementById('imageFilePicker_'+this.props.member_id+'_img2').value = ""
+                        }}>Add More
+                        <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_img2`} onChange={this.props.uploadProof.bind(this,this.props.member_id,'img2')} />
                     </span>
 				</div>
 				</div>
