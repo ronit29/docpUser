@@ -499,17 +499,17 @@ class InsuranceOthers extends React.Component {
 					</div>
 					<div id={`member_${this.props.member_id}_upload`}>
 					<span className="cam-icon" onClick={() => {
-                            document.getElementById('imageFilePicker_'+this.props.member_id+'_img1').click()
-                            document.getElementById('imageFilePicker_'+this.props.member_id+'_img1').value = ""
+                            document.getElementById('imageFilePicker_'+this.props.member_id+'_front').click()
+                            document.getElementById('imageFilePicker_'+this.props.member_id+'_front').value = ""
                         }}>Upload
-                        <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_img1`} onChange={this.props.uploadProof.bind(this,this.props.member_id,'img1')} />
+                        <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_front`} onChange={this.props.uploadProof.bind(this,this.props.member_id,'front')} />
                     </span>
                     <br/>
                     <span className="cam-icon" onClick={() => {
-                            document.getElementById('imageFilePicker_'+this.props.member_id+'_img2').click()
-                            document.getElementById('imageFilePicker_'+this.props.member_id+'_img2').value = ""
+                            document.getElementById('imageFilePicker_'+this.props.member_id+'_back').click()
+                            document.getElementById('imageFilePicker_'+this.props.member_id+'_back').value = ""
                         }}>Add More
-                        <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_img2`} onChange={this.props.uploadProof.bind(this,this.props.member_id,'img2')} />
+                        <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_back`} onChange={this.props.uploadProof.bind(this,this.props.member_id,'back')} />
                     </span>
 				</div>
 				</div>

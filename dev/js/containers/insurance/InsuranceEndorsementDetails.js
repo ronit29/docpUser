@@ -61,7 +61,7 @@ const mapDispatchToProps = (dispatch) => {
         pushUserEndorsedData :(criteria,callback) => dispatch(pushUserEndorsedData(criteria,callback)),
         selectInsurancePlan: (plan,criteria) => dispatch(selectInsurancePlan(plan,criteria)),        
         uploadProof:(profileData, profileId, cb) =>dispatch(uploadProof(profileData, profileId, cb)),
-        storeMemberProofs:(imgUrl,cb)=>dispatch(storeMemberProofs(imgUrl,cb))
+        storeMemberProofs:(imgUrl,imgType,cb)=>dispatch(storeMemberProofs(imgUrl,imgType,cb))
     }
 }
 

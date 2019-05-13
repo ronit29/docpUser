@@ -454,42 +454,42 @@ class InsuranceEndoresmentInputView extends React.Component{
             // this.props.toggleOpenCrop()
             // document.getElementById('imageFilePicker').value = ""
             let form_data = new FormData()
-            form_data.append("profile_image", file_blob_data, "imageFilename.jpeg")
+            form_data.append("document_first_image", file_blob_data, "imageFilename.jpeg")
             mem_data.id = member_id
             mem_data.img_type = img_type
             if(this.props.members_proofs.length > 0){
             	existingData =this.props.members_proofs.filter((x=>x.id == member_id))
             	if(existingData.length > 0){
-            		if(img_type== 'img1'){
+            		if(img_type== 'front'){
 		            	mem_data.front_img = file_blob_data.size	
 		            	mem_data.back_img = existingData[0].back_img
 		            }
-		            if(img_type== 'img2'){
+		            if(img_type== 'back'){
 		            	mem_data.front_img = existingData[0].front_img
 		            	mem_data.back_img = file_blob_data.type
 		            }
             	}else{
-            		if(img_type== 'img1'){
+            		if(img_type== 'front'){
 		            	mem_data.front_img = file_blob_data.size	
 		            	mem_data.back_img = ''
 		            }
-		            if(img_type== 'img2'){
+		            if(img_type== 'back'){
 		            	mem_data.front_img = ''
 		            	mem_data.back_img = file_blob_data.type
 		            }
             	}
             }else{
-            	if(img_type == 'img1'){
+            	if(img_type == 'front'){
             		mem_data.front_img = file_blob_data.size	
             		mem_data.back_img = ''
 	            }
-	            if(img_type == 'img2'){
+	            if(img_type == 'back'){
 	            	mem_data.front_img = ''
 	            	mem_data.back_img = file_blob_data.type
 	            }
             }
             this.props.storeMemberProofs(mem_data)
-            this.props.uploadProof(form_data, member_id, (err, data) => {
+            this.props.uploadProof(form_data, member_id,img_type, (err, data) => {
             	// if(data){
             	
             	// }
