@@ -5,6 +5,7 @@ import InsurSelf from './insuranceSelf.js'
 import InsurOthers from './insuranceFamily.js'
 import InsurCommon from './insuranceCommonSection.js'
 import SnackBar from 'node-snackbar'
+const Compress = require('compress.js')
 
 class InsuranceEndoresmentInputView extends React.Component{
 	constructor(props) {
@@ -377,7 +378,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 						for(let j in  selectedApiProfile ) {
 							if(selectedProfile[j] != selectedApiProfile[j]) {
 								is_disable = true
-								member_ref = `member_${id}`
+								member_ref = `member_${id}_upload`
 							}
 						} 
 					}
@@ -405,7 +406,76 @@ class InsuranceEndoresmentInputView extends React.Component{
 		})
 		this.props.pushUserEndorsedData(insuranceUserData)
     }
+
+    pickFile(member_id,e) {
+        if (e.target.files && e.target.files[0]) {
+            const compress = new Compress()
+            let file = e.target.files[0]
+            compress.compress([file], {
+                quality: 1,
+                maxWidth: 1000,
+                maxHeight: 1000,
+            }).then((results) => {
+                const img1 = results[0]
+                const base64str = img1.data
+                const imgExt = img1.ext
+                const file = Compress.convertBase64ToFile(base64str, imgExt)
+                this.getBase64(file, (dataUrl) => {
+                    // this.props.toggleOpenCrop()
+                    this.finishCrop(dataUrl,member_id)
+                    this.setState({ dataUrl })
+                })
+            }).catch((e) => {
+                SnackBar.show({ pos: 'bottom-center', text: "Error uploading image." });
+            })
+
+        }
+    }
+
+    getBase64(file, cb) {
+        var reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = function () {
+            cb(reader.result)
+        }
+        reader.onerror = function (error) {
+            console.log('Error: ', error)
+        }
+    }
     
+    finishCrop(dataUrl, member_id,img_type) {
+        let file_blob_data = this.dataURItoBlob(dataUrl)
+        let mem_data={}
+        this.setState({
+            dataUrl: null,
+            // loading: true
+        }, () => {
+            // this.props.toggleOpenCrop()
+            // document.getElementById('imageFilePicker').value = ""
+            let form_data = new FormData()
+            form_data.append("profile_image", file_blob_data, "imageFilename.jpeg")
+            mem_data.id = member_id
+            mem_data.front_img = file_blob_data.size
+            this.props.storeMemberProofs(mem_data)
+            this.props.uploadProof(form_data, member_id, (err, data) => {
+            	// if(data){
+            	
+            	// }
+                // this.setState({ loading: false })
+                // this.props.history.go(-1)
+            })
+        })
+    }
+
+    dataURItoBlob(dataURI) {
+        var binary = atob(dataURI.split(',')[1]);
+        var array = [];
+        for (var i = 0; i < binary.length; i++) {
+            array.push(binary.charCodeAt(i));
+        }
+        return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
+    }
+
 	render(){
 		let child
 		let adult
@@ -429,6 +499,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 							is_endorsement = {true}
 							user_data={this.props.endorsed_member_data.members.filter(x=>x.relation == 'spouse')}
 							member_type={'adult'}
+							uploadProof={this.pickFile.bind(this)}
 						/>
 			}
 		
@@ -456,6 +527,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 									is_endorsement = {true}
 									user_data={this.props.endorsed_member_data.members.filter(x=>x.relation != 'self' && x.relation !='spouse' && x.id==data[i] )}
 									member_type={'child'}
+									uploadProof={this.pickFile.bind(this)}
 								/>
 					}
 				})
@@ -476,7 +548,19 @@ class InsuranceEndoresmentInputView extends React.Component{
 									<p className="fill-error-span fw-500 text-right d-block" style={{marginTop:'0px', fontSize: '11px'}}>*All fields are mandatory
 									</p>
 									<div className="insurance-member-details">
-										<InsurSelf {...this.props} checkForValidation ={this.checkForValidation.bind(this)} id={`member_${this.props.currentSelectedInsuredMembersId[0]['0']}`} member_id={this.props.currentSelectedInsuredMembersId[0]['0']} validateErrors={this.state.validateErrors['0'] || []} validateOtherErrors={this.state.validateOtherErrors['0'] || []} createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} errorMessages={this.state.errorMessages} is_endorsement = {true} user_data={this.props.endorsed_member_data.members.filter(x=>x.relation == 'self')} member_type={'adult'}/>
+										<InsurSelf {...this.props} 
+											checkForValidation ={this.checkForValidation.bind(this)} 
+											id={`member_${this.props.currentSelectedInsuredMembersId[0]['0']}`} 
+											member_id={this.props.currentSelectedInsuredMembersId[0]['0']}
+											 validateErrors={this.state.validateErrors['0'] || []} 
+											 validateOtherErrors={this.state.validateOtherErrors['0'] || []}
+											  createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} 
+											  errorMessages={this.state.errorMessages} 
+											  is_endorsement = {true} 
+											  user_data={this.props.endorsed_member_data.members.filter(x=>x.relation == 'self')} 
+											  member_type={'adult'}
+											  uploadProof={this.pickFile.bind(this)}
+										/>
 										{adult}
 										{child}
 									</div>

@@ -1,4 +1,4 @@
-import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, INSURANCE_PAY, SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE , SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, PUSH_USER_DATA, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST} from '../../constants/types';
+import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, INSURANCE_PAY, SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE , SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, PUSH_USER_DATA, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS} from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
 export const getInsurance = (is_endorsement,callback) => (dispatch) => {
@@ -257,4 +257,19 @@ export const createEndorsementData = (criteria,callback) => (dispatch) => {
         throw error
     })
 
+}
+
+export const uploadProof = (profileData, memberId, cb) => (dispatch) => {
+    API_POST(`/api/v1/insurance/insurance/member/${memberId}/upload?member=${memberId}`,profileData).then(function (response) {
+        if (cb) cb(null, response);
+    }).catch(function (error) {
+        if (cb) cb(error, null);
+    })
+}
+
+export const storeMemberProofs = (imgUrl,cb) => (dispatch) => {
+    dispatch({
+        type:SAVE_MEMBER_PROOFS,
+        payload:imgUrl
+    })
 }

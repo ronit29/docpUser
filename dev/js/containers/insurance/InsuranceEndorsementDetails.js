@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Loader from '../../components/commons/Loader'
 
-import { userData,selectInsuranceProfile, saveCurrentSelectedMembers, pushUserData, resetSelectedInsuranceMembers, getInsurance, getEndorsedMemberList, pushUserEndorsedData, selectInsurancePlan} from '../../actions/index.js'
+import { userData,selectInsuranceProfile, saveCurrentSelectedMembers, pushUserData, resetSelectedInsuranceMembers, getInsurance, getEndorsedMemberList, pushUserEndorsedData, selectInsurancePlan, uploadProof, storeMemberProofs} from '../../actions/index.js'
 import InsuranceComponentView from '../../components/insurance/insuranceEndorsementDetailsView.js'
 
 class InsuranceEndorsementDetails extends React.Component{
@@ -43,9 +43,9 @@ class InsuranceEndorsementDetails extends React.Component{
 
 const mapStateToProps = (state) => {
     const USER = state.USER
-    let { insurnaceData, LOAD_INSURANCE, selected_plan,self_data_values,saveCurrentSelectedMembers,selectedProfile, currentSelectedInsuredMembersId,create_payment_resp, endorsed_member_data} = state.INSURANCE
+    let { insurnaceData, LOAD_INSURANCE, selected_plan,self_data_values,saveCurrentSelectedMembers,selectedProfile, currentSelectedInsuredMembersId,create_payment_resp, endorsed_member_data, members_proofs} = state.INSURANCE
     return {
-        insurnaceData,LOAD_INSURANCE,selected_plan,USER,self_data_values,saveCurrentSelectedMembers,selectedProfile, currentSelectedInsuredMembersId, create_payment_resp,endorsed_member_data
+        insurnaceData,LOAD_INSURANCE,selected_plan,USER,self_data_values,saveCurrentSelectedMembers,selectedProfile, currentSelectedInsuredMembersId, create_payment_resp, endorsed_member_data, members_proofs
     }
 }
 
@@ -60,6 +60,8 @@ const mapDispatchToProps = (dispatch) => {
         getEndorsedMemberList:(callback) => dispatch(getEndorsedMemberList(callback)),
         pushUserEndorsedData :(criteria,callback) => dispatch(pushUserEndorsedData(criteria,callback)),
         selectInsurancePlan: (plan,criteria) => dispatch(selectInsurancePlan(plan,criteria)),        
+        uploadProof:(profileData, profileId, cb) =>dispatch(uploadProof(profileData, profileId, cb)),
+        storeMemberProofs:(imgUrl,cb)=>dispatch(storeMemberProofs(imgUrl,cb))
     }
 }
 

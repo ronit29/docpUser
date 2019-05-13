@@ -1,4 +1,4 @@
-import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES,SELF_DATA,INSURANCE_PAY,SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE, SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST} from '../../constants/types';
+import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES,SELF_DATA,INSURANCE_PAY,SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE, SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS} from '../../constants/types';
 
 const defaultState = {
 insurnaceData: {},
@@ -11,7 +11,8 @@ member_list_updated:{},
 get_insured_profile:{},
 endorsed_member_data:{},
 LOAD_INSURANCE: false,
-currentSelectedInsuredMembersId: []
+currentSelectedInsuredMembersId: [],
+members_proofs:[]
 }
 const DUMMY_PROFILE = {
     gender: "m",
@@ -210,6 +211,26 @@ export default function (state = defaultState, action) {
             let newState = { ...state }
             newState.endorsed_member_data.members = action.payload.members
             return newState
+        }
+        case SAVE_MEMBER_PROOFS:{
+            let newState = {
+                ...state,
+                members_proofs: [].concat(state.members_proofs)
+            }
+            console.log(action.payload)
+            let ids
+            if(newState.members_proofs.length > 0){
+                ids = newState.members_proofs.filter(x=>x.id == action.payload.id)
+                if(ids.length){
+                    console.log(ids)
+                }else{
+                    newState.members_proofs.push(action.payload)    
+                }
+            }else{
+                newState.members_proofs.push(action.payload)
+            }            
+            return newState
+            
         }
     }
     return state

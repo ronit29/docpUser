@@ -42,6 +42,7 @@ class InsuranceReview extends React.Component{
     	let city_code = ''
     	let district_code = ''
     	let endorsedSelf
+    	let is_change
     	// let show_lname_flag = ''
     	// let isDefaultUser
 		if(this.props.USER.profiles && Object.keys(this.props.USER.profiles).length && this.props.USER.profiles[this.props.USER.defaultProfile]){
@@ -85,6 +86,7 @@ class InsuranceReview extends React.Component{
     		city_code = endorsedSelf.city_code
     		state = endorsedSelf.state
     		state_code = endorsedSelf.state_code
+    		is_change=true
     		// show_lname_flag = this.props.self_data_values[0].show_lname_flag
     	}
 
@@ -123,6 +125,7 @@ class InsuranceReview extends React.Component{
 		    	members.profile=param.profile_id
 		    	members.relation=param.relation
 		    	members.user_form_id=param.id
+		    	members.is_change=is_change
 				return 	insurance_pay.members.push(members)
 		    
 		},this)}

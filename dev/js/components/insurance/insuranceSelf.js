@@ -787,6 +787,14 @@ class InsuranceSelf extends React.Component{
 					<div>
 					</div>
 				</div>
+				<div id={`member_${this.props.member_id}_upload`}>
+					<span className="cam-icon" onClick={() => {
+                            document.getElementById('imageFilePicker_'+this.props.member_id).click()
+                            document.getElementById('imageFilePicker_'+this.props.member_id).value = ""
+                        }}>Upload
+                        <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}`} onChange={this.props.uploadProof.bind(this,this.props.member_id)} />
+                    </span>
+				</div>
 				</div>
 			)
 	}

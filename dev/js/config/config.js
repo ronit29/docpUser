@@ -49,7 +49,7 @@ const STAGING_CONFIG = {
 }
 
 const DEV_CONFIG = {
-    // API_BASE_URL: "http://10.0.145.30:8000",
+    // API_BASE_URL: "http://10.0.145.70:8000",
     API_BASE_URL: "https://kubeqa4.docprime.com",
     // SOCKET_BASE_URL: "http://10.0.28.67:4444",
     SOCKET_BASE_URL: "https://kubeqa1.docprime.com",
