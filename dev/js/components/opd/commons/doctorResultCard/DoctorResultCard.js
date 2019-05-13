@@ -315,7 +315,7 @@ class DoctorProfileCard extends React.Component {
                             }
                             {
                                 parent_url && parent_url.length ?
-                                    <a href={parent_url} onClick={
+                                    <a href={`/${parent_url}`} onClick={
                                         (e) => {
                                             e.preventDefault()
                                             this.props.history.push(`/${parent_url}`)

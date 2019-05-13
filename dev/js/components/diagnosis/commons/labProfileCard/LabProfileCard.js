@@ -200,7 +200,7 @@ class LabProfileCard extends React.Component {
                             <div className="cstm-doc-details-container labCardUiresponsive">
                                 <div className="cstm-doc-img-container">
                                     <div className="text-center">
-                                        <a href={url} onClick={(e) => {
+                                        <a href={`/${url}`} onClick={(e) => {
                                             e.preventDefault();
                                         }}>
                                             <InitialsPicture name={name} has_image={!!lab_thumbnail} className="initialsPicture-ls">
@@ -217,7 +217,7 @@ class LabProfileCard extends React.Component {
                                 </div>
 
                                 <div className="cstm-doc-content-container">
-                                    <a href={url} onClick={(e) => {
+                                    <a href={`/${url}`} onClick={(e) => {
                                         e.preventDefault();
                                     }}>
                                         <h2 className="cstmDocName">{name}</h2>
