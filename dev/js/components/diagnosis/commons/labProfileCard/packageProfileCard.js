@@ -204,7 +204,7 @@ class LabProfileCard extends React.Component {
                                         <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
                                     </InitialsPicture>
                                 </div>
-                                <a href={this.props.details.url || ''} onClick={(e) => {
+                                <a href={`/${this.props.details.url || ''}`} onClick={(e) => {
                                     e.preventDefault()
                                     e.stopPropagation()
                                     this.props.history.push(`/${this.props.details.url || ''}`)
@@ -245,7 +245,7 @@ class LabProfileCard extends React.Component {
                                         :'' 
                                     }
                                 </div>
-                                <a href={this.props.details.lab.url} onClick={(e) => e.preventDefault()}>
+                                <a href={`/${this.props.details.lab.url}`} onClick={(e) => e.preventDefault()}>
                                     <button className="pkg-btn-nw" style={{ width: '100%' }}>Book Now</button>
                                 </a>
                                 {
