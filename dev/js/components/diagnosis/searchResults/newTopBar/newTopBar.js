@@ -214,6 +214,11 @@ class TopBar extends React.Component {
     }
 
     sortFilterClicked() {
+
+        let data = {
+                'Category': 'ConsumerApp', 'Action': 'LabSortFilterClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-sort-filter-clicked', 'url': window.location.pathname, 'sort_order': this.state.sort_order || '', 'availability': this.state.availability, 'avg_ratings': this.state.avg_ratings, 'lab_visit': this.state.lab_visit, 'home_visit': this.state.home_visit, 'sort_on': this.state.sort_on
+            }
+        GTM.sendEvent({ data: data })
         let currentFilters = {
             sort_on: this.state.sort_on,
             sort_order: this.state.sort_order,
@@ -233,7 +238,7 @@ class TopBar extends React.Component {
                 let filterCount = 0
                 for (let filter in this.state.previous_filters) {
 
-                    if (filter.includes('availability') || filter.includes('avg_ratings') ) {
+                    if (filter.includes('availability')) {
                         
                         if (this.state.previous_filters[filter] && this.state[filter].length != this.state.previous_filters[filter].length) {
                             
@@ -249,7 +254,7 @@ class TopBar extends React.Component {
                             }
                         }
 
-                    } else if(this.state[filter] && this.state[filter] != this.state.previous_filters[filter]){
+                    } else if(this.state[filter] != this.state.previous_filters[filter]){
                         filterCount++
                         break;
                     }

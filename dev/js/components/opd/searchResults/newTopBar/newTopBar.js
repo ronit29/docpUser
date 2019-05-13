@@ -74,7 +74,7 @@ class TopBar extends React.Component {
             hospital_id: this.state.hospital_id
         }
         let data = {
-            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on||''
+            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on||'', 'rating': this.state.avg_ratings
         }
         GTM.sendEvent({ data: data })
 
@@ -88,9 +88,9 @@ class TopBar extends React.Component {
 
     handleClose(reset=false, e) {
 
-        if(reset){
+        if(reset) {
             let data = {
-                'Category': 'ConsumerApp', 'Action': 'ResetOpdFilter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'reset-opd-filter', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on||''
+                'Category': 'ConsumerApp', 'Action': 'ResetOpdFilter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'reset-opd-filter', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on||'', 'rating': this.state.avg_ratings
             }
             GTM.sendEvent({ data: data })
             let resetFilters = {
@@ -108,9 +108,9 @@ class TopBar extends React.Component {
               ...resetFilters
             })
 
-        }else{
+        } else{
             let data = {
-                'Category': 'ConsumerApp', 'Action': 'CloseOpdFilter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'close-opd-filter', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on||''
+                'Category': 'ConsumerApp', 'Action': 'CloseOpdFilter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'close-opd-filter', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on||'', 'rating': this.state.avg_ratings
             }
             GTM.sendEvent({ data: data })
             this.setState({
@@ -164,6 +164,11 @@ class TopBar extends React.Component {
     }
 
     sortFilterClicked() {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'OpdSortFilterClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-sort-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on||'', 'rating': this.state.avg_ratings
+        }
+        GTM.sendEvent({ data: data })
+
         let currentFilters = {
             sort_on: this.state.sort_on,
             sort_order: this.state.sort_order,
@@ -201,7 +206,7 @@ class TopBar extends React.Component {
                             }
                         }
 
-                    } else if(this.state[filter] && this.state[filter] != this.state.previous_filters[filter]){
+                    } else if(this.state[filter] != this.state.previous_filters[filter]){
                         filterCount++
                         break;
                     }
@@ -218,8 +223,6 @@ class TopBar extends React.Component {
                 availability: [],
                 gender: '',
                 hospital_type: ''
-                /*sits_at_clinic: true,
-                sits_at_hospital: true*/
             }
         }
         try {
