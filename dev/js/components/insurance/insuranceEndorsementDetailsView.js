@@ -444,55 +444,57 @@ class InsuranceEndoresmentInputView extends React.Component{
     }
     
     finishCrop(dataUrl, member_id,img_type) {
+    	console.log(this.props.members_proofs)
         let file_blob_data = this.dataURItoBlob(dataUrl)
         let mem_data={}
         let existingData
+        let img_tag = "document_first_image"
+        if(img_type=='back'){
+        	img_tag = "document_back_image"
+        }
         this.setState({
             dataUrl: null,
-            // loading: true
         }, () => {
-            // this.props.toggleOpenCrop()
-            // document.getElementById('imageFilePicker').value = ""
+            
             let form_data = new FormData()
-            form_data.append("document_first_image", file_blob_data, "imageFilename.jpeg")
-            mem_data.id = member_id
-            mem_data.img_type = img_type
-            if(this.props.members_proofs.length > 0){
-            	existingData =this.props.members_proofs.filter((x=>x.id == member_id))
-            	if(existingData.length > 0){
-            		if(img_type== 'front'){
-		            	mem_data.front_img = file_blob_data.size	
-		            	mem_data.back_img = existingData[0].back_img
+            form_data.append(img_tag, file_blob_data, "imageFilename.jpeg")
+            this.props.uploadProof(form_data, member_id,img_type, (data,err) => {
+            	if(data){
+            		mem_data.id = data.member
+		            mem_data.img_type = img_type
+		            if(this.props.members_proofs.length > 0){
+		            	existingData =this.props.members_proofs.filter((x=>x.id == member_id))
+		            	if(existingData.length > 0){
+		            		if(img_type== 'front'){
+				            	mem_data.front_img = data.document_first_image	
+				            	mem_data.back_img = existingData[0].back_img
+				            }
+				            if(img_type== 'back'){
+				            	mem_data.front_img = existingData[0].front_img
+				            	mem_data.back_img = data.document_second_image
+				            }
+		            	}else{
+		            		if(img_type== 'front'){
+				            	mem_data.front_img = data.document_first_image	
+				            	mem_data.back_img = null
+				            }
+				            if(img_type== 'back'){
+				            	mem_data.front_img = null
+				            	mem_data.back_img = data.document_second_image
+				            }
+		            	}
+		            }else{
+		            	if(img_type == 'front'){
+		            		mem_data.front_img = data.document_first_image	
+		            		mem_data.back_img = null
+			            }
+			            if(img_type == 'back'){
+			            	mem_data.front_img = null
+			            	mem_data.back_img = data.document_second_image
+			            }
 		            }
-		            if(img_type== 'back'){
-		            	mem_data.front_img = existingData[0].front_img
-		            	mem_data.back_img = file_blob_data.type
-		            }
-            	}else{
-            		if(img_type== 'front'){
-		            	mem_data.front_img = file_blob_data.size	
-		            	mem_data.back_img = ''
-		            }
-		            if(img_type== 'back'){
-		            	mem_data.front_img = ''
-		            	mem_data.back_img = file_blob_data.type
-		            }
+		            this.props.storeMemberProofs(mem_data)
             	}
-            }else{
-            	if(img_type == 'front'){
-            		mem_data.front_img = file_blob_data.size	
-            		mem_data.back_img = ''
-	            }
-	            if(img_type == 'back'){
-	            	mem_data.front_img = ''
-	            	mem_data.back_img = file_blob_data.type
-	            }
-            }
-            this.props.storeMemberProofs(mem_data)
-            this.props.uploadProof(form_data, member_id,img_type, (err, data) => {
-            	// if(data){
-            	
-            	// }
                 // this.setState({ loading: false })
                 // this.props.history.go(-1)
             })

@@ -431,6 +431,7 @@ class InsuranceSelf extends React.Component{
 		let show_createApi_keys = []
 		let city_opt =[]
 		let districts_opt=[]
+		let Uploaded_image_data
 		let commonMsgSpan = <span className="fill-error-span">{this.props.errorMessages['common_message']}</span>		
 		if(Object.keys(this.props.createApiErrors).length > 0){
 			Object.entries(this.props.createApiErrors).map(function([key, value]) {
@@ -458,6 +459,9 @@ class InsuranceSelf extends React.Component{
 		// 	}
 
 		// }
+		if(this.props.members_proofs && this.props.members_proofs.length > 0){
+			Uploaded_image_data = this.props.members_proofs.filter((x=>x.id == this.props.member_id))
+		}
 		return(
 				<div>
 				{/*
@@ -802,6 +806,17 @@ class InsuranceSelf extends React.Component{
                         <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_back`} onChange={this.props.uploadProof.bind(this,this.props.member_id,'back')} />
                     </span>
 				</div>
+				{
+					Uploaded_image_data && Uploaded_image_data.length > 0?			
+					<div>
+						<img src={Uploaded_image_data[0].front_img} style={{height:'100px'}}/>
+						{
+							Uploaded_image_data[0].back_img?
+							<img src={Uploaded_image_data[0].back_img} style={{height:'100px'}}/>:''
+						}
+					</div>
+					:''
+				}
 				</div>
 			)
 	}

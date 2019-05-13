@@ -249,6 +249,7 @@ class InsuranceOthers extends React.Component {
 		let show_createApi_keys_adult = []
 		let show_createApi_keys_child = []
 		let show_createApi_keys_child2 = []
+		let Uploaded_image_data
 		let commonMsgSpan = <span className="fill-error-span">{this.props.errorMessages['common_message']}</span>
 		if(this.props.is_child_only){
 			let show_createApi_keys = []
@@ -275,6 +276,10 @@ class InsuranceOthers extends React.Component {
 		let ErrorNameId
 		if(this.props.validatingNames.length>0){
 			ErrorNameId = this.props.validatingNames[0].split('=')[1]
+		}
+
+		if(this.props.members_proofs && this.props.members_proofs.length > 0){
+			Uploaded_image_data = this.props.members_proofs.filter((x=>x.id == this.props.member_id))
 		}
 		return (
 			<div className="ins-sub-forms pading-hr-devider" id={`member_${this.props.member_id}`}>
@@ -512,6 +517,19 @@ class InsuranceOthers extends React.Component {
                         <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_back`} onChange={this.props.uploadProof.bind(this,this.props.member_id,'back')} />
                     </span>
 				</div>
+				{
+					Uploaded_image_data && Uploaded_image_data.length > 0?
+					
+					<div>
+						<img src={Uploaded_image_data[0].front_img} style={{height:'100px'}}/>
+						{
+							Uploaded_image_data[0].back_img?
+							<img src={Uploaded_image_data[0].back_img} style={{height:'100px'}}/>:''
+						}
+					</div>
+					:''
+
+				}
 				</div>
 				{this.state.showPopup ?
 					<InsurPopup {...this.state.userProfiles} currentSelectedInsuredMembersId={this.props.currentSelectedInsuredMembersId} member_id={this.props.member_id} closePopup={this.togglePopup.bind(this)} isSelectprofile = {true} self_data_values ={this.props.self_data_values[this.props.member_id]} hideSelectProfilePopup={this.hideSelectProfilePopup.bind(this)}

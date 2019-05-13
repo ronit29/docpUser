@@ -259,15 +259,15 @@ export const createEndorsementData = (criteria,callback) => (dispatch) => {
 
 }
 
-export const uploadProof = (profileData, memberId,imgType, cb) => (dispatch) => {
-    API_POST(`/api/v1/insurance/insurance/member/${memberId}/upload?member=${memberId}&type=${imgType}`,profileData).then(function (response) {
-        if (cb) cb(null, response);
+export const uploadProof = (profileData, memberId,imgType,cb) => (dispatch) => {
+    API_POST(`/api/v1/insurance/member/${memberId}/upload?member=${memberId}&type=${imgType}`,profileData).then(function (response) {
+        if (cb) cb(response,null);
     }).catch(function (error) {
         if (cb) cb(error, null);
     })
 }
 
-export const storeMemberProofs = (imgUrl,imgType,cb) => (dispatch) => {
+export const storeMemberProofs = (imgUrl,cb) => (dispatch) => {
     dispatch({
         type:SAVE_MEMBER_PROOFS,
         payload:imgUrl

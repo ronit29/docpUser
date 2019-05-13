@@ -60,8 +60,8 @@ const mapDispatchToProps = (dispatch) => {
         getEndorsedMemberList:(callback) => dispatch(getEndorsedMemberList(callback)),
         pushUserEndorsedData :(criteria,callback) => dispatch(pushUserEndorsedData(criteria,callback)),
         selectInsurancePlan: (plan,criteria) => dispatch(selectInsurancePlan(plan,criteria)),        
-        uploadProof:(profileData, profileId, cb) =>dispatch(uploadProof(profileData, profileId, cb)),
-        storeMemberProofs:(imgUrl,imgType,cb)=>dispatch(storeMemberProofs(imgUrl,imgType,cb))
+        uploadProof:(profileData, profileId,imgType, cb) =>dispatch(uploadProof(profileData, profileId,imgType, cb)),
+        storeMemberProofs:(imgUrl,cb)=>dispatch(storeMemberProofs(imgUrl,cb))
     }
 }
 

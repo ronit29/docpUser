@@ -214,10 +214,8 @@ export default function (state = defaultState, action) {
         }
         case SAVE_MEMBER_PROOFS:{
             let newState = {
-                ...state,
-                members_proofs: [].concat(state.members_proofs)
+                ...state
             }
-            let ids
             if(newState.members_proofs.length > 0){
 
                 let found = []
