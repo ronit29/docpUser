@@ -29,6 +29,10 @@ class TestSelectorView extends React.Component {
         this.props.getLabById(this.state.selectedLab, testIds)
         this.getSearchList("")
 
+        if(this.inputRef){
+            this.inputRef.focus();
+        }
+
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -105,23 +109,23 @@ class TestSelectorView extends React.Component {
 
     }
 
-    testInfo(test_id,url,event) {
+    testInfo(test_id, url, event) {
         let lab_id = this.state.selectedLab
         let selected_test_ids = this.props.selectedCriterias || []
         selected_test_ids = selected_test_ids.map(x => x.id)
         let lat = 28.644800
         let long = 77.216721
-        if(this.props.selectedLocation !== null){
+        if (this.props.selectedLocation !== null) {
             lat = this.props.selectedLocation.geometry.location.lat
             long = this.props.selectedLocation.geometry.location.lng
 
             if (typeof lat === 'function') lat = lat()
             if (typeof long === 'function') long = long()
         }
-        if(url && url !=''){
-            this.props.history.push('/'+url+'?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&lat='+lat+'&long='+long)
-        }else{
-            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids='+selected_test_ids+'&lat='+lat+'&long='+long)
+        if (url && url != '') {
+            this.props.history.push('/' + url + '?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids=' + selected_test_ids + '&lat=' + lat + '&long=' + long)
+        } else {
+            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&lab_id=' + lab_id + '&selected_test_ids=' + selected_test_ids + '&lat=' + lat + '&long=' + long)
         }
         event.stopPropagation()
         let data = {
@@ -151,11 +155,11 @@ class TestSelectorView extends React.Component {
                 if (!found) {
                     testIds.push(criteria.id)
                     //GET insurance Data
-                    let test_insured=[]
-                    let insurance_data = {} 
-                    if(this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length){
-                        test_insured = this.props.currentLabSelectedTests.filter((x=>x.id == criteria.id))
-                        if(test_insured && test_insured.length && test_insured[0].insurance){
+                    let test_insured = []
+                    let insurance_data = {}
+                    if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
+                        test_insured = this.props.currentLabSelectedTests.filter((x => x.id == criteria.id))
+                        if (test_insured && test_insured.length && test_insured[0].insurance) {
                             insurance_data = test_insured[0].insurance
                         }
                     }
@@ -183,7 +187,7 @@ class TestSelectorView extends React.Component {
                                                     <div className="col-12" style={{ paddingTop: 10, borderBottom: '1px solid #d3d3d3' }}>
                                                         <div className="search-row">
                                                             <div className="adon-group location-detect-field">
-                                                                <input type="text" className="new-srch-doc-lab" placeholder="Search Test" onChange={this.inputHandler.bind(this)} />
+                                                                <input type="text" ref={(input) => { this.inputRef = input; }} className="new-srch-doc-lab" placeholder="Search Test" onChange={this.inputHandler.bind(this)} />
                                                                 <img className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} style={{ width: 15 }} />
                                                             </div>
                                                         </div>
@@ -215,21 +219,21 @@ class TestSelectorView extends React.Component {
                                                                             return <li key={i + "srt"}>
                                                                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                                                                     {test.test.name}
-                                                                                    {test.test.show_details?
-                                                                                    <span style={{'marginLeft':'5px',marginTop:'2px',display:'inline-block'}} onClick={this.testInfo.bind(this,test.test.id,test.url)}>
+                                                                                    {test.test.show_details ?
+                                                                                        <span style={{ 'marginLeft': '5px', marginTop: '2px', display: 'inline-block' }} onClick={this.testInfo.bind(this, test.test.id, test.url)}>
                                                                                             <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
-                                                                                        </span>:''}
+                                                                                        </span> : ''}
                                                                                     <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
                                                                                     <span className="checkmark" />
                                                                                 </label>
                                                                                 {
-                                                                                    test.insurance && test.insurance.is_insurance_covered && test.insurance.is_user_insured || test.included_in_user_plan?
-                                                                                    <div className="test-price text-sm">&#8377; {0}</div>
-                                                                                    :
-                                                                                    test.deal_price == test.mrp.split('.')[0] ?
-                                                                                    <span className="test-price text-sm">&#8377; {test.deal_price}</span>
-                                                                                    :
-                                                                                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                                                                    test.insurance && test.insurance.is_insurance_covered && test.insurance.is_user_insured || test.included_in_user_plan ?
+                                                                                        <div className="test-price text-sm">&#8377; {0}</div>
+                                                                                        :
+                                                                                        test.deal_price == test.mrp.split('.')[0] ?
+                                                                                            <span className="test-price text-sm">&#8377; {test.deal_price}</span>
+                                                                                            :
+                                                                                            <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                                                                                 }
                                                                             </li>
                                                                         })
@@ -240,21 +244,21 @@ class TestSelectorView extends React.Component {
                                                                             return <li key={i + "srt"}>
                                                                                 <label className="ck-bx" style={{ fontWeight: 400, fontSize: 14 }}>
                                                                                     {test.test.name}
-                                                                                    {test.test.show_details?
-                                                                                    <span style={{'marginLeft':'5px',marginTop:'2px',display:'inline-block'}} onClick={this.testInfo.bind(this,test.test.id,test.url)}>
+                                                                                    {test.test.show_details ?
+                                                                                        <span style={{ 'marginLeft': '5px', marginTop: '2px', display: 'inline-block' }} onClick={this.testInfo.bind(this, test.test.id, test.url)}>
                                                                                             <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
-                                                                                        </span>:''}
+                                                                                        </span> : ''}
                                                                                     <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
                                                                                     <span className="checkmark" />
                                                                                 </label>
                                                                                 {
-                                                                                    test.insurance && test.insurance.is_insurance_covered && test.insurance.is_user_insured || test.included_in_user_plan?
-                                                                                    <div className="test-price text-sm">&#8377; {0}</div>
-                                                                                    :
-                                                                                    test.deal_price == test.mrp.split('.')[0] ?
-                                                                                    <span className="test-price text-sm">&#8377; {test.deal_price}</span>
-                                                                                    :
-                                                                                    <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
+                                                                                    test.insurance && test.insurance.is_insurance_covered && test.insurance.is_user_insured || test.included_in_user_plan ?
+                                                                                        <div className="test-price text-sm">&#8377; {0}</div>
+                                                                                        :
+                                                                                        test.deal_price == test.mrp.split('.')[0] ?
+                                                                                            <span className="test-price text-sm">&#8377; {test.deal_price}</span>
+                                                                                            :
+                                                                                            <span className="test-price text-sm">&#8377; {test.deal_price}<span className="test-mrp">&#8377; {test.mrp.split('.')[0]}</span></span>
                                                                                 }
                                                                             </li>
                                                                         })
