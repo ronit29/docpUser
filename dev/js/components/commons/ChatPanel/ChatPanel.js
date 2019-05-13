@@ -190,7 +190,7 @@ class ChatPanel extends React.Component {
 
 
                             let analyticData = {
-                                'Category': 'Chat', 'Action': 'BookNowFired', 'CustomerID': '', 'leadid': 0, 'event': 'book-now-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname, 'url': data.url ||'', 'ids': data.ids ||'', 'type': data.type|| ''
+                                'Category': 'Chat', 'Action': 'BookNowFired', 'CustomerID': '', 'leadid': 0, 'event': 'book-now-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname, 'specialization_url': data.url ||'', 'ids': data.ids ||'', 'type': data.type|| ''
                             }
                             GTM.sendEvent({ data: analyticData })
                             break;
