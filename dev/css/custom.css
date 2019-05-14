@@ -910,4 +910,18 @@ div.onln-cnslt-head {
 	color: #f78631;
 	border-color: #f78631;
 }
+.ipd-frm-btn{
+	background-image: linear-gradient(to left,#f78631,#ff6d00);
+	color: #fff !important;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+	padding: 8px 28px;
+	font-size: 14px;
+	font-weight: 400;
+	display: inline-block;
+}
+.hd-mrgn-top{
+	margin-top: 16px;
+}
 /* ============ ipd tabs ============ */
