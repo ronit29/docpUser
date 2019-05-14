@@ -4,6 +4,8 @@ import { getHospitaDetails , selectOpdTimeSLot, saveProfileProcedures, cloneComm
 
 import IpdHospitalDetailView from '../../components/ipd/IpdHospitalDetailView.js'
 const queryString = require('query-string')
+import Loader from '../../components/commons/Loader'
+
 
 class HospitalDetail extends React.Component {
 
@@ -47,7 +49,14 @@ class HospitalDetail extends React.Component {
 	render(){
 
 		return(
-				<IpdHospitalDetailView {...this.props} />
+				<React.Fragment>
+					{
+						this.props.HOSPITAL_DETAIL_LOADED?
+						<IpdHospitalDetailView {...this.props} />
+						:<Loader />		
+					}
+				</React.Fragment>
+				
 			)
 	}
 }

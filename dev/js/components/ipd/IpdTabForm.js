@@ -165,6 +165,9 @@ class IpdTabForm extends React.Component {
 			submitFormSuccess: false
 		}
 		this.setState({...formData})
+		setTimeout(() => {
+			SnackBar.show({ pos: 'bottom-center', text: "Record Submitted Successfully" })
+		}, 500)
 	}
 	render(){
 

@@ -18,6 +18,7 @@ import GTM from '../../helpers/gtm.js'
 import BreadCrumbView from './breadCrumb.js'
 import HelmetTags from '../commons/HelmetTags'
 import CONFIG from '../../config'
+import IpdFormView from '../../containers/ipd/IpdForm.js'
 
 //View all rating for hospital ,content_type = 3
 
@@ -26,7 +27,8 @@ class HospitalDetailView extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			seoFriendly: this.props.match.url.includes('-hpp')
+			seoFriendly: this.props.match.url.includes('-hpp'),
+			toggleTabType: 'doctors'
 		}
 	}
 
@@ -36,6 +38,38 @@ class HospitalDetailView extends React.Component {
 			'Category': 'ConsumerApp', 'Action': 'IpdHospitalDetailPageLanded', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-detail-page-landed', selectedId: hospital_id
 		}
 		GTM.sendEvent({ data: gtmData })
+
+		var section = document.querySelectorAll(".ipd-tb-tabs");
+		var sections = {};
+		var i = 0
+
+		let headerHeight = 0	        
+
+		Object.keys(this.refs).forEach((prp, i) => {
+			
+			if(document.getElementsByClassName('ipd-tabs-container') && document.getElementsByClassName('ipd-tabs-container')[0]){
+				headerHeight = document.getElementsByClassName('ipd-tabs-container')[0].offsetTop - 100
+			}
+			headerHeight = -45
+			sections[prp] = this.refs[prp].offsetTop + headerHeight				
+
+		})
+
+		let self = this
+		if(window && document){
+			window.onscroll = function() {
+		    var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
+		    for (i in sections) {
+		    	if(self.refs[i]){
+
+		    		if ((self.refs[i].offsetTop +  headerHeight )<= scrollPosition) {
+				      	self.setState({toggleTabType: i})
+				    }
+		    	}
+		    }
+		  }	
+		}
+
 	}
 
 	getCostEstimateClicked() {
@@ -99,6 +133,25 @@ class HospitalDetailView extends React.Component {
 		return { title, description }
 	}
 
+	toggleTabs(type){
+		if(document.getElementById(type)){
+			let gtmData = {
+	            'Category': 'ConsumerApp', 'Action': 'HospitalPageIpdTabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-page-ipd-tab-clicked', type: type
+	        }
+	        GTM.sendEvent({ data: gtmData })
+
+			var elmnt = document.getElementById(type)
+			
+			let headerHeight = this.refs[type].offsetTop
+			if(document.getElementsByClassName('ipd-tabs-container') && document.getElementsByClassName('ipd-tabs-container')[0]){
+				headerHeight =  headerHeight - 45
+			}
+			this.setState({toggleTabType: type})
+			window.scrollTo(0,headerHeight)
+
+		}
+	}
+
 	render() {
 
 		return (
@@ -124,12 +177,12 @@ class HospitalDetailView extends React.Component {
 										<HospitalInfo hospital_data={this.props.ipd_hospital_detail} />
 
 										<div className="ipd-tabs-container">
-											<p className="ipd-tb-tabs ipd-tb-active">Services</p>
-											<p className="ipd-tb-tabs">Procedures</p>
-											<p className="ipd-tb-tabs">Doctors</p>
-											<p className="ipd-tb-tabs">Feeback</p>
+											<p className={`ipd-tb-tabs ${this.state.toggleTabType=='doctors'?' ipd-tb-active':''}`} onClick={this.toggleTabs.bind(this,'doctors')}>Doctors</p>
+											<p className={`ipd-tb-tabs ${this.state.toggleTabType=='bookNow'?' ipd-tb-active':''}`} onClick={this.toggleTabs.bind(this,'bookNow')}>Book Now</p>
+											<p className={`ipd-tb-tabs ${this.state.toggleTabType=='feedback'?' ipd-tb-active':''}`} onClick={this.toggleTabs.bind(this,'feedback')}>Feedback</p>
 										</div>
 
+										<div id="doctors" ref="doctors">
 										{
 											this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.doctors && this.props.ipd_hospital_detail.doctors.result.length ?
 												<div>
@@ -149,20 +202,14 @@ class HospitalDetailView extends React.Component {
 												</div>
 												: ''
 										}
+										</div>
 
-										{
-											this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.ipd_procedure_categories && this.props.ipd_hospital_detail.ipd_procedure_categories.length ?
-												<HospitalTreatment hospital_data={this.props.ipd_hospital_detail} {...this.props} />
-												: ''
-										}
+										<div id="bookNow" ref="bookNow" className="nav_top_bar">
+					               			<IpdFormView {...this.props} tabView={true}/>
+					               		</div> 
 
-										{
-											this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.services && this.props.ipd_hospital_detail.services.length ?
-												<HospitalServices hospital_data={this.props.ipd_hospital_detail} />
-												: ''
-										}
-
-										{
+					               		<div id="feedback" ref="feedback">
+					               		{
 											this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.rating_graph && this.props.ipd_hospital_detail.rating_graph.star_count && this.props.ipd_hospital_detail.display_rating_widget ?
 												<div className="hs-card">
 													<div className="card-head"><h2 className="dsply-ipd-hdng">Patient Feedback</h2></div>
@@ -173,6 +220,19 @@ class HospitalDetailView extends React.Component {
 															: ''
 													}
 												</div>
+												: ''
+										}
+										</div>
+
+										{
+											this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.ipd_procedure_categories && this.props.ipd_hospital_detail.ipd_procedure_categories.length ?
+												<HospitalTreatment hospital_data={this.props.ipd_hospital_detail} {...this.props} />
+												: ''
+										}
+
+										{
+											this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.services && this.props.ipd_hospital_detail.services.length ?
+												<HospitalServices hospital_data={this.props.ipd_hospital_detail} />
 												: ''
 										}
 
