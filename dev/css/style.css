@@ -6881,7 +6881,7 @@ button.padding-btn-adjust{
 .light-txts{
 	font-size: 12px;
 	color: #757575;
-	margin: 3px 0 0 5px;
+	/*margin: 3px 0 0 5px;*/
     display: inline-block;
 }
 .pay-at-clinic{
@@ -6893,6 +6893,12 @@ button.padding-btn-adjust{
     padding: 2px 10px;
     font-weight: 500;
     color: #f18031;
+}
+.payment-mode-amt {
+	margin-left: 9px;
+    font-size: 14px;
+    color: #757575;
+    line-height: 1.80;
 }
 @media screen and (max-width: 428px){
 	.light-txts{
