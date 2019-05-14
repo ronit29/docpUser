@@ -64,7 +64,6 @@ class InsuranceProofs extends React.Component {
             this.props.uploadProof(form_data, member_id, img_type, (data, err) => {
                 if (data) {
                     mem_data.id = data.data.member
-                    mem_data.img_id = data.id
                     mem_data.img_type = img_type
                     if(this.props.members_proofs.length > 0){
                         existingData =this.props.members_proofs.filter((x=>x.id == member_id))
@@ -72,29 +71,41 @@ class InsuranceProofs extends React.Component {
                             if(img_type== 'front'){
                                 mem_data.front_img = data.data.document_image  
                                 mem_data.back_img = existingData[0].back_img
+                                mem_data.front_image_id = data.id
+                                mem_data.back_image_id = existingData[0].back_image_id
                             }
                             if (img_type == 'back') {
                                 mem_data.front_img = existingData[0].front_img
                                 mem_data.back_img = data.data.document_image
+                                mem_data.front_image_id = existingData[0].front_image_id
+                                mem_data.back_image_id = data.id
                             }
                         }else{
                             if(img_type== 'front'){
                                 mem_data.front_img = data.data.document_image  
                                 mem_data.back_img = null
+                                mem_data.front_image_id = data.id
+                                mem_data.back_image_id = null
                             }
                             if (img_type == 'back') {
                                 mem_data.front_img = null
                                 mem_data.back_img = data.data.document_image
+                                mem_data.front_image_id = null
+                                mem_data.back_image_id = data.id
                             }
                         }
                     }else{
                         if(img_type == 'front'){
                             mem_data.front_img = data.data.document_image  
                             mem_data.back_img = null
+                            mem_data.front_image_id = data.id
+                            mem_data.back_image_id = null
                         }
                         if (img_type == 'back') {
                             mem_data.front_img = null
                             mem_data.back_img = data.data.document_image
+                            mem_data.front_image_id = null
+                            mem_data.back_image_id = data.id
                         }
                     }
                     this.props.storeMemberProofs(mem_data)
