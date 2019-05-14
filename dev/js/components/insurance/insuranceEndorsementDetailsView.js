@@ -383,6 +383,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 					}
 				}
 			}
+			console.log(is_disable)
 			console.log(member_ref)
 		this.setState({validateErrors: validatingErrors,validateOtherErrors: validatingOtherErrors,validatingNames:invalidname,validateDobErrors:validatingDobErrors,errorMessages:errorMessagesObj})
     	if(is_disable && document.getElementById(member_ref)){    		
@@ -404,31 +405,6 @@ class InsuranceEndoresmentInputView extends React.Component{
 			return 	insuranceUserData.members.push(members)
 		})
 		this.props.pushUserEndorsedData(insuranceUserData)
-    }
-
-    pickFile(member_id,img_type,e) {
-        if (e.target.files && e.target.files[0]) {
-            const compress = new Compress()
-            let file = e.target.files[0]
-            compress.compress([file], {
-                quality: 1,
-                maxWidth: 1000,
-                maxHeight: 1000,
-            }).then((results) => {
-                const img1 = results[0]
-                const base64str = img1.data
-                const imgExt = img1.ext
-                const file = Compress.convertBase64ToFile(base64str, imgExt)
-                this.getBase64(file, (dataUrl) => {
-                    // this.props.toggleOpenCrop()
-                    this.finishCrop(dataUrl,member_id,img_type)
-                    this.setState({ dataUrl })
-                })
-            }).catch((e) => {
-                SnackBar.show({ pos: 'bottom-center', text: "Error uploading image." });
-            })
-
-        }
     }
 
 	render(){

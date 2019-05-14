@@ -36,7 +36,8 @@ class InsuranceSelf extends React.Component{
     	    no_lname:false,
     	    disableName:false,
     	    disableEmail:false,
-    	    disableDob:false
+    	    disableDob:false,
+    	    is_change:false
 
         }
     	this.handleSubmit = this.handleSubmit.bind(this);
@@ -63,12 +64,12 @@ class InsuranceSelf extends React.Component{
     		if(Object.keys(this.props.self_data_values).length>0){
     			profile= Object.assign({}, this.props.self_data_values[this.props.user_data[0].id])
     			this.setState({...profile},()=>{
-	    				this.handleSubmit()
+	    				this.handleSubmit(true)
 	    			})
     		}else{
     			if(this.props.user_data && this.props.user_data.length > 0){
-	    			this.setState({...this.props.user_data[0], name:this.props.user_data[0].first_name,member_type:this.props.member_type, profile_id:this.props.user_data[0].profile},()=>{
-	    				this.handleSubmit()
+	    			this.setState({...this.props.user_data[0], name:this.props.user_data[0].first_name,member_type:this.props.member_type, profile_id:this.props.user_data[0].profile,is_change:false},()=>{
+	    				this.handleSubmit(true)
 	    			})
     			}
     		}
@@ -92,11 +93,11 @@ class InsuranceSelf extends React.Component{
 		    		this.setState({...profile,disableEmail:profile.email != ''?true:false,disableDob:profile.dob != null?true:false,disableName:profile.name !=''?true:false},() =>{
 		    			if(profile.gender == 'm'){
 							this.setState({title:'mr.'},()=>{
-								 this.handleSubmit()
+								 this.handleSubmit(false)
 							})
 						}else if(profile.gender == 'f'){
 							this.setState({title:'mrs.'},()=>{
-								 this.handleSubmit()
+								 this.handleSubmit(false)
 							})
 						}
 		    		})	
@@ -115,6 +116,7 @@ class InsuranceSelf extends React.Component{
 
     	}
     }
+
     getUserDetails(profile){
 		let newName=[]
 	    newName =  profile.name.split(" ")
@@ -129,7 +131,6 @@ class InsuranceSelf extends React.Component{
 	    }else{
 	    	this.setState({name:profile.isDummyUser?'':profile.name})
 	    }
-
 	    this.setState({
 	    	disableEmail:!profile.isDummyUser && profile.email != ''?true:false,
 	    	disableDob: !profile.isDummyUser && profile.dob != null?true:false,
@@ -147,9 +148,8 @@ class InsuranceSelf extends React.Component{
 					this.setState({title:'miss'})
 				}	
 			}
-			this.handleSubmit()
+			this.handleSubmit(false)
 		})
-
 	}
     handleChange(field,event) { 
     	this.setState({
@@ -173,7 +173,7 @@ class InsuranceSelf extends React.Component{
   			this.props.userData('self_data', self_data)
     	})
   	}
-	handleSubmit() {
+	handleSubmit(is_endoresment) {
 		let profile  = Object.assign({}, this.props.USER.profiles[this.props.USER.defaultProfile])
     	if(!profile.isDummyUser){
     		this.setState({profile_id:this.props.member_id})
@@ -195,6 +195,9 @@ class InsuranceSelf extends React.Component{
 	    	if(self_data.last_name.length > 50){
 				self_data.last_name = self_data.last_name.slice(0, 50)
 			}	
+	    }
+	    if(!is_endoresment){
+	    	self_data.is_change = true
 	    }
 	    this.props.userData('self_data', self_data)
 	}
@@ -225,7 +228,7 @@ class InsuranceSelf extends React.Component{
 		let validEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   			validEmail = validEmail.test(this.state.email);
 		if(validEmail){
-			this.handleSubmit();
+			this.handleSubmit(false);
 		}else{
 			SnackBar.show({ pos: 'bottom-center', text: "Please Enter valid Email" });
 		}
@@ -241,7 +244,7 @@ class InsuranceSelf extends React.Component{
 		this.setState({
 			gender: event.target.value
 		},() =>{
-			this.handleSubmit(event)
+			this.handleSubmit(false,event)
 		})
 	}
 	openDateModal() {
@@ -255,7 +258,7 @@ class InsuranceSelf extends React.Component{
 		    let day  = ("0" + date.getDate()).slice(-2);
 		    let actual_date =  [ date.getFullYear(), mnth, day ].join("-");
             this.setState({ selectedDateSpan: actual_date, dateModal: false, currentDate: new Date(date).getDate(),dob: actual_date }, () => {
-                this.handleSubmit()
+                this.handleSubmit(false)
             })
         } else {
             this.setState({ dateModal: false })
@@ -284,7 +287,7 @@ class InsuranceSelf extends React.Component{
 	// }
 	handleLastname(event){
 		this.setState({no_lname:!this.state.no_lname},() =>{
-			this.handleSubmit(event)
+			this.handleSubmit(false,event)
 		})
 	}
 	showAlert(){
@@ -492,7 +495,7 @@ class InsuranceSelf extends React.Component{
 					</div>
 					<div className="col-6">
 						<div className="ins-form-group inp-margin-right ">
-							<input style={{'textTransform': 'capitalize'}} type="text" id={`name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('name')> -1?'fill-error':''}`} required autoComplete={null} name="name" value={this.state.name} data-param='name' onChange={this.handleChange.bind(this,'name')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'name')} disabled={this.state.disableName?'disabled':''} onKeyPress={this.handleNameCharacters.bind(this,'name')}/>
+							<input style={{'textTransform': 'capitalize'}} type="text" id={`name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('name')> -1?'fill-error':''}`} required autoComplete={null} name="name" value={this.state.name} data-param='name' onChange={this.handleChange.bind(this,'name')} onBlur={this.handleSubmit.bind(this,false)} onFocus={this.handleOnFocus.bind(this,'name')} disabled={this.state.disableName?'disabled':''} onKeyPress={this.handleNameCharacters.bind(this,'name')}/>
 							<label className={this.state.disableName?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`name_${this.props.member_id}`}><span className="labelDot">*</span>First Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 						</div>
@@ -507,7 +510,7 @@ class InsuranceSelf extends React.Component{
 					</div>
 					<div className="col-6">
 						<div className="ins-form-group inp-margin-right ">
-							<input style={{'textTransform': 'capitalize'}} type="text" id={`middle_name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('middle_name')> -1?'fill-error':''}`} required autoComplete={null} name="middle_name" value={this.state.no_lname?'':this.state.middle_name}  data-param='middle_name' onChange={this.handleChange.bind(this,'middle_name')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'middle_name')} onKeyPress={this.handleNameCharacters.bind(this,'middle_name')} disabled={this.state.no_lname?'disabled':""} disabled={this.state.disableName?'disabled':''}/>
+							<input style={{'textTransform': 'capitalize'}} type="text" id={`middle_name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('middle_name')> -1?'fill-error':''}`} required autoComplete={null} name="middle_name" value={this.state.no_lname?'':this.state.middle_name}  data-param='middle_name' onChange={this.handleChange.bind(this,'middle_name')} onBlur={this.handleSubmit.bind(this,false)} onFocus={this.handleOnFocus.bind(this,'middle_name')} onKeyPress={this.handleNameCharacters.bind(this,'middle_name')} disabled={this.state.no_lname?'disabled':""} disabled={this.state.disableName?'disabled':''}/>
 							<label className={this.state.disableName?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`middle_name_${this.props.member_id}`}>Middle Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 						</div>
@@ -518,7 +521,7 @@ class InsuranceSelf extends React.Component{
 					</div>
 					<div className="col-6">
 						<div className="ins-form-group ins-form-group inp-margin-right  ">
-							<input style={{'textTransform': 'capitalize'}} type="text" id={`last_name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('last_name')> -1?'fill-error':''}`} required autoComplete={null} name="last_name" value={this.state.no_lname?'':this.state.last_name} data-param='last_name' onChange={this.handleChange.bind(this,'last_name')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'last_name')} disabled={this.state.no_lname?'disabled':""} onKeyPress={this.handleNameCharacters.bind(this,'last_name')} disabled={this.state.disableName?'disabled':''}/>
+							<input style={{'textTransform': 'capitalize'}} type="text" id={`last_name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('last_name')> -1?'fill-error':''}`} required autoComplete={null} name="last_name" value={this.state.no_lname?'':this.state.last_name} data-param='last_name' onChange={this.handleChange.bind(this,'last_name')} onBlur={this.handleSubmit.bind(this,false)} onFocus={this.handleOnFocus.bind(this,'last_name')} disabled={this.state.no_lname?'disabled':""} onKeyPress={this.handleNameCharacters.bind(this,'last_name')} disabled={this.state.disableName?'disabled':''}/>
 							<label className={this.state.disableName?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot">*</span>Last Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 						</div>
@@ -605,7 +608,7 @@ class InsuranceSelf extends React.Component{
 					</div>
 					<div className="col-12">
 						<div className="ins-form-group autocomplete">
-							<input style={{'textTransform': 'capitalize'}} type="text" id="userState" className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state')> -1?'fill-error':''}`} required autoComplete={null} name="state" value={this.state.state} data-param='state' onChange={this.handleState.bind(this,'state')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'state')} data-state-code={this.state.state_code}/>
+							<input style={{'textTransform': 'capitalize'}} type="text" id="userState" className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state')> -1?'fill-error':''}`} required autoComplete={null} name="state" value={this.state.state} data-param='state' onChange={this.handleState.bind(this,'state')} onBlur={this.handleSubmit.bind(this,false)} onFocus={this.handleOnFocus.bind(this,'state')} data-state-code={this.state.state_code}/>
 							<label className="form-control-placeholder" htmlFor={`isnstate_${this.props.member_id}`}>State</label>
 							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
@@ -621,7 +624,7 @@ class InsuranceSelf extends React.Component{
 					<div className="col-12">
 						{this.state.state_code != ''?
 						<div className="ins-form-group autocomplete">
-							<input style={{'textTransform': 'capitalize'}} type="text" id="userDistrict" className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state')> -1?'fill-error':''}`} required autoComplete={null} name="district" value={this.state.district} data-param='district' onChange={this.handleDistrict.bind(this,'district')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'district')} data-state-code={this.state.district_code}/>
+							<input style={{'textTransform': 'capitalize'}} type="text" id="userDistrict" className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state')> -1?'fill-error':''}`} required autoComplete={null} name="district" value={this.state.district} data-param='district' onChange={this.handleDistrict.bind(this,'district')} onBlur={this.handleSubmit.bind(this,false)} onFocus={this.handleOnFocus.bind(this,'district')} data-state-code={this.state.district_code}/>
 								<label className="form-control-placeholder" htmlFor={`isndistrict_${this.props.member_id}`}>District</label>
 								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
@@ -644,7 +647,7 @@ class InsuranceSelf extends React.Component{
 					<div className="col-12">
 					{this.state.district_code != ''?
 						<div className="ins-form-group autocomplete">
-						<input style={{'textTransform': 'capitalize'}} type="text" id="userTown" className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state')> -1?'fill-error':''}`} required autoComplete={null} name="town" value={this.state.town} data-param='town' onChange={this.handleTown.bind(this,'town')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'town')} data-state-code={this.state.town_code}/>
+						<input style={{'textTransform': 'capitalize'}} type="text" id="userTown" className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state')> -1?'fill-error':''}`} required autoComplete={null} name="town" value={this.state.town} data-param='town' onChange={this.handleTown.bind(this,'town')} onBlur={this.handleSubmit.bind(this,false)} onFocus={this.handleOnFocus.bind(this,'town')} data-state-code={this.state.town_code}/>
 							<label className="form-control-placeholder" htmlFor={`isndistrict_${this.props.member_id}`}>Town</label>
 							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
@@ -754,7 +757,7 @@ class InsuranceSelf extends React.Component{
 					</div>*/}
 					<div className="col-12">
 						<div className="ins-form-group">
-							<input style={{'textTransform': 'capitalize'}} type="text" id={`insaddress${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('address')> -1?'fill-error':''}`} required autoComplete={null} name="address" value={this.state.address} data-param='address' onChange={this.handleChange.bind(this,'address')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'address')} />
+							<input style={{'textTransform': 'capitalize'}} type="text" id={`insaddress${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('address')> -1?'fill-error':''}`} required autoComplete={null} name="address" value={this.state.address} data-param='address' onChange={this.handleChange.bind(this,'address')} onBlur={this.handleSubmit.bind(this,false)} onFocus={this.handleOnFocus.bind(this,'address')} />
 							<label className="form-control-placeholder" htmlFor={`insaddress${this.props.member_id}`}><span className="labelDot">*</span>Full Address</label>
 							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
@@ -769,7 +772,7 @@ class InsuranceSelf extends React.Component{
 					</div>
 					<div className="col-12">
 						<div className="ins-form-group">
-							<input type="number" id={`isnpin_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('pincode')> -1?'fill-error':''}`} required autoComplete="null" name="pincode" value={this.state.pincode} data-param='pincode' onKeyPress={this.handlekey.bind(this)} onChange={this.handleChange.bind(this,'pincode')} onBlur={this.handleSubmit} onFocus={this.handleOnFocus.bind(this,'pincode')}/>
+							<input type="number" id={`isnpin_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('pincode')> -1?'fill-error':''}`} required autoComplete="null" name="pincode" value={this.state.pincode} data-param='pincode' onKeyPress={this.handlekey.bind(this)} onChange={this.handleChange.bind(this,'pincode')} onBlur={this.handleSubmit.bind(this,false)} onFocus={this.handleOnFocus.bind(this,'pincode')}/>
 							<label className="form-control-placeholder" htmlFor={`isnpin_${this.props.member_id}`}><span className="labelDot">*</span>Pincode</label>
 							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
@@ -790,7 +793,7 @@ class InsuranceSelf extends React.Component{
 					</div>
 				</div>
 				{
-					this.props.is_endorsement?
+					this.props.is_endorsement && this.state.is_change?
 					<InsuranceProofs {...this.props}/>
 					:''
 				}			
