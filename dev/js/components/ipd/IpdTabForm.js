@@ -175,7 +175,7 @@ class IpdTabForm extends React.Component {
 		}
 
 		return(
-			<div className="ipd-section ipd-form-view" style={{ 'marginTop': '11px' }}>
+			<div className={`${this.props.tabView?'':'ipd-section ipd-form-view'}`} style={{ 'marginTop': '11px' }}>
 				{
 					this.props.match.params.id != 'price' && ipd_info && ipd_info.about && ipd_info.about.name ?
 						<h4 className="section-heading pt-0">{`Get Cost Estimate of ${ipd_info.about.name}`}</h4>
@@ -183,7 +183,7 @@ class IpdTabForm extends React.Component {
 				}
 
 				<div className="lead-form">
-					<p>Please provide your details below and our Medical Experts will contact you shortly</p>
+					<h2 className="section-heading hd-mrgn-top">Get Help from Medical Experts</h2>
 				
 				</div>
 				<div className="info-popup">
@@ -265,10 +265,20 @@ class IpdTabForm extends React.Component {
 								: ''
 						}
 					</div>
+					{
+					this.props.tabView?
+						<div className={`${this.props.tabView?'text-center':'btn-search-div btn-apply-div btn-sbmt btncallback'}`}>
+							<a href="javascript:void(0);" className="ipd-frm-btn" onClick={this.submitClicked.bind(this)}>Submit</a>
+						</div>
+						:''
+					}
 				</div>
-				<div className={`${this.props.tabView?' btn-apply-div  mt-20':'btn-search-div btn-apply-div btn-sbmt btncallback'}`}>
-					<a href="javascript:void(0);" className="btn-search" onClick={this.submitClicked.bind(this)}>Submit</a>
-				</div>
+				{
+					this.props.tabView?''
+					:<div className={`${this.props.tabView?' btn-apply-div  mt-20':'btn-search-div btn-apply-div btn-sbmt btncallback'}`}>
+						<a href="javascript:void(0);" className="btn-search" onClick={this.submitClicked.bind(this)}>Submit</a>
+					</div>
+				}
 				{
 					this.state.submitFormSuccess ?
 						<ThankyouPoup {...this.props} togglePopup={this.togglePopup.bind(this)}/>
