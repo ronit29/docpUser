@@ -1124,6 +1124,18 @@ p.top-head-link.card-lab-link span {
 		margin-right: 10px !important;
 	}
 }
+@media(min-width: 992px) {
+.col-lg-cstm-1 {
+	-ms-flex: 0 0 16.666667%;
+	flex: 0 0 11.666667%;
+	max-width: 11.666667%;
+}
+.col-lg-cstm-11 {
+	-ms-flex: 0 0 83.333333%;
+	flex: 0 0 88.333333%;
+	max-width: 88.333333%;
+}
+}
 
 @media (max-height: 355px) {
 	.float-chat-height {
@@ -5673,7 +5685,7 @@ button.add-shpng-cart-btn.update-btn {
     top: 0;
     left: -100%;
     transition: all ease-in-out .5s;
-    width: 80%;
+    width: 25%;
 }
 
 .left-menu{
@@ -5860,13 +5872,12 @@ button.add-shpng-cart-btn.update-btn {
 }
 .ham-menu{
 	float: left;
-	display: none;
 	cursor: pointer;
 }
 .ham-menu img{
-	height: 16px;
-    margin-top: 24px;
-    margin-right: 11px;
+	height: 13px;
+    margin-right: 9px;
+    margin-top: 28px;
 }
 
 .drop-list-menu .profile-list li a{color: rgba(0,0,0,0.54); padding-left: 65px;}
@@ -5877,16 +5888,27 @@ button.add-shpng-cart-btn.update-btn {
     margin-top: 10px;
     margin-right: 0;
 }
-.cl-overlay{
+/* .cl-overlay{
 	display: none;
-}
+} */
 .pos-rel{
 	position: relative;
+}
+.col-d-width-ease{
+	left: 0;
+	transition: all ease-in-out .5s;
+}
+
+.cl-overlay{
+	display: block;
 }
 @media screen and (max-width: 991px){
 	.ham-menu img{
 		margin-top: 15px;
 		height: 13px;
+	}
+	.col-d-width{
+		width: 35%;
 	}
 }
 @media screen and (max-width: 767px){
@@ -5896,15 +5918,13 @@ button.add-shpng-cart-btn.update-btn {
 	.doc-header{
 		z-index: 999;
 	}
-	.col-d-width-ease{
-		left: 0;
-		transition: all ease-in-out .5s;
-   }
-   .cl-overlay{
-   	display: block;
-   }
-   .pkgSliderContainer{
-    margin: 0 -15px;
+	.col-d-width{
+		width: 80%;
+	}
+	
+   div.pkgSliderContainer{
+	margin: 0 -15px;
+	padding: 2px 15px 2px 15px;
 }
 }
 
@@ -7469,7 +7489,7 @@ button.cstm-view-btn {
 }
 .ipd-section .hs-card{
     border-radius: 5px;
-    box-shadow: 0px 2px 8px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,.12);
     background: #fff;
     margin-bottom: 15px;
 }
@@ -7531,7 +7551,8 @@ button.cstm-view-btn {
 .ipd-section .hsptl-img span{
     display: inline-block;
     padding-right: 10px;
-    text-align: center;
+	text-align: center;
+	cursor: pointer;
 }
 .ipd-section .hsptl-img span img{
     height: 54px;
@@ -7575,7 +7596,8 @@ button.cstm-view-btn {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     clear: both;
-    padding: 15px;
+	padding: 15px;
+	font-weight: 400;
 }
 .ipd-section .hs-services li{
     float: left;
@@ -7591,12 +7613,12 @@ button.cstm-view-btn {
     margin-right: 10px;
     vertical-align: -4px;
 }
-.ipd-section .hs-services li:last-child img{
+/* .ipd-section .hs-services li:last-child img{
     width: 10px;
     margin-left: 5px;
     margin-right: 15px;
     vertical-align: -2px;
-}
+} */
 .ipd-section .btn-view-hospital.btn-more{
     display: inline-block;
     float: right;
@@ -10805,7 +10827,7 @@ position: relative;
 .pkgSliderContainer{
 	white-space: nowrap;
     overflow: auto;
-    padding: 3px 15px;
+	padding: 2px 15px 2px 0px;
 }
 .pkgcustCards{
 	text-align: center;
@@ -10822,7 +10844,8 @@ position: relative;
     margin-bottom: 16px;
     display: inline-block;
     margin-right: 10px;
-    margin-left: 2px;
+	margin-left: 2px;
+	cursor: pointer;
 }
 
 .pkgtstName{
@@ -11238,3 +11261,15 @@ position: relative;
 	font-weight: 400;
 }
 
+input.clkInput{
+    background: #f3f3f3;
+    margin-top: 5px;
+}
+.uTimingPara {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.uTimingPara p{
+	margin-left: 3px;
+}

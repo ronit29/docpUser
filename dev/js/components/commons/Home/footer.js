@@ -67,9 +67,9 @@ class Footer extends React.Component {
                                                 {
                                                     footerData.urls.map((url, j) => {
                                                         return <li key={"li" + j}>
-                                                            <a href={url.url} onClick={(e) => {
+                                                            <a href={`/${url.url}`} onClick={(e) => {
                                                                 e.preventDefault();
-                                                                this.navigateTo(url.url)
+                                                                this.navigateTo(`/${url.url}`)
                                                             }}>{url.title}</a>
                                                         </li>
                                                     })
