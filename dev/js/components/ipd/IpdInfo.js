@@ -8,6 +8,7 @@ import GTM from '../../helpers/gtm.js'
 import HelmetTags from '../commons/HelmetTags'
 import CONFIG from '../../config'
 import BreadCrumbView from './breadCrumb.js'
+import IpdFormView from '../../containers/ipd/IpdForm.js'
 
 
 class IpdView extends React.Component {
@@ -208,6 +209,8 @@ class IpdView extends React.Component {
                        <div className="nav nav-tabs nav-top-head " id="nav-tab" role="tablist">
 	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='aboutTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'aboutTab')}>Overview
 	                              </a>
+	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='bookNow'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'bookNow')}>Book Now
+	                              </a>
 	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='hospitalTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'hospitalTab')}>Hospitals
 	                              </a>
 	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='doctorTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'doctorTab')}>Doctors
@@ -219,6 +222,10 @@ class IpdView extends React.Component {
                <div className="tab-content" >
                		<div id="aboutTab" ref="aboutTab" className="nav_top_bar">
                			<IpdAboutUs {...this.props} id="aboutTab" readMoreClicked={this.readMoreClicked.bind(this)}/>
+               		</div> 
+
+               		<div id="bookNow" ref="bookNow" className="nav_top_bar">
+               			<IpdFormView {...this.props} tabView={true}/>
                		</div> 
                    	
 		            <div id="hospitalTab" ref="hospitalTab" className="tab-pane fade" className="nav_top_bar">
