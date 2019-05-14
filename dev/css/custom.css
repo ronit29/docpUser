@@ -877,3 +877,87 @@ div.onln-cnslt-head {
 	font-size: 11px;
 }
 /* ============ download app btn ============ */
+/* ============ insurance upload ============ */
+.insurance-proofs-cont{
+	margin: 0 -15px;
+	background: #f786311a;
+	padding: 10px 5px;
+}
+.upload-addbtn-cont{
+	display: flex;
+		align-items: center;
+		justify-content: space-between;
+}
+.ins-upld-cont{
+	display: flex;
+	align-items: flex-start;
+}
+.ins-sb-frst-img {
+	background: rgba(247, 134, 49, .12);
+	height: 35px;
+	width: 35px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50px;
+	flex-shrink: 0;
+	flex-grow: 0;
+}
+.ins-sb-frst-img img{
+	width: 22px;
+}
+.ins-upload-text{
+	margin-left: 5px;
+}
+.ins-upload-para-text{
+	font-size: 12px;
+	font-weight: 500;
+}
+.ins-upload-sub-text{
+	color: #757575;
+    font-size: 11px;
+    font-weight: 500;
+    margin-top: 2px;
+}
+span.ins-proof-upload-btn {
+	background-image: linear-gradient(to left,#ff6d00,#f78631);
+	display: flex;
+	align-items: center;
+	padding: 4px 8px 4px 5px;
+	color: white;
+	font-size: 13px;
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+	border-radius: 5px;
+	font-weight: 500;
+	margin-left: 3px;
+	cursor: pointer;
+}
+span.ins-proof-upload-btn img {
+	width: 16px;
+	margin-right: 2px;
+}
+.upload-img-section{
+	margin-left: 40px;
+	margin-top: 10px;
+}
+
+.ins-up-img-ic{
+	width: 50px;
+	margin-right: 10px;
+}
+.ins-prf-addMore{
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	color: #fa7d1f;
+	font-weight: 500;
+	height: 50px;
+	font-size: 12px;
+}
+.ins-addico{
+	margin-bottom: 2px;
+	width: 22px;
+}
+/* ============ insurance upload ============ */
