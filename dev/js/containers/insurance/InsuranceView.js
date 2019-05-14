@@ -35,7 +35,7 @@ class Insurance extends React.Component{
                 <InsuranceComponent {...this.props}/>
             )
         }else{
-            if(this.props.insurnaceData.certificate){
+            if(this.props.insurnaceData.certificate && STORAGE.checkAuth()){
                 this.props.history.push('/insurance/certificate')
             }
             return(

@@ -6,6 +6,7 @@ import InsuranceReviewView from '../../components/insurance/insuranceReview.js'
 import Loader from '../../components/commons/Loader'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 const queryString = require('query-string');
+import STORAGE from '../../helpers/storage'
 
 class InsuranceReview extends React.Component{
     constructor(props) {
@@ -45,7 +46,7 @@ class InsuranceReview extends React.Component{
             <InsuranceReviewView {...this.props} data={this.state.data} is_endorsement={this.state.is_endorsement}/>
             )
         }else{
-            if(this.props.insurnaceData.certificate){
+            if(this.props.insurnaceData.certificate && STORAGE.checkAuth()){
                 this.props.history.push('/insurance/certificate')
             }
             return(
