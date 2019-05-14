@@ -36,7 +36,7 @@ class InsuranceOthers extends React.Component {
 	componentDidMount(){
 		let profile
 		if(this.props.is_endorsement){
-			if(Object.keys(this.props.self_data_values).length>0){
+			if(Object.keys(this.props.self_data_values).length>0 && this.props.user_data.length > 0){
 				profile= Object.assign({}, this.props.self_data_values[this.props.user_data[0].id])
 				this.setState({...profile},()=>{
 	    				this.handleSubmit(true)
@@ -507,12 +507,12 @@ class InsuranceOthers extends React.Component {
 							this.props.is_child_only?<span className="fill-error-span">{this.props.errorMessages['childAgeDiff']}</span>:'':''
 						}
 					</div>
-					{
-						this.props.is_endorsement && this.state.is_change?
-							<InsuranceProofs {...this.props}/>
-						:''
-					}
 				</div>
+				{
+					this.props.is_endorsement && this.state.is_change?
+						<InsuranceProofs {...this.props}/>
+					:''
+				}
 				{this.state.showPopup ?
 					<InsurPopup {...this.state.userProfiles} currentSelectedInsuredMembersId={this.props.currentSelectedInsuredMembersId} member_id={this.props.member_id} closePopup={this.togglePopup.bind(this)} isSelectprofile = {true} self_data_values ={this.props.self_data_values[this.props.member_id]} hideSelectProfilePopup={this.hideSelectProfilePopup.bind(this)}
 					/> : ''
