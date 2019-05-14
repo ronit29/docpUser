@@ -214,7 +214,8 @@ export default function (state = defaultState, action) {
         }
         case SAVE_MEMBER_PROOFS:{
             let newState = {
-                ...state
+                ...state,
+                members_proofs: [].concat(state.members_proofs)
             }
             if(newState.members_proofs.length > 0){
 

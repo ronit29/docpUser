@@ -2,6 +2,7 @@ import React from 'react'
 import SnackBar from 'node-snackbar'
 import Calendar from 'rc-calendar'
 import StateCityAutoComplete from './stateCityAutoComplete.js'
+import InsuranceProofs from './insuranceProofs.js'
 const moment = require('moment')
 
 class InsuranceSelf extends React.Component{
@@ -459,9 +460,6 @@ class InsuranceSelf extends React.Component{
 		// 	}
 
 		// }
-		if(this.props.members_proofs && this.props.members_proofs.length > 0){
-			Uploaded_image_data = this.props.members_proofs.filter((x=>x.id == this.props.member_id))
-		}
 		return(
 				<div>
 				{/*
@@ -791,32 +789,11 @@ class InsuranceSelf extends React.Component{
 					<div>
 					</div>
 				</div>
-				<div id={`member_${this.props.member_id}_upload`}>
-					<span className="cam-icon" onClick={() => {
-                            document.getElementById('imageFilePicker_'+this.props.member_id+'_front').click()
-                            document.getElementById('imageFilePicker_'+this.props.member_id+'_front').value = ""
-                        }}>Upload
-                        <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_front`} onChange={this.props.uploadProof.bind(this,this.props.member_id,'front')} />
-                    </span>
-                    <br/>
-                    <span className="cam-icon" onClick={() => {
-                            document.getElementById('imageFilePicker_'+this.props.member_id+'_back').click()
-                            document.getElementById('imageFilePicker_'+this.props.member_id+'_back').value = ""
-                        }}>Add More
-                        <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_back`} onChange={this.props.uploadProof.bind(this,this.props.member_id,'back')} />
-                    </span>
-				</div>
 				{
-					Uploaded_image_data && Uploaded_image_data.length > 0?			
-					<div>
-						<img src={Uploaded_image_data[0].front_img} style={{height:'100px'}}/>
-						{
-							Uploaded_image_data[0].back_img?
-							<img src={Uploaded_image_data[0].back_img} style={{height:'100px'}}/>:''
-						}
-					</div>
+					this.props.is_endorsement?
+					<InsuranceProofs {...this.props}/>
 					:''
-				}
+				}			
 				</div>
 			)
 	}

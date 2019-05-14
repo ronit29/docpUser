@@ -1,6 +1,7 @@
 import React from 'react'
 import InsurPopup from './insurancePopup.js'
 import Calendar from 'rc-calendar'
+import InsuranceProofs from './insuranceProofs.js'
 const moment = require('moment')
 
 class InsuranceOthers extends React.Component {
@@ -502,34 +503,11 @@ class InsuranceOthers extends React.Component {
 							this.props.is_child_only?<span className="fill-error-span">{this.props.errorMessages['childAgeDiff']}</span>:'':''
 						}
 					</div>
-					<div id={`member_${this.props.member_id}_upload`}>
-					<span className="cam-icon" onClick={() => {
-                            document.getElementById('imageFilePicker_'+this.props.member_id+'_front').click()
-                            document.getElementById('imageFilePicker_'+this.props.member_id+'_front').value = ""
-                        }}>Upload
-                        <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_front`} onChange={this.props.uploadProof.bind(this,this.props.member_id,'front')} />
-                    </span>
-                    <br/>
-                    <span className="cam-icon" onClick={() => {
-                            document.getElementById('imageFilePicker_'+this.props.member_id+'_back').click()
-                            document.getElementById('imageFilePicker_'+this.props.member_id+'_back').value = ""
-                        }}>Add More
-                        <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_back`} onChange={this.props.uploadProof.bind(this,this.props.member_id,'back')} />
-                    </span>
-				</div>
-				{
-					Uploaded_image_data && Uploaded_image_data.length > 0?
-					
-					<div>
-						<img src={Uploaded_image_data[0].front_img} style={{height:'100px'}}/>
-						{
-							Uploaded_image_data[0].back_img?
-							<img src={Uploaded_image_data[0].back_img} style={{height:'100px'}}/>:''
-						}
-					</div>
-					:''
-
-				}
+					{
+						this.props.is_endorsement?
+							<InsuranceProofs {...this.props}/>
+						:''
+					}
 				</div>
 				{this.state.showPopup ?
 					<InsurPopup {...this.state.userProfiles} currentSelectedInsuredMembersId={this.props.currentSelectedInsuredMembersId} member_id={this.props.member_id} closePopup={this.togglePopup.bind(this)} isSelectprofile = {true} self_data_values ={this.props.self_data_values[this.props.member_id]} hideSelectProfilePopup={this.hideSelectProfilePopup.bind(this)}

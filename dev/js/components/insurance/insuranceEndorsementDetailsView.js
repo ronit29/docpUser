@@ -5,7 +5,6 @@ import InsurSelf from './insuranceSelf.js'
 import InsurOthers from './insuranceFamily.js'
 import InsurCommon from './insuranceCommonSection.js'
 import SnackBar from 'node-snackbar'
-const Compress = require('compress.js')
 
 class InsuranceEndoresmentInputView extends React.Component{
 	constructor(props) {
@@ -432,84 +431,6 @@ class InsuranceEndoresmentInputView extends React.Component{
         }
     }
 
-    getBase64(file, cb) {
-        var reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onload = function () {
-            cb(reader.result)
-        }
-        reader.onerror = function (error) {
-            console.log('Error: ', error)
-        }
-    }
-    
-    finishCrop(dataUrl, member_id,img_type) {
-    	console.log(this.props.members_proofs)
-        let file_blob_data = this.dataURItoBlob(dataUrl)
-        let mem_data={}
-        let existingData
-        let img_tag = "document_first_image"
-        if(img_type=='back'){
-        	img_tag = "document_back_image"
-        }
-        this.setState({
-            dataUrl: null,
-        }, () => {
-            
-            let form_data = new FormData()
-            form_data.append(img_tag, file_blob_data, "imageFilename.jpeg")
-            this.props.uploadProof(form_data, member_id,img_type, (data,err) => {
-            	if(data){
-            		mem_data.id = data.member
-		            mem_data.img_type = img_type
-		            if(this.props.members_proofs.length > 0){
-		            	existingData =this.props.members_proofs.filter((x=>x.id == member_id))
-		            	if(existingData.length > 0){
-		            		if(img_type== 'front'){
-				            	mem_data.front_img = data.document_first_image	
-				            	mem_data.back_img = existingData[0].back_img
-				            }
-				            if(img_type== 'back'){
-				            	mem_data.front_img = existingData[0].front_img
-				            	mem_data.back_img = data.document_second_image
-				            }
-		            	}else{
-		            		if(img_type== 'front'){
-				            	mem_data.front_img = data.document_first_image	
-				            	mem_data.back_img = null
-				            }
-				            if(img_type== 'back'){
-				            	mem_data.front_img = null
-				            	mem_data.back_img = data.document_second_image
-				            }
-		            	}
-		            }else{
-		            	if(img_type == 'front'){
-		            		mem_data.front_img = data.document_first_image	
-		            		mem_data.back_img = null
-			            }
-			            if(img_type == 'back'){
-			            	mem_data.front_img = null
-			            	mem_data.back_img = data.document_second_image
-			            }
-		            }
-		            this.props.storeMemberProofs(mem_data)
-            	}
-                // this.setState({ loading: false })
-                // this.props.history.go(-1)
-            })
-        })
-    }
-
-    dataURItoBlob(dataURI) {
-        var binary = atob(dataURI.split(',')[1]);
-        var array = [];
-        for (var i = 0; i < binary.length; i++) {
-            array.push(binary.charCodeAt(i));
-        }
-        return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
-    }
-
 	render(){
 		let child
 		let adult
@@ -533,7 +454,6 @@ class InsuranceEndoresmentInputView extends React.Component{
 							is_endorsement = {true}
 							user_data={this.props.endorsed_member_data.members.filter(x=>x.relation == 'spouse')}
 							member_type={'adult'}
-							uploadProof={this.pickFile.bind(this)}
 						/>
 			}
 		
@@ -561,7 +481,6 @@ class InsuranceEndoresmentInputView extends React.Component{
 									is_endorsement = {true}
 									user_data={this.props.endorsed_member_data.members.filter(x=>x.relation != 'self' && x.relation !='spouse' && x.id==data[i] )}
 									member_type={'child'}
-									uploadProof={this.pickFile.bind(this)}
 								/>
 					}
 				})
@@ -593,7 +512,6 @@ class InsuranceEndoresmentInputView extends React.Component{
 											  is_endorsement = {true} 
 											  user_data={this.props.endorsed_member_data.members.filter(x=>x.relation == 'self')} 
 											  member_type={'adult'}
-											  uploadProof={this.pickFile.bind(this)}
 										/>
 										{adult}
 										{child}
