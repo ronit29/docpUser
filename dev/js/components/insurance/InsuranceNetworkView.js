@@ -127,10 +127,10 @@ class InsuranceNetworkView extends React.Component {
 
     resultClick(id, url) {
         if (url) {
-            this.props.history.push(`/${url}`)
+            this.props.history.push(`/${url}?from=insurance_network`)
         }
         else {
-            this.props.history.push(`/opd/doctor/${id}`)
+            this.props.history.push(`/opd/doctor/${id}?from=insurance_network`)
         }
     }
 
@@ -157,6 +157,7 @@ class InsuranceNetworkView extends React.Component {
                                             <div className="search-top-container">
                                                 <div className="serch-nw-inputs-container">
                                                     <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' fromCriteria={true} commonSearchPage={true} />
+                                                    {/* radio buttons */}
                                                     <div className="serch-nw-inputs mb-0">
                                                         <input type="text" autoComplete="off" className="d-block new-srch-doc-lab" id="search_bar" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.state.placeholder} />
                                                         <img style={{ width: '15px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />

@@ -257,16 +257,19 @@ class LabTests extends React.Component {
                         </h4>
                     } */}
 
-                    <ul className="list all-test-list pdngRgt">
-                        {selectedTests}
-                        {selectedPackage}
-                        {hide_price? '' : unSelectedTests}
-                        {hide_price? '' : unSelectedPackage}
-                    </ul>
-
+                    {
+                        this.props.location && this.props.location.search && this.props.location.search.includes('from=insurance_network') ?
+                        '' :
+                        <ul className="list all-test-list pdngRgt">
+                            {selectedTests}
+                            {selectedPackage}
+                            {hide_price? '' : unSelectedTests}
+                            {hide_price? '' : unSelectedPackage}
+                        </ul>
+                    }
                     
                     {
-                        pickup_text ? <div className="clearfix">
+                        pickup_text && (!this.props.location || !this.props.location.search || !this.props.location.search.includes('from=insurance_network')) ? <div className="clearfix">
 
                             <p className="health-visit-charge">{pickup_text}</p>
 
@@ -281,17 +284,27 @@ class LabTests extends React.Component {
                     }
                     {
                         STORAGE.checkAuth() || totalAmount < 100 ?
-                            ''
-                            : <div className="signup-off-container lab-signup-offr">
-                                <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
-                            </div>
+                            '' :
+                                this.props.location && this.props.location.search && this.props.location.search.includes('from=insurance_network') ?
+                                    '' :
+                                    <div className="signup-off-container lab-signup-offr">
+                                        <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
+                                    </div>
                     }
-                    {/*
-                        STORAGE.isAgent() || ( !hide_price && !is_user_insured) ? <div className="pb-view text-right">
-                            <a href="javascript:;" className="link-text text-md fw-700" onClick={this.openTests.bind(this)}>View more tests</a>
+                    {
+                        (STORAGE.isAgent() || ( !hide_price && !is_user_insured)) && (this.props.location && this.props.location.search && this.props.location.search.includes('from=insurance_network')) ? <div className="pb-view d-flex align-items-center justify-content-between">
+                        {
+                            !is_user_insured && this.props.data && this.props.data.total_test_count && this.props.data.total_test_count != '' ?
+                            <span className="text-md fw-500">{this.props.data.total_test_count} total tests</span> : ''
+                        }
+                        {
+                            is_user_insured?''
+                            :<a href="javascript:;" className="link-text text-md fw-500" onClick={this.openTests.bind(this)}>View all tests</a>
+                        }
+                            
                         </div>
                         :''
-                    */}
+                    }
 
                     {
                         is_user_insured && !selectedTestsCount?
