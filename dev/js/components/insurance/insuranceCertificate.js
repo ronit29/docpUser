@@ -210,6 +210,13 @@ class InsuranceCertificateView extends React.Component {
 										</div>
 									</div>
 								</div>
+								{
+									this.props.get_insured_profile && this.props.get_insured_profile.is_endorsement_allowed?
+									<a id="endorsement_link" onClick={()=>this.props.history.push('/insurance/insurance-endorsement-details')}>
+										click here for Endoresment
+									</a>
+									:''
+								}
 							</section>
 							{
 								this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 1?
@@ -230,13 +237,6 @@ class InsuranceCertificateView extends React.Component {
 						<ChatPanel />
 					</div>
 				</section>
-				{
-					this.props.get_insured_profile.is_endorsement_allowed?
-					<a onClick={()=>this.props.history.push('/insurance/insurance-endorsement-details')}>
-						click here for Endoresment
-					</a>
-					:''
-				}
 			</div>
 		} else {
 			return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
