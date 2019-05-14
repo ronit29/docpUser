@@ -230,6 +230,13 @@ class InsuranceCertificateView extends React.Component {
 						<ChatPanel />
 					</div>
 				</section>
+				{
+					this.props.get_insured_profile.is_endorsement_allowed?
+					<a onClick={()=>this.props.history.push('/insurance/insurance-endorsement-details')}>
+						click here for Endoresment
+					</a>
+					:''
+				}
 			</div>
 		} else {
 			return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >

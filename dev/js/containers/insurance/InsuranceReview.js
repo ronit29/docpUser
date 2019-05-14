@@ -80,7 +80,7 @@ const mapDispatchToProps = (dispatch) => {
         sendAgentBookingURL: (orderId, type, purchase_type, cb) => dispatch(sendAgentBookingURL(orderId, type, purchase_type, cb)),
         resetUserInsuredData:(criteria) =>dispatch(resetUserInsuredData(criteria)),
         retrieveEndorsedData:(cb) =>dispatch(retrieveEndorsedData(cb)),
-        createEndorsementData:(cb) =>dispatch(createEndorsementData(cb))
+        createEndorsementData:(insurance_pay,cb) =>dispatch(createEndorsementData(insurance_pay,cb))
         
     }
 }

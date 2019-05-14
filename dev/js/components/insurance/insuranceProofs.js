@@ -63,37 +63,38 @@ class InsuranceProofs extends React.Component{
             form_data.append(img_tag, file_blob_data, "imageFilename.jpeg")
             this.props.uploadProof(form_data, member_id,img_type, (data,err) => {
                 if(data){
-                    mem_data.id = data.member
+                    mem_data.id = data.data.member
+                    mem_data.img_id = data.id
                     mem_data.img_type = img_type
                     if(this.props.members_proofs.length > 0){
                         existingData =this.props.members_proofs.filter((x=>x.id == member_id))
                         if(existingData.length > 0){
                             if(img_type== 'front'){
-                                mem_data.front_img = data.document_first_image  
+                                mem_data.front_img = data.data.document_first_image  
                                 mem_data.back_img = existingData[0].back_img
                             }
                             if(img_type== 'back'){
                                 mem_data.front_img = existingData[0].front_img
-                                mem_data.back_img = data.document_second_image
+                                mem_data.back_img = data.data.document_second_image
                             }
                         }else{
                             if(img_type== 'front'){
-                                mem_data.front_img = data.document_first_image  
+                                mem_data.front_img = data.data.document_first_image  
                                 mem_data.back_img = null
                             }
                             if(img_type== 'back'){
                                 mem_data.front_img = null
-                                mem_data.back_img = data.document_second_image
+                                mem_data.back_img = data.data.document_second_image
                             }
                         }
                     }else{
                         if(img_type == 'front'){
-                            mem_data.front_img = data.document_first_image  
+                            mem_data.front_img = data.data.document_first_image  
                             mem_data.back_img = null
                         }
                         if(img_type == 'back'){
                             mem_data.front_img = null
-                            mem_data.back_img = data.document_second_image
+                            mem_data.back_img = data.data.document_second_image
                         }
                     }
                     this.props.storeMemberProofs(mem_data)

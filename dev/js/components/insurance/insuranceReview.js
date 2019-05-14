@@ -144,10 +144,11 @@ class InsuranceReview extends React.Component{
 		console.log(insurance_pay)
 		if(this.props.is_endorsement){
 			this.props.createEndorsementData(insurance_pay,(resp)=>{
-				console.log(resp)
-				// if(resp && resp.success){
-
-				// }
+				if(resp && resp.success){
+					SnackBar.show({ pos: 'bottom-center', text: resp.success})
+				}else if(resp.error){
+					SnackBar.show({ pos: 'bottom-center', text: resp.error })
+				}
 			})
 		}else{
 			this.props.resetSelectedInsuranceMembers()
