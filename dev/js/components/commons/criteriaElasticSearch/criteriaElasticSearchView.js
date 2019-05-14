@@ -494,7 +494,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                             </div> : ''
                                                                                     }
                                                                                     {
-                                                                                        cat.name.includes('Aarogyam C') ?
+                                                                                        cat.name && cat.name.includes('Aarogyam C') ?
                                                                                             <div className="popular-txt">
                                                                                                 <span className="fw-500">Popular</span>
                                                                                             </div> : ''
