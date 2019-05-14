@@ -49,7 +49,7 @@ class HomePageWidget extends React.Component {
                                     <div className="grid-img-cnt brdr-btm">
                                         {
                                             listItem.url ?
-                                                <a href={listItem.url} onClick={(e) => e.preventDefault()}>
+                                                <a href={`/${listItem.url}`} onClick={(e) => e.preventDefault()}>
                                                     <img className="img-fluid" src={listItem.icon} />
                                                     <span>{listItem.name}</span>
                                                 </a>

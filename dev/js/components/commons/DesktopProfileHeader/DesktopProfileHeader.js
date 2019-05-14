@@ -83,6 +83,17 @@ class DesktopProfileHeader extends React.Component {
         this.props.toggleLeftMenuBar()
     }
 
+    logoClick = () => {
+        if (this.props.homePage && !!!this.props.chatPage) {
+            if (window) {
+                window.scrollTo(0, 0);
+            }
+        }
+        else {
+            this.props.history.push('/');
+        }
+    }
+
     render() {
 
         let profileData = ''
@@ -184,9 +195,7 @@ class DesktopProfileHeader extends React.Component {
 
                     <div className="row align-items-center">
 
-                        <div className="col-lg-cstm-1 col-md-4 col-5 align-items-center pr-0" onClick={() => {
-                            this.props.history.push('/')
-                        }}>
+                        <div className="col-lg-cstm-1 col-md-4 col-5 align-items-center pr-0" onClick={this.logoClick}>
                             <div className="ham-menu" onClick={(e) => {
                                 e.stopPropagation()
                                 document.body.style.overflow = "hidden"
@@ -195,8 +204,8 @@ class DesktopProfileHeader extends React.Component {
                                 <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" />
                             </div>
                             <a className="logo-ancher logo-width-cut" href="/" onClick={(e) => e.preventDefault()}>
-                                <div className="d-none d-lg-block" style={{minHeight: '54px'}}><img className="logo-size" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" /></div>
-                                <div style={{minHeight: '35px'}} className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
+                                <div className="d-none d-lg-block" style={{ minHeight: '54px' }}><img className="logo-size" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" /></div>
+                                <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
                             </a>
                         </div>
 

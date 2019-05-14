@@ -304,7 +304,7 @@ class HomeChatView extends React.Component {
                     description: 'Online Doctor Consultation: Chat with a verified doctor from anywhere for Free & get answers within minutes.'
                 }} />
 
-                <ProfileHeader homePage={true} showSearch={true} />
+                <ProfileHeader homePage={true} chatPage={true} showSearch={true} />
 
                 <div className="onln-cnslt-head"></div>
                 <div className="chat-main-container">
