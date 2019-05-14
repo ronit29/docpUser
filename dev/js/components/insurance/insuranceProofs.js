@@ -51,10 +51,10 @@ class InsuranceProofs extends React.Component{
         let file_blob_data = this.dataURItoBlob(dataUrl)
         let mem_data={}
         let existingData
-        let img_tag = "document_first_image"
-        if(img_type=='back'){
-            img_tag = "document_second_image"
-        }
+        let img_tag = "document_image"
+        // if(img_type=='back'){
+        //     img_tag = "document_second_image"
+        // }
         this.setState({
             dataUrl: null,
         }, () => {
@@ -70,31 +70,31 @@ class InsuranceProofs extends React.Component{
                         existingData =this.props.members_proofs.filter((x=>x.id == member_id))
                         if(existingData.length > 0){
                             if(img_type== 'front'){
-                                mem_data.front_img = data.data.document_first_image  
+                                mem_data.front_img = data.data.document_image  
                                 mem_data.back_img = existingData[0].back_img
                             }
                             if(img_type== 'back'){
                                 mem_data.front_img = existingData[0].front_img
-                                mem_data.back_img = data.data.document_second_image
+                                mem_data.back_img = data.data.document_image
                             }
                         }else{
                             if(img_type== 'front'){
-                                mem_data.front_img = data.data.document_first_image  
+                                mem_data.front_img = data.data.document_image  
                                 mem_data.back_img = null
                             }
                             if(img_type== 'back'){
                                 mem_data.front_img = null
-                                mem_data.back_img = data.data.document_second_image
+                                mem_data.back_img = data.data.document_image
                             }
                         }
                     }else{
                         if(img_type == 'front'){
-                            mem_data.front_img = data.data.document_first_image  
+                            mem_data.front_img = data.data.document_image  
                             mem_data.back_img = null
                         }
                         if(img_type == 'back'){
                             mem_data.front_img = null
-                            mem_data.back_img = data.data.document_second_image
+                            mem_data.back_img = data.data.document_image
                         }
                     }
                     this.props.storeMemberProofs(mem_data)

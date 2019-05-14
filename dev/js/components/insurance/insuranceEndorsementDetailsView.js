@@ -371,26 +371,37 @@ class InsuranceEndoresmentInputView extends React.Component{
 				
 				for(var i =0;i < this.props.endorsed_member_data.members.length;i++) {
 					let id = this.props.endorsed_member_data.members[i].id
+					let member_proof=[]
+					let is_uploaded_proofs = true
+					if(this.props.members_proofs && this.props.members_proofs.length>0){
+						member_proof = this.props.members_proofs.filter((x=>x.id == id))
+						if(member_proof && member_proof.length > 0){
+							if(member_proof[0].front_img == null || member_proof[0].back_img == null){
+								is_uploaded_proofs = false
+							}
+						}
+					}
 					if(this.props.self_data_values[id]) {
 						let selectedProfile = this.props.self_data_values[id]
 						let selectedApiProfile = this.props.endorsed_member_data.members[i]
 						for(let j in  selectedApiProfile ) {
 							if(selectedProfile[j] != selectedApiProfile[j]) {
-								is_disable = true
-								member_ref = `member_${id}_upload`
+								if(!is_uploaded_proofs){
+									is_disable = true
+									member_ref = `member_${id}_upload`
+								}
 							}
 						} 
 					}
 				}
 			}
-			console.log(is_disable)
 			console.log(member_ref)
 		this.setState({validateErrors: validatingErrors,validateOtherErrors: validatingOtherErrors,validatingNames:invalidname,validateDobErrors:validatingDobErrors,errorMessages:errorMessagesObj})
     	if(is_disable && document.getElementById(member_ref)){    		
     		document.getElementById(member_ref).scrollIntoView();
     	}else{
-    		this.SaveUserData(this.props)
-			this.props.history.push('/insurance/insurance-user-details-review?is_endorsement=true')
+    		// this.SaveUserData(this.props)
+			// this.props.history.push('/insurance/insurance-user-details-review?is_endorsement=true')
     	}
     }
 

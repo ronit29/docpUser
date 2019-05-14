@@ -113,6 +113,8 @@ class InsuranceReview extends React.Component{
 					is_member_updated = this.props.members_proofs.filter((x=>x.id == param.id))
 					if(is_member_updated && is_member_updated.length > 0){
 						members.is_change=true
+						members.front_image_id = is_member_updated[0].img_id
+						members.back_image_id = is_member_updated[0].img_id
 					}else{
 						members.is_change=false
 					}
