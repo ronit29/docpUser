@@ -86,6 +86,7 @@ class InsuranceReview extends React.Component{
     		city_code = endorsedSelf.city_code
     		state = endorsedSelf.state
     		state_code = endorsedSelf.state_code
+
     		// show_lname_flag = this.props.self_data_values[0].show_lname_flag
     	}
 
@@ -116,6 +117,10 @@ class InsuranceReview extends React.Component{
 						members.is_change=false
 					}
 				}
+
+				if(this.props.is_endorsement){
+					members.id=param.id
+				}
 		    	
 		    	members.first_name=param.name
 		    	members.address=address
@@ -139,7 +144,10 @@ class InsuranceReview extends React.Component{
 		console.log(insurance_pay)
 		if(this.props.is_endorsement){
 			this.props.createEndorsementData(insurance_pay,(resp)=>{
+				console.log(resp)
+				// if(resp && resp.success){
 
+				// }
 			})
 		}else{
 			this.props.resetSelectedInsuranceMembers()

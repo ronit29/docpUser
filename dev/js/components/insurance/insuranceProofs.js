@@ -126,13 +126,6 @@ class InsuranceProofs extends React.Component{
                     }}>Upload
                     <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_front`} onChange={this.pickFile.bind(this,this.props.member_id,'front')} />
                 </span>
-                <br/>
-                <span className="cam-icon" onClick={() => {
-                        document.getElementById('imageFilePicker_'+this.props.member_id+'_back').click()
-                        document.getElementById('imageFilePicker_'+this.props.member_id+'_back').value = ""
-                    }}>Add More
-                    <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_back`} onChange={this.pickFile.bind(this,this.props.member_id,'back')} />
-                </span>
             </div>
             {
                 Uploaded_image_data && Uploaded_image_data.length > 0?          
@@ -142,6 +135,12 @@ class InsuranceProofs extends React.Component{
                         Uploaded_image_data[0].back_img?
                         <img src={Uploaded_image_data[0].back_img} style={{height:'100px'}}/>:''
                     }
+                    <span className="cam-icon" onClick={() => {
+                        document.getElementById('imageFilePicker_'+this.props.member_id+'_back').click()
+                        document.getElementById('imageFilePicker_'+this.props.member_id+'_back').value = ""
+                    }}>Add More
+                    <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_back`} onChange={this.pickFile.bind(this,this.props.member_id,'back')} />
+                    </span>
                 </div>
                 :''
                 }
