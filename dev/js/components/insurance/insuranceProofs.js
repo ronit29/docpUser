@@ -53,7 +53,7 @@ class InsuranceProofs extends React.Component{
         let existingData
         let img_tag = "document_first_image"
         if(img_type=='back'){
-            img_tag = "document_back_image"
+            img_tag = "document_second_image"
         }
         this.setState({
             dataUrl: null,
