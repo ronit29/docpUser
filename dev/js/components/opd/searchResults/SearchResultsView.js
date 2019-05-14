@@ -9,6 +9,7 @@ import NAVIGATE from '../../../helpers/navigate'
 import Footer from '../../commons/Home/footer'
 import ResultCount from './topBar/result_count.js'
 const queryString = require('query-string');
+import SCROLL from '../../../helpers/scrollHelper.js'
 
 class SearchResultsView extends React.Component {
     constructor(props) {
@@ -32,6 +33,9 @@ class SearchResultsView extends React.Component {
     }
 
     componentDidMount() {
+        /*let aa = {...SCROLL}
+        //aa.init()
+        aa.addEvents('map')*/
         const parsed = queryString.parse(this.props.location.search)
         if (this.props.mergeUrlState) {
             let getSearchId = true
