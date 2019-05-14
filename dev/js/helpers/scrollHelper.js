@@ -86,7 +86,7 @@ class ScrollView extends React.Component {
 	    }
 	    if (this.state.touchendY > this.state.touchstartY || this.state.touchmoveY > this.state.touchstartY) {
 	        swipe = 'up'
-	    }console.log(this.state)
+	    }
 
 	    this.props.getScrollView({...this.state, swipe})
 
