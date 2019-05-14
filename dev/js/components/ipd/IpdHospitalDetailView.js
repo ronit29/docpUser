@@ -123,6 +123,13 @@ class HospitalDetailView extends React.Component {
 									<div className="ipd-section">
 										<HospitalInfo hospital_data={this.props.ipd_hospital_detail} />
 
+										<div className="ipd-tabs-container">
+											<p className="ipd-tb-tabs ipd-tb-active">Services</p>
+											<p className="ipd-tb-tabs">Procedures</p>
+											<p className="ipd-tb-tabs">Doctors</p>
+											<p className="ipd-tb-tabs">Feeback</p>
+										</div>
+
 										{
 											this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.doctors && this.props.ipd_hospital_detail.doctors.result.length ?
 												<div>
