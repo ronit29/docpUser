@@ -294,10 +294,14 @@ class LabTests extends React.Component {
                     {
                         (STORAGE.isAgent() || ( !hide_price && !is_user_insured)) && (this.props.location && this.props.location.search && this.props.location.search.includes('from=insurance_network')) ? <div className="pb-view d-flex align-items-center justify-content-between">
                         {
-                            this.props.data && this.props.data.total_test_count && this.props.data.total_test_count != '' ?
+                            !is_user_insured && this.props.data && this.props.data.total_test_count && this.props.data.total_test_count != '' ?
                             <span className="text-md fw-500">{this.props.data.total_test_count} total tests</span> : ''
                         }
-                            <a href="javascript:;" className="link-text text-md fw-500" onClick={this.openTests.bind(this)}>View all tests</a>
+                        {
+                            is_user_insured?''
+                            :<a href="javascript:;" className="link-text text-md fw-500" onClick={this.openTests.bind(this)}>View all tests</a>
+                        }
+                            
                         </div>
                         :''
                     }
