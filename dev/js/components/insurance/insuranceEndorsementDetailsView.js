@@ -140,9 +140,9 @@ class InsuranceEndoresmentInputView extends React.Component{
     	let fullname
     	let fullnameObj={}
     	let isDummyUser
-    	let id_proof =[]
     	let all_id_proofs = []
     	let is_fields_edited = []
+    	let edited_fields ={}
     	let member_proof=[]
     	if(Object.keys(this.props.self_data_values).length > 0){
     		// isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
@@ -372,7 +372,6 @@ class InsuranceEndoresmentInputView extends React.Component{
 			}
 			// validating is user had changed anything	
 			if(this.props.endorsed_member_data.members.length == Object.keys(this.props.self_data_values).length){
-				
 				for(var i =0;i < this.props.endorsed_member_data.members.length;i++) {
 					let id = this.props.endorsed_member_data.members[i].id
 					if(this.props.self_data_values[id]) {
@@ -381,56 +380,54 @@ class InsuranceEndoresmentInputView extends React.Component{
 						for(let j in  selectedApiProfile ) {
 							if(selectedProfile[j] != selectedApiProfile[j]) {
 								is_fields_edited.push(id)
+								if(edited_fields[id]) {
+
+								}else {
+									edited_fields[id] = []
+								}
+								edited_fields[id].push(j)
 							}
 						} 
 					}
 					if(this.props.members_proofs && this.props.members_proofs.length>0 && is_fields_edited.indexOf(id) != -1){
 						member_proof = this.props.members_proofs.filter((x=>x.id == id))
-						if(member_proof && member_proof.length > 0){
-							if(member_proof[0].front_img == null || member_proof[0].back_img == null){
-								id_proof.push(id)
-							}else{
-								all_id_proofs.push(id)
-							}
+						if(member_proof && member_proof.length>0){
+							all_id_proofs.push(member_proof[0].id)
 						}
 					}
 				}
-				console.log('all_id_proofs')
-				console.log(all_id_proofs)
-			}
-
-			let c = id_proof.concat(is_fields_edited)
-			let merged_array = c.filter(function (item, pos) {return c.indexOf(item) == pos})
-			let newIdProofs
-			if(all_id_proofs && all_id_proofs.length > 0){
-				newIdProofs = merged_array.filter(function(x) { 
-			  		return all_id_proofs.indexOf(x) < 0;
-				})
-			}else{
-				newIdProofs = merged_array
-			}
-			console.log(newIdProofs)
-			if(newIdProofs && newIdProofs.length>0){
-				newIdProofs.map((mem_id, i) => {
-					is_disable = true
-					member_ref = `member_${mem_id}_upload`
-				})	
+				let newIdProofs
+				if(all_id_proofs && all_id_proofs.length > 0){
+					newIdProofs = is_fields_edited.filter(function(x) { 
+				  		return all_id_proofs.indexOf(x) < 0;
+					})
+				}else{
+					newIdProofs = is_fields_edited
+				}
+				console.log(newIdProofs)
+				if(newIdProofs && newIdProofs.length>0){
+					newIdProofs.map((mem_id, i) => {
+						is_disable = true
+						member_ref = `member_${mem_id}_upload`
+					})	
+				}
 			}
 			console.log(member_ref)
 		this.setState({validateErrors: validatingErrors,validateOtherErrors: validatingOtherErrors,validatingNames:invalidname,validateDobErrors:validatingDobErrors,errorMessages:errorMessagesObj})
     	if(is_disable && document.getElementById(member_ref)){    		
     		document.getElementById(member_ref).scrollIntoView();
     	}else{
-    		this.SaveUserData(this.props)
+    		this.SaveUserData(this.props,edited_fields)
 			this.props.history.push('/insurance/insurance-user-details-review?is_endorsement=true')
     	}
     }
 
-    SaveUserData(props){
+    SaveUserData(props,edited_fields){
     	let self = this
     	var insuranceUserData={}
     	var members={}
     	insuranceUserData.members= []
+    	insuranceUserData.edited_fields = edited_fields
     	Object.entries(this.props.currentSelectedInsuredMembersId).map(function([key, value]) {
     		members={}
 			members={...self.props.self_data_values[value[key]]}
@@ -507,13 +504,16 @@ class InsuranceEndoresmentInputView extends React.Component{
 						<section className="profile-book-screen">
 							<div className="widget">
 								{/*<InsurCommon {...this.props} is_edit={this.state.is_edit}/>*/}
-								<div className="ins-card-head">
+								<div className="ins-card-head" style={{'justifyContent': 'end','alignItems': 'end'}}>
 									<div className="ins-name-head">
 										<img width="120" src={this.props.insurnaceData['insurance'][0].logo} />
 									</div>
-									<div className="ins-pdf-dwnload">
+									<div className="ins-pdf-dwnload" style={{'marginLeft':'12px'}}>
 										<span>
-											Group Out-patient Insurance
+											OPD Insurance by 
+											<p>
+												<strong>Apollo Munich</strong>
+											</p>
 										</span>
 									</div>
 								</div>
