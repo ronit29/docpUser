@@ -193,6 +193,7 @@ export default function (state = defaultState, action) {
             newState.self_data_values={}
             newState.selected_plan={}
             newState.currentSelectedInsuredMembersId = []
+            newState.members_proofs = []
             return newState   
         }
         case RESET_INSURED_DATA :{

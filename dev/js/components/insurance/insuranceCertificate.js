@@ -29,6 +29,11 @@ class InsuranceCertificateView extends React.Component {
 		this.setState({showCancelPopup:false})
 	}
 
+	goToEndorsement(){
+		this.props.clearInsurance()
+		this.props.history.push('/insurance/insurance-endorsement-details')
+	}
+
 	render() {
 		if (Object.keys(this.props.get_insured_profile).length > 0) {
 			let primaryMember
@@ -212,7 +217,7 @@ class InsuranceCertificateView extends React.Component {
 								</div>
 								{
 									this.props.get_insured_profile && this.props.get_insured_profile.is_endorsement_allowed?
-									<a id="endorsement_link" onClick={()=>this.props.history.push('/insurance/insurance-endorsement-details')}>
+									<a id="endorsement_link" onClick={this.goToEndorsement.bind(this)}>
 										click here for Endoresment
 									</a>
 									:''
