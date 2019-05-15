@@ -5,6 +5,14 @@ import { getHospitaDetails , selectOpdTimeSLot, saveProfileProcedures, cloneComm
 import IpdHospitalDetailView from '../../components/ipd/IpdHospitalDetailView.js'
 const queryString = require('query-string')
 import Loader from '../../components/commons/Loader'
+import LeftBar from '../../components/commons/LeftBar'
+import RightBar from '../../components/commons/RightBar'
+import ProfileHeader from '../../components/commons/DesktopProfileHeader'
+import Footer from '../../components/commons/Home/footer'
+import HelmetTags from '../../components/commons/HelmetTags'
+import CONFIG from '../../config'
+import BreadCrumbView from '../../components/ipd/breadCrumb.js'
+
 
 
 class HospitalDetail extends React.Component {
@@ -68,16 +76,48 @@ class HospitalDetail extends React.Component {
 		}
 	}
 
+	getMetaTagsData(seoData) {
+		let title = "Hospital Profile Page"
+		if (this.state.seoFriendly) {
+			title = ""
+		}
+		let description = ""
+		if (seoData) {
+			title = seoData.title ? seoData.title : title
+			description = seoData.description || ""
+		}
+		return { title, description }
+	}
+
 	render(){
 
 		return(
-				<React.Fragment>
-					{
-						this.props.HOSPITAL_DETAIL_LOADED?
-						<IpdHospitalDetailView {...this.props} {...this.state}/>
-						:<Loader />		
-					}
-				</React.Fragment>
+				<div className="profile-body-wrap">
+					<ProfileHeader showSearch={true} />
+					<HelmetTags tagsData={{
+						canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+						title: this.getMetaTagsData(this.props.ipd_hospital_detail ? this.props.ipd_hospital_detail.seo : null).title,
+						description: this.getMetaTagsData(this.props.ipd_hospital_detail ? this.props.ipd_hospital_detail.seo : null).description
+					}} noIndex={!this.state.seoFriendly} />
+					<section className="container parent-section book-appointment-section breadcrumb-mrgn">
+						{
+							this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.breadcrumb ?
+								<BreadCrumbView breadcrumb={this.props.ipd_hospital_detail.breadcrumb} {...this.props} />
+								: ''
+						}
+						<div className="row main-row parent-section-row">
+							<LeftBar />
+							<div className="col-12 col-md-7 col-lg-7 center-column">
+							{
+								this.props.HOSPITAL_DETAIL_LOADED?
+								<IpdHospitalDetailView {...this.props} {...this.state}/>
+								:<Loader />		
+							}
+						</div>
+						<RightBar extraClass=" chat-float-btn-2" />
+						</div>
+					</section>
+				</div>
 				
 			)
 	}
