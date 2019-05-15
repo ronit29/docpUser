@@ -9,17 +9,19 @@ class InsuranceProofs extends React.Component {
         this.state = {
             dataUrl: null,
             zoomImageUrl:null,
-            zoomImage:false
+            zoomImage:false,
+            openPdf:false,
+            openPdfUrl:null
         }
     }
 
     pickFile(member_id, e) {
         if (e.target.files && e.target.files[0]) {
+            let file = e.target.files[0]
             if(e.target.files[0] && e.target.files[0].name.includes('.pdf')){
-                console.log('pdf')
+                this.finishCrop(null, member_id, file)
             }else{
                 const compress = new Compress()
-                let file = e.target.files[0]
                 compress.compress([file], {
                     quality: 1,
                     maxWidth: 1000,
@@ -30,7 +32,7 @@ class InsuranceProofs extends React.Component {
                     const imgExt = img1.ext
                     const file = Compress.convertBase64ToFile(base64str, imgExt)
                     this.getBase64(file, (dataUrl) => {
-                        this.finishCrop(dataUrl, member_id)
+                        this.finishCrop(dataUrl, member_id,'image_file')
                         this.setState({ dataUrl })
                     })
                 }).catch((e) => {
@@ -51,8 +53,11 @@ class InsuranceProofs extends React.Component {
         }
     }
 
-    finishCrop(dataUrl, member_id) {
-        let file_blob_data = this.dataURItoBlob(dataUrl)
+    finishCrop(dataUrl, member_id, file) {
+        let file_blob_data
+        if(dataUrl){
+            file_blob_data = this.dataURItoBlob(dataUrl)
+        }
         let mem_data = {}
         let existingData
         let img_tag = "document_image"
@@ -60,7 +65,11 @@ class InsuranceProofs extends React.Component {
             dataUrl: null,
         }, () => {
             let form_data = new FormData()
-            form_data.append(img_tag, file_blob_data, "imageFilename.jpeg")
+            if(file == 'image_file'){
+                form_data.append(img_tag, file_blob_data, "imageFilename.jpeg")
+            }else{
+                form_data.append(img_tag, file, "imageFilename.pdf")
+            }
             this.props.uploadProof(form_data, member_id, 'image', (data, err) => {
                 if (data) {
                     mem_data.id = data.data.member
@@ -107,8 +116,15 @@ class InsuranceProofs extends React.Component {
         }
     }
 
+    openPdf(pdf_url){
+        this.setState({openPdfUrl:pdf_url,openPdf:true})
+        if(document.body){
+            document.body.style.overflow='hidden'
+        }
+    }
+
     closeZoomImage(){
-        this.setState({zoomImage:false,zoomImageUrl:null})
+        this.setState({zoomImage:false,zoomImageUrl:null,openPdfUrl:false,openPdf:null})
         if(document.body){
             document.body.style.overflow=''
         }
@@ -116,8 +132,17 @@ class InsuranceProofs extends React.Component {
 
     render() {
         let Uploaded_image_data = []
+        let img_url = []
+        let pdf_url = []
         if (this.props.members_proofs && this.props.members_proofs.length > 0) {
             Uploaded_image_data = this.props.members_proofs.filter((x => x.id == this.props.member_id))
+            Uploaded_image_data[0].images.map((data, i) =>{
+                if(data.includes('pdf')){
+                    pdf_url.push(data)
+                }else{
+                    img_url.push(data)
+                }
+            })
         }
         return <div className="insurance-proofs-cont">
             <div className="upload-addbtn-cont" id={`member_${this.props.member_id}_upload`}>
@@ -136,7 +161,7 @@ class InsuranceProofs extends React.Component {
                         document.getElementById('imageFilePicker_' + this.props.member_id + '_front').click()
                         document.getElementById('imageFilePicker_' + this.props.member_id + '_front').value = ""
                     }}><img src={ASSETS_BASE_URL + "/img/ins-up-ico.svg"}/> Upload
-                        <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_front`} onChange={this.pickFile.bind(this, this.props.member_id, 'front')} accept="image/x-png,image/jpeg,.pdf" />
+                        <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_front`} onChange={this.pickFile.bind(this, this.props.member_id)} accept="image/x-png,image/jpeg,image/jpg,.pdf" />
                     </span>
                 :''}
             </div>
@@ -144,9 +169,16 @@ class InsuranceProofs extends React.Component {
                 Uploaded_image_data && Uploaded_image_data.length > 0 ?
                     <div className="upload-img-section">
                         {
-                            Uploaded_image_data[0].images && Uploaded_image_data[0].images.length>0 ?
-                                Uploaded_image_data[0].images.map((data, i) =>{
+                            img_url && img_url.length>0 ?
+                                img_url.map((data, i) =>{
                                     return <img key={i} onClick={this.zoomImage.bind(this,data)} className="img-fluid ins-up-img-ic" src={data}  />
+                                })
+                            : ''
+                        }
+                        {
+                            pdf_url && pdf_url.length>0 ?
+                                pdf_url.map((data, i) =>{
+                                    return <img key={i} onClick={this.openPdf.bind(this,data)} className="img-fluid ins-up-img-ic" src={data}  />
                                 })
                             : ''
                         }
@@ -158,7 +190,7 @@ class InsuranceProofs extends React.Component {
                             }}>
                                 <img className="ins-addico" src={ASSETS_BASE_URL + "/img/ins-add-ico.svg"} />
                                 Add More
-                                <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_back`} onChange={this.pickFile.bind(this, this.props.member_id, 'back')} accept="image/x-png,image/jpeg,.pdf" />
+                                <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_back`} onChange={this.pickFile.bind(this, this.props.member_id)} accept="image/x-png,image/jpeg,image/jpg,.pdf" />
                             </span>
                         }
                     </div>
@@ -170,6 +202,18 @@ class InsuranceProofs extends React.Component {
                         <div className="search-el-popup">
                             <div className="search-el-btn-container">
                                  <img style={{maxHeight:'200px'}}src={this.state.zoomImageUrl}/>
+                            </div>
+                        </div>
+                </div>
+                :''
+            }
+
+            {
+                this.state.openPdf && this.state.openPdfUrl?
+                <div className="search-el-popup-overlay" onClick={this.closeZoomImage.bind(this)}>
+                        <div className="search-el-popup">
+                            <div className="search-el-btn-container">
+                                <iframe style={{height:'65vh',width:'100%'}}src="http://www.tutorialspoint.com/javascript/javascript_tutorial.pdf"></iframe>
                             </div>
                         </div>
                 </div>
