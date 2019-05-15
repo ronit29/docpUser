@@ -1,6 +1,7 @@
 import React from 'react'
 const queryString = require('query-string');
 const Compress = require('compress.js')
+import SnackBar from 'node-snackbar'
 
 class InsuranceProofs extends React.Component {
     constructor(props) {
@@ -12,12 +13,11 @@ class InsuranceProofs extends React.Component {
         }
     }
 
-    pickFile(member_id, img_type, e) {
+    pickFile(member_id, e) {
         if (e.target.files && e.target.files[0]) {
             if(e.target.files[0] && e.target.files[0].name.includes('.pdf')){
                 console.log('pdf')
             }else{
-                console.log('img')
                 const compress = new Compress()
                 let file = e.target.files[0]
                 compress.compress([file], {
@@ -30,8 +30,7 @@ class InsuranceProofs extends React.Component {
                     const imgExt = img1.ext
                     const file = Compress.convertBase64ToFile(base64str, imgExt)
                     this.getBase64(file, (dataUrl) => {
-                        // this.props.toggleOpenCrop()
-                        this.finishCrop(dataUrl, member_id, img_type)
+                        this.finishCrop(dataUrl, member_id)
                         this.setState({ dataUrl })
                     })
                 }).catch((e) => {
@@ -52,7 +51,7 @@ class InsuranceProofs extends React.Component {
         }
     }
 
-    finishCrop(dataUrl, member_id, img_type) {
+    finishCrop(dataUrl, member_id) {
         let file_blob_data = this.dataURItoBlob(dataUrl)
         let mem_data = {}
         let existingData
@@ -62,7 +61,7 @@ class InsuranceProofs extends React.Component {
         }, () => {
             let form_data = new FormData()
             form_data.append(img_tag, file_blob_data, "imageFilename.jpeg")
-            this.props.uploadProof(form_data, member_id, img_type, (data, err) => {
+            this.props.uploadProof(form_data, member_id, 'image', (data, err) => {
                 if (data) {
                     mem_data.id = data.data.member
                     mem_data.images = []
@@ -137,7 +136,7 @@ class InsuranceProofs extends React.Component {
                         document.getElementById('imageFilePicker_' + this.props.member_id + '_front').click()
                         document.getElementById('imageFilePicker_' + this.props.member_id + '_front').value = ""
                     }}><img src={ASSETS_BASE_URL + "/img/ins-up-ico.svg"}/> Upload
-                        <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_front`} onChange={this.pickFile.bind(this, this.props.member_id, 'front')} />
+                        <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_front`} onChange={this.pickFile.bind(this, this.props.member_id, 'front')} accept="image/x-png,image/jpeg,.pdf" />
                     </span>
                 :''}
             </div>
@@ -159,7 +158,7 @@ class InsuranceProofs extends React.Component {
                             }}>
                                 <img className="ins-addico" src={ASSETS_BASE_URL + "/img/ins-add-ico.svg"} />
                                 Add More
-                                <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_back`} onChange={this.pickFile.bind(this, this.props.member_id, 'back')}/>
+                                <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_back`} onChange={this.pickFile.bind(this, this.props.member_id, 'back')} accept="image/x-png,image/jpeg,.pdf" />
                             </span>
                         }
                     </div>

@@ -113,8 +113,7 @@ class InsuranceReview extends React.Component{
 						is_member_updated = this.props.members_proofs.filter((x=>x.id == param.id))
 						if(is_member_updated && is_member_updated.length > 0){
 							members.is_change=true
-							members.front_image_id = is_member_updated[0].front_image_id
-							members.back_image_id = is_member_updated[0].back_image_id
+							members.image_ids = is_member_updated[0].img_ids
 						}else{
 							members.is_change=false
 						}
@@ -146,6 +145,7 @@ class InsuranceReview extends React.Component{
 			this.props.createEndorsementData(insurance_pay,(resp)=>{
 				if(resp && resp.success){
 					SnackBar.show({ pos: 'bottom-center', text: resp.success})
+					this.props.history.push('/insurance/certificate')
 				}else if(resp.error){
 					SnackBar.show({ pos: 'bottom-center', text: resp.error })
 				}
