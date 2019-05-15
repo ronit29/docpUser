@@ -506,7 +506,17 @@ class InsuranceEndoresmentInputView extends React.Component{
 						<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
 						<section className="profile-book-screen">
 							<div className="widget">
-								<InsurCommon {...this.props} is_edit={this.state.is_edit}/>
+								{/*<InsurCommon {...this.props} is_edit={this.state.is_edit}/>*/}
+								<div className="ins-card-head">
+									<div className="ins-name-head">
+										<img width="120" src={this.props.insurnaceData['insurance'][0].logo} />
+									</div>
+									<div className="ins-pdf-dwnload">
+										<span>
+											Group Out-patient Insurance
+										</span>
+									</div>
+								</div>
 								<div className="insurance-member-container pt-2">
 									<h4 className="mb-0">Insured Member Details</h4>
 									<p className="plcy-cancel">(Incorrect member details may lead to policy cancellation)</p>
