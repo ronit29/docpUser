@@ -350,34 +350,6 @@ class TopBar extends React.Component {
                             <div className="pop-top-heading">
                                 Sort/Filter
                             </div>
-                            <ul className="inline-list">
-                                <li className="d-none d-md-inline-block">
-                                    <span style={{ cursor: 'pointer' }} onClick={this.shortenUrl.bind(this)}>
-                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
-                                    </span>
-                                </li>
-                                {
-                                    this.state.shortURL ? <div className="shareLinkpopupOverlay" onClick={() => {
-                                        this.setState({ shortURL: "" })
-                                    }}>
-                                        <div className="shareLinkpopup" onClick={(e) => {
-                                            e.stopPropagation()
-                                        }}>
-                                            <p>{this.state.shortURL}</p>
-                                            <CopyToClipboard text={this.state.shortURL}
-                                                onCopy={() => {
-                                                    SnackBar.show({ pos: 'bottom-center', text: "Shortened URL Copied." });
-                                                    this.setState({ shortURL: "" })
-                                                }}>
-                                                <span className="shrelinkBtn">
-                                                    <button>Copy</button>
-                                                </span>
-                                            </CopyToClipboard>
-                                        </div>
-                                    </div> : ""
-                                }
-                            </ul>
-
                             <div className="sorting-main-container">
                                 <div className="sort-lft-cont">
                                     <h5 className="sort-headings">Sort by</h5>
@@ -508,6 +480,35 @@ class TopBar extends React.Component {
                                             : ''
                                     }
                                 </p>
+                            </div>
+                            <div className="d-none d-md-inline-block">
+                                <ul className="inline-list">
+                                    <li className="d-none d-md-inline-block">
+                                        <span style={{ cursor: 'pointer' }} onClick={this.shortenUrl.bind(this)}>
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
+                                        </span>
+                                    </li>
+                                    {
+                                        this.state.shortURL ? <div className="shareLinkpopupOverlay" onClick={() => {
+                                            this.setState({ shortURL: "" })
+                                        }}>
+                                            <div className="shareLinkpopup" onClick={(e) => {
+                                                e.stopPropagation()
+                                            }}>
+                                                <p>{this.state.shortURL}</p>
+                                                <CopyToClipboard text={this.state.shortURL}
+                                                    onCopy={() => {
+                                                        SnackBar.show({ pos: 'bottom-center', text: "Shortened URL Copied." });
+                                                        this.setState({ shortURL: "" })
+                                                    }}>
+                                                    <span className="shrelinkBtn">
+                                                        <button>Copy</button>
+                                                    </span>
+                                                </CopyToClipboard>
+                                            </div>
+                                        </div> : ""
+                                    }
+                                </ul>
                             </div>
                             <div className="top-filter-tabs-select newSortFilterbar" onClick={this.sortFilterClicked.bind(this)}>
                                 <div className="p-relative">
