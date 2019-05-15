@@ -32,7 +32,7 @@ class InsuranceProofs extends React.Component {
                     const imgExt = img1.ext
                     const file = Compress.convertBase64ToFile(base64str, imgExt)
                     this.getBase64(file, (dataUrl) => {
-                        this.finishCrop(dataUrl, member_id,'image_file')
+                        this.finishCrop(dataUrl, member_id,null)
                         this.setState({ dataUrl })
                     })
                 }).catch((e) => {
@@ -65,10 +65,10 @@ class InsuranceProofs extends React.Component {
             dataUrl: null,
         }, () => {
             let form_data = new FormData()
-            if(file == 'image_file'){
-                form_data.append(img_tag, file_blob_data, "imageFilename.jpeg")
-            }else{
+            if(file){
                 form_data.append(img_tag, file, "imageFilename.pdf")
+            }else{
+                form_data.append(img_tag, file_blob_data, "imageFilename.jpeg") 
             }
             this.props.uploadProof(form_data, member_id, 'image', (data, err) => {
                 if (data) {
@@ -129,6 +129,9 @@ class InsuranceProofs extends React.Component {
             document.body.style.overflow=''
         }
     }
+    removeImage(img){
+        console.log(img)
+    }
 
     render() {
         let Uploaded_image_data = []
@@ -136,13 +139,15 @@ class InsuranceProofs extends React.Component {
         let pdf_url = []
         if (this.props.members_proofs && this.props.members_proofs.length > 0) {
             Uploaded_image_data = this.props.members_proofs.filter((x => x.id == this.props.member_id))
-            Uploaded_image_data[0].images.map((data, i) =>{
-                if(data.includes('pdf')){
-                    pdf_url.push(data)
-                }else{
-                    img_url.push(data)
-                }
-            })
+            if(Uploaded_image_data.length > 0){
+                Uploaded_image_data[0].images.map((data, i) =>{
+                    if(data.includes('pdf')){
+                        pdf_url.push(data)
+                    }else{
+                        img_url.push(data)
+                    }
+                })
+            }
         }
         return <div className="insurance-proofs-cont">
             <div className="upload-addbtn-cont" id={`member_${this.props.member_id}_upload`}>
@@ -171,14 +176,17 @@ class InsuranceProofs extends React.Component {
                         {
                             img_url && img_url.length>0 ?
                                 img_url.map((data, i) =>{
-                                    return <img key={i} onClick={this.zoomImage.bind(this,data)} className="img-fluid ins-up-img-ic" src={data}  />
+                                    return <div key={i}>
+                                        <img onClick={this.zoomImage.bind(this,data)} className="img-fluid ins-up-img-ic" src={data}  />
+                                        <img onClick={this.removeImage.bind(this,data)} src="https://cdn.docprime.com/cp/assets/img/icons/close.png"/>
+                                        </div>
                                 })
                             : ''
                         }
                         {
                             pdf_url && pdf_url.length>0 ?
                                 pdf_url.map((data, i) =>{
-                                    return <img key={i} onClick={this.openPdf.bind(this,data)} className="img-fluid ins-up-img-ic" src={data}  />
+                                    return <div key={i}><img onClick={this.openPdf.bind(this,data)} className="img-fluid ins-up-img-ic" src={data}  /></div>
                                 })
                             : ''
                         }
