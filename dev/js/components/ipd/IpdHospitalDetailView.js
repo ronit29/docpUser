@@ -209,7 +209,7 @@ class HospitalDetailView extends React.Component {
 		               			<IpdFormView {...this.props} tabView={true}/>
 		               		</div> 
 
-		               		<div id="feedback" ref="feedback">
+		               		<div id="feedback" ref="feedback" className="mt-1">
 		               		{
 								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.rating_graph && this.props.ipd_hospital_detail.rating_graph.star_count && this.props.ipd_hospital_detail.display_rating_widget ?
 									<div className="hs-card">
