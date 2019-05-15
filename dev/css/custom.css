@@ -1016,3 +1016,51 @@ img.srt-star-img {
 	justify-content: flex-start;
 }
 /* ============ sort new design ============ */
+/* ============ ipd tabs ============ */
+.ipd-tabs-container{
+	background: white;
+	margin-bottom: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	position: sticky;
+	top: 107px;
+	z-index: 99;
+	box-shadow: 0 1px 1px #dedede;
+}
+@media(max-width: 767px){
+.ipd-tabs-container{
+	margin: 0 -15px 15px -15px !important;
+	top: 89px !important;
+}
+}
+.ipd-tb-tabs {
+	font-size: 13px;
+	flex: 1;
+	justify-content: center;
+	display: flex;
+	padding: 10px 0 8px 0;
+	border-bottom: 2px solid white;
+	font-weight: 500;
+	color: #757575;
+	cursor: pointer;
+}
+.ipd-tb-active{
+	color: #f78631;
+	border-color: #f78631;
+}
+.ipd-frm-btn{
+	background-image: linear-gradient(to left,#f78631,#ff6d00);
+	color: #fff !important;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+	padding: 8px 28px;
+	font-size: 14px;
+	font-weight: 400;
+	display: inline-block;
+}
+.hd-mrgn-top{
+	margin-top: 16px;
+}
+/* ============ ipd tabs ============ */

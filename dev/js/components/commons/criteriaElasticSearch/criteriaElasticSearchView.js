@@ -463,7 +463,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                 return <li key={j} onClick={this.addCriteria.bind(this, cat)}>
                                                                                     <div className="serach-rslt-with-img">
                                                                                         {
-                                                                                            cat.type.includes('doctor') ?
+                                                                                            cat.type && cat.type.includes('doctor') ?
                                                                                                 /*<span className="srch-rslt-wd-span usr-srch-img">
                                                                                                     <img style={{ width: '35px', borderRadius: '50%' }} className="" src={`https://cdn.docprime.com/media/${cat.image_path}`} />
                                                                                                 </span>*/
@@ -499,7 +499,7 @@ class CriteriaElasticSearchView extends React.Component {
                                                                                             </div> : ''
                                                                                     }
                                                                                     {
-                                                                                        cat.name.includes('Aarogyam C') ?
+                                                                                        cat.name && cat.name.includes('Aarogyam C') ?
                                                                                             <div className="popular-txt">
                                                                                                 <span className="fw-500">Popular</span>
                                                                                             </div> : ''
