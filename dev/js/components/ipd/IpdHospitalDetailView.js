@@ -157,7 +157,7 @@ class HospitalDetailView extends React.Component {
 		return (
 			<React.Fragment>
 				{
-					this.props.HOSPITAL_DETAIL_LOADED ?
+					this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id?
 						<div className="ipd-section">
 							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} />
 

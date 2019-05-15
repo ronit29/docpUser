@@ -48,9 +48,7 @@ class HospitalDetail extends React.Component {
     }
 
 	componentDidMount(){
-		if(window){
-			window.scrollTo(0,0)
-		}
+		
 		let searchUrl = null
         if (this.props.match.url.includes('-hpp') ) {
             searchUrl = this.props.match.url.toLowerCase()
@@ -132,7 +130,7 @@ class HospitalDetail extends React.Component {
 							<LeftBar />
 							<div className="col-12 col-md-7 col-lg-7 center-column">
 							{
-								this.props.HOSPITAL_DETAIL_LOADED && ipd_hospital_detail && Object.keys(ipd_hospital_detail).length?
+								ipd_hospital_detail && ipd_hospital_detail.id?
 								<IpdHospitalDetailView {...this.props} {...this.state} ipd_hospital_detail={ipd_hospital_detail}/>
 								:<Loader />		
 							}
