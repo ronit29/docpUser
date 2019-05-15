@@ -9,12 +9,19 @@ import Loader from '../../components/commons/Loader'
 
 class HospitalDetail extends React.Component {
 
+	constructor(props) {
+		super(props)
+		this.state = {
+			specialization_id: null
+		}
+	}
+
 	static loadData(store, match, query){
 		let searchUrl = null
         if (match.url.includes('-hpp') ) {
             searchUrl = match.url.toLowerCase()
         }
-		return store.dispatch(getHospitaDetails(match.params.hospitalId, null, searchUrl))
+		return store.dispatch(getHospitaDetails(match.params.hospitalId, null, searchUrl, query.specialization_id || ''))
 	}
 
 	static contextTypes = {
@@ -29,8 +36,15 @@ class HospitalDetail extends React.Component {
         if (this.props.match.url.includes('-hpp') ) {
             searchUrl = this.props.match.url.toLowerCase()
         }
+
+        const parsed = queryString.parse(this.props.location.search)
+        let specialization_id = ''
+        if(parsed.specialization_id){
+        	specialization_id = parsed.specialization_id
+        	this.setState({specialization_id: parsed.specialization_id})
+        }
         let hospitalId = searchUrl?'':this.props.match.params.hospitalId
-		this.props.getHospitaDetails(hospitalId, this.props.selectedLocation, searchUrl)
+		this.props.getHospitaDetails(hospitalId, this.props.selectedLocation, searchUrl, specialization_id)
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -39,7 +53,15 @@ class HospitalDetail extends React.Component {
 	        if (this.props.match.url.includes('-hpp') ) {
 	            searchUrl = this.props.match.url.toLowerCase()
 	        }
-			this.props.getHospitaDetails(this.props.match.params.hospitalId, nextProps.selectedLocation, searchUrl)
+
+	        const parsed = queryString.parse(this.props.location.search)
+	        let specialization_id = ''
+	        if(parsed.specialization_id){
+	        	specialization_id = parsed.specialization_id
+	        	this.setState({specialization_id: parsed.specialization_id})
+	        }
+
+			this.props.getHospitaDetails(this.props.match.params.hospitalId, nextProps.selectedLocation, searchUrl, specialization_id)
 			if(window){
 				window.scrollTo(0,0)
 			}
@@ -52,7 +74,7 @@ class HospitalDetail extends React.Component {
 				<React.Fragment>
 					{
 						this.props.HOSPITAL_DETAIL_LOADED?
-						<IpdHospitalDetailView {...this.props} />
+						<IpdHospitalDetailView {...this.props} {...this.state}/>
 						:<Loader />		
 					}
 				</React.Fragment>
@@ -92,7 +114,7 @@ const mapStateToProps = (state) => {
 const mapDisptachToProps = (dispatch) => {
 
 	return{
-		getHospitaDetails:(hospitalId, selectedLocation, searchByUrl) => dispatch(getHospitaDetails(hospitalId, selectedLocation, searchByUrl)),
+		getHospitaDetails:(hospitalId, selectedLocation, searchByUrl, specialization_id) => dispatch(getHospitaDetails(hospitalId, selectedLocation, searchByUrl, specialization_id)),
 		saveProfileProcedures: (doctor_id, clinic_id, procedure_ids, forceAdd) => dispatch(saveProfileProcedures(doctor_id, clinic_id, procedure_ids, forceAdd)),
 		selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
 		cloneCommonSelectedCriterias: (selectedCriterias) => dispatch(cloneCommonSelectedCriterias(selectedCriterias)),

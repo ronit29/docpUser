@@ -11274,3 +11274,8 @@ input.clkInput{
 .uTimingPara p{
 	margin-left: 3px;
 }
+.algn-anchr{
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}

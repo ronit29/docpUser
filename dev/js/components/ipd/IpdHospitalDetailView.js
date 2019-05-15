@@ -86,7 +86,7 @@ class HospitalDetailView extends React.Component {
 
 	}
 
-	viewDoctorsClicked() {
+	viewDoctorsClicked(specializedSearch= false, e) {
 		/*if(this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length){
 
 
@@ -106,7 +106,14 @@ class HospitalDetailView extends React.Component {
 		let hospital_id = this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ? this.props.ipd_hospital_detail.id : ''
 		let doctor_name = ''
 		let hospital_name = ''
-		let state = {
+		let state= {}
+
+		if(specializedSearch) {
+			hospital_id= ''
+			this.props.cloneCommonSelectedCriterias({id: this.props.specialization_id, type: 'speciality'})
+		}
+
+		state = {
 			filterCriteria: {
 				...self.props.filterCriteria,
 				hospital_id, doctor_name, hospital_name
@@ -116,6 +123,7 @@ class HospitalDetailView extends React.Component {
 				hospital_id, doctor_name, hospital_name
 			}
 		}
+
 		this.props.mergeOPDState(state)
 		this.props.history.push(`/opd/searchresults`)
 	}
@@ -152,6 +160,18 @@ class HospitalDetailView extends React.Component {
 		}
 	}
 
+	getSpecializationName() {
+		
+		if(this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.specializations && this.props.ipd_hospital_detail.specialization_doctors.specializations.length) {
+
+			let name = this.props.ipd_hospital_detail.specialization_doctors.specializations.map(x=>x.name).join(',') || ''
+			name = name +' '
+			return `View all ${this.props.ipd_hospital_detail.specialization_doctors.count} ${name} `
+		}
+
+		return `View all ${this.props.ipd_hospital_detail.specialization_doctors.count} Doctors`
+	}
+
 	render() {
 
 		return (
@@ -184,21 +204,36 @@ class HospitalDetailView extends React.Component {
 
 										<div id="doctors" ref="doctors">
 										{
-											this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.doctors && this.props.ipd_hospital_detail.doctors.result.length ?
+											this.props.ipd_hospital_detail && ( (this.props.ipd_hospital_detail.doctors && this.props.ipd_hospital_detail.doctors.result.length) || (this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length ) )?
 												<div>
 													<div>
 														<div className="card-head"><h2 className="dsply-ipd-hdng">Doctors</h2></div>
 														{
-															this.props.ipd_hospital_detail.doctors.result.map((doctorCard, i) => {
-																return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.doctors.seo} {...this.props} />
-															})
+															this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length ?
+																this.props.ipd_hospital_detail.specialization_doctors.result.map((doctorCard, i) => {
+																	return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.specialization_doctors.seo} {...this.props} />
+																})	
+																:this.props.ipd_hospital_detail.doctors.result.map((doctorCard, i) => {
+																	return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.doctors.seo} {...this.props} />
+																})
 														}
 													</div>
+													<div className="algn-anchr">
+													
 													{
-														this.props.ipd_hospital_detail.doctors.result.length < this.props.ipd_hospital_detail.doctors.count ?
-															<a href="javascript:void(0);" className="btn-view-hospital" onClick={this.viewDoctorsClicked.bind(this)}>{`View all ${this.props.ipd_hospital_detail.doctors.count} Doctors`}</a>
+														this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length?
+														<a href="javascript:void(0);" onClick={this.viewDoctorsClicked.bind(this, true)}>{this.getSpecializationName()}</a>
+														: ''
+
+													}
+
+													{
+														this.props.ipd_hospital_detail.doctors && this.props.ipd_hospital_detail.doctors.result.length < this.props.ipd_hospital_detail.doctors.count ?
+															<a href="javascript:void(0);" onClick={this.viewDoctorsClicked.bind(this, false)}>{this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length?' /':''}{`View all ${this.props.ipd_hospital_detail.doctors.count} Doctors`}</a>
 															: ''
 													}
+
+													</div>
 												</div>
 												: ''
 										}

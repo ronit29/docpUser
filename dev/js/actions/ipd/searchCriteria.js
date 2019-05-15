@@ -205,7 +205,7 @@ export const getIpdSearchIdResults = (search_id, response) => (dispatch) => {
     })
 }
 
-export const getHospitaDetails = (hospitalId, selectedLocation, searchByUrl=null) => (dispatch) => {
+export const getHospitaDetails = (hospitalId, selectedLocation, searchByUrl=null, specialization_id='') => (dispatch) => {
 
     dispatch({
         type: GET_IPD_HOSPITAL_DETAIL_START
@@ -227,10 +227,10 @@ export const getHospitaDetails = (hospitalId, selectedLocation, searchByUrl=null
         sub_locality = selectedLocation.sub_locality || ""
     }
     
-    let url = `/api/v1/doctor/hospital/${hospitalId}?long=${long}&lat=${lat}&city=${locality}`
+    let url = `/api/v1/doctor/hospital/${hospitalId}?long=${long}&lat=${lat}&city=${locality}&specialization_ids=${specialization_id}`
 
     if (searchByUrl) {
-        url = `/api/v1/doctor/hospital_by_url?url=${searchByUrl.split('/')[1]}&city=${locality}`
+        url = `/api/v1/doctor/hospital_by_url?url=${searchByUrl.split('/')[1]}&city=${locality}&specialization_ids=${specialization_id}`
     }
 
     return API_GET(url).then( function( response) {
