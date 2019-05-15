@@ -165,7 +165,7 @@ class ClinicSelector extends React.Component {
                                     {
                                         STORAGE.checkAuth() || hospital.deal_price < 100 || (false && this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories) ?
                                             ''
-                                            : enabled_for_online_booking ?
+                                            : enabled_for_online_booking && (!this.props.location || !this.props.location.search || !this.props.location.search.includes('from=insurance_network')) ?
                                                 <span className="signup-off-doc" style={{ float: 'right' }} >+ &#8377; 100 OFF <b>on Signup</b> </span>
                                                 : ''
                                     }
