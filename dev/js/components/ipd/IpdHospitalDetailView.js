@@ -12,6 +12,7 @@ import HospitalGallery from './HospitalGallery.js'
 import HospitalAboutUs from './HospitalAboutUs.js'
 import GTM from '../../helpers/gtm.js'
 import IpdFormView from '../../containers/ipd/IpdForm.js'
+const queryString = require('query-string')
 
 //View all rating for hospital ,content_type = 3
 
@@ -36,14 +37,10 @@ class HospitalDetailView extends React.Component {
 		var sections = {};
 		var i = 0
 
-		let headerHeight = 0	        
+		let headerHeight = -35	        
 
 		Object.keys(this.refs).forEach((prp, i) => {
-			
-			if(document.getElementsByClassName('ipd-tabs-container') && document.getElementsByClassName('ipd-tabs-container')[0]){
-				headerHeight = document.getElementsByClassName('ipd-tabs-container')[0].offsetTop - 100
-			}
-			headerHeight = -45
+
 			sections[prp] = this.refs[prp].offsetTop + headerHeight				
 
 		})
@@ -61,6 +58,12 @@ class HospitalDetailView extends React.Component {
 		    	}
 		    }
 		  }	
+		}
+
+		const parsed = queryString.parse(this.props.location.search)
+
+		if( parsed.type && this.refs[parsed.type] ) {
+			this.toggleTabs(parsed.type)
 		}
 
 	}
@@ -129,12 +132,8 @@ class HospitalDetailView extends React.Component {
 	        }
 	        GTM.sendEvent({ data: gtmData })
 
-			var elmnt = document.getElementById(type)
-			
 			let headerHeight = this.refs[type].offsetTop
-			if(document.getElementsByClassName('ipd-tabs-container') && document.getElementsByClassName('ipd-tabs-container')[0]){
-				headerHeight =  headerHeight - 45
-			}
+			headerHeight =  headerHeight - 35
 			this.setState({toggleTabType: type})
 			window.scrollTo(0,headerHeight)
 
