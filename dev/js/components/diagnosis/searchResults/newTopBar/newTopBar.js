@@ -392,26 +392,35 @@ class TopBar extends React.Component {
                                             </div>
                                             <p>Relevance</p>
                                         </div>
-                                        <div className={`sort-cards-list ${this.state.sort_on=='fees' && this.state.sort_order=='asc'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'price_asc', false)}>
-                                            <div className="srt-lst-img">
-                                                {
-                                                    this.state.sort_on=='fees' && this.state.sort_order=='asc'?
-                                                    <img src={ASSETS_BASE_URL + "/img/popupicon/rv-pricesort.svg"} style={{ width: 18 }} />
-                                                    :<img src={ASSETS_BASE_URL + "/img/popupicon/pricesort.svg"} style={{ width: 18 }} />
-                                                }
+                                        {
+                                            this.props.is_login_user_insured && this.props.insurance_status == 1?''
+                                            :<div className={`sort-cards-list ${this.state.sort_on=='fees' && this.state.sort_order=='asc'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'price_asc', false)}>
+                                                <div className="srt-lst-img">
+                                                    {
+                                                        this.state.sort_on=='fees' && this.state.sort_order=='asc'?
+                                                        <img src={ASSETS_BASE_URL + "/img/popupicon/rv-pricesort.svg"} style={{ width: 18 }} />
+                                                        :<img src={ASSETS_BASE_URL + "/img/popupicon/pricesort.svg"} style={{ width: 18 }} />
+                                                    }
+                                                </div>
+                                                <p>Price Low to High</p>
                                             </div>
-                                            <p>Price Low to High</p>
-                                        </div>
-                                        <div className={`sort-cards-list ${this.state.sort_on=='fees' && this.state.sort_order=='desc'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'price_desc', false)}>
-                                            <div className="srt-lst-img">
-                                                {
-                                                    this.state.sort_on=='fees' && this.state.sort_order=='desc'?
-                                                    <img src={ASSETS_BASE_URL + "/img/popupicon/rv-priceup.svg"} style={{ width: 18 }} />
-                                                    :<img src={ASSETS_BASE_URL + "/img/popupicon/priceup.svg"} style={{ width: 18 }} />
-                                                }
+                                        }
+
+                                        {
+                                            this.props.is_login_user_insured && this.props.insurance_status == 1?''
+                                            :<div className={`sort-cards-list ${this.state.sort_on=='fees' && this.state.sort_order=='desc'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'price_desc', false)}>
+                                                <div className="srt-lst-img">
+                                                    {
+                                                        this.state.sort_on=='fees' && this.state.sort_order=='desc'?
+                                                        <img src={ASSETS_BASE_URL + "/img/popupicon/rv-priceup.svg"} style={{ width: 18 }} />
+                                                        :<img src={ASSETS_BASE_URL + "/img/popupicon/priceup.svg"} style={{ width: 18 }} />
+                                                    }
+                                                </div>
+                                                <p>Price High to Low</p>
                                             </div>
-                                            <p>Price High to Low</p>
-                                        </div>
+                                        }
+                                        
+                                        
                                         <div className={`sort-cards-list ${this.state.sort_on=='distance'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'distance', false)}>
                                             <div className="srt-lst-img">
                                                 {
