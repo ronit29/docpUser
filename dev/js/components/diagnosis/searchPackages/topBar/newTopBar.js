@@ -290,7 +290,7 @@ class TopBar extends React.Component {
         }
 
         return (
-            <div>
+            <div className="filter-row sticky-header mbl-stick" style={{top:'89px'}}>
                 {
                     this.state.openFilter ?
                         <div>

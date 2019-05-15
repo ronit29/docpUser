@@ -1015,6 +1015,41 @@ img.srt-star-img {
 .justyfy-twoBtns{
 	justify-content: flex-start;
 }
+.read-clps-bar{
+	border-radius: 5px !important;
+    margin-top: .5rem !important;
+    margin-bottom: 1rem !important;
+}
+.sort-sub-filter-container{
+	margin-bottom: 1rem;
+	background: white;
+	margin: 0 -5px;
+	padding: 10px 0;
+}
+.sort-sub-filter-container p{
+	padding: 0 10px;
+	font-weight: 500;
+}
+.srt-sb-btn-cont{
+	margin-top: 10px;
+	white-space: nowrap;
+	overflow: auto;
+	padding-left: 10px;
+}
+.srt-sb-btn-cont button{
+	border: 1px solid #757575;
+	background: white;
+	color: #757575;
+	margin-right: 10px;
+	border-radius: 4px;
+	padding: 5px 10px;
+	font-weight: 500;
+}
+.srt-sb-btn-cont button.srt-act{
+	border: 1px solid #f78631;
+	background: white;
+	color: #f78631;
+}
 /* ============ sort new design ============ */
 /* ============ ipd tabs ============ */
 .ipd-tabs-container{

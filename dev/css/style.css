@@ -9634,12 +9634,13 @@ border-radius: 4px;
 }
 .cat-gry li a{
 	border: 1px solid #f78631;
-	border-radius: 30px;
-    color: #f78631;
+    border-radius: 4px;
+    color: black;
     padding: 5px 10px;
-	margin-right: 20px;
-	margin-top: 15px;
-	display: inline-block;
+    margin-right: 20px;
+    margin-top: 15px;
+    display: inline-block;
+    font-size: 13px;
 }
 .cat-gry li a.selected{
 	background: #f78631;

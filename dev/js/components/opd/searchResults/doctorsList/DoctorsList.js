@@ -17,7 +17,7 @@ class DoctorsList extends React.Component {
             renderBlock: false,
             page: 1,
             readMore: 'search-details-data-less',
-            is_insured: props.filterCriteria && props.filterCriteria.is_insured?props.filterCriteria.is_insured:false
+            is_insured: props.filterCriteria && props.filterCriteria.is_insured ? props.filterCriteria.is_insured : false
         }
     }
 
@@ -126,7 +126,7 @@ class DoctorsList extends React.Component {
                         <div className="container-fluid cardMainPaddingRmv">
                             {
                                 this.props.search_content && this.props.search_content != '' && parseInt(this.props.page) == 1 ?
-                                    <div className="search-result-card-collpase">
+                                    <div className="search-result-card-collpase read-clps-bar">
                                         <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.search_content }} >
                                         </div>
 
@@ -142,9 +142,20 @@ class DoctorsList extends React.Component {
                                     </div>
                                     : ''
                             }
+                            <div className="sort-sub-filter-container">
+                                <p>You are looking for gurgaon location. Would you like to see results near you?</p>
+                                <div className="srt-sb-btn-cont">
+                                    <button className="srt-act">Gurgaon</button>
+                                    <button>Within 2 Km</button>
+                                    <button>Within 5 Km</button>
+                                    <button>Within 7 Km</button>
+                                    <button>Within 7 Km</button>
+                                    <button>Within 7 Km</button>
+                                </div>
+                            </div>
                             <div className="row no-gutters">
                                 {
-                                    this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'doctor_search_page').length && !this.state.is_insured?
+                                    this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'doctor_search_page').length && !this.state.is_insured ?
                                         <div className="col-12">
                                             <BannerCarousel {...this.props} sliderLocation="doctor_search_page" />
                                         </div> : ''

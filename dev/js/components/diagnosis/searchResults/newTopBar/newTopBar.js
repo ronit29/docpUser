@@ -338,7 +338,7 @@ class TopBar extends React.Component {
 
 
         return (
-            <div>
+            <div className="filter-row sticky-header mbl-stick"> 
                 {this.state.dropdown_visible ?
                     <div>
                         <div className="cancel-overlay cancel-overlay-zindex" onClick={this.handleClose.bind(this, false)}>
