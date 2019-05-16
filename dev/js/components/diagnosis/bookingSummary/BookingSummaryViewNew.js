@@ -51,7 +51,8 @@ class BookingSummaryViewNew extends React.Component {
             whatsapp_optin: true,
             pincodeMismatchError: false,
             showConfirmationPopup: false,
-            coupon_loading: false
+            coupon_loading: false,
+            seoFriendly: this.props.match.url.includes('-lpp')
         }
     }
 
@@ -151,7 +152,7 @@ class BookingSummaryViewNew extends React.Component {
                         if (!err) {
                             this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '' })
                         } else {
-                            this.setState({coupon_loading: true})
+                            this.setState({ coupon_loading: true })
                             this.getAndApplyBestCoupons(nextProps)
                         }
                     })
@@ -165,7 +166,7 @@ class BookingSummaryViewNew extends React.Component {
             }
         }
     }
-    
+
     getValidCoupon(coupons) {
         let validCoupon = null
         for (var index in coupons) {
@@ -186,11 +187,11 @@ class BookingSummaryViewNew extends React.Component {
                 cb: (coupons) => {
                     if (coupons) {
                         let validCoupon = this.getValidCoupon(coupons)
-                        if(validCoupon) {
+                        if (validCoupon) {
                             this.props.applyCoupons('2', validCoupon, validCoupon.coupon_id, this.state.selectedLab)
                             this.props.applyLabCoupons('2', validCoupon.code, validCoupon.coupon_id, this.state.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item)
                             this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '' })
-                        }else {
+                        } else {
                             this.props.resetLabCoupons()
                             this.setState({ couponCode: "", couponId: '', is_cashback: false })
                         }
@@ -198,11 +199,11 @@ class BookingSummaryViewNew extends React.Component {
                         this.props.resetLabCoupons()
                         this.setState({ couponCode: "", couponId: '', is_cashback: false })
                     }
-                    this.setState({coupon_loading: false})
+                    this.setState({ coupon_loading: false })
                 }
             })
         } else {
-            this.setState({coupon_loading: false})
+            this.setState({ coupon_loading: false })
         }
     }
 
@@ -244,17 +245,21 @@ class BookingSummaryViewNew extends React.Component {
         switch (where) {
             case "time": {
                 if (this.state.pincode || (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].lab && !this.props.LABS[this.state.selectedLab].lab.is_thyrocare)) {
-                    
+
                     if (this.props.LABS[this.state.selectedLab].lab.is_thyrocare) {
-
-                        let url = `${window.location.pathname}?lab_id=${this.state.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true&action_page=timings`
-
-                        this.props.history.push(url)
+                        if (this.state.seoFriendly) {
+                            let url = `${window.location.pathname}?lab_id=${this.state.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true&action_page=timings`
+                            this.props.history.push(url)
+                        } else {
+                            this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true`)
+                        }
                     } else {
-
-                        let url = `${window.location.pathname}?lab_id=${this.state.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false&action_page=timings`
-
-                        this.props.history.push(url)
+                        if (this.state.seoFriendly) {
+                            let url = `${window.location.pathname}?lab_id=${this.state.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false&action_page=timings`
+                            this.props.history.push(url)
+                        } else {
+                            this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false`)
+                        }
                     }
 
                     return
@@ -623,7 +628,7 @@ class BookingSummaryViewNew extends React.Component {
 
             this.props.clearExtraTests()
             this.props.getLabById(this.state.selectedLab)
-            return            
+            return
         }
     }
 
@@ -710,7 +715,7 @@ class BookingSummaryViewNew extends React.Component {
 
         if (this.props.LABS[this.state.selectedLab]) {
             labDetail = this.props.LABS[this.state.selectedLab].lab
-            
+
             this.props.LABS[this.state.selectedLab].tests.map((twp, i) => {
                 if (twp.hide_price) {
                     is_corporate = true
@@ -726,7 +731,7 @@ class BookingSummaryViewNew extends React.Component {
 
                 tests.push(
                     <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
-                    {/*
+                        {/*
                         is_corporate || is_insurance_applicable || is_plan_applicable ?
                         <span className="float-right fw-700">₹ 0 </span>
                         :
@@ -736,25 +741,25 @@ class BookingSummaryViewNew extends React.Component {
                         <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
                         </span>
                     */}
-                    <span className="test-name-item">{twp.test.name}</span>
-                    {
-                        is_plan_applicable ?
-                            <p className="pkg-discountCpn" style={{ display: 'inline-block', float: 'right', marginTop: '5px' }}>Docprime Care Benefit</p>
-                            : ''
-                    }
-                </p>)
-                
+                        <span className="test-name-item">{twp.test.name}</span>
+                        {
+                            is_plan_applicable ?
+                                <p className="pkg-discountCpn" style={{ display: 'inline-block', float: 'right', marginTop: '5px' }}>Docprime Care Benefit</p>
+                                : ''
+                        }
+                    </p>)
+
                 tests_with_price.push(
                     <div className="payment-detail d-flex">
                         <p>{twp.test.name}</p>
                         {
                             is_corporate || is_insurance_applicable || is_plan_applicable ?
-                            <p>&#8377; 0</p>
-                            :
-                            price == twp.mrp ?
-                            <p>&#8377; {price}</p>
-                            :
-                            <p>&#8377; {parseFloat(twp.mrp)}</p>
+                                <p>&#8377; 0</p>
+                                :
+                                price == twp.mrp ?
+                                    <p>&#8377; {price}</p>
+                                    :
+                                    <p>&#8377; {parseFloat(twp.mrp)}</p>
                         }
                     </div>
                 )
@@ -835,7 +840,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                         <img style={{ width: '22px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/hospital.svg"} />
                                                                     </span>
                                                                         <p className="lab-crd-txt-pr">{labDetail.name}
-                                                                            <span>{labDetail.address||''}</span></p></h4>
+                                                                            <span>{labDetail.address || ''}</span></p></h4>
                                                                     {/*<div className="float-right  mbl-view-formatting text-right">
                                                                         <a href="" style={{ width: '100px', display: 'inline-block' }} onClick={(e) => {
                                                                             e.preventDefault()
