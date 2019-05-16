@@ -205,7 +205,7 @@ export const getIpdSearchIdResults = (search_id, response) => (dispatch) => {
     })
 }
 
-export const getHospitaDetails = (hospitalId, selectedLocation, searchByUrl=null, specialization_id='') => (dispatch) => {
+export const getHospitaDetails = (hospitalId, selectedLocation, searchByUrl=null, specialization_id='', cb) => (dispatch) => {
 
     dispatch({
         type: GET_IPD_HOSPITAL_DETAIL_START
@@ -238,6 +238,7 @@ export const getHospitaDetails = (hospitalId, selectedLocation, searchByUrl=null
             type: GET_IPD_HOSPITAL_DETAIL,
             payload: response
         })
+        if(cb)cb(response)
 
     }).catch( function( error) {
 
