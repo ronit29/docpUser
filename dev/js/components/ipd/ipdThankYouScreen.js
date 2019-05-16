@@ -10,10 +10,10 @@ class IpdThankYouScreen extends React.Component{
 		let userLogin = STORAGE.checkAuth() || false
 		return(
 			<div>
-			<div className="custom-overlay" onClick={()=>this.props.history.push('/')}></div>
+			<div className="custom-overlay" onClick={()=>this.props.tabView?this.props.togglePopup(false):this.props.history.push('/')}></div>
 			<div className={`custom-popup thanks-popup text-center ${userLogin?'login-cls':''}`}>
 			   <div className="thumb-icon"><img src={ASSETS_BASE_URL + "/images/thumbsup.png"} alt="" /></div>
-	           <div className="cross-btn"><img src="https://cdn.docprime.com/cp/assets/img/icons/close.png" alt="" onClick={()=>this.props.history.push('/')}/></div>
+	           <div className="cross-btn"><img src="https://cdn.docprime.com/cp/assets/img/icons/close.png" alt="" onClick={()=>this.props.tabView?this.props.togglePopup(false):this.props.history.push('/')}/></div>
 	           <div className="pop-head text-center">Your request has been received.</div>
 	           <p>Our medical expert will call you shortly and help you with the following:</p>
 	           <ul className="med-help">

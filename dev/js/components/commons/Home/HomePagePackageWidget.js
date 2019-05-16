@@ -68,12 +68,12 @@ class HomePagePackageWidget extends React.Component {
                                 <p className="newpkgInclude">{listItem.no_of_tests} tests included </p> */}
                                     <p className="pkgtstName">{listItem.name} {listItem.no_of_tests>0?
                                         `(${listItem.no_of_tests} tests)`:''}</p>
-                                    {listItem.mrp && listItem.agreed_price ?
+                                    {listItem.mrp && listItem.discounted_price ?
                                         <div className="pkg-card-price-offr">
                                             <div className="pkg-prc-ct">
-                                                <p>₹ {listItem.agreed_price} <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span></p>
+                                                <p>₹ {listItem.discounted_price} <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span></p>
                                             </div>
-                                            <span className="pkg-hlth-offer">{parseInt(((listItem.mrp - listItem.agreed_price) / listItem.mrp) * 100)}% OFF</span>
+                                            <span className="pkg-hlth-offer">{parseInt(((listItem.mrp - listItem.discounted_price) / listItem.mrp) * 100)}% OFF</span>
                                         </div>
                                     :''}
                                 </div>
