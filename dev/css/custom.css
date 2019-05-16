@@ -937,13 +937,20 @@ span.ins-proof-upload-btn img {
 	margin-right: 2px;
 }
 .upload-img-section{
-	margin-left: 40px;
-	margin-top: 10px;
+	padding-left: 40px;
+	padding-top: 15px;
+	padding-right: 5px;
+	white-space: nowrap;
+	overflow: auto;
 }
 
 .ins-up-img-ic{
 	width: 50px;
 	margin-right: 10px;
+	height: 50px;
+	border-radius: 4px;
+	border: 1px solid #d6d6d6;
+	cursor: pointer;
 }
 .ins-prf-addMore{
 	display: inline-flex;
@@ -959,6 +966,28 @@ span.ins-proof-upload-btn img {
 .ins-addico{
 	margin-bottom: 2px;
 	width: 22px;
+}
+.ins-prf-img-grd{
+	display: inline-block;
+	position: relative;
+	margin-right: 3px;
+}
+.ins-prf-cls{
+	position: absolute;
+	top: -8px;
+	right: 2px;
+	background: white;
+	border-radius: 50px;
+	border: 1px solid #dcdada;
+	cursor: pointer;
+}
+.ins-file-tyle {
+	font-size: 12px;
+	color: #757575;
+	font-weight: 500;
+	margin-top: 7px;
+	padding-left: 40px;
+	font-size: 11px;
 }
 /* ============ insurance upload ============ */
 /* ============ ipd tabs ============ */
