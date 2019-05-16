@@ -26,9 +26,13 @@ class PatientDetailsNew extends React.Component {
     constructor(props) {
         super(props)
         const parsed = queryString.parse(this.props.location.search)
+
+        let doctor_id = this.props.match.params.id || parsed.doctor_id
+        let hospital_id = this.props.match.params.clinicId || parsed.hospital_id
+
         this.state = {
-            selectedDoctor: this.props.match.params.id,
-            selectedClinic: this.props.match.params.clinicId,
+            selectedDoctor: doctor_id,
+            selectedClinic: hospital_id,
             paymentData: {},
             loading: false,
             error: "",
@@ -431,7 +435,8 @@ class PatientDetailsNew extends React.Component {
     navigateTo(where, e) {
         switch (where) {
             case "time": {
-                this.props.history.push(`/opd/doctor/${this.state.selectedDoctor}/${this.state.selectedClinic}/book?goback=true&type=opd`)
+                let url = `${window.location.pathname}?goback=true&type=opd&doctor_id=${this.state.selectedDoctor}&hospital_id=${this.state.selectedClinic}&action_page=timings`
+                this.props.history.push(url)
                 return
             }
 

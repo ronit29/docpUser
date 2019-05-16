@@ -59,21 +59,21 @@ class DoctorProfileView extends React.Component {
             })
         }
 
-        if(this.props.app_download_list && !this.props.app_download_list.length){
+        if (this.props.app_download_list && !this.props.app_download_list.length) {
 
-            this.props.getDownloadAppBannerList((resp)=>{
-                if(resp && resp.length && resp[0].data){
+            this.props.getDownloadAppBannerList((resp) => {
+                if (resp && resp.length && resp[0].data) {
                     this.showDownloadAppWidget(resp[0].data)
                 }
             })
-        }else{
+        } else {
             this.showDownloadAppWidget(this.props.app_download_list)
         }
 
         this.setState({ searchShown: true })
     }
 
-    showDownloadAppWidget(dataList){
+    showDownloadAppWidget(dataList) {
         let landing_page = false
         if (typeof window == 'object' && window.ON_LANDING_PAGE) {
             landing_page = true
@@ -81,20 +81,20 @@ class DoctorProfileView extends React.Component {
 
         let downloadAppButtonData = {}
 
-        if(landing_page && dataList && dataList.length){
+        if (landing_page && dataList && dataList.length) {
 
-            dataList.map((banner)=> {
-                if(banner.isenabled && ( this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with) ) ) {
+            dataList.map((banner) => {
+                if (banner.isenabled && (this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with))) {
                     downloadAppButtonData = banner
                 }
             })
         }
 
 
-        if(Object.values(downloadAppButtonData).length){
-            
+        if (Object.values(downloadAppButtonData).length) {
+
             let gtmTrack = {
-                'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonVisible', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-visible', 'starts_with':downloadAppButtonData.starts_with?downloadAppButtonData.starts_with:'', 'ends_with': downloadAppButtonData.ends_with?downloadAppButtonData.ends_with:'', 'device': this.props.device_info
+                'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonVisible', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-visible', 'starts_with': downloadAppButtonData.starts_with ? downloadAppButtonData.starts_with : '', 'ends_with': downloadAppButtonData.ends_with ? downloadAppButtonData.ends_with : '', 'device': this.props.device_info
             }
             GTM.sendEvent({ data: gtmTrack })
         }
@@ -136,7 +136,11 @@ class DoctorProfileView extends React.Component {
             GTM.sendEvent({ data: data })
             this.props.saveProfileProcedures(doctor_id, clinicId)
 
-            this.props.history.push(`/opd/doctor/${doctor_id}/${clinicId}/bookdetails`)
+            if (this.state.seoFriendly) {
+                this.props.history.push(`${window.location.pathname}/booking?doctor_id=${doctor_id}&hospital_id=${clinicId}`)
+            } else {
+                this.props.history.push(`/opd/doctor/${doctor_id}/${clinicId}/bookdetails`)
+            }
         }
     }
 
@@ -297,11 +301,11 @@ class DoctorProfileView extends React.Component {
         }
 
         let downloadAppButtonData = {}
-        
-        if(landing_page && this.props.app_download_list && this.props.app_download_list.length){
 
-            this.props.app_download_list.map((banner)=> {
-                if(banner.isenabled && ( this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with)) ) {
+        if (landing_page && this.props.app_download_list && this.props.app_download_list.length) {
+
+            this.props.app_download_list.map((banner) => {
+                if (banner.isenabled && (this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with))) {
                     downloadAppButtonData = banner
                 }
             })

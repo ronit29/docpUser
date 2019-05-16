@@ -13,8 +13,13 @@ const queryString = require('query-string');
 class AppointmentSlot extends React.Component {
     constructor(props) {
         super(props)
+
+        const parsed = queryString.parse(this.props.location.search)
+
+        let lab_id = this.props.match.params.id || parsed.lab_id
+
         this.state = {
-            selectedLab: this.props.match.params.id,
+            selectedLab: lab_id,
             reschedule: this.props.location.search.includes('reschedule'),
             timeSlots: null,
             goback: this.props.location.search.includes('goback'),
@@ -76,7 +81,7 @@ class AppointmentSlot extends React.Component {
 
     getTimeSlots(date){
         //2325
-        let selectedLab = this.props.match.params.id
+        let selectedLab = this.state.selectedLab
         date = this.getFormattedDate(date)
         let pincode = this.props.pincode
         const parsed = queryString.parse(this.props.location.search)

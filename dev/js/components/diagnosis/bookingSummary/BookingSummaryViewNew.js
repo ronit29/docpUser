@@ -24,9 +24,12 @@ import BookingConfirmationPopup from './BookingConfirmationPopup.js'
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
         super(props)
+
         const parsed = queryString.parse(this.props.location.search)
+        let lab_id = this.props.match.params.id || parsed.lab_id
+
         this.state = {
-            selectedLab: this.props.match.params.id,
+            selectedLab: lab_id,
             paymentData: {},
             loading: false,
             error: "",
@@ -87,7 +90,6 @@ class BookingSummaryViewNew extends React.Component {
             this.setState({ scrollPosition: scrollPosition });
         }*/
     }
-
 
     componentWillReceiveProps(nextProps) {
         /*if (!STORAGE.checkAuth()) {
@@ -196,7 +198,8 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     openTests() {
-        this.props.history.push(`/lab/${this.state.selectedLab}/tests`)
+        let url = `${window.location.pathname}?lab_id=${this.state.selectedLab}&action_page=tests`
+        this.props.history.push(url)
     }
 
     handlePickupType(e) {
@@ -211,10 +214,17 @@ class BookingSummaryViewNew extends React.Component {
         switch (where) {
             case "time": {
                 if (this.state.pincode || (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].lab && !this.props.LABS[this.state.selectedLab].lab.is_thyrocare)) {
+                    
                     if (this.props.LABS[this.state.selectedLab].lab.is_thyrocare) {
-                        this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true`)
+
+                        let url = `${window.location.pathname}?lab_id=${this.state.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true&action_page=timings`
+
+                        this.props.history.push(url)
                     } else {
-                        this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false`)
+
+                        let url = `${window.location.pathname}?lab_id=${this.state.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false&action_page=timings`
+
+                        this.props.history.push(url)
                     }
 
                     return
@@ -582,7 +592,7 @@ class BookingSummaryViewNew extends React.Component {
         if(this.props.defaultProfile && this.props.profiles[this.props.defaultProfile] && this.props.profiles[this.props.defaultProfile].is_insured){
 
             this.props.clearExtraTests()
-            this.props.getLabById(this.props.match.params.id)
+            this.props.getLabById(this.state.selectedLab)
             return            
         }
     }

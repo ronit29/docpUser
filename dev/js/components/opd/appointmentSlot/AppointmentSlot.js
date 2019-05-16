@@ -16,9 +16,15 @@ import GTM from '../../../helpers/gtm.js'
 class AppointmentSlot extends React.Component {
     constructor(props) {
         super(props)
+
+        const parsed = queryString.parse(this.props.location.search)
+
+        let doctor_id = this.props.match.params.id || parsed.doctor_id
+        let hospital_id = this.props.match.params.clinicId || parsed.hospital_id
+
         this.state = {
-            selectedDoctor: this.props.match.params.id,
-            selectedClinic: this.props.match.params.clinicId,
+            selectedDoctor: doctor_id,
+            selectedClinic: hospital_id,
             reschedule: this.props.location.search.includes('reschedule'),
             goback: this.props.location.search.includes('goback'),
             timeSlots: null,
@@ -66,8 +72,8 @@ class AppointmentSlot extends React.Component {
     }
 
     componentDidMount() {
-        let clinicId = this.props.match.params.clinicId
-        let doctorId = this.props.match.params.id
+        let clinicId = this.state.selectedClinic
+        let doctorId = this.state.selectedDoctor
 
         this.props.getTimeSlots(doctorId, clinicId, (timeSlots) => {
             this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, upcoming_slots: timeSlots.upcoming_slots||{} })

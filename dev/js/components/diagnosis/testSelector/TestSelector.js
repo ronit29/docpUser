@@ -6,14 +6,20 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 import InfiniteScroll from 'react-infinite-scroller';
+const queryString = require('query-string');
 
 class TestSelectorView extends React.Component {
     constructor(props) {
         super(props)
+
+        const parsed = queryString.parse(this.props.location.search)
+
+        let lab_id = this.props.match.params.id || parsed.lab_id
+
         this.hideResultIndicator = this.hideResultIndicator.bind(this);
         this.state = {
             hasMore: false,
-            selectedLab: this.props.match.params.id,
+            selectedLab: lab_id,
             searchResults: [],
             searchString: '',
             moreResultIndicator: true,

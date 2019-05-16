@@ -5,6 +5,8 @@ import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile,
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/index.js'
+const queryString = require('query-string');
+
 
 class BookingSummary extends React.Component {
     constructor(props) {
@@ -17,6 +19,10 @@ class BookingSummary extends React.Component {
     }
 
     componentDidMount() {
+        const parsed = queryString.parse(this.props.location.search)
+
+        let lab_id = this.props.match.params.id || parsed.lab_id
+
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -28,10 +34,10 @@ class BookingSummary extends React.Component {
             this.props.getCartItems()
         }
 
-        let testIds = this.props.lab_test_data[this.props.match.params.id] || []
+        let testIds = this.props.lab_test_data[lab_id] || []
         testIds = testIds.map(x => x.id)
 
-        this.props.getLabById(this.props.match.params.id, testIds)
+        this.props.getLabById(lab_id, testIds)
     }
 
     render() {
