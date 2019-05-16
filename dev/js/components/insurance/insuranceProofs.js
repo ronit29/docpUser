@@ -143,6 +143,11 @@ class InsuranceProofs extends React.Component {
             }
         }
         return <div className="insurance-proofs-cont">
+            {
+                this.props.endorsementError.indexOf(this.props.member_id) != -1?
+                <span className="fill-error-span">*Please upload the required documents</span>
+                :''
+            }
             <div className="upload-addbtn-cont" id={`member_${this.props.member_id}_upload`}>
                 <div className="ins-upld-cont">
                     <div className="ins-sb-frst-img">

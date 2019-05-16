@@ -26,7 +26,8 @@ class InsuranceEndoresmentInputView extends React.Component{
             CreateApiErrors:{},
             show_selected_profiles:[],
             validateDobErrors:[],
-           	errorMessages:[]
+           	errorMessages:[],
+           	endorsementError:[]
         }
     }
     componentDidMount(){
@@ -144,6 +145,7 @@ class InsuranceEndoresmentInputView extends React.Component{
     	let is_fields_edited = []
     	let edited_fields ={}
     	let member_proof=[]
+    	let newIdProofs
     	if(Object.keys(this.props.self_data_values).length > 0){
     		// isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
     		// if(!isDummyUser){
@@ -396,7 +398,6 @@ class InsuranceEndoresmentInputView extends React.Component{
 						}
 					}
 				}
-				let newIdProofs
 				if(all_id_proofs && all_id_proofs.length > 0){
 					newIdProofs = is_fields_edited.filter(function(x) { 
 				  		return all_id_proofs.indexOf(x) < 0;
@@ -413,7 +414,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 				}
 			}
 			console.log(member_ref)
-		this.setState({validateErrors: validatingErrors,validateOtherErrors: validatingOtherErrors,validatingNames:invalidname,validateDobErrors:validatingDobErrors,errorMessages:errorMessagesObj})
+		this.setState({validateErrors: validatingErrors,validateOtherErrors: validatingOtherErrors,validatingNames:invalidname,validateDobErrors:validatingDobErrors,errorMessages:errorMessagesObj,endorsementError:newIdProofs})
     	if(is_disable && document.getElementById(member_ref)){    		
     		document.getElementById(member_ref).scrollIntoView();
     	}else{
@@ -464,6 +465,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 							is_endorsement = {true}
 							user_data={this.props.endorsed_member_data.members.filter(x=>x.relation == 'spouse')}
 							member_type={'adult'}
+							endorsementError={this.state.endorsementError}
 						/>
 			}
 		
@@ -490,6 +492,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 									is_endorsement = {true}
 									user_data={child_data}
 									member_type={'child'}
+									endorsementError={this.state.endorsementError}
 								/>
 					}
 				})
@@ -527,13 +530,14 @@ class InsuranceEndoresmentInputView extends React.Component{
 											checkForValidation ={this.checkForValidation.bind(this)} 
 											id={`member_${this.props.currentSelectedInsuredMembersId[0]['0']}`} 
 											member_id={self_data[0].id}
-											 validateErrors={this.state.validateErrors['0'] || []} 
-											 validateOtherErrors={this.state.validateOtherErrors['0'] || []}
-											  createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} 
-											  errorMessages={this.state.errorMessages} 
-											  is_endorsement = {true} 
-											  user_data={this.props.endorsed_member_data.members.filter(x=>x.relation == 'self')} 
-											  member_type={'adult'}
+											validateErrors={this.state.validateErrors['0'] || []} 
+											validateOtherErrors={this.state.validateOtherErrors['0'] || []}
+											createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} 
+											errorMessages={this.state.errorMessages} 
+											is_endorsement = {true} 
+											user_data={this.props.endorsed_member_data.members.filter(x=>x.relation == 'self')} 
+											member_type={'adult'}
+											endorsementError={this.state.endorsementError}
 										/>
 										{adult}
 										{child}

@@ -26,7 +26,8 @@ class InsuranceInputView extends React.Component{
             CreateApiErrors:{},
             show_selected_profiles:[],
             validateDobErrors:[],
-           	errorMessages:[]
+           	errorMessages:[],
+           	endorsementError:[]
         }
     }
     componentDidMount(){
@@ -407,6 +408,7 @@ class InsuranceInputView extends React.Component{
 							errorMessages={this.state.errorMessages} 
 							validatingNames={this.state.validatingNames||[]}
 							is_endorsement = {false}
+							endorsementError={this.state.endorsementError}
 						/>
 			}
 		
@@ -432,6 +434,7 @@ class InsuranceInputView extends React.Component{
 									errorMessages={this.state.errorMessages} 
 									validatingNames={this.state.validatingNames||[]}
 									is_endorsement = {false}
+									endorsementError={this.state.endorsementError}
 								/>
 					}
 				})
@@ -453,7 +456,16 @@ class InsuranceInputView extends React.Component{
 									<p className="fill-error-span fw-500 text-right d-block" style={{marginTop:'0px', fontSize: '11px'}}>*All fields are mandatory
 									</p>
 									<div className="insurance-member-details">
-										<InsurSelf {...this.props} checkForValidation ={this.checkForValidation.bind(this)} id={`member_${this.props.USER.defaultProfile}`} member_id={this.props.USER.defaultProfile} validateErrors={this.state.validateErrors['0'] || []} validateOtherErrors={this.state.validateOtherErrors['0'] || []} createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} errorMessages={this.state.errorMessages} is_endorsement = {false}/>
+										<InsurSelf {...this.props} 
+											checkForValidation ={this.checkForValidation.bind(this)} 
+											id={`member_${this.props.USER.defaultProfile}`} 
+											member_id={this.props.USER.defaultProfile} 
+											validateErrors={this.state.validateErrors['0'] || []}
+											validateOtherErrors={this.state.validateOtherErrors['0'] || []} 
+											createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} 
+											errorMessages={this.state.errorMessages} 
+											is_endorsement = {false} 
+											endorsementError={this.state.endorsementError}/>
 										{adult}
 										{child}
 									</div>
