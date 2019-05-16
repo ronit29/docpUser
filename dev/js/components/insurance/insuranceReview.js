@@ -301,7 +301,12 @@ class InsuranceReview extends React.Component{
 														{
 															val.no_lname?
 														<p style={{'textTransform': 'capitalize'}}>{val.name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}</p>:
-														<p style={{'textTransform': 'capitalize'}}>{val.name} {val.middle_name} {val.last_name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}</p>
+														<p style={{'textTransform': 'capitalize'}}>{val.name} {val.middle_name} {val.last_name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}
+														{this.props.data.edited_fields[val.id] && (this.props.data.edited_fields[val.id].indexOf('first_name') > -1 || this.props.data.edited_fields[val.id].indexOf('middle_name') > -1 || this.props.data.edited_fields[val.id].indexOf('last_name') > -1)?
+															<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
+															:''
+														}
+														</p>
 														}
 													</div>
 												</div>
@@ -310,7 +315,12 @@ class InsuranceReview extends React.Component{
 														<div className="member-list-width">
 															<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
 														</div>
-														<p>{val.dob}</p>
+														<p>{val.dob}
+														{this.props.data.edited_fields[val.id] && (this.props.data.edited_fields[val.id].indexOf('dob') > -1)?
+															<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
+															:''
+														}
+														</p>
 													</div>
 												</div>
 											</div>
