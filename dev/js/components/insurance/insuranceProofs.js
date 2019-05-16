@@ -73,26 +73,32 @@ class InsuranceProofs extends React.Component {
             this.props.uploadProof(form_data, member_id, 'image', (data, err) => {
                 if (data) {
                     mem_data.id = data.data.member
-                    mem_data.images = []
-                    mem_data.img_ids = []
-                    if (this.props.members_proofs.length > 0) {
-                        Object.entries(this.props.members_proofs).map(function ([key, value]) {
-                            if (value.id == member_id) {
-                                mem_data.images = value.images
-                                mem_data.img_ids = value.img_ids
-                                mem_data.images.push(data.data.document_image)
-                                mem_data.img_ids.push(data.id)
-                            } else {
-                                mem_data.images = []
-                                mem_data.img_ids = []
-                                mem_data.images.push(data.data.document_image)
-                                mem_data.img_ids.push(data.id)
+                    // mem_data.images = []
+                    // mem_data.img_ids = []
+                    mem_data.img_path_ids=[]
+                    if(this.props.members_proofs.length > 0){
+                        Object.entries(this.props.members_proofs).map(function([key, value]) {
+                            if(value.id == member_id){
+                                // mem_data.images = value.images
+                                // mem_data.img_ids = value.img_ids
+                                mem_data.img_path_ids = value.img_path_ids
+                                // mem_data.images.push(data.data.document_image)
+                                // mem_data.img_ids.push(data.id)
+                                mem_data.img_path_ids.push({id: data.id, image:data.data.document_image})
+                            }else{
+                                // mem_data.images=[]
+                                // mem_data.img_ids = []
+                                mem_data.img_path_ids = []
+                                // mem_data.images.push(data.data.document_image)        
+                                // mem_data.img_ids.push(data.id)
+                                mem_data.img_path_ids.push({id: data.id, image:data.data.document_image})
                             }
                         })
 
-                    } else {
-                        mem_data.images.push(data.data.document_image)
-                        mem_data.img_ids.push(data.id)
+                    }else{
+                        // mem_data.images.push(data.data.document_image)
+                        // mem_data.img_ids.push(data.id)
+                        mem_data.img_path_ids.push({id: data.id, image:data.data.document_image})
                     }
                     this.props.storeMemberProofs(mem_data)
                 }
@@ -108,29 +114,16 @@ class InsuranceProofs extends React.Component {
         }
         return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
     }
-
-    zoomImage(img) {
-        this.setState({ zoomImageUrl: img, zoomImage: true })
-        if (document.body) {
-            document.body.style.overflow = 'hidden'
-        }
-    }
-
-    openPdf(pdf_url) {
-        this.setState({ openPdfUrl: pdf_url, openPdf: true })
-        if (document.body) {
-            document.body.style.overflow = 'hidden'
-        }
-    }
-
-    closeZoomImage() {
-        this.setState({ zoomImage: false, zoomImageUrl: null, openPdfUrl: false, openPdf: null })
-        if (document.body) {
-            document.body.style.overflow = ''
-        }
-    }
-    removeImage(img) {
-        console.log(img)
+    
+    removeImage(img){
+        let Uploaded_image_data = []
+        Uploaded_image_data = this.props.members_proofs.filter((x => x.id == this.props.member_id))
+        Uploaded_image_data[0].img_path_ids.map((data,i)=>{
+                data.member_id=this.props.member_id
+                if(data.image == img){
+                    this.props.removeMemberProof(data)
+                }
+            })
     }
 
     render() {
@@ -139,12 +132,12 @@ class InsuranceProofs extends React.Component {
         let pdf_url = []
         if (this.props.members_proofs && this.props.members_proofs.length > 0) {
             Uploaded_image_data = this.props.members_proofs.filter((x => x.id == this.props.member_id))
-            if (Uploaded_image_data.length > 0) {
-                Uploaded_image_data[0].images.map((data, i) => {
-                    if (data.includes('pdf')) {
-                        pdf_url.push(data)
-                    } else {
-                        img_url.push(data)
+            if(Uploaded_image_data.length > 0){
+                Uploaded_image_data[0].img_path_ids.map((data, i) =>{
+                    if(data.image.includes('pdf')){
+                        pdf_url.push(data.image)
+                    }else{
+                        img_url.push(data.image)
                     }
                 })
             }
@@ -161,11 +154,11 @@ class InsuranceProofs extends React.Component {
                     </div>
                 </div>
                 {
-                    Uploaded_image_data && Uploaded_image_data.length == 0 ?
-                        <span className="ins-proof-upload-btn" onClick={() => {
-                            document.getElementById('imageFilePicker_' + this.props.member_id + '_front').click()
-                            document.getElementById('imageFilePicker_' + this.props.member_id + '_front').value = ""
-                        }}><img src={ASSETS_BASE_URL + "/img/ins-up-ico.svg"} /> Upload
+                    img_url && img_url.length == 0?
+                    <span className="ins-proof-upload-btn" onClick={() => {
+                        document.getElementById('imageFilePicker_' + this.props.member_id + '_front').click()
+                        document.getElementById('imageFilePicker_' + this.props.member_id + '_front').value = ""
+                    }}><img src={ASSETS_BASE_URL + "/img/ins-up-ico.svg"}/> Upload
                         <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_front`} onChange={this.pickFile.bind(this, this.props.member_id)} accept="image/x-png,image/jpeg,image/jpg,.pdf" />
                         </span>
                         : ''}
@@ -177,27 +170,30 @@ class InsuranceProofs extends React.Component {
                             img_url && img_url.length > 0 ?
                                 img_url.map((data, i) => {
                                     return <div key={i} className="ins-prf-img-grd">
-                                        <img onClick={this.zoomImage.bind(this, data)} className="img-fluid ins-up-img-ic" src={data} />
+                                        <img className="img-fluid ins-up-img-ic" src={data} />
                                         <img className="ins-prf-cls" onClick={this.removeImage.bind(this, data)} src="https://cdn.docprime.com/cp/assets/img/icons/close.png" />
                                     </div>
                                 })
                                 : ''
                         }
                         {
-                            pdf_url && pdf_url.length > 0 ?
-                                pdf_url.map((data, i) => {
-                                    return <div key={i}><img onClick={this.openPdf.bind(this, data)} className="img-fluid ins-up-img-ic" src={data} /></div>
+                            pdf_url && pdf_url.length>0 ?
+                                pdf_url.map((data, i) =>{
+                                    return <div className="ins-prf-img-grd" key={i}>
+                                    <img className="img-fluid ins-up-img-ic" src={data}/>
+                                    <img className="ins-prf-cls" onClick={this.removeImage.bind(this, data)} src="https://cdn.docprime.com/cp/assets/img/icons/close.png" />
+                                    </div>
                                 })
                                 : ''
                         }
                         {
-                            Uploaded_image_data[0].back_img ? ''
-                                : <span className="ins-prf-addMore" onClick={() => {
-                                    document.getElementById('imageFilePicker_' + this.props.member_id + '_back').click()
-                                    document.getElementById('imageFilePicker_' + this.props.member_id + '_back').value = ""
-                                }}>
-                                    <img className="ins-addico" src={ASSETS_BASE_URL + "/img/ins-add-ico.svg"} />
-                                    Add More
+                            ((img_url && img_url.length) || (pdf_url && pdf_url.length)) >= 5?''
+                            :<span className="ins-prf-addMore" onClick={() => {
+                                document.getElementById('imageFilePicker_' + this.props.member_id + '_back').click()
+                                document.getElementById('imageFilePicker_' + this.props.member_id + '_back').value = ""
+                            }}>
+                                <img className="ins-addico" src={ASSETS_BASE_URL + "/img/ins-add-ico.svg"} />
+                                Add More
                                 <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_back`} onChange={this.pickFile.bind(this, this.props.member_id)} accept="image/x-png,image/jpeg,image/jpg,.pdf" />
                                 </span>
                         }

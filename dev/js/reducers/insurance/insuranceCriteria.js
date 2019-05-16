@@ -1,4 +1,4 @@
-import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES,SELF_DATA,INSURANCE_PAY,SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE, SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS} from '../../constants/types';
+import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES,SELF_DATA,INSURANCE_PAY,SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE, SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS, DELETE_MEMBER_PROOF} from '../../constants/types';
 
 const defaultState = {
 insurnaceData: {},
@@ -239,8 +239,30 @@ export default function (state = defaultState, action) {
             }else{
                 newState.members_proofs.push(action.payload)
             }            
-            return newState
+            return newState   
+        }
+        case DELETE_MEMBER_PROOF:{
+           let newState = {
+                ...state
+            } 
             
+            let currentSelectedMember = null
+            newState.members_proofs = newState.members_proofs.filter((member) => {
+
+                if(member.id == action.payload.member_id) {
+                    currentSelectedMember = member
+                    return false
+                }
+                return true
+            })
+
+            if(currentSelectedMember){
+                let currentProofs = currentSelectedMember.img_path_ids.filter(x=>x.id !== action.payload.id) 
+                currentSelectedMember.img_path_ids = currentProofs
+            }
+
+            newState.members_proofs.push({...currentSelectedMember})
+            return newState
         }
     }
     return state
