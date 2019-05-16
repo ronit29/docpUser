@@ -73,31 +73,31 @@ class InsuranceProofs extends React.Component {
             this.props.uploadProof(form_data, member_id, 'image', (data, err) => {
                 if (data) {
                     mem_data.id = data.data.member
-                    mem_data.images = []
-                    mem_data.img_ids = []
+                    // mem_data.images = []
+                    // mem_data.img_ids = []
                     mem_data.img_path_ids=[]
                     if(this.props.members_proofs.length > 0){
                         Object.entries(this.props.members_proofs).map(function([key, value]) {
                             if(value.id == member_id){
-                                mem_data.images = value.images
-                                mem_data.img_ids = value.img_ids
+                                // mem_data.images = value.images
+                                // mem_data.img_ids = value.img_ids
                                 mem_data.img_path_ids = value.img_path_ids
-                                mem_data.images.push(data.data.document_image)
-                                mem_data.img_ids.push(data.id)
+                                // mem_data.images.push(data.data.document_image)
+                                // mem_data.img_ids.push(data.id)
                                 mem_data.img_path_ids.push({id: data.id, image:data.data.document_image})
                             }else{
-                                mem_data.images=[]
-                                mem_data.img_ids = []
+                                // mem_data.images=[]
+                                // mem_data.img_ids = []
                                 mem_data.img_path_ids = []
-                                mem_data.images.push(data.data.document_image)        
-                                mem_data.img_ids.push(data.id)
+                                // mem_data.images.push(data.data.document_image)        
+                                // mem_data.img_ids.push(data.id)
                                 mem_data.img_path_ids.push({id: data.id, image:data.data.document_image})
                             }
                         })
 
                     }else{
-                        mem_data.images.push(data.data.document_image)
-                        mem_data.img_ids.push(data.id)
+                        // mem_data.images.push(data.data.document_image)
+                        // mem_data.img_ids.push(data.id)
                         mem_data.img_path_ids.push({id: data.id, image:data.data.document_image})
                     }
                     this.props.storeMemberProofs(mem_data)
@@ -114,35 +114,14 @@ class InsuranceProofs extends React.Component {
         }
         return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
     }
-
-    zoomImage(img){
-        this.setState({zoomImageUrl:img,zoomImage:true})
-        if(document.body){
-            document.body.style.overflow='hidden'
-        }
-    }
-
-    openPdf(pdf_url){
-        this.setState({openPdfUrl:pdf_url,openPdf:true})
-        if(document.body){
-            document.body.style.overflow='hidden'
-        }
-    }
-
-    closeZoomImage(){
-        this.setState({zoomImage:false,zoomImageUrl:null,openPdfUrl:false,openPdf:null})
-        if(document.body){
-            document.body.style.overflow=''
-        }
-    }
+    
     removeImage(img){
-        console.log(img)
         let Uploaded_image_data = []
         Uploaded_image_data = this.props.members_proofs.filter((x => x.id == this.props.member_id))
         Uploaded_image_data[0].img_path_ids.map((data,i)=>{
-                console.log(data)
+                data.member_id=this.props.member_id
                 if(data.image == img){
-                    
+                    this.props.removeMemberProof(data)
                 }
             })
     }
@@ -154,11 +133,11 @@ class InsuranceProofs extends React.Component {
         if (this.props.members_proofs && this.props.members_proofs.length > 0) {
             Uploaded_image_data = this.props.members_proofs.filter((x => x.id == this.props.member_id))
             if(Uploaded_image_data.length > 0){
-                Uploaded_image_data[0].images.map((data, i) =>{
-                    if(data.includes('pdf')){
-                        pdf_url.push(data)
+                Uploaded_image_data[0].img_path_ids.map((data, i) =>{
+                    if(data.image.includes('pdf')){
+                        pdf_url.push(data.image)
                     }else{
-                        img_url.push(data)
+                        img_url.push(data.image)
                     }
                 })
             }
@@ -175,7 +154,7 @@ class InsuranceProofs extends React.Component {
                     </div>
                 </div>
                 {
-                    Uploaded_image_data && Uploaded_image_data.length == 0?
+                    img_url && img_url.length == 0?
                     <span className="ins-proof-upload-btn" onClick={() => {
                         document.getElementById('imageFilePicker_' + this.props.member_id + '_front').click()
                         document.getElementById('imageFilePicker_' + this.props.member_id + '_front').value = ""
@@ -191,7 +170,7 @@ class InsuranceProofs extends React.Component {
                             img_url && img_url.length>0 ?
                                 img_url.map((data, i) =>{
                                     return <div key={i}>
-                                        <img onClick={this.zoomImage.bind(this,data)} className="img-fluid ins-up-img-ic" src={data}  />
+                                        <img className="img-fluid ins-up-img-ic" src={data}  />
                                         <img onClick={this.removeImage.bind(this,data)} src="https://cdn.docprime.com/cp/assets/img/icons/close.png"/>
                                         </div>
                                 })
@@ -200,12 +179,12 @@ class InsuranceProofs extends React.Component {
                         {
                             pdf_url && pdf_url.length>0 ?
                                 pdf_url.map((data, i) =>{
-                                    return <div key={i}><img onClick={this.openPdf.bind(this,data)} className="img-fluid ins-up-img-ic" src={data}  /></div>
+                                    return <div key={i}><img className="img-fluid ins-up-img-ic" src={data}  /></div>
                                 })
                             : ''
                         }
                         {
-                            Uploaded_image_data[0].back_img?''
+                            ((img_url && img_url.length) || (pdf_url && pdf_url.length)) >= 5?''
                             :<span className="ins-prf-addMore" onClick={() => {
                                 document.getElementById('imageFilePicker_' + this.props.member_id + '_back').click()
                                 document.getElementById('imageFilePicker_' + this.props.member_id + '_back').value = ""
@@ -217,29 +196,6 @@ class InsuranceProofs extends React.Component {
                         }
                     </div>
                     : ''
-            }
-            {
-                this.state.zoomImage && this.state.zoomImageUrl?
-                <div className="search-el-popup-overlay" onClick={this.closeZoomImage.bind(this)}>
-                        <div className="search-el-popup">
-                            <div className="search-el-btn-container">
-                                 <img style={{maxHeight:'200px'}}src={this.state.zoomImageUrl}/>
-                            </div>
-                        </div>
-                </div>
-                :''
-            }
-
-            {
-                this.state.openPdf && this.state.openPdfUrl?
-                <div className="search-el-popup-overlay" onClick={this.closeZoomImage.bind(this)}>
-                        <div className="search-el-popup">
-                            <div className="search-el-btn-container">
-                                <iframe style={{height:'65vh',width:'100%'}}src="http://www.tutorialspoint.com/javascript/javascript_tutorial.pdf"></iframe>
-                            </div>
-                        </div>
-                </div>
-                :''
             }
         </div>
 
