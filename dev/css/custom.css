@@ -997,6 +997,21 @@ p.rev-ins-header a img{
 	width: 11px;
 	margin-top: 3px;
 }
+.ins-open-endrs{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	color: #f78631;
+	font-weight: 500;
+	margin-top: 10px;
+	padding: 0 10px;
+}
+.ins-rgt-endrs{
+	height: 15px;
+}
+.ins-open-endrs:hover{
+	color: #f78631;
+}
 /* ============ insurance upload ============ */
 /* ============ ipd tabs ============ */
 .ipd-tabs-container{
