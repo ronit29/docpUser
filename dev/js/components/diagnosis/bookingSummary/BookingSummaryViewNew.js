@@ -47,7 +47,7 @@ class BookingSummaryViewNew extends React.Component {
             pincode: this.props.pincode,
             whatsapp_optin: true,
             pincodeMismatchError: false,
-            showConfirmationPopup:false,
+            showConfirmationPopup: false,
             coupon_loading: false
         }
     }
@@ -288,7 +288,7 @@ class BookingSummaryViewNew extends React.Component {
             case "home": {
                 return <div>
                     <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.state.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} />
-                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)}/>
+                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} />
                     {
                         patient ?
                             <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
@@ -310,7 +310,7 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    proceed(testPicked, addressPicked, datePicked, patient, addToCart,total_price,total_wallet_balance, e) {
+    proceed(testPicked, addressPicked, datePicked, patient, addToCart, total_price, total_wallet_balance, e) {
 
         if (!testPicked) {
             SnackBar.show({ pos: 'bottom-center', text: "Please select some tests." });
@@ -367,12 +367,12 @@ class BookingSummaryViewNew extends React.Component {
         }
 
         // React guarantees that setState inside interactive events (such as click) is flushed at browser event boundary
-        if(this.state.loading){
+        if (this.state.loading) {
             return
         }
 
-        if(!this.state.showConfirmationPopup && !addToCart && (total_price == 0 || (this.state.use_wallet && total_wallet_balance>0))){
-            this.setState({showConfirmationPopup:true})
+        if (!this.state.showConfirmationPopup && !addToCart && (total_price == 0 || (this.state.use_wallet && total_wallet_balance > 0))) {
+            this.setState({ showConfirmationPopup: true })
             return
         }
 
@@ -398,19 +398,19 @@ class BookingSummaryViewNew extends React.Component {
         //Check If each Tests Covered Under Insurance
 
         if (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].tests && this.props.LABS[this.state.selectedLab].tests.length) {
-            
+
             is_tests_covered_under_insurance = true
             this.props.LABS[this.state.selectedLab].tests.map((test, i) => {
 
-                if(test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount>=parseInt(test.deal_price)){
-    
-                }else{
+                if (test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount >= parseInt(test.deal_price)) {
+
+                } else {
                     is_tests_covered_under_insurance = false
                 }
 
-                if(test.included_in_user_plan){
-    
-                }else{
+                if (test.included_in_user_plan) {
+
+                } else {
                     is_tests_covered_under_plan = false
                 }
             })
@@ -442,7 +442,7 @@ class BookingSummaryViewNew extends React.Component {
             this.props.editUserProfile(profileData, profileData.id)
         }
         if (this.props.disCountedLabPrice && !is_plan_applicable && !is_insurance_applicable) {
-            postData['coupon_code'] = this.state.couponCode?[this.state.couponCode]:[]
+            postData['coupon_code'] = this.state.couponCode ? [this.state.couponCode] : []
         }
 
         //Post Pincode & thyrocare data
@@ -466,10 +466,10 @@ class BookingSummaryViewNew extends React.Component {
 
             GTM.sendEvent({ data: data })
             this.props.addToCart(2, postData).then((res) => {
-                if(!this.state.cart_item){
-                    this.props.clearExtraTests()    
+                if (!this.state.cart_item) {
+                    this.props.clearExtraTests()
                 }
-                
+
                 this.props.history.push('/cart')
             }).catch((err) => {
                 let message = "Error adding to cart!"
@@ -608,26 +608,26 @@ class BookingSummaryViewNew extends React.Component {
         this.setState({ whatsapp_optin: status })
     }
 
-    clearTestForInsured(){
-        if(this.props.defaultProfile && this.props.profiles[this.props.defaultProfile] && this.props.profiles[this.props.defaultProfile].is_insured){
+    clearTestForInsured() {
+        if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile] && this.props.profiles[this.props.defaultProfile].is_insured) {
 
             this.props.clearExtraTests()
             this.props.getLabById(this.props.match.params.id)
-            return            
+            return
         }
     }
 
-    searchTests(){
+    searchTests() {
         this.props.selectSearchType('lab')
         this.props.history.push('/search')
     }
 
-    priceConfirmationPopup(choice){
-        if(!choice){
-            this.setState({showConfirmationPopup:choice})
-        }else{
-            this.setState({showConfirmationPopup:''})
-            if(document.getElementById('confirm_booking')){
+    priceConfirmationPopup(choice) {
+        if (!choice) {
+            this.setState({ showConfirmationPopup: choice })
+        } else {
+            this.setState({ showConfirmationPopup: '' })
+            if (document.getElementById('confirm_booking')) {
                 document.getElementById('confirm_booking').click()
             }
         }
@@ -661,13 +661,13 @@ class BookingSummaryViewNew extends React.Component {
 
         }
 
-        if(this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]){
+        if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]) {
             is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
         }
 
 
         //Check If each Tests Covered Under Insurance
-        if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
+        if (this.props.isUserCared && this.props.isUserCared.has_active_plan) {
             is_selected_user_has_active_plan = this.props.isUserCared.has_active_plan
         }
 
@@ -677,20 +677,20 @@ class BookingSummaryViewNew extends React.Component {
             is_tests_covered_under_insurance = true
 
             this.props.LABS[this.state.selectedLab].tests.map((test, i) => {
-    
-                if(test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount>=parseInt(test.deal_price) ){
-            
-                }else{
+
+                if (test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount >= parseInt(test.deal_price)) {
+
+                } else {
                     is_tests_covered_under_insurance = false
-            
+
                 }
 
-                if(test.included_in_user_plan){
-            
-                }else{
+                if (test.included_in_user_plan) {
+
+                } else {
                     is_tests_covered_under_plan = false
                 }
-            })          
+            })
 
         }
 
@@ -803,9 +803,9 @@ class BookingSummaryViewNew extends React.Component {
             <div className="profile-body-wrap">
                 <ProfileHeader />
                 {
-                    this.state.showConfirmationPopup?
-                    <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)}/>
-                    :''
+                    this.state.showConfirmationPopup ?
+                        <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} />
+                        : ''
                 }
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
@@ -823,8 +823,9 @@ class BookingSummaryViewNew extends React.Component {
                                                                 <div className="lab-visit-time d-flex jc-spaceb">
                                                                     <h4 className="title d-flex"><span>
                                                                         <img style={{ width: '22px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/hospital.svg"} />
-                                                                    </span>{labDetail.name}</h4>
-
+                                                                    </span>
+                                                                        <p className="lab-crd-txt-pr">{labDetail.name}
+                                                                            <span>{labDetail.address||''}</span></p></h4>
                                                                     {/*<div className="float-right  mbl-view-formatting text-right">
                                                                         <a href="" style={{ width: '100px', display: 'inline-block' }} onClick={(e) => {
                                                                             e.preventDefault()
@@ -846,13 +847,13 @@ class BookingSummaryViewNew extends React.Component {
                                                                     <div className="float-right  mbl-view-formatting text-right">
                                                                         {
                                                                             STORAGE.isAgent() || (!is_default_user_insured && !is_corporate) ?
-                                                                            <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more/Remove tests</a>
-                                                                            :''
+                                                                                <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more/Remove tests</a>
+                                                                                : ''
                                                                         }
                                                                         {
-                                                                            this.props.LABS[this.state.selectedLab].tests && !this.props.LABS[this.state.selectedLab].tests.length && is_default_user_insured?
-                                                                            <a style={{ cursor: 'pointer' }} onClick={this.searchTests.bind(this)} className="text-primary fw-700 text-sm">Search tests</a>
-                                                                            :''
+                                                                            this.props.LABS[this.state.selectedLab].tests && !this.props.LABS[this.state.selectedLab].tests.length && is_default_user_insured ?
+                                                                                <a style={{ cursor: 'pointer' }} onClick={this.searchTests.bind(this)} className="text-primary fw-700 text-sm">Search tests</a>
+                                                                                : ''
                                                                         }
                                                                     </div>
                                                                 </div>
@@ -882,7 +883,7 @@ class BookingSummaryViewNew extends React.Component {
                                                         </div>
 
                                                         {
-                                                            amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable?
+                                                            amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable ?
                                                                 <div className="widget mrb-15" onClick={this.applyCoupons.bind(this)}>
                                                                     {
                                                                         labCoupons.length ?
@@ -906,7 +907,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                                 'Category': 'ConsumerApp', 'Action': 'LabCouponsRemoved', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab-coupons-removed', 'couponId': labCoupons[0].coupon_id
                                                                                             }
                                                                                             GTM.sendEvent({ data: analyticData })
-                                                                                            this.setState({couponCode: '', couponId:''})
+                                                                                            this.setState({ couponCode: '', couponId: '' })
                                                                                             this.props.removeLabCoupons(this.state.selectedLab, labCoupons[0].coupon_id)
                                                                                         }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
                                                                                         </span>
@@ -945,8 +946,8 @@ class BookingSummaryViewNew extends React.Component {
                                                                     <div className="widget-content clearfix">
                                                                         <h4 className="title mb-20">Payment Summary</h4>
                                                                         {
-                                                                            
-                                                                            is_plan_applicable ||is_insurance_applicable?
+
+                                                                            is_plan_applicable || is_insurance_applicable ?
                                                                                 <div className="payment-summary-content">
                                                                                     <div className="payment-detail d-flex">
                                                                                         <p className="payment-content fw-500">Subtotal</p>
@@ -993,13 +994,13 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 this.props.selectedAppointmentType == 'home' ? <h5 className="payment-amt-value fw-500">&#8377;  {total_price || 0}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {total_price || 0}</h5>
                                                                             }
 
-                                                                                   
+
                                                                         </div>
 
                                                                         {
-                                                                            is_insurance_applicable?
-                                                                             <div className="ins-val-bx ins-vl-bx-o">Covered Under Insurance</div>
-                                                                             :''
+                                                                            is_insurance_applicable ?
+                                                                                <div className="ins-val-bx ins-vl-bx-o">Covered Under Insurance</div>
+                                                                                : ''
                                                                         }
 
                                                                         {
@@ -1016,7 +1017,7 @@ class BookingSummaryViewNew extends React.Component {
 
 
                                                         {
-                                                            !is_insurance_applicable &&total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
+                                                            !is_insurance_applicable && total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
                                                                 <div className="widget-content">
                                                                     <div className="select-pt-form">
                                                                         <div className="referral-select">
@@ -1065,10 +1066,10 @@ class BookingSummaryViewNew extends React.Component {
 
                             <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
                                 {
-                                    STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured)?
+                                    STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured) ?
                                         <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                        } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true,total_price, total_wallet_balance)}>
+                                        } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance)}>
                                             {
                                                 this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
                                             }
@@ -1080,7 +1081,7 @@ class BookingSummaryViewNew extends React.Component {
                                 {
                                     STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust pdd-12" id="confirm_booking" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                    } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false,total_price,total_wallet_balance)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
+                                    } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
                                 }
                             </div>
 

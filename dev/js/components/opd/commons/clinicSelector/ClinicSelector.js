@@ -172,7 +172,6 @@ class ClinicSelector extends React.Component {
                             }
                             {/*
                                 <div className="dtl-cnslt-fee pb-list">
-
                                     <div className="clearfix">
                                         {
                                             STORAGE.checkAuth() || hospital.discounted_price < 100 || (false && this.props.selectedClinic == hospital.hospital_id && this.props.selectedDoctorProcedure[id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id] && this.props.selectedDoctorProcedure[id][hospital.hospital_id].categories) ?

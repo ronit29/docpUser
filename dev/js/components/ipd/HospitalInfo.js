@@ -37,7 +37,7 @@ class HospitalInfoView extends React.Component{
                   :'' 
                 }
                 
-                  <h4 className="section-heading">{hospital_data.name}</h4>
+                  <h1 className="section-heading">{hospital_data.name}</h1>
                 <div className="hsptl-info">
                   {
                     hospital_data.bed_count?

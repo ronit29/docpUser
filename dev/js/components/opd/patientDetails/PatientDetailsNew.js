@@ -369,7 +369,7 @@ class PatientDetailsNew extends React.Component {
 
         // React guarantees that setState inside interactive events (such as click) is flushed at browser event boundary
 
-        if(!this.state.showConfirmationPopup && !addToCart && (total_price == 0 || is_insurance_applicable || (this.state.use_wallet && total_wallet_balance>0))){
+        if(!this.state.showConfirmationPopup && !addToCart && (total_price == 0 || (is_insurance_applicable && this.props.payment_type==1) || (this.state.use_wallet && total_wallet_balance>0))){
             this.setState({showConfirmationPopup:true})
             return
         }
@@ -398,10 +398,6 @@ class PatientDetailsNew extends React.Component {
         }
         if (this.props.disCountedOpdPrice && this.props.payment_type == 1 && !is_insurance_applicable) {
             postData['coupon_code'] = this.state.couponCode?[this.state.couponCode]:[]
-        }
-
-        if(is_insurance_applicable){
-            postData['payment_type'] = 1
         }
 
         let procedure_ids = []
@@ -569,6 +565,23 @@ class PatientDetailsNew extends React.Component {
 
         return `Confirm Booking`
     }
+    
+    getBookingAmount(total_wallet_balance, price_to_pay, mrp) {
+        let price_from_wallet = 0
+        let price_from_pg = 0
+
+        if (this.state.use_wallet && total_wallet_balance) {
+            price_from_wallet = Math.min(total_wallet_balance, price_to_pay)
+        }
+
+        price_from_pg = price_to_pay - price_from_wallet
+
+        if (price_from_pg) {
+            return `₹${price_from_pg}`
+        }
+
+        return `₹0`
+    }
 
     selectTimeSlot(slot) {
         const parsed = queryString.parse(this.props.location.search)
@@ -677,7 +690,8 @@ class PatientDetailsNew extends React.Component {
 
         is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
 
-        if(is_insurance_applicable){
+        let clinic_mrp = priceData.mrp
+        if(is_insurance_applicable && this.props.payment_type!=2){
             finalPrice = 0
             priceData.deal_price = 0
             priceData.mrp = 0
@@ -794,8 +808,13 @@ class PatientDetailsNew extends React.Component {
                                                                             }}>
                                                                                 <div className="payment-detail d-flex">
                                                                                     <label className="container-radio payment-type-radio">
-                                                                                        <h3>Online Payment</h3>
-                                                                                        <span className="save-upto">Save {percent_discount}%</span>
+                                                                                        <h4 className="title payment-amt-label">Online Payment</h4>
+                                                                                        <span className="payment-mode-amt">{is_insurance_applicable?'₹0':this.getBookingAmount(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp))}</span>
+                                                                                        {
+                                                                                            is_insurance_applicable?""
+                                                                                            :<span className="save-upto">Save {percent_discount}%</span>
+                                                                                        }
+                                                                                        
                                                                                         <input checked={this.props.payment_type == 1} type="radio" name="payment-mode" />
                                                                                         <span className="doc-checkmark"></span>
                                                                                     </label>
@@ -808,11 +827,12 @@ class PatientDetailsNew extends React.Component {
                                                                     <div className="test-report payment-detail mt-20" onClick={() => {
                                                                         this.props.select_opd_payment_type(2)
                                                                     }}>
-                                                                        <label class="container-radio payment-type-radio">
+                                                                        <label className="container-radio payment-type-radio">
                                                                             <h4 className="title payment-amt-label">Pay at Clinic</h4>
-                                                                            <span className="light-txts"> (No Coupon code and discount will be applied)</span>
+                                                                            <span className="payment-mode-amt">₹{clinic_mrp}</span>
+                                                                            <span className="light-txts d-block"> (No Coupon code and discount will be applied)</span>
                                                                             <input checked={this.props.payment_type == 2} type="radio" name="payment-mode" />
-                                                                            <span class="doc-checkmark"></span>
+                                                                            <span className="doc-checkmark"></span>
                                                                         </label>
                                                                     </div>
 
@@ -877,7 +897,7 @@ class PatientDetailsNew extends React.Component {
                                                                         </div>
                                                                         <hr />
                                                                         {
-                                                                            is_insurance_applicable?
+                                                                            is_insurance_applicable && this.props.payment_type!=2?
                                                                             <div className="ins-val-bx">Covered Under Insurance</div>
                                                                             :priceData ? <div className="test-report payment-detail mt-20">
                                                                                 <h4 className="title payment-amt-label">Amount Payable</h4>

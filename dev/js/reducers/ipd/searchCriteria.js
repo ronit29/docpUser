@@ -25,7 +25,7 @@ const defaultState = {
 	page:1,
 	fetchNewResults: false,
 	getNewResults: true,
-	ipd_hospital_detail: {},
+	ipd_hospital_detail_info: {},
 	HOSPITAL_DETAIL_LOADED: false,
 	locationFetched: false,
 	hospitalSearchSeoData: null,
@@ -222,7 +222,12 @@ export default function ( state=defaultState, action) {
         		...state
         	}
         	newState.HOSPITAL_DETAIL_LOADED = true
-        	newState.ipd_hospital_detail = action.payload
+        	if(newState.ipd_hospital_detail_info && newState.ipd_hospital_detail_info[action.payload.id]) {
+
+        	}else {
+        		newState.ipd_hospital_detail_info[action.payload.id] = {}
+        	}
+        	newState.ipd_hospital_detail_info[action.payload.id] = action.payload
         	return newState
         }
 

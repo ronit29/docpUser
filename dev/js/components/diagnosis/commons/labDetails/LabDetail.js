@@ -147,11 +147,11 @@ class LabDetails extends React.Component {
                                     </ul>
                                     {
                                         STORAGE.isAgent() || ( !this.props.hide_price && !this.props.is_user_insured)?
-                                        <div className="serch-nw-inputs mb-0" onClick={this.openTests.bind(this)}>
-                                            <input type="text" autocomplete="off" className="d-block clkInput new-srch-doc-lab" id="search_bar" value="" placeholder="Search tests"/>
-                                            <img className="srch-inp-img" src="https://cdn.docprime.com/cp/assets/img/shape-srch.svg" style={{width: '15px'}}/>
-                                        </div>
-                                    :''
+                                            this.props.location && this.props.location.search && this.props.location.search.includes('from=insurance_network') ? "" :
+                                                <div className="serch-nw-inputs mb-0" onClick={this.openTests.bind(this)}>
+                                                    <input type="text" autocomplete="off" className="d-block clkInput new-srch-doc-lab" id="search_bar" value="" placeholder="Search tests"/>
+                                                    <img className="srch-inp-img" src="https://cdn.docprime.com/cp/assets/img/shape-srch.svg" style={{width: '15px'}}/>
+                                                </div> :''
                                     }
                                 </div>
 
@@ -184,11 +184,6 @@ class LabDetails extends React.Component {
                                             <ReviewList details={this.props.data.lab} />
                                         </div>
                                     </div> : ""*/}
-                                {
-                                    this.props.data.lab.display_rating_widget?
-                                    <RatingReviewView id={this.props.data.lab.id} content_type={1} {...this.props}/> :
-                                    ""
-                                }
                             </div>
                             <div className="widget mrb-15">
                                 <div className="widget-content pb-details pb-location">
@@ -204,6 +199,11 @@ class LabDetails extends React.Component {
                                     </div>
                                 </div>
                             </div>
+                            {
+                                this.props.data.lab.display_rating_widget?
+                                <RatingReviewView id={this.props.data.lab.id} content_type={1} {...this.props}/> :
+                                ""
+                            }
                             <div className="widget mrb-15">
                                 <div className="widget-content pb-details pb-about">
                                     <h4 className="wc-title text-md fw-700">About</h4>

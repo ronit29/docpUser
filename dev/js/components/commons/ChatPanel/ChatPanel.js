@@ -32,6 +32,11 @@ class ChatPanel extends React.Component {
     }
 
     componentDidMount() {
+
+        if (this.props.selectedLocation) {
+            this.sendLocationNotification(this.props.selectedLocation)
+        }
+
         STORAGE.getAuthToken().then((token) => {
             token = token || ""
             if (this.props.location.state) {
@@ -167,7 +172,35 @@ class ChatPanel extends React.Component {
                                 'Category': 'Chat', 'Action': 'PrescriptionGenerated', 'CustomerID': '', 'leadid': 0, 'event': 'prescription-generated', 'RoomId': eventData.rid || '', "url": window.location.pathname
                             }
                             GTM.sendEvent({ data: analyticData })
+                            break;
                         }
+
+                        case 'banner': {
+
+                            if (data.type == 'timer') {
+                                let analyticData = {
+                                    'Category': 'Chat', 'Action': 'BannerTimerFired', 'CustomerID': '', 'leadid': 0, 'event': 'banner-timer-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname
+                                }
+                                GTM.sendEvent({ data: analyticData })
+                            } else if (data.type == 'transfer') {
+                                let analyticData = {
+                                    'Category': 'Chat', 'Action': 'BannerTransferFired', 'CustomerID': '', 'leadid': 0, 'event': 'banner-transfer-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname
+                                }
+                                GTM.sendEvent({ data: analyticData })
+                            }
+                            break;
+                        }
+
+                        case 'bookNow': {
+
+
+                            let analyticData = {
+                                'Category': 'Chat', 'Action': 'BookNowFired', 'CustomerID': '', 'leadid': 0, 'event': 'book-now-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname, 'specialization_url': data.url || '', 'ids': data.ids || '', 'type': data.type || ''
+                            }
+                            GTM.sendEvent({ data: analyticData })
+                            break;
+                        }
+
                     }
 
                     /**
@@ -188,7 +221,23 @@ class ChatPanel extends React.Component {
 
     }
 
+    sendLocationNotification(selectedLocation) {
+        let data = {
+            location: selectedLocation.geometry.location,
+            locality: selectedLocation.locality,
+            city: selectedLocation.name,
+            address: selectedLocation.formatted_address
+        }
+
+        this.dispatchCustomEvent('location', data)
+    }
+
     componentWillReceiveProps(props) {
+
+        if (this.props.selectedLocation != props.selectedLocation && props.selectedLocation) {
+            this.sendLocationNotification(props.selectedLocation)
+        }
+
         if (props.USER && props.USER.liveChatStarted && props.USER.liveChatStarted != this.props.USER.liveChatStarted) {
             this.setState({ showStaticView: false, iframeLoading: true }, () => {
                 this.setState({ hideIframe: false }, () => {
@@ -213,8 +262,10 @@ class ChatPanel extends React.Component {
     dispatchCustomEvent(eventName, data = {}) {
         let event = new Event(eventName)
         let iframe = this.refs.chat_frame
-        iframe.dispatchEvent(event)
-        iframe.contentWindow.postMessage({ 'event': eventName, data }, '*')
+        if(iframe){
+            iframe.dispatchEvent(event)
+            iframe.contentWindow.postMessage({ 'event': eventName, data }, '*')
+        }
     }
 
     closeChat() {
