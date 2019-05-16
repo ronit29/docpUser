@@ -218,14 +218,14 @@ class InsuranceCertificateView extends React.Component {
 								</div>
 								{
 									this.props.get_insured_profile && this.props.get_insured_profile.is_endorsement_allowed?
-									<a className="ins-open-endrs" style={{filter:'grayscale(100%)'}} onClick={this.goToEndorsement.bind(this)}>
+									<a className="ins-open-endrs" onClick={this.goToEndorsement.bind(this)}>
 										click here to update insured members details
 									<img className="ins-rgt-endrs" src={ASSETS_BASE_URL + "/img/right-sc.svg"}/> </a>
 									:''
 								}
 								{
 									this.props.get_insured_profile && this.props.get_insured_profile.is_endorsement_exist?
-									<a className="ins-open-endrs" onClick={()=>SnackBar.show({ pos: 'bottom-center', text: 'Your last requested changes are in process. Therefore, we cannot take request for any new changes.'})}>
+									<a className="ins-open-endrs" style={{filter:'grayscale(100%)'}} onClick={()=>SnackBar.show({ pos: 'bottom-center', text: 'Your last requested changes are in process. Therefore, we cannot take request for any new changes.'})}>
 										click here to update insured members details
 									<img className="ins-rgt-endrs" src={ASSETS_BASE_URL + "/img/right-sc.svg"}/> </a>
 									:''
