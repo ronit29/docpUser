@@ -210,13 +210,11 @@ class InsuranceReview extends React.Component{
 	    	let self_edited_fields = []
 	    	let family_edited_fields = []
 	    	if(this.props.data && this.props.data.edited_fields){
-	    		console.log(this.props.data.edited_fields)
 	    		Object.entries(this.props.data.edited_fields).map(function([key, value]) {
 	    			if(key == self_profile.id){
 	    				self_edited_fields=value
 	    			}	
 	    		})
-	    		console.log(family_profile)
 	    	}
 			return(
 				<div className="profile-body-wrap">
