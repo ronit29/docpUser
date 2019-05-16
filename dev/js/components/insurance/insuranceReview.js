@@ -149,14 +149,14 @@ class InsuranceReview extends React.Component{
 		},this)}
 		console.log(insurance_pay)
 		if(this.props.is_endorsement){
-			// this.props.createEndorsementData(insurance_pay,(resp)=>{
-			// 	if(resp && resp.success){
-			// 		SnackBar.show({ pos: 'bottom-center', text: resp.success})
-			// 		this.props.history.push('/insurance/certificate')
-			// 	}else if(resp.error){
-			// 		SnackBar.show({ pos: 'bottom-center', text: resp.error })
-			// 	}
-			// })
+			this.props.createEndorsementData(insurance_pay,(resp)=>{
+				if(resp && resp.success){
+					SnackBar.show({ pos: 'bottom-center', text: resp.success})
+					this.props.history.push('/insurance/certificate')
+				}else if(resp.error){
+					SnackBar.show({ pos: 'bottom-center', text: resp.error })
+				}
+			})
 		}else{
 			this.props.resetSelectedInsuranceMembers()
 			this.props.insurancePay(insurance_pay,(resp)=>{
