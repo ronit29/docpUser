@@ -12,6 +12,7 @@ import HospitalGallery from './HospitalGallery.js'
 import HospitalAboutUs from './HospitalAboutUs.js'
 import GTM from '../../helpers/gtm.js'
 import IpdFormView from '../../containers/ipd/IpdForm.js'
+const queryString = require('query-string')
 
 //View all rating for hospital ,content_type = 3
 
@@ -36,14 +37,10 @@ class HospitalDetailView extends React.Component {
 		var sections = {};
 		var i = 0
 
-		let headerHeight = 0	        
+		let headerHeight = -35	        
 
 		Object.keys(this.refs).forEach((prp, i) => {
-			
-			if(document.getElementsByClassName('ipd-tabs-container') && document.getElementsByClassName('ipd-tabs-container')[0]){
-				headerHeight = document.getElementsByClassName('ipd-tabs-container')[0].offsetTop - 100
-			}
-			headerHeight = -45
+
 			sections[prp] = this.refs[prp].offsetTop + headerHeight				
 
 		})
@@ -61,6 +58,12 @@ class HospitalDetailView extends React.Component {
 		    	}
 		    }
 		  }	
+		}
+
+		const parsed = queryString.parse(this.props.location.search)
+
+		if( parsed.type && this.refs[parsed.type] ) {
+			this.toggleTabs(parsed.type)
 		}
 
 	}
@@ -129,12 +132,8 @@ class HospitalDetailView extends React.Component {
 	        }
 	        GTM.sendEvent({ data: gtmData })
 
-			var elmnt = document.getElementById(type)
-			
 			let headerHeight = this.refs[type].offsetTop
-			if(document.getElementsByClassName('ipd-tabs-container') && document.getElementsByClassName('ipd-tabs-container')[0]){
-				headerHeight =  headerHeight - 45
-			}
+			headerHeight =  headerHeight - 35
 			this.setState({toggleTabType: type})
 			window.scrollTo(0,headerHeight)
 
@@ -158,7 +157,7 @@ class HospitalDetailView extends React.Component {
 		return (
 			<React.Fragment>
 				{
-					this.props.HOSPITAL_DETAIL_LOADED ?
+					this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id?
 						<div className="ipd-section">
 							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} />
 
@@ -209,7 +208,7 @@ class HospitalDetailView extends React.Component {
 		               			<IpdFormView {...this.props} tabView={true}/>
 		               		</div> 
 
-		               		<div id="feedback" ref="feedback">
+		               		<div id="feedback" ref="feedback" className="mt-1">
 		               		{
 								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.rating_graph && this.props.ipd_hospital_detail.rating_graph.star_count && this.props.ipd_hospital_detail.display_rating_widget ?
 									<div className="hs-card">

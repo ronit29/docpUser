@@ -184,11 +184,6 @@ class LabDetails extends React.Component {
                                             <ReviewList details={this.props.data.lab} />
                                         </div>
                                     </div> : ""*/}
-                                {
-                                    this.props.data.lab.display_rating_widget?
-                                    <RatingReviewView id={this.props.data.lab.id} content_type={1} {...this.props}/> :
-                                    ""
-                                }
                             </div>
                             <div className="widget mrb-15">
                                 <div className="widget-content pb-details pb-location">
@@ -204,6 +199,11 @@ class LabDetails extends React.Component {
                                     </div>
                                 </div>
                             </div>
+                            {
+                                this.props.data.lab.display_rating_widget?
+                                <RatingReviewView id={this.props.data.lab.id} content_type={1} {...this.props}/> :
+                                ""
+                            }
                             <div className="widget mrb-15">
                                 <div className="widget-content pb-details pb-about">
                                     <h4 className="wc-title text-md fw-700">About</h4>

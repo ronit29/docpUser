@@ -7037,7 +7037,7 @@ button.padding-btn-adjust{
     margin-bottom: 15px;
     position: sticky;
     top: 107px;
-    z-index: 99;
+    z-index: 9;
 }
 .ipd-section .nav-top-head{
 	border: 0;
@@ -7333,7 +7333,7 @@ button.cstm-view-btn {
 	flex-grow: 0;
 	flex-shrink: 0;
 }
-.cstm-cpn{
+p.cstm-cpn{
 	color: #55a740;
     text-align: right;
     font-size: 10px;
@@ -7481,7 +7481,7 @@ button.cstm-view-btn {
     position: -webkit-sticky;
     bottom: 0;
     margin-top: 20px;
-    z-index: 99;
+    z-index: 9;
     margin-left: -5px;
     margin-right: -5px;
 
@@ -11284,4 +11284,18 @@ input.clkInput{
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
+}
+p.lab-crd-txt-pr{
+    font-weight: 500;
+    font-size: 14px;
+}
+p.lab-crd-txt-pr span{
+	display: block;
+    color: #757575;
+    font-size: 13px;
+    font-weight: 400;
+    margin-top: 2px;
+}
+.mt-1{
+	margin-top: 1rem;
 }

@@ -308,15 +308,15 @@ const queryString = require('query-string');
                                         `(${packages.total_parameters_count} tests)`:''} </div>
                                       {/*<div className="pkg-hd-by" id={"hide_av_" + packages.id}>Available in {packages.total_labs_available} Labs</div>*/}
                                       <div className="pkg-hd-by fw-500 ease-hide" id={"hide_av_" + packages.id+'_'+packages.lab.id}>{packages.lab.name}</div>
-                                      
+
                                       {/* <h3 className="lab-fltr-dc-name fw-500 pkg-include">{packages.total_parameters_count} Tests Included</h3> */}
                                       {/* <div className="pkg-card-price">
-                                     
-                                      
+
+
                                       </div> */}
                                       {/*<p className="pkg-discountCpn" id={"hide_coupon_"+ packages.id}>Includes coupon</p>*/}
                                       <a onClick={this.bookNow.bind(this,packages.lab.id,'',packages.id,packages.lab.name)}><button className="pkg-btn-nw">
-                                      <p className="fw-500" id={"hide_strt_" + packages.id}>₹ {parseInt(packages.price)}
+                                      <p className="fw-500" id={"hide_strt_" + packages.id}>₹ {parseInt(packages.discounted_price)}
                                           <span className="pkg-cut-price" style={{color:'#ffffff'}}>₹ {parseInt(packages.mrp)}</span>
                                       </p>
                                        </button></a>

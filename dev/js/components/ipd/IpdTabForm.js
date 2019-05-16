@@ -26,14 +26,14 @@ class IpdTabForm extends React.Component {
 	componentDidMount() {
 		if (this.props.defaultProfile && !this.state.name && this.props.profiles && this.props.profiles[this.props.defaultProfile] && !this.props.profiles[this.props.defaultProfile].isDummyUser) {
 			let userData = this.props.profiles[this.props.defaultProfile]
-			this.setState({ name: userData.name || '', phone_number: userData.phone_number + '' || '', email: userData.email || '', gender: userData.gender || '', dob: userData.dob || '' })
+			this.setState({ name: userData.name || '', phone_number: userData.phone_number + '' || '', email: userData.email || '', gender: userData.gender || '', dob: userData.dob || '', formattedDate: userData.dob || '' })
 		}
 	}
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.defaultProfile && !this.state.name && nextProps.profiles && nextProps.profiles[nextProps.defaultProfile] && !nextProps.profiles[nextProps.defaultProfile].isDummyUser) {
 			let userData = nextProps.profiles[nextProps.defaultProfile]
-			this.setState({ name: userData.name || '', phone_number: userData.phone_number + '' || '', email: userData.email || '', gender: userData.gender || '', dob: userData.dob || '' })
+			this.setState({ name: userData.name || '', phone_number: userData.phone_number + '' || '', email: userData.email || '', gender: userData.gender || '', dob: userData.dob || '', formattedDate: userData.dob || '' })
 		}
 	}
 
