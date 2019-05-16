@@ -386,14 +386,15 @@ class CriteriaSearchView extends React.Component {
                         <PackageCompareStrip {...this.props} />
                     :''
                 }
+                <div className={this.state.swipeDirection && this.state.swipeDirection!='up'?'smth-ftr-hide':''}>
                 {
-                    this.state.swipeDirection && this.state.swipeDirection!='up'?""
-                    :this.props.searchPackages && this.props.compare_packages && this.props.compare_packages.length == 0?
+                    this.props.searchPackages && this.props.compare_packages && this.props.compare_packages.length == 0?
                         <FixedMobileFooter searchPackagePage={true} {...this.props} />
                         :
                         this.props.compare_packages && this.props.compare_packages.length == 0 && (this.props.searchDoctors || this.props.searchLabs) ?
                             <FixedMobileFooter {...this.props} /> : ''
                 }
+                </div>
             </div>
         );
     }
