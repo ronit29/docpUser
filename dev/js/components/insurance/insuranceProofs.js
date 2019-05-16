@@ -75,24 +75,30 @@ class InsuranceProofs extends React.Component {
                     mem_data.id = data.data.member
                     mem_data.images = []
                     mem_data.img_ids = []
+                    mem_data.img_path_ids=[]
                     if(this.props.members_proofs.length > 0){
                         Object.entries(this.props.members_proofs).map(function([key, value]) {
                             if(value.id == member_id){
                                 mem_data.images = value.images
                                 mem_data.img_ids = value.img_ids
+                                mem_data.img_path_ids = value.img_path_ids
                                 mem_data.images.push(data.data.document_image)
                                 mem_data.img_ids.push(data.id)
+                                mem_data.img_path_ids.push({id: data.id, image:data.data.document_image})
                             }else{
                                 mem_data.images=[]
                                 mem_data.img_ids = []
+                                mem_data.img_path_ids = []
                                 mem_data.images.push(data.data.document_image)        
                                 mem_data.img_ids.push(data.id)
+                                mem_data.img_path_ids.push({id: data.id, image:data.data.document_image})
                             }
                         })
 
                     }else{
                         mem_data.images.push(data.data.document_image)
                         mem_data.img_ids.push(data.id)
+                        mem_data.img_path_ids.push({id: data.id, image:data.data.document_image})
                     }
                     this.props.storeMemberProofs(mem_data)
                 }
@@ -131,6 +137,14 @@ class InsuranceProofs extends React.Component {
     }
     removeImage(img){
         console.log(img)
+        let Uploaded_image_data = []
+        Uploaded_image_data = this.props.members_proofs.filter((x => x.id == this.props.member_id))
+        Uploaded_image_data[0].img_path_ids.map((data,i)=>{
+                console.log(data)
+                if(data.image == img){
+                    
+                }
+            })
     }
 
     render() {

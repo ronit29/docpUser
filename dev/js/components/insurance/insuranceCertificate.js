@@ -222,6 +222,13 @@ class InsuranceCertificateView extends React.Component {
 									</a>
 									:''
 								}
+								{
+									this.props.get_insured_profile && this.props.get_insured_profile.is_endorsement_exist?
+									<a id="endorsement_link">
+										Already submitted
+									</a>
+									:''
+								}
 							</section>
 							{
 								this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 1?
