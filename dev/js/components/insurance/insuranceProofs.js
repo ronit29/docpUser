@@ -181,7 +181,7 @@ class InsuranceProofs extends React.Component {
                             pdf_url && pdf_url.length>0 ?
                                 pdf_url.map((data, i) =>{
                                     return <div className="ins-prf-img-grd" key={i}>
-                                    <img className="img-fluid ins-up-img-ic" src={data}/>
+                                    <img className="img-fluid ins-up-img-ic" src={ASSETS_BASE_URL + "/img/pdf.png"}/>
                                     <img className="ins-prf-cls" onClick={this.removeImage.bind(this, data)} src="https://cdn.docprime.com/cp/assets/img/icons/close.png" />
                                     </div>
                                 })
