@@ -207,6 +207,17 @@ class InsuranceReview extends React.Component{
 	    	//  this.props.currentSelectedInsuredMembersId.map((val,key) => {
 	    	//		currentSelectedProfiles.push(val[key])
 	    	//  })
+	    	let self_edited_fields = []
+	    	let family_edited_fields = []
+	    	if(this.props.data && this.props.data.edited_fields){
+	    		console.log(this.props.data.edited_fields)
+	    		Object.entries(this.props.data.edited_fields).map(function([key, value]) {
+	    			if(key == self_profile.id){
+	    				self_edited_fields=value
+	    			}	
+	    		})
+	    		console.log(family_profile)
+	    	}
 			return(
 				<div className="profile-body-wrap">
 				<ProfileHeader />
@@ -229,26 +240,42 @@ class InsuranceReview extends React.Component{
 									</div>
 									{
 										self_profile.no_lname?<p style={{'textTransform': 'capitalize'}}>{self_profile.name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>:
-										<p style={{'textTransform': 'capitalize'}}>{self_profile.name} {self_profile.middle_name} {self_profile.last_name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>
+										<p style={{'textTransform': 'capitalize'}}>{self_profile.name} {self_profile.middle_name} {self_profile.last_name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''} 
+										{self_edited_fields.length > 0 && (self_edited_fields.indexOf('first_name') != -1 || self_edited_fields.indexOf('middle_name') != -1 || self_edited_fields.indexOf('last_name') != -1)?
+											<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
+										:''}
+										</p>
 									}
 								</li>
 								<li>
 									<div className="img-list-width">
 										<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
 									</div>
-									<p>{self_profile.dob}</p>
+									<p>{self_profile.dob} 
+									{self_edited_fields.length > 0 && self_edited_fields.indexOf('dob') != -1 ?
+										<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
+									:''}
+									</p>
 								</li>
 								<li>
 									<div className="img-list-width">
 										<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
 									</div>
-									<p>{self_profile.email}</p>
+									<p>{self_profile.email}
+									{self_edited_fields.length > 0 && self_edited_fields.indexOf('email') != -1 ?
+										<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
+									:''}
+									</p>
 								</li>
 								<li>
 									<div className="img-list-width">
 										<img className="ins-input-img"  src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 									</div>
-									<p style={{'textTransform': 'capitalize'}}>{`${self_profile.address}, ${self_profile.town}, ${self_profile.district}, ${self_profile.state} - ${self_profile.pincode}`}</p>
+									<p style={{'textTransform': 'capitalize'}}>{`${self_profile.address}, ${self_profile.town}, ${self_profile.district}, ${self_profile.state} - ${self_profile.pincode}`}
+									{self_edited_fields.length > 0 && (self_edited_fields.indexOf('address') != -1 || self_edited_fields.indexOf('town') != -1 || self_edited_fields.indexOf('district') != -1 || self_edited_fields.indexOf('state') != -1|| self_edited_fields.indexOf('pincode') != -1)?
+											<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
+									:''}
+									</p>
 								</li>
 							</ul>
 						</div>
