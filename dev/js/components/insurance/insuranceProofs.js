@@ -151,6 +151,7 @@ class InsuranceProofs extends React.Component {
                     <div className="ins-upload-text">
                         <p className="ins-upload-para-text">Upload any governement ID proof</p>
                         <p className="ins-upload-sub-text">Aadhar card, Passport, Driving License, Voter ID Card</p>
+                        <p className="ins-file-tyle">File type: jpg, jpeg, png, pdf </p>
                     </div>
                 </div>
                 {
@@ -200,7 +201,6 @@ class InsuranceProofs extends React.Component {
                     </div>
                     : ''
             }
-            <p className="ins-file-tyle">File type: jpg, jpeg, png, pdf </p>
             {
                 this.state.zoomImage && this.state.zoomImageUrl ?
                     <div className="search-el-popup-overlay" onClick={this.closeZoomImage.bind(this)}>
