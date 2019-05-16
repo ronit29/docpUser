@@ -45,7 +45,8 @@ class PatientDetailsNew extends React.Component {
             cart_item: parsed.cart_item,
             whatsapp_optin: true,
             formData: '',
-            showConfirmationPopup:false
+            showConfirmationPopup:false,
+            coupon_loading: false
         }
     }
 
@@ -109,8 +110,14 @@ class PatientDetailsNew extends React.Component {
                 }
                 let deal_price = this.props.selectedSlot.time.deal_price + treatment_Price
 
-                this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', is_cashback: doctorCoupons[0].is_cashback })
-                this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item)
+                this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item, (err, data) => {
+                        if (!err) {
+                            this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', is_cashback: doctorCoupons[0].is_cashback })
+                        } else {
+                            this.setState({coupon_loading: true})
+                            this.getAndApplyBestCoupons(deal_price)
+                        }
+                })
             } else if (hospital) {
                 let deal_price = hospital.deal_price
                 let treatment_Price = 0
@@ -119,8 +126,15 @@ class PatientDetailsNew extends React.Component {
                     treatment_Price = this.props.selectedDoctorProcedure[this.state.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
                 }
                 deal_price += treatment_Price
-                this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' })
-                this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item)
+
+                this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item, (err, data) => {
+                        if (!err) {
+                            this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' })
+                        } else {
+                            this.setState({coupon_loading: true})
+                            this.getAndApplyBestCoupons(deal_price)
+                        }
+                })
 
             }
         } else {
@@ -140,24 +154,45 @@ class PatientDetailsNew extends React.Component {
             deal_price += treatment_Price
             //auto apply coupon if no coupon is apllied
             if (this.state.selectedDoctor && deal_price && this.props.couponAutoApply) {
-                this.props.getCoupons({
-                    productId: 1, deal_price: deal_price, doctor_id: this.state.selectedDoctor, hospital_id: this.state.selectedClinic, profile_id: this.props.selectedProfile, procedures_ids: this.getProcedureIds(this.props), cart_item: this.state.cart_item,
-                    cb: (coupons) => {
-                        if (coupons && coupons[0]) {
-                            this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
-                            this.props.applyCoupons('1', coupons[0], coupons[0].coupon_id, this.state.selectedDoctor)
-                            this.props.applyOpdCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item)
-                        } else {
-                            this.props.resetOpdCoupons()
-                        }
-                    }
-                })
+                this.getAndApplyBestCoupons(deal_price)
             } else {
                 this.props.resetOpdCoupons()
             }
         }
 
 
+    }
+    
+    getValidCoupon(coupons) {
+        let validCoupon = null
+        for (var index in coupons) {
+            if (coupons[index].valid) {
+                validCoupon = coupons[index]
+                break
+            }
+        }
+        return validCoupon
+    }
+
+    getAndApplyBestCoupons(deal_price=0) {
+        this.props.getCoupons({
+            productId: 1, deal_price: deal_price, doctor_id: this.state.selectedDoctor, hospital_id: this.state.selectedClinic, profile_id: this.props.selectedProfile, procedures_ids: this.getProcedureIds(this.props), cart_item: this.state.cart_item,
+            cb: (coupons) => {
+                if (coupons) {
+                    let validCoupon = this.getValidCoupon(coupons)
+                    if (validCoupon) {
+                        this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '' })
+                        this.props.applyCoupons('1', validCoupon, validCoupon.coupon_id, this.state.selectedDoctor)
+                        this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item)
+                    } else {
+                        this.props.resetOpdCoupons()
+                    }
+                } else {
+                    this.props.resetOpdCoupons()
+                }
+                this.setState({coupon_loading: false})
+            }
+        })
     }
 
     componentWillReceiveProps(nextProps) {
@@ -190,9 +225,15 @@ class PatientDetailsNew extends React.Component {
                     }
 
                     deal_price += treatment_Price
-
-                    this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', couponApplied: true })
-                    this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item)
+                    // let validCoupon = this.getValidCoupon(doctorCoupons)
+                    this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item, (err, data) => {
+                        if (!err) {
+                            this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', couponApplied: true })
+                        } else {
+                            this.setState({coupon_loading: true})
+                            this.getAndApplyBestCoupons(deal_price)
+                        }
+                    })
                 }
             } else {
                 let deal_price = 0
@@ -213,10 +254,16 @@ class PatientDetailsNew extends React.Component {
                     this.props.getCoupons({
                         productId: 1, deal_price: deal_price, doctor_id: this.state.selectedDoctor, hospital_id: this.state.selectedClinic, profile_id: nextProps.selectedProfile, procedures_ids: this.getProcedureIds(nextProps), cart_item: this.state.cart_item,
                         cb: (coupons) => {
-                            if (coupons && coupons[0]) {
-                                this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '', couponApplied: true })
-                                this.props.applyCoupons('1', coupons[0], coupons[0].coupon_id, this.state.selectedDoctor)
-                                this.props.applyOpdCoupons('1', coupons[0].code, coupons[0].coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item)
+                            if (coupons) {
+                                let validCoupon = this.getValidCoupon(coupons)
+                                if (validCoupon) {
+                                    this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '', couponApplied: true })
+                                    this.props.applyCoupons('1', validCoupon, validCoupon.coupon_id, this.state.selectedDoctor)
+                                    this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.state.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item)
+                                } else {
+                                    this.setState({ couponApplied: true })
+                                    this.props.resetOpdCoupons()
+                                }
                             } else {
                                 this.setState({ couponApplied: true })
                                 this.props.resetOpdCoupons()
@@ -721,17 +768,25 @@ class PatientDetailsNew extends React.Component {
                                                                                     </span>
                                                                                 </div>
                                                                             </div> :
-                                                                            <div className="widget-content d-flex jc-spaceb" >
-                                                                                <div className="d-flex">
-                                                                                    <span className="coupon-img">
-                                                                                        <img style={{ width: '24px' }} src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} className="visit-time-icon" />
-                                                                                    </span>
-                                                                                    <h4 className="title coupon-text">
-                                                                                        HAVE A COUPON?
-                                                                                        </h4>
-                                                                                </div>
-                                                                                <div className="visit-time-icon coupon-icon-arrow">
-                                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+                                                                            <div>
+                                                                                {
+                                                                                    this.state.coupon_loading ?
+                                                                                        <div className="loading_Linebar_container">
+                                                                                            <div className="loading_bar_line"></div>
+                                                                                        </div> : ''
+                                                                                }
+                                                                                <div className="widget-content d-flex jc-spaceb" >
+                                                                                    <div className="d-flex">
+                                                                                        <span className="coupon-img">
+                                                                                            <img style={{ width: '24px' }} src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} className="visit-time-icon" />
+                                                                                        </span>
+                                                                                        <h4 className="title coupon-text">
+                                                                                            HAVE A COUPON?
+                                                                                            </h4>
+                                                                                    </div>
+                                                                                    <div className="visit-time-icon coupon-icon-arrow">
+                                                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                     }
