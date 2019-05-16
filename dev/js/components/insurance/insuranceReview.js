@@ -96,9 +96,10 @@ class InsuranceReview extends React.Component{
     	this.props.currentSelectedInsuredMembersId.map((val,key) => {
     		currentSelectedProfiles.push(val[key])
     	})
-    	let is_member_updated	
+    	let is_member_updated = []
     	let image_ids = []
     	{Object.entries(this.props.currentSelectedInsuredMembersId).map(function([key, value]) {
+    		image_ids=[]
     		let param =this.props.self_data_values[value[key]]
 				members={}
 				members.title=param.title
@@ -114,9 +115,9 @@ class InsuranceReview extends React.Component{
 						is_member_updated = this.props.members_proofs.filter((x=>x.id == param.id))
 						if(is_member_updated && is_member_updated.length > 0){
 							members.is_change=true
-							if(is_member_updated[0].img_ids.length > 0){
-								is_member_updated[0].img_ids.map((imgId,i)=>{
-									image_ids.push({'document_image':imgId})
+							if(is_member_updated[0].img_path_ids.length > 0){
+								is_member_updated[0].img_path_ids.map((imgId,i)=>{
+									image_ids.push({'document_image':imgId.id})
 								})
 							}
 							members.image_ids = image_ids

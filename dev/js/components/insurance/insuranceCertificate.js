@@ -2,6 +2,7 @@ import React from 'react'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import ChatPanel from '../../components/commons/ChatPanel'
 import Loader from '../commons/Loader'
+import SnackBar from 'node-snackbar'
 
 class InsuranceCertificateView extends React.Component {
 	constructor(props) {
@@ -218,14 +219,14 @@ class InsuranceCertificateView extends React.Component {
 								{
 									this.props.get_insured_profile && this.props.get_insured_profile.is_endorsement_allowed?
 									<a id="endorsement_link" onClick={this.goToEndorsement.bind(this)}>
-										click here for Endoresment
+										click here to update insured members details
 									</a>
 									:''
 								}
 								{
 									this.props.get_insured_profile && this.props.get_insured_profile.is_endorsement_exist?
-									<a id="endorsement_link">
-										Already submitted
+									<a id="endorsement_link" onClick={()=>SnackBar.show({ pos: 'bottom-center', text: 'Your last requested changes are in process. Therefore, we cannot take request for any new changes.'})}>
+										click here to update insured members details
 									</a>
 									:''
 								}
