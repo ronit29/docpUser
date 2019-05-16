@@ -988,6 +988,15 @@ span.ins-proof-upload-btn img {
 	margin-top: 7px;
 	font-size: 11px;
 }
+p.rev-ins-header{
+	padding: 12px;
+	border-bottom: 1px solid rgba(0, 0, 0, .12);
+	font-weight: 500;
+}
+p.rev-ins-header a img{
+	width: 11px;
+	margin-top: 3px;
+}
 /* ============ insurance upload ============ */
 /* ============ ipd tabs ============ */
 .ipd-tabs-container{
