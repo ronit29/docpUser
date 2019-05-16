@@ -17,7 +17,10 @@ class DoctorsList extends React.Component {
             renderBlock: false,
             page: 1,
             readMore: 'search-details-data-less',
-            is_insured: props.filterCriteria && props.filterCriteria.is_insured ? props.filterCriteria.is_insured : false
+            is_insured: props.filterCriteria && props.filterCriteria.is_insured ? props.filterCriteria.is_insured : false,
+            availability: [],
+            sort_on: '',
+            sort_order: ''
         }
     }
 
@@ -48,7 +51,7 @@ class DoctorsList extends React.Component {
         setTimeout(() => {
             this.setState({ hasMore: true })
         }, 0)
-
+        this.setState({ ...this.props.filterCriteria })
         let selectedLocation = ''
         let lat = 28.644800
         let long = 77.216721
@@ -61,6 +64,13 @@ class DoctorsList extends React.Component {
         }
 
         this.props.getOfferList(lat, long);
+    }
+
+    componentWillReceiveProps(props) {
+        if(props.filterCriteria) {
+            this.setState({ sort_on: props.filterCriteria.sort_on, sort_order: props.filterCriteria.sort_order,  availability: props.filterCriteria.availability })    
+        }
+        
     }
 
     componentWillUnmount() {
@@ -97,6 +107,54 @@ class DoctorsList extends React.Component {
             window.scrollTo(0, 0)
         }
         this.setState({ readMore: 'search-details-data-less' })
+    }
+
+    applyQuickFilters(type, val, isArray, e) {
+        let value = val
+        if (isArray) {
+            let selectedVal = [].concat(this.state[type]) || []
+            let found = false
+            value = selectedVal.filter((data)=> {
+                if(data==val){
+                    found = true
+                    return false
+                }
+                return true
+            })
+            if(!found){
+                value.push(val)    
+            }
+        }
+
+        let filters = {...this.props.filterCriteria}
+        if(type.includes('sort_on') ) {
+
+            if(val.includes('price_asc') || val.includes('price_desc') ){
+
+                if(this.state[type]=='fees' && ( (this.state['sort_order']=='asc' && val.includes('price_asc') ) || (this.state['sort_order']=='desc' && val.includes('price_desc') ) ) ){
+                    this.setState({sort_on: null, sort_order: null}, ()=> {
+                        filters = Object.assign({filters, ...this.state})
+                        this.props.applyFilters(filters)
+                    })
+                }else{
+                    this.setState({sort_on: 'fees', sort_order: val.includes('price_asc')?'asc':'desc'},()=>{
+                        filters = Object.assign({filters, ...this.state})
+                        this.props.applyFilters(filters)
+                    })
+                }
+                
+            }else {
+                this.setState({ sort_on: this.state[type]==value?null:value, sort_order: null },()=> {
+                    filters = Object.assign({filters, ...this.state})
+                    this.props.applyFilters(filters)
+                })    
+            }
+        }else{
+            this.setState({ [type]: this.state[type]==value?'':value }, ()=> {
+                filters = Object.assign({filters, ...this.state})
+                this.props.applyFilters(filters)
+            })
+        }
     }
 
     render() {
@@ -142,17 +200,6 @@ class DoctorsList extends React.Component {
                                     </div>
                                     : ''
                             }
-                            <div className="sort-sub-filter-container">
-                                <p>You are looking for gurgaon location. Would you like to see results near you?</p>
-                                <div className="srt-sb-btn-cont">
-                                    <button className="srt-act">Gurgaon</button>
-                                    <button>Within 2 Km</button>
-                                    <button>Within 5 Km</button>
-                                    <button>Within 7 Km</button>
-                                    <button>Within 7 Km</button>
-                                    <button>Within 7 Km</button>
-                                </div>
-                            </div>
                             <div className="row no-gutters">
                                 {
                                     this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'doctor_search_page').length && !this.state.is_insured ?
@@ -173,11 +220,40 @@ class DoctorsList extends React.Component {
                                             {
                                                 result_list.map((cardId, i) => {
                                                     if (result_data[cardId]) {
-                                                        return <li key={i} >
+
+                                                    return <React.Fragment key={i}>
                                                             {
-                                                                this.props.clinic_card ? <ClinicResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} /> : <DoctorResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} />
+                                                                i==3 && (this.state.availability && !this.state.availability.length)?
+                                                                <div className="sort-sub-filter-container">
+                                                                    <p>You are looking for availability ?</p>
+                                                                    <div className="srt-sb-btn-cont">
+                                                                        <button className={`${this.state.availability && this.state.availability.length && this.state.availability.indexOf('1') > -1?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'availability', '1', true)}>Today</button>
+                                                                        <button className={`${this.state.availability && this.state.availability.length && this.state.availability.indexOf('2') > -1?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'availability', '2', true)}>Tomorrow</button>
+                                                                        <button className={`${this.state.availability && this.state.availability.length && this.state.availability.indexOf('3') > -1?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'availability', '3', true)}>Next 3 Days</button>
+                                                                    </div>
+                                                                </div>
+                                                                :''    
                                                             }
-                                                        </li>
+
+                                                            {
+                                                                !this.state.sort_order && ( (i==5 && this.state.availability && !this.state.availability.length) || (i==3 && this.state.availability && this.state.availability.length) )?
+                                                                <div className="sort-sub-filter-container">
+                                                                    <p>You are looking Price Variant?</p>
+                                                                    <div className="srt-sb-btn-cont">
+                                                                        <button className={`${this.state.sort_on=='fees' && this.state.sort_order=='asc'?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'sort_on', 'price_asc', false)}>Price Low to High</button>
+                                                                        <button className={`${this.state.sort_on=='fees' && this.state.sort_order=='desc'?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'sort_on', 'price_desc', false)}>Price High to Low</button>
+                                                                    </div>
+                                                                </div>
+                                                                :''    
+                                                            }
+
+                                                            <li>
+                                                                {
+                                                                    this.props.clinic_card ? <ClinicResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} /> : <DoctorResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} />
+                                                                }
+                                                            </li>
+
+                                                        </React.Fragment>
                                                     } else {
                                                         return ""
                                                     }

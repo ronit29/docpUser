@@ -15,7 +15,8 @@ class LabsList extends React.Component {
             loading: false,
             renderBlock: false,
             page: 0,
-            is_insured: props.filterCriteria && props.filterCriteria.is_insured?props.filterCriteria.is_insured:false
+            is_insured: props.filterCriteria && props.filterCriteria.is_insured?props.filterCriteria.is_insured:false,
+            avg_ratings: ''
         }
     }
 
@@ -46,7 +47,7 @@ class LabsList extends React.Component {
         setTimeout(() => {
             this.setState({ hasMore: true })
         }, 0)
-
+        this.setState({ ...this.props.filterCriteria })
         let selectedLocation = ''
         let lat = 28.644800
         let long = 77.216721
@@ -59,6 +60,13 @@ class LabsList extends React.Component {
         }
 
         this.props.getOfferList(lat, long);
+    }
+
+    componentWillReceiveProps(props) {
+        if(props.filterCriteria) {
+            this.setState({ ...props.filterCriteria.avg_ratings || '' })    
+        }
+        
     }
 
     componentWillUnmount() {
@@ -98,6 +106,55 @@ class LabsList extends React.Component {
         }
         GTM.sendEvent({ data: data })*/}
     }
+
+    applyQuickFilters(type, val, isArray, e) {
+        let value = val
+        if (isArray) {
+            let selectedVal = [].concat(this.state[type]) || []
+            let found = false
+            value = selectedVal.filter((data)=> {
+                if(data==val){
+                    found = true
+                    return false
+                }
+                return true
+            })
+            if(!found){
+                value.push(val)    
+            }
+        }
+
+        let filters = {...this.props.filterCriteria}
+        if(type.includes('sort_on') ) {
+
+            if(val.includes('price_asc') || val.includes('price_desc') ){
+
+                if(this.state[type]=='fees' && ( (this.state['sort_order']=='asc' && val.includes('price_asc') ) || (this.state['sort_order']=='desc' && val.includes('price_desc') ) ) ){
+                    this.setState({sort_on: null, sort_order: null}, ()=> {
+                        filters = Object.assign({filters, ...this.state})
+                        this.props.applyFilters(filters)
+                    })
+                }else{
+                    this.setState({sort_on: 'fees', sort_order: val.includes('price_asc')?'asc':'desc'},()=>{
+                        filters = Object.assign({filters, ...this.state})
+                        this.props.applyFilters(filters)
+                    })
+                }
+                
+            }else {
+                this.setState({ sort_on: this.state[type]==value?null:value, sort_order: null },()=> {
+                    filters = Object.assign({filters, ...this.state})
+                    this.props.applyFilters(filters)
+                })    
+            }
+        }else{
+            this.setState({ [type]: this.state[type]==value?'':value }, ()=> {
+                filters = Object.assign({filters, ...this.state})
+                this.props.applyFilters(filters)
+            })
+        }
+    }
+
     render() {
         let show_details = false
         let { LABS, labList } = this.props
@@ -141,18 +198,35 @@ class LabsList extends React.Component {
                                         loadMore={this.loadMore.bind(this)}
                                         hasMore={this.state.hasMore}
                                         useWindow={true}
+                                        initialLoad={false}
                                     >
                                         <ul>
                                             {
                                                 labList.map((labId, i) => {
                                                     if (LABS[labId]) {
-                                                        return <li key={i}>
-                                                            {
-                                                                this.props.lab_card ?
-                                                                    <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
-                                                                    : <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
-                                                            }
-                                                        </li>
+
+                                                        return <React.Fragment key={i}>
+                                                                {
+                                                                    i==3 && !this.state.avg_ratings ?
+                                                                    <div className="sort-sub-filter-container">
+                                                                        <p>You are looking for availability ?</p>
+                                                                        <div className="srt-sb-btn-cont">
+                                                                            <button className={`${this.state.avg_ratings=='3'?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'avg_ratings', '3', false)}>3.0 +</button>
+                                                                            <button className={`${this.state.avg_ratings=='4'?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'avg_ratings', '4', false)}>4.0 +</button>
+                                                                            <button className={`${this.state.avg_ratings=='4.5'?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'avg_ratings', '4.5', false)}>4.5 +</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    :''    
+                                                                }
+                                                                <li>
+                                                                    {
+                                                                        this.props.lab_card ?
+                                                                            <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
+                                                                            : <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
+                                                                    }
+                                                                </li>
+                                                               </React.Fragment>
+                                                        
                                                     } else {
                                                         return ""
                                                     }

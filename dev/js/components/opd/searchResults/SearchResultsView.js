@@ -446,7 +446,7 @@ class SearchResultsView extends React.Component {
                                 /*<ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
                                 */
                             }
-                            <DoctorsList {...this.props} getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
+                            <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)} getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
 
                             {
                                 this.state.seoFriendly && show_pagination ? <div className="art-pagination-div">
