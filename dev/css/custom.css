@@ -1012,6 +1012,14 @@ p.rev-ins-header a img{
 .ins-open-endrs:hover{
 	color: #f78631;
 }
+.ins-prf-error-msg{
+	    margin-bottom: 5px;
+    display: inline-block;
+    color: red;
+    padding-left: 5px;
+    font-weight: 500;
+    font-size: 11px;
+}
 /* ============ insurance upload ============ */
 /* ============ ipd tabs ============ */
 .ipd-tabs-container{
