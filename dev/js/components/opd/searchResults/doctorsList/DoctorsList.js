@@ -224,8 +224,8 @@ class DoctorsList extends React.Component {
                                                     return <React.Fragment key={i}>
                                                             {
                                                                 i==3 && (this.state.availability && !this.state.availability.length)?
-                                                                <div className="sort-sub-filter-container">
-                                                                    <p>You are looking for availability ?</p>
+                                                                <div className="sort-sub-filter-container mb-3">
+                                                                    <p>You are looking for <span class="fw-700">availability ?</span></p>
                                                                     <div className="srt-sb-btn-cont">
                                                                         <button className={`${this.state.availability && this.state.availability.length && this.state.availability.indexOf('1') > -1?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'availability', '1', true)}>Today</button>
                                                                         <button className={`${this.state.availability && this.state.availability.length && this.state.availability.indexOf('2') > -1?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'availability', '2', true)}>Tomorrow</button>
@@ -237,8 +237,8 @@ class DoctorsList extends React.Component {
 
                                                             {
                                                                 !this.state.sort_order && ( (i==5 && this.state.availability && !this.state.availability.length) || (i==3 && this.state.availability && this.state.availability.length) )?
-                                                                <div className="sort-sub-filter-container">
-                                                                    <p>You are looking Price Variant?</p>
+                                                                <div className="sort-sub-filter-container mb-3">
+                                                                    <p>You are looking <span class="fw-700">Price Variant?</span></p>
                                                                     <div className="srt-sb-btn-cont">
                                                                         <button className={`${this.state.sort_on=='fees' && this.state.sort_order=='asc'?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'sort_on', 'price_asc', false)}>Price Low to High</button>
                                                                         <button className={`${this.state.sort_on=='fees' && this.state.sort_order=='desc'?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'sort_on', 'price_desc', false)}>Price High to Low</button>

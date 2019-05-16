@@ -208,8 +208,8 @@ class LabsList extends React.Component {
                                                         return <React.Fragment key={i}>
                                                                 {
                                                                     i==3 && !this.state.avg_ratings ?
-                                                                    <div className="sort-sub-filter-container">
-                                                                        <p>You are looking for availability ?</p>
+                                                                    <div className="sort-sub-filter-container mb-3">
+                                                                        <p>You are looking for <span class="fw-700">availability ?</span></p>
                                                                         <div className="srt-sb-btn-cont">
                                                                             <button className={`${this.state.avg_ratings=='3'?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'avg_ratings', '3', false)}>3.0 +</button>
                                                                             <button className={`${this.state.avg_ratings=='4'?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'avg_ratings', '4', false)}>4.0 +</button>

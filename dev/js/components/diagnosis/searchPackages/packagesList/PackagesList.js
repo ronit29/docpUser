@@ -204,8 +204,8 @@ class packagesList extends React.Component {
 
                                                             {
                                                                 i==3 && !this.state.catIds.length && this.props.packagesList && this.props.packagesList.categories && this.props.packagesList.categories.length?
-                                                                <div className="sort-sub-filter-container">
-                                                                    <p>You are looking for Category ?</p>
+                                                                <div className="sort-sub-filter-container mb-3">
+                                                                    <p>You are looking for <span className="fw-700">Category ?</span></p>
                                                                     <div className="srt-sb-btn-cont">
                                                                     {
                                                                         this.props.packagesList.categories.map((category, j) => {

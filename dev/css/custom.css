@@ -1023,7 +1023,6 @@ img.srt-star-img {
 .sort-sub-filter-container{
 	margin-bottom: 1rem;
 	background: white;
-	margin: 0 -5px;
 	padding: 10px 0;
 }
 .sort-sub-filter-container p{
@@ -1068,6 +1067,9 @@ img.srt-star-img {
 	margin: 0 -15px 15px -15px !important;
 	top: 89px !important;
 }
+.sort-sub-filter-container{
+	margin: 0 -5px;
+	}
 }
 .ipd-tb-tabs {
 	font-size: 13px;
