@@ -239,7 +239,7 @@ class InsuranceReview extends React.Component{
 									{
 										self_profile.no_lname?<p style={{'textTransform': 'capitalize'}}>{self_profile.name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>:
 										<p style={{'textTransform': 'capitalize'}}>{self_profile.name} {self_profile.middle_name} {self_profile.last_name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''} 
-										{self_edited_fields.length > 0 && (self_edited_fields.indexOf('first_name') != -1 || self_edited_fields.indexOf('middle_name') != -1 || self_edited_fields.indexOf('last_name') != -1)?
+										{this.props.is_endorsement && self_edited_fields.length > 0 && (self_edited_fields.indexOf('first_name') != -1 || self_edited_fields.indexOf('middle_name') != -1 || self_edited_fields.indexOf('last_name') != -1)?
 											<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
 										:''}
 										</p>
@@ -250,7 +250,7 @@ class InsuranceReview extends React.Component{
 										<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
 									</div>
 									<p>{self_profile.dob} 
-									{self_edited_fields.length > 0 && self_edited_fields.indexOf('dob') != -1 ?
+									{this.props.is_endorsement && self_edited_fields.length > 0 && self_edited_fields.indexOf('dob') != -1 ?
 										<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
 									:''}
 									</p>
@@ -260,7 +260,7 @@ class InsuranceReview extends React.Component{
 										<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
 									</div>
 									<p>{self_profile.email}
-									{self_edited_fields.length > 0 && self_edited_fields.indexOf('email') != -1 ?
+									{this.props.is_endorsement && self_edited_fields.length > 0 && self_edited_fields.indexOf('email') != -1 ?
 										<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
 									:''}
 									</p>
@@ -270,7 +270,7 @@ class InsuranceReview extends React.Component{
 										<img className="ins-input-img"  src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 									</div>
 									<p style={{'textTransform': 'capitalize'}}>{`${self_profile.address}, ${self_profile.town}, ${self_profile.district}, ${self_profile.state} - ${self_profile.pincode}`}
-									{self_edited_fields.length > 0 && (self_edited_fields.indexOf('address') != -1 || self_edited_fields.indexOf('town') != -1 || self_edited_fields.indexOf('district') != -1 || self_edited_fields.indexOf('state') != -1|| self_edited_fields.indexOf('pincode') != -1)?
+									{this.props.is_endorsement && self_edited_fields.length > 0 && (self_edited_fields.indexOf('address') != -1 || self_edited_fields.indexOf('town') != -1 || self_edited_fields.indexOf('district') != -1 || self_edited_fields.indexOf('state') != -1|| self_edited_fields.indexOf('pincode') != -1)?
 											<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
 									:''}
 									</p>
@@ -302,7 +302,7 @@ class InsuranceReview extends React.Component{
 															val.no_lname?
 														<p style={{'textTransform': 'capitalize'}}>{val.name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}</p>:
 														<p style={{'textTransform': 'capitalize'}}>{val.name} {val.middle_name} {val.last_name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}
-														{this.props.data.edited_fields[val.id] && (this.props.data.edited_fields[val.id].indexOf('first_name') > -1 || this.props.data.edited_fields[val.id].indexOf('middle_name') > -1 || this.props.data.edited_fields[val.id].indexOf('last_name') > -1)?
+														{this.props.is_endorsement && this.props.data.edited_fields[val.id] && (this.props.data.edited_fields[val.id].indexOf('first_name') > -1 || this.props.data.edited_fields[val.id].indexOf('middle_name') > -1 || this.props.data.edited_fields[val.id].indexOf('last_name') > -1)?
 															<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
 															:''
 														}
@@ -316,7 +316,7 @@ class InsuranceReview extends React.Component{
 															<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
 														</div>
 														<p>{val.dob}
-														{this.props.data.edited_fields[val.id] && (this.props.data.edited_fields[val.id].indexOf('dob') > -1)?
+														{this.props.is_endorsement && this.props.data.edited_fields[val.id] && (this.props.data.edited_fields[val.id].indexOf('dob') > -1)?
 															<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
 															:''
 														}
