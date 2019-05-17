@@ -310,19 +310,8 @@ class HomeView extends React.Component {
 								/> : ""
 						}
 
-
-						<div className="banner-cont-height">
-							<div className="hidderBanner banner-carousel-div d-md-none">
-								<div className="divHeight"></div>
-							</div>
-							<div className="banner-home-scrollable">
-								<img src="https://cdn.docprime.com/media/banner/images/doctor-appointments-50.png" loading="lazy" />
-								<img src="https://cdn.docprime.com/media/banner/images/Artboard_14_LCo4nYO.png" loading="lazy" />
-								<img src="https://cdn.docprime.com/media/banner/images/Artboard_11_1.png" loading="lazy" />
-							</div>
-						</div>
 						{/* x ray landing page cards */}
-						<div className="xray-container">
+						{/* <div className="xray-container">
 							<h1 className="xray-heading">Chest X-rays</h1>
 							<div className="xray-cards">
 								<div className="row no-gutters">
@@ -337,8 +326,19 @@ class HomeView extends React.Component {
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> */}
 						{/* x ray landing page cards */}
+
+						<div className="banner-cont-height">
+							<div className="hidderBanner banner-carousel-div d-md-none">
+								<div className="divHeight"></div>
+							</div>
+							<div className="banner-home-scrollable">
+								<img src="https://cdn.docprime.com/media/banner/images/doctor-appointments-50.png" loading="lazy" />
+								<img src="https://cdn.docprime.com/media/banner/images/Artboard_14_LCo4nYO.png" loading="lazy" />
+								<img src="https://cdn.docprime.com/media/banner/images/Artboard_11_1.png" loading="lazy" />
+							</div>
+						</div>
 
 						<div className="banner-cont-height">
 							<div className="hidderBanner banner-carousel-div d-md-none">
@@ -349,7 +349,6 @@ class HomeView extends React.Component {
 									<BannerCarousel {...this.props} hideClass="d-md-none home-slider-position" sliderLocation="home_page" /> : ''
 							}
 						</div>
-
 
 						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
 							<p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>
