@@ -13,6 +13,7 @@ import HospitalAboutUs from './HospitalAboutUs.js'
 import GTM from '../../helpers/gtm.js'
 import IpdFormView from '../../containers/ipd/IpdForm.js'
 const queryString = require('query-string')
+import IpdLeadForm from '../../containers/ipd/ipdLeadForm.js'
 
 //View all rating for hospital ,content_type = 3
 
@@ -22,7 +23,8 @@ class HospitalDetailView extends React.Component {
 		super(props)
 		this.state = {
 			seoFriendly: this.props.match.url.includes('-hpp'),
-			toggleTabType: 'doctors'
+			toggleTabType: 'doctors',
+			showLeadForm: true
 		}
 	}
 
@@ -152,6 +154,13 @@ class HospitalDetailView extends React.Component {
 		return `View all ${this.props.ipd_hospital_detail.specialization_doctors.count} Doctors`
 	}
 
+	submitLeadFormGeneration(close=false) {
+		if(close) {
+
+		}
+		this.setState({showLeadForm: false})
+	}
+
 	render() {
 
 		return (
@@ -159,27 +168,11 @@ class HospitalDetailView extends React.Component {
 				{
 					this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ?
 						<div className="ipd-section">
-							<div className="search-el-popup-overlay " >
-								<div className="search-el-popup">
-									<div className="widget">
-										<div className="p-relative">
-											<span className="ipd-pop-cls"><img src={ASSETS_BASE_URL + "/img/icons/close.png"} /></span>
-											<p className="ipd-needHelp">Need Help?</p>
-											<p className="srch-el-ipd-cont">Please provide the details below and our medical expert will contact you soon</p>
-											<div className="ipd-inp-section">
-												<input type="text" placeholder="Name" />
-												<input type="Number" placeholder="Mobile Number" />
-												<button className="ipd-inp-sbmt">Submit</button>
-											</div>
-											<div className="ipd-inp-done">
-												<button className="ipd-inp-sbmt">Submit</button>
-											</div>
-										</div>
-									</div>
-
-								</div>
-
-							</div>
+							{
+								this.state.showLeadForm?
+								<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)}/>
+								:''
+							}
 
 							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} />
 
