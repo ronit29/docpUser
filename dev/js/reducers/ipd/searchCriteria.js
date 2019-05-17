@@ -220,7 +220,8 @@ export default function (state = defaultState, action) {
 
 		case GET_IPD_HOSPITAL_DETAIL: {
 			let newState = {
-				...state
+				...state,
+				ipd_hospital_detail_info : { ...state.ipd_hospital_detail_info }
 			}
 			newState.HOSPITAL_DETAIL_LOADED = true
 			if (newState.ipd_hospital_detail_info && newState.ipd_hospital_detail_info[action.payload.id]) {
