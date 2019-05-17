@@ -25,7 +25,8 @@ class SearchPackagesView extends React.Component {
             showError: false,
             showChatWithus: false,
             isScroll:true,
-            isCompare:false
+            isCompare:false,
+            quickFilterCatId: []
         }
     }
 
@@ -93,11 +94,17 @@ class SearchPackagesView extends React.Component {
 
     applyFilters(filterState) {
         // this.props.mergeLABState({ filterCriteria: filterState })
+        this.resetQuickFilters()
         this.props.mergeLABState({ filterCriteriaPackages: filterState })
         if (window) {
             window.scrollTo(0, 0)
         }
     }
+
+    resetQuickFilters(){
+        this.setState({quickFilterCatId: []})
+    }
+
     applyCategories(categoryState,filterstate) {
         let newCategoryState = {}
         newCategoryState['catIds'] = categoryState
@@ -235,6 +242,10 @@ class SearchPackagesView extends React.Component {
         return { title, description }
     }
 
+    applyQuickFilter(catIds) {
+        this.setState({quickFilterCatId: [catIds]})
+    }
+
     render() {
         let self = this
         const parsed = queryString.parse(this.props.location.search)
@@ -261,9 +272,9 @@ class SearchPackagesView extends React.Component {
                     description: `${this.props.packagesList.description || ''}`
                 }} noIndex={false} />                
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} bottom_content={this.props.packagesList && this.props.packagesList.count>0 && this.props.packagesList.bottom_content && this.props.packagesList.bottom_content !=null && this.props.forOrganicSearch? this.props.packagesList.bottom_content:''} page={1} isPackage={true}>
-                    <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} comparePackage={this.comparePackage.bind(this)} isCompare={this.state.isCompare} isCompared={isCompared}/>
+                    <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} comparePackage={this.comparePackage.bind(this)} isCompare={this.state.isCompare} isCompared={isCompared} quickFilterCatId={this.state.quickFilterCatId} resetQuickFilters={this.resetQuickFilters.bind(this)}/>
                     <ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)}seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
-                    <PackagesLists {...this.props} applyFilters={this.applyFilters.bind(this)} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} isCompare={this.state.isCompare} toggleComparePackages={this.toggleComparePackages.bind(this)} isCompared={isCompared}/>
+                    <PackagesLists {...this.props} applyFilters={this.applyFilters.bind(this)} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} isCompare={this.state.isCompare} toggleComparePackages={this.toggleComparePackages.bind(this)} isCompared={isCompared} applyQuickFilter={this.applyQuickFilter.bind(this)}/>
                 </CriteriaSearch>
                 <Footer footerData={this.state.footerData} />
             </div>

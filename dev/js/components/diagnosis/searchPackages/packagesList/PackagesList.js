@@ -113,11 +113,7 @@ class packagesList extends React.Component {
     }
 
     applyQuickFilters(category){ 
-        this.setState({ catIds: [category] }, ()=>{
-            let filters = {...this.props.filterCriteriaPackages}
-            filters = Object.assign({filters, ...this.state})
-            this.props.applyFilters(filters)
-        })
+        this.props.applyQuickFilter(category)
     }
 
     render() {

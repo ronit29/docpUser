@@ -38,11 +38,16 @@ class TopBar extends React.Component {
             avg_ratings: '',
             home_visit: false,
             lab_visit: false,
+            quickFilterCatId: []
         }
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ ...props.filterCriteriaPackages })
+        this.setState({ ...props.filterCriteriaPackages, quickFilterCatId: props.quickFilterCatId||[] }, ()=>{
+            if(this.state.quickFilterCatId.length) {
+                this.sortFilterClicked()
+            }
+        })
         // if (props.locationType && !props.locationType.includes("geo")) {
         //     this.setState({ showLocationPopup: false })
         // } else {
@@ -127,7 +132,8 @@ class TopBar extends React.Component {
             }
 
             this.setState({
-                ...resetFilters
+                ...resetFilters,
+                quickFilterCatId: []
             })
         }else {
             let data = {
@@ -136,9 +142,12 @@ class TopBar extends React.Component {
             GTM.sendEvent({ data: data })
             this.setState({
                 openFilter: false,
-                ...this.state.previous_filters
+                ...this.state.previous_filters,
+                quickFilterCatId: []
             })
         }
+
+        this.props.resetQuickFilters()
         
     }
 
@@ -159,7 +168,7 @@ class TopBar extends React.Component {
         }
 
         this.setState({
-            openFilter: true, previous_filters: currentFilters
+            openFilter: true, previous_filters: currentFilters, catIds: this.state.quickFilterCatId && this.state.quickFilterCatId.length?this.state.quickFilterCatId:this.state.catIds
         })
     }
 
@@ -289,143 +298,153 @@ class TopBar extends React.Component {
             }
         }
 
+        let quickFilterCatId = this.state.quickFilterCatId && this.state.quickFilterCatId.length?this.state.quickFilterCatId[0]:''
+
         return (
-            <div className="filter-row sticky-header mbl-stick" style={{top:'89px'}}>
-                {
-                    this.state.openFilter ?
-                        <div>
-                            <div className="cancel-overlay cancel-overlay-zindex" onClick={this.handleClose.bind(this, false)}>
-                            </div>
-                            <div className="widget cancel-appointment-div cancel-popup overflow-hidden pb-0">
-                                <div className="cross-btn" onClick={this.handleClose.bind(this, false)}>
-                                    <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" />
-                                </div>
-                                <div className="pop-top-heading">
-                                    Sort/Filter
-                            </div>
-                                <div className="sorting-main-container">
-                                    <div className="sort-lft-cont">
-                                        <h5 className="sort-headings">Sort by</h5>
-                                        <div className="sort-slider-scroll">
-                                            <div className={`sort-cards-list ${this.state.sort_on==''?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', '', false)}>
-                                                <div className="srt-lst-img">
-                                                    {
-                                                        this.state.sort_on==''?
-                                                        <img src={ASSETS_BASE_URL + "/img/popupicon/rv-relevence.svg"} style={{ width: 18 }} />
-                                                        :<img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
-                                                    }
-                                                </div>
-                                                <p>Relevance</p>
-                                            </div>
+            <React.Fragment>
+            {
+            this.state.openFilter ?
+                <div>
+                    <div className="cancel-overlay cancel-overlay-zindex" onClick={this.handleClose.bind(this, false)}>
+                    </div>
+                    <div className="widget cancel-appointment-div cancel-popup overflow-hidden pb-0">
+                        <div className="cross-btn" onClick={this.handleClose.bind(this, false)}>
+                            <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" />
+                        </div>
+                        <div className="pop-top-heading">
+                            Sort/Filter
+                    </div>
+                        <div className="sorting-main-container">
+                            <div className="sort-lft-cont">
+                                <h5 className="sort-headings">Sort by</h5>
+                                <div className="sort-slider-scroll">
+                                    <div className={`sort-cards-list ${this.state.sort_on==''?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', '', false)}>
+                                        <div className="srt-lst-img">
                                             {
-                                                this.props.is_login_user_insured && this.props.insurance_status == 1?''
-                                                :<div className={`sort-cards-list ${this.state.sort_on=='fees' && this.state.sort_order=='asc'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'price_asc', false)}>
-                                                    <div className="srt-lst-img">
-                                                        {
-                                                            this.state.sort_on=='fees' && this.state.sort_order=='asc'?
-                                                            <img src={ASSETS_BASE_URL + "/img/popupicon/rv-pricesort.svg"} style={{ width: 18 }} />
-                                                            :<img src={ASSETS_BASE_URL + "/img/popupicon/pricesort.svg"} style={{ width: 18 }} />
-                                                        }
-                                                    </div>
-                                                    <p>Price Low to High</p>
-                                                </div>
+                                                this.state.sort_on==''?
+                                                <img src={ASSETS_BASE_URL + "/img/popupicon/rv-relevence.svg"} style={{ width: 18 }} />
+                                                :<img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
                                             }
-
-                                            {
-                                                this.props.is_login_user_insured && this.props.insurance_status == 1?''
-                                                :<div className={`sort-cards-list ${this.state.sort_on=='fees' && this.state.sort_order=='desc'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'price_desc', false)}>
-                                                    <div className="srt-lst-img">
-                                                        {
-                                                            this.state.sort_on=='fees' && this.state.sort_order=='desc'?
-                                                            <img src={ASSETS_BASE_URL + "/img/popupicon/rv-priceup.svg"} style={{ width: 18 }} />
-                                                            :<img src={ASSETS_BASE_URL + "/img/popupicon/priceup.svg"} style={{ width: 18 }} />
-                                                        }
-                                                    </div>
-                                                    <p>Price High to Low</p>
-                                                </div>
-                                            }
-                                            
-                                            <div className={`sort-cards-list ${this.state.sort_on=='distance'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'distance', false)}>
-                                                <div className="srt-lst-img">
-                                                    {
-                                                        this.state.sort_on=='distance'?
-                                                        <img src={ASSETS_BASE_URL + "/img/popupicon/rv-locations.svg"} style={{ width: 14 }} />
-                                                        :<img src={ASSETS_BASE_URL + "/img/popupicon/locations.svg"} style={{ width: 14 }} />
-                                                    }
-                                                </div>
-                                                <p>Distance</p>
-                                            </div>
-                                            <div className={`sort-cards-list ${this.state.sort_on=='rating'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'rating', false)}>
-                                                <div className="srt-lst-img">
-                                                    {
-                                                        this.state.sort_on=='rating'?
-                                                        <img src={ASSETS_BASE_URL + "/img/popupicon/rv-priceup.svg"} style={{ width: 18 }} />
-                                                        :<img src={ASSETS_BASE_URL + "/img/popupicon/priceup.svg"} style={{ width: 18 }} />
-                                                    }
-                                                </div>
-                                                <p>Rating</p>
-                                            </div>
                                         </div>
+                                        <p>Relevance</p>
                                     </div>
-                                    <div className="sorting-btns-cont">
-                                        <h5 className="sort-headings">Ratings</h5>
-                                        <div className="sortbtncard">
-                                            <button className={`sortBtns ${this.state.avg_ratings =='3' ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '3', false)}>
-
+                                    {
+                                        this.props.is_login_user_insured && this.props.insurance_status == 1?''
+                                        :<div className={`sort-cards-list ${this.state.sort_on=='fees' && this.state.sort_order=='asc'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'price_asc', false)}>
+                                            <div className="srt-lst-img">
                                                 {
-                                                    this.state.avg_ratings =='3' ?
-                                                    <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
-                                                    :<img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />
-                                                }  
-                                                 3.0 +</button>
-                                            <button className={`sortBtns ${this.state.avg_ratings =='4'? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4', false)}> 
-
-                                                {
-                                                    this.state.avg_ratings =='4'?
-                                                    <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
-                                                    :<img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} /> 
-                                                } 
-                                                  4.0 +</button>
-                                            <button className={`sortBtns ${this.state.avg_ratings =='4.5' ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4.5', false)}>
-                                                {
-                                                    this.state.avg_ratings =='4.5'?
-                                                    <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
-                                                    :<img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />
+                                                    this.state.sort_on=='fees' && this.state.sort_order=='asc'?
+                                                    <img src={ASSETS_BASE_URL + "/img/popupicon/rv-pricesort.svg"} style={{ width: 18 }} />
+                                                    :<img src={ASSETS_BASE_URL + "/img/popupicon/pricesort.svg"} style={{ width: 18 }} />
                                                 }
-                                               4.5 +</button>
+                                            </div>
+                                            <p>Price Low to High</p>
                                         </div>
-                                    </div>
-                                    <div className="sorting-btns-cont">
-                                        <h5 className="sort-headings">Visit Type</h5>
-                                        <div className="sortbtncard justyfy-twoBtns">
-                                            <button className={`sortBtns ${this.state.home_visit ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'home_visit', !this.state.home_visit, false)}>Home Visit</button>
-                                            <button className={`sortBtns ${this.state.lab_visit ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'lab_visit', !this.state.lab_visit, false)}>Lab Visit</button>
-                                        </div>
-                                    </div>
+                                    }
 
                                     {
-                                        this.props.packagesList.categories && this.props.packagesList.categories.length > 0 ?
-                                            <div className="sorting-btns-cont">
-                                                <h5 className="sort-headings">Category</h5>
-                                                <div className="sortbtncard justyfy-twoBtns">
-                                                    <ul className="cat-gry">
-                                                        {
-                                                            this.props.packagesList.categories.map((category, i) => {
-                                                                return <li key={i} id={category.id} onClick={this.selectCategory.bind(this, category.id)}><a href="javascript:void(0);" className={this.state.catIds.indexOf(category.id) > -1 ? "selected" : ''}>{category.name}</a></li>
-                                                            })
-                                                        }
-                                                    </ul>
-                                                </div>
-                                            </div> : ''
+                                        this.props.is_login_user_insured && this.props.insurance_status == 1?''
+                                        :<div className={`sort-cards-list ${this.state.sort_on=='fees' && this.state.sort_order=='desc'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'price_desc', false)}>
+                                            <div className="srt-lst-img">
+                                                {
+                                                    this.state.sort_on=='fees' && this.state.sort_order=='desc'?
+                                                    <img src={ASSETS_BASE_URL + "/img/popupicon/rv-priceup.svg"} style={{ width: 18 }} />
+                                                    :<img src={ASSETS_BASE_URL + "/img/popupicon/priceup.svg"} style={{ width: 18 }} />
+                                                }
+                                            </div>
+                                            <p>Price High to Low</p>
+                                        </div>
                                     }
-                                </div>
-                                <div className="pop-foot-btns-cont">
-                                    <button className="add-shpng-cart-btn" onClick={this.handleClose.bind(this, true)}>Reset</button>
-                                    <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.applyFilters.bind(this)}>Apply Filter</button>
+                                    
+                                    <div className={`sort-cards-list ${this.state.sort_on=='distance'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'distance', false)}>
+                                        <div className="srt-lst-img">
+                                            {
+                                                this.state.sort_on=='distance'?
+                                                <img src={ASSETS_BASE_URL + "/img/popupicon/rv-locations.svg"} style={{ width: 14 }} />
+                                                :<img src={ASSETS_BASE_URL + "/img/popupicon/locations.svg"} style={{ width: 14 }} />
+                                            }
+                                        </div>
+                                        <p>Distance</p>
+                                    </div>
+                                    <div className={`sort-cards-list ${this.state.sort_on=='rating'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'rating', false)}>
+                                        <div className="srt-lst-img">
+                                            {
+                                                this.state.sort_on=='rating'?
+                                                <img src={ASSETS_BASE_URL + "/img/popupicon/rv-priceup.svg"} style={{ width: 18 }} />
+                                                :<img src={ASSETS_BASE_URL + "/img/popupicon/priceup.svg"} style={{ width: 18 }} />
+                                            }
+                                        </div>
+                                        <p>Rating</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div> : ""
+                            <div className="sorting-btns-cont">
+                                <h5 className="sort-headings">Ratings</h5>
+                                <div className="sortbtncard">
+                                    <button className={`sortBtns ${this.state.avg_ratings =='3' ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '3', false)}>
+
+                                        {
+                                            this.state.avg_ratings =='3' ?
+                                            <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
+                                            :<img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />
+                                        }  
+                                         3.0 +</button>
+                                    <button className={`sortBtns ${this.state.avg_ratings =='4'? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4', false)}> 
+
+                                        {
+                                            this.state.avg_ratings =='4'?
+                                            <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
+                                            :<img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} /> 
+                                        } 
+                                          4.0 +</button>
+                                    <button className={`sortBtns ${this.state.avg_ratings =='4.5' ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4.5', false)}>
+                                        {
+                                            this.state.avg_ratings =='4.5'?
+                                            <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
+                                            :<img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />
+                                        }
+                                       4.5 +</button>
+                                </div>
+                            </div>
+                            <div className="sorting-btns-cont">
+                                <h5 className="sort-headings">Visit Type</h5>
+                                <div className="sortbtncard justyfy-twoBtns">
+                                    <button className={`sortBtns ${this.state.home_visit ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'home_visit', !this.state.home_visit, false)}>Home Visit</button>
+                                    <button className={`sortBtns ${this.state.lab_visit ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'lab_visit', !this.state.lab_visit, false)}>Lab Visit</button>
+                                </div>
+                            </div>
+
+                            {
+                                this.props.packagesList.categories && this.props.packagesList.categories.length > 0 ?
+                                    <div className="sorting-btns-cont">
+                                        <h5 className="sort-headings">Category</h5>
+                                        <div className="sortbtncard justyfy-twoBtns">
+                                            <ul className="cat-gry">
+                                                {
+                                                    quickFilterCatId?
+                                                        this.props.packagesList.categories.filter((x=>x.id==quickFilterCatId)).map((category, i) => {
+                                                            return <li key={category.id} id={category.id} onClick={this.selectCategory.bind(this, category.id)}><a href="javascript:void(0);" className={this.state.catIds.indexOf(category.id) > -1 ? "selected" : ''}>{category.name}</a></li>
+                                                        })
+                                                        :''
+                                                }
+                                                {
+                                                    this.props.packagesList.categories.filter((x=>x.id!=quickFilterCatId)).map((category, i) => {
+                                                        return <li key={category.id} id={category.id} onClick={this.selectCategory.bind(this, category.id)}><a href="javascript:void(0);" className={this.state.catIds.indexOf(category.id) > -1 ? "selected" : ''}>{category.name}</a></li>
+                                                    })
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div> : ''
+                            }
+                        </div>
+                        <div className="pop-foot-btns-cont">
+                            <button className="add-shpng-cart-btn" onClick={this.handleClose.bind(this, true)}>Reset</button>
+                            <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.applyFilters.bind(this)}>Apply Filter</button>
+                        </div>
+                    </div>
+                </div> : ""
                 }
+            <div className="filter-row sticky-header mbl-stick" style={{top:'89px'}}>
                 <div className="">
 
                     {this.props.forOrganicSearch ?
@@ -477,6 +496,7 @@ class TopBar extends React.Component {
                     </div> : ""
                 }
             </div>
+            </React.Fragment>
         );
     }
 }
