@@ -27,11 +27,17 @@ class TopBar extends React.Component {
             lab_visit: false,
             shortURL: "",
             showLocationPopup: false,
+            quickFilter: {}
         }
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ ...props.filterCriteria })
+        this.setState({ ...props.filterCriteria, quickFilter: props.quickFilter||{} }, ()=> {
+            if( this.state.quickFilter && this.state.quickFilter.viewMore )  {
+                this.sortFilterClicked()
+            }
+        })
+
         if (props.locationType && !props.locationType.includes("geo")) {
             this.setState({ showLocationPopup: false })
         } else {
@@ -141,7 +147,8 @@ class TopBar extends React.Component {
             }
 
             this.setState({
-                ...resetFilters
+                ...resetFilters,
+                quickFilter: {}
             })
         }else {
             let data = {
@@ -150,9 +157,12 @@ class TopBar extends React.Component {
             GTM.sendEvent({ data: data })
             this.setState({
                 dropdown_visible: false,
-                ...this.state.previous_filters
+                ...this.state.previous_filters,
+                quickFilter: {}
             })
         }
+
+        this.props.resetQuickFilters()
         
     }
 
@@ -338,8 +348,9 @@ class TopBar extends React.Component {
 
 
         return (
-            <div className="filter-row sticky-header mbl-stick"> 
-                {this.state.dropdown_visible ?
+            <React.Fragment>
+                {
+                    this.state.dropdown_visible ?
                     <div>
                         <div className="cancel-overlay cancel-overlay-zindex" onClick={this.handleClose.bind(this, false)}>
                         </div>
@@ -464,94 +475,95 @@ class TopBar extends React.Component {
                         </div>
                     </div> : ""
                 }
+                <div className="filter-row sticky-header mbl-stick"> 
+                    <div className="filter-row sticky-header mbl-stick">
+                        <section className="scroll-shadow-bar">
+                            <div className="top-filter-tab-container">
+                                <div className="top-filter-tabs-select locationTestFilter" >
+                                    <p className="newStickyfilter">
 
-                <div className="filter-row sticky-header mbl-stick">
-                    <section className="scroll-shadow-bar">
-                        <div className="top-filter-tab-container">
-                            <div className="top-filter-tabs-select locationTestFilter" >
-                                <p className="newStickyfilter">
+                                        {this.props.count} Results {criteriaStr ? "for " : ""}{criteriaStr}
 
-                                    {this.props.count} Results {criteriaStr ? "for " : ""}{criteriaStr}
-
-                                    {
-                                        locationName ?
-                                            <span onClick={this.goToLocation.bind(this)} >{` in ${locationName}`}<img style={{ width: '11px', height: '15px', marginLeft: '7px' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
-                                            </span>
-                                            : ''
-                                    }
-                                </p>
-                            </div>
-                            <div className="d-none d-md-inline-block">
-                                <ul className="inline-list">
-                                    <li className="d-none d-md-inline-block">
-                                        <span style={{ cursor: 'pointer' }} onClick={this.shortenUrl.bind(this)}>
-                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
-                                        </span>
-                                    </li>
-                                    {
-                                        this.state.shortURL ? <div className="shareLinkpopupOverlay" onClick={() => {
-                                            this.setState({ shortURL: "" })
-                                        }}>
-                                            <div className="shareLinkpopup" onClick={(e) => {
-                                                e.stopPropagation()
-                                            }}>
-                                                <p>{this.state.shortURL}</p>
-                                                <CopyToClipboard text={this.state.shortURL}
-                                                    onCopy={() => {
-                                                        SnackBar.show({ pos: 'bottom-center', text: "Shortened URL Copied." });
-                                                        this.setState({ shortURL: "" })
-                                                    }}>
-                                                    <span className="shrelinkBtn">
-                                                        <button>Copy</button>
-                                                    </span>
-                                                </CopyToClipboard>
-                                            </div>
-                                        </div> : ""
-                                    }
-                                </ul>
-                            </div>
-                            <div className="top-filter-tabs-select newSortFilterbar" onClick={this.sortFilterClicked.bind(this)}>
-                                <div className="p-relative">
-                                    <img style={{ width: '14px' }} src={ASSETS_BASE_URL + "/img/filtersort.png"} />
-                                    {
-                                        this.isDataFiltered() ?
-                                            <p className="filterNotification">{this.isDataFiltered()}</p>
-                                            : ''
-                                    }
+                                        {
+                                            locationName ?
+                                                <span onClick={this.goToLocation.bind(this)} >{` in ${locationName}`}<img style={{ width: '11px', height: '15px', marginLeft: '7px' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
+                                                </span>
+                                                : ''
+                                        }
+                                    </p>
                                 </div>
-                                <span>Sort/Filter</span>
+                                <div className="d-none d-md-inline-block">
+                                    <ul className="inline-list">
+                                        <li className="d-none d-md-inline-block">
+                                            <span style={{ cursor: 'pointer' }} onClick={this.shortenUrl.bind(this)}>
+                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
+                                            </span>
+                                        </li>
+                                        {
+                                            this.state.shortURL ? <div className="shareLinkpopupOverlay" onClick={() => {
+                                                this.setState({ shortURL: "" })
+                                            }}>
+                                                <div className="shareLinkpopup" onClick={(e) => {
+                                                    e.stopPropagation()
+                                                }}>
+                                                    <p>{this.state.shortURL}</p>
+                                                    <CopyToClipboard text={this.state.shortURL}
+                                                        onCopy={() => {
+                                                            SnackBar.show({ pos: 'bottom-center', text: "Shortened URL Copied." });
+                                                            this.setState({ shortURL: "" })
+                                                        }}>
+                                                        <span className="shrelinkBtn">
+                                                            <button>Copy</button>
+                                                        </span>
+                                                    </CopyToClipboard>
+                                                </div>
+                                            </div> : ""
+                                        }
+                                    </ul>
+                                </div>
+                                <div className="top-filter-tabs-select newSortFilterbar" onClick={this.sortFilterClicked.bind(this)}>
+                                    <div className="p-relative">
+                                        <img style={{ width: '14px' }} src={ASSETS_BASE_URL + "/img/filtersort.png"} />
+                                        {
+                                            this.isDataFiltered() ?
+                                                <p className="filterNotification">{this.isDataFiltered()}</p>
+                                                : ''
+                                        }
+                                    </div>
+                                    <span>Sort/Filter</span>
+                                </div>
                             </div>
-                        </div>
-                    </section>
+                        </section>
+                    </div>
+
+                    {
+                        this.state.showLocationPopup ?
+                            <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
+                            : ''
+                    }
+
+                    {
+                        this.state.showLocationPopup && this.state.overlayVisible && !this.props.lab_card ?
+                            <div className="locationPopup-overlay" onClick={() => this.overlayClick()} ></div>
+                            : ''
+                    }
+
+                    {
+                        this.state.showLocationPopup && this.props.lab_card && this.state.showPopupContainer ?
+                            <div className="popupContainer-overlay"></div>
+                            : ''
+                    }
+                    {
+                        STORAGE.checkAuth() && this.props.is_login_user_insured && this.props.insurance_status == 1
+                            ? <div className="tg-list-item">
+                                <input className="tgl tgl-ios" id="lab_insurance" type="checkbox" checked={this.state.is_insured} onChange={this.toggleInsured.bind(this)} />
+                                <label className="tgl-btn" htmlFor="lab_insurance"></label>
+                                <p>Covered under OPD insurance | <a href="https://qacdn.docprime.com/media/insurer/documents/Group_Out-Patient_CIS_JNLVJju.PDF" target="_blank"><span> Know More</span></a></p>
+                            </div>
+                            : ''
+                    }
                 </div>
-
-                {
-                    this.state.showLocationPopup ?
-                        <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
-                        : ''
-                }
-
-                {
-                    this.state.showLocationPopup && this.state.overlayVisible && !this.props.lab_card ?
-                        <div className="locationPopup-overlay" onClick={() => this.overlayClick()} ></div>
-                        : ''
-                }
-
-                {
-                    this.state.showLocationPopup && this.props.lab_card && this.state.showPopupContainer ?
-                        <div className="popupContainer-overlay"></div>
-                        : ''
-                }
-                {
-                    STORAGE.checkAuth() && this.props.is_login_user_insured && this.props.insurance_status == 1
-                        ? <div className="tg-list-item">
-                            <input className="tgl tgl-ios" id="lab_insurance" type="checkbox" checked={this.state.is_insured} onChange={this.toggleInsured.bind(this)} />
-                            <label className="tgl-btn" htmlFor="lab_insurance"></label>
-                            <p>Covered under OPD insurance | <a href="https://qacdn.docprime.com/media/insurer/documents/Group_Out-Patient_CIS_JNLVJju.PDF" target="_blank"><span> Know More</span></a></p>
-                        </div>
-                        : ''
-                }
-            </div>
+            </React.Fragment>
         );
     }
 }

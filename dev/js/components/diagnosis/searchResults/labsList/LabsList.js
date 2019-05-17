@@ -155,6 +155,13 @@ class LabsList extends React.Component {
         }
     }
 
+    viewMoreClicked() {
+        let filters = {
+            viewMore: true
+        }
+        this.props.applyQuickFilter(filters)
+    }
+
     render() {
         let show_details = false
         let { LABS, labList } = this.props
@@ -209,7 +216,7 @@ class LabsList extends React.Component {
                                                                 {
                                                                     i==3 && !this.state.avg_ratings ?
                                                                     <div className="sort-sub-filter-container mb-3">
-                                                                        <p>You are looking for <span class="fw-700">availability ?</span></p>
+                                                                        <p>You are looking for <span className="fw-700">availability ?</span><span className="fw-700" onClick={this.viewMoreClicked.bind(this)}>more filters</span></p>
                                                                         <div className="srt-sb-btn-cont">
                                                                             <button className={`${this.state.avg_ratings=='3'?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'avg_ratings', '3', false)}>3.0 +</button>
                                                                             <button className={`${this.state.avg_ratings=='4'?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'avg_ratings', '4', false)}>4.0 +</button>

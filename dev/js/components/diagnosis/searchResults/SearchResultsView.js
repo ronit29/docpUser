@@ -27,7 +27,8 @@ class SearchResultsView extends React.Component {
             showError: false,
             showChatWithus: false,
             search_id: '',
-            setSearchId: false
+            setSearchId: false,
+            quickFilter: {}
         }
     }
 
@@ -212,7 +213,7 @@ class SearchResultsView extends React.Component {
             window.ON_LANDING_PAGE = false
         }
 
-
+        this.resetQuickFilters()
         let search_id_data = Object.assign({}, this.props.search_id_data)
         const parsed = queryString.parse(this.props.location.search)
 
@@ -332,6 +333,14 @@ class SearchResultsView extends React.Component {
         return { title, description }
     }
 
+    resetQuickFilters(){
+        this.setState({quickFilter: {}})
+    }
+
+    applyQuickFilter(filter) {
+        this.setState({quickFilter: filter})
+    }
+
     render() {
         let show_pagination = this.props.labList && this.props.labList.length > 0
         let url = `${CONFIG.API_BASE_URL}${this.props.location.pathname}`
@@ -371,7 +380,7 @@ class SearchResultsView extends React.Component {
                 <CriteriaSearch {...this.props} checkForLoad={landing_page || this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchLabs={true}>
                     {
                         this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
-                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} lab_card={!!this.state.lab_card} seoFriendly={this.state.seoFriendly} />
+                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} lab_card={!!this.state.lab_card} seoFriendly={this.state.seoFriendly} quickFilter={this.state.quickFilter} resetQuickFilters={this.resetQuickFilters.bind(this)}/>
                             {/*<ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} lab_card={!!this.state.lab_card} seoFriendly={this.state.seoFriendly} />
                             */}
                             {/*
@@ -392,7 +401,7 @@ class SearchResultsView extends React.Component {
                                 </div> : ""
                             } */}
 
-                            <LabsList {...this.props} applyFilters={this.applyFilters.bind(this)} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
+                            <LabsList {...this.props} applyFilters={this.applyFilters.bind(this)} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} applyQuickFilter={this.applyQuickFilter.bind(this)}/>
 
                             {
                                 this.state.seoFriendly && show_pagination ? <div className="art-pagination-div">

@@ -28,7 +28,8 @@ class SearchResultsView extends React.Component {
             showError: false,
             search_id: '',
             setSearchId: false,
-            scrollPosition: 0
+            scrollPosition: 0,
+            quickFilter: {}
         }
     }
 
@@ -112,17 +113,6 @@ class SearchResultsView extends React.Component {
         // if (window) {
         //     window.scrollTo(0, 0)
         // }
-        let self = this
-        let scrollPosition = 0
-        if(window && document && false) {
-            window.onscroll = function() {
-                scrollPosition = document.documentElement.scrollTop
-                setTimeout(()=> {
-                    //console.log(scrollPosition);console.log(document.documentElement.scrollTop);console.log('aaaaaaaaa')
-                    self.setState({scrollPosition: scrollPosition> document.documentElement.scrollTop})
-                },4000)
-            }
-        }
     }
 
     componentWillReceiveProps(props) {
@@ -219,7 +209,7 @@ class SearchResultsView extends React.Component {
         if (typeof window == 'object') {
             window.ON_LANDING_PAGE = false
         }
-
+        this.resetQuickFilters()
         let search_id_data = Object.assign({}, this.props.search_id_data)
         const parsed = queryString.parse(this.props.location.search)
 
@@ -389,6 +379,14 @@ class SearchResultsView extends React.Component {
         return { title, description, schema }
     }
 
+    resetQuickFilters(){
+        this.setState({quickFilter: {}})
+    }
+
+    applyQuickFilter(filter) {
+        this.setState({quickFilter: filter})
+    }
+
     render() {
         let show_pagination = this.props.doctorList && this.props.doctorList.length > 0
         let url = `${CONFIG.API_BASE_URL}${this.props.location.pathname}`
@@ -419,11 +417,6 @@ class SearchResultsView extends React.Component {
         if (typeof window == 'object' && window.ON_LANDING_PAGE) {
             landing_page = true
         }
-
-        let hideFooter = false
-        if(document) {
-            hideFooter = this.state.scrollPosition
-        }
         
         return (
             <div>
@@ -438,15 +431,15 @@ class SearchResultsView extends React.Component {
                     next: next
                 }} />
 
-                <CriteriaSearch {...this.props} checkForLoad={landing_page || this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card} newChatBtn={true} searchDoctors={true} hideFooter={hideFooter}>
+                <CriteriaSearch {...this.props} checkForLoad={landing_page || this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card} newChatBtn={true} searchDoctors={true}>
                     {
                         this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
-                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
+                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} resetQuickFilters={this.resetQuickFilters.bind(this)} quickFilter={this.state.quickFilter}/>
                             {
                                 /*<ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
                                 */
                             }
-                            <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)} getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
+                            <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)} getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} applyQuickFilter={this.applyQuickFilter.bind(this)}/>
 
                             {
                                 this.state.seoFriendly && show_pagination ? <div className="art-pagination-div">
