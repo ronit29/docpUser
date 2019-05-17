@@ -32,9 +32,6 @@ class SearchPackagesView extends React.Component {
     componentDidMount() {
         if (true) {
             this.getLabList(this.props)
-            // if (window) {
-            //     window.scrollTo(0, 0)
-            // }
         }
         if (this.state.seoFriendly) {
             this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
@@ -42,6 +39,10 @@ class SearchPackagesView extends React.Component {
                     this.setState({ footerData: footerData })
                 }
             })
+        }
+
+        if (window) {
+            window.scrollTo(0, 0)
         }
 
         this.setState({ showChatWithus: true })
@@ -127,12 +128,19 @@ class SearchPackagesView extends React.Component {
         if(this.props.packagesList.count == 1){
             if(this.props.packagesList.result){
                 let packages={}
+                let selectedPkgCompareIds=[]
                 packages.id=this.props.packagesList.result[0].id
                 packages.lab_id=this.props.packagesList.result[0].lab.id
                 packages.img=this.props.packagesList.result[0].lab.lab_thumbnail
                 packages.name=this.props.packagesList.result[0].name
                 this.props.togglecompareCriteria(packages)
-                this.props.history.push('/package/compare?package_ids='+this.props.packagesList.result[0].id+'-'+this.props.packagesList.result[0].lab.id)
+                if(this.props.compare_packages && this.props.compare_packages.length >0){
+                      this.props.compare_packages.map((packages, i) => {
+                          selectedPkgCompareIds.push(packages.id+'-'+packages.lab_id)
+                      })
+                }
+                selectedPkgCompareIds.push(this.props.packagesList.result[0].id+'-'+this.props.packagesList.result[0].lab.id)
+                this.props.history.push('/package/compare?package_ids='+selectedPkgCompareIds)
             }
         }else{
             this.setState({isCompare:!this.state.isCompare},()=>{
@@ -198,7 +206,8 @@ class SearchPackagesView extends React.Component {
         if (parsed.scrollbyid) {
             let scrollby_test_id = parseInt(parsed.scrollbyid)
             let scrollby_lab_id = parseInt(parsed.scrollbylabid)
-            url += `&scrollbyid=${scrollby_test_id || ""}&scrollbylabid=${scrollby_lab_id || ""}`
+            // url += `&scrollbyid=${scrollby_test_id || ""}&scrollbylabid=${scrollby_lab_id || ""}`
+            url += `&scrollbyid=${scrollby_test_id || ""}`
         }
 
         if(parsed.isComparable){
@@ -224,10 +233,11 @@ class SearchPackagesView extends React.Component {
     render() {
         let self = this
         const parsed = queryString.parse(this.props.location.search)
-        if(this.props.forTaxSaver && this.state.isScroll){
+        if(this.state.isScroll){
             let scrollby_test_id = parseInt(parsed.scrollbyid)
             let scrollby_lab_id = parseInt(parsed.scrollbylabid)
-            let url_id= `scrollById_${scrollby_test_id}_${scrollby_lab_id}`
+            // let url_id= `scrollById_${scrollby_test_id}_${scrollby_lab_id}`
+            let url_id= `scrollById_${scrollby_test_id}`
             if ( typeof window == "object" && typeof document == "object" && document.getElementById(url_id) ) {
                window.scrollTo(0, document.getElementById(url_id).offsetTop+250)
                self.setState({isScroll:false})

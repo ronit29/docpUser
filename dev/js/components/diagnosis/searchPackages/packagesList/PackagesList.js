@@ -182,7 +182,7 @@ class packagesList extends React.Component {
                                         <ul>
                                             {
                                                 this.props.packagesList && this.props.packagesList.result ? this.props.packagesList.result.map((packages, i) => {
-                                                    return <li key={i} id={`scrollById_${packages.id}_${packages.lab.id}`}>
+                                                    return <li key={i} id={`scrollById_${packages.id}`}>
                                                         <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
                                                     </li>
                                                 })
