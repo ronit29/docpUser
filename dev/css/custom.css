@@ -1101,3 +1101,23 @@ img.srt-star-img {
 	margin-top: 16px;
 }
 /* ============ ipd tabs ============ */
+/* ============ footer scroll hide ============ */
+
+.shw-srch-ftr{
+	    -webkit-transition: all .6s ease;
+    -o-transition: all .6s ease;
+    transition: all .6s ease;
+    -webkit-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    transform: translateY(0%);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 67px;
+}
+.smth-ftr-hide{
+	-webkit-transform: translateY(-200%);
+	-ms-transform: translateY(-200%);
+	transform: translateY(200%);
+}
+/* ============ footer scroll hide ============ */
