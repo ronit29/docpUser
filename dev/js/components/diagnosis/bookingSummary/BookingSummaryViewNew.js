@@ -229,8 +229,12 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     openTests() {
-        let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&action_page=tests`
-        this.props.history.push(url)
+        if(this.state.seoFriendly){
+            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&action_page=tests`
+            this.props.history.push(url)
+        } else {
+            this.props.history.push(`/lab/${this.state.selectedLab}/tests`)
+        }
     }
 
     handlePickupType(e) {
