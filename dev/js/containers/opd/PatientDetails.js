@@ -29,33 +29,44 @@ class PatientDetails extends React.Component {
         router: () => null
     }
 
-    componentDidMount() {
-        const parsed = queryString.parse(this.props.location.search)
+    fetchData(props){
+        const parsed = queryString.parse(props.location.search)
 
-        let doctor_id = this.props.match.params.id || parsed.doctor_id
-        let hospital_id = this.props.match.params.clinicId || parsed.hospital_id
+        let doctor_id = props.selectedDoctor
+        let hospital_id = props.selectedClinic
 
         if (window) {
             window.scrollTo(0, 0)
         }
 
         if (STORAGE.checkAuth()) {
-            this.props.getUserProfile()
-            this.props.fetchTransactions()
-            this.props.getCartItems()
+            props.getUserProfile()
+            props.fetchTransactions()
+            props.getCartItems()
         }
 
-        this.props.getDoctorById(doctor_id, hospital_id, this.props.commonProfileSelectedProcedures)
+        if(doctor_id){
+            props.getDoctorById(doctor_id, hospital_id, props.commonProfileSelectedProcedures)
 
-        if (this.props.selectedSlot && this.props.selectedSlot.date && !this.props.selectedSlot.summaryPage) {
-            this.setState({ DATA_FETCH: true })
-        } else {
+            if (props.selectedSlot && props.selectedSlot.date && !props.selectedSlot.summaryPage) {
+                this.setState({ DATA_FETCH: true })
+            } else {
 
-            this.props.getTimeSlots(doctor_id, hospital_id, (timeSlots) => {
-                this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, DATA_FETCH: true, upcoming_slots: timeSlots.upcoming_slots })
-            })
+                props.getTimeSlots(doctor_id, hospital_id, (timeSlots) => {
+                    this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, DATA_FETCH: true, upcoming_slots: timeSlots.upcoming_slots })
+                })
+            }
         }
+    }
 
+    componentWillReceiveProps(props){
+        if(props.selectedDoctor != this.props.selectedDoctor){
+            this.fetchData(props)
+        }
+    }
+
+    componentDidMount() {
+        this.fetchData(this.props)
     }
 
     render() {

@@ -19,15 +19,27 @@ class AppointmentSlot extends React.Component {
         router: () => null
     }
 
-    componentDidMount() {
-        const parsed = queryString.parse(this.props.location.search)
+    fetchData(props) {
+        const parsed = queryString.parse(props.location.search)
 
-        let lab_id = this.props.match.params.id || parsed.lab_id
+        let lab_id = props.selectedLab
 
         if (window) {
             window.scrollTo(0, 0)
         }
-        this.props.getLabById(lab_id)
+        if (lab_id) {
+            props.getLabById(lab_id)
+        }
+    }
+
+    componentWillReceiveProps(props) {
+        if (props.selectedLab != this.props.selectedLab) {
+            this.fetchData(props)
+        }
+    }
+
+    componentDidMount() {
+        this.fetchData(this.props)
     }
 
     render() {

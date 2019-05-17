@@ -18,26 +18,38 @@ class BookingSummary extends React.Component {
         router: () => null
     }
 
-    componentDidMount() {
-        const parsed = queryString.parse(this.props.location.search)
+    fetchData(props){
+        const parsed = queryString.parse(props.location.search)
 
-        let lab_id = this.props.match.params.id || parsed.lab_id
+        let lab_id = props.selectedLab
 
         if (window) {
             window.scrollTo(0, 0)
         }
 
         if (STORAGE.checkAuth()) {
-            this.props.getUserProfile()
-            this.props.getUserAddress()
-            this.props.fetchTransactions()
-            this.props.getCartItems()
+            props.getUserProfile()
+            props.getUserAddress()
+            props.fetchTransactions()
+            props.getCartItems()
         }
 
-        let testIds = this.props.lab_test_data[lab_id] || []
-        testIds = testIds.map(x => x.id)
+        if(lab_id){
+            let testIds = props.lab_test_data[lab_id] || []
+            testIds = testIds.map(x => x.id)
 
-        this.props.getLabById(lab_id, testIds)
+            props.getLabById(lab_id, testIds)
+        }
+    }
+
+    componentWillReceiveProps(props){
+        if(props.selectedLab != this.props.selectedLab){
+            this.fetchData(props)
+        }
+    }
+
+    componentDidMount() {
+        this.fetchData(this.props)
     }
 
     render() {
