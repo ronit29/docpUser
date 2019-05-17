@@ -21,7 +21,7 @@ class BookingSummary extends React.Component {
     fetchData(props){
         const parsed = queryString.parse(props.location.search)
 
-        let lab_id = props.selectedLab
+        let lab_id = props.selectedLab || props.match.params.id || parsed.lab_id
 
         if (window) {
             window.scrollTo(0, 0)
@@ -54,8 +54,11 @@ class BookingSummary extends React.Component {
 
     render() {
 
+        const parsed = queryString.parse(this.props.location.search)
+        let lab_id = this.props.selectedLab || this.props.match.params.id || parsed.lab_id
+
         return (
-            <BookingSummaryViewNew {...this.props} />
+            <BookingSummaryViewNew {...this.props} selectedLab={lab_id} />
         );
     }
 }

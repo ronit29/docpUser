@@ -29,11 +29,11 @@ class PatientDetails extends React.Component {
         router: () => null
     }
 
-    fetchData(props){
+    fetchData(props) {
         const parsed = queryString.parse(props.location.search)
 
-        let doctor_id = props.selectedDoctor
-        let hospital_id = props.selectedClinic
+        let doctor_id = props.selectedDoctor || props.match.params.id || parsed.doctor_id
+        let hospital_id = props.selectedClinic || props.match.params.clinicId || parsed.hospital_id
 
         if (window) {
             window.scrollTo(0, 0)
@@ -45,7 +45,7 @@ class PatientDetails extends React.Component {
             props.getCartItems()
         }
 
-        if(doctor_id){
+        if (doctor_id) {
             props.getDoctorById(doctor_id, hospital_id, props.commonProfileSelectedProcedures)
 
             if (props.selectedSlot && props.selectedSlot.date && !props.selectedSlot.summaryPage) {
@@ -59,8 +59,8 @@ class PatientDetails extends React.Component {
         }
     }
 
-    componentWillReceiveProps(props){
-        if(props.selectedDoctor != this.props.selectedDoctor){
+    componentWillReceiveProps(props) {
+        if (props.selectedDoctor != this.props.selectedDoctor) {
             this.fetchData(props)
         }
     }
@@ -71,8 +71,13 @@ class PatientDetails extends React.Component {
 
     render() {
 
+        const parsed = queryString.parse(this.props.location.search)
+
+        let doctor_id = this.props.selectedDoctor || this.props.match.params.id || parsed.doctor_id
+        let hospital_id = this.props.selectedClinic || this.props.match.params.clinicId || parsed.hospital_id
+
         return (
-            <PatientDetailsView {...this.props} {...this.state} />
+            <PatientDetailsView {...this.props} {...this.state} selectedDoctor={doctor_id} selectedClinic={hospital_id} />
         );
     }
 }
