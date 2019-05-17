@@ -38,13 +38,13 @@ class TopBar extends React.Component {
             avg_ratings: '',
             home_visit: false,
             lab_visit: false,
-            quickFilterCatId: []
+            quickFilter: {}
         }
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ ...props.filterCriteriaPackages, quickFilterCatId: props.quickFilterCatId||[] }, ()=>{
-            if(this.state.quickFilterCatId.length) {
+        this.setState({ ...props.filterCriteriaPackages, quickFilter: props.quickFilter||{} }, ()=>{
+            if(this.state.quickFilter && ( (this.state.quickFilter.catId && this.state.quickFilter.catId.length) || this.state.quickFilter.viewMore ) ) {
                 this.sortFilterClicked()
             }
         })
@@ -133,7 +133,7 @@ class TopBar extends React.Component {
 
             this.setState({
                 ...resetFilters,
-                quickFilterCatId: []
+                quickFilter: {}
             })
         }else {
             let data = {
@@ -143,7 +143,7 @@ class TopBar extends React.Component {
             this.setState({
                 openFilter: false,
                 ...this.state.previous_filters,
-                quickFilterCatId: []
+                quickFilter: {}
             })
         }
 
@@ -168,7 +168,7 @@ class TopBar extends React.Component {
         }
 
         this.setState({
-            openFilter: true, previous_filters: currentFilters, catIds: this.state.quickFilterCatId && this.state.quickFilterCatId.length?this.state.quickFilterCatId:this.state.catIds
+            openFilter: true, previous_filters: currentFilters, catIds: this.state.quickFilter && this.state.quickFilter.catId && this.state.quickFilter.catId.length?this.state.quickFilter.catId:this.state.catIds
         })
     }
 
@@ -298,7 +298,7 @@ class TopBar extends React.Component {
             }
         }
 
-        let quickFilterCatId = this.state.quickFilterCatId && this.state.quickFilterCatId.length?this.state.quickFilterCatId[0]:''
+        let quickFilterCatId = this.state.quickFilter && this.state.quickFilter.catId && this.state.quickFilter.catId.length?this.state.quickFilter.catId[0]:''
 
         return (
             <React.Fragment>
