@@ -11186,19 +11186,18 @@ position: relative;
 .banner-cont-height{
 	position: relative;
     margin: 0 -15px;
-
+}
+.home-page-banner-div .banner-home-scrollable{
+	margin-top: 0px!important;
+	margin-bottom: 0px!important;
 }
 .banner-home-scrollable{
-	position: absolute;
     white-space: nowrap;
     overflow-x: auto;
     width: 100%;
     top: 0;
-    padding-left: 15px;
 }
 .banner-home-scrollable img {
-    max-width: 90%;
-    margin-right: 10px;
     border-radius: 4px;
     box-shadow: 0 1px 5px rgba(76, 76, 76, 0.12), 1px 1px 4px rgba(128, 128, 128, 0.24);
     margin-bottom: 3px;
@@ -11208,8 +11207,19 @@ position: relative;
 }
 .divHeight{
     height: 0;
-    padding-bottom: 25.5%;
+    padding-bottom: 20%;
     margin: 20px 0px;
+}
+.sngl-banner{
+	width: 100%;
+	margin-right: 0px;
+}
+.mltpl-banner{
+	width: 90%;
+	margin-right: 10px;
+}
+.pd-lt-15{
+	padding-left: 15px;
 }
 .home-slider-position{
     position: absolute;

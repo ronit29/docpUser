@@ -329,24 +329,13 @@ class HomeView extends React.Component {
 						</div> */}
 						{/* x ray landing page cards */}
 
-						<div className="banner-cont-height">
-							<div className="hidderBanner banner-carousel-div d-md-none">
-								<div className="divHeight"></div>
-							</div>
-							<div className="banner-home-scrollable">
-								<img src="https://cdn.docprime.com/media/banner/images/doctor-appointments-50.png" loading="lazy" />
-								<img src="https://cdn.docprime.com/media/banner/images/Artboard_14_LCo4nYO.png" loading="lazy" />
-								<img src="https://cdn.docprime.com/media/banner/images/Artboard_11_1.png" loading="lazy" />
-							</div>
-						</div>
-
-						<div className="banner-cont-height">
+						<div className="banner-cont-height home-page-banner-div">
 							<div className="hidderBanner banner-carousel-div d-md-none">
 								<div className="divHeight"></div>
 							</div>
 							{
 								this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-									<BannerCarousel {...this.props} hideClass="d-md-none home-slider-position" sliderLocation="home_page" /> : ''
+									<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
 							}
 						</div>
 
