@@ -112,12 +112,12 @@ class packagesList extends React.Component {
         this.props.history.push('/tax-saver-health-packages-tc')
     }
 
-    applyQuickFilters(category){ 
-        this.setState({ catIds: [category] }, ()=>{
-            let filters = {...this.props.filterCriteriaPackages}
-            filters = Object.assign({filters, ...this.state})
-            this.props.applyFilters(filters)
-        })
+    applyQuickFilters(category, viewMore=false){ 
+        let filters = {
+            catId: viewMore?[]:[category],
+            viewMore: viewMore
+        }
+        this.props.applyQuickFilter(filters)
     }
 
     render() {
@@ -205,11 +205,11 @@ class packagesList extends React.Component {
                                                             {
                                                                 i==3 && !this.state.catIds.length && this.props.packagesList && this.props.packagesList.categories && this.props.packagesList.categories.length?
                                                                 <div className="sort-sub-filter-container mb-3">
-                                                                    <p>You are looking for <span className="fw-700">Category ?</span></p>
+                                                                    <p>You are looking for <span className="fw-700">Category ?</span><span className="fw-700" onClick={this.applyQuickFilters.bind(this, '', true)}>more filters</span></p>
                                                                     <div className="srt-sb-btn-cont">
                                                                     {
                                                                         this.props.packagesList.categories.map((category, j) => {
-                                                                            return <button key={j} className={`${this.state.catIds && this.state.catIds.indexOf(category.id) > -1 ?'srt-act':''}`} id={category.id} onClick={this.applyQuickFilters.bind(this, category.id)}> {category.name}</button>
+                                                                            return <button key={j} className={`${this.state.catIds && this.state.catIds.indexOf(category.id) > -1 ?'srt-act':''}`} id={category.id} onClick={this.applyQuickFilters.bind(this, category.id, false)}> {category.name}</button>
                                                                         })
                                                                     }
                                                                     </div>
