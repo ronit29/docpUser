@@ -924,4 +924,44 @@ div.onln-cnslt-head {
 .hd-mrgn-top{
 	margin-top: 16px;
 }
+.ipd-pop-cls{
+	position: absolute;
+	right: 0;
+	top: 0;
+	cursor: pointer;
+}
+.ipd-needHelp{
+	text-align: center;
+	font-weight: 700;
+	margin-bottom: 10px;
+	font-size: 15px;
+}
+.srch-el-ipd-cont{
+	text-align: center;
+	font-weight: 500;
+	margin-bottom: 10px;
+	font-size: 12px;
+}
+.ipd-inp-section{
+	text-align: center;
+}
+.ipd-inp-section input {
+	width: 100%;
+	margin-bottom: 10px;
+	border: 1px solid rgba(0, 0, 0, .1);
+	border-radius: 4px;
+	padding: 8px;
+	outline: none;
+}
+button.ipd-inp-sbmt {
+	background-image: linear-gradient(to left, #f78631, #ff6d00);
+	color: white;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.2);
+	padding: 8px 18px;
+}
+.ipd-inp-done{
+	text-align: center;
+}
 /* ============ ipd tabs ============ */
