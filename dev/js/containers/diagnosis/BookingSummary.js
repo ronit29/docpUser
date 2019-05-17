@@ -76,7 +76,7 @@ const mapDispatchToProps = (dispatch) => {
         createLABAppointment: (postData, callback) => dispatch(createLABAppointment(postData, callback)),
         sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
         removeLabCoupons: (labId, couponId) => dispatch(removeLabCoupons(labId, couponId)),
-        applyLabCoupons: (productId, couponCode, couponId, labId, dealPrice, test_ids, profile_id, cart_item) => dispatch(applyLabCoupons(productId, couponCode, couponId, labId, dealPrice, test_ids, profile_id, cart_item)),
+        applyLabCoupons: (productId, couponCode, couponId, labId, dealPrice, test_ids, profile_id, cart_item, callback) => dispatch(applyLabCoupons(productId, couponCode, couponId, labId, dealPrice, test_ids, profile_id, cart_item, callback)),
         resetLabCoupons: () => dispatch(resetLabCoupons()),
         getCoupons: (data) => dispatch(getCoupons(data)),
         applyCoupons: (productId, couponData, couponId, labId) => dispatch(applyCoupons(productId, couponData, couponId, labId)),

@@ -47,7 +47,8 @@ class BookingSummaryViewNew extends React.Component {
             pincode: this.props.pincode,
             whatsapp_optin: true,
             pincodeMismatchError: false,
-            showConfirmationPopup: false
+            showConfirmationPopup: false,
+            coupon_loading: false
         }
     }
 
@@ -140,37 +141,66 @@ class BookingSummaryViewNew extends React.Component {
 
             // if coupon already applied just set discount price.
             if (nextProps.labCoupons[this.state.selectedLab] && nextProps.labCoupons[this.state.selectedLab].length) {
-
                 if (this.props.LABS[this.state.selectedLab] != nextProps.LABS[this.state.selectedLab] || this.props.selectedAppointmentType != nextProps.selectedAppointmentType) {
-
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupons = nextProps.labCoupons[this.state.selectedLab]
-                    this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '' })
-                    this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item)
+                    this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item, (err, data) => {
+                        if (!err) {
+                            this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '' })
+                        } else {
+                            this.setState({coupon_loading: true})
+                            this.getAndApplyBestCoupons(nextProps)
+                        }
+                    })
                 }
                 return
             }
 
             // if no coupon is applied
             if (!nextProps.labCoupons[this.state.selectedLab] || (nextProps.labCoupons[this.state.selectedLab] && nextProps.labCoupons[this.state.selectedLab].length == 0)) {
-                if (nextProps.couponAutoApply) {
-                    let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
-
-                    this.props.getCoupons({
-                        productId: 2, deal_price: finalPrice, lab_id: this.state.selectedLab, test_ids: test_ids, profile_id: nextProps.selectedProfile, cart_item: this.state.cart_item,
-                        cb: (coupons) => {
-                            if (coupons && coupons[0]) {
-                                this.props.applyCoupons('2', coupons[0], coupons[0].coupon_id, this.state.selectedLab)
-                                this.props.applyLabCoupons('2', coupons[0].code, coupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item)
-                                this.setState({ is_cashback: coupons[0].is_cashback, couponCode: coupons[0].code, couponId: coupons[0].coupon_id || '' })
-                            } else {
-                                this.props.resetLabCoupons()
-                            }
-                        }
-                    })
-                }
+                this.getAndApplyBestCoupons(nextProps)
             }
+        }
+    }
+    
+    getValidCoupon(coupons) {
+        let validCoupon = null
+        for (var index in coupons) {
+            if (coupons[index].valid) {
+                validCoupon = coupons[index]
+                break
+            }
+        }
+        return validCoupon
+    }
+
+    getAndApplyBestCoupons(nextProps) {
+        if (nextProps.couponAutoApply) {
+            let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
+
+            this.props.getCoupons({
+                productId: 2, deal_price: finalPrice, lab_id: this.state.selectedLab, test_ids: test_ids, profile_id: nextProps.selectedProfile, cart_item: this.state.cart_item,
+                cb: (coupons) => {
+                    if (coupons) {
+                        let validCoupon = this.getValidCoupon(coupons)
+                        if(validCoupon) {
+                            this.props.applyCoupons('2', validCoupon, validCoupon.coupon_id, this.state.selectedLab)
+                            this.props.applyLabCoupons('2', validCoupon.code, validCoupon.coupon_id, this.state.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item)
+                            this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '' })
+                        }else {
+                            this.props.resetLabCoupons()
+                            this.setState({ couponCode: "", couponId: '', is_cashback: false })
+                        }
+                    } else {
+                        this.props.resetLabCoupons()
+                        this.setState({ couponCode: "", couponId: '', is_cashback: false })
+                    }
+                    this.setState({coupon_loading: false})
+                }
+            })
+        } else {
+            this.setState({coupon_loading: false})
         }
     }
 
@@ -605,6 +635,7 @@ class BookingSummaryViewNew extends React.Component {
 
     render() {
         let tests = []
+        let tests_with_price = []
         let finalPrice = 0
         let finalMrp = 0
         let home_pickup_charges = 0
@@ -669,8 +700,8 @@ class BookingSummaryViewNew extends React.Component {
 
         if (this.props.LABS[this.state.selectedLab]) {
             labDetail = this.props.LABS[this.state.selectedLab].lab
-
-            tests = this.props.LABS[this.state.selectedLab].tests.map((twp, i) => {
+            
+            this.props.LABS[this.state.selectedLab].tests.map((twp, i) => {
                 if (twp.hide_price) {
                     is_corporate = true
                 }
@@ -683,24 +714,40 @@ class BookingSummaryViewNew extends React.Component {
                 finalPrice += parseFloat(price)
                 finalMrp += parseFloat(mrp)
 
-                return <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
-                    {
+                tests.push(
+                    <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
+                    {/*
                         is_corporate || is_insurance_applicable || is_plan_applicable ?
-                            <span className="float-right fw-700">₹ 0 </span>
-                            :
-                            price == twp.mrp ?
-                                <span className="float-right fw-700">&#8377; {price}</span>
-                                :
-                                <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
-                                </span>
-                    }
+                        <span className="float-right fw-700">₹ 0 </span>
+                        :
+                        price == twp.mrp ?
+                        <span className="float-right fw-700">&#8377; {price}</span>
+                        :
+                        <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
+                        </span>
+                    */}
                     <span className="test-name-item">{twp.test.name}</span>
                     {
                         is_plan_applicable ?
                             <p className="pkg-discountCpn" style={{ display: 'inline-block', float: 'right', marginTop: '5px' }}>Docprime Care Benefit</p>
                             : ''
                     }
-                </p>
+                </p>)
+                
+                tests_with_price.push(
+                    <div className="payment-detail d-flex">
+                        <p>{twp.test.name}</p>
+                        {
+                            is_corporate || is_insurance_applicable || is_plan_applicable ?
+                            <p>&#8377; 0</p>
+                            :
+                            price == twp.mrp ?
+                            <p>&#8377; {price}</p>
+                            :
+                            <p>&#8377; {parseFloat(twp.mrp)}</p>
+                        }
+                    </div>
+                )
             })
 
             center_visit_enabled = labDetail.center_visit_enabled
@@ -867,17 +914,25 @@ class BookingSummaryViewNew extends React.Component {
                                                                                     }
                                                                                 </div>
                                                                             </div> :
-                                                                            <div className="widget-content d-flex jc-spaceb" >
-                                                                                <div className="d-flex">
-                                                                                    <span className="coupon-img">
-                                                                                        <img src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} className="visit-time-icon" />
-                                                                                    </span>
-                                                                                    <h4 className="title coupon-text">
-                                                                                        HAVE A COUPON?
-                                                                                    </h4>
-                                                                                </div>
-                                                                                <div className="visit-time-icon coupon-icon-arrow">
-                                                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+                                                                            <div>
+                                                                                {
+                                                                                    this.state.coupon_loading ?
+                                                                                        <div className="loading_Linebar_container">
+                                                                                            <div className="loading_bar_line"></div>
+                                                                                        </div> : ''
+                                                                                }
+                                                                                <div className="widget-content d-flex jc-spaceb" >
+                                                                                    <div className="d-flex">
+                                                                                        <span className="coupon-img">
+                                                                                            <img src={ASSETS_BASE_URL + "/img/ofr-cpn.svg"} className="visit-time-icon" />
+                                                                                        </span>
+                                                                                        <h4 className="title coupon-text">
+                                                                                            HAVE A COUPON?
+                                                                                        </h4>
+                                                                                    </div>
+                                                                                    <div className="visit-time-icon coupon-icon-arrow">
+                                                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/right-arrow.svg"} />
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                     }
@@ -901,10 +956,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 </div>
                                                                                 :
                                                                                 <div className="payment-summary-content">
-                                                                                    <div className="payment-detail d-flex">
-                                                                                        <p>Lab Fees</p>
-                                                                                        <p>&#8377; {finalMrp}</p>
-                                                                                    </div>
+                                                                                    {tests_with_price}
                                                                                     {
                                                                                         (total_price && is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
                                                                                             <p className="payment-content">Home Pickup Charges</p>

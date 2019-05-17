@@ -247,7 +247,7 @@ export const updateLabAppointment = (appointmentData, callback) => (dispatch) =>
 	})
 }
 
-export const applyLabCoupons = (productId = '', couponCode, couponId, labId = null, dealPrice, test_ids = [], profile_id = null, cart_item = null) => (dispatch) => {
+export const applyLabCoupons = (productId = '', couponCode, couponId, labId = null, dealPrice, test_ids = [], profile_id = null, cart_item = null, callback) => (dispatch) => {
 
 	API_POST(`/api/v1/coupon/discount`, {
 		coupon_code: [couponCode],
@@ -267,12 +267,18 @@ export const applyLabCoupons = (productId = '', couponCode, couponId, labId = nu
 				type: APPLY_LAB_COUPONS,
 				payload: response
 			})
+			if (callback) {
+				callback(null, response)
+			}
 		} else {
 			dispatch({
 				type: REMOVE_LAB_COUPONS,
 				labId: labId,
 				couponId: couponId
 			})
+			if (callback) {
+				callback('Not applicable', null)
+			}
 		}
 	}).catch(function (error) {
 		dispatch({
@@ -280,6 +286,9 @@ export const applyLabCoupons = (productId = '', couponCode, couponId, labId = nu
 			labId: labId,
 			couponId: couponId
 		})
+		if (callback) {
+			callback(error, null)
+		}
 	})
 
 }

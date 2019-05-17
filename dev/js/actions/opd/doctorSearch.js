@@ -315,7 +315,7 @@ export const getDoctorNumber = (doctorId, hospital_id, callback) => (dispatch) =
 	})
 }
 
-export const applyOpdCoupons = (productId = '', couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id = null, procedures_ids = [], cart_item = null) => (dispatch) => {
+export const applyOpdCoupons = (productId = '', couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id = null, procedures_ids = [], cart_item = null, callback) => (dispatch) => {
 
 	API_POST(`/api/v1/coupon/discount`, {
 		coupon_code: [couponCode],
@@ -336,12 +336,18 @@ export const applyOpdCoupons = (productId = '', couponCode, couponId, doctor_id,
 				type: APPLY_OPD_COUPONS,
 				payload: response
 			})
+			if (callback) {
+				callback(null, response)
+			}
 		} else {
 			dispatch({
 				type: REMOVE_OPD_COUPONS,
 				hospitalId: doctor_id,
 				couponId: couponId
 			})
+			if (callback) {
+				callback('Not applicable', null)
+			}
 		}
 	}).catch(function (error) {
 		dispatch({
@@ -349,6 +355,9 @@ export const applyOpdCoupons = (productId = '', couponCode, couponId, doctor_id,
 			hospitalId: doctor_id,
 			couponId: couponId
 		})
+		if (callback) {
+			callback(error, null)
+		}
 	})
 }
 
