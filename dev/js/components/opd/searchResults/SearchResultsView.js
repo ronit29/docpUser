@@ -220,6 +220,8 @@ class SearchResultsView extends React.Component {
 
     buildURI(state) {
 
+        const parsed = queryString.parse(this.props.location.search)
+
         let { selectedLocation, commonSelectedCriterias, filterCriteria, locationType, page } = state
         let specializations_ids = commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
         let condition_ids = commonSelectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
@@ -318,6 +320,10 @@ class SearchResultsView extends React.Component {
 
         if (this.state.clinic_card) {
             url += `${is_params_exist ? '&' : '?'}clinic_card=true`
+        }
+
+        if(parsed.get_feedback) {
+            url += `&get_feedback=${parsed.get_feedback}`
         }
 
         return url

@@ -176,8 +176,8 @@ class HospitalDetailView extends React.Component {
 					this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ?
 						<div className="ipd-section">
 							{
-								this.state.showLeadForm?
-								<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)}/>
+								this.state.showLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE?
+								<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props}/>
 								:''
 							}
 

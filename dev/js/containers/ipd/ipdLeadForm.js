@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { submitIPDForm } from '../../actions/index.js'
 import SnackBar from 'node-snackbar'
 import GTM from '../../helpers/gtm.js'
+const queryString = require('query-string')
 
 class IpdLeadForm extends React.Component{
 
@@ -53,40 +54,59 @@ class IpdLeadForm extends React.Component{
         	this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
 				if (!error && response) {
 					let gtmData = {
-						'Category': 'ConsumerApp', 'Action': 'IpdLeadGenerationSuccess', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'ipd-lead-generation-success', selectedId: '', 'hospitalId': '', 'from': 'leadForm'
+						'Category': 'ConsumerApp', 'Action': 'IPD-popup-lead', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'IPD-popup-lead', selectedId: '', 'hospitalId': '', 'from': 'leadForm'
 					}
 					GTM.sendEvent({ data: gtmData })
+					setTimeout(() => {
+						SnackBar.show({ pos: 'bottom-center', text: "Your request has been submitted sucessfully" })
+					}, 500)
 					this.setState({showForm: false, showThankyou: true})
 				} else {
 					setTimeout(() => {
 						SnackBar.show({ pos: 'bottom-center', text: "Please try after some time" })
 					}, 500)
-					this.props.submitLeadFormGeneration()
 				}
+				this.props.submitLeadFormGeneration()
 			})
         }else {
         	SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Mobile No" })
         }
     }
 
+    closePopUpClicked(){
+    	const parsed = queryString.parse(this.props.location.search)
+    	if(parsed.get_feedback && parsed.get_feedback=='1') {
+    		SnackBar.show({ pos: 'bottom-center', text: "Please fill the feedback form" })	
+    	}else {
+    		this.props.submitLeadFormGeneration(true)
+    	}
+    }
+
 	render(){
+
+		const parsed = queryString.parse(this.props.location.search)
 
 		return(
 			<div className="search-el-popup-overlay" onClick={(e)=>{
 				e.preventDefault()
 				e.stopPropagation()
-				this.props.submitLeadFormGeneration(true)} }>
+				this.closePopUpClicked()} }>
 				<div className="search-el-popup ipd-pop-width">
 					<div className="widget p-2">
 						{
 							this.state.showForm?
 							<div className="p-relative">
-								<span className="ipd-pop-cls" onClick={(e)=> {
-									e.stopPropagation()
-									e.preventDefault()
-									this.props.submitLeadFormGeneration(true)} }><img src={ASSETS_BASE_URL + "/img/icons/close.png"} /></span>
-								<p className="ipd-needHelp">Need Help?</p>
-								<p className="srch-el-ipd-cont">Please provide the details below and our medical expert will contact you soon</p>
+								{
+									parsed.get_feedback && parsed.get_feedback=='1'?''
+									:<span className="ipd-pop-cls" onClick={(e)=> {
+										e.stopPropagation()
+										e.preventDefault()
+										this.closePopUpClicked()} }><img src={ASSETS_BASE_URL + "/img/icons/close.png"} />
+									</span>
+								}
+							
+								<p className="ipd-needHelp">Need help with an appointment at BLK Hospital?</p>
+								<p className="srch-el-ipd-cont">Get upto 30% Off on appointments</p>
 								<div className="ipd-inp-section" onClick={(e)=>{e.stopPropagation()
 										e.preventDefault()}}>
 									<input type="text" value={this.state.name} name='name' placeholder="Name"  onChange={this.inputHandler.bind(this)}/>
@@ -95,27 +115,7 @@ class IpdLeadForm extends React.Component{
 										e.stopPropagation()
 										e.preventDefault()
 										this.submitLeadForm()
-									}}>Submit</button>
-								</div>
-							</div>
-							:''
-						}
-
-						{
-							this.state.showThankyou?
-							<div className="p-relative">
-								<span className="ipd-pop-cls" onClick={(e)=> {
-									e.stopPropagation()
-									e.preventDefault()
-									this.props.submitLeadFormGeneration(true)} }><img src={ASSETS_BASE_URL + "/img/icons/close.png"} /></span>
-								<p className="ipd-needHelp">Submitted</p>
-								<p className="srch-el-ipd-cont">Your Request has been received our medical expert will call you shortly</p>
-								<div className="ipd-inp-done">
-									<button className="ipd-inp-sbmt" onClick={(e)=>{
-										e.stopPropagation()
-										e.preventDefault()
-										this.props.submitLeadFormGeneration(true)
-									}}>Submit</button>
+									}}>Click to Proceed</button>
 								</div>
 							</div>
 							:''

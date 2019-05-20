@@ -309,8 +309,8 @@ class TopBar extends React.Component {
                     }
 
                     {
-                        this.state.showIpdLeadForm?
-                        <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)}/>
+                        this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE?
+                        <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props}/>
                         :''
                     }
                 </div>
