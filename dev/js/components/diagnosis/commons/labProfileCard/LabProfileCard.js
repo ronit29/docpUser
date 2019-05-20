@@ -103,6 +103,7 @@ class LabProfileCard extends React.Component {
     }
 
     bookNowClicked(id, url = '') {
+        this.props.clearExtraTests()
         let slot = { time: {} }
         this.props.clearExtraTests()
         this.props.selectLabTimeSLot(slot, false)
@@ -199,7 +200,7 @@ class LabProfileCard extends React.Component {
                             <div className="cstm-doc-details-container labCardUiresponsive">
                                 <div className="cstm-doc-img-container">
                                     <div className="text-center">
-                                        <a href={url} onClick={(e) => {
+                                        <a href={`/${url}`} onClick={(e) => {
                                             e.preventDefault();
                                         }}>
                                             <InitialsPicture name={name} has_image={!!lab_thumbnail} className="initialsPicture-ls">
@@ -216,7 +217,7 @@ class LabProfileCard extends React.Component {
                                 </div>
 
                                 <div className="cstm-doc-content-container">
-                                    <a href={url} onClick={(e) => {
+                                    <a href={`/${url}`} onClick={(e) => {
                                         e.preventDefault();
                                     }}>
                                         <h2 className="cstmDocName">{name}</h2>
@@ -236,7 +237,7 @@ class LabProfileCard extends React.Component {
                         </div>
                         <div className="col-4">
                             {
-                                !is_insurance_applicable && this.state.ssrFlag ?
+                                !is_insurance_applicable && this.state.ssrFlag && discounted_price && !hide_price ?
                                     <p className="cstm-doc-price">Docprime Price</p> : ''
                             }
                             {

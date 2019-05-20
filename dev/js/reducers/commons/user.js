@@ -58,7 +58,8 @@ const defaultState = {
     articleData: {},
     app_download_list: [],
     chat_feedback: [],
-    chat_feedback_roomId: ''
+    chat_feedback_roomId: '',
+    insurance_status: null
 }
 
 export default function (state = defaultState, action) {
@@ -89,6 +90,7 @@ export default function (state = defaultState, action) {
                         newState.userName = profile.name
                     }
                     newState.is_login_user_insured = profile.is_insured
+                    newState.insurance_status = profile.insurance_status
                     newState.defaultProfile = profile.id
                 }
                 profileMap[profile.id] = profile

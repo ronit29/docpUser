@@ -176,7 +176,6 @@ class LabProfileCard extends React.Component {
         let is_insurance_applicable = false
         if(insurance && insurance.is_insurance_covered && insurance.is_user_insured){
             is_insurance_applicable = true
-            pickup_text = ""
         }
         return (
             <div className="pkg-card-container mb-3">
@@ -205,7 +204,7 @@ class LabProfileCard extends React.Component {
                                         <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
                                     </InitialsPicture>
                                 </div>
-                                <a href={this.props.details.url || ''} onClick={(e) => {
+                                <a href={`/${this.props.details.url || ''}`} onClick={(e) => {
                                     e.preventDefault()
                                     e.stopPropagation()
                                     this.props.history.push(`/${this.props.details.url || ''}`)
@@ -246,7 +245,7 @@ class LabProfileCard extends React.Component {
                                         :'' 
                                     }
                                 </div>
-                                <a href={this.props.details.lab.url} onClick={(e) => e.preventDefault()}>
+                                <a href={`/${this.props.details.lab.url}`} onClick={(e) => e.preventDefault()}>
                                     <button className="pkg-btn-nw" style={{ width: '100%' }}>Book Now</button>
                                 </a>
                                 {

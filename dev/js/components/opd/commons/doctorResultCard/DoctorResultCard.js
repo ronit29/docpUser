@@ -300,12 +300,28 @@ class DoctorProfileCard extends React.Component {
                     </div>
                     <div className="cstmCardFooter">
                         <div className="cstmfooterContent">
-                            <h3><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />{hospital.hospital_name}
-                                {
-                                    hospital_count > 1 ?
-                                        <span> &amp; {hospital_count - 1} More </span> : ''
-                                }
-                            </h3>
+                            {
+                                hospital.url && hospital.url.length?
+                                <a href={`/${hospital.url}`} onClick={
+                                            (e) => {
+                                                e.preventDefault()
+                                                this.props.history.push(`/${hospital.url}`)
+                                            }
+                                        }>
+                                    <h3><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />{hospital.hospital_name}
+                                        {
+                                            hospital_count > 1 ?
+                                                <span> &amp; {hospital_count - 1} More </span> : ''
+                                        }
+                                    </h3>
+                                </a>
+                                :<h3><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />{hospital.hospital_name}
+                                    {
+                                        hospital_count > 1 ?
+                                            <span> &amp; {hospital_count - 1} More </span> : ''
+                                    }
+                                </h3>
+                            }
                             {
                                 google_rating && !average_rating ?
                                     <div className="d-flex align-items-center" style={{ paddingLeft: 20, marginBottom: 8 }}>
@@ -315,7 +331,7 @@ class DoctorProfileCard extends React.Component {
                             }
                             {
                                 parent_url && parent_url.length ?
-                                    <a href={parent_url} onClick={
+                                    <a href={`/${parent_url}`} onClick={
                                         (e) => {
                                             e.preventDefault()
                                             this.props.history.push(`/${parent_url}`)

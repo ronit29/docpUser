@@ -32,7 +32,7 @@ class ExpansionPanelIPD extends React.Component {
                         <div className="more-content mr-content">
                             {
                                 data.value ?
-                                    <span className="pkg-content" dangerouslySetInnerHTML={{ __html: data.value }}></span>
+                                    <span className="pkg-content ulListing-stl" dangerouslySetInnerHTML={{ __html: data.value }}></span>
                                     : ''
                             }
                             {

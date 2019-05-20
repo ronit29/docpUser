@@ -13,7 +13,7 @@ class IPDForm extends React.Component {
 		if (!this.props.defaultProfile && STORAGE.checkAuth()) {
 			this.props.getUserProfile()
 		}
-		if (this.props.match.params.id) {
+		if (this.props.match.params.id && this.props.match.params.id!='price') {
 			this.props.getIpdInfo(this.props.match.params.id)
 		}
 
@@ -26,13 +26,17 @@ class IPDForm extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, passedProps) => {
 
 	const {
 		selectedCriterias,
 		ipd_info,
 		IPD_INFO_LOADED
 	} = state.SEARCH_CRITERIA_IPD
+
+	const {
+        selectedLocation
+    } = state.SEARCH_CRITERIA_OPD
 
 	const {
 		defaultProfile,
@@ -46,7 +50,8 @@ const mapStateToProps = (state) => {
 		IPD_INFO_LOADED,
 		defaultProfile,
 		profiles,
-		offerList
+		offerList,
+		selectedLocation
 	}
 }
 
@@ -54,7 +59,7 @@ const mapDispatchToProps = (dispatch) => {
 
 	return {
 		getIpdInfo: (ipd_id) => dispatch(getIpdInfo(ipd_id)),
-		submitIPDForm: (formData, cb) => dispatch(submitIPDForm(formData, cb)),
+		submitIPDForm: (formData, selectedLocation, cb) => dispatch(submitIPDForm(formData, selectedLocation, cb)),
 		getUserProfile: () => dispatch(getUserProfile()),
 		getOfferList: (lat, long) => dispatch(getOfferList(lat, long))
 	}

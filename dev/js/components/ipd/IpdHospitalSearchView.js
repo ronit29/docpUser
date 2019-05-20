@@ -8,6 +8,9 @@ import Footer from '../commons/Home/footer'
 import StickyTopBarFilter from './StickyTopBarFilter.js'
 const queryString = require('query-string')
 import GTM from '../../helpers/gtm.js'
+import HelmetTags from '../commons/HelmetTags'
+import CONFIG from '../../config'
+import BreadCrumbView from './breadCrumb.js'
 
 class IpdHospitalView extends React.Component{
 
@@ -15,7 +18,9 @@ class IpdHospitalView extends React.Component{
 		super(props)
 		this.state = {
 			search_id: '',
-            setSearchId: false
+            setSearchId: false,
+            seoFriendly: this.props.match.url.includes('-ipdhp') || this.props.match.url.includes('-hspcit') || this.props.match.url.includes('-hsplitcit')
+
 		}
 	}
 
@@ -54,9 +59,8 @@ class IpdHospitalView extends React.Component{
                         filterCriteria.filterCriteria = filters
                         this.setState({ search_id: parsed.search_id }, () => {
                             let page = 1
-                            /*if (!this.props.fetchNewResults) {
-                                page = parsed.page || 1
-                            }*/
+                            page = parsed.page || 1
+
                             this.props.setIpdSearchId(parsed.search_id, filterCriteria, page)
                         })
                     }
@@ -73,6 +77,7 @@ class IpdHospitalView extends React.Component{
                 if (window) {
                     window.scrollTo(0, 0)
                 }
+                this.props.mergeIpdCriteria({fetchNewResults:false})
                 this.setState({ search_id: search_id }, () => {
                     let new_url = this.buildURI(this.props)
                     this.props.history.replace(new_url)
@@ -142,20 +147,34 @@ class IpdHospitalView extends React.Component{
         }
     }
 
-    getIpdHospitalList(state){
-
+    getIpdHospitalList(state, page=null, cb=null){
+        const parsed = queryString.parse(this.props.location.search)
         
         if (!state) {
             state = this.props
         }
 
-        this.props.getIpdHospitals(state, (...args) => {
+        if(!page && parsed.page){
+            page = parsed.page || 1
+        }else{
+            page = page || 1
+        }
+
+        let searchUrl = null
+        if (state.match.url.includes('-ipdhp') || state.match.url.includes('-hspcit') || state.match.url.includes('-hsplitcit')) {
+            searchUrl = state.match.url.toLowerCase()
+        }
+
+        this.props.getIpdHospitals(state, page, false, searchUrl, (...args) => {
+
+            if(cb)cb(...args)
             let new_url = this.buildURI(state)
             this.props.history.replace(new_url)
         })
     }
 
 	buildURI(state) {
+        const parsed = queryString.parse(this.props.location.search)
 
         let { selectedLocation, commonSelectedCriterias, filterCriteria, locationType } = state
         
@@ -180,10 +199,37 @@ class IpdHospitalView extends React.Component{
         let max_distance = filterCriteria.distance[1]
         let provider_ids = filterCriteria.provider_ids
 
-        let url = `${window.location.pathname}?ipd_id=${ipd_id}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&search_id=${this.state.search_id}`
+        let url = ''
 
-        if (page > 1) {
-            url += `&page=${page}`
+        //Check if any filter applied 
+        let is_filter_applied = false
+        let is_params_exist = false
+
+        
+        if (parseInt(min_distance) != 0) {
+            is_filter_applied = true
+        }
+        if (parseInt(max_distance) != 20) {
+            is_filter_applied = true
+        }
+        if (provider_ids && provider_ids.length) {
+            is_filter_applied = true
+        }
+
+        if(is_filter_applied || !this.state.seoFriendly) {
+
+            url = `${window.location.pathname}?ipd_id=${ipd_id}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&search_id=${this.state.search_id}&lat=${lat}&long=${long}&place_id=${place_id}`
+
+            is_params_exist = true
+
+
+        }else if(this.state.seoFriendly) {
+
+            url = `${window.location.pathname}`
+        }
+
+        if (parsed.page) {
+            url += `${is_params_exist ? '&' : '?'}page=${parsed.page}`
         }
 
         return url
@@ -204,33 +250,95 @@ class IpdHospitalView extends React.Component{
 		this.getIpdHospitalList(this.props)
 	}
 
+    getMetaTagsData(seoData) {
+        let title = "Hospital Search"
+        if (this.state.seoFriendly) {
+            title = ""
+        }
+        let description = ""
+        if (seoData) {
+            title = seoData.title?seoData.title:title
+            description = seoData.description || ""
+        }
+        return { title, description }
+    }
+
 	render(){
 		let { hospital_list } = this.props
+        let url = `${CONFIG.API_BASE_URL}${this.props.location.pathname}`
+        url = url.replace(/&page=\d{1,}/, "")
+        let page = ""
+        let curr_page = parseInt(this.props.page)
+        let prev = ""
+        if (curr_page > 1) {
+            page = `?page=${curr_page}`
+            prev = url
+            if (curr_page > 2) {
+                prev += `?page=${curr_page - 1}`
+            }
+        }
+        let next = ""
+        let count = this.props.hospital_search_results && this.props.hospital_search_results.count?parseInt(this.props.hospital_search_results.count):0
+
+        if (count > curr_page * 20) {
+            next = url + `?page=${curr_page + 1}`
+        }
+
+        // do not set rel next/prev for non seoFriendly pages
+        if (!this.state.seoFriendly) {
+            next = ""
+            prev = ""
+        }
+
 		return(
 				<div className="profile-body-wrap">
+                <HelmetTags tagsData={{
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+                    title: this.getMetaTagsData(this.props.hospitalSearchSeoData).title,
+                    description: this.getMetaTagsData(this.props.hospitalSearchSeoData).description,
+                    prev: prev,
+                    next: next
+                }} />
                 <ProfileHeader showSearch={true} />
-	                <section className="container parent-section book-appointment-section breadcrumb-mrgn">
-
-		                <div className="row main-row parent-section-row">
-		                    <LeftBar />
-		                    <div className="col-12 col-md-7 col-lg-7 center-column">
-		                    	<StickyTopBarFilter {...this.props} fetchNewResults={this.getMoreResults.bind(this)}/>
-		                    	<div className ="ipd-section">
-		                    		{
-		                    			hospital_list.length>0?
-		                    			<div className="tab-content">
-								            <div className="tab-pane fade" id="nav-hospital">
-								            	<IpdHospitalList {...this.props} />
-											</div>
-							            </div>
-							            :''
-		                    		}
-		                    		
-		                    	</div>
-		                    </div>
-		                    <RightBar extraClass=" chat-float-btn-2"/>
-		                </div>
-		            </section>
+                    {
+                        this.props.HOSPITAL_SEARCH_DATA_LOADED?
+                        <section className="container parent-section book-appointment-section breadcrumb-mrgn">
+                            {
+                                this.props.hospitalBreadcrumb && this.props.hospitalBreadcrumb.length?
+                                <BreadCrumbView breadcrumb={this.props.hospitalBreadcrumb} {...this.props}/>
+                                :''
+                            }
+                            <div className="row main-row parent-section-row">
+                                <LeftBar />
+                                <div className="col-12 col-md-7 col-lg-7 center-column">
+                                    <StickyTopBarFilter {...this.props} fetchNewResults={this.getMoreResults.bind(this)}/>
+                                    <div className ="ipd-section">
+                                        {
+                                            hospital_list.length>0?
+                                            <div className="tab-content">
+                                                <div className="tab-pane fade" id="nav-hospital">
+                                                    <IpdHospitalList {...this.props} getIpdHospitalList={this.getIpdHospitalList.bind(this)}/>
+                                                </div>
+                                            </div>
+                                            :''
+                                        }
+                                        
+                                    </div>
+                                </div>
+                                <RightBar extraClass=" chat-float-btn-2"/>
+                            </div>
+                        </section>
+                        :<Loader />
+                    }
+	                
+                    {
+                        this.props.hospital_bottom_content && this.props.hospital_bottom_content.length && parseInt(this.props.page) == 1 ?
+                            <div className="col-12 mrt-20">
+                                <div className="search-result-card-collpase" dangerouslySetInnerHTML={{ __html: this.props.hospital_bottom_content }}>
+                                </div>
+                            </div>
+                            : ''
+                    }
 		            <Footer />
 	           	</div>
 

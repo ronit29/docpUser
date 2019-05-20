@@ -14,7 +14,7 @@ class SearchCriteria extends React.Component {
     // }
 
     componentDidMount() {
-        this.props.loadOPDCommonCriteria()
+        this.props.loadOPDCommonCriteria(this.props.selectedLocation.locality||'')
         this.props.resetFilters()
     }
 
@@ -44,7 +44,8 @@ const mapStateToProps = (state) => {
     } = state.SEARCH_CRITERIA_OPD
 
     const {
-        is_login_user_insured
+        is_login_user_insured,
+        insurance_status
     } = state.USER
 
     return {
@@ -56,13 +57,14 @@ const mapStateToProps = (state) => {
         filterCriteria,
         locationType,
         procedure_categories,
-        is_login_user_insured
+        is_login_user_insured,
+        insurance_status
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
+        loadOPDCommonCriteria: (selectedLocation) => dispatch(loadOPDCommonCriteria(selectedLocation)),
         toggleOPDCriteria: (type, criteria) => dispatch(toggleOPDCriteria(type, criteria)),
         getOPDCriteriaResults: (searchString, callback) => dispatch(getOPDCriteriaResults(searchString, callback)),
         resetFilters: () => dispatch(resetFilters()),

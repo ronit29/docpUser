@@ -1,12 +1,15 @@
-import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET_IPD_SEARCH_ID, SAVE_IPD_RESULTS_WITH_SEARCHID, GET_IPD_SEARCH_ID_RESULTS, GET_IPD_HOSPITAL_DETAIL, CLEAR_IPD_SEARCH_IDS, GET_IPD_HOSPITAL_DETAIL_START, LOADED_IPD_INFO_START } from '../../constants/types';
+import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET_IPD_SEARCH_ID, SAVE_IPD_RESULTS_WITH_SEARCHID, GET_IPD_SEARCH_ID_RESULTS, GET_IPD_HOSPITAL_DETAIL, CLEAR_IPD_SEARCH_IDS, GET_IPD_HOSPITAL_DETAIL_START, LOADED_IPD_INFO_START, START_HOSPITAL_SEARCH } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm'
 
-export const getIpdInfo = (ipd_id, selectedLocation) => (dispatch) => {
+export const getIpdInfo = (ipd_id, selectedLocation, url=null, cb) => (dispatch) => {
 
     let lat = 28.644800
     let long = 77.216721
     let place_id = ""
+    let locality = ""
+    let sub_locality = ""
+
 
     dispatch({
         type: LOADED_IPD_INFO_START
@@ -18,15 +21,28 @@ export const getIpdInfo = (ipd_id, selectedLocation) => (dispatch) => {
         place_id = selectedLocation.place_id || ""
         if (typeof lat === 'function') lat = lat()
         if (typeof long === 'function') long = long()
+        locality = selectedLocation.locality || ""
+        sub_locality = selectedLocation.sub_locality || ""
+    }else{
+        locality = 'Delhi'
     }
 
-    return API_GET(`/api/v1/doctor/ipd_procedure/${ipd_id}?long=${long}&lat=${lat}`).then(function (response) {
+    let api_url = ''
+
+    if(url) {
+        api_url = `api/v1/doctor/ipd_procedure_by_url/${url}?city=${locality}`
+    }else{
+        api_url = `/api/v1/doctor/ipd_procedure/${ipd_id}?long=${long}&lat=${lat}&city=${locality}`
+    }
+
+    return API_GET(api_url).then(function (response) {
         dispatch({
             type: LOADED_IPD_INFO,
             payload: response
         })
+        if(cb) cb(response)
     }).catch( function(error) {
-        
+        if(cb) cb(null)
     })
 }
 
@@ -39,7 +55,34 @@ export const toggleIPDCriteria = (criteria, forceAdd= false) => (dispatch) => {
 	})
 } 
 
-export const submitIPDForm = (formData, cb) => (dispatch) => {
+export const submitIPDForm = (formData, selectedLocation, cb) => (dispatch) => {
+
+    let lat = 28.644800
+    let long = 77.216721
+    let place_id = ""
+    let locality = ""
+    let sub_locality = ""
+
+    if (selectedLocation) {
+        lat = selectedLocation.geometry.location.lat
+        long = selectedLocation.geometry.location.lng
+        place_id = selectedLocation.place_id || ""
+        if (typeof lat === 'function') lat = lat()
+        if (typeof long === 'function') long = long()
+        locality = selectedLocation.locality || ""
+        sub_locality = selectedLocation.sub_locality || ""
+    }else{
+        locality = 'Delhi'
+    }
+
+    if(formData) {
+        formData.lat = lat
+        formData.long = long
+        formData.locality = locality
+        formData.sub_locality = sub_locality
+    }
+
+
     return API_POST('/api/v1/doctor/ipd_procedure/create_lead', formData).then(function(response) {
         if(cb) cb(null, response)
     }).catch(function(error){
@@ -47,7 +90,7 @@ export const submitIPDForm = (formData, cb) => (dispatch) => {
     })
 }
 
-export const getIpdHospitals = (state, cb) => (dispatch) => {
+export const getIpdHospitals = (state, page=1, fromServer, searchByUrl, cb) => (dispatch) => {
 
     let lat = 28.644800
     let long = 77.216721
@@ -69,10 +112,27 @@ export const getIpdHospitals = (state, cb) => (dispatch) => {
 
     let ipd_id = commonSelectedCriterias.map(x=>x.id)
 
-    let url = `/api/v1/doctor/ipd_procedure/${ipd_id}/hospitals?long=${long}&lat=${lat}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}`
-    return API_GET(url).then( function (response) {
+    let url = `/api/v1/doctor/ipd_procedure/${ipd_id}/hospitals?`
+    
+    if (searchByUrl) {
+        url = `/api/v1/doctor/hospitalsearch_by_url/${searchByUrl.split('/')[1]}?`
+    }
 
-        let commonCriteria = [response.ipd_procedure]
+    url+= `long=${long}&lat=${lat}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&page=${page}`
+
+    if(parseInt(page)==1) {
+        dispatch({
+            type: START_HOSPITAL_SEARCH
+        })    
+    }
+    
+
+    return API_GET(url).then( function (response) {
+        let commonCriteria = []
+
+        if(response.ipd_procedure && response.ipd_procedure.id) {
+            commonCriteria = [response.ipd_procedure]
+        }
 
         dispatch({
             type: MERGE_IPD_CRITERIA,
@@ -85,15 +145,26 @@ export const getIpdHospitals = (state, cb) => (dispatch) => {
         dispatch({
             type: SAVE_IPD_RESULTS_WITH_SEARCHID,
             payload: response,
-            page: 1
+            page: page
         })
 
         dispatch({
             type: GET_IPD_HOSPITALS,
-            payload: response
+            payload: response,
+            page: page
         })
 
-        if(cb)cb(true)
+        if(cb){
+
+            if(response.result && response.result.length == 0){
+                if(cb) cb(false,false)
+
+            }else if(response.result && response.result.length == 50){
+                if(cb) cb(true, true)
+            }
+
+            if(cb) cb(false, true)
+        }
 
     }).catch( function (error) {
         dispatch({
@@ -112,6 +183,7 @@ export const mergeIpdCriteria = (filterCriteria) => (dispatch) => {
 } 
 
 export const setIpdSearchId = (search_id, filters, page=1) => (dispatch) => {
+
     dispatch({
         type: SET_IPD_SEARCH_ID,
         payload: filters,
@@ -121,6 +193,7 @@ export const setIpdSearchId = (search_id, filters, page=1) => (dispatch) => {
 }
 
 export const getIpdSearchIdResults = (search_id, response) => (dispatch) => {
+    
     dispatch({
         type: GET_IPD_SEARCH_ID_RESULTS,
         searchId: search_id
@@ -132,7 +205,7 @@ export const getIpdSearchIdResults = (search_id, response) => (dispatch) => {
     })
 }
 
-export const getHospitaDetails = (hospitalId, selectedLocation) => (dispatch) => {
+export const getHospitaDetails = (hospitalId, selectedLocation, searchByUrl=null, specialization_id='', cb) => (dispatch) => {
 
     dispatch({
         type: GET_IPD_HOSPITAL_DETAIL_START
@@ -141,6 +214,8 @@ export const getHospitaDetails = (hospitalId, selectedLocation) => (dispatch) =>
     let lat = 28.644800
     let long = 77.216721
     let place_id = ""
+    let locality = ""
+    let sub_locality = ""
 
     if (selectedLocation) {
         lat = selectedLocation.geometry.location.lat
@@ -148,13 +223,22 @@ export const getHospitaDetails = (hospitalId, selectedLocation) => (dispatch) =>
         place_id = selectedLocation.place_id || ""
         if (typeof lat === 'function') lat = lat()
         if (typeof long === 'function') long = long()
+        locality = selectedLocation.locality || ""
+        sub_locality = selectedLocation.sub_locality || ""
+    }
+    
+    let url = `/api/v1/doctor/hospital/${hospitalId}?long=${long}&lat=${lat}&city=${locality}&specialization_ids=${specialization_id}`
+
+    if (searchByUrl) {
+        url = `/api/v1/doctor/hospital_by_url?url=${searchByUrl.split('/')[1]}&city=${locality}&specialization_ids=${specialization_id}`
     }
 
-    return API_GET(`/api/v1/doctor/hospital/${hospitalId}?long=${long}&lat=${lat}`).then( function( response) {
+    return API_GET(url).then( function( response) {
         dispatch({
             type: GET_IPD_HOSPITAL_DETAIL,
             payload: response
         })
+        if(cb)cb(response)
 
     }).catch( function( error) {
 
