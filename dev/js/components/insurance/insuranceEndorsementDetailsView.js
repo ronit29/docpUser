@@ -430,7 +430,7 @@ class InsuranceEndoresmentInputView extends React.Component{
     		document.getElementById(member_ref).scrollIntoView();
     	}else{
     		this.SaveUserData(this.props,edited_fields)
-			// this.props.history.push('/insurance/insurance-user-details-review?is_endorsement=true')
+			this.props.history.push('/insurance/insurance-user-details-review?is_endorsement=true')
     	}
     }
 
@@ -467,7 +467,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 							checkForValidation ={this.checkForValidation.bind(this)} 
 							id={`member_${0}`} 
 							validateErrors={this.state.validateErrors['1'] || []} 
-							validateOtherErrors={this.state.validateOtherErrors['1'] || []} 
+							validateOtherErrors={this.state.validateOtherErrors['0'] || []} 
 							createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[1]:[]}
 							show_selected_profiles={this.state.show_selected_profiles} 
 							validateDobErrors={[]} 
@@ -494,7 +494,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 									param_id = {i} 
 									member_view_id= {i} 
 									validateErrors={this.state.validateErrors[i] || []} 
-									validateOtherErrors={this.state.validateOtherErrors['0'] || []} 
+									validateOtherErrors={[]} 
 									createApiErrorsChild={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members:[]} 
 									show_selected_profiles={this.state.show_selected_profiles} 
 									validateDobErrors={this.state.validateDobErrors[i] || []} 
@@ -508,7 +508,8 @@ class InsuranceEndoresmentInputView extends React.Component{
 					}
 				})
 			}
-		return(
+
+			return(
 			<div className="profile-body-wrap">
 	            <ProfileHeader /> 
 				<section className="container container-top-margin">

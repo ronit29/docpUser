@@ -492,6 +492,11 @@ class InsuranceSelf extends React.Component{
 
 							</div>
 						}
+
+						{
+							this.props.validateOtherErrors.indexOf('title')> -1?
+							<span className="fill-error-span" style={{marginTop:'-13px'}}>{this.props.errorMessages['sameGenderTitle']}</span>:''	
+						}
 						
 					</div>
 					<div className="col-6">
@@ -566,6 +571,10 @@ class InsuranceSelf extends React.Component{
 						{
 							show_createApi_keys.indexOf('gender')> -1?
 							<span className="fill-error-span">{this.props.createApiErrors.gender[0]}</span>:''	
+						}
+						{
+							this.props.validateOtherErrors.indexOf('gender')> -1?
+							<span className="fill-error-span">{this.props.errorMessages['shouldGenderTitle']}</span>:''	
 						}
 					</div>
 					<div className="col-12">
