@@ -184,11 +184,15 @@ class IpdTabForm extends React.Component {
 						<h4 className="section-heading pt-0">{`Get Cost Estimate of ${ipd_info.about.name}`}</h4>
 						: ''
 				}
-
-				<div className="lead-form">
-					<h2 className="section-heading hd-mrgn-top">Get Help from Medical Experts</h2>
+				{
+					this.props.tabView?
+					<div className="lead-form">
+						<h2 className="section-heading hd-mrgn-top">Get Help from Medical Experts</h2>
+					
+					</div>
+					:''	
+				}
 				
-				</div>
 				<div className="info-popup">
 					<div className="form-group fm-grp mt-0">
 						<div className="lbl-txt">Name:</div>
