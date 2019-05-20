@@ -3481,7 +3481,7 @@ border: 1px solid #aaaa;
 	}
 	
 	div.search-el-popup{
-		width: 80%;
+		width: 80% !important;
 	}
 	header.searcLocationHeaderPadding{
 		padding-top: 70px !important;

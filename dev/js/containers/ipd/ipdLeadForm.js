@@ -76,8 +76,8 @@ class IpdLeadForm extends React.Component{
 				e.preventDefault()
 				e.stopPropagation()
 				this.props.submitLeadFormGeneration(true)} }>
-				<div className="search-el-popup">
-					<div className="widget">
+				<div className="search-el-popup ipd-pop-width">
+					<div className="widget p-2">
 						{
 							this.state.showForm?
 							<div className="p-relative">

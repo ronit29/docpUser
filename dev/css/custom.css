@@ -964,4 +964,7 @@ button.ipd-inp-sbmt {
 .ipd-inp-done{
 	text-align: center;
 }
+.search-el-popup.ipd-pop-width{
+	width: 25%;
+}
 /* ============ ipd tabs ============ */
