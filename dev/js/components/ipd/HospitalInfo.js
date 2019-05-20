@@ -30,7 +30,7 @@ class HospitalInfoView extends React.Component{
                 {
                   hospital_data.logo?
                   <div className="hosNme">
-                    <div className="hs-nme hsptName popupTopChange">
+                    <div className={`hs-nme hsptName ${this.props.showPopup?'popupTopChange':''}`}>
                        <img src={hospital_data.logo} alt="" className="img-fluid" />  
                     </div> 
                   </div>

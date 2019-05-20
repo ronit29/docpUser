@@ -181,7 +181,7 @@ class HospitalDetailView extends React.Component {
 								:''
 							}
 
-							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} />
+							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} showPopup={this.state.showLeadForm}/>
 
 							<div className="ipd-tabs-container">
 								<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'doctors' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'doctors')}>Doctors</p>
