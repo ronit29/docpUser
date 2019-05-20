@@ -973,4 +973,10 @@ div.onln-cnslt-head {
 	font-size: 13px;
 	margin-bottom: 10px;
 }
+button.ins-cn-btn img {
+	width: 20px;
+	margin-right: 10px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
 /* ============ cancel insurance ============ */
