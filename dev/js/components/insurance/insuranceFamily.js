@@ -43,6 +43,9 @@ class InsuranceOthers extends React.Component {
 	    			})
 			}else{
 				if(this.props.user_data && this.props.user_data.length > 0){
+					if(this.props.user_data[0].relation == 'spouse'){
+						this.setState({only_adult:true})
+					}
 	    			this.setState({...this.props.user_data[0], name:this.props.user_data[0].first_name,member_type:this.props.member_type, profile_id:this.props.user_data[0].profile,is_change:false},()=>{
 	    				this.handleSubmit(true)
 	    			})
@@ -239,7 +242,7 @@ class InsuranceOthers extends React.Component {
         });
     }	
 	render() {
-		// console.log(this.props.validateOtherErrors)
+		console.log(this.props.validateOtherErrors)
 		// console.log('validateOtherErrors')
 		// console.log(this.props.validateErrors)
 		// console.log('validateErrors')

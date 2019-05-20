@@ -153,7 +153,12 @@ class InsuranceEndoresmentInputView extends React.Component{
     		// }else{
     		// 	self_profile  = Object.assign({}, this.props.self_data_values[0])
     		// }
-    		self_profile  = Object.assign({}, this.props.self_data_values[0])
+    		// self_profile  = Object.assign({}, this.props.self_data_values[0])
+    		this.props.currentSelectedInsuredMembersId.map((val,key) => {
+    			if(this.props.self_data_values[val[key]].relation == 'self'){
+    				self_profile  = Object.assign({}, this.props.self_data_values[val[key]])
+    			}
+    		})
     	}
     	this.props.currentSelectedInsuredMembersId.map((val,key) => {
     		if(Object.keys(this.props.self_data_values).length > 0){
@@ -232,6 +237,12 @@ class InsuranceEndoresmentInputView extends React.Component{
 						if(self_profile.title == param.title){
 							is_disable = true
 							empty_feilds.push('title')	
+						} 
+					}
+					if(param.only_adult && param.gender !== ""){
+						if(self_profile.gender == param.gender){
+							is_disable = true
+							empty_feilds.push('gender')	
 						} 
 					}
 					if(param.gender != '' && param.title !=''){
@@ -419,7 +430,7 @@ class InsuranceEndoresmentInputView extends React.Component{
     		document.getElementById(member_ref).scrollIntoView();
     	}else{
     		this.SaveUserData(this.props,edited_fields)
-			this.props.history.push('/insurance/insurance-user-details-review?is_endorsement=true')
+			// this.props.history.push('/insurance/insurance-user-details-review?is_endorsement=true')
     	}
     }
 
@@ -483,7 +494,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 									param_id = {i} 
 									member_view_id= {i} 
 									validateErrors={this.state.validateErrors[i] || []} 
-									validateOtherErrors={[]} 
+									validateOtherErrors={this.state.validateOtherErrors['0'] || []} 
 									createApiErrorsChild={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members:[]} 
 									show_selected_profiles={this.state.show_selected_profiles} 
 									validateDobErrors={this.state.validateDobErrors[i] || []} 
@@ -497,7 +508,6 @@ class InsuranceEndoresmentInputView extends React.Component{
 					}
 				})
 			}
-
 		return(
 			<div className="profile-body-wrap">
 	            <ProfileHeader /> 

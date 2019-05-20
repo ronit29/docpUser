@@ -37,7 +37,8 @@ class InsuranceSelf extends React.Component{
     	    disableName:false,
     	    disableEmail:false,
     	    disableDob:false,
-    	    is_change:false
+    	    is_change:false,
+    	    only_adult:true
 
         }
     	this.handleSubmit = this.handleSubmit.bind(this);
