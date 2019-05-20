@@ -244,7 +244,7 @@ class DoctorsList extends React.Component {
                                                             }
 
                                                             {
-                                                                !this.state.sort_order && ( (i==5 && this.state.availability && !this.state.availability.length) || (i==3 && this.state.availability && this.state.availability.length) )?
+                                                                this.props.insurance_status != 1 && !this.state.sort_order && ( (i==5 && this.state.availability && !this.state.availability.length) || (i==3 && this.state.availability && this.state.availability.length) )?
                                                                 <div className="sort-sub-filter-container mb-3">
                                                                     <p>You are looking <span className="fw-700">Price Variant?</span><span className="fw-700" onClick={this.viewMoreClicked.bind(this)}>more filters</span></p>
                                                                     <div className="srt-sb-btn-cont">
