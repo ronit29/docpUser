@@ -481,7 +481,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 									is_child_only={true} 
 									id={`member_${i+1}`} 
 									param_id = {i} 
-									member_view_id= {i+1} 
+									member_view_id= {i} 
 									validateErrors={this.state.validateErrors[i] || []} 
 									validateOtherErrors={[]} 
 									createApiErrorsChild={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members:[]} 
