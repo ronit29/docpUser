@@ -894,6 +894,9 @@ div.onln-cnslt-head {
 	margin: 0 -15px 15px -15px !important;
 	top: 89px !important;
 }
+.popupTopChange{
+	top:60px;
+}
 }
 .ipd-tb-tabs {
 	font-size: 13px;
@@ -926,8 +929,8 @@ div.onln-cnslt-head {
 }
 .ipd-pop-cls{
 	position: absolute;
-	right: 0;
-	top: 0;
+	right: -10px;
+	top: -8px;
 	cursor: pointer;
 }
 .ipd-needHelp{
@@ -968,4 +971,12 @@ button.ipd-inp-sbmt {
 .search-el-popup.ipd-pop-width{
 	width: 25%;
 }
+.p-12{
+	padding: 12px !important;
+}
+.hsptl-img{
+	white-space: nowrap;
+	overflow: auto;
+}
+
 /* ============ ipd tabs ============ */

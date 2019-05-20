@@ -92,7 +92,7 @@ class IpdLeadForm extends React.Component{
 				e.stopPropagation()
 				this.closePopUpClicked()} }>
 				<div className="search-el-popup ipd-pop-width">
-					<div className="widget p-2">
+					<div className="widget p-12">
 						{
 							this.state.showForm?
 							<div className="p-relative">
