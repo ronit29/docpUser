@@ -6,7 +6,7 @@ class HospitalServicesView extends React.Component  {
 		let { hospital_data } = this.props
 		return(
 			<div className="hs-card">
-	           <div className="card-head">Services</div>   
+	           <div className="card-head"><h2 className="dsply-ipd-hdng">Services</h2></div>   
 	           <div className="card-body clearfix">
 	             <ul className="hs-services">
 	             	{

@@ -148,7 +148,7 @@ const mapDispatchToProps = (dispatch) => {
         savePincode: (pincode) => dispatch(savePincode(pincode)),
         getAllRatings: (content_type, object_id, page, cb) => dispatch(getAllRatings(content_type, object_id, page, cb)),
         selectSearchType: (type) => dispatch(selectSearchType(type)),
-        getDownloadAppBannerList: () => dispatch(getDownloadAppBannerList())
+        getDownloadAppBannerList: (cb) => dispatch(getDownloadAppBannerList(cb))
     }
 }
 

@@ -11,6 +11,7 @@ import { AssertionError } from 'assert';
 const queryString = require('query-string');
 import HelmetTags from '../commons/HelmetTags'
 import CONFIG from '../../config'
+import GTM from '../../helpers/gtm.js'
 
 class Insurance extends React.Component {
 	constructor(props) {
@@ -24,13 +25,31 @@ class Insurance extends React.Component {
 			selected_plan_data: this.props.selected_plan ? this.props.selected_plan : '',
 			showPopup: false,
 			shortURL: "",
-			isLead: ''
+			isLead: '',
+			checkIdleTimeout:true,
+			popupClass: '',
+			overlayClass: '',
+			identifyUserClick:''
 		}
 	}
 	componentDidMount() {
 		// if (STORAGE.checkAuth()) {
 		// 	this.props.getUserProfile()
 		// }
+		let lead_data = queryString.parse(this.props.location.search)
+		let phoneNumber = ''
+		if (!STORAGE.checkAuth() && lead_data.page_source == 'banner') {
+			this.setState({checkIdleTimeout:false, showPopup:true, popupClass: 'translucent-popup', overlayClass: 'white-overlay', identifyUserClick:'bannerClick'})
+		let data = {
+				'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopup', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-click', 'click_value': 'bannerClick'
+			}
+
+		GTM.sendEvent({ data: data })
+		}
+		if (STORAGE.checkAuth() && this.props.USER && this.props.USER.primaryMobile != '') {
+            phoneNumber = this.props.USER.primaryMobile
+        }
+        this.props.generateInsuranceLead('',phoneNumber,lead_data)
 		let selectedId = this.props.selected_plan ? this.props.selected_plan.id : ''
 		if (selectedId) {
 			this.selectPlan(this.props.selected_plan)
@@ -40,7 +59,38 @@ class Insurance extends React.Component {
 				this.textInput.click()
 			}
 		}
+		if(this.state.checkIdleTimeout && !STORAGE.checkAuth()){
+			this.setState({popupClass: 'translucent-popup', overlayClass: 'white-overlay'})
+			this.inactivityTime()
+		}
 	}
+
+	inactivityTime() {
+    var time;
+    let self =  this
+    window.onload = resetTimer;
+    document.onmousemove = resetTimer;
+    document.onkeypress = resetTimer;
+    resetTimer()
+	    function stop() {
+	    	let data = {
+				'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopup', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-click', 'click_value': 'AutoClick'
+				}
+				GTM.sendEvent({ data: data })
+	        if(document.getElementById('proceedLead')){
+	        	document.getElementById('proceedLead').click()
+	        	self.setState({checkIdleTimeout:false, identifyUserClick:'AutoClick'})
+	        }
+	    }
+
+	    function resetTimer() {
+	        clearTimeout(time);
+	        if(self.state.checkIdleTimeout){
+	        	time = setTimeout(stop, 5000)	
+	        }
+	    }
+	}
+
 	componentWillReceiveProps(props) {
 		// let self = this
 		// let selectedId = this.props.selected_plan?this.props.selected_plan.id:''
@@ -73,7 +123,7 @@ class Insurance extends React.Component {
 		let memberStoreDataLength
 		let membersArray = []
 		let profilesArray = []
-		let utm_source
+		let lead_data
 		// plan.plan_name = this.props.insurnaceData['insurance'][0].name
 		// plan.logo = this.props.insurnaceData['insurance'][0].logo 
 		// plan.insurer_document = this.props.insurnaceData['insurance'][0].insurer_document   	
@@ -87,8 +137,8 @@ class Insurance extends React.Component {
 				phoneNumber = this.props.USER.primaryMobile
 			}
 			if (Object.keys(plan).length > 0) {
-				utm_source = parsed.utm_source
-				this.props.generateInsuranceLead(plan.id, phoneNumber,utm_source)
+				lead_data = parsed
+				this.props.generateInsuranceLead(plan.id, phoneNumber,lead_data)
 			}
 			profileLength = Object.keys(this.props.USER.profiles).length
 			memberStoreDataLength = Object.keys(this.props.self_data_values).length
@@ -148,7 +198,14 @@ class Insurance extends React.Component {
 	}
 
 	proceedLead(type) {
-		this.setState({ isLead: type, showPopup: true })
+		if(!this.state.checkIdleTimeout){
+			let data = {
+				'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopup', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-click', 'click_value': 'userClick', type:type
+			}
+			this.setState({popupClass: '', overlayClass: ''})
+			GTM.sendEvent({ data: data })
+		}
+		this.setState({ isLead: type, showPopup: true, identifyUserClick:'userClick' })
 	}
 
 	closeLeadPopup(){
@@ -248,7 +305,7 @@ class Insurance extends React.Component {
 								</section>
 
 								{this.state.showPopup ?
-									<InsurPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)}/> : ''
+									<InsurPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} popupClass={this.state.popupClass} overlayClass={this.state.overlayClass} identifyUserClick={this.state.identifyUserClick}/> : ''
 								}
 								{
 									STORAGE.checkAuth() ?
@@ -258,7 +315,7 @@ class Insurance extends React.Component {
 										<div className="sticky-btn fixed insuBtnsContainer">
 											<button className="insu-left-white-btn" onClick={this.proceedLead.bind(this, 'interest')}>Click here to know more
 											</button>
-											<button className="insu-right-orng-btn" onClick={this.proceedLead.bind(this, 'proceed')}>Proceed {this.state.selected_plan_price} <span className="foot-btn-sub-span">{this.state.gst}</span>
+											<button className="insu-right-orng-btn" id="proceedLead" onClick={this.proceedLead.bind(this, 'proceed')}>Proceed {this.state.selected_plan_price} <span className="foot-btn-sub-span">{this.state.gst}</span>
 											</button>
 										</div>
 								}

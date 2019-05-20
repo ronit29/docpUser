@@ -4,6 +4,8 @@ import RightBar from '../../../commons/RightBar'
 import ProfileHeader from '../../../commons/DesktopProfileHeader'
 import Footer from '../../../commons/Home/footer'
 import GTM from '../../../../helpers/gtm.js'
+import HelmetTags from '../../../commons/HelmetTags'
+import CONFIG from '../../../../config'
 
 const queryString = require('query-string');
 
@@ -16,7 +18,8 @@ const queryString = require('query-string');
           tabsValue:[],
           viewAll:true,
           isDiffChecked:false,
-          isDiffTest:''
+          isDiffTest:'',
+          readMore: 'search-details-data-less'
         }
     }
 
@@ -93,7 +96,7 @@ const queryString = require('query-string');
             if (url) {
                 this.props.history.push(`/${url}`)
             } else {
-                this.props.history.push(`/lab/${id}`)
+                this.props.history.push(`/lab/${id}/book`)
             }
         }
     }
@@ -231,6 +234,13 @@ const queryString = require('query-string');
       this.props.history.push('/search?from=header')
     }
 
+    toggleScroll() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+        this.setState({ readMore: 'search-details-data-less' })
+    }
+
     render() {
       let self=this
       let availableTest= []
@@ -239,13 +249,37 @@ const queryString = require('query-string');
     if(this.props.showCompare && this.props.data != null){
      return (
           <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
+              <HelmetTags tagsData={{
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}`,
+                    title: `${this.props.data.title || ''}`,
+                    // description: `${this.props.data.description || ''}`
+                }} noIndex={false} />                
               <ProfileHeader />
-                <section className="pkgComapre container" style={{marginTop: 44}}>
+              <section className="pkgComapre container pkgMrgnAdjst" >
                   <div className="row main-row parent-section-row">
                     <LeftBar />
                     {/*compare screen*/}
                     <div className="container-fluid pad-all-0">
-                      
+                      {this.props.data.title?
+                        <div className="pkgSliderHeading mrt-20"><h5 style={{fontSize:'16px', paddingLeft:'10px'}} >{this.props.data.title}</h5></div>
+                      :''}
+                      {this.props.data.search_content?
+                        <div className="search-result-card-collpase" style={{borderRadius: '0px'}}>
+                            <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.data.search_content }} >
+                            </div>
+
+                            {this.state.readMore && this.state.readMore != '' ?
+                                <span className="rd-more" onClick={() => this.setState({ readMore: '' })}>Read More</span>
+                                : ''
+                            }
+
+                            {this.state.readMore == '' ?
+                                <span className="rd-more" onClick={this.toggleScroll.bind(this)}>Read Less</span>
+                                : ''
+                            }
+
+                        </div>
+                        : ''}
                       <div className="sticky-multiple-pkgs">
                         <div className="multi-pkg-cmpre ease-hide" id="showDiff">
                           <div className="tgle-btn">
@@ -270,19 +304,22 @@ const queryString = require('query-string');
                                 return <li key={i} id={'pkg_'+packages.id}>
                                      <img src={ASSETS_BASE_URL + "/images/packageCompare/red-cut.png"} alt="" className="end-div" onClick={this.toggleComparePackages.bind(this,packages.id,packages.lab.id,packages.lab.thumbnail,packages.lab.name)}/>
                                     
-                                      <div className="pkg-hd">{packages.name}</div>
+                                      <div className="pkg-hd">{packages.name} {packages.total_parameters_count>0?
+                                        `(${packages.total_parameters_count} tests)`:''} </div>
                                       {/*<div className="pkg-hd-by" id={"hide_av_" + packages.id}>Available in {packages.total_labs_available} Labs</div>*/}
                                       <div className="pkg-hd-by fw-500 ease-hide" id={"hide_av_" + packages.id+'_'+packages.lab.id}>{packages.lab.name}</div>
-                                      
-                                      <h3 className="lab-fltr-dc-name fw-500 pkg-include">{packages.total_parameters_count} Tests Included</h3>
-                                      <div className="pkg-card-price">
-                                      <p className="fw-500" id={"hide_strt_" + packages.id}>₹ {parseInt(packages.price)}
-                                          <span className="pkg-cut-price">₹ {parseInt(packages.mrp)}</span>
-                                      </p>
-                                      
-                                      </div>
+
+                                      {/* <h3 className="lab-fltr-dc-name fw-500 pkg-include">{packages.total_parameters_count} Tests Included</h3> */}
+                                      {/* <div className="pkg-card-price">
+
+
+                                      </div> */}
                                       {/*<p className="pkg-discountCpn" id={"hide_coupon_"+ packages.id}>Includes coupon</p>*/}
-                                      <a onClick={this.bookNow.bind(this,packages.lab.id,'',packages.id,packages.lab.name)}><button className="pkg-btn-nw">Book Now </button></a>
+                                      <a onClick={this.bookNow.bind(this,packages.lab.id,'',packages.id,packages.lab.name)}><button className="pkg-btn-nw">
+                                      <p className="fw-500" id={"hide_strt_" + packages.id}>₹ {parseInt(packages.discounted_price)}
+                                          <span className="pkg-cut-price" style={{color:'#ffffff'}}>₹ {parseInt(packages.mrp)}</span>
+                                      </p>
+                                       </button></a>
                                 </li>
                               })  
                             :''
@@ -328,14 +365,17 @@ const queryString = require('query-string');
                                           cat_info.test_ids.map((test_id, k) => {
                                               testData= self.props.data.test_info.filter(x=> x.id == test_id)
                                                return <div key={k} id= {testData[0].id} className={this.state.isDiffChecked && this.state.isDiffTest.indexOf(testData[0].id) != -1?' d-none':''}>
-                                                        <div className="pkg-crd-header light-orng-header grey-head test-done" onClick={testData[0].parameters.length > 0?this.ButtonHandler.bind(this,testData[0].id):''}>
+                                                      {
+                                                        testData[0].parameters.length > 0?
+                                                        <div className="pkg-crd-header light-orng-header grey-head test-done" onClick={this.ButtonHandler.bind(this,testData[0].id)}>
                                                           <span>{testData[0].name}</span>
-                                                          {
-                                                            testData[0].parameters.length > 0?
                                                           <span className={this.state.tabsValue.indexOf(testData[0].id) > -1 ? 'acrd-arw-rotate span-img' : 'acrd-show span-img'}><img src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="" /></span>
-                                                          :''
-                                                          }
                                                         </div>
+                                                        :
+                                                        <div className="pkg-crd-header light-orng-header grey-head test-done">
+                                                          <span>{testData[0].name}</span>
+                                                        </div>
+                                                      }
                                                         <div className={"top-head-info multiple-pkgs multiple-pkgs-details" + (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':this.props.data.packages.length <= 4?' pkbclsFour':'')}>
                                                                 <ul className="pkgCls testParam new">
                                                                 {    
@@ -410,6 +450,14 @@ const queryString = require('query-string');
                       </div>
                     </div>
                   </div>
+                  {
+                  this.props.data.bottom_content && this.props.data.bottom_content.length?
+                      <div className="col-12 mrt-20">
+                          <div className="search-result-card-collpase" dangerouslySetInnerHTML={{ __html: this.props.data.bottom_content }}>
+                          </div>
+                      </div>
+                      : ''
+                  }
               </section>
           </div>
       )

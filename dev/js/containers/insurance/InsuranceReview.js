@@ -5,6 +5,7 @@ import {userData,insurancePay, resetSelectedInsuranceMembers, retrieveUserData, 
 import InsuranceReviewView from '../../components/insurance/insuranceReview.js'
 import Loader from '../../components/commons/Loader'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
+import STORAGE from '../../helpers/storage'
 
 class InsuranceReview extends React.Component{
     constructor(props) {
@@ -32,7 +33,7 @@ class InsuranceReview extends React.Component{
             <InsuranceReviewView {...this.props} data={this.state.data}/>
             )
         }else{
-            if(this.props.insurnaceData.certificate){
+            if(this.props.insurnaceData.certificate && STORAGE.checkAuth()){
                 this.props.history.push('/insurance/certificate')
             }
             return(

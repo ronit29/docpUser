@@ -22,7 +22,7 @@ class SearchResultsView extends React.Component {
         this.state = {
             //seoData, 
             footerData,
-            seoFriendly: this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit'),
+            seoFriendly: this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit') || this.props.match.url.includes('-ipddp'),
             clinic_card: this.props.location.search.includes('clinic_card') || null,
             showError: false,
             search_id: '',
@@ -72,7 +72,7 @@ class SearchResultsView extends React.Component {
                 }
                 this.setState({ search_id: search_id }, () => {
                     //Check for insured user
-                    if (this.props.is_login_user_insured) {
+                    if (this.props.is_login_user_insured && this.props.insurance_status == 1) {
                         filters.filterCriteria = { ...filters.filterCriteria }
                         filters.filterCriteria.is_insured = true
                     }
@@ -138,7 +138,7 @@ class SearchResultsView extends React.Component {
                     let new_url = this.buildURI(props)
                     this.props.history.replace(new_url)
                     //Check if user insured
-                    if (props.is_login_user_insured) {
+                    if (props.is_login_user_insured && props.insurance_status == 1) {
                         filters.filterCriteria = { ...filters.filterCriteria }
                         filters.filterCriteria.is_insured = true
                     }
@@ -325,7 +325,7 @@ class SearchResultsView extends React.Component {
 
     getDoctorList(state = null, page = null, cb = null) {
         let searchUrl = null
-        if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit')) {
+        if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit') || this.props.match.url.includes('-ipddp')) {
             searchUrl = this.props.match.url.toLowerCase()
         }
         if (page === null) {

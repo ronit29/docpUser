@@ -2008,3 +2008,152 @@ p.rt-doc-nm{
 .charSelected>span{
     color: #fff !important;
 }
+
+.inline-speciality{
+    display: inline-block;
+    margin-right: 4px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.inline-speciality h2{
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+@media(min-width:993px){
+    .test-list-container{
+        min-height: 100vh !important;
+        padding-bottom: 370px !important;
+    }
+    .stick-btm-footer{
+        margin-top: -370px !important;
+    }
+}
+
+.translucent-popup{
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+@media(max-width:992px){
+    .translucent-popup{
+        top: 45px !important;
+        bottom: unset !important;
+    }
+}
+
+.white-overlay{
+    background-color: transparent !important;
+/* insurance networks */
+}
+.ntwrk-tabs{
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+}
+
+.ntwrk-tabs div{
+    flex: 1;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+}
+
+.ntwrk-tabs div p{
+    font-size: 14px;
+}
+
+.ntwrk-list-item{
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f2f2f2;
+    padding: 8px 10px;
+}
+
+.ntwrk-list-content{
+    flex: 1;
+    padding-right: 10px;
+}
+
+.ntwrk-list-content-name{
+    font-size: 16px;
+    color: #000;
+}
+
+.ntwrk-list-content-city{
+    font-size: 12px;
+    color: #757575;
+}
+
+.ntwrk-list-dist{
+    max-width: 50px;
+}
+
+.ntwrk-list-dist>p{
+    color: #757575;
+    font-size: 12px;
+    margin: 0;
+}
+
+.ntwrk-alpha{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: auto;
+}
+
+.ntwrk-alpha::-webkit-scrollbar { 
+    display: none; 
+}
+
+.ntwrk-alpha li{
+    width: 25px;
+    text-align: left;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+.ntwrk-char{
+    color: #757575;
+    font-size: 14px;
+    display: block;
+}
+
+.alphaSelected{
+    color: #f78631;
+}
+
+.ntwrk-alpha-div{
+    padding: 6px 0px 0px;
+    position: sticky;
+    top: 16px;
+}
+
+.top-ntwrks-div{
+    padding: 10px 0 10px 10px;
+    background-color: #f8f8f8;
+    align-items: flex-start;
+}
+
+.top-ntwrks{
+    width: 80px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    cursor: pointer;
+}
+
+.top-ntwrks>p{
+    line-height: 20px;
+    letter-spacing: 1px;
+}
+
+@media(min-width:993px){
+    .ntwrk-alpha-div{
+        top: 79px;
+    }
+}

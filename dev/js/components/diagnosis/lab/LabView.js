@@ -49,7 +49,11 @@ class LabView extends React.Component {
         
                 this.props.getLabById(this.props.selectedLab, testIds)
         */
-        this.props.history.push(`/lab/${this.props.selectedLab}/book`)
+        if (this.state.seoFriendly) {
+            this.props.history.push(`${window.location.pathname}/booking?lab_id=${this.props.selectedLab}`)
+        } else {
+            this.props.history.push(`/lab/${this.props.selectedLab}/book`)
+        }
     }
 
     getMetaTagsData(seoData) {
@@ -77,7 +81,14 @@ class LabView extends React.Component {
         }
         let is_plan_applicable = false
         let is_insurance_applicable = false
+        let hide_price = false
+        let is_user_insured = false
 
+        //For Insured Person Remove unselected Tests/Packages
+
+        if (this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
+            is_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
+        }
         if (this.props.currentLabSelectedTests && this.props.currentLabSelectedTests.length) {
 
             let selectedTests = this.props.currentLabSelectedTests.filter(x => x.is_selected)
@@ -103,6 +114,10 @@ class LabView extends React.Component {
                     } else {
                         is_plan_applicable = false
                     }
+                }
+
+                if (test.hide_price) {
+                    hide_price = true
                 }
 
 
@@ -166,7 +181,7 @@ class LabView extends React.Component {
                                             canonicalUrl: `${CONFIG.API_BASE_URL}${seo_url || this.props.match.url}`
                                         }} noIndex={false && !this.state.seoFriendly} />
 
-                                        <LabDetails {...this.props} is_insurance_applicable={is_insurance_applicable} data={this.props.LABS[lab_id]} is_plan_applicable={is_plan_applicable} />
+                                        <LabDetails {...this.props} is_insurance_applicable={is_insurance_applicable} data={this.props.LABS[lab_id]} is_plan_applicable={is_plan_applicable} hide_price={hide_price} is_user_insured={is_user_insured} seoFriendly={this.state.seoFriendly}/>
 
                                         <button disabled={
                                             this.props.currentLabSelectedTests.filter(x => x.is_selected).length < 1

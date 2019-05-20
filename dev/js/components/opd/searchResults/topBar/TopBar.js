@@ -285,8 +285,8 @@ class TopBar extends React.Component {
                 <div className="filter-row sticky-header mbl-stick">
 
                     {this.props.breadcrumb && this.props.breadcrumb.length ?
-                        <div className="col-12 mrng-top-12 d-none d-md-block">
-                            <ul className="mrb-10 breadcrumb-list breadcrumb-list-ul" style={{ 'wordBreak': 'breakWord' }}>
+                        <div className="col-12 mrng-top-12 d-none d-md-block p-0">
+                            <ul className="mrb-10 breadcrumb-list " style={{ 'wordBreak': 'breakWord' }}>
                                 {
                                     this.props.breadcrumb && this.props.breadcrumb.length ?
                                         this.props.breadcrumb.map((data, key) => {
@@ -411,7 +411,7 @@ class TopBar extends React.Component {
                         </div> : ""
                     }
                     {
-                    STORAGE.checkAuth() && this.props.is_login_user_insured
+                    STORAGE.checkAuth() && this.props.is_login_user_insured && this.props.insurance_status == 1
                         ? <div className="tg-list-item">
                             <input className="tgl tgl-ios" id="lab_insurance" type="checkbox" checked={this.state.is_insured} onChange={this.toggleInsured.bind(this)} />
                             <label className="tgl-btn" htmlFor="lab_insurance"></label>

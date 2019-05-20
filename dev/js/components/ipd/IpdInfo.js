@@ -5,6 +5,10 @@ import HospitalList from './HospitalList.js'
 import DoctorResultCard from '../opd/commons/doctorResultCard'
 import Loader from '../commons/Loader'
 import GTM from '../../helpers/gtm.js'
+import HelmetTags from '../commons/HelmetTags'
+import CONFIG from '../../config'
+import BreadCrumbView from './breadCrumb.js'
+import IpdFormView from '../../containers/ipd/IpdForm.js'
 
 
 class IpdView extends React.Component {
@@ -13,7 +17,8 @@ class IpdView extends React.Component {
 		super(props)
 		this.state = {
 			toggleTabType: 'aboutTab',
-			toggleReadMore: false
+			toggleReadMore: false,
+			seoFriendly: this.props.match.url.includes('-ipdp')
 		}
 	}
 
@@ -26,12 +31,7 @@ class IpdView extends React.Component {
 		var sections = {};
 		var i = 0
 
-		let headerHeight = 0
-
-		let gtmData = {
-            'Category': 'ConsumerApp', 'Action': 'IPDInfoPageLanded', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-info-page-landed', selectedId: this.props.ipd_id || ''
-        }
-        GTM.sendEvent({ data: gtmData })
+		let headerHeight = 0	        
 
 		Object.keys(this.refs).forEach((prp, i) => {
 			
@@ -94,7 +94,15 @@ class IpdView extends React.Component {
 			commonSelectedCriterias: this.props.commonSelectedCriterias,
 			nextSelectedCriterias: this.props.commonSelectedCriterias
 		})
-		this.props.history.push(`/ipd/searchHospitals`)
+
+		if(this.props.ipd_info && this.props.ipd_info.hospitals && this.props.ipd_info.hospitals.canonical_url){
+
+			this.props.history.push(`/${this.props.ipd_info.hospitals.canonical_url}`)
+		}else{
+
+			this.props.history.push(`/ipd/searchHospitals`)
+		}
+		
 	}
 
 	viewDoctorsClicked(){
@@ -111,7 +119,15 @@ class IpdView extends React.Component {
 			criteria.name = this.props.commonSelectedCriterias[0].name
 			criteria.type = 'ipd' 
 			this.props.cloneCommonSelectedCriterias(criteria)
-			this.props.history.push(`/opd/searchresults`)	
+
+			if(this.props.ipd_info && this.props.ipd_info.doctors && this.props.ipd_info.doctors.canonical_url){
+
+				this.props.history.push(`/${this.props.ipd_info.doctors.canonical_url}`)
+			}else{
+
+				this.props.history.push(`/opd/searchresults`)
+			}
+				
 		}
 		
 	}
@@ -130,21 +146,70 @@ class IpdView extends React.Component {
 			let headerHeight = this.refs['readMoreView'].offsetTop -45
 			window.scrollTo(0,headerHeight)	
 		}
-		
-
 	}
+
+	getMetaTagsData(seoData) {
+        let title = "IPD Procedure Page"
+        if (this.state.seoFriendly) {
+            title = ""
+        }
+        let description = ""
+        if (seoData) {
+            title = seoData.title || ""
+            description = seoData.description || ""
+        }
+        return { title, description }
+    }
 
 	render(){
 
 		return(                  		
-           <div className ="ipd-section ipdSection">
-           	  <h4 className="section-heading top-sc-head"> <span className="about-head"> {`${this.props.ipd_info?this.props.ipd_info.about.name:''}`} </span>
-					</h4>
+           <div className ="ipd-section ipdSection cardMainPaddingRmv">
+           	  <HelmetTags tagsData={{
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+                    title: this.getMetaTagsData(this.props.ipd_info.seo).title,
+                    description: this.getMetaTagsData(this.props.ipd_info.seo).description
+                }} noIndex={!this.state.seoFriendly} />
+
+                {/*<ul className="mrb-10 mrt-20 breadcrumb-list" style={{ wordBreak: 'break-word' }}>
+	                <li className="breadcrumb-list-item">
+	                    <a href="/" onClick={(e) => {
+	                        e.preventDefault()
+	                        this.props.history.push('/')
+	                    }}>
+	                        <span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span>
+	                    </a>
+	                    <span className="breadcrumb-arrow">&gt;</span>
+	                </li>
+	                <li className="breadcrumb-list-item">
+	                	<a href="/" onClick={(e) => {
+	                        e.preventDefault()
+	                        this.props.history.push('/procedures')
+	                    }}>
+	                    <span className="fw-500 breadcrumb-title  breadcrumb-colored-title">All Procedures</span>
+	                    </a>
+	                    <span className="breadcrumb-arrow">&gt;</span>
+	                </li>
+	                <li className="breadcrumb-list-item">
+	                    <span className="fw-500 breadcrumb-title">{this.props.ipd_info?`${this.props.ipd_info.about.name}`:''}</span>
+	                </li>
+	            </ul>*/}
+
+	            {
+	            	this.props.ipd_info && this.props.ipd_info.breadcrumb?
+	            	<BreadCrumbView breadcrumb={this.props.ipd_info.breadcrumb} {...this.props}/>
+	            	:''
+	            }
+
+           	  <h1 className="section-heading top-sc-head pt-0"> <span className="about-head"> {`${this.props.ipd_info?`${this.props.ipd_info.about.name} Cost ${this.props.ipd_info && this.props.ipd_info.seo?`in ${this.props.ipd_info.seo.location}`:''}  `:''}`} </span>
+					</h1>
               <div className="full-widget mrg-b0 stickyBar">
                  <nav className="tab-head">
                     <div className="">
                        <div className="nav nav-tabs nav-top-head " id="nav-tab" role="tablist">
 	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='aboutTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'aboutTab')}>Overview
+	                              </a>
+	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='bookNow'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'bookNow')}>Book Now
 	                              </a>
 	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='hospitalTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'hospitalTab')}>Hospitals
 	                              </a>
@@ -157,6 +222,10 @@ class IpdView extends React.Component {
                <div className="tab-content" >
                		<div id="aboutTab" ref="aboutTab" className="nav_top_bar">
                			<IpdAboutUs {...this.props} id="aboutTab" readMoreClicked={this.readMoreClicked.bind(this)}/>
+               		</div> 
+
+               		<div id="bookNow" ref="bookNow" className="nav_top_bar">
+               			<IpdFormView {...this.props} tabView={true}/>
                		</div> 
                    	
 		            <div id="hospitalTab" ref="hospitalTab" className="tab-pane fade" className="nav_top_bar">
@@ -176,7 +245,7 @@ class IpdView extends React.Component {
 					<div id="doctorTab" ref="doctorTab" className="tab-pane fade nav_top_bar">
 						{
 							this.props.ipd_info && this.props.ipd_info.doctors && this.props.ipd_info.doctors.result  && this.props.ipd_info.doctors.result.length && this.props.ipd_info.about && this.props.ipd_info.about.name?
-							<h4 className="section-heading">{`Top Doctors for ${this.props.ipd_info.about.name} `}</h4>
+							<h2 className="section-heading hd-mrgn-top">{`Best ${this.props.ipd_info.about.name} Doctors ${this.props.ipd_info.seo?`in ${this.props.ipd_info.seo.location}`:''} `}</h2>
 							:''	
 						}
 	                    {

@@ -89,27 +89,27 @@ app.all('*', function (req, res) {
         let bootstrap_file = styleFiles[1]
 
         // use cache
-        if (req.path == "/" && last_cache_time) {
-            var startTime = last_cache_time
-            var endTime = new Date()
-            var difference = endTime.getTime() - startTime.getTime()
-            var resultInMinutes = Math.round(difference / 60000)
+        // if (req.path == "/" && last_cache_time) {
+        //     var startTime = last_cache_time
+        //     var endTime = new Date()
+        //     var difference = endTime.getTime() - startTime.getTime()
+        //     var resultInMinutes = Math.round(difference / 60000)
 
-            if (resultInMinutes > 30) {
-                last_cache_time = null
-                cache = {
-                    html: "",
-                    storeData: "",
-                    helmet: null,
-                    split_bundles: []
-                }
-            } else {
-                res.render('index.ejs', {
-                    html: cache.html, storeData: cache.storeData, helmet: cache.helmet, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles: cache.split_bundles
-                })
-                return
-            }
-        }
+        //     if (resultInMinutes > 30) {
+        //         last_cache_time = null
+        //         cache = {
+        //             html: "",
+        //             storeData: "",
+        //             helmet: null,
+        //             split_bundles: []
+        //         }
+        //     } else {
+        //         res.render('index.ejs', {
+        //             html: cache.html, storeData: cache.storeData, helmet: cache.helmet, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles: cache.split_bundles
+        //         })
+        //         return
+        //     }
+        // }
 
         /** 
          *  Track API calls for funneling 
@@ -230,12 +230,12 @@ app.all('*', function (req, res) {
                     _serverHit(req, 'server_done_ssr')
 
                     // populate cache
-                    if (req.path == "/") {
-                        last_cache_time = new Date()
-                        cache = {
-                            storeData, html, helmet, split_bundles
-                        }
-                    }
+                    // if (req.path == "/") {
+                    //     last_cache_time = new Date()
+                    //     cache = {
+                    //         storeData, html, helmet, split_bundles
+                    //     }
+                    // }
 
                     res.render('index.ejs', {
                         html, storeData, helmet, ASSETS_BASE_URL: ASSETS_BASE_URL, css_file, bootstrap_file, index_bundle, split_bundles

@@ -6,6 +6,7 @@ import InsuranceComponent from '../../components/insurance/insuranceView.js'
 import Loader from '../../components/commons/Loader'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import STORAGE from '../../helpers/storage'
+const queryString = require('query-string');
 
 class Insurance extends React.Component{
 
@@ -17,10 +18,16 @@ class Insurance extends React.Component{
     }
 
     componentDidMount() {
-        this.props.getInsurance()
+        
         if (STORAGE.checkAuth()) {
             this.props.getUserProfile()
         }
+        /*this.props.getInsurance(resp=>{
+            if(!resp.certificate){
+                this.props.generateInsuranceLead('',phoneNumber,lead_data)
+            }
+        })*/
+        this.props.getInsurance()
     }
 	render(){
         if(this.props.LOAD_INSURANCE){
@@ -28,7 +35,7 @@ class Insurance extends React.Component{
                 <InsuranceComponent {...this.props}/>
             )
         }else{
-            if(this.props.insurnaceData.certificate){
+            if(this.props.insurnaceData.certificate && STORAGE.checkAuth()){
                 this.props.history.push('/insurance/certificate')
             }
             return(
@@ -60,7 +67,7 @@ const mapDispatchToProps = (dispatch) => {
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
         resetAuth: () => dispatch(resetAuth()),
         userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),
-        generateInsuranceLead:(selectedPlan,number,cb) => dispatch(generateInsuranceLead(selectedPlan,number,cb)),
+        generateInsuranceLead:(selectedPlan,number,lead_data,cb) => dispatch(generateInsuranceLead(selectedPlan,number,lead_data,cb)),
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
     }
 }

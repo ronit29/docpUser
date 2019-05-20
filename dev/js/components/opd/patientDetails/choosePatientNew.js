@@ -19,7 +19,9 @@ class ChoosePatientNewView extends React.Component {
 
     componentDidMount() {
         if (!this.props.patient) {
-            this.profileValidation()
+            this.setState({ ...this.props.saved_patient_details },()=>{
+                this.profileValidation()
+            })
         }
     }
 
@@ -92,7 +94,7 @@ class ChoosePatientNewView extends React.Component {
         this.props.profileDataCompleted(this.state)
     }
 
-    verify() {
+    verify(resendFlag = false) {
         let self = this
 
         if (!this.state.name.match(/^[a-zA-Z ]+$/)) {
@@ -131,10 +133,17 @@ class ChoosePatientNewView extends React.Component {
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
 
-            let analyticData = {
-                'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage'
+            if(resendFlag){
+                let analyticData = {
+                    'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage'
+                }
+                GTM.sendEvent({ data: analyticData })
+            } else {
+                let analyticData = {
+                    'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage'
+                }
+                GTM.sendEvent({ data: analyticData })
             }
-            GTM.sendEvent({ data: analyticData })
 
             this.props.sendOTP(this.state.phoneNumber, (error) => {
                 if (error) {
@@ -158,7 +167,6 @@ class ChoosePatientNewView extends React.Component {
 
     }
     render() {
-
         return (
             <div className={`widget mrb-15 ${this.props.profileError ? 'rnd-error-nm' : ''}`}>
                 {
@@ -194,19 +202,19 @@ class ChoosePatientNewView extends React.Component {
                                     <div className="slt-label-radio">
                                         <div className="dtl-radio">
                                             <label className="container-radio">Male
-                                    <input type="radio" name="gender" name="gender" onClick={() => this.setState({ 'gender': 'm' })} onBlur={this.profileValidation.bind(this)} />
+                                    <input type="radio" name="gender" name="gender" checked={this.state.gender == 'm'} onClick={() => this.setState({ 'gender': 'm' })} onBlur={this.profileValidation.bind(this)} />
                                                 <span className="doc-checkmark"></span>
                                             </label>
                                         </div>
                                         <div className="dtl-radio">
                                             <label className="container-radio">Female
-                                    <input type="radio" name="gender" value="m" name="gender" onClick={() => this.setState({ 'gender': 'f' })} onBlur={this.profileValidation.bind(this)} />
+                                    <input type="radio" name="gender" value="m" name="gender" checked={this.state.gender == 'f'} onClick={() => this.setState({ 'gender': 'f' })} onBlur={this.profileValidation.bind(this)} />
                                                 <span className="doc-checkmark"></span>
                                             </label>
                                         </div>
                                         <div className="dtl-radio">
                                             <label className="container-radio">Other
-                                    <input type="radio" name="gender" name="gender" onClick={() => this.setState({ 'gender': 'o' })} onBlur={this.profileValidation.bind(this)} />
+                                    <input type="radio" name="gender" name="gender" checked={this.state.gender == 'o'} onClick={() => this.setState({ 'gender': 'o' })} onBlur={this.profileValidation.bind(this)} />
                                                 <span className="doc-checkmark"></span>
                                             </label>
                                         </div>
@@ -221,7 +229,7 @@ class ChoosePatientNewView extends React.Component {
                                     <input className="slt-text-input" autoComplete="off" type="number" placeholder="" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} onBlur={this.profileValidation.bind(this)} />
                                     {
                                         this.state.showVerify ?
-                                            <button className="mobile-fill-btn" onClick={this.verify.bind(this)}>Verify</button>
+                                            <button className="mobile-fill-btn" onClick={()=>this.verify()}>Verify</button>
                                             : ''
                                     }
                                 </div>
@@ -233,7 +241,7 @@ class ChoosePatientNewView extends React.Component {
                                                 <input className="slt-text-input" autoComplete="off" type="number" onKeyPress={this.handleOtpContinuePress.bind(this)} onChange={this.inputHandler.bind(this)} name="otp" placeholder="Enter OTP " />
                                                 <button className="mobile-fill-btn" onClick={this.submitOTPRequest.bind(this)}>Submit</button>
                                             </div>
-                                            <span className="resend-otp-btn" onClick={this.verify.bind(this)}>Resend OTP</span>
+                                            <span className="resend-otp-btn" onClick={()=>this.verify(true)}>Resend OTP</span>
                                         </div>
                                         : ''
                                 }
