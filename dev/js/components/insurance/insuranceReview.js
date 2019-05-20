@@ -216,6 +216,7 @@ class InsuranceReview extends React.Component{
 	    			}	
 	    		})
 	    	}
+	    	console.log(self_profile)
 			return(
 				<div className="profile-body-wrap">
 				<ProfileHeader />
@@ -239,7 +240,10 @@ class InsuranceReview extends React.Component{
 									{
 										self_profile.no_lname?<p style={{'textTransform': 'capitalize'}}>{self_profile.name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>:
 										<p style={{'textTransform': 'capitalize'}}>{self_profile.name} {self_profile.middle_name} {self_profile.last_name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''} 
-										{this.props.is_endorsement && self_edited_fields.length > 0 && (self_edited_fields.indexOf('first_name') != -1 || self_edited_fields.indexOf('middle_name') != -1 || self_edited_fields.indexOf('last_name') != -1)?
+										{this.props.is_endorsement && self_edited_fields.length > 0 && 
+											(self_edited_fields.indexOf('first_name') != -1 || self_edited_fields.indexOf('middle_name') != -1 || 
+												self_edited_fields.indexOf('last_name') != -1 ||
+												self_edited_fields.indexOf('gender') != -1)?
 											<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
 										:''}
 										</p>
