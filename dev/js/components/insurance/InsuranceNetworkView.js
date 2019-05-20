@@ -11,7 +11,9 @@ class InsuranceNetworkView extends React.Component {
             placeholder: '',
             searchCities: [],
             selectedChar: 0,
-            showAlphabets: true
+            showAlphabets: true,
+            topLabActive: true,
+            docSearch: 'name'
         }
     }
 
@@ -20,7 +22,12 @@ class InsuranceNetworkView extends React.Component {
             window.scrollTo(0, 0);
         }
         let searchString = this.getCharacter(this.state.selectedChar)
-        this.updateInsuranceNetwork(this.state.type, searchString)
+        if (this.state.type == 'doctor') {
+            this.updateInsuranceNetwork(this.state.type, searchString, this.state.docSearch)
+        }
+        else {
+            this.updateInsuranceNetwork(this.state.type, searchString)
+        }
         this.setState({ placeholder: `Search ${this.state.type}` })
     }
 
@@ -43,9 +50,9 @@ class InsuranceNetworkView extends React.Component {
         return String.fromCharCode(97 + index)
     }
 
-    updateInsuranceNetwork(type, string) {
+    updateInsuranceNetwork(type, string, searchBy = '') {
         let { lat, long } = this.getLocation()
-        this.props.getInsuranceNetworks(lat, long, type, string)
+        this.props.getInsuranceNetworks(lat, long, type, string, searchBy)
     }
 
     getLocation() {
@@ -67,30 +74,52 @@ class InsuranceNetworkView extends React.Component {
             this.setState({
                 type: type,
                 placeholder: 'Search doctor',
-                searchValue: ''
+                searchValue: '',
+                selectedChar: 0,
+                docSearch: 'name'
             })
+            let searchString = this.getCharacter(0)
+            this.updateInsuranceNetwork(type, searchString, 'name')
         }
         else if (type == 'lab') {
             this.setState({
                 type: type,
                 placeholder: 'Search lab',
-                searchValue: ''
+                searchValue: '',
+                topLabActive: true,
+                selectedChar: null
             })
+            this.updateInsuranceNetwork(type, '')
         }
-        let searchString = this.getCharacter(this.state.selectedChar)
-        this.updateInsuranceNetwork(type, searchString)
         this.props.setNetworkType(type)
+        this.setState({ showAlphabets: true })
     }
 
     inputHandler(e) {
         this.setState({ searchValue: e.target.value })
-        if (e.target.value) {
-            this.setState({ showAlphabets: false })
-            this.updateInsuranceNetwork(this.state.type, e.target.value)
-        } else {
-            this.setState({ showAlphabets: true })
-            let searchString = this.getCharacter(this.state.selectedChar)
-            this.updateInsuranceNetwork(this.state.type, searchString)
+        if (this.state.type == 'doctor') {
+            if (e.target.value) {
+                this.setState({ showAlphabets: false })
+                this.updateInsuranceNetwork(this.state.type, e.target.value, this.state.docSearch)
+            } else {
+                if (this.state.docSearch == 'name') {
+                    this.setState({ showAlphabets: true })
+                } else {
+                    this.setState({ showAlphabets: false })
+                }
+                let searchString = this.getCharacter(this.state.selectedChar)
+                this.updateInsuranceNetwork(this.state.type, searchString, this.state.docSearch)
+            }
+        }
+        else {
+            if (e.target.value) {
+                this.setState({ showAlphabets: false })
+                this.updateInsuranceNetwork(this.state.type, e.target.value)
+            } else {
+                this.setState({ showAlphabets: true })
+                let searchString = this.getCharacter(this.state.selectedChar)
+                this.updateInsuranceNetwork(this.state.type, searchString)
+            }
         }
     }
 
@@ -109,9 +138,14 @@ class InsuranceNetworkView extends React.Component {
     }
 
     alphabetClick(index) {
-        this.setState({ selectedChar: index })
+        this.setState({ selectedChar: index, topLabActive: false })
         let searchString = this.getCharacter(index)
-        this.updateInsuranceNetwork(this.state.type, searchString)
+        if (this.state.type == 'doctor') {
+            this.updateInsuranceNetwork(this.state.type, searchString, 'name')
+        }
+        else {
+            this.updateInsuranceNetwork(this.state.type, searchString)
+        }
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -131,6 +165,26 @@ class InsuranceNetworkView extends React.Component {
         }
         else {
             this.props.history.push(`/opd/doctor/${id}?from=insurance_network`)
+        }
+    }
+
+    topLabClick = () => {
+        this.setState({
+            topLabActive: true,
+            selectedChar: null
+        })
+        this.updateInsuranceNetwork('lab', '')
+    }
+
+    radioClick(type) {
+        let searchString = this.getCharacter(this.state.selectedChar)
+        this.setState({ searchValue: '', showAlphabets: true })
+        if (type == 'name') {
+            this.setState({ docSearch: 'name', showAlphabets: true })
+            this.updateInsuranceNetwork('doctor', searchString, 'name')
+        }
+        else {
+            this.setState({ docSearch: 'specialization', showAlphabets: false })
         }
     }
 
@@ -158,6 +212,21 @@ class InsuranceNetworkView extends React.Component {
                                                 <div className="serch-nw-inputs-container">
                                                     <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' fromCriteria={true} commonSearchPage={true} />
                                                     {/* radio buttons */}
+                                                    {
+                                                        this.state.type == 'doctor' ?
+                                                            <div className="srch-radio-btns ipd-srch-radio-btn">
+                                                                <div className="dtl-radio">
+                                                                    <label className="container-radio">Search by name<input type="radio" onChange={() => this.radioClick('name')} checked={this.state.docSearch == 'name'} name="radio" />
+                                                                        <span className="doc-checkmark"></span>
+                                                                    </label>
+                                                                </div>
+                                                                <div className="dtl-radio">
+                                                                    <label className="container-radio">Search by specialization<input type="radio" onChange={() => this.radioClick('specialization')} checked={this.state.docSearch == 'specialization'} name="radio" />
+                                                                        <span className="doc-checkmark"></span>
+                                                                    </label>
+                                                                </div>
+                                                            </div> : ''
+                                                    }
                                                     <div className="serch-nw-inputs mb-0">
                                                         <input type="text" autoComplete="off" className="d-block new-srch-doc-lab" id="search_bar" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.state.placeholder} />
                                                         <img style={{ width: '15px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
@@ -189,24 +258,34 @@ class InsuranceNetworkView extends React.Component {
                                             this.state.searchCities.length == 0 ?
                                                 <section className="widget searchMargin">
                                                     {
-                                                        this.state.showAlphabets ?
-                                                            <div className="ntwrk-alpha-div">
-                                                                {
-                                                                    this.props.insuranceNetwork && this.props.insuranceNetwork.total_count ?
-                                                                        <p className="fw-500" style={{ paddingLeft: 10, marginBottom: 4 }}>{this.props.insuranceNetwork.total_count} {this.state.type}s covered under insurance</p>
-                                                                        : ''
-                                                                }
-                                                                <ul className="ntwrk-alpha">
-                                                                    {
-                                                                        alphabets && alphabets.length ?
-                                                                            alphabets.map((character, i) => {
-                                                                                return <li key={i} onClick={() => this.alphabetClick(i)} style={i == this.state.selectedChar ? { cursor: 'auto' } : { cursor: 'pointer' }} >
-                                                                                    <span className={i == this.state.selectedChar ? 'alphaSelected ntwrk-char fw-500' : 'ntwrk-char fw-500'}>{character}</span>
-                                                                                </li>
-                                                                            }) : ''
-                                                                    }
-                                                                </ul>
-                                                            </div> : ''
+                                                        <div className="ntwrk-alpha-div">
+                                                            {
+                                                                !this.state.searchValue && this.props.insuranceNetwork && this.props.insuranceNetwork.total_count ?
+                                                                    <p className="fw-500" style={{ paddingLeft: 10, marginBottom: 4 }}>{this.props.insuranceNetwork.total_count} {this.state.type}s covered under insurance</p>
+                                                                    : ''
+                                                            }
+                                                            {
+                                                                this.state.showAlphabets ?
+                                                                    <div className="d-flex top-ntwrks-div">
+                                                                        {
+                                                                            this.state.type == 'lab' ?
+                                                                                <div className="top-ntwrks" onClick={this.topLabClick}>
+                                                                                    <p className={`${this.state.topLabActive ? `fw-500 text-primary` : `fw-500`}`}>Top Labs</p>
+                                                                                </div> : ''
+                                                                        }
+                                                                        <ul className="ntwrk-alpha">
+                                                                            {
+                                                                                alphabets && alphabets.length ?
+                                                                                    alphabets.map((character, i) => {
+                                                                                        return <li key={i} onClick={() => this.alphabetClick(i)} style={i == this.state.selectedChar ? { cursor: 'auto' } : { cursor: 'pointer' }} >
+                                                                                            <span className={i == this.state.selectedChar ? 'alphaSelected ntwrk-char fw-500' : 'ntwrk-char fw-500'}>{character}</span>
+                                                                                        </li>
+                                                                                    }) : ''
+                                                                            }
+                                                                        </ul>
+                                                                    </div> : ''
+                                                            }
+                                                        </div>
                                                     }
                                                     <div>
                                                         {
@@ -218,6 +297,10 @@ class InsuranceNetworkView extends React.Component {
                                                                                 <div className="ntwrk-list-content">
                                                                                     <p className="ntwrk-list-content-name fw-500">{result.name}</p>
                                                                                     <p className="ntwrk-list-content-city fw-500">{result.city}</p>
+                                                                                    {
+                                                                                        result.specializations && result.specializations.length ?
+                                                                                            <p className="ntwrk-list-content-city fw-500">{result.specializations[0]}</p> : ''
+                                                                                    }
                                                                                 </div>
                                                                                 <div className="ntwrk-list-dist">
                                                                                     <p className="fw-500">{result.distance} km</p>

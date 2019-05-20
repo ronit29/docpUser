@@ -85,8 +85,8 @@ export const getTestsAlphabetically = (character) => (dispatch) => {
 	})
 }
 
-export const getInsuranceNetworks = (lat, long, type, searchString) => (dispatch) => {
-	let url = `/api/v1/insurance/network/search?latitude=${lat}&longitude=${long}&type=${type}&starts_with=${searchString}`
+export const getInsuranceNetworks = (lat, long, type, searchString, searchBy) => (dispatch) => {
+	let url = `/api/v1/insurance/network/search?latitude=${lat}&longitude=${long}&type=${type}&search=${searchBy}&starts_with=${searchString}`
 	return API_GET(url).then(function (response) {
 		dispatch({
 			type: GET_INSURANCE_NETWORK,
