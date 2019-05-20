@@ -6,6 +6,7 @@ import RatingProfileCard from '../../../commons/ratingsProfileView/RatingProfile
 import { buildOpenBanner } from '../../../../helpers/utils.js'
 import RatingReviewView from '../../../commons/ratingsProfileView/ratingReviewView.js'
 import GTM from '../../../../helpers/gtm.js'
+import STORAGE from '../../../../helpers/storage'
 
 class LabDetails extends React.Component {
 
@@ -69,6 +70,15 @@ class LabDetails extends React.Component {
         }
     }
 
+    openTests() {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'UserSelectingAddRemoveLabTests', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'user-selecting-add-remove-lab-tests'
+        }
+        GTM.sendEvent({ data: data })
+
+        this.props.history.push(`/lab/${this.props.data.lab.id}/tests`)
+    }
+
     render() {
 
         let { about, address, lab_image, lat, long, name, primary_mobile, city, sublocality, locality, lab_thumbnail } = this.props.data.lab
@@ -125,8 +135,8 @@ class LabDetails extends React.Component {
                                     </span> */}
                                     </p>
                                     <ul className="list time-contact">
-                                        <li>
-                                            <span className="fw-700 text-sm">Timing: -</span>
+                                        <li className="uTimingPara">
+                                            <span className="fw-700 text-sm">Timing: </span>
                                             {buildOpenBanner(lab_timing, lab_timing_data, next_lab_timing, next_lab_timing_data)}
                                         </li>
                                         {/* <li>
@@ -135,6 +145,14 @@ class LabDetails extends React.Component {
                                             <span className="open-close">{" Call Now"}</span>
                                         </li> */}
                                     </ul>
+                                    {
+                                        STORAGE.isAgent() || ( !this.props.hide_price && !this.props.is_user_insured)?
+                                            this.props.location && this.props.location.search && this.props.location.search.includes('from=insurance_network') ? "" :
+                                                <div className="serch-nw-inputs mb-0" onClick={this.openTests.bind(this)}>
+                                                    <input type="text" autocomplete="off" className="d-block clkInput new-srch-doc-lab" id="search_bar" value="" placeholder="Search tests"/>
+                                                    <img className="srch-inp-img" src="https://cdn.docprime.com/cp/assets/img/shape-srch.svg" style={{width: '15px'}}/>
+                                                </div> :''
+                                    }
                                 </div>
 
                                 <LabTests {...this.props} />
@@ -166,11 +184,6 @@ class LabDetails extends React.Component {
                                             <ReviewList details={this.props.data.lab} />
                                         </div>
                                     </div> : ""*/}
-                                {
-                                    this.props.data.lab.display_rating_widget?
-                                    <RatingReviewView id={this.props.data.lab.id} content_type={1} {...this.props}/> :
-                                    ""
-                                }
                             </div>
                             <div className="widget mrb-15">
                                 <div className="widget-content pb-details pb-location">
@@ -186,6 +199,11 @@ class LabDetails extends React.Component {
                                     </div>
                                 </div>
                             </div>
+                            {
+                                this.props.data.lab.display_rating_widget?
+                                <RatingReviewView id={this.props.data.lab.id} content_type={1} {...this.props}/> :
+                                ""
+                            }
                             <div className="widget mrb-15">
                                 <div className="widget-content pb-details pb-about">
                                     <h4 className="wc-title text-md fw-700">About</h4>

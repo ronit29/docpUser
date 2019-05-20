@@ -1,4 +1,4 @@
-import { MERGE_SEARCH_STATE_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SEARCH_TEST_INFO, SAVE_PINCODE, TOGGLE_COMPARE_PACKAGE, RESET_COMPARE_STATE } from '../../constants/types';
+import { MERGE_SEARCH_STATE_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SEARCH_TEST_INFO, SAVE_PINCODE, TOGGLE_COMPARE_PACKAGE, RESET_COMPARE_STATE, SAVE_PATIENT_DETAILS } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 export const loadLabCommonCriterias = () => (dispatch) => {
@@ -147,7 +147,7 @@ export const resetPkgCompare = () => (dispatch) => {
     })
 }
 
-export const getCompareList = (selectedIds,selectedLocation,callback) => (dispatch) => {
+export const getCompareList = (selectedIds,selectedLocation,searchByUrl,callback) => (dispatch) => {
     let lat = 28.644800
     let long = 77.216721
     if (selectedLocation) {
@@ -159,13 +159,28 @@ export const getCompareList = (selectedIds,selectedLocation,callback) => (dispat
 
     }
     let postData={}
-    postData.package_lab_ids = selectedIds
+    postData.package_lab_ids = selectedIds    
+    postData.url = searchByUrl    
     postData['lat'] = lat
     postData['long'] = long
-    API_POST('/api/v1/diagnostic/compare_lab_packages', postData).then(function (response) {
+    let url = '/api/v1/diagnostic/compare_lab_packages'
+    if(searchByUrl){
+        url = '/api/v1/diagnostic/compare_lab_packages_by_url'
+    }
+    API_POST(url, postData).then(function (response) {
         if (callback) callback(response)
     }).catch(function (error) {
         if (callback) callback(null)
+    })
+
+}
+
+export const patientDetails = (criteria) => (dispatch) => {
+    dispatch({
+        type: SAVE_PATIENT_DETAILS,
+        payload: {
+            criteria
+        }
     })
 
 }

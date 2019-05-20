@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots,editUserProfile } from '../../actions/index.js'
+import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots,editUserProfile, patientDetails } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import PatientDetailsView from '../../components/opd/patientDetails/index.js'
@@ -58,9 +58,9 @@ const mapStateToProps = (state) => {
     let DOCTORS = state.DOCTOR_PROFILES
     const { selectedProfile, profiles, userWalletBalance, userCashbackBalance } = state.USER
     let { selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, payment_type } = state.DOCTOR_SEARCH
-
+    const { saved_patient_details } = state.SEARCH_CRITERIA_LABS
     return {
-        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type
+        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details
     }
 }
 
@@ -72,7 +72,7 @@ const mapDispatchToProps = (dispatch) => {
         createOPDAppointment: (postData, callback) => dispatch(createOPDAppointment(postData, callback)),
         sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
         removeCoupons: (hospitalId, couponId) => dispatch(removeCoupons(hospitalId, couponId)),
-        applyOpdCoupons: (productId, couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id, procedures_ids, cart_item) => dispatch(applyOpdCoupons(productId, couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id, procedures_ids, cart_item)),
+        applyOpdCoupons: (productId, couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id, procedures_ids, cart_item, callback) => dispatch(applyOpdCoupons(productId, couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id, procedures_ids, cart_item, callback)),
         applyCoupons: (productId, couponData, couponId, hospitalId) => dispatch(applyCoupons(productId, couponData, couponId, hospitalId)),
         resetOpdCoupons: () => dispatch(resetOpdCoupons()),
         getCoupons: (data) => dispatch(getCoupons(data)),
@@ -84,7 +84,8 @@ const mapDispatchToProps = (dispatch) => {
         getCartItems: () => dispatch(getCartItems()),
         select_opd_payment_type: (type) => dispatch(select_opd_payment_type(type)),
         getTimeSlots: (doctorId, clinicId, callback) => dispatch(getTimeSlots(doctorId, clinicId, callback)),
-        editUserProfile: (profileData, profileId, cb) => dispatch(editUserProfile(profileData, profileId, cb))
+        editUserProfile: (profileData, profileId, cb) => dispatch(editUserProfile(profileData, profileId, cb)),
+        patientDetails:(criteria) => dispatch(patientDetails(criteria))
     }
 }
 

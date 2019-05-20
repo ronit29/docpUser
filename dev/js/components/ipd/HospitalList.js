@@ -50,14 +50,14 @@ class HospitalListView extends React.Component {
 			<div>
 				{
 					ipd_info && ipd_info.about && ipd_info.about.name?
-					<h2 className="section-heading">{`Best ${ipd_info.about.name} Hospitals ${ipd_info.seo?`in ${this.props.ipd_info.seo.location}`:''}`}</h2>
+					<h2 className="section-heading hd-mrgn-top">{`Best ${ipd_info.about.name} Hospitals ${ipd_info.seo?`in ${this.props.ipd_info.seo.location}`:''}`}</h2>
 					:''	
 				}
 				<ul>
 				{
 					hospitalList && hospitalList.result?
 					hospitalList.result.map((hospital, i) => {
-						return <HospitalCard key={i} data={hospital} getCostEstimateClicked={this.getCostEstimateClicked.bind(this)} getHospitalDetailPage={this.getHospitalDetailPage.bind(this)} toggleProviderFilter={this.toggleProviderFilter.bind(this)}/>
+						return <HospitalCard key={i} data={hospital} getCostEstimateClicked={this.getCostEstimateClicked.bind(this)} getHospitalDetailPage={this.getHospitalDetailPage.bind(this)} toggleProviderFilter={this.toggleProviderFilter.bind(this)} {...this.props}/>
 					})
 					:''
 				}

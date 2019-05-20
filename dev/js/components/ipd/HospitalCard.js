@@ -14,7 +14,15 @@ class HospitalCard extends React.Component {
 			<li className="widget">
                <div className="loc-info">
                   <img src="https://cdn.docprime.com/cp/assets/img/new-loc-ico.svg" alt="loc" className="img-loc" />
-                  <p>{`${data.address} ${distance?` | ${distance} Km`:''}` }</p>
+                  {
+                     data.locality_url?
+                     <a href={`${data.locality_url}`} onClick={(e) => {
+                        e.preventDefault()
+                        this.props.history.push(`/${data.locality_url}`)
+                     }}><p>{`${data.short_address ||''} ${distance?` | ${distance} Km`:''}` }</p></a>
+                     :<p>{`${data.short_address ||''} ${distance?` | ${distance} Km`:''}` }</p>
+                  }
+                  
                </div>
                <div className="hospital-info" style={{cursor:'pointer'}} onClick={()=>this.props.getHospitalDetailPage(data.id, data.url||null)}>
                   <div className="left-side-info">
