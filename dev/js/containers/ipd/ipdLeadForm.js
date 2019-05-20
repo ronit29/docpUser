@@ -105,7 +105,7 @@ class IpdLeadForm extends React.Component{
 									</span>
 								}
 							
-								<p className="ipd-needHelp">Need help with an appointment at BLK Hospital?</p>
+								<p className="ipd-needHelp">{`Need help with an appointment ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
 								<p className="srch-el-ipd-cont">Get upto 30% Off on appointments</p>
 								<div className="ipd-inp-section" onClick={(e)=>{e.stopPropagation()
 										e.preventDefault()}}>
