@@ -156,7 +156,10 @@ class HospitalDetailView extends React.Component {
 
 	submitLeadFormGeneration(close=false) {
 		if(close) {
-
+			let gtmData = {
+				'Category': 'ConsumerApp', 'Action': 'IpdHospitalDetailPageFormClosed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-detail-page-form-closed'
+			}
+			GTM.sendEvent({ data: gtmData })
 		}
 		this.setState({showLeadForm: false})
 	}

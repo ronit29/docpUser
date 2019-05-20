@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getIpdInfo } from '../../actions/index.js'
+import { submitIPDForm } from '../../actions/index.js'
 import SnackBar from 'node-snackbar'
+import GTM from '../../helpers/gtm.js'
 
 class IpdLeadForm extends React.Component{
 
@@ -9,14 +10,15 @@ class IpdLeadForm extends React.Component{
 		super(props)
 		this.state = {
 			name: '',
-			mobileNo:''
+			phone_number:'',
+			showForm: true,
+			showThankyou: false
 		}
 	}
 
 	inputHandler(e) {
-		e.preventDefault()
         e.stopPropagation()
-        if (e.target.name == 'mobileNo') {
+        if (e.target.name == 'phone_number') {
             e.target.value.length <= 10
                 ? e.target.value.length == 10
                     ? this.setState({
@@ -44,14 +46,26 @@ class IpdLeadForm extends React.Component{
             return
         }
 
-        if (this.state.mobileNo.match(/^[56789]{1}[0-9]{9}$/)) {
-        	SnackBar.show({ pos: 'bottom-center', text: "Sucess Register" },()=>{
-        		this.props.submitLeadFormGeneration()
-        	})
+        if (this.state.phone_number.match(/^[56789]{1}[0-9]{9}$/)) {
+        	let formData = {
+        		...this.state
+        	}
+        	this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
+				if (!error && response) {
+					let gtmData = {
+						'Category': 'ConsumerApp', 'Action': 'IpdLeadGenerationSuccess', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'ipd-lead-generation-success', selectedId: '', 'hospitalId': '', 'from': 'leadForm'
+					}
+					GTM.sendEvent({ data: gtmData })
+					this.setState({showForm: false, showThankyou: true})
+				} else {
+					setTimeout(() => {
+						SnackBar.show({ pos: 'bottom-center', text: "Please try after some time" })
+					}, 500)
+					this.props.submitLeadFormGeneration()
+				}
+			})
         }else {
-        	SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Mobile No" },()=>{
-        		this.props.submitLeadFormGeneration()
-        	})
+        	SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Mobile No" })
         }
     }
 
@@ -64,22 +78,48 @@ class IpdLeadForm extends React.Component{
 				this.props.submitLeadFormGeneration(true)} }>
 				<div className="search-el-popup">
 					<div className="widget">
-						<div className="p-relative">
-							<span className="ipd-pop-cls" onClick={(e)=> {
-								e.preventDefault()
-								e.stopPropagation()
-								this.props.submitLeadFormGeneration(true)} }><img src={ASSETS_BASE_URL + "/img/icons/close.png"} /></span>
-							<p className="ipd-needHelp">Need Help?</p>
-							<p className="srch-el-ipd-cont">Please provide the details below and our medical expert will contact you soon</p>
-							<div className="ipd-inp-section">
-								<input type="text" value={this.state.name} name='name' placeholder="Name"  onChange={this.inputHandler.bind(this) }/>
-								<input type="Number" value={this.state.mobileNo} name='mobileNo' placeholder="Mobile Number"  onChange={this.inputHandler.bind(this)}/>
-								<button className="ipd-inp-sbmt" onClick={this.submitLeadForm.bind(this)}>Submit</button>
+						{
+							this.state.showForm?
+							<div className="p-relative">
+								<span className="ipd-pop-cls" onClick={(e)=> {
+									e.stopPropagation()
+									e.preventDefault()
+									this.props.submitLeadFormGeneration(true)} }><img src={ASSETS_BASE_URL + "/img/icons/close.png"} /></span>
+								<p className="ipd-needHelp">Need Help?</p>
+								<p className="srch-el-ipd-cont">Please provide the details below and our medical expert will contact you soon</p>
+								<div className="ipd-inp-section" onClick={(e)=>{e.stopPropagation()
+										e.preventDefault()}}>
+									<input type="text" value={this.state.name} name='name' placeholder="Name"  onChange={this.inputHandler.bind(this)}/>
+									<input type="Number" value={this.state.phone_number} name='phone_number' placeholder="Mobile Number"  onChange={this.inputHandler.bind(this)}/>
+									<button className="ipd-inp-sbmt" onClick={(e)=>{
+										e.stopPropagation()
+										e.preventDefault()
+										this.submitLeadForm()
+									}}>Submit</button>
+								</div>
 							</div>
-							<div className="ipd-inp-done">
-								<button className="ipd-inp-sbmt">Submit</button>
+							:''
+						}
+
+						{
+							this.state.showThankyou?
+							<div className="p-relative">
+								<span className="ipd-pop-cls" onClick={(e)=> {
+									e.stopPropagation()
+									e.preventDefault()
+									this.props.submitLeadFormGeneration(true)} }><img src={ASSETS_BASE_URL + "/img/icons/close.png"} /></span>
+								<p className="ipd-needHelp">Submitted</p>
+								<p className="srch-el-ipd-cont">Your Request has been received our medical expert will call you shortly</p>
+								<div className="ipd-inp-done">
+									<button className="ipd-inp-sbmt" onClick={(e)=>{
+										e.stopPropagation()
+										e.preventDefault()
+										this.props.submitLeadFormGeneration(true)
+									}}>Submit</button>
+								</div>
 							</div>
-						</div>
+							:''
+						}
 					</div>
 
 				</div>
@@ -91,18 +131,18 @@ class IpdLeadForm extends React.Component{
 const mapStateToProps = (state, passedProps) => {
 
 	const {
-		selectedCriterias
-	} = state.SEARCH_CRITERIA_IPD
+        selectedLocation
+    } = state.SEARCH_CRITERIA_OPD
 
 	return {
-		selectedCriterias
+		selectedLocation
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 
 	return {
-		getIpdInfo: (ipd_id) => dispatch(getIpdInfo(ipd_id))
+		submitIPDForm: (formData, selectedLocation, cb) => dispatch(submitIPDForm(formData, selectedLocation, cb))
 	}
 }
 
