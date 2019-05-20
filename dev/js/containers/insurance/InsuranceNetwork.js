@@ -33,7 +33,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getInsuranceNetworks: (lat, long, type, searchString) => dispatch(getInsuranceNetworks(lat, long, type, searchString)),
+        getInsuranceNetworks: (lat, long, type, searchString, searchBy) => dispatch(getInsuranceNetworks(lat, long, type, searchString, searchBy)),
         setNetworkType: (type) => dispatch(setNetworkType(type))
     }
 }
