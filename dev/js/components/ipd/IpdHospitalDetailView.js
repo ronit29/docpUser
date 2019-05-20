@@ -24,7 +24,7 @@ class HospitalDetailView extends React.Component {
 		this.state = {
 			seoFriendly: this.props.match.url.includes('-hpp'),
 			toggleTabType: 'doctors',
-			showLeadForm: true
+			showLeadForm: false
 		}
 	}
 
@@ -67,6 +67,10 @@ class HospitalDetailView extends React.Component {
 		if (parsed.type && this.refs[parsed.type]) {
 			this.toggleTabs(parsed.type)
 		}
+		setTimeout(()=>{
+			this.setState({showLeadForm: true})	
+		},500)
+		
 
 	}
 
@@ -181,7 +185,12 @@ class HospitalDetailView extends React.Component {
 
 							<div className="ipd-tabs-container">
 								<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'doctors' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'doctors')}>Doctors</p>
-								<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'bookNow' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'bookNow')}>Book Now</p>
+								{
+									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count?
+									<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'bookNow' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'bookNow')}>Book Now</p>
+									:''	
+								}
+								
 								<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'feedback' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'feedback')}>Feedback</p>
 							</div>
 
@@ -221,10 +230,13 @@ class HospitalDetailView extends React.Component {
 										: ''
 								}
 							</div>
-
-							<div id="bookNow" ref="bookNow" className="nav_top_bar">
-								<IpdFormView {...this.props} tabView={true} />
-							</div>
+							{
+								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count?
+								<div id="bookNow" ref="bookNow" className="nav_top_bar">
+									<IpdFormView {...this.props} tabView={true} />
+								</div>
+								:''
+							}
 
 							<div id="feedback" ref="feedback" className="mt-1">
 								{
