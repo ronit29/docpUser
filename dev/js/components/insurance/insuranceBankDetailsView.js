@@ -8,7 +8,13 @@ class InsuranceCancellationView extends React.Component {
 		super(props)
 		this.state = {
 			showCancelPopup: false,
-			showCancelSection: true
+			showCancelSection: true,
+			name:'',
+			bankName:'',
+			address:'',
+			accountNumber:'',
+			ifscCode:'',
+			err:''
 		}
 	}
 
@@ -37,6 +43,83 @@ class InsuranceCancellationView extends React.Component {
 		}
 	}
 
+	inputHandler(e) {
+        this.setState({ [e.target.name]: e.target.value })
+    }
+
+	submitForm() {
+        this.setState({ err: "" })
+        // validate
+        let register = true
+        Object.keys(this.refs).forEach((prp, i) => {
+            let validated = false
+            switch (this.refs[prp].name) {
+                case "name": {
+                	console.log(this.refs[prp].value)
+                    if (!this.refs[prp].value) {
+                        validated = false
+                    } else {
+                        validated = !/[^a-zA-Z ]/.test(this.refs[prp].value)
+                    }
+                    break
+                }
+                case "accountNumber": {
+                    if (!this.refs[prp].value) {
+                        validated = this.refs[prp].value.match(/^[56789]{1}[0-9]{9}$/)
+                    } else {
+                        validated = true
+                    }
+                    break
+                }
+                case "ifscCode": {
+                    if (!this.refs[prp].value) {
+                        validated = this.refs[prp].value.match(/^[56789]{1}[0-9]{9}$/)
+                    } else {
+                        validated = true
+                    }
+                    break
+                }
+                case "bankName": {
+                    if (!this.refs[prp].value) {
+                        validated = false
+                    } else {
+                        validated = !/[^a-zA-Z ]/.test(this.refs[prp].value)
+                    }
+                    break
+                }
+                case "address": {
+                    if (!this.refs[prp].value) {
+                        validated = false
+                    } else {
+                        validated = !/[^a-zA-Z ]/.test(this.refs[prp].value)
+                    }
+                    break
+                }
+                default: {
+                    validated = true
+                    break
+                }
+            }
+            if (validated) {
+                this.refs[prp].style.border = ''
+            } else {
+                this.refs[prp].style.border = '1px solid red'
+                register = false
+            }
+        })
+        
+
+        if(register){
+        	alert('a')
+        }
+    }
+
+    handleEnterPress(e) {
+        if (e.key === 'Enter') {
+            this.submitForm();
+        }
+    }
+
 	render() {
 		return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
 			<ProfileHeader />
@@ -48,11 +131,16 @@ class InsuranceCancellationView extends React.Component {
 								<div className="widget-content">
 									<h1 className="ins-cancl-heading">We need bank account details to proceed with your cancellation</h1>
 									<div className="ins-cancl-container">
-										<input className="ins-cn-inp" type="text" placeholder="Account Holder Name" />
-										<input className="ins-cn-inp" type="text" placeholder="Bank Name" />
-										<textarea className="ins-cn-textarea" placeholder="Address"></textarea>
-										<input className="ins-cn-inp" type="number" placeholder="Account Number" />
-										<input className="ins-cn-inp" type="text" placeholder="IFSC Code" />
+
+										<input className="ins-cn-inp" type="text" name="name" placeholder="Account Holder Name" onChange={this.inputHandler.bind(this)} value={this.state.name} required ref="name" onKeyPress={this.handleEnterPress.bind(this)}  />
+
+										<input className="ins-cn-inp" type="text" name="bankName" placeholder="Bank Name" onChange={this.inputHandler.bind(this)} value={this.state.bankName} required ref="bankName" onKeyPress={this.handleEnterPress.bind(this)} />
+
+										<textarea className="ins-cn-textarea" name="address" placeholder="Address" onChange={this.inputHandler.bind(this)} value={this.state.address} required ref="address" onKeyPress={this.handleEnterPress.bind(this)}></textarea>
+
+										<input className="ins-cn-inp" type="number" name="accountNumber" placeholder="Account Number" onChange={this.inputHandler.bind(this)} value={this.state.accountNumber} required ref="accountNumber" onKeyPress={this.handleEnterPress.bind(this)}  />
+
+										<input className="ins-cn-inp" type="text" name="ifscCode" placeholder="IFSC Code" onChange={this.inputHandler.bind(this)} value={this.state.ifscCode} required ref="ifscCode" onKeyPress={this.handleEnterPress.bind(this)}  />
 									</div>
 									<p className="ins-cancl-para">We need to confirm if this account belongs to you. Please fill more details below </p>
 									<button className="ins-cn-btn"><img src={ASSETS_BASE_URL + '/img/upld.png'} />Upload Cancelled Cheque</button>
@@ -61,6 +149,7 @@ class InsuranceCancellationView extends React.Component {
 								</div>
 							</div>
 						</section>
+						<button className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn" onClick={this.submitForm.bind(this)}>Submit</button>
 					</div>
 					<ChatPanel />
 				</div>
