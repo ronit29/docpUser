@@ -25,7 +25,7 @@ class ChatQuestion5 extends React.Component {
 		let roomId = this.props.chat_feedback_roomId
 		let postData = {
 			rid: roomId,
-			feedback: feedback
+			data: feedback
 		}
 
 		this.props.submitChatFeedback(postData)
