@@ -7,6 +7,7 @@ import LocationElements from '../../../../containers/commons/locationElements'
 import LocationPopup from '../../../../containers/commons/locationPopup'
 import GTM from '../../../../helpers/gtm'
 import IpdLeadForm from '../../../../containers/ipd/ipdLeadForm.js'
+const queryString = require('query-string')
 
 class TopBar extends React.Component {
     constructor(props) {
@@ -234,6 +235,9 @@ class TopBar extends React.Component {
             locationName = this.props.seoData.location
         }
 
+        const parsed = queryString.parse(this.props.location.search)
+        let specializations = this.props.commonSelectedCriterias.filter(x => x.type == 'speciality')
+
         let ipd_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'ipd').map(x => x.id)
 
         return (
@@ -309,7 +313,7 @@ class TopBar extends React.Component {
                     }
 
                     {
-                        this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE?
+                        specializations && specializations.length && parsed.hospital_id && parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE?
                         <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props}/>
                         :''
                     }

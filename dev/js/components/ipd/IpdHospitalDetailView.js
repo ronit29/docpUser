@@ -170,13 +170,15 @@ class HospitalDetailView extends React.Component {
 
 	render() {
 
+		const parsed = queryString.parse(this.props.location.search)
+
 		return (
 			<React.Fragment>
 				{
 					this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ?
 						<div className="ipd-section">
 							{
-								this.state.showLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE?
+								parsed.showPopup && this.state.showLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE && this.props.ipd_hospital_detail.bed_count?
 								<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name?this.props.ipd_hospital_detail.name:null}/>
 								:''
 							}

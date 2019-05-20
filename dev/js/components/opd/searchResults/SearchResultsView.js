@@ -320,10 +320,17 @@ class SearchResultsView extends React.Component {
 
         if (this.state.clinic_card) {
             url += `${is_params_exist ? '&' : '?'}clinic_card=true`
+            is_params_exist = true
         }
 
         if(parsed.get_feedback) {
-            url += `&get_feedback=${parsed.get_feedback}`
+            url += `${is_params_exist ? '&' : '?'}get_feedback=${parsed.get_feedback}`
+            is_params_exist = true
+        }
+
+        if(parsed.showPopup) {
+            url += `${is_params_exist ? '&' : '?'}showPopup=${parsed.showPopup}`
+            is_params_exist = true
         }
 
         return url
