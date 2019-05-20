@@ -894,6 +894,9 @@ div.onln-cnslt-head {
 	margin: 0 -15px 15px -15px !important;
 	top: 89px !important;
 }
+.popupTopChange{
+	top:60px;
+}
 }
 .ipd-tb-tabs {
 	font-size: 13px;
@@ -924,4 +927,56 @@ div.onln-cnslt-head {
 .hd-mrgn-top{
 	margin-top: 16px;
 }
+.ipd-pop-cls{
+	position: absolute;
+	right: -10px;
+	top: -8px;
+	cursor: pointer;
+}
+.ipd-needHelp{
+	text-align: center;
+	font-weight: 700;
+	margin-bottom: 10px;
+	font-size: 14px;
+	padding: 0 15px;
+}
+.srch-el-ipd-cont{
+	text-align: center;
+	font-weight: 500;
+	margin-bottom: 10px;
+	font-size: 12px;
+}
+.ipd-inp-section{
+	text-align: center;
+}
+.ipd-inp-section input {
+	width: 100%;
+	margin-bottom: 10px;
+	border: 1px solid rgba(0, 0, 0, .1);
+	border-radius: 4px;
+	padding: 8px;
+	outline: none;
+}
+button.ipd-inp-sbmt {
+	background-image: linear-gradient(to left, #f78631, #ff6d00);
+	color: white;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.2);
+	padding: 8px 18px;
+}
+.ipd-inp-done{
+	text-align: center;
+}
+.search-el-popup.ipd-pop-width{
+	width: 25%;
+}
+.p-12{
+	padding: 12px !important;
+}
+.hsptl-img{
+	white-space: nowrap;
+	overflow: auto;
+}
+
 /* ============ ipd tabs ============ */
