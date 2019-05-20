@@ -393,7 +393,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 					}
 					if(this.props.members_proofs && this.props.members_proofs.length>0 && is_fields_edited.indexOf(id) != -1){
 						member_proof = this.props.members_proofs.filter((x=>x.id == id))
-						if(member_proof && member_proof.length>0){
+						if(member_proof && member_proof.length>0 && member_proof[0].img_path_ids.length > 0){
 							all_id_proofs.push(member_proof[0].id)
 						}
 					}

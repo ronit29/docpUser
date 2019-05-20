@@ -2,7 +2,7 @@ import React from 'react'
 const queryString = require('query-string');
 const Compress = require('compress.js')
 import SnackBar from 'node-snackbar'
-
+import Loader from '../commons/Loader'
 class InsuranceProofs extends React.Component {
     constructor(props) {
         super(props)
@@ -11,7 +11,8 @@ class InsuranceProofs extends React.Component {
             zoomImageUrl: null,
             zoomImage: false,
             openPdf: false,
-            openPdfUrl: null
+            openPdfUrl: null,
+            isLoading:false
         }
     }
 
@@ -62,7 +63,7 @@ class InsuranceProofs extends React.Component {
         let existingData
         let img_tag = "document_image"
         this.setState({
-            dataUrl: null,
+            dataUrl: null,isLoading:true
         }, () => {
             let form_data = new FormData()
             if (file) {
@@ -100,6 +101,7 @@ class InsuranceProofs extends React.Component {
                         // mem_data.img_ids.push(data.id)
                         mem_data.img_path_ids.push({id: data.id, image:data.data.document_image})
                     }
+                    this.setState({isLoading:false})
                     this.props.storeMemberProofs(mem_data)
                 }
             })
@@ -142,6 +144,11 @@ class InsuranceProofs extends React.Component {
                 })
             }
         }
+        let show_upload = true
+        if((img_url && img_url.length > 0) || (pdf_url && pdf_url.length > 0)){
+            show_upload = false
+        }
+
         return <div className="insurance-proofs-cont">
             {
                 this.props.endorsementError.indexOf(this.props.member_id) != -1?
@@ -160,17 +167,33 @@ class InsuranceProofs extends React.Component {
                     </div>
                 </div>
                 {
-                    img_url && img_url.length == 0?
+                    show_upload?
                     <span className="ins-proof-upload-btn" onClick={() => {
                         document.getElementById('imageFilePicker_' + this.props.member_id + '_front').click()
                         document.getElementById('imageFilePicker_' + this.props.member_id + '_front').value = ""
                     }}><img src={ASSETS_BASE_URL + "/img/ins-up-ico.svg"}/> Upload
                         <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_front`} onChange={this.pickFile.bind(this, this.props.member_id)} accept="image/x-png,image/jpeg,image/jpg,.pdf" />
                         </span>
-                        : ''}
+                : ''}
             </div>
             {
-                Uploaded_image_data && Uploaded_image_data.length > 0 ?
+            this.state.isLoading && show_upload?
+            <div className="ins-prf-img-grd d-block">
+                <div className="loader-for-chat-div mt-0">
+                    <div className='loader-for-chat mb-0'>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            :''
+            }
+            {
+                Uploaded_image_data && Uploaded_image_data.length > 0 && !show_upload?
                     <div className="upload-img-section">
                         {
                             img_url && img_url.length > 0 ?
@@ -193,6 +216,20 @@ class InsuranceProofs extends React.Component {
                                 : ''
                         }
                         {
+                            this.state.isLoading?
+                            <div className="ins-prf-img-grd">
+                                <div className="loader-for-chat-div mt-0">
+                                    <div className='loader-for-chat mb-0' style={{width:'50px;'}}>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            :''
+                        }
+                        {
                             ((img_url && img_url.length) || (pdf_url && pdf_url.length)) >= 5?''
                             :<span className="ins-prf-addMore" onClick={() => {
                                 document.getElementById('imageFilePicker_' + this.props.member_id + '_back').click()
@@ -203,29 +240,6 @@ class InsuranceProofs extends React.Component {
                                 <input type="file" style={{ display: 'none' }} id={`imageFilePicker_${this.props.member_id}_back`} onChange={this.pickFile.bind(this, this.props.member_id)} accept="image/x-png,image/jpeg,image/jpg,.pdf" />
                                 </span>
                         }
-                    </div>
-                    : ''
-            }
-            {
-                this.state.zoomImage && this.state.zoomImageUrl ?
-                    <div className="search-el-popup-overlay" onClick={this.closeZoomImage.bind(this)}>
-                        <div className="search-el-popup">
-                            <div className="search-el-btn-container">
-                                <img style={{ maxHeight: '200px' }} src={this.state.zoomImageUrl} />
-                            </div>
-                        </div>
-                    </div>
-                    : ''
-            }
-
-            {
-                this.state.openPdf && this.state.openPdfUrl ?
-                    <div className="search-el-popup-overlay" onClick={this.closeZoomImage.bind(this)}>
-                        <div className="search-el-popup">
-                            <div className="search-el-btn-container">
-                                <iframe style={{ height: '65vh', width: '100%' }} src="http://www.tutorialspoint.com/javascript/javascript_tutorial.pdf"></iframe>
-                            </div>
-                        </div>
                     </div>
                     : ''
             }
