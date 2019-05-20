@@ -171,6 +171,7 @@ class InsuranceSelf extends React.Component{
   		}
         this.setState({title:event.target.value},()=>{
     		var self_data=this.state
+    		self_data.is_change = true
   			this.props.userData('self_data', self_data)
     	})
   	}
