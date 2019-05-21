@@ -39,6 +39,7 @@ const mapStateToProps = (state, passedProps = {}) => {
     let DOCTORS = state.DOCTORS
     let doctor_search_data = {}
     let lab_search_data = {}
+    let selectedLocation = state.SEARCH_CRITERIA_OPD.selectedLocation
 
     doctor_search_data.selectedCriterias = state.SEARCH_CRITERIA_OPD.selectedCriterias
     doctor_search_data.selectedLocation = state.SEARCH_CRITERIA_OPD.selectedLocation
@@ -49,7 +50,7 @@ const mapStateToProps = (state, passedProps = {}) => {
     lab_search_data.filterCriteria = state.SEARCH_CRITERIA_LABS.filterCriteria
 
     return {
-        USER, DOCTORS, doctor_search_data, lab_search_data, ...passedProps
+        USER, DOCTORS, doctor_search_data, lab_search_data, ...passedProps, selectedLocation
     }
 }
 

@@ -2105,8 +2105,6 @@ p.rt-doc-nm{
     white-space: nowrap;
     overflow: hidden;
     overflow-x: auto;
-    padding: 10px 0 10px 10px;
-    background-color: #f8f8f8;
 }
 
 .ntwrk-alpha::-webkit-scrollbar { 
@@ -2134,6 +2132,24 @@ p.rt-doc-nm{
     padding: 6px 0px 0px;
     position: sticky;
     top: 16px;
+}
+
+.top-ntwrks-div{
+    padding: 10px 0 10px 10px;
+    background-color: #f8f8f8;
+    align-items: flex-start;
+}
+
+.top-ntwrks{
+    width: 80px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    cursor: pointer;
+}
+
+.top-ntwrks>p{
+    line-height: 20px;
+    letter-spacing: 1px;
 }
 
 @media(min-width:993px){

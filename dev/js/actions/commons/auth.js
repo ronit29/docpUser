@@ -15,7 +15,8 @@ export const sendOTP = (number, cb) => (dispatch) => {
     })
 
     API_POST('/api/v1/user/otp/generate', {
-        "phone_number": number
+        "phone_number": number,
+        "request_source": "DocprimeWeb"
     }).then(function (response) {
         SnackBar.show({ pos: 'bottom-center', text: "OTP Sent Successfuly." });
         dispatch({
