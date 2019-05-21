@@ -242,7 +242,8 @@ class InsuranceReview extends React.Component{
 										{this.props.is_endorsement && self_edited_fields.length > 0 && 
 											(self_edited_fields.indexOf('first_name') != -1 || self_edited_fields.indexOf('middle_name') != -1 || 
 												self_edited_fields.indexOf('last_name') != -1 ||
-												self_edited_fields.indexOf('gender') != -1)?
+												self_edited_fields.indexOf('gender') != -1 ||
+												self_edited_fields.indexOf('title') != -1)?
 											<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
 										:''}
 										</p>
@@ -305,7 +306,12 @@ class InsuranceReview extends React.Component{
 															val.no_lname?
 														<p style={{'textTransform': 'capitalize'}}>{val.name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}</p>:
 														<p style={{'textTransform': 'capitalize'}}>{val.name} {val.middle_name} {val.last_name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}
-														{this.props.is_endorsement && this.props.data.edited_fields[val.id] && (this.props.data.edited_fields[val.id].indexOf('first_name') > -1 || this.props.data.edited_fields[val.id].indexOf('middle_name') > -1 || this.props.data.edited_fields[val.id].indexOf('last_name') > -1)?
+														{this.props.is_endorsement && this.props.data.edited_fields[val.id] && 
+															(this.props.data.edited_fields[val.id].indexOf('first_name') > -1 || 
+															this.props.data.edited_fields[val.id].indexOf('middle_name') > -1 || 
+															this.props.data.edited_fields[val.id].indexOf('last_name') > -1 || 
+															this.props.data.edited_fields[val.id].indexOf('gender') > -1 ||
+															this.props.data.edited_fields[val.id].indexOf('title') > -1)?
 															<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
 															:''
 														}
