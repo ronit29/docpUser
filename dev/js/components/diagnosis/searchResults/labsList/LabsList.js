@@ -112,7 +112,7 @@ class LabsList extends React.Component {
         }
 
         return (
-            <section className="wrap search-book-result variable-content-section" style={{ paddingTop: 10 }} ref="checkIfExists">
+            <section className="wrap search-book-result variable-content-section" ref="checkIfExists">
                 {
                     this.state.renderBlock ? <Loader /> :
                         <div className="container-fluid cardMainPaddingRmv">
