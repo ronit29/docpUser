@@ -348,7 +348,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 					fullnameObj.fName=fullname.toLowerCase()
 					fields_name.push(fullnameObj)
 				}
-				validatingErrors[key] = fields
+				validatingErrors[param.id] = fields
 				validatingDobErrors[key] = dobError
 				if(param.member_type == 'adult'){
 					validatingOtherErrors[key] = empty_feilds
@@ -460,8 +460,8 @@ class InsuranceEndoresmentInputView extends React.Component{
 							member_id={spouse_data[0].id} 
 							checkForValidation ={this.checkForValidation.bind(this)} 
 							id={`member_${0}`} 
-							validateErrors={this.state.validateErrors['1'] || []} 
-							validateOtherErrors={this.state.validateOtherErrors['0'] || []} 
+							validateErrors={this.state.validateErrors[spouse_data[0].id] || []} 
+							validateOtherErrors={this.state.validateOtherErrors[spouse_data[0].id] || []} 
 							createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[1]:[]}
 							show_selected_profiles={this.state.show_selected_profiles} 
 							validateDobErrors={[]} 
@@ -487,7 +487,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 									id={`member_${i+1}`} 
 									param_id = {i} 
 									member_view_id= {i} 
-									validateErrors={this.state.validateErrors[i] || []} 
+									validateErrors={this.state.validateErrors[child_data[0].id] || []} 
 									validateOtherErrors={[]} 
 									createApiErrorsChild={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members:[]} 
 									show_selected_profiles={this.state.show_selected_profiles} 
@@ -535,8 +535,8 @@ class InsuranceEndoresmentInputView extends React.Component{
 											checkForValidation ={this.checkForValidation.bind(this)} 
 											id={`member_${this.props.currentSelectedInsuredMembersId[0]['0']}`} 
 											member_id={self_data[0].id}
-											validateErrors={this.state.validateErrors['0'] || []} 
-											validateOtherErrors={this.state.validateOtherErrors['0'] || []}
+											validateErrors={this.state.validateErrors[self_data[0].id] || []} 
+											validateOtherErrors={this.state.validateOtherErrors[self_data[0].id] || []}
 											createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} 
 											errorMessages={this.state.errorMessages} 
 											is_endorsement = {true} 
