@@ -3481,7 +3481,7 @@ border: 1px solid #aaaa;
 	}
 	
 	div.search-el-popup{
-		width: 80%;
+		width: 80% !important;
 	}
 	header.searcLocationHeaderPadding{
 		padding-top: 70px !important;
@@ -3770,7 +3770,7 @@ padding-top: 0px !important;
 	position: fixed;
     top: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, .2);
+    background: rgba(0,0,0,.6);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8279,9 +8279,9 @@ a.btn-search.btn-cnte{
 	.ipd-section .read-more-btn{
 		right: -78%;
 	}
-	.hsptl-img span:first-child{
+	/* .hsptl-img span:first-child{
 		display: none;
-	}
+	} */
 	.ipd-section .hs-nme{
 		width: 170px;
 	}
@@ -8331,9 +8331,9 @@ a.btn-search.btn-cnte{
     .ipd-section .error-msg.gender-error-msg{
     	bottom: 10px;
     }
-    .hsptl-img span:first-child,.hsptl-img span:nth-child(2){
+    /* .hsptl-img span:first-child,.hsptl-img span:nth-child(2){
 		display: none;
-	}
+	} */
 	.ipd-section .hospital-info.hsptl-info{
         display: block;
         overflow: auto;
