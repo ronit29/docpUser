@@ -183,6 +183,7 @@ class BookingView extends React.Component {
         let lab_thumbnail = ""
         let reports = []
         let is_thyrocare = null
+        let payment_type
 
         if (this.state.data) {
             lab = this.state.data.lab
@@ -194,8 +195,8 @@ class BookingView extends React.Component {
             lab_thumbnail = this.state.data.lab_thumbnail
             reports = this.state.data.reports || []
             is_thyrocare = this.state.data.lab?this.state.data.lab.is_thyrocare:null
+            payment_type = this.state.data.payment_type
         }
-
         let summar_utm_tag = ""
         if (this.state.data && this.props.summary_utm && this.props.summary_utm_validity) {
             if ((new Date(this.props.summary_utm_validity)) > (new Date())) {
@@ -434,7 +435,7 @@ class BookingView extends React.Component {
                             <TestDetail show={this.state.showTestDetail} toggle={this.toogleTestDetails.bind(this)} lab_test={lab_test} />
 
                             {
-                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} comments={this.state.data && this.state.data.cancellation_reason ? this.state.data.cancellation_reason : []} /> : ""
+                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} comments={this.state.data && this.state.data.cancellation_reason ? this.state.data.cancellation_reason : []} showCommentReasons={payment_type == 3?true:false}/> : ""
                             }
 
                         </div>
