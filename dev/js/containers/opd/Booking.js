@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getCartItems, getOPDBookingSummary, updateOPDAppointment, selectOpdTimeSLot, retryPaymentOPD, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp,OTTLogin, getUnratedAppointment,closeAppointmentRating,editUserProfile, resetPkgCompare} from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 import BookingView from '../../components/opd/booking/BookingView.js'
+import FCM from '../../helpers/fcm'
 
 class Booking extends React.Component {
     constructor(props) {
@@ -20,7 +21,8 @@ class Booking extends React.Component {
         }else{
             this.props.history.push('/')
         } 
-        this.props.resetPkgCompare()   
+        this.props.resetPkgCompare()
+        FCM.getPermission()
     }
 
     render() {
