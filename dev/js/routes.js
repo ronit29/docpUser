@@ -183,6 +183,13 @@ const TestsList = Loadable({
     loading,
 })
 
+const ChatFeedback = Loadable({
+    loader: () => import('./containers/commons/ChatFeedback.js'),
+    modules: ['./containers/commons/ChatFeedback.js'],
+    webpack: () => [require.resolveWeak('./containers/commons/ChatFeedback.js')],
+    loading,
+})
+
 const IpdList = Loadable({
     loader: () => import('./containers/commons/ipdLists.js'),
     modules: ['./containers/commons/ipdLists.js'],
@@ -530,6 +537,7 @@ let routes = [
     { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail, RENDER_ON_SERVER: true },
     { path: '/*-hpp', exact: true, component: IpdHospitalDetail, RENDER_ON_SERVER: true },
     { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail },
+    { path: '/chat/feedback' , component: ChatFeedback },
     { path: '/package/compare', exact: true, component: PackageCompare },
     { path: '/*-hpcp', exact: true, component: PackageCompare },
     { path: '/ipd-procedures', exact: true, component: IpdList, RENDER_ON_SERVER: true }
