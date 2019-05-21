@@ -216,9 +216,9 @@ class SearchResultsView extends React.Component {
         let search_id_data = Object.assign({}, this.props.search_id_data)
         const parsed = queryString.parse(this.props.location.search)
 
-        if (this.props.search_id_data && this.props.search_id_data[parsed.search_id]) {
-            search_id_data[parsed.search_id].filterCriteria = filterState
-            search_id_data[parsed.search_id].page = 1
+        if (this.props.search_id_data && this.state.search_id && this.props.search_id_data[this.state.search_id]) {
+            search_id_data[this.state.search_id].filterCriteria = filterState
+            search_id_data[this.state.search_id].page = 1
         }
         this.props.mergeLABState({ filterCriteria: filterState, search_id_data: search_id_data, page: 1 })
         //this.props.setLabSearchId(this.state.search_id, filterState, false)

@@ -173,6 +173,32 @@ export const OTTLogin = (ott) => (dispatch) => {
     })
 }
 
+export const OTTExchangeLogin = (ott) => (dispatch) => {
+    return new Promise((resolve, reject) => {
+        API_GET(`/api/v1/user/token/exchange?token=${ott}`).then((d) => {
+            STORAGE.deleteAuth().then(() => {
+                dispatch({
+                    type: RESET_AUTH,
+                    payload: {}
+                })
+                STORAGE.setAuthToken(d.token)
+                API_GET('/api/v1/user/userprofile').then(function (response) {
+                    API_GET('/api/v1/user/userid').then((data) => {
+                        STORAGE.setUserId(data.user_id)
+                        dispatch({
+                            type: APPEND_USER_PROFILES,
+                            payload: response
+                        })
+                        resolve()
+                    })
+                }).catch(function (error) {
+                    reject(err)
+                })
+            })
+        })
+    })
+}
+
 export function setGTMSession(data) {
     API_POST('api/v1/tracking/event/save', data).then((data) => {
 
@@ -203,9 +229,16 @@ export const createAppointmentRating = (appointmentData, callback) => (dispatch)
     let post_data = {
         'rating': appointmentData.rating,
         'review': appointmentData.review ? appointmentData.review : '',
-        'appointment_id': appointmentData.appointment_id,
+        // 'appointment_id': appointmentData.appointment_id,
         'appointment_type': appointmentData.appointment_type,
         'compliment': appointmentData.compliment ? appointmentData.compliment : []
+    }
+    if('appointment_id' in appointmentData){
+        post_data.appointment_id = appointmentData.appointment_id
+    }
+    else{
+        post_data.entity_id = appointmentData.entity_id
+        post_data.related_entity_id = appointmentData.related_entity_id
     }
     API_POST(`/api/v1/ratings/create`, post_data).then(function (response) {
         callback(null, response)

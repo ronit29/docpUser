@@ -310,16 +310,34 @@ class HomeView extends React.Component {
 								/> : ""
 						}
 
-						<div className="banner-cont-height">
+						{/* x ray landing page cards */}
+						{/* <div className="xray-container">
+							<h1 className="xray-heading">Chest X-rays</h1>
+							<div className="xray-cards">
+								<div className="row no-gutters">
+									<div className="col-7">
+										<p className="xrayCardMainHeading">AP & LAT  View</p>
+										<p className="xrayCardSubHeading">Available in 224 Labs </p>
+									</div>
+									<div className="col-5 text-right">
+										<p className="xray-strtng">Starting at</p>
+										<p className="xray-pffer">Save upto 40% <span className="xray-price">₹ 700</span></p>
+										<button className="xrayBtn">Select Lab</button>
+									</div>
+								</div>
+							</div>
+						</div> */}
+						{/* x ray landing page cards */}
+
+						<div className="banner-cont-height home-page-banner-div">
 							<div className="hidderBanner banner-carousel-div d-md-none">
 								<div className="divHeight"></div>
 							</div>
 							{
 								this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
-									<BannerCarousel {...this.props} hideClass="d-md-none home-slider-position" sliderLocation="home_page" /> : ''
+									<BannerCarousel {...this.props} hideClass="d-md-none" sliderLocation="home_page" /> : ''
 							}
 						</div>
-
 
 						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, false)}>
 							<p className="top-head-link card-lab-link">Run a clinic? Increase your<span>reach & brand NOW!</span> </p>

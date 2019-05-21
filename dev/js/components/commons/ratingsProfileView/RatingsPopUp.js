@@ -24,12 +24,19 @@ class RatingsPopUp extends React.Component {
     }
 
     componentDidMount() {
+        console.log(this.props.selectedHospital);
         if (STORAGE.checkAuth()) {
-            this.props.getUnratedAppointment((err, data) => {
-                if (!err && data) {
-                    this.setState({ data })
-                }
-            })
+            if (typeof (this.props.unverified) == 'undefined' && !this.props.unverified) {
+                this.props.getUnratedAppointment((err, data) => {
+                    if (!err && data) {
+                        this.setState({ data })
+                    }
+                })
+            }
+            else {
+                let data_obbj = this.props.unverifiedData
+                this.setState({ data: data_obbj })
+            }
             this.props.getRatingCompliments((err, compliments) => {
                 if (!err && compliments) {
                     this.setState({ compliments })
@@ -41,11 +48,17 @@ class RatingsPopUp extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.token != this.props.token) {
             if (STORAGE.checkAuth()) {
-                this.props.getUnratedAppointment((err, data) => {
-                    if (!err && data) {
-                        this.setState({ data })
-                    }
-                })
+                if (typeof (this.props.unverified) == 'undefined' && !this.props.unverified) {
+                    this.props.getUnratedAppointment((err, data) => {
+                        if (!err && data) {
+                            this.setState({ data })
+                        }
+                    })
+                }
+                else {
+                    let data_obbj = this.props.unverifiedData
+                    this.setState({ data: data_obbj })
+                }
                 this.props.getRatingCompliments((err, compliments) => {
                     if (!err && compliments) {
                         this.setState({ compliments })
@@ -59,7 +72,12 @@ class RatingsPopUp extends React.Component {
         this.setState({ selectedRating: x })
         if (!size) {
             let type = this.getAppointmentType();
-            let post_data = { 'rating': x, 'appointment_id': this.state.data.id, 'appointment_type': type };
+            if (typeof (this.props.unverified) == 'undefined' && !this.props.unverified) {
+                var post_data = { 'rating': x, 'appointment_id': this.state.data.id, 'appointment_type': type };
+            }
+            else {
+                var post_data = { 'rating': x, 'entity_id': this.state.data.id, 'appointment_type': type, 'related_entity_id': this.props.selectedHospital.hospital_id };
+            }
             this.props.createAppointmentRating(post_data, (err, data) => {
                 if (!err && data) {
                     this.setState({ rating_id: data.id })
@@ -69,18 +87,26 @@ class RatingsPopUp extends React.Component {
     }
 
     declineRating(type, id, size) {
-
-        let post_data = { 'appointment_id': id, 'appointment_type': type };
-        this.props.closeAppointmentRating(post_data, (err, data) => {
-            if (!err && data) {
-                console.log('Popup Closed');
-            }
-        })
+        if (typeof (this.props.unverified) == 'undefined' && !this.props.unverified) {
+            let post_data = { 'appointment_id': id, 'appointment_type': type };
+            this.props.closeAppointmentRating(post_data, (err, data) => {
+                if (!err && data) {
+                    console.log('Popup Closed');
+                }
+            })
+        }
+        else{
+            this.setState({ data: null })
+            this.props.popUpState()
+        }
         this.setState({ data: null })
     }
 
     thanYouButton = () => {
         this.setState({ rating_done: false })
+        if (typeof (this.props.unverified) != 'undefined' && this.props.unverified) {
+            this.props.popUpState()
+        }
     }
 
     submitRating = (post_data, flag) => {
@@ -127,6 +153,14 @@ class RatingsPopUp extends React.Component {
                                 Rate your Experience
                         <span><img onClick={this.declineRating.bind(this, data_obj.type, this.state.data.id)} src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} className="img-fluid" /></span>
                             </div>
+                            {
+                                typeof (this.props.selectedHospital) != 'undefined' && this.props.selectedHospital.id ?
+
+                                    <div className="rate-seceltion-cont">
+                                        <p className="rt-par-select">{this.props.selectedHospital.hospital_name}</p>
+                                    </div> : ""
+                            }
+
                             <div className="rate-card-doc-dtls">
                                 {
                                     this.state.data.type && this.state.data.type == "lab" ?
