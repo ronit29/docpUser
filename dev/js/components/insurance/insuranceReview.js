@@ -215,7 +215,6 @@ class InsuranceReview extends React.Component{
 	    			}	
 	    		})
 			}
-			console.log(this.props.data.edited_fields)
 			return(
 				<div className="profile-body-wrap">
 				<ProfileHeader />
