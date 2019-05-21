@@ -216,12 +216,12 @@ class InsuranceNetworkView extends React.Component {
                                                         this.state.type == 'doctor' ?
                                                             <div className="srch-radio-btns ipd-srch-radio-btn">
                                                                 <div className="dtl-radio">
-                                                                    <label className="container-radio">Search by name<input type="radio" onChange={() => this.radioClick('name')} checked={this.state.docSearch == 'name'} name="radio" />
+                                                                    <label className="container-radio" style={{ fontSize: 13 }}>Search by name<input type="radio" onChange={() => this.radioClick('name')} checked={this.state.docSearch == 'name'} name="radio" />
                                                                         <span className="doc-checkmark"></span>
                                                                     </label>
                                                                 </div>
                                                                 <div className="dtl-radio">
-                                                                    <label className="container-radio">Search by specialization<input type="radio" onChange={() => this.radioClick('specialization')} checked={this.state.docSearch == 'specialization'} name="radio" />
+                                                                    <label className="container-radio" style={{ fontSize: 13 }}>Search by specialization<input type="radio" onChange={() => this.radioClick('specialization')} checked={this.state.docSearch == 'specialization'} name="radio" />
                                                                         <span className="doc-checkmark"></span>
                                                                     </label>
                                                                 </div>
@@ -296,11 +296,16 @@ class InsuranceNetworkView extends React.Component {
                                                                             return <li key={index} className="ntwrk-list-item" onClick={() => this.resultClick(result.id, result.url)}>
                                                                                 <div className="ntwrk-list-content">
                                                                                     <p className="ntwrk-list-content-name fw-500">{result.name}</p>
-                                                                                    <p className="ntwrk-list-content-city fw-500">{result.city}</p>
-                                                                                    {
-                                                                                        result.specializations && result.specializations.length ?
-                                                                                            <p className="ntwrk-list-content-city fw-500">{result.specializations[0]}</p> : ''
-                                                                                    }
+                                                                                    <div className="d-flex align-items-center flex-wrap">
+                                                                                        {
+                                                                                            result.specializations && result.specializations.length ?
+                                                                                                <div className="d-flex align-items-center flex-wrap" style={{ marginRight: 4 }}>
+                                                                                                    <p className="ntwrk-list-content-city fw-500">{result.specializations[0]}</p>
+                                                                                                    <span style={{ marginLeft: 4, color: '#757575' }}>|</span>
+                                                                                                </div> : ''
+                                                                                        }
+                                                                                        <p className="ntwrk-list-content-city fw-500">{result.city}</p>
+                                                                                    </div>
                                                                                 </div>
                                                                                 <div className="ntwrk-list-dist">
                                                                                     <p className="fw-500">{result.distance} km</p>

@@ -229,10 +229,6 @@ class UserLoginView extends React.Component {
                                                 <img src={ASSETS_BASE_URL + "/img/customer-icons/su-offr.png"} className="img-fluid" />
                                                 <p>Get upto 50% off on doctor appointments and lab tests</p>
                                             </li>
-                                            <li>
-                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/su-opd.png"} className="img-fluid" />
-                                                <p>OPD Insurance coming soon</p>
-                                            </li>
                                         </ul>
                                     </div>
                                 </div>

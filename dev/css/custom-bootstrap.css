@@ -40,6 +40,10 @@
     justify-content: space-around!important;
 }
 
+.flex-wrap{
+    flex-wrap: wrap !important;
+}
+
 @media (min-width: 768px) {
     .d-md-block {
         display: block!important;
