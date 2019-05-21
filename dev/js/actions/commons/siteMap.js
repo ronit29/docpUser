@@ -1,4 +1,4 @@
-import { GET_CITIES_MAP, GET_CITIES_SPECIALITIES, GET_SPECIALITIES_CITIES, GET_SPECIALITIES_MAP, GET_TESTS_ALPHABETICALLY, GET_TESTS_FLAG, START_FETCHING_IPD_LIST, GET_IPD_ALPHABETICALLY } from '../../constants/types';
+import { GET_CITIES_MAP, GET_CITIES_SPECIALITIES, GET_SPECIALITIES_CITIES, GET_SPECIALITIES_MAP, GET_TESTS_ALPHABETICALLY, GET_TESTS_FLAG, GET_INSURANCE_NETWORK, SET_NETWORK_TYPE, START_FETCHING_IPD_LIST, GET_IPD_ALPHABETICALLY } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 export const getCitiesMap = (city = "", page = 0) => (dispatch) => {
@@ -82,6 +82,25 @@ export const getTestsAlphabetically = (character) => (dispatch) => {
 		})
 	}).catch(function (error) {
 
+	})
+}
+
+export const getInsuranceNetworks = (lat, long, type, searchString, searchBy) => (dispatch) => {
+	let url = `/api/v1/insurance/network/search?latitude=${lat}&longitude=${long}&type=${type}&search=${searchBy}&starts_with=${searchString}`
+	return API_GET(url).then(function (response) {
+		dispatch({
+			type: GET_INSURANCE_NETWORK,
+			payload: response
+		})
+	}).catch(function (error) {
+
+	})
+}
+
+export const setNetworkType = (type) => (dispatch) => {
+	dispatch({
+		type: SET_NETWORK_TYPE,
+		payload: type
 	})
 }
 
