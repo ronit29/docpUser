@@ -110,7 +110,6 @@ class DoctorProfile extends React.Component {
     }
 
     render() {
-
         return (
             <DoctorProfileView {...this.props} selectedDoctor={this.state.selectedDoctor} {...this.state} />
         );
