@@ -51,8 +51,12 @@ class Insurance extends React.Component{
 const mapStateToProps = (state) => {
     const USER = state.USER
     let { insurnaceData, LOAD_INSURANCE, selected_plan,self_data_values} = state.INSURANCE
+    const {
+        selectedLocation
+
+    } = state.SEARCH_CRITERIA_LABS
     return {
-        insurnaceData,LOAD_INSURANCE,selected_plan,self_data_values,USER
+        insurnaceData,LOAD_INSURANCE,selected_plan,self_data_values,USER, selectedLocation
     }
 }
 

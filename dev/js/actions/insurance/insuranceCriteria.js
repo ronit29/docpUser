@@ -143,7 +143,19 @@ export const clearInsurance = () => (dispatch) =>{
             type: CLEAR_INSURANCE
         })
 }
-export const generateInsuranceLead = (selectedPlan, number,lead_data,callback) => (dispatch) => {
+export const generateInsuranceLead = (selectedPlan, number,lead_data,callback,selectedLocation) => (dispatch) => {
+    let lat
+    let long
+    let latitude = 28.644800
+    let longitude = 77.216721
+    if (selectedLocation) {
+        lat = selectedLocation.geometry.location.lat
+        long = selectedLocation.geometry.location.lng
+
+        if (typeof lat === 'function') lat = lat()
+        if (typeof long === 'function') long = long()
+
+    }
     let plan={}
         plan.plan_id= selectedPlan
         plan.phone_number=''
@@ -157,6 +169,10 @@ export const generateInsuranceLead = (selectedPlan, number,lead_data,callback) =
             plan.phone_number = number
         }
         plan.lead_data = lead_data
+        if(latitude != lat && longitude != long){
+            plan.latitude = latitude
+            plan.longitude = longitude
+        }
     return API_POST(`/api/v1/insurance/lead/create`, plan).then(function (response) {
         if(callback) callback(null, response)
     }).catch(function (error) {
