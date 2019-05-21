@@ -239,12 +239,6 @@ class InsuranceEndoresmentInputView extends React.Component{
 							empty_feilds.push('title')	
 						} 
 					}
-					if(param.only_adult && param.gender !== ""){
-						if(self_profile.gender == param.gender){
-							is_disable = true
-							empty_feilds.push('gender')	
-						} 
-					}
 					if(param.gender != '' && param.title !=''){
 						if(param.gender == 'm' && param.title !='mr.'){
 							is_disable = true

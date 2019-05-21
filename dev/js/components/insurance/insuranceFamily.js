@@ -243,7 +243,7 @@ class InsuranceOthers extends React.Component {
         });
     }	
 	render() {
-		console.log(this.props.validateOtherErrors)
+		// console.log(this.props.validateOtherErrors)
 		// console.log('validateOtherErrors')
 		// console.log(this.props.validateErrors)
 		// console.log('validateErrors')
