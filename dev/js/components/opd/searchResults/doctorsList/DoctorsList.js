@@ -68,7 +68,7 @@ class DoctorsList extends React.Component {
 
     componentWillReceiveProps(props) {
         if(props.filterCriteria) {
-            this.setState({ sort_on: props.filterCriteria.sort_on, sort_order: props.filterCriteria.sort_order,  availability: props.filterCriteria.availability })    
+            this.setState({ sort_on: props.filterCriteria.sort_on, sort_order: props.filterCriteria.sort_order,  availability: props.filterCriteria.availability || [] })    
         }
         
     }
@@ -231,7 +231,7 @@ class DoctorsList extends React.Component {
 
                                                     return <React.Fragment key={i}>
                                                             {
-                                                                i==3 && (this.state.availability && !this.state.availability.length)?
+                                                                i==3 && (!this.state.availability || !this.state.availability.length)?
                                                                 <div className="sort-sub-filter-container mb-3">
                                                                     <p>You are looking for <span className="fw-700">availability ?</span><span className="fw-500 sort-more-filter" onClick={this.viewMoreClicked.bind(this)}>More filters</span></p>
                                                                     <div className="srt-sb-btn-cont">
