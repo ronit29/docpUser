@@ -233,7 +233,7 @@ class DoctorsList extends React.Component {
                                                             {
                                                                 i==3 && (!this.state.availability || !this.state.availability.length)?
                                                                 <div className="sort-sub-filter-container mb-3">
-                                                                    <p>You are looking for <span className="fw-700">availability ?</span><span className="fw-500 sort-more-filter" onClick={this.viewMoreClicked.bind(this)}>More filters</span></p>
+                                                                    <p>Filter by <span className="fw-700">Availability </span><span className="fw-500 sort-more-filter" onClick={this.viewMoreClicked.bind(this)}>More filters</span></p>
                                                                     <div className="srt-sb-btn-cont">
                                                                         <button className={`${this.state.availability && this.state.availability.length && this.state.availability.indexOf('1') > -1?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'availability', '1', true)}>Today</button>
                                                                         <button className={`${this.state.availability && this.state.availability.length && this.state.availability.indexOf('2') > -1?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'availability', '2', true)}>Tomorrow</button>
@@ -246,7 +246,7 @@ class DoctorsList extends React.Component {
                                                             {
                                                                 this.props.insurance_status != 1 && !this.state.sort_order && ( (i==5 && this.state.availability && !this.state.availability.length) || (i==3 && this.state.availability && this.state.availability.length) )?
                                                                 <div className="sort-sub-filter-container mb-3">
-                                                                    <p>You are looking <span className="fw-700">Price Variant?</span><span className="fw-500 sort-more-filter" onClick={this.viewMoreClicked.bind(this)}>More filters</span></p>
+                                                                    <p>Sort by <span className="fw-700"></span><span className="fw-500 sort-more-filter" onClick={this.viewMoreClicked.bind(this)}>More filters</span></p>
                                                                     <div className="srt-sb-btn-cont">
                                                                         <button className={`${this.state.sort_on=='fees' && this.state.sort_order=='asc'?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'sort_on', 'price_asc', false)}>Price Low to High</button>
                                                                         <button className={`${this.state.sort_on=='fees' && this.state.sort_order=='desc'?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'sort_on', 'price_desc', false)}>Price High to Low</button>
