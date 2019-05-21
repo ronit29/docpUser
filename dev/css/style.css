@@ -2184,7 +2184,7 @@ p.comment-para-status{
     position: relative;
     border-bottom: 1px solid rgba(0, 0, 0, .12);
     padding-bottom: 5px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
 }
 .rate-card-header span{
@@ -2193,7 +2193,7 @@ p.comment-para-status{
 	cursor: pointer;
 }
 .rate-card-header span img{
-	width:15px;
+	width:12px;
  }
 .rate-card-doc-dtls{
     display: flex;
@@ -9114,6 +9114,270 @@ border-radius: 4px;
 .pkgComapre .pkg-crd-header.pkg-hd{
 	padding: 5px 10px;
 }
+
+
+/*****************************START CHAT FEEDBACK************************/
+
+h1,h2,h3,h4,h5,h6,p,ul,li{
+    margin: 0;
+    padding: 0;
+}
+ul,li{
+    list-style: none;
+}
+.customer-feedback{
+	background-color: #f78631;
+}
+
+.cf-card{
+    background: #fff;
+    border-radius: 25px;
+    box-shadow: 0px 15px 40.5px 4.5px rgba(1, 1, 1, 0.2);
+    width: 420px;
+    margin: auto;
+    text-align: center;
+}
+.cf-body{
+    padding: 30px 20px;
+}
+.cf-title{
+    font-size: 20px;
+    color: #f78631;
+    margin-bottom: 20px;
+}
+.cf-prgh{
+    font-size: 14px;
+    color: #010101;
+    font-weight: 500;
+}
+.cf-footer{
+    background-color: #ffcf70;
+    color: #f78631;
+    font-weight: 700;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    clear: both;
+    overflow: hidden;
+}
+.cf-btn{
+    color: #f78631;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 20px;
+    display: block;
+    width: 40%;
+}
+.cf-btn.cf-only-btn{
+    width: auto;
+}
+.cf-img{
+    width: 16px;
+    vertical-align: middle;
+}
+.cf-ans{
+    border: 1px solid #00aeef;
+    display: block;
+    color: #00aeef;
+    margin: 20px 0;
+    padding: 15px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+}
+.cf-ans:last-child{
+    margin-bottom: 0;
+}
+.cf-ans:hover,.cf-ans.active,.cf-ans:focus,.cf-ans:active{
+    background-color:#00aeef;
+    color: #fff;
+}
+.cf-prev{
+    display: inline-block;
+    float: left;
+    text-align: left;
+}
+.cf-next{
+    display: inline-block;
+    float: right;
+    text-align: right;
+}
+/*
+.cf-hght-350{
+    height: 350px;
+}
+.cf-hght-440{
+    height: 440px;
+}
+.cf-hght-293{
+    height: 293px;
+}
+.cf-hght-196{
+    height: 196px;
+}
+*/
+.cf-hght{
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    height: 100vh;
+}
+.cf-light-txt{
+    color: #767676;
+    font-size: 11px;
+    display: block;
+    margin: 10px 0 30px;
+}
+.cf-rating.cf-mrgT20{
+    margin-top: 20px;
+}
+.cf-rating li{
+    display: inline-block;
+    padding: 0px 10px 20px;
+    position: relative;
+}
+.cf-rating-img{
+    width: 32px;
+}
+.cf-rating-val{
+    position: absolute;
+    top: 10px;
+    left: 23px;
+    font-size: 12px;
+    color: #fff;
+    font-weight: 500;
+}
+.rating-txt{
+    position: absolute;
+    font-size: 12px;
+    font-weight: 500;
+}
+.cf-radio li{
+    display: block;
+    border: 1px solid #767676;
+    padding: 10px;
+    margin: 20px 0;
+    text-align: left;
+}
+
+
+/*Radio button*/
+.custom-radio{
+    position: relative;
+}
+.custom-radio {
+    display: block;position: relative;padding-left: 30px;padding-top:2px;cursor: pointer;font-size: 12px;
+    -webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;font-weight: 500;margin-bottom: 0;
+}
+/* Hide the browser's default checkbox */
+.custom-radio input {
+    position: absolute;opacity: 0;cursor: pointer;height: 0;width: 0;
+}
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;top: 0;left: 0;height: 12px;width: 12px;border: 2px solid #ccc; border-radius: 2px;
+}
+/* When the checkbox is checked, add a blue background */
+.custom-radio input:checked ~ .checkmark {
+    background-color: #49a8ff;border-color: #49a8ff;
+}
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";position: absolute;display: none;
+}
+/* Show the checkmark when checked */
+.custom-radio input:checked ~ .checkmark:after {
+    display: block;
+}
+/* Style the checkmark/indicator */
+.custom-radio .checkmark:after {
+    left: 6px;top: 2px;width: 5px;height: 10px;border: solid white;border-width: 0 2px 2px 0;-webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);transform: rotate(45deg);
+}
+/*Radio button*/
+
+/*Radio*/
+.radio-checkmark.checkmark {
+    border-radius: 50%;
+}
+.custom-radio .radio-checkmark.checkmark:after{
+    top: 0px;left: 0px;width: 8px;height: 8px;border-radius: 50%;background: #49a8ff; border: 2px solid #fff;
+}
+
+.custom-radio input:checked li{
+    background: #d4eaff;
+}
+
+.cf-radio li.active{
+    background: #d4eaff;
+    border-color: #00aeef;
+}
+.cf-radio li:last-child{
+    margin-bottom: 0;
+}
+.cf-radio-text{
+    margin-top: -1px;
+    display: block;
+}
+.cf-textarea{
+    height: 100px;
+    width: 100%;
+    border: 1px solid rgba(0,0,0,0.12);
+    margin-top: 20px;
+    border-radius: 4px;
+    padding: 10px;
+    box-sizing: border-box;
+    
+}
+.cf-submit{
+    background: #e1bb6c;
+}
+.thanks-page{
+    background: #fff;
+}
+.thanks-div{
+    text-align: center;
+    padding: 15px;
+    margin: auto;
+}
+.cf-tick-img{
+    height: 70px;
+    width: 70px;
+}
+.cf-thanks-text{
+    font-size: 36px;
+    padding: 20px;
+    color: #ffa600;
+    font-weight: 500;
+}
+.cf-tnanks-prgh{
+    font-size: 14px;
+    font-weight: 500;
+}
+@media screen and (max-width: 480px){
+    .cf-card{
+        width: 100%;
+        margin: 15px;
+    }
+    .cf-rating li{
+        padding: 0 7px 20px;
+    }
+    .cf-btn{
+        width: 36%;
+    }
+    .cf-rating-val{
+        left: 20px;
+    }
+}
+
+.cursor-pntr{
+	cursor: pointer;
+}
+
+/*****************************END CHAT FEEDBACK************************/
+.insurance-form-page{
+    margin-top: 0px;
+}
 .pkgComapre .pkg-crd-header.pkg-crd-green{
 	background: #55a740;
 }
@@ -11231,15 +11495,42 @@ position: relative;
     cursor: pointer;
 }
 .banner-cont-height{
-    position: relative;
+	position: relative;
+    margin: 0 -15px;
+}
+.home-page-banner-div .banner-home-scrollable{
+	margin-top: 0px!important;
+	margin-bottom: 0px!important;
+}
+.banner-home-scrollable{
+    white-space: nowrap;
+    overflow-x: auto;
+    width: 100%;
+    top: 0;
+}
+.banner-home-scrollable img {
+    border-radius: 4px;
+    box-shadow: 0 1px 5px rgba(76, 76, 76, 0.12), 1px 1px 4px rgba(128, 128, 128, 0.24);
+    margin-bottom: 3px;
 }
 .hidderBanner{
     visibility: hidden;
 }
 .divHeight{
     height: 0;
-    padding-bottom: 25.5%;
+    padding-bottom: 20%;
     margin: 20px 0px;
+}
+.sngl-banner{
+	width: 100%;
+	margin-right: 0px;
+}
+.mltpl-banner{
+	width: 90%;
+	margin-right: 10px;
+}
+.pd-lt-15{
+	padding-left: 15px;
 }
 .home-slider-position{
     position: absolute;
@@ -11286,6 +11577,11 @@ input.clkInput{
 }
 .uTimingPara p{
 	margin-left: 3px;
+}
+
+img.rt-vr-img {
+    width: 15px;
+	margin-right: 3px;
 }
 .algn-anchr{
 	display: flex;

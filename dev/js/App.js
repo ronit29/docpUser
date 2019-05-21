@@ -8,7 +8,7 @@ const Raven = require('raven-js')
 import { API_POST } from './api/api.js';
 import GTM from './helpers/gtm'
 const queryString = require('query-string');
-import { set_summary_utm, getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState, mergeUrlState, getCartItems, loadLabCommonCriterias, toggleLeftMenuBar, clearLabSearchId, clearOpdSearchId, clearIpdSearchId, setCommonUtmTags } from './actions/index.js'
+import { set_summary_utm, getUnratedAppointment, updateAppointmentRating, createAppointmentRating, closeAppointmentPopUp, closeAppointmentRating, getRatingCompliments, setFetchResults, setUTMTags, selectLocation, getGeoIpLocation, saveDeviceInfo, mergeOPDState, mergeLABState, mergeUrlState, getCartItems, loadLabCommonCriterias, toggleLeftMenuBar, clearLabSearchId, clearOpdSearchId, clearIpdSearchId, setCommonUtmTags, OTTExchangeLogin } from './actions/index.js'
 import { _getlocationFromLatLong } from './helpers/mapHelpers.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from './helpers/urltoState.js'
 
@@ -100,6 +100,15 @@ class App extends React.Component {
                         // STORAGE.setAuthToken(data.token)
                     })
                 }
+            })
+        }
+
+        let OTT = parsed.access_token
+        if (OTT && !STORAGE.checkAuth()) {
+            this.props.OTTExchangeLogin(OTT).then(() => {
+                // do something
+            }).catch(() => {
+                this.props.history.push('/')
             })
         }
 
@@ -302,7 +311,8 @@ const mapDispatchToProps = (dispatch) => {
         clearLabSearchId: () => dispatch(clearLabSearchId()),
         clearOpdSearchId: () => dispatch(clearOpdSearchId()),
         clearIpdSearchId: () => dispatch(clearIpdSearchId()),
-        setCommonUtmTags: (type, tag) => dispatch(setCommonUtmTags(type, tag))
+        setCommonUtmTags: (type, tag) => dispatch(setCommonUtmTags(type, tag)),
+        OTTExchangeLogin: (ott) => dispatch(OTTExchangeLogin(ott))
     }
 
 }
