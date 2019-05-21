@@ -113,9 +113,9 @@ class InsurancePopup extends React.Component{
                                     }
                                 }else{
                                     self.setState({ isLeadTrue:true, }) 
-                                    if(document.getElementById('terms_condition')){
-                                        document.getElementById('terms_condition').click()
-                                    }
+                                    // if(document.getElementById('terms_condition')){
+                                    //     document.getElementById('terms_condition').click()
+                                    // }
                                 }
                             }  
                         })                    
