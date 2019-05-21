@@ -215,8 +215,7 @@ class InsuranceReview extends React.Component{
 	    				self_edited_fields=value
 	    			}	
 	    		})
-	    	}
-	    	console.log(self_profile)
+			}
 			return(
 				<div className="profile-body-wrap">
 				<ProfileHeader />

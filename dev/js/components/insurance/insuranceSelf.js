@@ -199,6 +199,7 @@ class InsuranceSelf extends React.Component{
 	    }
 	    if(!is_endoresment){
 	    	self_data.is_change = true
+	    	self_data.first_name= self_data.name
 	    }
 	    this.props.userData('self_data', self_data)
 	}
