@@ -120,6 +120,10 @@ class InsuranceCancellationView extends React.Component {
         }
     }
 
+    pickFile(){
+    	
+    }
+
 	render() {
 		return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
 			<ProfileHeader />
@@ -143,9 +147,23 @@ class InsuranceCancellationView extends React.Component {
 										<input className="ins-cn-inp" type="text" name="ifscCode" placeholder="IFSC Code" onChange={this.inputHandler.bind(this)} value={this.state.ifscCode} required ref="ifscCode" onKeyPress={this.handleEnterPress.bind(this)}  />
 									</div>
 									<p className="ins-cancl-para">We need to confirm if this account belongs to you. Please fill more details below </p>
+									<span className="ins-proof-upload-btn" onClick={() => {
+				                        document.getElementById('imageFilePicker_').click()
+				                        document.getElementById('imageFilePicker_').value = "" }}>
+				                    	<img src={ASSETS_BASE_URL + "/img/ins-up-ico.svg"}/> Upload
+				                        	<input type="file" style={{ display: 'none' }} id={`imageFilePicker_`} onChange={this.pickFile.bind(this)} accept="image/*"/>
+				                    </span>
+				                    <p className="ins-cancl-para">OR</p>
+				                    <span className="ins-proof-upload-btn" onClick={() => {
+				                        document.getElementById('imageFilePicker_').click()
+				                        document.getElementById('imageFilePicker_').value = "" }}>
+				                    	<img src={ASSETS_BASE_URL + "/img/ins-up-ico.svg"}/> Upload
+				                        	<input type="file" style={{ display: 'none' }} id={`imageFilePicker_`} onChange={this.pickFile.bind(this)} accept="image/*"/>
+				                    </span>
+									{/*<p className="ins-cancl-para">We need to confirm if this account belongs to you. Please fill more details below </p>
 									<button className="ins-cn-btn"><img src={ASSETS_BASE_URL + '/img/upld.png'} />Upload Cancelled Cheque</button>
 									<p className="ins-cancl-para">OR</p>
-									<button className="ins-cn-btn"><img src={ASSETS_BASE_URL + '/img/upld.png'} />Upload Account Statement</button>
+									<button className="ins-cn-btn"><img src={ASSETS_BASE_URL + '/img/upld.png'} />Upload Account Statement</button>*/}
 								</div>
 							</div>
 						</section>
