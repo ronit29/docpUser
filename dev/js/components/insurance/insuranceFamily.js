@@ -123,7 +123,7 @@ class InsuranceOthers extends React.Component {
   			this.setState({title:'miss',gender:'f'})	
   		}
 		this.setState({
-			relation: event.target.value
+			relation: event.target.value,is_change:true
 		},() =>{
 			this.handleSubmit(true,event)
 		})
@@ -193,7 +193,7 @@ class InsuranceOthers extends React.Component {
 	  		}
 		}
 		this.setState({
-			gender: event.target.value
+			gender: event.target.value, is_change:true
 		},() =>{
 			this.handleSubmit(false,event)
 		})
