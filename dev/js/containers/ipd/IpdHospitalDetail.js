@@ -22,7 +22,8 @@ class HospitalDetail extends React.Component {
 		let h_id = this.props.match.params.hospitalId || this.get_hospital_id_by_url(this.props.match.url)
 		this.state = {
 			specialization_id: null,
-			hospital_id: h_id
+			hospital_id: h_id,
+			is_seo: this.props.match.url.includes('-hpp')
 		}
 	}
 
@@ -97,7 +98,7 @@ class HospitalDetail extends React.Component {
 
 	getMetaTagsData(seoData) {
 		let title = "Hospital Profile Page"
-		if (this.state.seoFriendly) {
+		if (this.state.is_seo) {
 			title = ""
 		}
 		let description = ""
@@ -119,7 +120,7 @@ class HospitalDetail extends React.Component {
 						canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
 						title: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail.seo : null).title,
 						description: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail.seo : null).description
-					}} noIndex={!this.state.seoFriendly} />
+					}} noIndex={!this.state.is_seo} />
 					<section className="container parent-section book-appointment-section breadcrumb-mrgn">
 						{
 							ipd_hospital_detail && ipd_hospital_detail.breadcrumb ?
