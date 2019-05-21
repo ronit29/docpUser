@@ -2184,7 +2184,7 @@ p.comment-para-status{
     position: relative;
     border-bottom: 1px solid rgba(0, 0, 0, .12);
     padding-bottom: 5px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
 }
 .rate-card-header span{
@@ -2193,7 +2193,7 @@ p.comment-para-status{
 	cursor: pointer;
 }
 .rate-card-header span img{
-	width:15px;
+	width:12px;
  }
 .rate-card-doc-dtls{
     display: flex;
@@ -11228,15 +11228,42 @@ position: relative;
     cursor: pointer;
 }
 .banner-cont-height{
-    position: relative;
+	position: relative;
+    margin: 0 -15px;
+}
+.home-page-banner-div .banner-home-scrollable{
+	margin-top: 0px!important;
+	margin-bottom: 0px!important;
+}
+.banner-home-scrollable{
+    white-space: nowrap;
+    overflow-x: auto;
+    width: 100%;
+    top: 0;
+}
+.banner-home-scrollable img {
+    border-radius: 4px;
+    box-shadow: 0 1px 5px rgba(76, 76, 76, 0.12), 1px 1px 4px rgba(128, 128, 128, 0.24);
+    margin-bottom: 3px;
 }
 .hidderBanner{
     visibility: hidden;
 }
 .divHeight{
     height: 0;
-    padding-bottom: 25.5%;
+    padding-bottom: 20%;
     margin: 20px 0px;
+}
+.sngl-banner{
+	width: 100%;
+	margin-right: 0px;
+}
+.mltpl-banner{
+	width: 90%;
+	margin-right: 10px;
+}
+.pd-lt-15{
+	padding-left: 15px;
 }
 .home-slider-position{
     position: absolute;
@@ -11280,6 +11307,11 @@ input.clkInput{
 .uTimingPara p{
 	margin-left: 3px;
 }
+
+img.rt-vr-img {
+    width: 15px;
+	margin-right: 3px;
+}
 .algn-anchr{
 	display: flex;
 	align-items: center;
@@ -11298,4 +11330,5 @@ p.lab-crd-txt-pr span{
 }
 .mt-1{
 	margin-top: 1rem;
+
 }

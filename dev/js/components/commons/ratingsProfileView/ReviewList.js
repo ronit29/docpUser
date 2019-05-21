@@ -18,7 +18,7 @@ class ReviewList extends React.Component {
                 <p className="feed-sts-heading">{rating.compliment}</p>
               </div>
               <p className="usr-comments-pera">{rating.review}</p>
-              <p className="comment-para-status">{rating.user_name} | {rating.date}</p>
+              <p className="comment-para-status"> { rating.is_verified ? <img className="rt-vr-img" src={ASSETS_BASE_URL + "/img/rating-verify.svg"}/> : ""} {rating.user_name ? rating.user_name + " |" : "" }  {rating.date}</p>
             </div>
           )}
 

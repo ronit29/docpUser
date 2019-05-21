@@ -393,33 +393,51 @@ class BannerCarousel extends React.Component {
         let offerVisible = filteredBanners[this.state.index]
 
         return (
-            <div>
+            <div style={this.props.sliderLocation == 'home_page' || this.props.sliderLocation == 'medicine_detail_page' || (filteredBanners && filteredBanners.length == 1) || !filteredBanners ? {} : { margin: '0 -15px' }}>
                 {
                     this.props.sliderLocation === "medicine_detail_page" ?
                         <div className="medic-img-slider">
                             {
-                                filteredBanners.filter(x => x.slider_location === 'medicine_detail_page').map((offer, i) => {
-                                    return <img key={i} src={offer.image} onClick={() => this.navigateTo(offer)} style={offer.url ? { cursor: 'pointer' } : {}} />
-                                })
+                                filteredBanners && filteredBanners.length ?
+                                    filteredBanners.map((offer, i) => {
+                                        return <img key={i} src={offer.image} onClick={() => this.navigateTo(offer)} style={offer.url ? { cursor: 'pointer' } : {}} />
+                                    }) : ''
                             }
                         </div>
                         :
-                        <div className={this.props.hideClass ? `banner-carousel-div mrt-20 mrb-20 ${this.props.hideClass}` : `banner-carousel-div mrt-10 mrb-20`}>
-                            {
-                                offerVisible && Object.values(offerVisible).length ?
-                                    <img src={offerVisible.image} onTouchStart={this.onTouchStart.bind(this)} onTouchMove={this.onTouchMove.bind(this)} onTouchEnd={this.onTouchEnd.bind(this)} onClick={() => this.navigateTo(offerVisible)} style={offerVisible.url ? { cursor: 'pointer' } : {}} />
-                                    : ''
-                            }
-                            {
-                                filteredBanners && filteredBanners.length > 1 ?
-                                    <div className="carousel-indicators mrt-10">
-                                        {
-                                            filteredBanners && filteredBanners.map((offer, i) => {
-                                                return <span key={i} onClick={() => this.setState({ index: i })} className={this.state.index == i ? "indicator-selected" : ''} ></span>
-                                            })
-                                        }
-                                    </div> : ''
-                            }
+                        <div>
+                            {/* code for banner carousel (visible only on desktop) */}
+                            <div className={this.props.hideClass ? `banner-carousel-div mrt-10 mrb-20 d-none ${this.props.hideClass}` : `banner-carousel-div mrt-10 mrb-20 d-none d-md-block`}>
+                                {
+                                    offerVisible && Object.values(offerVisible).length ?
+                                        <img src={offerVisible.image} onTouchStart={this.onTouchStart.bind(this)} onTouchMove={this.onTouchMove.bind(this)} onTouchEnd={this.onTouchEnd.bind(this)} onClick={() => this.navigateTo(offerVisible)} style={offerVisible.url ? { cursor: 'pointer' } : {}} />
+                                        : ''
+                                }
+                                {
+                                    filteredBanners && filteredBanners.length > 1 ?
+                                        <div className="carousel-indicators mrt-10">
+                                            {
+                                                filteredBanners && filteredBanners.map((offer, i) => {
+                                                    return <span key={i} onClick={() => this.setState({ index: i })} className={this.state.index == i ? "indicator-selected" : ''} ></span>
+                                                })
+                                            }
+                                        </div> : ''
+                                }
+                            </div>
+                            {/* code for banner slider (visible only on mobile screen) */}
+                            <div className="d-md-none">
+                                {
+                                    filteredBanners && filteredBanners.length ?
+                                        <div className={filteredBanners.length == 1 ? `banner-home-scrollable mrt-20 mrb-20` : `banner-home-scrollable mrt-20 mrb-20 pd-lt-15`} style={this.props.sliderLocation == 'home_page' ? { position: 'absolute' } : { position: 'relative' }}>
+                                            {
+                                                filteredBanners.map((banner, index) => {
+                                                    return <img key={index} src={banner.image} onClick={() => this.navigateTo(banner)} style={banner.url ? { cursor: 'pointer' } : {}} className={filteredBanners.length == 1 ? `sngl-banner` : `mltpl-banner`} loading="lazy" />
+                                                })
+                                            }
+                                        </div>
+                                        : ''
+                                }
+                            </div>
                         </div>
                 }
             </div>
