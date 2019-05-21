@@ -821,6 +821,59 @@ div.onln-cnslt-head {
 }
 
 /* ============ about Us section ============ */
+/* ============ rate your doc ============ */
+.rateUrDoc{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.rateUrDoc p{
+	font-size: 14px;
+	font-weight: 500;
+	flex-shrink: 0;
+	flex-grow: 0;
+}
+.rateUrDoc button{
+	background-image: linear-gradient(to left,#f78631,#ff6d00);
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+	padding: 8px 10px;
+	margin-top: 5px;
+	flex-shrink: 0;
+	font-weight: 500;
+	flex-grow: 0;
+}
+.ratecardBrdr{
+	border-top: 1px solid rgba(0, 0, 0, .12);
+}
+.rate-seceltion-cont{
+	padding-top: 12px;
+	max-height: 300px;
+	overflow-y: scroll;
+}
+.rate-seceltion-cont p{
+	margin-bottom: 7px;
+	color: #757575;
+	cursor: pointer;
+}
+.rate-seceltion-cont p:hover{
+	color: #f78835;
+	font-weight: 500;
+}
+.rate-seceltion-cont p.rt-par-select{
+	color: #f78835;
+	font-weight: 500;
+}
+span.rate-pop-back{
+	left: 0;
+	display: inline-table;
+}
+span.rate-pop-back img{
+	width: 26px !important;
+}
+/* ============ rate your doc ============ */
 /* ============ download app btn ============ */
 @media(max-width: 767px){
 	.downloadBtn{
@@ -877,6 +930,48 @@ div.onln-cnslt-head {
 	font-size: 11px;
 }
 /* ============ download app btn ============ */
+/* ============ x ray cards ============ */
+.xray-heading{
+	font-size: 14px;
+	margin-bottom: 10px;
+	font-weight: 500;
+}
+.xray-cards{
+	box-shadow: 0 1px 5px rgba(76, 76, 76, 0.12), 1px 1px 4px rgba(128, 128, 128, 0.24);
+	background: white;
+	padding: 8px;
+}
+.xrayCardMainHeading{
+	font-weight: 500;
+}
+.xrayCardSubHeading{
+	color: #757575;
+	font-size: 13px;
+	margin-top: 4px;
+}
+.xray-strtng{
+	color: #757575;
+	font-size: 14px;
+}
+.xray-pffer{
+	color: #11b018;
+	font-size: 12px;
+}
+.xray-price{
+	font-size: 14px;
+	color: #f78631;
+	font-weight: 500;
+}
+.xrayBtn{
+	background-image: linear-gradient(to left,#f78631,#ff6d00);
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+	padding: 5px 13px;
+	margin-top: 5px;
+}
+/* ============ x ray cards ============ */
 /* ============ ipd tabs ============ */
 .ipd-tabs-container{
 	background: white;

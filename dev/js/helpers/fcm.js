@@ -6,9 +6,14 @@ var messaging = null
 const FCM = (() => {
 
     let _initialized = false
+    let _permitted = false
 
     const init = () => {
         try {
+
+            if (!_permitted) {
+                return
+            }
 
             if (typeof firebase == "undefined") {
                 return
@@ -23,29 +28,27 @@ const FCM = (() => {
             }
 
             if (!_initialized && messaging) {
+
                 console.log(' ======== INITIALIZING FCM FOR PUSH NOTIFICATIONS ==========')
-                messaging.requestPermission().then(function () {
-                    messaging.getToken().then(function (currentToken) {
-                        console.log("FCM TOKEN - ", currentToken)
 
-                        if (!_initialized) {
-                            API_POST('/api/v1/user/notification/endpoint/save', {
-                                token: currentToken,
-                                platform: 'web',
-                                app_name: "doc_prime"
-                            })
-                        }
+                messaging.getToken().then(function (currentToken) {
+                    console.log("FCM TOKEN - ", currentToken)
 
-                        // set init to true , to stop fetching token again
-                        _initialized = true
+                    if (!_initialized) {
+                        API_POST('/api/v1/user/notification/endpoint/save', {
+                            token: currentToken,
+                            platform: 'web',
+                            app_name: "doc_prime"
+                        })
+                    }
 
-                    }).catch(function (err) {
-                        console.log(err)
-                        _initialized = false
-                    });
+                    // set init to true , to stop fetching token again
+                    _initialized = true
+
                 }).catch(function (err) {
+                    console.log(err)
                     _initialized = false
-                })
+                });
 
                 messaging.onTokenRefresh(function () {
                     messaging.getToken().then(function (refreshedToken) {
@@ -63,6 +66,43 @@ const FCM = (() => {
                         _initialized = false
                     });
                 });
+
+            }
+
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const getPermission = () => {
+        try {
+
+            if (_permitted) {
+                return
+            }
+
+            if (typeof firebase == "undefined") {
+                return
+            }
+
+            if (window.firebase && messaging == null) {
+                firebase.initializeApp(CONFIG.FCM_CONFIG)
+                if (firebase && firebase.messaging) {
+                    messaging = firebase.messaging()
+                    messaging.usePublicVapidKey(CONFIG.FCM_PUBLIC_VAPID_KEYL);
+                }
+            }
+
+            if (!_permitted && messaging) {
+                return new Promise((res, rej) => {
+                    messaging.requestPermission().then(() => {
+                        _permitted = true
+                        res()
+                    }).catch((e) => {
+                        _permitted = false
+                        rej()
+                    })
+                })
             }
 
         } catch (e) {
@@ -74,7 +114,7 @@ const FCM = (() => {
         return _initialized
     }
 
-    return { init, checkInit: checkInit.bind(this) }
+    return { init, checkInit: checkInit.bind(this), getPermission }
 
 })()
 
