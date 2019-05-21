@@ -1,4 +1,4 @@
-import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, INSURANCE_PAY, SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE , SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, PUSH_USER_DATA, RESET_INSURED_DATA} from '../../constants/types';
+import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, INSURANCE_PAY, SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE , SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, PUSH_USER_DATA, RESET_INSURED_DATA, SAVE_INSURANCE_BANK_DETAILS} from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
 export const getInsurance = (callback) => (dispatch) => {
@@ -210,5 +210,12 @@ export const cancelledInsuranceDetails = (callback) => (dispatch) => {
         if (callback) callback(response)
     }).catch(function (error) {
         if (callback) callback(null)
+    })
+}
+
+export const saveUserBankDetails = (criteria) => (dispatch) => {
+    dispatch({
+        type:SAVE_INSURANCE_BANK_DETAILS,
+        payload:criteria
     })
 }
