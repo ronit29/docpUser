@@ -313,9 +313,9 @@ class Insurance extends React.Component {
 										</button>
 										:
 										<div className="sticky-btn fixed insuBtnsContainer">
-											<button className="insu-left-white-btn" onClick={this.proceedLead.bind(this, 'interest')}>Click here to know more
+											<button className="insu-left-white-btn" id="proceedLead" onClick={this.proceedLead.bind(this, 'interest')}>Click here to know more
 											</button>
-											<button className="insu-right-orng-btn" id="proceedLead" onClick={this.proceedLead.bind(this, 'proceed')}>Proceed {this.state.selected_plan_price} <span className="foot-btn-sub-span">{this.state.gst}</span>
+											<button className="insu-right-orng-btn" onClick={this.proceedLead.bind(this, 'proceed')}>Proceed {this.state.selected_plan_price} <span className="foot-btn-sub-span">{this.state.gst}</span>
 											</button>
 										</div>
 								}
