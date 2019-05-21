@@ -68,7 +68,7 @@ class InsuranceSelf extends React.Component{
 	    			})
     		}else{
     			if(this.props.user_data && this.props.user_data.length > 0){
-	    			this.setState({...this.props.user_data[0], name:this.props.user_data[0].first_name,member_type:this.props.member_type, profile_id:this.props.user_data[0].profile,is_change:false},()=>{
+	    			this.setState({...this.props.user_data[0], name:this.props.user_data[0].first_name,member_type:this.props.member_type, profile_id:this.props.user_data[0].profile,is_change:false,town_code:this.props.user_data[0].city_code},()=>{
 	    				this.handleSubmit(true)
 	    			})
     			}

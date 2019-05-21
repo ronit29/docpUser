@@ -83,7 +83,7 @@ class InsuranceReview extends React.Component{
     		pincode = endorsedSelf.pincode
     		email = endorsedSelf.email
     		town = endorsedSelf.town
-    		city_code = endorsedSelf.city_code
+    		city_code = endorsedSelf.town_code
     		state = endorsedSelf.state
     		state_code = endorsedSelf.state_code
 
