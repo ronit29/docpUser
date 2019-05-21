@@ -215,6 +215,7 @@ class InsuranceReview extends React.Component{
 	    			}	
 	    		})
 			}
+			console.log(this.props.data.edited_fields)
 			return(
 				<div className="profile-body-wrap">
 				<ProfileHeader />
@@ -303,8 +304,18 @@ class InsuranceReview extends React.Component{
 														</div>
 														{
 															val.no_lname?
-														<p style={{'textTransform': 'capitalize'}}>{val.name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}</p>:
-														<p style={{'textTransform': 'capitalize'}}>{val.name} {val.middle_name} {val.last_name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}
+														<p style={{'textTransform': 'capitalize'}}>{val.name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}
+														{this.props.is_endorsement && this.props.data.edited_fields[val.id] && 
+															(this.props.data.edited_fields[val.id].indexOf('first_name') > -1 || 
+															this.props.data.edited_fields[val.id].indexOf('middle_name') > -1 || 
+															this.props.data.edited_fields[val.id].indexOf('last_name') > -1 || 
+															this.props.data.edited_fields[val.id].indexOf('gender') > -1 ||
+															this.props.data.edited_fields[val.id].indexOf('title') > -1)?
+															<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
+															:''
+														}
+														</p>
+														:<p style={{'textTransform': 'capitalize'}}>{val.name} {val.middle_name} {val.last_name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}
 														{this.props.is_endorsement && this.props.data.edited_fields[val.id] && 
 															(this.props.data.edited_fields[val.id].indexOf('first_name') > -1 || 
 															this.props.data.edited_fields[val.id].indexOf('middle_name') > -1 || 
