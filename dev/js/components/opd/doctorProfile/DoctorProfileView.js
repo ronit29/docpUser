@@ -22,6 +22,8 @@ import ReviewList from '../../commons/ratingsProfileView/ReviewList.js'
 import RatingGraph from '../../commons/ratingsProfileView/RatingGraph.js'
 import RatingReviewView from '../../commons/ratingsProfileView/ratingReviewView.js'
 import RatingStars from '../../commons/ratingsProfileView/RatingStars';
+import HospitalPopUp from '../../commons/ratingsProfileView/HospitalPopUp.js'
+import STORAGE from '../../../helpers/storage'
 
 class DoctorProfileView extends React.Component {
     constructor(props) {
@@ -43,7 +45,8 @@ class DoctorProfileView extends React.Component {
             openContactPopup: false,
             clinicPhoneNo: {},
             show_contact: '',
-            isOrganic: this.props.location.search.includes('hospital_id')
+            isOrganic: this.props.location.search.includes('hospital_id'),
+            displayHospitalRatingBlock: 0,
         }
     }
 
@@ -214,6 +217,14 @@ class DoctorProfileView extends React.Component {
 
     }
 
+    display_hospital_rating_block = () => {
+        this.setState({ displayHospitalRatingBlock: 1 })
+    }
+
+    hospitalPopUpState(){
+        this.setState({ displayHospitalRatingBlock: 0 })
+    }
+
     downloadButton(data) {
         let gtmTrack = {
             'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-clicked', 'starts_with': data.starts_with ? data.starts_with : '', 'ends_with': data.ends_with ? data.ends_with : '', 'device': this.props.device_info
@@ -381,6 +392,10 @@ class DoctorProfileView extends React.Component {
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">
+                                                    {/* Hospital Selection Block */}
+                                                    { this.state.displayHospitalRatingBlock ?
+                                                         <HospitalPopUp {...this.props} doctor_details = {this.props.DOCTORS[doctor_id]} popUpState={this.hospitalPopUpState.bind(this)} /> : ""
+                                                    }
 
                                                     {
                                                         this.props.DOCTORS[doctor_id].unrated_appointment
@@ -503,6 +518,19 @@ class DoctorProfileView extends React.Component {
                                                             <ProfessionalGraph
                                                                 details={this.props.DOCTORS[doctor_id]}
                                                             />
+
+                                                            {/* this one is rating */}
+                                                            { STORAGE.checkAuth() ? 
+                                                                <div className="widget-panel">
+                                                                    <div className="panel-content ratecardBrdr">
+                                                                        <div className="rateUrDoc">
+                                                                            <p>Rate your Doctor here</p>
+                                                                            <button onClick={this.display_hospital_rating_block}>Rate Now</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> : "" 
+                                                            }
+                                                            {/* this one is rating */}
                                                             {
                                                                 avgRating >= 4 || ratingCount >= 5 ?
                                                                     <RatingReviewView id={doctor_id} content_type={2} {...this.props} />

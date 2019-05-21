@@ -6,6 +6,8 @@ import SnackBar from 'node-snackbar'
 import LocationElements from '../../../../containers/commons/locationElements'
 import LocationPopup from '../../../../containers/commons/locationPopup'
 import GTM from '../../../../helpers/gtm'
+import IpdLeadForm from '../../../../containers/ipd/ipdLeadForm.js'
+const queryString = require('query-string')
 
 class TopBar extends React.Component {
     constructor(props) {
@@ -24,7 +26,8 @@ class TopBar extends React.Component {
             // dropdown_visible: false,
             showLocationPopup: false,
             overlayVisible: false,
-            showPopupContainer: true
+            showPopupContainer: true,
+            showIpdLeadForm: true
         }
     }
 
@@ -37,7 +40,7 @@ class TopBar extends React.Component {
                 this.setState({ showLocationPopup: false })
             } else {
                 if (props.selectedLocation != this.props.selectedLocation) {
-                    this.setState({ showLocationPopup: true, overlayVisible: true })
+                    this.setState({ showLocationPopup: true, overlayVisible: true, showIpdLeadForm: false })
                 }
             }
         }
@@ -48,10 +51,10 @@ class TopBar extends React.Component {
         this.setState({ ...this.props.filterCriteria })
         // this.shortenUrl()
         if ((this.props.seoData && this.props.seoData.location) || this.props.seoFriendly) {
-            this.setState({ showLocationPopup: false })
+            this.setState({ showLocationPopup: false, showIpdLeadForm: true })
         } else {
             if (this.props.locationType && this.props.locationType.includes("geo")) {
-                this.setState({ showLocationPopup: true, overlayVisible: true })
+                this.setState({ showLocationPopup: true, overlayVisible: true, showIpdLeadForm: false })
             }
         }
     }
@@ -176,18 +179,18 @@ class TopBar extends React.Component {
     }
 
     overlayClick() {
-        this.setState({ overlayVisible: false, searchCities: [] });
+        this.setState({ overlayVisible: false, searchCities: [], showIpdLeadForm: true });
         if (document.getElementById('location_element')) {
             document.getElementById('location_element').style.zIndex = '0'
         }
     }
 
     hideLocationPopup() {
-        this.setState({ showLocationPopup: false });
+        this.setState({ showLocationPopup: false, showIpdLeadForm: true });
     }
 
     popupContainer() {
-        this.setState({ showPopupContainer: false, showLocationPopup: false });
+        this.setState({ showPopupContainer: false, showLocationPopup: false, showIpdLeadForm: true });
     }
 
     goToLocation() {
@@ -211,6 +214,16 @@ class TopBar extends React.Component {
         this.props.history.push(location_url)
     }
 
+    submitLeadFormGeneration(close=false) {
+        if(close) {
+            let gtmData = {
+                'Category': 'ConsumerApp', 'Action': 'DoctorSearchIpdFormClosed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-ipd-form-closed'
+            }
+            GTM.sendEvent({ data: gtmData })
+        }
+        this.setState({showIpdLeadForm: false})
+    }
+
     render() {
 
         let criteriaStr = this.getCriteriaString(this.props.commonSelectedCriterias)
@@ -221,6 +234,9 @@ class TopBar extends React.Component {
         if (this.props.seoData && this.props.seoData.location) {
             locationName = this.props.seoData.location
         }
+
+        const parsed = queryString.parse(this.props.location.search)
+        let specializations = this.props.commonSelectedCriterias.filter(x => x.type == 'speciality')
 
         let ipd_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'ipd').map(x => x.id)
 
@@ -294,6 +310,12 @@ class TopBar extends React.Component {
                         this.state.showLocationPopup && this.props.clinic_card && this.state.showPopupContainer ?
                             <div className="popupContainer-overlay"></div>
                             : ''
+                    }
+
+                    {
+                        specializations && specializations.length && parsed.hospital_id && parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE?
+                        <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props}/>
+                        :''
                     }
                 </div>
             </div>

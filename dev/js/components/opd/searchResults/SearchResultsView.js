@@ -207,9 +207,9 @@ class SearchResultsView extends React.Component {
         let search_id_data = Object.assign({}, this.props.search_id_data)
         const parsed = queryString.parse(this.props.location.search)
 
-        if (this.props.search_id_data && this.props.search_id_data[parsed.search_id]) {
-            search_id_data[parsed.search_id].filterCriteria = filterState
-            search_id_data[parsed.search_id].page = 1
+        if (this.props.search_id_data && this.state.search_id && this.props.search_id_data[this.state.search_id]) {
+            search_id_data[this.state.search_id].filterCriteria = filterState
+            search_id_data[this.state.search_id].page = 1
         }
         this.props.mergeOPDState({ filterCriteria: filterState, search_id_data: search_id_data, page: 1 })
         // this.props.setSearchId(this.state.search_id, filterState, false)
@@ -219,6 +219,8 @@ class SearchResultsView extends React.Component {
     }
 
     buildURI(state) {
+
+        const parsed = queryString.parse(this.props.location.search)
 
         let { selectedLocation, commonSelectedCriterias, filterCriteria, locationType, page } = state
         let specializations_ids = commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
@@ -318,6 +320,17 @@ class SearchResultsView extends React.Component {
 
         if (this.state.clinic_card) {
             url += `${is_params_exist ? '&' : '?'}clinic_card=true`
+            is_params_exist = true
+        }
+
+        if(parsed.get_feedback) {
+            url += `${is_params_exist ? '&' : '?'}get_feedback=${parsed.get_feedback}`
+            is_params_exist = true
+        }
+
+        if(parsed.showPopup) {
+            url += `${is_params_exist ? '&' : '?'}showPopup=${parsed.showPopup}`
+            is_params_exist = true
         }
 
         return url
