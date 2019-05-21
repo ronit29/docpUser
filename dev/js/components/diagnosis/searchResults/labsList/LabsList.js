@@ -192,12 +192,6 @@ class LabsList extends React.Component {
                                         <span className="srch-heading" style={{ float: 'left', cursor: 'pointer', color: '#e46608' }} onClick={this.testInfo.bind(this)}> Test Info</span></div> : ''
                                 }*/}
 
-                                {
-                                    this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'lab_search_results').length && !this.state.is_insured?
-                                        <div className="col-12">
-                                            <BannerCarousel {...this.props} sliderLocation="lab_search_results" />
-                                        </div> : ''
-                                }
 
                                 <div className="col-12">
                                     <InfiniteScroll
@@ -224,6 +218,13 @@ class LabsList extends React.Component {
                                                                         </div>
                                                                     </div>
                                                                     :''    
+                                                                }
+
+                                                                {
+                                                                    i==5 && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'lab_search_results').length && !this.state.is_insured?
+                                                                        <div className="col-12">
+                                                                            <BannerCarousel {...this.props} sliderLocation="lab_search_results" />
+                                                                        </div> : ''
                                                                 }
                                                                 <li>
                                                                     {

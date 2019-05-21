@@ -209,12 +209,6 @@ class DoctorsList extends React.Component {
                                     : ''
                             }
                             <div className="row no-gutters">
-                                {
-                                    this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'doctor_search_page').length && !this.state.is_insured ?
-                                        <div className="col-12">
-                                            <BannerCarousel {...this.props} sliderLocation="doctor_search_page" />
-                                        </div> : ''
-                                }
 
                                 <div className="col-12">
                                     <InfiniteScroll
@@ -253,6 +247,13 @@ class DoctorsList extends React.Component {
                                                                     </div>
                                                                 </div>
                                                                 :''    
+                                                            }
+
+                                                            {
+                                                                i==5 && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'doctor_search_page').length && !this.state.is_insured ?
+                                                                    <div className="col-12">
+                                                                        <BannerCarousel {...this.props} sliderLocation="doctor_search_page" />
+                                                                    </div> : ''
                                                             }
 
                                                             <li>

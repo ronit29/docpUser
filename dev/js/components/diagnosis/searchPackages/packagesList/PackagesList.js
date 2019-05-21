@@ -183,12 +183,6 @@ class packagesList extends React.Component {
                                     : ''
                             }
                             <div className="row no-gutters">
-                                {
-                                    this.props.offerList && this.props.offerList.filter(x => (x.slider_location === 'search_packages_page') || (x.slider_location === 'full_body_chechkup_page') || (x.slider_location === 'tax_saver_packages_page')).length ?
-                                        <div className="col-12">
-                                            <BannerCarousel {...this.props} sliderLocation={this.props.forTaxSaver ? "tax_saver_packages_page" : this.props.forOrganicSearch ? 'full_body_chechkup_page' : 'search_packages_page'} />
-                                        </div> : ''
-                                }
                                 <div className="col-12">
                                     <InfiniteScroll
                                         pageStart={start_page}
@@ -215,6 +209,13 @@ class packagesList extends React.Component {
                                                                     </div>
                                                                 </div>
                                                                 :''    
+                                                            }
+
+                                                            {
+                                                                i==5 && this.props.offerList && this.props.offerList.filter(x => (x.slider_location === 'search_packages_page') || (x.slider_location === 'full_body_chechkup_page') || (x.slider_location === 'tax_saver_packages_page')).length ?
+                                                                    <div className="col-12">
+                                                                        <BannerCarousel {...this.props} sliderLocation={this.props.forTaxSaver ? "tax_saver_packages_page" : this.props.forOrganicSearch ? 'full_body_chechkup_page' : 'search_packages_page'} />
+                                                                    </div> : ''
                                                             }
                                                             <li id={`scrollById_${packages.id}_${packages.lab.id}`}>
                                                                 <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
