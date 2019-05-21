@@ -2157,3 +2157,31 @@ p.rt-doc-nm{
         top: 79px;
     }
 }
+
+.auto-location-widget{
+    background-color: rgba(247, 134, 48, 0.2);
+    padding: 12px 10px;
+    border-radius: 5px;
+}
+
+.auto-location-text>img{
+    width: 20px;
+    margin-right: 8px;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+.auto-location-text>p, .auto-location-btn{
+    font-size: 12px;
+}
+
+.auto-location-btn{
+    border: 1px solid #f78631;
+    padding: 4px 12px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    width: 116px;
+    margin-left: 4px;
+    flex-shrink: 0;
+}
