@@ -63,7 +63,7 @@ const AUTH_PERSIST = {
 const INSURANCE_LIST_PRESIST = {
     key: 'INSURANCE',
     storage: storage,
-    whitelist: ['insurnaceData','self_data_values','selected_plan','currentSelectedInsuredMembersId','create_payment_resp']
+    whitelist: ['insurnaceData','self_data_values','selected_plan','currentSelectedInsuredMembersId','create_payment_resp','insurer_bank_details']
 }
 const IPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_IPD',

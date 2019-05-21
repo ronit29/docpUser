@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { cancelInsurance, cancelledInsuranceDetails} from '../../actions/index.js'
+import { cancelInsurance, cancelledInsuranceDetails, saveUserBankDetails} from '../../actions/index.js'
 import InsuranceBankDetailsView from '../../components/insurance/insuranceBankDetailsView.js'
 
 class InsuranceBankDetails extends React.Component{
@@ -27,9 +27,9 @@ class InsuranceBankDetails extends React.Component{
 
 const mapStateToProps = (state) => {
     const USER = state.USER
-    let { insurnaceData, LOAD_INSURANCE, selected_plan,self_data_values,insured_member_list,get_insured_profile} = state.INSURANCE
+    let { insurer_bank_details} = state.INSURANCE
     return {
-        insurnaceData,LOAD_INSURANCE,selected_plan,USER,self_data_values,insured_member_list,get_insured_profile
+        insurer_bank_details
     }
 }
 
@@ -37,7 +37,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
 
         cancelInsurance :(cb) => dispatch(cancelInsurance(cb)),
-        cancelledInsuranceDetails:(cb) => dispatch(cancelledInsuranceDetails(cb))
+        cancelledInsuranceDetails:(cb) => dispatch(cancelledInsuranceDetails(cb)),
+        saveUserBankDetails:(criteria) => dispatch(saveUserBankDetails(criteria))
     }
 }
 

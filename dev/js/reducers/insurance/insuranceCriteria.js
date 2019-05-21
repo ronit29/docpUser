@@ -195,7 +195,7 @@ export default function (state = defaultState, action) {
             return newState   
         }
         case RESET_INSURED_DATA :{
-             let newState = { ...state }
+            let newState = { ...state }
             let user_selected_plan = newState.insurnaceData.insurance[0].plans.filter((x => x.id == action.payload.selected_plan_id))
             let members = {}
             newState.selected_plan = user_selected_plan[0]
@@ -204,6 +204,12 @@ export default function (state = defaultState, action) {
                 members[result.id] = { ...result }
             })
             newState.self_data_values = members
+            return newState   
+        }
+        case SAVE_INSURANCE_BANK_DETAILS :{
+            let newState = { ...state }
+            console.log(action.payload)
+            newState.insurer_bank_details = action.payload
             return newState   
         }
     }

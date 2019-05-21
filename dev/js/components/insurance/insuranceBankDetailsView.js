@@ -18,6 +18,10 @@ class InsuranceCancellationView extends React.Component {
 		}
 	}
 
+	componentDidMount() {
+        this.setState({ ...this.props.insurer_bank_details })
+    }
+
 	getGetOrdinal(n) {
 		var s = ["th", "st", "nd", "rd"],
 			v = n % 100;
@@ -45,6 +49,7 @@ class InsuranceCancellationView extends React.Component {
 
 	inputHandler(e) {
         this.setState({ [e.target.name]: e.target.value })
+
     }
 
 	submitForm() {
@@ -124,6 +129,10 @@ class InsuranceCancellationView extends React.Component {
     	
     }
 
+    handleSubmit(){
+    	this.props.saveUserBankDetails(this.state)
+    }
+    
 	render() {
 		return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
 			<ProfileHeader />
@@ -136,15 +145,15 @@ class InsuranceCancellationView extends React.Component {
 									<h1 className="ins-cancl-heading">We need bank account details to proceed with your cancellation</h1>
 									<div className="ins-cancl-container">
 
-										<input className="ins-cn-inp" type="text" name="name" placeholder="Account Holder Name" onChange={this.inputHandler.bind(this)} value={this.state.name} required ref="name" onKeyPress={this.handleEnterPress.bind(this)}  />
+										<input className="ins-cn-inp" type="text" name="name" placeholder="Account Holder Name" onChange={this.inputHandler.bind(this)} value={this.state.name} required ref="name" onKeyPress={this.handleEnterPress.bind(this)}  onBlur={this.handleSubmit.bind(this)} style={{'textTransform': 'capitalize'}} />
 
-										<input className="ins-cn-inp" type="text" name="bankName" placeholder="Bank Name" onChange={this.inputHandler.bind(this)} value={this.state.bankName} required ref="bankName" onKeyPress={this.handleEnterPress.bind(this)} />
+										<input className="ins-cn-inp" type="text" name="bankName" placeholder="Bank Name" onChange={this.inputHandler.bind(this)} value={this.state.bankName} required ref="bankName" onKeyPress={this.handleEnterPress.bind(this)} onBlur={this.handleSubmit.bind(this)} style={{'textTransform': 'capitalize'}}/>
 
-										<textarea className="ins-cn-textarea" name="address" placeholder="Address" onChange={this.inputHandler.bind(this)} value={this.state.address} required ref="address" onKeyPress={this.handleEnterPress.bind(this)}></textarea>
+										<textarea className="ins-cn-textarea" name="address" placeholder="Address" onChange={this.inputHandler.bind(this)} value={this.state.address} required ref="address" onKeyPress={this.handleEnterPress.bind(this)} onBlur={this.handleSubmit.bind(this)} style={{'textTransform': 'capitalize'}}></textarea>
 
-										<input className="ins-cn-inp" type="number" name="accountNumber" placeholder="Account Number" onChange={this.inputHandler.bind(this)} value={this.state.accountNumber} required ref="accountNumber" onKeyPress={this.handleEnterPress.bind(this)}  />
+										<input className="ins-cn-inp" type="number" name="accountNumber" placeholder="Account Number" onChange={this.inputHandler.bind(this)} value={this.state.accountNumber} required ref="accountNumber" onKeyPress={this.handleEnterPress.bind(this)} onBlur={this.handleSubmit.bind(this)}  />
 
-										<input className="ins-cn-inp" type="text" name="ifscCode" placeholder="IFSC Code" onChange={this.inputHandler.bind(this)} value={this.state.ifscCode} required ref="ifscCode" onKeyPress={this.handleEnterPress.bind(this)}  />
+										<input className="ins-cn-inp" type="text" name="ifscCode" placeholder="IFSC Code" onChange={this.inputHandler.bind(this)} value={this.state.ifscCode} required ref="ifscCode" onKeyPress={this.handleEnterPress.bind(this)} onBlur={this.handleSubmit.bind(this)} style={{'textTransform': 'capitalize'}} pattern="[a-z]{1,15}"/>
 									</div>
 									<p className="ins-cancl-para">We need to confirm if this account belongs to you. Please fill more details below </p>
 									<span className="ins-proof-upload-btn" onClick={() => {
