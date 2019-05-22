@@ -68,7 +68,7 @@ class IpdLeadForm extends React.Component{
 
 	        formData.data = {}
 	        formData.data.utm_tags = utm_tags
-	        formData.data.url = window.location.pathname + window.location.search
+	        formData.data.url = window.location.href
         	this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
 				if (!error && response) {
 					let gtmData = {
@@ -122,8 +122,11 @@ class IpdLeadForm extends React.Component{
 										this.closePopUpClicked()} }><img src={ASSETS_BASE_URL + "/img/icons/close.png"} />
 									</span>
 								}
-							
-								<p className="ipd-needHelp">{`Need help with an appointment ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
+								{
+									this.props.doctor_name?
+									<p className="ipd-needHelp">{`Need to book an appointment with ${this.props.doctor_name} ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
+									:<p className="ipd-needHelp">{`Need help with an appointment ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
+								}
 								<p className="srch-el-ipd-cont">Get upto 30% Off on appointments</p>
 								<div className="ipd-inp-section" onClick={(e)=>{e.stopPropagation()
 										e.preventDefault()}}>

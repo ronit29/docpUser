@@ -21,6 +21,8 @@ import BookingError from './bookingErrorPopUp.js'
 import { APPEND_HEALTH_TIP } from '../../../constants/types';
 import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup.js'
+import IpdLeadForm from '../../../containers/ipd/ipdLeadForm.js'
+
 
 class PatientDetailsNew extends React.Component {
     constructor(props) {
@@ -46,7 +48,8 @@ class PatientDetailsNew extends React.Component {
             whatsapp_optin: true,
             formData: '',
             showConfirmationPopup:false,
-            coupon_loading: false
+            coupon_loading: false,
+            showIpdLeadForm: true
         }
     }
 
@@ -605,7 +608,18 @@ class PatientDetailsNew extends React.Component {
         }
     }
 
+    submitLeadFormGeneration(close=false) {
+        if(close) {
+            let gtmData = {
+                'Category': 'ConsumerApp', 'Action': 'DoctorBookingIpdFormClosed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-booking-ipd-form-closed'
+            }
+            GTM.sendEvent({ data: gtmData })
+        }
+        this.setState({showIpdLeadForm: false})
+    }
+
     render() {
+        const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.state.selectedDoctor]
         let doctorCoupons = this.props.doctorCoupons[this.state.selectedDoctor] || []
         let hospital = {}
@@ -711,6 +725,11 @@ class PatientDetailsNew extends React.Component {
                             {
                                 this.props.DOCTORS[this.state.selectedDoctor] && this.props.DATA_FETCH ?
                                     <div>
+                                        {
+                                            parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE?
+                                            <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={hospital && hospital.hospital_name?hospital.hospital_name:null} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:null} doctor_name={this.props.DOCTORS[this.state.selectedDoctor].display_name?this.props.DOCTORS[this.state.selectedDoctor].display_name:null}/>
+                                            :''
+                                        }
                                         <section className="dr-profile-screen booking-confirm-screen mrb-60">
                                             <div className="container-fluid">
                                                 <div className="row mrb-20">
