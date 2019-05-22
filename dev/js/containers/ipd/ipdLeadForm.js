@@ -13,7 +13,6 @@ class IpdLeadForm extends React.Component {
 			name: '',
 			phone_number: '',
 			showForm: true,
-			showThankyou: false,
 			gender: '',
 			comments: ''
 		}
@@ -92,7 +91,7 @@ class IpdLeadForm extends React.Component {
 				setTimeout(() => {
 					SnackBar.show({ pos: 'bottom-center', text: "Your request has been submitted sucessfully" })
 				}, 500)
-				this.setState({ showForm: false, showThankyou: true })
+				this.setState({ showForm: false })
 			} else {
 				setTimeout(() => {
 					SnackBar.show({ pos: 'bottom-center', text: "Please try after some time" })
