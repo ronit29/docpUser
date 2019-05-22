@@ -96,6 +96,11 @@ class IpdLeadForm extends React.Component{
     	if(parsed.get_feedback && parsed.get_feedback=='1') {
     		SnackBar.show({ pos: 'bottom-center', text: "Please fill the feedback form" })	
     	}else {
+    		/*let data = {
+                'Category': 'ConsumerApp', 'Action': 'MobileFooterChatClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-chat-clicked', 'from':'IPDLeadForm'
+            }
+            GTM.sendEvent({ data: data })
+            this.props.history.push('/mobileviewchat')*/
     		this.props.submitLeadFormGeneration(true)
     	}
     }
