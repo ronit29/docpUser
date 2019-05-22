@@ -1085,7 +1085,6 @@ img.srt-star-img {
 }
 .sort-sub-filter-container p{
 	padding: 0 10px;
-	font-weight: 500;
 }
 .srt-sb-btn-cont{
 	margin-top: 10px;
@@ -1094,9 +1093,9 @@ img.srt-star-img {
 	padding-left: 10px;
 }
 .srt-sb-btn-cont button{
-	border: 1px solid #757575;
+	border: 1px solid #000000;
 	background: white;
-	color: #757575;
+	color: #000000;
 	margin-right: 10px;
 	border-radius: 4px;
 	padding: 5px 10px;
