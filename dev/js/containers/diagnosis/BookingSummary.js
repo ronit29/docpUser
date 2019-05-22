@@ -5,6 +5,8 @@ import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile,
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/index.js'
+const queryString = require('query-string');
+
 
 class BookingSummary extends React.Component {
     constructor(props) {
@@ -16,28 +18,47 @@ class BookingSummary extends React.Component {
         router: () => null
     }
 
-    componentDidMount() {
+    fetchData(props){
+        const parsed = queryString.parse(props.location.search)
+
+        let lab_id = props.selectedLab || props.match.params.id || parsed.lab_id
+
         if (window) {
             window.scrollTo(0, 0)
         }
 
         if (STORAGE.checkAuth()) {
-            this.props.getUserProfile()
-            this.props.getUserAddress()
-            this.props.fetchTransactions()
-            this.props.getCartItems()
+            props.getUserProfile()
+            props.getUserAddress()
+            props.fetchTransactions()
+            props.getCartItems()
         }
 
-        let testIds = this.props.lab_test_data[this.props.match.params.id] || []
-        testIds = testIds.map(x => x.id)
+        if(lab_id){
+            let testIds = props.lab_test_data[lab_id] || []
+            testIds = testIds.map(x => x.id)
 
-        this.props.getLabById(this.props.match.params.id, testIds)
+            props.getLabById(lab_id, testIds)
+        }
+    }
+
+    componentWillReceiveProps(props){
+        if(props.selectedLab != this.props.selectedLab){
+            this.fetchData(props)
+        }
+    }
+
+    componentDidMount() {
+        this.fetchData(this.props)
     }
 
     render() {
 
+        const parsed = queryString.parse(this.props.location.search)
+        let lab_id = this.props.selectedLab || this.props.match.params.id || parsed.lab_id
+
         return (
-            <BookingSummaryViewNew {...this.props} />
+            <BookingSummaryViewNew {...this.props} selectedLab={lab_id} />
         );
     }
 }
