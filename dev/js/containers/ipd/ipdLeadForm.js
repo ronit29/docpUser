@@ -14,7 +14,8 @@ class IpdLeadForm extends React.Component {
 			phone_number: '',
 			showForm: true,
 			showThankyou: false,
-			gender: ''
+			gender: '',
+			comments: ''
 		}
 	}
 
@@ -49,29 +50,38 @@ class IpdLeadForm extends React.Component {
 		}
 
 		if (this.state.phone_number.match(/^[56789]{1}[0-9]{9}$/)) {
-			let formData = {
-				...this.state
-			}
-			this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
-				if (!error && response) {
-					let gtmData = {
-						'Category': 'ConsumerApp', 'Action': 'IPD-popup-lead', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'IPD-popup-lead', selectedId: '', 'hospitalId': '', 'from': 'leadForm'
-					}
-					GTM.sendEvent({ data: gtmData })
-					setTimeout(() => {
-						SnackBar.show({ pos: 'bottom-center', text: "Your request has been submitted sucessfully" })
-					}, 500)
-					this.setState({ showForm: false, showThankyou: true })
-				} else {
-					setTimeout(() => {
-						SnackBar.show({ pos: 'bottom-center', text: "Please try after some time" })
-					}, 500)
-				}
-				this.props.submitLeadFormGeneration()
-			})
+
 		} else {
 			SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Mobile No" })
+			return
 		}
+
+		if (!this.state.gender) {
+			SnackBar.show({ pos: 'bottom-center', text: "Please select your gender" })
+			return
+		}
+
+		let formData = {
+			...this.state
+		}
+		this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
+			if (!error && response) {
+				let gtmData = {
+					'Category': 'ConsumerApp', 'Action': 'IPD-popup-lead', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'IPD-popup-lead', selectedId: '', 'hospitalId': '', 'from': 'leadForm'
+				}
+				GTM.sendEvent({ data: gtmData })
+				setTimeout(() => {
+					SnackBar.show({ pos: 'bottom-center', text: "Your request has been submitted sucessfully" })
+				}, 500)
+				this.setState({ showForm: false, showThankyou: true })
+			} else {
+				setTimeout(() => {
+					SnackBar.show({ pos: 'bottom-center', text: "Please try after some time" })
+				}, 500)
+			}
+			this.props.submitLeadFormGeneration()
+		})
+
 	}
 
 	closePopUpClicked() {
@@ -84,9 +94,6 @@ class IpdLeadForm extends React.Component {
 	}
 
 	render() {
-
-		console.log('sdaycghjasdhs')
-		console.log(this.state)
 
 		const parsed = queryString.parse(this.props.location.search)
 
@@ -121,20 +128,23 @@ class IpdLeadForm extends React.Component {
 										<input type="Number" value={this.state.phone_number} name='phone_number' placeholder="Mobile Number" onChange={this.inputHandler.bind(this)} />
 										<div className="d-flex align-items-center flex-wrap mrt-10">
 											<div className="dtl-radio">
-												<label className="container-radio">Male<input type="radio" checked={this.state.gender === 'm'} name="radio" onChange={() => this.setState({ gender: 'm' })} value={this.state.gender} style={{ right: 0, zIndex: 1 }} />
+												<label className="container-radio" onClick={() => this.setState({ gender: 'm' })}>Male<input type="radio" checked={this.state.gender === 'm'} name="radio" value={this.state.gender} style={{ width: 10 }} />
 													<span className="doc-checkmark"></span>
 												</label>
 											</div>
 											<div className="dtl-radio">
-												<label className="container-radio">Female<input type="radio" checked={this.state.gender === 'f'} name="radio" onChange={() => this.setState({ gender: 'f' })} value={this.state.gender} style={{ right: 0, zIndex: 1 }} />
+												<label className="container-radio" onClick={() => this.setState({ gender: 'f' })}>Female<input type="radio" checked={this.state.gender === 'f'} name="radio" value={this.state.gender} style={{ width: 10 }} />
 													<span className="doc-checkmark"></span>
 												</label>
 											</div>
 											<div className="dtl-radio">
-												<label className="container-radio">Other<input type="radio" checked={this.state.gender === 'o'} name="radio" onChange={() => this.setState({ gender: 'o' })} value={this.state.gender} style={{ right: 0, zIndex: 1 }} />
+												<label className="container-radio" onClick={() => this.setState({ gender: 'o' })}>Other<input type="radio" checked={this.state.gender === 'o'} name="radio" value={this.state.gender} style={{ width: 10 }} />
 													<span className="doc-checkmark"></span>
 												</label>
 											</div>
+										</div>
+										<div className="ipd-lead-textarea">
+											<textarea placeholder="What are you looking for?" value={this.state.comments} name='comments' onChange={this.inputHandler.bind(this)}></textarea>
 										</div>
 										<button className="ipd-inp-sbmt" onClick={(e) => {
 											e.stopPropagation()
