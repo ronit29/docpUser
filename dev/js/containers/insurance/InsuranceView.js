@@ -54,7 +54,7 @@ const mapStateToProps = (state) => {
     const {
         selectedLocation
 
-    } = state.SEARCH_CRITERIA_LABS
+    } = state.SEARCH_CRITERIA_OPD
     return {
         insurnaceData,LOAD_INSURANCE,selected_plan,self_data_values,USER, selectedLocation
     }
