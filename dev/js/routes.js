@@ -5,6 +5,8 @@ import CONFIG from './config'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import HelmetTags from './components/commons/HelmetTags'
+const queryString = require('query-string');
+
 
 import Loadable from 'react-loadable'
 const loading = () => <div className="loading_Linebar_container">
@@ -168,6 +170,18 @@ const PatientDetails = Loadable({
     loader: () => import('./containers/opd/PatientDetails.js'),
     modules: ['./containers/opd/PatientDetails.js'],
     webpack: () => [require.resolveWeak('./containers/opd/PatientDetails.js')],
+    loading,
+})
+const SeoBooking = Loadable({
+    loader: () => import('./containers/opd/SeoBooking.js'),
+    modules: ['./containers/opd/SeoBooking.js'],
+    webpack: () => [require.resolveWeak('./containers/opd/SeoBooking.js')],
+    loading,
+})
+const SeoBooking_Lab = Loadable({
+    loader: () => import('./containers/diagnosis/SeoBooking.js'),
+    modules: ['./containers/diagnosis/SeoBooking.js'],
+    webpack: () => [require.resolveWeak('./containers/diagnosis/SeoBooking.js')],
     loading,
 })
 const Booking_OPD = Loadable({
@@ -474,8 +488,12 @@ let routes = [
     { path: '/*-ipddp', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
     { path: '/opd/doctor/:id', exact: true, component: DoctorProfile, RENDER_ON_SERVER: true },
     { path: '/*-dpp', exact: true, component: DoctorProfile, RENDER_ON_SERVER: true },
+
     { path: '/opd/doctor/:id/:clinicId/book', exact: true, component: AppointmentSlot },
     { path: '/opd/doctor/:id/:clinicId/bookdetails', exact: true, component: PatientDetails },
+
+    { path: '/*-dpp/booking', exact: true, component: SeoBooking, RENDER_ON_SERVER: true },
+
     { path: '/coupon/:type/:id/:cid', exact: true, private: true, component: CouponSelectNewView },
     { path: '/opd/appointment/:refId', exact: true, component: Booking_OPD },
     { path: '/opd/reschedule/:refId', exact: true, component: AppointmentReschedule },
@@ -486,9 +504,13 @@ let routes = [
     { path: '/*-lblitcit', exact: true, component: DX_SearchResults, RENDER_ON_SERVER: true },
     { path: '/lab/:id', exact: true, component: Lab, RENDER_ON_SERVER: true },
     { path: '/*-lpp', exact: true, component: Lab, RENDER_ON_SERVER: true },
+
     { path: '/lab/:id/tests', exact: true, component: TestSelector },
     { path: '/lab/:id/timeslots', exact: true, component: AppointmentSlot_Lab },
     { path: '/lab/:id/book', exact: true, component: DX_BookingSummary },
+
+    { path: '/*-lpp/booking', exact: true, component: SeoBooking_Lab, RENDER_ON_SERVER: true },
+
     { path: '/lab/appointment/:refId', exact: true, component: Booking_LAB },
 
     { path: '/about', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
@@ -526,14 +548,14 @@ let routes = [
     { path: '/prime/plans', exact: true, component: PrimeCare },
     { path: '/prime/booking', exact: true, component: PrimeCareBooking },
     { path: '/prime/success', exact: true, component: PrimeCareSuccess },
-    { path: '/compare', exact:true, component: Compare},
-    { path: '/ipdInfo', exact: true, component: IPDInfo , RENDER_ON_SERVER: true },
-    { path: '/*-ipdp', exact: true, component: IPDInfo , RENDER_ON_SERVER: true },
-    { path: '/ipd/:id/getPriceEstimate',exact: true, component: IpdForm},
-    { path: '/ipd/searchHospitals',exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
-    { path: '/*-ipdhp',exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
-    { path: '/*-hspcit',exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
-    { path: '/*-hsplitcit',exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
+    { path: '/compare', exact: true, component: Compare },
+    { path: '/ipdInfo', exact: true, component: IPDInfo, RENDER_ON_SERVER: true },
+    { path: '/*-ipdp', exact: true, component: IPDInfo, RENDER_ON_SERVER: true },
+    { path: '/ipd/:id/getPriceEstimate', exact: true, component: IpdForm },
+    { path: '/ipd/searchHospitals', exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
+    { path: '/*-ipdhp', exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
+    { path: '/*-hspcit', exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
+    { path: '/*-hsplitcit', exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
     { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail, RENDER_ON_SERVER: true },
     { path: '/*-hpp', exact: true, component: IpdHospitalDetail, RENDER_ON_SERVER: true },
     { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail },

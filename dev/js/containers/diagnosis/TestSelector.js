@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { getLabById, toggleDiagnosisCriteria, getLabTests } from '../../actions/index.js'
+const queryString = require('query-string');
 
 import TestSelectorView from '../../components/diagnosis/testSelector'
 
@@ -15,9 +16,11 @@ class TestSelector extends React.Component {
     }
 
     render() {
+        const parsed = queryString.parse(this.props.location.search)
+        let lab_id = this.props.selectedLab || this.props.match.params.id || parsed.lab_id
 
         return (
-            <TestSelectorView {...this.props} />
+            <TestSelectorView {...this.props} selectedLab={lab_id} />
         );
     }
 }
