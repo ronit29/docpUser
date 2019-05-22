@@ -111,7 +111,7 @@ class DoctorsList extends React.Component {
         }, 5000)
 
         this.setState({ detectLoading: true })
-
+        this.props.detectLocationClick();
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 _getlocationFromLatLong(parseFloat(position.coords.latitude), parseFloat(position.coords.longitude), 'locality', (location_object) => {
@@ -153,9 +153,6 @@ class DoctorsList extends React.Component {
             result_list = hospitalList
             result_data = HOSPITALS
         }
-
-        console.log('dsugchuajsd')
-        console.log(this.props)
 
         return (
             <section ref="checkIfExists">
@@ -200,7 +197,7 @@ class DoctorsList extends React.Component {
                                             {
                                                 result_list.map((cardId, i) => {
                                                     if (result_data[cardId]) {
-                                                        if (i == 2 && this.props.seoFriendly && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) {
+                                                        if (i == 2 && this.props.seoFriendly && this.props.match.url.includes('-sptcit') && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) {
                                                             return <div className="d-flex align-items-center justify-content-between auto-location-widget mb-3">
                                                                 <div className="d-flex align-items-center auto-location-text">
                                                                     <img src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} />
