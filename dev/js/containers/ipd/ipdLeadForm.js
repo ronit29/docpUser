@@ -114,7 +114,7 @@ class IpdLeadForm extends React.Component {
 
 	redirectToChat() {
 		let params = JSON.stringify(this.state)
-		this.props.history.push(`/mobileviewchat?product=IPD&params=${params}`)
+		this.props.history.push(`/mobileviewchat?product=IPD&params=${params}&source=${this.props.hospital_id}`)
 	}
 
 	render() {
