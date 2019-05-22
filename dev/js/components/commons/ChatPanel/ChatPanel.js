@@ -359,7 +359,7 @@ class ChatPanel extends React.Component {
             parsedHref = queryString.parse(window.location.search);
         }
 
-        let iframe_url = `${CONFIG.CHAT_URL}?product=DocPrime&cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&room=${this.state.roomId}&from_app=${parsedHref.from_app || false}&device_id=${parsedHref.device_id || ''}`
+        let iframe_url = `${CONFIG.CHAT_URL}?cb=1&token=${this.state.token}&symptoms=${symptoms_uri}&room=${this.state.roomId}&from_app=${parsedHref.from_app || false}&device_id=${parsedHref.device_id || ''}`
 
         if (this.state.initialMessage && !this.state.showStaticView) {
             iframe_url += `&msg=${this.state.initialMessage}`
@@ -397,6 +397,22 @@ class ChatPanel extends React.Component {
         if (this.props.articleData && this.props.articleData.recent_articles) {
             recentArticles = this.props.articleData.recent_articles
         }
+
+        let landFromIpd= false
+        if(typeof window == 'object') {
+            let url = window.location.search
+            url = url.split('?')
+            url = url.length==1?url[0]:url[1]
+            if(url.includes('product=IPD')) {
+                iframe_url += '&'+url
+                landFromIpd = true
+            }
+        }
+
+        if(!landFromIpd) {
+            iframe_url += '&product=DocPrime'    
+        }
+        
 
         return (
             <div>
