@@ -168,10 +168,12 @@ class SearchResultsView extends React.Component {
                 let state = {
                     filterCriteria: {
                         ...this.props.nextFilterCriteria,
+                        sort_on: "distance",
                         doctor_name, hospital_name, hospital_id
                     },
                     nextFilterCriteria: {
                         ...this.props.nextFilterCriteria,
+                        sort_on: "distance",
                         doctor_name, hospital_name, hospital_id
                     }
                 }
