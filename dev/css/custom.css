@@ -1136,7 +1136,7 @@ p.rev-ins-header a img{
 	justify-content: space-around;
 	position: sticky;
 	top: 107px;
-	z-index: 99;
+	z-index: 9;
 	box-shadow: 0 1px 1px #dedede;
 }
 @media(max-width: 767px){

@@ -109,7 +109,13 @@ class LabProfileCard extends React.Component {
         this.props.selectLabTimeSLot(slot, false)
         this.props.selectLabAppointmentType('home')
         this.mergeTests(id)
-        this.props.history.push(`/lab/${id}/book`)
+
+        if (url) {
+            this.props.history.push(`/${url}/booking?lab_id=${id}`)
+        } else {
+            this.props.history.push(`/lab/${id}/book`)
+        }
+
     }
 
     testInfo(test_id, lab_id, test_url, event) {
@@ -186,11 +192,11 @@ class LabProfileCard extends React.Component {
             }
         }
         let is_insurance_applicable = false
-        if(insurance && insurance.is_insurance_covered && insurance.is_user_insured){
+        if (insurance && insurance.is_insurance_covered && insurance.is_user_insured) {
             is_insurance_applicable = true
             pickup_text = ""
         }
-        
+
         return (
 
             <div className="cstm-docCard mb-3">
@@ -249,12 +255,12 @@ class LabProfileCard extends React.Component {
                                     <p className="cstm-cpn">{offPercent}% Off <span><br />(includes Coupon)</span></p> : ''
                             }
                             {
-                                is_insurance_applicable?
-                                <div>
-                                    <p className="cst-doc-price">₹ {0}</p>
-                                    <div className="ins-val-bx">Covered Under Insurance</div>
-                                </div>
-                                :'' 
+                                is_insurance_applicable ?
+                                    <div>
+                                        <p className="cst-doc-price">₹ {0}</p>
+                                        <div className="ins-val-bx">Covered Under Insurance</div>
+                                    </div>
+                                    : ''
                             }
                             <button className="cstm-book-btn">Book Now</button>
                         </div>

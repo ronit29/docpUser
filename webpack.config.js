@@ -13,6 +13,7 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin');
 const reactLoadablePlugin = require('react-loadable/webpack').ReactLoadablePlugin;
 // const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
+const ReactLoadableSSRAddon = require('react-loadable-ssr-addon');
 
 const client_dev = {
     mode: 'development',
@@ -46,8 +47,11 @@ const client_dev = {
             inject: false
         }),
         new HtmlWebpackExcludeAssetsPlugin(),
-        new reactLoadablePlugin({
-            filename: './dist/react-loadable.json',
+        // new reactLoadablePlugin({
+        //     filename: './dist/react-loadable.json',
+        // }),
+        new ReactLoadableSSRAddon({
+            filename: 'asset-loadable.json',
         }),
         // new BundleAnalyzerPlugin(),
     ]
@@ -85,8 +89,11 @@ const client_prod = {
             inject: false
         }),
         new HtmlWebpackExcludeAssetsPlugin(),
-        new reactLoadablePlugin({
-            filename: './dist/react-loadable.json',
+        // new reactLoadablePlugin({
+        //     filename: './dist/react-loadable.json',
+        // }),
+        new ReactLoadableSSRAddon({
+            filename: 'asset-loadable.json',
         }),
     ]
 }
@@ -123,8 +130,11 @@ const client_staging = {
             inject: false
         }),
         new HtmlWebpackExcludeAssetsPlugin(),
-        new reactLoadablePlugin({
-            filename: './dist/react-loadable.json',
+        // new reactLoadablePlugin({
+        //     filename: './dist/react-loadable.json',
+        // }),
+        new ReactLoadableSSRAddon({
+            filename: 'asset-loadable.json',
         }),
     ]
 }

@@ -25,9 +25,12 @@ import UploadPrescription from './uploadPrescription.js'
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
         super(props)
+
         const parsed = queryString.parse(this.props.location.search)
+        let lab_id = this.props.selectedLab
+
         this.state = {
-            selectedLab: this.props.match.params.id,
+            selectedLab: lab_id,
             paymentData: {},
             loading: false,
             error: "",
@@ -49,7 +52,8 @@ class BookingSummaryViewNew extends React.Component {
             whatsapp_optin: true,
             pincodeMismatchError: false,
             showConfirmationPopup: false,
-            coupon_loading: false
+            coupon_loading: false,
+            seoFriendly: this.props.match.url.includes('-lpp')
         }
     }
 
@@ -90,27 +94,26 @@ class BookingSummaryViewNew extends React.Component {
         }*/
     }
 
-
     componentWillReceiveProps(nextProps) {
         /*if (!STORAGE.checkAuth()) {
             return
         }*/
 
-        if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests && nextProps.LABS[this.state.selectedLab].tests.length == 0) {
+        if (nextProps.LABS[this.props.selectedLab] && nextProps.LABS[this.props.selectedLab].tests && nextProps.LABS[this.props.selectedLab].tests.length == 0) {
             this.props.resetLabCoupons()
             return
         }
-        if (nextProps.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests && nextProps.LABS[this.state.selectedLab].tests.length) {
+        if (nextProps.LABS[this.props.selectedLab] && nextProps.LABS[this.props.selectedLab].tests && nextProps.LABS[this.props.selectedLab].tests.length) {
 
             // bases cases
-            if (this.props.LABS[this.state.selectedLab] && nextProps.LABS[this.state.selectedLab].tests == this.props.LABS[this.state.selectedLab].tests && nextProps.selectedAppointmentType == this.props.selectedAppointmentType) {
+            if (this.props.LABS[this.props.selectedLab] && nextProps.LABS[this.props.selectedLab].tests == this.props.LABS[this.props.selectedLab].tests && nextProps.selectedAppointmentType == this.props.selectedAppointmentType) {
                 return
             }
 
             // remove corporate coupon if tests are not valid
             if (nextProps.corporateCoupon) {
                 let corporate = true
-                nextProps.LABS[this.state.selectedLab].tests.map((twp, i) => {
+                nextProps.LABS[this.props.selectedLab].tests.map((twp, i) => {
                     if (!twp.hide_price) {
                         corporate = false
                     }
@@ -119,8 +122,8 @@ class BookingSummaryViewNew extends React.Component {
                 if (!corporate) {
                     this.props.resetLabCoupons()
                     this.setState({ couponCode: "", couponId: '', is_cashback: false })
-                    if (nextProps.labCoupons[this.state.selectedLab]) {
-                        this.props.removeLabCoupons(this.state.selectedLab, nextProps.corporateCoupon.coupon_id)
+                    if (nextProps.labCoupons[this.props.selectedLab]) {
+                        this.props.removeLabCoupons(this.props.selectedLab, nextProps.corporateCoupon.coupon_id)
                     }
                     this.props.setCorporateCoupon(null)
                     return
@@ -129,28 +132,28 @@ class BookingSummaryViewNew extends React.Component {
 
             // if corporateCoupon is set, apply that, leave rest
             if (nextProps.corporateCoupon) {
-                if (this.props.LABS[this.state.selectedLab] != nextProps.LABS[this.state.selectedLab] || this.props.selectedAppointmentType != nextProps.selectedAppointmentType) {
+                if (this.props.LABS[this.props.selectedLab] != nextProps.LABS[this.props.selectedLab] || this.props.selectedAppointmentType != nextProps.selectedAppointmentType) {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupon = nextProps.corporateCoupon
                     this.setState({ is_cashback: labCoupon.is_cashback, couponCode: labCoupon.code, couponId: labCoupon.coupon_id || '' })
-                    this.props.applyCoupons('2', labCoupon, labCoupon.coupon_id, this.state.selectedLab)
-                    this.props.applyLabCoupons('2', labCoupon.code, labCoupon.coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item)
+                    this.props.applyCoupons('2', labCoupon, labCoupon.coupon_id, this.props.selectedLab)
+                    this.props.applyLabCoupons('2', labCoupon.code, labCoupon.coupon_id, this.props.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item)
                 }
                 return
             }
 
             // if coupon already applied just set discount price.
-            if (nextProps.labCoupons[this.state.selectedLab] && nextProps.labCoupons[this.state.selectedLab].length) {
-                if (this.props.LABS[this.state.selectedLab] != nextProps.LABS[this.state.selectedLab] || this.props.selectedAppointmentType != nextProps.selectedAppointmentType) {
+            if (nextProps.labCoupons[this.props.selectedLab] && nextProps.labCoupons[this.props.selectedLab].length) {
+                if (this.props.LABS[this.props.selectedLab] != nextProps.LABS[this.props.selectedLab] || this.props.selectedAppointmentType != nextProps.selectedAppointmentType) {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
-                    let labCoupons = nextProps.labCoupons[this.state.selectedLab]
-                    this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.state.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item, (err, data) => {
+                    let labCoupons = nextProps.labCoupons[this.props.selectedLab]
+                    this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.props.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item, (err, data) => {
                         if (!err) {
                             this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '' })
                         } else {
-                            this.setState({coupon_loading: true})
+                            this.setState({ coupon_loading: true })
                             this.getAndApplyBestCoupons(nextProps)
                         }
                     })
@@ -159,12 +162,12 @@ class BookingSummaryViewNew extends React.Component {
             }
 
             // if no coupon is applied
-            if (!nextProps.labCoupons[this.state.selectedLab] || (nextProps.labCoupons[this.state.selectedLab] && nextProps.labCoupons[this.state.selectedLab].length == 0)) {
+            if (!nextProps.labCoupons[this.props.selectedLab] || (nextProps.labCoupons[this.props.selectedLab] && nextProps.labCoupons[this.props.selectedLab].length == 0)) {
                 this.getAndApplyBestCoupons(nextProps)
             }
         }
     }
-    
+
     getValidCoupon(coupons) {
         let validCoupon = null
         for (var index in coupons) {
@@ -181,15 +184,15 @@ class BookingSummaryViewNew extends React.Component {
             let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
             this.props.getCoupons({
-                productId: 2, deal_price: finalPrice, lab_id: this.state.selectedLab, test_ids: test_ids, profile_id: nextProps.selectedProfile, cart_item: this.state.cart_item,
+                productId: 2, deal_price: finalPrice, lab_id: this.props.selectedLab, test_ids: test_ids, profile_id: nextProps.selectedProfile, cart_item: this.state.cart_item,
                 cb: (coupons) => {
                     if (coupons) {
                         let validCoupon = this.getValidCoupon(coupons)
-                        if(validCoupon) {
-                            this.props.applyCoupons('2', validCoupon, validCoupon.coupon_id, this.state.selectedLab)
-                            this.props.applyLabCoupons('2', validCoupon.code, validCoupon.coupon_id, this.state.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item)
+                        if (validCoupon) {
+                            this.props.applyCoupons('2', validCoupon, validCoupon.coupon_id, this.props.selectedLab)
+                            this.props.applyLabCoupons('2', validCoupon.code, validCoupon.coupon_id, this.props.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item)
                             this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '' })
-                        }else {
+                        } else {
                             this.props.resetLabCoupons()
                             this.setState({ couponCode: "", couponId: '', is_cashback: false })
                         }
@@ -197,11 +200,11 @@ class BookingSummaryViewNew extends React.Component {
                         this.props.resetLabCoupons()
                         this.setState({ couponCode: "", couponId: '', is_cashback: false })
                     }
-                    this.setState({coupon_loading: false})
+                    this.setState({ coupon_loading: false })
                 }
             })
         } else {
-            this.setState({coupon_loading: false})
+            this.setState({ coupon_loading: false })
         }
     }
 
@@ -210,7 +213,7 @@ class BookingSummaryViewNew extends React.Component {
         let finalPrice = 0
         let test_ids = []
 
-        nextProps.LABS[this.state.selectedLab].tests.map((twp, i) => {
+        nextProps.LABS[this.props.selectedLab].tests.map((twp, i) => {
             test_ids.push(twp.test_id)
             let price = twp.deal_price
             if (!twp.is_home_collection_enabled) {
@@ -220,14 +223,19 @@ class BookingSummaryViewNew extends React.Component {
         })
 
         if (is_home_collection_enabled && nextProps.selectedAppointmentType == 'home') {
-            finalPrice = finalPrice + (nextProps.LABS[this.state.selectedLab].lab.home_pickup_charges || 0)
+            finalPrice = finalPrice + (nextProps.LABS[this.props.selectedLab].lab.home_pickup_charges || 0)
         }
 
         return { finalPrice, test_ids }
     }
 
     openTests() {
-        this.props.history.push(`/lab/${this.state.selectedLab}/tests`)
+        if(this.state.seoFriendly){
+            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&action_page=tests`
+            this.props.history.push(url)
+        } else {
+            this.props.history.push(`/lab/${this.state.selectedLab}/tests`)
+        }
     }
 
     handlePickupType(e) {
@@ -241,11 +249,22 @@ class BookingSummaryViewNew extends React.Component {
     navigateTo(where,is_insurance_applicable, e) {
         switch (where) {
             case "time": {
-                if (this.state.pincode || (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].lab && !this.props.LABS[this.state.selectedLab].lab.is_thyrocare)) {
-                    if (this.props.LABS[this.state.selectedLab].lab.is_thyrocare) {
-                        this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true&is_insurance=${is_insurance_applicable}`)
+                if (this.state.pincode || (this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].lab && !this.props.LABS[this.props.selectedLab].lab.is_thyrocare)) {
+
+                    if (this.props.LABS[this.props.selectedLab].lab.is_thyrocare) {
+                        if (this.state.seoFriendly) {
+                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true&action_page=timings&is_insurance=${is_insurance_applicable}`
+                            this.props.history.push(url)
+                        } else {
+                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true&is_insurance=${is_insurance_applicable}`)
+                        }
                     } else {
-                        this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false&is_insurance=${is_insurance_applicable}`)
+                        if (this.state.seoFriendly) {
+                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false&action_page=timings&is_insurance=${is_insurance_applicable}`
+                            this.props.history.push(url)
+                        } else {
+                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false&is_insurance=${is_insurance_applicable}`)
+                        }
                     }
 
                     return
@@ -281,14 +300,14 @@ class BookingSummaryViewNew extends React.Component {
         switch (this.props.selectedAppointmentType) {
             case "lab": {
                 return <div>
-                    <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.state.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable = {is_insurance_applicable} />
+                    <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable={is_insurance_applicable}/>
                     <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} />
                 </div>
             }
 
             case "home": {
                 return <div>
-                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.state.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable = {is_insurance_applicable}/>
+                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable={is_insurance_applicable} />
                     <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} />
                     {
                         patient ?
@@ -341,7 +360,7 @@ class BookingSummaryViewNew extends React.Component {
             return
         }
 
-        if (addressPicked && this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].lab && this.props.LABS[this.state.selectedLab].lab.is_thyrocare) {
+        if (addressPicked && this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].lab && this.props.LABS[this.props.selectedLab].lab.is_thyrocare) {
 
             let validateAddressPincode = false
             if (this.props.address && this.props.address.length) {
@@ -391,10 +410,10 @@ class BookingSummaryViewNew extends React.Component {
         //Check If each Tests Covered Under Plan
         //Check If each Tests Covered Under Insurance
 
-        if (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].tests && this.props.LABS[this.state.selectedLab].tests.length) {
+        if (this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length) {
 
             is_tests_covered_under_insurance = true
-            this.props.LABS[this.state.selectedLab].tests.map((test, i) => {
+            this.props.LABS[this.props.selectedLab].tests.map((test, i) => {
 
                 if (test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount >= parseInt(test.deal_price)) {
 
@@ -435,11 +454,11 @@ class BookingSummaryViewNew extends React.Component {
 
         let start_date = this.props.selectedSlot.date
         let start_time = this.props.selectedSlot.time.value
-        let testIds = this.props.lab_test_data[this.state.selectedLab] || []
+        let testIds = this.props.lab_test_data[this.props.selectedLab] || []
         testIds = testIds.map(x => x.id)
 
         let postData = {
-            lab: this.state.selectedLab,
+            lab: this.props.selectedLab,
             test_ids: testIds,
             profile: this.props.selectedProfile,
             start_date, start_time, is_home_pickup: this.props.selectedAppointmentType == 'home', address: this.props.selectedAddress,
@@ -458,7 +477,7 @@ class BookingSummaryViewNew extends React.Component {
         } 
 
         //Post Pincode & thyrocare data
-        if (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].lab && this.props.LABS[this.state.selectedLab].lab.is_thyrocare) {
+        if (this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].lab && this.props.LABS[this.props.selectedLab].lab.is_thyrocare) {
 
             let pincode = this.state.pincode
             postData['pincode'] = pincode.toString() || ""
@@ -513,7 +532,7 @@ class BookingSummaryViewNew extends React.Component {
         GTM.sendEvent({ data: analyticData })
         this.props.createLABAppointment(postData, (err, data) => {
             if (!err) {
-                this.props.removeLabCoupons(this.state.selectedLab, this.state.couponId)
+                this.props.removeLabCoupons(this.props.selectedLab, this.state.couponId)
                 if (data.is_agent) {
                     // this.props.history.replace(this.props.location.pathname + `?order_id=${data.data.orderId}`)
                     this.setState({ order_id: data.data.orderId })
@@ -559,13 +578,13 @@ class BookingSummaryViewNew extends React.Component {
             GTM.sendEvent({ data: analyticData })
 
             let test_ids = []
-            this.props.LABS[this.state.selectedLab].tests.map((twp, i) => {
+            this.props.LABS[this.props.selectedLab].tests.map((twp, i) => {
                 test_ids.push(twp.test_id)
             })
 
             let { finalPrice } = this.getLabPriceData(this.props)
 
-            this.props.history.push(`/coupon/lab/${this.state.selectedLab}/coupons?test_ids=${test_ids}&deal_price=${finalPrice}&cart_item=${this.state.cart_item || ""}`)
+            this.props.history.push(`/coupon/lab/${this.props.selectedLab}/coupons?test_ids=${test_ids}&deal_price=${finalPrice}&cart_item=${this.state.cart_item || ""}`)
         }
     }
 
@@ -624,7 +643,7 @@ class BookingSummaryViewNew extends React.Component {
         if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile] && this.props.profiles[this.props.defaultProfile].is_insured) {
 
             this.props.clearExtraTests()
-            this.props.getLabById(this.props.match.params.id)
+            this.props.getLabById(this.props.selectedLab)
             return
         }
     }
@@ -689,10 +708,11 @@ class BookingSummaryViewNew extends React.Component {
 
         //Check If each Tests Covered Under Plan
 
-        if (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].tests && this.props.LABS[this.state.selectedLab].tests.length) {
+        if (this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length) {
             is_tests_covered_under_insurance = true
 
-            this.props.LABS[this.state.selectedLab].tests.map((test, i) => {
+            this.props.LABS[this.props.selectedLab].tests.map((test, i) => {
+
                 if (test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount >= parseInt(test.deal_price)) {
 
                 } else {
@@ -711,10 +731,10 @@ class BookingSummaryViewNew extends React.Component {
         is_insurance_applicable = is_tests_covered_under_insurance && is_selected_user_insured
         is_plan_applicable = is_tests_covered_under_plan && is_selected_user_has_active_plan
 
-        if (this.props.LABS[this.state.selectedLab]) {
-            labDetail = this.props.LABS[this.state.selectedLab].lab
-            
-            this.props.LABS[this.state.selectedLab].tests.map((twp, i) => {
+        if (this.props.LABS[this.props.selectedLab]) {
+            labDetail = this.props.LABS[this.props.selectedLab].lab
+
+            this.props.LABS[this.props.selectedLab].tests.map((twp, i) => {
                 if (twp.hide_price) {
                     is_corporate = true
                 }
@@ -729,7 +749,7 @@ class BookingSummaryViewNew extends React.Component {
 
                 tests.push(
                     <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
-                    {/*
+                        {/*
                         is_corporate || is_insurance_applicable || is_plan_applicable ?
                         <span className="float-right fw-700">₹ 0 </span>
                         :
@@ -739,25 +759,25 @@ class BookingSummaryViewNew extends React.Component {
                         <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
                         </span>
                     */}
-                    <span className="test-name-item">{twp.test.name}</span>
-                    {
-                        is_plan_applicable ?
-                            <p className="pkg-discountCpn" style={{ display: 'inline-block', float: 'right', marginTop: '5px' }}>Docprime Care Benefit</p>
-                            : ''
-                    }
-                </p>)
-                
+                        <span className="test-name-item">{twp.test.name}</span>
+                        {
+                            is_plan_applicable ?
+                                <p className="pkg-discountCpn" style={{ display: 'inline-block', float: 'right', marginTop: '5px' }}>Docprime Care Benefit</p>
+                                : ''
+                        }
+                    </p>)
+
                 tests_with_price.push(
                     <div className="payment-detail d-flex">
                         <p>{twp.test.name}</p>
                         {
                             is_corporate || is_insurance_applicable || is_plan_applicable ?
-                            <p>&#8377; 0</p>
-                            :
-                            price == twp.mrp ?
-                            <p>&#8377; {price}</p>
-                            :
-                            <p>&#8377; {parseFloat(twp.mrp)}</p>
+                                <p>&#8377; 0</p>
+                                :
+                                price == twp.mrp ?
+                                    <p>&#8377; {price}</p>
+                                    :
+                                    <p>&#8377; {parseFloat(twp.mrp)}</p>
                         }
                     </div>
                 )
@@ -793,7 +813,7 @@ class BookingSummaryViewNew extends React.Component {
             }
         }
 
-        let labCoupons = this.props.labCoupons[this.state.selectedLab] || []
+        let labCoupons = this.props.labCoupons[this.props.selectedLab] || []
 
         let amtBeforeCoupon = 0
         let total_price = finalPrice
@@ -825,25 +845,25 @@ class BookingSummaryViewNew extends React.Component {
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             {
-                                this.props.LABS[this.state.selectedLab] ?
+                                this.props.LABS[this.props.selectedLab] ?
                                     <div>
                                         <section className="dr-profile-screen booking-confirm-screen mrb-60">
                                             <div className="container-fluid">
                                                 <div className="row mrb-20">
                                                     <div className="col-12">
-                                                        <div className="widget mrb-15 mrng-top-12" onClick={this.goToProfile.bind(this, this.state.selectedLab, labDetail.url)} style={{ cursor: 'pointer' }}>
+                                                        <div className="widget mrb-15 mrng-top-12" onClick={this.goToProfile.bind(this, this.props.selectedLab, labDetail.url)} style={{ cursor: 'pointer' }}>
                                                             <div className="widget-content">
                                                                 <div className="lab-visit-time d-flex jc-spaceb">
                                                                     <h4 className="title d-flex"><span>
                                                                         <img style={{ width: '22px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/hospital.svg"} />
                                                                     </span>
                                                                         <p className="lab-crd-txt-pr">{labDetail.name}
-                                                                            <span>{labDetail.address||''}</span></p></h4>
+                                                                            <span>{labDetail.address || ''}</span></p></h4>
                                                                     {/*<div className="float-right  mbl-view-formatting text-right">
                                                                         <a href="" style={{ width: '100px', display: 'inline-block' }} onClick={(e) => {
                                                                             e.preventDefault()
                                                                             e.stopPropagation()
-                                                                            this.goToProfile(this.state.selectedLab, labDetail.url)
+                                                                            this.goToProfile(this.props.selectedLab, labDetail.url)
                                                                         }} className="text-primary fw-700 text-sm">View Profile</a>
 
                                                                     </div>*/}
@@ -864,7 +884,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 : ''
                                                                         }
                                                                         {
-                                                                            this.props.LABS[this.state.selectedLab].tests && !this.props.LABS[this.state.selectedLab].tests.length && is_default_user_insured ?
+                                                                            this.props.LABS[this.props.selectedLab].tests && !this.props.LABS[this.props.selectedLab].tests.length && is_default_user_insured ?
                                                                                 <a style={{ cursor: 'pointer' }} onClick={this.searchTests.bind(this)} className="text-primary fw-700 text-sm">Search tests</a>
                                                                                 : ''
                                                                         }
@@ -925,7 +945,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                             }
                                                                                             GTM.sendEvent({ data: analyticData })
                                                                                             this.setState({ couponCode: '', couponId: '' })
-                                                                                            this.props.removeLabCoupons(this.state.selectedLab, labCoupons[0].coupon_id)
+                                                                                            this.props.removeLabCoupons(this.props.selectedLab, labCoupons[0].coupon_id)
                                                                                         }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
                                                                                         </span>
                                                                                     }

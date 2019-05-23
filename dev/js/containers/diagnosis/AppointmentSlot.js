@@ -4,31 +4,51 @@ import { connect } from 'react-redux';
 import { getLabById, getLabTimeSlots, selectLabTimeSLot , askPrescription} from '../../actions/index.js'
 
 import AppointmentSlotView from '../../components/diagnosis/appointmentSlot'
+const queryString = require('query-string');
 
 class AppointmentSlot extends React.Component {
     constructor(props) {
         super(props)
     }
 
-    static loadData(store, match) {
-        return store.dispatch(getLabById(match.params.id))
-    }
+    // static loadData(store, match) {
+    //     return store.dispatch(getLabById(match.params.id))
+    // }
 
     static contextTypes = {
         router: () => null
     }
 
-    componentDidMount() {
+    fetchData(props) {
+        const parsed = queryString.parse(props.location.search)
+
+        let lab_id = props.selectedLab || props.match.params.id || parsed.lab_id
+
         if (window) {
             window.scrollTo(0, 0)
         }
-        this.props.getLabById(this.props.match.params.id)
+        if (lab_id) {
+            props.getLabById(lab_id)
+        }
+    }
+
+    componentWillReceiveProps(props) {
+        if (props.selectedLab != this.props.selectedLab) {
+            this.fetchData(props)
+        }
+    }
+
+    componentDidMount() {
+        this.fetchData(this.props)
     }
 
     render() {
 
+        const parsed = queryString.parse(this.props.location.search)
+        let lab_id = this.props.selectedLab || this.props.match.params.id || parsed.lab_id
+
         return (
-            <AppointmentSlotView {...this.props} />
+            <AppointmentSlotView {...this.props} selectedLab={lab_id} />
         );
     }
 }
