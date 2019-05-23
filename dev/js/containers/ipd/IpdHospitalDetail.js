@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getHospitaDetails , selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, toggleIPDCriteria, mergeOPDState } from '../../actions/index.js'
+import { getHospitaDetails , selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, toggleIPDCriteria, mergeOPDState, ipdChatView } from '../../actions/index.js'
 
 import IpdHospitalDetailView from '../../components/ipd/IpdHospitalDetailView.js'
 const queryString = require('query-string')
@@ -135,7 +135,7 @@ class HospitalDetail extends React.Component {
 
 		return(
 				<div className="profile-body-wrap">
-					<ProfileHeader showSearch={true} />
+					<ProfileHeader showSearch={true} hospital_id={ipd_hospital_detail && ipd_hospital_detail.id?ipd_hospital_detail.id:''} ipdFormParams={this.state.showIpdChat && this.state.showIpdChat.ipdFormParams?this.state.showIpdChat.ipdFormParams:false}/>
 					<HelmetTags tagsData={{
 						canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
 						title: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail.seo : null).title,
@@ -168,6 +168,10 @@ class HospitalDetail extends React.Component {
 const mapStateToProps = (state) => {
 	
 	const {
+		ipd_chat
+	} = state.USER
+
+	const {
         selectedLocation,
         locationType,
         filterCriteria
@@ -189,7 +193,8 @@ const mapStateToProps = (state) => {
         commonSelectedCriterias,
         locationFetched,
         selectedCriterias,
-        filterCriteria
+        filterCriteria,
+        ipd_chat
 	}
 }
 
@@ -201,7 +206,8 @@ const mapDisptachToProps = (dispatch) => {
 		selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
 		cloneCommonSelectedCriterias: (selectedCriterias) => dispatch(cloneCommonSelectedCriterias(selectedCriterias)),
 		toggleIPDCriteria: (criteria, forceAdd) => dispatch(toggleIPDCriteria(criteria, forceAdd)),
-		mergeOPDState: (state) => dispatch(mergeOPDState(state))
+		mergeOPDState: (state) => dispatch(mergeOPDState(state)),
+		ipdChatView: (data) => dispatch(ipdChatView(data))
 	}
 }
 export default connect(mapStateToProps, mapDisptachToProps)(HospitalDetail)

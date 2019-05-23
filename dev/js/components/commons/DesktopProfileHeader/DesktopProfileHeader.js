@@ -2,6 +2,7 @@ import React from 'react';
 import InitialsPicture from '../initialsPicture'
 import GTM from '../../../helpers/gtm'
 import LeftMenu from '../LeftMenu/LeftMenu.js'
+import IpdChatPanel from '../ChatPanel/ChatIpdPanel.js'
 
 class DesktopProfileHeader extends React.Component {
     constructor(props) {
@@ -129,6 +130,11 @@ class DesktopProfileHeader extends React.Component {
 
         return (
             <header id="is_header" className={headerClass} style={styles}>
+                {
+                    this.props.ipd_chat?
+                    <IpdChatPanel {...this.props}/>
+                    :''
+                }
 
                 <div className={"ofr-top-header d-lg-block" + (!this.props.homePage ? " d-none" : "")}>
                     <div className="container">

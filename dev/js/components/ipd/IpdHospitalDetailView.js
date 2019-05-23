@@ -26,7 +26,6 @@ class HospitalDetailView extends React.Component {
 			seoFriendly: this.props.match.url.includes('-hpp'),
 			toggleTabType: 'doctors',
 			showLeadForm: false,
-			showIpdChat: false,
 			ipdFormParams: {}
 		}
 	}
@@ -173,18 +172,10 @@ class HospitalDetailView extends React.Component {
 			ipdFormParams: ipdFormParams
 		}
 		
-		this.setState({ showLeadForm: false, ipdFormParams: ipdFormParams, showIpdChat: true }, ()=>{
+		this.setState({ showLeadForm: false, ipdFormParams: ipdFormParams }, ()=>{
+			this.props.ipdChatView(true)
 			this.props.showChatView(ipd_data)	
 		})
-	}
-
-	closeChat(close=false){
-		if(close) {
-			this.setState({showIpdChat: false})	
-		}else {
-			this.setState({showIpdChat: false})
-		}
-		
 	}
 
 	render() {
@@ -200,8 +191,8 @@ class HospitalDetailView extends React.Component {
 						<div className="ipd-section">
 							
 							{
-								this.state.showIpdChat?
-								<ChatIpdPanel {...this.props} hospital_id={this.props.ipd_hospital_detail.id} ipdFormParams={this.state.ipdFormParams} hideChatFrame={this.closeChat.bind(this)}/>
+								this.props.ipd_chat && false?
+								<ChatIpdPanel {...this.props} hospital_id={this.props.ipd_hospital_detail.id} ipdFormParams={this.state.ipdFormParams} />
 								:''
 							}
 							{

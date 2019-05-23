@@ -94,7 +94,7 @@ class FixedMobileFooter extends React.Component {
             })
         }
         return (
-            <div className="mobileViewStaticChat d-md-none">
+            <div className={`mobileViewStaticChat d-md-none ${this.props.ipd_chat?'d-none':''}`}>
                 <div className="nw-chat-card">
                     <div className="chat-div-containers" style={this.props.selectedSearchType === 'opd' || this.props.selectedSearchType === 'procedures' ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
                         let data = {
@@ -189,11 +189,13 @@ class FixedMobileFooter extends React.Component {
 const mapStateToProps = (state) => {
     const {
         app_download_list,
-        device_info
+        device_info,
+        ipd_chat
     } = state.USER
     return{
         app_download_list,
-        device_info
+        device_info,
+        ipd_chat
     }
 }
 

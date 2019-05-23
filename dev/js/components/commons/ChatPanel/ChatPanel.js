@@ -164,6 +164,7 @@ class ChatPanel extends React.Component {
                             // this.props.startLiveChat(false, this.state.selectedLocation)
                             this.setState({ initialMessage: "", selectedRoom: null, })
                             this.props.setChatRoomId(null)
+                            this.props.ipdChatView(null)
                             this.props.unSetCommonUtmTags('chat')
                             // this.props.history.go(-1)
                             break
