@@ -1080,7 +1080,7 @@ button.ipd-inp-sbmt {
 	position: fixed;
 	z-index: 999;
 	background: white;
-	height: 50vh;
+	height: 60vh;
 	width: 100%;
 	left: 0;
 	bottom: 0;
@@ -1104,5 +1104,11 @@ button.ipd-inp-sbmt {
 	color: #ef5350;
 	font-weight: 500;
 	font-size: 13px;
+}
+.ipd-chat-render{
+	height: 100%;
+}
+.ipd-chat-render div.chat-body{
+	height: calc(100% - 41px);
 }
 /* ============ ipd chat popup ============ */

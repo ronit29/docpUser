@@ -190,7 +190,7 @@ class HospitalDetailView extends React.Component {
 									</div>
 								</div>
 								<div className="ipd-chat-render">
-									<ChatPanel {...this.props} mobilechatview={true} showHalfScreenChat={true}/>
+									<ChatPanel {...this.props} mobilechatview={true} showHalfScreenChat={true} newChatBtnAds={true}/>
 								</div>
 							</div>
 							{
