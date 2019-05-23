@@ -85,11 +85,11 @@ class PatientDetails extends React.Component {
 const mapStateToProps = (state) => {
 
     let DOCTORS = state.DOCTOR_PROFILES
-    const { selectedProfile, profiles, userWalletBalance, userCashbackBalance } = state.USER
+    const { selectedProfile, profiles, userWalletBalance, userCashbackBalance, defaultProfile } = state.USER
     let { selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, payment_type } = state.DOCTOR_SEARCH
     const { saved_patient_details } = state.SEARCH_CRITERIA_LABS
     return {
-        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details
+        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details, defaultProfile
     }
 }
 
