@@ -110,6 +110,11 @@ class DoctorsList extends React.Component {
             }
         }, 5000)
 
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'DetectLocationSptcitClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'detect-location-sptcit-click', 'Page': 'doctor-search'
+        }
+        GTM.sendEvent({ data: data })
+
         this.setState({ detectLoading: true })
         this.props.detectLocationClick();
         if (navigator.geolocation) {
@@ -161,7 +166,7 @@ class DoctorsList extends React.Component {
                         <div className="container-fluid cardMainPaddingRmv">
                             {
                                 this.props.search_content && this.props.search_content != '' && parseInt(this.props.page) == 1 ?
-                                    <div className="search-result-card-collpase">
+                                    <div className="search-result-card-collpase d-none d-md-block">
                                         <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.search_content }} >
                                         </div>
 
