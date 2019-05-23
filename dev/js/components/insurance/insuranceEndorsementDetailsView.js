@@ -447,8 +447,9 @@ class InsuranceEndoresmentInputView extends React.Component{
 		let adult
 		let userProfile
 		let spouse_data
-		let child_data
+		let child_data =[]
 		let self_data
+		let findChild
 		if(this.props.endorseData && this.props.endorseData.members.length>0 && this.props.currentSelectedInsuredMembersId.length >0){
 			self_data = this.props.endorsed_member_data.members.filter(x=>x.relation =='self')
 			if(this.props.selected_plan.adult_count == 2 && this.props.currentSelectedInsuredMembersId.length>1){
@@ -473,34 +474,35 @@ class InsuranceEndoresmentInputView extends React.Component{
 							endorsementError={this.state.endorsementError}
 						/>
 			}
-		
 			var n = (this.props.selected_plan.child_count);
-			if(n !== 0){
-				child =this.props.currentSelectedInsuredMembersId.map((data, i) =>{
-					child_data = this.props.endorsed_member_data.members.filter(x=>x.relation != 'self' && x.relation !='spouse' && x.id==data[i])
-					if(child_data && child_data.length>0){
-						return <InsurOthers {...this.props} 
-									key={i} 
-									member_id={child_data[0].id} 
-									checkForValidation ={this.checkForValidation.bind(this)} 
-									is_child_only={true} 
-									id={`member_${i+1}`} 
-									param_id = {i} 
-									member_view_id= {i} 
-									validateErrors={this.state.validateErrors[child_data[0].id] || []} 
-									validateOtherErrors={[]} 
-									createApiErrorsChild={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members:[]} 
-									show_selected_profiles={this.state.show_selected_profiles} 
-									validateDobErrors={this.state.validateDobErrors[i] || []} 
-									errorMessages={this.state.errorMessages} 
-									validatingNames={this.state.validatingNames||[]}
-									is_endorsement = {true}
-									user_data={child_data}
-									member_type={'child'}
-									endorsementError={this.state.endorsementError}
-								/>
-					}
+			let findChild = this.props.currentSelectedInsuredMembersId.map((data, i) =>{
+					child_data = this.props.endorsed_member_data.members.filter(x=>x.relation != 'self' && x.relation !='spouse')
 				})
+			if(n !== 0){	
+				if(child_data && child_data.length>0){
+				child = child_data.map((data, i) =>{
+					return <InsurOthers {...this.props} 
+								key={i} 
+								member_id={child_data[i].id} 
+								checkForValidation ={this.checkForValidation.bind(this)} 
+								is_child_only={true} 
+								id={`member_${i+1}`} 
+								param_id = {i} 
+								member_view_id= {i+1} 
+								validateErrors={this.state.validateErrors[child_data[i].id] || []} 
+								validateOtherErrors={[]} 
+								createApiErrorsChild={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members:[]} 
+								show_selected_profiles={this.state.show_selected_profiles} 
+								validateDobErrors={this.state.validateDobErrors[i] || []} 
+								errorMessages={this.state.errorMessages} 
+								validatingNames={this.state.validatingNames||[]}
+								is_endorsement = {true}
+								user_data={[child_data[i]]}
+								member_type={'child'}
+								endorsementError={this.state.endorsementError}
+							/>
+					})
+				}
 			}
 
 			return(
