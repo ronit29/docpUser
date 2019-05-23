@@ -2160,7 +2160,7 @@ p.rt-doc-nm{
 
 .auto-location-widget{
     background-color: rgba(247, 134, 48, 0.2);
-    padding: 12px 10px;
+    padding: 15px 10px;
     border-radius: 5px;
 }
 
@@ -2172,7 +2172,7 @@ p.rt-doc-nm{
 }
 
 .auto-location-text>p, .auto-location-btn{
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .auto-location-btn{
@@ -2181,7 +2181,7 @@ p.rt-doc-nm{
     border-radius: 5px;
     text-align: center;
     cursor: pointer;
-    width: 116px;
+    width: 131px;
     margin-left: 4px;
     flex-shrink: 0;
 }
