@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabById, getLabTimeSlots, selectLabTimeSLot , askPrescription} from '../../actions/index.js'
+import { getLabById, getLabTimeSlots, selectLabTimeSLot} from '../../actions/index.js'
 
 import AppointmentSlotView from '../../components/diagnosis/appointmentSlot'
 const queryString = require('query-string');
@@ -56,11 +56,11 @@ class AppointmentSlot extends React.Component {
 const mapStateToProps = (state) => {
 
     let LABS = state.LABS
-    let { pincode, selectedCriterias } = state.SEARCH_CRITERIA_LABS
+    let { pincode } = state.SEARCH_CRITERIA_LABS
     let { selectedSlot } = state.LAB_SEARCH
 
     return {
-        LABS, selectedSlot, pincode, selectedCriterias
+        LABS, selectedSlot, pincode
     }
 }
 
@@ -68,8 +68,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getLabById: (labId) => dispatch(getLabById(labId)),
         getLabTimeSlots: (labId, pickup, pincode, date, callback) => dispatch(getLabTimeSlots(labId, pickup, pincode, date, callback)),
-        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
-        askPrescription:(selectedSlot) =>dispatch(askPrescription(selectedSlot))
+        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule))
     }
 }
 

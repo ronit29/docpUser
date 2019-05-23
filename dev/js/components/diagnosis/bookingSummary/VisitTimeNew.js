@@ -43,7 +43,7 @@ class VisitTimeNew extends React.Component {
                             <a href="" onClick={(e) => {
                             e.preventDefault()
                             e.stopPropagation()
-                            this.props.navigateTo('time',this.props.is_insurance_applicable)
+                            this.props.navigateTo('time')
                         }} className="text-primary fw-700 text-sm">{time.text ? "Change" : "Select"} Time</a>
                         
                         </div>
