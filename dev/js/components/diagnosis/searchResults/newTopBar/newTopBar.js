@@ -162,7 +162,7 @@ class TopBar extends React.Component {
             })
         }
 
-        this.props.resetQuickFilters()
+        //this.props.resetQuickFilters()
         
     }
 

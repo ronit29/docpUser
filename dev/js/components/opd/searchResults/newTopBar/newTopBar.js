@@ -124,9 +124,8 @@ class TopBar extends React.Component {
                 ...this.state.previous_filters,
                 quickFilter: {}
             })
+            //this.props.resetQuickFilters()
         }
-        this.props.resetQuickFilters()
-
     }
 
     toggleAllFilters(type, val, isArray = false, e) {
