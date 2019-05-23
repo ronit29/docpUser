@@ -1168,9 +1168,18 @@ p.rev-ins-header a img{
 }
 .ipd-pop-cls{
 	position: absolute;
-	right: -10px;
-	top: -8px;
+	right: -19px;
+	top: -18px;
 	cursor: pointer;
+	line-height: 0;
+	height: 20px;
+	width: 20px;
+	background: #ececec;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50px;
+	border: 1px solid #dcd9d9;
 }
 .ipd-needHelp{
 	text-align: center;
@@ -1232,6 +1241,7 @@ button.ipd-inp-sbmt {
 	width: 100%;
 	left: 0;
 	bottom: 0;
+	top:unset;
 	border-top: 2px solid #f3ebeb;
 	display: block !important;
 	-moz-transition: height .5s ease;
@@ -1240,7 +1250,8 @@ button.ipd-inp-sbmt {
   transition: height .5s ease;
 }
 .ipd-chat-pop-full{
-	height: 100vh !important;
+	height: 100% !important;
+
 }
 div.ipd-chat-pop-minimize{
 height: 48px !important;

@@ -122,7 +122,7 @@ class IpdLeadForm extends React.Component {
 		const parsed = queryString.parse(this.props.location.search)
 
 		return (
-			<div className="search-el-popup-overlay" onClick={(e) => {
+			<div className="search-el-popup-overlay cancel-overlay-zindex" onClick={(e) => {
 				e.preventDefault()
 				e.stopPropagation()
 				this.closePopUpClicked()
