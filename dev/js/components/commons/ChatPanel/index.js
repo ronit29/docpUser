@@ -20,7 +20,7 @@ class ChatPanel extends React.Component {
     }
 
     render() {
-        let ct_style = this.props.homePage ? "col-md-7 mb-3" : this.props.colClass ? "col-lg-4 col-md-5 mb-3" : this.props.newChatBtnAds ? '' : "col-md-5 mb-3"
+        let ct_style = this.props.homePage ? "col-md-7 mb-3" : this.props.colClass ? "col-lg-4 col-md-5 mb-3" : this.props.showHalfScreenChat && !this.props.showDesktopIpd?'cht-hide-hlf-scrn':this.props.newChatBtnAds ? '' : "col-md-5 mb-3"
         if (this.props.homePage && !this.props.chatPage)
             ct_style = "col-md-7 mb-3 d-none d-md-block"
         return (

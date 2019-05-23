@@ -53,7 +53,7 @@ class ChatPanel extends React.Component {
         /**
          * Check for static message and hide/show iframe with loader accordingly.
          */
-        if (this.props.USER && this.props.USER.liveChatStarted) {
+        if (this.props.USER && this.props.USER.liveChatStarted || this.props.showHalfScreenChat) {
             this.setState({ showStaticView: false, iframeLoading: true }, () => {
                 this.setState({ hideIframe: false }, () => {
                     let iframe = this.refs.chat_frame
@@ -398,22 +398,14 @@ class ChatPanel extends React.Component {
             recentArticles = this.props.articleData.recent_articles
         }
 
-        let landFromIpd= false
-        if(typeof window == 'object') {
-            let url = window.location.search
-            url = url.split('?')
-            url = url.length==1?url[0]:url[1]
-            if(url.includes('product=IPD')) {
-                iframe_url += '&'+url
-                landFromIpd = true
-            }
-        }
-
-        if(!landFromIpd) {
-            iframe_url += '&product=DocPrime'    
+        
+        if(this.props.showHalfScreenChat && this.props.ipdFormParams) {
+            iframe_url += `&${this.props.ipdFormParams}`
+        }else{
+            iframe_url += '&product=DocPrime'      
         }
         
-        if(this.props.showHalfScreenChat) {
+        if(this.props.showHalfScreenChat && !this.props.showDesktopIpd) {
             return(
                 <div className="chat-body">
                     {

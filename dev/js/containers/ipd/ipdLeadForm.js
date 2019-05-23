@@ -108,13 +108,13 @@ class IpdLeadForm extends React.Component {
 			SnackBar.show({ pos: 'bottom-center', text: "Please fill the feedback form" })
 		} else {
 			this.redirectToChat()
-			this.props.submitLeadFormGeneration(true)
+			this.props.submitLeadFormGeneration(this.state)
 		}
 	}
 
 	redirectToChat() {
-		let params = JSON.stringify(this.state)
-		this.props.history.push(`/mobileviewchat?product=IPD&params=${params}&source=${this.props.hospital_id}`)
+		/*let params = JSON.stringify(this.state)
+		this.props.history.push(`/mobileviewchat?product=IPD&params=${params}&source=${this.props.hospital_id}`)*/
 	}
 
 	render() {

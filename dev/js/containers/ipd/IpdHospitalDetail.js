@@ -23,7 +23,8 @@ class HospitalDetail extends React.Component {
 		this.state = {
 			specialization_id: null,
 			hospital_id: h_id,
-			is_seo: this.props.match.url.includes('-hpp')
+			is_seo: this.props.match.url.includes('-hpp'),
+			showIpdChat: false
 		}
 	}
 
@@ -109,6 +110,25 @@ class HospitalDetail extends React.Component {
 		return { title, description }
 	}
 
+	showChatView(showIpd=false){
+		let params= ''
+		if(showIpd && showIpd.showChat) {
+
+			if(showIpd.ipdFormParams){
+
+				let ipd_hospital_detail = this.state.hospital_id && this.props.ipd_hospital_detail_info && this.props.ipd_hospital_detail_info[this.state.hospital_id]?this.props.ipd_hospital_detail_info[this.state.hospital_id]:{}
+
+				params = JSON.stringify(showIpd.ipdFormParams)
+				params = `product=IPD&params=${params}&source=${ipd_hospital_detail && ipd_hospital_detail.id?ipd_hospital_detail.id:''}`
+
+			}else {
+				params = `product=IPD&source=${ipd_hospital_detail && ipd_hospital_detail.id?ipd_hospital_detail.id:''}`
+			}
+		}
+
+		this.setState({showIpdChat: {showChat: true, ipdFormParams: params}})
+	}
+
 	render(){
 
 		let ipd_hospital_detail = this.state.hospital_id && this.props.ipd_hospital_detail_info && this.props.ipd_hospital_detail_info[this.state.hospital_id]?this.props.ipd_hospital_detail_info[this.state.hospital_id]:{}
@@ -132,11 +152,11 @@ class HospitalDetail extends React.Component {
 							<div className="col-12 col-md-7 col-lg-7 center-column">
 							{
 								ipd_hospital_detail && ipd_hospital_detail.id?
-								<IpdHospitalDetailView {...this.props} {...this.state} ipd_hospital_detail={ipd_hospital_detail}/>
+								<IpdHospitalDetailView {...this.props} {...this.state} ipd_hospital_detail={ipd_hospital_detail} showChatView={this.showChatView.bind(this)}/>
 								:<Loader />		
 							}
 						</div>
-						<RightBar extraClass=" chat-float-btn-2" />
+						<RightBar extraClass=" chat-float-btn-2" showHalfScreenChat={this.state.showIpdChat && this.state.showIpdChat.showChat?this.state.showIpdChat.showChat:false} showDesktopIpd={true} hospital_id={ipd_hospital_detail && ipd_hospital_detail.id?ipd_hospital_detail.id:''} ipdFormParams={this.state.showIpdChat && this.state.showIpdChat.ipdFormParams?this.state.showIpdChat.ipdFormParams:false} />
 						</div>
 					</section>
 				</div>

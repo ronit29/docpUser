@@ -14,7 +14,7 @@ import GTM from '../../helpers/gtm.js'
 import IpdFormView from '../../containers/ipd/IpdForm.js'
 const queryString = require('query-string')
 import IpdLeadForm from '../../containers/ipd/ipdLeadForm.js'
-import ChatPanel from '../commons/ChatPanel'
+import ChatIpdPanel from '../commons/ChatPanel/ChatIpdPanel.js'
 
 //View all rating for hospital ,content_type = 3
 
@@ -25,7 +25,9 @@ class HospitalDetailView extends React.Component {
 		this.state = {
 			seoFriendly: this.props.match.url.includes('-hpp'),
 			toggleTabType: 'doctors',
-			showLeadForm: false
+			showLeadForm: false,
+			showIpdChat: false,
+			ipdFormParams: {}
 		}
 	}
 
@@ -159,14 +161,30 @@ class HospitalDetailView extends React.Component {
 		return `View all ${this.props.ipd_hospital_detail.specialization_doctors.count} Doctors`
 	}
 
-	submitLeadFormGeneration(close = false) {
+	submitLeadFormGeneration(ipdFormParams) {
 		if (close) {
 			let gtmData = {
 				'Category': 'ConsumerApp', 'Action': 'IpdHospitalDetailPageFormClosed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-detail-page-form-closed'
 			}
 			GTM.sendEvent({ data: gtmData })
 		}
-		this.setState({ showLeadForm: false })
+		let ipd_data = {
+			showChat: true,
+			ipdFormParams: ipdFormParams
+		}
+		
+		this.setState({ showLeadForm: false, ipdFormParams: ipdFormParams, showIpdChat: true }, ()=>{
+			this.props.showChatView(ipd_data)	
+		})
+	}
+
+	closeChat(close=false){
+		if(close) {
+			this.setState({showIpdChat: false})	
+		}else {
+			this.setState({showIpdChat: false})
+		}
+		
 	}
 
 	render() {
@@ -180,19 +198,12 @@ class HospitalDetailView extends React.Component {
 				{
 					this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ?
 						<div className="ipd-section">
-							<div className="ipd-chat-pop">
-								<div className="ipd-chat-header">
-									<p>Need help in bookin doctor appointment/surgery?</p>
-									<div className="cht-head-rqst-btn" >
-										<span>
-											<img className="close-chat" src="https://cdn.docprime.com/cp/assets/img/chatminimize.svg" style={{ width: '20px' }} />
-										</span>
-									</div>
-								</div>
-								<div className="ipd-chat-render">
-									<ChatPanel {...this.props} mobilechatview={true} showHalfScreenChat={true} newChatBtnAds={true}/>
-								</div>
-							</div>
+							
+							{
+								this.state.showIpdChat?
+								<ChatIpdPanel {...this.props} hospital_id={this.props.ipd_hospital_detail.id} ipdFormParams={this.state.ipdFormParams} closeChat={this.closeChat.bind(this)}/>
+								:''
+							}
 							{
 								showPopup ?
 									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} />
@@ -309,6 +320,7 @@ class HospitalDetailView extends React.Component {
 						</div>
 						: <Loader />
 				}
+
 			</React.Fragment>
 		)
 	}

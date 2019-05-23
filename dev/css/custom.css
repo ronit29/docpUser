@@ -1077,6 +1077,10 @@ button.ipd-inp-sbmt {
 /* ============ ipd tabs ============ */
 /* ============ ipd chat popup ============ */
 .ipd-chat-pop{
+	display: none;
+}
+@media(max-width: 767px){
+.ipd-chat-pop{
 	position: fixed;
 	z-index: 999;
 	background: white;
@@ -1085,12 +1089,13 @@ button.ipd-inp-sbmt {
 	left: 0;
 	bottom: 0;
 	border-top: 2px solid #f3ebeb;
+	display: block !important;
 }
 .ipd-chat-pop-full{
 	height: 100vh !important;
 }
-.ipd-chat-pop-minimize{
-
+div.ipd-chat-pop-minimize{
+height: 41px !important;
 }
 .ipd-chat-header{
 	background: #f3e9e0;
@@ -1111,4 +1116,6 @@ button.ipd-inp-sbmt {
 .ipd-chat-render div.chat-body{
 	height: calc(100% - 41px);
 }
+}
+
 /* ============ ipd chat popup ============ */
