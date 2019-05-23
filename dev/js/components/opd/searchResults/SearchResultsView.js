@@ -26,7 +26,8 @@ class SearchResultsView extends React.Component {
             clinic_card: this.props.location.search.includes('clinic_card') || null,
             showError: false,
             search_id: '',
-            setSearchId: false
+            setSearchId: false,
+            detectLocation: false
         }
     }
 
@@ -161,8 +162,29 @@ class SearchResultsView extends React.Component {
             }
             this.buildURI(props)
         } else if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults && this.state.search_id)) {
-            this.setState({ setSearchId: true })
-            this.getDoctorList(props)
+            if (this.state.detectLocation && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) {
+                this.props.cloneCommonSelectedCriterias(this.props.commonSelectedCriterias[0])
+                let doctor_name = '', hospital_name = '', hospital_id = ''
+                let state = {
+                    filterCriteria: {
+                        ...this.props.nextFilterCriteria,
+                        sort_on: "distance",
+                        doctor_name, hospital_name, hospital_id
+                    },
+                    nextFilterCriteria: {
+                        ...this.props.nextFilterCriteria,
+                        sort_on: "distance",
+                        doctor_name, hospital_name, hospital_id
+                    }
+                }
+
+                this.props.mergeOPDState(state, true)
+
+                this.props.history.push({ pathname: '/opd/searchresults' })
+            } else {
+                this.setState({ setSearchId: true })
+                this.getDoctorList(props)
+            }
             // if (window) {
             //     window.scrollTo(0, 0)
             // }
@@ -178,6 +200,10 @@ class SearchResultsView extends React.Component {
                 this.props.history.replace(new_url)
             }
         }
+    }
+
+    detectLocationClick() {
+        this.setState({ detectLocation: true })
     }
 
     generateSearchId(uid_string) {
@@ -323,12 +349,12 @@ class SearchResultsView extends React.Component {
             is_params_exist = true
         }
 
-        if(parsed.get_feedback) {
+        if (parsed.get_feedback) {
             url += `${is_params_exist ? '&' : '?'}get_feedback=${parsed.get_feedback}`
             is_params_exist = true
         }
 
-        if(parsed.showPopup) {
+        if (parsed.showPopup) {
             url += `${is_params_exist ? '&' : '?'}showPopup=${parsed.showPopup}`
             is_params_exist = true
         }
@@ -434,7 +460,7 @@ class SearchResultsView extends React.Component {
                             {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                                 <img src={ASSETS_BASE_URL + "/img/banners/banner_doc.png"} className="banner-img" />
                             </div> */}
-                            <DoctorsList {...this.props} getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
+                            <DoctorsList {...this.props} getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} detectLocationClick={() => this.detectLocationClick()} />
 
                             {
                                 this.state.seoFriendly && show_pagination ? <div className="art-pagination-div">

@@ -639,6 +639,7 @@ class PatientDetailsNew extends React.Component {
         let is_selected_user_insured = false
         let enabled_for_cod_payment = false
         let enabled_for_prepaid_payment = false
+        let is_default_user_insured = false
 
         if (doctorDetails) {
             let { name, qualifications, hospitals, enabled_for_cod } = doctorDetails
@@ -652,6 +653,10 @@ class PatientDetailsNew extends React.Component {
                     enabled_for_prepaid_payment = hospital.enabled_for_prepaid
                 })
             }
+        }
+
+        if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]) {
+            is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
         }
 
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
@@ -983,14 +988,19 @@ class PatientDetailsNew extends React.Component {
 
                             <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
 
-                                <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
-                                    !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance)}>
-                                    {
-                                        this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
-                                    }
-                                    {this.state.cart_item ? "Update" : "Add to Cart"}
-                                </button>
+                                {
+                                    STORAGE.isAgent() || !is_default_user_insured?
+                                    <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
+                                        !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
+                                    } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance)}>
+                                        {
+                                            this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
+                                        }
+                                        {this.state.cart_item ? "Update" : "Add to Cart"}
+                                    </button>
+                                    :''
+                                }
+                                
 
                                 {
                                     STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" data-disabled={

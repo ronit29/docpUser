@@ -527,7 +527,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 										</span>
 									</div>
 								</div>
-								<div className="insurance-member-container pt-2">
+								<div className="insurance-member-container pt-2 pb-0">
 									<p className="plcy-cancel">*Incorrect member details may lead to policy cancellation</p>
 									<h4 className="mb-0">Insured Member Details</h4>
 									<p className="fill-error-span fw-500 text-right d-block" style={{marginTop:'0px', fontSize: '11px'}}>*All fields are mandatory
