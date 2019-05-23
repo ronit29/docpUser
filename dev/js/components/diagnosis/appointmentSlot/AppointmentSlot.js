@@ -33,6 +33,19 @@ class AppointmentSlot extends React.Component {
         if(Object.values(this.state.selectedTimeSlot).length){
             this.selectTimeSlot(this.state.selectedTimeSlot)
         }
+        let data = {}
+        let selected_test_id = []
+
+        if(this.props.selectedCriterias && this.props.selectedCriterias.length > 0){
+            this.props.selectedCriterias.map((twp, i) => {
+                selected_test_id.push(twp.id)
+            })
+        }
+
+        data.start_date = this.props.selectedSlot.date
+        data.lab_test = selected_test_id
+        data.lab = this.props.match.params.id
+        this.props.askPrescription(data)
         if (this.state.reschedule) {
             return this.props.history.go(-1)
         }

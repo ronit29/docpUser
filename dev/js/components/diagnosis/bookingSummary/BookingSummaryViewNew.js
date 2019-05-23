@@ -372,13 +372,6 @@ class BookingSummaryViewNew extends React.Component {
             return
         }
 
-        if (!this.state.showConfirmationPopup && !addToCart && (total_price == 0 || (this.state.use_wallet && total_wallet_balance > 0))) {
-            this.setState({ showConfirmationPopup: true })
-            return
-        }
-
-        this.setState({ loading: true, error: "" })
-
         let is_insurance_applicable = false
         let is_tests_covered_under_insurance = false
         let is_selected_user_insured = false
@@ -422,11 +415,23 @@ class BookingSummaryViewNew extends React.Component {
         is_insurance_applicable = is_tests_covered_under_insurance && is_selected_user_insured
 
         is_plan_applicable = is_tests_covered_under_plan && is_selected_user_has_active_plan
-
-        if (!prescriptionPicked && is_insurance_applicable) {
-            SnackBar.show({ pos: 'bottom-center', text: "Please upload prescription." });
+        let prescriptionIds = []
+        if (prescriptionPicked && is_insurance_applicable) {
+            if(this.props.user_prescriptions && this.props.user_prescriptions.length == 0){
+                SnackBar.show({ pos: 'bottom-center', text: "Please upload prescription." });
+                return
+            }else if(this.props.user_prescriptions && this.props.user_prescriptions.length >0){
+                this.props.user_prescriptions[0].img_path_ids.map((imgId,i)=>{
+                    prescriptionIds.push({'prescription_file':imgId.id})
+                })
+            }
+        }
+        if (!this.state.showConfirmationPopup && !addToCart && (total_price == 0 || (this.state.use_wallet && total_wallet_balance > 0))) {
+            this.setState({ showConfirmationPopup: true })
             return
         }
+
+        this.setState({ loading: true, error: "" })
 
         let start_date = this.props.selectedSlot.date
         let start_time = this.props.selectedSlot.time.value
@@ -441,6 +446,7 @@ class BookingSummaryViewNew extends React.Component {
             payment_type: 1, // TODO : Select payment type
             use_wallet: this.state.use_wallet,
             cart_item: this.state.cart_item,
+            prescription_ids: prescriptionIds
         }
         let profileData = { ...patient }
         if (profileData && profileData.whatsapp_optin == null) {
@@ -449,7 +455,7 @@ class BookingSummaryViewNew extends React.Component {
         }
         if (this.props.disCountedLabPrice && !is_plan_applicable && !is_insurance_applicable) {
             postData['coupon_code'] = this.state.couponCode ? [this.state.couponCode] : []
-        }
+        } 
 
         //Post Pincode & thyrocare data
         if (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].lab && this.props.LABS[this.state.selectedLab].lab.is_thyrocare) {
@@ -651,7 +657,7 @@ class BookingSummaryViewNew extends React.Component {
         let address_picked_verified = false
         let center_visit_enabled = true
         let is_corporate = false
-        let prescriptionPicked = true
+        let prescriptionPicked = false
 
         let is_insurance_applicable = false
         let is_tests_covered_under_insurance = false
@@ -668,6 +674,9 @@ class BookingSummaryViewNew extends React.Component {
 
         }
 
+        if(this.props.is_prescription_needed){
+            prescriptionPicked = true
+        }
         if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]) {
             is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
         }
