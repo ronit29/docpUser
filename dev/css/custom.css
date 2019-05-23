@@ -1234,20 +1234,24 @@ button.ipd-inp-sbmt {
 	bottom: 0;
 	border-top: 2px solid #f3ebeb;
 	display: block !important;
+	-moz-transition: height .5s ease;
+  -webkit-transition: height .5s ease;
+  -o-transition: height .5s ease;
+  transition: height .5s ease;
 }
 .ipd-chat-pop-full{
 	height: 100vh !important;
 }
 div.ipd-chat-pop-minimize{
-height: 41px !important;
+height: 48px !important;
 }
 .ipd-chat-header{
 	background: #f3e9e0;
-	min-height: 35px;
-	padding: 10px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	min-height: 48px;
+	padding: 0 10px;
 }
 .ipd-chat-header p{
 	color: #ef5350;
@@ -1258,7 +1262,10 @@ height: 41px !important;
 	height: 100%;
 }
 .ipd-chat-render div.chat-body{
-	height: calc(100% - 41px);
+	height: calc(100% - 48px);
+}
+.cht-head-rqst-btn{
+	cursor: pointer;
 }
 }
 
