@@ -20,7 +20,7 @@ import PincodePopup from './PincodePopup.js'
 import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 import PincodeErrorPopup from './PincodeErrorPopup.js'
 import BookingConfirmationPopup from './BookingConfirmationPopup.js'
-import InsuranceProofs from '../../insurance/insuranceProofs.js'
+import UploadPrescription from './uploadPrescription.js'
 
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
@@ -664,7 +664,6 @@ class BookingSummaryViewNew extends React.Component {
 
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
-            console.log(patient)
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
 
         }
@@ -1036,7 +1035,7 @@ class BookingSummaryViewNew extends React.Component {
                                                         <WhatsAppOptinView {...this.props} profiles={patient} toggleWhatsap={this.toggleWhatsap.bind(this)} />
                                                         {
                                                             is_insurance_applicable && prescriptionPicked?
-                                                            <InsuranceProofs {...this.props} member_id={100}/>
+                                                            <UploadPrescription {...this.props}/>
                                                             :''
                                                         }
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
