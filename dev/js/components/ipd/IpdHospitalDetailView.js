@@ -14,6 +14,7 @@ import GTM from '../../helpers/gtm.js'
 import IpdFormView from '../../containers/ipd/IpdForm.js'
 const queryString = require('query-string')
 import IpdLeadForm from '../../containers/ipd/ipdLeadForm.js'
+import ChatPanel from '../commons/ChatPanel'
 
 //View all rating for hospital ,content_type = 3
 
@@ -189,7 +190,7 @@ class HospitalDetailView extends React.Component {
 									</div>
 								</div>
 								<div className="ipd-chat-render">
-
+									<ChatPanel {...this.props} mobilechatview={true} showHalfScreenChat={true}/>
 								</div>
 							</div>
 							{
