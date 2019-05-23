@@ -149,23 +149,23 @@ class IpdLeadForm extends React.Component {
 										<input type="Number" value={this.state.phone_number} name='phone_number' placeholder="Mobile Number" onChange={this.inputHandler.bind(this)} />
 										<div className="d-flex align-items-center flex-wrap mrt-10">
 											<div className="dtl-radio">
-												<label className="container-radio" onClick={() => this.setState({ gender: 'm' })}>Male<input type="radio" checked={this.state.gender === 'm'} name="radio" value={this.state.gender} style={{ width: 10 }} />
+												<label className="container-radio" style={{ fontSize: 14, fontWeight: 400 }} onClick={() => this.setState({ gender: 'm' })}>Male<input type="radio" checked={this.state.gender === 'm'} name="radio" value={this.state.gender} style={{ width: 10 }} />
 													<span className="doc-checkmark"></span>
 												</label>
 											</div>
 											<div className="dtl-radio">
-												<label className="container-radio" onClick={() => this.setState({ gender: 'f' })}>Female<input type="radio" checked={this.state.gender === 'f'} name="radio" value={this.state.gender} style={{ width: 10 }} />
+												<label className="container-radio" style={{ fontSize: 14, fontWeight: 400 }} onClick={() => this.setState({ gender: 'f' })}>Female<input type="radio" checked={this.state.gender === 'f'} name="radio" value={this.state.gender} style={{ width: 10 }} />
 													<span className="doc-checkmark"></span>
 												</label>
 											</div>
 											<div className="dtl-radio">
-												<label className="container-radio" onClick={() => this.setState({ gender: 'o' })}>Other<input type="radio" checked={this.state.gender === 'o'} name="radio" value={this.state.gender} style={{ width: 10 }} />
+												<label className="container-radio" style={{ fontSize: 14, fontWeight: 400 }} onClick={() => this.setState({ gender: 'o' })}>Other<input type="radio" checked={this.state.gender === 'o'} name="radio" value={this.state.gender} style={{ width: 10 }} />
 													<span className="doc-checkmark"></span>
 												</label>
 											</div>
 										</div>
 										<div className="ipd-lead-textarea">
-											<textarea placeholder="What are you looking for?" value={this.state.comments} name='comments' onChange={this.inputHandler.bind(this)}></textarea>
+											<textarea placeholder="What are you looking for?" rows='3' value={this.state.comments} name='comments' onChange={this.inputHandler.bind(this)}></textarea>
 										</div>
 										<button className="ipd-inp-sbmt" onClick={(e) => {
 											e.stopPropagation()

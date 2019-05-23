@@ -2165,4 +2165,5 @@ p.rt-doc-nm{
     border-radius: 4px;
     padding: 8px;
     outline: none;
+    resize: none;
 }
