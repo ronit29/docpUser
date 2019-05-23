@@ -201,7 +201,7 @@ class HospitalDetailView extends React.Component {
 							
 							{
 								this.state.showIpdChat?
-								<ChatIpdPanel {...this.props} hospital_id={this.props.ipd_hospital_detail.id} ipdFormParams={this.state.ipdFormParams} closeChat={this.closeChat.bind(this)}/>
+								<ChatIpdPanel {...this.props} hospital_id={this.props.ipd_hospital_detail.id} ipdFormParams={this.state.ipdFormParams} hideChatFrame={this.closeChat.bind(this)}/>
 								:''
 							}
 							{

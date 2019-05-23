@@ -15,6 +15,7 @@ class IpdChatPanel extends React.Component {
     	if(this.child.closeChat){
     		this.child.closeChat()
     	}
+    	this.props.hideChatFrame()
     }
 
 	render(){
@@ -39,7 +40,7 @@ class IpdChatPanel extends React.Component {
 							<span  onClick={()=>this.closeChat()}>
 								<img className="close-chat" src="https://cdn.docprime.com/cp/assets/img/chatminimize.svg" style={{ width: '20px' }} />
 							</span>:
-							<span  onClick={()=>this.setState({minimize: true, maximize: !this.state.maximize})}>
+							<span  onClick={()=>this.setState({minimize: true, maximize: false})}>
 								<img className="close-chat" src="https://cdn.docprime.com/cp/assets/img/chatminimize.svg" style={{ width: '20px' }} />
 							</span>	
 						}
