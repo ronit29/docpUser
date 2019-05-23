@@ -40,7 +40,7 @@ class IpdChatPanel extends React.Component {
 								<img className="close-chat" src={ASSETS_BASE_URL +'/img/customer-icons/close-black.svg'} style={{ width: '11px',display:'block', lineHeight:'0' }} />
 							</span>:
 							<span  onClick={()=>this.setState({minimize: true, maximize: false})}>
-								<img className="close-chat" src={ASSETS_BASE_URL +'/img/chatminimize.svg'} style={{ width: '20px' }} />
+								<img className="close-chat" src={ASSETS_BASE_URL +'/img/chatminimize.svg'} style={{ width: '20px' }} /> 
 							</span>	
 						}
 						
