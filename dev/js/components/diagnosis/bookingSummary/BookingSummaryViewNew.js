@@ -533,6 +533,9 @@ class BookingSummaryViewNew extends React.Component {
         this.props.createLABAppointment(postData, (err, data) => {
             if (!err) {
                 this.props.removeLabCoupons(this.props.selectedLab, this.state.couponId)
+                if(this.props.user_prescriptions && this.props.user_prescriptions.length > 0){
+                    this.props.clearPrescriptions()
+                }
                 if (data.is_agent) {
                     // this.props.history.replace(this.props.location.pathname + `?order_id=${data.data.orderId}`)
                     this.setState({ order_id: data.data.orderId })

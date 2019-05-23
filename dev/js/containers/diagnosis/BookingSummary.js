@@ -115,7 +115,8 @@ const mapDispatchToProps = (dispatch) => {
         patientDetails:(criteria) => dispatch(patientDetails(criteria)),
         uploadPrescription:(profileData,cb) =>dispatch(uploadPrescription(profileData,cb)),
         savePrescription:(imgUrl,cb)=>dispatch(savePrescription(imgUrl,cb)),
-        removePrescription:(criteria)=>dispatch(removePrescription(criteria))
+        removePrescription:(criteria)=>dispatch(removePrescription(criteria)),
+        clearPrescriptions:()=>dispatch(clearPrescriptions())
     }
 }
 

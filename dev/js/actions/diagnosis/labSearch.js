@@ -492,6 +492,12 @@ export const removePrescription = (criteria) => (dispatch) => {
     })
 }
 
+export const clearPrescriptions = () => (dispatch) => {
+    dispatch({
+        type:CLEAR_PRESCRIPTION
+    })
+}
+
 export const askPrescription = (selectedTime) => (dispatch) => {
     API_POST(`/api/v1/prescription/ask_prescription`,selectedTime).then(function (response) {
 		dispatch({

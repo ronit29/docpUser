@@ -1,5 +1,5 @@
 
-import { TOGGLE_404, SET_SERVER_RENDER_LAB, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH, ADD_LAB_COUPONS, REMOVE_LAB_COUPONS, APPLY_LAB_COUPONS, RESET_LAB_COUPONS, SEARCH_HEALTH_PACKAGES, SAVE_PRESCRIPTION, DELETE_PRESCRIPTION, SAVE_IS_PRESCRIPTION_NEED } from '../../constants/types';
+import { TOGGLE_404, SET_SERVER_RENDER_LAB, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH, ADD_LAB_COUPONS, REMOVE_LAB_COUPONS, APPLY_LAB_COUPONS, RESET_LAB_COUPONS, SEARCH_HEALTH_PACKAGES, SAVE_PRESCRIPTION, DELETE_PRESCRIPTION, SAVE_IS_PRESCRIPTION_NEED, CLEAR_PRESCRIPTION } from '../../constants/types';
 
 const defaultState = {
     labList: [],
@@ -214,6 +214,14 @@ export default function (state = defaultState, action) {
             }
             newState.is_prescription_needed =action.payload.prescription_needed
             return newState
+        }
+        case CLEAR_PRESCRIPTION:{
+            let newState = {
+                ...state
+            }
+            newState.user_prescriptions = []
+            newState.is_prescription_needed =null
+            return newState   
         }
     }
 
