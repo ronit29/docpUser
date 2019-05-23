@@ -238,14 +238,14 @@ class BookingSummaryViewNew extends React.Component {
         this.setState({ showTimeError: false, showAddressError: false });
     }
 
-    navigateTo(where, e) {
+    navigateTo(where,is_insurance_applicable, e) {
         switch (where) {
             case "time": {
                 if (this.state.pincode || (this.props.LABS[this.state.selectedLab] && this.props.LABS[this.state.selectedLab].lab && !this.props.LABS[this.state.selectedLab].lab.is_thyrocare)) {
                     if (this.props.LABS[this.state.selectedLab].lab.is_thyrocare) {
-                        this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true`)
+                        this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true&is_insurance=${is_insurance_applicable}`)
                     } else {
-                        this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false`)
+                        this.props.history.push(`/lab/${this.state.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false&is_insurance=${is_insurance_applicable}`)
                     }
 
                     return
@@ -272,7 +272,7 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    getSelectors() {
+    getSelectors(is_insurance_applicable) {
         let patient = null
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
@@ -281,14 +281,14 @@ class BookingSummaryViewNew extends React.Component {
         switch (this.props.selectedAppointmentType) {
             case "lab": {
                 return <div>
-                    <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.state.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} />
+                    <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.state.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable = {is_insurance_applicable} />
                     <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} />
                 </div>
             }
 
             case "home": {
                 return <div>
-                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.state.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} />
+                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.state.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable = {is_insurance_applicable}/>
                     <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} />
                     {
                         patient ?
@@ -674,7 +674,7 @@ class BookingSummaryViewNew extends React.Component {
 
         }
 
-        if(this.props.is_prescription_needed){
+        if(!this.props.is_prescription_needed){
             prescriptionPicked = true
         }
         if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]) {
@@ -892,9 +892,13 @@ class BookingSummaryViewNew extends React.Component {
                                                         </div>
 
                                                         <div className="">
-                                                            {this.getSelectors()}
+                                                            {this.getSelectors(is_insurance_applicable)}
                                                         </div>
-
+                                                        {
+                                                            is_insurance_applicable && prescriptionPicked?
+                                                            <UploadPrescription {...this.props}/>
+                                                            :''
+                                                        }
                                                         {
                                                             amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable ?
                                                                 <div className="widget mrb-15" onClick={this.applyCoupons.bind(this)}>
@@ -1042,11 +1046,6 @@ class BookingSummaryViewNew extends React.Component {
                                                             </div> : ""
                                                         }
                                                         <WhatsAppOptinView {...this.props} profiles={patient} toggleWhatsap={this.toggleWhatsap.bind(this)} />
-                                                        {
-                                                            is_insurance_applicable && prescriptionPicked?
-                                                            <UploadPrescription {...this.props}/>
-                                                            :''
-                                                        }
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
                                                             <h4 className="title payment-amt-label fs-italic">Free Cancellation<span style={{ marginLeft: 5 }}><img src={ASSETS_BASE_URL + "/img/icons/info.svg"} /></span></h4>
                                                         </div>

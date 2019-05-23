@@ -494,8 +494,9 @@ export const removePrescription = (criteria) => (dispatch) => {
 
 export const askPrescription = (selectedTime) => (dispatch) => {
     API_POST(`/api/v1/prescription/ask_prescription`,selectedTime).then(function (response) {
-	dispatch({
-    	type:SAVE_IS_PRESCRIPTION_NEED,
-        payload:response
-    })
+		dispatch({
+	    	type:SAVE_IS_PRESCRIPTION_NEED,
+	        payload:response
+	    })
+	})
 }
