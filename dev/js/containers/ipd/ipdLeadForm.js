@@ -165,7 +165,7 @@ class IpdLeadForm extends React.Component {
 											</div>
 										</div>
 										<div className="ipd-lead-textarea">
-											<textarea placeholder="What are you looking for?" value={this.state.comments} name='comments' onChange={this.inputHandler.bind(this)}></textarea>
+											<textarea placeholder="What are you looking for?" rows='3' value={this.state.comments} name='comments' onChange={this.inputHandler.bind(this)}></textarea>
 										</div>
 										<button className="ipd-inp-sbmt" onClick={(e) => {
 											e.stopPropagation()
