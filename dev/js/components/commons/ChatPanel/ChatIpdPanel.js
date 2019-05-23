@@ -11,6 +11,12 @@ class IpdChatPanel extends React.Component {
 		}
 	}
 
+    closeChat() {
+    	if(this.child.closeChat){
+    		this.child.closeChat()
+    	}
+    }
+
 	render(){
 
 		let params = ''
@@ -28,13 +34,20 @@ class IpdChatPanel extends React.Component {
 				<div className="ipd-chat-header">
 					<p onClick={()=>this.setState({'maximize': true})}>Need help in bookin doctor appointment/surgery?</p>
 					<div className="cht-head-rqst-btn" >
-						<span  onClick={()=>this.setState({minimize: !this.state.minimize})}>
-							<img className="close-chat" src="https://cdn.docprime.com/cp/assets/img/chatminimize.svg" style={{ width: '20px' }} />
-						</span>
+						{
+							this.state.minimize?
+							<span  onClick={()=>this.closeChat()}>
+								<img className="close-chat" src="https://cdn.docprime.com/cp/assets/img/chatminimize.svg" style={{ width: '20px' }} />
+							</span>:
+							<span  onClick={()=>this.setState({minimize: true, maximize: !this.state.maximize})}>
+								<img className="close-chat" src="https://cdn.docprime.com/cp/assets/img/chatminimize.svg" style={{ width: '20px' }} />
+							</span>	
+						}
+						
 					</div>
 				</div>
 				<div className="ipd-chat-render">
-					<ChatPanel {...this.props} mobilechatview={true} showHalfScreenChat={true} ipdFormParams={params}/>
+					<ChatPanel {...this.props} mobilechatview={true} showHalfScreenChat={true} ipdFormParams={params} onRefIpd={ref => (this.child = ref)}/>
 				</div>
 			</div>
 			)

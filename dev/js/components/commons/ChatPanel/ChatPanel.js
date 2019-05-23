@@ -32,7 +32,9 @@ class ChatPanel extends React.Component {
     }
 
     componentDidMount() {
-
+        if(this.props.onRefIpd) {
+            this.props.onRefIpd(this)    
+        }
         if (this.props.selectedLocation) {
             this.sendLocationNotification(this.props.selectedLocation)
         }
@@ -219,6 +221,12 @@ class ChatPanel extends React.Component {
             }.bind(this))
         }
 
+    }
+
+    componentWillUnmount() {
+        if(this.props.onRefIpd) {
+            this.props.onRefIpd(undefined)    
+        }
     }
 
     sendLocationNotification(selectedLocation) {
