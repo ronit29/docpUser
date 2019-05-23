@@ -693,7 +693,7 @@ class BookingSummaryViewNew extends React.Component {
 
         }
 
-        if(!this.props.is_prescription_needed){
+        if(this.props.is_prescription_needed){
             prescriptionPicked = true
         }
         if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]) {
