@@ -172,18 +172,20 @@ class HospitalDetailView extends React.Component {
 
 		const parsed = queryString.parse(this.props.location.search)
 
+		let showPopup = parsed.showPopup && this.state.showLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE && this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count
+
 		return (
 			<React.Fragment>
 				{
 					this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ?
 						<div className="ipd-section">
 							{
-								parsed.showPopup && this.state.showLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE && this.props.ipd_hospital_detail.bed_count?
-								<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name?this.props.ipd_hospital_detail.name:null}/>
+								showPopup?
+								<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name?this.props.ipd_hospital_detail.name:null} hospital_id={this.props.ipd_hospital_detail.id}/>
 								:''
 							}
 
-							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} showPopup={this.state.showLeadForm}/>
+							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} showPopup={showPopup}/>
 
 							<div className="ipd-tabs-container">
 								<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'doctors' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'doctors')}>Doctors</p>

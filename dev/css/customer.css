@@ -2185,3 +2185,13 @@ p.rt-doc-nm{
     margin-left: 4px;
     flex-shrink: 0;
 }
+
+.ipd-lead-textarea textarea{
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 4px;
+    padding: 8px;
+    outline: none;
+    resize: none;
+}

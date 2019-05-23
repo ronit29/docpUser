@@ -264,7 +264,7 @@ class IpdTabForm extends React.Component {
 						}
 					</div>
 					<div className="form-group fm-grp mrg-mt0">
-						<div className="lbl-txt">Date of birth:</div>
+						<div className="lbl-txt">Date of Birth:</div>
 						<div className="input-form"><input type="text" autoComplete="none" className={`form-control ${this.state.validateError.indexOf('dob') > -1 ? 'error-on' : ''}`} name="dob" value={this.state.formattedDate} onClick={this.openCalendar.bind(this)} onFocus={this.openCalendar.bind(this)} /></div>
 						{
 							this.state.validateError.indexOf('dob') > -1 ?

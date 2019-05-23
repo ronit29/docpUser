@@ -29,7 +29,7 @@ class HospitalPopUp extends React.Component {
             obj = {
                     "doctor": this.props.doctor_details,
                     "hospital": this.props.doctor_details.hospitals,
-                    "doctor_thumbnail": null,
+                    "doctor_thumbnail": this.props.doctor_details.thumbnail,
                     "display_name": this.props.doctor_details.display_name,
                     "type": 'doctor',
                     "id": this.props.doctor_details.id,

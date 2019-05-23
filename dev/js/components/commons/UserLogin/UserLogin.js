@@ -214,7 +214,7 @@ class UserLoginView extends React.Component {
 
                                     <p className="text-center fw-500 p-3" style={{ fontSize: 12, color: '#8a8a8a' }} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: '#f78631' }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: '#f78631' }} >Privacy Policy.</a></p>
                                 </div>
-                                <div className="widget mt-21 sign-up-container mrng-btm-scrl">
+                                {/* <div className="widget mt-21 sign-up-container mrng-btm-scrl">
                                     <div className="sgn-up-instructions">
                                         <div className="sighnup-scnd-heading">
                                             <p><b>docprime</b> is your <span>Free Family Doctor For Life</span> </p>
@@ -231,7 +231,7 @@ class UserLoginView extends React.Component {
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> */}
                             </section>
 
                         </div>
