@@ -6,7 +6,7 @@ import InsurOthers from './insuranceFamily.js'
 import InsurCommon from './insuranceCommonSection.js'
 import SnackBar from 'node-snackbar'
 
-class InsuranceInputView extends React.Component{
+class InsuranceEndoresmentInputView extends React.Component{
 	constructor(props) {
         super(props)
         this.state = {
@@ -35,6 +35,16 @@ class InsuranceInputView extends React.Component{
     	if(window){
     		window.scrollTo(0,0)
     	}
+    	let card
+    	let membersId = []
+    	if(this.props.endorseData && this.props.endorseData.members.length>0){
+    		card = this.props.endorseData.members.map((member, i) => {
+						membersId.push({[i]: member.id})
+					})
+    		this.props.saveCurrentSelectedMembers(membersId)
+			this.setState({ saveMembers: true})
+
+    	}
     	this.setState({...self.props.self_data_values, selected_plan_price:this.props.selected_plan.amount})
     	if(this.props.create_payment_resp){
     		if(this.props.create_payment_resp.members && this.props.create_payment_resp.members.length >0){
@@ -45,55 +55,56 @@ class InsuranceInputView extends React.Component{
     }
 
     componentWillReceiveProps(props){
-    	let card
-    	let self = this
-    	let isDummyUser
-    	if(!this.state.saveMembers && Object.keys(props.selected_plan).length >0 && props.USER.defaultProfile && !props.currentSelectedInsuredMembersId.length){
-    		// let loginUser = props.USER.selectedProfile
-    		let loginUser = props.USER.defaultProfile
-    		let membersId = []
-    		let isDefaultUser
-    		if(props.USER.profiles && Object.keys(props.USER.profiles).length && props.USER.profiles[props.USER.defaultProfile]){
-    			isDefaultUser = props.USER.profiles[props.USER.defaultProfile].is_default_user
-    		}
-    		isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
-    		if(!isDummyUser){
-	    		membersId.push({'0':loginUser})
-	    		var n = (props.selected_plan.adult_count + props.selected_plan.child_count) - 1;
-				if(n !== 0){
-					card = [...Array(n)].map((e, i) => {
-						membersId.push({[i+1]: i+1})
-					})
-				}
-			}else{
-				membersId.push({'0':0})
-				var n = (props.selected_plan.adult_count + props.selected_plan.child_count) - 1;
-				if(n !== 0){
-					card = [...Array(n)].map((e, i) => {
-						membersId.push({[i+1]: i+1})
-					})
-				}
-			}
-			props.saveCurrentSelectedMembers(membersId)
-			this.setState({ saveMembers: true})
-    	}
-    	let profileLength = Object.keys(props.USER.profiles).length;
-		let currentSelectedProfiles = []
-		let show_selected_profile = []
-        this.props.currentSelectedInsuredMembersId.map((val,key) => {
-            currentSelectedProfiles.push(val[key])
-        })
-	    if(profileLength > 0){
-	    	if(!props.USER.profiles[props.USER.defaultProfile].isDummyUser){
-				{Object.entries(props.USER.profiles).map(function([key, value]) {
+    	// let card
+    	// let self = this
+    	// let isDummyUser
+    	// let membersId = []
+  //   	if(!this.state.saveMembers && Object.keys(props.selected_plan).length >0 && props.USER.defaultProfile && !props.currentSelectedInsuredMembersId.length){
+  //   		// let loginUser = props.USER.selectedProfile
+  //   		let loginUser = props.USER.defaultProfile
+  //   		let membersId = []
+  //   		let isDefaultUser
+  //   		if(props.USER.profiles && Object.keys(props.USER.profiles).length && props.USER.profiles[props.USER.defaultProfile]){
+  //   			isDefaultUser = props.USER.profiles[props.USER.defaultProfile].is_default_user
+  //   		}
+  //   		isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
+  //   		if(!isDummyUser){
+	 //    		membersId.push({'0':loginUser})
+	 //    		var n = (props.selected_plan.adult_count + props.selected_plan.child_count) - 1;
+		// 		if(n !== 0){
+		// 			card = [...Array(n)].map((e, i) => {
+		// 				membersId.push({[i+1]: i+1})
+		// 			})
+		// 		}
+		// 	}else{
+		// 		membersId.push({'0':0})
+		// 		var n = (props.selected_plan.adult_count + props.selected_plan.child_count) - 1;
+		// 		if(n !== 0){
+		// 			card = [...Array(n)].map((e, i) => {
+		// 				membersId.push({[i+1]: i+1})
+		// 			})
+		// 		}
+		// 	}
+		// 	props.saveCurrentSelectedMembers(membersId)
+		// 	this.setState({ saveMembers: true})
+  //   	}
+  //   	let profileLength = Object.keys(props.USER.profiles).length;
+		// let currentSelectedProfiles = []
+		// let show_selected_profile = []
+  //       this.props.currentSelectedInsuredMembersId.map((val,key) => {
+  //           currentSelectedProfiles.push(val[key])
+  //       })
+	 //    if(profileLength > 0){
+	 //    	if(!props.USER.profiles[props.USER.defaultProfile].isDummyUser){
+		// 		{Object.entries(props.USER.profiles).map(function([key, value]) {
 
-					if(currentSelectedProfiles.indexOf(parseInt(key)) == -1 && key !== props.USER.defaultProfile){
-						show_selected_profile.push(key)
-					}
-				})}
-				self.setState({show_selected_profiles : show_selected_profile})
-			}
-		}
+		// 			if(currentSelectedProfiles.indexOf(parseInt(key)) == -1 && key !== props.USER.defaultProfile){
+		// 				show_selected_profile.push(key)
+		// 			}
+		// 		})}
+		// 		self.setState({show_selected_profiles : show_selected_profile})
+		// 	}
+		// }
     }
 
     checkForValidation(profile_data, member_id){
@@ -130,13 +141,24 @@ class InsuranceInputView extends React.Component{
     	let fullname
     	let fullnameObj={}
     	let isDummyUser
+    	let all_id_proofs = []
+    	let is_fields_edited = []
+    	let edited_fields ={}
+    	let member_proof=[]
+    	let newIdProofs
     	if(Object.keys(this.props.self_data_values).length > 0){
-    		isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
-    		if(!isDummyUser){
-    			self_profile  = Object.assign({}, this.props.self_data_values[this.props.USER.defaultProfile])	
-    		}else{
-    			self_profile  = Object.assign({}, this.props.self_data_values[0])
-    		}
+    		// isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
+    		// if(!isDummyUser){
+    		// 	self_profile  = Object.assign({}, this.props.self_data_values[this.props.USER.defaultProfile])	
+    		// }else{
+    		// 	self_profile  = Object.assign({}, this.props.self_data_values[0])
+    		// }
+    		// self_profile  = Object.assign({}, this.props.self_data_values[0])
+    		this.props.currentSelectedInsuredMembersId.map((val,key) => {
+    			if(this.props.self_data_values[val[key]].relation == 'self'){
+    				self_profile  = Object.assign({}, this.props.self_data_values[val[key]])
+    			}
+    		})
     	}
     	this.props.currentSelectedInsuredMembersId.map((val,key) => {
     		if(Object.keys(this.props.self_data_values).length > 0){
@@ -168,7 +190,7 @@ class InsuranceInputView extends React.Component{
 					fields.push('dob')
 				}
 
-				if(!param.no_lname && param.relation !== 'self'){
+				if(!param.no_lname){
 					if(param.last_name ==""){
 						is_disable = true
 						fields.push('last_name')	
@@ -326,7 +348,7 @@ class InsuranceInputView extends React.Component{
 					fullnameObj.fName=fullname.toLowerCase()
 					fields_name.push(fullnameObj)
 				}
-				validatingErrors[key] = fields
+				validatingErrors[param.id] = fields
 				validatingDobErrors[key] = dobError
 				if(param.member_type == 'adult'){
 					validatingOtherErrors[key] = empty_feilds
@@ -355,93 +377,135 @@ class InsuranceInputView extends React.Component{
 				is_disable = true
 				errorMessagesObj.sameName = '*Name of the members cannot be same'
 			}
-		this.setState({validateErrors: validatingErrors,validateOtherErrors: validatingOtherErrors,validatingNames:invalidname,validateDobErrors:validatingDobErrors,errorMessages:errorMessagesObj})
+			// validating is user had changed anything	
+			if(this.props.endorsed_member_data.members.length == Object.keys(this.props.self_data_values).length){
+				for(var i =0;i < this.props.endorsed_member_data.members.length;i++) {
+					let id = this.props.endorsed_member_data.members[i].id
+					if(this.props.self_data_values[id]) {
+						let selectedProfile = this.props.self_data_values[id]
+						let selectedApiProfile = this.props.endorsed_member_data.members[i]
+						for(let j in  selectedApiProfile ) {
+							if(selectedProfile[j] != selectedApiProfile[j]) {
+								is_fields_edited.push(id)
+								if(edited_fields[id]) {
+
+								}else {
+									edited_fields[id] = []
+								}
+								edited_fields[id].push(j)
+							}
+						} 
+					}
+					if(this.props.members_proofs && this.props.members_proofs.length>0 && is_fields_edited.indexOf(id) != -1){
+						member_proof = this.props.members_proofs.filter((x=>x.id == id))
+						if(member_proof && member_proof.length>0 && member_proof[0].img_path_ids.length > 0){
+							all_id_proofs.push(member_proof[0].id)
+						}
+					}
+				}
+				if(all_id_proofs && all_id_proofs.length > 0){
+					newIdProofs = is_fields_edited.filter(function(x) { 
+				  		return all_id_proofs.indexOf(x) < 0;
+					})
+				}else{
+					newIdProofs = is_fields_edited
+				}
+				console.log(newIdProofs)
+				if(newIdProofs && newIdProofs.length>0){
+					newIdProofs.map((mem_id, i) => {
+						is_disable = true
+						member_ref = `member_${mem_id}_upload`
+					})	
+				}
+			}
+			console.log(member_ref)
+		this.setState({validateErrors: validatingErrors,validateOtherErrors: validatingOtherErrors,validatingNames:invalidname,validateDobErrors:validatingDobErrors,errorMessages:errorMessagesObj,endorsementError:newIdProofs})
     	if(is_disable && document.getElementById(member_ref)){    		
     		document.getElementById(member_ref).scrollIntoView();
     	}else{
-    		this.SaveUserData(this.props)
-			this.props.history.push('/insurance/insurance-user-details-review')
+    		this.SaveUserData(this.props,edited_fields)
+			this.props.history.push('/insurance/insurance-user-details-review?is_endorsement=true')
     	}
     }
 
-    SaveUserData(props){
+    SaveUserData(props,edited_fields){
     	let self = this
     	var insuranceUserData={}
     	var members={}
-    	// insuranceUserData.insurnaceData = props.insurnaceData
-    	insuranceUserData.selected_plan_id=props.selected_plan.id
-    	// insuranceUserData.insurer= props.insurnaceData['insurance'][0].id
     	insuranceUserData.members= []
-    	// insuranceUserData.selected_plan = []
-    	insuranceUserData.currentSelectedInsuredMembersId = this.props.currentSelectedInsuredMembersId
-
+    	insuranceUserData.edited_fields = edited_fields
     	Object.entries(this.props.currentSelectedInsuredMembersId).map(function([key, value]) {
     		members={}
 			members={...self.props.self_data_values[value[key]]}
 			return 	insuranceUserData.members.push(members)
 		})
-		this.props.pushUserData(insuranceUserData)
+		this.props.pushUserEndorsedData(insuranceUserData)
     }
-    
+
 	render(){
 		let child
 		let adult
 		let userProfile
-		let selectedProfileId = parseInt(this.props.USER.defaultProfile)
-		if(Object.keys(this.props.selected_plan).length >0){
-		
-			userProfile = Object.assign({}, this.props.USER.profiles[this.props.USER.defaultProfile])
-			
+		let spouse_data
+		let child_data =[]
+		let self_data
+		let findChild
+		if(this.props.endorseData && this.props.endorseData.members.length>0 && this.props.currentSelectedInsuredMembersId.length >0){
+			self_data = this.props.endorsed_member_data.members.filter(x=>x.relation =='self')
 			if(this.props.selected_plan.adult_count == 2 && this.props.currentSelectedInsuredMembersId.length>1){
-			
+				spouse_data = this.props.endorsed_member_data.members.filter(x=>x.relation =='spouse')
 				adult = <InsurOthers {...this.props} 
-							self_gender={userProfile.gender} 
+							// self_gender={userProfile.gender} 
+							self_gender='m'
 							param_id = {'1'} 
-							member_id={this.props.currentSelectedInsuredMembersId[1]['1']} 
+							member_id={spouse_data[0].id} 
 							checkForValidation ={this.checkForValidation.bind(this)} 
 							id={`member_${0}`} 
-							validateErrors={this.state.validateErrors['1'] || []} 
-							validateOtherErrors={this.state.validateOtherErrors['1'] || []} 
+							validateErrors={this.state.validateErrors[spouse_data[0].id] || []} 
+							validateOtherErrors={this.state.validateOtherErrors[spouse_data[0].id] || []} 
 							createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[1]:[]}
 							show_selected_profiles={this.state.show_selected_profiles} 
 							validateDobErrors={[]} 
 							errorMessages={this.state.errorMessages} 
 							validatingNames={this.state.validatingNames||[]}
-							is_endorsement = {false}
+							is_endorsement = {true}
+							user_data={this.props.endorsed_member_data.members.filter(x=>x.relation == 'spouse')}
+							member_type={'adult'}
 							endorsementError={this.state.endorsementError}
 						/>
 			}
-		
 			var n = (this.props.selected_plan.child_count);
-		
-			if(n !== 0){
-				child =this.props.currentSelectedInsuredMembersId.map((data, i) =>{
-					if(i!=0 && i!=1){
-			
-						return <InsurOthers {...this.props} 
-									key={i} 
-									member_id={data[i]} 
-									checkForValidation ={this.checkForValidation.bind(this)} 
-									is_child_only={true} 
-									id={`member_${i+1}`} 
-									param_id = {i} 
-									member_view_id= {i} 
-									validateErrors={this.state.validateErrors[i] || []} 
-									validateOtherErrors={[]} 
-									createApiErrorsChild={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members:[]} 
-									show_selected_profiles={this.state.show_selected_profiles} 
-									validateDobErrors={this.state.validateDobErrors[i] || []} 
-									errorMessages={this.state.errorMessages} 
-									validatingNames={this.state.validatingNames||[]}
-									is_endorsement = {false}
-									endorsementError={this.state.endorsementError}
-								/>
-					}
+			let findChild = this.props.currentSelectedInsuredMembersId.map((data, i) =>{
+					child_data = this.props.endorsed_member_data.members.filter(x=>x.relation != 'self' && x.relation !='spouse')
 				})
+			if(n !== 0){	
+				if(child_data && child_data.length>0){
+				child = child_data.map((data, i) =>{
+					return <InsurOthers {...this.props} 
+								key={i} 
+								member_id={child_data[i].id} 
+								checkForValidation ={this.checkForValidation.bind(this)} 
+								is_child_only={true} 
+								id={`member_${i+1}`} 
+								param_id = {i} 
+								member_view_id= {i+1} 
+								validateErrors={this.state.validateErrors[child_data[i].id] || []} 
+								validateOtherErrors={[]} 
+								createApiErrorsChild={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members:[]} 
+								show_selected_profiles={this.state.show_selected_profiles} 
+								validateDobErrors={this.state.validateDobErrors[i] || []} 
+								errorMessages={this.state.errorMessages} 
+								validatingNames={this.state.validatingNames||[]}
+								is_endorsement = {true}
+								user_data={[child_data[i]]}
+								member_type={'child'}
+								endorsementError={this.state.endorsementError}
+							/>
+					})
+				}
 			}
 
-		}
-		return(
+			return(
 			<div className="profile-body-wrap">
 	            <ProfileHeader /> 
 				<section className="container container-top-margin">
@@ -449,7 +513,20 @@ class InsuranceInputView extends React.Component{
 						<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
 						<section className="profile-book-screen">
 							<div className="widget">
-								<InsurCommon {...this.props} is_edit={this.state.is_edit}/>
+								{/*<InsurCommon {...this.props} is_edit={this.state.is_edit}/>*/}
+								<div className="ins-card-head" style={{'justifyContent': 'end','alignItems': 'end'}}>
+									<div className="ins-name-head">
+										<img width="120" src={this.props.insurnaceData['insurance'][0].logo} />
+									</div>
+									<div className="ins-pdf-dwnload" style={{'marginLeft':'12px'}}>
+										<span>
+											OPD Insurance by 
+											<p>
+												<strong>Apollo Munich</strong>
+											</p>
+										</span>
+									</div>
+								</div>
 								<div className="insurance-member-container pt-2">
 									<p className="plcy-cancel">*Incorrect member details may lead to policy cancellation</p>
 									<h4 className="mb-0">Insured Member Details</h4>
@@ -458,22 +535,24 @@ class InsuranceInputView extends React.Component{
 									<div className="insurance-member-details">
 										<InsurSelf {...this.props} 
 											checkForValidation ={this.checkForValidation.bind(this)} 
-											id={`member_${this.props.USER.defaultProfile}`} 
-											member_id={this.props.USER.defaultProfile} 
-											validateErrors={this.state.validateErrors['0'] || []}
-											validateOtherErrors={this.state.validateOtherErrors['0'] || []} 
+											id={`member_${this.props.currentSelectedInsuredMembersId[0]['0']}`} 
+											member_id={self_data[0].id}
+											validateErrors={this.state.validateErrors[self_data[0].id] || []} 
+											validateOtherErrors={this.state.validateOtherErrors[self_data[0].id] || []}
 											createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} 
 											errorMessages={this.state.errorMessages} 
-											is_endorsement = {false} 
-											endorsementError={this.state.endorsementError}/>
+											is_endorsement = {true} 
+											user_data={this.props.endorsed_member_data.members.filter(x=>x.relation == 'self')} 
+											member_type={'adult'}
+											endorsementError={this.state.endorsementError}
+										/>
 										{adult}
 										{child}
 									</div>
 								</div>
 							</div>
 						</section>		
-							<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Confirm (₹ {this.state.selected_plan_price})
-								<span className="foot-btn-sub-span">{this.state.gst}</span>
+							<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Update
 							</button>
 						</div>
 					<ChatPanel />
@@ -481,9 +560,12 @@ class InsuranceInputView extends React.Component{
 				</section>
 			</div>
 			)
+		}else{
+			return <div></div>
+		}
 	}
 	
 }
 
 
-export default InsuranceInputView
+export default InsuranceEndoresmentInputView
