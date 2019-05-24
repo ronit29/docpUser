@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { getDoctorById, getTimeSlots, selectOpdTimeSLot } from '../../actions/index.js'
+const queryString = require('query-string');
 
 import AppointmentSlotView from '../../components/opd/appointmentSlot/index.js'
 
@@ -10,23 +11,47 @@ class AppointmentSlot extends React.Component {
         super(props)
     }
 
-    static loadData(store, match) {
-        return store.dispatch(getDoctorById(match.params.id, match.params.clinicId))
-    }
+    // static loadData(store, match, queryData) {
+    //     let doctor_id = match.params.id || queryData.doctor_id
+    //     let hospital_id = match.params.clinicId || queryData.hospital_id
+
+    //     return store.dispatch(getDoctorById(doctor_id, hospital_id))
+    // }
 
     static contextTypes = {
         router: () => null
     }
 
+    fetchData(props) {
+        const parsed = queryString.parse(props.location.search)
+
+        let doctor_id = props.selectedDoctor || props.match.params.id || parsed.doctor_id
+        let hospital_id = props.selectedClinic || props.match.params.clinicId || parsed.hospital_id
+
+        if (doctor_id) {
+            props.getDoctorById(doctor_id, hospital_id, props.commonProfileSelectedProcedures)
+        }
+    }
+
     componentDidMount() {
-        
-        this.props.getDoctorById(this.props.match.params.id, this.props.match.params.clinicId, this.props.commonProfileSelectedProcedures)
+        this.fetchData(this.props)
+    }
+
+    componentWillReceiveProps(props) {
+        if (props.selectedDoctor != this.props.selectedDoctor) {
+            this.fetchData(props)
+        }
     }
 
     render() {
 
+        const parsed = queryString.parse(this.props.location.search)
+
+        let doctor_id = this.props.selectedDoctor || this.props.match.params.id || parsed.doctor_id
+        let hospital_id = this.props.selectedClinic || this.props.match.params.clinicId || parsed.hospital_id
+
         return (
-            <AppointmentSlotView {...this.props} />
+            <AppointmentSlotView {...this.props} selectedDoctor={doctor_id} selectedClinic={hospital_id} />
         );
     }
 }

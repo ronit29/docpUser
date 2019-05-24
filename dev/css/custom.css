@@ -930,6 +930,150 @@ span.rate-pop-back img{
 	font-size: 11px;
 }
 /* ============ download app btn ============ */
+/* ============ insurance upload ============ */
+.insurance-proofs-cont{
+	margin: 0 -15px;
+	background: #f786311a;
+	padding: 10px 5px;
+}
+.upload-addbtn-cont{
+	display: flex;
+		align-items: center;
+		justify-content: space-between;
+}
+.ins-upld-cont{
+	display: flex;
+	align-items: flex-start;
+}
+.ins-sb-frst-img {
+	background: rgba(247, 134, 49, .12);
+	height: 35px;
+	width: 35px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50px;
+	flex-shrink: 0;
+	flex-grow: 0;
+}
+.ins-sb-frst-img img{
+	width: 22px;
+}
+.ins-upload-text{
+	margin-left: 5px;
+}
+.ins-upload-para-text{
+	font-size: 12px;
+	font-weight: 500;
+}
+.ins-upload-sub-text{
+	color: #757575;
+    font-size: 11px;
+    font-weight: 500;
+    margin-top: 2px;
+}
+span.ins-proof-upload-btn {
+	background-image: linear-gradient(to left,#ff6d00,#f78631);
+	display: flex;
+	align-items: center;
+	padding: 4px 8px 4px 5px;
+	color: white;
+	font-size: 13px;
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+	border-radius: 5px;
+	font-weight: 500;
+	margin-left: 3px;
+	cursor: pointer;
+}
+span.ins-proof-upload-btn img {
+	width: 16px;
+	margin-right: 2px;
+}
+.upload-img-section{
+	padding-left: 40px;
+	padding-top: 15px;
+	padding-right: 5px;
+	white-space: nowrap;
+	overflow: auto;
+}
+
+.ins-up-img-ic{
+	width: 50px;
+	margin-right: 10px;
+	height: 50px;
+	border-radius: 4px;
+	border: 1px solid #d6d6d6;
+	cursor: pointer;
+}
+.ins-prf-addMore{
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	color: #fa7d1f;
+	font-weight: 500;
+	height: 50px;
+	font-size: 12px;
+}
+.ins-addico{
+	margin-bottom: 2px;
+	width: 22px;
+}
+.ins-prf-img-grd{
+	display: inline-block;
+	position: relative;
+	margin-right: 3px;
+}
+.ins-prf-cls{
+	position: absolute;
+	top: -8px;
+	right: 2px;
+	background: white;
+	border-radius: 50px;
+	border: 1px solid #dcdada;
+	cursor: pointer;
+}
+.ins-file-tyle {
+	font-size: 12px;
+	color: #757575;
+	font-weight: 500;
+	margin-top: 7px;
+	font-size: 11px;
+}
+p.rev-ins-header{
+	padding: 12px;
+	border-bottom: 1px solid rgba(0, 0, 0, .12);
+	font-weight: 500;
+}
+p.rev-ins-header a img{
+	width: 11px;
+	margin-top: 3px;
+}
+.ins-open-endrs{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	color: #f78631;
+	font-weight: 500;
+	margin-top: 10px;
+	padding: 0 10px;
+}
+.ins-rgt-endrs{
+	height: 15px;
+}
+.ins-open-endrs:hover{
+	color: #f78631;
+}
+.ins-prf-error-msg{
+	    margin-bottom: 5px;
+    display: inline-block;
+    color: red;
+    padding-left: 5px;
+    font-weight: 500;
+    font-size: 11px;
+}
+/* ============ insurance upload ============ */
 /* ============ x ray cards ============ */
 .xray-heading{
 	font-size: 14px;
@@ -981,7 +1125,7 @@ span.rate-pop-back img{
 	justify-content: space-around;
 	position: sticky;
 	top: 107px;
-	z-index: 99;
+	z-index: 9;
 	box-shadow: 0 1px 1px #dedede;
 }
 @media(max-width: 767px){

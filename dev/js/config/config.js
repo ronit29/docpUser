@@ -30,8 +30,8 @@ const PROD_CONFIG = {
 }
 
 const STAGING_CONFIG = {
-    API_BASE_URL: "https://qa.docprime.com",
-    SOCKET_BASE_URL: "https://liveqa.docprime.com",
+    API_BASE_URL: "https://kubeqa1.docprime.com",
+    SOCKET_BASE_URL: "https://kubeqa1.docprime.com",
     SOCKET_BASE_PATH: "/io",
     RAVEN_DSN_KEY: "https://293dcc01cda545df925ccb2f7837b6a3@sentry.io/1341625",
     RAVEN_SERVER_DSN_KEY: "https://43567a5b14bb4aee988d45a95d55cc9c@sentry.io/1290589",
@@ -52,7 +52,7 @@ const DEV_CONFIG = {
     // API_BASE_URL: "http://10.0.145.30:8000",
     API_BASE_URL: "https://kubeqa4.docprime.com",
     // SOCKET_BASE_URL: "http://10.0.28.67:4444",
-    SOCKET_BASE_URL: "https://kubeqa1.docprime.com",
+    SOCKET_BASE_URL: "https://docprime.com",
     // SOCKET_BASE_URL: "http://localhost:4444",
     SOCKET_BASE_PATH: "/io",
     PG_URL: "https://payqa.docprime.com/dp/pay/init",

@@ -27,7 +27,7 @@ class Insurance extends React.Component{
                 this.props.generateInsuranceLead('',phoneNumber,lead_data)
             }
         })*/
-        this.props.getInsurance()
+        this.props.getInsurance(false)
     }
 	render(){
         if(this.props.LOAD_INSURANCE){
@@ -58,7 +58,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getInsurance: (callback) => dispatch(getInsurance(callback)),
+        getInsurance: (is_endorsement,callback) => dispatch(getInsurance(is_endorsement,callback)),
         getUserProfile: () => dispatch(getUserProfile()),
         selectInsurancePlan: (plan,criteria) => dispatch(selectInsurancePlan(plan,criteria)),
         // saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),

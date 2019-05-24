@@ -44,7 +44,7 @@ class ChatQuestion5 extends React.Component {
 		            </div>
 		            <div className="cf-footer">
 		               <a href="javascript:void(0);" className="cf-btn cf-prev" onClick={()=>this.props.history.push('/chat/feedback/ques4')}> 
-		                   <img src="/assets/images/left-arrow.png" alt="r-arrow" className="cf-img" />
+		                   <img src="/assets/images/right_arrow.png" alt="r-arrow" className="cf-img cf-rotate" />
 		                   PREVIOUS
 		               </a>
 		               <a href="javascript:void(0);" onClick={this.submit.bind(this)} className="cf-btn cf-next cf-submit">SUBMIT 

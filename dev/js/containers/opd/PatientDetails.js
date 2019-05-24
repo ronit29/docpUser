@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots,editUserProfile, patientDetails } from '../../actions/index.js'
+import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
+const queryString = require('query-string');
 
 import PatientDetailsView from '../../components/opd/patientDetails/index.js'
 
@@ -17,38 +18,66 @@ class PatientDetails extends React.Component {
         }
     }
 
+    // static loadData(store, match, queryData) {
+    //     let doctor_id = match.params.id || queryData.doctor_id
+    //     let hospital_id = match.params.clinicId || queryData.hospital_id
+
+    //     return store.dispatch(getDoctorById(doctor_id, hospital_id))
+    // }
+
     static contextTypes = {
         router: () => null
     }
 
-    componentDidMount() {
+    fetchData(props) {
+        const parsed = queryString.parse(props.location.search)
+
+        let doctor_id = props.selectedDoctor || props.match.params.id || parsed.doctor_id
+        let hospital_id = props.selectedClinic || props.match.params.clinicId || parsed.hospital_id
+
         if (window) {
             window.scrollTo(0, 0)
         }
 
         if (STORAGE.checkAuth()) {
-            this.props.getUserProfile()
-            this.props.fetchTransactions()
-            this.props.getCartItems()
+            props.getUserProfile()
+            props.fetchTransactions()
+            props.getCartItems()
         }
 
-        this.props.getDoctorById(this.props.match.params.id, this.props.match.params.clinicId, this.props.commonProfileSelectedProcedures)
+        if (doctor_id) {
+            props.getDoctorById(doctor_id, hospital_id, props.commonProfileSelectedProcedures)
 
-        if(this.props.selectedSlot && this.props.selectedSlot.date && !this.props.selectedSlot.summaryPage){
-            this.setState({DATA_FETCH: true})
-        }else{
-            
-            this.props.getTimeSlots(this.props.match.params.id, this.props.match.params.clinicId, (timeSlots) => {
-                this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, DATA_FETCH: true, upcoming_slots: timeSlots.upcoming_slots })
-            })   
+            if (props.selectedSlot && props.selectedSlot.date && !props.selectedSlot.summaryPage) {
+                this.setState({ DATA_FETCH: true })
+            } else {
+
+                props.getTimeSlots(doctor_id, hospital_id, (timeSlots) => {
+                    this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, DATA_FETCH: true, upcoming_slots: timeSlots.upcoming_slots })
+                })
+            }
         }
+    }
 
+    componentWillReceiveProps(props) {
+        if (props.selectedDoctor != this.props.selectedDoctor) {
+            this.fetchData(props)
+        }
+    }
+
+    componentDidMount() {
+        this.fetchData(this.props)
     }
 
     render() {
 
+        const parsed = queryString.parse(this.props.location.search)
+
+        let doctor_id = this.props.selectedDoctor || this.props.match.params.id || parsed.doctor_id
+        let hospital_id = this.props.selectedClinic || this.props.match.params.clinicId || parsed.hospital_id
+
         return (
-            <PatientDetailsView {...this.props} {...this.state}/>
+            <PatientDetailsView {...this.props} {...this.state} selectedDoctor={doctor_id} selectedClinic={hospital_id} />
         );
     }
 }
@@ -56,11 +85,11 @@ class PatientDetails extends React.Component {
 const mapStateToProps = (state) => {
 
     let DOCTORS = state.DOCTOR_PROFILES
-    const { selectedProfile, profiles, userWalletBalance, userCashbackBalance } = state.USER
+    const { selectedProfile, profiles, userWalletBalance, userCashbackBalance, defaultProfile } = state.USER
     let { selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, payment_type } = state.DOCTOR_SEARCH
     const { saved_patient_details } = state.SEARCH_CRITERIA_LABS
     return {
-        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details
+        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details, defaultProfile
     }
 }
 
@@ -85,7 +114,7 @@ const mapDispatchToProps = (dispatch) => {
         select_opd_payment_type: (type) => dispatch(select_opd_payment_type(type)),
         getTimeSlots: (doctorId, clinicId, callback) => dispatch(getTimeSlots(doctorId, clinicId, callback)),
         editUserProfile: (profileData, profileId, cb) => dispatch(editUserProfile(profileData, profileId, cb)),
-        patientDetails:(criteria) => dispatch(patientDetails(criteria))
+        patientDetails: (criteria) => dispatch(patientDetails(criteria))
     }
 }
 

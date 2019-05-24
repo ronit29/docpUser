@@ -5402,6 +5402,8 @@ color: 	#fe7108;
 	border: 1px solid #f78631;
 	cursor: pointer;
 	font-size: 14px;
+	padding: 14px 3px;
+	font-weight: 500;
 }
 .p-relative{
 	position: relative;
@@ -7475,6 +7477,11 @@ p.cstm-cpn{
     font-size: 16px;
     font-weight: 500;
 }
+.cf-rotate{
+    transform:rotate(180deg);
+    margin-right: 4px;
+    margin-left: 0 !important;
+}
 
 .ipd-section .btn-search-div.btn-apply-div.btn-sbmt {
     position: sticky;
@@ -8203,7 +8210,10 @@ a.btn-search.btn-cnte{
     }
     .ipd-section .read-more-btn{
 		right: -83%;
-	}
+    }
+    .ipd-section a.btn-search{
+        margin: 0px -10px;
+    }
 	
 }
 @media screen and (max-width: 576px){
@@ -9172,6 +9182,7 @@ ul,li{
 .cf-img{
     width: 16px;
     vertical-align: middle;
+    margin-left: 4px;
 }
 .cf-ans{
     border: 1px solid #00aeef;
@@ -9191,14 +9202,18 @@ ul,li{
     color: #fff;
 }
 .cf-prev{
-    display: inline-block;
+    display: inline-flex;
     float: left;
     text-align: left;
+    align-items: center;
+    justify-content: flex-start;
 }
 .cf-next{
-    display: inline-block;
+    display: inline-flex;
     float: right;
     text-align: right;
+    align-items: center;
+    justify-content: flex-end;
 }
 /*
 .cf-hght-350{
