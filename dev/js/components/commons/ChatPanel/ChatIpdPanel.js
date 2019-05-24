@@ -38,12 +38,13 @@ class IpdChatPanel extends React.Component {
 	
 		return(
 
-			<section className={`ipd-chat-pop ${this.state.maximize?'ipd-chat-pop-full':this.state.minimize?'ipd-chat-pop-minimize':''}`} >
+			<section className={`ipd-chat-pop ${this.props.bookingPage && !this.state.maximize?'ipd-chat-btn-width':''} ${this.state.maximize?'ipd-chat-pop-full':this.state.minimize?'ipd-chat-pop-minimize':''}`} >
 				<div className="ipd-chat-header">
-					<p onClick={()=>this.setState({maximize: true, minimize: false})}>Need help in booking doctor appointment/surgery?</p>
+					<p onClick={()=>this.setState({maximize: true, minimize: false})}>{this.props.bookingPage?'Need help?':'Need help in booking doctor appointment/surgery?'}</p>
 					<div className="cht-head-rqst-btn" >
 						{
-							this.state.minimize?
+							this.props.bookingPage && !this.state.maximize?''
+							:this.state.minimize?
 							<span  onClick={()=>this.closeChat()}>
 								<img className="close-chat" src={ASSETS_BASE_URL +'/img/customer-icons/close-black.svg'} style={{ width: '11px',display:'block', lineHeight:'0' }} />
 							</span>:

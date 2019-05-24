@@ -1297,7 +1297,7 @@ section.ipd-chat-pop.ipd-chat-pop-minimize.ipd-chat-btn-width .ipd-chat-header {
 	min-height: 42px !important;
 }
 .ipd-foot-btn-duo{
-	width: 50%;
+	width: 50% !important;
 	margin-left: auto;
 }
 }

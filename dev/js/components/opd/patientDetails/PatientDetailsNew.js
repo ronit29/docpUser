@@ -732,9 +732,11 @@ class PatientDetailsNew extends React.Component {
             priceData.deal_price = 0
             priceData.mrp = 0
         }
+
+        let is_add_to_card = STORAGE.isAgent() || !is_default_user_insured
         return (
             <div className="profile-body-wrap">
-                <ProfileHeader />
+                <ProfileHeader bookingPage={true}/>
                 {
                     this.state.showConfirmationPopup ?
                         <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} />
@@ -993,7 +995,7 @@ class PatientDetailsNew extends React.Component {
                                 } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{this.getBookingButtonText(total_wallet_balance, finalPrice)}</button>
                             } */}
 
-                            <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                            <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat?'ipd-foot-btn-duo':''}`}>
 
                                 {
                                     STORAGE.isAgent() || !is_default_user_insured?

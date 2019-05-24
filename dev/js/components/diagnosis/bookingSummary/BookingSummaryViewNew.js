@@ -817,10 +817,12 @@ class BookingSummaryViewNew extends React.Component {
             total_wallet_balance = this.props.userWalletBalance + this.props.userCashbackBalance
         }
 
+        let is_add_to_card = STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured)
+
         return (
 
             <div className="profile-body-wrap">
-                <ProfileHeader />
+                <ProfileHeader bookingPage={true}/>
                 {
                     this.state.showConfirmationPopup ?
                         <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} />
@@ -1083,7 +1085,7 @@ class BookingSummaryViewNew extends React.Component {
                             }
 
 
-                            <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                            <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat?'ipd-foot-btn-duo':''}`}>
                                 {
                                     STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured) ?
                                         <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
