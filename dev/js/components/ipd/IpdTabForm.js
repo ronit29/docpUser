@@ -20,7 +20,8 @@ class IpdTabForm extends React.Component {
 			validateError: [],
 			dateModal: false,
 			formattedDate: '',
-			submitFormSuccess: false
+			submitFormSuccess: false,
+			whatsapp_optin: true
 		}
 	}
 
@@ -128,7 +129,8 @@ class IpdTabForm extends React.Component {
 			}
 			let formData = {
 				...this.state,
-				ipd_procedure: ipd_id
+				ipd_procedure: ipd_id,
+
 			}
 
 			if (parsed.hospital_id) {
@@ -163,8 +165,7 @@ class IpdTabForm extends React.Component {
 			validateError: [],
 			dateModal: false,
 			formattedDate: '',
-			submitFormSuccess: false,
-			whatsapp_optin: true
+			submitFormSuccess: false
 		}
 		this.setState({...formData})
 		setTimeout(() => {
@@ -177,7 +178,7 @@ class IpdTabForm extends React.Component {
     }
 
 	render(){
-
+		console.log(this.state.whatsapp_optin)
 		let { ipd_info } = this.props
 
 		if(this.props.tabView) {
@@ -279,7 +280,13 @@ class IpdTabForm extends React.Component {
 								: ''
 						}
 					</div>
-					<WhatsAppOptinView {...this.props} profiles={'patient'} toggleWhatsap={this.toggleWhatsap.bind(this)} />
+					<div className="widget mrb-15">
+                        <div className="widget-content">
+                            <div>
+                                <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onClick={this.toggleWhatsap.bind(this,!this.state.whatsapp_optin)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
+                            </div>
+                        </div>
+                	</div>
 					{
 					this.props.tabView?
 						<div className={`${this.props.tabView?'text-center':'btn-search-div btn-apply-div btn-sbmt btncallback'}`}>
