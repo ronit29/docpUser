@@ -1348,5 +1348,16 @@ section.ipd-chat-pop-minimize.ipd-chat-btn-width .cht-head-rqst-btn{
 display: none;
 }
 }
+.ipd-pop-tick{
+	width: 14px;
+	margin-top: 4px;
+	margin-right: 10px;
+	vertical-align: middle;
+}
+.ipd-pop-tick-text{
+	display: flex;
+	align-items: flex-start;
+	text-align: left;
+}
 
 /* ============ ipd chat popup ============ */

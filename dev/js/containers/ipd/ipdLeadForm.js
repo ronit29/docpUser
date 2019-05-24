@@ -158,8 +158,8 @@ class IpdLeadForm extends React.Component {
 										:<p className="ipd-needHelp">{`Need help with an appointment ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
 									}
 									<p className="srch-el-ipd-cont" style={{ color: '#55a740' }}>Get upto 30% Off on appointments</p>
-									<p className="srch-el-ipd-cont">Instant Booking Confirmation</p>
-									<p className="srch-el-ipd-cont">Dedicated doctor for personalised medical advice</p>
+									<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>Instant Booking Confirmation</span></p>
+									<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span className="d-block">Dedicated doctor for personalised medical advice</span></p>
 									<div className="ipd-inp-section" onClick={(e) => {
 										e.stopPropagation()
 										e.preventDefault()
@@ -186,9 +186,9 @@ class IpdLeadForm extends React.Component {
 										<div className="ipd-lead-textarea">
 											<textarea placeholder="What are you looking for?" rows='3' value={this.state.comments} name='comments' onChange={this.inputHandler.bind(this)}></textarea>
 										</div>
-										<div className="mrb-15">
-					                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }} onClick={this.toggleWhatsap.bind(this)}>Enable 
-					                            <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" checked={this.state.whatsapp_optin} /><span className="checkmark"></span>
+										<div className="mrb-20">
+					                        <label className="ck-bx p-0" style={{ fontWeight: '400', fontSize: '14px' }} onClick={this.toggleWhatsap.bind(this)}>Enable 
+					                            <span className="sm-wtsp-img fw-400"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" checked={this.state.whatsapp_optin} /><span className="checkmark" style={{left: '7px'}}></span>
 					                        </label>
 					                	</div>
 										<button className="ipd-inp-sbmt" onClick={(e) => {
