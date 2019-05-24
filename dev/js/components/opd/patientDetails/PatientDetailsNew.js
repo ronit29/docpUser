@@ -618,14 +618,21 @@ class PatientDetailsNew extends React.Component {
         }
     }
 
-    submitLeadFormGeneration(close=false) {
+    submitLeadFormGeneration(ipdFormParams) {
         if(close) {
             let gtmData = {
                 'Category': 'ConsumerApp', 'Action': 'DoctorBookingIpdFormClosed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-booking-ipd-form-closed'
             }
             GTM.sendEvent({ data: gtmData })
         }
-        this.setState({showIpdLeadForm: false})
+        let ipd_data = {
+            showChat: true,
+            ipdFormParams: ipdFormParams
+        }
+        
+        this.setState({ showIpdLeadForm: false }, ()=>{
+            this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize:true})   
+        })
     }
 
     render() {
@@ -725,9 +732,11 @@ class PatientDetailsNew extends React.Component {
             priceData.deal_price = 0
             priceData.mrp = 0
         }
+
+        let is_add_to_card = STORAGE.isAgent() || !is_default_user_insured
         return (
             <div className="profile-body-wrap">
-                <ProfileHeader />
+                <ProfileHeader bookingPage={true}/>
                 {
                     this.state.showConfirmationPopup ?
                         <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} />
@@ -742,7 +751,7 @@ class PatientDetailsNew extends React.Component {
                                     <div>
                                         {
                                             parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE?
-                                            <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={hospital && hospital.hospital_name?hospital.hospital_name:null} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:null} doctor_name={this.props.DOCTORS[this.props.selectedDoctor].display_name?this.props.DOCTORS[this.props.selectedDoctor].display_name:null}/>
+                                            <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={hospital && hospital.hospital_name?hospital.hospital_name:null} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:null} doctor_name={this.props.DOCTORS[this.props.selectedDoctor].display_name?this.props.DOCTORS[this.props.selectedDoctor].display_name:null} formSource='DoctorBookingPage'/>
                                             :''
                                         }
                                         <section className="dr-profile-screen booking-confirm-screen mrb-60">
@@ -986,7 +995,7 @@ class PatientDetailsNew extends React.Component {
                                 } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{this.getBookingButtonText(total_wallet_balance, finalPrice)}</button>
                             } */}
 
-                            <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                            <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat?'ipd-foot-btn-duo':''}`}>
 
                                 {
                                     STORAGE.isAgent() || !is_default_user_insured?
@@ -1015,7 +1024,7 @@ class PatientDetailsNew extends React.Component {
                                 <BookingError message={this.state.error} closeErrorPopup={this.closeErrorPopup} /> : ''
                         }
 
-                        <RightBar extraClass="chat-float-btn-2" type="opd" noChatButton={true} />
+                        <RightBar extraClass="chat-float-btn-2" type="opd" noChatButton={true} showHalfScreenChat={this.props.ipd_chat && this.props.ipd_chat.showIpdChat?true:false} showDesktopIpd={true} />
                     </div>
                 </section>
             </div>

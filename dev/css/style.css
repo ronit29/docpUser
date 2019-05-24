@@ -9287,9 +9287,9 @@ ul,li{
     position: absolute;opacity: 0;cursor: pointer;height: 0;width: 0;
 }
 /* Create a custom checkbox */
-.checkmark {
+/*.checkmark {
     position: absolute;top: 0;left: 0;height: 12px;width: 12px;border: 2px solid #ccc; border-radius: 2px;
-}
+}*/
 /* When the checkbox is checked, add a blue background */
 .custom-radio input:checked ~ .checkmark {
     background-color: #49a8ff;border-color: #49a8ff;
@@ -11610,4 +11610,7 @@ p.lab-crd-txt-pr span{
 .mt-1{
 	margin-top: 1rem;
 
+}
+.cht-hide-hlf-scrn{
+	height: 100%;
 }
