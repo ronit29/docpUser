@@ -5,6 +5,7 @@ import SnackBar from 'node-snackbar'
 import ThankyouPoup from './ipdThankYouScreen.js'
 const queryString = require('query-string')
 import GTM from '../../helpers/gtm.js'
+import WhatsAppOptinView from '../commons/WhatsAppOptin/WhatsAppOptinView.js'
 
 class IpdTabForm extends React.Component {
 
@@ -19,7 +20,8 @@ class IpdTabForm extends React.Component {
 			validateError: [],
 			dateModal: false,
 			formattedDate: '',
-			submitFormSuccess: false
+			submitFormSuccess: false,
+			whatsapp_optin: true
 		}
 	}
 
@@ -127,7 +129,8 @@ class IpdTabForm extends React.Component {
 			}
 			let formData = {
 				...this.state,
-				ipd_procedure: ipd_id
+				ipd_procedure: ipd_id,
+
 			}
 
 			if (parsed.hospital_id) {
@@ -182,8 +185,12 @@ class IpdTabForm extends React.Component {
 			SnackBar.show({ pos: 'bottom-center', text: "Record Submitted Successfully" })
 		}, 500)
 	}
-	render(){
 
+	toggleWhatsap(e) {
+        this.setState({ whatsapp_optin: !this.state.whatsapp_optin })
+    }
+
+	render(){
 		let { ipd_info } = this.props
 
 		if(this.props.tabView) {
@@ -285,6 +292,13 @@ class IpdTabForm extends React.Component {
 								: ''
 						}
 					</div>
+					<div className="widget mrb-15">
+                        <div className="widget-content">
+                            <div>
+                                <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onChange={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
+                            </div>
+                        </div>
+                	</div>
 					{
 					this.props.tabView?
 						<div className={`${this.props.tabView?'text-center':'btn-search-div btn-apply-div btn-sbmt btncallback'}`}>

@@ -169,7 +169,12 @@ class TopBar extends React.Component {
 
     shortenUrl() {
         if (window) {
-            let url = window.location.href + '&force_location=true'
+            let url = window.location.href
+            if (url.includes('?')) {
+                url = window.location.href + '&force_location=true'
+            } else {
+                url = window.location.href + '?force_location=true'
+            }
             this.props.urlShortner(url, (err, data) => {
                 if (!err) {
                     this.setState({ shortURL: data.tiny_url })
