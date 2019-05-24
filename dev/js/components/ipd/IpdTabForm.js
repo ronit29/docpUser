@@ -145,7 +145,7 @@ class IpdTabForm extends React.Component {
 	        formData.data = {}
 	        formData.data.utm_tags = utm_tags
 	        formData.data.url = window.location.href
-	        formData.data.formSource = 'LeadForm'
+	        formData.data.formSource = this.props.formSource || 'LeadForm'
 
 			this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
 				if (!error && response) {
