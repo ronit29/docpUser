@@ -210,7 +210,7 @@ class ChatPanel extends React.Component {
                      * redirecting chat to new page for mobile users on homepage and on focus
                      * TODO : review this
                      */
-                    if (data.message && data.message == 'focus') {
+                    if (data.message && data.message == 'focus' && !(this.props.USER && this.props.USER.ipd_chat && this.props.USER.ipd_chat.showIpdChat) ) {
                         let iframe = this.refs.chat_frame
                         // iframe.scrollTop = iframe.scrollHeight
                         if (this.props.homePage && window.innerWidth < 768 && !this.props.history.location.pathname.includes('mobileviewchat')) {

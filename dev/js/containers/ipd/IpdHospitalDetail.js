@@ -23,7 +23,8 @@ class HospitalDetail extends React.Component {
 		this.state = {
 			specialization_id: null,
 			hospital_id: h_id,
-			is_seo: this.props.match.url.includes('-hpp')
+			is_seo: this.props.match.url.includes('-hpp'),
+			showIpdChat: false
 		}
 	}
 
@@ -111,7 +112,7 @@ class HospitalDetail extends React.Component {
 
 	showChatView(showIpd=false){
 		
-		//this.setState({showIpdChat: {showChat: true, ipdFormParams: params}})
+		this.setState({showIpdChat: true})
 	}
 
 	render(){
@@ -141,7 +142,7 @@ class HospitalDetail extends React.Component {
 								:<Loader />		
 							}
 						</div>
-						<RightBar extraClass=" chat-float-btn-2" showHalfScreenChat={this.props.ipd_chat && this.props.ipd_chat.showIpdChat?true:false} showDesktopIpd={true} />
+						<RightBar extraClass=" chat-float-btn-2" showHalfScreenChat={this.props.ipd_chat && this.props.ipd_chat.showIpdChat?true:false} showDesktopIpd={true} ipdFormParams={this.state.showIpdChat ?true:false}/>
 						</div>
 					</section>
 				</div>
