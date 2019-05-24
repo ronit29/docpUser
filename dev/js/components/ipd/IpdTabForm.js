@@ -134,6 +134,19 @@ class IpdTabForm extends React.Component {
 				formData.hospital = parsed.hospital_id
 			}
 
+			let utm_tags = {
+	            utm_source: parsed.utm_source || '',
+	            utm_medium: parsed.utm_medium || '',
+	            utm_term: parsed.utm_term || '',
+	            utm_campaign: parsed.utm_campaign || '',
+	            referrer: document.referrer || ''
+	        }
+
+	        formData.data = {}
+	        formData.data.utm_tags = utm_tags
+	        formData.data.url = window.location.href
+	        formData.data.formSource = 'LeadForm'
+
 			this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
 				if (!error && response) {
 					let gtmData = {
