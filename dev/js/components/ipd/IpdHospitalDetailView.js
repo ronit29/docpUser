@@ -173,7 +173,7 @@ class HospitalDetailView extends React.Component {
 		}
 		
 		this.setState({ showLeadForm: false, ipdFormParams: ipdFormParams }, ()=>{
-			this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams})
+			this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize: true})
 			this.props.showChatView(ipd_data)	
 		})
 	}

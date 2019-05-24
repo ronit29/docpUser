@@ -618,14 +618,21 @@ class PatientDetailsNew extends React.Component {
         }
     }
 
-    submitLeadFormGeneration(close=false) {
+    submitLeadFormGeneration(ipdFormParams) {
         if(close) {
             let gtmData = {
                 'Category': 'ConsumerApp', 'Action': 'DoctorBookingIpdFormClosed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-booking-ipd-form-closed'
             }
             GTM.sendEvent({ data: gtmData })
         }
-        this.setState({showIpdLeadForm: false})
+        let ipd_data = {
+            showChat: true,
+            ipdFormParams: ipdFormParams
+        }
+        
+        this.setState({ showIpdLeadForm: false }, ()=>{
+            this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize:true})   
+        })
     }
 
     render() {
@@ -1015,7 +1022,7 @@ class PatientDetailsNew extends React.Component {
                                 <BookingError message={this.state.error} closeErrorPopup={this.closeErrorPopup} /> : ''
                         }
 
-                        <RightBar extraClass="chat-float-btn-2" type="opd" noChatButton={true} />
+                        <RightBar extraClass="chat-float-btn-2" type="opd" noChatButton={true} showHalfScreenChat={this.props.ipd_chat && this.props.ipd_chat.showIpdChat?true:false} showDesktopIpd={true} />
                     </div>
                 </section>
             </div>

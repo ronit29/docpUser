@@ -55,7 +55,7 @@ class ChatPanel extends React.Component {
         /**
          * Check for static message and hide/show iframe with loader accordingly.
          */
-        if (this.props.USER && this.props.USER.liveChatStarted || this.props.showHalfScreenChat) {
+        if (this.props.USER && (this.props.USER.liveChatStarted || this.props.USER.ipd_chat && this.props.USER.ipd_chat.showIpdChat) ){
             this.setState({ showStaticView: false, iframeLoading: true }, () => {
                 this.setState({ hideIframe: false }, () => {
                     let iframe = this.refs.chat_frame
@@ -271,9 +271,15 @@ class ChatPanel extends React.Component {
     dispatchCustomEvent(eventName, data = {}) {
         let event = new Event(eventName)
         let iframe = this.refs.chat_frame
+        
         if(iframe){
             iframe.dispatchEvent(event)
             iframe.contentWindow.postMessage({ 'event': eventName, data }, '*')
+        }
+        let iframe1 = this.refs.chat_frame1
+         if(iframe1){
+            iframe1.dispatchEvent(event)
+            iframe1.contentWindow.postMessage({ 'event': eventName, data }, '*')
         }
     }
 
@@ -284,6 +290,7 @@ class ChatPanel extends React.Component {
         })
         this.dispatchCustomEvent.call(this, 'close_frame')
         this.setState({ showCancel: !this.state.showCancel })
+        this.props.ipdChatView(null)
         this.props.setChatRoomId(null)
         this.props.unSetCommonUtmTags('chat')
     }
@@ -421,7 +428,7 @@ class ChatPanel extends React.Component {
             return(
                 <div className="chat-body">
                     {
-                        STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? `chat-iframe ${this.state.iframeLoading ? 'd-none' : ''}` : `chat-iframe-inner float-chat-height ${this.state.iframeLoading ? 'd-none' : ''}`} src={iframe_url} allow="microphone;camera" ref="chat_frame"></iframe>
+                        STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? `chat-iframe ${this.state.iframeLoading ? 'd-none' : ''}` : `chat-iframe-inner float-chat-height ${this.state.iframeLoading ? 'd-none' : ''}`} src={iframe_url} allow="microphone;camera" ref="chat_frame1"></iframe>
                     }
                     {
                         this.state.iframeLoading ?

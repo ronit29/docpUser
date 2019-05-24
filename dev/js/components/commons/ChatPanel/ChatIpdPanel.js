@@ -9,8 +9,15 @@ class IpdChatPanel extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			minimize: this.props.ipdFormParams?false:this.props.ipd_chat && this.props.ipd_chat.showIpdChat?true:false,
+			minimize: this.props.ipd_chat?
+				this.props.ipd_chat.showMinimize?false:this.props.ipd_chat.showIpdChat?true:false:false,
 			maximize: false
+		}
+		
+		if(this.props.ipd_chat && this.props.ipd_chat.showMinimize){
+			let ipdView = {...this.props.ipd_chat}
+			ipdView.showMinimize= false
+			this.props.ipdChatView(ipdView)	
 		}
 	}
 
@@ -23,7 +30,7 @@ class IpdChatPanel extends React.Component {
 
     componentWillReceiveProps(props) {
     	if(props.ipd_chat != this.props.ipd_chat) {
-    		this.setState({minimize: props.ipd_chat})
+    		this.setState({minimize: props.ipd_chat.showMinimize})
     	}
     }
 
@@ -33,7 +40,7 @@ class IpdChatPanel extends React.Component {
 
 			<section className={`ipd-chat-pop ${this.state.maximize?'ipd-chat-pop-full':this.state.minimize?'ipd-chat-pop-minimize':''}`} >
 				<div className="ipd-chat-header">
-					<p onClick={()=>this.setState({maximize: true, minimize: false})}>Need help in bookin doctor appointment/surgery?</p>
+					<p onClick={()=>this.setState({maximize: true, minimize: false})}>Need help in booking doctor appointment/surgery?</p>
 					<div className="cht-head-rqst-btn" >
 						{
 							this.state.minimize?
