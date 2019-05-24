@@ -5,6 +5,7 @@ import SnackBar from 'node-snackbar'
 import ThankyouPoup from './ipdThankYouScreen.js'
 const queryString = require('query-string')
 import GTM from '../../helpers/gtm.js'
+import WhatsAppOptinView from '../commons/WhatsAppOptin/WhatsAppOptinView.js'
 
 class IpdTabForm extends React.Component {
 
@@ -162,13 +163,19 @@ class IpdTabForm extends React.Component {
 			validateError: [],
 			dateModal: false,
 			formattedDate: '',
-			submitFormSuccess: false
+			submitFormSuccess: false,
+			whatsapp_optin: true
 		}
 		this.setState({...formData})
 		setTimeout(() => {
 			SnackBar.show({ pos: 'bottom-center', text: "Record Submitted Successfully" })
 		}, 500)
 	}
+
+	toggleWhatsap(status, e) {
+        this.setState({ whatsapp_optin: status })
+    }
+
 	render(){
 
 		let { ipd_info } = this.props
@@ -272,6 +279,7 @@ class IpdTabForm extends React.Component {
 								: ''
 						}
 					</div>
+					<WhatsAppOptinView {...this.props} profiles={'patient'} toggleWhatsap={this.toggleWhatsap.bind(this)} />
 					{
 					this.props.tabView?
 						<div className={`${this.props.tabView?'text-center':'btn-search-div btn-apply-div btn-sbmt btncallback'}`}>
