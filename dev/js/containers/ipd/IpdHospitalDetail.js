@@ -23,8 +23,7 @@ class HospitalDetail extends React.Component {
 		this.state = {
 			specialization_id: null,
 			hospital_id: h_id,
-			is_seo: this.props.match.url.includes('-hpp'),
-			showIpdChat: false
+			is_seo: this.props.match.url.includes('-hpp')
 		}
 	}
 
@@ -111,22 +110,8 @@ class HospitalDetail extends React.Component {
 	}
 
 	showChatView(showIpd=false){
-		let params= ''
-		if(showIpd && showIpd.showChat) {
-
-			if(showIpd.ipdFormParams){
-
-				let ipd_hospital_detail = this.state.hospital_id && this.props.ipd_hospital_detail_info && this.props.ipd_hospital_detail_info[this.state.hospital_id]?this.props.ipd_hospital_detail_info[this.state.hospital_id]:{}
-
-				params = JSON.stringify(showIpd.ipdFormParams)
-				params = `product=IPD&params=${params}&source=${ipd_hospital_detail && ipd_hospital_detail.id?ipd_hospital_detail.id:''}`
-
-			}else {
-				params = `product=IPD&source=${ipd_hospital_detail && ipd_hospital_detail.id?ipd_hospital_detail.id:''}`
-			}
-		}
-
-		this.setState({showIpdChat: {showChat: true, ipdFormParams: params}})
+		
+		//this.setState({showIpdChat: {showChat: true, ipdFormParams: params}})
 	}
 
 	render(){
@@ -135,7 +120,7 @@ class HospitalDetail extends React.Component {
 
 		return(
 				<div className="profile-body-wrap">
-					<ProfileHeader showSearch={true} hospital_id={ipd_hospital_detail && ipd_hospital_detail.id?ipd_hospital_detail.id:''} ipdFormParams={this.state.showIpdChat && this.state.showIpdChat.ipdFormParams?this.state.showIpdChat.ipdFormParams:false}/>
+					<ProfileHeader showSearch={true} />
 					<HelmetTags tagsData={{
 						canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
 						title: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail.seo : null).title,
@@ -156,7 +141,7 @@ class HospitalDetail extends React.Component {
 								:<Loader />		
 							}
 						</div>
-						<RightBar extraClass=" chat-float-btn-2" showHalfScreenChat={this.state.showIpdChat && this.state.showIpdChat.showChat?this.state.showIpdChat.showChat:false} showDesktopIpd={true} hospital_id={ipd_hospital_detail && ipd_hospital_detail.id?ipd_hospital_detail.id:''} ipdFormParams={this.state.showIpdChat && this.state.showIpdChat.ipdFormParams?this.state.showIpdChat.ipdFormParams:false} />
+						<RightBar extraClass=" chat-float-btn-2" showHalfScreenChat={this.props.ipd_chat && this.props.ipd_chat.showIpdChat?true:false} showDesktopIpd={true} />
 						</div>
 					</section>
 				</div>

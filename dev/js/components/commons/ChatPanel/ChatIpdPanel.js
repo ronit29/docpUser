@@ -9,7 +9,7 @@ class IpdChatPanel extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			minimize: this.props.ipdFormParams?false:this.props.ipd_chat?true:false,
+			minimize: this.props.ipdFormParams?false:this.props.ipd_chat && this.props.ipd_chat.showIpdChat?true:false,
 			maximize: false
 		}
 	}
@@ -28,15 +28,6 @@ class IpdChatPanel extends React.Component {
     }
 
 	render(){
-
-		let params = ''
-		if(this.props.ipdFormParams){
-			params = JSON.stringify(this.props.ipdFormParams)
-			params = `product=IPD&params=${params}&source=${this.props.hospital_id?this.props.hospital_id:''}`
-
-		}else {
-			params = `product=IPD&source=${this.props.hospital_id?this.props.hospital_id:''}`
-		}
 	
 		return(
 
@@ -57,7 +48,7 @@ class IpdChatPanel extends React.Component {
 					</div>
 				</div>
 				<div className="ipd-chat-render">
-					<ChatPanel {...this.props} mobilechatview={true} showHalfScreenChat={true} ipdFormParams={params} onRefIpd={ref => (this.child = ref)}/>
+					<ChatPanel {...this.props} mobilechatview={true} showHalfScreenChat={true} onRefIpd={ref => (this.child = ref)}/>
 				</div>
 			</section>
 			)

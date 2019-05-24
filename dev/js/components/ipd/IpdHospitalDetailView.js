@@ -173,7 +173,7 @@ class HospitalDetailView extends React.Component {
 		}
 		
 		this.setState({ showLeadForm: false, ipdFormParams: ipdFormParams }, ()=>{
-			this.props.ipdChatView(true)
+			this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams})
 			this.props.showChatView(ipd_data)	
 		})
 	}
@@ -189,12 +189,6 @@ class HospitalDetailView extends React.Component {
 				{
 					this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ?
 						<div className="ipd-section">
-							
-							{
-								this.props.ipd_chat && false?
-								<ChatIpdPanel {...this.props} hospital_id={this.props.ipd_hospital_detail.id} ipdFormParams={this.state.ipdFormParams} />
-								:''
-							}
 							{
 								showPopup ?
 									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} />
