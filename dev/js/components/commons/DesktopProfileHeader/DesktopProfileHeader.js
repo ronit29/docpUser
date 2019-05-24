@@ -250,16 +250,16 @@ class DesktopProfileHeader extends React.Component {
                                             <li><a href="/all-medicines" onClick={(e) => {
                                                 e.preventDefault();
                                                 this.props.history.push("/all-medicines")
-                                            }}>All Medicines</a></li>
-                                            {/* <li><a href="javascript:void(0);">All Articles</a></li> */}
+                                            }}>Medicines</a></li>
+                                            {/* <li><a href="javascript:void(0);">Articles</a></li> */}
                                             <li><a href="/all-diseases" onClick={(e) => {
                                                 e.preventDefault();
                                                 this.props.history.push("/all-diseases")
-                                            }}>All Diseases</a></li>
+                                            }}>Diseases</a></li>
                                             <li><a href="/tests" onClick={(e) => {
                                                 e.preventDefault();
                                                 this.props.history.push("/tests")
-                                            }}>All Tests</a></li>
+                                            }}>Tests</a></li>
                                         </ul>
                                     </div>
                                 </div>
