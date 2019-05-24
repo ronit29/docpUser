@@ -105,7 +105,7 @@ class IpdLeadForm extends React.Component {
 					SnackBar.show({ pos: 'bottom-center', text: "Please try after some time" })
 				}, 500)
 			}
-			this.props.submitLeadFormGeneration()
+			this.props.submitLeadFormGeneration(this.state)
 		})
 
 	}
