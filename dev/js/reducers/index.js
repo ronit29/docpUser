@@ -33,7 +33,7 @@ const DOCTOR_LIST_PRESIST = {
 const LAB_LIST_PRESIST = {
     key: 'LAB_SEARCH',
     storage: storage,
-    whitelist: ['selectedSlot', 'rescheduleSlot', 'selectedAppointmentType', 'selectedAddress', 'labCoupons']
+    whitelist: ['selectedSlot', 'rescheduleSlot', 'selectedAppointmentType', 'selectedAddress', 'labCoupons', 'user_prescriptions', 'is_prescription_needed']
 }
 
 const USER_PERSIST = {

@@ -34,10 +34,12 @@ class AppointmentSlot extends React.Component {
     proceed(e) {
         e.preventDefault()
         e.stopPropagation()
+        
         // in case of reschedule go back , else push
         if(Object.values(this.state.selectedTimeSlot).length){
             this.selectTimeSlot(this.state.selectedTimeSlot)
         }
+
         if (this.state.reschedule) {
             return this.props.history.go(-1)
         }

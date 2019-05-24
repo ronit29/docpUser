@@ -1073,6 +1073,17 @@ p.rev-ins-header a img{
     font-weight: 500;
     font-size: 11px;
 }
+.white-upld-div div.insurance-proofs-cont{
+	margin: 0;
+	padding: 0;
+	background: white;
+}
+.white-upld-div div.ins-sb-frst-img{
+	background: white;
+	height: auto;
+	width: auto;
+	margin: 2px 3px 0px 0;
+}
 /* ============ insurance upload ============ */
 /* ============ x ray cards ============ */
 .xray-heading{

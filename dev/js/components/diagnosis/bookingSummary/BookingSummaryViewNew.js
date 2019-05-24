@@ -20,6 +20,7 @@ import PincodePopup from './PincodePopup.js'
 import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 import PincodeErrorPopup from './PincodeErrorPopup.js'
 import BookingConfirmationPopup from './BookingConfirmationPopup.js'
+import UploadPrescription from './uploadPrescription.js'
 
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
@@ -329,7 +330,7 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    proceed(testPicked, addressPicked, datePicked, patient, addToCart, total_price, total_wallet_balance, e) {
+    proceed(testPicked, addressPicked, datePicked, patient, addToCart, total_price, total_wallet_balance, prescriptionPicked,e) {
 
         if (!testPicked) {
             SnackBar.show({ pos: 'bottom-center', text: "Please select some tests." });
@@ -390,13 +391,6 @@ class BookingSummaryViewNew extends React.Component {
             return
         }
 
-        if (!this.state.showConfirmationPopup && !addToCart && (total_price == 0 || (this.state.use_wallet && total_wallet_balance > 0))) {
-            this.setState({ showConfirmationPopup: true })
-            return
-        }
-
-        this.setState({ loading: true, error: "" })
-
         let is_insurance_applicable = false
         let is_tests_covered_under_insurance = false
         let is_selected_user_insured = false
@@ -440,6 +434,23 @@ class BookingSummaryViewNew extends React.Component {
         is_insurance_applicable = is_tests_covered_under_insurance && is_selected_user_insured
 
         is_plan_applicable = is_tests_covered_under_plan && is_selected_user_has_active_plan
+        let prescriptionIds = []
+        if (prescriptionPicked && is_insurance_applicable) {
+            if(this.props.user_prescriptions && this.props.user_prescriptions.length == 0){
+                SnackBar.show({ pos: 'bottom-center', text: "Please upload prescription." });
+                return
+            }else if(this.props.user_prescriptions && this.props.user_prescriptions.length >0){
+                this.props.user_prescriptions[0].img_path_ids.map((imgId,i)=>{
+                    prescriptionIds.push({'prescription':imgId.id})
+                })
+            }
+        }
+        if (!this.state.showConfirmationPopup && !addToCart && (total_price == 0 || (this.state.use_wallet && total_wallet_balance > 0))) {
+            this.setState({ showConfirmationPopup: true })
+            return
+        }
+
+        this.setState({ loading: true, error: "" })
 
         let start_date = this.props.selectedSlot.date
         let start_time = this.props.selectedSlot.time.value
@@ -454,6 +465,7 @@ class BookingSummaryViewNew extends React.Component {
             payment_type: 1, // TODO : Select payment type
             use_wallet: this.state.use_wallet,
             cart_item: this.state.cart_item,
+            prescription_list: prescriptionIds
         }
         let profileData = { ...patient }
         if (profileData && profileData.whatsapp_optin == null) {
@@ -462,7 +474,7 @@ class BookingSummaryViewNew extends React.Component {
         }
         if (this.props.disCountedLabPrice && !is_plan_applicable && !is_insurance_applicable) {
             postData['coupon_code'] = this.state.couponCode ? [this.state.couponCode] : []
-        }
+        } 
 
         //Post Pincode & thyrocare data
         if (this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].lab && this.props.LABS[this.props.selectedLab].lab.is_thyrocare) {
@@ -521,6 +533,9 @@ class BookingSummaryViewNew extends React.Component {
         this.props.createLABAppointment(postData, (err, data) => {
             if (!err) {
                 this.props.removeLabCoupons(this.props.selectedLab, this.state.couponId)
+                if(this.props.user_prescriptions && this.props.user_prescriptions.length > 0){
+                    this.props.clearPrescriptions()
+                }
                 if (data.is_agent) {
                     // this.props.history.replace(this.props.location.pathname + `?order_id=${data.data.orderId}`)
                     this.setState({ order_id: data.data.orderId })
@@ -664,6 +679,7 @@ class BookingSummaryViewNew extends React.Component {
         let address_picked_verified = false
         let center_visit_enabled = true
         let is_corporate = false
+        let prescriptionPicked = false
 
         let is_insurance_applicable = false
         let is_tests_covered_under_insurance = false
@@ -680,6 +696,9 @@ class BookingSummaryViewNew extends React.Component {
 
         }
 
+        // if(this.props.is_prescription_needed){
+        //     prescriptionPicked = true
+        // }
         if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]) {
             is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
         }
@@ -712,14 +731,15 @@ class BookingSummaryViewNew extends React.Component {
             })
 
         }
-
         is_insurance_applicable = is_tests_covered_under_insurance && is_selected_user_insured
-
         is_plan_applicable = is_tests_covered_under_plan && is_selected_user_has_active_plan
 
         if (this.props.LABS[this.props.selectedLab]) {
             labDetail = this.props.LABS[this.props.selectedLab].lab
 
+            if(labDetail.is_prescription_needed){
+                prescriptionPicked = labDetail.is_prescription_needed    
+            }
             this.props.LABS[this.props.selectedLab].tests.map((twp, i) => {
                 if (twp.hide_price) {
                     is_corporate = true
@@ -768,11 +788,10 @@ class BookingSummaryViewNew extends React.Component {
                     </div>
                 )
             })
-
             center_visit_enabled = labDetail.center_visit_enabled
 
         }
-
+        
         // if center visi not enabled, check home pick as true
         if (!center_visit_enabled) {
             setTimeout(() => {
@@ -900,7 +919,11 @@ class BookingSummaryViewNew extends React.Component {
                                                         <div className="">
                                                             {this.getSelectors()}
                                                         </div>
-
+                                                        {
+                                                            is_insurance_applicable && prescriptionPicked?
+                                                            <UploadPrescription {...this.props}/>
+                                                            :''
+                                                        }
                                                         {
                                                             amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable ?
                                                                 <div className="widget mrb-15" onClick={this.applyCoupons.bind(this)}>
@@ -1088,7 +1111,7 @@ class BookingSummaryViewNew extends React.Component {
                                     STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured) ?
                                         <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                        } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance)}>
+                                        } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance,prescriptionPicked)}>
                                             {
                                                 this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
                                             }
@@ -1100,7 +1123,7 @@ class BookingSummaryViewNew extends React.Component {
                                 {
                                     STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust pdd-12" id="confirm_booking" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                    } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
+                                    } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance, prescriptionPicked)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
                                 }
                             </div>
 

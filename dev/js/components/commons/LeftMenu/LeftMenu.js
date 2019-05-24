@@ -181,19 +181,19 @@ class LeftMenu extends React.Component {
                           e.preventDefault();
                           this.props.toggleLeftMenu()
                           this.props.history.push("/all-diseases")
-                        }} href="#" className="pad-B0">All Diseases</a></li>
+                        }} href="#" className="pad-B0">Diseases</a></li>
 
                       <li ><a onClick={(e) => {
                         e.preventDefault();
                         this.props.toggleLeftMenu()
                         this.props.history.push("/all-medicines")
-                      }} href="#" className="pad-B0">All Medicines</a></li>
+                      }} href="#" className="pad-B0">Medicines</a></li>
 
                       <li ><a onClick={(e) => {
                         e.preventDefault();
                         this.props.toggleLeftMenu()
                         this.props.history.push("/tests")
-                      }} href="#">All Tests</a></li>
+                      }} href="#">Tests</a></li>
                       </div>
                       : ''
                   }
