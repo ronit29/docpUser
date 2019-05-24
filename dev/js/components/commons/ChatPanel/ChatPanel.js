@@ -66,6 +66,15 @@ class ChatPanel extends React.Component {
                     } else {
                         this.setState({ iframeLoading: false })
                     }
+
+                    let iframe1 = this.refs.chat_frame1
+                    if (iframe1) {
+                        iframe1.onload = () => {
+                            this.setState({ iframeLoading: false })
+                        }
+                    } else {
+                        this.setState({ iframeLoading: false })
+                    }
                 })
             })
         }
@@ -247,12 +256,22 @@ class ChatPanel extends React.Component {
             this.sendLocationNotification(props.selectedLocation)
         }
 
-        if (props.USER && props.USER.liveChatStarted && props.USER.liveChatStarted != this.props.USER.liveChatStarted) {
+        if ((props.USER && props.USER.liveChatStarted && props.USER.liveChatStarted != this.props.USER.liveChatStarted) || (props.USER && props.USER.ipd_chat && props.USER.ipd_chat.showIpdChat) ) {
             this.setState({ showStaticView: false, iframeLoading: true }, () => {
                 this.setState({ hideIframe: false }, () => {
-                    let iframe = this.refs.chat_frame
+
+                    let iframe = this.refs.chat_frame 
                     if (iframe) {
                         iframe.onload = () => {
+                            this.setState({ iframeLoading: false })
+                        }
+                    } else {
+                        this.setState({ iframeLoading: false })
+                    }
+
+                    let iframe1 = this.refs.chat_frame1
+                    if (iframe1) {
+                        iframe1.onload = () => {
                             this.setState({ iframeLoading: false })
                         }
                     } else {
