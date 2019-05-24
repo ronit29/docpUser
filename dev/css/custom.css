@@ -1262,7 +1262,6 @@ section.ipd-chat-pop-minimize div.ipd-chat-header{
 section.ipd-chat-pop-minimize .ipd-chat-header p{
 	color: #f78631;
 	flex: 1;
-	text-align: center;
 }
 .ipd-chat-header{
 	background: #f3e9e0;
@@ -1292,6 +1291,23 @@ section.ipd-chat-pop-minimize.ipd-chat-btn-width {
 	border: 2px solid #f1863b;
 	height: 46px !important;
 	bottom: 1px;
+	-webkit-animation: mymove .5s ; 
+	animation: mymove .5s ;
+	text-align: center;
+}
+@-webkit-keyframes mymove {
+  0%   {width: 100%;border: 2px solid transparent;}
+  25%  {width: 100%;border: 2px solid transparent;}
+  75%  {width: 100%;border: 2px solid transparent;}
+  100% {width: 50%;}
+}
+
+/* Standard syntax */
+@keyframes mymove {
+  0%   {width: 100%;border: 2px solid transparent;}
+  25%  {width: 100%;border: 2px solid transparent;}
+  75%  {width: 100%;border: 2px solid transparent;}
+  100% {width: 50%;}
 }
 section.ipd-chat-pop.ipd-chat-pop-minimize.ipd-chat-btn-width .ipd-chat-header {
 	min-height: 42px !important;
