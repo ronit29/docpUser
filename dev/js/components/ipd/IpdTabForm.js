@@ -292,12 +292,9 @@ class IpdTabForm extends React.Component {
 								: ''
 						}
 					</div>
-					<div className="widget mrb-15">
-                        <div className="widget-content">
-                            <div>
-                                <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onChange={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span></label>
-                            </div>
-                        </div>
+					<div className="mrb-15">
+                         <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onChange={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span>
+                         </label>
                 	</div>
 					{
 					this.props.tabView?

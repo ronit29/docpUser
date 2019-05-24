@@ -186,14 +186,10 @@ class IpdLeadForm extends React.Component {
 										<div className="ipd-lead-textarea">
 											<textarea placeholder="What are you looking for?" rows='3' value={this.state.comments} name='comments' onChange={this.inputHandler.bind(this)}></textarea>
 										</div>
-										<div className="widget mrb-15">
-					                        <div className="widget-content">
-					                            <div>
-					                                <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }} onClick={this.toggleWhatsap.bind(this)}>Enable 
-					                                	<span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" checked={this.state.whatsapp_optin} /><span className="checkmark"></span>
-					                                </label>
-					                            </div>
-					                        </div>
+										<div className="mrb-15">
+					                        <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }} onClick={this.toggleWhatsap.bind(this)}>Enable 
+					                            <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" checked={this.state.whatsapp_optin} /><span className="checkmark"></span>
+					                        </label>
 					                	</div>
 										<button className="ipd-inp-sbmt" onClick={(e) => {
 											e.stopPropagation()
