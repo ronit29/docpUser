@@ -441,7 +441,7 @@ class BookingSummaryViewNew extends React.Component {
                 return
             }else if(this.props.user_prescriptions && this.props.user_prescriptions.length >0){
                 this.props.user_prescriptions[0].img_path_ids.map((imgId,i)=>{
-                    prescriptionIds.push({'prescription_file':imgId.id})
+                    prescriptionIds.push({'prescription':imgId.id})
                 })
             }
         }
@@ -465,7 +465,7 @@ class BookingSummaryViewNew extends React.Component {
             payment_type: 1, // TODO : Select payment type
             use_wallet: this.state.use_wallet,
             cart_item: this.state.cart_item,
-            prescription_ids: prescriptionIds
+            prescription_list: prescriptionIds
         }
         let profileData = { ...patient }
         if (profileData && profileData.whatsapp_optin == null) {
@@ -696,9 +696,9 @@ class BookingSummaryViewNew extends React.Component {
 
         }
 
-        if(this.props.is_prescription_needed){
-            prescriptionPicked = true
-        }
+        // if(this.props.is_prescription_needed){
+        //     prescriptionPicked = true
+        // }
         if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]) {
             is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
         }
@@ -784,12 +784,14 @@ class BookingSummaryViewNew extends React.Component {
                         }
                     </div>
                 )
+                if(twp.is_prescription_needed){
+                    prescriptionPicked = twp.is_prescription_needed    
+                }
             })
-
             center_visit_enabled = labDetail.center_visit_enabled
 
         }
-
+        
         // if center visi not enabled, check home pick as true
         if (!center_visit_enabled) {
             setTimeout(() => {
