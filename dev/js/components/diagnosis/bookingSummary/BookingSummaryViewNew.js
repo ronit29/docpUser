@@ -737,6 +737,9 @@ class BookingSummaryViewNew extends React.Component {
         if (this.props.LABS[this.props.selectedLab]) {
             labDetail = this.props.LABS[this.props.selectedLab].lab
 
+            if(labDetail.is_prescription_needed){
+                prescriptionPicked = labDetail.is_prescription_needed    
+            }
             this.props.LABS[this.props.selectedLab].tests.map((twp, i) => {
                 if (twp.hide_price) {
                     is_corporate = true
@@ -784,9 +787,6 @@ class BookingSummaryViewNew extends React.Component {
                         }
                     </div>
                 )
-                if(twp.is_prescription_needed){
-                    prescriptionPicked = twp.is_prescription_needed    
-                }
             })
             center_visit_enabled = labDetail.center_visit_enabled
 
