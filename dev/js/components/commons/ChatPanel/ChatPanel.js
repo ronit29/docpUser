@@ -309,9 +309,11 @@ class ChatPanel extends React.Component {
         })
         this.dispatchCustomEvent.call(this, 'close_frame')
         this.setState({ showCancel: !this.state.showCancel })
-        this.props.ipdChatView(null)
         this.props.setChatRoomId(null)
         this.props.unSetCommonUtmTags('chat')
+        setTimeout(()=>{
+            this.props.ipdChatView(null)
+        },2000)
     }
 
     toggleCancel(e) {
