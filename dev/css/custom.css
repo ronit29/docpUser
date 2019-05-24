@@ -1242,12 +1242,12 @@ button.ipd-inp-sbmt {
 	left: 0;
 	bottom: 0;
 	top:unset;
-	border-top: 2px solid #f3ebeb;
 	display: block !important;
 	-moz-transition: height .5s ease;
   -webkit-transition: height .5s ease;
   -o-transition: height .5s ease;
-  transition: height .5s ease;
+	transition: height .5s ease;
+	box-shadow: 0.8px -3.9px 12px 0 rgba(0,0,0,.12);
 }
 .ipd-chat-pop-full{
 	height: 100% !important;
@@ -1255,6 +1255,14 @@ button.ipd-inp-sbmt {
 }
 section.ipd-chat-pop-minimize{
 height: 48px !important;
+}
+section.ipd-chat-pop-minimize div.ipd-chat-header{
+	background: #ffffff;
+}
+section.ipd-chat-pop-minimize .ipd-chat-header p{
+	color: #f78631;
+	flex: 1;
+	text-align: center;
 }
 .ipd-chat-header{
 	background: #f3e9e0;
@@ -1278,7 +1286,20 @@ height: 48px !important;
 .cht-head-rqst-btn{
 	cursor: pointer;
 }
-
+section.ipd-chat-pop-minimize.ipd-chat-btn-width {
+	width: 50% !important;
+	box-shadow: 0 0 0 0 transparent;
+	border: 2px solid #f1863b;
+	height: 46px !important;
+	bottom: 1px;
+}
+section.ipd-chat-pop.ipd-chat-pop-minimize.ipd-chat-btn-width .ipd-chat-header {
+	min-height: 42px !important;
+}
+.ipd-foot-btn-duo{
+	width: 50%;
+	margin-left: auto;
+}
 }
 
 /* ============ ipd chat popup ============ */
