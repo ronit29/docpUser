@@ -116,7 +116,7 @@ class SearchResultsView extends React.Component {
 
         if (props.mergeUrlState && props.mergeUrlState != this.props.mergeUrlState) {
             let filters = {}
-            filters.commonSelectedCriterias = props.commonSelectedCriterias
+            filters.commonSelectedCriterias = props.currentSearchedCriterias
             filters.filterCriteria = props.filterCriteria
             if (search_id) {
                 this.setState({ search_id: search_id }, () => {
