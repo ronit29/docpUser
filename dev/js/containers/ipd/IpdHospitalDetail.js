@@ -142,7 +142,7 @@ class HospitalDetail extends React.Component {
 								:<Loader />		
 							}
 						</div>
-						<RightBar extraClass=" chat-float-btn-2" showHalfScreenChat={this.props.ipd_chat && this.props.ipd_chat.showIpdChat?true:false} showDesktopIpd={true} ipdFormParams={this.state.showIpdChat ?true:false}/>
+						<RightBar extraClass=" chat-float-btn-2" showHalfScreenChat={false && this.props.ipd_chat && this.props.ipd_chat.showIpdChat?true:false} showDesktopIpd={true} ipdFormParams={this.state.showIpdChat ?true:false}/>
 						</div>
 					</section>
 				</div>
