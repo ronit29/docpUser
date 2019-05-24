@@ -14,7 +14,8 @@ class IpdLeadForm extends React.Component {
 			phone_number: '',
 			showForm: true,
 			gender: '',
-			comments: ''
+			comments: '',
+			whatsapp_optin: true
 		}
 	}
 
@@ -81,7 +82,7 @@ class IpdLeadForm extends React.Component {
         formData.data = {}
         formData.data.utm_tags = utm_tags
         formData.data.url = window.location.href
-        formData.data.formSource = 'PopupLeadForm'
+        formData.data.formSource = this.props.formSource || 'PopupLeadForm'
 
 		this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
 			if (!error && response) {
@@ -124,8 +125,11 @@ class IpdLeadForm extends React.Component {
 		this.props.history.push(`/mobileviewchat?product=IPD&params=${params}&source=${this.props.hospital_id}`)*/
 	}
 
-	render() {
+	toggleWhatsap(e) {
+        this.setState({ whatsapp_optin: !this.state.whatsapp_optin })
+    }
 
+	render() {
 		const parsed = queryString.parse(this.props.location.search)
 
 		return (
@@ -154,6 +158,8 @@ class IpdLeadForm extends React.Component {
 										:<p className="ipd-needHelp">{`Need help with an appointment ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
 									}
 									<p className="srch-el-ipd-cont" style={{ color: '#55a740' }}>Get upto 30% Off on appointments</p>
+									<p className="srch-el-ipd-cont">Instant Booking Confirmation</p>
+									<p className="srch-el-ipd-cont">Dedicated doctor for personalised medical advice</p>
 									<div className="ipd-inp-section" onClick={(e) => {
 										e.stopPropagation()
 										e.preventDefault()
@@ -180,6 +186,15 @@ class IpdLeadForm extends React.Component {
 										<div className="ipd-lead-textarea">
 											<textarea placeholder="What are you looking for?" rows='3' value={this.state.comments} name='comments' onChange={this.inputHandler.bind(this)}></textarea>
 										</div>
+										<div className="widget mrb-15">
+					                        <div className="widget-content">
+					                            <div>
+					                                <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }} onClick={this.toggleWhatsap.bind(this)}>Enable 
+					                                	<span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" checked={this.state.whatsapp_optin} /><span className="checkmark"></span>
+					                                </label>
+					                            </div>
+					                        </div>
+					                	</div>
 										<button className="ipd-inp-sbmt" onClick={(e) => {
 											e.stopPropagation()
 											e.preventDefault()

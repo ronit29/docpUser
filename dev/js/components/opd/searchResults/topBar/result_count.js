@@ -169,7 +169,12 @@ class TopBar extends React.Component {
 
     shortenUrl() {
         if (window) {
-            let url = window.location.href + '&force_location=true'
+            let url = window.location.href
+            if (url.includes('?')) {
+                url = window.location.href + '&force_location=true'
+            } else {
+                url = window.location.href + '?force_location=true'
+            }
             this.props.urlShortner(url, (err, data) => {
                 if (!err) {
                     this.setState({ shortURL: data.tiny_url })
@@ -314,7 +319,7 @@ class TopBar extends React.Component {
 
                     {
                         specializations && specializations.length && parsed.hospital_id && parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE?
-                        <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_id={parsed.hospital_id}/>
+                        <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_id={parsed.hospital_id} formSource='doctorResultPage'/>
                         :''
                     }
                 </div>

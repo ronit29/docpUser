@@ -1,5 +1,5 @@
 
-import { TOGGLE_404, SET_SERVER_RENDER_LAB, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH, ADD_LAB_COUPONS, REMOVE_LAB_COUPONS, APPLY_LAB_COUPONS, RESET_LAB_COUPONS, SEARCH_HEALTH_PACKAGES } from '../../constants/types';
+import { TOGGLE_404, SET_SERVER_RENDER_LAB, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH, ADD_LAB_COUPONS, REMOVE_LAB_COUPONS, APPLY_LAB_COUPONS, RESET_LAB_COUPONS, SEARCH_HEALTH_PACKAGES, SAVE_PRESCRIPTION, DELETE_PRESCRIPTION,  CLEAR_PRESCRIPTION } from '../../constants/types';
 
 const defaultState = {
     labList: [],
@@ -17,7 +17,8 @@ const defaultState = {
     packagesList: [],
     seoData: {},
     test_data: [],
-    show404: false
+    show404: false,
+    user_prescriptions:[]
 }
 
 export default function (state = defaultState, action) {
@@ -163,6 +164,55 @@ export default function (state = defaultState, action) {
             }
             newState.LOADED_LABS_SEARCH = true
             return newState
+        }
+        case SAVE_PRESCRIPTION:{
+            let newState = {
+                ...state,
+                user_prescriptions: [].concat(state.user_prescriptions)
+            }
+            if(newState.user_prescriptions.length > 0){
+
+                let found = []
+                newState.user_prescriptions = newState.user_prescriptions.filter((data)=> {
+
+                    if(data.id == action.payload.id) {
+                        found.push(data)
+                        return false
+                    }
+                    return true
+                })
+
+                if(found) {
+                    let data = Object.assign({}, found[0], action.payload)    
+                    newState.user_prescriptions.push(data)
+                }else{
+                    newState.user_prescriptions.push(action.payload)
+                }
+            }else{
+                newState.user_prescriptions.push(action.payload)
+            }
+            return newState
+        }
+        case DELETE_PRESCRIPTION:{
+            let newState = {
+                ...state,
+                user_prescriptions: [].concat(state.user_prescriptions)
+            }
+            let currentSelectedMember
+            if(newState.user_prescriptions && newState.user_prescriptions.length>0){
+                currentSelectedMember = newState.user_prescriptions
+                let currentProofs =  currentSelectedMember[0].img_path_ids.filter(x=>x.image !== action.payload) 
+                currentSelectedMember[0].img_path_ids = currentProofs
+            }
+            newState.user_prescriptions = currentSelectedMember
+            return newState
+        }
+        case CLEAR_PRESCRIPTION:{
+            let newState = {
+                ...state
+            }
+            newState.user_prescriptions = []
+            return newState   
         }
     }
 

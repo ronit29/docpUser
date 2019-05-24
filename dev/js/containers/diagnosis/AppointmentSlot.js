@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabById, getLabTimeSlots, selectLabTimeSLot } from '../../actions/index.js'
+import { getLabById, getLabTimeSlots, selectLabTimeSLot} from '../../actions/index.js'
 
 import AppointmentSlotView from '../../components/diagnosis/appointmentSlot'
 const queryString = require('query-string');
