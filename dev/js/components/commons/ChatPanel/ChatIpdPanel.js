@@ -43,8 +43,7 @@ class IpdChatPanel extends React.Component {
 					<p onClick={()=>this.setState({maximize: true, minimize: false})}>{this.props.bookingPage?'Need help?':'Need help in booking doctor appointment/surgery?'}</p>
 					<div className="cht-head-rqst-btn" >
 						{
-							this.props.bookingPage && !this.state.maximize?''
-							:this.state.minimize?
+							this.state.minimize?
 							<span  onClick={()=>this.closeChat()}>
 								<img className="close-chat" src={ASSETS_BASE_URL +'/img/icons/close.png'} style={{ width: '15px',display:'block', lineHeight:'0' }} />
 							</span>:
