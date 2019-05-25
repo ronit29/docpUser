@@ -159,7 +159,7 @@ class IpdLeadForm extends React.Component {
 									}
 									<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>Get upto 30% Off on Appointments</span></p>
 									<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>Instant Booking Confirmation</span></p>
-									<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span className="d-block">Dedicated doctor for Personalised Medical Advice</span></p>
+									<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span className="d-block">Dedicated Doctor for Advice</span></p>
 									<div className="ipd-inp-section" onClick={(e) => {
 										e.stopPropagation()
 										e.preventDefault()
@@ -184,7 +184,7 @@ class IpdLeadForm extends React.Component {
 											</div>
 										</div>
 										<div className="ipd-lead-textarea">
-											<textarea placeholder="What are you looking for?" rows='3' value={this.state.comments} name='comments' onChange={this.inputHandler.bind(this)}></textarea>
+											<textarea placeholder="What are you looking for?" rows='1' value={this.state.comments} name='comments' onChange={this.inputHandler.bind(this)}></textarea>
 										</div>
 										<div className="mrb-20">
 					                        <label className="ck-bx p-0" style={{ fontWeight: '400', fontSize: '14px' }} onClick={this.toggleWhatsap.bind(this)}>Enable 

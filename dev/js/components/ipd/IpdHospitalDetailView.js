@@ -299,9 +299,12 @@ class HospitalDetailView extends React.Component {
 									<HospitalAboutUs hospital_data={this.props.ipd_hospital_detail} />
 									: ''
 							}
-
-							<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">{this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length ? 'Get Cost Estimate' : 'Need Help?'}</a></div>
-
+							{
+								this.props.ipd_chat || showPopup?''
+								:<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">{this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length ? 'Get Cost Estimate' : 'Need Help?'}</a></div>
+	
+							}
+							
 						</div>
 						: <Loader />
 				}
