@@ -115,7 +115,7 @@ class VisitTimeNew extends React.Component {
                                 {
                                     this.props.upcoming_slots && Object.values(this.props.upcoming_slots) && Object.values(this.props.upcoming_slots).length ?
                                         <div>
-                                            <p className="avl-time-slot">Next available <span className="time-slot-hdng">{WEEK_DAYS[upcomingDate.getDay()]}, {upcomingDate.getDate()} {MONTHS[upcomingDate.getMonth()]}:</span></p>
+                                            <p className="avl-time-slot">Next available on <span className="">{WEEK_DAYS[upcomingDate.getDay()]}, {upcomingDate.getDate()} {MONTHS[upcomingDate.getMonth()]}:</span></p>
                                             <div className="select-time-listing-container align-flex-sp-bt">
                                                 <div className="time-slot-main-listing">
                                                     <ul className="inline-list nw-time-st">
