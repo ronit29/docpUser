@@ -8,7 +8,7 @@ RUN rm -rf node_modules
 WORKDIR /usr/src/app
 COPY / /usr/src/app/
 RUN git clone $BIT_ENV_URL /env
-RUN cp /env/$JOB/userapp/env /usr/src/app/.env
+RUN cp /env/userapp/env /usr/src/app/.env
 
 RUN npm install
 # RUN VALID="$(npm run build | grep -o 'FAIL')"
