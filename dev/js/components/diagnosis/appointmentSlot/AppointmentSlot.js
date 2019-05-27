@@ -34,10 +34,27 @@ class AppointmentSlot extends React.Component {
     proceed(e) {
         e.preventDefault()
         e.stopPropagation()
-        
+        let selectedDate = null
         // in case of reschedule go back , else push
         if(Object.values(this.state.selectedTimeSlot).length){
             this.selectTimeSlot(this.state.selectedTimeSlot)
+            selectedDate = this.state.selectedTimeSlot.date
+        }
+
+        let data = {}
+        let selected_test_id = []
+        const parsed = queryString.parse(this.props.location.search)
+        // in case of upload prescription
+        if(parsed.is_insurance && parsed.is_insurance == true){
+            if(this.props.selectedCriterias && this.props.selectedCriterias.length > 0){
+                this.props.selectedCriterias.map((twp, i) => {
+                    selected_test_id.push(twp.id)
+                })
+            }
+            data.start_date = selectedDate?selectedDate:this.props.selectedSlot && this.props.selectedSlot.date?this.props.selectedSlot.date:new Date()
+            data.lab_test = selected_test_id
+            data.lab = this.props.match.params.id
+            this.props.askPrescription(data)
         }
 
         if (this.state.reschedule) {
