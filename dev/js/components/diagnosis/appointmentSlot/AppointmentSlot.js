@@ -45,7 +45,7 @@ class AppointmentSlot extends React.Component {
         let selected_test_id = []
         const parsed = queryString.parse(this.props.location.search)
         // in case of upload prescription
-        if(parsed.is_insurance && parsed.is_insurance == true){
+        if(parsed.is_insurance){
             if(this.props.selectedCriterias && this.props.selectedCriterias.length > 0){
                 this.props.selectedCriterias.map((twp, i) => {
                     selected_test_id.push(twp.id)

@@ -696,9 +696,9 @@ class BookingSummaryViewNew extends React.Component {
 
         }
 
-        // if(this.props.is_prescription_needed){
-        //     prescriptionPicked = true
-        // }
+        if(this.props.is_prescription_needed){
+            prescriptionPicked = true
+        }
         if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]) {
             is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
         }
@@ -737,9 +737,9 @@ class BookingSummaryViewNew extends React.Component {
         if (this.props.LABS[this.props.selectedLab]) {
             labDetail = this.props.LABS[this.props.selectedLab].lab
 
-            if(labDetail.is_prescription_needed){
-                prescriptionPicked = labDetail.is_prescription_needed    
-            }
+            // if(labDetail.is_prescription_needed){
+            //     prescriptionPicked = labDetail.is_prescription_needed    
+            // }
             this.props.LABS[this.props.selectedLab].tests.map((twp, i) => {
                 if (twp.hide_price) {
                     is_corporate = true
@@ -837,7 +837,6 @@ class BookingSummaryViewNew extends React.Component {
         }
 
         let is_add_to_card = STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured)
-
         return (
 
             <div className="profile-body-wrap">
