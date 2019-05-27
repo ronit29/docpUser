@@ -11565,6 +11565,10 @@ position: relative;
 	padding-left: 15px;
 
 }
+.ulListing-stl ul li{
+	list-style: disc !important;
+
+}
 .ulListing-stl ul li strong{
 	display: block;
 	font-weight: 400;
