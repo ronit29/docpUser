@@ -130,12 +130,8 @@ class DesktopProfileHeader extends React.Component {
 
         return (
             <header id="is_header" className={headerClass} style={styles}>
-                {
-                    this.props.ipd_chat?
-                    <IpdChatPanel {...this.props}/>
-                    :''
-                }
-
+                <IpdChatPanel {...this.props}/>
+                
                 <div className={"ofr-top-header d-lg-block" + (!this.props.homePage ? " d-none" : "")}>
                     <div className="container">
                         <div className="d-flex justify-content-between">

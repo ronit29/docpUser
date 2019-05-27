@@ -311,9 +311,7 @@ class ChatPanel extends React.Component {
         this.setState({ showCancel: !this.state.showCancel })
         this.props.setChatRoomId(null)
         this.props.unSetCommonUtmTags('chat')
-        setTimeout(()=>{
-            this.props.ipdChatView(null)
-        },2000)
+        this.props.ipdChatView(null)
     }
 
     toggleCancel(e) {
