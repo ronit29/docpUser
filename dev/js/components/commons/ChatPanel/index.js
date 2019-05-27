@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getUserProfile, setChatRoomId } from '../../../actions/index.js'
 
 import { withRouter } from 'react-router'
-import { getChatDoctorById, resetFilters, clearExtraTests, selectLocation, loginViaChat, startLiveChat, toggleDiagnosisCriteria, toggleOPDCriteria, unSetCommonUtmTags } from '../../../actions/index.js'
+import { getChatDoctorById, resetFilters, clearExtraTests, selectLocation, loginViaChat, startLiveChat, toggleDiagnosisCriteria, toggleOPDCriteria, unSetCommonUtmTags, ipdChatView } from '../../../actions/index.js'
 
 import ChatPanelView from './ChatPanel'
 
@@ -20,9 +20,16 @@ class ChatPanel extends React.Component {
     }
 
     render() {
-        let ct_style = this.props.homePage ? "col-md-7 mb-3" : this.props.colClass ? "col-lg-4 col-md-5 mb-3" : this.props.newChatBtnAds ? '' : "col-md-5 mb-3"
+        let ct_style = this.props.homePage ? "col-md-7 mb-3" : this.props.colClass ? "col-lg-4 col-md-5 mb-3" :this.props.newChatBtnAds ? '' : "col-md-5 mb-3"
         if (this.props.homePage && !this.props.chatPage)
             ct_style = "col-md-7 mb-3 d-none d-md-block"
+/*
+        if((this.props.USER && this.props.USER.ipd_chat && this.props.USER.ipd_chat.showIpdChat) || (this.props.showHalfScreenChat && !this.props.showDesktopIpd)) {
+            ct_style = ''
+        }*/
+        if(this.props.showHalfScreenChat) {
+            ct_style = 'cht-hide-hlf-scrn'
+        }
         return (
             <div className={ct_style}>
                 {
@@ -65,7 +72,8 @@ const mapDispatchToProps = (dispatch) => {
         startLiveChat: (started, deleteRoomId) => dispatch(startLiveChat(started, deleteRoomId)),
         toggleDiagnosisCriteria: (type, test, forceAdd, filters) => dispatch(toggleDiagnosisCriteria(type, test, forceAdd, filters)),
         toggleOPDCriteria: (type, test, forceAdd, filters) => dispatch(toggleOPDCriteria(type, test, forceAdd, filters)),
-        unSetCommonUtmTags: (type, tags) => dispatch(unSetCommonUtmTags(type, tags))
+        unSetCommonUtmTags: (type, tags) => dispatch(unSetCommonUtmTags(type, tags)),
+        ipdChatView: (data) => dispatch(ipdChatView(data))
     }
 }
 

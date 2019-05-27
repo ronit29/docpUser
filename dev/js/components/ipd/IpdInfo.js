@@ -225,7 +225,7 @@ class IpdView extends React.Component {
                		</div> 
 
                		<div id="bookNow" ref="bookNow" className="nav_top_bar">
-               			<IpdFormView {...this.props} tabView={true}/>
+               			<IpdFormView {...this.props} tabView={true} formSource='IpdInfoPage'/>
                		</div> 
                    	
 		            <div id="hospitalTab" ref="hospitalTab" className="tab-pane fade" className="nav_top_bar">

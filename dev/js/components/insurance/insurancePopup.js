@@ -95,7 +95,7 @@ class InsurancePopup extends React.Component{
                     if(Object.keys(self.props.selected_plan).length > 0){
                         self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',this.state.phoneNumber,lead_data)
                     }
-                        this.props.getInsurance((resp)=>{
+                        this.props.getInsurance(false,(resp)=>{
                             if(!resp.certificate){
                                 if(this.props.isLead == 'proceed'){
                                     if (exists.user_exists) {
@@ -113,9 +113,9 @@ class InsurancePopup extends React.Component{
                                     }
                                 }else{
                                     self.setState({ isLeadTrue:true, }) 
-                                    if(document.getElementById('terms_condition')){
-                                        document.getElementById('terms_condition').click()
-                                    }
+                                    // if(document.getElementById('terms_condition')){
+                                    //     document.getElementById('terms_condition').click()
+                                    // }
                                 }
                             }  
                         })                    
@@ -192,7 +192,7 @@ class InsurancePopup extends React.Component{
                             <div className="insu-pop-up">
                                 <img className="insPopUp" src={ASSETS_BASE_URL + "/img/tec.svg"} />
                                 <p className="ins-main-pera-text">Request Submitted</p>
-                                <p className="ins-main-pera-sub-text">Thank You for showing interest. Our team will get back to you shortly.</p>
+                                <p className="ins-main-pera-sub-text">Thank you for showing interest in OPD Insurance. Our customer service executive will give you a call from 0124-6073XXX.</p>                                
                                 <button className="insupopdonebtn" onClick={this.props.closeLeadPopup.bind(this)}>Done</button>
                             </div>
                         </div>

@@ -5404,6 +5404,8 @@ color: 	#fe7108;
 	border: 1px solid #f78631;
 	cursor: pointer;
 	font-size: 14px;
+	padding: 14px 3px;
+	font-weight: 500;
 }
 .p-relative{
 	position: relative;
@@ -7477,6 +7479,11 @@ p.cstm-cpn{
     font-size: 16px;
     font-weight: 500;
 }
+.cf-rotate{
+    transform:rotate(180deg);
+    margin-right: 4px;
+    margin-left: 0 !important;
+}
 
 .ipd-section .btn-search-div.btn-apply-div.btn-sbmt {
     position: sticky;
@@ -8205,7 +8212,10 @@ a.btn-search.btn-cnte{
     }
     .ipd-section .read-more-btn{
 		right: -83%;
-	}
+    }
+    .ipd-section a.btn-search{
+        margin: 0px -10px;
+    }
 	
 }
 @media screen and (max-width: 576px){
@@ -9174,6 +9184,7 @@ ul,li{
 .cf-img{
     width: 16px;
     vertical-align: middle;
+    margin-left: 4px;
 }
 .cf-ans{
     border: 1px solid #00aeef;
@@ -9193,14 +9204,18 @@ ul,li{
     color: #fff;
 }
 .cf-prev{
-    display: inline-block;
+    display: inline-flex;
     float: left;
     text-align: left;
+    align-items: center;
+    justify-content: flex-start;
 }
 .cf-next{
-    display: inline-block;
+    display: inline-flex;
     float: right;
     text-align: right;
+    align-items: center;
+    justify-content: flex-end;
 }
 /*
 .cf-hght-350{
@@ -9274,9 +9289,9 @@ ul,li{
     position: absolute;opacity: 0;cursor: pointer;height: 0;width: 0;
 }
 /* Create a custom checkbox */
-.checkmark {
+/*.checkmark {
     position: absolute;top: 0;left: 0;height: 12px;width: 12px;border: 2px solid #ccc; border-radius: 2px;
-}
+}*/
 /* When the checkbox is checked, add a blue background */
 .custom-radio input:checked ~ .checkmark {
     background-color: #49a8ff;border-color: #49a8ff;
@@ -11604,4 +11619,7 @@ p.lab-crd-txt-pr span{
 }
 .smth-ftr-hide {
 	
+}
+.cht-hide-hlf-scrn{
+	height: 100%;
 }

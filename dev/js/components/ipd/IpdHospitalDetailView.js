@@ -14,6 +14,7 @@ import GTM from '../../helpers/gtm.js'
 import IpdFormView from '../../containers/ipd/IpdForm.js'
 const queryString = require('query-string')
 import IpdLeadForm from '../../containers/ipd/ipdLeadForm.js'
+import ChatIpdPanel from '../commons/ChatPanel/ChatIpdPanel.js'
 
 //View all rating for hospital ,content_type = 3
 
@@ -24,7 +25,8 @@ class HospitalDetailView extends React.Component {
 		this.state = {
 			seoFriendly: this.props.match.url.includes('-hpp'),
 			toggleTabType: 'doctors',
-			showLeadForm: false
+			showLeadForm: false,
+			ipdFormParams: {}
 		}
 	}
 
@@ -67,10 +69,10 @@ class HospitalDetailView extends React.Component {
 		if (parsed.type && this.refs[parsed.type]) {
 			this.toggleTabs(parsed.type)
 		}
-		setTimeout(()=>{
-			this.setState({showLeadForm: true})	
-		},500)
-		
+		setTimeout(() => {
+			this.setState({ showLeadForm: true })
+		}, 500)
+
 
 	}
 
@@ -158,14 +160,22 @@ class HospitalDetailView extends React.Component {
 		return `View all ${this.props.ipd_hospital_detail.specialization_doctors.count} Doctors`
 	}
 
-	submitLeadFormGeneration(close=false) {
-		if(close) {
+	submitLeadFormGeneration(ipdFormParams) {
+		if (close) {
 			let gtmData = {
 				'Category': 'ConsumerApp', 'Action': 'IpdHospitalDetailPageFormClosed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-detail-page-form-closed'
 			}
 			GTM.sendEvent({ data: gtmData })
 		}
-		this.setState({showLeadForm: false})
+		let ipd_data = {
+			showChat: true,
+			ipdFormParams: ipdFormParams
+		}
+		
+		this.setState({ showLeadForm: false, ipdFormParams: ipdFormParams }, ()=>{
+			this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize: true})
+			this.props.showChatView(ipd_data)	
+		})
 	}
 
 	render() {
@@ -180,21 +190,21 @@ class HospitalDetailView extends React.Component {
 					this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ?
 						<div className="ipd-section">
 							{
-								showPopup?
-								<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name?this.props.ipd_hospital_detail.name:null}/>
-								:''
+								showPopup ?
+									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} formSource='ipdHospitalPopup'/>
+									: ''
 							}
 
-							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} showPopup={showPopup}/>
+							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} showPopup={showPopup} />
 
 							<div className="ipd-tabs-container">
 								<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'doctors' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'doctors')}>Doctors</p>
 								{
-									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count?
-									<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'bookNow' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'bookNow')}>Book Now</p>
-									:''	
+									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count ?
+										<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'bookNow' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'bookNow')}>Book Now</p>
+										: ''
 								}
-								
+
 								<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'feedback' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'feedback')}>Feedback</p>
 							</div>
 
@@ -235,11 +245,11 @@ class HospitalDetailView extends React.Component {
 								}
 							</div>
 							{
-								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count?
-								<div id="bookNow" ref="bookNow" className="nav_top_bar">
-									<IpdFormView {...this.props} tabView={true} />
-								</div>
-								:''
+								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count ?
+									<div id="bookNow" ref="bookNow" className="nav_top_bar">
+										<IpdFormView {...this.props} tabView={true} formSource='IpdHospitalDetailPage'/>
+									</div>
+									: ''
 							}
 
 							<div id="feedback" ref="feedback" className="mt-1">
@@ -289,12 +299,16 @@ class HospitalDetailView extends React.Component {
 									<HospitalAboutUs hospital_data={this.props.ipd_hospital_detail} />
 									: ''
 							}
-
-							<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">{this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length ? 'Get Cost Estimate' : 'Need Help?'}</a></div>
-
+							{
+								this.props.ipd_chat || showPopup?''
+								:<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">{this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length ? 'Get Cost Estimate' : 'Need Help?'}</a></div>
+	
+							}
+							
 						</div>
 						: <Loader />
 				}
+
 			</React.Fragment>
 		)
 	}

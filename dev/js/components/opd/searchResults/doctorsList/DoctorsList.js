@@ -7,6 +7,8 @@ import Loader from '../../../commons/Loader'
 import GTM from '../../../../helpers/gtm'
 import ClinicResultCard from '../../commons/clinicResultCard';
 import BannerCarousel from '../../../commons/Home/bannerCarousel';
+import SnackBar from 'node-snackbar'
+import { _getlocationFromLatLong, _getLocationFromPlaceId, _autoCompleteService } from '../../../../helpers/mapHelpers';
 
 class DoctorsList extends React.Component {
     constructor(props) {
@@ -20,7 +22,8 @@ class DoctorsList extends React.Component {
             is_insured: props.filterCriteria && props.filterCriteria.is_insured ? props.filterCriteria.is_insured : false,
             availability: [],
             sort_on: '',
-            sort_order: ''
+            sort_order: '',
+            detectLoading: false
         }
     }
 
@@ -165,6 +168,43 @@ class DoctorsList extends React.Component {
     }
 
 
+    detectLocation() {
+        let timeout = setTimeout(() => {
+            if (this.state.detectLoading) {
+                this.setState({ detectLoading: false })
+                SnackBar.show({ pos: 'bottom-center', text: "Could not fetch location." });
+            }
+        }, 5000)
+
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'DetectLocationSptcitClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'detect-location-sptcit-click', 'Page': 'doctor-search'
+        }
+        GTM.sendEvent({ data: data })
+
+        this.setState({ detectLoading: true })
+        this.props.detectLocationClick();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                _getlocationFromLatLong(parseFloat(position.coords.latitude), parseFloat(position.coords.longitude), 'locality', (location_object) => {
+                    this.props.selectLocation(location_object, 'autoDetect').then(() => {
+                        clearTimeout(timeout)
+                        this.setState({ detectLoading: false })
+                    })
+                })
+            }, (a, b, c) => {
+                this.setState({ detectLoading: false })
+                SnackBar.show({ pos: 'bottom-center', text: "Could not fetch location." });
+            }, (a, b, c) => {
+                this.setState({ detectLoading: false })
+                SnackBar.show({ pos: 'bottom-center', text: "Could not fetch location." });
+            })
+        }
+        else {
+            this.setState({ detectLoading: false })
+            // geolocation is not supported
+        }
+    }
+
     render() {
 
         let { HOSPITALS, DOCTORS, doctorList, hospitalList } = this.props
@@ -192,7 +232,7 @@ class DoctorsList extends React.Component {
                         <div className="container-fluid cardMainPaddingRmv">
                             {
                                 this.props.search_content && this.props.search_content != '' && parseInt(this.props.page) == 1 ?
-                                    <div className="search-result-card-collpase read-clps-bar">
+                                    <div className="search-result-card-collpase d-none d-md-block">
                                         <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.search_content }} >
                                         </div>
 
@@ -209,6 +249,12 @@ class DoctorsList extends React.Component {
                                     : ''
                             }
                             <div className="row no-gutters">
+                                {
+                                    this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'doctor_search_page').length && !this.state.is_insured ?
+                                        <div className="col-12">
+                                            <BannerCarousel {...this.props} sliderLocation="doctor_search_page" />
+                                        </div> : ''
+                                }
 
                                 <div className="col-12">
                                     <InfiniteScroll
@@ -224,6 +270,18 @@ class DoctorsList extends React.Component {
                                                     if (result_data[cardId]) {
 
                                                     return <React.Fragment key={i}>
+
+                                                            { 
+                                                                (i == 2 && this.props.seoFriendly && this.props.match.url.includes('-sptcit') && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length)?
+                                                                <div className="d-flex align-items-center justify-content-between auto-location-widget mb-3">
+                                                                    <div className="d-flex align-items-center auto-location-text">
+                                                                        <img src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} />
+                                                                        <p className="fw-500">Show {this.props.commonSelectedCriterias[0].name} near me</p>
+                                                                    </div>
+                                                                    <div className="auto-location-btn text-primary fw-500" onClick={() => this.detectLocation()} >Detect Location</div>
+                                                                </div>
+                                                                :''
+                                                            }
                                                             {
                                                                 i==3 && (!this.state.availability || !this.state.availability.length)?
                                                                 <div className="sort-sub-filter-container mb-3">
