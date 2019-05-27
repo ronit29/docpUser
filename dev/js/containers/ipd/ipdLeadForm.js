@@ -12,10 +12,10 @@ class IpdLeadForm extends React.Component {
 		this.state = {
 			name: '',
 			phone_number: '',
-			showForm: true,
-			gender: '',
+			showForm: true
+/*			gender: '',
 			comments: '',
-			whatsapp_optin: true
+			whatsapp_optin: true*/
 		}
 	}
 
@@ -56,10 +56,10 @@ class IpdLeadForm extends React.Component {
 			return
 		}
 
-		if (!this.state.gender) {
+		/*if (!this.state.gender) {
 			SnackBar.show({ pos: 'bottom-center', text: "Please select your gender" })
 			return
-		}
+		}*/
 
 		const parsed = queryString.parse(this.props.location.search)
 
@@ -166,7 +166,7 @@ class IpdLeadForm extends React.Component {
 									}}>
 										<input type="text" value={this.state.name} name='name' placeholder="Name" onChange={this.inputHandler.bind(this)} />
 										<input type="Number" value={this.state.phone_number} name='phone_number' placeholder="Mobile Number" onChange={this.inputHandler.bind(this)} />
-										<div className="d-flex align-items-center flex-wrap mrt-10">
+										{/*<div className="d-flex align-items-center flex-wrap mrt-10">
 											<div className="dtl-radio">
 												<label className="container-radio" style={{ fontSize: 14, fontWeight: 400 }} onClick={() => this.setState({ gender: 'm' })}>Male<input type="radio" checked={this.state.gender === 'm'} name="radio" value={this.state.gender} style={{ width: 10 }} />
 													<span className="doc-checkmark"></span>
@@ -190,7 +190,7 @@ class IpdLeadForm extends React.Component {
 					                        <label className="ck-bx p-0" style={{ fontWeight: '400', fontSize: '14px' }} onClick={this.toggleWhatsap.bind(this)}>Enable 
 					                            <span className="sm-wtsp-img fw-400"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" checked={this.state.whatsapp_optin} /><span className="checkmark" style={{left: '7px'}}></span>
 					                        </label>
-					                	</div>
+					                	</div>*/}
 										<button className="ipd-inp-sbmt" onClick={(e) => {
 											e.stopPropagation()
 											e.preventDefault()
