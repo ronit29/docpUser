@@ -12,9 +12,10 @@ class IpdLeadForm extends React.Component {
 		this.state = {
 			name: '',
 			phone_number: '',
-			showForm: true,
-			gender: '',
-			comments: ''
+			showForm: true
+/*			gender: '',
+			comments: '',
+			whatsapp_optin: true*/
 		}
 	}
 
@@ -55,10 +56,10 @@ class IpdLeadForm extends React.Component {
 			return
 		}
 
-		if (!this.state.gender) {
+		/*if (!this.state.gender) {
 			SnackBar.show({ pos: 'bottom-center', text: "Please select your gender" })
 			return
-		}
+		}*/
 
 		const parsed = queryString.parse(this.props.location.search)
 
@@ -81,13 +82,20 @@ class IpdLeadForm extends React.Component {
         formData.data = {}
         formData.data.utm_tags = utm_tags
         formData.data.url = window.location.href
+        formData.data.formSource = this.props.formSource || 'PopupLeadForm'
 
 		this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
 			if (!error && response) {
-				let gtmData = {
-					'Category': 'ConsumerApp', 'Action': 'IPD-popup-lead', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'IPD-popup-lead', selectedId: '', 'hospitalId': '', 'from': 'leadForm'
+
+				if(this.state.name && this.state.name.includes('test')) {
+
+				}else {
+					let gtmData = {
+						'Category': 'ConsumerApp', 'Action': 'IPD-popup-lead', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'IPD-popup-lead', selectedId: '', 'hospitalId': '', 'from': 'leadForm'
+					}
+					GTM.sendEvent({ data: gtmData })
 				}
-				GTM.sendEvent({ data: gtmData })
+				
 				setTimeout(() => {
 					SnackBar.show({ pos: 'bottom-center', text: "Your request has been submitted sucessfully" })
 				}, 500)
@@ -97,7 +105,7 @@ class IpdLeadForm extends React.Component {
 					SnackBar.show({ pos: 'bottom-center', text: "Please try after some time" })
 				}, 500)
 			}
-			this.props.submitLeadFormGeneration()
+			this.props.submitLeadFormGeneration(this.state)
 		})
 
 	}
@@ -107,16 +115,25 @@ class IpdLeadForm extends React.Component {
 		if (parsed.get_feedback && parsed.get_feedback == '1') {
 			SnackBar.show({ pos: 'bottom-center', text: "Please fill the feedback form" })
 		} else {
-			this.props.submitLeadFormGeneration(true)
+			this.redirectToChat()
+			this.props.submitLeadFormGeneration(this.state)
 		}
 	}
 
-	render() {
+	redirectToChat() {
+		/*let params = JSON.stringify(this.state)
+		this.props.history.push(`/mobileviewchat?product=IPD&params=${params}&source=${this.props.hospital_id}`)*/
+	}
 
+	toggleWhatsap(e) {
+        this.setState({ whatsapp_optin: !this.state.whatsapp_optin })
+    }
+
+	render() {
 		const parsed = queryString.parse(this.props.location.search)
 
 		return (
-			<div className="search-el-popup-overlay" onClick={(e) => {
+			<div className="search-el-popup-overlay cancel-overlay-zindex" onClick={(e) => {
 				e.preventDefault()
 				e.stopPropagation()
 				this.closePopUpClicked()
@@ -140,14 +157,16 @@ class IpdLeadForm extends React.Component {
 										<p className="ipd-needHelp">{`Need to book an appointment with ${this.props.doctor_name} ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
 										:<p className="ipd-needHelp">{`Need help with an appointment ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
 									}
-									<p className="srch-el-ipd-cont" style={{ color: '#55a740' }}>Get upto 30% Off on appointments</p>
+									<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>Get upto 30% Off on Appointments</span></p>
+									<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>Instant Booking Confirmation</span></p>
+									<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span className="d-block">Dedicated Doctor for Advice</span></p>
 									<div className="ipd-inp-section" onClick={(e) => {
 										e.stopPropagation()
 										e.preventDefault()
 									}}>
 										<input type="text" value={this.state.name} name='name' placeholder="Name" onChange={this.inputHandler.bind(this)} />
 										<input type="Number" value={this.state.phone_number} name='phone_number' placeholder="Mobile Number" onChange={this.inputHandler.bind(this)} />
-										<div className="d-flex align-items-center flex-wrap mrt-10">
+										{/*<div className="d-flex align-items-center flex-wrap mrt-10">
 											<div className="dtl-radio">
 												<label className="container-radio" style={{ fontSize: 14, fontWeight: 400 }} onClick={() => this.setState({ gender: 'm' })}>Male<input type="radio" checked={this.state.gender === 'm'} name="radio" value={this.state.gender} style={{ width: 10 }} />
 													<span className="doc-checkmark"></span>
@@ -165,8 +184,13 @@ class IpdLeadForm extends React.Component {
 											</div>
 										</div>
 										<div className="ipd-lead-textarea">
-											<textarea placeholder="What are you looking for?" rows='3' value={this.state.comments} name='comments' onChange={this.inputHandler.bind(this)}></textarea>
+											<textarea placeholder="What are you looking for?" rows='1' value={this.state.comments} name='comments' onChange={this.inputHandler.bind(this)}></textarea>
 										</div>
+										<div className="mrb-20">
+					                        <label className="ck-bx p-0" style={{ fontWeight: '400', fontSize: '14px' }} onClick={this.toggleWhatsap.bind(this)}>Enable 
+					                            <span className="sm-wtsp-img fw-400"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" checked={this.state.whatsapp_optin} /><span className="checkmark" style={{left: '7px'}}></span>
+					                        </label>
+					                	</div>*/}
 										<button className="ipd-inp-sbmt" onClick={(e) => {
 											e.stopPropagation()
 											e.preventDefault()

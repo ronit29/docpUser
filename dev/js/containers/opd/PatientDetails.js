@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails } from '../../actions/index.js'
+import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails, ipdChatView } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
 
@@ -85,11 +85,11 @@ class PatientDetails extends React.Component {
 const mapStateToProps = (state) => {
 
     let DOCTORS = state.DOCTOR_PROFILES
-    const { selectedProfile, profiles, userWalletBalance, userCashbackBalance, defaultProfile } = state.USER
+    const { selectedProfile, profiles, userWalletBalance, userCashbackBalance, defaultProfile, ipd_chat } = state.USER
     let { selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, payment_type } = state.DOCTOR_SEARCH
     const { saved_patient_details } = state.SEARCH_CRITERIA_LABS
     return {
-        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details, defaultProfile
+        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details, defaultProfile, ipd_chat
     }
 }
 
@@ -114,7 +114,8 @@ const mapDispatchToProps = (dispatch) => {
         select_opd_payment_type: (type) => dispatch(select_opd_payment_type(type)),
         getTimeSlots: (doctorId, clinicId, callback) => dispatch(getTimeSlots(doctorId, clinicId, callback)),
         editUserProfile: (profileData, profileId, cb) => dispatch(editUserProfile(profileData, profileId, cb)),
-        patientDetails: (criteria) => dispatch(patientDetails(criteria))
+        patientDetails: (criteria) => dispatch(patientDetails(criteria)),
+        ipdChatView: (data) => dispatch(ipdChatView(data))
     }
 }
 

@@ -33,13 +33,13 @@ const DOCTOR_LIST_PRESIST = {
 const LAB_LIST_PRESIST = {
     key: 'LAB_SEARCH',
     storage: storage,
-    whitelist: ['selectedSlot', 'rescheduleSlot', 'selectedAppointmentType', 'selectedAddress', 'labCoupons']
+    whitelist: ['selectedSlot', 'rescheduleSlot', 'selectedAppointmentType', 'selectedAddress', 'labCoupons', 'user_prescriptions', 'is_prescription_needed']
 }
 
 const USER_PERSIST = {
     key: 'USER',
     storage: storage,
-    whitelist: ['summary_utm_validity', 'summary_utm', 'chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted', 'userPhoneNo', 'selectedSearchType', 'common_utm_tags', 'app_download_list']
+    whitelist: ['summary_utm_validity', 'summary_utm', 'chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted', 'userPhoneNo', 'selectedSearchType', 'common_utm_tags', 'app_download_list', 'ipd_chat']
 }
 
 const OPD_SEARCH_PERSIST = {
