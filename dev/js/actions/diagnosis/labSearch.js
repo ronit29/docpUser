@@ -498,7 +498,7 @@ export const clearPrescriptions = () => (dispatch) => {
     })
 }
 
-export const askPrescription = (selectedTime) => (dispatch) => {
+export const preBooking = (selectedTime) => (dispatch) => {
     API_POST(`/api/v1/common/pre-booking`,selectedTime).then(function (response) {
 		dispatch({
 	    	type:SAVE_IS_PRESCRIPTION_NEED,

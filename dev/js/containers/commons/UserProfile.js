@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 
-import { setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests, getUserReviews, getRatingCompliments, updateAppointmentRating, OTTLogin, getCartItems, getIsCareDetails, generateInsuranceLead, askPrescription} from '../../actions/index.js'
+import { setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests, getUserReviews, getRatingCompliments, updateAppointmentRating, OTTLogin, getCartItems, getIsCareDetails, generateInsuranceLead, preBooking} from '../../actions/index.js'
 
 import STORAGE from '../../helpers/storage'
 
@@ -100,7 +100,7 @@ const mapDispatchToProps = (dispatch) => {
         getCartItems: () => dispatch(getCartItems()),
         generateInsuranceLead:(selectedPlan, cb) => dispatch(generateInsuranceLead(selectedPlan,cb)),
         getIsCareDetails: () => dispatch(getIsCareDetails()),
-        askPrescription:(slot) => dispatch(askPrescription(slot))
+        preBooking:(slot) => dispatch(preBooking(slot))
     }
 }
 

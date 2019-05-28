@@ -45,7 +45,7 @@ class UserFamily extends React.Component {
                 data.lab_test = selected_test_id
                 data.lab = parsed.lab_id
                 data.profile = id
-                this.props.askPrescription(data)
+                this.props.preBooking(data)
             }
             this.props.history.go(-1)
         } else {

@@ -61,7 +61,7 @@ class AppointmentSlot extends React.Component {
             data.lab_test = selected_test_id
             data.lab = this.props.match.params.id
             data.profile = profile
-            this.props.askPrescription(data)
+            this.props.preBooking(data)
         }
 
         if (this.state.reschedule) {

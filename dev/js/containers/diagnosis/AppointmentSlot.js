@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getLabById, getLabTimeSlots, selectLabTimeSLot, askPrescription} from '../../actions/index.js'
+import { getLabById, getLabTimeSlots, selectLabTimeSLot, preBooking} from '../../actions/index.js'
 
 import AppointmentSlotView from '../../components/diagnosis/appointmentSlot'
 const queryString = require('query-string');
@@ -70,7 +70,7 @@ const mapDispatchToProps = (dispatch) => {
         getLabById: (labId) => dispatch(getLabById(labId)),
         getLabTimeSlots: (labId, pickup, pincode, date, callback) => dispatch(getLabTimeSlots(labId, pickup, pincode, date, callback)),
         selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
-        askPrescription:(slot) => dispatch(askPrescription(slot))
+        preBooking:(slot) => dispatch(preBooking(slot))
     }
 }
 
