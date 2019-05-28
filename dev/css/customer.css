@@ -2176,14 +2176,16 @@ p.rt-doc-nm{
 }
 
 .auto-location-btn{
-    border: 1px solid #f78631;
+    border: 1px solid #1f62d3;
     padding: 4px 12px;
     border-radius: 5px;
     text-align: center;
     cursor: pointer;
     width: 131px;
+    background-color: #1f62d3;
     margin-left: 4px;
     flex-shrink: 0;
+    color: #fff;
 }
 
 .ipd-lead-textarea textarea{
