@@ -9,6 +9,8 @@ import HelmetTags from '../commons/HelmetTags'
 import CONFIG from '../../config'
 import BreadCrumbView from './breadCrumb.js'
 import IpdFormView from '../../containers/ipd/IpdForm.js'
+const queryString = require('query-string')
+import IpdLeadForm from '../../containers/ipd/ipdLeadForm.js'
 
 
 class IpdView extends React.Component {
@@ -18,7 +20,8 @@ class IpdView extends React.Component {
 		this.state = {
 			toggleTabType: 'aboutTab',
 			toggleReadMore: false,
-			seoFriendly: this.props.match.url.includes('-ipdp')
+			seoFriendly: this.props.match.url.includes('-ipdp'),
+			showLeadForm:false
 		}
 	}
 
@@ -64,6 +67,9 @@ class IpdView extends React.Component {
 		    }
 		  }	
 		}
+		setTimeout(() => {
+			this.setState({ showLeadForm: true })
+		}, 500)
 	}
 
 	toggleTabs(type){
@@ -161,10 +167,36 @@ class IpdView extends React.Component {
         return { title, description }
     }
 
+    submitLeadFormGeneration(ipdFormParams) {
+		if (ipdFormParams) {
+			let gtmData = {
+				'Category': 'ConsumerApp', 'Action': 'IpdProcedurePageFormClosed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-procedure-page-form-closed'
+			}
+			GTM.sendEvent({ data: gtmData })
+		}
+		let ipd_data = {
+			showChat: true,
+			ipdFormParams: ipdFormParams
+		}
+		
+		this.setState({ showLeadForm: false, ipdFormParams: ipdFormParams }, ()=>{
+			this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize: true})
+		})
+	}
+
 	render(){
+
+		const parsed = queryString.parse(this.props.location.search)
+
+		let showPopup = parsed.showPopup && this.state.showLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE && this.props.ipd_info && this.props.ipd_info.about
 
 		return(                  		
            <div className ="ipd-section ipdSection cardMainPaddingRmv">
+           	  	{
+					showPopup ?
+						<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={null} hospital_id={null} formSource='ipdProcedurePopup' procedure_id={this.props.ipd_info && this.props.ipd_info.about?this.props.ipd_info.about.id:''} procedure_name={this.props.ipd_info && this.props.ipd_info.about?this.props.ipd_info.about.name:''}/>
+						: ''
+				}
            	  <HelmetTags tagsData={{
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
                     title: this.getMetaTagsData(this.props.ipd_info.seo).title,
