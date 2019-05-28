@@ -472,11 +472,6 @@ class InsuranceSelf extends React.Component{
 						<span>Change details</span>
 					:''
 				*/}
-				<div className="member-dtls-chk">
-					<span>Proposer</span>
-					<label className="ck-bx" onChange={this.handleLastname.bind(this)} style={{'fontWeight': '400', 'fontSize': '14'}}>I dont have last name<input type="checkbox" checked={this.state.no_lname} value="on"/>
-					<span className="checkmark"></span></label>
-				</div>
 				<div className="row no-gutters" id={isDummyUser?'member_0':this.props.is_endorsement?`member_${this.props.member_id}`:`member_${this.props.USER.defaultProfile}`}>
 					<div className="col-12">
 						{
@@ -522,7 +517,7 @@ class InsuranceSelf extends React.Component{
 						}
 					</div>
 					<div className="col-6">
-						<div className="ins-form-group ins-form-group inp-margin-right  ">
+						<div className="ins-form-group ins-form-group inp-margin-right">
 							<input style={{'textTransform': 'capitalize'}} type="text" id={`last_name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('last_name')> -1?'fill-error':''}`} required autoComplete="last_name" name="last_name" value={this.state.no_lname?'':this.state.last_name} data-param='last_name' onChange={this.handleChange.bind(this,'last_name')} onBlur={this.handleSubmit.bind(this,false)} onFocus={this.handleOnFocus.bind(this,'last_name')} disabled={this.state.no_lname?'disabled':""} onKeyPress={this.handleNameCharacters.bind(this,'last_name')} disabled={this.state.disableName?'disabled':''}/>
 							<label className={this.state.disableName?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot">*</span>Last Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
@@ -535,6 +530,12 @@ class InsuranceSelf extends React.Component{
 							show_createApi_keys.indexOf('last_name')> -1?
 							<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:''	
 						}
+					</div>
+					<div className="col-12" style={{marginTop:'-10px'}} >
+						<div className="member-dtls-chk">
+							<label className="ck-bx fw-500" onChange={this.handleLastname.bind(this)} style={{fontSize: 12, paddingLeft:24, lineHeight:'16px'}}>I dont have a last name<input type="checkbox" checked={this.state.no_lname} value="on"/>
+							<span className="checkmark small-checkmark"></span></label>
+						</div>
 					</div>
 					<div className="col-12">
 						<div className="ins-form-radio">

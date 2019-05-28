@@ -444,35 +444,38 @@ class InsuranceInputView extends React.Component{
 		return(
 			<div className="profile-body-wrap">
 	            <ProfileHeader /> 
-				<section className="container container-top-margin">
-					<div className="row main-row parent-section-row">
+				<section className="container container-top-margin cardMainPaddingRmv">
+					<div className="row no-gutters">
 						<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
 						<section className="profile-book-screen">
-							<div className="widget">
+							<div>
 								<InsurCommon {...this.props} is_edit={this.state.is_edit}/>
-								<div className="insurance-member-container pt-2">
-									<p className="plcy-cancel">*Incorrect member details may lead to policy cancellation</p>
-									<h4 className="mb-0">Insured Member Details</h4>
-									<p className="fill-error-span fw-500 text-right d-block" style={{marginTop:'0px', fontSize: '11px'}}>*All fields are mandatory
-									</p>
-									<div className="insurance-member-details">
-										<InsurSelf {...this.props} 
-											checkForValidation ={this.checkForValidation.bind(this)} 
-											id={`member_${this.props.USER.defaultProfile}`} 
-											member_id={this.props.USER.defaultProfile} 
-											validateErrors={this.state.validateErrors['0'] || []}
-											validateOtherErrors={this.state.validateOtherErrors['0'] || []} 
-											createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} 
-											errorMessages={this.state.errorMessages} 
-											is_endorsement = {false} 
-											endorsementError={this.state.endorsementError}/>
-										{adult}
-										{child}
+								<div className="insurance-member-container" style={{padding:0}}>
+									<h4 className="mb-0" style={{padding:'2px 0px 6px'}}>Proposer Member Details</h4>
+									<div className="widget" style={{padding:'10px 4px'}}>
+										<div className="plcy-cancel-div">
+											<p className="plcy-cancel mb-0 fw-500">*Incorrect member details may lead to policy cancellation</p>
+										</div>
+										<p className="fw-500 d-block" style={{fontSize: 11, color:'#F44336', marginTop:5, paddingLeft:8}}>*All fields are mandatory</p>
+										<div className="insurance-member-details mrt-10">
+											<InsurSelf {...this.props} 
+												checkForValidation ={this.checkForValidation.bind(this)} 
+												id={`member_${this.props.USER.defaultProfile}`} 
+												member_id={this.props.USER.defaultProfile} 
+												validateErrors={this.state.validateErrors['0'] || []}
+												validateOtherErrors={this.state.validateOtherErrors['0'] || []} 
+												createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} 
+												errorMessages={this.state.errorMessages} 
+												is_endorsement = {false} 
+												endorsementError={this.state.endorsementError}/>
+										</div>
 									</div>
+									{adult}
+									{child}
 								</div>
 							</div>
 						</section>		
-							<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Confirm (₹ {this.state.selected_plan_price})
+							<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Proceed (₹ {this.state.selected_plan_price})
 								<span className="foot-btn-sub-span">{this.state.gst}</span>
 							</button>
 						</div>

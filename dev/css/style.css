@@ -8958,7 +8958,7 @@ ul.careListing li {
 .ins-card-head{
 	display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding: 10px 4px;
 }
 .ins-name-head{
 	display: flex;
@@ -8978,11 +8978,49 @@ ul.careListing li {
 	font-weight: 600;
 	display: block;
 }
+.ins-name-head-div{
+    flex: 1;
+}
+.ins-name-head-div p{
+    font-size: 14px;
+    margin-left: 5px;
+}
 .ins-pdf-dwnload{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+.ins-pdf-dwnload-div{
+    flex-direction: column;
+    width: 82px;
+    padding-left: 5px;
+}
+.ins-pdf-dwnload-div img{
+    width: 30px;
+    height: 34px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+.ins-pdf-dwnload-div span{
+    flex: 0;
+    font-size: 12px;
+}
+.ins-form-info{
+    flex: 1;
+    flex-direction: column;
+    padding: 0 4px;
+}
+.ins-form-info:first-child{
+    border-right: 1px solid #ddd;
+}
+.ins-form-info p{
+    color: #757575;
+    font-size: 14px;
+}
+.ins-form-info p:last-child{
+    color: #000;
 }
 .memNew{
     color: white;
@@ -10407,12 +10445,14 @@ ul,li{
     padding-right: 6px;
   }
   .ins-status-container{
-	  margin-bottom: 5px;
+      margin-bottom: 5px;
+      background-color: #ffffff;
+      margin-left: -5px;
+      margin-right: -5px;
   }
 
   .ins-status-container .navigation_menu {
 	width: 100%;
-    background: #f7f7f7;
     padding-top: 7px;
     padding-bottom: 0px;
   }
@@ -10510,7 +10550,6 @@ ul,li{
 	border-color: #4fc243;
     background-color: #4fc243;
     color: #fff;
-    content: "\2713";
   } 
   
   
@@ -10609,19 +10648,35 @@ margin-left: 5px;
 .ins-cancel-table{
 	margin: 10px 0;
 }
+.plcy-cancel-div{
+    background-color: #ffd964;
+    padding: 2px 8px;
+    border-radius: 5px;
+}
 .plcy-cancel{
-margin-bottom: 10px;
-font-size: 11px;
-color: #F44336;
+    margin-bottom: 10px;
+    font-size: 11px;
+    color: #F44336;
+}
+.plcy-cancel-div .plcy-cancel{
+    color: #000000;
 }
 .pt-2{
-padding-top: 2px;
+    padding-top: 2px;
+}
+.small-checkmark{
+    height: 16px !important;
+    width: 16px !important;
+}
+.small-checkmark:after{
+    left: 5px !important;
+    top: 2px !important;
 }
 /* =================== insurance style =================== */
 
 /* ==========================fourth screen========================== */
 .ins-dtls-members-edit{
-font-weight: 500
+    font-weight: 500
 }
 .ins-dtls-members-edit span{
 	color: #e37c4d;
