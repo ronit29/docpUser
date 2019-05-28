@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 
-import { setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests, getUserReviews, getRatingCompliments, updateAppointmentRating, OTTLogin, getCartItems, getIsCareDetails, generateInsuranceLead} from '../../actions/index.js'
+import { setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests, getUserReviews, getRatingCompliments, updateAppointmentRating, OTTLogin, getCartItems, getIsCareDetails, generateInsuranceLead, askPrescription} from '../../actions/index.js'
 
 import STORAGE from '../../helpers/storage'
 
@@ -61,11 +61,18 @@ const mapStateToProps = (state) => {
         applicableCoupons,
         isUserCared
     } = state.USER
+    let { selectedSlot } = state.LAB_SEARCH
+
+    const {
+        selectedCriterias
+    } = state.SEARCH_CRITERIA_LABS
 
     return {
         USER,
         applicableCoupons,
-        isUserCared
+        isUserCared,
+        selectedSlot,
+        selectedCriterias
     }
 }
 
@@ -93,6 +100,7 @@ const mapDispatchToProps = (dispatch) => {
         getCartItems: () => dispatch(getCartItems()),
         generateInsuranceLead:(selectedPlan, cb) => dispatch(generateInsuranceLead(selectedPlan,cb)),
         getIsCareDetails: () => dispatch(getIsCareDetails()),
+        askPrescription:(slot) => dispatch(askPrescription(slot))
     }
 }
 

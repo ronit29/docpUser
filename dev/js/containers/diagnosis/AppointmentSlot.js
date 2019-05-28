@@ -56,11 +56,12 @@ class AppointmentSlot extends React.Component {
 const mapStateToProps = (state) => {
 
     let LABS = state.LABS
-    let { pincode } = state.SEARCH_CRITERIA_LABS
+    let { pincode, selectedCriterias } = state.SEARCH_CRITERIA_LABS
     let { selectedSlot } = state.LAB_SEARCH
+    const { selectedProfile, profiles } = state.USER
 
     return {
-        LABS, selectedSlot, pincode
+        LABS, selectedSlot, pincode, selectedProfile, profiles, selectedCriterias
     }
 }
 
