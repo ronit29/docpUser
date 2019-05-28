@@ -56,8 +56,15 @@ class HospitalDetailView extends React.Component {
 				for (i in sections) {
 					if (self.refs[i]) {
 
-						if ((self.refs[i].offsetTop + headerHeight) <= scrollPosition) {
-							self.setState({ toggleTabType: i })
+						if(i.includes('view_more')) {
+							if(scrollPosition > (self.refs['view_more'].offsetTop +  headerHeight )){
+						    	self.setState({toggleTabType: ''})
+						    }
+						}else { 
+							
+							if ((self.refs[i].offsetTop + headerHeight) <= scrollPosition) {
+								self.setState({ toggleTabType: i })
+							}
 						}
 					}
 				}
@@ -267,7 +274,8 @@ class HospitalDetailView extends React.Component {
 										: ''
 								}
 							</div>
-
+							<div ref="view_more">
+							</div>
 							{
 								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.ipd_procedure_categories && this.props.ipd_hospital_detail.ipd_procedure_categories.length ?
 									<HospitalTreatment hospital_data={this.props.ipd_hospital_detail} {...this.props} />

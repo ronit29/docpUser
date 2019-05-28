@@ -54,7 +54,7 @@ class IpdView extends React.Component {
 
 		    		if(i.includes('readMoreView')){
 		    			if(scrollPosition > (self.refs['readMoreView'].offsetTop +  headerHeight )){
-					    	self.setState({toggleTabType: 'aboutTab'})
+					    	self.setState({toggleTabType: ''})
 					    }
 		    		}else{
 
@@ -188,7 +188,7 @@ class IpdView extends React.Component {
 
 		const parsed = queryString.parse(this.props.location.search)
 
-		let showPopup = parsed.showPopup && this.state.showLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE && this.props.ipd_info && this.props.ipd_info.about
+		let showPopup = this.state.showLeadForm && this.props.ipd_info && this.props.ipd_info.about
 
 		return(                  		
            <div className ="ipd-section ipdSection cardMainPaddingRmv">
@@ -241,8 +241,8 @@ class IpdView extends React.Component {
                        <div className="nav nav-tabs nav-top-head " id="nav-tab" role="tablist">
 	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='aboutTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'aboutTab')}>Overview
 	                              </a>
-	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='bookNow'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'bookNow')}>Book Now
-	                              </a>
+	                              {/*<a className={`nav-item nav-link ${this.state.toggleTabType=='bookNow'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'bookNow')}>Book Now
+	                              </a>*/}
 	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='hospitalTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'hospitalTab')}>Hospitals
 	                              </a>
 	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='doctorTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'doctorTab')}>Doctors
@@ -256,9 +256,9 @@ class IpdView extends React.Component {
                			<IpdAboutUs {...this.props} id="aboutTab" readMoreClicked={this.readMoreClicked.bind(this)}/>
                		</div> 
 
-               		<div id="bookNow" ref="bookNow" className="nav_top_bar">
+{/*               		<div id="bookNow" ref="bookNow" className="nav_top_bar">
                			<IpdFormView {...this.props} tabView={true} formSource='IpdInfoPage'/>
-               		</div> 
+               		</div> */}
                    	
 		            <div id="hospitalTab" ref="hospitalTab" className="tab-pane fade" className="nav_top_bar">
 		            	{
