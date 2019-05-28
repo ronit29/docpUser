@@ -21,6 +21,7 @@ import BookingError from './bookingErrorPopUp.js'
 import { APPEND_HEALTH_TIP } from '../../../constants/types';
 import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup.js'
+import PaymentForm from '../../commons/paymentForm'
 
 class PatientDetailsNew extends React.Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class PatientDetailsNew extends React.Component {
         this.state = {
             selectedDoctor: this.props.match.params.id,
             selectedClinic: this.props.match.params.clinicId,
-            paymentData: {},
+            paymentData: null,
             loading: false,
             error: "",
             openCancellation: false,
@@ -455,7 +456,9 @@ class PatientDetailsNew extends React.Component {
                         'Category': 'ConsumerApp', 'Action': 'DoctorOrderCreated', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'doctor_order_created'
                     }
                     GTM.sendEvent({ data: analyticData })
-                    this.props.history.push(`/payment/${data.data.orderId}?refs=opd`)
+                    // this.props.history.push(`/payment/${data.data.orderId}?refs=opd`)
+                    this.processPayment(data)
+
 
                 } else {
                     // send back to appointment page
@@ -469,6 +472,17 @@ class PatientDetailsNew extends React.Component {
                 this.setState({ loading: false, error: message })
             }
         })
+    }
+
+    processPayment(data) {
+        if (data && data.status) {
+            this.setState({ paymentData: data.data }, () => {
+                if (document.getElementById('paymentForm') && Object.keys(this.state.paymentData).length > 0) {
+                    let form = document.getElementById('paymentForm')
+                    form.submit()
+                }
+            })
+        }
     }
 
     navigateTo(where, e) {
@@ -979,6 +993,9 @@ class PatientDetailsNew extends React.Component {
                         <RightBar extraClass="chat-float-btn-2" type="opd" noChatButton={true} />
                     </div>
                 </section>
+                {
+                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} /> : ""
+                }
             </div>
         );
     }

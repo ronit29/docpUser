@@ -20,6 +20,7 @@ import PincodePopup from './PincodePopup.js'
 import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 import PincodeErrorPopup from './PincodeErrorPopup.js'
 import BookingConfirmationPopup from './BookingConfirmationPopup.js'
+import PaymentForm from '../../commons/paymentForm'
 
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
@@ -27,7 +28,7 @@ class BookingSummaryViewNew extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
         this.state = {
             selectedLab: this.props.match.params.id,
-            paymentData: {},
+            paymentData: null,
             loading: false,
             error: "",
             openCancellation: false,
@@ -513,7 +514,8 @@ class BookingSummaryViewNew extends React.Component {
                         'Category': 'ConsumerApp', 'Action': 'LabOrderCreated', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab_order_created'
                     }
                     GTM.sendEvent({ data: analyticData })
-                    this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
+                    // this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
+                    this.processPayment(data)
 
                 } else {
                     // send back to appointment page
@@ -527,6 +529,17 @@ class BookingSummaryViewNew extends React.Component {
                 this.setState({ loading: false, error: message })
             }
         })
+    }
+
+     processPayment(data) {
+        if (data && data.status) {
+            this.setState({ paymentData: data.data }, () => {
+                if (document.getElementById('paymentForm') && Object.keys(this.state.paymentData).length > 0) {
+                    let form = document.getElementById('paymentForm')
+                    form.submit()
+                }
+            })
+        }
     }
 
     sendAgentBookingURL() {
@@ -1095,6 +1108,9 @@ class BookingSummaryViewNew extends React.Component {
                         <RightBar extraClass=" chat-float-btn-2" type="lab" noChatButton={true} />
                     </div>
                 </section>
+                {
+                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} /> : ""
+                }
             </div>
 
         );

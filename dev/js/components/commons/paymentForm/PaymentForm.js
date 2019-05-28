@@ -36,8 +36,9 @@ class PaymentForm extends React.Component {
                     <input type="text" name="txAmount" value={this.props.paymentData['txAmount']} />
                     <input type="text" name="orderId" value={this.props.paymentData['orderId']} />
                     <input type="text" name="hash" value={this.props.paymentData['hash']} />
-                    <input type="text" name="gateway" value={this.props.gateway || 'paytm'} />
-                    <input type="text" name="mode" value={this.props.mode} />
+                    {/*<input type="text" name="gateway" value={this.props.gateway || 'paytm'} />
+                    <input type="text" name="mode" value={this.props.mode} />*/}
+                    <input type="text" name="holdPayment" value={this.props.paymentData['holdPayment']} />
                     {
                         this.props.paymentData && this.props.paymentData['insurerCode']?
                         <input type="text" name="insurerCode" value={this.props.paymentData['insurerCode']} />
