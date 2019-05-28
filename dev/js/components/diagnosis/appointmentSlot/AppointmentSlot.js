@@ -59,7 +59,7 @@ class AppointmentSlot extends React.Component {
             }
             data.start_date = selectedDate?selectedDate:this.props.selectedSlot && this.props.selectedSlot.date?this.props.selectedSlot.date:new Date()
             data.lab_test = selected_test_id
-            data.lab = this.props.match.params.id
+            data.lab = this.props.selectedLab
             data.profile = profile
             this.props.preBooking(data)
         }
