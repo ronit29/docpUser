@@ -76,6 +76,7 @@ class ChoosePatientNewView extends React.Component {
                         self.props.getUserProfile().then(()=>{
 
                             if(self.props.is_lab){
+                                self.props.checkPrescription()
                                 self.props.clearTestForInsured()
                             }
                         })
