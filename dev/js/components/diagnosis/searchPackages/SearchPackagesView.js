@@ -273,17 +273,24 @@ class SearchPackagesView extends React.Component {
                 }} noIndex={false} />
                 <CriteriaSearch {...this.props} checkForLoad={this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchPackages={true} bottom_content={this.props.packagesList && this.props.packagesList.count > 0 && this.props.packagesList.bottom_content && this.props.packagesList.bottom_content != null && this.props.forOrganicSearch ? this.props.packagesList.bottom_content : ''} page={1} isPackage={true}>
                     <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)} seoData={this.state.seoData} lab_card={!!this.state.lab_card} comparePackage={this.comparePackage.bind(this)} isCompare={this.state.isCompare} isCompared={isCompared} quickFilter={this.state.quickFilter} resetQuickFilters={this.resetQuickFilters.bind(this)} />
-                    <ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)} seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
-                    <PackagesLists {...this.props} applyFilters={this.applyFilters.bind(this)} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} isCompare={this.state.isCompare} toggleComparePackages={this.toggleComparePackages.bind(this)} isCompared={isCompared} applyQuickFilter={this.applyQuickFilter.bind(this)} />
-                    <div className="container-fluid cardMainPaddingRmv">
-                        <div className="pkg-card-container mb-3">
-                            <div className="pkg-no-result">
-                                <p className="pkg-n-rslt">No result found!</p>
-                                <img className="n-rslt-img" src={ASSETS_BASE_URL + '/img/no-result.png'} />
-                                <p className="pkg-ty-agn">Try again with fewer filters</p>
+                    {
+                        this.props.packagesList && this.props.packagesList.result && this.props.packagesList.result.length==0?
+                        <div className="container-fluid cardMainPaddingRmv">
+                            <div className="pkg-card-container mt-20 mb-3">
+                                <div className="pkg-no-result">
+                                    <p className="pkg-n-rslt">No result found!</p>
+                                    <img className="n-rslt-img" src={ASSETS_BASE_URL + '/img/no-result.png'} />
+                                    <p className="pkg-ty-agn cursor-pntr" onClick={this.applyQuickFilter.bind(this, {catId: [],viewMore: true})}>Try again with fewer filters</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        :<React.Fragment>
+                            
+                            <ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} applyCategories={this.applyCategories.bind(this)} seoData={this.state.seoData} lab_card={!!this.state.lab_card} />
+                            <PackagesLists {...this.props} applyFilters={this.applyFilters.bind(this)} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} isCompare={this.state.isCompare} toggleComparePackages={this.toggleComparePackages.bind(this)} isCompared={isCompared} applyQuickFilter={this.applyQuickFilter.bind(this)} />
+                    
+                        </React.Fragment>    
+                    }
                 </CriteriaSearch>
                 <Footer footerData={this.state.footerData} />
             </div>
