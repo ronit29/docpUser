@@ -85,41 +85,6 @@ class HomePagePackageWidget extends React.Component {
                     <div className="pkg-btnlft d-none" id="RightArrow" onClick={this.scroll.bind(this, 'left')}><img src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></div>
                     <div className="pkg-btnrgt" id="leftArrow" onClick={this.scroll.bind(this, 'right')}><img src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></div>
                 </div>
-                <div className="pakg-slider-container mt-20">
-                    <div className="pkgSliderHeading">
-                        <h5>Top Hospitals</h5>
-                        <span>View All</span>
-                    </div>
-                    <div className="pkgSliderContainer">
-                        <div className='pkgCardsList d-inline-block sub-wd-cards'>
-                            <div className="pkgcustCards">
-                                <div className="pkgcardImgCont">
-                                    <img className="img-fluid" src="https://qacdn.docprime.com/media/diagnostic/common_package_icons/Thyrocare.png" />
-                                </div>
-                                <p className="pkgtstName">
-                                    CK Birla Hospital for Women
-                            </p>
-                            </div>
-
-                            <div className="pkgcustCards">
-                                <div className="pkgcardImgCont">
-                                    <img className="img-fluid" src="https://qacdn.docprime.com/media/diagnostic/common_package_icons/Thyrocare.png" />
-                                </div>
-                                <p className="pkgtstName">
-                                    Nanavati Hopitsal
-                            </p>
-                            </div>
-                            <div className="pkgcustCards">
-                                <div className="pkgcardImgCont">
-                                    <img className="img-fluid" src="https://qacdn.docprime.com/media/diagnostic/common_package_icons/Thyrocare.png" />
-                                </div>
-                                <p className="pkgtstName">
-                                    Nanavati Hopitsal
-                            </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         )
     }
