@@ -11231,6 +11231,9 @@ position: relative;
     cursor: pointer;
 
 }
+.sub-wd-cards div.pkgcustCards{
+    min-height: auto;
+}
 /* ==================== new package styling ==================== */
 .medic-img-slider img {
     width: 250px;
