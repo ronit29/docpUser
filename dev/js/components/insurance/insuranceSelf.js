@@ -537,7 +537,7 @@ class InsuranceSelf extends React.Component{
 							<span className="checkmark small-checkmark"></span></label>
 						</div>
 					</div>
-					<div className="col-12">
+					<div className="col-12 mrt-10">
 						<div className="ins-form-radio">
 							<div className="dtl-radio">
 								<label className="container-radio">
@@ -570,7 +570,7 @@ class InsuranceSelf extends React.Component{
 							<span className="fill-error-span">{this.props.createApiErrors.gender[0]}</span>:''	
 						}
 					</div>
-					<div className="col-12">
+					<div className="col-12 mrt-10">
 						<div className="ins-form-group">
 							<input type="text" id={`emails_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('email')> -1?'fill-error':''}`} required autoComplete="email" name="email" value={this.state.email} data-param='email' onChange={this.handleChange.bind(this,'email')} onBlur={this.handleEmail} onFocus={this.handleOnFocus.bind(this,'email')}/>
 							<label className={this.state.disableEmail?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`emails_${this.props.member_id}`}><span className="labelDot">*</span>Email</label>

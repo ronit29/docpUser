@@ -457,7 +457,7 @@ class InsuranceInputView extends React.Component{
 											<p className="plcy-cancel mb-0 fw-500">*Incorrect member details may lead to policy cancellation</p>
 										</div>
 										<p className="fw-500 d-block" style={{fontSize: 11, color:'#F44336', marginTop:5, paddingLeft:8}}>*All fields are mandatory</p>
-										<div className="insurance-member-details mrt-10">
+										<div className="insurance-member-details mrt-20">
 											<InsurSelf {...this.props} 
 												checkForValidation ={this.checkForValidation.bind(this)} 
 												id={`member_${this.props.USER.defaultProfile}`} 
