@@ -12,10 +12,10 @@ class IpdLeadForm extends React.Component {
 		this.state = {
 			name: '',
 			phone_number: '',
-			showForm: true,
-			gender: '',
+			showForm: true
+/*			gender: '',
 			comments: '',
-			whatsapp_optin: true
+			whatsapp_optin: true*/
 		}
 	}
 
@@ -56,10 +56,10 @@ class IpdLeadForm extends React.Component {
 			return
 		}
 
-		if (!this.state.gender) {
+		/*if (!this.state.gender) {
 			SnackBar.show({ pos: 'bottom-center', text: "Please select your gender" })
 			return
-		}
+		}*/
 
 		const parsed = queryString.parse(this.props.location.search)
 
@@ -69,6 +69,10 @@ class IpdLeadForm extends React.Component {
 
 		if(this.props.hospital_id) {
 			formData.hospital = this.props.hospital_id
+		}
+
+		if(this.props.procedure_id) {
+			formData.procedure_id = this.props.procedure_id
 		}
 
 		let utm_tags = {
@@ -155,18 +159,30 @@ class IpdLeadForm extends React.Component {
 									{
 										this.props.doctor_name?
 										<p className="ipd-needHelp">{`Need to book an appointment with ${this.props.doctor_name} ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
-										:<p className="ipd-needHelp">{`Need help with an appointment ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
+										:this.props.hospital_name?
+										<p className="ipd-needHelp">{`Need help with an appointment ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
+										:''
 									}
-									<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>Get upto 30% Off on Appointments</span></p>
-									<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>Instant Booking Confirmation</span></p>
-									<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span className="d-block">Dedicated Doctor for Advice</span></p>
+									{
+										this.props.procedure_name?
+										<p className="ipd-needHelp">{`Need help with ${this.props.procedure_name}?`}</p>
+										:''
+									}
+									<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>{this.props.procedure_name?'Book the right Doctor/Hospital':'Get upto 30% Off on Appointments'}</span></p>
+									<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>{this.props.procedure_name?'Compare Surgery Cost across Hospitals':'Instant Booking Confirmation'}</span></p>
+									<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span className="d-block">{this.props.procedure_name?'Special Prices for Docprime Customers':'Dedicated Doctor for Advice'}</span></p>
+									{
+										this.props.procedure_name?
+										<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span className="d-block">Dedicated Doctor for Medical Advice</span></p>
+										:''
+									}
 									<div className="ipd-inp-section" onClick={(e) => {
 										e.stopPropagation()
 										e.preventDefault()
 									}}>
 										<input type="text" value={this.state.name} name='name' placeholder="Name" onChange={this.inputHandler.bind(this)} />
 										<input type="Number" value={this.state.phone_number} name='phone_number' placeholder="Mobile Number" onChange={this.inputHandler.bind(this)} />
-										<div className="d-flex align-items-center flex-wrap mrt-10">
+										{/*<div className="d-flex align-items-center flex-wrap mrt-10">
 											<div className="dtl-radio">
 												<label className="container-radio" style={{ fontSize: 14, fontWeight: 400 }} onClick={() => this.setState({ gender: 'm' })}>Male<input type="radio" checked={this.state.gender === 'm'} name="radio" value={this.state.gender} style={{ width: 10 }} />
 													<span className="doc-checkmark"></span>
@@ -190,7 +206,7 @@ class IpdLeadForm extends React.Component {
 					                        <label className="ck-bx p-0" style={{ fontWeight: '400', fontSize: '14px' }} onClick={this.toggleWhatsap.bind(this)}>Enable 
 					                            <span className="sm-wtsp-img fw-400"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" checked={this.state.whatsapp_optin} /><span className="checkmark" style={{left: '7px'}}></span>
 					                        </label>
-					                	</div>
+					                	</div>*/}
 										<button className="ipd-inp-sbmt" onClick={(e) => {
 											e.stopPropagation()
 											e.preventDefault()

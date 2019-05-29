@@ -1,5 +1,6 @@
 import React from 'react'
 const queryString = require('query-string');
+import GTM from '../../helpers/gtm.js'
 
 class InsurancePopup extends React.Component{
 	constructor(props) {
@@ -67,6 +68,9 @@ class InsurancePopup extends React.Component{
                 if (error) {
                     // this.setState({ validationError: "Could not generate OTP." })
                 } else {
+                    let data = {'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupContinue', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-continue-click'
+                        }
+                    GTM.sendEvent({ data: data })
                     this.setState({ showOTP: true, otpTimeout: true })
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
@@ -92,6 +96,9 @@ class InsurancePopup extends React.Component{
                 if(exists.code == 'invalid'){
                     this.setState({error_message:exists.message})
                 }else{
+                    let data = {'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupOptVerified', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-opt-verified'
+                        }
+                    GTM.sendEvent({ data: data })
                     if(Object.keys(self.props.selected_plan).length > 0){
                         self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',this.state.phoneNumber,lead_data)
                     }

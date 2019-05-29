@@ -1,5 +1,6 @@
 import React from 'react';
 import InitialsPicture from '../../initialsPicture'
+const queryString = require('query-string');
 
 const GENDER = {
     "m": "Male",
@@ -27,9 +28,25 @@ class UserFamily extends React.Component {
     }
 
     editProfile(id) {
+        const parsed = queryString.parse(this.props.location.search)
         if (this.props.location.search.includes('pick=true')) {
             // pick paitent and go back, else go on to edit.
             this.props.selectProfile(id)
+            let data = {}
+            let selected_test_id = []
+            let selectedDate = null
+            if(parsed.is_insurance && parsed.is_insurance == 'true'){
+                if(this.props.selectedCriterias && this.props.selectedCriterias.length > 0){
+                    this.props.selectedCriterias.map((twp, i) => {
+                        selected_test_id.push(twp.id)
+                    })
+                }
+                data.start_date = selectedDate?selectedDate:this.props.selectedSlot && this.props.selectedSlot.date?this.props.selectedSlot.date:new Date()
+                data.lab_test = selected_test_id
+                data.lab = parsed.lab_id
+                data.profile = id
+                this.props.preBooking(data)
+            }
             this.props.history.go(-1)
         } else {
             this.props.history.push(`/user/edit/${id}`)

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, mergeOPDState, toggleProfileProcedures, saveProfileProcedures, getDoctorNo, toggleOPDCriteria, getAllRatings, getDownloadAppBannerList } from '../../actions/index.js'
+import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, mergeOPDState, toggleProfileProcedures, saveProfileProcedures, getDoctorNo, toggleOPDCriteria, getAllRatings, getDownloadAppBannerList, ipdChatView } from '../../actions/index.js'
 
 import DoctorProfileView from '../../components/opd/doctorProfile/index.js'
 const queryString = require('query-string');
@@ -127,7 +127,7 @@ const mapStateToProps = (state, passedProps) => {
     }
 
     let DOCTORS = state.DOCTOR_PROFILES
-    let { rated_appoinments, profiles, selectedProfile, primaryMobile, app_download_list, device_info } = state.USER
+    let { rated_appoinments, profiles, selectedProfile, primaryMobile, app_download_list, device_info, ipd_chat } = state.USER
 
     const {
         selectedCriterias,
@@ -143,7 +143,7 @@ const mapStateToProps = (state, passedProps) => {
     } = state.DOCTOR_SEARCH
 
     return {
-        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, selectedLocation, fetchNewResults, commonProcedurers, selectedDoctorProcedure, profileCommonProcedures, primaryMobile, filterCriteria, app_download_list, device_info
+        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, selectedLocation, fetchNewResults, commonProcedurers, selectedDoctorProcedure, profileCommonProcedures, primaryMobile, filterCriteria, app_download_list, device_info, ipd_chat
     }
 }
 
@@ -165,7 +165,8 @@ const mapDispatchToProps = (dispatch) => {
         getDoctorNo: (doctorData, cb) => dispatch(getDoctorNo(doctorData, cb)),
         toggleOPDCriteria: (type, criteria, forceAdd) => dispatch(toggleOPDCriteria(type, criteria, forceAdd)),
         getAllRatings: (content_type, object_id, page, cb) => dispatch(getAllRatings(content_type, object_id, page, cb)),
-        getDownloadAppBannerList: (cb) => dispatch(getDownloadAppBannerList(cb))
+        getDownloadAppBannerList: (cb) => dispatch(getDownloadAppBannerList(cb)),
+        ipdChatView: (data) => dispatch(ipdChatView(data))
     }
 }
 
