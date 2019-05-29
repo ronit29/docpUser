@@ -13,7 +13,7 @@ class TopHospitalWidgets extends React.Component {
 	render(){
 
 		return(
-		     <div className="pakg-slider-container mt-20">
+		     <div className="pakg-slider-container mt-10">
                 <div className="pkgSliderHeading">
                     <h5>Top Hospitals</h5>
                     {/*<span>View All</span>*/}
