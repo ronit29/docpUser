@@ -11233,6 +11233,8 @@ position: relative;
 }
 .sub-wd-cards div.pkgcustCards{
     min-height: auto;
+    min-width: 145px;
+    max-width: 145px;
 }
 .sub-wd-cards div.pkgcardImgCont img{
     width: 32px;
