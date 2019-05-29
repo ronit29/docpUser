@@ -61,12 +61,16 @@ class InsurancePopup extends React.Component{
     }
 
     submitOTPRequest(number) {
+        let lead_data = queryString.parse(this.props.location.search)
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
             this.props.sendOTP(number, (error) => {
                 if (error) {
                     // this.setState({ validationError: "Could not generate OTP." })
                 } else {
+                    if(Object.keys(this.props.selected_plan).length > 0){
+                        this.props.generateInsuranceLead(this.props.selected_plan?this.props.selected_plan.id:'',this.state.phoneNumber,lead_data)
+                    }
                     this.setState({ showOTP: true, otpTimeout: true })
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
