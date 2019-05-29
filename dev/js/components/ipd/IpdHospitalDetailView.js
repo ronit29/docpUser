@@ -171,10 +171,10 @@ class HospitalDetailView extends React.Component {
 			showChat: true,
 			ipdFormParams: ipdFormParams
 		}
-		
-		this.setState({ showLeadForm: false, ipdFormParams: ipdFormParams }, ()=>{
-			this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize: true})
-			this.props.showChatView(ipd_data)	
+
+		this.setState({ showLeadForm: false, ipdFormParams: ipdFormParams }, () => {
+			this.props.ipdChatView({ showIpdChat: true, ipdForm: ipdFormParams, showMinimize: true })
+			this.props.showChatView(ipd_data)
 		})
 	}
 
@@ -191,7 +191,7 @@ class HospitalDetailView extends React.Component {
 						<div className="ipd-section">
 							{
 								showPopup ?
-									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} formSource='ipdHospitalPopup'/>
+									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} formSource='ipdHospitalPopup' />
 									: ''
 							}
 
@@ -247,7 +247,7 @@ class HospitalDetailView extends React.Component {
 							{
 								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count ?
 									<div id="bookNow" ref="bookNow" className="nav_top_bar">
-										<IpdFormView {...this.props} tabView={true} formSource='IpdHospitalDetailPage'/>
+										<IpdFormView {...this.props} tabView={true} formSource='IpdHospitalDetailPage' />
 									</div>
 									: ''
 							}
@@ -266,6 +266,35 @@ class HospitalDetailView extends React.Component {
 										</div>
 										: ''
 								}
+							</div>
+
+							<div className="hs-card">
+								<div className="widget-content">
+									<h4 className="hs-ofr-heading"><img src={ASSETS_BASE_URL + '/img/ofr-cpn.svg'} />Offers Available</h4>
+									<div className="hs-offerCard">
+										<div className="hs-ofr-crdHeading">
+											<p><img src={ASSETS_BASE_URL + '/img/ofr-cpn.svg'} />₹51000 OFF on Maternity</p>
+											<img src={ASSETS_BASE_URL + '/img/ofr-cpn.svg'} />
+										</div>
+										<div className="hs-ofr-card-content">
+											<p>
+												Lorem ipsum dolor sit amet, consectetur adipiscing elit
+										</p>
+											<p className="no-cpn-rqrd">No Coupon Required</p>
+										</div>
+										<div className="offer-hide-content">
+											<ul>
+												<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</li>
+												<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</li>
+												<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</li>
+											</ul>
+										</div>
+										<div className="hs-offer-footer">
+											<p className="tc_cont">T&C Apply</p>
+											<p className="show-hide-offr">Hide Details <img style={{width:'18px'}} src={ASSETS_BASE_URL + '/img/ofr-cpn.svg'} /></p>
+										</div>
+									</div>
+								</div>
 							</div>
 
 							{
@@ -300,11 +329,11 @@ class HospitalDetailView extends React.Component {
 									: ''
 							}
 							{
-								this.props.ipd_chat || showPopup?''
-								:<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">{typeof window == 'object' && window.ON_LANDING_PAGE? this.props.ipd_hospital_detail.bed_count?'Need Help?':'':'Get Cost Estimate'}</a></div>
-	
+								this.props.ipd_chat || showPopup ? ''
+									: <div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">{typeof window == 'object' && window.ON_LANDING_PAGE ? this.props.ipd_hospital_detail.bed_count ? 'Need Help?' : '' : 'Get Cost Estimate'}</a></div>
+
 							}
-							
+
 						</div>
 						: <Loader />
 				}
