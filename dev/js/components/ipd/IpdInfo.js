@@ -21,7 +21,7 @@ class IpdView extends React.Component {
 			toggleTabType: 'aboutTab',
 			toggleReadMore: false,
 			seoFriendly: this.props.match.url.includes('-ipdp'),
-			showLeadForm:false
+			showLeadForm:true
 		}
 	}
 
@@ -67,9 +67,6 @@ class IpdView extends React.Component {
 		    }
 		  }	
 		}
-		setTimeout(() => {
-			this.setState({ showLeadForm: true })
-		}, 500)
 	}
 
 	toggleTabs(type){

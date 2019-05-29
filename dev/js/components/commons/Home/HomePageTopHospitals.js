@@ -4,9 +4,9 @@ class TopHospitalWidgets extends React.Component {
 
 	navigateTo(data) {
         if(data.url) {
-            this.props.history.push(`/${data.url}`)
+            this.props.history.push(`/${data.url}?showPopup=true&get_feedback=1`)
         }else {
-            this.props.history.push(`/ipd/hospital/${data.id}`)
+            this.props.history.push(`/ipd/hospital/${data.id}?showPopup=true&get_feedback=1`)
         }
     }
 	
@@ -24,7 +24,7 @@ class TopHospitalWidgets extends React.Component {
                     		this.props.top_data.map((data) => {
                     			return <div className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
 				                            <div className="pkgcardImgCont">
-				                                <img className="img-fluid" src={data.logo} />
+				                                <img style={{width:82}} className="img-fluid" src={data.logo} />
 				                            </div>
 				                            <p className="pkgtstName">
 				                                {data.name}
