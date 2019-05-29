@@ -308,6 +308,18 @@ class HomeView extends React.Component {
                                 </div> : ''
                         } */}
 
+                        {
+							this.props.top_hospitals && this.props.top_hospitals.length?
+							<HomePageTopHospitals {...this.props} top_data ={this.props.top_hospitals} />
+							:''
+						}
+
+						{
+							this.props.ipd_procedures && this.props.ipd_procedures.length?
+							<HomePageTopProcedures {...this.props} top_data ={this.props.ipd_procedures}/>
+							:''
+						}
+
 						{
 							this.props.common_package && this.props.common_package.length ?
 								<HomePagePackageWidget
@@ -322,19 +334,6 @@ class HomeView extends React.Component {
 									// navTo="/health-package-advisor"
 									navTo="/searchpackages"
 								/> : ""
-						}
-
-
-						{
-							this.props.ipd_procedures && this.props.ipd_procedures.length?
-							<HomePageTopProcedures {...this.props} top_data ={this.props.ipd_procedures}/>
-							:''
-						}
-
-						{
-							this.props.top_hospitals && this.props.top_hospitals.length?
-							<HomePageTopHospitals {...this.props} top_data ={this.props.top_hospitals} />
-							:''
 						}
 
 						{/* x ray landing page cards */}
