@@ -240,7 +240,7 @@ class Insurance extends React.Component {
                     	description: 'OPD Insurance: Buy OPD insurance cover & get cashless benefits on lab tests & doctor consultation with a network of over 15000 doctors and 2000 labs.'
                 	}} noIndex={false} />                
 					<section className="container container-top-margin cardMainPaddingRmv">
-						<div className="row no-gutters">
+						<div className="row no-gutters dsktp-row-gutter">
 							<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
 								<section className="profile-book-screen" style={{position:'relative'}}>
 									<div>

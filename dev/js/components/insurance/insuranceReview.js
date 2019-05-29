@@ -219,7 +219,7 @@ class InsuranceReview extends React.Component{
 				<div className="profile-body-wrap">
 				<ProfileHeader />
 				<section className="container container-top-margin cardMainPaddingRmv">
-					<div className="row no-gutters">
+					<div className="row no-gutters dsktp-row-gutter">
 					<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
 					<section className="profile-book-screen">
 					<div>

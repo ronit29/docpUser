@@ -10590,7 +10590,16 @@ margin-left: 5px;
 .ins-form-radio {
     display: flex;
 }
-
+@media(min-width:768px){
+    .no-gutters.dsktp-row-gutter{
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+    .no-gutters.dsktp-row-gutter>.col, .no-gutters.dsktp-row-gutter>[class*=col-]{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
 .ins-form-radio .dtl-radio {
     margin-right: 20px;
 }
