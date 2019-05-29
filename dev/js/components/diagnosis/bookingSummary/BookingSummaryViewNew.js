@@ -246,24 +246,24 @@ class BookingSummaryViewNew extends React.Component {
         this.setState({ showTimeError: false, showAddressError: false });
     }
 
-    navigateTo(where, e) {
+    navigateTo(where,is_insurance_applicable, e) {
         switch (where) {
             case "time": {
                 if (this.state.pincode || (this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].lab && !this.props.LABS[this.props.selectedLab].lab.is_thyrocare)) {
 
                     if (this.props.LABS[this.props.selectedLab].lab.is_thyrocare) {
                         if (this.state.seoFriendly) {
-                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true&action_page=timings`
+                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true&action_page=timings&is_insurance=${is_insurance_applicable}`
                             this.props.history.push(url)
                         } else {
-                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true`)
+                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true&is_insurance=${is_insurance_applicable}`)
                         }
                     } else {
                         if (this.state.seoFriendly) {
-                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false&action_page=timings`
+                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false&action_page=timings&is_insurance=${is_insurance_applicable}`
                             this.props.history.push(url)
                         } else {
-                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false`)
+                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false&is_insurance=${is_insurance_applicable}`)
                         }
                     }
 
@@ -276,7 +276,7 @@ class BookingSummaryViewNew extends React.Component {
             }
 
             case "patient": {
-                this.props.history.push(`/user/family?pick=true`)
+                this.props.history.push(`/user/family?pick=true&lab_id=${this.props.match.params.id}&is_insurance=${is_insurance_applicable}`)
                 return
             }
 
@@ -291,7 +291,7 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    getSelectors() {
+    getSelectors(is_insurance_applicable) {
         let patient = null
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
@@ -300,15 +300,15 @@ class BookingSummaryViewNew extends React.Component {
         switch (this.props.selectedAppointmentType) {
             case "lab": {
                 return <div>
-                    <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} />
-                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} />
+                    <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable={is_insurance_applicable}/>
+                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} is_insurance_applicable={is_insurance_applicable} checkPrescription={this.checkPrescription.bind(this)} />
                 </div>
             }
 
             case "home": {
                 return <div>
-                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} />
-                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} />
+                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable={is_insurance_applicable}/>
+                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} is_insurance_applicable={is_insurance_applicable} checkPrescription={this.checkPrescription.bind(this)}/>
                     {
                         patient ?
                             <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
@@ -327,6 +327,50 @@ class BookingSummaryViewNew extends React.Component {
             let clear_data = {}
             this.props.patientDetails(clear_data)
             this.setState({ profileDataFilled: true })
+        }
+    }
+
+    checkPrescription(){
+        let is_insurance_applicable = false
+        let is_tests_covered_under_insurance = false
+        let is_selected_user_insured = false
+
+        let data = {}
+        let selectedDate = null
+        let selected_test_id = []
+        const parsed = queryString.parse(this.props.location.search)
+        let patient = null
+        let profile = null
+
+
+        if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
+            patient = this.props.profiles[this.props.selectedProfile]
+            is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
+            profile = patient.id
+        }
+        is_tests_covered_under_insurance = true
+        this.props.LABS[this.props.selectedLab].tests.map((test, i) => {
+
+            if (test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount >= parseInt(test.deal_price)) {
+
+            } else {
+                is_tests_covered_under_insurance = false
+            }
+        })
+        is_insurance_applicable = is_tests_covered_under_insurance && is_selected_user_insured
+
+        // in case of upload prescription
+        if(is_insurance_applicable){
+            if(this.props.selectedCriterias && this.props.selectedCriterias.length > 0){
+                this.props.selectedCriterias.map((twp, i) => {
+                    selected_test_id.push(twp.id)
+                })
+            }
+            data.start_date = selectedDate?selectedDate:this.props.selectedSlot && this.props.selectedSlot.date?this.props.selectedSlot.date:new Date()
+            data.lab_test = selected_test_id
+            data.lab = this.props.selectedLab
+            data.profile = profile
+            this.props.preBooking(data)
         }
     }
 
@@ -696,9 +740,9 @@ class BookingSummaryViewNew extends React.Component {
 
         }
 
-        // if(this.props.is_prescription_needed){
-        //     prescriptionPicked = true
-        // }
+        if(this.props.is_prescription_needed){
+            prescriptionPicked = true
+        }
         if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]) {
             is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
         }
@@ -737,9 +781,9 @@ class BookingSummaryViewNew extends React.Component {
         if (this.props.LABS[this.props.selectedLab]) {
             labDetail = this.props.LABS[this.props.selectedLab].lab
 
-            if(labDetail.is_prescription_needed){
-                prescriptionPicked = labDetail.is_prescription_needed    
-            }
+            // if(labDetail.is_prescription_needed){
+            //     prescriptionPicked = labDetail.is_prescription_needed    
+            // }
             this.props.LABS[this.props.selectedLab].tests.map((twp, i) => {
                 if (twp.hide_price) {
                     is_corporate = true
@@ -837,7 +881,6 @@ class BookingSummaryViewNew extends React.Component {
         }
 
         let is_add_to_card = STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured)
-
         return (
 
             <div className="profile-body-wrap">
@@ -919,7 +962,7 @@ class BookingSummaryViewNew extends React.Component {
                                                         </div>
 
                                                         <div className="">
-                                                            {this.getSelectors()}
+                                                            {this.getSelectors(is_insurance_applicable)}
                                                         </div>
                                                         {
                                                             is_insurance_applicable && prescriptionPicked?
