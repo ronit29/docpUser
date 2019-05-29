@@ -211,7 +211,6 @@ export default function (state = defaultState, action) {
         }
         case SAVE_INSURANCE_BANK_DETAILS :{
             let newState = { ...state }
-            console.log(action.payload)
             newState.insurer_bank_details = action.payload
             return newState   
         }

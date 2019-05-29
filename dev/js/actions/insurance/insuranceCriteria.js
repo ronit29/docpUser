@@ -283,5 +283,6 @@ export const removeMemberProof = (criteria) => (dispatch) => {
 export const saveUserBankDetails = (criteria) => (dispatch) => {
     dispatch({
         type:SAVE_INSURANCE_BANK_DETAILS,
+        payload:criteria
     })
 }
