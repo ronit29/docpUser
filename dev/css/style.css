@@ -11101,10 +11101,10 @@ position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 12px;
+    margin-bottom: 5px;
 }
 .pkgSliderHeading h5{
-	font-size: 18px;
+	font-size: 15px;
     font-weight: 500;
     margin-bottom: 0;
     color: #000;
@@ -11233,6 +11233,15 @@ position: relative;
     box-shadow: 0 1px 5px rgba(76, 76, 76, 0.24), 1px 1px 4px rgba(128, 128, 128, 0.32);
     cursor: pointer;
 
+}
+.sub-wd-cards div.pkgcustCards{
+    min-height: auto;
+    min-width: 145px;
+    max-width: 145px;
+    margin-bottom: 0px;
+}
+.sub-wd-cards div.pkgcardImgCont img{
+    width: 32px;
 }
 /* ==================== new package styling ==================== */
 .medic-img-slider img {
@@ -11624,6 +11633,9 @@ p.lab-crd-txt-pr span{
 }
 .smth-ftr-hide {
 	
+}
+.mt-10{
+    margin-top: 10px !important;
 }
 .cht-hide-hlf-scrn{
 	height: 100%;

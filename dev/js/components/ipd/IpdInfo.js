@@ -21,7 +21,7 @@ class IpdView extends React.Component {
 			toggleTabType: 'aboutTab',
 			toggleReadMore: false,
 			seoFriendly: this.props.match.url.includes('-ipdp'),
-			showLeadForm:false
+			showLeadForm:true
 		}
 	}
 
@@ -67,9 +67,6 @@ class IpdView extends React.Component {
 		    }
 		  }	
 		}
-		setTimeout(() => {
-			this.setState({ showLeadForm: true })
-		}, 500)
 	}
 
 	toggleTabs(type){
@@ -233,7 +230,7 @@ class IpdView extends React.Component {
 	            	:''
 	            }
 
-           	  <h1 className="section-heading top-sc-head pt-0"> <span className="about-head"> {`${this.props.ipd_info?`${this.props.ipd_info.about.name} Cost ${this.props.ipd_info && this.props.ipd_info.seo?`in ${this.props.ipd_info.seo.location}`:''}  `:''}`} </span>
+           	  <h1 className="section-heading top-sc-head pt-0"> <span className="about-head"> {`${this.props.ipd_info?`${this.props.ipd_info.about.name} Cost ${this.props.ipd_info && this.props.ipd_info.seo && this.props.ipd_info.seo.location?`in ${this.props.ipd_info.seo.location}`:''}  `:''}`} </span>
 					</h1>
               <div className="full-widget mrg-b0 stickyBar">
                  <nav className="tab-head">

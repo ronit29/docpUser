@@ -478,31 +478,45 @@ class SearchResultsView extends React.Component {
                             {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                                 <img src={ASSETS_BASE_URL + "/img/banners/banner_doc.png"} className="banner-img" />
                             </div> */}
-                            <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)}  getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} detectLocationClick={() => this.detectLocationClick()}  applyQuickFilter={this.applyQuickFilter.bind(this)} />
-
                             {
-                                this.state.seoFriendly && show_pagination ? <div className="art-pagination-div">
-                                    {
-                                        prev ? <a href={prev} >
-                                            <div className="art-pagination-btn">
-                                                <span className="fw-500">{curr_page - 1}</span>
-                                            </div>
-                                        </a> : ""
-                                    }
-
-                                    <div className="art-pagination-btn">
-                                        <span className="fw-500" style={{ color: '#000' }}>{curr_page}</span>
+                                (this.state.clinic_card && this.props.hospitalList && this.props.hospitalList.length==0) || this.props.doctorList && this.props.doctorList.length ==0?
+                                <div className="container-fluid cardMainPaddingRmv">
+                                    <div className="pkg-card-container mt-20 mb-3">
+                                        <div className="pkg-no-result">
+                                            <p className="pkg-n-rslt">No result found!</p>
+                                            <img className="n-rslt-img" src={ASSETS_BASE_URL + '/img/no-result.png'} />
+                                            <p className="pkg-ty-agn cursor-pntr" onClick={this.applyQuickFilter.bind(this, {viewMore: true})}>Try again with fewer filters</p>
+                                        </div>
                                     </div>
+                                </div>
+                                :<React.Fragment>
+                                    <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)}  getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} detectLocationClick={() => this.detectLocationClick()}  applyQuickFilter={this.applyQuickFilter.bind(this)} />
 
                                     {
-                                        next ? <a href={next} >
-                                            <div className="art-pagination-btn">
-                                                <span className="fw-500">{curr_page + 1}</span>
-                                            </div>
-                                        </a> : ""
-                                    }
+                                        this.state.seoFriendly && show_pagination ? <div className="art-pagination-div">
+                                            {
+                                                prev ? <a href={prev} >
+                                                    <div className="art-pagination-btn">
+                                                        <span className="fw-500">{curr_page - 1}</span>
+                                                    </div>
+                                                </a> : ""
+                                            }
 
-                                </div> : ""
+                                            <div className="art-pagination-btn">
+                                                <span className="fw-500" style={{ color: '#000' }}>{curr_page}</span>
+                                            </div>
+
+                                            {
+                                                next ? <a href={next} >
+                                                    <div className="art-pagination-btn">
+                                                        <span className="fw-500">{curr_page + 1}</span>
+                                                    </div>
+                                                </a> : ""
+                                            }
+
+                                        </div> : ""
+                                    }
+                                </React.Fragment>
                             }
 
                         </div>

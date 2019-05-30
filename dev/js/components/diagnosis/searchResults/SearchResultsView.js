@@ -401,31 +401,47 @@ class SearchResultsView extends React.Component {
                                 </div> : ""
                             } */}
 
-                            <LabsList {...this.props} applyFilters={this.applyFilters.bind(this)} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} applyQuickFilter={this.applyQuickFilter.bind(this)}/>
-
                             {
-                                this.state.seoFriendly && show_pagination ? <div className="art-pagination-div">
-                                    {
-                                        prev ? <a href={prev} >
-                                            <div className="art-pagination-btn">
-                                                <span className="fw-500">{curr_page - 1}</span>
-                                            </div>
-                                        </a> : ""
-                                    }
-
-                                    <div className="art-pagination-btn">
-                                        <span className="fw-500" style={{ color: '#000' }}>{curr_page}</span>
+                                this.props.labList && this.props.labList.length ==0?
+                                <div className="container-fluid cardMainPaddingRmv">
+                                    <div className="pkg-card-container mt-20 mb-3">
+                                        <div className="pkg-no-result">
+                                            <p className="pkg-n-rslt">No result found!</p>
+                                            <img className="n-rslt-img" src={ASSETS_BASE_URL + '/img/no-result.png'} />
+                                            <p className="pkg-ty-agn cursor-pntr" onClick={this.applyQuickFilter.bind(this, {viewMore: true})}>Try again with fewer filters</p>
+                                        </div>
                                     </div>
+                                </div>
+                                :<React.Fragment>
+
+                                    <LabsList {...this.props} applyFilters={this.applyFilters.bind(this)} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} applyQuickFilter={this.applyQuickFilter.bind(this)}/>
 
                                     {
-                                        next ? <a href={next} >
+                                        this.state.seoFriendly && show_pagination ? <div className="art-pagination-div">
+                                            {
+                                                prev ? <a href={prev} >
+                                                    <div className="art-pagination-btn">
+                                                        <span className="fw-500">{curr_page - 1}</span>
+                                                    </div>
+                                                </a> : ""
+                                            }
+
                                             <div className="art-pagination-btn">
-                                                <span className="fw-500">{curr_page + 1}</span>
+                                                <span className="fw-500" style={{ color: '#000' }}>{curr_page}</span>
                                             </div>
-                                        </a> : ""
+
+                                            {
+                                                next ? <a href={next} >
+                                                    <div className="art-pagination-btn">
+                                                        <span className="fw-500">{curr_page + 1}</span>
+                                                    </div>
+                                                </a> : ""
+                                            }
+
+                                        </div> : ""
                                     }
 
-                                </div> : ""
+                                </React.Fragment>
                             }
 
                         </div>
