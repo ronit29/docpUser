@@ -22,7 +22,7 @@ export const loadOPDCommonCriteria = (selectedLocation) => (dispatch) => {
         locality = "Delhi"
     }
 
-    return API_GET(`/api/v1/doctor/commonconditions?city=${locality}&lat=${lat}&long=${long}`).then(function (response) {
+    return API_GET(`/api/v1/doctor/commonconditions?city=${locality}`).then(function (response) {
         dispatch({
             type: LOAD_SEARCH_CRITERIA_OPD,
             payload: response
