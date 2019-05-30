@@ -147,7 +147,7 @@ class UploadPrescription extends React.Component {
                                 <img src={ASSETS_BASE_URL + "/img/vectorupl.png"} />
                             </div>
                             <div className="ins-upload-text">
-                                <p className="ins-upload-para-text">Upload any governement ID proof</p>
+                                <p className="ins-upload-para-text">Upload prescription</p>
                                 {/* <p className="ins-upload-sub-text">Aadhar card, Passport, Driving License, Voter ID Card</p> */}
                                 <p className="ins-file-tyle">File type: jpg, jpeg, png, pdf </p>
                             </div>
