@@ -9,6 +9,8 @@ import HelmetTags from '../commons/HelmetTags'
 import CONFIG from '../../config'
 import BreadCrumbView from './breadCrumb.js'
 import IpdFormView from '../../containers/ipd/IpdForm.js'
+const queryString = require('query-string')
+import IpdLeadForm from '../../containers/ipd/ipdLeadForm.js'
 
 
 class IpdView extends React.Component {
@@ -18,7 +20,8 @@ class IpdView extends React.Component {
 		this.state = {
 			toggleTabType: 'aboutTab',
 			toggleReadMore: false,
-			seoFriendly: this.props.match.url.includes('-ipdp')
+			seoFriendly: this.props.match.url.includes('-ipdp'),
+			showLeadForm:true
 		}
 	}
 
@@ -51,7 +54,7 @@ class IpdView extends React.Component {
 
 		    		if(i.includes('readMoreView')){
 		    			if(scrollPosition > (self.refs['readMoreView'].offsetTop +  headerHeight )){
-					    	self.setState({toggleTabType: 'aboutTab'})
+					    	self.setState({toggleTabType: ''})
 					    }
 		    		}else{
 
@@ -161,10 +164,36 @@ class IpdView extends React.Component {
         return { title, description }
     }
 
+    submitLeadFormGeneration(ipdFormParams) {
+		if (ipdFormParams) {
+			let gtmData = {
+				'Category': 'ConsumerApp', 'Action': 'IpdProcedurePageFormClosed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-procedure-page-form-closed'
+			}
+			GTM.sendEvent({ data: gtmData })
+		}
+		let ipd_data = {
+			showChat: true,
+			ipdFormParams: ipdFormParams
+		}
+		
+		this.setState({ showLeadForm: false, ipdFormParams: ipdFormParams }, ()=>{
+			this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize: true})
+		})
+	}
+
 	render(){
+
+		const parsed = queryString.parse(this.props.location.search)
+
+		let showPopup = this.state.showLeadForm && this.props.ipd_info && this.props.ipd_info.about
 
 		return(                  		
            <div className ="ipd-section ipdSection cardMainPaddingRmv">
+           	  	{
+					showPopup ?
+						<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={null} hospital_id={null} formSource='ipdProcedurePopup' procedure_id={this.props.ipd_info && this.props.ipd_info.about?this.props.ipd_info.about.id:''} procedure_name={this.props.ipd_info && this.props.ipd_info.about?this.props.ipd_info.about.name:''}/>
+						: ''
+				}
            	  <HelmetTags tagsData={{
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
                     title: this.getMetaTagsData(this.props.ipd_info.seo).title,
@@ -209,8 +238,8 @@ class IpdView extends React.Component {
                        <div className="nav nav-tabs nav-top-head " id="nav-tab" role="tablist">
 	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='aboutTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'aboutTab')}>Overview
 	                              </a>
-	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='bookNow'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'bookNow')}>Book Now
-	                              </a>
+	                              {/*<a className={`nav-item nav-link ${this.state.toggleTabType=='bookNow'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'bookNow')}>Book Now
+	                              </a>*/}
 	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='hospitalTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'hospitalTab')}>Hospitals
 	                              </a>
 	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='doctorTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'doctorTab')}>Doctors
@@ -224,9 +253,9 @@ class IpdView extends React.Component {
                			<IpdAboutUs {...this.props} id="aboutTab" readMoreClicked={this.readMoreClicked.bind(this)}/>
                		</div> 
 
-               		<div id="bookNow" ref="bookNow" className="nav_top_bar">
+{/*               		<div id="bookNow" ref="bookNow" className="nav_top_bar">
                			<IpdFormView {...this.props} tabView={true} formSource='IpdInfoPage'/>
-               		</div> 
+               		</div> */}
                    	
 		            <div id="hospitalTab" ref="hospitalTab" className="tab-pane fade" className="nav_top_bar">
 		            	{

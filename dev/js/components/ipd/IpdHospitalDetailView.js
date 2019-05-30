@@ -25,7 +25,7 @@ class HospitalDetailView extends React.Component {
 		this.state = {
 			seoFriendly: this.props.match.url.includes('-hpp'),
 			toggleTabType: 'doctors',
-			showLeadForm: false,
+			showLeadForm: true,
 			ipdFormParams: {}
 		}
 	}
@@ -56,8 +56,15 @@ class HospitalDetailView extends React.Component {
 				for (i in sections) {
 					if (self.refs[i]) {
 
-						if ((self.refs[i].offsetTop + headerHeight) <= scrollPosition) {
-							self.setState({ toggleTabType: i })
+						if(i.includes('view_more')) {
+							if(scrollPosition > (self.refs['view_more'].offsetTop +  headerHeight )){
+						    	self.setState({toggleTabType: ''})
+						    }
+						}else { 
+							
+							if ((self.refs[i].offsetTop + headerHeight) <= scrollPosition) {
+								self.setState({ toggleTabType: i })
+							}
 						}
 					}
 				}
@@ -69,9 +76,6 @@ class HospitalDetailView extends React.Component {
 		if (parsed.type && this.refs[parsed.type]) {
 			this.toggleTabs(parsed.type)
 		}
-		setTimeout(() => {
-			this.setState({ showLeadForm: true })
-		}, 500)
 
 
 	}
@@ -184,6 +188,8 @@ class HospitalDetailView extends React.Component {
 
 		let showPopup = parsed.showPopup && this.state.showLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE && this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count
 
+		showPopup = parsed.showPopup && this.state.showLeadForm
+
 		return (
 			<React.Fragment>
 				{
@@ -267,7 +273,8 @@ class HospitalDetailView extends React.Component {
 										: ''
 								}
 							</div>
-
+							<div ref="view_more">
+							</div>
 							{
 								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.ipd_procedure_categories && this.props.ipd_hospital_detail.ipd_procedure_categories.length ?
 									<HospitalTreatment hospital_data={this.props.ipd_hospital_detail} {...this.props} />
@@ -301,8 +308,14 @@ class HospitalDetailView extends React.Component {
 							}
 							{
 								this.props.ipd_chat || showPopup?''
-								:<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">{typeof window == 'object' && window.ON_LANDING_PAGE? this.props.ipd_hospital_detail.bed_count?'Need Help?':'':'Get Cost Estimate'}</a></div>
-	
+								:typeof window == 'object' && window.ON_LANDING_PAGE?
+									this.props.ipd_hospital_detail.bed_count?
+									<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Need Help?</a></div>
+									:''
+								:<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a></div>
+
+
+									
 							}
 							
 						</div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { getIpdInfo, selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, mergeIpdCriteria } from '../../actions/index.js'
+import { getIpdInfo, selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, mergeIpdCriteria, ipdChatView } from '../../actions/index.js'
 import IpdInfoView from '../../components/ipd/IpdInfoView.js'
 const queryString = require('query-string')
 import GTM from '../../helpers/gtm.js'
@@ -113,7 +113,7 @@ class IpdInfoContainer extends React.Component{
             sub_locality = props.selectedLocation.sub_locality || ''
         }
 
-		let new_url = `${window.location.pathname}?ipd_id=${parsed.ipd_id}&place_id=${place_id}&lat=${lat}&long=${long}&locality=${locality}&sub_locality=${sub_locality}`
+		let new_url = `${window.location.pathname}?ipd_id=${parsed.ipd_id}&place_id=${place_id}&lat=${lat}&long=${long}&locality=${locality}&sub_locality=${sub_locality}&showPopup=true&get_feedback=1`
 
 		return new_url
 	}
@@ -174,8 +174,12 @@ const mapStateToProps = (state) => {
 		locationFetched
 	} = state.SEARCH_CRITERIA_IPD
 
+	const {
+		ipd_chat
+	} = state.USER
+
     return{
-    	selectedLocation, selectedCriterias, ipd_info, IPD_INFO_LOADED, commonSelectedCriterias, locationFetched
+    	selectedLocation, selectedCriterias, ipd_info, IPD_INFO_LOADED, commonSelectedCriterias, locationFetched, ipd_chat
     }
 }
 
@@ -185,7 +189,8 @@ const mapDispatchToProps = (dispatch) => {
 		saveProfileProcedures: (doctor_id, clinic_id, procedure_ids, forceAdd) => dispatch(saveProfileProcedures(doctor_id, clinic_id, procedure_ids, forceAdd)),
 		selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
 		cloneCommonSelectedCriterias: (selectedCriterias) => dispatch(cloneCommonSelectedCriterias(selectedCriterias)),
-		mergeIpdCriteria: (filterCriteria)=> dispatch(mergeIpdCriteria(filterCriteria))
+		mergeIpdCriteria: (filterCriteria)=> dispatch(mergeIpdCriteria(filterCriteria)),
+		ipdChatView: (data) => dispatch(ipdChatView(data))
 
 	}
 }
