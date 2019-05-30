@@ -9,7 +9,11 @@ class ChatFeedBack extends React.Component {
 	componentDidMount(){
 		const parsed = queryString.parse(this.props.location.search)
 		if(parsed.rid){
-			this.props.saveChatFeedbackRoomId(parsed.rid)
+			let rid = parsed.rid
+			if(window){
+				rid = window.atob(rid)
+			}
+			this.props.saveChatFeedbackRoomId(rid)
 		}
 	}
 
