@@ -4898,13 +4898,13 @@ p.error-msg.subAlertins{
 .footbgRound{
 	position: absolute;
     width: 150px;
-    top: -14px;
+    top: 0;
 }
 .nw-mid-container-with-img{
     z-index: 1;
     color: white;
     position: relative;
-    top: -16px;
+    top: 6px;
 }
 .nw-cht-border-btn{
     width: 100%;
