@@ -59,7 +59,6 @@ class InsuranceCancellationView extends React.Component {
             let validated = false
             switch (this.refs[prp].name) {
                 case "name": {
-                	console.log(this.refs[prp].value)
                     if (!this.refs[prp].value) {
                         validated = false
                     } else {
