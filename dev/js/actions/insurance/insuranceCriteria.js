@@ -197,8 +197,8 @@ export const resetUserInsuredData = (criteria) => (dispatch) => {
     })
 }
 
-export const cancelInsurance = (callback) => (dispatch) => {
-    API_GET('/api/v1/insurance/cancel').then(function (response) {
+export const cancelInsurance = (data,callback) => (dispatch) => {
+    return API_POST('/api/v1/insurance/cancel',data).then(function (response) {
         if (callback) callback(response)
     }).catch(function (error) {
         if (callback) callback(null)
@@ -284,5 +284,12 @@ export const saveUserBankDetails = (criteria) => (dispatch) => {
     dispatch({
         type:SAVE_INSURANCE_BANK_DETAILS,
         payload:criteria
+    })
+}
+export const uploadBankProof = (profileData,imgType,cb) => (dispatch) => {
+    API_POST(`/api/v1/insurance/bank/upload`,profileData).then(function (response) {
+        if (cb) cb(response,null);
+    }).catch(function (error) {
+        if (cb) cb(error, null);
     })
 }

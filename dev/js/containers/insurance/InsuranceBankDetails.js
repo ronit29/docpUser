@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { cancelInsurance, cancelledInsuranceDetails, saveUserBankDetails} from '../../actions/index.js'
+import { cancelInsurance, cancelledInsuranceDetails, saveUserBankDetails, uploadBankProof} from '../../actions/index.js'
 import InsuranceBankDetailsView from '../../components/insurance/insuranceBankDetailsView.js'
 
 class InsuranceBankDetails extends React.Component{
@@ -12,12 +12,7 @@ class InsuranceBankDetails extends React.Component{
             data:null
         }
     }
-
-    componentDidMount(){
-        // this.props.cancelledInsuranceDetails(resp =>{
-        //     this.setState({data:resp})
-        // })
-    }
+    
 	render(){
 		return(
 			<InsuranceBankDetailsView {...this.props} data={this.state.data}/>
@@ -36,9 +31,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
 
-        cancelInsurance :(cb) => dispatch(cancelInsurance(cb)),
-        cancelledInsuranceDetails:(cb) => dispatch(cancelledInsuranceDetails(cb)),
-        saveUserBankDetails:(criteria) => dispatch(saveUserBankDetails(criteria))
+        cancelInsurance :(data,cb) => dispatch(cancelInsurance(data,cb)),
+        saveUserBankDetails:(criteria) => dispatch(saveUserBankDetails(criteria)),
+        uploadBankProof:(file,imgType,cb) =>dispatch(uploadBankProof(file,imgType,cb))
     }
 }
 

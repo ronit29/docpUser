@@ -2,6 +2,8 @@ import React from 'react'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import ChatPanel from '../../components/commons/ChatPanel'
 import Loader from '../commons/Loader'
+const Compress = require('compress.js')
+import SnackBar from 'node-snackbar'
 
 class InsuranceCancellationView extends React.Component {
 	constructor(props) {
@@ -14,7 +16,10 @@ class InsuranceCancellationView extends React.Component {
 			address:'',
 			accountNumber:'',
 			ifscCode:'',
-			err:''
+			err:'',
+			img_url:null,
+			img_id:null,
+			isLoading:false
 		}
 	}
 
@@ -108,12 +113,23 @@ class InsuranceCancellationView extends React.Component {
         
 
         if(register){
-   //      	this.props.cancelInsurance(resp => {
-			// 	if (resp.success) {
-			// 		this.setState({ showCancelSection:false })
-			// 	}
-			// })
-			this.setState({ showCancelSection:false })
+        	if(!this.state.img_url){
+        		SnackBar.show({ pos: 'bottom-center', text: "Please upload required documents." });
+        	}else{
+        		let data={}
+        		data.bank_name = this.state.bankName
+				data.account_number = this.state.accountNumber
+				data.account_holder_name = this.state.name
+				data.ifsc_code = this.state.ifscCode
+				data.bank_address = this.state.address
+				data.image_ids = [{'document_image':this.state.img_id}]
+				console.log(data)
+	        	this.props.cancelInsurance(data,resp => {
+					if (resp.success) {
+						this.setState({ showCancelSection:false })
+					}
+				})
+	        }
         }
     }
 
@@ -123,8 +139,84 @@ class InsuranceCancellationView extends React.Component {
         }
     }
 
-    pickFile(){
-    	
+    pickFile(e) {
+        if (e.target.files && e.target.files[0]) {
+            let file = e.target.files[0]
+            if (e.target.files[0] && e.target.files[0].name.includes('.pdf')) {
+                this.finishCrop(null, file)
+            } else {
+                const compress = new Compress()
+                compress.compress([file], {
+                    quality: 1,
+                    maxWidth: 1000,
+                    maxHeight: 1000,
+                }).then((results) => {
+                    const img1 = results[0]
+                    const base64str = img1.data
+                    const imgExt = img1.ext
+                    const file = Compress.convertBase64ToFile(base64str, imgExt)
+                    this.getBase64(file, (dataUrl) => {
+                        this.finishCrop(dataUrl,null)
+                        this.setState({ dataUrl })
+                    })
+                }).catch((e) => {
+                    SnackBar.show({ pos: 'bottom-center', text: "Error uploading image." });
+                })
+            }
+        }
+    }
+
+    getBase64(file, cb) {
+        var reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = function () {
+            cb(reader.result)
+        }
+        reader.onerror = function (error) {
+            console.log('Error: ', error)
+        }
+    }
+
+    finishCrop(dataUrl, member_id, file) {
+        let file_blob_data
+        if (dataUrl) {
+            file_blob_data = this.dataURItoBlob(dataUrl)
+        }
+        let mem_data = {}
+        let existingData
+        let img_tag = "document_image"
+        this.setState({
+            dataUrl: null,isLoading:true
+        }, () => {
+            let form_data = new FormData()
+            if (file) {
+                form_data.append(img_tag, file, "imageFilename.pdf")
+            } else {
+                form_data.append(img_tag, file_blob_data, "imageFilename.jpeg")
+            }
+            this.props.uploadBankProof(form_data,'image', (data, err) => {
+                if (data) {
+                	this.setState({img_url:data.data.document_image,img_id:data.id,isLoading:false},()=>{
+                		this.props.saveUserBankDetails(this.state)
+                	})
+                }
+            })
+        })
+    }
+
+    dataURItoBlob(dataURI) {
+        var binary = atob(dataURI.split(',')[1]);
+        var array = [];
+        for (var i = 0; i < binary.length; i++) {
+            array.push(binary.charCodeAt(i));
+        }
+        return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
+    }
+    
+    removeImage(img){
+        this.setState({img_url:null,img_id:null},()=>{
+        	this.props.saveUserBankDetails(this.state)
+        })
     }
 
     handleSubmit(){
@@ -143,7 +235,6 @@ class InsuranceCancellationView extends React.Component {
 									<div className="widget-content">
 										<h1 className="ins-cancl-heading">We need bank account details to proceed with your cancellation</h1>
 										<div className="ins-cancl-container">
-
 											<input className="ins-cn-inp" type="text" name="name" placeholder="Account Holder Name" onChange={this.inputHandler.bind(this)} value={this.state.name} required ref="name" onKeyPress={this.handleEnterPress.bind(this)}  onBlur={this.handleSubmit.bind(this)} style={{'textTransform': 'capitalize'}} />
 
 											<input className="ins-cn-inp" type="text" name="bankName" placeholder="Bank Name" onChange={this.inputHandler.bind(this)} value={this.state.bankName} required ref="bankName" onKeyPress={this.handleEnterPress.bind(this)} onBlur={this.handleSubmit.bind(this)} style={{'textTransform': 'capitalize'}}/>
@@ -154,6 +245,12 @@ class InsuranceCancellationView extends React.Component {
 
 											<input className="ins-cn-inp" type="text" name="ifscCode" placeholder="IFSC Code" onChange={this.inputHandler.bind(this)} value={this.state.ifscCode} required ref="ifscCode" onKeyPress={this.handleEnterPress.bind(this)} onBlur={this.handleSubmit.bind(this)} style={{'textTransform': 'capitalize'}} pattern="[a-z]{1,15}"/>
 										</div>
+										{this.state.img_url && this.state.img_id?
+											<div className="ins-prf-img-grd">
+		                                        <img className="img-fluid ins-up-img-ic" src={this.state.img_url} />
+		                                        <img className="ins-prf-cls" onClick={this.removeImage.bind(this,this.state.img_url)} src="https://cdn.docprime.com/cp/assets/img/icons/close.png" />
+		                                    </div>
+										:<React.Fragment>
 										<p className="ins-cancl-para">We need to confirm if this account belongs to you. Please fill more details below </p>
 										<span className="ins-proof-upload-btn" onClick={() => {
 					                        document.getElementById('imageFilePicker_').click()
@@ -172,6 +269,8 @@ class InsuranceCancellationView extends React.Component {
 										<button className="ins-cn-btn"><img src={ASSETS_BASE_URL + '/img/upld.png'} />Upload Cancelled Cheque</button>
 										<p className="ins-cancl-para">OR</p>
 										<button className="ins-cn-btn"><img src={ASSETS_BASE_URL + '/img/upld.png'} />Upload Account Statement</button>*/}
+										</React.Fragment>
+					                    }
 									</div>
 								</div>
 							</section>
