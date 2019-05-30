@@ -124,7 +124,8 @@ const mapStateToProps = (state, passedProps) => {
     const {
         offerList,
         is_login_user_insured,
-        insurance_status
+        insurance_status,
+        device_info
     } = state.USER
 
     return {
@@ -157,7 +158,8 @@ const mapStateToProps = (state, passedProps) => {
         is_login_user_insured,
         insurance_status,
         canonical_url,
-        compare_packages
+        compare_packages,
+        device_info
     }
 }
 

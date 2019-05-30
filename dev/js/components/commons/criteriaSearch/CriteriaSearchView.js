@@ -190,7 +190,11 @@ class CriteriaSearchView extends React.Component {
                     this.props.hideHeaderOnMobile ? <div className="hide-762"><ProfileHeader showSearch={true} /></div> : <ProfileHeader showSearch={true} />
                 }
                 <section ref="scrollTarget" className={"container parent-section book-appointment-section" + (this.props.hideHeaderOnMobile ? " mp0" : "") + (this.props.isPackage ?" pkgComapre":"")}>
-                    <ScrollWidget getScrollView={this.getScrollView.bind(this)} target={this.refs && this.refs['scrollTarget']?this.refs['scrollTarget']:''}/>
+                    {
+                        navigator && navigator.userAgent && navigator.userAgent.includes('iPhone')?''
+                        :<ScrollWidget getScrollView={this.getScrollView.bind(this)} target={this.refs && this.refs['scrollTarget']?this.refs['scrollTarget']:''}/>    
+                    }
+                    
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
