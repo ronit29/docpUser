@@ -19,7 +19,8 @@ class InsuranceCancellationView extends React.Component {
 			err:'',
 			img_url:null,
 			img_id:null,
-			isLoading:false
+			isLoading:false,
+			policy_number:null
 		}
 	}
 
@@ -123,10 +124,9 @@ class InsuranceCancellationView extends React.Component {
 				data.ifsc_code = this.state.ifscCode
 				data.bank_address = this.state.address
 				data.image_ids = [{'document_image':this.state.img_id}]
-				console.log(data)
-	        	this.props.cancelInsurance(data,resp => {
+	        	this.props.cancelInsurance(data,(resp)=> {
 					if (resp.success) {
-						this.setState({ showCancelSection:false })
+						this.setState({ policy_number:resp.policy_number,showCancelSection:false })
 					}
 				})
 	        }
@@ -286,7 +286,7 @@ class InsuranceCancellationView extends React.Component {
 							<section className="profile-book-screen">
 								<div className="widget-content mrb-10">
 									<p className="fw-500 text-center">
-										Your Policy DPHEALTHOPD12345 cancellation request has been initiated
+										Your Policy {this.state.policy_number} cancellation request has been initiated
 									</p>
 								</div>
 								<div className="widget mrb-10">

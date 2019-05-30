@@ -219,8 +219,7 @@ export default function (state = defaultState, action) {
             newState.nextFilterCriteria = DEFAULT_FILTER_STATE
             newState.filterCriteriaPackages = DEFAULT_FILTER_STATE_PACKAGES
             // newState.fetchNewResults = true
-            console.log(newState.filterCriteriaPackages)
-            // return newState
+            return newState
         }
 
         case CLEAR_EXTRA_TESTS: {
