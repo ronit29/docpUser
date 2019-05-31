@@ -2,9 +2,27 @@ import { FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, SET_FETCH_RESULTS_LA
 import { API_GET } from '../../api/api.js';
 import GTM from '../../helpers/gtm'
 
-export const loadOPDCommonCriteria = (city = 'Delhi') => (dispatch) => {
+export const loadOPDCommonCriteria = (selectedLocation) => (dispatch) => {
 
-    return API_GET(`/api/v1/doctor/commonconditions?city=${city}`).then(function (response) {
+    let lat = 28.644800
+    let long = 77.216721
+    let place_id = ""
+    let locality = ""
+    let sub_locality = ""
+
+    if (selectedLocation && (selectedLocation.geometry || selectedLocation.place_id) ) {
+        lat = selectedLocation.geometry.location.lat
+        long = selectedLocation.geometry.location.lng
+        place_id = selectedLocation.place_id || ""
+        if (typeof lat === 'function') lat = lat()
+        if (typeof long === 'function') long = long()
+        locality = selectedLocation.locality || ""
+        sub_locality = selectedLocation.sub_locality || ""
+    }else{
+        locality = "Delhi"
+    }
+
+    return API_GET(`/api/v1/doctor/commonconditions?city=${locality}`).then(function (response) {
         dispatch({
             type: LOAD_SEARCH_CRITERIA_OPD,
             payload: response
@@ -63,7 +81,7 @@ export const selectLocation = (location, type = 'geo', fetchNewResults = true) =
 
     GTM.sendEvent({ data: data })
 
-    loadOPDCommonCriteria(location_name)(dispatch)
+    loadOPDCommonCriteria(location)(dispatch)
 
     return Promise.all([
         dispatch({

@@ -40,7 +40,7 @@ class Home extends React.Component {
             if (this.props.selectedLocation && this.props.selectedLocation.locality) {
                 city = this.props.selectedLocation.locality
             }
-            this.props.loadOPDCommonCriteria(city)
+            this.props.loadOPDCommonCriteria(this.props.selectedLocation)
             this.props.loadLabCommonCriterias()
         }
 

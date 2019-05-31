@@ -1024,7 +1024,7 @@ class PatientDetailsNew extends React.Component {
                                 <BookingError message={this.state.error} closeErrorPopup={this.closeErrorPopup} /> : ''
                         }
 
-                        <RightBar extraClass="chat-float-btn-2" type="opd" noChatButton={true} showHalfScreenChat={this.props.ipd_chat && this.props.ipd_chat.showIpdChat?true:false} showDesktopIpd={true} />
+                        <RightBar extraClass="chat-float-btn-2" type="opd" noChatButton={true} showDesktopIpd={true} />
                     </div>
                 </section>
             </div>
