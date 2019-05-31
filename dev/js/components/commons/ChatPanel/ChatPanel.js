@@ -423,6 +423,7 @@ class ChatPanel extends React.Component {
         if(parsedHref && parsedHref.utm_source && parsedHref.utm_source.includes('religare')) {
             is_religare = true
         }
+        is_religare = is_religare && this.props.mobilechatview
         let chatBtnContent1 = ''
         let chatBtnContent2 = ''
         if (this.props.articleData && this.props.articleData.title) {
@@ -495,7 +496,7 @@ class ChatPanel extends React.Component {
                     <div className={`${this.state.showChatBlock?"floating-chat " : ""} ${is_religare?' chat-rlgr-view':''}`}>
                         {
                             this.state.showStaticView ?
-                                <ChatStaticView {...this.props} startLiveChatWithMessage={this.startLiveChatWithMessage.bind(this)} hideStaticChat={this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`} />
+                                <ChatStaticView {...this.props} startLiveChatWithMessage={this.startLiveChatWithMessage.bind(this)} hideStaticChat={this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`} is_religare={is_religare}/>
                                 :
                                 <div className={this.state.showChatBlock ? "chatbox-right test-chat" : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}>
 
