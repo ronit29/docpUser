@@ -1442,3 +1442,14 @@ display: none;
 }
 
 /* ============ ipd chat popup ============ */
+/* ============ custom chat ============ */
+.chat-rlgr-view .chat-head{
+	background: #D1E391;
+}
+.chat-rlgr-view p.text-left.header-text-chat{
+	color: #1E723F !important;
+}
+.chat-rlgr-view div.chat-body{
+	background: #ecf3d7;
+}
+/* ============ custom chat ============ */
