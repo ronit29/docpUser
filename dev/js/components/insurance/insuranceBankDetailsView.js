@@ -252,7 +252,7 @@ class InsuranceCancellationView extends React.Component {
 
 	                                            <div className="labelWrap">
 	                                                <input id="accountNumber" name="accountNumber" type="number" onChange={this.inputHandler.bind(this)} value={this.state.accountNumber} required ref="accountNumber" onKeyPress={this.handleEnterPress.bind(this)} onBlur={this.handleSubmit.bind(this)} style={{'textTransform': 'capitalize'}} autoComplete="accountNumber"/>
-	                                                <label htmlFor="bankName">Account Number</label>
+	                                                <label htmlFor="accountNumber">Account Number</label>
 	                                            </div>
 
 	                                            <div className="labelWrap">
