@@ -11245,6 +11245,9 @@ position: relative;
 .sub-wd-cards div.pkgcardImgCont img{
     width: 32px;
 }
+p.pkgtstName.prcd-height{
+    min-height: auto;
+}
 /* ==================== new package styling ==================== */
 .medic-img-slider img {
     width: 250px;

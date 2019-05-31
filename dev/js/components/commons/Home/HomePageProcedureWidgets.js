@@ -59,14 +59,14 @@ class TopProcedureWidgets extends React.Component {
                     {/*<span>View All</span>*/}
                 </div>
                 <div className="pkgSliderContainer" id="top_ipd">
-                    <div className='pkgCardsList d-inline-block sub-wd-cards top_ipd_list'>
+                    <div className='pkgCardsList d-inline-flex sub-wd-cards top_ipd_list'>
                     	{
                     		this.props.top_data.map((data) => {
                     			return <div className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
 				                            <div className="pkgcardImgCont">
 				                                <img className="img-fluid" src={data.icon} />
 				                            </div>
-				                            <p className="pkgtstName">
+				                            <p className="pkgtstName prcd-height">
 				                                {data.name}
 				                        	</p>
 				                        </div>		
