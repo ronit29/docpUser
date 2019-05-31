@@ -631,7 +631,13 @@ class PatientDetailsNew extends React.Component {
         }
         
         this.setState({ showIpdLeadForm: false }, ()=>{
-            this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize:true})   
+
+            this.props.checkIpdChatAgentStatus((response) => {
+                if(response && response.status == 200) {
+
+                    this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize:true})
+                }
+            })   
         })
     }
 
