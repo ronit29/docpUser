@@ -25,7 +25,7 @@ class HospitalDetailView extends React.Component {
 		this.state = {
 			seoFriendly: this.props.match.url.includes('-hpp'),
 			toggleTabType: 'doctors',
-			showLeadForm: false,
+			showLeadForm: true,
 			ipdFormParams: {}
 		}
 	}
@@ -76,9 +76,6 @@ class HospitalDetailView extends React.Component {
 		if (parsed.type && this.refs[parsed.type]) {
 			this.toggleTabs(parsed.type)
 		}
-		setTimeout(() => {
-			this.setState({ showLeadForm: true })
-		}, 500)
 
 
 	}
@@ -190,6 +187,8 @@ class HospitalDetailView extends React.Component {
 		const parsed = queryString.parse(this.props.location.search)
 
 		let showPopup = parsed.showPopup && this.state.showLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE && this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count
+
+		showPopup = parsed.showPopup && this.state.showLeadForm
 
 		return (
 			<React.Fragment>

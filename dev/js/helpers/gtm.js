@@ -1,7 +1,7 @@
 import CONFIG from '../config'
 import STORAGE from './storage/storage'
 import { setGTMSession } from '../actions/commons/auth.js'
-
+const queryString = require('query-string');
 
 function getVisitorId() {
     let uid_string = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
@@ -27,6 +27,96 @@ function getVisitId() {
 }
 
 const GTM = {
+
+    send_boot_events: () => {
+
+        let def_data = {
+            utm_tags: {
+                utm_source: '',
+                utm_medium: '',
+                utm_term: '',
+                utm_campaign: '',
+                source: "",
+                referrer: ''
+            }, device: 'desktop'
+        }
+
+        if (typeof window == "undefined" || typeof navigator == "undefined") {
+            return def_data
+        }
+
+        if (window.SENT_BOOT_UP_DATA) {
+            return def_data
+        }
+
+        let parsed = null
+        try {
+            parsed = queryString.parse(window.location.search)
+        } catch (e) {
+
+        }
+
+        let utm_tags = def_data.utm_tags
+
+        if (parsed) {
+            let source = ''
+            if (parsed.utm_source) {
+                source = parsed.utm_source
+            } else if (document.referrer) {
+                source = document.referrer
+            }
+
+            utm_tags = {
+                utm_source: parsed.utm_source || '',
+                utm_medium: parsed.utm_medium || '',
+                utm_term: parsed.utm_term || '',
+                utm_campaign: parsed.utm_campaign || '',
+                source: source,
+                referrer: document.referrer || ''
+            }
+        }
+
+
+
+        let data1 = {
+            'Category': 'ConsumerApp', 'Action': 'UTMevents', 'event': 'utm-events', 'utm_source': utm_tags.utm_source || '', 'utm_medium': utm_tags.utm_medium || '', 'utm_term': utm_tags.utm_term || '', 'utm_campaign': utm_tags.utm_campaign || '', 'addToGA': false, 'source': utm_tags.source, 'referrer': document.referrer || ''
+        }
+
+        GTM.sendEvent({ data: data1 })
+
+
+        let isMobile = false
+        let device = 'desktop'
+        if (/mobile/i.test(navigator.userAgent)) {
+            isMobile = true
+            device = 'mobile'
+        }
+        if (navigator.userAgent.match(/iPad/i)) {
+            device = 'ipad'
+        }
+        if (navigator.userAgent.match(/iPhone/i)) {
+            device = 'iphone'
+        }
+        if (navigator.userAgent.match(/Android/i)) {
+            device = 'Android'
+        }
+
+        if (navigator.userAgent.match(/BlackBerry/i)) {
+            device = 'BlackBerry'
+        }
+
+        let data2 = {
+            'Category': 'ConsumerApp', 'Action': 'VisitorInfo', 'event': 'visitor-info', 'Device': device, 'Mobile': isMobile, 'platform': navigator.platform || '', 'addToGA': false
+        }
+
+        GTM.sendEvent({ data: data2 })
+
+        window.SENT_BOOT_UP_DATA = true
+
+        return { utm_tags, device }
+
+    },
+
     sendEvent: ({ data }, send_to_GA = true, send_to_backend = true) => {
         try {
             /**

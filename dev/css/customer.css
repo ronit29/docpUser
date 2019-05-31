@@ -2197,3 +2197,45 @@ p.rt-doc-nm{
     outline: none;
     resize: none;
 }
+
+.doc-avatar{
+    width: 20px;
+    margin-right: 14px;
+    padding: 8px 0;
+}
+
+.doc-avatar>img{
+    width: 100%;
+}
+
+.chat-now-btn{
+    width: 60px;
+    margin-left: 20px;
+    background-color: #f78631;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    align-self: stretch;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.chat-now-btn p{
+    color: #fff;
+    font-size: 12px;
+}
+
+.chat-now-btn:before{
+    content: "";
+    position: absolute;
+    left: -5px;
+    top: 0px;
+    height: 100%;
+    width: 20px;
+    background-color: inherit;
+    -webkit-transform: skewX(-10deg);
+    -moz-transform: skewX(-10deg);
+    -ms-transform: skewX(-10deg);
+    transform: skewX(-13deg);
+}
