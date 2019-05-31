@@ -234,15 +234,33 @@ class InsuranceCancellationView extends React.Component {
 									<div className="widget-content">
 										<h1 className="ins-cancl-heading">We need bank account details to proceed with your cancellation</h1>
 										<div className="ins-cancl-container">
-											<input className="ins-cn-inp" type="text" name="name" placeholder="Account Holder Name" onChange={this.inputHandler.bind(this)} value={this.state.name} required ref="name" onKeyPress={this.handleEnterPress.bind(this)}  onBlur={this.handleSubmit.bind(this)} style={{'textTransform': 'capitalize'}} />
+											<form className="go-bottom">
+												<div className="labelWrap">
+	                                                <input id="Accname" name="name" type="text" onChange={this.inputHandler.bind(this)} value={this.state.name} required ref="name" onKeyPress={this.handleEnterPress.bind(this)} onBlur={this.handleSubmit.bind(this)} style={{'textTransform': 'capitalize'}} autoComplete="first_name"/>
+	                                                <label htmlFor="Accname">Account Holder Name</label>
+	                                            </div>
 
-											<input className="ins-cn-inp" type="text" name="bankName" placeholder="Bank Name" onChange={this.inputHandler.bind(this)} value={this.state.bankName} required ref="bankName" onKeyPress={this.handleEnterPress.bind(this)} onBlur={this.handleSubmit.bind(this)} style={{'textTransform': 'capitalize'}}/>
+	                                            <div className="labelWrap">
+	                                                <input id="bankName" name="bankName" type="text" onChange={this.inputHandler.bind(this)} value={this.state.bankName} required ref="bankName" onKeyPress={this.handleEnterPress.bind(this)} onBlur={this.handleSubmit.bind(this)} style={{'textTransform': 'capitalize'}} autoComplete="bankName"/>
+	                                                <label htmlFor="bankName">Bank Name</label>
+	                                            </div>
 
-											<textarea className="ins-cn-textarea" name="address" placeholder="Bank address" onChange={this.inputHandler.bind(this)} value={this.state.address} required ref="address" onKeyPress={this.handleEnterPress.bind(this)} onBlur={this.handleSubmit.bind(this)} style={{'textTransform': 'capitalize'}}></textarea>
+	                                            <div className="labelWrap">
+	                                            	<input id="address" name="address" type="text" onChange={this.inputHandler.bind(this)} value={this.state.address} required ref="address" onKeyPress={this.handleEnterPress.bind(this)} onBlur={this.handleSubmit.bind(this)} style={{'textTransform': 'capitalize'}} autoComplete="address"/>
+	                                                <label htmlFor="address">Bank address</label>
+	                                            </div>
 
-											<input className="ins-cn-inp" type="number" name="accountNumber" placeholder="Account Number" onChange={this.inputHandler.bind(this)} value={this.state.accountNumber} required ref="accountNumber" onKeyPress={this.handleEnterPress.bind(this)} onBlur={this.handleSubmit.bind(this)}  />
+	                                            <div className="labelWrap">
+	                                                <input id="accountNumber" name="accountNumber" type="number" onChange={this.inputHandler.bind(this)} value={this.state.accountNumber} required ref="accountNumber" onKeyPress={this.handleEnterPress.bind(this)} onBlur={this.handleSubmit.bind(this)} style={{'textTransform': 'capitalize'}} autoComplete="accountNumber"/>
+	                                                <label htmlFor="bankName">Account Number</label>
+	                                            </div>
 
-											<input className="ins-cn-inp" type="text" name="ifscCode" placeholder="IFSC Code" onChange={this.inputHandler.bind(this)} value={this.state.ifscCode} required ref="ifscCode" onKeyPress={this.handleEnterPress.bind(this)} onBlur={this.handleSubmit.bind(this)} style={{'textTransform': 'capitalize'}} pattern="[a-z]{1,15}"/>
+	                                            <div className="labelWrap">
+	                                                <input id="ifscCode" name="ifscCode" type="text" onChange={this.inputHandler.bind(this)} value={this.state.ifscCode} required ref="ifscCode" onKeyPress={this.handleEnterPress.bind(this)} onBlur={this.handleSubmit.bind(this)} style={{'textTransform': 'capitalize'}} autoComplete="ifscCode"/>
+	                                                <label htmlFor="ifscCode">IFSC Code</label>
+	                                            </div>
+                                            </form>
+
 										</div>
 										{this.state.img_url && this.state.img_id?
 											<div className="ins-prf-img-grd">
