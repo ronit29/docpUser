@@ -37,10 +37,10 @@ class ChatPanel extends React.Component {
         }
         if (this.props.selectedLocation) {
             this.sendLocationNotification(this.props.selectedLocation)
-            this.sendUserDetails(this.props.USER)
         }
 
         STORAGE.getAuthToken().then((token) => {
+            this.sendUserDetails(this.props.USER)
             token = token || ""
             if (this.props.location.state) {
                 this.setState({ token, symptoms: (this.props.location.state.symptoms || []), roomId: (this.props.location.state.roomId || "") })
