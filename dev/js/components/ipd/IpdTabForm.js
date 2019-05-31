@@ -205,7 +205,7 @@ class IpdTabForm extends React.Component {
 						: ''
 				}
 				{
-					this.props.tabView?
+					( this.props.tabView || !(ipd_info && ipd_info.about && ipd_info.about.name) )?
 					<div className="lead-form">
 						<h2 className="section-heading hd-mrgn-top">Get Help from Medical Experts</h2>
 					
