@@ -262,6 +262,20 @@ class InsuranceCancellationView extends React.Component {
                                             </form>
 
 										</div>
+										{this.state.isLoading?
+							            <div className="ins-prf-img-grd d-block">
+							                <div className="loader-for-chat-div mt-0">
+							                    <div className='loader-for-chat mb-0'>
+							                        <span></span>
+							                        <span></span>
+							                        <span></span>
+							                        <span></span>
+							                        <span></span>
+							                        <span></span>
+							                    </div>
+							                </div>
+							            </div>
+							            :''}
 										{this.state.img_url && this.state.img_id?
 											<div className="ins-prf-img-grd">
 		                                        <img className="img-fluid ins-up-img-ic" src={this.state.img_url} />
