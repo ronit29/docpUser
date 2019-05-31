@@ -286,14 +286,14 @@ class InsuranceCancellationView extends React.Component {
 										<span className="ins-proof-upload-btn" onClick={() => {
 					                        document.getElementById('imageFilePicker_').click()
 					                        document.getElementById('imageFilePicker_').value = "" }}>
-					                    	<img src={ASSETS_BASE_URL + "/img/ins-up-ico.svg"}/> Upload
+					                    	<img src={ASSETS_BASE_URL + "/img/ins-up-ico.svg"}/>Upload Cancelled Cheque
 					                        	<input type="file" style={{ display: 'none' }} id={`imageFilePicker_`} onChange={this.pickFile.bind(this)} accept="image/*"/>
 					                    </span>
 					                    <p className="ins-cancl-para">OR</p>
 					                    <span className="ins-proof-upload-btn" onClick={() => {
 					                        document.getElementById('imageFilePicker_').click()
 					                        document.getElementById('imageFilePicker_').value = "" }}>
-					                    	<img src={ASSETS_BASE_URL + "/img/ins-up-ico.svg"}/> Upload
+					                    	<img src={ASSETS_BASE_URL + "/img/ins-up-ico.svg"}/>Upload Account Statement
 					                        	<input type="file" style={{ display: 'none' }} id={`imageFilePicker_`} onChange={this.pickFile.bind(this)} accept="image/*"/>
 					                    </span>
 										{/*<p className="ins-cancl-para">We need to confirm if this account belongs to you. Please fill more details below </p>
