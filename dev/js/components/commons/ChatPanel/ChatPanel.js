@@ -411,11 +411,12 @@ class ChatPanel extends React.Component {
                 iframe_url += `&botagent=DocPrimeSOT&source=lablistingchatnow`
             }
         }
-
+        let is_religare = false
         if (this.props.USER && this.props.USER.common_utm_tags && this.props.USER.common_utm_tags.length) {
             let religareTag = this.props.USER.common_utm_tags.filter(x => x.type == 'chat' && x.utm_source == 'religare')
 
             if (religareTag.length) {
+                is_religare = true
                 iframe_url += `&source=religare&visitid=${religareTag[0].visitorId}`
             }
         }
@@ -488,7 +489,7 @@ class ChatPanel extends React.Component {
                                 <TableOfContent searchTestInfoData={this.props.searchTestInfoData} updateTabsValues={this.props.updateTabsValues} resp_test_id={this.props.resp_test_id} />
                             </div> : ''
                     }
-                    <div className={this.state.showChatBlock ? "floating-chat " : ""}>
+                    <div className={`${this.state.showChatBlock?"floating-chat " : ""} ${is_religare?' chat-rlgr-view':''}`}>
                         {
                             this.state.showStaticView ?
                                 <ChatStaticView {...this.props} startLiveChatWithMessage={this.startLiveChatWithMessage.bind(this)} hideStaticChat={this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`} />
