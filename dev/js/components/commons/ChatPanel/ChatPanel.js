@@ -420,6 +420,9 @@ class ChatPanel extends React.Component {
                 iframe_url += `&source=religare&visitid=${religareTag[0].visitorId}`
             }
         }
+        if(parsedHref && parsedHref.utm_source && parsedHref.utm_source.includes('religare')) {
+            is_religare = true
+        }
         let chatBtnContent1 = ''
         let chatBtnContent2 = ''
         if (this.props.articleData && this.props.articleData.title) {
