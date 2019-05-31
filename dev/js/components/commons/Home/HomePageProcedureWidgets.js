@@ -18,9 +18,9 @@ class TopProcedureWidgets extends React.Component {
         this.props.toggleIPDCriteria(selectedCriteria, true)
         
         if(data.url){
-            this.props.history.push(`/${data.url}?showPopup=true&get_feedback=1`)
+            this.props.history.push(`/${data.url}?showPopup=true`)
         }else{
-            this.props.history.push(`/ipdInfo?ipd_id=${data.id}&showPopup=true&get_feedback=1`)
+            this.props.history.push(`/ipdInfo?ipd_id=${data.id}&showPopup=true`)
         }
     }
 

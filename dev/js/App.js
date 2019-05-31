@@ -116,7 +116,7 @@ class App extends React.Component {
             })
         }
 
-        let { utm_tags, device } = GTM.send_boot_events()
+        let { utm_tags, device } = GTM.send_boot_events(true)
 
         if (utm_tags.utm_source && utm_tags.utm_source.includes('religare')) {
             let tags = {

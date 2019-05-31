@@ -40,6 +40,7 @@ class ChatPanel extends React.Component {
         }
 
         STORAGE.getAuthToken().then((token) => {
+            this.sendUserDetails(this.props.USER)
             token = token || ""
             if (this.props.location.state) {
                 this.setState({ token, symptoms: (this.props.location.state.symptoms || []), roomId: (this.props.location.state.roomId || "") })
@@ -250,6 +251,15 @@ class ChatPanel extends React.Component {
         this.dispatchCustomEvent('location', data)
     }
 
+    sendUserDetails(user){
+        let data={}
+        if(user && Object.keys(user.profiles).length > 0){
+            data.is_insured = user.profiles[user.selectedProfile].is_insured
+            data.name = user.profiles[user.selectedProfile].name       
+        }
+        this.dispatchCustomEvent('user_details', data)
+    }
+
     componentWillReceiveProps(props) {
 
         if (this.props.selectedLocation != props.selectedLocation && props.selectedLocation) {
@@ -257,6 +267,7 @@ class ChatPanel extends React.Component {
         }
 
         if ((props.USER && props.USER.liveChatStarted && props.USER.liveChatStarted != this.props.USER.liveChatStarted) || (props.USER && props.USER.ipd_chat && props.USER.ipd_chat.showIpdChat) ) {
+            this.sendUserDetails(props.USER)
             this.setState({ showStaticView: false, iframeLoading: true }, () => {
                 this.setState({ hideIframe: false }, () => {
 
@@ -411,14 +422,19 @@ class ChatPanel extends React.Component {
                 iframe_url += `&botagent=DocPrimeSOT&source=lablistingchatnow`
             }
         }
-
+        let is_religare = false
         if (this.props.USER && this.props.USER.common_utm_tags && this.props.USER.common_utm_tags.length) {
             let religareTag = this.props.USER.common_utm_tags.filter(x => x.type == 'chat' && x.utm_source == 'religare')
 
             if (religareTag.length) {
+                is_religare = true
                 iframe_url += `&source=religare&visitid=${religareTag[0].visitorId}`
             }
         }
+        if(parsedHref && parsedHref.utm_source && parsedHref.utm_source.includes('religare')) {
+            is_religare = true
+        }
+        is_religare = is_religare && this.props.mobilechatview
         let chatBtnContent1 = ''
         let chatBtnContent2 = ''
         if (this.props.articleData && this.props.articleData.title) {
@@ -488,10 +504,10 @@ class ChatPanel extends React.Component {
                                 <TableOfContent searchTestInfoData={this.props.searchTestInfoData} updateTabsValues={this.props.updateTabsValues} resp_test_id={this.props.resp_test_id} />
                             </div> : ''
                     }
-                    <div className={this.state.showChatBlock ? "floating-chat " : ""}>
+                    <div className={`${this.state.showChatBlock?"floating-chat " : ""} ${is_religare?' chat-rlgr-view':''}`}>
                         {
                             this.state.showStaticView ?
-                                <ChatStaticView {...this.props} startLiveChatWithMessage={this.startLiveChatWithMessage.bind(this)} hideStaticChat={this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`} />
+                                <ChatStaticView {...this.props} startLiveChatWithMessage={this.startLiveChatWithMessage.bind(this)} hideStaticChat={this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`} is_religare={is_religare}/>
                                 :
                                 <div className={this.state.showChatBlock ? "chatbox-right test-chat" : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}>
 
@@ -542,13 +558,22 @@ class ChatPanel extends React.Component {
 
                                             {
                                                 this.state.showChatBlock
-                                                    ? <span onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatminimize.svg"} /></span>
+                                                    ? is_religare?
+                                                        <span onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/rel_chatminimize.svg"} /></span>
+                                                        :<span onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatminimize.svg"} /></span>
                                                     : ''
                                             }
-                                            <span className="ml-2" onClick={this.toggleCancel.bind(this)}>
-                                                <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatclose.svg"} title="start a new chat" />
+                                            {
+                                                is_religare?
+                                                <span className="ml-2" onClick={this.toggleCancel.bind(this)}>
+                                                    <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/rel_chatclose.svg"} title="start a new chat" />
 
-                                            </span>
+                                                </span>
+                                                :<span className="ml-2" onClick={this.toggleCancel.bind(this)}>
+                                                    <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatclose.svg"} title="start a new chat" />
+
+                                                </span>
+                                            }
                                         </div>
                                     </div>
                                     {/* chat header */}

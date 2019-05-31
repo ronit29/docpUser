@@ -28,7 +28,7 @@ function getVisitId() {
 
 const GTM = {
 
-    send_boot_events: () => {
+    send_boot_events: (isUtmTags=false) => {
 
         let def_data = {
             utm_tags: {
@@ -45,7 +45,7 @@ const GTM = {
             return def_data
         }
 
-        if (window.SENT_BOOT_UP_DATA) {
+        if (window.SENT_BOOT_UP_DATA  && !isUtmTags) {
             return def_data
         }
 
