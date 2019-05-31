@@ -277,23 +277,26 @@ class InsuranceCancellationView extends React.Component {
 							            </div>
 							            :''}
 										{this.state.img_url && this.state.img_id?
-											<div className="ins-prf-img-grd">
-		                                        <img className="img-fluid ins-up-img-ic" src={this.state.img_url} />
-		                                        <img className="ins-prf-cls" onClick={this.removeImage.bind(this,this.state.img_url)} src="https://cdn.docprime.com/cp/assets/img/icons/close.png" />
+											<div>
+											<p className="bank-prf">Bank Account Proof</p>
+											<div className="ins-upld-doc-img">
+		                                        <img className="img-fluid ins-up-img-ic doc-ins-img" src={this.state.img_url} />
+		                                        <img className="ins-img-cls-btn" onClick={this.removeImage.bind(this,this.state.img_url)} src={ASSETS_BASE_URL + '/img/chatclose.svg'} />
 		                                    </div>
+											</div>
 										:<React.Fragment>
 										<p className="ins-cancl-para">We need to confirm if this account belongs to you. Please fill more details below </p>
-										<span className="ins-proof-upload-btn" onClick={() => {
+										<span className="ins-cn-btn" onClick={() => {
 					                        document.getElementById('imageFilePicker_').click()
 					                        document.getElementById('imageFilePicker_').value = "" }}>
-					                    	<img src={ASSETS_BASE_URL + "/img/ins-up-ico.svg"}/>Upload Cancelled Cheque
+					                    	<img src={ASSETS_BASE_URL + '/img/upld.png'}/>Upload Cancelled Cheque
 					                        	<input type="file" style={{ display: 'none' }} id={`imageFilePicker_`} onChange={this.pickFile.bind(this)} accept="image/*"/>
 					                    </span>
 					                    <p className="ins-cancl-para">OR</p>
-					                    <span className="ins-proof-upload-btn" onClick={() => {
+					                    <span className="ins-cn-btn" onClick={() => {
 					                        document.getElementById('imageFilePicker_').click()
 					                        document.getElementById('imageFilePicker_').value = "" }}>
-					                    	<img src={ASSETS_BASE_URL + "/img/ins-up-ico.svg"}/>Upload Account Statement
+					                    	<img src={ASSETS_BASE_URL + "/img/upld.png"}/>Upload Account Statement
 					                        	<input type="file" style={{ display: 'none' }} id={`imageFilePicker_`} onChange={this.pickFile.bind(this)} accept="image/*"/>
 					                    </span>
 										{/*<p className="ins-cancl-para">We need to confirm if this account belongs to you. Please fill more details below </p>
