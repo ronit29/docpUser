@@ -4908,8 +4908,8 @@ p.error-msg.subAlertins{
     background-image: linear-gradient(to bottom, #448aff, #1f62d3);
     height: 100%;
     padding: 4px 15px 0;
-    border-top-right-radius: 15px;
-    border-top-left-radius: 15px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
 }
 .nw-cht-border-btn{
     width: 100%;

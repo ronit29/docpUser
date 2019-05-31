@@ -149,7 +149,7 @@ class FixedMobileFooter extends React.Component {
                     }}>
                         {/* <img className="footbgRound" src={ASSETS_BASE_URL + "/img/chatFoot_new.svg"} /> */}
                         <div className="nw-mid-container-with-img">
-                            <div className="">
+                            <div>
                                 <img style={{ width: 28 }} src={ASSETS_BASE_URL + "/img/chatbt_new.svg"} />
                             </div>
                             <p style={{ fontSize: 11 }}>Free Online</p>
