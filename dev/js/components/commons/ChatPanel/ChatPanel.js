@@ -37,6 +37,7 @@ class ChatPanel extends React.Component {
         }
         if (this.props.selectedLocation) {
             this.sendLocationNotification(this.props.selectedLocation)
+            this.sendUserDetails(this.props.USER)
         }
 
         STORAGE.getAuthToken().then((token) => {
@@ -250,6 +251,15 @@ class ChatPanel extends React.Component {
         this.dispatchCustomEvent('location', data)
     }
 
+    sendUserDetails(user){
+        let data={}
+        if(user && Object.keys(user.profiles).length > 0){
+            data.is_insured = user.profiles[user.selectedProfile].is_insured
+            data.name = user.profiles[user.selectedProfile].name       
+        }
+        this.dispatchCustomEvent('user_details', data)
+    }
+
     componentWillReceiveProps(props) {
 
         if (this.props.selectedLocation != props.selectedLocation && props.selectedLocation) {
@@ -257,6 +267,7 @@ class ChatPanel extends React.Component {
         }
 
         if ((props.USER && props.USER.liveChatStarted && props.USER.liveChatStarted != this.props.USER.liveChatStarted) || (props.USER && props.USER.ipd_chat && props.USER.ipd_chat.showIpdChat) ) {
+            this.sendUserDetails(props.USER)
             this.setState({ showStaticView: false, iframeLoading: true }, () => {
                 this.setState({ hideIframe: false }, () => {
 
