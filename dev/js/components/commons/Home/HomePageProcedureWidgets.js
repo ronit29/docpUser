@@ -61,8 +61,8 @@ class TopProcedureWidgets extends React.Component {
                 <div className="pkgSliderContainer" id="top_ipd">
                     <div className='pkgCardsList d-inline-flex sub-wd-cards top_ipd_list'>
                     	{
-                    		this.props.top_data.map((data) => {
-                    			return <div className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
+                    		this.props.top_data.map((data, i) => {
+                    			return <div className="pkgcustCards" key={i} onClick={this.navigateTo.bind(this, data)}>
 				                            <div className="pkgcardImgCont">
 				                                <img className="img-fluid" src={data.icon} />
 				                            </div>
