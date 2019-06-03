@@ -13,7 +13,8 @@ class ChoosePatientNewView extends React.Component {
             phoneNumber: '',
             gender: '',
             data: false,
-            email:''
+            email:'',
+            smsBtnType:null
         }
     }
 
@@ -95,7 +96,7 @@ class ChoosePatientNewView extends React.Component {
         this.props.profileDataCompleted(this.state)
     }
 
-    verify(resendFlag = false) {
+    verify(resendFlag = false,viaSms,viaWhatsapp) {
         let self = this
 
         if (!this.state.name.match(/^[a-zA-Z ]+$/)) {
@@ -146,14 +147,14 @@ class ChoosePatientNewView extends React.Component {
                 GTM.sendEvent({ data: analyticData })
             }
 
-            this.props.sendOTP(this.state.phoneNumber, (error) => {
+            this.props.sendOTP(this.state.phoneNumber,viaSms,viaWhatsapp, (error) => {
                 if (error) {
                     setTimeout(() => {
                         SnackBar.show({ pos: 'bottom-center', text: "Could not generate OTP." })
                     }, 500)
                     //self.setState({ validationError: "Could not generate OTP." })
                 } else {
-                    self.setState({ showOtp: true, showVerify: false })
+                    self.setState({ showOtp: true, showVerify: false,smsBtnType:viaSms?true:false })
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
                     }, 10000)
@@ -230,7 +231,10 @@ class ChoosePatientNewView extends React.Component {
                                     <input className="slt-text-input" autoComplete="off" type="number" placeholder="" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} onBlur={this.profileValidation.bind(this)} />
                                     {
                                         this.state.showVerify ?
-                                            <button className="mobile-fill-btn" onClick={()=>this.verify()}>Verify</button>
+                                            <React.Fragment>
+                                                <button className="mobile-fill-btn" onClick={()=>this.verify(false,true,false)}>Verify sms</button>
+                                                <button className="mobile-fill-btn" onClick={()=>this.verify(false,false,true)}>Verify whatsap</button>
+                                            </React.Fragment>
                                             : ''
                                     }
                                 </div>
@@ -242,7 +246,7 @@ class ChoosePatientNewView extends React.Component {
                                                 <input className="slt-text-input" autoComplete="off" type="number" onKeyPress={this.handleOtpContinuePress.bind(this)} onChange={this.inputHandler.bind(this)} name="otp" placeholder="Enter OTP " />
                                                 <button className="mobile-fill-btn" onClick={this.submitOTPRequest.bind(this)}>Submit</button>
                                             </div>
-                                            <span className="resend-otp-btn" onClick={()=>this.verify(true)}>Resend OTP</span>
+                                            <span className="resend-otp-btn" onClick={()=>this.verify(true,this.state.smsBtnType?true:false,!this.state.smsBtnType?true:false)}>Resend OTP</span>
                                         </div>
                                         : ''
                                 }

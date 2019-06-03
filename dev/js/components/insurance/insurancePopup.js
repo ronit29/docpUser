@@ -14,7 +14,8 @@ class InsurancePopup extends React.Component{
             otp: "",
             otpTimeout: false,
             error_message:'',
-            isLeadTrue:false
+            isLeadTrue:false,
+            smsBtnType:null
         }
     }
     handleChange(profileid,newProfile,event) {
@@ -61,11 +62,11 @@ class InsurancePopup extends React.Component{
         }
     }
 
-    submitOTPRequest(number) {
+    submitOTPRequest(number,resendFlag = false,viaSms,viaWhatsapp) {
         let lead_data = queryString.parse(this.props.location.search)
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
-            this.props.sendOTP(number, (error) => {
+            this.props.sendOTP(number,viaSms,viaWhatsapp, (error) => {
                 if (error) {
                     // this.setState({ validationError: "Could not generate OTP." })
                 } else {
@@ -237,7 +238,7 @@ class InsurancePopup extends React.Component{
                                             <br /><br />
                                             <input type="number" className="fc-input text-center" placeholder="Enter OTP" value={this.state.otp} onChange={this.inputHandler.bind(this)} name="otp" onKeyPress={this._handleKeyPress.bind(this)}/>
                                             {
-                                                this.state.otpTimeout ? "" : <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)}>Resend ?</a>
+                                                this.state.otpTimeout ? "" : <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,true,this.state.smsBtnType?true:false,!this.state.smsBtnType?true:false)}>Resend ?</a>
                                             }
                                         </div> : ""
                                     }
@@ -251,13 +252,22 @@ class InsurancePopup extends React.Component{
                                                 Verify
                                         </button>
                                         </div> :
+                                        <React.Fragment>
                                         <div className="text-center">
-                                            <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm">Continue
+                                            <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,false,true,false)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm">Continue sms
                                                 {/*
                                                     this.props.isLead == 'proceed'?'Continue':'Submit'
                                                 */}
                                         </button>
                                         </div>
+                                        <div className="text-center">
+                                            <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,false,false,true)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm">Continue whatsap
+                                                {/*
+                                                    this.props.isLead == 'proceed'?'Continue':'Submit'
+                                                */}
+                                        </button>
+                                        </div>
+                                        </React.Fragment>
                                 }
                             </div>
 
