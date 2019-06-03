@@ -218,9 +218,9 @@ class SearchElasticView extends React.Component {
     showIPD(id, url=null) {
 
         if(url){
-            this.props.history.push(`/${url}?showPopup=true&get_feedback=1`)
+            this.props.history.push(`/${url}?showPopup=true`)
         }else{
-            this.props.history.push(`/ipdInfo?ipd_id=${id}&showPopup=true&get_feedback=1`)
+            this.props.history.push(`/ipdInfo?ipd_id=${id}&showPopup=true`)
         }
         
     }
