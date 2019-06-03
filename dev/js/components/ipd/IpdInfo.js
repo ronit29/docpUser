@@ -251,8 +251,13 @@ class IpdView extends React.Component {
 	                              </a>
 	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='doctorTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'doctorTab')}>Doctors
 	                              </a>
-	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='offersTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'offersTab')}>Offers
-	                              </a>
+	                              {
+	                              	this.props.ipd_info && this.props.ipd_info.about && this.props.ipd_info.about.offers && this.props.ipd_info.about.offers.length?
+	                              	<a className={`nav-item nav-link ${this.state.toggleTabType=='offersTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'offersTab')}>Offers
+	                              	</a>
+	                              	:''	
+	                              }
+	                              
                        </div>
                     </div>
                  </nav>
@@ -302,9 +307,13 @@ class IpdView extends React.Component {
 	                    
 	                </div>
 
-	                <div id="offersTab" ref="offersTab">
-	                	<IpdOffersPage {...this.props}/>
-	                </div>
+	                {
+	                	this.props.ipd_info && this.props.ipd_info.about && this.props.ipd_info.about.offers && this.props.ipd_info.about.offers.length?
+	                	<div id="offersTab" ref="offersTab">
+		                	<IpdOffersPage offers={this.props.ipd_info.about.offers} />
+		                </div>
+		                :''
+	                }
 
 	                <div ref="readMoreView" className="tab-pane fade nav_top_bar">
 	                	<IpdInfoViewMore {...this.props}/>
