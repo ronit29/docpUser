@@ -219,7 +219,12 @@ class HospitalDetailView extends React.Component {
 
 								<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'feedback' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'feedback')}>Feedback</p>
 
-								<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'offers' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'offers')}>Offers</p>
+								{
+									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.offers && this.props.ipd_hospital_detail.offers.length?
+									<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'offers' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'offers')}>Offers</p>
+									:''	
+								}
+								
 							</div>
 
 							<div id="doctors" ref="doctors">
@@ -281,9 +286,14 @@ class HospitalDetailView extends React.Component {
 										: ''
 								}
 							</div>
-							<div id="offers" ref="offers">
-								<IpdOffersPage {...this.props}/>
-							</div>
+							{
+								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.offers && this.props.ipd_hospital_detail.offers.length?
+								<div id="offers" ref="offers">
+									<IpdOffersPage {...this.props} offers={this.props.ipd_hospital_detail.offers}/>
+								</div>
+								:''	 
+							}
+							
 							
 							<div ref="view_more">
 							</div>

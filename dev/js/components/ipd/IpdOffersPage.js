@@ -32,7 +32,7 @@ class IpdOffers extends React.Component {
 										<div className="hs-offerCard">
 											<div className="hs-ofr-crdHeading">
 												<p><img src={ASSETS_BASE_URL + '/img/ipd-cpn.svg'} />{offer.title}</p>
-												<img src={ASSETS_BASE_URL + '/img/ipd-share.svg'} />
+												{/*<img src={ASSETS_BASE_URL + '/img/ipd-share.svg'} />*/}
 											</div>
 											<div className="hs-ofr-card-content">
 												{
@@ -77,7 +77,7 @@ class IpdOffers extends React.Component {
 							})
 						}
 						
-						<p className="ofr-vw-more">View 6 more offers</p>
+						{/*<p className="ofr-vw-more">View 6 more offers</p>*/}
 					</div>
 				</div>
 			</div>

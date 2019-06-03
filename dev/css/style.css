@@ -11639,3 +11639,7 @@ p.lab-crd-txt-pr span{
 .cht-hide-hlf-scrn{
 	height: 100%;
 }
+.ipd-banner-mbl{
+    margin-top: 0 !important;
+    margin-bottom: 5px !important;
+}

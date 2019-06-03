@@ -12,7 +12,7 @@ import IpdFormView from '../../containers/ipd/IpdForm.js'
 const queryString = require('query-string')
 import IpdLeadForm from '../../containers/ipd/ipdLeadForm.js'
 import IpdOffersPage from './IpdOffersPage.js'
-
+import BannerCarousel from '../commons/Home/bannerCarousel';
 
 class IpdView extends React.Component {
 
@@ -230,6 +230,12 @@ class IpdView extends React.Component {
 	                    <span className="fw-500 breadcrumb-title">{this.props.ipd_info?`${this.props.ipd_info.about.name}`:''}</span>
 	                </li>
 	            </ul>*/}
+
+	            {
+	            	this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'ipd_procedure_page').length?
+	            	<BannerCarousel {...this.props} a="ipd_procedure_page" sliderLocation="ipd_procedure_page" ipd={true}/>
+	            	:''
+	            }
 
 	            {
 	            	this.props.ipd_info && this.props.ipd_info.breadcrumb?
