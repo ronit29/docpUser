@@ -59,7 +59,7 @@ const mapDispatchToProps = (dispatch) => {
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         fetchTransactions: () => dispatch(fetchTransactions()),
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
-        sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
+        sendAgentBookingURL: (orderId, type, purchase_type,cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type, cb)),
         select_opd_payment_type: (type) => dispatch(select_opd_payment_type(type)),
         savePincode: (pincode) => dispatch(savePincode(pincode))
     }
