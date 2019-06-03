@@ -231,7 +231,12 @@ class LabProfileCard extends React.Component {
                                     {
                                         this.props.details.tests && this.props.details.tests.length ?
                                             this.props.details.tests.map((test, index) => {
-                                                return <p key={index}>{test.name}</p>
+                                                return show_detailsIds.indexOf(this.props.details.tests[0].id) > -1 ?
+                                                    <p key={index} >{test.name}>
+                                                        <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, this.props.details.tests[0].id, id, this.props.details.tests[0].url)}> <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" /> 
+                                                        </span>
+                                                    </p>
+                                                    :<p key={index} >{test.name}></p>    
                                             }) : ''
                                     }
                                     <div className="cstm-lab-time-container">
