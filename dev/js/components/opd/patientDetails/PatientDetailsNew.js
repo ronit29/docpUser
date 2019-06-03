@@ -871,20 +871,25 @@ class PatientDetailsNew extends React.Component {
                                                                             </div> : ''
                                                                     }
 
-                                                                    <hr />
+                                                                    {
+                                                                        !is_insurance_applicable ?
+                                                                            <hr /> : ''
+                                                                    }
 
-                                                                    <div className="test-report payment-detail mt-20" onClick={() => {
-                                                                        this.props.select_opd_payment_type(2)
-                                                                    }}>
-                                                                        <label className="container-radio payment-type-radio">
-                                                                            <h4 className="title payment-amt-label">Pay at Clinic</h4>
-                                                                            <span className="payment-mode-amt">₹{clinic_mrp}</span>
-                                                                            <span className="light-txts d-block"> (No Coupon code and discount will be applied)</span>
-                                                                            <input checked={this.props.payment_type == 2} type="radio" name="payment-mode" />
-                                                                            <span className="doc-checkmark"></span>
-                                                                        </label>
-                                                                    </div>
-
+                                                                    {
+                                                                        !is_insurance_applicable ?
+                                                                            <div className="test-report payment-detail mt-20" onClick={() => {
+                                                                                this.props.select_opd_payment_type(2)
+                                                                            }}>
+                                                                                <label className="container-radio payment-type-radio">
+                                                                                    <h4 className="title payment-amt-label">Pay at Clinic</h4>
+                                                                                    <span className="payment-mode-amt">₹{clinic_mrp}</span>
+                                                                                    <span className="light-txts d-block"> (No Coupon code and discount will be applied)</span>
+                                                                                    <input checked={this.props.payment_type == 2} type="radio" name="payment-mode" />
+                                                                                    <span className="doc-checkmark"></span>
+                                                                                </label>
+                                                                            </div> : ''
+                                                                    }
 
                                                                 </div>
 
