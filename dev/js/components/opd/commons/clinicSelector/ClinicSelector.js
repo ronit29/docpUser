@@ -132,11 +132,11 @@ class ClinicSelector extends React.Component {
                     hospitals.map((hospital, i) => {
                         return <div key={i} className="panel-content pnl-bottom-border">
                             <div className="dtl-radio">
-                                <label className="container-radio" onClick={() => { this.props.selectClinic(hospital.hospital_id, hospital.enabled_for_online_booking, i, hospital.discounted_price, hospital.show_contact) }}><h3 className="fw-500" style={{ display: 'inline', fontSize: 'inherit' }} >{hospital.hospital_name}</h3>
+                                <label className="container-radio" onClick={() => { this.props.selectClinic(hospital.hospital_id, hospital.enabled_for_online_booking, i, hospital.discounted_price, hospital.show_contact) }}><h3 className="fw-500 hosptl-vq-mr" style={{fontSize: 'inherit' }} >{hospital.hospital_name} </h3>
                                     {
                                         this.props.selectedClinic == hospital.hospital_id ? <input type="radio" checked name="radio" /> : <input type="radio" name="radio" />
                                     }
-                                    <span onClick={this.goToHospitalPage.bind(this, hospital)}>View Hospital</span>
+                                    <span className="vw-hsptl-di" onClick={this.goToHospitalPage.bind(this, hospital)}>(View Hospital)</span>
                                     <span className="doc-checkmark"></span>
                                 </label>
                             </div>
