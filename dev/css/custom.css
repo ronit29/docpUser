@@ -1485,6 +1485,9 @@ img.whtsp-ico{
 	flex-shrink: 0;
 	margin-right: 10px;
 }
+.input-booking-smswhts{
+	margin-bottom: 10px;
+}
 .input-sms-ver{
 	display: inline-flex;
 	align-items: center;
