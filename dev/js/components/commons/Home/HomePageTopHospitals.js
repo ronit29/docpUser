@@ -3,8 +3,9 @@ import GTM from '../../../helpers/gtm.js'
 
 class TopHospitalWidgets extends React.Component {
 
-	navigateTo(data) {
-
+	navigateTo(data, e) {
+        e.preventDefault()
+        e.stopPropagation()
         let gtmData = {
             'Category': 'ConsumerApp', 'Action': 'HomeWidgetHospitalClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-widget-hospital-clicked', 'selected': '', 'selectedId': data.id || ''
         }
@@ -55,14 +56,14 @@ class TopHospitalWidgets extends React.Component {
                     <div className='pkgCardsList d-inline-block sub-wd-cards top_hospitals_list'>
                     	{
                     		this.props.top_data.map((data, i) => {
-                    			return <div key={i} className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
+                    			return <a key={i} href={data.url?`/${data.url}?showPopup=true`:`/ipd/hospital/${data.id}?showPopup=true`} className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
 				                            <div className="pkgcardImgCont">
 				                                <img style={{width:82}} className="img-fluid" src={data.logo} />
 				                            </div>
 				                            <p className="pkgtstName">
 				                                {data.name}
 				                        	</p>
-				                        </div>		
+				                        </a>		
                     		})
                     	}
                     </div>

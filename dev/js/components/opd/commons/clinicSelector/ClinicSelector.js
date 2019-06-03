@@ -42,6 +42,16 @@ class ClinicSelector extends React.Component {
         this.setState({ vieMoreProcedures: true, selectedId: hospital_id })
     }
 
+    goToHospitalPage(hospital, e) {
+        e.preventDefault()
+        e.stopPropagation()
+        if(hospital.url) {
+            this.props.history.push(`/${hospital.url}`)
+        }else {
+            this.props.history.push(`/ipd/hospital/${hospital.hospital_id}`)
+        }
+    }
+
     render() {
 
         let { id, name, hospitals, is_live, enabled_for_online_booking } = this.props.details
@@ -126,6 +136,7 @@ class ClinicSelector extends React.Component {
                                     {
                                         this.props.selectedClinic == hospital.hospital_id ? <input type="radio" checked name="radio" /> : <input type="radio" name="radio" />
                                     }
+                                    <span onClick={this.goToHospitalPage.bind(this, hospital)}>View Hospital</span>
                                     <span className="doc-checkmark"></span>
                                 </label>
                             </div>
