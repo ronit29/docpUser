@@ -49,14 +49,15 @@ class IpdOffers extends React.Component {
 													:''
 												}
 											</div>
-											<div className="offer-hide-content">
+											
 											{
 												offer.show_tnc && this.state.showTnc?
-												<div className="widget custom-li-style pb-30" style={{textAlign:'justify'}} dangerouslySetInnerHTML={{ __html: offer.tnc}}>
+												<div className="offer-hide-content">
+												<div className="custom-li-style"  dangerouslySetInnerHTML={{ __html: offer.tnc}}>
+		            							</div>
 		            							</div>
 		            							:''
 											}
-											</div>
 											
 											{
 												offer.show_tnc?
