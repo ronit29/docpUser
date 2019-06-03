@@ -254,14 +254,16 @@ class InsurancePopup extends React.Component{
                                         </div> :
                                         <React.Fragment>
                                         <div className="text-center">
-                                            <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,false,true,false)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm">Continue sms
+                                            <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,false,true,false)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-sms-btn">
+                                                <img className="sms-ico" src={ASSETS_BASE_URL +'/img/smsicon.svg'} />Verify Via SMS
                                                 {/*
                                                     this.props.isLead == 'proceed'?'Continue':'Submit'
                                                 */}
                                         </button>
                                         </div>
                                         <div className="text-center">
-                                            <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,false,false,true)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm">Continue whatsap
+                                            <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,false,false,true)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-wtsp-btn">
+                                            <img className="whtsp-ico" src={ASSETS_BASE_URL +'/img/wa-logo-sm.png'} />Verify Via Whatsapp
                                                 {/*
                                                     this.props.isLead == 'proceed'?'Continue':'Submit'
                                                 */}

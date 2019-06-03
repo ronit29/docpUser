@@ -229,11 +229,14 @@ class ChoosePatientNewView extends React.Component {
                                 <div className="slt-nw-input">
                                     <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Mobile:</label>
                                     <input className="slt-text-input" autoComplete="off" type="number" placeholder="" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} onBlur={this.profileValidation.bind(this)} />
-                                    {
+                                </div>
+                                <div className="input-booking-smswhts">
+                                {
                                         this.state.showVerify ?
                                             <React.Fragment>
-                                                <button className="mobile-fill-btn" onClick={()=>this.verify(false,true,false)}>Verify sms</button>
-                                                <button className="mobile-fill-btn" onClick={()=>this.verify(false,false,true)}>Verify whatsap</button>
+                                                <button className="input-sms-ver" onClick={()=>this.verify(false,true,false)}>
+                                                <img style={{marginRight:'5px'}} className="sms-ico" src={ASSETS_BASE_URL + '/img/smsicon.svg'} />Verify Via SMS</button>
+                                                <button className="input-sms-whts" onClick={()=>this.verify(false,false,true)}><img style={{marginRight:'5px'}} className="whtsp-ico" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'} />Verify Via Whatsapp</button>
                                             </React.Fragment>
                                             : ''
                                     }

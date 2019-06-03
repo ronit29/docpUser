@@ -20,7 +20,7 @@ class UserLoginView extends React.Component {
             otpTimeout: false,
             referralCode: parsed.referral || null,
             referralName: null,
-            smsBtnType:null
+            smsBtnType: null
         }
     }
 
@@ -45,7 +45,7 @@ class UserLoginView extends React.Component {
         }
     }
 
-    submitOTPRequest(number, resendFlag = false,viaSms,viaWhatsapp) {
+    submitOTPRequest(number, resendFlag = false, viaSms, viaWhatsapp) {
         const parsed = queryString.parse(this.props.location.search)
         if (resendFlag) {
             let analyticData = {
@@ -60,11 +60,11 @@ class UserLoginView extends React.Component {
         }
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
-            this.props.sendOTP(number,viaSms,viaWhatsapp, (error) => {
+            this.props.sendOTP(number, viaSms, viaWhatsapp, (error) => {
                 if (error) {
                     // this.setState({ validationError: "Could not generate OTP." })
                 } else {
-                    this.setState({ showOTP: true, otpTimeout: true, smsBtnType:viaSms?true:false })
+                    this.setState({ showOTP: true, otpTimeout: true, smsBtnType: viaSms ? true : false })
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
                     }, 10000)
@@ -191,7 +191,7 @@ class UserLoginView extends React.Component {
                                                     <br /><br />
                                                     <input type="number" className="fc-input text-center" placeholder="Enter OTP" value={this.state.otp} onChange={this.inputHandler.bind(this)} name="otp" onKeyPress={this._handleKeyPress.bind(this)} />
                                                     {
-                                                        this.state.otpTimeout ? "" : <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true,this.state.smsBtnType?true:false,!this.state.smsBtnType?true:false)}>Resend ?</a>
+                                                        this.state.otpTimeout ? "" : <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}>Resend ?</a>
                                                     }
                                                 </div> : ""
                                             }
@@ -206,16 +206,16 @@ class UserLoginView extends React.Component {
                                                 </button>
                                                 </div> :
                                                 <React.Fragment>
-                                                <div className="text-center">
-                                                    <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,false,true,false)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm">
-                                                        Continue sms
+                                                    <div className="text-center">
+                                                        <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, false, true, false)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-sms-btn">
+                                                            <img className="sms-ico" src={ASSETS_BASE_URL + '/img/smsicon.svg'} />Verify Via SMS
                                                 </button>
-                                                </div>
-                                                <div className="text-center">
-                                                <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,false,false,true)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm">
-                                                        Continue whatsap
+                                                    </div>
+                                                    <div className="text-center">
+                                                        <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, false, false, true)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-wtsp-btn">
+                                                            <img className="whtsp-ico" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'} />Verify Via Whatsapp
                                                 </button>
-                                                </div>
+                                                    </div>
                                                 </React.Fragment>
                                         }
                                     </div>
