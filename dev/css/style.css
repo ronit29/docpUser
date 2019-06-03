@@ -11651,3 +11651,7 @@ p.lab-crd-txt-pr span{
     margin-left: 6px;
     cursor: pointer;
 }
+.ipd-banner-mbl{
+    margin-top: 0 !important;
+    margin-bottom: 5px !important;
+}
