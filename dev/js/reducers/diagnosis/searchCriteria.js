@@ -228,6 +228,7 @@ export default function (state = defaultState, action) {
             newState.filterCriteria = DEFAULT_FILTER_STATE
             newState.nextFilterCriteria = DEFAULT_FILTER_STATE
             newState.filterCriteriaPackages = DEFAULT_FILTER_STATE_PACKAGES
+            newState.filterCriteriaPackages.catIds = []
             // newState.fetchNewResults = true
             return newState
         }
