@@ -1371,7 +1371,7 @@ display: none;
     margin-bottom: 15px;
 }
 .hs-ofr-heading img{
-	width: 20px;
+	width: 23px;
 	margin-right: 5px;
 }
 .hs-offerCard{
@@ -1387,8 +1387,9 @@ display: none;
 	font-weight: 500;
 }
 .hs-ofr-crdHeading img{
-	width: 20px;
+	width: 18px;
 	margin-right: 9px;
+	cursor: pointer;
 }
 .hs-ofr-card-content{
 	padding: 0 30px 0 30px;
@@ -1429,5 +1430,43 @@ p.no-cpn-rqrd {
 	color: #f78631;
 	font-weight: 500;
 	font-size: 12px;
+	display: flex;
+	align-items: center;
+}
+.cpn-rqrd{
+	margin-bottom: 5px;
+}
+.cpn-rqrd p{
+	background: rgba(0, 0, 0, .05);
+	padding: 6px 5px;
+	border-radius: 5px;
+	display: inline-block;
+	font-weight: 500;
+}
+.cpn-rqrd span{
+	color: #f78631;
+	font-weight: 700;
+}
+.offshowIcon{
+	transform: rotate(90deg);
+	flex-grow:0;
+	flex-shrink:0;
+}
+.ofhideIcon{
+	transform: rotate(270deg);
+	flex-grow:0;
+	flex-shrink:0;
+}
+.ipd-ofr-main{
+	border-bottom:1px solid rgba(0, 0, 0, 0.09);
+}
+.ipd-ofr-main:last-child{
+	border-bottom: transparent;
+}
+.ofr-vw-more{
+text-align: center;
+font-weight: 500;
+color: #f78631;
+margin-top: 10px; 
 }
 /* ============ ipd offers ============ */
