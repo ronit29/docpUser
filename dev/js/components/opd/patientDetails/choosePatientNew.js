@@ -76,6 +76,7 @@ class ChoosePatientNewView extends React.Component {
                         self.props.getUserProfile().then(()=>{
 
                             if(self.props.is_lab){
+                                self.props.checkPrescription()
                                 self.props.clearTestForInsured()
                             }
                         })
@@ -181,7 +182,7 @@ class ChoosePatientNewView extends React.Component {
                                     <a href="#" onClick={(e) => {
                                         e.preventDefault()
                                         e.stopPropagation()
-                                        this.props.navigateTo('patient')
+                                        this.props.navigateTo('patient',this.props.is_insurance_applicable)
                                     }} className="text-primary fw-700 text-sm">{this.props.patient ? "Change Patient" : "Select Patient"}</a>
                                 </div>
                             </div>

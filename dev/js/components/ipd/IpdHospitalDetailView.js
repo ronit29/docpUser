@@ -15,6 +15,7 @@ import IpdFormView from '../../containers/ipd/IpdForm.js'
 const queryString = require('query-string')
 import IpdLeadForm from '../../containers/ipd/ipdLeadForm.js'
 import ChatIpdPanel from '../commons/ChatPanel/ChatIpdPanel.js'
+import IpdOffersPage from './IpdOffersPage.js'
 
 //View all rating for hospital ,content_type = 3
 
@@ -25,7 +26,7 @@ class HospitalDetailView extends React.Component {
 		this.state = {
 			seoFriendly: this.props.match.url.includes('-hpp'),
 			toggleTabType: 'doctors',
-			showLeadForm: false,
+			showLeadForm: true,
 			ipdFormParams: {}
 		}
 	}
@@ -56,8 +57,15 @@ class HospitalDetailView extends React.Component {
 				for (i in sections) {
 					if (self.refs[i]) {
 
-						if ((self.refs[i].offsetTop + headerHeight) <= scrollPosition) {
-							self.setState({ toggleTabType: i })
+						if(i.includes('view_more')) {
+							if(scrollPosition > (self.refs['view_more'].offsetTop +  headerHeight )){
+						    	self.setState({toggleTabType: ''})
+						    }
+						}else { 
+							
+							if ((self.refs[i].offsetTop + headerHeight) <= scrollPosition) {
+								self.setState({ toggleTabType: i })
+							}
 						}
 					}
 				}
@@ -69,9 +77,6 @@ class HospitalDetailView extends React.Component {
 		if (parsed.type && this.refs[parsed.type]) {
 			this.toggleTabs(parsed.type)
 		}
-		setTimeout(() => {
-			this.setState({ showLeadForm: true })
-		}, 500)
 
 
 	}
@@ -171,10 +176,15 @@ class HospitalDetailView extends React.Component {
 			showChat: true,
 			ipdFormParams: ipdFormParams
 		}
+		
+		this.setState({ showLeadForm: false, ipdFormParams: ipdFormParams }, ()=>{
+			this.props.checkIpdChatAgentStatus((response)=> {
+				if(response && response.users && response.users.length) {
 
-		this.setState({ showLeadForm: false, ipdFormParams: ipdFormParams }, () => {
-			this.props.ipdChatView({ showIpdChat: true, ipdForm: ipdFormParams, showMinimize: true })
-			this.props.showChatView(ipd_data)
+					this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize: true})
+				}
+			})
+			this.props.showChatView(ipd_data)	
 		})
 	}
 
@@ -183,6 +193,8 @@ class HospitalDetailView extends React.Component {
 		const parsed = queryString.parse(this.props.location.search)
 
 		let showPopup = parsed.showPopup && this.state.showLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE && this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count
+
+		showPopup = parsed.showPopup && this.state.showLeadForm
 
 		return (
 			<React.Fragment>
@@ -206,6 +218,8 @@ class HospitalDetailView extends React.Component {
 								}
 
 								<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'feedback' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'feedback')}>Feedback</p>
+
+								<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'offers' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'offers')}>Offers</p>
 							</div>
 
 							<div id="doctors" ref="doctors">
@@ -267,44 +281,12 @@ class HospitalDetailView extends React.Component {
 										: ''
 								}
 							</div>
-
-							<div className="hs-card">
-								<div className="ipd-ofr-cont">
-									<div className="widget-content">
-									<h4 className="hs-ofr-heading"><img src={ASSETS_BASE_URL + '/img/ipd-ofr.svg'} />Offers Available</h4>
-										<div className="ipd-ofr-main">
-											<div className="hs-offerCard">
-												<div className="hs-ofr-crdHeading">
-													<p><img src={ASSETS_BASE_URL + '/img/ipd-cpn.svg'} />₹51000 OFF on Maternity</p>
-													<img src={ASSETS_BASE_URL + '/img/ipd-share.svg'} />
-												</div>
-												<div className="hs-ofr-card-content">
-													<div className="cpn-rqrd">
-														<p>User Promo code :  <span>DOC50</span></p>
-													</div>
-													<p>
-														Lorem ipsum dolor sit amet, consectetur adipiscing elit
-										</p>
-													<p className="no-cpn-rqrd">No Coupon Required</p>
-												</div>
-												<div className="offer-hide-content">
-													<ul>
-														<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</li>
-														<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</li>
-														<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</li>
-													</ul>
-												</div>
-												<div className="hs-offer-footer">
-													<p className="tc_cont">T&C Apply</p>
-													<p className="show-hide-offr">Hide Details <img className="offshowIcon ofhideIcon " style={{ width: '7px', marginLeft: '5px' }} src={ASSETS_BASE_URL + '/img/right-sc.svg'} /></p>
-												</div>
-											</div>
-										</div>
-										<p className="ofr-vw-more">View 6 more offers</p>
-									</div>
-								</div>
+							<div id="offers" ref="offers">
+								<IpdOffersPage {...this.props}/>
 							</div>
-
+							
+							<div ref="view_more">
+							</div>
 							{
 								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.ipd_procedure_categories && this.props.ipd_hospital_detail.ipd_procedure_categories.length ?
 									<HospitalTreatment hospital_data={this.props.ipd_hospital_detail} {...this.props} />
@@ -337,9 +319,15 @@ class HospitalDetailView extends React.Component {
 									: ''
 							}
 							{
-								this.props.ipd_chat || showPopup ? ''
-									: <div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">{typeof window == 'object' && window.ON_LANDING_PAGE ? this.props.ipd_hospital_detail.bed_count ? 'Need Help?' : '' : 'Get Cost Estimate'}</a></div>
+								this.props.ipd_chat || showPopup?''
+								:typeof window == 'object' && window.ON_LANDING_PAGE?
+									this.props.ipd_hospital_detail.bed_count?
+									<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Need Help?</a></div>
+									:''
+								:<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a></div>
 
+
+									
 							}
 
 						</div>

@@ -1239,6 +1239,87 @@ button.ipd-inp-sbmt {
 }
 
 /* ============ ipd tabs ============ */
+/* ============ cancel insurance ============ */
+.ins-cancl-heading{
+	font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.ins-cancl-container{
+
+}
+.ins-cn-inp{
+	width: 100%;
+	margin-bottom: 15px;
+	padding: 8px;
+	border-radius: 4px;
+	border: 1px solid rgba(0, 0, 0, .12);
+	outline: none;
+	font-size: 14px;
+}
+.ins-cn-textarea{
+	width: 100%;
+	margin-bottom: 10px;
+	padding: 8px;
+	border-radius: 4px;
+	border: 1px solid rgba(0, 0, 0, .12);
+	outline: none;
+}
+.ins-cn-btn{
+	background-image: linear-gradient(to left,#f78631,#ff6d00);
+	width: 80%;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+	padding: 10px 10px;
+	margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 500;
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+.ins-cancl-para{
+	font-weight: 500;
+	text-align: center;
+	font-size: 13px;
+	margin-bottom: 10px;
+}
+.ins-cn-btn img {
+	width: 20px;
+	margin-right: 10px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+.ins-upld-doc-img{
+	    width: 100%;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+}
+img.doc-ins-img{
+	    height: 100px;
+    width: 100px;
+    margin-right: 0px;
+}
+img.ins-img-cls-btn{
+position: absolute;
+    width: 20px;
+    right: -8px;
+    top: -8px;
+    cursor: pointer;
+}
+.bank-prf{
+	font-weight: 500;
+	margin-bottom: 10px;
+	text-align: center;
+}
+/* ============ cancel insurance ============ */
 /* ============ ipd chat popup ============ */
 .ipd-chat-pop{
 	display: none;
@@ -1470,3 +1551,14 @@ color: #f78631;
 margin-top: 10px; 
 }
 /* ============ ipd offers ============ */
+/* ============ custom chat ============ */
+.chat-rlgr-view .chat-head{
+	background: #D1E391;
+}
+.chat-rlgr-view p.text-left.header-text-chat{
+	color: #1E723F !important;
+}
+.chat-rlgr-view div.chat-body{
+	background: #ecf3d7;
+}
+/* ============ custom chat ============ */
