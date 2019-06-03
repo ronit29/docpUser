@@ -32,17 +32,29 @@ class UserAppointmentsView extends React.Component {
                         {
                             (appointments[selectedProfile] && appointments[selectedProfile].length) ?
                                 appointments[selectedProfile].map((app, i) => {
-                                    return ((app.type =='lab' && app.lab) || app.type=='doctor') ?
-                                    <AppointmentList key={i} {...this.props} data={app} />
-                                    :''
-                                    
+                                    return ((app.type == 'lab' && app.lab) || app.type == 'doctor') ?
+                                        <AppointmentList key={i} {...this.props} data={app} />
+                                        : ''
+
                                 }) : <div className="text-center pd-20">
-                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/no-appointment.png"} />
-                                        <p className="fw-500 text-lg mrt-20">No Appointments !!</p>
-                                    </div>
+                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/no-appointment.png"} />
+                                    <p className="fw-500 text-lg mrt-20">No Appointments !!</p>
+                                </div>
                         }
                     </ul> : <Loader />
                 }
+                <div class="search-el-popup-overlay cancel-overlay-zindex">
+                    <div class="search-el-popup ipd-pop-width">
+                        <div class="widget p-12">
+                            <div class="p-relative">
+                                <span class="ipd-pop-cls">
+                                    <img src="/assets/img/icons/close.png" />
+                                </span>
+                                <p class="ipd-needHelp">View Report</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

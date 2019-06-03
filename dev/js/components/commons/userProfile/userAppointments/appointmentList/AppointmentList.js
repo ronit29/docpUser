@@ -110,7 +110,7 @@ class AppointmentList extends React.Component {
                             <div className="invoice-div">
                                 <img src={ASSETS_BASE_URL + '/img/customer-icons/invoice.svg'} />
                                 <div>
-                                    <p className="text-primary fw-500">Download Invoice</p>
+                                    <p className="text-primary fw-500">Download Payment Receipt</p>
                                 </div>
                             </div>
                         </div> : ''
