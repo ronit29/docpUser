@@ -300,6 +300,14 @@ const InsuranceCancellation = Loadable({
     webpack: () => [require.resolveWeak('./containers/insurance/InsuranceCancellation.js')],
     loading,
 })
+
+const InsuranceBankDetails = Loadable({
+    loader: () => import('./containers/insurance/InsuranceBankDetails.js'),
+    modules: ['./containers/insurance/InsuranceBankDetails.js'],
+    webpack: () => [require.resolveWeak('./containers/insurance/InsuranceBankDetails.js')],
+    loading,
+})
+
 const InsuranceNetwork = Loadable({
     loader: () => import('./containers/insurance/InsuranceNetwork.js'),
     modules: ['./containers/insurance/InsuranceNetwork.js'],
@@ -582,6 +590,7 @@ if (CONFIG.ENABLE_INSURANCE) {
         { path: '/insurance/complete', exact: true, component: InsuranceSuccess, RENDER_ON_SERVER: true },
         { path: '/insurance/certificate', exact: true, component: InsuranceCertificate, RENDER_ON_SERVER: true },
         { path: '/insurance/cancelpolicy', exact: true, component: InsuranceCancellation, RENDER_ON_SERVER: true },
+        { path: '/insurance/canceldetails', exact: true, component: InsuranceBankDetails, RENDER_ON_SERVER: true },
         { path: '/insurance/network', exact: true, component: InsuranceNetwork, RENDER_ON_SERVER: true }
     ])
 }
