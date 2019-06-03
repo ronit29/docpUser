@@ -1562,3 +1562,68 @@ margin-top: 10px;
 	background: #ecf3d7;
 }
 /* ============ custom chat ============ */
+/* ============ whtsapp login ============ */
+button.lg-sms-btn{
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 20px;
+	padding: 10px 0;
+	width: 60%;
+}
+img.sms-ico{
+	width: 16px;
+	flex-grow: 0;
+	flex-shrink: 0;
+	margin-right: 10px;
+}
+button.lg-wtsp-btn{
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 20px;
+	padding: 8px 0;
+	width: 60%;
+	background: white;
+	color: #f78631;
+	border: 1px solid #f78631;
+}
+img.whtsp-ico{
+	width: 20px;
+	flex-grow: 0;
+	flex-shrink: 0;
+	margin-right: 10px;
+}
+.input-booking-smswhts{
+	margin-bottom: 10px;
+}
+.input-sms-ver{
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px 0;
+	width: 48%;
+	font-size: 12px;
+	color: white;
+	background: #f78631;
+	flex-grow: 0;
+	flex-shrink: 0;
+	margin-right: 10px;
+	border: 1px solid #f78631;
+	border-radius: 4px;
+}
+.input-sms-whts{
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 8px 0;
+	width: 48%;
+	background: white;
+	color: #f78631;
+	border: 1px solid #f78631;
+	font-size: 12px;
+	flex-grow: 0;
+	flex-shrink: 0;
+	border-radius: 4px;
+}
+/* ============ whtsapp login ============ */
