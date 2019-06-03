@@ -13,7 +13,8 @@ class InsuranceReview extends React.Component{
         super(props)
         this.state = {
             data: null,
-            is_endorsement:false
+            is_endorsement:false,
+            isAgent:false
         }
     }
     componentDidMount() {
@@ -23,7 +24,7 @@ class InsuranceReview extends React.Component{
             this.props.getInsurance(true,(response)=>{
                 if(!response.certificate){
                     this.props.retrieveEndorsedData((resp)=>{
-                        this.setState({data:resp.data,is_endorsement:true})
+                        this.setState({data:resp.data,is_endorsement:true, isAgent:parsed.isAgent})
                     })
                 }
             })
@@ -43,7 +44,7 @@ class InsuranceReview extends React.Component{
 	render(){
         if(this.props.LOAD_INSURANCE && this.state.data){
             return(
-            <InsuranceReviewView {...this.props} data={this.state.data} is_endorsement={this.state.is_endorsement}/>
+            <InsuranceReviewView {...this.props} data={this.state.data} is_endorsement={this.state.is_endorsement} isAgent={this.state.isAgent}/>
             )
         }else{
             if(this.props.insurnaceData.certificate && STORAGE.checkAuth()){

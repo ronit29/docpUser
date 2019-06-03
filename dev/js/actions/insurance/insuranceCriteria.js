@@ -1,4 +1,4 @@
-import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, INSURANCE_PAY, SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE , SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, PUSH_USER_DATA, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS, DELETE_MEMBER_PROOF} from '../../constants/types';
+import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, INSURANCE_PAY, SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE , SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, PUSH_USER_DATA, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS, DELETE_MEMBER_PROOF, SAVE_INSURANCE_BANK_DETAILS} from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
 export const getInsurance = (is_endorsement,callback) => (dispatch) => {
@@ -197,8 +197,8 @@ export const resetUserInsuredData = (criteria) => (dispatch) => {
     })
 }
 
-export const cancelInsurance = (callback) => (dispatch) => {
-    API_GET('/api/v1/insurance/cancel').then(function (response) {
+export const cancelInsurance = (data,callback) => (dispatch) => {
+    return API_POST('/api/v1/insurance/cancel',data).then(function (response) {
         if (callback) callback(response)
     }).catch(function (error) {
         if (callback) callback(null)
@@ -278,5 +278,18 @@ export const removeMemberProof = (criteria) => (dispatch) => {
     dispatch({
         type:DELETE_MEMBER_PROOF,
         payload:criteria
+    })
+}
+export const saveUserBankDetails = (criteria) => (dispatch) => {
+    dispatch({
+        type:SAVE_INSURANCE_BANK_DETAILS,
+        payload:criteria
+    })
+}
+export const uploadBankProof = (profileData,imgType,cb) => (dispatch) => {
+    API_POST(`/api/v1/insurance/bank/upload`,profileData).then(function (response) {
+        if (cb) cb(response,null);
+    }).catch(function (error) {
+        if (cb) cb(error, null);
     })
 }

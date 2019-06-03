@@ -28,7 +28,7 @@ function getVisitId() {
 
 const GTM = {
 
-    send_boot_events: () => {
+    send_boot_events: (isUtmTags=false) => {
 
         let def_data = {
             utm_tags: {
@@ -45,27 +45,38 @@ const GTM = {
             return def_data
         }
 
-        if (window.SENT_BOOT_UP_DATA) {
+        if (window.SENT_BOOT_UP_DATA  && !isUtmTags) {
             return def_data
         }
 
-        const parsed = queryString.parse(window.location.search)
+        let parsed = null
+        try {
+            parsed = queryString.parse(window.location.search)
+        } catch (e) {
 
-        let source = ''
-        if (parsed.utm_source) {
-            source = parsed.utm_source
-        } else if (document.referrer) {
-            source = document.referrer
         }
 
-        let utm_tags = {
-            utm_source: parsed.utm_source || '',
-            utm_medium: parsed.utm_medium || '',
-            utm_term: parsed.utm_term || '',
-            utm_campaign: parsed.utm_campaign || '',
-            source: source,
-            referrer: document.referrer || ''
+        let utm_tags = def_data.utm_tags
+
+        if (parsed) {
+            let source = ''
+            if (parsed.utm_source) {
+                source = parsed.utm_source
+            } else if (document.referrer) {
+                source = document.referrer
+            }
+
+            utm_tags = {
+                utm_source: parsed.utm_source || '',
+                utm_medium: parsed.utm_medium || '',
+                utm_term: parsed.utm_term || '',
+                utm_campaign: parsed.utm_campaign || '',
+                source: source,
+                referrer: document.referrer || ''
+            }
         }
+
+
 
         let data1 = {
             'Category': 'ConsumerApp', 'Action': 'UTMevents', 'event': 'utm-events', 'utm_source': utm_tags.utm_source || '', 'utm_medium': utm_tags.utm_medium || '', 'utm_term': utm_tags.utm_term || '', 'utm_campaign': utm_tags.utm_campaign || '', 'addToGA': false, 'source': utm_tags.source, 'referrer': document.referrer || ''
