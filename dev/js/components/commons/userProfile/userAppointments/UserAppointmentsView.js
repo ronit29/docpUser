@@ -70,12 +70,12 @@ class UserAppointmentsView extends React.Component {
                                         <p className="ipd-needHelp mb-20" style={{ fontSize: 16 }}>View Report</p>
                                         {
                                             this.state.appointmentReports.map((report, index) => {
-                                                return <div key={index} className="d-flex align-items-center cursor-pntr" onClick={() => this.reportClick(report[index])}>
+                                                return <div key={index} className="d-flex align-items-center cursor-pntr mb-10" onClick={() => this.reportClick(report)}>
                                                     <div style={{ width: 32, marginRight: 16 }}>
                                                         <img src={ASSETS_BASE_URL + '/img/customer-icons/pdf-icon.png'} style={{ width: '100%' }} />
                                                     </div>
                                                     <div style={{ flex: 1 }}>
-                                                        <p className="fw-500" style={{ fontSize: 16 }}>{`Report ${index}`}</p>
+                                                        <p className="fw-500" style={{ fontSize: 16 }}>{`Report ${index + 1}`}</p>
                                                     </div>
                                                     <div style={{ width: 24, marginLeft: 16 }}>
                                                         <img src={ASSETS_BASE_URL + '/img/customer-icons/download-icon.svg'} style={{ width: '100%' }} />
