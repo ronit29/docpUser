@@ -540,8 +540,8 @@ background: black;
 
 .ofr-top-header {
 	background-color: #e46608;
-    padding: 7px 0px;
-    min-height: 35px;
+    padding: 3px 0px;
+    /* min-height: 35px; */
 }
 
 .pb-img-size {
@@ -567,9 +567,13 @@ p.top-head-link.card-lab-link span {
 .top-head-text {
 	color: white;
 	margin-right: 3px;
-	font-weight: 400;
+    font-weight: 400;
+    font-size: 11px;
 }
-
+.pb-side-lg{
+    display: flex;
+    align-items: center;
+}
 .pb-mbl {
 	display: none;
 }
@@ -11588,12 +11592,10 @@ p.pkgtstName.prcd-height{
 }
 .ulListing-stl ul li strong{
 	display: block;
-	font-weight: 400;
 }
 
 .ulListing-stl ul li b{
 	display: block;
-	font-weight: 400;
 }
 
 input.clkInput{
