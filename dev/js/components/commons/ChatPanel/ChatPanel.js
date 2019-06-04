@@ -432,7 +432,12 @@ class ChatPanel extends React.Component {
             }
         }
         if(parsedHref && parsedHref.utm_source && parsedHref.utm_source.includes('religare')) {
-            is_religare = true
+
+            if(!is_religare) {
+                is_religare = true
+                iframe_url += `&source=religare&visitid=${parsedHref.visitid?parsedHref.visitid:''}`
+            }
+            
         }
         is_religare = is_religare && this.props.mobilechatview
         let chatBtnContent1 = ''

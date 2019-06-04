@@ -1665,6 +1665,115 @@ display: none;
 	font-weight: 500;
 }
 /* ============ pkg no result ============ */
+/* ============ ipd offers ============ */
+.hs-ofr-heading{
+	display: flex;
+    align-items: center;
+    color: #f78631;
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+.hs-ofr-heading img{
+	width: 23px;
+	margin-right: 5px;
+}
+.hs-offerCard{
+
+}
+.hs-ofr-crdHeading{
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	margin-bottom: 5px;
+}
+.hs-ofr-crdHeading p {
+	font-weight: 500;
+}
+.hs-ofr-crdHeading img{
+	width: 18px;
+	margin-right: 9px;
+	cursor: pointer;
+}
+.hs-ofr-card-content{
+	padding: 0 30px 0 30px;
+	margin-bottom: 10px;
+}
+p.no-cpn-rqrd {
+	color: #f78631;
+	margin-top: 10px;
+	font-weight: 500;
+	font-size: 13px;
+}
+.offer-hide-content{
+	background: rgba(0, 0, 0, .05);
+	padding: 10px;
+	border-radius: 5px;
+}
+.offer-hide-content ul {
+	list-style: disc;
+	padding-left: 20px;
+}
+.offer-hide-content ul li {
+	list-style: disc;
+	margin-bottom: 10px;
+	font-size: 13px;
+}
+.hs-offer-footer{
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+.tc_cont{
+	color: #757575;
+	font-size: 12px;
+	font-weight: 500;
+}
+.show-hide-offr{
+	color: #f78631;
+	font-weight: 500;
+	font-size: 12px;
+	display: flex;
+	align-items: center;
+}
+.cpn-rqrd{
+	margin-bottom: 5px;
+}
+.cpn-rqrd p{
+	background: rgba(0, 0, 0, .05);
+	padding: 6px 5px;
+	border-radius: 5px;
+	display: inline-block;
+	font-weight: 500;
+}
+.cpn-rqrd span{
+	color: #f78631;
+	font-weight: 700;
+}
+.offshowIcon{
+	transform: rotate(90deg);
+	flex-grow:0;
+	flex-shrink:0;
+}
+.ofhideIcon{
+	transform: rotate(270deg);
+	flex-grow:0;
+	flex-shrink:0;
+}
+.ipd-ofr-main{
+	border-bottom:1px solid rgba(0, 0, 0, 0.09);
+}
+.ipd-ofr-main:last-child{
+	border-bottom: transparent;
+}
+.ofr-vw-more{
+text-align: center;
+font-weight: 500;
+color: #f78631;
+margin-top: 10px; 
+}
+/* ============ ipd offers ============ */
 /* ============ custom chat ============ */
 .chat-rlgr-view .chat-head{
 	background: #D1E391;
@@ -1676,3 +1785,68 @@ display: none;
 	background: #ecf3d7;
 }
 /* ============ custom chat ============ */
+/* ============ whtsapp login ============ */
+button.lg-sms-btn{
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 20px;
+	padding: 10px 0;
+	width: 60%;
+}
+img.sms-ico{
+	width: 16px;
+	flex-grow: 0;
+	flex-shrink: 0;
+	margin-right: 10px;
+}
+button.lg-wtsp-btn{
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 20px;
+	padding: 8px 0;
+	width: 60%;
+	background: white;
+	color: #f78631;
+	border: 1px solid #f78631;
+}
+img.whtsp-ico{
+	width: 20px;
+	flex-grow: 0;
+	flex-shrink: 0;
+	margin-right: 10px;
+}
+.input-booking-smswhts{
+	margin-bottom: 10px;
+}
+.input-sms-ver{
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px 0;
+	width: 48%;
+	font-size: 12px;
+	color: white;
+	background: #f78631;
+	flex-grow: 0;
+	flex-shrink: 0;
+	margin-right: 10px;
+	border: 1px solid #f78631;
+	border-radius: 4px;
+}
+.input-sms-whts{
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 8px 0;
+	width: 48%;
+	background: white;
+	color: #f78631;
+	border: 1px solid #f78631;
+	font-size: 12px;
+	flex-grow: 0;
+	flex-shrink: 0;
+	border-radius: 4px;
+}
+/* ============ whtsapp login ============ */

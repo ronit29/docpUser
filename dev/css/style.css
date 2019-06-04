@@ -11239,7 +11239,7 @@ position: relative;
     cursor: pointer;
 
 }
-.sub-wd-cards div.pkgcustCards{
+.sub-wd-cards a.pkgcustCards{
     min-height: auto;
     min-width: 145px;
     max-width: 145px;
@@ -11647,4 +11647,20 @@ p.lab-crd-txt-pr span{
 }
 .cht-hide-hlf-scrn{
 	height: 100%;
+}
+.hosptl-vq-mr{
+    display: inline-flex;
+    align-items: center;
+    font-size: inherit;
+}
+.vw-hsptl-di{
+    font-size: 12px;
+    color: #f78631;
+    display: inline-block;
+    margin-left: 6px;
+    cursor: pointer;
+}
+.ipd-banner-mbl{
+    margin-top: 0 !important;
+    margin-bottom: 5px !important;
 }
