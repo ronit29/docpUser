@@ -33,7 +33,7 @@ class IpdOffers extends React.Component {
 											<div className="hs-ofr-crdHeading">
 												<p><img src={ASSETS_BASE_URL + '/img/ipd-cpn.svg'} />{offer.title}
 												{
-													offer.hospital?<span className="offr-grn-cd">{offer.hospital_name}</span>:''
+													offer.hospital?<span className="offr-grn-cd">{offer.hospital}</span>:''
 												}
 										
 												</p>
