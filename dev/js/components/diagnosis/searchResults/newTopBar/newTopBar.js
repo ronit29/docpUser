@@ -418,8 +418,8 @@ class TopBar extends React.Component {
                                             <div className="srt-lst-img">
                                                 {
                                                     this.state.sort_on=='rating'?
-                                                    <img src={ASSETS_BASE_URL + "/img/popupicon/rv-priceup.svg"} style={{ width: 18 }} />
-                                                    :<img src={ASSETS_BASE_URL + "/img/popupicon/priceup.svg"} style={{ width: 18 }} />
+                                                    <img src={ASSETS_BASE_URL + "/img/popupicon/rv-ratng.svg"} style={{ width: 18 }} />
+                                                    :<img src={ASSETS_BASE_URL + "/img/popupicon/ratng.svg"} style={{ width: 18 }} />
                                                 }
                                             </div>
                                             <p>Rating</p>
