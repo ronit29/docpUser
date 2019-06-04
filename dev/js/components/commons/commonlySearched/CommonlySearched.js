@@ -122,7 +122,7 @@ class CommonlySearched extends React.Component {
                     <p>{row.name}
                         {row.show_details ?
                             <span style={{ marginLeft: '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, row.id, row.url)}>
-                                <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
+                                <img src="https://cdn.docprime.com/cp/assets/img/icons/Info.svg" />
                             </span>
                             : ''
                         }

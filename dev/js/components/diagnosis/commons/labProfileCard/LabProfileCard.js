@@ -234,7 +234,7 @@ class LabProfileCard extends React.Component {
                                                 return show_detailsIds.indexOf(this.props.details.tests[0].id) > -1 ?
                                                     <p key={index} onClick={this.testInfo.bind(this, this.props.details.tests[0].id, id, this.props.details.tests[0].url)}>{test.name}
                                                         <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }}> 
-                                                            <img src={ASSETS_BASE_URL+ '/img/Info.svg'} style={{width:'15px'}}/> 
+                                                            <img src={ASSETS_BASE_URL+ '/img/icons/Info.svg'} style={{width:'15px'}}/> 
                                                         </span>
                                                     </p>
                                                     :<p key={index}>{test.name}</p>    
