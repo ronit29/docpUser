@@ -137,12 +137,12 @@ class ChoosePatientNewView extends React.Component {
 
             if(resendFlag){
                 let analyticData = {
-                    'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage'
+                    'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage', 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''
                 }
                 GTM.sendEvent({ data: analyticData })
             } else {
                 let analyticData = {
-                    'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage'
+                    'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage', 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''
                 }
                 GTM.sendEvent({ data: analyticData })
             }

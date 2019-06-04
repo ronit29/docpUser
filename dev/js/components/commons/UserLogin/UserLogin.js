@@ -49,12 +49,11 @@ class UserLoginView extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
         if (resendFlag) {
             let analyticData = {
-                'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': number, 'pageSource': parsed.login || ''
-            }
+                'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': number, 'pageSource': parsed.login || '' , 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''}
             GTM.sendEvent({ data: analyticData })
         } else {
             let analyticData = {
-                'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': number, 'pageSource': parsed.login || ''
+                'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': number, 'pageSource': parsed.login || '', 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''
             }
             GTM.sendEvent({ data: analyticData })
         }
