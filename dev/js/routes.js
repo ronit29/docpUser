@@ -583,7 +583,7 @@ let routes = [
     { path: '/package/compare', exact: true, component: PackageCompare },
     { path: '/*-hpcp', exact: true, component: PackageCompare },
     { path: '/ipd-procedures', exact: true, component: IpdList, RENDER_ON_SERVER: true },
-    { path: '/cod/paymentSummary', exact: true, component: CodPaymentPage }
+    { path: '/order/paymentSummary', exact: true, component: CodPaymentPage }
 
 ]
 

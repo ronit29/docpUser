@@ -7,6 +7,30 @@ import STORAGE from '../../../helpers/storage'
 
 class CodPaymentView extends React.Component {
 
+	constructor(props) {
+		super(props)
+		this.state = {
+			items: []
+		}
+	}
+
+	componentDidMount() {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+
+        if (STORAGE.checkAuth() && false) {
+            this.props.fetchOrderSummary(5).then((res) => {
+                if (res.data && res.data.length) {
+                    this.setState({ items: res.data })
+
+                }
+            }).catch((e) => {
+
+            })
+        }
+    }
+
 	render(){
 
 		return(
