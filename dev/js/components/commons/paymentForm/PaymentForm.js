@@ -32,17 +32,34 @@ class PaymentForm extends React.Component {
                     <input type="text" name="productId" value={this.props.paymentData['productId']} />
                     <input type="text" name="surl" value={this.props.paymentData['surl']} />
                     <input type="text" name="furl" value={this.props.paymentData['furl']} />
-                    <input type="text" name="referenceId" value={this.props.paymentData['referenceId']} />
+                    {
+                        this.props.paymentData && this.props.paymentData['referenceId']?
+                        <input type="text" name="referenceId" value={this.props.paymentData['referenceId']} />
+                        :''
+                    }
                     <input type="text" name="txAmount" value={this.props.paymentData['txAmount']} />
                     <input type="text" name="orderId" value={this.props.paymentData['orderId']} />
                     <input type="text" name="hash" value={this.props.paymentData['hash']} />
-                    {/*<input type="text" name="gateway" value={this.props.gateway || 'paytm'} />
-                    <input type="text" name="mode" value={this.props.mode} />*/}
                     <input type="text" name="holdPayment" value={this.props.paymentData['holdPayment']} />
+                    <input type="text" name="isPreAuth" value={this.props.paymentData['isPreAuth']} />
+                    {
+                        this.props.paymentData && this.props.paymentData['paytmMsg']?
+                        <input type="text" name="paytmMsg" value={this.props.paymentData['paytmMsg']} />
+                        :''
+                    }
+                    {
+                        this.props.paymentData && this.props.paymentData['couponCode'] ?
+                        <React.Fragment>
+                            <input type="text" name="couponCode" value={this.props.paymentData['couponCode']} />
+                            <input type="text" name="discountedAmnt" value={this.props.paymentData['discountedAmnt']} />
+                            <input type="text" name="couponPgMode" value={this.props.paymentData['couponPgMode']} />
+                        </React.Fragment>
+                        : ''
+                    }
                     {
                         this.props.paymentData && this.props.paymentData['insurerCode']?
                         <input type="text" name="insurerCode" value={this.props.paymentData['insurerCode']} />
-                        :''    
+                        :''
                     }
                     
                 </form>

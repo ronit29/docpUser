@@ -11,6 +11,7 @@ import STORAGE from '../../../helpers/storage'
 import SnackBar from 'node-snackbar'
 import GTM from '../../../helpers/gtm';
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup.js'
+import PaymentForm from '../paymentForm'
 
 class CartView extends React.Component {
     constructor(props) {
@@ -21,7 +22,8 @@ class CartView extends React.Component {
         this.state = {
             use_wallet: true,
             error: parsed.error_message || "",
-            showConfirmationPopup:false
+            showConfirmationPopup:false,
+            paymentData: null
         }
     }
 
@@ -101,7 +103,8 @@ class CartView extends React.Component {
         }
         this.props.processCartItems(this.state.use_wallet).then((data) => {
             if (data.payment_required) {
-                this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
+                // this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
+                this.processPayment(data)
             } else {
                 this.props.history.replace(`/order/summary/${data.data.orderId}`)
             }
@@ -155,6 +158,17 @@ class CartView extends React.Component {
             if(document.getElementById('confirm_booking')){
                 document.getElementById('confirm_booking').click()
             }
+        }
+    }
+    
+    processPayment(data) {
+        if (data && data.status) {
+            this.setState({ paymentData: data.data }, () => {
+                if (document.getElementById('paymentForm') && Object.keys(this.state.paymentData).length > 0) {
+                    let form = document.getElementById('paymentForm')
+                    form.submit()
+                }
+            })
         }
     }
 
@@ -359,6 +373,9 @@ class CartView extends React.Component {
                         <RightBar noChatButton={true} />
                     </div>
                 </section>
+                {
+                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} /> : ""
+                }
             </div >
         );
     }
