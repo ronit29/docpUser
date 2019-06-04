@@ -163,16 +163,35 @@ class IpdLeadForm extends React.Component {
 										<p className="ipd-needHelp">{`Need help with an appointment ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
 										:''
 									}
+
 									{
-										this.props.procedure_name?
-										<p className="ipd-needHelp">{`Need help with ${this.props.procedure_name}?`}</p>
+										this.props.procedure_name?<section>
+										<p className="ipd-needHelp">{`Need help with ${this.props.procedure_name}?`}</p></section>
 										:''
 									}
-									<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>{this.props.procedure_name?'Book the right Doctor/Hospital':'Get upto 30% Off on Appointments'}</span></p>
-									<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>{this.props.procedure_name?'Compare Surgery Cost across Hospitals':'Instant Booking Confirmation'}</span></p>
-									<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span className="d-block">{this.props.procedure_name?'Special Prices for Docprime Customers':'Dedicated Doctor for Advice'}</span></p>
+
 									{
-										this.props.procedure_name?
+										parsed.type && parsed.type.includes('offers')?
+										<React.Fragment>
+											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>Upto 30% Off on Surgery(with Implants)</span></p>
+											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>1st Doctor Booking & X-ray FREE</span></p>
+											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>50% Off on Physiotherapy(Post Operation)</span></p>
+											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>Dedicated Doctor for Medical advice</span></p>
+										</React.Fragment>:''
+									}
+									
+									{
+										!parsed.type?
+										<React.Fragment>
+											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>{this.props.procedure_name?'Book the right Doctor/Hospital':'Get upto 30% Off on Appointments'}</span></p>
+											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>{this.props.procedure_name?'Compare Surgery Cost across Hospitals':'Instant Booking Confirmation'}</span></p>
+											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span className="d-block">{this.props.procedure_name?'Special Prices for Docprime Customers':'Dedicated Doctor for Advice'}</span></p>
+										</React.Fragment>
+										:''
+									}
+									
+									{
+										!parsed.type && this.props.procedure_name?
 										<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span className="d-block">Dedicated Doctor for Medical Advice</span></p>
 										:''
 									}

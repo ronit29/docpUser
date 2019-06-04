@@ -128,6 +128,10 @@ class IpdInfoContainer extends React.Component{
 
 		let new_url = `${window.location.pathname}?ipd_id=${parsed.ipd_id}&place_id=${place_id}&lat=${lat}&long=${long}&locality=${locality}&sub_locality=${sub_locality}&showPopup=true`
 
+		if(parsed && parsed.type) {
+			new_url+= `&type=${parsed.type}`
+		}
+
 		return new_url
 	}
 
