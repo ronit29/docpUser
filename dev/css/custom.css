@@ -1550,6 +1550,13 @@ font-weight: 500;
 color: #f78631;
 margin-top: 10px; 
 }
+.offr-grn-cd{
+	display: block;
+    color: #55a740;
+    font-size: 12px;
+    font-weight: 500;
+    padding-left: 27px;
+}
 /* ============ ipd offers ============ */
 /* ============ custom chat ============ */
 .chat-rlgr-view .chat-head{

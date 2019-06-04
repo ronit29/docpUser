@@ -31,10 +31,17 @@ class IpdOffers extends React.Component {
 								return <div className="ipd-ofr-main" id={`${i}_offer`} key={i}>
 										<div className="hs-offerCard">
 											<div className="hs-ofr-crdHeading">
-												<p><img src={ASSETS_BASE_URL + '/img/ipd-cpn.svg'} />{offer.title}</p>
+												<p><img src={ASSETS_BASE_URL + '/img/ipd-cpn.svg'} />{offer.title}
+												{
+													offer.hospital?<span className="offr-grn-cd">{offer.hospital_name}</span>:''
+												}
+										
+												</p>
+
 												{/*<img src={ASSETS_BASE_URL + '/img/ipd-share.svg'} />*/}
 											</div>
 											<div className="hs-ofr-card-content">
+
 												{
 													offer.coupon?
 													<div className="cpn-rqrd">
