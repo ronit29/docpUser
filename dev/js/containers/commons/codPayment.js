@@ -23,7 +23,7 @@ class CodPaymentPage extends React.Component {
                 }, 100)
             })
         } else {
-            this.props.history.push('/')
+            //this.props.history.push('/')
         }
 	}
 
