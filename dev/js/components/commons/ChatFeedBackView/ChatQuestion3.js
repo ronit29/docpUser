@@ -19,7 +19,11 @@ class ChatQuestion3 extends React.Component {
 */	}
 
 	saveFeedBack(data){
-		this.props.saveChatFeedBack('ques3', this.state.feedback)
+		data = {
+			feedback: this.state.feedback,
+			question:'How likely are you to recommend us to your friends or family?'
+		}
+		this.props.saveChatFeedBack('ques3', data)
 		this.props.history.push('/chat/feedback/ques4')
 	}
 
