@@ -194,7 +194,7 @@ class HospitalDetailView extends React.Component {
 
 		let showPopup = parsed.showPopup && this.state.showLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE && this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count
 
-		showPopup = parsed.showPopup && this.state.showLeadForm
+		showPopup = parsed.showPopup && this.state.showLeadForm && !this.props.is_ipd_form_submitted
 
 		return (
 			<React.Fragment>

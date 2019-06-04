@@ -189,11 +189,13 @@ const mapStateToProps = (state) => {
 
 	const {
 		ipd_chat,
-		offerList
+		offerList,
+		is_ipd_form_submitted
 	} = state.USER
 
     return{
-    	selectedLocation, selectedCriterias, ipd_info, IPD_INFO_LOADED, commonSelectedCriterias, locationFetched, ipd_chat, offerList
+    	selectedLocation, selectedCriterias, ipd_info, IPD_INFO_LOADED, commonSelectedCriterias, locationFetched, ipd_chat, offerList,
+    	is_ipd_form_submitted
     }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { submitIPDForm } from '../../actions/index.js'
+import { submitIPDForm, ipdPopupFired } from '../../actions/index.js'
 import SnackBar from 'node-snackbar'
 import GTM from '../../helpers/gtm.js'
 const queryString = require('query-string')
@@ -90,7 +90,7 @@ class IpdLeadForm extends React.Component {
 
 		this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
 			if (!error && response) {
-
+				this.props.ipdPopupFired()
 				if(this.state.name && this.state.name.includes('test')) {
 
 				}else {
@@ -238,7 +238,8 @@ const mapStateToProps = (state, passedProps) => {
 const mapDispatchToProps = (dispatch) => {
 
 	return {
-		submitIPDForm: (formData, selectedLocation, cb) => dispatch(submitIPDForm(formData, selectedLocation, cb))
+		submitIPDForm: (formData, selectedLocation, cb) => dispatch(submitIPDForm(formData, selectedLocation, cb)),
+		ipdPopupFired: () => dispatch(ipdPopupFired())
 	}
 }
 
