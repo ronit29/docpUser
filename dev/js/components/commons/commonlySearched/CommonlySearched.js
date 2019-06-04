@@ -85,7 +85,7 @@ class CommonlySearched extends React.Component {
     testInfo(test_id, url) {
         let lat = 28.644800
         let long = 77.216721
-        if (this.props.dataState.selectedLocation !== null) {
+        if (this.props.dataState && this.props.dataState.selectedLocation) {
             lat = this.props.dataState.selectedLocation.geometry.location.lat
             long = this.props.dataState.selectedLocation.geometry.location.lng
 
@@ -122,7 +122,7 @@ class CommonlySearched extends React.Component {
                     <p>{row.name}
                         {row.show_details ?
                             <span style={{ marginLeft: '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, row.id, row.url)}>
-                                <img src="https://cdn.docprime.com/cp/assets/img/icons/Info.svg" />
+                                <img src={ASSETS_BASE_URL + '/img/icons/Info.svg'} />
                             </span>
                             : ''
                         }
@@ -137,7 +137,12 @@ class CommonlySearched extends React.Component {
                     }
                 })
                 return <li key={i} onClick={this.toggle.bind(this, row)}>
-                    <p className={selected ? "click-active" : ""}>{row.name} </p>
+                    <p className={selected ? "click-active" : ""}>{row.name} {row.show_details ?
+                            <span style={{ marginLeft: '5px', marginTop: '1px', display: 'inline-block' }} onClick={this.testInfo.bind(this, row.id, row.url)}>
+                                <img src={ASSETS_BASE_URL + '/img/icons/Info.svg'} />
+                            </span>
+                            : ''
+                        } </p>
                     {
                         selected ? "" : <img style={{ width: '15px' }} src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                     }

@@ -252,7 +252,7 @@ class SearchElasticView extends React.Component {
             searchProceed = this.searchProceedOPD.bind(this)
             showResults = this.showDoctors.bind(this)
 
-            commonSearched = <CommonlySearched
+            commonSearched = <CommonlySearched {...this.props}
                 heading="Common Specialities"
                 type="speciality"
                 selectedSearchType={this.props.selectedSearchType}
@@ -266,7 +266,7 @@ class SearchElasticView extends React.Component {
             searchProceed = this.searchProceedLAB.bind(this)
             showResults = this.showLabs.bind(this)
 
-            commonSearched = <CommonlySearched
+            commonSearched = <CommonlySearched {...this.props}
                 heading="Common Test"
                 type="test"
                 selectedSearchType={this.props.selectedSearchType}
@@ -281,7 +281,7 @@ class SearchElasticView extends React.Component {
             searchProceed = this.searchProceedPackages.bind(this)
             showResults = this.showPackages.bind(this)
 
-            commonSearched = <CommonlySearched
+            commonSearched = <CommonlySearched {...this.props}
                 heading="Common Health Packages"
                 type="package"
                 selectedSearchType={this.props.selectedSearchType}
@@ -296,7 +296,7 @@ class SearchElasticView extends React.Component {
             searchProceed = this.searchProceedIPD.bind(this)
             showResults = this.showIPD.bind(this)
 
-            commonSearched = <CommonlySearched
+            commonSearched = <CommonlySearched {...this.props}
                 heading="Commonly Searched"
                 type="ipd"
                 selectedSearchType={this.props.selectedSearchType}
