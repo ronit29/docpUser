@@ -4,6 +4,7 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 import STORAGE from '../../../helpers/storage'
+const queryString = require('query-string');
 
 class CodPaymentView extends React.Component {
 
@@ -19,8 +20,10 @@ class CodPaymentView extends React.Component {
             window.scrollTo(0, 0)
         }
 
-        if (STORAGE.checkAuth() && false) {
-            this.props.fetchOrderSummary(5).then((res) => {
+        const parsed = queryString.parse(this.props.location.search)
+
+        if (STORAGE.checkAuth() && parsed.order_id) {
+            this.props.fetchOrderSummary(parsed.order_id).then((res) => {
                 if (res.data && res.data.length) {
                     this.setState({ items: res.data })
 
@@ -31,7 +34,24 @@ class CodPaymentView extends React.Component {
         }
     }
 
+    proceed(order_id){
+
+        this.props.history.push(`/payment/${order_id}`)
+    }
+
     render() {
+
+        const parsed = queryString.parse(this.props.location.search)
+        let amount_payable = 0
+        let doctor_name = ''
+        if(this.state.items && this.state.items.length) {
+            this.state.items.map((order, i)=> {
+                if(i==0 && order.data && order.data.doctor && order.data.doctor.name) {
+                    doctor_name = order.data.doctor.name
+                }
+                amount_payable+= parseInt(order.deal_price)
+            })
+        }
 
         return (
             <div className="profile-body-wrap">
@@ -43,18 +63,36 @@ class CodPaymentView extends React.Component {
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             <div className="container-fluid cardMainPaddingRmv">
                                 <div className="row mrb-20">
-                                    <div className="col-12">
-                                        <div className="widget mrb-15 mrng-top-12">
-                                            <div className="widget-content">
-                                                <h1 className="cod-id">Order id : DP1234566</h1>
-                                                <div className="cod-content">
-                                                    <p className="cod-prc-bkng">Appointment with Dr. Rajesh Kumar</p>
-                                                    <p className="cod-prd">₹ 1170.00</p>
-                                                    <button className="cod-btn">Proceed to Pay</button>
+                                    {
+                                        parsed.order_id && this.state.items && this.state.items.length?
+                                        <div className="col-12">
+                                            <div className="widget mrb-15 mrng-top-12">
+                                                <div className="widget-content">
+                                                    <h1 className="cod-id">Order id : {parsed.order_id}</h1>
+                                                    <div className="cod-content">
+                                                        {
+                                                            doctor_name?
+                                                            <p className="cod-prc-bkng">{`Appointment with ${doctor_name}`}</p>
+                                                            :''    
+                                                        }
+                                                        
+                                                        <p className="cod-prd">₹ {amount_payable}</p>
+                                                        <button className="cod-btn" onClick={this.proceed.bind(this, parsed.order_id)}>Proceed to Pay</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        :<div className="col-12">
+                                            <div className="widget mrb-15 mrng-top-12">
+                                                <div className="widget-content">
+                                                    <div className="cod-content">
+                                                        <p className="cod-prc-bkng">No Appointment Found for this Order Id</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>    
+                                    }
+                                    
                                 </div>
                             </div>
                         </div>
