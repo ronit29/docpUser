@@ -201,6 +201,9 @@ class IpdLeadForm extends React.Component {
 									}}>
 										<input type="text" value={this.state.name} name='name' placeholder="Name" onChange={this.inputHandler.bind(this)} />
 										<input type="Number" value={this.state.phone_number} name='phone_number' placeholder="Mobile Number" onChange={this.inputHandler.bind(this)} />
+										<div className="ipd-lead-textarea">
+											<textarea placeholder="What are you looking for?" rows='1' value={this.state.comments} name='comments' onChange={this.inputHandler.bind(this)}></textarea>
+										</div>
 										{/*<div className="d-flex align-items-center flex-wrap mrt-10">
 											<div className="dtl-radio">
 												<label className="container-radio" style={{ fontSize: 14, fontWeight: 400 }} onClick={() => this.setState({ gender: 'm' })}>Male<input type="radio" checked={this.state.gender === 'm'} name="radio" value={this.state.gender} style={{ width: 10 }} />
@@ -218,9 +221,7 @@ class IpdLeadForm extends React.Component {
 												</label>
 											</div>
 										</div>
-										<div className="ipd-lead-textarea">
-											<textarea placeholder="What are you looking for?" rows='1' value={this.state.comments} name='comments' onChange={this.inputHandler.bind(this)}></textarea>
-										</div>
+										
 										<div className="mrb-20">
 					                        <label className="ck-bx p-0" style={{ fontWeight: '400', fontSize: '14px' }} onClick={this.toggleWhatsap.bind(this)}>Enable 
 					                            <span className="sm-wtsp-img fw-400"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" checked={this.state.whatsapp_optin} /><span className="checkmark" style={{left: '7px'}}></span>
