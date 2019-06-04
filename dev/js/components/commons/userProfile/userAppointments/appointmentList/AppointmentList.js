@@ -67,6 +67,16 @@ class AppointmentList extends React.Component {
         win.focus();
     }
 
+    reportClick(reports) {
+        if (reports.length == 1) {
+            if (window) {
+                window.open(reports[0], '_blank')
+            }
+        } else {
+            this.props.viewReportClick(reports);
+        }
+    }
+
     render() {
 
         let { doctor_name, display_name, time_slot_end, time_slot_start, status, type, id, lab_name, doctor_thumbnail, lab_thumbnail, patient_name, invoices } = this.props.data
@@ -126,9 +136,7 @@ class AppointmentList extends React.Component {
                                         <p className="text-primary fw-500">Payment Receipt</p>
                                     </div>
                                 </div>
-                                <div className="invoice-div" onClick={() => {
-                                    this.props.history.push(`/user/lab/reports/${id}`)
-                                }}>
+                                <div className="invoice-div" onClick={() => this.reportClick(this.props.data.reports)}>
                                     <img src={ASSETS_BASE_URL + '/img/customer-icons/report.svg'} />
                                     <div>
                                         <p className="text-primary fw-500">View</p>
