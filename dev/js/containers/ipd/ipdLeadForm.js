@@ -173,9 +173,9 @@ class IpdLeadForm extends React.Component {
 									{
 										parsed.type && parsed.type.includes('offers')?
 										<React.Fragment>
-											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>Upto 30% Off on Surgery(with Implants)</span></p>
+											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>Upto 30% Off on Surgery (with Implants)</span></p>
 											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>1st Doctor Booking & X-ray FREE</span></p>
-											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>50% Off on Physiotherapy(Post Operation)</span></p>
+											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>50% Off on Physiotherapy (Post Operation)</span></p>
 										</React.Fragment>:''
 									}
 									
