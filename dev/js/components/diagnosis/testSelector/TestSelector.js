@@ -239,7 +239,7 @@ class TestSelectorView extends React.Component {
                                                                                     {test.test.name}
                                                                                     {test.test.show_details ?
                                                                                         <span style={{ 'marginLeft': '5px', marginTop: '2px', display: 'inline-block' }} onClick={this.testInfo.bind(this, test.test.id, test.url)}>
-                                                                                            <img src="https://cdn.docprime.com/cp/assets/img/icons/Info.svg" />
+                                                                                            <img src="https://cdn.docprime.com/cp/assets/img/icons/Info.svg" style={{width:'15px'}} />
                                                                                         </span> : ''}
                                                                                     <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
                                                                                     <span className="checkmark" />
@@ -264,7 +264,7 @@ class TestSelectorView extends React.Component {
                                                                                     {test.test.name}
                                                                                     {test.test.show_details ?
                                                                                         <span style={{ 'marginLeft': '5px', marginTop: '2px', display: 'inline-block' }} onClick={this.testInfo.bind(this, test.test.id, test.url)}>
-                                                                                            <img src="https://cdn.docprime.com/cp/assets/img/icons/Info.svg" />
+                                                                                            <img src="https://cdn.docprime.com/cp/assets/img/icons/Info.svg" style={{width:'15px'}} />
                                                                                         </span> : ''}
                                                                                     <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
                                                                                     <span className="checkmark" />
