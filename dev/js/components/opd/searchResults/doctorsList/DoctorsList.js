@@ -141,6 +141,8 @@ class DoctorsList extends React.Component {
 
     render() {
 
+        let detectFlag = true
+
         let { HOSPITALS, DOCTORS, doctorList, hospitalList } = this.props
 
         let start_page = 0
@@ -166,7 +168,7 @@ class DoctorsList extends React.Component {
                         <div className="container-fluid cardMainPaddingRmv">
                             {
                                 this.props.search_content && this.props.search_content != '' && parseInt(this.props.page) == 1 ?
-                                    <div className="search-result-card-collpase d-none d-md-block" style={{borderRadius: '5px',marginTop: '5px'}}>
+                                    <div className="search-result-card-collpase d-none d-md-block" style={{ borderRadius: '5px', marginTop: '5px' }}>
                                         <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.search_content }} >
                                         </div>
 
@@ -203,6 +205,22 @@ class DoctorsList extends React.Component {
                                                 result_list.map((cardId, i) => {
                                                     if (result_data[cardId]) {
                                                         if (i == 1 && this.props.seoFriendly && this.props.match.url.includes('-sptcit') && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) {
+                                                            return <li key={i}>
+                                                                <div className="d-flex align-items-center justify-content-between auto-location-widget mb-3">
+                                                                    <div className="d-flex align-items-center auto-location-text">
+                                                                        <img src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} />
+                                                                        <p className="fw-500">Show {this.props.commonSelectedCriterias[0].name} near me</p>
+                                                                    </div>
+                                                                    <div className="auto-location-btn fw-500" onClick={() => this.detectLocation()} >Detect Location</div>
+                                                                </div>
+                                                                <div>
+                                                                    {
+                                                                        this.props.clinic_card ? <ClinicResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} /> : <DoctorResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} />
+                                                                    }
+                                                                </div>
+                                                            </li>
+                                                        } else if (detectFlag && !result_data[cardId].hospitals[0].enabled_for_online_booking && this.props.seoFriendly && this.props.match.url.includes('-sptlitcit') && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) {
+                                                            detectFlag = false
                                                             return <li key={i}>
                                                                 <div className="d-flex align-items-center justify-content-between auto-location-widget mb-3">
                                                                     <div className="d-flex align-items-center auto-location-text">
