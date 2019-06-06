@@ -15,6 +15,9 @@ import PackageCompareStrip from '../../diagnosis/searchPackages/packageCompare/p
 import HomePagePackageWidget from './HomePagePackageWidget.js'
 const queryString = require('query-string');
 import CRITEO from '../../../helpers/criteo.js'
+import HomePageTopHospitals from './HomePageTopHospitals.js'
+import HomePageTopProcedures from './HomePageProcedureWidgets.js'
+import TopChatWidget from './HomePageChatWidget';
 
 const GENDER = {
 	"m": "Male",
@@ -255,6 +258,18 @@ class HomeView extends React.Component {
 								/> : ""
 						}
 
+						{
+							this.props.ipd_procedures && this.props.ipd_procedures.length ?
+								<HomePageTopProcedures {...this.props} top_data={this.props.ipd_procedures} />
+								: ''
+						}
+
+						{
+							this.props.top_hospitals && this.props.top_hospitals.length ?
+								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} />
+								: ''
+						}
+
 					</div>
 				</div>)
 
@@ -292,7 +307,24 @@ class HomeView extends React.Component {
                                         </button>
                                     </div>
                                 </div> : ''
-                        } */}
+						} */}
+
+						{
+							this.props.history ?
+								<TopChatWidget history={this.props.history} /> : ''
+						}
+
+						{
+							this.props.top_hospitals && this.props.top_hospitals.length ?
+								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} />
+								: ''
+						}
+
+						{
+							this.props.ipd_procedures && this.props.ipd_procedures.length ?
+								<HomePageTopProcedures {...this.props} top_data={this.props.ipd_procedures} />
+								: ''
+						}
 
 						{
 							this.props.common_package && this.props.common_package.length ?

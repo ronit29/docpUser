@@ -540,8 +540,8 @@ background: black;
 
 .ofr-top-header {
 	background-color: #e46608;
-    padding: 7px 0px;
-    min-height: 35px;
+    padding: 3px 0px;
+    /* min-height: 35px; */
 }
 
 .pb-img-size {
@@ -567,9 +567,13 @@ p.top-head-link.card-lab-link span {
 .top-head-text {
 	color: white;
 	margin-right: 3px;
-	font-weight: 400;
+    font-weight: 400;
+    font-size: 11px;
 }
-
+.pb-side-lg{
+    display: flex;
+    align-items: center;
+}
 .pb-mbl {
 	display: none;
 }
@@ -3095,14 +3099,15 @@ ul.list-sub-menu a:hover {
   
   .insurance-checkboxes input[type=checkbox]:disabled + label:before {
 	transform: scale(1);
-	border-color: #aaa;
+    background: #aaa;
+    cursor: not-allowed;
   }
   
-  .insurance-checkboxes input[type=checkbox]:checked:disabled + label:before {
+  /* .insurance-checkboxes input[type=checkbox]:checked:disabled + label:before {
 	transform: scale(1);
 	background-color: #bfb;
 	border-color: #bfb;
-  }
+  } */
   
   .procedure-list {
 	margin-bottom: 10px;
@@ -4897,13 +4902,18 @@ p.error-msg.subAlertins{
 .footbgRound{
 	position: absolute;
     width: 150px;
-    top: -14px;
+    top: 0;
 }
 .nw-mid-container-with-img{
     z-index: 1;
     color: white;
     position: relative;
-    top: -16px;
+    box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.25);
+    background-image: linear-gradient(to bottom, #448aff, #1f62d3);
+    height: 100%;
+    padding: 4px 15px 0;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
 }
 .nw-cht-border-btn{
     width: 100%;
@@ -9325,9 +9335,9 @@ ul,li{
     position: absolute;opacity: 0;cursor: pointer;height: 0;width: 0;
 }
 /* Create a custom checkbox */
-/*.checkmark {
+/* .checkmark {
     position: absolute;top: 0;left: 0;height: 12px;width: 12px;border: 2px solid #ccc; border-radius: 2px;
-}*/
+} */
 /* When the checkbox is checked, add a blue background */
 .custom-radio input:checked ~ .checkmark {
     background-color: #49a8ff;border-color: #49a8ff;
@@ -10393,11 +10403,11 @@ ul,li{
 	border-color: #aaa;
   }
   
-  .insurance-checkboxes input[type=checkbox]:checked:disabled + label:before {
+  /* .insurance-checkboxes input[type=checkbox]:checked:disabled + label:before {
 	transform: scale(1);
 	background-color: #bfb;
 	border-color: #bfb;
-  }
+  } */
 .ins-main-padding{
 	padding-bottom: 6rem;
 }
@@ -11161,10 +11171,10 @@ position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 12px;
+    margin-bottom: 5px;
 }
 .pkgSliderHeading h5{
-	font-size: 18px;
+	font-size: 15px;
     font-weight: 500;
     margin-bottom: 0;
     color: #000;
@@ -11293,6 +11303,18 @@ position: relative;
     box-shadow: 0 1px 5px rgba(76, 76, 76, 0.24), 1px 1px 4px rgba(128, 128, 128, 0.32);
     cursor: pointer;
 
+}
+.sub-wd-cards a.pkgcustCards{
+    min-height: auto;
+    min-width: 145px;
+    max-width: 145px;
+    margin-bottom: 0px;
+}
+.sub-wd-cards div.pkgcardImgCont img{
+    width: 32px;
+}
+p.pkgtstName.prcd-height{
+    min-height: auto;
 }
 /* ==================== new package styling ==================== */
 .medic-img-slider img {
@@ -11628,14 +11650,16 @@ position: relative;
 	padding-left: 15px;
 
 }
+.ulListing-stl ul li{
+	list-style: disc !important;
+
+}
 .ulListing-stl ul li strong{
 	display: block;
-	font-weight: 400;
 }
 
 .ulListing-stl ul li b{
 	display: block;
-	font-weight: 400;
 }
 
 input.clkInput{
@@ -11675,6 +11699,25 @@ p.lab-crd-txt-pr span{
 	margin-top: 1rem;
 
 }
+.mt-10{
+    margin-top: 10px !important;
+}
 .cht-hide-hlf-scrn{
 	height: 100%;
+}
+.hosptl-vq-mr{
+    display: inline-flex;
+    align-items: center;
+    font-size: inherit;
+}
+.vw-hsptl-di{
+    font-size: 12px;
+    color: #f78631;
+    display: inline-block;
+    margin-left: 6px;
+    cursor: pointer;
+}
+.ipd-banner-mbl{
+    margin-top: 0 !important;
+    margin-bottom: 5px !important;
 }

@@ -45,13 +45,13 @@ const USER_PERSIST = {
 const OPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_OPD',
     storage: storage,
-    blacklist: ['fetchNewResults', 'getNewUrl', 'commonProcedurers', 'page', 'mergeUrlState', 'specializations']
+    blacklist: ['fetchNewResults', 'getNewUrl', 'commonProcedurers', 'page', 'mergeUrlState', 'specializations', 'commonSelectedCriterias']
 }
 
 const LAB_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_LABS',
     storage: storage,
-    blacklist: ['fetchNewResults', 'page', 'common_tests', 'common_package']
+    blacklist: ['fetchNewResults', 'page', 'common_tests', 'common_package', 'currentSearchedCriterias']
 }
 
 const AUTH_PERSIST = {
@@ -63,7 +63,7 @@ const AUTH_PERSIST = {
 const INSURANCE_LIST_PRESIST = {
     key: 'INSURANCE',
     storage: storage,
-    whitelist: ['insurnaceData','self_data_values','selected_plan','currentSelectedInsuredMembersId','create_payment_resp', 'members_proofs']
+    whitelist: ['insurnaceData','self_data_values','selected_plan','currentSelectedInsuredMembersId','create_payment_resp', 'members_proofs', 'insurer_bank_details']
 }
 const IPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_IPD',

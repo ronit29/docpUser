@@ -178,7 +178,11 @@ class InsuranceReview extends React.Component{
 		}
     }
     sendAgentBookingURL() {
-        this.props.sendAgentBookingURL(null, 'sms', 'insurance',(err, res) => {
+    	let sms_type = 'insurance'
+    	if(this.props.is_endorsement && this.props.isAgent && this.props.isAgent == 'true'){
+    		sms_type = 'endorsement'
+    	}
+        this.props.sendAgentBookingURL(null, 'sms', sms_type,(err, res) => {
             if (err) {
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
             } else {
@@ -224,7 +228,14 @@ class InsuranceReview extends React.Component{
 					<section className="profile-book-screen">
 					<div>
 						{this.props.is_endorsement?
-						<p className="rev-ins-header" style={{color:'#000000'}}> Review your details <a style={{color:'#f78630',float:'right'}} onClick={()=>this.props.history.push('/insurance/insurance-endorsement-details')}><img src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"}/> Edit</a></p>
+						<p className="rev-ins-header" style={{color:'#000000'}}> Review your details 
+							{
+							this.props.isAgent && this.props.isAgent == 'true'?''
+							:<a style={{color:'#f78630',float:'right'}} onClick={()=>this.props.history.push('/insurance/insurance-endorsement-details')}>
+								<img src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"}/> Edit
+							</a>
+							}
+						</p>
 						:<InsurCommon {...this.props} is_edit={this.state.is_edit} is_edit_endorsment={this.props.is_endorsement}/>
 						}
 					<div className="widget mrt-10" style={{padding:'10px 4px'}}>

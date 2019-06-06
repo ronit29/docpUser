@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails, ipdChatView } from '../../actions/index.js'
+import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails, ipdChatView, checkIpdChatAgentStatus } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
 
@@ -106,7 +106,7 @@ const mapDispatchToProps = (dispatch) => {
         resetOpdCoupons: () => dispatch(resetOpdCoupons()),
         getCoupons: (data) => dispatch(getCoupons(data)),
         createProfile: (postData, cb) => dispatch(createProfile(postData, cb)),
-        sendOTP: (number, cb) => dispatch(sendOTP(number, cb)),
+        sendOTP: (number,viaSms,viaWhatsapp, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp, cb)),
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
         fetchTransactions: () => dispatch(fetchTransactions()),
         addToCart: (product_id, data) => dispatch(addToCart(product_id, data)),
@@ -115,7 +115,8 @@ const mapDispatchToProps = (dispatch) => {
         getTimeSlots: (doctorId, clinicId, callback) => dispatch(getTimeSlots(doctorId, clinicId, callback)),
         editUserProfile: (profileData, profileId, cb) => dispatch(editUserProfile(profileData, profileId, cb)),
         patientDetails: (criteria) => dispatch(patientDetails(criteria)),
-        ipdChatView: (data) => dispatch(ipdChatView(data))
+        ipdChatView: (data) => dispatch(ipdChatView(data)),
+        checkIpdChatAgentStatus: (cb) => dispatch(checkIpdChatAgentStatus(cb))
     }
 }
 

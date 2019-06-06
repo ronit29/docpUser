@@ -14,7 +14,7 @@ class SearchCriteria extends React.Component {
     // }
 
     componentDidMount() {
-        this.props.loadOPDCommonCriteria(this.props.selectedLocation.locality||'')
+        this.props.loadOPDCommonCriteria(this.props.selectedLocation)
         this.props.resetFilters()
     }
 

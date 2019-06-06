@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getHospitaDetails , selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, toggleIPDCriteria, mergeOPDState, ipdChatView } from '../../actions/index.js'
+import { getHospitaDetails , selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, toggleIPDCriteria, mergeOPDState, ipdChatView, checkIpdChatAgentStatus } from '../../actions/index.js'
 
 import IpdHospitalDetailView from '../../components/ipd/IpdHospitalDetailView.js'
 const queryString = require('query-string')
@@ -154,7 +154,8 @@ class HospitalDetail extends React.Component {
 const mapStateToProps = (state) => {
 	
 	const {
-		ipd_chat
+		ipd_chat,
+		is_ipd_form_submitted
 	} = state.USER
 
 	const {
@@ -180,7 +181,8 @@ const mapStateToProps = (state) => {
         locationFetched,
         selectedCriterias,
         filterCriteria,
-        ipd_chat
+        ipd_chat,
+        is_ipd_form_submitted
 	}
 }
 
@@ -193,7 +195,8 @@ const mapDisptachToProps = (dispatch) => {
 		cloneCommonSelectedCriterias: (selectedCriterias) => dispatch(cloneCommonSelectedCriterias(selectedCriterias)),
 		toggleIPDCriteria: (criteria, forceAdd) => dispatch(toggleIPDCriteria(criteria, forceAdd)),
 		mergeOPDState: (state) => dispatch(mergeOPDState(state)),
-		ipdChatView: (data) => dispatch(ipdChatView(data))
+		ipdChatView: (data) => dispatch(ipdChatView(data)),
+		checkIpdChatAgentStatus: (cb) => dispatch(checkIpdChatAgentStatus(cb))
 	}
 }
 export default connect(mapStateToProps, mapDisptachToProps)(HospitalDetail)

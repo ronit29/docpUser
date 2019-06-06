@@ -44,7 +44,7 @@ class HospitalCard extends React.Component {
                      </div>*/}
                   </div>
                   <div className="right-side-info">
-                     <InitialsPicture name={data.name} has_image={!!data.logo} className="initialsPicture-ds fltr-initialPicture-ds" style={{ width: 50, height: 50, fontSize: '1.5em' }} >
+                     <InitialsPicture name={data.name} has_image={!!data.logo} className="initialsPicture-ds fltr-initialPicture-ds" >
                          <img src={data.logo} className="img-fluid img-hospital" alt={data.name} title={data.name}/>
                      </InitialsPicture>
                   </div>

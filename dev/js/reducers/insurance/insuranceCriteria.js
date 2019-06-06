@@ -1,4 +1,4 @@
-import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES,SELF_DATA,INSURANCE_PAY,SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE, SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS, DELETE_MEMBER_PROOF} from '../../constants/types';
+import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES,SELF_DATA,INSURANCE_PAY,SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE, SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS, DELETE_MEMBER_PROOF, SAVE_INSURANCE_BANK_DETAILS} from '../../constants/types';
 
 const defaultState = {
 insurnaceData: {},
@@ -12,6 +12,7 @@ get_insured_profile:{},
 endorsed_member_data:{},
 LOAD_INSURANCE: false,
 currentSelectedInsuredMembersId: [],
+insurer_bank_details:{},
 members_proofs:[]
 }
 const DUMMY_PROFILE = {
@@ -197,7 +198,7 @@ export default function (state = defaultState, action) {
             return newState   
         }
         case RESET_INSURED_DATA :{
-             let newState = { ...state }
+            let newState = { ...state }
             let user_selected_plan = newState.insurnaceData.insurance[0].plans.filter((x => x.id == action.payload.selected_plan_id))
             let members = {}
             newState.selected_plan = user_selected_plan[0]
@@ -206,6 +207,11 @@ export default function (state = defaultState, action) {
                 members[result.id] = { ...result }
             })
             newState.self_data_values = members
+            return newState   
+        }
+        case SAVE_INSURANCE_BANK_DETAILS :{
+            let newState = { ...state }
+            newState.insurer_bank_details = action.payload
             return newState   
         }
         case ENDORSED_MEMBER_LIST :{

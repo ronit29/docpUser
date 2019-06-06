@@ -152,6 +152,7 @@ class IpdTabForm extends React.Component {
 
 			this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
 				if (!error && response) {
+					this.props.ipdPopupFired()
 					let gtmData = {
 						'Category': 'ConsumerApp', 'Action': 'IpdLeadGenerationSuccess', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'ipd-lead-generation-success', selectedId: ipd_id, 'hospitalId': parsed.hospital_id ? parsed.hospital_id : ''
 					}
@@ -205,7 +206,7 @@ class IpdTabForm extends React.Component {
 						: ''
 				}
 				{
-					this.props.tabView?
+					( this.props.tabView || !(ipd_info && ipd_info.about && ipd_info.about.name) )?
 					<div className="lead-form">
 						<h2 className="section-heading hd-mrgn-top">Get Help from Medical Experts</h2>
 					
