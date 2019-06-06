@@ -5,6 +5,7 @@ import ProfileHeader from '../commons/DesktopProfileHeader'
 import STORAGE from '../../helpers/storage'
 import Loader from '../commons/Loader'
 import SnackBar from 'node-snackbar'
+import PaymentForm from '../commons/paymentForm'
 
 class InsuranceReview extends React.Component{
 	constructor(props) {
@@ -13,7 +14,8 @@ class InsuranceReview extends React.Component{
         	selectedProfile:'',
         	selected_plan_price:'',
         	is_edit:false,
-        	gst: 'inclusive of 18% GST'
+        	gst: 'inclusive of 18% GST',
+        	paymentData: null
         }
     }
     componentDidMount(){
@@ -118,7 +120,8 @@ class InsuranceReview extends React.Component{
 					this.props.history.push('/insurance/certificate')
 				}else{
 					if(resp.payment_required){
-						this.props.history.push(`/payment/${resp.data.orderId}?refs=opd`)
+						// this.props.history.push(`/payment/${resp.data.orderId}?refs=opd`)
+						this.processPayment(resp)
 					}else{
 						success_id = '/insurance/complete?payment_success=true&id='+resp.data.id
 						this.props.history.push(success_id)
@@ -135,6 +138,17 @@ class InsuranceReview extends React.Component{
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SENT SUCCESSFULY" })
             }
         })
+    }
+    
+    processPayment(data) {
+        if (data && data.status) {
+            this.setState({ paymentData: data.data }, () => {
+                if (document.getElementById('paymentForm') && Object.keys(this.state.paymentData).length > 0) {
+                    let form = document.getElementById('paymentForm')
+                    form.submit()
+                }
+            })
+        }
     }
 
 	render(){	
@@ -159,105 +173,108 @@ class InsuranceReview extends React.Component{
 	    	//  })
 			return(
 				<div className="profile-body-wrap">
-				<ProfileHeader />
-				<section className="container container-top-margin">
-					<div className="row main-row parent-section-row">
-					<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
-					<section className="profile-book-screen">
-					<div className="widget">
-						<InsurCommon {...this.props} is_edit={this.state.is_edit}/>
-					<div className="insurance-member-container">
-			 			<div className="ins-user-details-lisitng">
-							<p className="sub-form-hed">Proposer</p>
-							<ul className="ins-usr-img-para">
-								<li>
-									<div className="img-list-width">
-										<img className="ins-input-img"  src={ASSETS_BASE_URL + "/img/user-01.svg"} />
-									</div>
-									{
-										self_profile.no_lname?<p style={{'textTransform': 'capitalize'}}>{self_profile.name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>:
-										<p style={{'textTransform': 'capitalize'}}>{self_profile.name} {self_profile.middle_name} {self_profile.last_name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>
-									}
-								</li>
-								<li>
-									<div className="img-list-width">
-										<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
-									</div>
-									<p>{self_profile.dob}</p>
-								</li>
-								<li>
-									<div className="img-list-width">
-										<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
-									</div>
-									<p>{self_profile.email}</p>
-								</li>
-								<li>
-									<div className="img-list-width">
-										<img className="ins-input-img"  src={ASSETS_BASE_URL + "/img/location-01.svg"} />
-									</div>
-									<p style={{'textTransform': 'capitalize'}}>{`${self_profile.address}, ${self_profile.town}, ${self_profile.district}, ${self_profile.state} - ${self_profile.pincode}`}</p>
-								</li>
-							</ul>
-						</div>
-						{
-							family_profile.map((val,key) => {
-								return <div key={key} className="ins-sub-forms sub-input-forms-containers">
-									<hr className="ins-internal-hr" />
-									<div className="ins-user-details-lisitng">
-										<p className="sub-form-hed">Member {key+1} </p>
-										<div className="members-container-padding">
-											<div className="row">
-												<div className="col-6">
-													<div className="members-listings">
-														<div className="member-list-width">
-															<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/hands-01.svg"} />
-														</div>
-														<p style={{'textTransform': 'capitalize'}}>{val.relation}</p>
-													</div>
-												</div>
-												<div className="col-6">
-													<div className="members-listings">
-														<div className="member-list-width">
-															<img style={{ width: '19px' }} className="ins-input-img" src={ASSETS_BASE_URL + "/img/user-01.svg"} />
+					<ProfileHeader />
+					<section className="container container-top-margin">
+						<div className="row main-row parent-section-row">
+							<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
+								<section className="profile-book-screen">
+									<div className="widget">
+										<InsurCommon {...this.props} is_edit={this.state.is_edit}/>
+										<div className="insurance-member-container">
+								 			<div className="ins-user-details-lisitng">
+												<p className="sub-form-hed">Proposer</p>
+												<ul className="ins-usr-img-para">
+													<li>
+														<div className="img-list-width">
+															<img className="ins-input-img"  src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 														</div>
 														{
-															val.no_lname?
-														<p style={{'textTransform': 'capitalize'}}>{val.name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}</p>:
-														<p style={{'textTransform': 'capitalize'}}>{val.name} {val.middle_name} {val.last_name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}</p>
+															self_profile.no_lname?<p style={{'textTransform': 'capitalize'}}>{self_profile.name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>:
+															<p style={{'textTransform': 'capitalize'}}>{self_profile.name} {self_profile.middle_name} {self_profile.last_name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}</p>
 														}
-													</div>
-												</div>
-												<div className="col-6">
-													<div className="members-listings">
-														<div className="member-list-width">
+													</li>
+													<li>
+														<div className="img-list-width">
 															<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
 														</div>
-														<p>{val.dob}</p>
-													</div>
-												</div>
+														<p>{self_profile.dob}</p>
+													</li>
+													<li>
+														<div className="img-list-width">
+															<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
+														</div>
+														<p>{self_profile.email}</p>
+													</li>
+													<li>
+														<div className="img-list-width">
+															<img className="ins-input-img"  src={ASSETS_BASE_URL + "/img/location-01.svg"} />
+														</div>
+														<p style={{'textTransform': 'capitalize'}}>{`${self_profile.address}, ${self_profile.town}, ${self_profile.district}, ${self_profile.state} - ${self_profile.pincode}`}</p>
+													</li>
+												</ul>
 											</div>
+											{
+												family_profile.map((val,key) => {
+													return <div key={key} className="ins-sub-forms sub-input-forms-containers">
+														<hr className="ins-internal-hr" />
+														<div className="ins-user-details-lisitng">
+															<p className="sub-form-hed">Member {key+1} </p>
+															<div className="members-container-padding">
+																<div className="row">
+																	<div className="col-6">
+																		<div className="members-listings">
+																			<div className="member-list-width">
+																				<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/hands-01.svg"} />
+																			</div>
+																			<p style={{'textTransform': 'capitalize'}}>{val.relation}</p>
+																		</div>
+																	</div>
+																	<div className="col-6">
+																		<div className="members-listings">
+																			<div className="member-list-width">
+																				<img style={{ width: '19px' }} className="ins-input-img" src={ASSETS_BASE_URL + "/img/user-01.svg"} />
+																			</div>
+																			{
+																				val.no_lname?
+																			<p style={{'textTransform': 'capitalize'}}>{val.name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}</p>:
+																			<p style={{'textTransform': 'capitalize'}}>{val.name} {val.middle_name} {val.last_name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}</p>
+																			}
+																		</div>
+																	</div>
+																	<div className="col-6">
+																		<div className="members-listings">
+																			<div className="member-list-width">
+																				<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
+																			</div>
+																			<p>{val.dob}</p>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												})
+											}
 										</div>
 									</div>
-								</div>
-							})
-						}				
-					</div>
-					</div>
-				</section>
-				{
-					STORAGE.isAgent()?<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.sendAgentBookingURL.bind(this)}>Send SMS (₹ {this.state.selected_plan_price}) 
-				<span className="foot-btn-sub-span">{this.state.gst}</span>
-				</button>
-				:<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Pay now (₹ {this.state.selected_plan_price}) 
-				<span className="foot-btn-sub-span">{this.state.gst}</span>
-				</button>
-				}
+								</section>
+								{
+									STORAGE.isAgent() ?
+										<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.sendAgentBookingURL.bind(this)}>Send SMS (₹ {this.state.selected_plan_price}) 
+											<span className="foot-btn-sub-span">{this.state.gst}</span>
+										</button> : 
+										<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Pay now (₹ {this.state.selected_plan_price}) 
+											<span className="foot-btn-sub-span">{this.state.gst}</span>
+										</button>
+								}
+							</div>
+							<ChatPanel />
+						</div>
+					</section>
+					{
+	                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} /> : ""
+	                }
 				</div>
-				<ChatPanel />
-				</div>
-				</section>
-				</div>
-
 				)
 			}else{
 				return <div></div>

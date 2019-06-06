@@ -11,12 +11,13 @@ import CancelationPolicy from './cancellation.js'
 
 import SelectedClinic from '../commons/selectedClinic/index.js'
 import VisitTimeNew from '../patientDetails/VisitTimeNew'
+import PaymentForm from '../../commons/paymentForm'
 
 class AppointmentReschedule extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            paymentData: {},
+            paymentData: null,
             data: null,
             loading: true,
             showCancel: false,
@@ -57,7 +58,8 @@ class AppointmentReschedule extends React.Component {
             if (!err) {
                 if (data.payment_required) {
                     // send to payment selection page
-                    this.props.history.push(`/payment/${data.data.orderId}`)
+                    //this.props.history.push(`/payment/${data.data.orderId}`)
+                    this.processPayment(data)
                 } else {
                     SnackBar.show({ pos: 'bottom-center', text: "Appointment Reschduled." })
                     // send back to appointment page
@@ -71,7 +73,17 @@ class AppointmentReschedule extends React.Component {
                 this.setState({ loading: false, error: message })
             }
         })
-
+    }
+    
+    processPayment(data) {
+        if (data && data.status) {
+            this.setState({ paymentData: data.data }, () => {
+                if (document.getElementById('paymentForm') && Object.keys(this.state.paymentData).length > 0) {
+                    let form = document.getElementById('paymentForm')
+                    form.submit()
+                }
+            })
+        }
     }
 
     navigateTo(where, e) {
@@ -231,6 +243,9 @@ class AppointmentReschedule extends React.Component {
                         <RightBar />
                     </div>
                 </section>
+                {
+                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} /> : ""
+                }
             </div>
         );
     }
