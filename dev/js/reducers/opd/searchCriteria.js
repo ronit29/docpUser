@@ -37,7 +37,8 @@ const defaultState = {
     currentSearchId: '',
     mergeUrlState: false,
     last_save_searched_date: null,
-    ipd_procedures: []
+    ipd_procedures: [],
+    top_hospitals: []
 }
 
 export default function (state = defaultState, action) {

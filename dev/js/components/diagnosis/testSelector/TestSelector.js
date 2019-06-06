@@ -6,14 +6,20 @@ import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
 import InfiniteScroll from 'react-infinite-scroller';
+const queryString = require('query-string');
 
 class TestSelectorView extends React.Component {
     constructor(props) {
         super(props)
+
+        const parsed = queryString.parse(this.props.location.search)
+
+        let lab_id = this.props.selectedLab
+
         this.hideResultIndicator = this.hideResultIndicator.bind(this);
         this.state = {
             hasMore: false,
-            selectedLab: this.props.match.params.id,
+            selectedLab: lab_id,
             searchResults: [],
             searchString: '',
             moreResultIndicator: true,
@@ -22,26 +28,38 @@ class TestSelectorView extends React.Component {
         }
     }
 
+    fetchData(props) {
+        if (props.selectedLab) {
+            let testIds = props.lab_test_data[props.selectedLab] || []
+            testIds = testIds.map(x => x.id)
+
+            props.getLabById(props.selectedLab, testIds)
+            this.getSearchList("")
+
+            if (this.inputRef) {
+                this.inputRef.focus();
+            }
+
+            if (window) {
+                window.scrollTo(0, 0)
+            }
+
+            window.addEventListener('scroll', this.hideResultIndicator);
+
+            setTimeout(() => {
+                this.setState({ hasMore: true })
+            }, 0)
+        }
+    }
+
+    componentWillReceiveProps(props) {
+        if (props.selectedLab != this.props.selectedLab) {
+            this.fetchData(props)
+        }
+    }
+    
     componentDidMount() {
-        let testIds = this.props.lab_test_data[this.state.selectedLab] || []
-        testIds = testIds.map(x => x.id)
-
-        this.props.getLabById(this.state.selectedLab, testIds)
-        this.getSearchList("")
-
-        if(this.inputRef){
-            this.inputRef.focus();
-        }
-
-        if (window) {
-            window.scrollTo(0, 0)
-        }
-
-        window.addEventListener('scroll', this.hideResultIndicator);
-
-        setTimeout(() => {
-            this.setState({ hasMore: true })
-        }, 0)
+        this.fetchData(this.props)
     }
 
     hideResultIndicator = () => {
@@ -53,7 +71,7 @@ class TestSelectorView extends React.Component {
         test.mrp = test_to_toggle.mrp
         test.deal_price = test_to_toggle.deal_price
         test.extra_test = true
-        test.lab_id = this.state.selectedLab
+        test.lab_id = this.props.selectedLab
 
         this.props.toggleDiagnosisCriteria('test', test)
     }
@@ -73,7 +91,7 @@ class TestSelectorView extends React.Component {
     }
 
     getSearchList(search_string, page_no = 1, cb) {
-        this.props.getLabTests(this.state.selectedLab, search_string, (searchResults) => {
+        this.props.getLabTests(this.props.selectedLab, search_string, (searchResults) => {
             if (searchResults) {
                 if (cb) {
                     cb(searchResults)
@@ -110,7 +128,7 @@ class TestSelectorView extends React.Component {
     }
 
     testInfo(test_id, url, event) {
-        let lab_id = this.state.selectedLab
+        let lab_id = this.props.selectedLab
         let selected_test_ids = this.props.selectedCriterias || []
         selected_test_ids = selected_test_ids.map(x => x.id)
         let lat = 28.644800
@@ -134,8 +152,8 @@ class TestSelectorView extends React.Component {
         GTM.sendEvent({ data: data })
     }
     render() {
-        let labData = this.props.LABS[this.state.selectedLab]
-        let selectedTests = this.props.lab_test_data[this.state.selectedLab] || []
+        let labData = this.props.LABS[this.props.selectedLab]
+        let selectedTests = this.props.lab_test_data[this.props.selectedLab] || []
         let selectedTestIds = selectedTests.map(x => x.id)
         let tests = []
         let testIds = []
@@ -221,7 +239,7 @@ class TestSelectorView extends React.Component {
                                                                                     {test.test.name}
                                                                                     {test.test.show_details ?
                                                                                         <span style={{ 'marginLeft': '5px', marginTop: '2px', display: 'inline-block' }} onClick={this.testInfo.bind(this, test.test.id, test.url)}>
-                                                                                            <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
+                                                                                            <img src="https://cdn.docprime.com/cp/assets/img/icons/Info.svg" style={{width:'15px'}} />
                                                                                         </span> : ''}
                                                                                     <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
                                                                                     <span className="checkmark" />
@@ -246,7 +264,7 @@ class TestSelectorView extends React.Component {
                                                                                     {test.test.name}
                                                                                     {test.test.show_details ?
                                                                                         <span style={{ 'marginLeft': '5px', marginTop: '2px', display: 'inline-block' }} onClick={this.testInfo.bind(this, test.test.id, test.url)}>
-                                                                                            <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
+                                                                                            <img src="https://cdn.docprime.com/cp/assets/img/icons/Info.svg" style={{width:'15px'}} />
                                                                                         </span> : ''}
                                                                                     <input type="checkbox" checked={selectedTestIds.indexOf(test.test.id) > -1} onChange={this.toggleTest.bind(this, test)} />
                                                                                     <span className="checkmark" />

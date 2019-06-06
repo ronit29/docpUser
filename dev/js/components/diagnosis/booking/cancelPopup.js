@@ -6,7 +6,7 @@ class CancelPopUp extends React.Component{
     constructor(props){
         super(props)
         this.state = { 
-            showCommentReasons: false,
+            showCommentReasons: this.props.showCommentReasons,
             selectedCancelReasonId: '',
             cancelText: '',
             cancelStatus: ''

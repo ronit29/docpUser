@@ -218,9 +218,9 @@ class SearchElasticView extends React.Component {
     showIPD(id, url=null) {
 
         if(url){
-            this.props.history.push(`/${url}`)
+            this.props.history.push(`/${url}?showPopup=true`)
         }else{
-            this.props.history.push(`/ipdInfo?ipd_id=${id}`)
+            this.props.history.push(`/ipdInfo?ipd_id=${id}&showPopup=true`)
         }
         
     }
@@ -252,7 +252,7 @@ class SearchElasticView extends React.Component {
             searchProceed = this.searchProceedOPD.bind(this)
             showResults = this.showDoctors.bind(this)
 
-            commonSearched = <CommonlySearched
+            commonSearched = <CommonlySearched {...this.props}
                 heading="Common Specialities"
                 type="speciality"
                 selectedSearchType={this.props.selectedSearchType}
@@ -266,7 +266,7 @@ class SearchElasticView extends React.Component {
             searchProceed = this.searchProceedLAB.bind(this)
             showResults = this.showLabs.bind(this)
 
-            commonSearched = <CommonlySearched
+            commonSearched = <CommonlySearched {...this.props}
                 heading="Common Test"
                 type="test"
                 selectedSearchType={this.props.selectedSearchType}
@@ -281,7 +281,7 @@ class SearchElasticView extends React.Component {
             searchProceed = this.searchProceedPackages.bind(this)
             showResults = this.showPackages.bind(this)
 
-            commonSearched = <CommonlySearched
+            commonSearched = <CommonlySearched {...this.props}
                 heading="Common Health Packages"
                 type="package"
                 selectedSearchType={this.props.selectedSearchType}
@@ -296,7 +296,7 @@ class SearchElasticView extends React.Component {
             searchProceed = this.searchProceedIPD.bind(this)
             showResults = this.showIPD.bind(this)
 
-            commonSearched = <CommonlySearched
+            commonSearched = <CommonlySearched {...this.props}
                 heading="Commonly Searched"
                 type="ipd"
                 selectedSearchType={this.props.selectedSearchType}
@@ -328,7 +328,7 @@ class SearchElasticView extends React.Component {
             <section>
                 <div id="map" style={{ display: 'none' }}></div>
                 <div className="container-fluid">
-                    <CriteriaElasticSearch {...this.props} checkForLoad={true} title={title} type={this.props.selectedSearchType} paddingTopClass={true} searchProceed={searchProceed} showResults={showResults} focusInput={this.state.focusInput} hideHeaderOnMobile={true} toggleLabTests={this.toggleLabTests.bind(this)} toggleIpd={this.toggleIpd.bind(this)} searchElasticView={true} toggleFixedMobileFooter={this.toggleFixedMobileFooter.bind(this)}>
+                    <CriteriaElasticSearch {...this.props} checkForLoad={true} title={title} type={this.props.selectedSearchType} paddingTopClass={true} searchProceed={searchProceed} showResults={showResults} focusInput={this.state.focusInput} hideHeaderOnMobile={true} toggleLabTests={this.toggleLabTests.bind(this)} toggleIpd={this.toggleIpd.bind(this)} searchElasticView={true} toggleFixedMobileFooter={this.toggleFixedMobileFooter.bind(this)} togglePackages={this.togglePackages.bind(this)}>
                         <section className="opd-search-section mbl-pdng-zero">
 
                             {/*

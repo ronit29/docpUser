@@ -19,20 +19,20 @@ class LabDetails extends React.Component {
             window.scrollTo(0, 0)
         }
 
-        if(this.props.app_download_list && !this.props.app_download_list.length){
+        if (this.props.app_download_list && !this.props.app_download_list.length) {
 
-            this.props.getDownloadAppBannerList((resp)=>{
-                if(resp && resp.length && resp[0].data){
+            this.props.getDownloadAppBannerList((resp) => {
+                if (resp && resp.length && resp[0].data) {
                     this.showDownloadAppWidget(resp[0].data)
                 }
             })
-        }else{
+        } else {
             this.showDownloadAppWidget(this.props.app_download_list)
         }
 
     }
 
-    showDownloadAppWidget(dataList){
+    showDownloadAppWidget(dataList) {
         let landing_page = false
         if (typeof window == 'object' && window.ON_LANDING_PAGE) {
             landing_page = true
@@ -40,32 +40,32 @@ class LabDetails extends React.Component {
 
         let downloadAppButtonData = {}
 
-        if(landing_page && dataList && dataList.length){
+        if (landing_page && dataList && dataList.length) {
 
-            dataList.map((banner)=> {
-                if(banner.isenabled && ( this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with) ) ) {
+            dataList.map((banner) => {
+                if (banner.isenabled && (this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with))) {
                     downloadAppButtonData = banner
                 }
             })
         }
 
 
-        if(Object.values(downloadAppButtonData).length){
-            
+        if (Object.values(downloadAppButtonData).length) {
+
             let gtmTrack = {
-                'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonVisible', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-visible', 'starts_with':downloadAppButtonData.starts_with?downloadAppButtonData.starts_with:'', 'ends_with': downloadAppButtonData.ends_with?downloadAppButtonData.ends_with:'', 'device': this.props.device_info
+                'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonVisible', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-visible', 'starts_with': downloadAppButtonData.starts_with ? downloadAppButtonData.starts_with : '', 'ends_with': downloadAppButtonData.ends_with ? downloadAppButtonData.ends_with : '', 'device': this.props.device_info
             }
             GTM.sendEvent({ data: gtmTrack })
         }
     }
 
-    downloadButton(data){
+    downloadButton(data) {
         let gtmTrack = {
-            'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-clicked', 'starts_with':data.starts_with?data.starts_with:'', 'ends_with': data.ends_with?data.ends_with:'',
+            'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-clicked', 'starts_with': data.starts_with ? data.starts_with : '', 'ends_with': data.ends_with ? data.ends_with : '',
             'device': this.props.device_info
         }
         GTM.sendEvent({ data: gtmTrack })
-        if(window){
+        if (window) {
             window.open(data.URL, '_self')
         }
     }
@@ -75,8 +75,11 @@ class LabDetails extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'UserSelectingAddRemoveLabTests', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'user-selecting-add-remove-lab-tests'
         }
         GTM.sendEvent({ data: data })
-
-        this.props.history.push(`/lab/${this.props.data.lab.id}/tests`)
+        if (this.props.seoFriendly) {
+            this.props.history.push(`${window.location.pathname}/booking?lab_id=${this.props.data.lab.id}&action_page=tests`)
+        } else {
+            this.props.history.push(`/lab/${this.props.data.lab.id}/tests`)
+        }
     }
 
     render() {
@@ -90,11 +93,11 @@ class LabDetails extends React.Component {
         }
 
         let downloadAppButtonData = {}
-        
-        if(landing_page && this.props.app_download_list && this.props.app_download_list.length){
 
-            this.props.app_download_list.map((banner)=> {
-                if(banner.isenabled && ( this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with)) ){
+        if (landing_page && this.props.app_download_list && this.props.app_download_list.length) {
+
+            this.props.app_download_list.map((banner) => {
+                if (banner.isenabled && (this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with))) {
                     downloadAppButtonData = banner
                 }
             })
@@ -106,18 +109,18 @@ class LabDetails extends React.Component {
                     <div className="row">
                         <div className="col-12">
                             {
-                                downloadAppButtonData && Object.values(downloadAppButtonData).length?
-                                <a className="downloadBtn" href="javascript:void(0);" onClick={this.downloadButton.bind(this, downloadAppButtonData)}>
-                                    <button className="dwnlAppBtn">
-                                    {
-                                        !this.props.device_info?''
-                                        :(this.props.device_info.toLowerCase().includes('iphone') || this.props.device_info.toLowerCase().includes('ipad'))?
-                                        <img style={{width:'13px', marginRight:'5px',marginTop: '-1px'}} src={ASSETS_BASE_URL + "/img/appl1.svg"} />
-                                        :<img style={{width:'13px', marginRight:'5px'}} src={ASSETS_BASE_URL + "/img/andr1.svg"} />
-                                    }
-                                    Download App</button>
-                                </a>
-                                :''
+                                downloadAppButtonData && Object.values(downloadAppButtonData).length ?
+                                    <a className="downloadBtn" href="javascript:void(0);" onClick={this.downloadButton.bind(this, downloadAppButtonData)}>
+                                        <button className="dwnlAppBtn">
+                                            {
+                                                !this.props.device_info ? ''
+                                                    : (this.props.device_info.toLowerCase().includes('iphone') || this.props.device_info.toLowerCase().includes('ipad')) ?
+                                                        <img style={{ width: '13px', marginRight: '5px', marginTop: '-1px' }} src={ASSETS_BASE_URL + "/img/appl1.svg"} />
+                                                        : <img style={{ width: '13px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/andr1.svg"} />
+                                            }
+                                            Download App</button>
+                                    </a>
+                                    : ''
                             }
                             {this.props.data.lab.unrated_appointment ? <RatingProfileCard {...this.props} details={this.props.data.lab.unrated_appointment} /> : ""}
 
@@ -146,12 +149,12 @@ class LabDetails extends React.Component {
                                         </li> */}
                                     </ul>
                                     {
-                                        STORAGE.isAgent() || ( !this.props.hide_price && !this.props.is_user_insured)?
+                                        STORAGE.isAgent() || (!this.props.hide_price && !this.props.is_user_insured) ?
                                             this.props.location && this.props.location.search && this.props.location.search.includes('from=insurance_network') ? "" :
                                                 <div className="serch-nw-inputs mb-0" onClick={this.openTests.bind(this)}>
-                                                    <input type="text" autocomplete="off" className="d-block clkInput new-srch-doc-lab" id="search_bar" value="" placeholder="Search tests"/>
-                                                    <img className="srch-inp-img" src="https://cdn.docprime.com/cp/assets/img/shape-srch.svg" style={{width: '15px'}}/>
-                                                </div> :''
+                                                    <input type="text" autocomplete="off" className="d-block clkInput new-srch-doc-lab" id="search_bar" value="" placeholder="Search tests" />
+                                                    <img className="srch-inp-img" src="https://cdn.docprime.com/cp/assets/img/shape-srch.svg" style={{ width: '15px' }} />
+                                                </div> : ''
                                     }
                                 </div>
 

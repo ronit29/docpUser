@@ -1,4 +1,4 @@
-import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, START_LIVE_CHAT, CLOSE_POPUP, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART, TOGGLE_LEFT_MENU, UPCOMING_APPOINTMENTS, IS_USER_CARED, SET_COMMON_UTM_TAGS, UNSET_COMMON_UTM_TAGS, APPEND_ARTICLE_DATA, GET_APP_DOWNLOAD_BANNER_LIST } from '../../constants/types';
+import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, RESET_AUTH, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, START_LIVE_CHAT, CLOSE_POPUP, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART, TOGGLE_LEFT_MENU, UPCOMING_APPOINTMENTS, IS_USER_CARED, SET_COMMON_UTM_TAGS, UNSET_COMMON_UTM_TAGS, APPEND_ARTICLE_DATA, GET_APP_DOWNLOAD_BANNER_LIST, SAVE_CHAT_FEEDBACK, SUBMIT_CHAT_FEEDBACK, SAVE_CHAT_FEEDBACK_ROOMID, IPD_CHAT_START, IPD_POPUP_FIRED } from '../../constants/types';
 
 const DUMMY_PROFILE = {
     gender: "m",
@@ -57,7 +57,11 @@ const defaultState = {
     common_utm_tags: [],
     articleData: {},
     app_download_list: [],
-    insurance_status: null
+    chat_feedback: [],
+    chat_feedback_roomId: '',
+    insurance_status: null,
+    ipd_chat:false,
+    is_ipd_form_submitted: false
 }
 
 export default function (state = defaultState, action) {
@@ -414,6 +418,42 @@ export default function (state = defaultState, action) {
             return newState
         }
 
+        case SAVE_CHAT_FEEDBACK: {
+            let newState = {
+                ...state
+            }
+
+            newState.chat_feedback = [].concat(newState.chat_feedback)
+
+            newState.chat_feedback = newState.chat_feedback.filter((data)=>{
+                if(data.type.includes(action.ques)){
+                    return false
+                }
+                return true
+            })
+
+            newState.chat_feedback.push({type: action.ques, data: action.data})
+            return newState
+        }
+
+        case SUBMIT_CHAT_FEEDBACK: {
+            let newState = {
+                ...state
+            }
+
+            newState.chat_feedback = {}
+            return newState
+        }
+
+        case SAVE_CHAT_FEEDBACK_ROOMID: {
+            let newState = {
+                ...state
+            }
+
+            newState.chat_feedback_roomId = action.payload
+            return newState
+        }
+        
         case SET_COMMON_UTM_TAGS: {
             let newState = {
                 ...state
@@ -454,6 +494,22 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.app_download_list = action.payload && action.payload.length?action.payload[0].data:[]
+            return newState
+        }
+
+        case IPD_CHAT_START: {
+            let newState = {
+                ...state
+            }
+            newState.ipd_chat = action.payload
+            return newState
+        }
+
+        case IPD_POPUP_FIRED: {
+            let newState = {
+                ...state
+            }
+            newState.is_ipd_form_submitted = true
             return newState
         }
 

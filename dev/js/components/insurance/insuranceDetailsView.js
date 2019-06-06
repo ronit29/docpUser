@@ -26,7 +26,8 @@ class InsuranceInputView extends React.Component{
             CreateApiErrors:{},
             show_selected_profiles:[],
             validateDobErrors:[],
-           	errorMessages:[]
+           	errorMessages:[],
+           	endorsementError:[]
         }
     }
     componentDidMount(){
@@ -379,7 +380,6 @@ class InsuranceInputView extends React.Component{
 			members={...self.props.self_data_values[value[key]]}
 			return 	insuranceUserData.members.push(members)
 		})
-    	console.log(insuranceUserData)
 		this.props.pushUserData(insuranceUserData)
     }
     
@@ -407,6 +407,8 @@ class InsuranceInputView extends React.Component{
 							validateDobErrors={[]} 
 							errorMessages={this.state.errorMessages} 
 							validatingNames={this.state.validatingNames||[]}
+							is_endorsement = {false}
+							endorsementError={this.state.endorsementError}
 						/>
 			}
 		
@@ -431,6 +433,8 @@ class InsuranceInputView extends React.Component{
 									validateDobErrors={this.state.validateDobErrors[i] || []} 
 									errorMessages={this.state.errorMessages} 
 									validatingNames={this.state.validatingNames||[]}
+									is_endorsement = {false}
+									endorsementError={this.state.endorsementError}
 								/>
 					}
 				})
@@ -447,12 +451,21 @@ class InsuranceInputView extends React.Component{
 							<div className="widget">
 								<InsurCommon {...this.props} is_edit={this.state.is_edit}/>
 								<div className="insurance-member-container pt-2">
+									<p className="plcy-cancel">*Incorrect member details may lead to policy cancellation</p>
 									<h4 className="mb-0">Insured Member Details</h4>
-									<p className="plcy-cancel">(Incorrect member details may lead to policy cancellation)</p>
 									<p className="fill-error-span fw-500 text-right d-block" style={{marginTop:'0px', fontSize: '11px'}}>*All fields are mandatory
 									</p>
 									<div className="insurance-member-details">
-										<InsurSelf {...this.props} checkForValidation ={this.checkForValidation.bind(this)} id={`member_${this.props.USER.defaultProfile}`} member_id={this.props.USER.defaultProfile} validateErrors={this.state.validateErrors['0'] || []} validateOtherErrors={this.state.validateOtherErrors['0'] || []} createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} errorMessages={this.state.errorMessages}/>
+										<InsurSelf {...this.props} 
+											checkForValidation ={this.checkForValidation.bind(this)} 
+											id={`member_${this.props.USER.defaultProfile}`} 
+											member_id={this.props.USER.defaultProfile} 
+											validateErrors={this.state.validateErrors['0'] || []}
+											validateOtherErrors={this.state.validateOtherErrors['0'] || []} 
+											createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} 
+											errorMessages={this.state.errorMessages} 
+											is_endorsement = {false} 
+											endorsementError={this.state.endorsementError}/>
 										{adult}
 										{child}
 									</div>

@@ -1,6 +1,7 @@
 import React from 'react'
 import InsurPopup from './insurancePopup.js'
 import Calendar from 'rc-calendar'
+import InsuranceProofs from './insuranceProofs.js'
 const moment = require('moment')
 
 class InsuranceOthers extends React.Component {
@@ -26,42 +27,64 @@ class InsuranceOthers extends React.Component {
 			// show_lname_flag:this.props.no_lname,
 			dateModal:false,
 			no_lname:false,
-    	    selectedDateSpan:new Date()
+    	    selectedDateSpan:new Date(),
+    	    is_change:false
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+
+	componentDidMount(){
+		let profile
+		if(this.props.is_endorsement){
+			if(Object.keys(this.props.self_data_values).length>0 && this.props.user_data.length > 0){
+				profile= Object.assign({}, this.props.self_data_values[this.props.user_data[0].id])
+				this.setState({...profile},()=>{
+	    				this.handleSubmit(true)
+	    			})
+			}else{
+				if(this.props.user_data && this.props.user_data.length > 0){
+					if(this.props.user_data[0].relation == 'spouse'){
+						this.setState({only_adult:true})
+					}
+	    			this.setState({...this.props.user_data[0], name:this.props.user_data[0].first_name,member_type:this.props.member_type, profile_id:this.props.user_data[0].profile,is_change:false},()=>{
+	    				this.handleSubmit(true)
+	    			})
+				}
+			}
+		}
 	}
 
 	componentWillReceiveProps(props) {
 		let self = this
 		let adult_title
 		let adult_gender
-		if(props.self_data_values[props.member_id]){
-
-			let profile = Object.assign({}, this.props.self_data_values[this.props.member_id])
-			let nextProfile = Object.assign({}, props.self_data_values[props.member_id])
-			if (JSON.stringify(this.state) != JSON.stringify(nextProfile)) {
-				this.setState({ ...nextProfile })
+		if(!props.is_endorsement){
+			if(props.self_data_values[props.member_id]){
+				let profile = Object.assign({}, this.props.self_data_values[this.props.member_id])
+				let nextProfile = Object.assign({}, props.self_data_values[props.member_id])
+				if (JSON.stringify(this.state) != JSON.stringify(nextProfile)) {
+					this.setState({ ...nextProfile })
+				}
+			}else if(props.member_id && !this.state.setDefault){
+				if(props.self_gender == 'm'){
+					adult_title = 'mrs.'
+					adult_gender = 'f'
+				}else if(props.self_gender == 'f'){
+					adult_title = 'mr.'
+					adult_gender = 'm'
+				}
+				this.setState({id: props.member_id, setDefault:true}, () => {
+					if(this.props.is_child_only){
+						this.setState({member_type:'child'},() =>{
+							self.handleSubmit()
+						})
+					}else{
+						this.setState({member_type:'adult',relation:'spouse',title:adult_title,gender:adult_gender,only_adult:true},() =>{
+							self.handleSubmit()
+						})
+					}					
+				})
 			}
-
-		}else if(props.member_id && !this.state.setDefault){
-			if(props.self_gender == 'm'){
-				adult_title = 'mrs.'
-				adult_gender = 'f'
-			}else if(props.self_gender == 'f'){
-				adult_title = 'mr.'
-				adult_gender = 'm'
-			}
-			this.setState({id: props.member_id, setDefault:true}, () => {
-				if(this.props.is_child_only){
-					this.setState({member_type:'child'},() =>{
-						self.handleSubmit()
-					})
-				}else{
-					this.setState({member_type:'adult',relation:'spouse',title:adult_title,gender:adult_gender,only_adult:true},() =>{
-						self.handleSubmit()
-					})
-				}					
-			})
 		}
 	}
 	handleTitle(field, event) {
@@ -83,6 +106,7 @@ class InsuranceOthers extends React.Component {
 		}
 		this.setState({ title: event.target.value }, () => {
 			var self_data = this.state
+			self_data.is_change = true
 			this.props.userData('self_data', self_data)
 		})
 	}
@@ -99,12 +123,12 @@ class InsuranceOthers extends React.Component {
   			this.setState({title:'miss',gender:'f'})	
   		}
 		this.setState({
-			relation: event.target.value
+			relation: event.target.value,is_change:true
 		},() =>{
-			this.handleSubmit(event)
+			this.handleSubmit(true,event)
 		})
 	}
-	handleSubmit() {
+	handleSubmit(is_endoresment) {
 		var self_data = this.state
 		if(self_data.name !== ''){
 	    	if(self_data.name.length > 50){
@@ -120,6 +144,9 @@ class InsuranceOthers extends React.Component {
 	    	if(self_data.last_name.length > 50){
 				self_data.last_name = self_data.last_name.slice(0, 50)
 			}	
+	    }
+	    if(!is_endoresment){
+	    	self_data.is_change = true
 	    }
 		this.props.userData('self_data', self_data)
 	}
@@ -144,7 +171,7 @@ class InsuranceOthers extends React.Component {
 				profile_id: newProfileid,
 				id:newProfileid
 			},() =>{
-				this.handleSubmit();
+				this.handleSubmit(false);
 			})
 		}else{
 			this.setState({showPopup: !this.state.showPopup})
@@ -166,9 +193,9 @@ class InsuranceOthers extends React.Component {
 	  		}
 		}
 		this.setState({
-			gender: event.target.value
+			gender: event.target.value, is_change:true
 		},() =>{
-			this.handleSubmit(event)
+			this.handleSubmit(false,event)
 		})
 	}
 	openDateModal() {
@@ -182,7 +209,7 @@ class InsuranceOthers extends React.Component {
 		    let day  = ("0" + date.getDate()).slice(-2);
 		    let actual_date =  [ date.getFullYear(), mnth, day ].join("-");
             this.setState({ selectedDateSpan: actual_date, dateModal: false, currentDate: new Date(date).getDate(),dob: actual_date }, () => {
-                 this.handleSubmit()
+                 this.handleSubmit(false)
             })
         } else {
             this.setState({ dateModal: false })
@@ -206,7 +233,7 @@ class InsuranceOthers extends React.Component {
 	}
 	handleLastname(event){
 		this.setState({no_lname:!this.state.no_lname},() =>{
-			this.handleSubmit(event)
+			this.handleSubmit(false,event)
 		})
 	}
 
@@ -231,6 +258,7 @@ class InsuranceOthers extends React.Component {
 		let show_createApi_keys_adult = []
 		let show_createApi_keys_child = []
 		let show_createApi_keys_child2 = []
+		let Uploaded_image_data
 		let commonMsgSpan = <span className="fill-error-span">{this.props.errorMessages['common_message']}</span>
 		if(this.props.is_child_only){
 			let show_createApi_keys = []
@@ -258,12 +286,19 @@ class InsuranceOthers extends React.Component {
 		if(this.props.validatingNames.length>0){
 			ErrorNameId = this.props.validatingNames[0].split('=')[1]
 		}
+
+		if(this.props.members_proofs && this.props.members_proofs.length > 0){
+			Uploaded_image_data = this.props.members_proofs.filter((x=>x.id == this.props.member_id))
+		}
 		return (
 			<div className="ins-sub-forms pading-hr-devider" id={`member_${this.props.member_id}`}>
 			<hr className="ins-internal-hr"/>
 				<div className="sub-form-input-data">
 					<div>
-						<p className="sub-form-hed">{this.props.is_child_only? `Child ${this.props.member_view_id - 1}`:`Adult ${2}`}</p>
+						{this.props.is_endorsement?
+							<p className="sub-form-hed">{this.props.is_child_only? `Child ${this.props.member_view_id}`:`Adult ${2}`}</p>
+							:<p className="sub-form-hed">{this.props.is_child_only? `Child ${this.props.member_view_id - 1}`:`Adult ${2}`}</p>
+						}
 					</div>
 					<div>
 					{
@@ -337,7 +372,7 @@ class InsuranceOthers extends React.Component {
 					</div>
 					:<div className="col-12">
 						<div className="ins-form-group">
-								<input type="text" id={`isn-pin_${this.props.member_id}`} className="form-control ins-form-control" required autoComplete="none" name="relation" data-param='relation' value='Spouse' disabled="disabled" />
+								<input type="text" id={`isn-pin_${this.props.member_id}`} className="form-control ins-form-control" required autoComplete="relation" name="relation" data-param='relation' value='Spouse' disabled="disabled" />
 								{/*<label className="form-control-placeholder" htmlFor={`isn-pin_${this.props.member_id}`}>Relation</label>*/}
 								<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 						</div>
@@ -346,7 +381,7 @@ class InsuranceOthers extends React.Component {
 				}
 					<div className="col-6">
 						<div className="ins-form-group inp-margin-right ">
-							<input type="text" style={{'textTransform': 'capitalize'}} id={`name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('name')> -1|| ErrorNameId == this.props.member_id?'fill-error':''}`} required autoComplete="none" name="name" data-param='name' value={this.state.name} onChange={this.handleChange.bind(this, 'name')} onBlur={this.handleSubmit} onKeyPress={this.handleNameCharacters.bind(this,'name')}/>
+							<input type="text" style={{'textTransform': 'capitalize'}} id={`name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('name')> -1|| ErrorNameId == this.props.member_id?'fill-error':''}`} required autoComplete="first_name" name="name" data-param='name' value={this.state.name} onChange={this.handleChange.bind(this, 'name')} onBlur={this.handleSubmit.bind(this,false)} onKeyPress={this.handleNameCharacters.bind(this,'name')}/>
 							<label className="form-control-placeholder" htmlFor={`name_${this.props.member_id}`}><span className="labelDot">*</span>First Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 						</div>
@@ -366,7 +401,7 @@ class InsuranceOthers extends React.Component {
 					</div>
 					<div className="col-6">
 						<div className="ins-form-group inp-margin-right ">
-							<input type="text" style={{'textTransform': 'capitalize'}} id={`middle_name_${this.props.member_id}`} className="form-control ins-form-control" required autoComplete="none" name="middle_name" value={this.state.no_lname?'':this.state.middle_name}  data-param='middle_name' onChange={this.handleChange.bind(this,'middle_name')} onBlur={this.handleSubmit} disabled={this.state.no_lname?'disabled':""} onKeyPress={this.handleNameCharacters.bind(this,'middle_name')} />
+							<input type="text" style={{'textTransform': 'capitalize'}} id={`middle_name_${this.props.member_id}`} className="form-control ins-form-control" required autoComplete="middle_name" name="middle_name" value={this.state.no_lname?'':this.state.middle_name}  data-param='middle_name' onChange={this.handleChange.bind(this,'middle_name')} onBlur={this.handleSubmit.bind(this,false)} disabled={this.state.no_lname?'disabled':""} onKeyPress={this.handleNameCharacters.bind(this,'middle_name')} />
 							<label className="form-control-placeholder" htmlFor={`middle_name_${this.props.member_id}`}>Middle Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 						</div>
@@ -379,7 +414,7 @@ class InsuranceOthers extends React.Component {
 					</div>
 					<div className="col-6">
 						<div className="ins-form-group ins-form-group inp-margin-right  ">
-							<input type="text" style={{'textTransform': 'capitalize'}} id={`last_name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('last_name')> -1?'fill-error':''}`} required autoComplete="none" name="last_name" data-param='last_name' value={this.state.no_lname?'':this.state.last_name} onChange={this.handleChange.bind(this, 'last_name')} onBlur={this.handleSubmit} disabled={this.state.no_lname?'disabled':""} onKeyPress={this.handleNameCharacters.bind(this,'last_name')} />
+							<input type="text" style={{'textTransform': 'capitalize'}} id={`last_name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('last_name')> -1?'fill-error':''}`} required autoComplete="last_name" name="last_name" data-param='last_name' value={this.state.no_lname?'':this.state.last_name} onChange={this.handleChange.bind(this, 'last_name')} onBlur={this.handleSubmit.bind(this,false)} disabled={this.state.no_lname?'disabled':""} onKeyPress={this.handleNameCharacters.bind(this,'last_name')} />
 							<label className="form-control-placeholder" htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot">*</span>Last Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 						</div>
@@ -445,7 +480,7 @@ class InsuranceOthers extends React.Component {
 					</div>
 					<div className="col-12">
 						<div className="ins-form-group">
-							<input type="button" onClick={this.openDateModal.bind(this)} id={`isn-date_${this.props.member_id}`} className={`form-control ins-form-control text-left ${this.props.validateErrors.indexOf('dob')> -1?'fill-error':''}`} required autoComplete="none" name="dob" data-param='dob' value={this.state.dob?this.state.dob:'yyyy/mm/dd'}
+							<input type="button" onClick={this.openDateModal.bind(this)} id={`isn-date_${this.props.member_id}`} className={`form-control ins-form-control text-left ${this.props.validateErrors.indexOf('dob')> -1?'fill-error':''}`} required autoComplete="dob" name="dob" data-param='dob' value={this.state.dob?this.state.dob:'yyyy/mm/dd'}
 							/>
 							<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Date of birth</label>
     						<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
@@ -480,6 +515,11 @@ class InsuranceOthers extends React.Component {
 						}
 					</div>
 				</div>
+				{
+					this.props.is_endorsement && this.state.is_change?
+						<InsuranceProofs {...this.props}/>
+					:''
+				}
 				{this.state.showPopup ?
 					<InsurPopup {...this.state.userProfiles} currentSelectedInsuredMembersId={this.props.currentSelectedInsuredMembersId} member_id={this.props.member_id} closePopup={this.togglePopup.bind(this)} isSelectprofile = {true} self_data_values ={this.props.self_data_values[this.props.member_id]} hideSelectProfilePopup={this.hideSelectProfilePopup.bind(this)}
 					/> : ''

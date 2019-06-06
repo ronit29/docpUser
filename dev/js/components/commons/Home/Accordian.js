@@ -19,7 +19,7 @@ class Accordian extends React.Component {
                     <div className="col-12">
                         <div className="dp-accordian">
                             <div className="acdn-title" onClick={() => this.toggleAccordian()}>
-                                <h2 className="fw-500">Know more about docprime</h2>
+                                <h2 className="fw-500">Know more about Docprime</h2>
                                 <img className={this.state.accordianShow ? "acdn-arrow-up" : "acdn-arrow"} src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
                             </div>
                             <div className={this.state.accordianShow ? "acdn-body mrt-10 acdn-block" : "acdn-body mrt-10 acdn-none"}>
@@ -34,7 +34,7 @@ class Accordian extends React.Component {
                                 <p className="text-sm mrb-10">
                                     With a team of highly-skilled doctors, AI-enabled Chatbot technology and, an easy-to-navigate, user-friendly interface, docprime is all set to beat arduous health challenges and ensure easy access to qualified doctors for billions of people, creating an experience that’s truly delightful for both end-users and healthcare experts.
                                     </p>
-                                <p className="fw-500 mrb-10 acdn-heading">docprime for Patients</p>
+                                <p className="fw-500 mrb-10 acdn-heading">Docprime for Patients</p>
                                 <h2 className="acdn-subheading">Free Online Doctor Consultation</h2>
                                 <p className="text-sm mrb-10">
                                     Ask a Doctor & get answers for your health queries for free or indulge in a one-on-one online consultation, at any time and from anywhere. Simply visit our website and start interacting with best-in-class healthcare experts from various specialties.
@@ -47,7 +47,7 @@ class Accordian extends React.Component {
                                 <p className="text-sm mrb-10">
                                     Discover the best diagnostic centres near you from our huge inventory and book appointments at the diagnostic centre of your choice, in just a few clicks. So book diagnostic tests today and get up to 50% off.
                                     </p>
-                                <p className="fw-500 mrb-10 acdn-heading">docprime for Doctors</p>
+                                <p className="fw-500 mrb-10 acdn-heading">Docprime for Doctors</p>
                                 <h2 className="acdn-subheading">Widen Your Reach</h2>
                                 <p className="text-sm mrb-10">
                                     Are you a doctor or a healthcare expert? Use docprime to increase your visibility manifold, reach out to a wider range of patients and grow your practice without having to run from pillar to post.
@@ -56,7 +56,7 @@ class Accordian extends React.Component {
                                 <p className="text-sm mrb-10">
                                     Take the hassle out of your practice and focus better on your patients. Automate everything right from appointment management to payment tracking and just focus on providing the highest quality of treatment to their patients.
                                     </p>
-                                <p className="fw-500 mrb-10 acdn-heading">docprime Services</p>
+                                <p className="fw-500 mrb-10 acdn-heading">Docprime Services</p>
                                 <h2 className="acdn-subheading">Book Lab Test</h2>
                                 <p className="text-sm mrb-10">
                                     Book lab test right from the comfort of your home. Get amazing discounts on lab tests and get samples collected and report delivered, right at your doorsteps.
