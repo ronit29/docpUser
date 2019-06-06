@@ -4,6 +4,7 @@ import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
 import SnackBar from 'node-snackbar'
 import GTM from '../../../helpers/gtm.js'
+import PaymentForm from '../paymentForm'
 
 const queryString = require('query-string');
 
@@ -15,7 +16,8 @@ class PrimeCareBookingView extends React.Component {
             phoneNumber: '',
             gender: '',
             email:'',
-            profileDataFilled: true
+            profileDataFilled: true,
+            paymentData: null
         }
     }
 
@@ -52,7 +54,8 @@ class PrimeCareBookingView extends React.Component {
             })
             self.props.createCareBooking(selectedPlan,(resp)=>{
                 if(resp.payment_required){
-                    this.props.history.push(`/payment/${resp.data.orderId}?refs=care`)
+                    // this.props.history.push(`/payment/${resp.data.orderId}?refs=care`)
+                    this.processPayment(resp)
                 }else{
                     this.props.history.push('/prime/success?user_plan='+resp.data.id)
                 }        
@@ -60,13 +63,25 @@ class PrimeCareBookingView extends React.Component {
         }else{
             this.props.createCareBooking(selectedPlan,(resp)=>{
                 if(resp.payment_required){
-                    this.props.history.push(`/payment/${resp.data.orderId}?refs=care`)
+                    // this.props.history.push(`/payment/${resp.data.orderId}?refs=care`)
+                    this.processPayment(resp)
                 }else{
                     this.props.history.push('/prime/success?user_plan='+resp.data.id)
                     
                 }        
             })
         }    
+    }
+    
+    processPayment(data) {
+        if (data && data.status) {
+            this.setState({ paymentData: data.data }, () => {
+                if (document.getElementById('paymentForm') && Object.keys(this.state.paymentData).length > 0) {
+                    let form = document.getElementById('paymentForm')
+                    form.submit()
+                }
+            })
+        }
     }
 
     inputHandler(e) {
@@ -222,6 +237,9 @@ class PrimeCareBookingView extends React.Component {
                         {/*<RightBar className="col-md-5 mb-3" />*/}
                     </div>
                 </section>
+                {
+                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} /> : ""
+                }
             </div>
         );
     }
