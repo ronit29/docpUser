@@ -117,7 +117,7 @@ class LabTests extends React.Component {
                         if (test.test.show_details) {
                             // test_info = <span className="srch-heading" style={{ float: 'right', cursor: 'pointer', color: '#e46608' }} onClick={this.testInfo.bind(this)}> Test Info</span>
                             test_info= <span style={{'marginLeft':'5px',marginTop:'1px',display:'inline-block', 'cursor':'pointer'}} onClick={this.testInfo.bind(this,test.test.id,test.url)}>
-                                    <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
+                                    <img src="https://cdn.docprime.com/cp/assets/img/icons/Info.svg" style={{width:'15px'}}/>
                             </span>
                         }
 

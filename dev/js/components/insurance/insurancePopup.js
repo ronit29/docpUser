@@ -73,10 +73,10 @@ class InsurancePopup extends React.Component{
                     if(Object.keys(this.props.selected_plan).length > 0){
                         this.props.generateInsuranceLead(this.props.selected_plan?this.props.selected_plan.id:'',this.state.phoneNumber,lead_data)
                     }
-                    let data = {'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupContinue', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-continue-click'
+                    let data = {'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupContinue', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-continue-click', 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''
                         }
                     GTM.sendEvent({ data: data })
-                    this.setState({ showOTP: true, otpTimeout: true })
+                    this.setState({ showOTP: true, otpTimeout: true,smsBtnType:viaSms?true:false })
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
                     }, 10000)

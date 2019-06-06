@@ -162,9 +162,9 @@ class DesktopProfileHeader extends React.Component {
                                             this.navigateTo('/contact')
                                         }}>Contact us</p>
                             </div> */}
-                            <div style={{ marginLeft: 'auto' }}>
+                            <div style={{ marginLeft: 'auto' }} className="pb-side-lg">
                                 <span className="top-head-text">A group company of </span>
-                                <img src={ASSETS_BASE_URL + "/img/pb-logo-window.svg"} style={{ width: 120 }} />
+                                <img src={ASSETS_BASE_URL + "/img/pb-logo-window.svg"} style={{ width: 100 }} />
                                 {/* <img className="pb-img-size pb-mbl" src={ASSETS_BASE_URL + "/img/pb-logo.png"} /> */}
                             </div>
                         </div>

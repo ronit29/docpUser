@@ -302,19 +302,6 @@ class BookingView extends React.Component {
                                                         </div>
                                                     </div>
 
-                                                    <div className="widget mrt-10 mrb-10">
-                                                        <div className="widget-content">
-                                                            <div className="test-report">
-                                                                <h4 className="title"><span><img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/icons/user.svg"} style={{
-                                                                    width: 14, marginRight: 5, verticalAlign: -3
-                                                                }} /></span>Patient Details</h4>
-                                                                <p className="test-list fw-500">{profile.name}</p>
-                                                                <p className="test-list fw-500">{profile.phone_number}</p>
-                                                                <p className="test-list fw-500">{profile.email}</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
                                                     <div className="widget  mrb-10">
                                                         <div className="widget-content pb-details pb-location">
                                                             <h4 className="wc-title text-md fw-700">{lab.name}</h4>
@@ -394,6 +381,19 @@ class BookingView extends React.Component {
                                                         </div>
                                                     </div>
 
+                                                    <div className="widget mrt-10 mrb-10">
+                                                        <div className="widget-content">
+                                                            <div className="test-report">
+                                                                <h4 className="title"><span><img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/icons/user.svg"} style={{
+                                                                    width: 14, marginRight: 5, verticalAlign: -3
+                                                                }} /></span>Patient Details</h4>
+                                                                <p className="test-list fw-500">{profile.name}</p>
+                                                                <p className="test-list fw-500">{profile.phone_number}</p>
+                                                                <p className="test-list fw-500">{profile.email}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                     {
                                                         status <= 5 ? <div className="widget mrb-10" style={{ marginTop: 10 }}>
                                                             <div className="widget-content">
@@ -435,7 +435,7 @@ class BookingView extends React.Component {
                             <TestDetail show={this.state.showTestDetail} toggle={this.toogleTestDetails.bind(this)} lab_test={lab_test} />
 
                             {
-                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} comments={this.state.data && this.state.data.cancellation_reason ? this.state.data.cancellation_reason : []} showCommentReasons={payment_type == 3?true:false}/> : ""
+                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} comments={this.state.data && this.state.data.cancellation_reason ? this.state.data.cancellation_reason : []} showCommentReasons={payment_type == 3 || payment_type == 2?true:false}/> : ""
                             }
 
                         </div>

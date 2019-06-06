@@ -128,6 +128,10 @@ class IpdInfoContainer extends React.Component{
 
 		let new_url = `${window.location.pathname}?ipd_id=${parsed.ipd_id}&place_id=${place_id}&lat=${lat}&long=${long}&locality=${locality}&sub_locality=${sub_locality}&showPopup=true`
 
+		if(parsed && parsed.type) {
+			new_url+= `&type=${parsed.type}`
+		}
+
 		return new_url
 	}
 
@@ -189,11 +193,13 @@ const mapStateToProps = (state) => {
 
 	const {
 		ipd_chat,
-		offerList
+		offerList,
+		is_ipd_form_submitted
 	} = state.USER
 
     return{
-    	selectedLocation, selectedCriterias, ipd_info, IPD_INFO_LOADED, commonSelectedCriterias, locationFetched, ipd_chat, offerList
+    	selectedLocation, selectedCriterias, ipd_info, IPD_INFO_LOADED, commonSelectedCriterias, locationFetched, ipd_chat, offerList,
+    	is_ipd_form_submitted
     }
 }
 
