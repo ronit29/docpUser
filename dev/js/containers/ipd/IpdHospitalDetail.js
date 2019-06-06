@@ -154,7 +154,8 @@ class HospitalDetail extends React.Component {
 const mapStateToProps = (state) => {
 	
 	const {
-		ipd_chat
+		ipd_chat,
+		is_ipd_form_submitted
 	} = state.USER
 
 	const {
@@ -180,7 +181,8 @@ const mapStateToProps = (state) => {
         locationFetched,
         selectedCriterias,
         filterCriteria,
-        ipd_chat
+        ipd_chat,
+        is_ipd_form_submitted
 	}
 }
 

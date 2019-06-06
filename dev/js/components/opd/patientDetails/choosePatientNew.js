@@ -13,7 +13,8 @@ class ChoosePatientNewView extends React.Component {
             phoneNumber: '',
             gender: '',
             data: false,
-            email:''
+            email:'',
+            smsBtnType:null
         }
     }
 
@@ -95,7 +96,7 @@ class ChoosePatientNewView extends React.Component {
         this.props.profileDataCompleted(this.state)
     }
 
-    verify(resendFlag = false) {
+    verify(resendFlag = false,viaSms,viaWhatsapp) {
         let self = this
 
         if (!this.state.name.match(/^[a-zA-Z ]+$/)) {
@@ -136,24 +137,24 @@ class ChoosePatientNewView extends React.Component {
 
             if(resendFlag){
                 let analyticData = {
-                    'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage'
+                    'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage', 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''
                 }
                 GTM.sendEvent({ data: analyticData })
             } else {
                 let analyticData = {
-                    'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage'
+                    'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage', 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''
                 }
                 GTM.sendEvent({ data: analyticData })
             }
 
-            this.props.sendOTP(this.state.phoneNumber, (error) => {
+            this.props.sendOTP(this.state.phoneNumber,viaSms,viaWhatsapp, (error) => {
                 if (error) {
                     setTimeout(() => {
                         SnackBar.show({ pos: 'bottom-center', text: "Could not generate OTP." })
                     }, 500)
                     //self.setState({ validationError: "Could not generate OTP." })
                 } else {
-                    self.setState({ showOtp: true, showVerify: false })
+                    self.setState({ showOtp: true, showVerify: false,smsBtnType:viaSms?true:false })
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
                     }, 10000)
@@ -228,9 +229,15 @@ class ChoosePatientNewView extends React.Component {
                                 <div className="slt-nw-input">
                                     <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Mobile:</label>
                                     <input className="slt-text-input" autoComplete="off" type="number" placeholder="" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} onBlur={this.profileValidation.bind(this)} />
-                                    {
+                                </div>
+                                <div className="input-booking-smswhts">
+                                {
                                         this.state.showVerify ?
-                                            <button className="mobile-fill-btn" onClick={()=>this.verify()}>Verify</button>
+                                            <React.Fragment>
+                                                <button className="input-sms-ver" onClick={()=>this.verify(false,true,false)}>
+                                                <img style={{marginRight:'5px'}} className="sms-ico" src={ASSETS_BASE_URL + '/img/smsicon.svg'} />Verify Via SMS</button>
+                                                <button className="input-sms-whts" onClick={()=>this.verify(false,false,true)}><img style={{marginRight:'5px'}} className="whtsp-ico" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'} />Verify Via Whatsapp</button>
+                                            </React.Fragment>
                                             : ''
                                     }
                                 </div>
@@ -242,7 +249,7 @@ class ChoosePatientNewView extends React.Component {
                                                 <input className="slt-text-input" autoComplete="off" type="number" onKeyPress={this.handleOtpContinuePress.bind(this)} onChange={this.inputHandler.bind(this)} name="otp" placeholder="Enter OTP " />
                                                 <button className="mobile-fill-btn" onClick={this.submitOTPRequest.bind(this)}>Submit</button>
                                             </div>
-                                            <span className="resend-otp-btn" onClick={()=>this.verify(true)}>Resend OTP</span>
+                                            <span className="resend-otp-btn" onClick={()=>this.verify(true,this.state.smsBtnType?true:false,!this.state.smsBtnType?true:false)}>Resend OTP</span>
                                         </div>
                                         : ''
                                 }

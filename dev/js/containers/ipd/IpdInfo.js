@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { getIpdInfo, selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, mergeIpdCriteria, ipdChatView, checkIpdChatAgentStatus } from '../../actions/index.js'
+import { getIpdInfo, selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, mergeIpdCriteria, ipdChatView, checkIpdChatAgentStatus, getOfferList } from '../../actions/index.js'
 import IpdInfoView from '../../components/ipd/IpdInfoView.js'
 const queryString = require('query-string')
 import GTM from '../../helpers/gtm.js'
@@ -82,6 +82,19 @@ class IpdInfoContainer extends React.Component{
 			window.scrollTo(0,0)
 		}
 
+		let selectedLocation = ''
+        let lat = 28.644800
+        let long = 77.216721
+        if (this.props.selectedLocation) {
+            selectedLocation = this.props.selectedLocation;
+            lat = selectedLocation.geometry.location.lat
+            long = selectedLocation.geometry.location.lng
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
+
+        this.props.getOfferList(lat, long)
+
 		if(!search_by_url){
 			let new_url = this.buildUrl(this.props)
 	        this.props.history.replace(new_url)
@@ -114,6 +127,10 @@ class IpdInfoContainer extends React.Component{
         }
 
 		let new_url = `${window.location.pathname}?ipd_id=${parsed.ipd_id}&place_id=${place_id}&lat=${lat}&long=${long}&locality=${locality}&sub_locality=${sub_locality}&showPopup=true`
+
+		if(parsed && parsed.type) {
+			new_url+= `&type=${parsed.type}`
+		}
 
 		return new_url
 	}
@@ -175,11 +192,14 @@ const mapStateToProps = (state) => {
 	} = state.SEARCH_CRITERIA_IPD
 
 	const {
-		ipd_chat
+		ipd_chat,
+		offerList,
+		is_ipd_form_submitted
 	} = state.USER
 
     return{
-    	selectedLocation, selectedCriterias, ipd_info, IPD_INFO_LOADED, commonSelectedCriterias, locationFetched, ipd_chat
+    	selectedLocation, selectedCriterias, ipd_info, IPD_INFO_LOADED, commonSelectedCriterias, locationFetched, ipd_chat, offerList,
+    	is_ipd_form_submitted
     }
 }
 
@@ -191,7 +211,8 @@ const mapDispatchToProps = (dispatch) => {
 		cloneCommonSelectedCriterias: (selectedCriterias) => dispatch(cloneCommonSelectedCriterias(selectedCriterias)),
 		mergeIpdCriteria: (filterCriteria)=> dispatch(mergeIpdCriteria(filterCriteria)),
 		ipdChatView: (data) => dispatch(ipdChatView(data)),
-		checkIpdChatAgentStatus: (cb) => dispatch(checkIpdChatAgentStatus(cb))
+		checkIpdChatAgentStatus: (cb) => dispatch(checkIpdChatAgentStatus(cb)),
+		getOfferList: (lat,long) => dispatch(getOfferList(lat,long))
 	}
 }
 

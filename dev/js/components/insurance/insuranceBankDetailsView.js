@@ -285,7 +285,7 @@ class InsuranceCancellationView extends React.Component {
 		                                    </div>
 											</div>
 										:<React.Fragment>
-										<p className="ins-cancl-para">We need to confirm if this account belongs to you. Please fill more details below </p>
+										<p className="ins-cancl-para">Please upload either of these documents to verify your account details. </p>
 										<span className="ins-cn-btn" onClick={() => {
 					                        document.getElementById('imageFilePicker_').click()
 					                        document.getElementById('imageFilePicker_').value = "" }}>
