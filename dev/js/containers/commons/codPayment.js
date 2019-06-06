@@ -11,7 +11,9 @@ class CodPaymentPage extends React.Component {
 
 	constructor(props) {
 		super(props)
-
+		this.state = {
+			showPaymentPage: false
+		}
 	}
 
 	componentDidMount(){
@@ -19,18 +21,25 @@ class CodPaymentPage extends React.Component {
         if (parsed.token) {
             this.props.agentLogin(parsed.token, () => {
                 setTimeout(() => {
-                    //this.props.history.push('/')
+                    this.setState({showPaymentPage: true})
                 }, 100)
             })
         } else {
-            //this.props.history.push('/')
+            this.props.history.push('/')
         }
 	}
 
 	render(){
 
 		return(
-			<CodPaymentSummaryView {...this.props}/>
+			<React.Fragment>
+			{
+				this.state.showPaymentPage?
+				<CodPaymentSummaryView {...this.props}/>
+				:''
+			}
+			</React.Fragment>
+
 			)
 	}
 }

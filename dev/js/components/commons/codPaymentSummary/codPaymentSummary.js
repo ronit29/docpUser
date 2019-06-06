@@ -31,6 +31,8 @@ class CodPaymentView extends React.Component {
             }).catch((e) => {
 
             })
+        }else {
+            this.props.history.push('/')
         }
     }
 
