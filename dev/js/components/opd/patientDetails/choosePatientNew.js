@@ -250,7 +250,7 @@ class ChoosePatientNewView extends React.Component {
                                                 <button className="mobile-fill-btn" onClick={this.submitOTPRequest.bind(this)}>Submit</button>
                                             </div>
                                             <div className="d-flex align-items-start justify-content-between">
-                                                <span className="resend-otp-btn" onClick={()=>this.verify(true,this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ?'Send via Whatsapp':'Send via Sms'}</span>
+                                                <span className="resend-otp-btn" onClick={()=>this.verify(true,this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ?'Send via Whatsapp':'Send via SMS'}</span>
                                                 <span className="resend-otp-btn" style={{color:'#ec0d0d'}} onClick={()=>this.verify(true,this.state.smsBtnType?true:false,!this.state.smsBtnType?true:false)}>Resend</span>
                                             </div>
                                         </div>
