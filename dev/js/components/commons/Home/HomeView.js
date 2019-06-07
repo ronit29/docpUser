@@ -89,7 +89,6 @@ class HomeView extends React.Component {
 	}
 
 	searchLab(test, isPackage = false) {
-		console.log(test)
 		let data
 		if (isPackage) {
 			test.type = 'package'

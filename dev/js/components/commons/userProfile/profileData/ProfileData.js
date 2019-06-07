@@ -57,7 +57,6 @@ class ProfileData extends React.Component {
     }    
 
     render() {
-        console.log(this.props.common_settings)
         let currentRoomId = this.props.USER.currentRoomId
         let coupon = null
         let memberClass = 'float-right ins-userdetails-buy'

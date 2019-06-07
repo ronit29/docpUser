@@ -76,7 +76,6 @@ class FixedMobileFooter extends React.Component {
     }
 
     render() {
-        console.log(this.props.common_settings)
         // check if this was the landing page
         let landing_page = false
         if (typeof window == 'object' && window.ON_LANDING_PAGE) {
