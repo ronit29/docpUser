@@ -120,7 +120,13 @@ class CareLoginPopup extends React.Component{
                                             <br /><br />
                                             <input type="number" className="fc-input text-center" placeholder="Enter OTP" value={this.state.otp} onChange={this.inputHandler.bind(this)} name="otp" onKeyPress={this._handleKeyPress.bind(this)}/>
                                             {
-                                                this.state.otpTimeout ? "" : <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}>Resend ?</a>
+                                                this.state.otpTimeout ? "" : 
+                                                <React.Fragment>
+                                                    <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ?'Resend via Whatsapp ?':'Resend via Sms ?'}
+                                                    </a>
+                                                    <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}>Resend ?
+                                                    </a>
+                                                </React.Fragment>
                                             }
                                         </div> : ""
                                     }
