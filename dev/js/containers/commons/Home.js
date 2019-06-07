@@ -9,6 +9,9 @@ import STORAGE from '../../helpers/storage'
 class Home extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            mergeState: false
+        }
     }
 
     static loadData(store, match) {
@@ -46,11 +49,14 @@ class Home extends React.Component {
 
         this.props.resetFilters()
         this.props.clearExtraTests()
+        setTimeout(()=>{
+            this.setState({mergeState: true})
+        },100)
     }
 
     render() {
         return (
-            <HomeView {...this.props} />
+            <HomeView {...this.props} {...this.state}/>
         );
     }
 }
