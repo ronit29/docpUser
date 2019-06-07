@@ -57,7 +57,7 @@ class ProfileData extends React.Component {
     }    
 
     render() {
-
+        console.log(this.props.common_settings)
         let currentRoomId = this.props.USER.currentRoomId
         let coupon = null
         let memberClass = 'float-right ins-userdetails-buy'
@@ -206,7 +206,7 @@ class ProfileData extends React.Component {
                             </a>
                         </li> */}
                         {
-                        CONFIG.ENABLE_INSURANCE?
+                        CONFIG.ENABLE_INSURANCE && this.props.common_settings && this.props.common_settings.insurance_availability?
                             <li onClick={this.goToInsurance.bind(this, isUserLoginInsured)} className="my-profile-item lst-spcng">
                                 <a>
                                     <span className="icon icon-md nav-icon">
