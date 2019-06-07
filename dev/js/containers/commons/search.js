@@ -30,10 +30,12 @@ class Search extends React.Component {
         }
         //opd
         let locality = ''
+        let selectedLocation = null
         if(this.props.OPD_STATE && this.props.OPD_STATE.selectedLocation){
             locality = this.props.OPD_STATE.selectedLocation.locality||''
+            selectedLocation = this.props.OPD_STATE.selectedLocation
         }
-        this.props.loadOPDCommonCriteria(locality)
+        this.props.loadOPDCommonCriteria(selectedLocation)
         this.props.resetFilters()
         // lab
         this.props.loadLabCommonCriterias()

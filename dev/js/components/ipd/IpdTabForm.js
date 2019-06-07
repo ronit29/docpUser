@@ -5,6 +5,7 @@ import SnackBar from 'node-snackbar'
 import ThankyouPoup from './ipdThankYouScreen.js'
 const queryString = require('query-string')
 import GTM from '../../helpers/gtm.js'
+import WhatsAppOptinView from '../commons/WhatsAppOptin/WhatsAppOptinView.js'
 
 class IpdTabForm extends React.Component {
 
@@ -19,7 +20,8 @@ class IpdTabForm extends React.Component {
 			validateError: [],
 			dateModal: false,
 			formattedDate: '',
-			submitFormSuccess: false
+			submitFormSuccess: false,
+			whatsapp_optin: true
 		}
 	}
 
@@ -127,15 +129,30 @@ class IpdTabForm extends React.Component {
 			}
 			let formData = {
 				...this.state,
-				ipd_procedure: ipd_id
+				ipd_procedure: ipd_id,
+
 			}
 
 			if (parsed.hospital_id) {
 				formData.hospital = parsed.hospital_id
 			}
 
+			let utm_tags = {
+	            utm_source: parsed.utm_source || '',
+	            utm_medium: parsed.utm_medium || '',
+	            utm_term: parsed.utm_term || '',
+	            utm_campaign: parsed.utm_campaign || '',
+	            referrer: document.referrer || ''
+	        }
+
+	        formData.data = {}
+	        formData.data.utm_tags = utm_tags
+	        formData.data.url = window.location.href
+	        formData.data.formSource = this.props.formSource || 'LeadForm'
+	        formData.source = 'Costestimate'
 			this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
 				if (!error && response) {
+					this.props.ipdPopupFired()
 					let gtmData = {
 						'Category': 'ConsumerApp', 'Action': 'IpdLeadGenerationSuccess', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'ipd-lead-generation-success', selectedId: ipd_id, 'hospitalId': parsed.hospital_id ? parsed.hospital_id : ''
 					}
@@ -169,8 +186,12 @@ class IpdTabForm extends React.Component {
 			SnackBar.show({ pos: 'bottom-center', text: "Record Submitted Successfully" })
 		}, 500)
 	}
-	render(){
 
+	toggleWhatsap(e) {
+        this.setState({ whatsapp_optin: !this.state.whatsapp_optin })
+    }
+
+	render(){
 		let { ipd_info } = this.props
 
 		if(this.props.tabView) {
@@ -185,7 +206,7 @@ class IpdTabForm extends React.Component {
 						: ''
 				}
 				{
-					this.props.tabView?
+					( this.props.tabView || !(ipd_info && ipd_info.about && ipd_info.about.name) )?
 					<div className="lead-form">
 						<h2 className="section-heading hd-mrgn-top">Get Help from Medical Experts</h2>
 					
@@ -264,7 +285,7 @@ class IpdTabForm extends React.Component {
 						}
 					</div>
 					<div className="form-group fm-grp mrg-mt0">
-						<div className="lbl-txt">Date of birth:</div>
+						<div className="lbl-txt">Date of Birth:</div>
 						<div className="input-form"><input type="text" autoComplete="none" className={`form-control ${this.state.validateError.indexOf('dob') > -1 ? 'error-on' : ''}`} name="dob" value={this.state.formattedDate} onClick={this.openCalendar.bind(this)} onFocus={this.openCalendar.bind(this)} /></div>
 						{
 							this.state.validateError.indexOf('dob') > -1 ?
@@ -272,6 +293,10 @@ class IpdTabForm extends React.Component {
 								: ''
 						}
 					</div>
+					<div className="mrb-15">
+                         <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Enable <span className="sm-wtsp-img"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" onChange={this.toggleWhatsap.bind(this)} checked={this.state.whatsapp_optin} /><span className="checkmark"></span>
+                         </label>
+                	</div>
 					{
 					this.props.tabView?
 						<div className={`${this.props.tabView?'text-center':'btn-search-div btn-apply-div btn-sbmt btncallback'}`}>

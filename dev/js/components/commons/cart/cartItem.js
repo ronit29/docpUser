@@ -79,17 +79,17 @@ class CartItem extends React.Component {
 
             if (data.actual_data.coupon_code) {
                 let coupon_id = ''
-                let is_cashback= false
-                let coupon_code = data.actual_data.coupon_code.length?data.actual_data.coupon_code[0]:''
-                if(data.data.coupons && data.data.coupons.length){
+                let is_cashback = false
+                let coupon_code = data.actual_data.coupon_code.length ? data.actual_data.coupon_code[0] : ''
+                if (data.data.coupons && data.data.coupons.length) {
                     coupon_id = data.data.coupons[0].id
-                    is_cashback = data.data.coupons[0].is_cashback 
+                    is_cashback = data.data.coupons[0].is_cashback
 
                 }
-                if(coupon_code){
-                    this.props.applyCoupons('1', { code: coupon_code, coupon_id: coupon_id, is_cashback: is_cashback }, coupon_id, data.actual_data.doctor)    
+                if (coupon_code) {
+                    this.props.applyCoupons('1', { code: coupon_code, coupon_id: coupon_id, is_cashback: is_cashback }, coupon_id, data.actual_data.doctor)
                 }
-                
+
             }
 
             if (data.actual_data.payment_type >= 0 && data.actual_data.payment_type <= 2) {
@@ -101,7 +101,11 @@ class CartItem extends React.Component {
         if (data.actual_data.procedure_ids && data.actual_data.procedure_ids.length) {
             this.props.saveProfileProcedures('', '', data.actual_data.procedure_ids, true)
         }
-        this.props.history.push(`/opd/doctor/${data.actual_data.doctor}/${data.actual_data.hospital}/bookdetails?cart_item=${this.props.id}`)
+        if (data.data.doctor && data.data.doctor.url) {
+            this.props.history.push(`/${data.data.doctor.url}/booking?doctor_id=${data.actual_data.doctor}&hospital_id=${data.actual_data.hospital}&cart_item=${this.props.id}`)
+        } else {
+            this.props.history.push(`/opd/doctor/${data.actual_data.doctor}/${data.actual_data.hospital}/bookdetails?cart_item=${this.props.id}`)
+        }
     }
 
     setLabBooking(data) {
@@ -114,7 +118,7 @@ class CartItem extends React.Component {
             this.props.toggleDiagnosisCriteria('test', curr, true)
         }
 
-        if(data.actual_data && data.actual_data.pincode){
+        if (data.actual_data && data.actual_data.pincode) {
             this.props.savePincode(data.actual_data.pincode)
         }
 
@@ -129,18 +133,18 @@ class CartItem extends React.Component {
             if (data.actual_data.coupon_code) {
 
                 let coupon_id = ''
-                let is_cashback= false
-                let coupon_code = data.actual_data.coupon_code.length?data.actual_data.coupon_code[0]:''
-                if(data.data.coupons && data.data.coupons.length){
+                let is_cashback = false
+                let coupon_code = data.actual_data.coupon_code.length ? data.actual_data.coupon_code[0] : ''
+                if (data.data.coupons && data.data.coupons.length) {
                     coupon_id = data.data.coupons[0].id
-                    is_cashback = data.data.coupons[0].is_cashback 
+                    is_cashback = data.data.coupons[0].is_cashback
 
                 }
 
-                if(coupon_code){
-                    this.props.applyCoupons('2', { code: coupon_code, coupon_id: coupon_id, is_cashback: is_cashback }, coupon_id, data.actual_data.lab)    
+                if (coupon_code) {
+                    this.props.applyCoupons('2', { code: coupon_code, coupon_id: coupon_id, is_cashback: is_cashback }, coupon_id, data.actual_data.lab)
                 }
-                
+
             }
             if (data.actual_data.is_home_pickup) {
                 this.props.selectLabAppointmentType('home')
@@ -150,7 +154,12 @@ class CartItem extends React.Component {
 
         }
 
-        this.props.history.push(`/lab/${data.actual_data.lab}/book?cart_item=${this.props.id}`)
+        if (data.data.lab && data.data.lab.url) {
+            this.props.history.push(`/${data.data.lab.url}/booking?lab_id=${data.actual_data.lab}&cart_item=${this.props.id}`)
+        } else {
+            this.props.history.push(`/lab/${data.actual_data.lab}/book?cart_item=${this.props.id}`)
+        }
+
     }
 
     is_item_old(date) {
@@ -176,21 +185,21 @@ class CartItem extends React.Component {
                             !valid ? <p className="appointmentPassed">Your appointment date and time has passed.</p> : ""
                         } */}
 
-                        {   
-                            is_appointment_insured?
-                            <div className="shopng-cart-price ins-val-bx">Covered Under Insurance</div>
-                            :
-                            included_in_user_plan?
-                            <div className="shopng-cart-price ins-val-bx pkg-discountCpn">Docprime Care Benefit</div>
-                            :payment_type == 1 ? <div className="shopng-cart-price">
-                                {
-                                    mrp ? <p>₹ {deal_price} <span className="shopng-cart-price-cut">₹ {mrp}</span></p> : ""
-                                }
-                            </div> : <div className="shopng-cart-price">
-                                    {
-                                        mrp ? <p>₹ {mrp}</p> : ""
-                                    }
-                                </div>
+                        {
+                            is_appointment_insured ?
+                                <div className="shopng-cart-price ins-val-bx">Covered Under Insurance</div>
+                                :
+                                included_in_user_plan ?
+                                    <div className="shopng-cart-price ins-val-bx pkg-discountCpn">Docprime Care Benefit</div>
+                                    : payment_type == 1 ? <div className="shopng-cart-price">
+                                        {
+                                            mrp ? <p>₹ {deal_price} <span className="shopng-cart-price-cut">₹ {mrp}</span></p> : ""
+                                        }
+                                    </div> : <div className="shopng-cart-price">
+                                            {
+                                                mrp ? <p>₹ {mrp}</p> : ""
+                                            }
+                                        </div>
                         }
                         <div className="widget-header dr-qucik-info widgetHeaderPaddingTop">
                             <div>
@@ -265,12 +274,12 @@ class CartItem extends React.Component {
                                                 return <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
 
                                                     {
-                                                        is_appointment_insured ||included_in_user_plan?
-                                                        <span className="float-right fw-700">₹ 0 </span>
-                                                        :<span className="float-right fw-700">₹ {test.deal_price}<span className="test-mrp">₹ {test.mrp}</span>
-                                                        </span>
+                                                        is_appointment_insured || included_in_user_plan ?
+                                                            <span className="float-right fw-700">₹ 0 </span>
+                                                            : <span className="float-right fw-700">₹ {test.deal_price}<span className="test-mrp">₹ {test.mrp}</span>
+                                                            </span>
                                                     }
-                                                    
+
                                                     <span className="test-name-item">{test.test_name}</span>
                                                 </p>
                                             })

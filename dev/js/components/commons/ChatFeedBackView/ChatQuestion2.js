@@ -18,7 +18,11 @@ class ChatQuestion2 extends React.Component {
 	}
 
 	saveFeedBack(data){
-		this.props.saveChatFeedBack('ques2', this.state.feedback)
+		data = {
+			feedback: this.state.feedback,
+			question:'How have your symptoms improved with our treatment?'
+		}
+		this.props.saveChatFeedBack('ques2', data)
 		this.props.history.push('/chat/feedback/ques3')
 	}
 
@@ -77,7 +81,7 @@ class ChatQuestion2 extends React.Component {
 		            </div>
 		            <div className="cf-footer">
 		               <a href="javascript:void(0);" onClick={()=>this.props.history.push('/chat/feedback/ques1')} className="cf-btn cf-prev"> 
-		                   <img src="/assets/images/left-arrow.png" alt="r-arrow" className="cf-img" />
+		                   <img src="/assets/images/right_arrow.png" alt="r-arrow" className="cf-img cf-rotate" />
 		                   PREVIOUS
 		               </a>
 		               <a href="javascript:void(0);" onClick={this.saveFeedBack.bind(this)} className="cf-btn cf-next">NEXT 

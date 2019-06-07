@@ -24,6 +24,8 @@ import RatingReviewView from '../../commons/ratingsProfileView/ratingReviewView.
 import RatingStars from '../../commons/ratingsProfileView/RatingStars';
 import HospitalPopUp from '../../commons/ratingsProfileView/HospitalPopUp.js'
 import STORAGE from '../../../helpers/storage'
+import IpdLeadForm from '../../../containers/ipd/ipdLeadForm.js'
+const queryString = require('query-string');
 
 class DoctorProfileView extends React.Component {
     constructor(props) {
@@ -47,6 +49,7 @@ class DoctorProfileView extends React.Component {
             show_contact: '',
             isOrganic: this.props.location.search.includes('hospital_id'),
             displayHospitalRatingBlock: 0,
+            showIpdLeadForm: true
         }
     }
 
@@ -62,21 +65,21 @@ class DoctorProfileView extends React.Component {
             })
         }
 
-        if(this.props.app_download_list && !this.props.app_download_list.length){
+        if (this.props.app_download_list && !this.props.app_download_list.length) {
 
-            this.props.getDownloadAppBannerList((resp)=>{
-                if(resp && resp.length && resp[0].data){
+            this.props.getDownloadAppBannerList((resp) => {
+                if (resp && resp.length && resp[0].data) {
                     this.showDownloadAppWidget(resp[0].data)
                 }
             })
-        }else{
+        } else {
             this.showDownloadAppWidget(this.props.app_download_list)
         }
 
         this.setState({ searchShown: true })
     }
 
-    showDownloadAppWidget(dataList){
+    showDownloadAppWidget(dataList) {
         let landing_page = false
         if (typeof window == 'object' && window.ON_LANDING_PAGE) {
             landing_page = true
@@ -84,20 +87,20 @@ class DoctorProfileView extends React.Component {
 
         let downloadAppButtonData = {}
 
-        if(landing_page && dataList && dataList.length){
+        if (landing_page && dataList && dataList.length) {
 
-            dataList.map((banner)=> {
-                if(banner.isenabled && ( this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with) ) ) {
+            dataList.map((banner) => {
+                if (banner.isenabled && (this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with))) {
                     downloadAppButtonData = banner
                 }
             })
         }
 
 
-        if(Object.values(downloadAppButtonData).length){
-            
+        if (Object.values(downloadAppButtonData).length) {
+
             let gtmTrack = {
-                'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonVisible', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-visible', 'starts_with':downloadAppButtonData.starts_with?downloadAppButtonData.starts_with:'', 'ends_with': downloadAppButtonData.ends_with?downloadAppButtonData.ends_with:'', 'device': this.props.device_info
+                'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonVisible', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-visible', 'starts_with': downloadAppButtonData.starts_with ? downloadAppButtonData.starts_with : '', 'ends_with': downloadAppButtonData.ends_with ? downloadAppButtonData.ends_with : '', 'device': this.props.device_info
             }
             GTM.sendEvent({ data: gtmTrack })
         }
@@ -139,7 +142,11 @@ class DoctorProfileView extends React.Component {
             GTM.sendEvent({ data: data })
             this.props.saveProfileProcedures(doctor_id, clinicId)
 
-            this.props.history.push(`/opd/doctor/${doctor_id}/${clinicId}/bookdetails`)
+            if (this.state.seoFriendly) {
+                this.props.history.push(`${window.location.pathname}/booking?doctor_id=${doctor_id}&hospital_id=${clinicId}`)
+            } else {
+                this.props.history.push(`/opd/doctor/${doctor_id}/${clinicId}/bookdetails`)
+            }
         }
     }
 
@@ -235,6 +242,23 @@ class DoctorProfileView extends React.Component {
         }
     }
 
+    submitLeadFormGeneration(ipdFormParams) {
+        if(ipdFormParams) {
+            let gtmData = {
+                'Category': 'ConsumerApp', 'Action': 'DoctorProfileIpdFormClosed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-profile-ipd-form-closed'
+            }
+            GTM.sendEvent({ data: gtmData })
+        }
+        let ipd_data = {
+            showChat: true,
+            ipdFormParams: ipdFormParams
+        }
+        
+        this.setState({ showIpdLeadForm: false }, ()=>{
+            this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize:true})   
+        })
+    }
+
     render() {
 
         let doctor_id = this.props.selectedDoctor
@@ -308,19 +332,26 @@ class DoctorProfileView extends React.Component {
         }
 
         let downloadAppButtonData = {}
-        
-        if(landing_page && this.props.app_download_list && this.props.app_download_list.length){
 
-            this.props.app_download_list.map((banner)=> {
-                if(banner.isenabled && ( this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with)) ) {
+        if (landing_page && this.props.app_download_list && this.props.app_download_list.length) {
+
+            this.props.app_download_list.map((banner) => {
+                if (banner.isenabled && (this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with))) {
                     downloadAppButtonData = banner
                 }
             })
         }
 
+        const parsed = queryString.parse(this.props.location.search)
+
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
+                {
+                    this.props.DOCTORS[doctor_id] && parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE?
+                    <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={selectedClinicName} hospital_id={this.state.selectedClinic} doctor_name={this.props.DOCTORS[doctor_id].name?this.props.DOCTORS[doctor_id].name:''} formSource='DoctorBookingPage'/>
+                    :''
+                }
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">
                     {this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].breadcrumb && this.props.DOCTORS[doctor_id].breadcrumb.length ?
                         <section className="col-12 mrng-top-12 d-none d-md-block">
@@ -365,7 +396,7 @@ class DoctorProfileView extends React.Component {
 
                                     <section className="dr-profile-screen" style={{ paddingBottom: 0 }}>
                                         {
-                                            downloadAppButtonData && Object.values(downloadAppButtonData).length ?
+                                            !parsed.showPopup && downloadAppButtonData && Object.values(downloadAppButtonData).length ?
                                                 <a className="downloadBtn" href="javascript:void(0);" onClick={this.downloadButton.bind(this, downloadAppButtonData)}>
 
                                                     <button className="dwnlAppBtn">
@@ -646,7 +677,7 @@ class DoctorProfileView extends React.Component {
                                     </section> : <Loader />
                             }
                         </div>
-                        <RightBar extraClass=" chat-float-btn-2" type="opd" noChatButton={!this.state.searchDataHidden} />
+                        <RightBar extraClass=" chat-float-btn-2" type="opd" noChatButton={!this.state.searchDataHidden} showDesktopIpd={true}/>
                     </div>
                 </section>
                 <Footer footerData={this.state.footerData} />

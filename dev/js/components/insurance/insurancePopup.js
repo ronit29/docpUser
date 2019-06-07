@@ -1,5 +1,6 @@
 import React from 'react'
 const queryString = require('query-string');
+import GTM from '../../helpers/gtm.js'
 
 class InsurancePopup extends React.Component{
 	constructor(props) {
@@ -13,7 +14,8 @@ class InsurancePopup extends React.Component{
             otp: "",
             otpTimeout: false,
             error_message:'',
-            isLeadTrue:false
+            isLeadTrue:false,
+            smsBtnType:null
         }
     }
     handleChange(profileid,newProfile,event) {
@@ -60,14 +62,21 @@ class InsurancePopup extends React.Component{
         }
     }
 
-    submitOTPRequest(number) {
+    submitOTPRequest(number,resendFlag = false,viaSms,viaWhatsapp) {
+        let lead_data = queryString.parse(this.props.location.search)
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
-            this.props.sendOTP(number, (error) => {
+            this.props.sendOTP(number,viaSms,viaWhatsapp, (error) => {
                 if (error) {
                     // this.setState({ validationError: "Could not generate OTP." })
                 } else {
-                    this.setState({ showOTP: true, otpTimeout: true })
+                    if(Object.keys(this.props.selected_plan).length > 0){
+                        this.props.generateInsuranceLead(this.props.selected_plan?this.props.selected_plan.id:'',this.state.phoneNumber,lead_data)
+                    }
+                    let data = {'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupContinue', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-continue-click', 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''
+                        }
+                    GTM.sendEvent({ data: data })
+                    this.setState({ showOTP: true, otpTimeout: true,smsBtnType:viaSms?true:false })
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
                     }, 10000)
@@ -92,10 +101,13 @@ class InsurancePopup extends React.Component{
                 if(exists.code == 'invalid'){
                     this.setState({error_message:exists.message})
                 }else{
+                    let data = {'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupOptVerified', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-opt-verified'
+                        }
+                    GTM.sendEvent({ data: data })
                     if(Object.keys(self.props.selected_plan).length > 0){
                         self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',this.state.phoneNumber,lead_data,this.props.selectedLocation)
                     }
-                        this.props.getInsurance((resp)=>{
+                        this.props.getInsurance(false,(resp)=>{
                             if(!resp.certificate){
                                 if(this.props.isLead == 'proceed'){
                                     if (exists.user_exists) {
@@ -226,7 +238,7 @@ class InsurancePopup extends React.Component{
                                             <br /><br />
                                             <input type="number" className="fc-input text-center" placeholder="Enter OTP" value={this.state.otp} onChange={this.inputHandler.bind(this)} name="otp" onKeyPress={this._handleKeyPress.bind(this)}/>
                                             {
-                                                this.state.otpTimeout ? "" : <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)}>Resend ?</a>
+                                                this.state.otpTimeout ? "" : <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,true,this.state.smsBtnType?true:false,!this.state.smsBtnType?true:false)}>Resend ?</a>
                                             }
                                         </div> : ""
                                     }
@@ -240,13 +252,24 @@ class InsurancePopup extends React.Component{
                                                 Verify
                                         </button>
                                         </div> :
+                                        <React.Fragment>
                                         <div className="text-center">
-                                            <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm">Continue
+                                            <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,false,true,false)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-sms-btn">
+                                                <img className="sms-ico" src={ASSETS_BASE_URL +'/img/smsicon.svg'} />Verify Via SMS
                                                 {/*
                                                     this.props.isLead == 'proceed'?'Continue':'Submit'
                                                 */}
                                         </button>
                                         </div>
+                                        <div className="text-center">
+                                            <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,false,false,true)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-wtsp-btn">
+                                            <img className="whtsp-ico" src={ASSETS_BASE_URL +'/img/wa-logo-sm.png'} />Verify Via Whatsapp
+                                                {/*
+                                                    this.props.isLead == 'proceed'?'Continue':'Submit'
+                                                */}
+                                        </button>
+                                        </div>
+                                        </React.Fragment>
                                 }
                             </div>
 

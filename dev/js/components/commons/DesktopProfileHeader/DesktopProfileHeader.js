@@ -2,6 +2,7 @@ import React from 'react';
 import InitialsPicture from '../initialsPicture'
 import GTM from '../../../helpers/gtm'
 import LeftMenu from '../LeftMenu/LeftMenu.js'
+import IpdChatPanel from '../ChatPanel/ChatIpdPanel.js'
 
 class DesktopProfileHeader extends React.Component {
     constructor(props) {
@@ -129,7 +130,8 @@ class DesktopProfileHeader extends React.Component {
 
         return (
             <header id="is_header" className={headerClass} style={styles}>
-
+                <IpdChatPanel {...this.props}/>
+                
                 <div className={"ofr-top-header d-lg-block" + (!this.props.homePage ? " d-none" : "")}>
                     <div className="container">
                         <div className="d-flex justify-content-between">
@@ -160,9 +162,9 @@ class DesktopProfileHeader extends React.Component {
                                             this.navigateTo('/contact')
                                         }}>Contact us</p>
                             </div> */}
-                            <div style={{ marginLeft: 'auto' }}>
+                            <div style={{ marginLeft: 'auto' }} className="pb-side-lg">
                                 <span className="top-head-text">A group company of </span>
-                                <img src={ASSETS_BASE_URL + "/img/pb-logo-window.svg"} style={{ width: 120 }} />
+                                <img src={ASSETS_BASE_URL + "/img/pb-logo-window.svg"} style={{ width: 100 }} />
                                 {/* <img className="pb-img-size pb-mbl" src={ASSETS_BASE_URL + "/img/pb-logo.png"} /> */}
                             </div>
                         </div>
@@ -250,16 +252,20 @@ class DesktopProfileHeader extends React.Component {
                                             <li><a href="/all-medicines" onClick={(e) => {
                                                 e.preventDefault();
                                                 this.props.history.push("/all-medicines")
-                                            }}>All Medicines</a></li>
-                                            {/* <li><a href="javascript:void(0);">All Articles</a></li> */}
+                                            }}>Medicines</a></li>
+                                            {/* <li><a href="javascript:void(0);">Articles</a></li> */}
                                             <li><a href="/all-diseases" onClick={(e) => {
                                                 e.preventDefault();
                                                 this.props.history.push("/all-diseases")
-                                            }}>All Diseases</a></li>
+                                            }}>Diseases</a></li>
                                             <li><a href="/tests" onClick={(e) => {
                                                 e.preventDefault();
                                                 this.props.history.push("/tests")
-                                            }}>All Tests</a></li>
+                                            }}>Tests</a></li>
+                                            <li><a href="/ipd-procedures" onClick={(e) => {
+                                                e.preventDefault();
+                                                this.props.history.push("/ipd-procedures")
+                                            }}>Procedures</a></li>
                                         </ul>
                                     </div>
                                 </div>

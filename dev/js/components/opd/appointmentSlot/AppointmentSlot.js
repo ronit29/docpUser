@@ -16,9 +16,15 @@ import GTM from '../../../helpers/gtm.js'
 class AppointmentSlot extends React.Component {
     constructor(props) {
         super(props)
+
+        const parsed = queryString.parse(this.props.location.search)
+
+        let doctor_id = this.props.selectedDoctor
+        let hospital_id = this.props.selectedClinic
+
         this.state = {
-            selectedDoctor: this.props.match.params.id,
-            selectedClinic: this.props.match.params.clinicId,
+            selectedDoctor: doctor_id,
+            selectedClinic: hospital_id,
             reschedule: this.props.location.search.includes('reschedule'),
             goback: this.props.location.search.includes('goback'),
             timeSlots: null,
@@ -54,20 +60,20 @@ class AppointmentSlot extends React.Component {
             'Category':'ConsumerApp','Action':'OpdAppointmentDate','CustomerID':GTM.getUserId()||'','leadid':0,'event':'opd-appointment-date','appointmentTime':this.props.selectedSlot.date}
             GTM.sendEvent({ data: data })
 
-            return this.props.history.push(`/opd/doctor/${this.state.selectedDoctor}/${this.state.selectedClinic}/bookdetails`)
+            return this.props.history.push(`/opd/doctor/${this.props.selectedDoctor}/${this.props.selectedClinic}/bookdetails`)
         }
     }
 
     selectTimeSlot(slot) {
         const parsed = queryString.parse(this.props.location.search)
-        slot.selectedDoctor = this.state.selectedDoctor
-        slot.selectedClinic = this.state.selectedClinic
+        slot.selectedDoctor = this.props.selectedDoctor
+        slot.selectedClinic = this.props.selectedClinic
         this.props.selectOpdTimeSLot(slot, this.state.reschedule, parsed.reschedule)
     }
 
     componentDidMount() {
-        let clinicId = this.props.match.params.clinicId
-        let doctorId = this.props.match.params.id
+        let clinicId = this.props.selectedClinic
+        let doctorId = this.props.selectedDoctor
 
         this.props.getTimeSlots(doctorId, clinicId, (timeSlots) => {
             this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, upcoming_slots: timeSlots.upcoming_slots||{} })
@@ -123,14 +129,14 @@ class AppointmentSlot extends React.Component {
                             </header> */}
 
                             {
-                                this.props.DOCTORS[this.state.selectedDoctor] ?
+                                this.props.DOCTORS[this.props.selectedDoctor] ?
                                     <section className="dr-profile-screen">
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">
                                                     {/*<SelectedClinic
-                                                        selectedDoctor={this.props.DOCTORS[this.state.selectedDoctor]}
-                                                        selectedClinic={this.state.selectedClinic}
+                                                        selectedDoctor={this.props.DOCTORS[this.props.selectedDoctor]}
+                                                        selectedClinic={this.props.selectedClinic}
                                                     />*/}
 
                                                     {

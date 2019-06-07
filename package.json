@@ -55,6 +55,7 @@
     "react-infinite-calendar": "^2.3.1",
     "react-infinite-scroller": "^1.1.4",
     "react-loadable": "^5.5.0",
+    "react-loadable-ssr-addon": "^0.1.8",
     "react-motion": "^0.5.2",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",

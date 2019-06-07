@@ -74,7 +74,11 @@ class ClinicResultCard extends React.Component {
 
         let { procedure_ids } = this.trackingEventsBookNow(id)
         this.props.saveProfileProcedures('', '', procedure_ids, true)
-        this.props.history.push(`/opd/doctor/${id}/${hospital_id}/bookdetails`)
+        if(url){
+            this.props.history.push(`/${url}/booking?doctor_id=${id}&hospital_id=${hospital_id}`)
+        } else {
+            this.props.history.push(`/opd/doctor/${id}/${hospital_id}/bookdetails`)
+        }
     }
 
     trackingEventsBookNow(id) {

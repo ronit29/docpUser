@@ -1,6 +1,7 @@
-import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, ADD_OPD_COUPONS, ADD_LAB_COUPONS, START_LIVE_CHAT, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART, TOGGLE_LEFT_MENU, UPCOMING_APPOINTMENTS, SET_COMMON_UTM_TAGS, UNSET_COMMON_UTM_TAGS, APPEND_ARTICLE_DATA, GET_APP_DOWNLOAD_BANNER_LIST, SAVE_CHAT_FEEDBACK , SUBMIT_CHAT_FEEDBACK, SAVE_CHAT_FEEDBACK_ROOMID } from '../../constants/types';
+import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, ADD_OPD_COUPONS, ADD_LAB_COUPONS, START_LIVE_CHAT, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART, TOGGLE_LEFT_MENU, UPCOMING_APPOINTMENTS, SET_COMMON_UTM_TAGS, UNSET_COMMON_UTM_TAGS, APPEND_ARTICLE_DATA, GET_APP_DOWNLOAD_BANNER_LIST, SAVE_CHAT_FEEDBACK , SUBMIT_CHAT_FEEDBACK, SAVE_CHAT_FEEDBACK_ROOMID, IPD_CHAT_START, IPD_POPUP_FIRED } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
+import CONFIG from '../../config'
 
 export const getUserProfile = () => (dispatch) => {
 	return API_GET('/api/v1/user/userprofile').then(function (response) {
@@ -638,7 +639,7 @@ export const saveChatFeedBack = (ques, data)  => (dispatch) => {
 
 export const submitChatFeedback = (postData) => (dispatch) => {
 
-	return API_POST('http://chatapi.docprime.com/postfeedback', postData).then(function (response) {
+	return API_POST(`${CONFIG.CHAT_API_UTILITY_API}/postfeedback`, postData).then(function (response) {
 		dispatch({
 			type: SUBMIT_CHAT_FEEDBACK
 		})
@@ -679,5 +680,28 @@ export const getDownloadAppBannerList = (cb) => (dispatch) => {
 
 	}).catch( function (e){
 		if(cb)cb(null)
+	})
+}
+
+export const ipdChatView = (data=false) => (dispatch) => {
+	dispatch({
+		type: IPD_CHAT_START,
+		payload: data
+	})
+}
+
+export const checkIpdChatAgentStatus = (cb) => (dispatch) => {
+	return API_GET(`${CONFIG.CHAT_API_UTILITY_API}/getOnlineUsers?departmentId=etmum62FLjZckHpvx`).then( function (response){
+		
+		if(cb)cb(response)
+
+	}).catch( function (e){
+		if(cb)cb(null)
+	})	
+}
+
+export const ipdPopupFired = () => (dispatch) => {
+	dispatch({
+		type: IPD_POPUP_FIRED
 	})
 }

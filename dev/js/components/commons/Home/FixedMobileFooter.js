@@ -13,21 +13,21 @@ class FixedMobileFooter extends React.Component {
         }
     }
 
-    componentDidMount(){
-        if(this.props.app_download_list && !this.props.app_download_list.length){
+    componentDidMount() {
+        if (this.props.app_download_list && !this.props.app_download_list.length) {
 
-            this.props.getDownloadAppBannerList((resp)=>{
-                if(resp && resp.length && resp[0].data){
+            this.props.getDownloadAppBannerList((resp) => {
+                if (resp && resp.length && resp[0].data) {
                     this.showDownloadAppWidget(resp[0].data)
                 }
             })
-        }else{
+        } else {
             this.showDownloadAppWidget(this.props.app_download_list)
         }
-        
+
     }
 
-    showDownloadAppWidget(dataList){
+    showDownloadAppWidget(dataList) {
         let landing_page = false
         if (typeof window == 'object' && window.ON_LANDING_PAGE) {
             landing_page = true
@@ -35,20 +35,20 @@ class FixedMobileFooter extends React.Component {
 
         let downloadAppButtonData = {}
 
-        if(landing_page && dataList && dataList.length){
+        if (landing_page && dataList && dataList.length) {
 
-            dataList.map((banner)=> {
-                if(banner.isenabled && ( this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with) ) ) {
+            dataList.map((banner) => {
+                if (banner.isenabled && (this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with))) {
                     downloadAppButtonData = banner
                 }
             })
         }
 
 
-        if(Object.values(downloadAppButtonData).length){
-            
+        if (Object.values(downloadAppButtonData).length) {
+
             let gtmTrack = {
-                'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonVisible', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-visible', 'starts_with':downloadAppButtonData.starts_with?downloadAppButtonData.starts_with:'', 'ends_with': downloadAppButtonData.ends_with?downloadAppButtonData.ends_with:'', 'device': this.props.device_info
+                'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonVisible', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-visible', 'starts_with': downloadAppButtonData.starts_with ? downloadAppButtonData.starts_with : '', 'ends_with': downloadAppButtonData.ends_with ? downloadAppButtonData.ends_with : '', 'device': this.props.device_info
             }
             GTM.sendEvent({ data: gtmTrack })
         }
@@ -65,12 +65,12 @@ class FixedMobileFooter extends React.Component {
         this.props.history.push(where)
     }
 
-    downloadButton(data){
+    downloadButton(data) {
         let gtmTrack = {
-            'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-clicked', 'starts_with':data.starts_with?data.starts_with:'', 'ends_with': data.ends_with?data.ends_with:'', 'device': this.props.device_info
+            'Category': 'ConsumerApp', 'Action': 'DownloadAppButtonClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'download-app-button-clicked', 'starts_with': data.starts_with ? data.starts_with : '', 'ends_with': data.ends_with ? data.ends_with : '', 'device': this.props.device_info
         }
         GTM.sendEvent({ data: gtmTrack })
-        if(window){
+        if (window) {
             window.open(data.URL, '_self')
         }
     }
@@ -85,16 +85,17 @@ class FixedMobileFooter extends React.Component {
 
         let downloadAppButtonData = {}
 
-        if(landing_page && this.props.app_download_list && this.props.app_download_list.length){
+        if (landing_page && this.props.app_download_list && this.props.app_download_list.length) {
 
-            this.props.app_download_list.map((banner)=> {
-                if(banner.isenabled && ( this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with) ) ) {
+            this.props.app_download_list.map((banner) => {
+                if (banner.isenabled && (this.props.match.url.includes(banner.ends_with) || this.props.match.url.includes(banner.starts_with))) {
                     downloadAppButtonData = banner
                 }
             })
         }
+        let hide_footer = this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? this.props.ipd_chat.showIpdChat : false
         return (
-            <div className="mobileViewStaticChat d-md-none">
+            <div className={`mobileViewStaticChat d-md-none ${hide_footer ? 'd-none' : ''}`}>
                 <div className="nw-chat-card">
                     <div className="chat-div-containers" style={this.props.selectedSearchType === 'opd' || this.props.selectedSearchType === 'procedures' ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
                         let data = {
@@ -110,19 +111,19 @@ class FixedMobileFooter extends React.Component {
                     </div>
 
                     {
-                        downloadAppButtonData && Object.values(downloadAppButtonData).length?
-                        <a className="downloadBtn" href="javascript:void(0);" onClick={this.downloadButton.bind(this, downloadAppButtonData)}>
-                            <button className="dwnlAppBtn">
-                            {
-                                !this.props.device_info?''
-                                :(this.props.device_info.toLowerCase().includes('iphone') || this.props.device_info.toLowerCase().includes('ipad'))?
-                                <img style={{width:'13px', marginRight:'5px',marginTop: '-1px'}} src={ASSETS_BASE_URL + "/img/appl1.svg"} />
-                                :<img style={{width:'13px', marginRight:'5px'}} src={ASSETS_BASE_URL + "/img/andr1.svg"} />
-                            }
-                                                    
-                            Download App</button>
-                        </a>
-                        :''
+                        downloadAppButtonData && Object.values(downloadAppButtonData).length ?
+                            <a className="downloadBtn" href="javascript:void(0);" onClick={this.downloadButton.bind(this, downloadAppButtonData)}>
+                                <button className="dwnlAppBtn">
+                                    {
+                                        !this.props.device_info ? ''
+                                            : (this.props.device_info.toLowerCase().includes('iphone') || this.props.device_info.toLowerCase().includes('ipad')) ?
+                                                <img style={{ width: '13px', marginRight: '5px', marginTop: '-1px' }} src={ASSETS_BASE_URL + "/img/appl1.svg"} />
+                                                : <img style={{ width: '13px', marginRight: '5px' }} src={ASSETS_BASE_URL + "/img/andr1.svg"} />
+                                    }
+
+                                    Download App</button>
+                            </a>
+                            : ''
                     }
 
                     <div className="chat-div-containers" style={this.props.selectedSearchType === 'lab' ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
@@ -139,20 +140,20 @@ class FixedMobileFooter extends React.Component {
                         {/* <p className="opdNewShow">New</p> */}
                     </div>
 
-                    <div className="chat-div-containers" style={{ width: "36%" }} onClick={() => {
+                    <div className="chat-div-containers" style={{ width: "36%", paddingTop: 0 }} onClick={() => {
                         let data = {
                             'Category': 'ConsumerApp', 'Action': 'MobileFooterChatClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-chat-clicked'
                         }
                         GTM.sendEvent({ data: data })
                         this.navigateTo('/mobileviewchat')
                     }}>
-                        <img className="footbgRound" src={ASSETS_BASE_URL + "/img/chatFoot_new.svg"} />
-                        <div className="nw-mid-container-with-img" style={{ zIndex: '1', color: 'white' }}>
-                            <span style={{ fontSize: 11 }}>Free Online</span>
-                            <div className="">
-                                <img style={{ width: 30, position:'relative', top: '-5px' }} src={ASSETS_BASE_URL + "/img/chatbt_new.svg"} />
+                        {/* <img className="footbgRound" src={ASSETS_BASE_URL + "/img/chatFoot_new.svg"} /> */}
+                        <div className="nw-mid-container-with-img">
+                            <div>
+                                <img style={{ width: 28 }} src={ASSETS_BASE_URL + "/img/chatbt_new.svg"} />
                             </div>
-                            <span style={{ fontSize: 11 }}>Doctor Consult</span>
+                            <p style={{ fontSize: 11 }}>Free Online</p>
+                            <p style={{ fontSize: 11 }}>Doctor Consult</p>
                         </div>
                     </div>
                     <div className="chat-div-containers" style={this.props.searchPackagePage ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
@@ -189,18 +190,20 @@ class FixedMobileFooter extends React.Component {
 const mapStateToProps = (state) => {
     const {
         app_download_list,
-        device_info
+        device_info,
+        ipd_chat
     } = state.USER
-    return{
+    return {
         app_download_list,
-        device_info
+        device_info,
+        ipd_chat
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
 
-    return{
-        getDownloadAppBannerList : (cb) => dispatch(getDownloadAppBannerList(cb)) 
+    return {
+        getDownloadAppBannerList: (cb) => dispatch(getDownloadAppBannerList(cb))
     }
 }
 

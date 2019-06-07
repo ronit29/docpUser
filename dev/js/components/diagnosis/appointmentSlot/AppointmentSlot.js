@@ -13,8 +13,13 @@ const queryString = require('query-string');
 class AppointmentSlot extends React.Component {
     constructor(props) {
         super(props)
+
+        const parsed = queryString.parse(this.props.location.search)
+
+        let lab_id = this.props.selectedLab
+
         this.state = {
-            selectedLab: this.props.match.params.id,
+            selectedLab: lab_id,
             reschedule: this.props.location.search.includes('reschedule'),
             timeSlots: null,
             goback: this.props.location.search.includes('goback'),
@@ -29,10 +34,36 @@ class AppointmentSlot extends React.Component {
     proceed(e) {
         e.preventDefault()
         e.stopPropagation()
+        let selectedDate = null
         // in case of reschedule go back , else push
         if(Object.values(this.state.selectedTimeSlot).length){
             this.selectTimeSlot(this.state.selectedTimeSlot)
+            selectedDate = this.state.selectedTimeSlot.date
         }
+
+        let data = {}
+        let selected_test_id = []
+        const parsed = queryString.parse(this.props.location.search)
+        let patient = null
+        let profile = null
+        if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
+            patient = this.props.profiles[this.props.selectedProfile]
+            profile = patient.id
+        }
+        // in case of upload prescription
+        if(parsed.is_insurance && parsed.is_insurance == 'true'){
+            if(this.props.selectedCriterias && this.props.selectedCriterias.length > 0){
+                this.props.selectedCriterias.map((twp, i) => {
+                    selected_test_id.push(twp.id)
+                })
+            }
+            data.start_date = selectedDate?selectedDate:this.props.selectedSlot && this.props.selectedSlot.date?this.props.selectedSlot.date:new Date()
+            data.lab_test = selected_test_id
+            data.lab = this.props.selectedLab
+            data.profile = profile
+            this.props.preBooking(data)
+        }
+
         if (this.state.reschedule) {
             return this.props.history.go(-1)
         }
@@ -41,7 +72,7 @@ class AppointmentSlot extends React.Component {
             return this.props.history.go(-1)
         }
         if (this.props.selectedSlot.date) {
-            return this.props.history.push(`/lab/${this.state.selectedLab}/book`)
+            return this.props.history.push(`/lab/${this.props.selectedLab}/book`)
         }
     }
 
@@ -76,7 +107,7 @@ class AppointmentSlot extends React.Component {
 
     getTimeSlots(date){
         //2325
-        let selectedLab = this.props.match.params.id
+        let selectedLab = this.props.selectedLab
         date = this.getFormattedDate(date)
         let pincode = this.props.pincode
         const parsed = queryString.parse(this.props.location.search)
@@ -152,7 +183,7 @@ class AppointmentSlot extends React.Component {
                             </header> */}
 
                             {
-                                this.props.LABS[this.state.selectedLab] ?
+                                this.props.LABS[this.props.selectedLab] ?
                                     <section className="dr-profile-screen">
                                         <div className="container-fluid">
                                             <div className="row">

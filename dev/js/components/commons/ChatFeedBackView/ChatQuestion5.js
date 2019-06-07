@@ -19,9 +19,13 @@ class ChatQuestion5 extends React.Component {
 
 
 	submit(){
+		let data = {
+			feedback: this.state.feedback,
+			question:'Any Comments?'
+		}
 		let feedback = this.props.chat_feedback.filter(x=>!x.type.includes('ques5'))
-		feedback.push({type: 'ques5', data: this.state.feedback})
-		this.props.saveChatFeedBack('ques5', this.state.feedback)
+		feedback.push({type: 'ques5', data: data})
+		this.props.saveChatFeedBack('ques5', data)
 		let roomId = this.props.chat_feedback_roomId
 		let postData = {
 			rid: roomId,
@@ -44,7 +48,7 @@ class ChatQuestion5 extends React.Component {
 		            </div>
 		            <div className="cf-footer">
 		               <a href="javascript:void(0);" className="cf-btn cf-prev" onClick={()=>this.props.history.push('/chat/feedback/ques4')}> 
-		                   <img src="/assets/images/left-arrow.png" alt="r-arrow" className="cf-img" />
+		                   <img src="/assets/images/right_arrow.png" alt="r-arrow" className="cf-img cf-rotate" />
 		                   PREVIOUS
 		               </a>
 		               <a href="javascript:void(0);" onClick={this.submit.bind(this)} className="cf-btn cf-next cf-submit">SUBMIT 
