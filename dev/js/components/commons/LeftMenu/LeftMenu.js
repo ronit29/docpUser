@@ -76,7 +76,7 @@ class LeftMenu extends React.Component {
                                 */}
 
                   {
-                    CONFIG.ENABLE_INSURANCE ?
+                    CONFIG.ENABLE_INSURANCE && this.props.common_settings && this.props.common_settings.insurance_availability?
                       <li><a onClick={(e) => {
                         let data = {
                         'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuInsuranceClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-insurance-clicked'

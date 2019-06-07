@@ -1,4 +1,4 @@
-import { FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, SET_FETCH_RESULTS_LAB, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SELECT_LOCATION_DIAGNOSIS, APPEND_DOCTORS, SAVE_COMMON_PROCEDURES, RESET_PROCEDURE_URL, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS, SELECT_IPD_LOCATION_STATUS } from '../../constants/types';
+import { FILTER_SEARCH_CRITERIA_OPD, SET_FETCH_RESULTS_OPD, SET_FETCH_RESULTS_LAB, RESET_FILTER_STATE, SELECT_LOCATION_OPD, MERGE_SEARCH_STATE_OPD, TOGGLE_OPD_CRITERIA, LOAD_SEARCH_CRITERIA_OPD, SELECT_LOCATION_DIAGNOSIS, APPEND_DOCTORS, SAVE_COMMON_PROCEDURES, RESET_PROCEDURE_URL, CLONE_SELECTED_CRITERIAS, MERGE_SELECTED_CRITERIAS, SELECT_IPD_LOCATION_STATUS, LOAD_INSURANCE_CRITERIA } from '../../constants/types';
 import { API_GET } from '../../api/api.js';
 import GTM from '../../helpers/gtm'
 
@@ -30,6 +30,41 @@ export const loadOPDCommonCriteria = (selectedLocation) => (dispatch) => {
     }).catch(function (error) {
         dispatch({
             type: LOAD_SEARCH_CRITERIA_OPD,
+            payload: null
+        })
+        throw error
+    })
+
+}
+
+export const loadOPDInsurance = (selectedLocation) => (dispatch) => {
+
+    let lat = 28.644800
+    let long = 77.216721
+    let place_id = ""
+    let locality = ""
+    let sub_locality = ""
+
+    if (selectedLocation && (selectedLocation.geometry || selectedLocation.place_id) ) {
+        lat = selectedLocation.geometry.location.lat
+        long = selectedLocation.geometry.location.lng
+        place_id = selectedLocation.place_id || ""
+        if (typeof lat === 'function') lat = lat()
+        if (typeof long === 'function') long = long()
+        locality = selectedLocation.locality || ""
+        sub_locality = selectedLocation.sub_locality || ""
+    }else{
+        locality = "Delhi"
+    }
+
+    return API_GET(`/api/v1/common/settings?latitude=${lat}&longitude=${long}`).then(function (response) {
+        dispatch({
+            type: LOAD_INSURANCE_CRITERIA,
+            payload: response
+        })
+    }).catch(function (error) {
+        dispatch({
+            type: LOAD_INSURANCE_CRITERIA,
             payload: null
         })
         throw error

@@ -76,7 +76,7 @@ class FixedMobileFooter extends React.Component {
     }
 
     render() {
-
+        console.log(this.props.common_settings)
         // check if this was the landing page
         let landing_page = false
         if (typeof window == 'object' && window.ON_LANDING_PAGE) {
@@ -126,19 +126,34 @@ class FixedMobileFooter extends React.Component {
                             : ''
                     }
 
-                    <div className="chat-div-containers" style={this.props.selectedSearchType === 'lab' ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
+                    {
+                    this.props.common_settings && this.props.common_settings.insurance_availability?
+                        <div className="chat-div-containers" style={this.props.selectedSearchType === 'lab' ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
                         let data = {
                             'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-insurance-clicked'
                         }
                         GTM.sendEvent({ data: data })
                         this.navigateTo('/insurance/insurance-plans?source=mobile-footer-insurance-clicked')
-                    }}>
-                        <div className="nw-img-with-content">
-                            <img style={{ width: '20px' }} className="opdUpico" src={ASSETS_BASE_URL + "/img/opdNewIco.svg"} />
+                        }}>
+                            <div className="nw-img-with-content">
+                                <img style={{ width: '20px' }} className="opdUpico" src={ASSETS_BASE_URL + "/img/opdNewIco.svg"} />
+                            </div>
+                            <span>OPD Insurance</span>
+                            {/* <p className="opdNewShow">New</p> */}
                         </div>
-                        <span>OPD Insurance</span>
-                        {/* <p className="opdNewShow">New</p> */}
-                    </div>
+                    :<div className="chat-div-containers" style={this.props.selectedSearchType === 'lab' ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
+                        let data = {
+                            'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-insurance-clicked'
+                        }
+                        GTM.sendEvent({ data: data })
+                        this.navigateTo('/insurance/insurance-plans?source=mobile-footer-insurance-clicked')
+                        }}>
+                            <div className="nw-img-with-content">
+                                <img style={{ width: '20px' }} className="opdUpico" src={ASSETS_BASE_URL + "/img/opdNewIco.svg"} />
+                            </div>
+                            <span>OPD</span>
+                            {/* <p className="opdNewShow">New</p> */}
+                        </div>}
 
                     <div className="chat-div-containers" style={{ width: "36%", paddingTop: 0 }} onClick={() => {
                         let data = {
