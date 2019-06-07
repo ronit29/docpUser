@@ -8,7 +8,7 @@ class TopChatWidget extends React.Component {
 
 	render() {
 		return (
-			<div className="d-md-none widget mrb-10 d-flex cursor-pntr" style={{ padding: '4px 10px', borderBottom: '5px solid #4289fe', alignItems: 'baseline' }} onClick={() => this.props.history.push('/mobileviewchat')} >
+			<div className="d-md-none widget mrb-10 d-flex cursor-pntr align-items-center" style={{ padding: '4px 10px', borderBottom: '5px solid #4289fe'}} onClick={() => this.props.history.push('/mobileviewchat')} >
 				<div className="doc-avatar">
 					<img src={ASSETS_BASE_URL + '/img/customer-icons/chat-icon.png'} />
 				</div>
