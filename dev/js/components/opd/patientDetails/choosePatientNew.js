@@ -249,6 +249,7 @@ class ChoosePatientNewView extends React.Component {
                                                 <input className="slt-text-input" autoComplete="off" type="number" onKeyPress={this.handleOtpContinuePress.bind(this)} onChange={this.inputHandler.bind(this)} name="otp" placeholder="Enter OTP " />
                                                 <button className="mobile-fill-btn" onClick={this.submitOTPRequest.bind(this)}>Submit</button>
                                             </div>
+                                            <span className="resend-otp-btn" onClick={()=>this.verify(true,this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ?'Resend via Whatsapp ?':'Resend via Sms ?'}</span>
                                             <span className="resend-otp-btn" onClick={()=>this.verify(true,this.state.smsBtnType?true:false,!this.state.smsBtnType?true:false)}>Resend OTP</span>
                                         </div>
                                         : ''
