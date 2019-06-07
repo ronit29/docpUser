@@ -322,7 +322,7 @@ class CartView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            !STORAGE.isAgent() && valid_items ? <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                                            (STORAGE.isAgent() && is_cod_applicable) ||valid_items ? <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
                                                 <button className="add-shpng-cart-btn" onClick={() => {
                                                     this.props.history.push('/search?from=cart');
 
