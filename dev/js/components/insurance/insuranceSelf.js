@@ -37,7 +37,11 @@ class InsuranceSelf extends React.Component{
     	    disableName:false,
     	    disableEmail:false,
     	    disableDob:false,
-    	    is_change:false
+    	    is_change:false,
+    	    months : ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec'],
+    	    year:null,
+    	    mnth:null,
+    	    day:null
 
         }
     	this.handleSubmit = this.handleSubmit.bind(this);
@@ -89,6 +93,7 @@ class InsuranceSelf extends React.Component{
 	    		}else{
 	    			profile= Object.assign({}, props.self_data_values[0])
 	    		} 
+	    		this.getUserDetails(profile)
 		    	if(Object.keys(profile).length){
 		    		this.setState({...profile,disableEmail:profile.email != ''?true:false,disableDob:profile.dob != null?true:false,disableName:profile.name !=''?true:false},() =>{
 		    			if(profile.gender == 'm'){
@@ -130,6 +135,14 @@ class InsuranceSelf extends React.Component{
 			middle_name:profile.isDummyUser?'':newName[1]})
 	    }else{
 	    	this.setState({name:profile.isDummyUser?'':profile.name})
+	    }
+	    if(profile.isDummyUser && profile.dob){
+	    	this.setState({day:null,year:null,mnth:null})
+	    }else if(profile.dob){
+	    	let oldDate= profile.dob.split('-')
+	    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+	    		this.populateDates()
+	    	})
 	    }
 	    this.setState({
 	    	disableEmail:!profile.isDummyUser && profile.email != ''?true:false,
@@ -432,7 +445,110 @@ class InsuranceSelf extends React.Component{
 	    }
 	}
 
+	daysInMonth(month, year) {
+        return new Date(year, month, 0).getDate();
+      }
+
+    populateDates(){
+    	let self =this
+    	var daydropdown = document.getElementById("daydropdown"),
+          monthdropdown = document.getElementById("monthdropdown"),
+          yeardropdown = document.getElementById("yeardropdown");
+        var today = new Date(),
+            day = today.getUTCDate(),
+            month = today.getUTCMonth(),
+            year = today.getUTCFullYear()-65,
+            currentYear = today.getUTCFullYear(),
+            daysInCurrMonth = this.daysInMonth(month, year);
+
+        // Year
+        for(var i = 0; i < 66; i++){
+          var opt = document.createElement('option');
+          opt.value = i + year;
+          opt.text = i + year;
+          yeardropdown.appendChild(opt);
+        }
+
+        // Month
+        for(var i = 0; i < 12; i++){
+          var opt = document.createElement('option');
+          opt.value = this.state.months[i];
+          opt.text = this.state.months[i];
+          monthdropdown.appendChild(opt);
+        }
+
+        // Day
+        for(var i = 0; i < daysInCurrMonth; i++){
+          var opt = document.createElement('option');
+          opt.value = i + 1;
+          opt.text = i + 1;
+          daydropdown.appendChild(opt);
+        }
+
+       // change handler for day
+      daydropdown.onchange = function(){
+        var NewSelecteddays = self.daysInMonth(self.state.mnth, self.state.year);
+        self.setState({day:NewSelecteddays},()=>{
+        	self.submitDob()
+        })
+        daydropdown.innerHTML=""
+        for(var i = 0; i < NewSelecteddays; i++){
+          var opt = document.createElement('option');
+          opt.value = i + 1;
+          opt.text = i + 1;
+          daydropdown.appendChild(opt);
+        }   	
+      }
+      
+      // Change handler for months
+      monthdropdown.onchange = function(){
+        var newMonth = self.state.months.indexOf(monthdropdown.value) + 1,
+            newYear = yeardropdown.value;
+        
+        daysInCurrMonth = self.daysInMonth(newMonth, newYear);
+		self.setState({mnth:newMonth},()=>{
+			self.submitDob()
+		})
+        daydropdown.innerHTML = "";
+        for(var i = 0; i < daysInCurrMonth; i++){
+          var opt = document.createElement('option');
+          opt.value = i + 1;
+          opt.text = i + 1;
+          daydropdown.appendChild(opt);       
+        }        
+      }
+
+      // change handler for year
+      yeardropdown.onchange = function(){
+      	var newYear = yeardropdown.value;
+      	self.setState({year:newYear},()=>{
+      		self.submitDob()
+      	})
+      	yeardropdown.innerHTML = "";
+      	for(var i = 0; i < 66; i++){
+          var opt = document.createElement('option');
+          opt.value = i + parseInt(newYear);
+          opt.text = i + parseInt(newYear);
+          yeardropdown.appendChild(opt);
+        }
+      }
+  }
+  	submitDob(){
+	let self =  this
+      if(self.state.day && self.state.mnth && self.state.year){
+      	let finalDate = self.state.year + '-'+ self.state.mnth + '-'+self.state.day 
+      	self.setState({
+    		dob : finalDate
+    	},()=>{
+    		self.handleSubmit() 
+    	})
+      }
+  	}
 	render(){
+		console.log(this.state.year)
+		console.log(this.state.mnth)
+		console.log(this.state.day)
+		console.log(this.state.dob)
 		let self = this
 		let show_createApi_keys = []
 		let city_opt =[]
@@ -586,7 +702,7 @@ class InsuranceSelf extends React.Component{
 						 	<input type="button"  id={`isn-date_${this.props.member_id}`} className={`form-control ins-form-control text-left ${this.props.validateErrors.indexOf('dob')> -1?'fill-error':''}`} required autoComplete="dob" name="dob" value={this.state.dob?this.state.dob:'yyyy/mm/dd'} data-param='dob' onClick={this.openDateModal.bind(this)}/>
 							<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Date of birth</label>
     						<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
-							{
+							{/*
                                     this.state.dateModal ? <div className="calendar-overlay"><div className="date-picker-modal">
                                         <Calendar
                                             showWeekNumber={false}
@@ -598,7 +714,12 @@ class InsuranceSelf extends React.Component{
                                             onSelect={this.selectDateFromCalendar.bind(this)}
                                         />
                                     </div></div> : ""
-                                }
+                               */}
+                               <form action="" name="someform">
+							      <select id="daydropdown"></select> 
+							      <select id="monthdropdown"></select> 
+							      <select id="yeardropdown"></select> 
+							    </form>
 						</div>
 						{
 							this.props.validateErrors.indexOf('dob')> -1?
