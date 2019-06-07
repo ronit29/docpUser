@@ -126,9 +126,8 @@ class InsuranceReview extends React.Component{
 						}
 					}
 					members.id=param.id
-					members.member = param.id
 				}
-		    	
+		    	members.member = param.id
 		    	members.first_name=param.name
 		    	members.address=address
 		    	members.email=email
