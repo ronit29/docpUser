@@ -117,6 +117,7 @@ export const selectLocation = (location, type = 'geo', fetchNewResults = true) =
     GTM.sendEvent({ data: data })
 
     loadOPDCommonCriteria(location)(dispatch)
+    loadOPDInsurance(location)(dispatch)
 
     return Promise.all([
         dispatch({
