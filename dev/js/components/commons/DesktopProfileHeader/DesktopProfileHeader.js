@@ -262,6 +262,10 @@ class DesktopProfileHeader extends React.Component {
                                                 e.preventDefault();
                                                 this.props.history.push("/tests")
                                             }}>Tests</a></li>
+                                            <li><a href="/ipd-procedures" onClick={(e) => {
+                                                e.preventDefault();
+                                                this.props.history.push("/ipd-procedures")
+                                            }}>Procedures</a></li>
                                         </ul>
                                     </div>
                                 </div>

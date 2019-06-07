@@ -24,7 +24,7 @@ class LocationElementsView extends React.Component {
                     this.setState({ location_object: props.selectedLocation, search: props.selectedLocation.formatted_address })
                 }
             } else if (!props.locationType.includes("geo")) {
-                this.setState({ location_object: props.selectedLocation, search: props.selectedLocation.formatted_address })
+                // this.setState({ location_object: props.selectedLocation, search: props.selectedLocation.formatted_address })
             }
         }
     }
