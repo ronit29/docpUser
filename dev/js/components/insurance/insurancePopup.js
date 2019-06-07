@@ -105,7 +105,7 @@ class InsurancePopup extends React.Component{
                         }
                     GTM.sendEvent({ data: data })
                     if(Object.keys(self.props.selected_plan).length > 0){
-                        self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',this.state.phoneNumber,lead_data)
+                        self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',this.state.phoneNumber,lead_data,this.props.selectedLocation)
                     }
                         this.props.getInsurance(false,(resp)=>{
                             if(!resp.certificate){
