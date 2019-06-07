@@ -179,6 +179,7 @@ class CartView extends React.Component {
         let invalid_items = false
         let valid_items = false
         let all_appointments_insured = true
+        let is_cod_applicable = true
         if (cart && cart.length) {
             cart.map((cart_item, i) => {
                 if (!cart_item.valid) {
@@ -187,6 +188,10 @@ class CartView extends React.Component {
                     valid_items = true
                     if(cart_item.actual_data && !cart_item.actual_data.is_appointment_insured){
                         all_appointments_insured = false
+                    }
+                    //Check if COD applicable for all appointments
+                    if(cart_item.actual_data && !cart_item.actual_data.enabled_for_cod) {
+                        is_cod_applicable = false
                     }
                 }
             })
