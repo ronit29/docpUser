@@ -95,7 +95,7 @@ class IpdLeadForm extends React.Component {
 
 				}else {
 					let gtmData = {
-						'Category': 'ConsumerApp', 'Action': 'IPD-popup-lead', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'IPD-popup-lead', selectedId: '', 'hospitalId': '', 'from': 'leadForm'
+						'Category': 'ConsumerApp', 'Action': 'IPD-popup-lead', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'IPD-popup-lead', selectedId: '', 'hospitalId': '', 'from': 'leadForm', 'mobileNo':this.state.phone_number
 					}
 					GTM.sendEvent({ data: gtmData })
 				}
@@ -202,7 +202,7 @@ class IpdLeadForm extends React.Component {
 										<input type="text" value={this.state.name} name='name' placeholder="Name" onChange={this.inputHandler.bind(this)} />
 										<input type="Number" value={this.state.phone_number} name='phone_number' placeholder="Mobile Number" onChange={this.inputHandler.bind(this)} />
 										<div className="ipd-lead-textarea">
-											<textarea placeholder="How can we help you?" rows='1' value={this.state.comments} name='comments' onChange={this.inputHandler.bind(this)}></textarea>
+											<textarea placeholder="How can we help you?" style={{fontWeight:500}} rows='1' value={this.state.comments} name='comments' onChange={this.inputHandler.bind(this)}></textarea>
 										</div>
 										{/*<div className="d-flex align-items-center flex-wrap mrt-10">
 											<div className="dtl-radio">
