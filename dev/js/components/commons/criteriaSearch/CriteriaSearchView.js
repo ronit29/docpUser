@@ -174,10 +174,12 @@ class CriteriaSearchView extends React.Component {
                 ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-empty.svg'} className="rating-star" />)
             }
         }
+
+        let showPackageStrip = this.props.compare_packages && this.props.compare_packages.length > 0
         return (
             <div className="profile-body-wrap">
                 {
-                    this.props.hideHeaderOnMobile ? <div className="hide-762"><ProfileHeader showSearch={true} /></div> : <ProfileHeader showSearch={true} />
+                    this.props.hideHeaderOnMobile ? <div className="hide-762"><ProfileHeader showSearch={true} showPackageStrip={showPackageStrip}/></div> : <ProfileHeader showSearch={true} showPackageStrip={showPackageStrip}/>
                 }
 
                 <section className={"container parent-section book-appointment-section" + (this.props.hideHeaderOnMobile ? " mp0" : "") + (this.props.isPackage ?" pkgComapre":"")}>
@@ -372,7 +374,7 @@ class CriteriaSearchView extends React.Component {
                     </div>
                 </section>
                 {
-                    this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage?
+                    showPackageStrip && !this.props.isPackage?
                         <PackageCompareStrip {...this.props} />
                     :''
                 }
