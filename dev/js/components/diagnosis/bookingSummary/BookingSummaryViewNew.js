@@ -897,7 +897,7 @@ class BookingSummaryViewNew extends React.Component {
                             {
                                 this.props.LABS[this.props.selectedLab] ?
                                     <div>
-                                        <section className="dr-profile-screen booking-confirm-screen mrb-60">
+                                        <section className="dr-profile-screen booking-confirm-screen">
                                             <div className="container-fluid">
                                                 <div className="row mrb-20">
                                                     <div className="col-12">
@@ -1127,9 +1127,9 @@ class BookingSummaryViewNew extends React.Component {
                                                             </div>
                                                         </a>
 
-                                                        <div className="mrt-20 d-flex align-items-start">
+                                                        <div className="mrt-20 d-flex align-items-start labTest-dtls">
                                                             <img src={ASSETS_BASE_URL + '/img/customer-icons/tick.svg'} style={{ marginRight: 8, width: 20, marginTop: 2 }} />
-                                                            <p className="fw-500" style={{ color: '#757575', flex: 1 }} >By continuing, you are authorizing Docprime to directly share lab test reports with you.</p>
+                                                            <p className="fw-500" style={{ flex: 1 }} >By continuing, you are authorizing Docprime to directly share lab test reports with you.</p>
                                                         </div>
 
                                                     </div>
