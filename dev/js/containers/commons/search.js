@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeOPDState, resetFilters, getOPDCriteriaResults, toggleOPDCriteria, loadOPDCommonCriteria, cloneCommonSelectedCriterias, mergeLABState, clearAllTests, loadLabCommonCriterias, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, selectSearchType, filterSelectedCriteria, getElasticCriteriaResults, setPackageId, toggleSearchPackages, toggleIPDCriteria } from '../../actions/index.js'
+import { mergeOPDState, resetFilters, getOPDCriteriaResults, toggleOPDCriteria, loadOPDCommonCriteria, cloneCommonSelectedCriterias, mergeLABState, clearAllTests, loadLabCommonCriterias, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, selectSearchType, filterSelectedCriteria, getElasticCriteriaResults, setPackageId, toggleSearchPackages, toggleIPDCriteria, loadOPDInsurance } from '../../actions/index.js'
 
 import SearchView from '../../components/commons/search'
 import SearchElasticView from '../../components/commons/searchElastic'
@@ -39,6 +39,7 @@ class Search extends React.Component {
         this.props.resetFilters()
         // lab
         this.props.loadLabCommonCriterias()
+        this.props.loadOPDInsurance(selectedLocation)
         // this.props.clearExtraTests()
     }
 
@@ -62,26 +63,26 @@ class Search extends React.Component {
             } 
 
             return (
-                <SearchElasticView {...this.props} dataState={dataState} selected={this.props.selectedSearchType} changeSelection={this.changeSelection.bind(this)} elasticSearchString={this.state.elasticSearchString} />
+                <SearchElasticView {...this.props} dataState={dataState} selected={this.props.selectedSearchType} changeSelection={this.changeSelection.bind(this)} elasticSearchString={this.state.elasticSearchString} common_settings={this.props.OPD_STATE.common_settings}/>
             )
 
         } else {
 
             if (this.props.selectedSearchType == 'opd') {
                 return (
-                    <SearchView {...this.props} {...this.props.OPD_STATE} selected={this.props.selectedSearchType} changeSelection={this.changeSelection.bind(this)} />
+                    <SearchView {...this.props} {...this.props.OPD_STATE} selected={this.props.selectedSearchType} changeSelection={this.changeSelection.bind(this)} common_settings={this.props.OPD_STATE.common_settings} />
                 );
             }
 
             if (this.props.selectedSearchType == 'lab') {
                 return (
-                    <SearchView {...this.props} {...this.props.LAB_STATE} selected={this.props.selectedSearchType} changeSelection={this.changeSelection.bind(this)} />
+                    <SearchView {...this.props} {...this.props.LAB_STATE} selected={this.props.selectedSearchType} changeSelection={this.changeSelection.bind(this)} common_settings={this.props.OPD_STATE.common_settings} />
                 );
             }
 
             if (this.props.selectedSearchType == 'procedures') {
                 return (
-                    <SearchView {...this.props} {...this.props.OPD_STATE} selected={this.props.selectedSearchType} changeSelection={this.changeSelection.bind(this)} />
+                    <SearchView {...this.props} {...this.props.OPD_STATE} selected={this.props.selectedSearchType} changeSelection={this.changeSelection.bind(this)} common_settings={this.props.OPD_STATE.common_settings}/>
                 );
             }
 
@@ -101,7 +102,8 @@ const mapStateToProps = (state) => {
             filterCriteria,
             locationType,
             procedure_categories,
-            procedures
+            procedures,
+            common_settings
         } = state.SEARCH_CRITERIA_OPD
 
         return {
@@ -113,7 +115,8 @@ const mapStateToProps = (state) => {
             filterCriteria,
             locationType,
             procedure_categories,
-            procedures
+            procedures,
+            common_settings
         }
     })()
 
@@ -198,7 +201,8 @@ const mapDispatchToProps = (dispatch) => {
         // package
         setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage)),
         toggleSearchPackages: (healthPackage) => dispatch(toggleSearchPackages(healthPackage)),
-        toggleIPDCriteria: (criteria, forceAdd) => dispatch(toggleIPDCriteria(criteria, forceAdd))
+        toggleIPDCriteria: (criteria, forceAdd) => dispatch(toggleIPDCriteria(criteria, forceAdd)),
+        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city))
     }
 }
 

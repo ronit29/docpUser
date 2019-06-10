@@ -137,12 +137,12 @@ class ChoosePatientNewView extends React.Component {
 
             if(resendFlag){
                 let analyticData = {
-                    'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage'
+                    'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage', 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''
                 }
                 GTM.sendEvent({ data: analyticData })
             } else {
                 let analyticData = {
-                    'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage'
+                    'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage', 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''
                 }
                 GTM.sendEvent({ data: analyticData })
             }
@@ -249,7 +249,10 @@ class ChoosePatientNewView extends React.Component {
                                                 <input className="slt-text-input" autoComplete="off" type="number" onKeyPress={this.handleOtpContinuePress.bind(this)} onChange={this.inputHandler.bind(this)} name="otp" placeholder="Enter OTP " />
                                                 <button className="mobile-fill-btn" onClick={this.submitOTPRequest.bind(this)}>Submit</button>
                                             </div>
-                                            <span className="resend-otp-btn" onClick={()=>this.verify(true,this.state.smsBtnType?true:false,!this.state.smsBtnType?true:false)}>Resend OTP</span>
+                                            <div className="d-flex align-items-start justify-content-between">
+                                                <span className="resend-otp-btn" onClick={()=>this.verify(true,this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ?'Send via Whatsapp':'Send via SMS'}</span>
+                                                <span className="resend-otp-btn" style={{color:'#ec0d0d'}} onClick={()=>this.verify(true,this.state.smsBtnType?true:false,!this.state.smsBtnType?true:false)}>Resend</span>
+                                            </div>
                                         </div>
                                         : ''
                                 }

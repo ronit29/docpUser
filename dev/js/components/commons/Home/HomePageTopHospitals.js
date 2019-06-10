@@ -56,7 +56,7 @@ class TopHospitalWidgets extends React.Component {
                     <div className='pkgCardsList d-inline-block sub-wd-cards top_hospitals_list'>
                     	{
                     		this.props.top_data.map((data, i) => {
-                    			return <a key={i} href={data.url?`/${data.url}?showPopup=true`:`/ipd/hospital/${data.id}?showPopup=true`} className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
+                    			return <a key={this.props.mergeState?i:data.logo} href={data.url?`/${data.url}`:`/ipd/hospital/${data.id}`} className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
 				                            <div className="pkgcardImgCont">
 				                                <img style={{width:82}} className="img-fluid" src={data.logo} />
 				                            </div>

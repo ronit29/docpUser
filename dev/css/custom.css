@@ -735,7 +735,7 @@ color:  #f78631;
 }
 .headerSubLinkContainer{
 	width: 100%;
-    margin-top: 107px;
+    margin-top: 94px;
     background: white;
     box-shadow: 1px 1px 1px #8080801c;
 }
@@ -748,7 +748,7 @@ color:  #f78631;
 }
 @media(max-width: 992px) {
 .headerSubLinkContainer{
-	margin-top: 124px;
+	margin-top: 111px;
 }
 div.onln-cnslt-head {
 	margin-top: 126px;
@@ -1691,9 +1691,10 @@ display: none;
 	font-weight: 500;
 }
 .hs-ofr-crdHeading img{
-	width: 18px;
-	margin-right: 9px;
-	cursor: pointer;
+		width: 18px;
+    margin-right: 9px;
+    cursor: pointer;
+    margin-top: 3px;
 }
 .hs-ofr-card-content{
 	padding: 0 30px 0 30px;
@@ -1772,6 +1773,13 @@ text-align: center;
 font-weight: 500;
 color: #f78631;
 margin-top: 10px; 
+}
+.offr-grn-cd{
+	display: block;
+    color: #55a740;
+    font-size: 12px;
+    font-weight: 500;
+    padding-left: 27px;
 }
 /* ============ ipd offers ============ */
 /* ============ custom chat ============ */
