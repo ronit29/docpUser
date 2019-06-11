@@ -11673,3 +11673,13 @@ p.lab-crd-txt-pr span{
     color: black;
     font-size: 12px;
 }
+.appmnt-avl{
+	    font-size: 11px;
+    font-style: italic;
+}
+.apnt-doc-dtl{
+	    font-size: 11px;
+    font-style: italic;
+    padding-left: 27px;
+    margin-bottom: 9px;
+}
