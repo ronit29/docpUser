@@ -101,7 +101,9 @@ class ChatStatic extends React.Component {
                     <div className="cht-head-rqst-btn" style={{ width: 64 }}>
                         {
                             this.props.showChatBlock
-                                ? <span className="ml-2" onClick={this.props.hideStaticChat.bind(this)}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatminimize.svg"} /></span>
+                                ? this.props.is_religare
+                                    ?<span className="ml-2" onClick={this.props.hideStaticChat.bind(this)}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/rel_chatminimize.svg"} /></span>
+                                    :<span className="ml-2" onClick={this.props.hideStaticChat.bind(this)}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatminimize.svg"} /></span>
                                 : ''
                         }
                     </div>
@@ -172,9 +174,15 @@ class ChatStatic extends React.Component {
                                                         <textarea id="cstbox" onFocus={this.checkOpenMobileChat.bind(this)} className="fc-input" placeholder=" Type your message... " value={this.state.value} onChange={this.inputHandler.bind(this)} onKeyUp={(e) => this.handleKeyUp(e)}></textarea>
                                                     </div>
                                                     <div className="send_icon">
-                                                        <a href="javascript:;" className="send-msg-btn" onClick={this.getIframe.bind(this)}>
-                                                            <img src={ASSETS_BASE_URL + "/img/send.svg"} className="send-md-icon" />
-                                                        </a>
+                                                        {
+                                                            this.props.is_religare?
+                                                            <a href="javascript:;" className="send-msg-btn" onClick={this.getIframe.bind(this)}>
+                                                                <img src={ASSETS_BASE_URL + "/img/rel_send.svg"} className="send-md-icon" />
+                                                            </a>
+                                                            :<a href="javascript:;" className="send-msg-btn" onClick={this.getIframe.bind(this)}>
+                                                                <img src={ASSETS_BASE_URL + "/img/send.svg"} className="send-md-icon" />
+                                                            </a>
+                                                        }
                                                     </div>
                                                 </div>
                                         }

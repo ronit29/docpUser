@@ -20,7 +20,7 @@ class PackageTest extends React.Component {
         let test_info
         if (test.test.show_details) {
             test_info= <span style={{'marginRight':'5px',marginTop:'2px',display:'inline-block', 'cursor':'pointer'}} onClick={this.props.testInfo.bind(this,test.test.id,test.test.url)}>
-                    <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
+                    <img src="https://cdn.docprime.com/cp/assets/img/icons/Info.svg" style={{width:'15px'}}/>
             </span>
         }
         return (

@@ -3,7 +3,9 @@ import GTM from '../../../helpers/gtm.js'
 
 class TopProcedureWidgets extends React.Component {
 
-    navigateTo(data) {
+    navigateTo(data, e) {
+        e.preventDefault()
+        e.stopPropagation()
         let selectedCriteria = {
             type: 'ipd',
             id: data.id,
@@ -18,9 +20,9 @@ class TopProcedureWidgets extends React.Component {
         this.props.toggleIPDCriteria(selectedCriteria, true)
         
         if(data.url){
-            this.props.history.push(`/${data.url}?showPopup=true&get_feedback=1`)
+            this.props.history.push(`/${data.url}?showPopup=true`)
         }else{
-            this.props.history.push(`/ipdInfo?ipd_id=${data.id}&showPopup=true&get_feedback=1`)
+            this.props.history.push(`/ipdInfo?ipd_id=${data.id}&showPopup=true`)
         }
     }
 
@@ -62,14 +64,14 @@ class TopProcedureWidgets extends React.Component {
                     <div className='pkgCardsList d-inline-flex sub-wd-cards top_ipd_list'>
                     	{
                     		this.props.top_data.map((data, i) => {
-                    			return <div className="pkgcustCards" key={i} onClick={this.navigateTo.bind(this, data)}>
+                    			return <a href={data.url?`${data.url}`:`ipdInfo?ipd_id=${data.id}`} className="pkgcustCards" key={i} onClick={this.navigateTo.bind(this, data)}>
 				                            <div className="pkgcardImgCont">
 				                                <img className="img-fluid" src={data.icon} />
 				                            </div>
 				                            <p className="pkgtstName prcd-height">
 				                                {data.name}
 				                        	</p>
-				                        </div>		
+				                        </a>		
                     		})
                     	}
                     </div>

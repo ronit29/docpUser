@@ -3,17 +3,18 @@ import GTM from '../../../helpers/gtm.js'
 
 class TopHospitalWidgets extends React.Component {
 
-	navigateTo(data) {
-
+	navigateTo(data, e) {
+        e.preventDefault()
+        e.stopPropagation()
         let gtmData = {
             'Category': 'ConsumerApp', 'Action': 'HomeWidgetHospitalClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-widget-hospital-clicked', 'selected': '', 'selectedId': data.id || ''
         }
         GTM.sendEvent({ data: gtmData })
 
         if(data.url) {
-            this.props.history.push(`/${data.url}?showPopup=true&get_feedback=1`)
+            this.props.history.push(`/${data.url}?showPopup=true`)
         }else {
-            this.props.history.push(`/ipd/hospital/${data.id}?showPopup=true&get_feedback=1`)
+            this.props.history.push(`/ipd/hospital/${data.id}?showPopup=true`)
         }
     }
 
@@ -52,17 +53,17 @@ class TopHospitalWidgets extends React.Component {
                     {/*<span>View All</span>*/}
                 </div>
                 <div className="pkgSliderContainer" id="top_hospitals">
-                    <div className='pkgCardsList d-inline-block sub-wd-cards top_hospitals_list'>
+                    <div className='pkgCardsList d-inline-flex sub-wd-cards top_hospitals_list'>
                     	{
                     		this.props.top_data.map((data, i) => {
-                    			return <div key={i} className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
+                    			return <a key={this.props.mergeState?i:data.logo} href={data.url?`/${data.url}`:`/ipd/hospital/${data.id}`} className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
 				                            <div className="pkgcardImgCont">
 				                                <img style={{width:82}} className="img-fluid" src={data.logo} />
 				                            </div>
 				                            <p className="pkgtstName">
 				                                {data.name}
 				                        	</p>
-				                        </div>		
+				                        </a>		
                     		})
                     	}
                     </div>

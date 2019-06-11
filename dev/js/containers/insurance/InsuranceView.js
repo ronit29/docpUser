@@ -51,8 +51,12 @@ class Insurance extends React.Component{
 const mapStateToProps = (state) => {
     const USER = state.USER
     let { insurnaceData, LOAD_INSURANCE, selected_plan,self_data_values} = state.INSURANCE
+    const {
+        selectedLocation
+
+    } = state.SEARCH_CRITERIA_OPD
     return {
-        insurnaceData,LOAD_INSURANCE,selected_plan,self_data_values,USER
+        insurnaceData,LOAD_INSURANCE,selected_plan,self_data_values,USER, selectedLocation
     }
 }
 
@@ -63,7 +67,7 @@ const mapDispatchToProps = (dispatch) => {
         selectInsurancePlan: (plan,criteria) => dispatch(selectInsurancePlan(plan,criteria)),
         // saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),
         resetSelectedPlans: () => dispatch(resetSelectedPlans()),
-        sendOTP: (number, cb) => dispatch(sendOTP(number, cb)),
+        sendOTP: (number,viaSms,viaWhatsapp, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp, cb)),
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
         resetAuth: () => dispatch(resetAuth()),
         userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),

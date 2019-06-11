@@ -28,7 +28,7 @@ function getVisitId() {
 
 const GTM = {
 
-    send_boot_events: () => {
+    send_boot_events: (isUtmTags=false) => {
 
         let def_data = {
             utm_tags: {
@@ -45,7 +45,7 @@ const GTM = {
             return def_data
         }
 
-        if (window.SENT_BOOT_UP_DATA) {
+        if (window.SENT_BOOT_UP_DATA  && !isUtmTags) {
             return def_data
         }
 
@@ -168,7 +168,7 @@ const GTM = {
         if (visitor_info && visitor_info.visit_id && visitor_info.visitor_id) {
             let last_visit_difference = new Date().getTime() - visitor_info.last_visit_time;
 
-            if (last_visit_difference > 1800000) {
+            if (last_visit_difference > 3600000) {
                 visitor_info.visit_id = getVisitId()
             }
             visitor_info.last_visit_time = new Date().getTime()

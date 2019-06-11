@@ -11,7 +11,8 @@ import BreadCrumbView from './breadCrumb.js'
 import IpdFormView from '../../containers/ipd/IpdForm.js'
 const queryString = require('query-string')
 import IpdLeadForm from '../../containers/ipd/ipdLeadForm.js'
-
+import IpdOffersPage from './IpdOffersPage.js'
+import BannerCarousel from '../commons/Home/bannerCarousel';
 
 class IpdView extends React.Component {
 
@@ -177,7 +178,13 @@ class IpdView extends React.Component {
 		}
 		
 		this.setState({ showLeadForm: false, ipdFormParams: ipdFormParams }, ()=>{
-			this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize: true})
+
+			this.props.checkIpdChatAgentStatus((response)=>{
+				if(response && response.users && response.users.length) {
+
+					this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize: true})
+				}
+			})
 		})
 	}
 
@@ -185,7 +192,7 @@ class IpdView extends React.Component {
 
 		const parsed = queryString.parse(this.props.location.search)
 
-		let showPopup = this.state.showLeadForm && this.props.ipd_info && this.props.ipd_info.about
+		let showPopup = this.state.showLeadForm && this.props.ipd_info && this.props.ipd_info.about && !this.props.is_ipd_form_submitted
 
 		return(                  		
            <div className ="ipd-section ipdSection cardMainPaddingRmv">
@@ -225,6 +232,12 @@ class IpdView extends React.Component {
 	            </ul>*/}
 
 	            {
+	            	this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'ipd_procedure_page').length?
+	            	<BannerCarousel {...this.props} a="ipd_procedure_page" sliderLocation="ipd_procedure_page" ipd={true}/>
+	            	:''
+	            }
+
+	            {
 	            	this.props.ipd_info && this.props.ipd_info.breadcrumb?
 	            	<BreadCrumbView breadcrumb={this.props.ipd_info.breadcrumb} {...this.props}/>
 	            	:''
@@ -244,6 +257,13 @@ class IpdView extends React.Component {
 	                              </a>
 	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='doctorTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'doctorTab')}>Doctors
 	                              </a>
+	                              {
+	                              	this.props.ipd_info && this.props.ipd_info.about && this.props.ipd_info.about.offers && this.props.ipd_info.about.offers.length?
+	                              	<a className={`nav-item nav-link ${this.state.toggleTabType=='offersTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'offersTab')}>Offers
+	                              	</a>
+	                              	:''	
+	                              }
+	                              
                        </div>
                     </div>
                  </nav>
@@ -293,12 +313,20 @@ class IpdView extends React.Component {
 	                    
 	                </div>
 
+	                {
+	                	this.props.ipd_info && this.props.ipd_info.about && this.props.ipd_info.about.offers && this.props.ipd_info.about.offers.length?
+	                	<div id="offersTab" ref="offersTab">
+		                	<IpdOffersPage offers={this.props.ipd_info.about.offers} />
+		                </div>
+		                :''
+	                }
+
 	                <div ref="readMoreView" className="tab-pane fade nav_top_bar">
 	                	<IpdInfoViewMore {...this.props}/>
 	               	</div>
 	            </div>
 	            <div className="btn-search-div btn-apply-div btn-sbmt">
-                     <a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a>
+                     <a href="javascript:void(0);" style={{margin:0}} onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a>
                 </div>
             </div>
 			)
