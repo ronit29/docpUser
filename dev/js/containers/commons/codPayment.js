@@ -6,6 +6,7 @@ import STORAGE from '../../helpers/storage'
 
 import CodPaymentSummaryView from '../../components/commons/codPaymentSummary'
 const queryString = require('query-string');
+import Loader from '../../components/commons/Loader'
 
 class CodPaymentPage extends React.Component {
 
@@ -36,7 +37,7 @@ class CodPaymentPage extends React.Component {
 			{
 				this.state.showPaymentPage?
 				<CodPaymentSummaryView {...this.props}/>
-				:''
+				:<Loader/>
 			}
 			</React.Fragment>
 
