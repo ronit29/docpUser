@@ -89,7 +89,6 @@ class HomeView extends React.Component {
 	}
 
 	searchLab(test, isPackage = false) {
-		console.log(test)
 		let data
 		if (isPackage) {
 			test.type = 'package'
@@ -420,16 +419,18 @@ class HomeView extends React.Component {
 				<div className="headerSubLinkContainer">
 					<div className="container">
 						<div className="head_text_container">
-							<a href="/insurance/insurance-plans" onClick={(e) => {
-								let data = {
-									'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-navbar-insurance-clicked'
-								}
-								GTM.sendEvent({ data: data })
-								e.preventDefault();
-								this.navigateTo("/insurance/insurance-plans?source=desktop-navbar-insurance-clicked")
-							}}>OPD Insurance
-							<span className="opdNewHeaderOfr">New</span>
-							</a>
+							{this.props.common_settings && this.props.common_settings.insurance_availability?
+								<a href="/insurance/insurance-plans" onClick={(e) => {
+									let data = {
+										'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-navbar-insurance-clicked'
+									}
+									GTM.sendEvent({ data: data })
+									e.preventDefault();
+									this.navigateTo("/insurance/insurance-plans?source=desktop-navbar-insurance-clicked")
+								}}>OPD Insurance
+								<span className="opdNewHeaderOfr">New</span>
+								</a>
+							:''}
 							<a href="/search" onClick={(e) => {
 								e.preventDefault();
 								this.navigateTo("/search", 'opd')
