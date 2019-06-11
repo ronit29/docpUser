@@ -904,11 +904,17 @@ class BookingSummaryViewNew extends React.Component {
                                                         <div className="widget mrb-15 mrng-top-12" onClick={this.goToProfile.bind(this, this.props.selectedLab, labDetail.url)} style={{ cursor: 'pointer' }}>
                                                             <div className="widget-content">
                                                                 <div className="lab-visit-time d-flex jc-spaceb">
-                                                                    <h4 className="title d-flex"><span>
-                                                                        <img style={{ width: '22px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/hospital.svg"} />
-                                                                    </span>
+                                                                    <h4 className="title d-flex">
+                                                                        <span>
+                                                                            <img style={{ width: '22px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/hospital.svg"} />
+                                                                        </span>
                                                                         <p className="lab-crd-txt-pr">{labDetail.name}
-                                                                            <span>{labDetail.address || ''}</span></p></h4>
+                                                                            {
+                                                                                this.props.selectedAppointmentType == 'lab' ?
+                                                                                    <span>{labDetail.address || ''}</span> : ''
+                                                                            }
+                                                                        </p>
+                                                                    </h4>
                                                                     {/*<div className="float-right  mbl-view-formatting text-right">
                                                                         <a href="" style={{ width: '100px', display: 'inline-block' }} onClick={(e) => {
                                                                             e.preventDefault()
