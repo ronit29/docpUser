@@ -278,7 +278,7 @@ class DoctorsList extends React.Component {
                                                                         <img src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} />
                                                                         <p className="fw-500">Show {this.props.commonSelectedCriterias[0].name} near me</p>
                                                                     </div>
-                                                                    <div className="auto-location-btn text-primary fw-500" onClick={() => this.detectLocation()} >Detect Location</div>
+                                                                    <div className="auto-location-btn fw-500" onClick={() => this.detectLocation()} >Detect Location</div>
                                                                 </div>
                                                                 :''
                                                             }
