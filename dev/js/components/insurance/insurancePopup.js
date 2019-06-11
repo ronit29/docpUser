@@ -269,7 +269,7 @@ class InsurancePopup extends React.Component{
                                         </div>
                                         <div className="text-center">
                                             <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,false,false,true)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-wtsp-btn">
-                                            <img className="whtsp-ico" src={ASSETS_BASE_URL +'/img/wa-logo-sm.png'} />Verify Via Whatsapp
+                                            <img className="whtsp-ico" src={ASSETS_BASE_URL +'/img/wa-logo-gr.svg'} />Verify Via Whatsapp
                                                 {/*
                                                     this.props.isLead == 'proceed'?'Continue':'Submit'
                                                 */}

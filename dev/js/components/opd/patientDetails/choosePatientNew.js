@@ -236,7 +236,7 @@ class ChoosePatientNewView extends React.Component {
                                             <React.Fragment>
                                                 <button className="input-sms-ver" onClick={()=>this.verify(false,true,false)}>
                                                 <img style={{marginRight:'5px'}} className="sms-ico" src={ASSETS_BASE_URL + '/img/smsicon.svg'} />Verify Via SMS</button>
-                                                <button className="input-sms-whts" onClick={()=>this.verify(false,false,true)}><img style={{marginRight:'5px'}} className="whtsp-ico" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'} />Verify Via Whatsapp</button>
+                                                <button className="input-sms-whts" onClick={()=>this.verify(false,false,true)}><img style={{marginRight:'5px'}} className="whtsp-ico" src={ASSETS_BASE_URL + '/img/wa-logo-gr.svg'} />Verify Via Whatsapp</button>
                                             </React.Fragment>
                                             : ''
                                     }
