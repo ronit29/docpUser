@@ -40,7 +40,7 @@ class ChatPanel extends React.Component {
         }
 
         STORAGE.getAuthToken().then((token) => {
-            this.sendUserDetails(this.props.USER)
+            //this.sendUserDetails(this.props.USER)
             token = token || ""
             if (this.props.location.state) {
                 this.setState({ token, symptoms: (this.props.location.state.symptoms || []), roomId: (this.props.location.state.roomId || "") })
@@ -154,6 +154,11 @@ class ChatPanel extends React.Component {
                                 GTM.sendEvent({ data: analyticData })
 
                                 this.props.setChatRoomId(data.data.rid)
+                                if (this.props.selectedLocation) {
+                                    this.sendLocationNotification(this.props.selectedLocation)
+                                }
+
+                                this.sendUserDetails()
                                 this.setState({ selectedRoom: data.data.rid, iframeLoading: false })
                             }
                             break
@@ -251,13 +256,20 @@ class ChatPanel extends React.Component {
         this.dispatchCustomEvent('location', data)
     }
 
-    sendUserDetails(user){
+    sendUserDetails(){
         let data={}
-        if(user && Object.keys(user.profiles).length > 0){
-            data.is_insured = user.profiles[user.selectedProfile].is_insured
-            data.name = user.profiles[user.selectedProfile].name       
-        }
-        this.dispatchCustomEvent('user_details', data)
+        setTimeout(()=>{
+            let user = this.props.USER
+            if(user && Object.keys(user.profiles).length > 0){
+                data.is_insured = user.profiles[user.selectedProfile].is_insured
+                data.name = user.profiles[user.selectedProfile].name       
+            }else {
+                data.is_insured = false
+                data.name=''
+            }
+            this.dispatchCustomEvent('user_details', data)
+        },1000)
+        
     }
 
     componentWillReceiveProps(props) {
@@ -267,7 +279,7 @@ class ChatPanel extends React.Component {
         }
 
         if ((props.USER && props.USER.liveChatStarted && props.USER.liveChatStarted != this.props.USER.liveChatStarted) || (props.USER && props.USER.ipd_chat && props.USER.ipd_chat.showIpdChat) ) {
-            this.sendUserDetails(props.USER)
+            //this.sendUserDetails(props.USER)
             this.setState({ showStaticView: false, iframeLoading: true }, () => {
                 this.setState({ hideIframe: false }, () => {
 
