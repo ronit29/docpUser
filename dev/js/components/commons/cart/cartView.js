@@ -190,7 +190,7 @@ class CartView extends React.Component {
                         all_appointments_insured = false
                     }
                     //Check if COD applicable for all appointments
-                    if(cart_item.actual_data && !cart_item.actual_data.enabled_for_cod) {
+                    if( cart_item.actual_data && cart_item.actual_data.payment_type && cart_item.actual_data.payment_type!=2 ){
                         is_cod_applicable = false
                     }
                 }
