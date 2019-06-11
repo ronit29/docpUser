@@ -9,6 +9,21 @@ class PaymentForm extends React.Component {
 
         }
     }
+    
+    sendEvent() {
+        refs = this.props.refs
+        if (refs) {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'ContinueClicked', 'pageSource': refs, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'continue-clicked'
+            }
+            GTM.sendEvent({ data: data })
+        } else {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'ContinueClicked', 'pageSource': 'UNKNOWN', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'continue-clicked'
+            }
+            GTM.sendEvent({ data: data })
+        }
+    }
 
     render() {
 

@@ -72,7 +72,7 @@ class PrimeCareBookingView extends React.Component {
             })
         }    
     }
-    
+
     processPayment(data) {
         if (data && data.status) {
             this.setState({ paymentData: data.data }, () => {
@@ -98,7 +98,6 @@ class PrimeCareBookingView extends React.Component {
         } else {
             this.setState({ [e.target.name]: e.target.value })
         }
-
     }
 
     render() {
@@ -238,7 +237,7 @@ class PrimeCareBookingView extends React.Component {
                     </div>
                 </section>
                 {
-                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} /> : ""
+                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='care' /> : ""
                 }
             </div>
         );

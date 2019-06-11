@@ -374,7 +374,7 @@ class CartView extends React.Component {
                     </div>
                 </section>
                 {
-                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} /> : ""
+                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='lab'/> : ""
                 }
             </div >
         );
