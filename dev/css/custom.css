@@ -1689,6 +1689,11 @@ display: none;
 }
 .hs-ofr-crdHeading p {
 	font-weight: 500;
+	font-size: 15px;
+}
+.hs-ofr-contnn{
+	display: flex;
+	align-items: self-start;
 }
 .hs-ofr-crdHeading img{
 		width: 18px;
@@ -1776,10 +1781,12 @@ margin-top: 10px;
 }
 .offr-grn-cd{
 	display: block;
-    color: #55a740;
-    font-size: 12px;
-    font-weight: 500;
-    padding-left: 27px;
+	color: #000000;
+	font-size: 12px;
+	font-weight: 500;
+}
+.ofr-main-cd{
+
 }
 /* ============ ipd offers ============ */
 /* ============ custom chat ============ */
@@ -1816,8 +1823,8 @@ button.lg-wtsp-btn{
 	padding: 8px 0;
 	width: 60%;
 	background: white;
-	color: #f78631;
-	border: 1px solid #f78631;
+	color: #546871;
+	border: 1px solid #546871;
 }
 img.whtsp-ico{
 	width: 20px;
@@ -1842,6 +1849,7 @@ img.whtsp-ico{
 	margin-right: 10px;
 	border: 1px solid #f78631;
 	border-radius: 4px;
+	font-weight: 500;
 }
 .input-sms-whts{
 	display: inline-flex;
@@ -1850,11 +1858,12 @@ img.whtsp-ico{
 	padding: 8px 0;
 	width: 48%;
 	background: white;
-	color: #f78631;
-	border: 1px solid #f78631;
+	color: #546871;
+	border: 1px solid #546871;
 	font-size: 12px;
 	flex-grow: 0;
 	flex-shrink: 0;
 	border-radius: 4px;
+	font-weight: 500;
 }
 /* ============ whtsapp login ============ */

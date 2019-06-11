@@ -56,7 +56,7 @@ class HomePagePackageWidget extends React.Component {
                     <span onClick={this.navigateTo.bind(this, this.props.navTo)}>View All</span>
                 </div>
                 <div className="pkgSliderContainer" id="pkgSlider">
-                    <div className='pkgCardsList d-inline-block'>
+                    <div className='pkgCardsList d-inline-flex'>
                         {
                             this.props.list.map((listItem, i) => {
                                 return <div className="pkgcustCards" key={i} onClick={this.props.searchFunc.bind(this, listItem)}>
