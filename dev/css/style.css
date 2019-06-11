@@ -7027,9 +7027,9 @@ button.padding-btn-adjust{
     margin-bottom: 10px;
     font-size: 14px;
 }
-.ipd-section .widget.pat-info:last-child{
+/* .ipd-section .widget.pat-info:last-child{
     margin-bottom: 0;
-}
+} */
 .ipd-section .img-list{
     width: 24px;
     margin-right: 10px;
@@ -11141,10 +11141,12 @@ position: relative;
     padding: 5px;
     position: relative;
     margin-bottom: 16px;
-    display: inline-block;
     margin-right: 10px;
 	margin-left: 2px;
-	cursor: pointer;
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .pkgtstName{
@@ -11665,4 +11667,9 @@ p.lab-crd-txt-pr span{
 .ipd-banner-mbl{
     margin-top: 0 !important;
     margin-bottom: 5px !important;
+}
+.labTest-dtls p{
+    font-style: italic;
+    color: black;
+    font-size: 12px;
 }
