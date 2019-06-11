@@ -45,7 +45,7 @@ const STAGING_CONFIG = {
     SEARCH_ELASTIC_VIEW: true,
     ENABLE_INSURANCE: true,
     GOOGLE_SERVICE_URL: 'https://docprime.com/ls',
-    CHAT_API_UTILITY_API:'http://10.0.146.248:3001'
+    CHAT_API_UTILITY_API:'https://chatapi.docprime.com'
 }
 
 const DEV_CONFIG = {
