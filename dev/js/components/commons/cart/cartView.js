@@ -197,6 +197,8 @@ class CartView extends React.Component {
             })
         }
 
+        is_cod_applicable = is_cod_applicable && cart && cart.length && cart.filter(x => x.valid).length==1
+
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />

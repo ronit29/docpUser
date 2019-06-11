@@ -260,14 +260,13 @@ class ChatPanel extends React.Component {
         let data={}
         setTimeout(()=>{
             let user = this.props.USER
-            if(user && Object.keys(user.profiles).length > 0){
-                data.is_insured = user.profiles[user.selectedProfile].is_insured
-                data.name = user.profiles[user.selectedProfile].name       
+            if(user && user.profiles && Object.keys(user.profiles).length > 0 && user.profiles[user.selectedProfile]){
+
+                this.dispatchCustomEvent('user_details', {is_insured: user.profiles[user.selectedProfile].is_insured, name:user.profiles[user.selectedProfile].name})     
             }else {
-                data.is_insured = false
-                data.name=''
+                this.dispatchCustomEvent('user_details', {is_insured: false, name:''})
             }
-            this.dispatchCustomEvent('user_details', data)
+            
         },1000)
         
     }
