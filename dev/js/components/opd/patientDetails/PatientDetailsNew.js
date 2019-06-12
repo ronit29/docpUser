@@ -559,9 +559,14 @@ class PatientDetailsNew extends React.Component {
         this.setState({ error: '' })
     }
 
-    getBookingButtonText(total_wallet_balance, price_to_pay, mrp) {
+    getBookingButtonText(total_wallet_balance, price_to_pay, mrp,enabled_for_cod_payment,is_cod_deal_price) {
         if (this.props.payment_type != 1) {
-            return `Confirm Booking (₹ ${mrp})`
+            if(enabled_for_cod_payment && is_cod_deal_price){
+                return `Confirm Booking (₹ ${is_cod_deal_price})`
+            }else{
+                return `Confirm Booking (₹ ${mrp})`
+            }
+            
         }
         let price_from_wallet = 0
         let price_from_pg = 0
@@ -653,7 +658,6 @@ class PatientDetailsNew extends React.Component {
         let enabled_for_cod_payment = false
         let enabled_for_prepaid_payment = false
         let is_default_user_insured = false
-        let is_cod_deal_price = null
 
         if (doctorDetails) {
             let { name, qualifications, hospitals, enabled_for_cod } = doctorDetails
@@ -665,7 +669,6 @@ class PatientDetailsNew extends React.Component {
                     }
                     enabled_for_cod_payment = hospital.enabled_for_cod
                     enabled_for_prepaid_payment = hospital.enabled_for_prepaid
-                    is_cod_deal_price = hospital.cod_deal_price
                 })
             }
         }
@@ -681,7 +684,7 @@ class PatientDetailsNew extends React.Component {
         if (this.props.selectedSlot && this.props.selectedSlot.date) {
             priceData = { ...this.props.selectedSlot.time }
             priceData.payable_amount = priceData.deal_price
-
+            priceData.is_cod_deal_price = priceData.cod_deal_price
             if (hospital && hospital.insurance) {
                 is_insurance_applicable = (parseInt(priceData.deal_price) <= hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered
             }
@@ -696,7 +699,7 @@ class PatientDetailsNew extends React.Component {
             priceData.mrp = hospital.mrp
             priceData.deal_price = hospital.deal_price
             priceData.payable_amount = hospital.deal_price
-
+            priceData.is_cod_deal_price = hospital.cod_deal_price
             if (hospital.insurance) {
                 is_insurance_applicable = (parseInt(hospital.deal_price) <= hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered
             }
@@ -724,7 +727,8 @@ class PatientDetailsNew extends React.Component {
 
         let percent_discount = Math.max(0, (finalPrice / (parseInt(priceData.mrp) + treatment_mrp)) * 100)
         percent_discount = parseInt(100 - percent_discount)
-
+        let docDiscount = (parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))
+        let cod_percentage_discount = (parseInt(docDiscount)/(parseInt(priceData.mrp)) * 100)
         if (!enabled_for_cod_payment && this.props.payment_type == 2) {
             this.props.select_opd_payment_type(1)
         } else if (enabled_for_cod_payment && !enabled_for_prepaid_payment) {
@@ -885,8 +889,12 @@ class PatientDetailsNew extends React.Component {
                                                                                 <label className="container-radio payment-type-radio">
                                                                                     <h4 className="title payment-amt-label">Pay at Clinic</h4>
                                                                                     {
-                                                                                        enabled_for_cod_payment && is_cod_deal_price?
-                                                                                        <span className="payment-mode-amt">₹{is_cod_deal_price}</span>
+                                                                                        enabled_for_cod_payment && priceData.is_cod_deal_price?
+                                                                                        <React.Fragment>
+                                                                                        <span className="payment-mode-amt">₹{priceData.is_cod_deal_price}</span>
+                                                                                        <span className="save-upto">Save {cod_percentage_discount}%
+                                                                                        </span>
+                                                                                        </React.Fragment>
                                                                                         :<span className="payment-mode-amt">₹{clinic_mrp}</span>
                                                                                     }
                                                                                     <span className="light-txts d-block"> (No Coupon code and discount will be applied)</span>
@@ -952,18 +960,26 @@ class PatientDetailsNew extends React.Component {
                                                                             <div className="payment-detail d-flex">
                                                                                 <p>Subtotal</p>
                                                                                 {
-                                                                                    enabled_for_cod_payment && is_cod_deal_price?<p>&#8377; {parseInt(is_cod_deal_price)}</p>:<p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
+                                                                                    enabled_for_cod_payment && priceData.is_cod_deal_price?<p>&#8377;  {parseInt(priceData.mrp) + treatment_mrp}</p>:<p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
                                                                                 }
                                                                             </div>
                                                                         </div>
+                                                                        {
+                                                                            enabled_for_cod_payment && priceData.is_cod_deal_price?
+                                                                        <React.Fragment>
+                                                                        <div className="payment-detail d-flex">
+                                                                            <p>Docprime Discount</p>
+                                                                            <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))}</p>
+                                                                        </div>
                                                                         <hr />
+                                                                        </React.Fragment>:''}
                                                                         {
                                                                             is_insurance_applicable && this.props.payment_type != 2 ?
                                                                                 <div className="ins-val-bx">Covered Under Insurance</div>
                                                                                 : priceData ? <div className="test-report payment-detail mt-20">
                                                                                     <h4 className="title payment-amt-label">Amount Payable</h4>
                                                                                     {
-                                                                                        enabled_for_cod_payment && is_cod_deal_price?<h5 className="payment-amt-value">&#8377; {parseInt(is_cod_deal_price)}</h5>:
+                                                                                        enabled_for_cod_payment && priceData.is_cod_deal_price?<h5 className="payment-amt-value">&#8377; {parseInt(priceData.is_cod_deal_price)}</h5>:
                                                                                         <h5 className="payment-amt-value">&#8377; {parseInt(priceData.mrp) + treatment_mrp}</h5>
                                                                                     }
                                                                                 </div> : ""
@@ -1035,7 +1051,7 @@ class PatientDetailsNew extends React.Component {
                                 {
                                     STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                    } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance)}>{this.getBookingButtonText(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp))}</button>
+                                    } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance)}>{this.getBookingButtonText(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp),enabled_for_cod_payment,priceData.is_cod_deal_price)}</button>
                                 }
                             </div>
                         </div>
