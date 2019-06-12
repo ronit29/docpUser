@@ -2220,3 +2220,15 @@ p.rt-doc-nm{
     color: #fff;
     font-size: 12px;
 }
+
+.footer-dropdown{
+    position: absolute;
+    right: 15px;
+    top: 18px;
+}
+
+.footer-dropdown-2{
+    position: absolute;
+    right: 10px;
+    top: 8px;
+}

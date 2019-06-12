@@ -2887,7 +2887,8 @@ ul.list-sub-menu a:hover {
     padding: 40px 15px;
 }
 .footer-links{
-	margin: 20px 0px
+    margin: 20px 0px;
+    position: relative;
 }
 .footer-links h3{
 	font-size: 14px;
@@ -3450,6 +3451,7 @@ border: 1px solid #aaaa;
 	font-size: 14px;
     font-weight: 500;
     margin-bottom: 8px;
+    cursor: pointer;
 }
 
 .speciality-footer-list a{
