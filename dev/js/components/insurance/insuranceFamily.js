@@ -28,7 +28,11 @@ class InsuranceOthers extends React.Component {
 			dateModal:false,
 			no_lname:false,
     	    selectedDateSpan:new Date(),
-    	    is_change:false
+    	    is_change:false,
+    	    monthssssssssss:[1,2,3,4,5,6,7,8,9,10,11,12],
+    	    year:null,
+    	    mnth:null,
+    	    day:null
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
@@ -58,12 +62,18 @@ class InsuranceOthers extends React.Component {
 		let self = this
 		let adult_title
 		let adult_gender
+		let oldDate= this.getTodayDate().split('-')
 		if(!props.is_endorsement){
 			if(props.self_data_values[props.member_id]){
 				let profile = Object.assign({}, this.props.self_data_values[this.props.member_id])
 				let nextProfile = Object.assign({}, props.self_data_values[props.member_id])
 				if (JSON.stringify(this.state) != JSON.stringify(nextProfile)) {
 					this.setState({ ...nextProfile })
+					if(!self.state.year && !self.state.mnth && !self.state.mnth){
+					    self.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+					    	self.populateDates(props.member_id)
+					    })
+					}
 				}
 			}else if(props.member_id && !this.state.setDefault){
 				if(props.self_gender == 'm'){
@@ -75,10 +85,18 @@ class InsuranceOthers extends React.Component {
 				}
 				this.setState({id: props.member_id, setDefault:true}, () => {
 					if(this.props.is_child_only){
+						if(!self.state.year && !self.state.mnth && !self.state.mnth){
+						    this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+						    	this.populateDates(this.props.member_id)
+						    })
+						}
 						this.setState({member_type:'child'},() =>{
 							self.handleSubmit()
 						})
 					}else{
+					    this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+					    	this.populateDates(this.props.member_id)
+					    })
 						this.setState({member_type:'adult',relation:'spouse',title:adult_title,gender:adult_gender,only_adult:true},() =>{
 							self.handleSubmit()
 						})
@@ -150,6 +168,23 @@ class InsuranceOthers extends React.Component {
 	    }
 		this.props.userData('self_data', self_data)
 	}
+	getTodayDate(){
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; 
+		var yyyy = today.getFullYear(); 
+
+		if(mm<10) 
+		{
+		    mm='0'+mm;
+		}
+		if(dd<10) 
+		{
+		    dd='0'+dd;
+		} 
+		today = yyyy+'-'+dd+'-'+mm;
+		return today
+	}
 	togglePopup(newProfileid, member_id, newProfile) {
 		if(newProfileid !== ''){
 			if(this.props.is_child_only){
@@ -165,6 +200,10 @@ class InsuranceOthers extends React.Component {
 					this.setState({title:'mrs.',relation:'spouse'})
 				}
 			}
+			let oldDate= profile.dob.split('-')
+	    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+	    		this.populateDates()
+	    	})
 			this.props.selectInsuranceProfile(newProfileid, member_id, newProfile, this.props.param_id)
 			this.setState({
 				showPopup: !this.state.showPopup,
@@ -241,7 +280,86 @@ class InsuranceOthers extends React.Component {
         this.setState({
             showPopup: false
         });
-    }	
+    }
+
+    daysInMonth(month, year) {
+        return new Date(year, month, 0).getDate();
+    }
+
+    populateDates(member_id){
+    	let self =this
+    	var daydropdown = document.getElementById('daydropdown_'+member_id),
+          monthdropdown = document.getElementById('monthdropdown_'+member_id),
+          yeardropdown = document.getElementById('yeardropdown_'+member_id);
+        var today = new Date(),
+            day = today.getUTCDate(),
+            month = today.getUTCMonth(),
+            year = today.getUTCFullYear()-65,
+            currentYear = today.getUTCFullYear(),
+            daysInCurrMonth = this.daysInMonth(month, year);
+		
+		// Day
+        for(var i = 0; i < daysInCurrMonth; i++){
+          var opt = document.createElement('option');
+          opt.value = i + 1;
+          opt.text = i + 1;
+          daydropdown.appendChild(opt);
+        }
+
+        // Month
+        for(var i = 0; i < 12; i++){
+          var opt = document.createElement('option');
+          opt.value = i+1;
+          opt.text = this.state.monthssssssssss[i];
+          monthdropdown.appendChild(opt);
+        }
+
+        // Year
+        for(var i = 0; i < 66; i++){
+          var opt = document.createElement('option');
+          opt.value = i + year;
+          opt.text = i + year;
+          yeardropdown.appendChild(opt);
+        }
+
+
+       // change handler for day
+      daydropdown.onchange = function(){
+        var NewSelecteddays = daydropdown.value;
+        self.setState({day:NewSelecteddays},()=>{
+        	self.submitDob()
+        })
+      }
+      
+      // Change handler for months
+      monthdropdown.onchange = function(){
+      	var newMonth = monthdropdown.value
+      	self.setState({mnth:newMonth},()=>{
+			self.submitDob()
+		})
+      }
+
+      // change handler for year
+      yeardropdown.onchange = function(){
+      	var newYear = yeardropdown.value;
+      	self.setState({year:newYear},()=>{
+      		self.submitDob()
+      	})
+      }
+  	}
+
+  	submitDob(){
+	let self =  this
+      if(self.state.day && self.state.mnth && self.state.year){
+      	let finalDate = self.state.year + '-'+ self.state.mnth + '-'+self.state.day 
+      	self.setState({
+    		dob : finalDate
+    	},()=>{
+    		self.handleSubmit() 
+    	})
+      }
+  	}
+
 	render() {
 		let show_createApi_keys_adult = []
 		let show_createApi_keys_child = []
@@ -470,7 +588,7 @@ class InsuranceOthers extends React.Component {
 								/>
 								<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Date of birth</label>
 								<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
-								{
+								{/*
 										this.state.dateModal ? <div className="calendar-overlay"><div className="date-picker-modal">
 											<Calendar
 												showWeekNumber={false}
@@ -482,7 +600,12 @@ class InsuranceOthers extends React.Component {
 												onSelect={this.selectDateFromCalendar.bind(this)}
 											/>
 										</div></div> : ""
-									}
+									*/}
+							<form action="" name="someform">
+							      <select id={`daydropdown_${this.props.member_id}`} value={this.state.day}></select> 
+							      <select id={`monthdropdown_${this.props.member_id}`} value={this.state.mnth}></select> 
+							      <select id={`yeardropdown_${this.props.member_id}`} value={this.state.year}></select> 
+							    </form>
 							</div>
 							{	
 								this.props.is_child_only?this.props.member_view_id == 2 && show_createApi_keys_child.indexOf('dob')> -1?

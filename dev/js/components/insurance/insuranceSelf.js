@@ -38,7 +38,7 @@ class InsuranceSelf extends React.Component{
     	    disableEmail:false,
     	    disableDob:false,
     	    is_change:false,
-    	    months : ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec'],
+    	    monthsssssss:[1,2,3,4,5,6,7,8,9,10,11,12],
     	    year:null,
     	    mnth:null,
     	    day:null
@@ -447,19 +447,35 @@ class InsuranceSelf extends React.Component{
 
 	daysInMonth(month, year) {
         return new Date(year, month, 0).getDate();
-      }
+    }
 
     populateDates(){
     	let self =this
-    	var daydropdown = document.getElementById("daydropdown"),
-          monthdropdown = document.getElementById("monthdropdown"),
-          yeardropdown = document.getElementById("yeardropdown");
+    	var daydropdown = document.getElementById("daydropdown_"+this.props.member_id),
+          monthdropdown = document.getElementById("monthdropdown_"+this.props.member_id),
+          yeardropdown = document.getElementById("yeardropdown_"+this.props.member_id);
         var today = new Date(),
             day = today.getUTCDate(),
             month = today.getUTCMonth(),
             year = today.getUTCFullYear()-65,
             currentYear = today.getUTCFullYear(),
             daysInCurrMonth = this.daysInMonth(month, year);
+		
+		// Day
+        for(var i = 0; i < daysInCurrMonth; i++){
+          var opt = document.createElement('option');
+          opt.value = i + 1;
+          opt.text = i + 1;
+          daydropdown.appendChild(opt);
+        }
+
+        // Month
+        for(var i = 0; i < 12; i++){
+          var opt = document.createElement('option');
+          opt.value = i+1;
+          opt.text = this.state.monthsssssss[i];
+          monthdropdown.appendChild(opt);
+        }
 
         // Year
         for(var i = 0; i < 66; i++){
@@ -469,53 +485,22 @@ class InsuranceSelf extends React.Component{
           yeardropdown.appendChild(opt);
         }
 
-        // Month
-        for(var i = 0; i < 12; i++){
-          var opt = document.createElement('option');
-          opt.value = this.state.months[i];
-          opt.text = this.state.months[i];
-          monthdropdown.appendChild(opt);
-        }
-
-        // Day
-        for(var i = 0; i < daysInCurrMonth; i++){
-          var opt = document.createElement('option');
-          opt.value = i + 1;
-          opt.text = i + 1;
-          daydropdown.appendChild(opt);
-        }
 
        // change handler for day
       daydropdown.onchange = function(){
-        var NewSelecteddays = self.daysInMonth(self.state.mnth, self.state.year);
+        var NewSelecteddays = daydropdown.value;
         self.setState({day:NewSelecteddays},()=>{
         	self.submitDob()
         })
-        daydropdown.innerHTML=""
-        for(var i = 0; i < NewSelecteddays; i++){
-          var opt = document.createElement('option');
-          opt.value = i + 1;
-          opt.text = i + 1;
-          daydropdown.appendChild(opt);
-        }   	
       }
       
       // Change handler for months
       monthdropdown.onchange = function(){
-        var newMonth = self.state.months.indexOf(monthdropdown.value) + 1,
-            newYear = yeardropdown.value;
-        
-        daysInCurrMonth = self.daysInMonth(newMonth, newYear);
-		self.setState({mnth:newMonth},()=>{
+      	
+      	var newMonth = monthdropdown.value
+      	self.setState({mnth:newMonth},()=>{
 			self.submitDob()
 		})
-        daydropdown.innerHTML = "";
-        for(var i = 0; i < daysInCurrMonth; i++){
-          var opt = document.createElement('option');
-          opt.value = i + 1;
-          opt.text = i + 1;
-          daydropdown.appendChild(opt);       
-        }        
       }
 
       // change handler for year
@@ -524,13 +509,6 @@ class InsuranceSelf extends React.Component{
       	self.setState({year:newYear},()=>{
       		self.submitDob()
       	})
-      	yeardropdown.innerHTML = "";
-      	for(var i = 0; i < 66; i++){
-          var opt = document.createElement('option');
-          opt.value = i + parseInt(newYear);
-          opt.text = i + parseInt(newYear);
-          yeardropdown.appendChild(opt);
-        }
       }
   }
   	submitDob(){
@@ -545,10 +523,6 @@ class InsuranceSelf extends React.Component{
       }
   	}
 	render(){
-		console.log(this.state.year)
-		console.log(this.state.mnth)
-		console.log(this.state.day)
-		console.log(this.state.dob)
 		let self = this
 		let show_createApi_keys = []
 		let city_opt =[]
@@ -716,9 +690,9 @@ class InsuranceSelf extends React.Component{
                                     </div></div> : ""
                                */}
                                <form action="" name="someform">
-							      <select id="daydropdown"></select> 
-							      <select id="monthdropdown"></select> 
-							      <select id="yeardropdown"></select> 
+							      <select id={`daydropdown_${this.props.member_id}`} value={this.state.day}></select> 
+							      <select id={`monthdropdown_${this.props.member_id}`} value={this.state.mnth}></select> 
+							      <select id={`yeardropdown_${this.props.member_id}`} value={this.state.year}></select> 
 							    </form>
 						</div>
 						{
