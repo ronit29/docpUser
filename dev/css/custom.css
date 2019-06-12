@@ -53,7 +53,7 @@
 	.sticky-btn{position: sticky!important; position: -webkit-sticky!important; bottom: 0!important;}
 }
 
-@media(min-width: 993px){.sticky-header{position: sticky!important; position: -webkit-sticky!important; top: 107px!important;margin-top: 20px;z-index: 9;}
+@media(min-width: 993px){.sticky-header{position: sticky!important; position: -webkit-sticky!important; top: 94px!important;margin-top: 20px;z-index: 9;}
 .sticky-header-2{position: sticky!important; position: -webkit-sticky!important; top: 114px!important;margin-top: 2px!important;}
 .sticky-header-3{position: sticky!important; position: -webkit-sticky!important; top: 115px!important;margin-top: 2px!important;}
 .variable-content-section{padding-top: 15px!important;padding-bottom: 4px!important;margin-top: 0px!important;}
@@ -1047,7 +1047,6 @@ white-space: normal;
 }
 .sortbtncard{
 	display: flex;
-	justify-content: space-between;
 	margin: 10px 0px;
 }
 button.sortBtns {
@@ -1914,7 +1913,7 @@ img.whtsp-ico{
 p.nw-hsp-crd-green {
     color: #55a740;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     font-size: 12px;
     font-weight: 500;
 }
