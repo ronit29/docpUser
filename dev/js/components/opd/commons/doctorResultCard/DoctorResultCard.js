@@ -206,6 +206,7 @@ class DoctorProfileCard extends React.Component {
                 avgGoogleRating = google_rating.avg_rating
                 googleRatingCount = google_rating.rating_count || ''
             }
+            let is_insurance_buy_able = hospital.is_insurance_covered && hospital.is_user_insured
 
             return (
                 <div className="cstm-docCard mb-3">
@@ -301,6 +302,14 @@ class DoctorProfileCard extends React.Component {
                                 }
                             </div>
                         </div>
+                        {
+                        is_insurance_buy_able?
+                        <div className="ins-buyable">
+                            <p>Book this lab for ₹0 with OPD Insurance</p>
+                            <span>Know more</span>
+                        </div>
+                        :''
+                        }
                     </div>
                     <div className="cstmCardFooter">
                         <div className="cstmfooterContent">

@@ -11683,3 +11683,22 @@ p.lab-crd-txt-pr span{
     padding-left: 27px;
     margin-bottom: 9px;
 }
+.ins-buyable{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-top: 10px;
+    background: rgba(255, 217, 100, .3);
+    padding: 2px 7px;
+    border-radius: 4px;
+}
+.ins-buyable p{
+	    font-weight: 500;
+    font-size: 12px;
+    cursor: pointer;
+}
+.ins-buyable span{
+	    font-size: 12px;
+    color: #1f62d3;
+    font-weight: 500;
+}
