@@ -884,7 +884,11 @@ class PatientDetailsNew extends React.Component {
                                                                             }}>
                                                                                 <label className="container-radio payment-type-radio">
                                                                                     <h4 className="title payment-amt-label">Pay at Clinic</h4>
-                                                                                    <span className="payment-mode-amt">₹{clinic_mrp}</span>
+                                                                                    {
+                                                                                        enabled_for_cod_payment && is_cod_deal_price?
+                                                                                        <span className="payment-mode-amt">₹{is_cod_deal_price}</span>
+                                                                                        :<span className="payment-mode-amt">₹{clinic_mrp}</span>
+                                                                                    }
                                                                                     <span className="light-txts d-block"> (No Coupon code and discount will be applied)</span>
                                                                                     <input checked={this.props.payment_type == 2} type="radio" name="payment-mode" />
                                                                                     <span className="doc-checkmark"></span>
