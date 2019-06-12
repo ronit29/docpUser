@@ -53,7 +53,7 @@
 	.sticky-btn{position: sticky!important; position: -webkit-sticky!important; bottom: 0!important;}
 }
 
-@media(min-width: 993px){.sticky-header{position: sticky!important; position: -webkit-sticky!important; top: 107px!important;margin-top: 20px;z-index: 9;}
+@media(min-width: 993px){.sticky-header{position: sticky!important; position: -webkit-sticky!important; top: 94px!important;margin-top: 20px;z-index: 9;}
 .sticky-header-2{position: sticky!important; position: -webkit-sticky!important; top: 114px!important;margin-top: 2px!important;}
 .sticky-header-3{position: sticky!important; position: -webkit-sticky!important; top: 115px!important;margin-top: 2px!important;}
 .variable-content-section{padding-top: 15px!important;padding-bottom: 4px!important;margin-top: 0px!important;}
@@ -1047,7 +1047,6 @@ white-space: normal;
 }
 .sortbtncard{
 	display: flex;
-	justify-content: space-between;
 	margin: 10px 0px;
 }
 button.sortBtns {
@@ -1867,3 +1866,59 @@ img.whtsp-ico{
 	font-weight: 500;
 }
 /* ============ whtsapp login ============ */
+/* ============ new hospital card ============ */
+.nw-hsp-crd-heading{
+    font-size: 15px;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #000;
+}
+.nw-hsp-crd-subheading{
+    display: flex;
+    align-items: center;
+}
+.nw-hsp-crd-subheading img{
+	width: 15px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+.nw-hsp-crd-subheading p{
+	font-size: 12px;
+    font-weight: 500;
+    margin-left: 5px;
+}
+.nw-hsp-crd-logohs{
+	margin: 10px 0 8px 0;
+}
+.nw-hsptl-rgt-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+.nw-hsp-crd-beds{
+	text-align: right;
+}
+.nw-hsp-crd-beds p{
+    font-weight: 500;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+.nw-hsp-crd-beds p img{
+    margin-right: 4px !important;
+}
+.nw-hsp-crd-crd-btn{
+
+}
+p.nw-hsp-crd-green {
+    color: #55a740;
+    display: flex;
+    align-items: flex-start;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+p.nw-hsp-crd-green img {
+	width: 20px;
+}
+/* ============ new hospital card ============ */
