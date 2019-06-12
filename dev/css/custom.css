@@ -1644,3 +1644,81 @@ img.whtsp-ico{
 	font-weight: 500;
 }
 /* ============ whtsapp login ============ */
+/* ============ care card ============ */
+.care-new-container{
+	width: 50%;
+	margin: auto;
+}
+@media(max-width: 992px){
+	.care-new-container{
+		width: 100%;
+	}
+} 
+.care-nw-heading{
+	font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+img.care-prd-icon{
+	width: 70px;
+}
+.care-price-cd{
+	text-align: right;
+    color: #F78631;
+    font-weight: 500;
+    font-size: 15px;
+}
+p.care-price-cd span {
+    margin-left: 8px;
+    color: #4F4F4E;
+    text-decoration: line-through;
+}
+.care-dtls-list {
+    margin-right: 10px;
+}
+.care-dtls-list p{
+	font-weight: 500;
+}
+.care-dtls-list div {
+    display: flex;
+    align-items: start;
+    font-weight: 500;
+    margin-bottom: 7px;
+}
+.care-dtls-list div img {
+    width: 18px;
+	margin-right: 8px;
+	margin-top: 2px;
+}
+.care-nw-bookbtn {
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    justify-content: center;
+}
+.care-nw-bookbtn button {
+    background-image: linear-gradient(to left,#f78631,#ff6d00);
+    width: 100%;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    padding: 8px;
+    margin-top: 5px;
+}
+.care-dtls-list div:last-child{
+	margin-bottom: 0px;
+}
+.care-card-catg{
+	margin-bottom: 10px;
+}
+.rpd-icon{
+	font-weight: 700;
+}
+.rpd-icon img{
+	margin-top: 2px !important;
+    margin-right: 4px !important;
+    cursor: pointer;
+    width: 15px !important;
+}
+/* ============ care card ============ */
