@@ -653,6 +653,7 @@ class PatientDetailsNew extends React.Component {
         let enabled_for_cod_payment = false
         let enabled_for_prepaid_payment = false
         let is_default_user_insured = false
+        let is_cod_deal_price = null
 
         if (doctorDetails) {
             let { name, qualifications, hospitals, enabled_for_cod } = doctorDetails
@@ -664,10 +665,10 @@ class PatientDetailsNew extends React.Component {
                     }
                     enabled_for_cod_payment = hospital.enabled_for_cod
                     enabled_for_prepaid_payment = hospital.enabled_for_prepaid
+                    is_cod_deal_price = hospital.cod_deal_price
                 })
             }
         }
-
         if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]) {
             is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
         }
@@ -946,7 +947,9 @@ class PatientDetailsNew extends React.Component {
                                                                         <div className="payment-summary-content">
                                                                             <div className="payment-detail d-flex">
                                                                                 <p>Subtotal</p>
-                                                                                <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
+                                                                                {
+                                                                                    enabled_for_cod_payment && is_cod_deal_price?<p>&#8377; {parseInt(is_cod_deal_price)}</p>:<p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
+                                                                                }
                                                                             </div>
                                                                         </div>
                                                                         <hr />
@@ -955,7 +958,10 @@ class PatientDetailsNew extends React.Component {
                                                                                 <div className="ins-val-bx">Covered Under Insurance</div>
                                                                                 : priceData ? <div className="test-report payment-detail mt-20">
                                                                                     <h4 className="title payment-amt-label">Amount Payable</h4>
-                                                                                    <h5 className="payment-amt-value">&#8377; {parseInt(priceData.mrp) + treatment_mrp}</h5>
+                                                                                    {
+                                                                                        enabled_for_cod_payment && is_cod_deal_price?<h5 className="payment-amt-value">&#8377; {parseInt(is_cod_deal_price)}</h5>:
+                                                                                        <h5 className="payment-amt-value">&#8377; {parseInt(priceData.mrp) + treatment_mrp}</h5>
+                                                                                    }
                                                                                 </div> : ""
                                                                         }
                                                                     </div>

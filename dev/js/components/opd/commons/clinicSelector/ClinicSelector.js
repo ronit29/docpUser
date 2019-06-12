@@ -148,6 +148,8 @@ class ClinicSelector extends React.Component {
                                             {
                                                 hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount?
                                                 <span className="test-price txt-ornage">₹ {0}</span>
+                                                :hospital.enabled_for_cod && hospital.cod_deal_price?
+                                                <span className="test-price txt-ornage">₹ {hospital.cod_deal_price}</span>
                                                 :hospital.enabled_for_online_booking ?
                                                     <span className="test-price txt-ornage">₹ {hospital.discounted_price}
                                                         {

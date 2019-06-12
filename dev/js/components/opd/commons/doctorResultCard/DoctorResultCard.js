@@ -269,7 +269,7 @@ class DoctorProfileCard extends React.Component {
                                 {
                                     is_insurance_applicable?
                                     ''
-                                    :enabled_for_cod && cod_deal_price !null?
+                                    :enabled_for_cod && cod_deal_price != null?
                                         <p className="cst-doc-price">₹ {cod_deal_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
                                     :enabled_for_hospital_booking && (discounted_price != null) && discounted_price != mrp ?
                                         <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
