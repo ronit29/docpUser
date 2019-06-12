@@ -38,6 +38,7 @@ class VisitTimeNew extends React.Component {
                         <h4 className="title d-flex"><span>
                             <img style={{ width: '18px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
                         </span>Visit Time</h4>
+
                         <div className="float-right  mbl-view-formatting text-right">
                             <h4 className="date-time mr-10 title">{date || ""} {time.text ? "|" : ""} {time.text} {time.text?(time.value>=12?'PM':'AM'):''}</h4>
                             <a href="" onClick={(e) => {
@@ -48,6 +49,7 @@ class VisitTimeNew extends React.Component {
                         
                         </div>
                     </div>
+                    <p className="appmnt-avl">The appointment is subject to the availability of Lab. </p>
                         {/*
                             this.props.timeError ? <span className="fw-500 time-error nw-error">Required</span> : ''
                         */}

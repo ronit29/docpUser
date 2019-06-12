@@ -753,6 +753,9 @@ color:  #f78631;
 div.onln-cnslt-head {
 	margin-top: 126px;
 }
+.pop-foot-btns-cont{
+	margin: 8px -8px 8px -8px !important; 
+}
 }
 @media(max-width: 767px) {
 	.head_text_container{
@@ -821,6 +824,51 @@ div.onln-cnslt-head {
 }
 
 /* ============ about Us section ============ */
+/* ============ new filter section ============ */
+.locationTestFilter {
+	width: 70%;
+	flex-shrink: 0;
+	flex-grow: 0;
+	padding: 0 8px !important;
+	justify-content: left !important;
+}
+.newStickyfilter {
+	font-size: 12px;
+	font-weight: 500;
+}
+.newStickyfilter span {
+	color: #f78631;
+}
+.newStickyfilter span img{
+cursor: pointer;
+}
+.top-filter-tabs-select.newSortFilterbar {
+	width: 30%;
+	flex-grow: 0;
+	flex-shrink: 0;
+	padding: 0 10px;
+	font-size: 12px;
+	justify-content: center;
+	align-items: center;
+}
+.filterNotification{
+	position: absolute;
+	background: #f78631;
+	color: white;
+	font-weight: 500;
+	top: -8px;
+	left: -10px;
+	padding: 2px;
+	height: 16px;
+	width: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 30px;
+	font-size: 11px;
+	border: 1px solid white;
+}
+/* ============ new filter section ============ */
 /* ============ rate your doc ============ */
 .rateUrDoc{
 	display: flex;
@@ -930,6 +978,135 @@ span.rate-pop-back img{
 	font-size: 11px;
 }
 /* ============ download app btn ============ */
+/* ============ sort new design ============ */
+.sorting-main-container{
+	overflow: scroll;
+	max-height: 70vh;
+}
+.sort-more-filter{
+	float: right;
+	color: #f78631;
+	cursor: pointer;
+}
+.sort-lft-cont{
+
+}
+.pop-foot-btns-cont{
+	display: flex;
+	margin: 8px -8px 0 -8px;
+}
+.pop-foot-btns-cont button.add-shpng-cart-btn{
+flex:none;
+width: 110px;
+}
+.overflow-hidden{
+	overflow: hidden !important; 
+}
+.sort-headings{
+	font-size: 14px;
+	font-weight: 500;
+}
+.sort-slider-scroll{
+	margin: 15px 0px;
+	white-space: nowrap;
+	overflow-y: auto;
+}
+.sort-cards-list{
+	display: inline-block;
+	text-align: center;
+	height: 100px;
+	min-height: 100px;
+	min-width: 90px;
+	max-width: 90px;
+	border-radius: 10px;
+	margin-right: 5px;
+	cursor: pointer;
+}
+.sort-cards-list.chitActive{
+	color: white;
+	background-image: linear-gradient(to left, #f78631, #ff6d00);
+	box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+.sort-cards-list p{
+font-weight: 500;
+white-space: normal;
+}
+.srt-lst-img{
+	min-height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.srt-lst-img img{
+	font-weight: 500;
+	white-space: normal;
+}
+.sorting-btns-cont{
+	border-top: 1px solid #e6e6e6;
+	padding: 10px 0;
+}
+.sortbtncard{
+	display: flex;
+	justify-content: space-between;
+	margin: 10px 0px;
+}
+button.sortBtns {
+	background: white;
+	border: 1px solid #f78631;
+	border-radius: 4px;
+	padding: 8px 0px;
+	min-width: 90px;
+	font-size: 13px;
+	margin-right: 19px;
+}
+button.sortBtns:last-child{
+	margin-right: 0px;
+}
+button.sortBtns.srtBtnAct {
+	background: #f78631;
+    color: white;
+}
+img.srt-star-img {
+	width: 15px;
+	margin-right: 1px;
+}
+.justyfy-twoBtns{
+	justify-content: flex-start;
+}
+.read-clps-bar{
+	border-radius: 5px !important;
+    margin-top: .5rem !important;
+    margin-bottom: 1rem !important;
+}
+.sort-sub-filter-container{
+	margin-bottom: 1rem;
+	background: white;
+	padding: 10px 0;
+}
+.sort-sub-filter-container p{
+	padding: 0 10px;
+}
+.srt-sb-btn-cont{
+	margin-top: 10px;
+	white-space: nowrap;
+	overflow: auto;
+	padding-left: 10px;
+}
+.srt-sb-btn-cont button{
+	border: 1px solid #000000;
+	background: white;
+	color: #000000;
+	margin-right: 10px;
+	border-radius: 4px;
+	padding: 5px 10px;
+	font-weight: 500;
+}
+.srt-sb-btn-cont button.srt-act{
+	border: 1px solid #f78631;
+	background: white;
+	color: #f78631;
+}
+/* ============ sort new design ============ */
 /* ============ insurance upload ============ */
 .insurance-proofs-cont{
 	margin: 0 -15px;
@@ -1144,6 +1321,9 @@ p.rev-ins-header a img{
 	margin: 0 -15px 15px -15px !important;
 	top: 89px !important;
 }
+.sort-sub-filter-container{
+	margin: 0 -5px;
+	}
 .popupTopChange{
 	top:60px;
 }
@@ -1239,6 +1419,27 @@ button.ipd-inp-sbmt {
 }
 
 /* ============ ipd tabs ============ */
+/* ============ footer scroll hide ============ */
+
+.shw-srch-ftr{
+	    -webkit-transition: all .6s ease;
+    -o-transition: all .6s ease;
+    transition: all .6s ease;
+    -webkit-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    transform: translateY(0%);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+		height: 67px;
+		z-index: 1;
+}
+.smth-ftr-hide{
+	-webkit-transform: translateY(-200%);
+	-ms-transform: translateY(-200%);
+	transform: translateY(200%);
+}
+/* ============ footer scroll hide ============ */
 /* ============ cancel insurance ============ */
 .ins-cancl-heading{
 	font-size: 14px;
@@ -1442,6 +1643,28 @@ display: none;
 }
 
 /* ============ ipd chat popup ============ */
+/* ============ pkg no result ============ */
+.pkg-no-result{
+	padding: 20px 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.pkg-n-rslt{
+	font-size: 16px;
+	font-weight: 500;
+}
+.n-rslt-img{
+	width: 110px;
+	margin: 40px 0;
+}
+.pkg-ty-agn{
+	color: #f78631;
+	font-size: 16px;
+	font-weight: 500;
+}
+/* ============ pkg no result ============ */
 /* ============ ipd offers ============ */
 .hs-ofr-heading{
 	display: flex;
