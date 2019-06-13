@@ -597,8 +597,8 @@ class InsuranceOthers extends React.Component {
 						</div>
 						<div className="col-12">
 							<div className="ins-form-group">
-								<input type="button" onClick={this.openDateModal.bind(this)} id={`isn-date_${this.props.member_id}`} className={`form-control ins-form-control text-left ${this.props.validateErrors.indexOf('dob')> -1?'fill-error':''}`} required autoComplete="dob" name="dob" data-param='dob' value={this.state.dob?this.state.dob:'yyyy/mm/dd'}
-								/>
+								{/* <input type="button" onClick={this.openDateModal.bind(this)} id={`isn-date_${this.props.member_id}`} className={`form-control ins-form-control text-left ${this.props.validateErrors.indexOf('dob')> -1?'fill-error':''}`} required autoComplete="dob" name="dob" data-param='dob' value={this.state.dob?this.state.dob:'yyyy/mm/dd'}
+								/> */}
 								<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Date of birth</label>
 								<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
 								{/*
@@ -614,11 +614,31 @@ class InsuranceOthers extends React.Component {
 											/>
 										</div></div> : ""
 									*/}
-							<form action="" name="someform">
+								{/* <form action="" name="someform">
 							      <select id={`daydropdown_${this.props.member_id}`} value={this.state.day}></select> 
 							      <select id={`monthdropdown_${this.props.member_id}`} value={this.state.mnth}></select> 
 							      <select id={`yeardropdown_${this.props.member_id}`} value={this.state.year}></select> 
-							    </form>
+							    </form> */}
+								<div className="dob-select-div d-flex align-items-center">
+									<div className="dob-select d-flex align-items-center">
+										<select id={`daydropdown_${this.props.member_id}`} value={this.state.day}>
+											<option hidden>DD</option>
+										</select>
+										<img className="dob-down-icon" src="/assets/img/customer-icons/dropdown-arrow.svg"/>
+									</div>
+									<div className="dob-select d-flex align-items-center">
+										<select id={`monthdropdown_${this.props.member_id}`} value={this.state.mnth}>
+											<option hidden>MM</option>
+										</select>
+										<img className="dob-down-icon" src="/assets/img/customer-icons/dropdown-arrow.svg"/>
+									</div>
+									<div className="dob-select d-flex align-items-center">
+										<select id={`yeardropdown_${this.props.member_id}`} value={this.state.year}>
+											<option hidden>YYYY</option>
+										</select>
+										<img className="dob-down-icon" src="/assets/img/customer-icons/dropdown-arrow.svg"/>
+									</div>
+								</div>
 							</div>
 							{	
 								this.props.is_child_only?this.props.member_view_id == 2 && show_createApi_keys_child.indexOf('dob')> -1?

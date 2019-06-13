@@ -4835,7 +4835,7 @@ font-weight: 700;
     padding-right: 6px;
 }
 .dob-select-div{
-    padding: 6px 0 6px 44px;
+    padding: 9px 0 8px 44px;
     border: 1px solid rgba(0, 0, 0, .15);
     border-radius: .25rem;
 }
@@ -4859,17 +4859,18 @@ font-weight: 700;
     position: relative;
     flex-grow: 0;
     flex-shrink: 0;
+    margin-right: 12px;
 }
 .dob-down-icon{
-    position: absolute !important;
-    right: 0 !important;
-    top: 8px !important;
+    position: relative !important;
+    top: unset !important;
     width: 10px !important;
     bottom: unset !important;
     margin: unset !important;
     left: unset !important;
     border-right: none !important;
     padding-right: 0 !important;
+    margin-left: 2px !important;
 }
 p.error-msg.subAlertins{
 	margin-top: 8px;

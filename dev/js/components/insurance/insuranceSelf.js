@@ -694,19 +694,19 @@ class InsuranceSelf extends React.Component{
                                     </div></div> : ""
                                */}
 							<div className="dob-select-div d-flex align-items-center">
-								<div className="dob-select">
+								<div className="dob-select d-flex align-items-center">
 									<select id={`daydropdown_${this.props.member_id}`} value={this.state.day}>
 										<option hidden>DD</option>
 									</select>
 									<img className="dob-down-icon" src="/assets/img/customer-icons/dropdown-arrow.svg"/>
 								</div>
-								<div className="dob-select">
+								<div className="dob-select d-flex align-items-center">
 									<select id={`monthdropdown_${this.props.member_id}`} value={this.state.mnth}>
 										<option hidden>MM</option>
 									</select>
 									<img className="dob-down-icon" src="/assets/img/customer-icons/dropdown-arrow.svg"/>
 								</div>
-								<div className="dob-select">
+								<div className="dob-select d-flex align-items-center">
 									<select id={`yeardropdown_${this.props.member_id}`} value={this.state.year}>
 										<option hidden>YYYY</option>
 									</select>
