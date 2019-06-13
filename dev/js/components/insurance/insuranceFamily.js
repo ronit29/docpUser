@@ -54,6 +54,10 @@ class InsuranceOthers extends React.Component {
 	    			})
 				}
 			}
+		}else{
+			if(!this.state.year && !this.state.mnth && !this.state.mnth){
+				this.populateDates(this.props.member_id)
+			}
 		}
 	}
 
@@ -61,7 +65,6 @@ class InsuranceOthers extends React.Component {
 		let self = this
 		let adult_title
 		let adult_gender
-		let oldDate= this.getTodayDate().split('-')
 		if(!props.is_endorsement){
 			if(props.self_data_values[props.member_id]){
 				let profile = Object.assign({}, this.props.self_data_values[this.props.member_id])
@@ -69,9 +72,7 @@ class InsuranceOthers extends React.Component {
 				if (JSON.stringify(this.state) != JSON.stringify(nextProfile)) {
 					this.setState({ ...nextProfile })
 					if(!self.state.year && !self.state.mnth && !self.state.mnth){
-					    self.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
-					    	self.populateDates(props.member_id)
-					    })
+					    self.populateDates(props.member_id)
 					}
 				}
 			}else if(props.member_id && !this.state.setDefault){
@@ -85,17 +86,13 @@ class InsuranceOthers extends React.Component {
 				this.setState({id: props.member_id, setDefault:true}, () => {
 					if(this.props.is_child_only){
 						if(!self.state.year && !self.state.mnth && !self.state.mnth){
-						    this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
 						    	this.populateDates(this.props.member_id)
-						    })
 						}
 						this.setState({member_type:'child'},() =>{
 							self.handleSubmit()
 						})
 					}else{
-					    this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
-					    	this.populateDates(this.props.member_id)
-					    })
+					    this.populateDates(this.props.member_id)
 						this.setState({member_type:'adult',relation:'spouse',title:adult_title,gender:adult_gender,only_adult:true},() =>{
 							self.handleSubmit()
 						})
