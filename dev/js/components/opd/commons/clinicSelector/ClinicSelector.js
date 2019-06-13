@@ -136,7 +136,7 @@ class ClinicSelector extends React.Component {
                                     {
                                         this.props.selectedClinic == hospital.hospital_id ? <input type="radio" checked name="radio" /> : <input type="radio" name="radio" />
                                     }
-                                    <span className="vw-hsptl-di" onClick={this.goToHospitalPage.bind(this, hospital)}>(View Hospital)</span>
+                                    <a href={hospital.url?`/${hospital.url}`:`/ipd/hospital/${hospital.hospital_id}`} onClick={this.goToHospitalPage.bind(this, hospital)}><span className="vw-hsptl-di" >(View Hospital)</span></a>
                                     <span className="doc-checkmark"></span>
                                 </label>
                             </div>

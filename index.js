@@ -14,6 +14,7 @@ const DIST_FOLDER = './dist/';
 const Sentry = require('@sentry/node');
 const stats = JSON.parse(_readFileSync(`${DIST_FOLDER}asset-loadable.json`))
 const index_bundle = _find_index_bundle()
+const compression = require('compression')
 
 let cache = {
     html: "",
@@ -39,6 +40,9 @@ import CONFIG from './dev/js/config'
 import Loadable from 'react-loadable';
 // import { getBundles } from 'react-loadable/webpack'
 // import { getBundles } from 'react-loadable-ssr-addon';
+
+// GZIP Compression
+app.use(compression())
 
 if (CONFIG.RAVEN_SERVER_DSN_KEY) {
     Sentry.init({ dsn: CONFIG.RAVEN_SERVER_DSN_KEY })
