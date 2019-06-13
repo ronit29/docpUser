@@ -353,7 +353,7 @@ class PatientDetailsNew extends React.Component {
         if (this.props.selectedSlot && this.props.selectedSlot.date && this.props.DOCTORS[this.props.selectedDoctor]) {
             let priceData = { ...this.props.selectedSlot.time }
             let hospitals = this.props.DOCTORS[this.props.selectedDoctor].hospitals
-            let hospital = null
+            let hospital = null            
 
             if (hospitals && hospitals.length) {
                 hospitals.map((hsptl) => {
@@ -665,7 +665,7 @@ class PatientDetailsNew extends React.Component {
         let enabled_for_cod_payment = false
         let enabled_for_prepaid_payment = false
         let is_default_user_insured = false
-
+        let is_insurance_buy_able = false
         if (doctorDetails) {
             let { name, qualifications, hospitals, enabled_for_cod } = doctorDetails
 
@@ -743,7 +743,9 @@ class PatientDetailsNew extends React.Component {
         }
 
         is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
-
+        if(is_insurance_applicable && !is_selected_user_insured){
+            is_insurance_buy_able = true
+        }
         let clinic_mrp = priceData.mrp
         if (is_insurance_applicable && this.props.payment_type != 2) {
             finalPrice = 0
@@ -855,7 +857,7 @@ class PatientDetailsNew extends React.Component {
                                                         }
 
                                                         {
-                                                            !enabled_for_cod_payment && !is_insurance_applicable ?
+                                                            !enabled_for_cod_payment && is_insurance_buy_able ?
                                                             <div className="widget mrb-15">
                                                             <div className="widget-content ">
                                                                 <div className="d-flex justify-content-between align-items-sm-center">
@@ -922,12 +924,12 @@ class PatientDetailsNew extends React.Component {
                                                                     }
 
                                                                     {
-                                                                        !is_insurance_applicable ?
+                                                                        is_insurance_buy_able ?
                                                                             <hr /> : ''
                                                                     }
 
                                                                     {
-                                                                        !is_insurance_applicable ?
+                                                                        is_insurance_buy_able ?
                                                                             <div className="test-report payment-detail mt-20">
                                                                                 <div className="d-flex justify-content-between align-items-sm-center">
                                                                     <div className="opd-ins-title-sub">
