@@ -4834,6 +4834,43 @@ font-weight: 700;
     border-right: 1px solid rgba(0,0,0,.2);
     padding-right: 6px;
 }
+.dob-select-div{
+    padding: 6px 0 6px 44px;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: .25rem;
+}
+.dob-select-div select{
+    border: none;
+    outline: none;
+    background-color: #fff;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    color: #464a4c;
+}
+.dob-select-div select:active, .dob-select-div select:focus{
+    outline: none;
+    border: none;
+}
+.dob-select-div select::-ms-expand {
+    display: none;
+}
+.dob-select{
+    position: relative;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.dob-down-icon{
+    position: absolute !important;
+    right: 0 !important;
+    top: 8px !important;
+    width: 10px !important;
+    bottom: unset !important;
+    margin: unset !important;
+    left: unset !important;
+    border-right: none !important;
+    padding-right: 0 !important;
+}
 p.error-msg.subAlertins{
 	margin-top: 8px;
     border-top: 1px solid #f1f1f1;
