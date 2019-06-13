@@ -711,8 +711,8 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    goToInsurance(labDetail){
-        let data={}
+    goToInsurance(labDetail) {
+        let data = {}
         data.thumbnail = labDetail.lab_thumbnail
         data.name = labDetail.name
         data.id = labDetail.id
@@ -1036,18 +1036,22 @@ class BookingSummaryViewNew extends React.Component {
                                                                 </div> : ''
                                                         }
 
-                                                        {!is_insurance_applicable?
+                                                        {!is_insurance_applicable ?
                                                             <div className="widget mrb-15">
-                                                            <div className="widget-content  d-flex jc-spaceb">
-                                                                <div className="d-flex">
-                                                                    <h4 className="title coupon-text">Get OPD Insurance & book for</h4>
-                                                                    <span>FREE</span>
-                                                                    <p>Book Unlimited Doctors and Lab Tests</p>
+                                                                <div className="widget-content">
+                                                                    <div className="d-flex justify-content-between align-items-sm-center">
+                                                                        <div className="opd-ins-title-sub">
+                                                                            <h4 className="title coupon-text">Get OPD Insurance & book for <span>FREE</span></h4>
+                                                                            <p>Book Unlimited Doctors and Lab Tests</p>
+                                                                        </div>
+                                                                        <div>
+                                                                            <span className="opd-ins-avl" onClick={this.goToInsurance.bind(this, labDetail)}>Avail Now <img src={ASSETS_BASE_URL +  '/img/right-sc.svg'}/></span>
+                                                                        </div>
+                                                                    </div>
+
                                                                 </div>
-                                                                <span onClick={this.goToInsurance.bind(this,labDetail)}>Avail Now</span>
                                                             </div>
-                                                        </div>
-                                                        :''}
+                                                            : ''}
 
                                                         {
                                                             is_corporate ? ""

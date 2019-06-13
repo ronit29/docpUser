@@ -1867,3 +1867,42 @@ img.whtsp-ico{
 	font-weight: 500;
 }
 /* ============ whtsapp login ============ */
+/* ============ details opd  ============ */
+.opd-ins-title-sub{
+    margin-right: 8px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.opd-ins-title-sub h4.coupon-text{
+
+    font-size: 14px !important;
+}
+.opd-ins-title-sub h4.coupon-text span{
+    color: white;
+    background: #4fc243;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 1px 8px;
+    border-radius: 4px;
+    margin-left: 3px;
+    line-height: 1.7;
+}
+.opd-ins-title-sub p{
+    color: #757575;
+	font-size: 12px;
+	font-weight: 500;
+}
+span.opd-ins-avl{
+	display: inline-flex;
+    font-size: 12px;
+    font-weight: 500;
+    color: #f78631;
+    text-align: right;
+    cursor: pointer;
+    align-items: center;
+}
+span.opd-ins-avl img{
+	width: 7px;
+    margin-left: 10px;
+}
+/* ============ details opd  ============ */

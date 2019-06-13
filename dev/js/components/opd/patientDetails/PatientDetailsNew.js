@@ -856,16 +856,20 @@ class PatientDetailsNew extends React.Component {
 
                                                         {
                                                             !enabled_for_cod_payment && !is_insurance_applicable ?
-                                                                <div className="widget mrb-15">
-                                                                    <div className="widget-content  d-flex jc-spaceb">
-                                                                        <div className="d-flex">
-                                                                            <h4 className="title coupon-text">Get OPD Insurance & book for</h4>
-                                                                            <span>FREE</span>
-                                                                            <p>Book Unlimited Doctors and Lab Tests</p>
-                                                                        </div>
-                                                                        <span onClick={this.goToInsurance.bind(this,this.props.DOCTORS[this.props.selectedDoctor],this.props.selectedClinic)}>Avail Now</span>
+                                                            <div className="widget mrb-15">
+                                                            <div className="widget-content ">
+                                                                <div className="d-flex justify-content-between align-items-sm-center">
+                                                                    <div className="opd-ins-title-sub">
+                                                                        <h4 className="title coupon-text">Get OPD Insurance & book for <span>FREE</span></h4>
+                                                                        <p>Book Unlimited Doctors and Lab Tests</p>
+                                                                    </div>
+                                                                    <div>
+                                                                        <span className="opd-ins-avl" onClick={this.goToInsurance.bind(this,this.props.DOCTORS[this.props.selectedDoctor],this.props.selectedClinic)}>Avail Now <img src={ASSETS_BASE_URL +  '/img/right-sc.svg'}/></span>
                                                                     </div>
                                                                 </div>
+
+                                                            </div>
+                                                        </div>
                                                             :''
                                                         }
 
@@ -925,12 +929,15 @@ class PatientDetailsNew extends React.Component {
                                                                     {
                                                                         !is_insurance_applicable ?
                                                                             <div className="test-report payment-detail mt-20">
-                                                                                <label className="container-radio payment-type-radio">
-                                                                                    <h4 className="title payment-amt-label">Get OPD Insurance & book for </h4>
-                                                                                    <span className="payment-mode-amt">FREE</span>
-                                                                                    <span className="light-txts d-block"> Book Unlimited Doctors and Lab Tests</span>
-                                                                                </label>
-                                                                                <span onClick={this.goToInsurance.bind(this,this.props.DOCTORS[this.props.selectedDoctor],this.props.selectedClinic)}>Avail Now</span>
+                                                                                <div className="d-flex justify-content-between align-items-sm-center">
+                                                                    <div className="opd-ins-title-sub">
+                                                                        <h4 className="title coupon-text">Get OPD Insurance & book for <span>FREE</span></h4>
+                                                                        <p>Book Unlimited Doctors and Lab Tests</p>
+                                                                    </div>
+                                                                    <div>
+                                                                        <span className="opd-ins-avl" onClick={this.goToInsurance.bind(this,this.props.DOCTORS[this.props.selectedDoctor],this.props.selectedClinic)}>Avail Now <img src={ASSETS_BASE_URL +  '/img/right-sc.svg'}/></span>
+                                                                    </div>
+                                                                </div>
                                                                             </div> : ''
                                                                     }
 
