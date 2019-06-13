@@ -3720,7 +3720,8 @@ padding-top: 0px !important;
 	display: flex;
 	border-bottom: 1px solid rgba(0, 0, 0, .12);
 	cursor: pointer;
-	position: relative;
+    position: relative;
+    align-items: center;
 }
 .common-listing-cont li:last-child{
 	border-bottom: transparent;
@@ -7051,7 +7052,7 @@ button.padding-btn-adjust{
     padding: 10px 15px 0;
     margin-bottom: 15px;
     position: sticky;
-    top: 107px;
+    top: 94px;
     z-index: 9;
 }
 .ipd-section .nav-top-head{
