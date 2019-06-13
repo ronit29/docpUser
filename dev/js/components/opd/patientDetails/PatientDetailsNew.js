@@ -855,7 +855,7 @@ class PatientDetailsNew extends React.Component {
                                                         }
 
                                                         {
-                                                            !enabled_for_cod_payment ?
+                                                            !enabled_for_cod_payment && !is_insurance_applicable ?
                                                                 <div className="widget mrb-15">
                                                                     <div className="widget-content  d-flex jc-spaceb">
                                                                         <div className="d-flex">
