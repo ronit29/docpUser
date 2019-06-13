@@ -41,6 +41,10 @@ class InsuranceOthers extends React.Component {
 		if(this.props.is_endorsement){
 			if(Object.keys(this.props.self_data_values).length>0 && this.props.user_data.length > 0){
 				profile= Object.assign({}, this.props.self_data_values[this.props.user_data[0].id])
+				let oldDate= profile.dob.split('-')
+			    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+			    		this.populateDates()
+			    })
 				this.setState({...profile},()=>{
 	    				this.handleSubmit(true)
 	    			})
@@ -49,6 +53,10 @@ class InsuranceOthers extends React.Component {
 					if(this.props.user_data[0].relation == 'spouse'){
 						this.setState({only_adult:true})
 					}
+					let oldDate= this.props.user_data[0].dob.split('-')
+			    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+			    		this.populateDates()
+			    	})
 	    			this.setState({...this.props.user_data[0], name:this.props.user_data[0].first_name,member_type:this.props.member_type, profile_id:this.props.user_data[0].profile,is_change:false},()=>{
 	    				this.handleSubmit(true)
 	    			})
