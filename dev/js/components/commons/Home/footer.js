@@ -138,37 +138,40 @@ class Footer extends React.Component {
                         </div> : ''
                 }
 
-                <section className={`${this.props.testsListPage ? `container-fluid mrt-0` : `container-fluid mrt-20`}`}>
+                <section className={`${this.props.testsListPage ? `container-fluid mrt-0` : `container-fluid mrt-10`}`}>
                     <div className="row">
-                        <div className="col-12 col-md-2">
-                            <div className="footer-links">
-                                <a href="javascript:;">
-                                    <div className="logo-img-div">
-                                        <img src={ASSETS_BASE_URL + "/img/logo-sm.png"} className="footer-logo-icon" />
+                        {
+                            screenWidth && screenWidth > 768 ?
+                                <div className="col-12 col-md-2 d-none d-md-block" key="ftr-dsktp-div-1">
+                                    <div className="footer-links">
+                                        <a href="javascript:;">
+                                            <div className="logo-img-div">
+                                                <img src={ASSETS_BASE_URL + "/img/logo-sm.png"} className="footer-logo-icon" />
+                                            </div>
+                                        </a>
+                                        <div className="social-icons-row mrt-20">
+                                            <div className="social-icon">
+                                                <a href="https://www.youtube.com/channel/UCL_6Tstix2ACaBk0jwf_1ug" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/youtube.svg"} alt="docprime YouTube" /></a>
+                                            </div>
+                                            <div className="social-icon">
+                                                <a href="https://www.instagram.com/docprimeIndia/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/instagram.svg"} alt="docprime Instagram" /></a>
+                                            </div>
+                                            <div className="social-icon">
+                                                <a href="https://www.facebook.com/DocPrimeIndia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/facebook.svg"} alt="docprime Facebook" /></a>
+                                            </div>
+                                            <div className="social-icon">
+                                                <a href="https://twitter.com/DocPrimeindia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/twitter.svg"} alt="docprime Twitter" /></a>
+                                            </div>
+                                            <div className="social-icon">
+                                                <a href="https://www.linkedin.com/company/docprime/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/linkedin.svg"} alt="docprime Linkedin" /></a>
+                                            </div>
+                                        </div>
                                     </div>
-                                </a>
-                                <div className="social-icons-row mrt-20">
-                                    <div className="social-icon">
-                                        <a href="https://www.youtube.com/channel/UCL_6Tstix2ACaBk0jwf_1ug" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/youtube.svg"} alt="docprime YouTube" /></a>
-                                    </div>
-                                    <div className="social-icon">
-                                        <a href="https://www.instagram.com/docprimeIndia/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/instagram.svg"} alt="docprime Instagram" /></a>
-                                    </div>
-                                    <div className="social-icon">
-                                        <a href="https://www.facebook.com/DocPrimeIndia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/facebook.svg"} alt="docprime Facebook" /></a>
-                                    </div>
-                                    <div className="social-icon">
-                                        <a href="https://twitter.com/DocPrimeindia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/twitter.svg"} alt="docprime Twitter" /></a>
-                                    </div>
-                                    <div className="social-icon">
-                                        <a href="https://www.linkedin.com/company/docprime/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/linkedin.svg"} alt="docprime Linkedin" /></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-2 col-12">
-                            <div className="footer-links">
-                                <h3 style={{ cursor: 'pointer' }} onClick={() => this.toggleFooterData('docprime')}>docprime</h3>
+                                </div> : ''
+                        }
+                        <div className='col-md-2 col-12 brdr-top-col' key="ftr-dsktp-div-2">
+                            <div className="footer-links brdr-btm-footer">
+                                <h3 style={{ cursor: 'pointer' }} onClick={() => this.toggleFooterData('docprime')}>Docprime</h3>
                                 {
                                     screenWidth && screenWidth <= 767 ?
                                         this.state.footerDataString.length && this.state.footerDataString.includes('docprime') ?
@@ -245,60 +248,62 @@ class Footer extends React.Component {
                                 <img className="footer-dropdown-2 d-md-none" style={this.state.footerDataString.length && this.state.footerDataString.includes('docprime') ? { transform: 'rotate(180deg)' } : {}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
                             </div>
                         </div>
-                        <div className="col-md-2 col-12">
-                            <div className="footer-links">
-                                <h3 style={{ cursor: 'pointer', position: 'relative' }} onClick={() => this.toggleFooterData('patients')}>For Patients
+                        <div className="col-md-2 col-12" key="ftr-dsktp-div-3">
+                            <div className="footer-links brdr-btm-footer">
+                                <div className="brdr-btm-footer ftr-list-btn-mrgn">
+                                    <h3 style={{ cursor: 'pointer', position: 'relative' }} onClick={() => this.toggleFooterData('patients')}>For Patients
                                     <img className="footer-dropdown-2 d-md-none" style={this.state.footerDataString.length && this.state.footerDataString.includes('patients') ? { transform: 'rotate(180deg)' } : {}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
-                                </h3>
-                                {
-                                    screenWidth && screenWidth <= 767 ?
-                                        this.state.hideSource && this.state.footerDataString.length && this.state.footerDataString.includes('patients') ? <ul>
-                                            <li><a href="/search?from=footer" onClick={(e) => {
-                                                e.preventDefault();
-                                                this.navigateTo("/search?from=footer")
-                                            }}>Book Doctor Appointment</a></li>
-                                            <li><a href="/search?from=footer" onClick={(e) => {
-                                                e.preventDefault();
-                                                this.navigateTo("/search?from=footer")
-                                            }}>Book a Medical Test</a></li>
-                                            <li><a href="/online-consultation" onClick={(e) => {
-                                                e.preventDefault();
-                                                this.navigateTo("/online-consultation")
-                                            }}>Consult a Doctor</a></li>
-                                            <li><a href="/referral" onClick={(e) => {
-                                                e.preventDefault();
-                                                this.navigateTo("/referral")
-                                            }}>Refer & Earn</a></li>
-                                            {/* <li><a href="/full-body-checkup-health-packages?fromFooter=true" onClick={(e) => {
+                                    </h3>
+                                    {
+                                        screenWidth && screenWidth <= 767 ?
+                                            this.state.hideSource && this.state.footerDataString.length && this.state.footerDataString.includes('patients') ? <ul>
+                                                <li><a href="/search?from=footer" onClick={(e) => {
+                                                    e.preventDefault();
+                                                    this.navigateTo("/search?from=footer")
+                                                }}>Book Doctor Appointment</a></li>
+                                                <li><a href="/search?from=footer" onClick={(e) => {
+                                                    e.preventDefault();
+                                                    this.navigateTo("/search?from=footer")
+                                                }}>Book a Medical Test</a></li>
+                                                <li><a href="/online-consultation" onClick={(e) => {
+                                                    e.preventDefault();
+                                                    this.navigateTo("/online-consultation")
+                                                }}>Consult a Doctor</a></li>
+                                                <li><a href="/referral" onClick={(e) => {
+                                                    e.preventDefault();
+                                                    this.navigateTo("/referral")
+                                                }}>Refer & Earn</a></li>
+                                                {/* <li><a href="/full-body-checkup-health-packages?fromFooter=true" onClick={(e) => {
                                             e.preventDefault();
                                             this.navigateTo("/full-body-checkup-health-packages?fromFooter=true")
                                         }}>Book Full Body Packages</a></li> */}
-                                        </ul> : ""
-                                        :
-                                        <ul>
-                                            <li><a href="/search?from=footer" onClick={(e) => {
-                                                e.preventDefault();
-                                                this.navigateTo("/search?from=footer")
-                                            }}>Book Doctor Appointment</a></li>
-                                            <li><a href="/search?from=footer" onClick={(e) => {
-                                                e.preventDefault();
-                                                this.navigateTo("/search?from=footer")
-                                            }}>Book a Medical Test</a></li>
-                                            <li><a href="/online-consultation" onClick={(e) => {
-                                                e.preventDefault();
-                                                this.navigateTo("/online-consultation")
-                                            }}>Consult a Doctor</a></li>
-                                            <li><a href="/referral" onClick={(e) => {
-                                                e.preventDefault();
-                                                this.navigateTo("/referral")
-                                            }}>Refer & Earn</a></li>
-                                            {/* <li><a href="/full-body-checkup-health-packages?fromFooter=true" onClick={(e) => {
+                                            </ul> : ""
+                                            :
+                                            <ul>
+                                                <li><a href="/search?from=footer" onClick={(e) => {
+                                                    e.preventDefault();
+                                                    this.navigateTo("/search?from=footer")
+                                                }}>Book Doctor Appointment</a></li>
+                                                <li><a href="/search?from=footer" onClick={(e) => {
+                                                    e.preventDefault();
+                                                    this.navigateTo("/search?from=footer")
+                                                }}>Book a Medical Test</a></li>
+                                                <li><a href="/online-consultation" onClick={(e) => {
+                                                    e.preventDefault();
+                                                    this.navigateTo("/online-consultation")
+                                                }}>Consult a Doctor</a></li>
+                                                <li><a href="/referral" onClick={(e) => {
+                                                    e.preventDefault();
+                                                    this.navigateTo("/referral")
+                                                }}>Refer & Earn</a></li>
+                                                {/* <li><a href="/full-body-checkup-health-packages?fromFooter=true" onClick={(e) => {
                                             e.preventDefault();
                                             this.navigateTo("/full-body-checkup-health-packages?fromFooter=true")
                                         }}>Book Full Body Packages</a></li> */}
-                                        </ul>
-                                }
-                                <h3 style={{ cursor: 'pointer', position: 'relative' }} onClick={() => this.toggleFooterData('doctors')} className="foot-sub-lisitng">For Doctors
+                                            </ul>
+                                    }
+                                </div>
+                                <h3 style={{ cursor: 'pointer', position: 'relative' }} onClick={() => this.toggleFooterData('doctors')} className="foot-sub-listing">For Doctors
                                     <img className="footer-dropdown-2 d-md-none" style={this.state.footerDataString.length && this.state.footerDataString.includes('doctors') ? { transform: 'rotate(180deg)' } : {}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
                                 </h3>
                                 {
@@ -372,8 +377,8 @@ class Footer extends React.Component {
                                 }
                             </div>
                         </div>
-                        <div className="col-md-2 col-12">
-                            <div className="footer-links">
+                        <div className="col-md-2 col-12" key="ftr-dsktp-div-4">
+                            <div className="footer-links brdr-btm-footer">
                                 <h3 style={{ cursor: 'pointer' }} onClick={() => this.toggleFooterData('labsCities')}>Labs in Top Cities</h3>
                                 {
                                     screenWidth && screenWidth <= 767 ?
@@ -467,8 +472,8 @@ class Footer extends React.Component {
                                 <img className="footer-dropdown-2 d-md-none" style={this.state.footerDataString.length && this.state.footerDataString.includes('labsCities') ? { transform: 'rotate(180deg)' } : {}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
                             </div>
                         </div>
-                        <div className="col-md-2 col-12">
-                            <div className="footer-links">
+                        <div className="col-md-2 col-12" key="ftr-dsktp-div-5">
+                            <div className="footer-links brdr-btm-footer">
                                 <h3 style={{ cursor: 'pointer' }} onClick={() => this.toggleFooterData('doctorsCities')}>Doctors in Top Cities</h3>
                                 {
                                     screenWidth && screenWidth <= 767 ?
@@ -562,8 +567,8 @@ class Footer extends React.Component {
                                 <img className="footer-dropdown-2 d-md-none" style={this.state.footerDataString.length && this.state.footerDataString.includes('doctorsCities') ? { transform: 'rotate(180deg)' } : {}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
                             </div>
                         </div>
-                        <div className="col-md-2 col-12">
-                            <div className="footer-links">
+                        <div className="col-md-2 col-12" key="ftr-dsktp-div-6">
+                            <div className="footer-links brdr-btm-footer">
                                 <h3 style={{ cursor: 'pointer' }} onClick={() => this.toggleFooterData('resources')}>Useful Resources</h3>
                                 {
                                     screenWidth && screenWidth <= 767 ?
@@ -623,6 +628,27 @@ class Footer extends React.Component {
                                         </ul>
                                 }
                                 <img className="footer-dropdown-2 d-md-none" style={this.state.footerDataString.length && this.state.footerDataString.includes('resources') ? { transform: 'rotate(180deg)' } : {}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
+                            </div>
+                        </div>
+                        <div className="col-12 col-md-2 d-block d-md-none">
+                            <div className="footer-links">
+                                <div className="social-icons-row mrt-20">
+                                    <div className="social-icon">
+                                        <a href="https://www.youtube.com/channel/UCL_6Tstix2ACaBk0jwf_1ug" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/youtube.svg"} alt="docprime YouTube" /></a>
+                                    </div>
+                                    <div className="social-icon">
+                                        <a href="https://www.instagram.com/docprimeIndia/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/instagram.svg"} alt="docprime Instagram" /></a>
+                                    </div>
+                                    <div className="social-icon">
+                                        <a href="https://www.facebook.com/DocPrimeIndia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/facebook.svg"} alt="docprime Facebook" /></a>
+                                    </div>
+                                    <div className="social-icon">
+                                        <a href="https://twitter.com/DocPrimeindia" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/twitter.svg"} alt="docprime Twitter" /></a>
+                                    </div>
+                                    <div className="social-icon">
+                                        <a href="https://www.linkedin.com/company/docprime/" target="_blank"><img src={ASSETS_BASE_URL + "/img/customer-icons/linkedin.svg"} alt="docprime Linkedin" /></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

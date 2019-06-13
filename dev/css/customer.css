@@ -2232,3 +2232,33 @@ p.rt-doc-nm{
     right: 10px;
     top: 8px;
 }
+
+.brdr-top-col{
+    padding-top: 10px;
+    border-top: 1px solid #e6e0e0;
+}
+
+@media(min-width:768px){
+    .brdr-top-col{
+        padding-top: 0;
+        border-top: none;
+    }
+    .ftr-list-btn-mrgn{
+        margin-bottom: 15px;
+    }
+}
+
+@media(max-width:767px){
+    .brdr-btm-sublist{
+        padding-bottom: 8px !important;
+        border-bottom: 1px solid #e6e0e0;
+    }
+    .fxd-ftr-btm-pdng{
+        padding-bottom: 70px;
+    }
+    .brdr-btm-footer{
+        margin-bottom: 0 !important;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e6e0e0;
+    }
+}

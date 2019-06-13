@@ -835,8 +835,8 @@ p.top-head-link.card-lab-link span {
 	div.footer-links {
 		padding-left: 0px;
 	}
-	h3.foot-sub-lisitng {
-		margin-top: 40px;
+	h3.foot-sub-listing {
+		margin-top: 20px;
 	}
 	div.footer-new-copyrght{
 		text-align: center;
@@ -2894,7 +2894,6 @@ ul.list-sub-menu a:hover {
 	font-size: 14px;
     font-weight: 600;
     margin-bottom: 7px;
-    border-bottom: 1px solid #e6e0e0;
     padding-bottom: 7px;
 }
 .footer-links ul li{ 
@@ -2909,7 +2908,7 @@ ul.list-sub-menu a:hover {
 .footer-links ul li a:hover{ 
 	color: #e2754c;
 }
-.foot-sub-lisitng{
+.foot-sub-listing{
     margin-top: 15px;
 }
 .footer-doctor-listing h2{
