@@ -94,7 +94,7 @@ class FixedMobileFooter extends React.Component {
         }
         let hide_footer = this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? this.props.ipd_chat.showIpdChat : false
         return (
-            <div className={`mobileViewStaticChat d-md-none ${hide_footer ? 'd-none' : ''}`}>
+            <div className={`mobileViewStaticChat d-md-none ${hide_footer ? 'd-none' : this.props.hideFooter?'smth-ftr-scrl':''}`}>
                 <div className="nw-chat-card">
                     <div className="chat-div-containers" style={this.props.selectedSearchType === 'opd' || this.props.selectedSearchType === 'procedures' ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
                         let data = {

@@ -39,14 +39,11 @@ class Home extends React.Component {
         // this.props.fetchHeatlhTip()
         // this.props.fetchArticles()
         if (!this.props.common_tests.length || !this.props.common_package.length || !this.props.specializations.length || (this.props.selectedLocation && this.props.selectedLocation.locality)) {
-            let city = ''
-            if (this.props.selectedLocation && this.props.selectedLocation.locality) {
-                city = this.props.selectedLocation.locality
-            }
-            this.props.loadOPDCommonCriteria(this.props.selectedLocation)
+            
             this.props.loadLabCommonCriterias()
             this.props.loadOPDInsurance(this.props.selectedLocation)
         }
+        this.props.loadOPDCommonCriteria(this.props.selectedLocation)
 
         this.props.resetFilters()
         this.props.clearExtraTests()

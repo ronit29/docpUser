@@ -70,7 +70,7 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
           )
         }else{
           return( <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
-                <ProfileHeader />
+                <ProfileHeader showPackageStrip={true}/>
                   <section className="pkgComapre container">
                     <Loader />        
                   </section>
