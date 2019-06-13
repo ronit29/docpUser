@@ -459,7 +459,7 @@ class ChatPanel extends React.Component {
         if(this.props.USER && this.props.USER.ipd_chat && this.props.USER.ipd_chat.ipdForm){
 
             let params = JSON.stringify(this.props.USER.ipd_chat.ipdForm)
-            iframe_url += `&product=IPD&params=${params}`
+            iframe_url += `&product=IPD&params=${params}&msg=startchat`
         }else{
             iframe_url += '&product=DocPrime'      
         }
