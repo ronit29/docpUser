@@ -3,6 +3,7 @@ import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import ChatPanel from '../../components/commons/ChatPanel'
 import Loader from '../commons/Loader'
 import SnackBar from 'node-snackbar'
+import InitialsPicture from '../commons/initialsPicture'
 
 class InsuranceCertificateView extends React.Component {
 	constructor(props) {
@@ -33,6 +34,16 @@ class InsuranceCertificateView extends React.Component {
 	goToEndorsement(){
 		this.props.clearInsurance()
 		this.props.history.push('/insurance/insurance-endorsement-details')
+	}
+
+	goToBooking(){
+		if(this.props.avail_now_data && Object.keys(this.props.avail_now_data).length > 0){
+			if(this.props.avail_now_data.type == 'lab'){
+				this.props.history.push(`/lab/${this.props.avail_now_data.id}/book`)
+			}else{
+				this.props.history.push(`/opd/doctor/${this.props.avail_now_data.id}/${this.props.avail_now_data.selectedClinic}/bookdetails`)
+			}
+		}
 	}
 
 	render() {
@@ -221,6 +232,23 @@ class InsuranceCertificateView extends React.Component {
 									<a className="ins-open-endrs" onClick={this.goToEndorsement.bind(this)}>
 										click here to update insured members details
 									<img className="ins-rgt-endrs" src={ASSETS_BASE_URL + "/img/right-sc.svg"}/> </a>
+									:''
+								}
+								{
+									this.props.avail_now_data && Object.keys(this.props.avail_now_data).length > 0?
+									<div className="widget mrb-15 mrng-top-12" onClick={this.goToBooking.bind(this)}>
+						                <div className="widget-header dr-qucik-info">
+						                    <div style={{cursor:'pointer'}}>
+						                        <InitialsPicture name={this.props.avail_now_data.name} has_image={!!this.props.avail_now_data.thumbnail} className="initialsPicture-dp docCardIntPic">
+						                            <img src={this.props.avail_now_data.thumbnail} style={{width:'60px', height:'60px'}} className="img-fluid img-round"/>
+						                        </InitialsPicture>
+						                    </div>
+						                    <div className="dr-profile">
+						                        <h1 className="dr-name">{this.props.avail_now_data.name}<span className="nwDocViewPrf"></span></h1>
+						                        <p>Continue Booking </p>
+						                    </div>
+						                </div>
+						            </div>
 									:''
 								}
 								{

@@ -641,6 +641,18 @@ class PatientDetailsNew extends React.Component {
         })
     }
 
+    goToInsurance(selectedDoctor,selectedClinic){
+        let data={}
+        data.thumbnail = selectedDoctor.thumbnail
+        data.name = selectedDoctor.display_name
+        data.url = selectedDoctor.url
+        data.id = selectedDoctor.id
+        data.selectedClinic= selectedClinic
+        data.type = 'doctor'
+        this.props.saveAvailNowInsurance(data)
+        this.props.history.push('/insurance/insurance-plans?source=doctor-summary-view&show_button=true')
+    }
+
     render() {
         const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
@@ -842,6 +854,20 @@ class PatientDetailsNew extends React.Component {
                                                                 </div> : ''
                                                         }
 
+                                                        {
+                                                            !enabled_for_cod_payment ?
+                                                                <div className="widget mrb-15">
+                                                                    <div className="widget-content  d-flex jc-spaceb">
+                                                                        <div className="d-flex">
+                                                                            <h4 className="title coupon-text">Get OPD Insurance & book for</h4>
+                                                                            <span>FREE</span>
+                                                                            <p>Book Unlimited Doctors and Lab Tests</p>
+                                                                        </div>
+                                                                        <span onClick={this.goToInsurance.bind(this,this.props.DOCTORS[this.props.selectedDoctor],this.props.selectedClinic)}>Avail Now</span>
+                                                                    </div>
+                                                                </div>
+                                                            :''
+                                                        }
 
 
                                                         {/*Payment Mode*/}
@@ -890,6 +916,24 @@ class PatientDetailsNew extends React.Component {
                                                                                 </label>
                                                                             </div> : ''
                                                                     }
+
+                                                                    {
+                                                                        !is_insurance_applicable ?
+                                                                            <hr /> : ''
+                                                                    }
+
+                                                                    {
+                                                                        !is_insurance_applicable ?
+                                                                            <div className="test-report payment-detail mt-20">
+                                                                                <label className="container-radio payment-type-radio">
+                                                                                    <h4 className="title payment-amt-label">Get OPD Insurance & book for </h4>
+                                                                                    <span className="payment-mode-amt">FREE</span>
+                                                                                    <span className="light-txts d-block"> Book Unlimited Doctors and Lab Tests</span>
+                                                                                </label>
+                                                                                <span onClick={this.goToInsurance.bind(this,this.props.DOCTORS[this.props.selectedDoctor],this.props.selectedClinic)}>Avail Now</span>
+                                                                            </div> : ''
+                                                                    }
+
 
                                                                 </div>
 

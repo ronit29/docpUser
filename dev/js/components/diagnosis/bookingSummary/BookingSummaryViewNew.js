@@ -711,6 +711,16 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
+    goToInsurance(labDetail){
+        let data={}
+        data.thumbnail = labDetail.lab_thumbnail
+        data.name = labDetail.name
+        data.id = labDetail.id
+        data.type = 'lab'
+        this.props.saveAvailNowInsurance(data)
+        this.props.history.push('/insurance/insurance-plans?source=doctor-summary-view&show_button=true')
+    }
+
     render() {
         let tests = []
         let tests_with_price = []
@@ -1026,21 +1036,18 @@ class BookingSummaryViewNew extends React.Component {
                                                                 </div> : ''
                                                         }
 
-                                                        <div className="widget mrb-15">
+                                                        {!is_insurance_applicable?
+                                                            <div className="widget mrb-15">
                                                             <div className="widget-content  d-flex jc-spaceb">
                                                                 <div className="d-flex">
-                                                                    <span className="coupon-img">
-                                                                        <img src="/assets/img/customer-icons/coupon-applied.svg" className="visit-time-icon"/>
-                                                                    </span>
-                                                                    <h4 className="title coupon-text" style={{color: 'green'}}>Coupon Applied jonny</h4>
+                                                                    <h4 className="title coupon-text">Get OPD Insurance & book for</h4>
+                                                                    <span>FREE</span>
+                                                                    <p>Book Unlimited Doctors and Lab Tests</p>
                                                                 </div>
-                                                                <div className=" d-flex">
-                                                                    <h4 className="title coupon-text" style={{color: 'green',marginRight: '13px'}}>WELCOME</h4>
-                                                                        <span className="visit-time-icon coupon-icon"><img src="/assets/img/customer-icons/cross.svg"/>
-                                                                        </span>
-                                                                </div>
+                                                                <span onClick={this.goToInsurance.bind(this,labDetail)}>Avail Now</span>
                                                             </div>
                                                         </div>
+                                                        :''}
 
                                                         {
                                                             is_corporate ? ""
