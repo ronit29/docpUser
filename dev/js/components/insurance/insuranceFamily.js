@@ -29,7 +29,6 @@ class InsuranceOthers extends React.Component {
 			no_lname:false,
     	    selectedDateSpan:new Date(),
     	    is_change:false,
-    	    monthssssssssss:[1,2,3,4,5,6,7,8,9,10,11,12],
     	    year:null,
     	    mnth:null,
     	    day:null
@@ -287,6 +286,15 @@ class InsuranceOthers extends React.Component {
     }
 
     populateDates(member_id){
+    	let age_threshold 
+    	if(this.props.selected_plan && this.props.selected_plan.adult_count){
+    		if(this.props.is_child_only){
+    			age_threshold = this.props.selected_plan.threshold[0].min_age
+    		}else{
+    			age_threshold = this.props.selected_plan.threshold[0].max_age
+    		}
+    	}
+    	let default_months=['01','02','03','04','05','06','07','08','09','10','11','12']
     	let self =this
     	var daydropdown = document.getElementById('daydropdown_'+member_id),
           monthdropdown = document.getElementById('monthdropdown_'+member_id),
@@ -294,28 +302,33 @@ class InsuranceOthers extends React.Component {
         var today = new Date(),
             day = today.getUTCDate(),
             month = today.getUTCMonth(),
-            year = today.getUTCFullYear()-65,
+            year = today.getUTCFullYear()-age_threshold + 1,
             currentYear = today.getUTCFullYear(),
             daysInCurrMonth = this.daysInMonth(month, year);
 		
 		// Day
-        for(var i = 0; i < daysInCurrMonth; i++){
+        for(var i = 1; i <= daysInCurrMonth; i++){
           var opt = document.createElement('option');
-          opt.value = i + 1;
-          opt.text = i + 1;
+          if(i<=9){
+          	opt.value = '0' + i;
+          	opt.text = '0' + i;
+          }else{
+          	opt.value = i;
+          	opt.text = i;
+          }
           daydropdown.appendChild(opt);
         }
 
         // Month
         for(var i = 0; i < 12; i++){
           var opt = document.createElement('option');
-          opt.value = i+1;
-          opt.text = this.state.monthssssssssss[i];
+          opt.value = default_months[i]
+          opt.text = default_months[i]
           monthdropdown.appendChild(opt);
         }
 
         // Year
-        for(var i = 0; i < 66; i++){
+        for(var i = 0; i < age_threshold; i++){
           var opt = document.createElement('option');
           opt.value = i + year;
           opt.text = i + year;
