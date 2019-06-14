@@ -4868,7 +4868,7 @@ font-weight: 700;
     flex-shrink: 0;
 }
 .dob-down-icon{
-    position: relative !important;
+    position: absolute !important;
     top: unset !important;
     width: 10px !important;
     bottom: unset !important;
