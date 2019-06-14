@@ -37,7 +37,10 @@ class InsuranceSelf extends React.Component{
     	    disableName:false,
     	    disableEmail:false,
     	    disableDob:false,
-    	    is_change:false
+    	    is_change:false,
+    	    year:null,
+    	    mnth:null,
+    	    day:null
 
         }
     	this.handleSubmit = this.handleSubmit.bind(this);
@@ -61,13 +64,24 @@ class InsuranceSelf extends React.Component{
 				// }
 			//})
     	}else if(this.props.is_endorsement){
+    		let oldDate
     		if(Object.keys(this.props.self_data_values).length>0){
     			profile= Object.assign({}, this.props.self_data_values[this.props.user_data[0].id])
+    			if(Object.keys(profile).length>0){
+	    			oldDate= profile.dob.split('-')
+				    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+				    		this.populateDates()
+				    })
+				}
     			this.setState({...profile},()=>{
 	    				this.handleSubmit(true)
 	    			})
     		}else{
     			if(this.props.user_data && this.props.user_data.length > 0){
+    				oldDate= this.props.user_data[0].dob.split('-')
+			    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+			    		this.populateDates()
+			    	})
 	    			this.setState({...this.props.user_data[0], name:this.props.user_data[0].first_name,member_type:this.props.member_type, profile_id:this.props.user_data[0].profile,is_change:false,town_code:this.props.user_data[0].city_code},()=>{
 	    				this.handleSubmit(true)
 	    			})
@@ -89,6 +103,7 @@ class InsuranceSelf extends React.Component{
 	    		}else{
 	    			profile= Object.assign({}, props.self_data_values[0])
 	    		} 
+	    		this.getUserDetails(profile)
 		    	if(Object.keys(profile).length){
 		    		this.setState({...profile,disableEmail:profile.email != ''?true:false,disableDob:profile.dob != null?true:false,disableName:profile.name !=''?true:false},() =>{
 		    			if(profile.gender == 'm'){
@@ -113,12 +128,13 @@ class InsuranceSelf extends React.Component{
 					this.getUserDetails(profile)
     		}	    	
     	}else{
-
+    		this.populateDates()
     	}
     }
 
     getUserDetails(profile){
 		let newName=[]
+		let oldDate
 	    newName =  profile.name.split(" ")
 	    if(newName.length == 2){
 	    	this.setState({
@@ -130,6 +146,16 @@ class InsuranceSelf extends React.Component{
 			middle_name:profile.isDummyUser?'':newName[1]})
 	    }else{
 	    	this.setState({name:profile.isDummyUser?'':profile.name})
+	    }
+	    if(profile.isDummyUser && profile.dob){
+	    	this.setState({day:null,year:null,mnth:null})
+	    }else if(Object.keys(profile).length > 0 &&  profile.dob){
+	    	oldDate= profile.dob.split('-')
+	    	this.setState({year:oldDate[0],mnth:oldDate[1],day:oldDate[2]},()=>{
+	    		this.populateDates()
+	    	})
+	    }else{
+	    	this.populateDates()
 	    }
 	    this.setState({
 	    	disableEmail:!profile.isDummyUser && profile.email != ''?true:false,
@@ -432,6 +458,88 @@ class InsuranceSelf extends React.Component{
 	    }
 	}
 
+	daysInMonth(month, year) {
+        return new Date(year, month, 0).getDate();
+    }
+
+    populateDates(){
+    	let self =this
+    	let default_months=['01','02','03','04','05','06','07','08','09','10','11','12']
+    	var daydropdown = document.getElementById("daydropdown_"+this.props.member_id),
+          monthdropdown = document.getElementById("monthdropdown_"+this.props.member_id),
+          yeardropdown = document.getElementById("yeardropdown_"+this.props.member_id);
+        let age_threshold = this.props.selected_plan && this.props.selected_plan.threshold?this.props.selected_plan.threshold[0].max_age:65
+        var today = new Date(),
+            day = today.getUTCDate(),
+            month = today.getUTCMonth(),
+            year = today.getUTCFullYear()-age_threshold + 1,
+            currentYear = today.getUTCFullYear(),
+            daysInCurrMonth = this.daysInMonth(month, year);
+		
+		// Day
+        for(var i = 1; i <= daysInCurrMonth; i++){
+          var opt = document.createElement('option');
+          if(i<=9){
+          	opt.value = '0' + i;
+          	opt.text = '0' + i;
+          }else{
+          	opt.value = i;
+          	opt.text = i;
+          }
+          daydropdown.appendChild(opt);
+        }
+        // Month
+        for(var i = 0; i < 12; i++){
+          var opt = document.createElement('option');
+          opt.value = default_months[i]
+          opt.text = default_months[i]
+          monthdropdown.appendChild(opt);
+        }
+
+        // Year
+        for(var i = 0; i < age_threshold; i++){
+          var opt = document.createElement('option');
+          opt.value = i + year;
+          opt.text = i + year;
+          yeardropdown.appendChild(opt);
+        }
+
+       // change handler for day
+      daydropdown.onchange = function(){
+        var NewSelecteddays = daydropdown.value;
+        self.setState({day:NewSelecteddays},()=>{
+        	self.submitDob()
+        })
+      }
+      
+      // Change handler for months
+      monthdropdown.onchange = function(){
+      	
+      	var newMonth = monthdropdown.value
+      	self.setState({mnth:newMonth},()=>{
+			self.submitDob()
+		})
+      }
+
+      // change handler for year
+      yeardropdown.onchange = function(){
+      	var newYear = yeardropdown.value;
+      	self.setState({year:newYear},()=>{
+      		self.submitDob()
+      	})
+      }
+  }
+  	submitDob(){
+	let self =  this
+      if(self.state.day && self.state.mnth && self.state.year){
+      	let finalDate = self.state.year + '-'+ self.state.mnth + '-'+self.state.day 
+      	self.setState({
+    		dob : finalDate
+    	},()=>{
+    		self.handleSubmit() 
+    	})
+      }
+  	}
 	render(){
 		let self = this
 		let show_createApi_keys = []
@@ -472,11 +580,6 @@ class InsuranceSelf extends React.Component{
 						<span>Change details</span>
 					:''
 				*/}
-				<div className="member-dtls-chk">
-					<span>Proposer</span>
-					<label className="ck-bx" onChange={this.handleLastname.bind(this)} style={{'fontWeight': '400', 'fontSize': '14'}}>I dont have last name<input type="checkbox" checked={this.state.no_lname} value="on"/>
-					<span className="checkmark"></span></label>
-				</div>
 				<div className="row no-gutters" id={isDummyUser?'member_0':this.props.is_endorsement?`member_${this.props.member_id}`:`member_${this.props.USER.defaultProfile}`}>
 					<div className="col-12">
 						{
@@ -498,7 +601,7 @@ class InsuranceSelf extends React.Component{
 					<div className="col-6">
 						<div className="ins-form-group inp-margin-right ">
 							<input style={{'textTransform': 'capitalize'}} type="text" id={`name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('name')> -1?'fill-error':''}`} required autoComplete="first_name" name="name" value={this.state.name} data-param='name' onChange={this.handleChange.bind(this,'name')} onBlur={this.handleSubmit.bind(this,false)} onFocus={this.handleOnFocus.bind(this,'name')} disabled={this.state.disableName?'disabled':''} onKeyPress={this.handleNameCharacters.bind(this,'name')}/>
-							<label className={this.state.disableName?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`name_${this.props.member_id}`}><span className="labelDot">*</span>First Name</label>
+							<label className={this.state.disableName?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`name_${this.props.member_id}`}><span className="labelDot"></span>First Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 						</div>
 						{
@@ -522,9 +625,9 @@ class InsuranceSelf extends React.Component{
 						}
 					</div>
 					<div className="col-6">
-						<div className="ins-form-group ins-form-group inp-margin-right  ">
+						<div className="ins-form-group ins-form-group inp-margin-right">
 							<input style={{'textTransform': 'capitalize'}} type="text" id={`last_name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('last_name')> -1?'fill-error':''}`} required autoComplete="last_name" name="last_name" value={this.state.no_lname?'':this.state.last_name} data-param='last_name' onChange={this.handleChange.bind(this,'last_name')} onBlur={this.handleSubmit.bind(this,false)} onFocus={this.handleOnFocus.bind(this,'last_name')} disabled={this.state.no_lname?'disabled':""} onKeyPress={this.handleNameCharacters.bind(this,'last_name')} disabled={this.state.disableName?'disabled':''}/>
-							<label className={this.state.disableName?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot">*</span>Last Name</label>
+							<label className={this.state.disableName?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot"></span>Last Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 						</div>
 						{
@@ -536,7 +639,13 @@ class InsuranceSelf extends React.Component{
 							<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:''	
 						}
 					</div>
-					<div className="col-12">
+					<div className="col-12" style={{marginTop:'-10px'}} >
+						<div className="member-dtls-chk">
+							<label className="ck-bx fw-500" onChange={this.handleLastname.bind(this)} style={{fontSize: 12, paddingLeft:24, lineHeight:'16px'}}>I dont have a last name<input type="checkbox" checked={this.state.no_lname} value="on"/>
+							<span className="checkmark small-checkmark"></span></label>
+						</div>
+					</div>
+					<div className="col-12 mrt-10">
 						<div className="ins-form-radio">
 							<div className="dtl-radio">
 								<label className="container-radio">
@@ -569,10 +678,10 @@ class InsuranceSelf extends React.Component{
 							<span className="fill-error-span">{this.props.createApiErrors.gender[0]}</span>:''	
 						}
 					</div>
-					<div className="col-12">
+					<div className="col-12 mrt-10">
 						<div className="ins-form-group">
 							<input type="text" id={`emails_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('email')> -1?'fill-error':''}`} required autoComplete="email" name="email" value={this.state.email} data-param='email' onChange={this.handleChange.bind(this,'email')} onBlur={this.handleEmail} onFocus={this.handleOnFocus.bind(this,'email')}/>
-							<label className={this.state.disableEmail?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`emails_${this.props.member_id}`}><span className="labelDot">*</span>Email</label>
+							<label className={this.state.disableEmail?'form-control-placeholder datePickerLabel':'form-control-placeholder'} htmlFor={`emails_${this.props.member_id}`}><span className="labelDot"></span>Email</label>
 							<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
 						</div>
 						{
@@ -582,10 +691,10 @@ class InsuranceSelf extends React.Component{
 					</div>
 					<div className="col-12">
 						<div className="ins-form-group">
-						 	<input type="button"  id={`isn-date_${this.props.member_id}`} className={`form-control ins-form-control text-left ${this.props.validateErrors.indexOf('dob')> -1?'fill-error':''}`} required autoComplete="dob" name="dob" value={this.state.dob?this.state.dob:'yyyy/mm/dd'} data-param='dob' onClick={this.openDateModal.bind(this)}/>
-							<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Date of birth</label>
+						 	{/* <input type="button"  id={`isn-date_${this.props.member_id}`} className={`form-control ins-form-control text-left ${this.props.validateErrors.indexOf('dob')> -1?'fill-error':''}`} required autoComplete="dob" name="dob" value={this.state.dob?this.state.dob:'yyyy/mm/dd'} data-param='dob' onClick={this.openDateModal.bind(this)}/> */}
+							<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">Date of birth</label>
     						<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
-							{
+							{/*
                                     this.state.dateModal ? <div className="calendar-overlay"><div className="date-picker-modal">
                                         <Calendar
                                             showWeekNumber={false}
@@ -597,7 +706,27 @@ class InsuranceSelf extends React.Component{
                                             onSelect={this.selectDateFromCalendar.bind(this)}
                                         />
                                     </div></div> : ""
-                                }
+                               */}
+							<div className="dob-select-div d-flex align-items-center">
+								<div className="dob-select d-flex align-items-center">
+									<select id={`daydropdown_${this.props.member_id}`} value={this.state.day}>
+										<option hidden>DD</option>
+									</select>
+									<img className="dob-down-icon" style={{right : '4px'}} src="/assets/img/customer-icons/dropdown-arrow.svg"/>
+								</div>
+								<div className="dob-select d-flex align-items-center">
+									<select id={`monthdropdown_${this.props.member_id}`} value={this.state.mnth}>
+										<option hidden>MM</option>
+									</select>
+									<img className="dob-down-icon" style={{right : '4px'}} src="/assets/img/customer-icons/dropdown-arrow.svg"/>
+								</div>
+								<div className="dob-select d-flex align-items-center">
+									<select id={`yeardropdown_${this.props.member_id}`} value={this.state.year}>
+										<option hidden>YYYY</option>
+									</select>
+									<img className="dob-down-icon" style={{right : '3px'}} src="/assets/img/customer-icons/dropdown-arrow.svg"/>
+								</div>
+							</div>
 						</div>
 						{
 							this.props.validateErrors.indexOf('dob')> -1?
@@ -771,7 +900,7 @@ class InsuranceSelf extends React.Component{
 					<div className="col-12">
 						<div className="ins-form-group">
 							<input style={{'textTransform': 'capitalize'}} type="text" id={`insaddress${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('address')> -1?'fill-error':''}`} required autoComplete="address" name="address" value={this.state.address} data-param='address' onChange={this.handleChange.bind(this,'address')} onBlur={this.handleSubmit.bind(this,false)} onFocus={this.handleOnFocus.bind(this,'address')} />
-							<label className="form-control-placeholder" htmlFor={`insaddress${this.props.member_id}`}><span className="labelDot">*</span>Full Address</label>
+							<label className="form-control-placeholder" htmlFor={`insaddress${this.props.member_id}`}><span className="labelDot"></span>Full Address</label>
 							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
 						{
@@ -784,9 +913,9 @@ class InsuranceSelf extends React.Component{
 						}
 					</div>
 					<div className="col-12">
-						<div className="ins-form-group">
+						<div className="ins-form-group mb-0">
 							<input type="number" id={`isnpin_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('pincode')> -1?'fill-error':''}`} required autoComplete="pincode" name="pincode" value={this.state.pincode} data-param='pincode' onKeyPress={this.handlekey.bind(this)} onChange={this.handleChange.bind(this,'pincode')} onBlur={this.handleSubmit.bind(this,false)} onFocus={this.handleOnFocus.bind(this,'pincode')}/>
-							<label className="form-control-placeholder" htmlFor={`isnpin_${this.props.member_id}`}><span className="labelDot">*</span>Pincode</label>
+							<label className="form-control-placeholder" htmlFor={`isnpin_${this.props.member_id}`}><span className="labelDot"></span>Pincode</label>
 							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
 						{
@@ -795,7 +924,7 @@ class InsuranceSelf extends React.Component{
 						}
 						{
 							this.props.validateOtherErrors.indexOf('pincode')> -1?
-							<span className="fill-error-span">*Please Enter Valid Pincode</span>:''	
+							<span className="fill-error-span">Please Enter Valid Pincode</span>:''	
 						}
 						{
 							show_createApi_keys.indexOf('pincode')> -1?

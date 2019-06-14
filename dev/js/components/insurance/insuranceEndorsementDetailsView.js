@@ -532,7 +532,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 										</span>
 									</div>
 								</div>
-								<div className="insurance-member-container pt-2 pb-0">
+								<div className="insurance-member-container" style={{padding: '10px'}}>
 									<p className="plcy-cancel">*Incorrect member details may lead to policy cancellation</p>
 									<h4 className="mb-0">Insured Member Details</h4>
 									<p className="fill-error-span fw-500 text-right d-block" style={{marginTop:'0px', fontSize: '11px'}}>*All fields are mandatory
@@ -551,11 +551,11 @@ class InsuranceEndoresmentInputView extends React.Component{
 											member_type={'adult'}
 											endorsementError={this.state.endorsementError}
 										/>
-										{adult}
-										{child}
 									</div>
 								</div>
 							</div>
+							{adult}
+							{child}
 						</section>		
 							<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Update
 							</button>
