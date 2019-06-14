@@ -279,7 +279,7 @@ class LabProfileCard extends React.Component {
                     {
                         is_insurance_buy_able?
                         <div className="ins-buyable">
-                            <p>Book this lab for ₹0 with OPD Insurance</p>
+                            <p>Book this test & all future tests for ₹ 0 with OPD insurance</p>
                             <span style={{cursor:'pointer'}} onClick={(e)=>{
                                 e.stopPropagation()
                                 this.props.history.push('/insurance/insurance-plans?source=lab-listing&show_button=true')
