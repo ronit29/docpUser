@@ -452,7 +452,7 @@ class InsuranceInputView extends React.Component{
 								<InsurCommon {...this.props} is_edit={this.state.is_edit}/>
 								<div className="insurance-member-container" style={{padding:0}}>
 									<h4 className="mb-0" style={{padding:'2px 0px 6px'}}>Proposer Member Details</h4>
-									<div className="widget" style={{padding:'10px 4px'}}>
+									<div className="widget" style={{padding:'10px'}}>
 										<div className="plcy-cancel-div">
 											<p className="plcy-cancel mb-0 fw-500">*Incorrect member details may lead to policy cancellation</p>
 										</div>
