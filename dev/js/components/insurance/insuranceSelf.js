@@ -907,7 +907,7 @@ class InsuranceSelf extends React.Component{
 						}
 					</div>
 					<div className="col-12">
-						<div className="ins-form-group">
+						<div className="ins-form-group mb-0">
 							<input type="number" id={`isnpin_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('pincode')> -1?'fill-error':''}`} required autoComplete="pincode" name="pincode" value={this.state.pincode} data-param='pincode' onKeyPress={this.handlekey.bind(this)} onChange={this.handleChange.bind(this,'pincode')} onBlur={this.handleSubmit.bind(this,false)} onFocus={this.handleOnFocus.bind(this,'pincode')}/>
 							<label className="form-control-placeholder" htmlFor={`isnpin_${this.props.member_id}`}><span className="labelDot">*</span>Pincode</label>
 							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />

@@ -443,7 +443,7 @@ class InsuranceOthers extends React.Component {
 					<span className="checkmark"></span></label>
 					</div> */}
 				</div>
-				<div className='widget' style={{padding:'10px 4px'}} >
+				<div className='widget' style={{padding:'10px'}} >
 					<div className="col-12" style={{padding:0}}>
 					{
 						this.props.is_child_only?
@@ -608,7 +608,7 @@ class InsuranceOthers extends React.Component {
 							}
 						</div>
 						<div className="col-12">
-							<div className="ins-form-group">
+							<div className="ins-form-group mb-0">
 								{/* <input type="button" onClick={this.openDateModal.bind(this)} id={`isn-date_${this.props.member_id}`} className={`form-control ins-form-control text-left ${this.props.validateErrors.indexOf('dob')> -1?'fill-error':''}`} required autoComplete="dob" name="dob" data-param='dob' value={this.state.dob?this.state.dob:'yyyy/mm/dd'}
 								/> */}
 								<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Date of birth</label>
