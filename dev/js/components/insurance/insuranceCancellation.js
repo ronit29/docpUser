@@ -24,13 +24,14 @@ class InsuranceCancellationView extends React.Component {
 
 	clickPopUp(type) {
 		if (type == 1) {
-			this.props.cancelInsurance(resp => {
-				if (resp.success) {
-					this.setState({ showCancelPopup: false, showCancelSection:false })
-				} else {
-					this.setState({ showCancelPopup: false })
-				}
-			})
+			this.props.history.push('/insurance/canceldetails')
+			// this.props.cancelInsurance(resp => {
+			// 	if (resp.success) {
+			// 		this.setState({ showCancelPopup: false, showCancelSection:false })
+			// 	} else {
+			// 		this.setState({ showCancelPopup: false })
+			// 	}
+			// })
 		} else {
 			this.setState({ showCancelPopup: false})
 		}

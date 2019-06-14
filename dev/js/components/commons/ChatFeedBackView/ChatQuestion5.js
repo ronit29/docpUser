@@ -1,4 +1,5 @@
 import React from 'react'
+import GTM from '../../../helpers/gtm.js'
 
 class ChatQuestion5 extends React.Component {
 	constructor(props){
@@ -9,6 +10,11 @@ class ChatQuestion5 extends React.Component {
 	}
 
 	componentDidMount(){
+		let data = {
+
+            'Category': 'Chat', 'Action': 'ChatQuestion5PageLanded', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-question-5-page-landed', "url": window.location.pathname
+        }
+        GTM.sendEvent({ data: data })
 		/*if(this.props.chat_feedback){
 			let feedback = this.props.chat_feedback.filter(x=>x.type.includes('ques5'))
 			if(feedback.length){
@@ -19,17 +25,29 @@ class ChatQuestion5 extends React.Component {
 
 
 	submit(){
+		let data = {
+			feedback: this.state.feedback,
+			question:'Any Comments?'
+		}
 		let feedback = this.props.chat_feedback.filter(x=>!x.type.includes('ques5'))
-		feedback.push({type: 'ques5', data: this.state.feedback})
-		this.props.saveChatFeedBack('ques5', this.state.feedback)
+		feedback.push({type: 'ques5', data: data})
+		this.props.saveChatFeedBack('ques5', data)
 		let roomId = this.props.chat_feedback_roomId
 		let postData = {
 			rid: roomId,
 			data: feedback
 		}
+		let gtmData = {
+
+            'Category': 'Chat', 'Action': 'ChatQuestion5Submitted', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-question-5-submitted', "url": window.location.pathname
+        }
+        GTM.sendEvent({ data: gtmData })
 
 		this.props.submitChatFeedback(postData)
-		this.props.history.push('/chat/feedback/thanks')
+		setTimeout(()=>{
+			this.props.history.push('/chat/feedback/thanks')	
+		},1000)
+		
 		
 	}
 

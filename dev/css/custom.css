@@ -53,7 +53,7 @@
 	.sticky-btn{position: sticky!important; position: -webkit-sticky!important; bottom: 0!important;}
 }
 
-@media(min-width: 993px){.sticky-header{position: sticky!important; position: -webkit-sticky!important; top: 107px!important;margin-top: 20px;z-index: 9;}
+@media(min-width: 993px){.sticky-header{position: sticky!important; position: -webkit-sticky!important; top: 94px!important;margin-top: 20px;z-index: 9;}
 .sticky-header-2{position: sticky!important; position: -webkit-sticky!important; top: 114px!important;margin-top: 2px!important;}
 .sticky-header-3{position: sticky!important; position: -webkit-sticky!important; top: 115px!important;margin-top: 2px!important;}
 .variable-content-section{padding-top: 15px!important;padding-bottom: 4px!important;margin-top: 0px!important;}
@@ -735,7 +735,7 @@ color:  #f78631;
 }
 .headerSubLinkContainer{
 	width: 100%;
-    margin-top: 107px;
+    margin-top: 94px;
     background: white;
     box-shadow: 1px 1px 1px #8080801c;
 }
@@ -748,10 +748,13 @@ color:  #f78631;
 }
 @media(max-width: 992px) {
 .headerSubLinkContainer{
-	margin-top: 124px;
+	margin-top: 111px;
 }
 div.onln-cnslt-head {
 	margin-top: 126px;
+}
+.pop-foot-btns-cont{
+	margin: 8px -8px 8px -8px !important; 
 }
 }
 @media(max-width: 767px) {
@@ -821,6 +824,51 @@ div.onln-cnslt-head {
 }
 
 /* ============ about Us section ============ */
+/* ============ new filter section ============ */
+.locationTestFilter {
+	width: 70%;
+	flex-shrink: 0;
+	flex-grow: 0;
+	padding: 0 8px !important;
+	justify-content: left !important;
+}
+.newStickyfilter {
+	font-size: 12px;
+	font-weight: 500;
+}
+.newStickyfilter span {
+	color: #f78631;
+}
+.newStickyfilter span img{
+cursor: pointer;
+}
+.top-filter-tabs-select.newSortFilterbar {
+	width: 30%;
+	flex-grow: 0;
+	flex-shrink: 0;
+	padding: 0 10px;
+	font-size: 12px;
+	justify-content: center;
+	align-items: center;
+}
+.filterNotification{
+	position: absolute;
+	background: #f78631;
+	color: white;
+	font-weight: 500;
+	top: -8px;
+	left: -10px;
+	padding: 2px;
+	height: 16px;
+	width: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 30px;
+	font-size: 11px;
+	border: 1px solid white;
+}
+/* ============ new filter section ============ */
 /* ============ rate your doc ============ */
 .rateUrDoc{
 	display: flex;
@@ -930,6 +978,134 @@ span.rate-pop-back img{
 	font-size: 11px;
 }
 /* ============ download app btn ============ */
+/* ============ sort new design ============ */
+.sorting-main-container{
+	overflow: scroll;
+	max-height: 70vh;
+}
+.sort-more-filter{
+	float: right;
+	color: #f78631;
+	cursor: pointer;
+}
+.sort-lft-cont{
+
+}
+.pop-foot-btns-cont{
+	display: flex;
+	margin: 8px -8px 0 -8px;
+}
+.pop-foot-btns-cont button.add-shpng-cart-btn{
+flex:none;
+width: 110px;
+}
+.overflow-hidden{
+	overflow: hidden !important; 
+}
+.sort-headings{
+	font-size: 14px;
+	font-weight: 500;
+}
+.sort-slider-scroll{
+	margin: 15px 0px;
+	white-space: nowrap;
+	overflow-y: auto;
+}
+.sort-cards-list{
+	display: inline-block;
+	text-align: center;
+	height: 100px;
+	min-height: 100px;
+	min-width: 90px;
+	max-width: 90px;
+	border-radius: 10px;
+	margin-right: 5px;
+	cursor: pointer;
+}
+.sort-cards-list.chitActive{
+	color: white;
+	background-image: linear-gradient(to left, #f78631, #ff6d00);
+	box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+.sort-cards-list p{
+font-weight: 500;
+white-space: normal;
+}
+.srt-lst-img{
+	min-height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.srt-lst-img img{
+	font-weight: 500;
+	white-space: normal;
+}
+.sorting-btns-cont{
+	border-top: 1px solid #e6e6e6;
+	padding: 10px 0;
+}
+.sortbtncard{
+	display: flex;
+	margin: 10px 0px;
+}
+button.sortBtns {
+	background: white;
+	border: 1px solid #f78631;
+	border-radius: 4px;
+	padding: 8px 0px;
+	min-width: 90px;
+	font-size: 13px;
+	margin-right: 19px;
+}
+button.sortBtns:last-child{
+	margin-right: 0px;
+}
+button.sortBtns.srtBtnAct {
+	background: #f78631;
+    color: white;
+}
+img.srt-star-img {
+	width: 15px;
+	margin-right: 1px;
+}
+.justyfy-twoBtns{
+	justify-content: flex-start;
+}
+.read-clps-bar{
+	border-radius: 5px !important;
+    margin-top: .5rem !important;
+    margin-bottom: 1rem !important;
+}
+.sort-sub-filter-container{
+	margin-bottom: 1rem;
+	background: white;
+	padding: 10px 0;
+}
+.sort-sub-filter-container p{
+	padding: 0 10px;
+}
+.srt-sb-btn-cont{
+	margin-top: 10px;
+	white-space: nowrap;
+	overflow: auto;
+	padding-left: 10px;
+}
+.srt-sb-btn-cont button{
+	border: 1px solid #000000;
+	background: white;
+	color: #000000;
+	margin-right: 10px;
+	border-radius: 4px;
+	padding: 5px 10px;
+	font-weight: 500;
+}
+.srt-sb-btn-cont button.srt-act{
+	border: 1px solid #f78631;
+	background: white;
+	color: #f78631;
+}
+/* ============ sort new design ============ */
 /* ============ insurance upload ============ */
 .insurance-proofs-cont{
 	margin: 0 -15px;
@@ -1144,6 +1320,9 @@ p.rev-ins-header a img{
 	margin: 0 -15px 15px -15px !important;
 	top: 89px !important;
 }
+.sort-sub-filter-container{
+	margin: 0 -5px;
+	}
 .popupTopChange{
 	top:60px;
 }
@@ -1239,6 +1418,108 @@ button.ipd-inp-sbmt {
 }
 
 /* ============ ipd tabs ============ */
+/* ============ footer scroll hide ============ */
+
+.shw-srch-ftr{
+	    -webkit-transition: all .6s ease;
+    -o-transition: all .6s ease;
+    transition: all .6s ease;
+    -webkit-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    transform: translateY(0%);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+		height: 67px;
+		z-index: 1;
+}
+.smth-ftr-hide{
+	-webkit-transform: translateY(-200%);
+	-ms-transform: translateY(-200%);
+	transform: translateY(200%);
+}
+/* ============ footer scroll hide ============ */
+/* ============ cancel insurance ============ */
+.ins-cancl-heading{
+	font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.ins-cancl-container{
+
+}
+.ins-cn-inp{
+	width: 100%;
+	margin-bottom: 15px;
+	padding: 8px;
+	border-radius: 4px;
+	border: 1px solid rgba(0, 0, 0, .12);
+	outline: none;
+	font-size: 14px;
+}
+.ins-cn-textarea{
+	width: 100%;
+	margin-bottom: 10px;
+	padding: 8px;
+	border-radius: 4px;
+	border: 1px solid rgba(0, 0, 0, .12);
+	outline: none;
+}
+.ins-cn-btn{
+	background-image: linear-gradient(to left,#f78631,#ff6d00);
+	width: 80%;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+	padding: 10px 10px;
+	margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 500;
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+.ins-cancl-para{
+	font-weight: 500;
+	text-align: center;
+	font-size: 13px;
+	margin-bottom: 10px;
+}
+.ins-cn-btn img {
+	width: 20px;
+	margin-right: 10px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+.ins-upld-doc-img{
+	    width: 100%;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+}
+img.doc-ins-img{
+	    height: 100px;
+    width: 100px;
+    margin-right: 0px;
+}
+img.ins-img-cls-btn{
+position: absolute;
+    width: 20px;
+    right: -8px;
+    top: -8px;
+    cursor: pointer;
+}
+.bank-prf{
+	font-weight: 500;
+	margin-bottom: 10px;
+	text-align: center;
+}
+/* ============ cancel insurance ============ */
 /* ============ ipd chat popup ============ */
 .ipd-chat-pop{
 	display: none;
@@ -1361,3 +1642,283 @@ display: none;
 }
 
 /* ============ ipd chat popup ============ */
+/* ============ pkg no result ============ */
+.pkg-no-result{
+	padding: 20px 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.pkg-n-rslt{
+	font-size: 16px;
+	font-weight: 500;
+}
+.n-rslt-img{
+	width: 110px;
+	margin: 40px 0;
+}
+.pkg-ty-agn{
+	color: #f78631;
+	font-size: 16px;
+	font-weight: 500;
+}
+/* ============ pkg no result ============ */
+/* ============ ipd offers ============ */
+.hs-ofr-heading{
+	display: flex;
+    align-items: center;
+    color: #f78631;
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+.hs-ofr-heading img{
+	width: 23px;
+	margin-right: 5px;
+}
+.hs-offerCard{
+
+}
+.hs-ofr-crdHeading{
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	margin-bottom: 5px;
+}
+.hs-ofr-crdHeading p {
+	font-weight: 500;
+	font-size: 15px;
+}
+.hs-ofr-contnn{
+	display: flex;
+	align-items: self-start;
+}
+.hs-ofr-crdHeading img{
+		width: 18px;
+    margin-right: 9px;
+    cursor: pointer;
+    margin-top: 3px;
+}
+.hs-ofr-card-content{
+	padding: 0 30px 0 30px;
+	margin-bottom: 10px;
+}
+p.no-cpn-rqrd {
+	color: #f78631;
+	margin-top: 10px;
+	font-weight: 500;
+	font-size: 13px;
+}
+.offer-hide-content{
+	background: rgba(0, 0, 0, .05);
+	padding: 10px;
+	border-radius: 5px;
+}
+.offer-hide-content ul {
+	list-style: disc;
+	padding-left: 20px;
+}
+.offer-hide-content ul li {
+	list-style: disc;
+	margin-bottom: 10px;
+	font-size: 13px;
+}
+.hs-offer-footer{
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+.tc_cont{
+	color: #757575;
+	font-size: 12px;
+	font-weight: 500;
+}
+.show-hide-offr{
+	color: #f78631;
+	font-weight: 500;
+	font-size: 12px;
+	display: flex;
+	align-items: center;
+}
+.cpn-rqrd{
+	margin-bottom: 5px;
+}
+.cpn-rqrd p{
+	background: rgba(0, 0, 0, .05);
+	padding: 6px 5px;
+	border-radius: 5px;
+	display: inline-block;
+	font-weight: 500;
+}
+.cpn-rqrd span{
+	color: #f78631;
+	font-weight: 700;
+}
+.offshowIcon{
+	transform: rotate(90deg);
+	flex-grow:0;
+	flex-shrink:0;
+}
+.ofhideIcon{
+	transform: rotate(270deg);
+	flex-grow:0;
+	flex-shrink:0;
+}
+.ipd-ofr-main{
+	border-bottom:1px solid rgba(0, 0, 0, 0.09);
+}
+.ipd-ofr-main:last-child{
+	border-bottom: transparent;
+}
+.ofr-vw-more{
+text-align: center;
+font-weight: 500;
+color: #f78631;
+margin-top: 10px; 
+}
+.offr-grn-cd{
+	display: block;
+	color: #000000;
+	font-size: 12px;
+	font-weight: 500;
+}
+.ofr-main-cd{
+
+}
+/* ============ ipd offers ============ */
+/* ============ custom chat ============ */
+.chat-rlgr-view .chat-head{
+	background: #D1E391;
+}
+.chat-rlgr-view p.text-left.header-text-chat{
+	color: #1E723F !important;
+}
+.chat-rlgr-view div.chat-body{
+	background: #ecf3d7;
+}
+/* ============ custom chat ============ */
+/* ============ whtsapp login ============ */
+button.lg-sms-btn{
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 20px;
+	padding: 10px 0;
+	width: 60%;
+}
+img.sms-ico{
+	width: 16px;
+	flex-grow: 0;
+	flex-shrink: 0;
+	margin-right: 10px;
+}
+button.lg-wtsp-btn{
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 20px;
+	padding: 8px 0;
+	width: 60%;
+	background: white;
+	color: #546871;
+	border: 1px solid #546871;
+}
+img.whtsp-ico{
+	width: 20px;
+	flex-grow: 0;
+	flex-shrink: 0;
+	margin-right: 10px;
+}
+.input-booking-smswhts{
+	margin-bottom: 10px;
+}
+.input-sms-ver{
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px 0;
+	width: 48%;
+	font-size: 12px;
+	color: white;
+	background: #f78631;
+	flex-grow: 0;
+	flex-shrink: 0;
+	margin-right: 10px;
+	border: 1px solid #f78631;
+	border-radius: 4px;
+	font-weight: 500;
+}
+.input-sms-whts{
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 8px 0;
+	width: 48%;
+	background: white;
+	color: #546871;
+	border: 1px solid #546871;
+	font-size: 12px;
+	flex-grow: 0;
+	flex-shrink: 0;
+	border-radius: 4px;
+	font-weight: 500;
+}
+/* ============ whtsapp login ============ */
+/* ============ new hospital card ============ */
+.nw-hsp-crd-heading{
+    font-size: 15px;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #000;
+}
+.nw-hsp-crd-subheading{
+    display: flex;
+    align-items: center;
+}
+.nw-hsp-crd-subheading img{
+	width: 15px;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+.nw-hsp-crd-subheading p{
+	font-size: 12px;
+    font-weight: 500;
+    margin-left: 5px;
+}
+.nw-hsp-crd-logohs{
+	margin: 10px 0 8px 0;
+}
+.nw-hsptl-rgt-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+.nw-hsp-crd-beds{
+	text-align: right;
+}
+.nw-hsp-crd-beds p{
+    font-weight: 500;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+.nw-hsp-crd-beds p img{
+    margin-right: 4px !important;
+}
+.nw-hsp-crd-crd-btn{
+
+}
+p.nw-hsp-crd-green {
+    color: #55a740;
+    display: flex;
+    align-items: flex-start;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+p.nw-hsp-crd-green img {
+	width: 20px;
+}
+/* ============ new hospital card ============ */

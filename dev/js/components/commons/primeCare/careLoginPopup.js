@@ -1,5 +1,6 @@
 import React from 'react'
 const queryString = require('query-string');
+import GTM from '../../../helpers/gtm.js'
 
 class CareLoginPopup extends React.Component{
 	constructor(props) {
@@ -10,7 +11,8 @@ class CareLoginPopup extends React.Component{
             showOTP: false,
             otp: "",
             otpTimeout: false,
-            error_message:''
+            error_message:'',
+            smsBtnType: null
         }
     }
     inputHandler(e) {
@@ -21,14 +23,24 @@ class CareLoginPopup extends React.Component{
         }
     }
 
-    submitOTPRequest(number) {
+    submitOTPRequest(number, resendFlag = false, viaSms, viaWhatsapp) {
+        if (resendFlag) {
+            let analyticData = {
+                'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': number, 'pageSource': parsed.login || '' , 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''}
+            GTM.sendEvent({ data: analyticData })
+        } else {
+            let analyticData = {
+                'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': number, 'pageSource': parsed.login || '', 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''
+            }
+            GTM.sendEvent({ data: analyticData })
+        }
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
-            this.props.sendOTP(number, (error) => {
+            this.props.sendOTP(number,viaSms,viaWhatsapp, (error) => {
                 if (error) {
                     // this.setState({ validationError: "Could not generate OTP." })
                 } else {
-                    this.setState({ showOTP: true, otpTimeout: true })
+                    this.setState({ showOTP: true, otpTimeout: true, smsBtnType: viaSms ? true : false })
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
                     }, 10000)
@@ -108,7 +120,13 @@ class CareLoginPopup extends React.Component{
                                             <br /><br />
                                             <input type="number" className="fc-input text-center" placeholder="Enter OTP" value={this.state.otp} onChange={this.inputHandler.bind(this)} name="otp" onKeyPress={this._handleKeyPress.bind(this)}/>
                                             {
-                                                this.state.otpTimeout ? "" : <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)}>Resend ?</a>
+                                                this.state.otpTimeout ? "" : 
+                                                <div className="d-flex align-items-start justify-content-between">
+                                                    <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ?'Send via Whatsapp':'Send via SMS'}
+                                                    </a>
+                                                    <a className="resendOtp" style={{color:'#ec0d0d'}} onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}>Resend
+                                                    </a>
+                                                </div>
                                             }
                                         </div> : ""
                                     }
@@ -122,11 +140,18 @@ class CareLoginPopup extends React.Component{
                                                 Verify
                                         </button>
                                         </div> :
-                                        <div className="text-center">
-                                            <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm">
-                                                Continue
-                                        </button>
-                                        </div>
+                                        <React.Fragment>
+                                            <div className="text-center">
+                                                <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, false, true, false)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-sms-btn">
+                                                    <img className="sms-ico" src={ASSETS_BASE_URL + '/img/smsicon.svg'} />Verify Via SMS
+                                                </button>
+                                            </div>
+                                            <div className="text-center">
+                                                <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, false, false, true)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-wtsp-btn">
+                                                    <img className="whtsp-ico" src={ASSETS_BASE_URL + '/img/wa-logo-gr.svg'} />Verify Via Whatsapp
+                                                </button>
+                                            </div>
+                                        </React.Fragment>
                                 }
                             </div>
 

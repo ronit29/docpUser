@@ -5,6 +5,7 @@ import InsurSelf from './insuranceSelf.js'
 import InsurOthers from './insuranceFamily.js'
 import InsurCommon from './insuranceCommonSection.js'
 import SnackBar from 'node-snackbar'
+import STORAGE from '../../helpers/storage'
 
 class InsuranceEndoresmentInputView extends React.Component{
 	constructor(props) {
@@ -146,6 +147,7 @@ class InsuranceEndoresmentInputView extends React.Component{
     	let edited_fields ={}
     	let member_proof=[]
     	let newIdProofs
+    	let isAgent=false
     	if(Object.keys(this.props.self_data_values).length > 0){
     		// isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
     		// if(!isDummyUser){
@@ -424,7 +426,10 @@ class InsuranceEndoresmentInputView extends React.Component{
     		document.getElementById(member_ref).scrollIntoView();
     	}else{
     		this.SaveUserData(this.props,edited_fields)
-			this.props.history.push('/insurance/insurance-user-details-review?is_endorsement=true')
+    		if(STORAGE.isAgent()){
+    			isAgent = true
+    		}
+			this.props.history.push(`/insurance/insurance-user-details-review?is_endorsement=true&isAgent=${isAgent}`)
     	}
     }
 

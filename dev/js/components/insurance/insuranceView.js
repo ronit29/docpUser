@@ -49,7 +49,7 @@ class Insurance extends React.Component {
 		if (STORAGE.checkAuth() && this.props.USER && this.props.USER.primaryMobile != '') {
             phoneNumber = this.props.USER.primaryMobile
         }
-        this.props.generateInsuranceLead('',phoneNumber,lead_data)
+        this.props.generateInsuranceLead('',phoneNumber,lead_data,this.props.selectedLocation)
 		let selectedId = this.props.selected_plan ? this.props.selected_plan.id : ''
 		if (selectedId) {
 			this.selectPlan(this.props.selected_plan)
@@ -138,7 +138,7 @@ class Insurance extends React.Component {
 			}
 			if (Object.keys(plan).length > 0) {
 				lead_data = parsed
-				this.props.generateInsuranceLead(plan.id, phoneNumber,lead_data)
+				this.props.generateInsuranceLead(plan.id, phoneNumber,lead_data,this.props.selectedLocation)
 			}
 			profileLength = Object.keys(this.props.USER.profiles).length
 			memberStoreDataLength = Object.keys(this.props.self_data_values).length

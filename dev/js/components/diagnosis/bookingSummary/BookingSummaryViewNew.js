@@ -230,7 +230,7 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     openTests() {
-        if(this.state.seoFriendly){
+        if (this.state.seoFriendly) {
             let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&action_page=tests`
             this.props.history.push(url)
         } else {
@@ -246,24 +246,24 @@ class BookingSummaryViewNew extends React.Component {
         this.setState({ showTimeError: false, showAddressError: false });
     }
 
-    navigateTo(where, e) {
+    navigateTo(where, is_insurance_applicable, e) {
         switch (where) {
             case "time": {
                 if (this.state.pincode || (this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].lab && !this.props.LABS[this.props.selectedLab].lab.is_thyrocare)) {
 
                     if (this.props.LABS[this.props.selectedLab].lab.is_thyrocare) {
                         if (this.state.seoFriendly) {
-                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true&action_page=timings`
+                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true&action_page=timings&is_insurance=${is_insurance_applicable}`
                             this.props.history.push(url)
                         } else {
-                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true`)
+                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true&is_insurance=${is_insurance_applicable}`)
                         }
                     } else {
                         if (this.state.seoFriendly) {
-                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false&action_page=timings`
+                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false&action_page=timings&is_insurance=${is_insurance_applicable}`
                             this.props.history.push(url)
                         } else {
-                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false`)
+                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false&is_insurance=${is_insurance_applicable}`)
                         }
                     }
 
@@ -276,7 +276,7 @@ class BookingSummaryViewNew extends React.Component {
             }
 
             case "patient": {
-                this.props.history.push(`/user/family?pick=true`)
+                this.props.history.push(`/user/family?pick=true&lab_id=${this.props.match.params.id}&is_insurance=${is_insurance_applicable}`)
                 return
             }
 
@@ -291,7 +291,7 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    getSelectors() {
+    getSelectors(is_insurance_applicable) {
         let patient = null
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
@@ -300,15 +300,15 @@ class BookingSummaryViewNew extends React.Component {
         switch (this.props.selectedAppointmentType) {
             case "lab": {
                 return <div>
-                    <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} />
-                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} />
+                    <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable={is_insurance_applicable} />
+                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} is_insurance_applicable={is_insurance_applicable} checkPrescription={this.checkPrescription.bind(this)} />
                 </div>
             }
 
             case "home": {
                 return <div>
-                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} />
-                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} />
+                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable={is_insurance_applicable} />
+                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} is_insurance_applicable={is_insurance_applicable} checkPrescription={this.checkPrescription.bind(this)} />
                     {
                         patient ?
                             <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
@@ -330,7 +330,51 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    proceed(testPicked, addressPicked, datePicked, patient, addToCart, total_price, total_wallet_balance, prescriptionPicked,e) {
+    checkPrescription() {
+        let is_insurance_applicable = false
+        let is_tests_covered_under_insurance = false
+        let is_selected_user_insured = false
+
+        let data = {}
+        let selectedDate = null
+        let selected_test_id = []
+        const parsed = queryString.parse(this.props.location.search)
+        let patient = null
+        let profile = null
+
+
+        if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
+            patient = this.props.profiles[this.props.selectedProfile]
+            is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
+            profile = patient.id
+        }
+        is_tests_covered_under_insurance = true
+        this.props.LABS[this.props.selectedLab].tests.map((test, i) => {
+
+            if (test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount >= parseInt(test.deal_price)) {
+
+            } else {
+                is_tests_covered_under_insurance = false
+            }
+        })
+        is_insurance_applicable = is_tests_covered_under_insurance && is_selected_user_insured
+
+        // in case of upload prescription
+        if (is_insurance_applicable) {
+            if (this.props.selectedCriterias && this.props.selectedCriterias.length > 0) {
+                this.props.selectedCriterias.map((twp, i) => {
+                    selected_test_id.push(twp.id)
+                })
+            }
+            data.start_date = selectedDate ? selectedDate : this.props.selectedSlot && this.props.selectedSlot.date ? this.props.selectedSlot.date : new Date()
+            data.lab_test = selected_test_id
+            data.lab = this.props.selectedLab
+            data.profile = profile
+            this.props.preBooking(data)
+        }
+    }
+
+    proceed(testPicked, addressPicked, datePicked, patient, addToCart, total_price, total_wallet_balance, prescriptionPicked, e) {
 
         if (!testPicked) {
             SnackBar.show({ pos: 'bottom-center', text: "Please select some tests." });
@@ -436,12 +480,12 @@ class BookingSummaryViewNew extends React.Component {
         is_plan_applicable = is_tests_covered_under_plan && is_selected_user_has_active_plan
         let prescriptionIds = []
         if (prescriptionPicked && is_insurance_applicable) {
-            if(this.props.user_prescriptions && this.props.user_prescriptions.length == 0){
+            if (this.props.user_prescriptions && this.props.user_prescriptions.length == 0) {
                 SnackBar.show({ pos: 'bottom-center', text: "Please upload prescription." });
                 return
-            }else if(this.props.user_prescriptions && this.props.user_prescriptions.length >0){
-                this.props.user_prescriptions[0].img_path_ids.map((imgId,i)=>{
-                    prescriptionIds.push({'prescription':imgId.id})
+            } else if (this.props.user_prescriptions && this.props.user_prescriptions.length > 0) {
+                this.props.user_prescriptions[0].img_path_ids.map((imgId, i) => {
+                    prescriptionIds.push({ 'prescription': imgId.id })
                 })
             }
         }
@@ -474,7 +518,7 @@ class BookingSummaryViewNew extends React.Component {
         }
         if (this.props.disCountedLabPrice && !is_plan_applicable && !is_insurance_applicable) {
             postData['coupon_code'] = this.state.couponCode ? [this.state.couponCode] : []
-        } 
+        }
 
         //Post Pincode & thyrocare data
         if (this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].lab && this.props.LABS[this.props.selectedLab].lab.is_thyrocare) {
@@ -533,7 +577,7 @@ class BookingSummaryViewNew extends React.Component {
         this.props.createLABAppointment(postData, (err, data) => {
             if (!err) {
                 this.props.removeLabCoupons(this.props.selectedLab, this.state.couponId)
-                if(this.props.user_prescriptions && this.props.user_prescriptions.length > 0){
+                if (this.props.user_prescriptions && this.props.user_prescriptions.length > 0) {
                     this.props.clearPrescriptions()
                 }
                 if (data.is_agent) {
@@ -696,9 +740,9 @@ class BookingSummaryViewNew extends React.Component {
 
         }
 
-        // if(this.props.is_prescription_needed){
-        //     prescriptionPicked = true
-        // }
+        if (this.props.is_prescription_needed) {
+            prescriptionPicked = true
+        }
         if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]) {
             is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
         }
@@ -737,9 +781,9 @@ class BookingSummaryViewNew extends React.Component {
         if (this.props.LABS[this.props.selectedLab]) {
             labDetail = this.props.LABS[this.props.selectedLab].lab
 
-            if(labDetail.is_prescription_needed){
-                prescriptionPicked = labDetail.is_prescription_needed    
-            }
+            // if(labDetail.is_prescription_needed){
+            //     prescriptionPicked = labDetail.is_prescription_needed    
+            // }
             this.props.LABS[this.props.selectedLab].tests.map((twp, i) => {
                 if (twp.hide_price) {
                     is_corporate = true
@@ -791,7 +835,7 @@ class BookingSummaryViewNew extends React.Component {
             center_visit_enabled = labDetail.center_visit_enabled
 
         }
-        
+
         // if center visi not enabled, check home pick as true
         if (!center_visit_enabled) {
             setTimeout(() => {
@@ -837,11 +881,10 @@ class BookingSummaryViewNew extends React.Component {
         }
 
         let is_add_to_card = STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured)
-
         return (
 
             <div className="profile-body-wrap">
-                <ProfileHeader bookingPage={true}/>
+                <ProfileHeader bookingPage={true} />
                 {
                     this.state.showConfirmationPopup ?
                         <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} />
@@ -854,7 +897,7 @@ class BookingSummaryViewNew extends React.Component {
                             {
                                 this.props.LABS[this.props.selectedLab] ?
                                     <div>
-                                        <section className="dr-profile-screen booking-confirm-screen mrb-60">
+                                        <section className="dr-profile-screen booking-confirm-screen">
                                             <div className="container-fluid">
                                                 <div className="row mrb-20">
                                                     <div className="col-12">
@@ -919,12 +962,12 @@ class BookingSummaryViewNew extends React.Component {
                                                         </div>
 
                                                         <div className="">
-                                                            {this.getSelectors()}
+                                                            {this.getSelectors(is_insurance_applicable)}
                                                         </div>
                                                         {
-                                                            is_insurance_applicable && prescriptionPicked?
-                                                            <UploadPrescription {...this.props}/>
-                                                            :''
+                                                            is_insurance_applicable && prescriptionPicked ?
+                                                                <UploadPrescription {...this.props} />
+                                                                : ''
                                                         }
                                                         {
                                                             amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable ?
@@ -1084,6 +1127,11 @@ class BookingSummaryViewNew extends React.Component {
                                                             </div>
                                                         </a>
 
+                                                        <div className="mrt-20 d-flex align-items-start labTest-dtls">
+                                                            <img src={ASSETS_BASE_URL + '/img/customer-icons/tick.svg'} style={{ marginRight: 8, width: 20, marginTop: 2 }} />
+                                                            <p className="fw-500" style={{ flex: 1 }} >By continuing, you are authorizing Docprime to directly share lab test reports with you.</p>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -1108,12 +1156,12 @@ class BookingSummaryViewNew extends React.Component {
                             }
 
 
-                            <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat?'ipd-foot-btn-duo':''}`}>
+                            <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
                                 {
                                     STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured) ?
                                         <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                        } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance,prescriptionPicked)}>
+                                        } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance, prescriptionPicked)}>
                                             {
                                                 this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
                                             }

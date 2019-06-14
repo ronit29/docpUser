@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggle404, mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults, selectSearchType, selectLabTimeSLot, getOfferList, toggleOPDCriteria, selectLabAppointmentType, resetPkgCompare } from '../../actions/index.js'
+import { toggle404, mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults, selectSearchType, selectLabTimeSLot, getOfferList, toggleOPDCriteria, selectLabAppointmentType, resetPkgCompare, loadOPDInsurance } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/diagnosis/searchResults/index.js'
 import NotFoundView from '../../components/commons/notFound'
@@ -19,6 +19,7 @@ class SearchResults extends React.Component {
             this.setState({ show404: true })
             this.props.toggle404(false)
         }
+        this.props.loadOPDInsurance(this.props.selectedLocation)
     }
 
     static loadData(store, match, queryParams = {}) {
@@ -114,11 +115,12 @@ const mapStateToProps = (state, passedProps) => {
 
     const LABS = state.LAB_SEARCH_DATA
     const { show404, labList, LOADED_LABS_SEARCH, count, SET_FROM_SERVER, curr_page, seoData, test_data } = state.LAB_SEARCH
-    const { mergeUrlState } = state.SEARCH_CRITERIA_OPD
+    const { mergeUrlState, common_settings } = state.SEARCH_CRITERIA_OPD
 
     const {
         is_login_user_insured,
-        insurance_status
+        insurance_status,
+        device_info
     } = state.USER
 
     return {
@@ -147,7 +149,9 @@ const mapStateToProps = (state, passedProps) => {
         offerList,
         is_login_user_insured,
         compare_packages,
-        insurance_status
+        insurance_status,
+        device_info,
+        common_settings
     }
 
 }
@@ -169,7 +173,8 @@ const mapDispatchToProps = (dispatch) => {
         getOfferList: (lat,long) => dispatch(getOfferList(lat,long)),
         toggleOPDCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filter)),
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
-        resetPkgCompare:() => dispatch(resetPkgCompare())
+        resetPkgCompare:() => dispatch(resetPkgCompare()),
+        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city))
     }
 }
 

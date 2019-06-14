@@ -76,6 +76,10 @@ class DesktopProfileHeader extends React.Component {
         }
     }
 
+    openLocation(){
+        this.props.history.push('/locationsearch')
+    }
+
     toggleLeftMenu() {
         this.props.toggleLeftMenuBar()
     }
@@ -131,11 +135,11 @@ class DesktopProfileHeader extends React.Component {
         return (
             <header id="is_header" className={headerClass} style={styles}>
                 {
-                    this.props.ipd_chat?
-                    <IpdChatPanel {...this.props}/>
-                    :''
+                    this.props.showPackageStrip?''
+                    :<IpdChatPanel {...this.props}/>    
                 }
-
+                
+                
                 <div className={"ofr-top-header d-lg-block" + (!this.props.homePage ? " d-none" : "")}>
                     <div className="container">
                         <div className="d-flex justify-content-between">
@@ -166,9 +170,9 @@ class DesktopProfileHeader extends React.Component {
                                             this.navigateTo('/contact')
                                         }}>Contact us</p>
                             </div> */}
-                            <div style={{ marginLeft: 'auto' }}>
+                            <div style={{ marginLeft: 'auto' }} className="pb-side-lg">
                                 <span className="top-head-text">A group company of </span>
-                                <img src={ASSETS_BASE_URL + "/img/pb-logo-window.svg"} style={{ width: 120 }} />
+                                <img src={ASSETS_BASE_URL + "/img/pb-logo-window.svg"} style={{ width: 100 }} />
                                 {/* <img className="pb-img-size pb-mbl" src={ASSETS_BASE_URL + "/img/pb-logo.png"} /> */}
                             </div>
                         </div>
@@ -237,13 +241,15 @@ class DesktopProfileHeader extends React.Component {
 
                                 {
                                     hideSearch ? "" : <div className="head-links hed-links-search-flex">
-                                        <div className="serch-nw-inputs new-home-full-widht" onClick={this.openSearch.bind(this)}>
-                                            <div className="header-serach-input-div">
-                                                <span>Search Doctors &amp; Tests</span>
+                                        <div className="serch-nw-inputs new-home-full-widht" >
+                                            <div onClick={this.openSearch.bind(this)}> 
+                                                <div className="header-serach-input-div">
+                                                    <span>Search Doctors &amp; Tests</span>
+                                                </div>
+                                                {/* <input className="new-srch-inp" placeholder="Search Doctors, Tests, & Procedures" id="doc-input-field" /> */}
+                                                <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                                             </div>
-                                            {/* <input className="new-srch-inp" placeholder="Search Doctors, Tests, & Procedures" id="doc-input-field" /> */}
-                                            <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                            <button style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} /> {location}</button>
+                                            <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} /> {location}</button>
                                         </div>
                                     </div>
                                 }
@@ -266,6 +272,10 @@ class DesktopProfileHeader extends React.Component {
                                                 e.preventDefault();
                                                 this.props.history.push("/tests")
                                             }}>Tests</a></li>
+                                            <li><a href="/ipd-procedures" onClick={(e) => {
+                                                e.preventDefault();
+                                                this.props.history.push("/ipd-procedures")
+                                            }}>Procedures</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -394,13 +404,15 @@ class DesktopProfileHeader extends React.Component {
 
                         <div className="col-12 d-lg-none">
                             {
-                                this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" onClick={this.openSearch.bind(this)}>
-                                    <div className="header-serach-input-div">
-                                        <span>Search Doctors &amp; Tests</span>
+                                this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" >
+                                    <div onClick={this.openSearch.bind(this)}>
+                                        <div className="header-serach-input-div">
+                                            <span>Search Doctors &amp; Tests</span>
+                                        </div>
+                                        {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
+                                        <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                                     </div>
-                                    {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
-                                    <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                    <button style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
+                                    <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
                                 </div> : ""
                             }
                         </div>

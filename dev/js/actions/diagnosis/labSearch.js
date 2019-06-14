@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_LAB, SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB, APPLY_LAB_COUPONS, REMOVE_LAB_COUPONS, RESET_LAB_COUPONS, SAVE_CURRENT_LAB_PROFILE_TESTS, APPEND_LABS_SEARCH, SEARCH_HEALTH_PACKAGES, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE, CLEAR_LAB_SEARCH_ID, TOGGLE_PACKAGE_ID, TOGGLE_SEARCH_PACKAGES, SAVE_PRESCRIPTION, DELETE_PRESCRIPTION, CLEAR_PRESCRIPTION } from '../../constants/types';
+import { SET_FETCH_RESULTS_LAB, SET_SERVER_RENDER_LAB, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, APPEND_LABS, LAB_SEARCH, MERGE_SEARCH_STATE_LAB, APPLY_LAB_COUPONS, REMOVE_LAB_COUPONS, RESET_LAB_COUPONS, SAVE_CURRENT_LAB_PROFILE_TESTS, APPEND_LABS_SEARCH, SEARCH_HEALTH_PACKAGES, GET_LAB_SEARCH_ID_RESULTS, SET_LAB_SEARCH_ID, SAVE_LAB_RESULTS_WITH_SEARCHID, SET_LAB_URL_PAGE, CLEAR_LAB_SEARCH_ID, TOGGLE_PACKAGE_ID, TOGGLE_SEARCH_PACKAGES, SAVE_PRESCRIPTION, DELETE_PRESCRIPTION, CLEAR_PRESCRIPTION, SAVE_IS_PRESCRIPTION_NEED } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
 import GTM from '../../helpers/gtm.js'
@@ -34,11 +34,19 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 		if (typeof long === 'function') long = long()
 
 	}
-	let min_distance = filterCriteria.distanceRange[0]
+	/*let min_distance = filterCriteria.distanceRange[0]
 	let max_distance = filterCriteria.distanceRange[1]
 	let min_price = filterCriteria.priceRange[0]
 	let max_price = filterCriteria.priceRange[1]
 	let sort_on = filterCriteria.sort_on || ""
+	*/
+	let sort_on = filterCriteria.sort_on || ""
+	let sort_order = filterCriteria.sort_order || ""
+    let availability = filterCriteria.availability || []
+    let avg_ratings = filterCriteria.avg_ratings || []
+    let home_visit = filterCriteria.home_visit || false
+    let lab_visit = filterCriteria.lab_visit || false
+
 	let is_insured = filterCriteria.is_insured || false
 
 	// do not check specialization_ids if doctor_name || hospital_name search
@@ -52,7 +60,7 @@ export const getLabs = (state = {}, page = 1, from_server = false, searchByUrl =
 		url = `/api/v1/diagnostic/labnetworksearchbyurl?url=${searchByUrl.split('/')[1]}&`
 	}
 
-	url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&page=${page}&is_insurance=${is_insured}`
+	url += `ids=${testIds || ""}&long=${long || ""}&lat=${lat || ""}&sort_on=${sort_on}&sort_order=${sort_order}&avg_ratings=${avg_ratings}&availability=${availability}&home_visit=${home_visit}&lab_visit=${lab_visit}&page=${page}&is_insurance=${is_insured}`
 
 	if (!!filterCriteria.lab_name) {
 		url += `&name=${filterCriteria.lab_name || ""}`
@@ -174,7 +182,7 @@ export const getLabByUrl = (lab_url, testIds = [], cb) => (dispatch) => {
 }
 
 export const getLabTimeSlots = (labId, pickup, pincode, date, callback) => (dispatch) => {
-	let url = `/api/v1/diagnostic/labtiming_new?lab=${labId}&pickup=${pickup}&pincode=${pincode}&date=${date}`
+	let url = `/api/v1/diagnostic/labtiming_v2?lab=${labId}&pickup=${pickup}&pincode=${pincode}&date=${date}`
 	return API_GET(url).then(function (response) {
 		callback(response)
 	}).catch(function (error) {
@@ -334,11 +342,18 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 
 	}
 
-	let min_distance = filterCriteriaPackages.distanceRange[0]
+	/*let min_distance = filterCriteriaPackages.distanceRange[0]
 	let max_distance = filterCriteriaPackages.distanceRange[1]
 	let min_price = filterCriteriaPackages.priceRange[0]
 	let max_price = filterCriteriaPackages.priceRange[1]
 	let sort_on = filterCriteriaPackages.sort_on || ""
+	*/
+	let sort_on = filterCriteriaPackages.sort_on || ""
+	let sort_order = filterCriteriaPackages.sort_order || ""
+	let avg_ratings = filterCriteriaPackages.avg_ratings || ""
+	let home_visit = filterCriteriaPackages.home_visit || false
+	let lab_visit = filterCriteriaPackages.lab_visit || false
+
 	let catIds = filterCriteriaPackages.catIds || ""
 	let max_age = filterCriteriaPackages.max_age || ""
 	let min_age = filterCriteriaPackages.min_age || ""
@@ -360,7 +375,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 
 	if (!forTaxSaver) {
 
-		url += `long=${long || ""}&lat=${lat || ""}&min_distance=${min_distance}&max_distance=${max_distance}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}&package_ids=${package_ids}`
+		url += `long=${long || ""}&lat=${lat || ""}&sort_on=${sort_on}&sort_order=${sort_order}&avg_ratings=${avg_ratings}&home_visit=${home_visit}&lab_visit=${lab_visit}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}&package_ids=${package_ids}`
 	}
 
 	if (!!filterCriteriaPackages.lab_name) {
@@ -496,4 +511,13 @@ export const clearPrescriptions = () => (dispatch) => {
     dispatch({
         type:CLEAR_PRESCRIPTION
     })
+}
+
+export const preBooking = (selectedTime) => (dispatch) => {
+    API_POST(`/api/v1/common/pre-booking`,selectedTime).then(function (response) {
+		dispatch({
+	    	type:SAVE_IS_PRESCRIPTION_NEED,
+	        payload:response
+	    })
+	})
 }

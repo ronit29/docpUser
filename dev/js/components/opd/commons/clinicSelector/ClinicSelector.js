@@ -42,6 +42,16 @@ class ClinicSelector extends React.Component {
         this.setState({ vieMoreProcedures: true, selectedId: hospital_id })
     }
 
+    goToHospitalPage(hospital, e) {
+        e.preventDefault()
+        e.stopPropagation()
+        if(hospital.url) {
+            this.props.history.push(`/${hospital.url}`)
+        }else {
+            this.props.history.push(`/ipd/hospital/${hospital.hospital_id}`)
+        }
+    }
+
     render() {
 
         let { id, name, hospitals, is_live, enabled_for_online_booking } = this.props.details
@@ -122,10 +132,11 @@ class ClinicSelector extends React.Component {
                     hospitals.map((hospital, i) => {
                         return <div key={i} className="panel-content pnl-bottom-border">
                             <div className="dtl-radio">
-                                <label className="container-radio" onClick={() => { this.props.selectClinic(hospital.hospital_id, hospital.enabled_for_online_booking, i, hospital.discounted_price, hospital.show_contact) }}><h3 className="fw-500" style={{ display: 'inline', fontSize: 'inherit' }} >{hospital.hospital_name}</h3>
+                                <label className="container-radio" onClick={() => { this.props.selectClinic(hospital.hospital_id, hospital.enabled_for_online_booking, i, hospital.discounted_price, hospital.show_contact) }}><h3 className="fw-500 hosptl-vq-mr" style={{fontSize: 'inherit' }} >{hospital.hospital_name} </h3>
                                     {
                                         this.props.selectedClinic == hospital.hospital_id ? <input type="radio" checked name="radio" /> : <input type="radio" name="radio" />
                                     }
+                                    <a href={hospital.url?`/${hospital.url}`:`/ipd/hospital/${hospital.hospital_id}`} onClick={this.goToHospitalPage.bind(this, hospital)}><span className="vw-hsptl-di" >(View Hospital)</span></a>
                                     <span className="doc-checkmark"></span>
                                 </label>
                             </div>

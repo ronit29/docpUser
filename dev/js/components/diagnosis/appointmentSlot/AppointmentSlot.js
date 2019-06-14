@@ -34,10 +34,34 @@ class AppointmentSlot extends React.Component {
     proceed(e) {
         e.preventDefault()
         e.stopPropagation()
-        
+        let selectedDate = null
         // in case of reschedule go back , else push
         if(Object.values(this.state.selectedTimeSlot).length){
             this.selectTimeSlot(this.state.selectedTimeSlot)
+            selectedDate = this.state.selectedTimeSlot.date
+        }
+
+        let data = {}
+        let selected_test_id = []
+        const parsed = queryString.parse(this.props.location.search)
+        let patient = null
+        let profile = null
+        if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
+            patient = this.props.profiles[this.props.selectedProfile]
+            profile = patient.id
+        }
+        // in case of upload prescription
+        if(parsed.is_insurance && parsed.is_insurance == 'true'){
+            if(this.props.selectedCriterias && this.props.selectedCriterias.length > 0){
+                this.props.selectedCriterias.map((twp, i) => {
+                    selected_test_id.push(twp.id)
+                })
+            }
+            data.start_date = selectedDate?selectedDate:this.props.selectedSlot && this.props.selectedSlot.date?this.props.selectedSlot.date:new Date()
+            data.lab_test = selected_test_id
+            data.lab = this.props.selectedLab
+            data.profile = profile
+            this.props.preBooking(data)
         }
 
         if (this.state.reschedule) {
@@ -94,8 +118,7 @@ class AppointmentSlot extends React.Component {
             date = ''
         }
         this.props.getLabTimeSlots(selectedLab, this.state.pickupType, pincode||'', date, (data) => {
-            let { time_slots } = data
-            this.setState({ timeSlots: time_slots.time_slots ||null, upcoming_slots: time_slots.upcoming_slots|| null, is_thyrocare: time_slots.is_thyrocare})
+            this.setState({ timeSlots: data.timeslots ||null, upcoming_slots: data.upcoming_slots|| null, is_thyrocare: data.is_thyrocare})
         })
     }
 

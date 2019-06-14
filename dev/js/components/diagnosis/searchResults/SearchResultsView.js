@@ -2,7 +2,7 @@ import React from 'react';
 
 import LabsList from '../searchResults/labsList/index.js'
 import CriteriaSearch from '../../commons/criteriaSearch'
-import TopBar from './topBar'
+import TopBar from './newTopBar'
 import NAVIGATE from '../../../helpers/navigate/index.js';
 import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
@@ -27,7 +27,8 @@ class SearchResultsView extends React.Component {
             showError: false,
             showChatWithus: false,
             search_id: '',
-            setSearchId: false
+            setSearchId: false,
+            quickFilter: {}
         }
     }
 
@@ -212,7 +213,7 @@ class SearchResultsView extends React.Component {
             window.ON_LANDING_PAGE = false
         }
 
-
+        this.resetQuickFilters()
         let search_id_data = Object.assign({}, this.props.search_id_data)
         const parsed = queryString.parse(this.props.location.search)
 
@@ -245,12 +246,20 @@ class SearchResultsView extends React.Component {
             lat = parseFloat(parseFloat(lat).toFixed(6))
             long = parseFloat(parseFloat(long).toFixed(6))
         }
-
+/*
         let min_distance = filterCriteria.distanceRange[0]
         let max_distance = filterCriteria.distanceRange[1]
         let min_price = filterCriteria.priceRange[0]
         let max_price = filterCriteria.priceRange[1]
         let sort_on = filterCriteria.sort_on || ""
+*/
+        let sort_on = filterCriteria.sort_on || ""
+        let sort_order = filterCriteria.sort_order || ""
+        let availability = filterCriteria.availability || []
+        let avg_ratings = filterCriteria.avg_ratings || ''
+        let home_visit = filterCriteria.home_visit || false
+        let lab_visit = filterCriteria.lab_visit || false
+
         let lab_name = filterCriteria.lab_name || ""
         let network_id = filterCriteria.network_id || ""
         let is_insured = filterCriteria.is_insured || false
@@ -260,23 +269,23 @@ class SearchResultsView extends React.Component {
         //Check if any filter applied 
         let is_filter_applied = false
 
-        if (parseInt(min_price) != 0) {
-            is_filter_applied = true
-        }
-
-        if (parseInt(max_price) != 20000) {
-            is_filter_applied = true
-        }
-
-        if (parseInt(min_distance) != 0) {
-            is_filter_applied = true
-        }
-
-        if (parseInt(max_distance) != 15) {
-            is_filter_applied = true
-        }
-
         if (sort_on) {
+            is_filter_applied = true
+        }
+
+        if(availability && availability.length) {
+            is_filter_applied = true
+        }
+
+        if(avg_ratings && avg_ratings.length) {
+            is_filter_applied = true
+        }
+
+        if(home_visit) {
+            is_filter_applied = true
+        }
+
+        if(lab_visit) {
             is_filter_applied = true
         }
 
@@ -292,7 +301,7 @@ class SearchResultsView extends React.Component {
 
         if (is_filter_applied || !this.state.seoFriendly) {
 
-            url = `${window.location.pathname}?test_ids=${testIds || ""}&min_distance=${min_distance}&lat=${lat}&long=${long}&min_price=${min_price}&max_price=${max_price}&sort_on=${sort_on}&max_distance=${max_distance}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&search_id=${this.state.search_id}&is_insured=${is_insured}`
+            url = `${window.location.pathname}?test_ids=${testIds || ""}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&home_visit=${home_visit}&lab_visit=${lab_visit}&avg_ratings=${avg_ratings}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&search_id=${this.state.search_id}&is_insured=${is_insured}`
             is_params_exist = true
 
         } else if (this.state.seoFriendly) {
@@ -322,6 +331,14 @@ class SearchResultsView extends React.Component {
             description = seoData.description || ""
         }
         return { title, description }
+    }
+
+    resetQuickFilters(){
+        this.setState({quickFilter: {}})
+    }
+
+    applyQuickFilter(filter) {
+        this.setState({quickFilter: filter})
     }
 
     render() {
@@ -363,8 +380,9 @@ class SearchResultsView extends React.Component {
                 <CriteriaSearch {...this.props} checkForLoad={landing_page || this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchLabs={true}>
                     {
                         this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
-                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} lab_card={!!this.state.lab_card} seoFriendly={this.state.seoFriendly} />
-                            <ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} lab_card={!!this.state.lab_card} seoFriendly={this.state.seoFriendly} />
+                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} lab_card={!!this.state.lab_card} seoFriendly={this.state.seoFriendly} quickFilter={this.state.quickFilter} resetQuickFilters={this.resetQuickFilters.bind(this)}/>
+                            {/*<ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} lab_card={!!this.state.lab_card} seoFriendly={this.state.seoFriendly} />
+                            */}
                             {/*
                         <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                             <img src={ASSETS_BASE_URL + "/img/banners/banner_lab.png"} className="banner-img" />
@@ -383,31 +401,47 @@ class SearchResultsView extends React.Component {
                                 </div> : ""
                             } */}
 
-                            <LabsList {...this.props} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} />
-
                             {
-                                this.state.seoFriendly && show_pagination ? <div className="art-pagination-div">
-                                    {
-                                        prev ? <a href={prev} >
-                                            <div className="art-pagination-btn">
-                                                <span className="fw-500">{curr_page - 1}</span>
-                                            </div>
-                                        </a> : ""
-                                    }
-
-                                    <div className="art-pagination-btn">
-                                        <span className="fw-500" style={{ color: '#000' }}>{curr_page}</span>
+                                this.props.labList && this.props.labList.length ==0?
+                                <div className="container-fluid cardMainPaddingRmv">
+                                    <div className="pkg-card-container mt-20 mb-3">
+                                        <div className="pkg-no-result">
+                                            <p className="pkg-n-rslt">No result found!</p>
+                                            <img className="n-rslt-img" src={ASSETS_BASE_URL + '/img/no-result.png'} />
+                                            <p className="pkg-ty-agn cursor-pntr" onClick={this.applyQuickFilter.bind(this, {viewMore: true})}>Try again with fewer filters</p>
+                                        </div>
                                     </div>
+                                </div>
+                                :<React.Fragment>
+
+                                    <LabsList {...this.props} applyFilters={this.applyFilters.bind(this)} getLabList={this.getLabList.bind(this)} lab_card={!!this.state.lab_card} applyQuickFilter={this.applyQuickFilter.bind(this)}/>
 
                                     {
-                                        next ? <a href={next} >
+                                        this.state.seoFriendly && show_pagination ? <div className="art-pagination-div">
+                                            {
+                                                prev ? <a href={prev} >
+                                                    <div className="art-pagination-btn">
+                                                        <span className="fw-500">{curr_page - 1}</span>
+                                                    </div>
+                                                </a> : ""
+                                            }
+
                                             <div className="art-pagination-btn">
-                                                <span className="fw-500">{curr_page + 1}</span>
+                                                <span className="fw-500" style={{ color: '#000' }}>{curr_page}</span>
                                             </div>
-                                        </a> : ""
+
+                                            {
+                                                next ? <a href={next} >
+                                                    <div className="art-pagination-btn">
+                                                        <span className="fw-500">{curr_page + 1}</span>
+                                                    </div>
+                                                </a> : ""
+                                            }
+
+                                        </div> : ""
                                     }
 
-                                </div> : ""
+                                </React.Fragment>
                             }
 
                         </div>
