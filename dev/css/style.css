@@ -10793,8 +10793,10 @@ margin-left: 5px;
     border-radius: 4px;
     margin: 0 15px 15px 0;
     cursor: pointer;
-	font-weight: 500;
-	border-color: rgba(0, 0, 0, .12);
+    font-weight: 500;
+    border: 1px solid;
+    min-width: 45px;
+    border-color: rgba(0, 0, 0, .12);
 }
 .label-names-buttons.btn-active{
 	color: white;
