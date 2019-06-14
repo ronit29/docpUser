@@ -4840,6 +4840,44 @@ font-weight: 700;
     border-right: 1px solid rgba(0,0,0,.2);
     padding-right: 6px;
 }
+.dob-select-div{
+    padding: 9px 0 8px 44px;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: .25rem;
+}
+.dob-select-div select{
+    border: none;
+    outline: none;
+    background-color: #fff;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    color: #464a4c;
+    margin-right: 15px;
+}
+.dob-select-div select:active, .dob-select-div select:focus{
+    outline: none;
+    border: none;
+}
+.dob-select-div select::-ms-expand {
+    display: none;
+}
+.dob-select{
+    position: relative;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.dob-down-icon{
+    position: absolute !important;
+    top: unset !important;
+    width: 10px !important;
+    bottom: unset !important;
+    margin: unset !important;
+    left: unset !important;
+    border-right: none !important;
+    padding-right: 0 !important;
+    margin-left: 2px !important;
+}
 p.error-msg.subAlertins{
 	margin-top: 8px;
     border-top: 1px solid #f1f1f1;
@@ -8971,7 +9009,7 @@ ul.careListing li {
 .ins-card-head{
 	display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding: 10px 4px;
 }
 .ins-name-head{
 	display: flex;
@@ -8991,11 +9029,49 @@ ul.careListing li {
 	font-weight: 600;
 	display: block;
 }
+.ins-name-head-div{
+    flex: 1;
+}
+.ins-name-head-div p{
+    font-size: 14px;
+    margin-left: 5px;
+}
 .ins-pdf-dwnload{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+.ins-pdf-dwnload-div{
+    flex-direction: column;
+    width: 82px;
+    padding-left: 5px;
+}
+.ins-pdf-dwnload-div img{
+    width: 30px;
+    height: 34px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+.ins-pdf-dwnload-div span{
+    flex: 0;
+    font-size: 12px;
+}
+.ins-form-info{
+    flex: 1;
+    flex-direction: column;
+    padding: 0 4px;
+}
+.ins-form-info:first-child{
+    border-right: 1px solid #ddd;
+}
+.ins-form-info p{
+    color: #757575;
+    font-size: 14px;
+}
+.ins-form-info p:last-child{
+    color: #000;
 }
 .memNew{
     color: white;
@@ -10421,12 +10497,14 @@ ul,li{
     padding-right: 6px;
   }
   .ins-status-container{
-	  margin-bottom: 5px;
+      margin-bottom: 5px;
+      background-color: #ffffff;
+      margin-left: -5px;
+      margin-right: -5px;
   }
 
   .ins-status-container .navigation_menu {
 	width: 100%;
-    background: #f7f7f7;
     padding-top: 7px;
     padding-bottom: 0px;
   }
@@ -10524,7 +10602,6 @@ ul,li{
 	border-color: #4fc243;
     background-color: #4fc243;
     color: #fff;
-    content: "\2713";
   } 
   
   
@@ -10565,12 +10642,22 @@ margin-left: 5px;
 .ins-form-radio {
     display: flex;
 }
-
+@media(min-width:768px){
+    .no-gutters.dsktp-row-gutter{
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+    .no-gutters.dsktp-row-gutter>.col, .no-gutters.dsktp-row-gutter>[class*=col-]{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
 .ins-form-radio .dtl-radio {
     margin-right: 20px;
 }
 .ins-form-radio .container-radio{
-	font-size: 14px;
+    font-size: 14px;
+    color: #757575;
 }
 .ins-form-radio .doc-checkmark{
 	top:1px
@@ -10623,19 +10710,35 @@ margin-left: 5px;
 .ins-cancel-table{
 	margin: 10px 0;
 }
+.plcy-cancel-div{
+    background-color: rgba(255, 217, 100, .4);
+    padding: 3px 8px;
+    border-radius: 5px;
+}
 .plcy-cancel{
-margin-bottom: 10px;
-font-size: 11px;
-color: #F44336;
+    margin-bottom: 10px;
+    font-size: 11px;
+    color: #F44336;
+}
+.plcy-cancel-div .plcy-cancel{
+    color: #000000;
 }
 .pt-2{
-padding-top: 2px;
+    padding-top: 2px;
+}
+.small-checkmark{
+    height: 16px !important;
+    width: 16px !important;
+}
+.small-checkmark:after{
+    left: 5px !important;
+    top: 2px !important;
 }
 /* =================== insurance style =================== */
 
 /* ==========================fourth screen========================== */
 .ins-dtls-members-edit{
-font-weight: 500
+    font-weight: 500
 }
 .ins-dtls-members-edit span{
 	color: #e37c4d;
@@ -10684,14 +10787,18 @@ font-weight: 500
 .section-margin-bottom{
 	margin-bottom: 35px;
 }
+
+
 .label-names-buttons {
-    padding: 10px 10px;
+    padding: 8px 8px;
     background: none;
     border-radius: 4px;
     margin: 0 15px 15px 0;
     cursor: pointer;
-	font-weight: 500;
-	border-color: rgba(0, 0, 0, .12);
+    font-weight: 500;
+    border: 1px solid;
+    min-width: 45px;
+    border-color: rgba(0, 0, 0, .12);
 }
 .label-names-buttons.btn-active{
 	color: white;
@@ -11038,10 +11145,11 @@ div.ins-form-radio.insradio-on-popup{
     border-radius: 5px;
 }
 .fill-error-span{
-	display: inline-block;
+    display: inline-block;
     margin-top: -22px;
-    color: #f78361;
-    font-weight: 400;
+    color: rgb(244, 67, 54);
+    font-size: 11px;
+    font-weight: 500;
 }
 .fill-error-span-child{
 	align-items: flex-end;

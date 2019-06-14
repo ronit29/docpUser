@@ -239,11 +239,11 @@ class Insurance extends React.Component {
                     	title: 'OPD Insurance | Buy OPD Insurance Cover | OPD Cover',
                     	description: 'OPD Insurance: Buy OPD insurance cover & get cashless benefits on lab tests & doctor consultation with a network of over 15000 doctors and 2000 labs.'
                 	}} noIndex={false} />                
-					<section className="container container-top-margin">
-						<div className="row main-row parent-section-row">
+					<section className="container container-top-margin cardMainPaddingRmv">
+						<div className="row no-gutters dsktp-row-gutter">
 							<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
 								<section className="profile-book-screen" style={{position:'relative'}}>
-									<div className="widget">
+									<div>
 										{/*<div>
                                     <span style={{ cursor: 'pointer' }} onClick={this.shortenUrl.bind(this)}>
                                         <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
@@ -271,30 +271,32 @@ class Insurance extends React.Component {
 										}
 										<InsurCommon {...this.props} isSelectPlan={true} is_checked={this.state.is_checked} />
 										{/* coverage listing */}
-										<div className="coverage-list-container border-bg-transprant">
-											<table className="table table-bordered insurance-tbl insurance-checkboxes">
-												<thead>
-													<tr>
-														<th className="tbl-first-head"><p>Coverage (1 Year)</p></th>
-														<th className="tbl-second-head"><p>Annual Premium</p></th>
-													</tr>
-												</thead>
-												<tbody>
-													{
-														this.props.insurnaceData['insurance'][0].plans.map((result, i) => {
-															return <tr id={result.id} key={i} onClick={this.selectPlan.bind(this, result)} ref={result.adult_count == 2 && result.child_count == 2 ? (input) => { this.textInput = input } : 'ref_0'}>
-																<td>
-																	<label className="container-radio" htmlform={i} >{result.name}
-																		<input type="radio" name="gender" id={i} value={i} checked={this.state.is_checked ? this.state.is_checked === result.id : result.is_selected} />
-																		<span className="doc-checkmark"></span>
-																	</label>
-																</td>
-																<td><span>₹ {result.amount}</span></td>
-															</tr>
-														})
-													}
-												</tbody>
-											</table>
+										<div className="widget mrt-20">
+											<div className="coverage-list-container border-bg-transprant">
+												<table className="table table-bordered insurance-tbl insurance-checkboxes">
+													<thead>
+														<tr>
+															<th className="tbl-first-head"><p>Coverage (1 Year)</p></th>
+															<th className="tbl-second-head"><p>Annual Premium</p></th>
+														</tr>
+													</thead>
+													<tbody>
+														{
+															this.props.insurnaceData['insurance'][0].plans.map((result, i) => {
+																return <tr id={result.id} key={i} onClick={this.selectPlan.bind(this, result)} ref={result.adult_count == 2 && result.child_count == 2 ? (input) => { this.textInput = input } : 'ref_0'}>
+																	<td>
+																		<label className="container-radio" htmlform={i} >{result.name}
+																			<input type="radio" name="gender" id={i} value={i} checked={this.state.is_checked ? this.state.is_checked === result.id : result.is_selected} />
+																			<span className="doc-checkmark"></span>
+																		</label>
+																	</td>
+																	<td><span>₹ {result.amount}</span></td>
+																</tr>
+															})
+														}
+													</tbody>
+												</table>
+											</div>
 										</div>
 										{/* coverage listing */}										
 									</div>
