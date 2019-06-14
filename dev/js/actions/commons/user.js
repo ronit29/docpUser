@@ -640,9 +640,22 @@ export const saveChatFeedBack = (ques, data)  => (dispatch) => {
 export const submitChatFeedback = (postData) => (dispatch) => {
 
 	return API_POST(`${CONFIG.CHAT_API_UTILITY_API}/postfeedback`, postData).then(function (response) {
+
+		let gtmData = {
+
+            'Category': 'Chat', 'Action': 'ChatFeedBackSubmittedSuccess', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-feedback-submitted-success'
+        }
+        GTM.sendEvent({ data: gtmData })
+
 		dispatch({
 			type: SUBMIT_CHAT_FEEDBACK
 		})
+	}).catch( function(e){
+		let gtmData = {
+
+            'Category': 'Chat', 'Action': 'ChatFeedBackApiSumittedError', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-feedback-api-failed'
+        }
+        GTM.sendEvent({ data: gtmData })
 	})
 }
 

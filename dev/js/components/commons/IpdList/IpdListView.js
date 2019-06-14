@@ -23,7 +23,7 @@ class TestsListView extends React.Component {
 
     updateData(index) {
         let character = this.getCharacter(index)
-        this.props.getIPDAlphabetically(character)
+        this.props.getIPDAlphabetically(character, this.props.selectedLocation)
     }
 
     alphabetClick(index) {
