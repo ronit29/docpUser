@@ -128,7 +128,7 @@ class InsuranceSelf extends React.Component{
 					this.getUserDetails(profile)
     		}	    	
     	}else{
-
+    		this.populateDates()
     	}
     }
 
@@ -154,6 +154,8 @@ class InsuranceSelf extends React.Component{
 	    	this.setState({year:oldDate[0],mnth:oldDate[1],day:oldDate[2]},()=>{
 	    		this.populateDates()
 	    	})
+	    }else{
+	    	this.populateDates()
 	    }
 	    this.setState({
 	    	disableEmail:!profile.isDummyUser && profile.email != ''?true:false,
