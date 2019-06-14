@@ -230,7 +230,9 @@ class Insurance extends React.Component {
 	}
 
 	render() {
+		let parsed = queryString.parse(this.props.location.search)
 		if (this.props.LOAD_INSURANCE) {
+			let parsed = queryString.parse(this.props.location.search)
 			return (
 				<div className="profile-body-wrap">
 					<ProfileHeader />
@@ -310,7 +312,20 @@ class Insurance extends React.Component {
 									<InsurPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} popupClass={this.state.popupClass} overlayClass={this.state.overlayClass} identifyUserClick={this.state.identifyUserClick}/> : ''
 								}
 								{
-									STORAGE.checkAuth() ?
+									parsed.show_button?
+									<div className="sticky-btn fixed insuBtnsContainer">
+											<button className="insu-left-white-btn" onClick={()=>this.props.history.go(-1)}>Back to Booking
+											</button>
+											{
+												STORAGE.checkAuth()?
+												<button className="insu-right-orng-btn" onClick={this.proceedPlan.bind(this)}>Proceed {this.state.selected_plan_price} <span className="foot-btn-sub-span">{this.state.gst}</span>
+												</button>
+												:
+												<button className="insu-right-orng-btn" id="proceedLead" onClick={this.proceedLead.bind(this, 'proceed')}>Proceed {this.state.selected_plan_price} <span className="foot-btn-sub-span">{this.state.gst}</span>
+												</button>
+											}
+									</div>	
+									:STORAGE.checkAuth()?
 										<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Proceed {this.state.selected_plan_price} <span className="foot-btn-sub-span">{this.state.gst}</span>
 										</button>
 										:

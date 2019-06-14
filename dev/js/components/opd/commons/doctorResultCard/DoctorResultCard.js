@@ -206,6 +206,7 @@ class DoctorProfileCard extends React.Component {
                 avgGoogleRating = google_rating.avg_rating
                 googleRatingCount = google_rating.rating_count || ''
             }
+            let is_insurance_buy_able = hospital.is_insurance_covered && !hospital.is_user_insured && deal_price <= hospital.insurance_threshold_amount
 
             return (
                 <div className="cstm-docCard mb-3">
@@ -303,6 +304,17 @@ class DoctorProfileCard extends React.Component {
                                 }
                             </div>
                         </div>
+                        {
+                        is_insurance_buy_able?
+                        <div className="ins-buyable">
+                            <p>Book this appointment & all future appointments for ₹ 0 with OPD insurance</p>
+                            <span style={{cursor:'pointer'}} onClick={(e)=>{
+                                e.stopPropagation()
+                                this.props.history.push('/insurance/insurance-plans?source=doctor-listing&show_button=true')
+                            }}>Know more</span>
+                        </div>
+                        :''
+                        }
                     </div>
                     <div className="cstmCardFooter">
                         <div className="cstmfooterContent">
