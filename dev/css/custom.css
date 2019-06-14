@@ -1904,6 +1904,16 @@ span.opd-ins-avl img{
 	width: 7px;
     margin-left: 10px;
 }
+.doc-insu-prfl-img img {
+    width: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.upd-colr{
+    font-weight: 500;
+    font-size: 12px;
+    color: #F78631;
+}
 /* ============ details opd  ============ */
 /* ============ new hospital card ============ */
 .nw-hsp-crd-heading{

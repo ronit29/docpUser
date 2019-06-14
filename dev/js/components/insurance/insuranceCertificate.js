@@ -9,38 +9,38 @@ class InsuranceCertificateView extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			showCancelPopup:false
+			showCancelPopup: false
 		}
 	}
 
 	getGetOrdinal(n) {
-   	var s=["th","st","nd","rd"],
-       	v=n%100;
-   		return n+(s[(v-20)%10]||s[v]||s[0]);
+		var s = ["th", "st", "nd", "rd"],
+			v = n % 100;
+		return n + (s[(v - 20) % 10] || s[v] || s[0]);
 	}
 
-	cancelPolicy(){
-		if(this.props.get_insured_profile && this.props.get_insured_profile.is_cancel_allowed){
+	cancelPolicy() {
+		if (this.props.get_insured_profile && this.props.get_insured_profile.is_cancel_allowed) {
 			this.props.history.push('/insurance/cancelpolicy')
-		}else{
-			this.setState({showCancelPopup:true})
+		} else {
+			this.setState({ showCancelPopup: true })
 		}
 	}
 
-	hideCancelPolicyPopup(){
-		this.setState({showCancelPopup:false})
+	hideCancelPolicyPopup() {
+		this.setState({ showCancelPopup: false })
 	}
 
-	goToEndorsement(){
+	goToEndorsement() {
 		this.props.clearInsurance()
 		this.props.history.push('/insurance/insurance-endorsement-details')
 	}
 
-	goToBooking(){
-		if(this.props.avail_now_data && Object.keys(this.props.avail_now_data).length > 0){
-			if(this.props.avail_now_data.type == 'lab'){
+	goToBooking() {
+		if (this.props.avail_now_data && Object.keys(this.props.avail_now_data).length > 0) {
+			if (this.props.avail_now_data.type == 'lab') {
 				this.props.history.push(`/lab/${this.props.avail_now_data.id}/book`)
-			}else{
+			} else {
 				this.props.history.push(`/opd/doctor/${this.props.avail_now_data.id}/${this.props.avail_now_data.selectedClinic}/bookdetails`)
 			}
 		}
@@ -51,9 +51,9 @@ class InsuranceCertificateView extends React.Component {
 			let primaryMember
 			let FamilyMembers
 			{
-				primaryMember = this.props.get_insured_profile.insured_members.filter(x=>x.relation=='self')
-				FamilyMembers = this.props.get_insured_profile.insured_members.filter(x=>x.relation !='self')
-				
+				primaryMember = this.props.get_insured_profile.insured_members.filter(x => x.relation == 'self')
+				FamilyMembers = this.props.get_insured_profile.insured_members.filter(x => x.relation != 'self')
+
 			}
 			var purchase_date = new Date(this.props.get_insured_profile.purchase_date)
 			let purchase_time = purchase_date.toTimeString()
@@ -67,21 +67,21 @@ class InsuranceCertificateView extends React.Component {
 			let expiryDate = expiry_date.split(" ")
 			return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
 				<ProfileHeader />
-				{this.state.showCancelPopup?
+				{this.state.showCancelPopup ?
 					<section className="error-msg-pop">
-		                <div className="cancel-overlay"></div>
-		                <div className="popup-error" style={{ width: '300px' }}>
-		                    <div className="error-head"><img className="errorInfoImg" src={ASSETS_BASE_URL + "/img/infoerror.svg"} />{"Alert"}</div>
-		                    <div className="cross-btn">
-		                        <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" onClick={this.hideCancelPolicyPopup.bind(this)} />
-		                    </div>
-		                    <p className="error-msg">Your policy cannot be cancelled as you have already completed atleast 1 claim under your policy</p>
-		                    <p className="error-msg subAlertins">for any other query you can call us at <span>
-		                    	1800-123-9419
+						<div className="cancel-overlay"></div>
+						<div className="popup-error" style={{ width: '300px' }}>
+							<div className="error-head"><img className="errorInfoImg" src={ASSETS_BASE_URL + "/img/infoerror.svg"} />{"Alert"}</div>
+							<div className="cross-btn">
+								<img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" onClick={this.hideCancelPolicyPopup.bind(this)} />
+							</div>
+							<p className="error-msg">Your policy cannot be cancelled as you have already completed atleast 1 claim under your policy</p>
+							<p className="error-msg subAlertins">for any other query you can call us at <span>
+								1800-123-9419
 		                    </span></p>
-		                </div>
-		            </section>
-                :''
+						</div>
+					</section>
+					: ''
 				}
 				<section className="container parent-section book-appointment-section container-top-margin">
 					<div className="row main-row parent-section-row">
@@ -135,22 +135,22 @@ class InsuranceCertificateView extends React.Component {
 								</section>*/}
 								<div className="widget">
 									<div className="widget-content">
-										{this.props.get_insured_profile?
-										<div>
-											<p className="fw-500 ins-congo-text text-primary text-center mrb-10">Congratulations !</p>
-											<p className="fw-500 text-center mrb-10">Your Group Out-patient Insurance has been issued</p>
-										</div>
-										:''}
+										{this.props.get_insured_profile ?
+											<div>
+												<p className="fw-500 ins-congo-text text-primary text-center mrb-10">Congratulations !</p>
+												<p className="fw-500 text-center mrb-10">Your Group Out-patient Insurance has been issued</p>
+											</div>
+											: ''}
 										<div className="ins-flex mrb-20">
 											<img width="100" src="https://qacdn.docprime.com/media/insurer/images/apllogo.png" />
 											{/*<p className="fw-500">OPD Insurance <br />by <span className="fw-700">Apollo Munich</span></p>*/}
 											<p className="fw-500">Group Out-patient Insurance</p>
-											{this.props.get_insured_profile?
-												<div style={{flexGrow:'0',flexShrink: '0'}}>
+											{this.props.get_insured_profile ?
+												<div style={{ flexGrow: '0', flexShrink: '0' }}>
 													<img width="30" src={ASSETS_BASE_URL + "/img/chk-green.svg"} style={{ verticalAlign: '-31px' }} />
 													<span className="fw-500" style={{ color: '#4fc243', verticalAlign: '-21px' }} >Active</span>
 												</div>
-												:''
+												: ''
 											}
 										</div>
 										{/*this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 4?
@@ -163,8 +163,8 @@ class InsuranceCertificateView extends React.Component {
 											<img src={ASSETS_BASE_URL + '/img/customer-icons/pdf.png'} />
 											<p className="fw-500 mr-0">Please find attached the certificate of insurance for the issued policy</p>
 										</div>*/}
-										<div style={{display:'flex',alignItems:'center',justifyContent:'flex-end'}}>
-											<a style={{fontWeight: '500',fontSize: '12px',color:'#f78631',textDecoration: 'underline',cursor: 'pointer'}} href='/insurance/network' onClick={(e)=>{
+										<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+											<a style={{ fontWeight: '500', fontSize: '12px', color: '#f78631', textDecoration: 'underline', cursor: 'pointer' }} href='/insurance/network' onClick={(e) => {
 												e.preventDefault();
 												this.props.history.push('/insurance/network')
 											}}>View Network</a>
@@ -208,67 +208,72 @@ class InsuranceCertificateView extends React.Component {
 												</div>
 												<div className="col-6 ins-details-div">
 													{
-														primaryMember && primaryMember.length > 0?
+														primaryMember && primaryMember.length > 0 ?
 															<p key={0} style={{ 'textTransform': 'capitalize' }} className="ins-bl-text fw-500">
 																<span className="fw-400">{primaryMember[0].relation} : - </span>
 																{primaryMember[0].first_name} {primaryMember[0].middle_name} {primaryMember[0].last_name}
-																</p>
-														:''
+															</p>
+															: ''
 													}
-													
-														{Object.entries(FamilyMembers).map(function ([key, value]) {
-															return  <p key={key} style={{ 'textTransform': 'capitalize' }} className="ins-bl-text fw-500">
-																<span className="fw-400">{value.relation} : - </span>
-																{value.first_name} {value.middle_name} {value.last_name}
-																</p>
-														})}
+
+													{Object.entries(FamilyMembers).map(function ([key, value]) {
+														return <p key={key} style={{ 'textTransform': 'capitalize' }} className="ins-bl-text fw-500">
+															<span className="fw-400">{value.relation} : - </span>
+															{value.first_name} {value.middle_name} {value.last_name}
+														</p>
+													})}
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 								{
-									this.props.get_insured_profile && this.props.get_insured_profile.is_endorsement_allowed?
-									<a className="ins-open-endrs" onClick={this.goToEndorsement.bind(this)}>
-										click here to update insured members details
-									<img className="ins-rgt-endrs" src={ASSETS_BASE_URL + "/img/right-sc.svg"}/> </a>
-									:''
+									this.props.get_insured_profile && this.props.get_insured_profile.is_endorsement_allowed ?
+										<a className="ins-open-endrs" onClick={this.goToEndorsement.bind(this)}>
+											click here to update insured members details
+									<img className="ins-rgt-endrs" src={ASSETS_BASE_URL + "/img/right-sc.svg"} /> </a>
+										: ''
 								}
 								{
-									this.props.avail_now_data && Object.keys(this.props.avail_now_data).length > 0?
-									<div className="widget mrb-15 mrng-top-12" onClick={this.goToBooking.bind(this)}>
-						                <div className="widget-header dr-qucik-info">
-						                    <div style={{cursor:'pointer'}}>
-						                        <InitialsPicture name={this.props.avail_now_data.name} has_image={!!this.props.avail_now_data.thumbnail} className="initialsPicture-dp docCardIntPic">
-						                            <img src={this.props.avail_now_data.thumbnail} style={{width:'60px', height:'60px'}} className="img-fluid img-round"/>
-						                        </InitialsPicture>
-						                    </div>
-						                    <div className="dr-profile">
-						                        <h1 className="dr-name">{this.props.avail_now_data.name}<span className="nwDocViewPrf"></span></h1>
-						                        <p>Continue Booking </p>
-						                    </div>
-						                </div>
-						            </div>
-									:''
+									this.props.avail_now_data && Object.keys(this.props.avail_now_data).length > 0 ?
+										<div className="widget mrb-15 mrng-top-12" onClick={this.goToBooking.bind(this)}>
+											<div className="widget-header dr-qucik-info">
+												<div style={{ cursor: 'pointer' }}>
+													<InitialsPicture name={this.props.avail_now_data.name} has_image={!!this.props.avail_now_data.thumbnail} className="initialsPicture-dp docCardIntPic">
+														<img src={this.props.avail_now_data.thumbnail} style={{ width: '60px', height: '60px' }} className="img-fluid img-round" />
+													</InitialsPicture>
+												</div>
+												<div className="dr-profile d-flex align-items-center justify-content-between">
+													<div>
+														<h1 className="dr-name">{this.props.avail_now_data.name}<span className="nwDocViewPrf"></span></h1>
+														<p className="upd-colr">Continue Booking </p>
+													</div>
+													<div className="doc-insu-prfl-img">
+														<img src={ASSETS_BASE_URL + '/img/right-sc.svg'} />
+													</div>
+												</div>
+											</div>
+										</div>
+										: ''
 								}
 								{
-									this.props.get_insured_profile && this.props.get_insured_profile.is_endorsement_exist?
-									<a className="ins-open-endrs" style={{filter:'grayscale(100%)'}} onClick={()=>SnackBar.show({ pos: 'bottom-center', text: 'Your last requested changes are in process. Therefore, we cannot take request for any new changes.'})}>
-										click here to update insured members details
-									<img className="ins-rgt-endrs" src={ASSETS_BASE_URL + "/img/right-sc.svg"}/> </a>
-									:''
+									this.props.get_insured_profile && this.props.get_insured_profile.is_endorsement_exist ?
+										<a className="ins-open-endrs" style={{ filter: 'grayscale(100%)' }} onClick={() => SnackBar.show({ pos: 'bottom-center', text: 'Your last requested changes are in process. Therefore, we cannot take request for any new changes.' })}>
+											click here to update insured members details
+									<img className="ins-rgt-endrs" src={ASSETS_BASE_URL + "/img/right-sc.svg"} /> </a>
+										: ''
 								}
 							</section>
 							{
-								this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 1?
+								this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 1 ?
 									<div className="sticky-btn fixed insuBtnsContainer">
-										<button className="insu-left-white-btn" onClick={this.cancelPolicy.bind(this)} style={{color:this.props.get_insured_profile.is_cancel_allowed?'#f78631':'#757575' }}>Cancel Policy
+										<button className="insu-left-white-btn" onClick={this.cancelPolicy.bind(this)} style={{ color: this.props.get_insured_profile.is_cancel_allowed ? '#f78631' : '#757575' }}>Cancel Policy
 										</button>
 										<a className="insu-right-orng-btn foot-btn-Anchr" href={this.props.get_insured_profile.coi_url} download target="_blank">Download Certificate of Insurance <span className="foot-btn-sub-span">(Policy Document)</span>
 										</a>
 									</div>
-							:''}
-								{/*<a onClick={this.cancelPolicy.bind(this)}>
+									: ''}
+							{/*<a onClick={this.cancelPolicy.bind(this)}>
 									cancel policy
 								</a>
 								<a className={"v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn text-center" +(this.props.showBtn?'ins-no-download':'')} style={{ color: "#ffffff" }} href={this.props.get_insured_profile.coi_url} download target="_blank">
@@ -282,7 +287,7 @@ class InsuranceCertificateView extends React.Component {
 		} else {
 			return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
 				<ProfileHeader />
-				<Loader/>
+				<Loader />
 			</div>
 		}
 
