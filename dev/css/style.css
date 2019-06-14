@@ -4846,14 +4846,15 @@ font-weight: 700;
     border-radius: .25rem;
 }
 .dob-select-div select{
-    border: none;
+        border: none;
     outline: none;
-    background-color: #fff;
+    background-color: transparent;
     -webkit-appearance: none;
     -moz-appearance: none;
     text-indent: 1px;
     color: #464a4c;
-    margin-right: 15px;
+    padding-right: 15px;
+    z-index: 1;
 }
 .dob-select-div select:active, .dob-select-div select:focus{
     outline: none;
