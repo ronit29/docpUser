@@ -16,7 +16,7 @@ class HospitalCard extends React.Component {
             <li className="cstm-docCard mb-3">
                <div className="cstm-docCard-content">
                   <div className="row no-gutters">
-                     <div className="col-8">
+                     <div className="col-7">
                         <a href={`${data.url ? data.url : `/ipd/hospital/${data.id}`}`} onClick={(e) => {
                         e.preventDefault()
                         this.props.getHospitalDetailPage(data.id, data.url || null)
@@ -41,7 +41,7 @@ class HospitalCard extends React.Component {
                            <span>(5)</span>
                         </div>*/}
                      </div>
-                     <div className="col-4">
+                     <div className="col-5">
                         <div className="nw-hsptl-rgt-content">
                            <div className="nw-hsp-crd-beds">
                               {
@@ -59,11 +59,11 @@ class HospitalCard extends React.Component {
                            </div>
                            <div className="nw-hsp-crd-crd-btn">
                               {
-                                 data.count_of_insurance_provider?
+                                 false && data.count_of_insurance_provider?
                                  <p className="nw-hsp-crd-green" /*style={{cursor:'pointer'}} onClick={this.toggleProviderPopup.bind(this, data.insurance_provider)}*/><img src={ASSETS_BASE_URL + '/img/chk-green.svg'} />{`${data.count_of_insurance_provider} Insurance Providers`}</p>
                                  :''
                               }                             
-                              <a href="javascript:void(0);" onClick={() => this.props.getCostEstimateClicked(data.id)}><button className="cstm-book-btn">View Details</button></a>
+                              <a href="javascript:void(0);" onClick={() => this.props.getCostEstimateClicked(data.id)}><button className="cstm-book-btn">Get Cost Estimate</button></a>
                            </div>
                         </div>
                      </div>

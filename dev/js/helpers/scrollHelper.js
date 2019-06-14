@@ -20,7 +20,7 @@ class ScrollView extends React.Component {
 			
 			this.addTouchStartEvent(this.props.target)
 			this.addTouchMoveEvent(this.props.target)
-			this.addTouchEndEvent(target)	
+			this.addTouchEndEvent(this.props.target)	
 			this.setState({setTarget: true})
 		}
 		
