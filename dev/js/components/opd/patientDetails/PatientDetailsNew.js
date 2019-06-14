@@ -936,7 +936,7 @@ class PatientDetailsNew extends React.Component {
 
                                                                     {
                                                                         is_insurance_buy_able ?
-                                                                            <div className="test-report payment-detail mt-20">
+                                                                            <div className="test-report payment-detail mt-20 p-relative">
                                                                                 <div className="d-flex justify-content-between align-items-sm-center">
                                                                     <div className="opd-ins-title-sub">
                                                                         <h4 className="title coupon-text">Get OPD Insurance & book for <span>FREE</span></h4>
@@ -946,6 +946,7 @@ class PatientDetailsNew extends React.Component {
                                                                         <span className="opd-ins-avl" onClick={this.goToInsurance.bind(this,this.props.DOCTORS[this.props.selectedDoctor],this.props.selectedClinic)}>Avail Now <img src={ASSETS_BASE_URL +  '/img/right-sc.svg'}/></span>
                                                                     </div>
                                                                 </div>
+                                                                <span className="ins-t-n-c">T&C Apply</span>
                                                                             </div> : ''
                                                                     }
 
