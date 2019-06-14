@@ -208,7 +208,7 @@ class InsuranceOthers extends React.Component {
 			}
 			let oldDate= newProfile.dob.split('-')
 	    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
-	    		this.populateDates(member_id,false)
+	    		this.populateDates(null,false)
 	    	})
 			this.props.selectInsuranceProfile(newProfileid, member_id, newProfile, this.props.param_id)
 			this.setState({
@@ -314,7 +314,6 @@ class InsuranceOthers extends React.Component {
             daysInCurrMonth = this.daysInMonth(month, year);
 		if(daydropdown && monthdropdown && yeardropdown){
 
-			if(toCreateOptions){
 				// Day
 		        for(var i = 1; i <= daysInCurrMonth; i++){
 		          var opt = document.createElement('option');
@@ -343,7 +342,6 @@ class InsuranceOthers extends React.Component {
 		          opt.text = i + year;
 		          yeardropdown.appendChild(opt);
 		        }
-		    }
 
 			// change handler for day
 			daydropdown.onchange = function(){
