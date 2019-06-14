@@ -49,7 +49,7 @@ class VisitTimeNew extends React.Component {
                         
                         </div>
                     </div>
-                    <p className="appmnt-avl">The appointment is subject to the availability of Lab. </p>
+                    <p className="appmnt-avl">The appointment is subject to confirmation from the Lab. </p>
                         {/*
                             this.props.timeError ? <span className="fw-500 time-error nw-error">Required</span> : ''
                         */}
