@@ -236,7 +236,7 @@ class ChoosePatientNewView extends React.Component {
                                             <React.Fragment>
                                                 <button className="input-sms-ver" onClick={()=>this.verify(false,true,false)}>
                                                 <img style={{marginRight:'5px'}} className="sms-ico" src={ASSETS_BASE_URL + '/img/smsicon.svg'} />Verify Via SMS</button>
-                                                <button className="input-sms-whts" onClick={()=>this.verify(false,false,true)}><img style={{marginRight:'5px'}} className="whtsp-ico" src={ASSETS_BASE_URL + '/img/wa-logo-sm.png'} />Verify Via Whatsapp</button>
+                                                <button className="input-sms-whts" onClick={()=>this.verify(false,false,true)}><img style={{marginRight:'5px'}} className="whtsp-ico" src={ASSETS_BASE_URL + '/img/wa-logo-gr.svg'} />Verify Via Whatsapp</button>
                                             </React.Fragment>
                                             : ''
                                     }
@@ -249,7 +249,10 @@ class ChoosePatientNewView extends React.Component {
                                                 <input className="slt-text-input" autoComplete="off" type="number" onKeyPress={this.handleOtpContinuePress.bind(this)} onChange={this.inputHandler.bind(this)} name="otp" placeholder="Enter OTP " />
                                                 <button className="mobile-fill-btn" onClick={this.submitOTPRequest.bind(this)}>Submit</button>
                                             </div>
-                                            <span className="resend-otp-btn" onClick={()=>this.verify(true,this.state.smsBtnType?true:false,!this.state.smsBtnType?true:false)}>Resend OTP</span>
+                                            <div className="d-flex align-items-start justify-content-between">
+                                                <span className="resend-otp-btn" onClick={()=>this.verify(true,this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ?'Send via Whatsapp':'Send via SMS'}</span>
+                                                <span className="resend-otp-btn" style={{color:'#ec0d0d'}} onClick={()=>this.verify(true,this.state.smsBtnType?true:false,!this.state.smsBtnType?true:false)}>Resend</span>
+                                            </div>
                                         </div>
                                         : ''
                                 }

@@ -37,9 +37,9 @@ class HospitalListView extends React.Component {
         GTM.sendEvent({ data: gtmData })
         
         if(url){
-        	this.props.history.push(`/${url}`)
+        	this.props.history.push(`/${url}?fromProcedure=true`)
         }else{
-        	this.props.history.push(`/ipd/hospital/${hospitalId}`)
+        	this.props.history.push(`/ipd/hospital/${hospitalId}?fromProcedure=true`)
         }
    			
    	}

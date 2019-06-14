@@ -76,7 +76,6 @@ class FixedMobileFooter extends React.Component {
     }
 
     render() {
-
         // check if this was the landing page
         let landing_page = false
         if (typeof window == 'object' && window.ON_LANDING_PAGE) {
@@ -95,7 +94,7 @@ class FixedMobileFooter extends React.Component {
         }
         let hide_footer = this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? this.props.ipd_chat.showIpdChat : false
         return (
-            <div className={`mobileViewStaticChat d-md-none ${hide_footer ? 'd-none' : ''}`}>
+            <div className={`mobileViewStaticChat d-md-none ${hide_footer ? 'd-none' : this.props.hideFooter?'smth-ftr-scrl':''}`}>
                 <div className="nw-chat-card">
                     <div className="chat-div-containers" style={this.props.selectedSearchType === 'opd' || this.props.selectedSearchType === 'procedures' ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
                         let data = {
@@ -126,19 +125,33 @@ class FixedMobileFooter extends React.Component {
                             : ''
                     }
 
-                    <div className="chat-div-containers" style={this.props.selectedSearchType === 'lab' ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
+                    {
+                    this.props.common_settings && this.props.common_settings.insurance_availability?
+                        <div className="chat-div-containers" style={this.props.selectedSearchType === 'lab' ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
                         let data = {
                             'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-insurance-clicked'
                         }
                         GTM.sendEvent({ data: data })
                         this.navigateTo('/insurance/insurance-plans?source=mobile-footer-insurance-clicked')
+                        }}>
+                            <div className="nw-img-with-content">
+                                <img style={{ width: '20px' }} className="opdUpico" src={ASSETS_BASE_URL + "/img/opdNewIco.svg"} />
+                            </div>
+                            <span>OPD Insurance</span>
+                            {/* <p className="opdNewShow">New</p> */}
+                        </div>
+                    :<div className="chat-div-containers" style={this.props.selectedSearchType === 'lab' ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
+                        let data = {
+                            'Category': 'ConsumerApp', 'Action': 'MobileFooterBookDoctorsClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-book-doctors-clicked'
+                        }
+                        GTM.sendEvent({ data: data })
+                        this.navigateTo('/search?from=home', 'lab')
                     }}>
                         <div className="nw-img-with-content">
-                            <img style={{ width: '20px' }} className="opdUpico" src={ASSETS_BASE_URL + "/img/opdNewIco.svg"} />
+                            <img width="22px" src={ASSETS_BASE_URL + "/img/flask.svg"} />
                         </div>
-                        <span>OPD Insurance</span>
-                        {/* <p className="opdNewShow">New</p> */}
-                    </div>
+                        <span>Book Lab Tests</span>
+                    </div>}
 
                     <div className="chat-div-containers" style={{ width: "36%", paddingTop: 0 }} onClick={() => {
                         let data = {

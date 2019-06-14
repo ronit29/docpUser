@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType, getOfferList, toggleOPDCriteria, selectLabAppointmentType, selectLabTimeSLot, resetPkgCompare, togglecompareCriteria } from '../../actions/index.js'
+import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType, getOfferList, toggleOPDCriteria, selectLabAppointmentType, selectLabTimeSLot, resetPkgCompare, togglecompareCriteria, loadOPDInsurance } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder, PackageSearchStateBuilder } from '../../helpers/urltoState'
 import SearchPackagesView from '../../components/diagnosis/searchPackages/index.js'
 
@@ -66,6 +66,7 @@ class SearchPackages extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+        this.props.loadOPDInsurance(this.props.selectedLocation)
     }
 
     render() {
@@ -101,9 +102,14 @@ const mapStateToProps = (state, passedProps) => {
     } = state.SEARCH_CRITERIA_LABS
 
     const {
+        common_settings
+    } = state.SEARCH_CRITERIA_OPD
+
+    const {
         offerList,
         is_login_user_insured,
-        insurance_status
+        insurance_status,
+        device_info
     } = state.USER
 
     const LABS = state.LAB_SEARCH_DATA
@@ -130,7 +136,9 @@ const mapStateToProps = (state, passedProps) => {
         page,
         curr_page,
         compare_packages,
-        insurance_status
+        insurance_status,
+        device_info,
+        common_settings
     }
 
 }
@@ -150,7 +158,8 @@ const mapDispatchToProps = (dispatch) => {
         togglecompareCriteria: (criteria) => dispatch(togglecompareCriteria(criteria)),
         resetPkgCompare:() => dispatch(resetPkgCompare()),
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
-        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule))
+        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
+        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city))
     }
 }
 
