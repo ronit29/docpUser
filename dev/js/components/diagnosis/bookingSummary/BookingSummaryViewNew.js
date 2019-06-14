@@ -1039,7 +1039,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                 </div> : ''
                                                         }
 
-                                                        {is_insurance_buy_able ?
+                                                        {/*is_insurance_buy_able ?
                                                             <div className="widget mrb-15">
                                                                 <div className="widget-content">
                                                                     <div className="d-flex justify-content-between align-items-sm-center">
@@ -1054,7 +1054,7 @@ class BookingSummaryViewNew extends React.Component {
 
                                                                 </div>
                                                             </div>
-                                                            : ''}
+                                                            : ''*/}
 
                                                         {
                                                             is_corporate ? ""

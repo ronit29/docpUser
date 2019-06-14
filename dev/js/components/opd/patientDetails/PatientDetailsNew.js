@@ -666,6 +666,7 @@ class PatientDetailsNew extends React.Component {
         let enabled_for_prepaid_payment = false
         let is_default_user_insured = false
         let is_insurance_buy_able = false
+        let payment_mode_count = 0
         if (doctorDetails) {
             let { name, qualifications, hospitals, enabled_for_cod } = doctorDetails
 
@@ -679,7 +680,6 @@ class PatientDetailsNew extends React.Component {
                 })
             }
         }
-
         if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]) {
             is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
         }
@@ -746,6 +746,12 @@ class PatientDetailsNew extends React.Component {
         if(hospital && hospital.insurance && (parseInt(hospital.deal_price) <= hospital.insurance.insurance_threshold_amount) && !is_selected_user_insured){
             is_insurance_buy_able = true
         }
+        if (enabled_for_prepaid_payment)
+            payment_mode_count++
+        if (enabled_for_cod_payment)
+            payment_mode_count++
+        if (enabled_for_prepaid_payment && is_insurance_buy_able)
+            payment_mode_count++
         let clinic_mrp = priceData.mrp
         if (is_insurance_applicable && this.props.payment_type != 2) {
             finalPrice = 0
@@ -856,7 +862,7 @@ class PatientDetailsNew extends React.Component {
                                                                 </div> : ''
                                                         }
 
-                                                        {
+                                                        {/*
                                                             !enabled_for_cod_payment && is_insurance_buy_able ?
                                                             <div className="widget mrb-15">
                                                             <div className="widget-content ">
@@ -873,12 +879,12 @@ class PatientDetailsNew extends React.Component {
                                                             </div>
                                                         </div>
                                                             :''
-                                                        }
+                                                        */}
 
 
                                                         {/*Payment Mode*/}
                                                         {
-                                                            enabled_for_cod_payment ? <div className="widget mrb-15">
+                                                            payment_mode_count > 1 ? <div className="widget mrb-15">
 
                                                                 <div className="widget-content">
                                                                     <h4 className="title mb-20">Payment Mode</h4>
@@ -904,12 +910,12 @@ class PatientDetailsNew extends React.Component {
                                                                     }
 
                                                                     {
-                                                                        !is_insurance_applicable ?
+                                                                        !is_insurance_applicable && enabled_for_cod_payment?
                                                                             <hr /> : ''
                                                                     }
 
                                                                     {
-                                                                        !is_insurance_applicable ?
+                                                                        !is_insurance_applicable && enabled_for_cod_payment?
                                                                             <div className="test-report payment-detail mt-20" onClick={() => {
                                                                                 this.props.select_opd_payment_type(2)
                                                                             }}>
