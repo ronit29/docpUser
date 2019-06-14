@@ -41,24 +41,26 @@ class InsuranceOthers extends React.Component {
 		if(this.props.is_endorsement){
 			if(Object.keys(this.props.self_data_values).length>0 && this.props.user_data.length > 0){
 				profile= Object.assign({}, this.props.self_data_values[this.props.user_data[0].id])
-				let oldDate= profile.dob.split('-')
-			    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
-			    		this.populateDates()
-			    })
+				let oldDate
+				if(Object.keys(profile).length > 0){
+					oldDate= profile.dob.split('-')
+				    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+				    		this.populateDates(this.props.member_id)
+				    })
+				}
 				this.setState({...profile},()=>{
 	    				this.handleSubmit(true)
 	    			})
 			}else{
+				let oldDate
 				if(this.props.user_data && this.props.user_data.length > 0){
 					if(this.props.user_data[0].relation == 'spouse'){
 						this.setState({only_adult:true})
 					}
-					let oldDate= this.props.user_data[0].dob.split('-')
-			    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
-			    		this.populateDates()
-			    	})
-	    			this.setState({...this.props.user_data[0], name:this.props.user_data[0].first_name,member_type:this.props.member_type, profile_id:this.props.user_data[0].profile,is_change:false},()=>{
+					oldDate= this.props.user_data[0].dob.split('-')
+	    			this.setState({...this.props.user_data[0], name:this.props.user_data[0].first_name,member_type:this.props.member_type, profile_id:this.props.user_data[0].profile,is_change:false,year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
 	    				this.handleSubmit(true)
+	    				this.populateDates(this.props.member_id)
 	    			})
 				}
 			}
@@ -94,13 +96,13 @@ class InsuranceOthers extends React.Component {
 				this.setState({id: props.member_id, setDefault:true}, () => {
 					if(this.props.is_child_only){
 						if(!self.state.year && !self.state.mnth && !self.state.mnth){
-						    	this.populateDates(this.props.member_id)
+						    self.populateDates(self.props.member_id)
 						}
 						this.setState({member_type:'child'},() =>{
 							self.handleSubmit()
 						})
 					}else{
-					    this.populateDates(this.props.member_id)
+					    self.populateDates(self.props.member_id)
 						this.setState({member_type:'adult',relation:'spouse',title:adult_title,gender:adult_gender,only_adult:true},() =>{
 							self.handleSubmit()
 						})
@@ -311,59 +313,61 @@ class InsuranceOthers extends React.Component {
             currentYear = today.getUTCFullYear(),
             daysInCurrMonth = this.daysInMonth(month, year);
 		
-		// Day
-        for(var i = 1; i <= daysInCurrMonth; i++){
-          var opt = document.createElement('option');
-          if(i<=9){
-          	opt.value = '0' + i;
-          	opt.text = '0' + i;
-          }else{
-          	opt.value = i;
-          	opt.text = i;
-          }
-          daydropdown.appendChild(opt);
-        }
+		if(daydropdown && monthdropdown && yeardropdown){
 
-        // Month
-        for(var i = 0; i < 12; i++){
-          var opt = document.createElement('option');
-          opt.value = default_months[i]
-          opt.text = default_months[i]
-          monthdropdown.appendChild(opt);
-        }
+			// Day
+	        for(var i = 1; i <= daysInCurrMonth; i++){
+	          var opt = document.createElement('option');
+	          if(i<=9){
+	          	opt.value = '0' + i;
+	          	opt.text = '0' + i;
+	          }else{
+	          	opt.value = i;
+	          	opt.text = i;
+	          }
+	          daydropdown.appendChild(opt);
+	        }
 
-        // Year
-        for(var i = 0; i < age_threshold; i++){
-          var opt = document.createElement('option');
-          opt.value = i + year;
-          opt.text = i + year;
-          yeardropdown.appendChild(opt);
-        }
+	        // Month
+	        for(var i = 0; i < 12; i++){
+	          var opt = document.createElement('option');
+	          opt.value = default_months[i]
+	          opt.text = default_months[i]
+	          monthdropdown.appendChild(opt);
+	        }
 
+	        // Year
+	        for(var i = 0; i < age_threshold; i++){
+	          var opt = document.createElement('option');
+	          opt.value = i + year;
+	          opt.text = i + year;
+	          yeardropdown.appendChild(opt);
+	        }
 
-       // change handler for day
-      daydropdown.onchange = function(){
-        var NewSelecteddays = daydropdown.value;
-        self.setState({day:NewSelecteddays},()=>{
-        	self.submitDob()
-        })
-      }
-      
-      // Change handler for months
-      monthdropdown.onchange = function(){
-      	var newMonth = monthdropdown.value
-      	self.setState({mnth:newMonth},()=>{
-			self.submitDob()
-		})
-      }
+			// change handler for day
+			daydropdown.onchange = function(){
+				var NewSelecteddays = daydropdown.value;
+				self.setState({day:NewSelecteddays},()=>{
+				self.submitDob()
+				})
+			}
 
-      // change handler for year
-      yeardropdown.onchange = function(){
-      	var newYear = yeardropdown.value;
-      	self.setState({year:newYear},()=>{
-      		self.submitDob()
-      	})
-      }
+			// Change handler for months
+			monthdropdown.onchange = function(){
+				var newMonth = monthdropdown.value
+				self.setState({mnth:newMonth},()=>{
+				self.submitDob()
+				})
+			}
+
+			// change handler for year
+			yeardropdown.onchange = function(){
+				var newYear = yeardropdown.value;
+				self.setState({year:newYear},()=>{
+				self.submitDob()
+				})
+			}
+	    }
   	}
 
   	submitDob(){
@@ -379,6 +383,9 @@ class InsuranceOthers extends React.Component {
   	}
 
 	render() {
+		console.log(this.state.day)
+		console.log(this.state.mnth)
+		console.log(this.state.year)
 		let show_createApi_keys_adult = []
 		let show_createApi_keys_child = []
 		let show_createApi_keys_child2 = []
