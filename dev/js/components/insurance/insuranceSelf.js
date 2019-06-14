@@ -143,11 +143,13 @@ class InsuranceSelf extends React.Component{
 	    }else{
 	    	this.setState({name:profile.isDummyUser?'':profile.name})
 	    }
+	    console.log(profile.dob)
 	    if(profile.isDummyUser && profile.dob){
 	    	this.setState({day:null,year:null,mnth:null})
 	    }else if(profile.dob){
 	    	let oldDate= profile.dob.split('-')
-	    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+	    	console.log(oldDate)
+	    	this.setState({year:oldDate[0],mnth:oldDate[1],day:oldDate[2]},()=>{
 	    		this.populateDates()
 	    	})
 	    }
