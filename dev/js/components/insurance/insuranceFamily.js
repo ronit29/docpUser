@@ -497,19 +497,20 @@ class InsuranceOthers extends React.Component {
 								<span className="fill-error-span" style={{marginTop:'-13px'}}>{this.props.errorMessages['common_message']}</span>:''
 							}
 						</div>
-						:<div className="col-12">
+						:''
+					}
+						{/* <div className="col-12">
 							<div className="ins-form-group">
 									<input type="text" id={`isn-pin_${this.props.member_id}`} className="form-control ins-form-control" required autoComplete="relation" name="relation" data-param='relation' value='Spouse' disabled="disabled" />
-									{/*<label className="form-control-placeholder" htmlFor={`isn-pin_${this.props.member_id}`}>Relation</label>*/}
+									
 									<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 							</div>
-						</div>
+						</div> */}
 
-					}
 						<div className="col-6">
 							<div className="ins-form-group inp-margin-right ">
 								<input type="text" style={{'textTransform': 'capitalize'}} id={`name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('name')> -1|| ErrorNameId == this.props.member_id?'fill-error':''}`} required autoComplete="first_name" name="name" data-param='name' value={this.state.name} onChange={this.handleChange.bind(this, 'name')} onBlur={this.handleSubmit.bind(this,false)} onKeyPress={this.handleNameCharacters.bind(this,'name')}/>
-								<label className="form-control-placeholder" htmlFor={`name_${this.props.member_id}`}><span className="labelDot">*</span>First Name</label>
+								<label className="form-control-placeholder" htmlFor={`name_${this.props.member_id}`}><span className="labelDot"></span>First Name</label>
 								<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 							</div>
 							{	
@@ -542,7 +543,7 @@ class InsuranceOthers extends React.Component {
 						<div className="col-6">
 							<div className="ins-form-group ins-form-group inp-margin-right  ">
 								<input type="text" style={{'textTransform': 'capitalize'}} id={`last_name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('last_name')> -1?'fill-error':''}`} required autoComplete="last_name" name="last_name" data-param='last_name' value={this.state.no_lname?'':this.state.last_name} onChange={this.handleChange.bind(this, 'last_name')} onBlur={this.handleSubmit.bind(this,false)} disabled={this.state.no_lname?'disabled':""} onKeyPress={this.handleNameCharacters.bind(this,'last_name')} />
-								<label className="form-control-placeholder" htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot">*</span>Last Name</label>
+								<label className="form-control-placeholder" htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot"></span>Last Name</label>
 								<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 							</div>
 							{	
@@ -658,27 +659,28 @@ class InsuranceOthers extends React.Component {
 							</div>
 							{	
 								this.props.is_child_only?this.props.member_view_id == 2 && show_createApi_keys_child.indexOf('dob')> -1?
-									<span className="fill-error-span">{this.props.createApiErrorsChild[this.props.member_view_id].dob[0]}</span>:this.props.member_view_id == 3 && show_createApi_keys_child2.indexOf('dob')> -1?<span className="fill-error-span">{this.props.createApiErrorsChild[this.props.member_view_id].dob[0]}</span>:''
+									<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.createApiErrorsChild[this.props.member_view_id].dob[0]}</span>:this.props.member_view_id == 3 && show_createApi_keys_child2.indexOf('dob')> -1?<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.createApiErrorsChild[this.props.member_view_id].dob[0]}</span>:''
 								:show_createApi_keys_adult.indexOf('dob')> -1?
-								<span className="fill-error-span">{this.props.createApiErrors.dob[0]}</span>:''	
+								<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.createApiErrors.dob[0]}</span>:''	
 							}
 							{
 								this.props.validateErrors.indexOf('dob')> -1?
-								this.props.is_child_only?<span className="fill-error-span">{this.props.errorMessages['child_age']}</span>:
-								<span className="fill-error-span">{this.props.errorMessages['adult_age']}</span>:''
+								this.props.is_child_only?<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.errorMessages['child_age']}</span>:
+								<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.errorMessages['adult_age']}</span>:''
 							}
 							{
 								this.props.validateDobErrors.indexOf('dob')> -1?
-								this.props.is_child_only?<span className="fill-error-span">{this.props.errorMessages['childAgeDiff']}</span>:'':''
+								this.props.is_child_only?<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.errorMessages['childAgeDiff']}</span>:'':''
 							}
 						</div>
 					</div>
-				</div>
-				{
+					{
 					this.props.is_endorsement && this.state.is_change?
 						<InsuranceProofs {...this.props}/>
 					:''
-				}
+					}
+				</div>
+				
 				{this.state.showPopup ?
 					<InsurPopup {...this.state.userProfiles} currentSelectedInsuredMembersId={this.props.currentSelectedInsuredMembersId} member_id={this.props.member_id} closePopup={this.togglePopup.bind(this)} isSelectprofile = {true} self_data_values ={this.props.self_data_values[this.props.member_id]} hideSelectProfilePopup={this.hideSelectProfilePopup.bind(this)}
 					/> : ''
