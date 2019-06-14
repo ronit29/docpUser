@@ -743,7 +743,7 @@ class PatientDetailsNew extends React.Component {
         }
 
         is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
-        if(is_insurance_applicable && !is_selected_user_insured){
+        if(hospital && hospital.insurance && (parseInt(hospital.deal_price) <= hospital.insurance.insurance_threshold_amount) && !is_selected_user_insured){
             is_insurance_buy_able = true
         }
         let clinic_mrp = priceData.mrp

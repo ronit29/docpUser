@@ -305,8 +305,11 @@ class DoctorProfileCard extends React.Component {
                         {
                         is_insurance_buy_able?
                         <div className="ins-buyable">
-                            <p>Book this lab for ₹0 with OPD Insurance</p>
-                            <span onClick={()=>this.props.history.push('/insurance/insurance-plans?source=doctor-listing&show_button=true')}>Know more</span>
+                            <p>Book this Doctor for ₹0 with OPD Insurance</p>
+                            <span style={{cursor:'pointer'}} onClick={(e)=>{
+                                e.stopPropagation()
+                                this.props.history.push('/insurance/insurance-plans?source=doctor-listing&show_button=true')
+                            }}>Know more</span>
                         </div>
                         :''
                         }
