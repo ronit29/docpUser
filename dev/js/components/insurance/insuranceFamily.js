@@ -313,8 +313,10 @@ class InsuranceOthers extends React.Component {
             currentYear = today.getUTCFullYear(),
             daysInCurrMonth = this.daysInMonth(month, year);
 		if(daydropdown && monthdropdown && yeardropdown){
-
 				// Day
+				daydropdown.innerHTML = ''
+				monthdropdown.innerHTML = ''
+				yeardropdown.innerHTML = ''
 		        for(var i = 1; i <= daysInCurrMonth; i++){
 		          var opt = document.createElement('option');
 		          if(i<=9){
