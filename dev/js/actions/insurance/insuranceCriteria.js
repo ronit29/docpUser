@@ -143,7 +143,7 @@ export const clearInsurance = () => (dispatch) =>{
             type: CLEAR_INSURANCE
         })
 }
-export const generateInsuranceLead = (selectedPlan, number,lead_data,callback,selectedLocation) => (dispatch) => {
+export const generateInsuranceLead = (selectedPlan, number,lead_data,selectedLocation,callback) => (dispatch) => {
     let lat
     let long
     let latitude = 28.644800

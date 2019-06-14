@@ -64,18 +64,21 @@ class InsuranceSelf extends React.Component{
 				// }
 			//})
     	}else if(this.props.is_endorsement){
+    		let oldDate
     		if(Object.keys(this.props.self_data_values).length>0){
     			profile= Object.assign({}, this.props.self_data_values[this.props.user_data[0].id])
-    			let oldDate= profile.dob.split('-')
-			    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
-			    		this.populateDates()
-			    })
+    			if(Object.keys(profile).length>0){
+	    			oldDate= profile.dob.split('-')
+				    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+				    		this.populateDates()
+				    })
+				}
     			this.setState({...profile},()=>{
 	    				this.handleSubmit(true)
 	    			})
     		}else{
     			if(this.props.user_data && this.props.user_data.length > 0){
-    				let oldDate= this.props.user_data[0].dob.split('-')
+    				oldDate= this.props.user_data[0].dob.split('-')
 			    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
 			    		this.populateDates()
 			    	})
@@ -131,6 +134,7 @@ class InsuranceSelf extends React.Component{
 
     getUserDetails(profile){
 		let newName=[]
+		let oldDate
 	    newName =  profile.name.split(" ")
 	    if(newName.length == 2){
 	    	this.setState({
@@ -145,9 +149,9 @@ class InsuranceSelf extends React.Component{
 	    }
 	    if(profile.isDummyUser && profile.dob){
 	    	this.setState({day:null,year:null,mnth:null})
-	    }else if(profile.dob){
-	    	let oldDate= profile.dob.split('-')
-	    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+	    }else if(Object.keys(profile).length > 0 &&  profile.dob){
+	    	oldDate= profile.dob.split('-')
+	    	this.setState({year:oldDate[0],mnth:oldDate[1],day:oldDate[2]},()=>{
 	    		this.populateDates()
 	    	})
 	    }
