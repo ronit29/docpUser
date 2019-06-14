@@ -6878,14 +6878,14 @@ button.padding-btn-adjust{
 	left: unset;
 }
 .save-upto{
-	background-color: #12d532;
-	color: #fefefe;
-	font-size: 12px;
-	font-weight: 500;
-	padding: 5px;
-	display: inline-block;
-	border-radius: 5px;
-	margin-left: 15px;
+    color: white;
+    background: #4fc243;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 1px 8px;
+    border-radius: 4px;
+    margin-left: 3px;
+    line-height: 1.7;
 }
 .payment-type-radio h3{
 	font-size: 14px;
@@ -11704,4 +11704,11 @@ p.lab-crd-txt-pr span{
     color: #1f62d3;
     font-weight: 500;
     flex-shrink: 0;
+}
+.ins-t-n-c{
+    position: absolute;
+    right: 0;
+    font-size: 11px;
+    color: #757575;
+    font-weight: 500;
 }
