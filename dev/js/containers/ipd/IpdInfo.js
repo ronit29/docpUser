@@ -126,7 +126,7 @@ class IpdInfoContainer extends React.Component{
             sub_locality = props.selectedLocation.sub_locality || ''
         }
 
-		let new_url = `${window.location.pathname}?ipd_id=${parsed.ipd_id}&place_id=${place_id}&lat=${lat}&long=${long}&locality=${locality}&sub_locality=${sub_locality}&showPopup=true`
+		let new_url = `${window.location.pathname}?ipd_id=${parsed.ipd_id}&place_id=${place_id}&lat=${lat}&long=${long}&locality=${locality}&sub_locality=${sub_locality}&showPopup=true&get_feedback=1`
 
 		if(parsed && parsed.type) {
 			new_url+= `&type=${parsed.type}`
