@@ -45,7 +45,7 @@ class InsuranceOthers extends React.Component {
 				if(Object.keys(profile).length > 0){
 					oldDate= profile.dob.split('-')
 				    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
-				    		this.populateDates(this.props.member_id)
+				    		this.populateDates(this.props.member_id,true)
 				    })
 				}
 				this.setState({...profile},()=>{
@@ -60,13 +60,13 @@ class InsuranceOthers extends React.Component {
 					oldDate= this.props.user_data[0].dob.split('-')
 	    			this.setState({...this.props.user_data[0], name:this.props.user_data[0].first_name,member_type:this.props.member_type, profile_id:this.props.user_data[0].profile,is_change:false,year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
 	    				this.handleSubmit(true)
-	    				this.populateDates(this.props.member_id)
+	    				this.populateDates(this.props.member_id,true)
 	    			})
 				}
 			}
 		}else{
 			if(!this.state.year && !this.state.mnth && !this.state.mnth){
-				this.populateDates(this.props.member_id)
+				this.populateDates(this.props.member_id,true)
 			}
 		}
 	}
@@ -82,7 +82,7 @@ class InsuranceOthers extends React.Component {
 				if (JSON.stringify(this.state) != JSON.stringify(nextProfile)) {
 					this.setState({ ...nextProfile })
 					if(!self.state.year && !self.state.mnth && !self.state.mnth){
-					    self.populateDates(props.member_id)
+					    self.populateDates(props.member_id,true)
 					}
 				}
 			}else if(props.member_id && !this.state.setDefault){
@@ -96,13 +96,13 @@ class InsuranceOthers extends React.Component {
 				this.setState({id: props.member_id, setDefault:true}, () => {
 					if(this.props.is_child_only){
 						if(!self.state.year && !self.state.mnth && !self.state.mnth){
-						    self.populateDates(self.props.member_id)
+						    self.populateDates(self.props.member_id,true)
 						}
 						this.setState({member_type:'child'},() =>{
 							self.handleSubmit()
 						})
 					}else{
-					    self.populateDates(self.props.member_id)
+					    self.populateDates(self.props.member_id,true)
 						this.setState({member_type:'adult',relation:'spouse',title:adult_title,gender:adult_gender,only_adult:true},() =>{
 							self.handleSubmit()
 						})
@@ -206,9 +206,9 @@ class InsuranceOthers extends React.Component {
 					this.setState({title:'mrs.',relation:'spouse'})
 				}
 			}
-			let oldDate= profile.dob.split('-')
+			let oldDate= newProfile.dob.split('-')
 	    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
-	    		this.populateDates()
+	    		this.populateDates(member_id,false)
 	    	})
 			this.props.selectInsuranceProfile(newProfileid, member_id, newProfile, this.props.param_id)
 			this.setState({
@@ -292,11 +292,11 @@ class InsuranceOthers extends React.Component {
         return new Date(year, month, 0).getDate();
     }
 
-    populateDates(member_id){
+    populateDates(member_id,toCreateOptions){
     	let age_threshold 
     	if(this.props.selected_plan && this.props.selected_plan.adult_count){
     		if(this.props.is_child_only){
-    			age_threshold = this.props.selected_plan.threshold[0].min_age
+    			age_threshold = this.props.selected_plan.threshold[0].child_max_age
     		}else{
     			age_threshold = this.props.selected_plan.threshold[0].max_age
     		}
@@ -309,40 +309,41 @@ class InsuranceOthers extends React.Component {
         var today = new Date(),
             day = today.getUTCDate(),
             month = today.getUTCMonth(),
-            year = today.getUTCFullYear()-age_threshold + 1,
+            year= today.getUTCFullYear()-age_threshold,
             currentYear = today.getUTCFullYear(),
             daysInCurrMonth = this.daysInMonth(month, year);
-		
 		if(daydropdown && monthdropdown && yeardropdown){
 
-			// Day
-	        for(var i = 1; i <= daysInCurrMonth; i++){
-	          var opt = document.createElement('option');
-	          if(i<=9){
-	          	opt.value = '0' + i;
-	          	opt.text = '0' + i;
-	          }else{
-	          	opt.value = i;
-	          	opt.text = i;
-	          }
-	          daydropdown.appendChild(opt);
-	        }
+			if(toCreateOptions){
+				// Day
+		        for(var i = 1; i <= daysInCurrMonth; i++){
+		          var opt = document.createElement('option');
+		          if(i<=9){
+		          	opt.value = '0' + i;
+		          	opt.text = '0' + i;
+		          }else{
+		          	opt.value = i;
+		          	opt.text = i;
+		          }
+		          daydropdown.appendChild(opt);
+		        }
 
-	        // Month
-	        for(var i = 0; i < 12; i++){
-	          var opt = document.createElement('option');
-	          opt.value = default_months[i]
-	          opt.text = default_months[i]
-	          monthdropdown.appendChild(opt);
-	        }
+		        // Month
+		        for(var i = 0; i < 12; i++){
+		          var opt = document.createElement('option');
+		          opt.value = default_months[i]
+		          opt.text = default_months[i]
+		          monthdropdown.appendChild(opt);
+		        }
 
-	        // Year
-	        for(var i = 0; i < age_threshold; i++){
-	          var opt = document.createElement('option');
-	          opt.value = i + year;
-	          opt.text = i + year;
-	          yeardropdown.appendChild(opt);
-	        }
+		        // Year
+		        for(var i = 0; i <= age_threshold; i++){
+		          var opt = document.createElement('option');
+		          opt.value = i + year;
+		          opt.text = i + year;
+		          yeardropdown.appendChild(opt);
+		        }
+		    }
 
 			// change handler for day
 			daydropdown.onchange = function(){
@@ -383,9 +384,6 @@ class InsuranceOthers extends React.Component {
   	}
 
 	render() {
-		console.log(this.state.day)
-		console.log(this.state.mnth)
-		console.log(this.state.year)
 		let show_createApi_keys_adult = []
 		let show_createApi_keys_child = []
 		let show_createApi_keys_child2 = []
@@ -430,7 +428,7 @@ class InsuranceOthers extends React.Component {
 							:<p className="sub-form-hed">{this.props.is_child_only? `Child ${this.props.member_view_id - 1}`:`Spouse`}</p>
 						}
 					</div>
-					{/* <div>
+					<div>
 					{
 						this.props.show_selected_profiles.length>0?
 						<div className="sub-form-hed-click" onClick={() => this.setState({
@@ -439,9 +437,9 @@ class InsuranceOthers extends React.Component {
 						<img src={ASSETS_BASE_URL + "/img/rgt-arw.svg"} />
 					</div>:''
 					}
-					<label className="ck-bx" onChange={this.handleLastname.bind(this)} style={{'fontWeight': '400', 'fontSize': '14'}}>I dont have last name<input type="checkbox" checked={this.state.no_lname} value="on"/>
-					<span className="checkmark"></span></label>
-					</div> */}
+					{/*<label className="ck-bx" onChange={this.handleLastname.bind(this)} style={{'fontWeight': '400', 'fontSize': '14'}}>I dont have last name<input type="checkbox" checked={this.state.no_lname} value="on"/>
+					<span className="checkmark"></span></label>*/}
+					</div> 
 				</div>
 				<div className='widget' style={{padding:'10px'}} >
 					<div className="col-12" style={{padding:0}}>
@@ -557,6 +555,12 @@ class InsuranceOthers extends React.Component {
 								this.props.validateErrors.indexOf('last_name')> -1?
 								commonMsgSpan:''
 							}
+						</div>
+						<div className="col-12" style={{marginTop:'-10px'}} >
+							<div className="member-dtls-chk">
+								<label className="ck-bx fw-500" onChange={this.handleLastname.bind(this)} style={{fontSize: 12, paddingLeft:24, lineHeight:'16px'}}>I dont have a last name<input type="checkbox" checked={this.state.no_lname} value="on"/>
+								<span className="checkmark small-checkmark"></span></label>
+							</div>
 						</div>
 						<div className="col-12">
 							<div className="ins-form-radio">
