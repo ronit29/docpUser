@@ -12,9 +12,9 @@ class TopHospitalWidgets extends React.Component {
         GTM.sendEvent({ data: gtmData })
 
         if(data.url) {
-            this.props.history.push(`/${data.url}?showPopup=true`)
+            this.props.history.push(`/${data.url}?showPopup=true&get_feedback=1`)
         }else {
-            this.props.history.push(`/ipd/hospital/${data.id}?showPopup=true`)
+            this.props.history.push(`/ipd/hospital/${data.id}?showPopup=true&get_feedback=1`)
         }
     }
 
