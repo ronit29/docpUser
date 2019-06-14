@@ -11684,3 +11684,10 @@ p.lab-crd-txt-pr span{
     padding-left: 27px;
     margin-bottom: 9px;
 }
+p.label-cpn{
+	color: #55a740;
+    font-size: 12px;
+    margin: 10px 0;
+    font-weight: 500;
+    padding: 10px 10px 0px 0px;
+}
