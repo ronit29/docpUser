@@ -641,19 +641,19 @@ class InsuranceOthers extends React.Component {
 										<select id={`daydropdown_${this.props.member_id}`} value={this.state.day}>
 											<option hidden>DD</option>
 										</select>
-										<img className="dob-down-icon" src="/assets/img/customer-icons/dropdown-arrow.svg"/>
+										<img className="dob-down-icon" style={{right : '15px'}} src="/assets/img/customer-icons/dropdown-arrow.svg"/>
 									</div>
 									<div className="dob-select d-flex align-items-center">
 										<select id={`monthdropdown_${this.props.member_id}`} value={this.state.mnth}>
 											<option hidden>MM</option>
 										</select>
-										<img className="dob-down-icon" src="/assets/img/customer-icons/dropdown-arrow.svg"/>
+										<img className="dob-down-icon" style={{right : '15px'}} src="/assets/img/customer-icons/dropdown-arrow.svg"/>
 									</div>
 									<div className="dob-select d-flex align-items-center">
 										<select id={`yeardropdown_${this.props.member_id}`} value={this.state.year}>
 											<option hidden>YYYY</option>
 										</select>
-										<img className="dob-down-icon" src="/assets/img/customer-icons/dropdown-arrow.svg"/>
+										<img className="dob-down-icon" style={{right : '15px'}} src="/assets/img/customer-icons/dropdown-arrow.svg"/>
 									</div>
 								</div>
 							</div>

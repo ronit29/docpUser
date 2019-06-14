@@ -4853,6 +4853,7 @@ font-weight: 700;
     -moz-appearance: none;
     text-indent: 1px;
     color: #464a4c;
+    margin-right: 15px;
 }
 .dob-select-div select:active, .dob-select-div select:focus{
     outline: none;
@@ -4865,7 +4866,6 @@ font-weight: 700;
     position: relative;
     flex-grow: 0;
     flex-shrink: 0;
-    margin-right: 12px;
 }
 .dob-down-icon{
     position: relative !important;
