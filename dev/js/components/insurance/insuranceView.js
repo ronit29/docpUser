@@ -86,7 +86,7 @@ class Insurance extends React.Component {
 	    function resetTimer() {
 	        clearTimeout(time);
 	        if(self.state.checkIdleTimeout){
-	        	time = setTimeout(stop, 5000)	
+	        	time = setTimeout(stop, 12000)	
 	        }
 	    }
 	}
