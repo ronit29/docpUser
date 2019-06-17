@@ -192,7 +192,7 @@ class InsuranceNetworkView extends React.Component {
         let alphabets = this.getAlphabets()
         return (
             <div className="profile-body-wrap">
-                <ProfileHeader {...this.props} />
+                <ProfileHeader {...this.props} showPackageStrip={true}/>
                 <section className="container dp-container-div">
                     <div className="row">
                         <div className="col-12 col-md-7 col-lg-7 center-column">

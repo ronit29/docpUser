@@ -50,7 +50,7 @@ class InsuranceCancellationView extends React.Component {
 			expiry_date = expiry_date.toDateString()
 			let expiryDate = expiry_date.split(" ")
 			return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
-				<ProfileHeader />
+				<ProfileHeader showPackageStrip={true}/>
 				{this.state.showCancelPopup ?
 					<div className="search-el-popup-overlay " >
 						<div className="search-el-popup">
@@ -162,7 +162,7 @@ class InsuranceCancellationView extends React.Component {
 			</div>
 		} else {
 			return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
-				<ProfileHeader />
+				<ProfileHeader showPackageStrip={true}/>
 				<Loader />
 			</div>
 		}

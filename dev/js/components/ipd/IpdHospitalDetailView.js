@@ -329,7 +329,7 @@ class HospitalDetailView extends React.Component {
 									: ''
 							}
 							{
-								this.props.ipd_chat || showPopup?''
+								this.props.ipd_chat || showPopup || (this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.is_ipd_hospital)?''
 								:parsed.fromProcedure?
 									<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a></div>
 									:<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Need Help?</a></div>
