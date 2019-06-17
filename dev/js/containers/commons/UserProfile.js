@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 
-import { setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests, getUserReviews, getRatingCompliments, updateAppointmentRating, OTTLogin, getCartItems, getIsCareDetails, generateInsuranceLead} from '../../actions/index.js'
+import { setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests, getUserReviews, getRatingCompliments, updateAppointmentRating, OTTLogin, getCartItems, getIsCareDetails, generateInsuranceLead, preBooking,loadOPDInsurance} from '../../actions/index.js'
 
 import STORAGE from '../../helpers/storage'
 
@@ -40,6 +40,7 @@ class UserProfile extends React.Component {
             this.props.getCartItems()
             this.props.getIsCareDetails()
         }
+        this.props.loadOPDInsurance(this.props.selectedLocation)
 
     }
 
@@ -61,11 +62,25 @@ const mapStateToProps = (state) => {
         applicableCoupons,
         isUserCared
     } = state.USER
+    let { selectedSlot } = state.LAB_SEARCH
+
+    const {
+        selectedCriterias
+    } = state.SEARCH_CRITERIA_LABS
+
+    const {
+        selectedLocation,
+        common_settings
+    } = state.SEARCH_CRITERIA_OPD
 
     return {
         USER,
         applicableCoupons,
-        isUserCared
+        isUserCared,
+        selectedSlot,
+        selectedCriterias,
+        selectedLocation,
+        common_settings
     }
 }
 
@@ -93,6 +108,8 @@ const mapDispatchToProps = (dispatch) => {
         getCartItems: () => dispatch(getCartItems()),
         generateInsuranceLead:(selectedPlan, cb) => dispatch(generateInsuranceLead(selectedPlan,cb)),
         getIsCareDetails: () => dispatch(getIsCareDetails()),
+        preBooking:(slot) => dispatch(preBooking(slot)),
+        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city))
     }
 }
 

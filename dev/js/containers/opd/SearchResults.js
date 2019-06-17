@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggle404, getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures, resetProcedureURl, setSearchId, getSearchIdResults, selectSearchType, setNextSearchCriteria, getOfferList, toggleDiagnosisCriteria, selectOpdTimeSLot, saveProfileProcedures, resetPkgCompare } from '../../actions/index.js'
+import { toggle404, getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures, resetProcedureURl, setSearchId, getSearchIdResults, selectSearchType, setNextSearchCriteria, getOfferList, toggleDiagnosisCriteria, selectOpdTimeSLot, saveProfileProcedures, resetPkgCompare, selectLocation, cloneCommonSelectedCriterias,loadOPDInsurance } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder, mergeSelectedCriterias } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/opd/searchResults/index.js'
 import NotFoundView from '../../components/commons/notFound'
@@ -19,6 +19,7 @@ class SearchResults extends React.Component {
             this.setState({ show404: true })
             this.props.toggle404(false)
         }
+        this.props.loadOPDInsurance(this.props.selectedLocation)
     }
 
     static loadData(store, match, queryParams = {}) {
@@ -108,7 +109,8 @@ const mapStateToProps = (state, passedProps) => {
         search_id_data,
         nextSelectedCriterias,
         nextFilterCriteria,
-        mergeUrlState
+        mergeUrlState,
+        common_settings
     } = state.SEARCH_CRITERIA_OPD
 
     const {
@@ -124,7 +126,8 @@ const mapStateToProps = (state, passedProps) => {
     const {
         offerList,
         is_login_user_insured,
-        insurance_status
+        insurance_status,
+        device_info
     } = state.USER
 
     return {
@@ -157,7 +160,9 @@ const mapStateToProps = (state, passedProps) => {
         is_login_user_insured,
         insurance_status,
         canonical_url,
-        compare_packages
+        compare_packages,
+        device_info,
+        common_settings
     }
 }
 
@@ -182,7 +187,10 @@ const mapDispatchToProps = (dispatch) => {
         saveProfileProcedures: (doctor_id, clinic_id, procedure_ids, forceAdd) => dispatch(saveProfileProcedures(doctor_id, clinic_id, procedure_ids, forceAdd)),
         getOfferList: (lat, long) => dispatch(getOfferList(lat, long)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filter)),
-        resetPkgCompare:() => dispatch(resetPkgCompare())
+        resetPkgCompare:() => dispatch(resetPkgCompare()),
+        selectLocation: (location, type) => dispatch(selectLocation(location, type)),
+        cloneCommonSelectedCriterias: (selectedCriterias) => dispatch(cloneCommonSelectedCriterias(selectedCriterias)),
+        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city))
     }
 }
 

@@ -15,7 +15,8 @@ class packagesList extends React.Component {
             loading: false,
             renderBlock: false,
             page: 0,
-            readMore: 'search-details-data-less'
+            readMore: 'search-details-data-less',
+            catIds:[]
         }
     }
 
@@ -43,6 +44,7 @@ class packagesList extends React.Component {
         }, 100)
         
         */
+        this.setState({...this.props.filterCriteriaPackages})
         setTimeout(() => {
             this.setState({ hasMore: true })
         }, 0)
@@ -59,6 +61,12 @@ class packagesList extends React.Component {
         }
 
         this.props.getOfferList(lat, long);
+    }
+
+    componentWillReceiveProps(props) {
+        if(props.filterCriteriaPackages) {
+            this.setState({catIds:props.filterCriteriaPackages.catIds||[]})
+        }
     }
 
     componentWillUnmount() {
@@ -103,6 +111,15 @@ class packagesList extends React.Component {
     showTc() {
         this.props.history.push('/tax-saver-health-packages-tc')
     }
+
+    applyQuickFilters(category, viewMore=false){ 
+        let filters = {
+            catId: viewMore?[]:[category],
+            viewMore: viewMore
+        }
+        this.props.applyQuickFilter(filters)
+    }
+
     render() {
         let { LABS, labList } = this.props
 
@@ -166,12 +183,6 @@ class packagesList extends React.Component {
                                     : ''
                             }
                             <div className="row no-gutters">
-                                {
-                                    this.props.offerList && this.props.offerList.filter(x => (x.slider_location === 'search_packages_page') || (x.slider_location === 'full_body_chechkup_page') || (x.slider_location === 'tax_saver_packages_page')).length ?
-                                        <div className="col-12">
-                                            <BannerCarousel {...this.props} sliderLocation={this.props.forTaxSaver ? "tax_saver_packages_page" : this.props.forOrganicSearch ? 'full_body_chechkup_page' : 'search_packages_page'} />
-                                        </div> : ''
-                                }
                                 <div className="col-12">
                                     <InfiniteScroll
                                         pageStart={start_page}
@@ -182,9 +193,34 @@ class packagesList extends React.Component {
                                         <ul>
                                             {
                                                 this.props.packagesList && this.props.packagesList.result ? this.props.packagesList.result.map((packages, i) => {
-                                                    return <li key={i} id={`scrollById_${packages.id}`}>
-                                                        <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
-                                                    </li>
+
+                                                    return <React.Fragment key={i}>
+
+                                                            {
+                                                                i==3 && !this.state.catIds.length && this.props.packagesList && this.props.packagesList.categories && this.props.packagesList.categories.length?
+                                                                <div className="sort-sub-filter-container mb-3">
+                                                                    <p>Filter by <span className="fw-700"> Test Category </span><span className="fw-500 sort-more-filter" onClick={this.applyQuickFilters.bind(this, '', true)}>More filters</span></p>
+                                                                    <div className="srt-sb-btn-cont">
+                                                                    {
+                                                                        this.props.packagesList.categories.map((category, j) => {
+                                                                            return <button key={j} className={`${this.state.catIds && this.state.catIds.indexOf(category.id) > -1 ?'srt-act':''}`} id={category.id} onClick={this.applyQuickFilters.bind(this, category.id, false)}> {category.name}</button>
+                                                                        })
+                                                                    }
+                                                                    </div>
+                                                                </div>
+                                                                :''    
+                                                            }
+
+                                                            {
+                                                                i==5 && this.props.offerList && this.props.offerList.filter(x => (x.slider_location === 'search_packages_page') || (x.slider_location === 'full_body_chechkup_page') || (x.slider_location === 'tax_saver_packages_page')).length ?
+                                                                    <div className="col-12">
+                                                                        <BannerCarousel {...this.props} sliderLocation={this.props.forTaxSaver ? "tax_saver_packages_page" : this.props.forOrganicSearch ? 'full_body_chechkup_page' : 'search_packages_page'} />
+                                                                    </div> : ''
+                                                            }
+                                                            <li id={`scrollById_${packages.id}`}>
+                                                                <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
+                                                            </li>
+                                                           </React.Fragment>
                                                 })
                                                     : ''
                                             }

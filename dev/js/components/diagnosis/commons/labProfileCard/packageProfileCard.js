@@ -216,7 +216,7 @@ class LabProfileCard extends React.Component {
                                             // this.testInfo(id)
                                             this.props.history.push(`/${this.props.details.url || ''}`)
                                         }}>
-                                            <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
+                                            <img src="https://cdn.docprime.com/cp/assets/img/icons/Info.svg" style={{width:'15px'}} />
                                         </span> : ''}
                                     </h2>
                                 </a>

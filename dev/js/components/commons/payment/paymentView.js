@@ -144,7 +144,7 @@ class PaymentView extends React.Component {
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div className="widget mt-21">
+                                            {/* <div className="widget mt-21">
                                                 <div className="widget-content p-3">
                                                     <div className="crdblty-container">
                                                         <div className="crdblty">
@@ -198,7 +198,7 @@ class PaymentView extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                 </div>

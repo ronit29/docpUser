@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { clearAllTests, toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList, setPackageId, getUpComingAppointment, resetPkgCompare } from '../../actions/index.js'
+import { clearAllTests, toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList, setPackageId, getUpComingAppointment, resetPkgCompare, toggleIPDCriteria, loadOPDInsurance } from '../../actions/index.js'
 
 import HomeView from '../../components/commons/Home'
 import STORAGE from '../../helpers/storage'
@@ -9,6 +9,9 @@ import STORAGE from '../../helpers/storage'
 class Home extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            mergeState: false
+        }
     }
 
     static loadData(store, match) {
@@ -36,21 +39,22 @@ class Home extends React.Component {
         // this.props.fetchHeatlhTip()
         // this.props.fetchArticles()
         if (!this.props.common_tests.length || !this.props.common_package.length || !this.props.specializations.length || (this.props.selectedLocation && this.props.selectedLocation.locality)) {
-            let city = ''
-            if (this.props.selectedLocation && this.props.selectedLocation.locality) {
-                city = this.props.selectedLocation.locality
-            }
-            this.props.loadOPDCommonCriteria(city)
+            
             this.props.loadLabCommonCriterias()
+            this.props.loadOPDInsurance(this.props.selectedLocation)
         }
+        this.props.loadOPDCommonCriteria(this.props.selectedLocation)
 
         this.props.resetFilters()
         this.props.clearExtraTests()
+        setTimeout(()=>{
+            this.setState({mergeState: true})
+        },100)
     }
 
     render() {
         return (
-            <HomeView {...this.props} />
+            <HomeView {...this.props} {...this.state}/>
         );
     }
 }
@@ -80,12 +84,16 @@ const mapStateToProps = (state, passedProps) => {
 
     const {
         LOADED_SEARCH_CRITERIA_OPD,
-        specializations
+        specializations,
+        ipd_procedures,
+        top_hospitals,
+        common_settings
     } = state.SEARCH_CRITERIA_OPD
+    
     let filterCriteria_opd = state.SEARCH_CRITERIA_OPD.filterCriteria
 
     return {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, upcoming_appointments, compare_packages
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, upcoming_appointments, compare_packages, ipd_procedures, top_hospitals, common_settings
     }
 }
 
@@ -106,7 +114,9 @@ const mapDispatchToProps = (dispatch) => {
         clearAllTests: () => dispatch(clearAllTests()),
         setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage)),
         getUpComingAppointment: () => dispatch(getUpComingAppointment()),
-        resetPkgCompare: () => dispatch(resetPkgCompare())
+        resetPkgCompare: () => dispatch(resetPkgCompare()),
+        toggleIPDCriteria: (criteria, forceAdd) => dispatch(toggleIPDCriteria(criteria, forceAdd)),
+        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city))
     }
 }
 

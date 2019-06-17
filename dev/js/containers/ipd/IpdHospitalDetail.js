@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getHospitaDetails , selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, toggleIPDCriteria, mergeOPDState } from '../../actions/index.js'
+import { getHospitaDetails , selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, toggleIPDCriteria, mergeOPDState, ipdChatView, checkIpdChatAgentStatus } from '../../actions/index.js'
 
 import IpdHospitalDetailView from '../../components/ipd/IpdHospitalDetailView.js'
 const queryString = require('query-string')
@@ -23,7 +23,8 @@ class HospitalDetail extends React.Component {
 		this.state = {
 			specialization_id: null,
 			hospital_id: h_id,
-			is_seo: this.props.match.url.includes('-hpp')
+			is_seo: this.props.match.url.includes('-hpp'),
+			showIpdChat: false
 		}
 	}
 
@@ -109,6 +110,11 @@ class HospitalDetail extends React.Component {
 		return { title, description }
 	}
 
+	showChatView(showIpd=false){
+		
+		this.setState({showIpdChat: true})
+	}
+
 	render(){
 
 		let ipd_hospital_detail = this.state.hospital_id && this.props.ipd_hospital_detail_info && this.props.ipd_hospital_detail_info[this.state.hospital_id]?this.props.ipd_hospital_detail_info[this.state.hospital_id]:{}
@@ -132,11 +138,11 @@ class HospitalDetail extends React.Component {
 							<div className="col-12 col-md-7 col-lg-7 center-column">
 							{
 								ipd_hospital_detail && ipd_hospital_detail.id?
-								<IpdHospitalDetailView {...this.props} {...this.state} ipd_hospital_detail={ipd_hospital_detail}/>
+								<IpdHospitalDetailView {...this.props} {...this.state} ipd_hospital_detail={ipd_hospital_detail} showChatView={this.showChatView.bind(this)}/>
 								:<Loader />		
 							}
 						</div>
-						<RightBar extraClass=" chat-float-btn-2" />
+						<RightBar extraClass=" chat-float-btn-2" showHalfScreenChat={false && this.props.ipd_chat && this.props.ipd_chat.showIpdChat?true:false} showDesktopIpd={true} ipdFormParams={this.state.showIpdChat ?true:false}/>
 						</div>
 					</section>
 				</div>
@@ -147,6 +153,11 @@ class HospitalDetail extends React.Component {
 
 const mapStateToProps = (state) => {
 	
+	const {
+		ipd_chat,
+		is_ipd_form_submitted
+	} = state.USER
+
 	const {
         selectedLocation,
         locationType,
@@ -169,7 +180,9 @@ const mapStateToProps = (state) => {
         commonSelectedCriterias,
         locationFetched,
         selectedCriterias,
-        filterCriteria
+        filterCriteria,
+        ipd_chat,
+        is_ipd_form_submitted
 	}
 }
 
@@ -181,7 +194,9 @@ const mapDisptachToProps = (dispatch) => {
 		selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
 		cloneCommonSelectedCriterias: (selectedCriterias) => dispatch(cloneCommonSelectedCriterias(selectedCriterias)),
 		toggleIPDCriteria: (criteria, forceAdd) => dispatch(toggleIPDCriteria(criteria, forceAdd)),
-		mergeOPDState: (state) => dispatch(mergeOPDState(state))
+		mergeOPDState: (state) => dispatch(mergeOPDState(state)),
+		ipdChatView: (data) => dispatch(ipdChatView(data)),
+		checkIpdChatAgentStatus: (cb) => dispatch(checkIpdChatAgentStatus(cb))
 	}
 }
 export default connect(mapStateToProps, mapDisptachToProps)(HospitalDetail)

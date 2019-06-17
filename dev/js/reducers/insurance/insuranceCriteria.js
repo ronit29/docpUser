@@ -1,4 +1,4 @@
-import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES,SELF_DATA,INSURANCE_PAY,SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE, SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, RESET_INSURED_DATA} from '../../constants/types';
+import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES,SELF_DATA,INSURANCE_PAY,SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE, SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS, DELETE_MEMBER_PROOF, SAVE_INSURANCE_BANK_DETAILS, SAVE_AVAIL_NOW_INSURANCE} from '../../constants/types';
 
 const defaultState = {
 insurnaceData: {},
@@ -9,8 +9,12 @@ members_data_value:{},
 insured_member_list:{},
 member_list_updated:{},
 get_insured_profile:{},
+endorsed_member_data:{},
 LOAD_INSURANCE: false,
-currentSelectedInsuredMembersId: []
+currentSelectedInsuredMembersId: [],
+insurer_bank_details:{},
+members_proofs:[],
+avail_now_data:null
 }
 const DUMMY_PROFILE = {
     gender: "m",
@@ -191,10 +195,11 @@ export default function (state = defaultState, action) {
             newState.self_data_values={}
             newState.selected_plan={}
             newState.currentSelectedInsuredMembersId = []
+            newState.members_proofs = []
             return newState   
         }
         case RESET_INSURED_DATA :{
-             let newState = { ...state }
+            let newState = { ...state }
             let user_selected_plan = newState.insurnaceData.insurance[0].plans.filter((x => x.id == action.payload.selected_plan_id))
             let members = {}
             newState.selected_plan = user_selected_plan[0]
@@ -204,6 +209,75 @@ export default function (state = defaultState, action) {
             })
             newState.self_data_values = members
             return newState   
+        }
+        case SAVE_INSURANCE_BANK_DETAILS :{
+            let newState = { ...state }
+            newState.insurer_bank_details = action.payload
+            return newState   
+        }
+        case ENDORSED_MEMBER_LIST :{
+            let newState = { ...state }
+            newState.endorsed_member_data.members = action.payload.members
+            return newState
+        }
+        case SAVE_MEMBER_PROOFS:{
+            let newState = {
+                ...state,
+                members_proofs: [].concat(state.members_proofs)
+            }
+            if(newState.members_proofs.length > 0){
+
+                let found = []
+                newState.members_proofs = newState.members_proofs.filter((data)=> {
+
+                    if(data.id == action.payload.id) {
+                        found.push(data)
+                        return false
+                    }
+                    return true
+                })
+
+                if(found) {
+                    let data = Object.assign({}, found[0], action.payload)    
+                    newState.members_proofs.push(data)
+                }else{
+                    newState.members_proofs.push(action.payload)
+                }
+            }else{
+                newState.members_proofs.push(action.payload)
+            }            
+            return newState   
+        }
+        case DELETE_MEMBER_PROOF:{
+           let newState = {
+                ...state
+            } 
+            
+            let currentSelectedMember = null
+            newState.members_proofs = newState.members_proofs.filter((member) => {
+
+                if(member.id == action.payload.member_id) {
+                    currentSelectedMember = member
+                    return false
+                }
+                return true
+            })
+
+            if(currentSelectedMember){
+                let currentProofs = currentSelectedMember.img_path_ids.filter(x=>x.id !== action.payload.id) 
+                currentSelectedMember.img_path_ids = currentProofs
+            }
+
+            newState.members_proofs.push({...currentSelectedMember})
+            return newState
+        }
+        case SAVE_AVAIL_NOW_INSURANCE:{
+            let newState = {
+                ...state
+            }
+
+            newState.avail_now_data = action.payload
+            return newState
         }
     }
     return state

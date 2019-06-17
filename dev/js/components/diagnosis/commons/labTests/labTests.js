@@ -117,7 +117,7 @@ class LabTests extends React.Component {
                         if (test.test.show_details) {
                             // test_info = <span className="srch-heading" style={{ float: 'right', cursor: 'pointer', color: '#e46608' }} onClick={this.testInfo.bind(this)}> Test Info</span>
                             test_info= <span style={{'marginLeft':'5px',marginTop:'1px',display:'inline-block', 'cursor':'pointer'}} onClick={this.testInfo.bind(this,test.test.id,test.url)}>
-                                    <img src="https://cdn.docprime.com/cp/assets/img/icons/info.svg" />
+                                    <img src="https://cdn.docprime.com/cp/assets/img/icons/Info.svg" style={{width:'15px'}}/>
                             </span>
                         }
 
@@ -282,7 +282,10 @@ class LabTests extends React.Component {
                             }
                         </div> : ""
                     }
-                    {
+                    <div>
+                        <p className="label-cpn text-left">Coupon applies at booking summary</p>
+                    </div>
+                    {/*
                         STORAGE.checkAuth() || totalAmount < 100 ?
                             '' :
                                 this.props.location && this.props.location.search && this.props.location.search.includes('from=insurance_network') ?
@@ -290,7 +293,7 @@ class LabTests extends React.Component {
                                     <div className="signup-off-container lab-signup-offr">
                                         <span className="signup-off-doc">+ &#8377; 100 OFF <b>on Signup</b> </span>
                                     </div>
-                    }
+                    */}
                     {
                         (STORAGE.isAgent() || ( !hide_price && !is_user_insured)) && (this.props.location && this.props.location.search && this.props.location.search.includes('from=insurance_network')) ? <div className="pb-view d-flex align-items-center justify-content-between">
                         {

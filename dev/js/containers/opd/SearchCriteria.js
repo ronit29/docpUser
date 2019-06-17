@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeOPDState, resetFilters, getOPDCriteriaResults, toggleOPDCriteria, loadOPDCommonCriteria, cloneCommonSelectedCriterias } from '../../actions/index.js'
+import { mergeOPDState, resetFilters, getOPDCriteriaResults, toggleOPDCriteria, loadOPDCommonCriteria, cloneCommonSelectedCriterias,loadOPDInsurance } from '../../actions/index.js'
 import SearchCriteriaView from '../../components/opd/searchCriteria/index.js'
 
 class SearchCriteria extends React.Component {
@@ -14,8 +14,9 @@ class SearchCriteria extends React.Component {
     // }
 
     componentDidMount() {
-        this.props.loadOPDCommonCriteria(this.props.selectedLocation.locality||'')
+        this.props.loadOPDCommonCriteria(this.props.selectedLocation)
         this.props.resetFilters()
+        this.props.loadOPDInsurance(this.props.selectedLocation)
     }
 
     static contextTypes = {
@@ -40,7 +41,8 @@ const mapStateToProps = (state) => {
         selectedLocation,
         filterCriteria,
         locationType,
-        procedure_categories
+        procedure_categories,
+        common_settings
     } = state.SEARCH_CRITERIA_OPD
 
     const {
@@ -58,7 +60,8 @@ const mapStateToProps = (state) => {
         locationType,
         procedure_categories,
         is_login_user_insured,
-        insurance_status
+        insurance_status,
+        common_settings
     }
 }
 
@@ -69,7 +72,8 @@ const mapDispatchToProps = (dispatch) => {
         getOPDCriteriaResults: (searchString, callback) => dispatch(getOPDCriteriaResults(searchString, callback)),
         resetFilters: () => dispatch(resetFilters()),
         mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
-        cloneCommonSelectedCriterias: (selectedCriterias) => dispatch(cloneCommonSelectedCriterias(selectedCriterias))
+        cloneCommonSelectedCriterias: (selectedCriterias) => dispatch(cloneCommonSelectedCriterias(selectedCriterias)),
+        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city))
     }
 }
 

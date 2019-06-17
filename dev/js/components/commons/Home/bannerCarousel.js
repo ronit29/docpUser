@@ -428,7 +428,7 @@ class BannerCarousel extends React.Component {
                             <div className="d-md-none">
                                 {
                                     filteredBanners && filteredBanners.length ?
-                                        <div className={filteredBanners.length == 1 ? `banner-home-scrollable mrt-20 mrb-20` : `banner-home-scrollable mrt-20 mrb-20 pd-lt-15`} style={this.props.sliderLocation == 'home_page' ? { position: 'absolute' } : { position: 'relative' }}>
+                                        <div className={`${this.props.ipd?'ipd-banner-mbl':''} ${filteredBanners.length == 1 ? `banner-home-scrollable mrt-20 mrb-20` : `banner-home-scrollable mrt-20 mrb-20 pd-lt-15`}`} style={this.props.sliderLocation == 'home_page' ? { position: 'absolute' } : { position: 'relative' }}>
                                             {
                                                 filteredBanners.map((banner, index) => {
                                                     return <img key={index} src={banner.image} onClick={() => this.navigateTo(banner)} style={banner.url ? { cursor: 'pointer' } : {}} className={filteredBanners.length == 1 ? `sngl-banner` : `mltpl-banner`} loading="lazy" />

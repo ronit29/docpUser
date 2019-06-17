@@ -6,17 +6,21 @@ import SnackBar from 'node-snackbar'
 import Axios from 'axios';
 import CONFIG from '../../config/config.js'
 
-export const sendOTP = (number, cb) => (dispatch) => {
+export const sendOTP = (number,viaSms,viaWhatsapp, cb) => (dispatch) => {
     dispatch({
         type: SEND_OTP_REQUEST,
         payload: {
-            phoneNumber: number
+            phoneNumber: number,
+            via_sms:viaSms,
+            via_whatsapp:viaWhatsapp
         }
     })
 
     API_POST('/api/v1/user/otp/generate', {
         "phone_number": number,
-        "request_source": "DocprimeWeb"
+        "request_source": "DocprimeWeb",
+        "via_sms":viaSms,
+        "via_whatsapp":viaWhatsapp
     }).then(function (response) {
         SnackBar.show({ pos: 'bottom-center', text: "OTP Sent Successfuly." });
         dispatch({

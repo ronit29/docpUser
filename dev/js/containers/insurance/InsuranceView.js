@@ -27,7 +27,10 @@ class Insurance extends React.Component{
                 this.props.generateInsuranceLead('',phoneNumber,lead_data)
             }
         })*/
-        this.props.getInsurance()
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+        this.props.getInsurance(false)
     }
 	render(){
         if(this.props.LOAD_INSURANCE){
@@ -51,19 +54,23 @@ class Insurance extends React.Component{
 const mapStateToProps = (state) => {
     const USER = state.USER
     let { insurnaceData, LOAD_INSURANCE, selected_plan,self_data_values} = state.INSURANCE
+    const {
+        selectedLocation
+
+    } = state.SEARCH_CRITERIA_OPD
     return {
-        insurnaceData,LOAD_INSURANCE,selected_plan,self_data_values,USER
+        insurnaceData,LOAD_INSURANCE,selected_plan,self_data_values,USER, selectedLocation
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getInsurance: (callback) => dispatch(getInsurance(callback)),
+        getInsurance: (is_endorsement,callback) => dispatch(getInsurance(is_endorsement,callback)),
         getUserProfile: () => dispatch(getUserProfile()),
         selectInsurancePlan: (plan,criteria) => dispatch(selectInsurancePlan(plan,criteria)),
         // saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),
         resetSelectedPlans: () => dispatch(resetSelectedPlans()),
-        sendOTP: (number, cb) => dispatch(sendOTP(number, cb)),
+        sendOTP: (number,viaSms,viaWhatsapp, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp, cb)),
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
         resetAuth: () => dispatch(resetAuth()),
         userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),
