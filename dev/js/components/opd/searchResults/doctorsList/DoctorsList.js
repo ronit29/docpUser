@@ -315,11 +315,6 @@ class DoctorsList extends React.Component {
                                                                             </div>
                                                                             <div className="auto-location-btn fw-500" onClick={() => this.detectLocation()} >Detect Location</div>
                                                                         </div>
-                                                                        <div>
-                                                                            {
-                                                                                this.props.clinic_card ? <ClinicResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} /> : <DoctorResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} />
-                                                                            }
-                                                                        </div>
                                                                     </li> : ''
                                                             }
 
