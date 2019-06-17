@@ -527,15 +527,12 @@ class TopBar extends React.Component {
                                     <div className="top-filter-tabs-select locationTestFilter" >
                                         <p className="newStickyfilter">
                                             {
-                                                `${this.props.count} ${ipd_ids.length ? 'Specialists' : 'Results'} for ${criteriaStr || 'Doctor'}`
+                                                `${this.props.count} ${ipd_ids.length ? 'Specialists' : 'Results'} for ${criteriaStr || 'Doctor'} ${this.props.hospitalData && this.props.hospitalData.name?` in ${this.props.hospitalData.name}`:''}`
                                             }
                                             {
-                                                this.props.hospitalData && this.props.hospitalData.name?
-                                                <span>{` in ${this.props.hospitalData.name}`}</span>
-                                                :locationName ?
-                                                    <span onClick={this.goToLocation.bind(this)} >{` in ${locationName}`}<img style={{ width: '11px', height: '15px', marginLeft: '7px' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
+                                                (this.props.hospitalData && this.props.hospitalData.name) || !locationName?''
+                                                    :<span onClick={this.goToLocation.bind(this)} >{` in ${locationName}`}<img style={{ width: '11px', height: '15px', marginLeft: '7px' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
                                                     </span>
-                                                    : ''
                                             }
                                         </p>
                                     </div>
