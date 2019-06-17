@@ -19,11 +19,11 @@ class TopHospitalWidgets extends React.Component {
             redirectUrl = `/ipd/hospital/${data.id}?showPopup=true`
         }
 
-        if(this.props.is_ipd_form_submitted){
+        /*if(this.props.is_ipd_form_submitted){
 
         }else {
             redirectUrl+= '&get_feedback=1'
-        }
+        }*/
 
         this.props.history.push(redirectUrl)
     }
