@@ -12,7 +12,8 @@ class IpdLeadForm extends React.Component {
 		this.state = {
 			name: '',
 			phone_number: '',
-			showForm: true
+			showForm: true,
+			comments:''
 /*			gender: '',
 			comments: '',
 			whatsapp_optin: true*/
@@ -56,10 +57,10 @@ class IpdLeadForm extends React.Component {
 			return
 		}
 
-		/*if (!this.state.gender) {
-			SnackBar.show({ pos: 'bottom-center', text: "Please select your gender" })
+		if (!this.state.comments) {
+			SnackBar.show({ pos: 'bottom-center', text: "Please enter your Comment" })
 			return
-		}*/
+		}
 
 		const parsed = queryString.parse(this.props.location.search)
 
