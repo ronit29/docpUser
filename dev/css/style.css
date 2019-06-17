@@ -6951,8 +6951,10 @@ button.padding-btn-adjust{
 .payment-mode-amt {
 	margin-left: 9px;
     font-size: 14px;
-    color: #757575;
+    color: #000000;
     line-height: 1.80;
+    position: absolute;
+    right: 25px;
 }
 @media screen and (max-width: 428px){
 	.light-txts{
@@ -11823,8 +11825,13 @@ p.label-cpn{
 }
 .ins-t-n-c{
     position: absolute;
-    right: 0;
-    font-size: 11px;
+    left: 0;
+    font-size: 10px;
     color: #757575;
     font-weight: 500;
+}
+.opd-ins-av-know{
+    font-size: 12px;
+    font-weight: 500;
+    color: #f78631;
 }
