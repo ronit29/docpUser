@@ -54,6 +54,18 @@ class ProfileData extends React.Component {
             this.props.generateInsuranceLead()
             this.props.history.push('/insurance/insurance-plans?source=profile-insurance-clicked')
         }
+    }
+
+    getInsuranceBtnText(){
+        let btn_text = 'Buy Now'
+        let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)]?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_insured && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user:false
+        if(isUserLoginInsured){
+            if(this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ||this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 5){
+                return btn_text = 'Active'
+            }else{
+                return btn_text
+            }
+        }
     }    
 
     render() {
@@ -218,7 +230,7 @@ class ProfileData extends React.Component {
                                     </div>
                                 </a>
                                 {
-                                    isUserLoginInsured?<button className="ins-userdetails-active">Active</button>:<button className="ins-userdetails-buy">Buy Now</button>
+                                    isUserLoginInsured?<button className="ins-userdetails-active">{this.getInsuranceBtnText()}</button>:<button className="ins-userdetails-buy">{this.getInsuranceBtnText()}</button>
                                 }
                             </li>
                         :''
