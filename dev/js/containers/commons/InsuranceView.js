@@ -11,7 +11,7 @@ class Insurance extends React.Component {
 		return (
 			<div>
 				<div className="profile-body-wrap">
-					<ProfileHeader />
+					<ProfileHeader showPackageStrip={true}/>
 
 					<section className="container parent-section book-appointment-section">
 						<div className="row main-row parent-section-row">

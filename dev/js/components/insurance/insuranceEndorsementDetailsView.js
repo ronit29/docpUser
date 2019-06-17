@@ -512,7 +512,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 
 			return(
 			<div className="profile-body-wrap">
-	            <ProfileHeader /> 
+	            <ProfileHeader showPackageStrip={true}/> 
 				<section className="container container-top-margin">
 					<div className="row main-row parent-section-row">
 						<div className="col-12 col-md-7 col-lg-7 ins-main-padding">

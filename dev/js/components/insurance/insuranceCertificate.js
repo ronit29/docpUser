@@ -68,7 +68,7 @@ class InsuranceCertificateView extends React.Component {
 			expiry_date = expiry_date.toDateString()
 			let expiryDate = expiry_date.split(" ")
 			return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
-				<ProfileHeader />
+				<ProfileHeader showPackageStrip={true}/>
 				{this.state.showCancelPopup ?
 					<section className="error-msg-pop">
 						<div className="cancel-overlay"></div>
@@ -288,7 +288,7 @@ class InsuranceCertificateView extends React.Component {
 			</div>
 		} else {
 			return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
-				<ProfileHeader />
+				<ProfileHeader showPackageStrip={true}/>
 				<Loader />
 			</div>
 		}
