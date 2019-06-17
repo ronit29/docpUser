@@ -420,18 +420,19 @@ class InsuranceEndoresmentInputView extends React.Component{
 					})	
 				}
 			}
-			console.log(edited_fields)
 			console.log(member_ref)
 		this.setState({validateErrors: validatingErrors,validateOtherErrors: validatingOtherErrors,validatingNames:invalidname,validateDobErrors:validatingDobErrors,errorMessages:errorMessagesObj,endorsementError:newIdProofs})
-    	if(is_disable && document.getElementById(member_ref)){    		
-    		document.getElementById(member_ref).scrollIntoView();
-    	}else{
-    		this.SaveUserData(this.props,edited_fields)
-    		if(STORAGE.isAgent()){
-    			isAgent = true
-    		}
-			this.props.history.push(`/insurance/insurance-user-details-review?is_endorsement=true&isAgent=${isAgent}`)
-    	}
+		if(Object.keys(edited_fields).length >0){
+	    	if(is_disable && document.getElementById(member_ref)){    		
+	    		document.getElementById(member_ref).scrollIntoView();
+	    	}else{
+	    		this.SaveUserData(this.props,edited_fields)
+	    		if(STORAGE.isAgent()){
+	    			isAgent = true
+	    		}
+				this.props.history.push(`/insurance/insurance-user-details-review?is_endorsement=true&isAgent=${isAgent}`)
+	    	}
+	    }
     }
 
     SaveUserData(props,edited_fields){
