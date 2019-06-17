@@ -43,7 +43,7 @@ class Insurance extends React.Component{
             }
             return(
             <div className="profile-body-wrap">
-                <ProfileHeader />
+                <ProfileHeader showPackageStrip={true}/>
                 <Loader />
             </div>
                 )

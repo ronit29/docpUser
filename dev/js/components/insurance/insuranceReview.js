@@ -221,7 +221,7 @@ class InsuranceReview extends React.Component{
 			}
 			return(
 				<div className="profile-body-wrap">
-				<ProfileHeader />
+				<ProfileHeader showPackageStrip={true}/>
 				<section className="container container-top-margin cardMainPaddingRmv">
 					<div className="row no-gutters dsktp-row-gutter">
 					<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
