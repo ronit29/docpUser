@@ -73,7 +73,7 @@ class InsurancePopup extends React.Component{
                     if(Object.keys(this.props.selected_plan).length > 0){
                         this.props.generateInsuranceLead(this.props.selected_plan?this.props.selected_plan.id:'',this.state.phoneNumber,lead_data)
                     }
-                    let data = {'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupContinue', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-continue-click', 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''
+                    let data = {'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupContinue', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-continue-click', 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':'', 'mobileNo':this.state.phoneNumber 
                         }
                     GTM.sendEvent({ data: data })
                     this.setState({ showOTP: true, otpTimeout: true,smsBtnType:viaSms?true:false })
@@ -105,7 +105,7 @@ class InsurancePopup extends React.Component{
                         }
                     GTM.sendEvent({ data: data })
                     if(Object.keys(self.props.selected_plan).length > 0){
-                        self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',this.state.phoneNumber,lead_data)
+                        self.props.generateInsuranceLead(self.props.selected_plan?self.props.selected_plan.id:'',this.state.phoneNumber,lead_data,this.props.selectedLocation)
                     }
                         this.props.getInsurance(false,(resp)=>{
                             if(!resp.certificate){
@@ -238,7 +238,13 @@ class InsurancePopup extends React.Component{
                                             <br /><br />
                                             <input type="number" className="fc-input text-center" placeholder="Enter OTP" value={this.state.otp} onChange={this.inputHandler.bind(this)} name="otp" onKeyPress={this._handleKeyPress.bind(this)}/>
                                             {
-                                                this.state.otpTimeout ? "" : <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,true,this.state.smsBtnType?true:false,!this.state.smsBtnType?true:false)}>Resend ?</a>
+                                                this.state.otpTimeout ? "" : 
+                                                <div className="d-flex align-items-start justify-content-between">
+                                                    <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ?'Send via Whatsapp':'Send via SMS'}
+                                                    </a>
+                                                    <a className="resendOtp" style={{color:'#ec0d0d'}} onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}>Resend
+                                                    </a>
+                                                </div>
                                             }
                                         </div> : ""
                                     }
@@ -263,7 +269,7 @@ class InsurancePopup extends React.Component{
                                         </div>
                                         <div className="text-center">
                                             <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,false,false,true)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-wtsp-btn">
-                                            <img className="whtsp-ico" src={ASSETS_BASE_URL +'/img/wa-logo-sm.png'} />Verify Via Whatsapp
+                                            <img className="whtsp-ico" src={ASSETS_BASE_URL +'/img/wa-logo-gr.svg'} />Verify Via Whatsapp
                                                 {/*
                                                     this.props.isLead == 'proceed'?'Continue':'Submit'
                                                 */}

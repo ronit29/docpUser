@@ -157,7 +157,7 @@ class DoctorProfileView extends React.Component {
         }
 
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'SubmitPhoneNo', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'submit-phone-no', 'doctor_id': doctor_id, "hospital_id": this.state.selectedClinic, 'phoneNo': mobileNo
+            'Category': 'ConsumerApp', 'Action': 'SubmitPhoneNo', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'submit-phone-no', 'doctor_id': doctor_id, "hospital_id": this.state.selectedClinic, 'mobileNo': mobileNo
         }
         GTM.sendEvent({ data: data })
         let postData = {

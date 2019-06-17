@@ -172,7 +172,7 @@ class ResultCount extends React.Component {
     }
 
     overlayClick() {
-        this.setState({ overlayVisible: false, searchCities: [] });
+        this.setState({ overlayVisible: false, searchCities: [], showLocationPopup: false });
         if(document.getElementById('location_element')){
             document.getElementById('location_element').style.zIndex ='0'
         }
@@ -263,7 +263,7 @@ class ResultCount extends React.Component {
                                         <div style={{ padding: '10px 0px' }}>
                                             <div className="d-flex justify-content-between" style={{ alignItems: 'flex-start' }} >
                                                 <div style={{ flex: 1 }}>
-                                                    <p>{this.props.packagesList?this.props.packagesList.count:""} Results found for 
+                                                    <p>{this.props.packagesList?this.props.packagesList.count:""} Results for 
                                                         <h1 className="search-result-heading">
                                                         <span className="fw-700"> {this.props.forOrganicSearch?'Full Body Checkup Packages':this.props.forTaxSaver?'Health Packages':'selected categories'}</span>
                                                         </h1>
@@ -337,10 +337,8 @@ class ResultCount extends React.Component {
                         </div>
                         {
                             this.state.showLocationPopup ?
-                                this.props.lab_card && this.state.showPopupContainer ?
-                                    <LocationPopup {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} criteriaString={criteriaStr} popupContainer={() => this.popupContainer()} />
-                                    : <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
-                                : ''
+                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
+                                :''
                         }
 
                         {

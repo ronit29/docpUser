@@ -28,17 +28,22 @@ const mapStateToProps = (state) => {
         ipdIndexLoading
     } = state.SITE_MAP
 
+    const {
+        selectedLocation
+    } = state.SEARCH_CRITERIA_OPD
+
     return {
         alphabeticalIpdTests,
         selectedIpdListAlphabet,
-        ipdIndexLoading
+        ipdIndexLoading,
+        selectedLocation
     }
 }
 
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getIPDAlphabetically: (character) => dispatch(getIPDAlphabetically(character))
+        getIPDAlphabetically: (character, selectedLocation) => dispatch(getIPDAlphabetically(character, selectedLocation))
     }
 }
 

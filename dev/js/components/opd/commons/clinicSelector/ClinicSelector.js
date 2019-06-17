@@ -136,7 +136,7 @@ class ClinicSelector extends React.Component {
                                     {
                                         this.props.selectedClinic == hospital.hospital_id ? <input type="radio" checked name="radio" /> : <input type="radio" name="radio" />
                                     }
-                                    <span className="vw-hsptl-di" onClick={this.goToHospitalPage.bind(this, hospital)}>(View Hospital)</span>
+                                    <a href={hospital.url?`/${hospital.url}`:`/ipd/hospital/${hospital.hospital_id}`} onClick={this.goToHospitalPage.bind(this, hospital)}><span className="vw-hsptl-di" >(View Hospital)</span></a>
                                     <span className="doc-checkmark"></span>
                                 </label>
                             </div>
@@ -148,6 +148,8 @@ class ClinicSelector extends React.Component {
                                             {
                                                 hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount?
                                                 <span className="test-price txt-ornage">₹ {0}</span>
+                                                :hospital.enabled_for_cod && hospital.cod_deal_price?
+                                                <span className="test-price txt-ornage">₹ {hospital.cod_deal_price}</span>
                                                 :hospital.enabled_for_online_booking ?
                                                     <span className="test-price txt-ornage">₹ {hospital.discounted_price}
                                                         {

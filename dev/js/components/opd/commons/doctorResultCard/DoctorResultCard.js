@@ -142,7 +142,7 @@ class DoctorProfileCard extends React.Component {
 
     render() {
 
-        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, new_schema, enabled_for_online_booking, discounted_price, parent_url, average_rating, rating_count, google_rating } = this.props.details
+        let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, new_schema, enabled_for_online_booking, discounted_price, parent_url, average_rating, rating_count, google_rating, enabled_for_cod, cod_deal_price } = this.props.details
 
         let enabled_for_hospital_booking = true
         let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
@@ -206,6 +206,7 @@ class DoctorProfileCard extends React.Component {
                 avgGoogleRating = google_rating.avg_rating
                 googleRatingCount = google_rating.rating_count || ''
             }
+            let is_insurance_buy_able = hospital.is_insurance_covered && !hospital.is_user_insured && deal_price <= hospital.insurance_threshold_amount
 
             return (
                 <div className="cstm-docCard mb-3">
@@ -269,6 +270,8 @@ class DoctorProfileCard extends React.Component {
                                 {
                                     is_insurance_applicable?
                                     ''
+                                    :enabled_for_cod && cod_deal_price != null && !enabled_for_online_booking?
+                                        <p className="cst-doc-price">₹ {cod_deal_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
                                     :enabled_for_hospital_booking && (discounted_price != null) && discounted_price != mrp ?
                                         <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
                                         : mrp && mrp != 0 ?
@@ -301,6 +304,17 @@ class DoctorProfileCard extends React.Component {
                                 }
                             </div>
                         </div>
+                        {
+                        is_insurance_buy_able?
+                        <div className="ins-buyable">
+                            <p>Book this appointment & all future appointments for ₹ 0 with OPD insurance</p>
+                            <span style={{cursor:'pointer'}} onClick={(e)=>{
+                                e.stopPropagation()
+                                this.props.history.push('/insurance/insurance-plans?source=doctor-listing&show_button=true')
+                            }}>Know more</span>
+                        </div>
+                        :''
+                        }
                     </div>
                     <div className="cstmCardFooter">
                         <div className="cstmfooterContent">

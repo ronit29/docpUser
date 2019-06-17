@@ -45,12 +45,12 @@ const STAGING_CONFIG = {
     SEARCH_ELASTIC_VIEW: true,
     ENABLE_INSURANCE: true,
     GOOGLE_SERVICE_URL: 'https://docprime.com/ls',
-    CHAT_API_UTILITY_API:'http://10.0.146.248:3001'
+    CHAT_API_UTILITY_API:'https://chatapi.docprime.com'
 }
 
 const DEV_CONFIG = {
     // API_BASE_URL: "http://10.0.145.30:8000",
-    API_BASE_URL: "https://kubeqa4.docprime.com",
+    API_BASE_URL: "https://docprime.com",
     // SOCKET_BASE_URL: "http://10.0.28.67:4444",
     SOCKET_BASE_URL: "https://docprime.com",
     // SOCKET_BASE_URL: "http://localhost:4444",

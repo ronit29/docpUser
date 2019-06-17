@@ -193,6 +193,7 @@ class CartView extends React.Component {
         let invalid_items = false
         let valid_items = false
         let all_appointments_insured = true
+        let is_cod_applicable = true
         if (cart && cart.length) {
             cart.map((cart_item, i) => {
                 if (!cart_item.valid) {
@@ -202,9 +203,15 @@ class CartView extends React.Component {
                     if(cart_item.actual_data && !cart_item.actual_data.is_appointment_insured){
                         all_appointments_insured = false
                     }
+                    //Check if COD applicable for all appointments
+                    if( cart_item.actual_data && cart_item.actual_data.payment_type && cart_item.actual_data.payment_type!=2 ){
+                        is_cod_applicable = false
+                    }
                 }
             })
         }
+
+        is_cod_applicable = is_cod_applicable && cart && cart.length && cart.filter(x => x.valid).length==1
 
         return (
             <div className="profile-body-wrap">
@@ -331,7 +338,7 @@ class CartView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            !STORAGE.isAgent() && valid_items ? <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                                            ( (STORAGE.isAgent() && is_cod_applicable) || !STORAGE.isAgent() ) && valid_items ? <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
                                                 <button className="add-shpng-cart-btn" onClick={() => {
                                                     this.props.history.push('/search?from=cart');
 
@@ -346,7 +353,7 @@ class CartView extends React.Component {
                                         }
 
                                         {
-                                            STORAGE.isAgent() ? <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                                            STORAGE.isAgent() && !is_cod_applicable ? <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
                                                 <button className="add-shpng-cart-btn" onClick={this.sendAgentBookingURL.bind(this)}>Send SMS EMAIL</button>
                                             </div> : ""
                                         }

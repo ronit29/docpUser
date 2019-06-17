@@ -12,9 +12,9 @@ class TopHospitalWidgets extends React.Component {
         GTM.sendEvent({ data: gtmData })
 
         if(data.url) {
-            this.props.history.push(`/${data.url}?showPopup=true`)
+            this.props.history.push(`/${data.url}?showPopup=true&get_feedback=1`)
         }else {
-            this.props.history.push(`/ipd/hospital/${data.id}?showPopup=true`)
+            this.props.history.push(`/ipd/hospital/${data.id}?showPopup=true&get_feedback=1`)
         }
     }
 
@@ -53,10 +53,10 @@ class TopHospitalWidgets extends React.Component {
                     {/*<span>View All</span>*/}
                 </div>
                 <div className="pkgSliderContainer" id="top_hospitals">
-                    <div className='pkgCardsList d-inline-block sub-wd-cards top_hospitals_list'>
+                    <div className='pkgCardsList d-inline-flex sub-wd-cards top_hospitals_list'>
                     	{
                     		this.props.top_data.map((data, i) => {
-                    			return <a key={i} href={data.url?`/${data.url}`:`/ipd/hospital/${data.id}`} className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
+                    			return <a key={this.props.mergeState?i:data.logo} href={data.url?`/${data.url}`:`/ipd/hospital/${data.id}`} className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
 				                            <div className="pkgcardImgCont">
 				                                <img style={{width:82}} className="img-fluid" src={data.logo} />
 				                            </div>

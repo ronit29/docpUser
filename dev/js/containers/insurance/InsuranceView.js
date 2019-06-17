@@ -27,6 +27,9 @@ class Insurance extends React.Component{
                 this.props.generateInsuranceLead('',phoneNumber,lead_data)
             }
         })*/
+        if (window) {
+            window.scrollTo(0, 0)
+        }
         this.props.getInsurance(false)
     }
 	render(){
@@ -51,8 +54,12 @@ class Insurance extends React.Component{
 const mapStateToProps = (state) => {
     const USER = state.USER
     let { insurnaceData, LOAD_INSURANCE, selected_plan,self_data_values} = state.INSURANCE
+    const {
+        selectedLocation
+
+    } = state.SEARCH_CRITERIA_OPD
     return {
-        insurnaceData,LOAD_INSURANCE,selected_plan,self_data_values,USER
+        insurnaceData,LOAD_INSURANCE,selected_plan,self_data_values,USER, selectedLocation
     }
 }
 

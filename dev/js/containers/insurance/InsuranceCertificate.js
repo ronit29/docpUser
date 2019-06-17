@@ -34,9 +34,9 @@ class InsuranceCertificate extends React.Component{
 
 const mapStateToProps = (state) => {
     const USER = state.USER
-    let { insurnaceData, LOAD_INSURANCE, selected_plan,self_data_values,insured_member_list,get_insured_profile} = state.INSURANCE
+    let { insurnaceData, LOAD_INSURANCE, selected_plan,self_data_values,insured_member_list,get_insured_profile, avail_now_data} = state.INSURANCE
     return {
-        insurnaceData,LOAD_INSURANCE,selected_plan,USER,self_data_values,insured_member_list,get_insured_profile
+        insurnaceData,LOAD_INSURANCE,selected_plan,USER,self_data_values,insured_member_list,get_insured_profile, avail_now_data
     }
 }
 
