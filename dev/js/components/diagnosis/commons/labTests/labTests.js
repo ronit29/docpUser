@@ -164,7 +164,7 @@ class LabTests extends React.Component {
                                     <span className="checkmark" />
                                 </label>
                                 {    
-                                    ( (is_insurance_applicable || !selectedTestsCount) && test.insurance && test.insurance.is_insurance_covered) || test.included_in_user_plan?
+                                    ( (is_insurance_applicable || !selectedTestsCount) && test.insurance && test.insurance.is_insurance_covered && test.insurance.is_user_insured) || test.included_in_user_plan?
                                         <span className="test-price text-sm">₹ 0 </span>
                                     :
                                     test.deal_price == test.mrp.split('.')[0]?
