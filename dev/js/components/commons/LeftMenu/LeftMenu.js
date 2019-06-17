@@ -87,7 +87,7 @@ class LeftMenu extends React.Component {
                         e.preventDefault()
                         this.props.toggleLeftMenu()
                         this.props.history.push('/insurance/insurance-plans?source=mobile-leftmenu-insurance-clicked')
-                      }} href="#"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} alt="" className="" />OPD Insurance<span className={user_insurance_status && (user_ins_status == 1 || user_ins_status == 5) ? 'float-right memAct' : 'float-right memNew'}>{user_insurance_status && (user_ins_status == 1 || user_ins_status == 5) ? 'Active' : 'New'}</span></a></li>
+                      }} href="#"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} alt="" className="" />OPD Insurance<span className={user_ins_status == 1 || user_ins_status == 5 ? 'float-right memAct' : 'float-right memNew'}>{user_ins_status == 1 || user_ins_status == 5 ? 'Active' : 'New'}</span></a></li>
                       : ''
                   }
                   <li><a onClick={this.isDocCare.bind(this)}><img src={ASSETS_BASE_URL + "/img/primecae.png"} alt="" className="" />Docprime Care
