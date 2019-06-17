@@ -341,8 +341,7 @@ class BookingSummaryViewNew extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
         let patient = null
         let profile = null
-
-
+        
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
@@ -358,7 +357,7 @@ class BookingSummaryViewNew extends React.Component {
             }
         })
         is_insurance_applicable = is_tests_covered_under_insurance && is_selected_user_insured
-
+        
         // in case of upload prescription
         if (is_insurance_applicable) {
             if (this.props.selectedCriterias && this.props.selectedCriterias.length > 0) {
@@ -711,6 +710,16 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
+    goToInsurance(labDetail) {
+        let data = {}
+        data.thumbnail = labDetail.lab_thumbnail
+        data.name = labDetail.name
+        data.id = labDetail.id
+        data.type = 'lab'
+        this.props.saveAvailNowInsurance(data)
+        this.props.history.push('/insurance/insurance-plans?source=doctor-summary-view&show_button=true')
+    }
+
     render() {
         let tests = []
         let tests_with_price = []
@@ -733,7 +742,7 @@ class BookingSummaryViewNew extends React.Component {
         let is_plan_applicable = false
         let is_tests_covered_under_plan = true
         let is_selected_user_has_active_plan = false
-
+        let is_insurance_buy_able = false
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
@@ -776,6 +785,10 @@ class BookingSummaryViewNew extends React.Component {
 
         }
         is_insurance_applicable = is_tests_covered_under_insurance && is_selected_user_insured
+        
+        if(is_tests_covered_under_insurance && !is_selected_user_insured){
+            is_insurance_buy_able = true
+        }
         is_plan_applicable = is_tests_covered_under_plan && is_selected_user_has_active_plan
 
         if (this.props.LABS[this.props.selectedLab]) {
@@ -1025,6 +1038,23 @@ class BookingSummaryViewNew extends React.Component {
                                                                     }
                                                                 </div> : ''
                                                         }
+
+                                                        {/*is_insurance_buy_able ?
+                                                            <div className="widget mrb-15">
+                                                                <div className="widget-content">
+                                                                    <div className="d-flex justify-content-between align-items-sm-center">
+                                                                        <div className="opd-ins-title-sub">
+                                                                            <h4 className="title coupon-text">Get OPD Insurance & book for <span>FREE</span></h4>
+                                                                            <p>Book Unlimited Doctors and Lab Tests</p>
+                                                                        </div>
+                                                                        <div>
+                                                                            <span className="opd-ins-avl" onClick={this.goToInsurance.bind(this, labDetail)}>Avail Now <img src={ASSETS_BASE_URL +  '/img/right-sc.svg'}/></span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            : ''*/}
 
                                                         {
                                                             is_corporate ? ""

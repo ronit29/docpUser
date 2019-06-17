@@ -192,9 +192,14 @@ class LabProfileCard extends React.Component {
             }
         }
         let is_insurance_applicable = false
+        let is_insurance_buy_able = false
         if (insurance && insurance.is_insurance_covered && insurance.is_user_insured) {
             is_insurance_applicable = true
             pickup_text = ""
+        }
+
+        if (insurance && insurance.is_insurance_covered && !insurance.is_user_insured) {
+            is_insurance_buy_able =  true
         }
 
         return (
@@ -271,6 +276,17 @@ class LabProfileCard extends React.Component {
                             <button className="cstm-book-btn">Book Now</button>
                         </div>
                     </div>
+                    {
+                        is_insurance_buy_able?
+                        <div className="ins-buyable">
+                            <p>Book this test & all future tests for ₹ 0 with OPD insurance</p>
+                            <span style={{cursor:'pointer'}} onClick={(e)=>{
+                                e.stopPropagation()
+                                this.props.history.push('/insurance/insurance-plans?source=lab-listing&show_button=true')
+                            }}>Know more</span>
+                        </div>
+                        :''
+                    }
                 </div>
                 <div className="cstmCardFooter">
                     <div className="cstmfooterContent">

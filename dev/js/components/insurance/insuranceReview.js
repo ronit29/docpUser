@@ -222,11 +222,11 @@ class InsuranceReview extends React.Component{
 			return(
 				<div className="profile-body-wrap">
 				<ProfileHeader />
-				<section className="container container-top-margin">
-					<div className="row main-row parent-section-row">
+				<section className="container container-top-margin cardMainPaddingRmv">
+					<div className="row no-gutters dsktp-row-gutter">
 					<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
 					<section className="profile-book-screen">
-					<div className="widget">
+					<div>
 						{this.props.is_endorsement?
 						<p className="rev-ins-header" style={{color:'#000000'}}> Review your details 
 							{
@@ -238,135 +238,137 @@ class InsuranceReview extends React.Component{
 						</p>
 						:<InsurCommon {...this.props} is_edit={this.state.is_edit} is_edit_endorsment={this.props.is_endorsement}/>
 						}
-					<div className="insurance-member-container">
-			 			<div className="ins-user-details-lisitng">
-							<p className="sub-form-hed">Proposer</p>
-							<ul className="ins-usr-img-para pl-0">
-								<li>
-									<div className="img-list-width">
-										<img className="ins-input-img"  src={ASSETS_BASE_URL + "/img/user-01.svg"} />
-									</div>
-									{
-										self_profile.no_lname?
-										<p style={{'textTransform': 'capitalize'}}>{self_profile.name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}
-										{this.props.is_endorsement && self_edited_fields.length > 0 && 
-											(self_edited_fields.indexOf('first_name') != -1 || self_edited_fields.indexOf('middle_name') != -1 || 
-												self_edited_fields.indexOf('last_name') != -1 ||
-												self_edited_fields.indexOf('gender') != -1 ||
-												self_edited_fields.indexOf('title') != -1)?
-											<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
-										:''}
-										</p>:
-										<p style={{'textTransform': 'capitalize'}}>{self_profile.name} {self_profile.middle_name} {self_profile.last_name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''} 
-										{this.props.is_endorsement && self_edited_fields.length > 0 && 
-											(self_edited_fields.indexOf('first_name') != -1 || self_edited_fields.indexOf('middle_name') != -1 || 
-												self_edited_fields.indexOf('last_name') != -1 ||
-												self_edited_fields.indexOf('gender') != -1 ||
-												self_edited_fields.indexOf('title') != -1)?
+					<div className="widget mrt-10" style={{padding:'10px 4px'}}>
+						<div className="insurance-member-container" style={{padding:'0 8px 0'}}>
+							<div className="ins-user-details-lisitng">
+								<p className="sub-form-hed">Proposer</p>
+								<ul className="ins-usr-img-para pl-0">
+									<li>
+										<div className="img-list-width">
+											<img className="ins-input-img"  src={ASSETS_BASE_URL + "/img/user-01.svg"} />
+										</div>
+										{
+											self_profile.no_lname?
+											<p style={{'textTransform': 'capitalize'}}>{self_profile.name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''}
+											{this.props.is_endorsement && self_edited_fields.length > 0 && 
+												(self_edited_fields.indexOf('first_name') != -1 || self_edited_fields.indexOf('middle_name') != -1 || 
+													self_edited_fields.indexOf('last_name') != -1 ||
+													self_edited_fields.indexOf('gender') != -1 ||
+													self_edited_fields.indexOf('title') != -1)?
+												<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
+											:''}
+											</p>:
+											<p style={{'textTransform': 'capitalize'}}>{self_profile.name} {self_profile.middle_name} {self_profile.last_name} | {self_profile.gender=='m'?'Male':self_profile.gender=='f'?'Female':self_profile.gender=='o'?'Others':''} 
+											{this.props.is_endorsement && self_edited_fields.length > 0 && 
+												(self_edited_fields.indexOf('first_name') != -1 || self_edited_fields.indexOf('middle_name') != -1 || 
+													self_edited_fields.indexOf('last_name') != -1 ||
+													self_edited_fields.indexOf('gender') != -1 ||
+													self_edited_fields.indexOf('title') != -1)?
+												<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
+											:''}
+											</p>
+										}
+									</li>
+									<li>
+										<div className="img-list-width">
+											<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
+										</div>
+										<p>{self_profile.dob} 
+										{this.props.is_endorsement && self_edited_fields.length > 0 && self_edited_fields.indexOf('dob') != -1 ?
 											<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
 										:''}
 										</p>
-									}
-								</li>
-								<li>
-									<div className="img-list-width">
-										<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
-									</div>
-									<p>{self_profile.dob} 
-									{this.props.is_endorsement && self_edited_fields.length > 0 && self_edited_fields.indexOf('dob') != -1 ?
-										<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
-									:''}
-									</p>
-								</li>
-								<li>
-									<div className="img-list-width">
-										<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
-									</div>
-									<p>{self_profile.email}
-									{this.props.is_endorsement && self_edited_fields.length > 0 && self_edited_fields.indexOf('email') != -1 ?
-										<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
-									:''}
-									</p>
-								</li>
-								<li>
-									<div className="img-list-width">
-										<img className="ins-input-img"  src={ASSETS_BASE_URL + "/img/location-01.svg"} />
-									</div>
-									<p style={{'textTransform': 'capitalize'}}>{`${self_profile.address}, ${self_profile.town}, ${self_profile.district}, ${self_profile.state} - ${self_profile.pincode}`}
-									{this.props.is_endorsement && self_edited_fields.length > 0 && (self_edited_fields.indexOf('address') != -1 || self_edited_fields.indexOf('town') != -1 || self_edited_fields.indexOf('district') != -1 || self_edited_fields.indexOf('state') != -1|| self_edited_fields.indexOf('pincode') != -1)?
+									</li>
+									<li>
+										<div className="img-list-width">
+											<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
+										</div>
+										<p>{self_profile.email}
+										{this.props.is_endorsement && self_edited_fields.length > 0 && self_edited_fields.indexOf('email') != -1 ?
 											<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
-									:''}
-									</p>
-								</li>
-							</ul>
-						</div>
-						{
-							family_profile.map((val,key) => {
-								return <div key={key} className="ins-sub-forms sub-input-forms-containers">
-									<hr className="ins-internal-hr" />
-									<div className="ins-user-details-lisitng">
-										<p className="sub-form-hed">Member {key+1} </p>
-										<div className="members-container-padding pl-0">
-											<div className="row">
-												<div className="col-6">
-													<div className="members-listings">
-														<div className="member-list-width">
-															<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/hands-01.svg"} />
+										:''}
+										</p>
+									</li>
+									<li>
+										<div className="img-list-width">
+											<img className="ins-input-img"  src={ASSETS_BASE_URL + "/img/location-01.svg"} />
+										</div>
+										<p style={{'textTransform': 'capitalize'}}>{`${self_profile.address}, ${self_profile.town}, ${self_profile.district}, ${self_profile.state} - ${self_profile.pincode}`}
+										{this.props.is_endorsement && self_edited_fields.length > 0 && (self_edited_fields.indexOf('address') != -1 || self_edited_fields.indexOf('town') != -1 || self_edited_fields.indexOf('district') != -1 || self_edited_fields.indexOf('state') != -1|| self_edited_fields.indexOf('pincode') != -1)?
+												<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
+										:''}
+										</p>
+									</li>
+								</ul>
+							</div>
+							{
+								family_profile.map((val,key) => {
+									return <div key={key} className="ins-sub-forms sub-input-forms-containers">
+										<hr className="ins-internal-hr" />
+										<div className="ins-user-details-lisitng">
+											<p className="sub-form-hed">Member {key+1} </p>
+											<div className="members-container-padding pl-0">
+												<div className="row">
+													<div className="col-6">
+														<div className="members-listings">
+															<div className="member-list-width">
+																<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/hands-01.svg"} />
+															</div>
+															<p style={{'textTransform': 'capitalize'}}>{val.relation}</p>
 														</div>
-														<p style={{'textTransform': 'capitalize'}}>{val.relation}</p>
 													</div>
-												</div>
-												<div className="col-6">
-													<div className="members-listings">
-														<div className="member-list-width">
-															<img style={{ width: '19px' }} className="ins-input-img" src={ASSETS_BASE_URL + "/img/user-01.svg"} />
+													<div className="col-6">
+														<div className="members-listings">
+															<div className="member-list-width">
+																<img style={{ width: '19px' }} className="ins-input-img" src={ASSETS_BASE_URL + "/img/user-01.svg"} />
+															</div>
+															{
+																val.no_lname?
+															<p style={{'textTransform': 'capitalize'}}>{val.name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}
+															{this.props.is_endorsement && this.props.data.edited_fields[val.id] && 
+																(this.props.data.edited_fields[val.id].indexOf('first_name') > -1 || 
+																this.props.data.edited_fields[val.id].indexOf('middle_name') > -1 || 
+																this.props.data.edited_fields[val.id].indexOf('last_name') > -1 || 
+																this.props.data.edited_fields[val.id].indexOf('gender') > -1 ||
+																this.props.data.edited_fields[val.id].indexOf('title') > -1)?
+																<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
+																:''
+															}
+															</p>
+															:<p style={{'textTransform': 'capitalize'}}>{val.name} {val.middle_name} {val.last_name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}
+															{this.props.is_endorsement && this.props.data.edited_fields[val.id] && 
+																(this.props.data.edited_fields[val.id].indexOf('first_name') > -1 || 
+																this.props.data.edited_fields[val.id].indexOf('middle_name') > -1 || 
+																this.props.data.edited_fields[val.id].indexOf('last_name') > -1 || 
+																this.props.data.edited_fields[val.id].indexOf('gender') > -1 ||
+																this.props.data.edited_fields[val.id].indexOf('title') > -1)?
+																<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
+																:''
+															}
+															</p>
+															}
 														</div>
-														{
-															val.no_lname?
-														<p style={{'textTransform': 'capitalize'}}>{val.name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}
-														{this.props.is_endorsement && this.props.data.edited_fields[val.id] && 
-															(this.props.data.edited_fields[val.id].indexOf('first_name') > -1 || 
-															this.props.data.edited_fields[val.id].indexOf('middle_name') > -1 || 
-															this.props.data.edited_fields[val.id].indexOf('last_name') > -1 || 
-															this.props.data.edited_fields[val.id].indexOf('gender') > -1 ||
-															this.props.data.edited_fields[val.id].indexOf('title') > -1)?
-															<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
-															:''
-														}
-														</p>
-														:<p style={{'textTransform': 'capitalize'}}>{val.name} {val.middle_name} {val.last_name} | {val.gender=='m'?'Male':val.gender=='f'?'Female':val.gender=='o'?'Others':''}
-														{this.props.is_endorsement && this.props.data.edited_fields[val.id] && 
-															(this.props.data.edited_fields[val.id].indexOf('first_name') > -1 || 
-															this.props.data.edited_fields[val.id].indexOf('middle_name') > -1 || 
-															this.props.data.edited_fields[val.id].indexOf('last_name') > -1 || 
-															this.props.data.edited_fields[val.id].indexOf('gender') > -1 ||
-															this.props.data.edited_fields[val.id].indexOf('title') > -1)?
-															<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
-															:''
-														}
-														</p>
-														}
 													</div>
-												</div>
-												<div className="col-6">
-													<div className="members-listings">
-														<div className="member-list-width">
-															<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
+													<div className="col-6">
+														<div className="members-listings">
+															<div className="member-list-width">
+																<img className="ins-input-img" src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
+															</div>
+															<p>{val.dob}
+															{this.props.is_endorsement && this.props.data.edited_fields[val.id] && (this.props.data.edited_fields[val.id].indexOf('dob') > -1)?
+																<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
+																:''
+															}
+															</p>
 														</div>
-														<p>{val.dob}
-														{this.props.is_endorsement && this.props.data.edited_fields[val.id] && (this.props.data.edited_fields[val.id].indexOf('dob') > -1)?
-															<span style={{color:'#757575','textTransform': 'none'}}> (edited)</span>
-															:''
-														}
-														</p>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							})
-						}				
+								})
+							}				
+						</div>
 					</div>
 					</div>
 				</section>

@@ -86,7 +86,7 @@ class Insurance extends React.Component {
 	    function resetTimer() {
 	        clearTimeout(time);
 	        if(self.state.checkIdleTimeout){
-	        	time = setTimeout(stop, 5000)	
+	        	time = setTimeout(stop, 12000)	
 	        }
 	    }
 	}
@@ -230,7 +230,9 @@ class Insurance extends React.Component {
 	}
 
 	render() {
+		let parsed = queryString.parse(this.props.location.search)
 		if (this.props.LOAD_INSURANCE) {
+			let parsed = queryString.parse(this.props.location.search)
 			return (
 				<div className="profile-body-wrap">
 					<ProfileHeader />
@@ -239,11 +241,11 @@ class Insurance extends React.Component {
                     	title: 'OPD Insurance | Buy OPD Insurance Cover | OPD Cover',
                     	description: 'OPD Insurance: Buy OPD insurance cover & get cashless benefits on lab tests & doctor consultation with a network of over 15000 doctors and 2000 labs.'
                 	}} noIndex={false} />                
-					<section className="container container-top-margin">
-						<div className="row main-row parent-section-row">
+					<section className="container container-top-margin cardMainPaddingRmv">
+						<div className="row no-gutters dsktp-row-gutter">
 							<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
 								<section className="profile-book-screen" style={{position:'relative'}}>
-									<div className="widget">
+									<div>
 										{/*<div>
                                     <span style={{ cursor: 'pointer' }} onClick={this.shortenUrl.bind(this)}>
                                         <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
@@ -271,30 +273,32 @@ class Insurance extends React.Component {
 										}
 										<InsurCommon {...this.props} isSelectPlan={true} is_checked={this.state.is_checked} />
 										{/* coverage listing */}
-										<div className="coverage-list-container border-bg-transprant">
-											<table className="table table-bordered insurance-tbl insurance-checkboxes">
-												<thead>
-													<tr>
-														<th className="tbl-first-head"><p>Coverage (1 Year)</p></th>
-														<th className="tbl-second-head"><p>Annual Premium</p></th>
-													</tr>
-												</thead>
-												<tbody>
-													{
-														this.props.insurnaceData['insurance'][0].plans.map((result, i) => {
-															return <tr id={result.id} key={i} onClick={this.selectPlan.bind(this, result)} ref={result.adult_count == 2 && result.child_count == 2 ? (input) => { this.textInput = input } : 'ref_0'}>
-																<td>
-																	<label className="container-radio" htmlform={i} >{result.name}
-																		<input type="radio" name="gender" id={i} value={i} checked={this.state.is_checked ? this.state.is_checked === result.id : result.is_selected} />
-																		<span className="doc-checkmark"></span>
-																	</label>
-																</td>
-																<td><span>₹ {result.amount}</span></td>
-															</tr>
-														})
-													}
-												</tbody>
-											</table>
+										<div className="widget mrt-20">
+											<div className="coverage-list-container border-bg-transprant">
+												<table className="table table-bordered insurance-tbl insurance-checkboxes">
+													<thead>
+														<tr>
+															<th className="tbl-first-head"><p>Coverage (1 Year)</p></th>
+															<th className="tbl-second-head"><p>Annual Premium</p></th>
+														</tr>
+													</thead>
+													<tbody>
+														{
+															this.props.insurnaceData['insurance'][0].plans.map((result, i) => {
+																return <tr id={result.id} key={i} onClick={this.selectPlan.bind(this, result)} ref={result.adult_count == 2 && result.child_count == 2 ? (input) => { this.textInput = input } : 'ref_0'}>
+																	<td>
+																		<label className="container-radio" htmlform={i} >{result.name}
+																			<input type="radio" name="gender" id={i} value={i} checked={this.state.is_checked ? this.state.is_checked === result.id : result.is_selected} />
+																			<span className="doc-checkmark"></span>
+																		</label>
+																	</td>
+																	<td><span>₹ {result.amount}</span></td>
+																</tr>
+															})
+														}
+													</tbody>
+												</table>
+											</div>
 										</div>
 										{/* coverage listing */}										
 									</div>
@@ -308,7 +312,20 @@ class Insurance extends React.Component {
 									<InsurPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} popupClass={this.state.popupClass} overlayClass={this.state.overlayClass} identifyUserClick={this.state.identifyUserClick}/> : ''
 								}
 								{
-									STORAGE.checkAuth() ?
+									parsed.show_button?
+									<div className="sticky-btn fixed insuBtnsContainer">
+											<button className="insu-left-white-btn" onClick={()=>this.props.history.go(-1)}>Back to Booking
+											</button>
+											{
+												STORAGE.checkAuth()?
+												<button className="insu-right-orng-btn" onClick={this.proceedPlan.bind(this)}>Proceed {this.state.selected_plan_price} <span className="foot-btn-sub-span">{this.state.gst}</span>
+												</button>
+												:
+												<button className="insu-right-orng-btn" id="proceedLead" onClick={this.proceedLead.bind(this, 'proceed')}>Proceed {this.state.selected_plan_price} <span className="foot-btn-sub-span">{this.state.gst}</span>
+												</button>
+											}
+									</div>	
+									:STORAGE.checkAuth()?
 										<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Proceed {this.state.selected_plan_price} <span className="foot-btn-sub-span">{this.state.gst}</span>
 										</button>
 										:

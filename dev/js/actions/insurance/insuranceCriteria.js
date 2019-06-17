@@ -1,4 +1,4 @@
-import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, INSURANCE_PAY, SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE , SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, PUSH_USER_DATA, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS, DELETE_MEMBER_PROOF, SAVE_INSURANCE_BANK_DETAILS} from '../../constants/types';
+import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, INSURANCE_PAY, SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE , SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, PUSH_USER_DATA, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS, DELETE_MEMBER_PROOF, SAVE_INSURANCE_BANK_DETAILS, SAVE_AVAIL_NOW_INSURANCE} from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
 export const getInsurance = (is_endorsement,callback) => (dispatch) => {
@@ -143,7 +143,7 @@ export const clearInsurance = () => (dispatch) =>{
             type: CLEAR_INSURANCE
         })
 }
-export const generateInsuranceLead = (selectedPlan, number,lead_data,callback,selectedLocation) => (dispatch) => {
+export const generateInsuranceLead = (selectedPlan, number,lead_data,selectedLocation,callback) => (dispatch) => {
     let lat
     let long
     let latitude = 28.644800
@@ -307,5 +307,12 @@ export const uploadBankProof = (profileData,imgType,cb) => (dispatch) => {
         if (cb) cb(response,null);
     }).catch(function (error) {
         if (cb) cb(error, null);
+    })
+}
+
+export const saveAvailNowInsurance = (criteria) => (dispatch) => {
+    dispatch({
+        type:SAVE_AVAIL_NOW_INSURANCE,
+        payload:criteria
     })
 }
