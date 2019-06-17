@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { getInsuredProfile, clearInsurance} from '../../actions/index.js'
+import { getInsuredProfile, clearInsurance, clearAvailNowInsurance} from '../../actions/index.js'
 import InsuranceCertificateView from '../../components/insurance/insuranceCertificate.js'
 
 class InsuranceCertificate extends React.Component{
@@ -44,7 +44,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
 
         getInsuredProfile :(cb) => dispatch(getInsuredProfile(cb)),
-        clearInsurance:()=>dispatch(clearInsurance())
+        clearInsurance:()=>dispatch(clearInsurance()),
+        clearAvailNowInsurance:()=>dispatch(clearAvailNowInsurance())
         
     }
 }

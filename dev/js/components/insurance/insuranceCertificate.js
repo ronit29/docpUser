@@ -37,11 +37,13 @@ class InsuranceCertificateView extends React.Component {
 	}
 
 	goToBooking() {
-		if (this.props.avail_now_data && Object.keys(this.props.avail_now_data).length > 0) {
-			if (this.props.avail_now_data.type == 'lab') {
-				this.props.history.push(`/lab/${this.props.avail_now_data.id}/book`)
+		let data = this.props.avail_now_data
+		this.props.clearAvailNowInsurance()
+		if (data && Object.keys(data).length > 0) {
+			if (data.type == 'lab') {
+				this.props.history.push(`/lab/${data.id}/book`)
 			} else {
-				this.props.history.push(`/opd/doctor/${this.props.avail_now_data.id}/${this.props.avail_now_data.selectedClinic}/bookdetails`)
+				this.props.history.push(`/opd/doctor/${data.id}/${data.selectedClinic}/bookdetails`)
 			}
 		}
 	}
@@ -236,7 +238,7 @@ class InsuranceCertificateView extends React.Component {
 								}
 								{
 									this.props.avail_now_data && Object.keys(this.props.avail_now_data).length > 0 ?
-										<div className="widget mrb-15 mrng-top-12" onClick={this.goToBooking.bind(this)}>
+										<div className="widget mrb-15 mrng-top-12" onClick={this.goToBooking.bind(this)} style={{cursor:'pointer'}}>
 											<div className="widget-header dr-qucik-info">
 												<div style={{ cursor: 'pointer' }}>
 													<InitialsPicture name={this.props.avail_now_data.name} has_image={!!this.props.avail_now_data.thumbnail} className="initialsPicture-dp docCardIntPic">
