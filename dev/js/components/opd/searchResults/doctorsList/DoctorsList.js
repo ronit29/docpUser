@@ -228,10 +228,14 @@ class DoctorsList extends React.Component {
         }
 
         let card_ID = ''
+        let bookableDoctors = true
         result_list.map((cardId, i) => {
             if (detectFlag && result_data[cardId] && !result_data[cardId].hospitals[0].enabled_for_online_booking && this.props.seoFriendly && this.props.match.url.includes('-sptlitcit') && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) {
                 card_ID = cardId
                 detectFlag = false;
+            }
+            if (result_data[0] && !result_data[0].hospitals[0].enabled_for_online_booking && this.props.seoFriendly && this.props.match.url.includes('-sptlitcit') && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) {
+                bookableDoctors = false
             }
         })
 
@@ -282,6 +286,19 @@ class DoctorsList extends React.Component {
                                                         return <React.Fragment key={i}>
 
                                                             {
+                                                                !bookableDoctors && i == 1 ?
+                                                                    <li key={i}>
+                                                                        <div className="d-flex align-items-center justify-content-between auto-location-widget mb-3">
+                                                                            <div className="d-flex align-items-center auto-location-text">
+                                                                                <img src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} />
+                                                                                <p className="fw-500">See {this.props.commonSelectedCriterias[0].name} with great discounts near you</p>
+                                                                            </div>
+                                                                            <div className="auto-location-btn fw-500" onClick={() => this.detectLocation()} >Detect Location</div>
+                                                                        </div>
+                                                                    </li> : ''
+                                                            }
+
+                                                            {
                                                                 (i == 2 && this.props.seoFriendly && this.props.match.url.includes('-sptcit') && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) ?
                                                                     <div className="d-flex align-items-center justify-content-between auto-location-widget mb-3">
                                                                         <div className="d-flex align-items-center auto-location-text">
@@ -311,7 +328,7 @@ class DoctorsList extends React.Component {
                                                                         <div className="d-flex align-items-center justify-content-between auto-location-widget mb-3">
                                                                             <div className="d-flex align-items-center auto-location-text">
                                                                                 <img src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} />
-                                                                                <p className="fw-500">Show {this.props.commonSelectedCriterias[0].name} near me</p>
+                                                                                <p className="fw-500">See more {this.props.commonSelectedCriterias[0].name} near you</p>
                                                                             </div>
                                                                             <div className="auto-location-btn fw-500" onClick={() => this.detectLocation()} >Detect Location</div>
                                                                         </div>
