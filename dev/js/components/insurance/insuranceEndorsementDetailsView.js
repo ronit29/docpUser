@@ -420,6 +420,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 					})	
 				}
 			}
+			console.log(edited_fields)
 			console.log(member_ref)
 		this.setState({validateErrors: validatingErrors,validateOtherErrors: validatingOtherErrors,validatingNames:invalidname,validateDobErrors:validatingDobErrors,errorMessages:errorMessagesObj,endorsementError:newIdProofs})
     	if(is_disable && document.getElementById(member_ref)){    		
