@@ -742,13 +742,16 @@ class PatientDetailsNew extends React.Component {
         percent_discount = parseInt(100 - percent_discount)
         let docDiscount = (parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))
         let cod_percentage_discount = (parseInt(docDiscount)/(parseInt(priceData.mrp)) * 100)
+        is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
         if (!enabled_for_cod_payment && this.props.payment_type == 2) {
             this.props.select_opd_payment_type(1)
         } else if (enabled_for_cod_payment && !enabled_for_prepaid_payment) {
             this.props.select_opd_payment_type(2)
+        } else if (enabled_for_cod_payment && this.props.payment_type == 2 && is_insurance_applicable) {
+            this.props.select_opd_payment_type(1)
         }
 
-        is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
+        
         if(hospital && hospital.insurance && (parseInt(hospital.deal_price) <= hospital.insurance.insurance_threshold_amount) && !is_selected_user_insured){
             is_insurance_buy_able = true
         }
