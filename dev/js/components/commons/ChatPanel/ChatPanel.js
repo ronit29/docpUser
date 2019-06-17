@@ -434,7 +434,7 @@ class ChatPanel extends React.Component {
             }
         }
         let is_religare = false
-        if (this.props.USER && this.props.USER.common_utm_tags && this.props.USER.common_utm_tags.length) {
+        if (false && this.props.USER && this.props.USER.common_utm_tags && this.props.USER.common_utm_tags.length) {
             let religareTag = this.props.USER.common_utm_tags.filter(x => x.type == 'chat' && x.utm_source == 'religare')
 
             if (religareTag.length) {
@@ -442,9 +442,13 @@ class ChatPanel extends React.Component {
                 iframe_url += `&source=religare&visitid=${religareTag[0].visitorId}`
             }
         }
-        if(parsedHref && parsedHref.utm_source && parsedHref.utm_source.includes('religare')) {
+        if(parsedHref && parsedHref.utm_source) {
 
-            if(!is_religare) {
+            if(parsedHref.utm_source!='religare') {
+                iframe_url += `&source=${parsedHref.utm_source}`
+            }
+
+            if(!is_religare && parsedHref.utm_source.includes('religare')) {
                 is_religare = true
                 iframe_url += `&source=religare&visitid=${parsedHref.visitid?parsedHref.visitid:''}`
             }

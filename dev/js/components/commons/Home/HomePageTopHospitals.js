@@ -11,11 +11,21 @@ class TopHospitalWidgets extends React.Component {
         }
         GTM.sendEvent({ data: gtmData })
 
+        let redirectUrl = ''
+
         if(data.url) {
-            this.props.history.push(`/${data.url}?showPopup=true&get_feedback=1`)
+            redirectUrl = `/${data.url}?showPopup=true`
         }else {
-            this.props.history.push(`/ipd/hospital/${data.id}?showPopup=true&get_feedback=1`)
+            redirectUrl = `/ipd/hospital/${data.id}?showPopup=true`
         }
+
+        if(this.props.is_ipd_form_submitted){
+
+        }else {
+            redirectUrl+= '&get_feedback=1'
+        }
+
+        this.props.history.push(redirectUrl)
     }
 
     scroll(type) {

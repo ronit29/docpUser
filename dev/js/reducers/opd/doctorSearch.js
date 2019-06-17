@@ -25,7 +25,8 @@ const defaultState = {
     seoData: {},
     show404: false,
     payment_type: 1,
-    canonical_url: null
+    canonical_url: null,
+    hospitalData: null
 }
 
 export default function (state = defaultState, action) {
@@ -83,6 +84,7 @@ export default function (state = defaultState, action) {
             newState.seoData = action.payload.seo
             newState.show404 = action.payload.show404 || false
             newState.canonical_url = action.payload.canonical_url||null
+            newState.hospitalData = action.payload.hospital || null
 
             return newState
         }
