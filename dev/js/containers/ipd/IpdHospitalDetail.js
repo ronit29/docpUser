@@ -63,13 +63,13 @@ class HospitalDetail extends React.Component {
         	this.setState({specialization_id: parsed.specialization_id})
         }
         let hospitalId = searchUrl?'':this.props.match.params.hospitalId
-        if(!this.state.hospital_id || !this.props.ipd_hospital_detail_info || !this.props.ipd_hospital_detail_info[this.state.hospital_id]) {
+        //if(!this.state.hospital_id || !this.props.ipd_hospital_detail_info || !this.props.ipd_hospital_detail_info[this.state.hospital_id]) {
         	this.props.getHospitaDetails(hospitalId, this.props.selectedLocation, searchUrl, specialization_id, (resp) => {
         		if(resp && resp.id) {
         			this.setState({hospital_id: resp.id})
         		}
         	})	
-        }
+        //}
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -86,14 +86,14 @@ class HospitalDetail extends React.Component {
 	        	this.setState({specialization_id: parsed.specialization_id})
 	        }
 
-	        if(!this.state.hospital_id || !nextProps.ipd_hospital_detail_info || !nextProps.ipd_hospital_detail_info[this.state.hospital_id]) {
+	       // if(!this.state.hospital_id || !nextProps.ipd_hospital_detail_info || !nextProps.ipd_hospital_detail_info[this.state.hospital_id]) {
 	        	this.props.getHospitaDetails(this.props.match.params.hospitalId, nextProps.selectedLocation, searchUrl, specialization_id, (resp) => {
 
 	        		if(resp && resp.id) {
 	        			this.setState({hospital_id: resp.id})
 	        		}
 	        	})
-	        }
+	        //}
 		}
 	}
 
