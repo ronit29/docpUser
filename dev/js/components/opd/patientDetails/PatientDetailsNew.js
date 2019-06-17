@@ -752,9 +752,10 @@ class PatientDetailsNew extends React.Component {
         }
 
         
-        if(hospital && hospital.insurance && (parseInt(hospital.deal_price) <= hospital.insurance.insurance_threshold_amount) && !is_selected_user_insured){
+        if(hospital && hospital.insurance && (parseInt(hospital.deal_price) <= hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered && !is_selected_user_insured){
             is_insurance_buy_able = true
         }
+
         if (enabled_for_prepaid_payment)
             payment_mode_count++
         if (enabled_for_cod_payment)
