@@ -1,4 +1,5 @@
 import React from 'react'
+import GTM from '../../../helpers/gtm.js'
 
 class ChatQuestion3 extends React.Component {
 
@@ -10,6 +11,11 @@ class ChatQuestion3 extends React.Component {
 	}
 
 	componentDidMount(){
+		let data = {
+
+            'Category': 'Chat', 'Action': 'ChatQuestion3PageLanded', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-question-3-page-landed', "url": window.location.pathname
+        }
+        GTM.sendEvent({ data: data })
 		/*if(this.props.chat_feedback){
 			let feedback = this.props.chat_feedback.filter(x=>x.type.includes('ques3'))
 			if(feedback.length){
@@ -19,7 +25,16 @@ class ChatQuestion3 extends React.Component {
 */	}
 
 	saveFeedBack(data){
-		this.props.saveChatFeedBack('ques3', this.state.feedback)
+		data = {
+			feedback: this.state.feedback,
+			question:'How likely are you to recommend us to your friends or family?'
+		}
+		this.props.saveChatFeedBack('ques3', data)
+		let gtmData = {
+
+            'Category': 'Chat', 'Action': 'ChatQuestion3Submitted', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-question-3-submitted', "url": window.location.pathname
+        }
+        GTM.sendEvent({ data: gtmData })
 		this.props.history.push('/chat/feedback/ques4')
 	}
 
@@ -82,7 +97,7 @@ class ChatQuestion3 extends React.Component {
 		            </div>
 		            <div className="cf-footer">
 		               <a href="javascript:void(0);" onClick={()=>this.props.history.push('/chat/feedback/ques2')} className="cf-btn cf-prev"> 
-		                   <img src="/assets/images/left-arrow.png" alt="r-arrow" className="cf-img" />
+		                   <img src="/assets/images/right_arrow.png" alt="r-arrow" className="cf-img cf-rotate" />
 		                   PREVIOUS
 		               </a>
 		               <a href="javascript:void(0);" onClick={this.saveFeedBack.bind(this)} className="cf-btn cf-next">NEXT 

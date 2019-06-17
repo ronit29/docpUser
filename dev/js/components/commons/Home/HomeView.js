@@ -15,6 +15,9 @@ import PackageCompareStrip from '../../diagnosis/searchPackages/packageCompare/p
 import HomePagePackageWidget from './HomePagePackageWidget.js'
 const queryString = require('query-string');
 import CRITEO from '../../../helpers/criteo.js'
+import HomePageTopHospitals from './HomePageTopHospitals.js'
+import HomePageTopProcedures from './HomePageProcedureWidgets.js'
+import TopChatWidget from './HomePageChatWidget';
 
 const GENDER = {
 	"m": "Male",
@@ -86,7 +89,6 @@ class HomeView extends React.Component {
 	}
 
 	searchLab(test, isPackage = false) {
-		console.log(test)
 		let data
 		if (isPackage) {
 			test.type = 'package'
@@ -194,6 +196,8 @@ class HomeView extends React.Component {
 			}
 		}
 
+		let showPackageStrip = this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage
+
 		let slabOrder = []
 		if (this.props.device_info != "desktop" && SlabSequence) {
 
@@ -255,6 +259,18 @@ class HomeView extends React.Component {
 								/> : ""
 						}
 
+						{
+							this.props.ipd_procedures && this.props.ipd_procedures.length ?
+								<HomePageTopProcedures {...this.props} top_data={this.props.ipd_procedures} />
+								: ''
+						}
+
+						{
+							this.props.top_hospitals && this.props.top_hospitals.length ?
+								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} />
+								: ''
+						}
+
 					</div>
 				</div>)
 
@@ -292,7 +308,24 @@ class HomeView extends React.Component {
                                         </button>
                                     </div>
                                 </div> : ''
-                        } */}
+						} */}
+
+						{
+							this.props.history ?
+								<TopChatWidget history={this.props.history} /> : ''
+						}
+
+						{
+							this.props.top_hospitals && this.props.top_hospitals.length ?
+								<HomePageTopHospitals {...this.props} top_data={this.props.top_hospitals} />
+								: ''
+						}
+
+						{
+							this.props.ipd_procedures && this.props.ipd_procedures.length ?
+								<HomePageTopProcedures {...this.props} top_data={this.props.ipd_procedures} />
+								: ''
+						}
 
 						{
 							this.props.common_package && this.props.common_package.length ?
@@ -382,22 +415,24 @@ class HomeView extends React.Component {
 					canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
 				}} setDefault={true} />
 
-				<ProfileHeader homePage={true} showSearch={true} />
+				<ProfileHeader homePage={true} showSearch={true} showPackageStrip={showPackageStrip}/>
 
 				{/* <div className="sub-header mrg-top"></div> */}
 				<div className="headerSubLinkContainer">
 					<div className="container">
 						<div className="head_text_container">
-							<a href="/insurance/insurance-plans" onClick={(e) => {
-								let data = {
-									'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-navbar-insurance-clicked'
-								}
-								GTM.sendEvent({ data: data })
-								e.preventDefault();
-								this.navigateTo("/insurance/insurance-plans?source=desktop-navbar-insurance-clicked")
-							}}>OPD Insurance
-							<span className="opdNewHeaderOfr">New</span>
-							</a>
+							{this.props.common_settings && this.props.common_settings.insurance_availability?
+								<a href="/insurance/insurance-plans" onClick={(e) => {
+									let data = {
+										'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-navbar-insurance-clicked'
+									}
+									GTM.sendEvent({ data: data })
+									e.preventDefault();
+									this.navigateTo("/insurance/insurance-plans?source=desktop-navbar-insurance-clicked")
+								}}>OPD Insurance
+								<span className="opdNewHeaderOfr">New</span>
+								</a>
+							:''}
 							<a href="/search" onClick={(e) => {
 								e.preventDefault();
 								this.navigateTo("/search", 'opd')
@@ -430,7 +465,7 @@ class HomeView extends React.Component {
 
 					<Accordian />
 					{
-						this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage ?
+						showPackageStrip?
 							<PackageCompareStrip {...this.props} />
 							:
 							<FixedMobileFooter {...this.props} />

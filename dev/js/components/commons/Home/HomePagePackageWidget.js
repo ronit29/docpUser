@@ -50,13 +50,13 @@ class HomePagePackageWidget extends React.Component {
 
     render() {
         return (
-            <div className="pakg-slider-container">
+            <div className="pakg-slider-container mt-10">
                 <div className="pkgSliderHeading">
                     <h5>Book Health Packages</h5>
                     <span onClick={this.navigateTo.bind(this, this.props.navTo)}>View All</span>
                 </div>
                 <div className="pkgSliderContainer" id="pkgSlider">
-                    <div className='pkgCardsList d-inline-block'>
+                    <div className='pkgCardsList d-inline-flex'>
                         {
                             this.props.list.map((listItem, i) => {
                                 return <div className="pkgcustCards" key={i} onClick={this.props.searchFunc.bind(this, listItem)}>
@@ -66,8 +66,8 @@ class HomePagePackageWidget extends React.Component {
                                     </div>
                                     {/* <p className="pkgtstName">{listItem.name} </p>
                                 <p className="newpkgInclude">{listItem.no_of_tests} tests included </p> */}
-                                    <p className="pkgtstName">{listItem.name} {listItem.no_of_tests>0?
-                                        `(${listItem.no_of_tests} tests)`:''}</p>
+                                    <p className="pkgtstName">{listItem.name} {listItem.no_of_tests > 0 ?
+                                        `(${listItem.no_of_tests} tests)` : ''}</p>
                                     {listItem.mrp && listItem.discounted_price ?
                                         <div className="pkg-card-price-offr">
                                             <div className="pkg-prc-ct">
@@ -75,7 +75,7 @@ class HomePagePackageWidget extends React.Component {
                                             </div>
                                             <span className="pkg-hlth-offer">{parseInt(((listItem.mrp - listItem.discounted_price) / listItem.mrp) * 100)}% OFF</span>
                                         </div>
-                                    :''}
+                                        : ''}
                                 </div>
                             })
                         }

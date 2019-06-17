@@ -250,9 +250,9 @@ class BookingView extends React.Component {
                                                 <div className="col-12">
                                                     <div className="app-timeline book-confirmed-timeline">
                                                         {
-                                                            (status == 1 || status == 6) ? <h4 style={{ textAlign: 'center' }}>Appointment Cancelled</h4> :
-
-                                                                <ul className="inline-list">
+                                                            status == 6 ? <h4 style={{ textAlign: 'center' }}>Appointment Cancelled</h4>
+                                                             :status == 1 ? <h4 style={{ textAlign: 'center' }}>Appointment Created</h4> 
+                                                                :<ul className="inline-list">
                                                                     <li className={(status <= 5 || status == 7) ? "active" : ""}>
                                                                         <span className="dot">1</span>
                                                                         <p className="text-sm fw-700 text-light">Received</p>
@@ -299,19 +299,6 @@ class BookingView extends React.Component {
                                                             {
                                                                 actions.indexOf(6) > -1 && !this.state.hide_button && !is_thyrocare ? <a onClick={this.toggleCancel.bind(this)} href="#" className="text-primary fw-700 text-sm">Cancel Booking</a> : ""
                                                             }
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="widget mrt-10 mrb-10">
-                                                        <div className="widget-content">
-                                                            <div className="test-report">
-                                                                <h4 className="title"><span><img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/icons/user.svg"} style={{
-                                                                    width: 14, marginRight: 5, verticalAlign: -3
-                                                                }} /></span>Patient Details</h4>
-                                                                <p className="test-list fw-500">{profile.name}</p>
-                                                                <p className="test-list fw-500">{profile.phone_number}</p>
-                                                                <p className="test-list fw-500">{profile.email}</p>
-                                                            </div>
                                                         </div>
                                                     </div>
 
@@ -394,6 +381,19 @@ class BookingView extends React.Component {
                                                         </div>
                                                     </div>
 
+                                                    <div className="widget mrt-10 mrb-10">
+                                                        <div className="widget-content">
+                                                            <div className="test-report">
+                                                                <h4 className="title"><span><img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/icons/user.svg"} style={{
+                                                                    width: 14, marginRight: 5, verticalAlign: -3
+                                                                }} /></span>Patient Details</h4>
+                                                                <p className="test-list fw-500">{profile.name}</p>
+                                                                <p className="test-list fw-500">{profile.phone_number}</p>
+                                                                <p className="test-list fw-500">{profile.email}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                     {
                                                         status <= 5 ? <div className="widget mrb-10" style={{ marginTop: 10 }}>
                                                             <div className="widget-content">
@@ -435,7 +435,7 @@ class BookingView extends React.Component {
                             <TestDetail show={this.state.showTestDetail} toggle={this.toogleTestDetails.bind(this)} lab_test={lab_test} />
 
                             {
-                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} comments={this.state.data && this.state.data.cancellation_reason ? this.state.data.cancellation_reason : []} showCommentReasons={payment_type == 3?true:false}/> : ""
+                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} comments={this.state.data && this.state.data.cancellation_reason ? this.state.data.cancellation_reason : []} showCommentReasons={payment_type == 3 || payment_type == 2?true:false}/> : ""
                             }
 
                         </div>

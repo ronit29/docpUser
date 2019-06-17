@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { logout, fetchNotifications, getUserProfile, toggleLeftMenuBar, getIsCareDetails, selectSearchType } from '../../../actions/index.js'
+import { logout, fetchNotifications, getUserProfile, toggleLeftMenuBar, getIsCareDetails, selectSearchType, loadOPDInsurance } from '../../../actions/index.js'
 import STORAGE from '../../../helpers/storage'
 import { withRouter } from 'react-router'
 
@@ -24,6 +24,7 @@ class DesktopProfileHeader extends React.Component {
             }
             this.props.getIsCareDetails()
         }
+        this.props.loadOPDInsurance(this.props.selectedLocation)
     }
 
     render() {
@@ -36,14 +37,15 @@ class DesktopProfileHeader extends React.Component {
 
 const mapStateToProps = (state) => {
 
-    let { profiles, selectedProfile, defaultProfile, notifications, newNotification, currentRoomId, cart, unread_count, toggleLeftMenu, isUserCared, leftMenuOpenFirstTime } = state.USER
+    let { profiles, selectedProfile, defaultProfile, notifications, newNotification, currentRoomId, cart, unread_count, toggleLeftMenu, isUserCared, leftMenuOpenFirstTime, ipd_chat } = state.USER
 
     let {
-        selectedLocation
+        selectedLocation,
+        common_settings
     } = state.SEARCH_CRITERIA_OPD
 
     return {
-        profiles, selectedProfile, defaultProfile, notifications, newNotification, selectedLocation, currentRoomId, cart, unread_count, toggleLeftMenu, isUserCared, leftMenuOpenFirstTime
+        profiles, selectedProfile, defaultProfile, notifications, newNotification, selectedLocation, currentRoomId, cart, unread_count, toggleLeftMenu, isUserCared, leftMenuOpenFirstTime, ipd_chat,common_settings
     }
 }
 
@@ -55,6 +57,7 @@ const mapDispatchToProps = (dispatch) => {
         getIsCareDetails: () => dispatch(getIsCareDetails()),
         toggleLeftMenuBar: (toggle, defaultVal) => dispatch(toggleLeftMenuBar(toggle, defaultVal)),
         selectSearchType: (type) => dispatch(selectSearchType(type)),
+        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city))
     }
 }
 

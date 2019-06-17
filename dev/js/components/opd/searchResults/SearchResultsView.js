@@ -2,13 +2,14 @@ import React from 'react';
 
 import DoctorsList from '../searchResults/doctorsList/index.js'
 import CriteriaSearch from '../../commons/criteriaSearch'
-import TopBar from './topBar'
+import TopBar from './newTopBar'
 import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import NAVIGATE from '../../../helpers/navigate'
 import Footer from '../../commons/Home/footer'
 import ResultCount from './topBar/result_count.js'
 const queryString = require('query-string');
+import SCROLL from '../../../helpers/scrollHelper.js'
 
 class SearchResultsView extends React.Component {
     constructor(props) {
@@ -26,11 +27,17 @@ class SearchResultsView extends React.Component {
             clinic_card: this.props.location.search.includes('clinic_card') || null,
             showError: false,
             search_id: '',
-            setSearchId: false
+            setSearchId: false,
+            scrollPosition: 0,
+            quickFilter: {},
+            detectLocation: false
         }
     }
 
     componentDidMount() {
+        /*let aa = {...SCROLL}
+        //aa.init()
+        aa.addEvents('map')*/
         const parsed = queryString.parse(this.props.location.search)
         if (this.props.mergeUrlState) {
             let getSearchId = true
@@ -161,8 +168,29 @@ class SearchResultsView extends React.Component {
             }
             this.buildURI(props)
         } else if (props.fetchNewResults && (props.fetchNewResults != this.props.fetchNewResults && this.state.search_id)) {
-            this.setState({ setSearchId: true })
-            this.getDoctorList(props)
+            if (this.state.detectLocation && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) {
+                this.props.cloneCommonSelectedCriterias(this.props.commonSelectedCriterias[0])
+                let doctor_name = '', hospital_name = '', hospital_id = ''
+                let state = {
+                    filterCriteria: {
+                        ...this.props.nextFilterCriteria,
+                        sort_on: "distance",
+                        doctor_name, hospital_name, hospital_id
+                    },
+                    nextFilterCriteria: {
+                        ...this.props.nextFilterCriteria,
+                        sort_on: "distance",
+                        doctor_name, hospital_name, hospital_id
+                    }
+                }
+
+                this.props.mergeOPDState(state, true)
+
+                this.props.history.push({ pathname: '/opd/searchresults' })
+            } else {
+                this.setState({ setSearchId: true })
+                this.getDoctorList(props)
+            }
             // if (window) {
             //     window.scrollTo(0, 0)
             // }
@@ -178,6 +206,10 @@ class SearchResultsView extends React.Component {
                 this.props.history.replace(new_url)
             }
         }
+    }
+
+    detectLocationClick() {
+        this.setState({ detectLocation: true })
     }
 
     generateSearchId(uid_string) {
@@ -203,7 +235,7 @@ class SearchResultsView extends React.Component {
         if (typeof window == 'object') {
             window.ON_LANDING_PAGE = false
         }
-
+        this.resetQuickFilters()
         let search_id_data = Object.assign({}, this.props.search_id_data)
         const parsed = queryString.parse(this.props.location.search)
 
@@ -249,7 +281,7 @@ class SearchResultsView extends React.Component {
             locality = selectedLocation.locality || ''
             sub_locality = selectedLocation.sub_locality || ''
         }
-
+/*
         let min_fees = filterCriteria.priceRange[0]
         let max_fees = filterCriteria.priceRange[1]
         let min_distance = filterCriteria.distanceRange[0]
@@ -257,6 +289,17 @@ class SearchResultsView extends React.Component {
         let sort_on = filterCriteria.sort_on || ""
         let is_available = filterCriteria.is_available
         let is_female = filterCriteria.is_female
+
+*/      
+        let sort_on = filterCriteria.sort_on || ""
+        let sort_order = filterCriteria.sort_order || ""
+        let availability = filterCriteria.availability || []
+        let avg_ratings = filterCriteria.avg_ratings || []
+        let gender = filterCriteria.gender || ''
+        let sits_at_hospital = filterCriteria.sits_at_hospital
+        let sits_at_clinic = filterCriteria.sits_at_clinic
+
+
         let hospital_name = filterCriteria.hospital_name || ""
         let doctor_name = filterCriteria.doctor_name || ""
         let hospital_id = filterCriteria.hospital_id || ""
@@ -269,25 +312,18 @@ class SearchResultsView extends React.Component {
         //Check if any filter applied 
         let is_filter_applied = false
 
-        if (parseInt(min_fees) != 0) {
-            is_filter_applied = true
-        }
-        if (parseInt(max_fees) != 3000) {
-            is_filter_applied = true
-        }
-        if (parseInt(min_distance) != 0) {
-            is_filter_applied = true
-        }
-        if (parseInt(max_distance) != 15) {
-            is_filter_applied = true
-        }
         if (sort_on) {
             is_filter_applied = true
         }
-        if (is_available) {
+        if (availability && availability.length) {
             is_filter_applied = true
         }
-        if (is_female) {
+
+        if (avg_ratings && avg_ratings.length) {
+            is_filter_applied = true
+        }
+
+        if (gender) {
             is_filter_applied = true
         }
         if (hospital_name) {
@@ -304,7 +340,7 @@ class SearchResultsView extends React.Component {
 
         if (is_filter_applied || !this.state.seoFriendly) {
 
-            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&min_fees=${min_fees}&max_fees=${max_fees}&min_distance=${min_distance}&max_distance=${max_distance}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}`
+            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}&sits_at_hospital=${sits_at_hospital}&sits_at_clinic=${sits_at_clinic}`
 
             is_params_exist = true
 
@@ -323,12 +359,12 @@ class SearchResultsView extends React.Component {
             is_params_exist = true
         }
 
-        if(parsed.get_feedback) {
+        if (parsed.get_feedback) {
             url += `${is_params_exist ? '&' : '?'}get_feedback=${parsed.get_feedback}`
             is_params_exist = true
         }
 
-        if(parsed.showPopup) {
+        if (parsed.showPopup) {
             url += `${is_params_exist ? '&' : '?'}showPopup=${parsed.showPopup}`
             is_params_exist = true
         }
@@ -382,6 +418,14 @@ class SearchResultsView extends React.Component {
         return { title, description, schema }
     }
 
+    resetQuickFilters(){
+        this.setState({quickFilter: {}})
+    }
+
+    applyQuickFilter(filter) {
+        this.setState({quickFilter: filter})
+    }
+
     render() {
         let show_pagination = this.props.doctorList && this.props.doctorList.length > 0
         let url = `${CONFIG.API_BASE_URL}${this.props.location.pathname}`
@@ -412,7 +456,7 @@ class SearchResultsView extends React.Component {
         if (typeof window == 'object' && window.ON_LANDING_PAGE) {
             landing_page = true
         }
-
+        
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
@@ -429,36 +473,50 @@ class SearchResultsView extends React.Component {
                 <CriteriaSearch {...this.props} checkForLoad={landing_page || this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card} newChatBtn={true} searchDoctors={true}>
                     {
                         this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
-                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
-                            <ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
+                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} resetQuickFilters={this.resetQuickFilters.bind(this)} quickFilter={this.state.quickFilter}/>
+                            {/*<ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />*/}
                             {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                                 <img src={ASSETS_BASE_URL + "/img/banners/banner_doc.png"} className="banner-img" />
                             </div> */}
-                            <DoctorsList {...this.props} getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />
-
                             {
-                                this.state.seoFriendly && show_pagination ? <div className="art-pagination-div">
-                                    {
-                                        prev ? <a href={prev} >
-                                            <div className="art-pagination-btn">
-                                                <span className="fw-500">{curr_page - 1}</span>
-                                            </div>
-                                        </a> : ""
-                                    }
-
-                                    <div className="art-pagination-btn">
-                                        <span className="fw-500" style={{ color: '#000' }}>{curr_page}</span>
+                                (this.state.clinic_card && this.props.hospitalList && this.props.hospitalList.length==0) || this.props.doctorList && this.props.doctorList.length ==0?
+                                <div className="container-fluid cardMainPaddingRmv">
+                                    <div className="pkg-card-container mt-20 mb-3">
+                                        <div className="pkg-no-result">
+                                            <p className="pkg-n-rslt">No result found!</p>
+                                            <img className="n-rslt-img" src={ASSETS_BASE_URL + '/img/no-result.png'} />
+                                            <p className="pkg-ty-agn cursor-pntr" onClick={this.applyQuickFilter.bind(this, {viewMore: true})}>Try again with fewer filters</p>
+                                        </div>
                                     </div>
+                                </div>
+                                :<React.Fragment>
+                                    <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)}  getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} detectLocationClick={() => this.detectLocationClick()}  applyQuickFilter={this.applyQuickFilter.bind(this)} />
 
                                     {
-                                        next ? <a href={next} >
-                                            <div className="art-pagination-btn">
-                                                <span className="fw-500">{curr_page + 1}</span>
-                                            </div>
-                                        </a> : ""
-                                    }
+                                        this.state.seoFriendly && show_pagination ? <div className="art-pagination-div">
+                                            {
+                                                prev ? <a href={prev} >
+                                                    <div className="art-pagination-btn">
+                                                        <span className="fw-500">{curr_page - 1}</span>
+                                                    </div>
+                                                </a> : ""
+                                            }
 
-                                </div> : ""
+                                            <div className="art-pagination-btn">
+                                                <span className="fw-500" style={{ color: '#000' }}>{curr_page}</span>
+                                            </div>
+
+                                            {
+                                                next ? <a href={next} >
+                                                    <div className="art-pagination-btn">
+                                                        <span className="fw-500">{curr_page + 1}</span>
+                                                    </div>
+                                                </a> : ""
+                                            }
+
+                                        </div> : ""
+                                    }
+                                </React.Fragment>
                             }
 
                         </div>

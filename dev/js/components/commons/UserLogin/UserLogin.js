@@ -19,7 +19,8 @@ class UserLoginView extends React.Component {
             otp: "",
             otpTimeout: false,
             referralCode: parsed.referral || null,
-            referralName: null
+            referralName: null,
+            smsBtnType: null
         }
     }
 
@@ -44,26 +45,25 @@ class UserLoginView extends React.Component {
         }
     }
 
-    submitOTPRequest(number, resendFlag = false) {
+    submitOTPRequest(number, resendFlag = false, viaSms, viaWhatsapp) {
         const parsed = queryString.parse(this.props.location.search)
         if (resendFlag) {
             let analyticData = {
-                'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': number, 'pageSource': parsed.login || ''
-            }
+                'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': number, 'pageSource': parsed.login || '' , 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''}
             GTM.sendEvent({ data: analyticData })
         } else {
             let analyticData = {
-                'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': number, 'pageSource': parsed.login || ''
+                'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': number, 'pageSource': parsed.login || '', 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''
             }
             GTM.sendEvent({ data: analyticData })
         }
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
-            this.props.sendOTP(number, (error) => {
+            this.props.sendOTP(number, viaSms, viaWhatsapp, (error) => {
                 if (error) {
                     // this.setState({ validationError: "Could not generate OTP." })
                 } else {
-                    this.setState({ showOTP: true, otpTimeout: true })
+                    this.setState({ showOTP: true, otpTimeout: true, smsBtnType: viaSms ? true : false })
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
                     }, 10000)
@@ -190,7 +190,13 @@ class UserLoginView extends React.Component {
                                                     <br /><br />
                                                     <input type="number" className="fc-input text-center" placeholder="Enter OTP" value={this.state.otp} onChange={this.inputHandler.bind(this)} name="otp" onKeyPress={this._handleKeyPress.bind(this)} />
                                                     {
-                                                        this.state.otpTimeout ? "" : <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true)}>Resend ?</a>
+                                                        this.state.otpTimeout ? "" : 
+                                                        <div className="d-flex align-items-start justify-content-between">
+                                                            <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ?'Send via Whatsapp':'Send via SMS'}
+                                                            </a>
+                                                            <a className="resendOtp" style={{color:'#ec0d0d'}} onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}>Resend
+                                                            </a>
+                                                        </div>
                                                     }
                                                 </div> : ""
                                             }
@@ -204,17 +210,24 @@ class UserLoginView extends React.Component {
                                                         Verify
                                                 </button>
                                                 </div> :
-                                                <div className="text-center">
-                                                    <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm">
-                                                        Continue
+                                                <React.Fragment>
+                                                    <div className="text-center">
+                                                        <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, false, true, false)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-sms-btn">
+                                                            <img className="sms-ico" src={ASSETS_BASE_URL + '/img/smsicon.svg'} />Verify Via SMS
                                                 </button>
-                                                </div>
+                                                    </div>
+                                                    <div className="text-center">
+                                                        <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, false, false, true)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-wtsp-btn">
+                                                            <img className="whtsp-ico" src={ASSETS_BASE_URL + '/img/wa-logo-gr.svg'} />Verify Via Whatsapp
+                                                </button>
+                                                    </div>
+                                                </React.Fragment>
                                         }
                                     </div>
 
                                     <p className="text-center fw-500 p-3" style={{ fontSize: 12, color: '#8a8a8a' }} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: '#f78631' }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: '#f78631' }} >Privacy Policy.</a></p>
                                 </div>
-                                <div className="widget mt-21 sign-up-container mrng-btm-scrl">
+                                {/* <div className="widget mt-21 sign-up-container mrng-btm-scrl">
                                     <div className="sgn-up-instructions">
                                         <div className="sighnup-scnd-heading">
                                             <p><b>docprime</b> is your <span>Free Family Doctor For Life</span> </p>
@@ -231,7 +244,7 @@ class UserLoginView extends React.Component {
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> */}
                             </section>
 
                         </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getIpdInfo, submitIPDForm, getUserProfile, getOfferList } from '../../actions/index.js'
+import { getIpdInfo, submitIPDForm, getUserProfile, getOfferList, ipdPopupFired } from '../../actions/index.js'
 import IPDFormView from '../../components/ipd/IPDFormView.js'
 import STORAGE from '../../helpers/storage';
 
@@ -61,7 +61,8 @@ const mapDispatchToProps = (dispatch) => {
 		getIpdInfo: (ipd_id) => dispatch(getIpdInfo(ipd_id)),
 		submitIPDForm: (formData, selectedLocation, cb) => dispatch(submitIPDForm(formData, selectedLocation, cb)),
 		getUserProfile: () => dispatch(getUserProfile()),
-		getOfferList: (lat, long) => dispatch(getOfferList(lat, long))
+		getOfferList: (lat, long) => dispatch(getOfferList(lat, long)),
+		ipdPopupFired: () => dispatch(ipdPopupFired())
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(IPDForm)

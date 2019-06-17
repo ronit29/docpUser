@@ -135,7 +135,12 @@ class TopBar extends React.Component {
 
     shortenUrl() {
         if (window) {
-            let url = window.location.href + '&force_location=true'
+            let url = window.location.href
+            if (url.includes('?')) {
+                url = window.location.href + '&force_location=true'
+            } else {
+                url = window.location.href + '?force_location=true'
+            }
             this.props.urlShortner(url, (err, data) => {
                 if (!err) {
                     this.setState({ shortURL: data.tiny_url })
@@ -258,7 +263,7 @@ class TopBar extends React.Component {
                                     </ul>
                                 </div>
                                 <div className="filter-title">
-                                    {this.props.count} Results found {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr}</span>
+                                    {this.props.count} Results {criteriaStr ? "for" : ""} <span className="fw-700"> {criteriaStr}</span>
 
                                     <span>
                                         {

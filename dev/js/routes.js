@@ -5,6 +5,8 @@ import CONFIG from './config'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import HelmetTags from './components/commons/HelmetTags'
+const queryString = require('query-string');
+
 
 import Loadable from 'react-loadable'
 const loading = () => <div className="loading_Linebar_container">
@@ -170,6 +172,18 @@ const PatientDetails = Loadable({
     webpack: () => [require.resolveWeak('./containers/opd/PatientDetails.js')],
     loading,
 })
+const SeoBooking = Loadable({
+    loader: () => import('./containers/opd/SeoBooking.js'),
+    modules: ['./containers/opd/SeoBooking.js'],
+    webpack: () => [require.resolveWeak('./containers/opd/SeoBooking.js')],
+    loading,
+})
+const SeoBooking_Lab = Loadable({
+    loader: () => import('./containers/diagnosis/SeoBooking.js'),
+    modules: ['./containers/diagnosis/SeoBooking.js'],
+    webpack: () => [require.resolveWeak('./containers/diagnosis/SeoBooking.js')],
+    loading,
+})
 const Booking_OPD = Loadable({
     loader: () => import('./containers/opd/Booking.js'),
     modules: ['./containers/opd/Booking.js'],
@@ -197,6 +211,12 @@ const IpdList = Loadable({
     loading,
 })
 
+const CodPaymentPage = Loadable({
+    loader: () => import('./containers/commons/codPayment.js'),
+    modules: ['./containers/commons/codPayment.js'],
+    webpack: () => [require.resolveWeak('./containers/commons/codPayment.js')],
+    loading,
+})
 
 /**
  * IPD ROUTES
@@ -286,10 +306,24 @@ const InsuranceCancellation = Loadable({
     webpack: () => [require.resolveWeak('./containers/insurance/InsuranceCancellation.js')],
     loading,
 })
+
+const InsuranceBankDetails = Loadable({
+    loader: () => import('./containers/insurance/InsuranceBankDetails.js'),
+    modules: ['./containers/insurance/InsuranceBankDetails.js'],
+    webpack: () => [require.resolveWeak('./containers/insurance/InsuranceBankDetails.js')],
+    loading,
+})
+
 const InsuranceNetwork = Loadable({
     loader: () => import('./containers/insurance/InsuranceNetwork.js'),
     modules: ['./containers/insurance/InsuranceNetwork.js'],
     webpack: () => [require.resolveWeak('./containers/insurance/InsuranceNetwork.js')],
+    loading,
+})
+const InsuranceEndorsementDetails = Loadable({
+    loader: () => import('./containers/insurance/InsuranceEndorsementDetails'),
+    modules: ['./containers/insurance/InsuranceEndorsementDetails'],
+    webpack: () => [require.resolveWeak('./containers/insurance/InsuranceEndorsementDetails')],
     loading,
 })
 const IPDInfo = Loadable({
@@ -474,8 +508,12 @@ let routes = [
     { path: '/*-ipddp', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
     { path: '/opd/doctor/:id', exact: true, component: DoctorProfile, RENDER_ON_SERVER: true },
     { path: '/*-dpp', exact: true, component: DoctorProfile, RENDER_ON_SERVER: true },
+
     { path: '/opd/doctor/:id/:clinicId/book', exact: true, component: AppointmentSlot },
     { path: '/opd/doctor/:id/:clinicId/bookdetails', exact: true, component: PatientDetails },
+
+    { path: '/*-dpp/booking', exact: true, component: SeoBooking, RENDER_ON_SERVER: true },
+
     { path: '/coupon/:type/:id/:cid', exact: true, private: true, component: CouponSelectNewView },
     { path: '/opd/appointment/:refId', exact: true, component: Booking_OPD },
     { path: '/opd/reschedule/:refId', exact: true, component: AppointmentReschedule },
@@ -486,9 +524,13 @@ let routes = [
     { path: '/*-lblitcit', exact: true, component: DX_SearchResults, RENDER_ON_SERVER: true },
     { path: '/lab/:id', exact: true, component: Lab, RENDER_ON_SERVER: true },
     { path: '/*-lpp', exact: true, component: Lab, RENDER_ON_SERVER: true },
+
     { path: '/lab/:id/tests', exact: true, component: TestSelector },
     { path: '/lab/:id/timeslots', exact: true, component: AppointmentSlot_Lab },
     { path: '/lab/:id/book', exact: true, component: DX_BookingSummary },
+
+    { path: '/*-lpp/booking', exact: true, component: SeoBooking_Lab, RENDER_ON_SERVER: true },
+
     { path: '/lab/appointment/:refId', exact: true, component: Booking_LAB },
 
     { path: '/about', exact: true, component: StaticPages, RENDER_ON_SERVER: true },
@@ -526,21 +568,22 @@ let routes = [
     { path: '/prime/plans', exact: true, component: PrimeCare },
     { path: '/prime/booking', exact: true, component: PrimeCareBooking },
     { path: '/prime/success', exact: true, component: PrimeCareSuccess },
-    { path: '/compare', exact:true, component: Compare},
-    { path: '/ipdInfo', exact: true, component: IPDInfo , RENDER_ON_SERVER: true },
-    { path: '/*-ipdp', exact: true, component: IPDInfo , RENDER_ON_SERVER: true },
-    { path: '/ipd/:id/getPriceEstimate',exact: true, component: IpdForm},
-    { path: '/ipd/searchHospitals',exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
-    { path: '/*-ipdhp',exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
-    { path: '/*-hspcit',exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
-    { path: '/*-hsplitcit',exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
+    { path: '/compare', exact: true, component: Compare },
+    { path: '/ipdInfo', exact: true, component: IPDInfo, RENDER_ON_SERVER: true },
+    { path: '/*-ipdp', exact: true, component: IPDInfo, RENDER_ON_SERVER: true },
+    { path: '/ipd/:id/getPriceEstimate', exact: true, component: IpdForm },
+    { path: '/ipd/searchHospitals', exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
+    { path: '/*-ipdhp', exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
+    { path: '/*-hspcit', exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
+    { path: '/*-hsplitcit', exact: true, component: IpdHospitalSearch, RENDER_ON_SERVER: true },
     { path: '/ipd/hospital/:hospitalId', exact: true, component: IpdHospitalDetail, RENDER_ON_SERVER: true },
     { path: '/*-hpp', exact: true, component: IpdHospitalDetail, RENDER_ON_SERVER: true },
     { path: '/ipd/:ipd_id/detail', exact: true, component: IpdDetail },
     { path: '/chat/feedback' , component: ChatFeedback },
     { path: '/package/compare', exact: true, component: PackageCompare },
     { path: '/*-hpcp', exact: true, component: PackageCompare },
-    { path: '/ipd-procedures', exact: true, component: IpdList, RENDER_ON_SERVER: true }
+    { path: '/ipd-procedures', exact: true, component: IpdList, RENDER_ON_SERVER: true },
+    { path: '/order/paymentSummary', exact: true, component: CodPaymentPage }
 
 ]
 
@@ -549,10 +592,12 @@ if (CONFIG.ENABLE_INSURANCE) {
         { path: '/insurance1', exact: true, component: InsuranceViewUI },
         { path: '/insurance/insurance-plans', exact: true, component: InsuranceView, RENDER_ON_SERVER: true },
         { path: '/insurance/insurance-user-details', exact: true, component: InsuranceDetails, RENDER_ON_SERVER: true },
+        { path: '/insurance/insurance-endorsement-details', exact: true, component: InsuranceEndorsementDetails, RENDER_ON_SERVER: true },
         { path: '/insurance/insurance-user-details-review', exact: true, component: InsuranceReview, RENDER_ON_SERVER: true },
         { path: '/insurance/complete', exact: true, component: InsuranceSuccess, RENDER_ON_SERVER: true },
         { path: '/insurance/certificate', exact: true, component: InsuranceCertificate, RENDER_ON_SERVER: true },
         { path: '/insurance/cancelpolicy', exact: true, component: InsuranceCancellation, RENDER_ON_SERVER: true },
+        { path: '/insurance/canceldetails', exact: true, component: InsuranceBankDetails, RENDER_ON_SERVER: true },
         { path: '/insurance/network', exact: true, component: InsuranceNetwork, RENDER_ON_SERVER: true }
     ])
 }

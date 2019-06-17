@@ -76,7 +76,7 @@ class LeftMenu extends React.Component {
                                 */}
 
                   {
-                    CONFIG.ENABLE_INSURANCE ?
+                    CONFIG.ENABLE_INSURANCE && this.props.common_settings && this.props.common_settings.insurance_availability?
                       <li><a onClick={(e) => {
                         let data = {
                         'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuInsuranceClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-insurance-clicked'
@@ -181,19 +181,24 @@ class LeftMenu extends React.Component {
                           e.preventDefault();
                           this.props.toggleLeftMenu()
                           this.props.history.push("/all-diseases")
-                        }} href="#" className="pad-B0">All Diseases</a></li>
+                        }} href="#" className="pad-B0">Diseases</a></li>
 
                       <li ><a onClick={(e) => {
                         e.preventDefault();
                         this.props.toggleLeftMenu()
                         this.props.history.push("/all-medicines")
-                      }} href="#" className="pad-B0">All Medicines</a></li>
+                      }} href="#" className="pad-B0">Medicines</a></li>
 
-                      <li ><a onClick={(e) => {
+                      <li ><a className="pad-B0" onClick={(e) => {
                         e.preventDefault();
                         this.props.toggleLeftMenu()
                         this.props.history.push("/tests")
-                      }} href="#">All Tests</a></li>
+                      }} href="#">Tests</a></li>
+                      <li ><a onClick={(e) => {
+                        e.preventDefault();
+                        this.props.toggleLeftMenu()
+                        this.props.history.push("/ipd-procedures")
+                      }} href="#">Procedures</a></li>
                       </div>
                       : ''
                   }

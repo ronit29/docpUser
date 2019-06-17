@@ -39,6 +39,8 @@ require('../css/style.css')
 
 const logPageView = () => {
 
+    GTM.send_boot_events()
+    
     // change landing page status
     if (window.location.pathname != window.LANDING_PATHNAME) {
         window.ON_LANDING_PAGE = false
@@ -63,28 +65,6 @@ import RatingsPopUp from './components/commons/ratingsProfileView/RatingsPopUp.j
 class App extends React.Component {
     constructor(props) {
         super(props)
-
-        const parsed = queryString.parse(window.location.search)
-
-        let source = ''
-        if (parsed.utm_source) {
-            source = parsed.utm_source
-        } else if (document.referrer) {
-            source = document.referrer
-        }
-
-        let utm_tags = {
-            utm_source: parsed.utm_source || '',
-            utm_medium: parsed.utm_medium || '',
-            utm_term: parsed.utm_term || '',
-            utm_campaign: parsed.utm_campaign || '',
-            source: source,
-            referrer: document.referrer || ''
-        }
-
-        this.state = {
-            utm_tags, utm_source: source
-        }
     }
 
     componentDidMount() {
@@ -136,70 +116,29 @@ class App extends React.Component {
             })
         }
 
+        let { utm_tags, device } = GTM.send_boot_events(true)
 
-        /**
-         * Tracking code
-         * TODO : refactor
-         */
-        if (parsed) {
-
-            let data = {
-                'Category': 'ConsumerApp', 'Action': 'UTMevents', 'event': 'utm-events', 'utm_source': this.state.utm_tags.utm_source || '', 'utm_medium': this.state.utm_tags.utm_medium || '', 'utm_term': this.state.utm_tags.utm_term || '', 'utm_campaign': this.state.utm_tags.utm_campaign || '', 'addToGA': false, 'source': this.state.utm_source, 'referrer': document.referrer || ''
+        if (utm_tags.utm_source && utm_tags.utm_source.includes('religare')) {
+            let tags = {
+                utm_source: utm_tags.utm_source,
+                visitorId: parsed.visitid || ''
             }
-            GTM.sendEvent({ data: data })
+            this.props.setCommonUtmTags('chat', tags)
+        }
 
-
-            this.props.setUTMTags(this.state.utm_tags)
-
-            //Set UTM Source for Chat
-
-            if (this.state.utm_source && this.state.utm_source.includes('religare')) {
-                let tags = {
-                    utm_source: this.state.utm_source,
-                    visitorId: parsed.visitid || ''
-                }
-                this.props.setCommonUtmTags('chat', tags)
-            }
-
-            // set summary page utm_source
-            if (this.state.utm_source == 'alpha_december_18') {
-                let validity = new Date()
-                validity.setDate(validity.getDate() + 7)
-                this.props.set_summary_utm(true, validity)
-            }
-            // remove if validity exceeded
-            if (this.props.summary_utm_validity && this.props.summary_utm) {
-                if ((new Date) > (new Date(this.props.summary_utm_validity))) {
-                    this.props.set_summary_utm(false, null)
-                }
+        // set summary page utm_source
+        if (utm_tags.utm_source == 'alpha_december_18') {
+            let validity = new Date()
+            validity.setDate(validity.getDate() + 7)
+            this.props.set_summary_utm(true, validity)
+        }
+        // remove if validity exceeded
+        if (this.props.summary_utm_validity && this.props.summary_utm) {
+            if ((new Date) > (new Date(this.props.summary_utm_validity))) {
+                this.props.set_summary_utm(false, null)
             }
         }
 
-        let isMobile = false
-        let device = 'desktop'
-        if (navigator) {
-            if (/mobile/i.test(navigator.userAgent)) {
-                isMobile = true
-                device = 'mobile'
-            }
-            if (navigator.userAgent.match(/iPad/i)) {
-                device = 'ipad'
-            }
-            if (navigator.userAgent.match(/iPhone/i)) {
-                device = 'iphone'
-            }
-            if (navigator.userAgent.match(/Android/i)) {
-                device = 'Android'
-            }
-
-            if (navigator.userAgent.match(/BlackBerry/i)) {
-                device = 'BlackBerry'
-            }
-            let data = {
-                'Category': 'ConsumerApp', 'Action': 'VisitorInfo', 'event': 'visitor-info', 'Device': device, 'Mobile': isMobile, 'platform': navigator.platform || '', 'addToGA': false
-            }
-            GTM.sendEvent({ data: data })
-        }
         this.props.saveDeviceInfo(device)
         this.props.clearOpdSearchId()
         this.props.clearLabSearchId()
