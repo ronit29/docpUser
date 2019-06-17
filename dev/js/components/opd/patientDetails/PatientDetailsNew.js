@@ -906,10 +906,10 @@ class PatientDetailsNew extends React.Component {
                                                                                     <label className="container-radio payment-type-radio">
                                                                                         <h4 className="title payment-amt-label">Online Payment</h4>
                                                                                         <span className="payment-mode-amt">{is_insurance_applicable ? '₹0' : this.getBookingAmount(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp))}</span>
-                                                                                        {
+                                                                                        {/* {
                                                                                             is_insurance_applicable ? ""
                                                                                                 : <span className="save-upto">Save {percent_discount}%</span>
-                                                                                        }
+                                                                                        } */}
 
                                                                                         <input checked={this.props.payment_type == 1} type="radio" name="payment-mode" />
                                                                                         <span className="doc-checkmark"></span>
@@ -934,12 +934,12 @@ class PatientDetailsNew extends React.Component {
                                                                                         enabled_for_cod_payment && priceData.is_cod_deal_price?
                                                                                         <React.Fragment>
                                                                                         <span className="payment-mode-amt">₹{priceData.is_cod_deal_price}</span>
-                                                                                        <span className="save-upto">Save {cod_percentage_discount}%
-                                                                                        </span>
+                                                                                        {/* <span className="save-upto">Save {cod_percentage_discount}%
+                                                                                        </span> */}
                                                                                         </React.Fragment>
                                                                                         :<span className="payment-mode-amt">₹{clinic_mrp}</span>
                                                                                     }
-                                                                                    <span className="light-txts d-block"> (No Coupon code and discount will be applied)</span>
+                                                                                    {/* <span className="light-txts d-block"> (No Coupon code and discount will be applied)</span> */}
                                                                                     <input checked={this.props.payment_type == 2} type="radio" name="payment-mode" />
                                                                                     <span className="doc-checkmark"></span>
                                                                                 </label>
@@ -953,17 +953,19 @@ class PatientDetailsNew extends React.Component {
 
                                                                     {
                                                                         is_insurance_buy_able ?
-                                                                            <div className="test-report payment-detail mt-20 p-relative"  onClick={this.goToInsurance.bind(this,this.props.DOCTORS[this.props.selectedDoctor],this.props.selectedClinic)} style={{cursor:'pointer'}}>
+                                                                            <div className="test-report payment-detail mt-20 p-relative mb-0"  onClick={this.goToInsurance.bind(this,this.props.DOCTORS[this.props.selectedDoctor],this.props.selectedClinic)} style={{cursor:'pointer'}}>
                                                                                 <div className="d-flex justify-content-between align-items-sm-center">
                                                                     <div className="opd-ins-title-sub">
-                                                                        <h4 className="title coupon-text">Get OPD Insurance & book for <span>FREE</span></h4>
-                                                                        <p>Book Unlimited Doctors and Lab Tests</p>
+                                                                        <h4 className="title coupon-text">Pay with OPD Insurance</h4>
+                                                                        <span className="ins-t-n-c">T&C Apply</span>
+                                                                        {/* <p>Book Unlimited Doctors and Lab Tests</p> */}
                                                                     </div>
                                                                     <div>
-                                                                        <span className="opd-ins-avl">Avail Now <img src={ASSETS_BASE_URL +  '/img/right-sc.svg'}/></span>
+                                                                        <span className="opd-ins-avl">Free <img src={ASSETS_BASE_URL +  '/img/right-sc.svg'}/></span>
+                                                                        <p className="opd-ins-av-know">know more</p>
                                                                     </div>
                                                                 </div>
-                                                                <span className="ins-t-n-c">T&C Apply</span>
+                                                                
                                                                             </div> : ''
                                                                     }
 
