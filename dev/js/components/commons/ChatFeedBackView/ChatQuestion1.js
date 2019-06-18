@@ -1,4 +1,5 @@
 import React from 'react'
+import GTM from '../../../helpers/gtm.js'
 
 class ChatQuestion1 extends React.Component {
 	constructor(props){
@@ -9,6 +10,11 @@ class ChatQuestion1 extends React.Component {
 	}
 
 	componentDidMount(){
+		let data = {
+
+            'Category': 'Chat', 'Action': 'ChatQuestion1PageLanded', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-question-1-page-landed', "url": window.location.pathname
+        }
+        GTM.sendEvent({ data: data })
 		/*if(this.props.chat_feedback){
 			let feedback = this.props.chat_feedback.filter(x=>x.type.includes('ques1'))
 			if(feedback.length){
@@ -23,6 +29,11 @@ class ChatQuestion1 extends React.Component {
 			question:'Have you taken your prescribed medicines, regularly?'
 		}
 		this.props.saveChatFeedBack('ques1', data)
+		let gtmData = {
+
+            'Category': 'Chat', 'Action': 'ChatQuestion1Submitted', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-question-1-submitted', "url": window.location.pathname
+        }
+        GTM.sendEvent({ data: gtmData })
 		this.props.history.push('/chat/feedback/ques2')
 	}
 

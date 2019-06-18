@@ -3,18 +3,28 @@ import { MERGE_SEARCH_STATE_OPD, SET_FETCH_RESULTS_LAB, CLEAR_ALL_TESTS, CLEAR_E
 // const moment = require('moment');
 
 const DEFAULT_FILTER_STATE = {
-    priceRange: [0, 20000],
-    distanceRange: [0, 15],
-    sort_on: null,
+    //priceRange: [0, 20000],
+    //distanceRange: [0, 15],
+    sort_on: '',
+    sort_order: '',
+    avg_rating: '',
+    availability: [],
+    home_visit: false,
+    lab_visit: false,
     lab_name: "",
     network_id: "",
     is_insured: false
 }
 
 const DEFAULT_FILTER_STATE_PACKAGES = {
-    priceRange: [0, 20000],
+    /*priceRange: [0, 20000],
     distanceRange: [0, 15],
-    sort_on: null,
+    */
+    sort_on:'',
+    sort_order: '',
+    avg_rating: '',
+    home_visit: false,
+    lab_visit: false,
     lab_name: "",
     network_id: "",
     catIds: [],
@@ -218,6 +228,7 @@ export default function (state = defaultState, action) {
             newState.filterCriteria = DEFAULT_FILTER_STATE
             newState.nextFilterCriteria = DEFAULT_FILTER_STATE
             newState.filterCriteriaPackages = DEFAULT_FILTER_STATE_PACKAGES
+            newState.filterCriteriaPackages.catIds = []
             // newState.fetchNewResults = true
             return newState
         }

@@ -15,9 +15,6 @@ class TopBar extends React.Component {
         this.state = {
             anchorEl: null,
             openFilter: false,
-            priceRange: [0, 20000],
-            distanceRange: [0, 15],
-            sort_on: null,
             // shortURL: "",
             dropdown_visible: false,
             // showLocationPopup: false,
@@ -34,7 +31,12 @@ class TopBar extends React.Component {
             gender: '',
             catIds: [],
             test_ids: '',
-            package_ids: ''
+            package_ids: '',
+            previous_filters: {},
+            sort_order: null,
+            rating: [],
+            home_visit: false,
+            lab_visit: false,
         }
     }
 
@@ -81,11 +83,10 @@ class TopBar extends React.Component {
 
     applyFilters() {
         let filterState = {
-            priceRange: this.state.priceRange,
-            distanceRange: this.state.distanceRange,
-            sort_on: this.state.sort_on,
-            max_age: this.state.max_age,
-            min_age: this.state.min_age,
+            sort_order: this.state.sort_order || '',
+            rating: this.state.rating ||'',
+            home_visit: this.state.home_visit || false,
+            lab_visit: this.state.lab_visit ||false,
             gender: this.state.gender,
             packageType: this.state.packageType,
             catIds: this.state.catIds,

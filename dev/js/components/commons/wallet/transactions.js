@@ -24,7 +24,8 @@ const PRODUCT = {
 
 const SOURCE_FROM = {
     1: '',
-    2: 'from Promotional Balance'
+    2: 'from Promotional Balance',
+    3:''
 }
 
 const SOURCE_TO = {

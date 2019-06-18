@@ -40,7 +40,7 @@ class ChatPanel extends React.Component {
         }
 
         STORAGE.getAuthToken().then((token) => {
-            this.sendUserDetails(this.props.USER)
+            //this.sendUserDetails(this.props.USER)
             token = token || ""
             if (this.props.location.state) {
                 this.setState({ token, symptoms: (this.props.location.state.symptoms || []), roomId: (this.props.location.state.roomId || "") })
@@ -154,6 +154,11 @@ class ChatPanel extends React.Component {
                                 GTM.sendEvent({ data: analyticData })
 
                                 this.props.setChatRoomId(data.data.rid)
+                                if (this.props.selectedLocation) {
+                                    this.sendLocationNotification(this.props.selectedLocation)
+                                }
+
+                                this.sendUserDetails()
                                 this.setState({ selectedRoom: data.data.rid, iframeLoading: false })
                             }
                             break
@@ -251,13 +256,19 @@ class ChatPanel extends React.Component {
         this.dispatchCustomEvent('location', data)
     }
 
-    sendUserDetails(user){
+    sendUserDetails(){
         let data={}
-        if(user && Object.keys(user.profiles).length > 0){
-            data.is_insured = user.profiles[user.selectedProfile].is_insured
-            data.name = user.profiles[user.selectedProfile].name       
-        }
-        this.dispatchCustomEvent('user_details', data)
+        setTimeout(()=>{
+            let user = this.props.USER
+            if(user && user.profiles && Object.keys(user.profiles).length > 0 && user.profiles[user.selectedProfile]){
+
+                this.dispatchCustomEvent('user_details', {is_insured: user.profiles[user.selectedProfile].is_insured, name:user.profiles[user.selectedProfile].name})     
+            }else {
+                this.dispatchCustomEvent('user_details', {is_insured: false, name:''})
+            }
+            
+        },1000)
+        
     }
 
     componentWillReceiveProps(props) {
@@ -267,7 +278,7 @@ class ChatPanel extends React.Component {
         }
 
         if ((props.USER && props.USER.liveChatStarted && props.USER.liveChatStarted != this.props.USER.liveChatStarted) || (props.USER && props.USER.ipd_chat && props.USER.ipd_chat.showIpdChat) ) {
-            this.sendUserDetails(props.USER)
+            //this.sendUserDetails(props.USER)
             this.setState({ showStaticView: false, iframeLoading: true }, () => {
                 this.setState({ hideIframe: false }, () => {
 
@@ -423,7 +434,7 @@ class ChatPanel extends React.Component {
             }
         }
         let is_religare = false
-        if (this.props.USER && this.props.USER.common_utm_tags && this.props.USER.common_utm_tags.length) {
+        if (false && this.props.USER && this.props.USER.common_utm_tags && this.props.USER.common_utm_tags.length) {
             let religareTag = this.props.USER.common_utm_tags.filter(x => x.type == 'chat' && x.utm_source == 'religare')
 
             if (religareTag.length) {
@@ -431,9 +442,13 @@ class ChatPanel extends React.Component {
                 iframe_url += `&source=religare&visitid=${religareTag[0].visitorId}`
             }
         }
-        if(parsedHref && parsedHref.utm_source && parsedHref.utm_source.includes('religare')) {
+        if(parsedHref && parsedHref.utm_source) {
 
-            if(!is_religare) {
+            if(parsedHref.utm_source!='religare') {
+                iframe_url += `&source=${parsedHref.utm_source}`
+            }
+
+            if(!is_religare && parsedHref.utm_source.includes('religare')) {
                 is_religare = true
                 iframe_url += `&source=religare&visitid=${parsedHref.visitid?parsedHref.visitid:''}`
             }
@@ -459,7 +474,7 @@ class ChatPanel extends React.Component {
         if(this.props.USER && this.props.USER.ipd_chat && this.props.USER.ipd_chat.ipdForm){
 
             let params = JSON.stringify(this.props.USER.ipd_chat.ipdForm)
-            iframe_url += `&product=IPD&params=${params}`
+            iframe_url += `&product=IPD&params=${params}&msg=startchat`
         }else{
             iframe_url += '&product=DocPrime'      
         }

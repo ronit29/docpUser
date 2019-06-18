@@ -39,14 +39,11 @@ class Home extends React.Component {
         // this.props.fetchHeatlhTip()
         // this.props.fetchArticles()
         if (!this.props.common_tests.length || !this.props.common_package.length || !this.props.specializations.length || (this.props.selectedLocation && this.props.selectedLocation.locality)) {
-            let city = ''
-            if (this.props.selectedLocation && this.props.selectedLocation.locality) {
-                city = this.props.selectedLocation.locality
-            }
-            this.props.loadOPDCommonCriteria(this.props.selectedLocation)
+            
             this.props.loadLabCommonCriterias()
             this.props.loadOPDInsurance(this.props.selectedLocation)
         }
+        this.props.loadOPDCommonCriteria(this.props.selectedLocation)
 
         this.props.resetFilters()
         this.props.clearExtraTests()
@@ -73,7 +70,7 @@ const mapStateToProps = (state, passedProps) => {
     }
 
     let {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, device_info, offerList, upcoming_appointments
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, device_info, offerList, upcoming_appointments, is_ipd_form_submitted
     } = state.USER
 
     const {
@@ -96,7 +93,7 @@ const mapStateToProps = (state, passedProps) => {
     let filterCriteria_opd = state.SEARCH_CRITERIA_OPD.filterCriteria
 
     return {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, upcoming_appointments, compare_packages, ipd_procedures, top_hospitals, common_settings
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, upcoming_appointments, compare_packages, ipd_procedures, top_hospitals, common_settings, is_ipd_form_submitted
     }
 }
 

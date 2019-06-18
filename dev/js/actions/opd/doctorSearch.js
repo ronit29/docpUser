@@ -25,9 +25,9 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	let ipd_ids = commonSelectedCriterias.filter(x => x.type == 'ipd').map(x => x.id)
 
 	let sits_at = []
-	// if(filterCriteria.sits_at_clinic) sits_at.push('clinic');
-	// if(filterCriteria.sits_at_hospital) sits_at.push('hospital');
-	// if(sits_at.length == 0) sits_at = ['clinic','hospital'];
+	if(filterCriteria.sits_at_clinic) sits_at.push('Clinic');
+	if(filterCriteria.sits_at_hospital) sits_at.push('Hospital');
+	if(sits_at.length == 0) sits_at = ['Clinic','Hospital'];
 	sits_at = sits_at.join(',')
 
 	let lat = 28.644800
@@ -48,13 +48,19 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		locality = "Delhi"
 	}
 
-	let min_distance = filterCriteria.distanceRange[0]
+	/*let min_distance = filterCriteria.distanceRange[0]
 	let max_distance = filterCriteria.distanceRange[1]
 	let min_fees = filterCriteria.priceRange[0]
 	let max_fees = filterCriteria.priceRange[1]
 	let sort_on = filterCriteria.sort_on || ""
 	let is_available = filterCriteria.is_available
 	let is_female = filterCriteria.is_female
+	*/
+	let sort_on = filterCriteria.sort_on || ""
+	let sort_order = filterCriteria.sort_order || ""
+	let availability = filterCriteria.availability || []
+	let avg_ratings = filterCriteria.avg_ratings || []
+	let gender = filterCriteria.gender || ''
 	let is_insured = filterCriteria.is_insured || false
 
 	// do not check specialization_ids if doctor_name || hospital_name search
@@ -76,11 +82,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		url = `/api/v1/doctor/doctorsearchbyhospital?`
 	}
 
-	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&min_fees=${min_fees}&max_fees=${max_fees}&sort_on=${sort_on}&is_available=${is_available}&is_female=${is_female}&page=${page}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&ipd_procedure_ids=${ipd_ids || ""}&city=${locality}&locality=${sub_locality}&is_insurance=${is_insured?true:false}`
-
-	if(parseInt(min_distance)!= 0 || parseInt(max_distance)!= 15) {
-		url += `&min_distance=${min_distance}&max_distance=${max_distance}`
-	}
+	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&avg_ratings=${avg_ratings}&gender=${gender}&page=${page}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&ipd_procedure_ids=${ipd_ids || ""}&city=${locality}&locality=${sub_locality}&is_insurance=${is_insured?true:false}`
 
 	if (!!filterCriteria.doctor_name) {
 		url += `&doctor_name=${filterCriteria.doctor_name || ""}`
@@ -265,7 +267,7 @@ export const selectOpdTimeSLot = (slot, reschedule = false, appointmentId = null
 }
 
 export const getTimeSlots = (doctorId, clinicId, callback) => (dispatch) => {
-	return API_GET(`/api/v1/doctor/doctortiming_new?doctor_id=${doctorId}&hospital_id=${clinicId}`).then(function (response) {
+	return API_GET(`/api/v1/doctor/doctortiming_v2?doctor_id=${doctorId}&hospital_id=${clinicId}`).then(function (response) {
 		callback(response)
 	}).catch(function (error) {
 

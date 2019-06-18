@@ -1,6 +1,15 @@
 import React from 'react'
+import GTM from '../../../helpers/gtm.js'
 
 class ChatFeedBack extends React.Component {
+
+	componentDidMount(){
+		let data = {
+
+            'Category': 'Chat', 'Action': 'ChatFeedbackPageLanded', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-feedback-page-landed', "url": window.location.pathname
+        }
+        GTM.sendEvent({ data: data })
+	}
 
 	render(){
 

@@ -8,6 +8,7 @@ import GTM from '../../../helpers/gtm.js'
 import LocationElements from '../../../containers/commons/locationElements'
 import FixedMobileFooter from '../Home/FixedMobileFooter';
 import PackageCompareStrip from '../../diagnosis/searchPackages/packageCompare/packageCompareStrip.js'
+import ScrollWidget from '../../../helpers/scrollHelper.js'
 
 
 const debouncer = (fn, delay) => {
@@ -28,11 +29,13 @@ class CriteriaSearchView extends React.Component {
             searchValue: '',
             searchResults: [],
             loading: false,
-            searchCities: []
+            searchCities: [],
+            swipeDirection: ''
         }
     }
 
     componentDidMount() {
+
         this.getSearchResults = debouncer(this.getSearchResults.bind(this), 500)
         let input = document.getElementById('topCriteriaSearch')
         // if coming back or refresh focus on search bar
@@ -42,6 +45,13 @@ class CriteriaSearchView extends React.Component {
         if (document.getElementById('topCriteriaSearch')) {
             document.getElementById('topCriteriaSearch').addEventListener('focusin', () => { this.setState({ searchCities: '' }) })
 
+        }
+    }
+
+    getScrollView(scrollView){
+        if(scrollView && scrollView.swipe) {
+            //alert(scrollView.swipe)
+            this.setState({swipeDirection:scrollView.swipe})
         }
     }
 
@@ -174,13 +184,19 @@ class CriteriaSearchView extends React.Component {
                 ratingArray.push(<img src={ASSETS_BASE_URL + '/img/customer-icons/rating-star-empty.svg'} className="rating-star" />)
             }
         }
+
+        let showPackageStrip = this.props.compare_packages && this.props.compare_packages.length > 0
         return (
             <div className="profile-body-wrap">
                 {
-                    this.props.hideHeaderOnMobile ? <div className="hide-762"><ProfileHeader showSearch={true} /></div> : <ProfileHeader showSearch={true} />
+                    this.props.hideHeaderOnMobile ? <div className="hide-762"><ProfileHeader showSearch={true} showPackageStrip={showPackageStrip || this.props.isPackage}/></div> : <ProfileHeader showSearch={true} showPackageStrip={showPackageStrip || this.props.isPackage}/>
                 }
-
-                <section className={"container parent-section book-appointment-section" + (this.props.hideHeaderOnMobile ? " mp0" : "") + (this.props.isPackage ?" pkgComapre":"")}>
+                <section ref="scrollTarget" className={"container parent-section book-appointment-section" + (this.props.hideHeaderOnMobile ? " mp0" : "") + (this.props.isPackage ?" pkgComapre":"")}>
+                    {
+                        typeof navigator == 'object' && navigator && navigator.userAgent && navigator.userAgent.includes('iPhone')?''
+                        :<ScrollWidget getScrollView={this.getScrollView.bind(this)} target={this.refs && this.refs['scrollTarget']?this.refs['scrollTarget']:''}/>    
+                    }
+                    
                     <div className="row main-row parent-section-row">
                         <LeftBar />
 
@@ -372,10 +388,11 @@ class CriteriaSearchView extends React.Component {
                     </div>
                 </section>
                 {
-                    this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage?
+                    showPackageStrip && !this.props.isPackage?
                         <PackageCompareStrip {...this.props} />
                     :''
                 }
+                <div className={this.state.swipeDirection && this.state.swipeDirection!='up'?'smth-ftr-hide shw-srch-ftr':'shw-srch-ftr'}>
                 {
                     this.props.searchPackages && this.props.compare_packages && this.props.compare_packages.length == 0?
                         <FixedMobileFooter searchPackagePage={true} {...this.props} />
@@ -383,6 +400,7 @@ class CriteriaSearchView extends React.Component {
                         this.props.compare_packages && this.props.compare_packages.length == 0 && (this.props.searchDoctors || this.props.searchLabs) ?
                             <FixedMobileFooter {...this.props} /> : ''
                 }
+                </div>
             </div>
         );
     }

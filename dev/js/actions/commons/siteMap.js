@@ -104,8 +104,27 @@ export const setNetworkType = (type) => (dispatch) => {
 	})
 }
 
-export const getIPDAlphabetically = (character) => (dispatch) => {
-	let url = `/api/v1/doctor/ipd_procedure/list_by_alphabet?alphabet=${character}`
+export const getIPDAlphabetically = (character, selectedLocation) => (dispatch) => {
+
+	let lat = 28.644800
+    let long = 77.216721
+    let place_id = ""
+    let locality = ""
+    let sub_locality = ""
+
+    if (selectedLocation && (selectedLocation.geometry || selectedLocation.place_id) ) {
+        lat = selectedLocation.geometry.location.lat
+        long = selectedLocation.geometry.location.lng
+        place_id = selectedLocation.place_id || ""
+        if (typeof lat === 'function') lat = lat()
+        if (typeof long === 'function') long = long()
+        locality = selectedLocation.locality || ""
+        sub_locality = selectedLocation.sub_locality || ""
+    }else{
+        locality = "Delhi"
+    }
+
+	let url = `/api/v1/doctor/ipd_procedure/list_by_alphabet?alphabet=${character}&city=${locality}&lat=${lat}&long=${long}`
 	dispatch({
 		type: START_FETCHING_IPD_LIST,
 		flag: true

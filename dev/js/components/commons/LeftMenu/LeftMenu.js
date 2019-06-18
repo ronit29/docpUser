@@ -29,11 +29,13 @@ class LeftMenu extends React.Component {
     let memberClass = 'float-right memNew'
     let memStatus = 'New'
     let user_insurance_status = false
+    let user_ins_status
     if (this.props.defaultProfile && this.props.profiles && this.props.profiles[this.props.defaultProfile]) {
 
       user = this.props.profiles[this.props.defaultProfile]
       thumbnail = this.props.profiles[this.props.defaultProfile].profile_image || null
       user_insurance_status = this.props.profiles[this.props.defaultProfile].is_insured
+      user_ins_status = this.props.profiles[this.props.defaultProfile].insurance_status
     }
     if (this.props.isUserCared && this.props.isUserCared.has_active_plan) {
       memberClass = 'float-right memAct'
@@ -85,7 +87,7 @@ class LeftMenu extends React.Component {
                         e.preventDefault()
                         this.props.toggleLeftMenu()
                         this.props.history.push('/insurance/insurance-plans?source=mobile-leftmenu-insurance-clicked')
-                      }} href="#"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} alt="" className="" />OPD Insurance<span className={user_insurance_status ? 'float-right memAct' : 'float-right memNew'}>{user_insurance_status ? 'Active' : 'New'}</span></a></li>
+                      }} href="#"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} alt="" className="" />OPD Insurance<span className={user_ins_status == 1 || user_ins_status == 5 ? 'float-right memAct' : 'float-right memNew'}>{user_ins_status == 1 || user_ins_status == 5 ? 'Active' : 'New'}</span></a></li>
                       : ''
                   }
                   <li><a onClick={this.isDocCare.bind(this)}><img src={ASSETS_BASE_URL + "/img/primecae.png"} alt="" className="" />Docprime Care
@@ -189,11 +191,16 @@ class LeftMenu extends React.Component {
                         this.props.history.push("/all-medicines")
                       }} href="#" className="pad-B0">Medicines</a></li>
 
-                      <li ><a onClick={(e) => {
+                      <li ><a className="pad-B0" onClick={(e) => {
                         e.preventDefault();
                         this.props.toggleLeftMenu()
                         this.props.history.push("/tests")
                       }} href="#">Tests</a></li>
+                      <li ><a onClick={(e) => {
+                        e.preventDefault();
+                        this.props.toggleLeftMenu()
+                        this.props.history.push("/ipd-procedures")
+                      }} href="#">Procedures</a></li>
                       </div>
                       : ''
                   }

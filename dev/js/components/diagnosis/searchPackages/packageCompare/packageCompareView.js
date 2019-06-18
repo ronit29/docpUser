@@ -254,7 +254,7 @@ const queryString = require('query-string');
                     title: `${this.props.data.title || ''}`,
                     // description: `${this.props.data.description || ''}`
                 }} noIndex={false} />                
-              <ProfileHeader />
+              <ProfileHeader showPackageStrip={true}/>
               <section className="pkgComapre container pkgMrgnAdjst" >
                   <div className="row main-row parent-section-row">
                     <LeftBar />

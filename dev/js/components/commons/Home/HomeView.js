@@ -196,6 +196,8 @@ class HomeView extends React.Component {
 			}
 		}
 
+		let showPackageStrip = this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage
+
 		let slabOrder = []
 		if (this.props.device_info != "desktop" && SlabSequence) {
 
@@ -413,7 +415,7 @@ class HomeView extends React.Component {
 					canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
 				}} setDefault={true} />
 
-				<ProfileHeader homePage={true} showSearch={true} />
+				<ProfileHeader homePage={true} showSearch={true} showPackageStrip={showPackageStrip}/>
 
 				{/* <div className="sub-header mrg-top"></div> */}
 				<div className="headerSubLinkContainer">
@@ -463,7 +465,7 @@ class HomeView extends React.Component {
 
 					<Accordian />
 					{
-						this.props.compare_packages && this.props.compare_packages.length > 0 && !this.props.isPackage ?
+						showPackageStrip?
 							<PackageCompareStrip {...this.props} />
 							:
 							<FixedMobileFooter {...this.props} />
