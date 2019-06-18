@@ -192,6 +192,7 @@ class InsuranceOthers extends React.Component {
 		return today
 	}
 	togglePopup(newProfileid, member_id, newProfile) {
+		let oldDate
 		if(newProfileid !== ''){
 			if(this.props.is_child_only){
 				if(newProfile.gender == 'm'){
@@ -206,10 +207,15 @@ class InsuranceOthers extends React.Component {
 					this.setState({title:'mrs.',relation:'spouse'})
 				}
 			}
-			let oldDate= newProfile.dob.split('-')
-	    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
-	    		this.populateDates(null,false)
-	    	})
+			if(newProfile && newProfile.dob){
+				oldDate= newProfile.dob.split('-')
+				this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+	    			this.populateDates(newProfileid,false)
+	    		})
+			}else{
+				this.populateDates(newProfileid,false)
+			}
+	    	
 			this.props.selectInsuranceProfile(newProfileid, member_id, newProfile, this.props.param_id)
 			this.setState({
 				showPopup: !this.state.showPopup,
