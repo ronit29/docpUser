@@ -576,11 +576,12 @@ class BookingSummaryViewNew extends React.Component {
         GTM.sendEvent({ data: analyticData })
         this.props.createLABAppointment(postData, (err, data) => {
             if (!err) {
-                this.props.removeLabCoupons(this.props.selectedLab, this.state.couponId)
                 if (this.props.user_prescriptions && this.props.user_prescriptions.length > 0) {
+                    this.props.removeLabCoupons(this.props.selectedLab, this.state.couponId)
                     this.props.clearPrescriptions()
                 }
                 if (data.is_agent) {
+                    this.props.removeLabCoupons(this.props.selectedLab, this.state.couponId)
                     // this.props.history.replace(this.props.location.pathname + `?order_id=${data.data.orderId}`)
                     this.setState({ order_id: data.data.orderId })
                     return
@@ -595,6 +596,7 @@ class BookingSummaryViewNew extends React.Component {
                     this.processPayment(data)
 
                 } else {
+                    this.props.removeLabCoupons(this.props.selectedLab, this.state.couponId)
                     // send back to appointment page
                     this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
                 }
@@ -613,6 +615,9 @@ class BookingSummaryViewNew extends React.Component {
             this.setState({ paymentData: data.data }, () => {
                 if (document.getElementById('paymentForm') && Object.keys(this.state.paymentData).length > 0) {
                     let form = document.getElementById('paymentForm')
+                    setTimeout(() => {
+                        this.props.removeLabCoupons(this.props.selectedLab, this.state.couponId)
+                    },3000)
                     form.submit()
                 }
             })
