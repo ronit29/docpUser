@@ -219,7 +219,7 @@ class LocationElementsView extends React.Component {
                 <img className="srch-inp-img" src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />
                 {
                     this.state.search?
-                    <span className="cursor-pntr" onClick={this.clearSearch.bind(this)}>X</span>
+                    <span className="cursor-pntr search-close-icon" onClick={this.clearSearch.bind(this)}><img src={ASSETS_BASE_URL + '/img/sl-close.svg'}/></span>
                     :''    
                 }
                 
