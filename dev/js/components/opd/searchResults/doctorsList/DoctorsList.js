@@ -364,7 +364,7 @@ class DoctorsList extends React.Component {
                                                             </li>
 
                                                             {
-                                                                !!!card_ID && i == result_list.length - 1 ?
+                                                                !!!card_ID && i == result_list.length - 1 && this.props.seoFriendly && this.props.match.url.includes('-sptlitcit') && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length ?
                                                                     <li key={i}>
                                                                         <div className="d-flex align-items-center justify-content-between auto-location-widget mb-3">
                                                                             <div className="d-flex align-items-center auto-location-text">
