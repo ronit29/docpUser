@@ -21,33 +21,31 @@ class Footer extends React.Component {
     }
 
     toggleFooterData(args) {
-        if ((typeof (window) == 'object') && (screen.width <= 767)) {
-            if (typeof (args) == 'number') {
-                let data = [...this.state.showFooterData]
-                if (data && data.length && data.includes(args)) {
-                    data = data.filter(x => x != args ? true : false)
-                    this.setState({
-                        showFooterData: data
-                    })
-                } else {
-                    data.push(args)
-                    this.setState({
-                        showFooterData: data
-                    })
-                }
-            } else if (typeof (args) == 'string') {
-                let data = [...this.state.footerDataString]
-                if (data && data.length && data.includes(args)) {
-                    data = data.filter(x => x != args ? true : false)
-                    this.setState({
-                        footerDataString: data
-                    })
-                } else {
-                    data.push(args)
-                    this.setState({
-                        footerDataString: data
-                    })
-                }
+        if (typeof (args) == 'number') {
+            let data = [...this.state.showFooterData]
+            if (data && data.length && data.includes(args)) {
+                data = data.filter(x => x != args ? true : false)
+                this.setState({
+                    showFooterData: data
+                })
+            } else {
+                data.push(args)
+                this.setState({
+                    showFooterData: data
+                })
+            }
+        } else if (typeof (args) == 'string') {
+            let data = [...this.state.footerDataString]
+            if (data && data.length && data.includes(args)) {
+                data = data.filter(x => x != args ? true : false)
+                this.setState({
+                    footerDataString: data
+                })
+            } else {
+                data.push(args)
+                this.setState({
+                    footerDataString: data
+                })
             }
         }
     }
@@ -95,7 +93,7 @@ class Footer extends React.Component {
                                 {
                                     this.props.specialityFooterData.map((footerData, i) => {
                                         return <div className="col-12 col-md-2" style={{ marginBottom: 15, paddingTop: 10 }} key={"div" + i}>
-                                            <h3 className="speciality-footer-head" onClick={() => this.toggleFooterData(i)}>{footerData.title}</h3>
+                                            <h3 className="speciality-footer-head d-block d-md-none" onClick={() => this.toggleFooterData(i)}>{footerData.title}</h3>
                                             <ul className={this.state.showFooterData.length && this.state.showFooterData.includes(i) ? `speciality-footer-list d-block d-md-none` : `speciality-footer-list d-none d-md-none`}>
                                                 {
                                                     footerData.urls.map((url, j) => {
@@ -108,6 +106,7 @@ class Footer extends React.Component {
                                                     })
                                                 }
                                             </ul>
+                                            <h3 className="speciality-footer-head d-none d-md-block" style={{ cursor: 'auto' }}>{footerData.title}</h3>
                                             <ul className="speciality-footer-list d-none d-md-block">
                                                 {
                                                     footerData.urls.map((url, j) => {
@@ -158,7 +157,7 @@ class Footer extends React.Component {
                         </div>
                         <div className='col-md-2 col-12 brdr-top-col' key="ftr-dsktp-div-2">
                             <div className="footer-links brdr-btm-footer">
-                                <h3 style={{ cursor: 'pointer' }} onClick={() => this.toggleFooterData('docprime')}>Docprime</h3>
+                                <h3 className="d-block d-md-none" style={{ cursor: 'pointer' }} onClick={() => this.toggleFooterData('docprime')}>Docprime</h3>
                                 <ul className={this.state.footerDataString.length && this.state.footerDataString.includes('docprime') ? `d-block d-md-none` : `d-none d-md-none`}>
                                     <li><a href="/about" onClick={(e) => {
                                         e.preventDefault();
@@ -193,6 +192,7 @@ class Footer extends React.Component {
                                         this.navigateTo("/contact")
                                     }}>Contact Us</a></li>
                                 </ul>
+                                <h3 className="d-none d-md-block">Docprime</h3>
                                 <ul className="d-none d-md-block">
                                     <li><a href="/about" onClick={(e) => {
                                         e.preventDefault();
@@ -233,8 +233,8 @@ class Footer extends React.Component {
                         <div className="col-md-2 col-12" key="ftr-dsktp-div-3">
                             <div className="footer-links brdr-btm-footer">
                                 <div className="brdr-btm-footer ftr-list-btn-mrgn">
-                                    <h3 style={{ cursor: 'pointer', position: 'relative' }} onClick={() => this.toggleFooterData('patients')}>For Patients
-                                    <img className="footer-dropdown-2 d-md-none" style={this.state.footerDataString.length && this.state.footerDataString.includes('patients') ? { transform: 'rotate(180deg)' } : {}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
+                                    <h3 className="d-block d-md-none" style={{ cursor: 'pointer', position: 'relative' }} onClick={() => this.toggleFooterData('patients')}>For Patients
+                                        <img className="footer-dropdown-2 d-md-none" style={this.state.footerDataString.length && this.state.footerDataString.includes('patients') ? { transform: 'rotate(180deg)' } : {}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
                                     </h3>
                                     <ul className={this.state.hideSource && this.state.footerDataString.length && this.state.footerDataString.includes('patients') ? `d-block d-md-none` : `d-none d-md-none`}>
                                         <li><a href="/search?from=footer" onClick={(e) => {
@@ -258,6 +258,7 @@ class Footer extends React.Component {
                                             this.navigateTo("/full-body-checkup-health-packages?fromFooter=true")
                                         }}>Book Full Body Packages</a></li> */}
                                     </ul>
+                                    <h3 className="d-none d-md-block">For Patients</h3>
                                     <ul className="d-none d-md-block">
                                         <li><a href="/search?from=footer" onClick={(e) => {
                                             e.preventDefault();
@@ -281,7 +282,7 @@ class Footer extends React.Component {
                                         }}>Book Full Body Packages</a></li> */}
                                     </ul>
                                 </div>
-                                <h3 style={{ cursor: 'pointer', position: 'relative' }} onClick={() => this.toggleFooterData('doctors')} className="foot-sub-listing">For Doctors
+                                <h3 className="foot-sub-listing d-block d-md-none" style={{ cursor: 'pointer', position: 'relative' }} onClick={() => this.toggleFooterData('doctors')}>For Doctors
                                     <img className="footer-dropdown-2 d-md-none" style={this.state.footerDataString.length && this.state.footerDataString.includes('doctors') ? { transform: 'rotate(180deg)' } : {}} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
                                 </h3>
                                 <ul className={this.state.footerDataString.length && this.state.footerDataString.includes('doctors') ? `d-block d-md-none` : `d-none d-md-none`}>
@@ -316,6 +317,7 @@ class Footer extends React.Component {
 
                                     }}>Doctor Sign Up</a></li>
                                 </ul>
+                                <h3 className="foot-sub-listing d-none d-md-block">For Doctors</h3>
                                 <ul className="d-none d-md-block">
                                     <li><a href="/doctorsignup" onClick={(e) => {
                                         e.preventDefault();
@@ -352,8 +354,7 @@ class Footer extends React.Component {
                         </div>
                         <div className="col-md-2 col-12" key="ftr-dsktp-div-4">
                             <div className="footer-links brdr-btm-footer">
-                                <h3 style={{ cursor: 'pointer' }} onClick={() => this.toggleFooterData('labsCities')}>Labs in Top Cities</h3>
-
+                                <h3 className="d-block d-md-none" style={{ cursor: 'pointer' }} onClick={() => this.toggleFooterData('labsCities')}>Labs in Top Cities</h3>
                                 <ul className={this.state.footerDataString.length && this.state.footerDataString.includes('labsCities') ? `d-block d-md-none` : `d-none d-md-none`}>
                                     <li><a href="/labs-in-delhi-lbcit" onClick={(e) => {
                                         e.preventDefault();
@@ -396,6 +397,7 @@ class Footer extends React.Component {
                                         this.navigateTo('/labs-in-ghaziabad-lbcit')
                                     }}>Labs in Ghaziabad</a></li>
                                 </ul>
+                                <h3 className="d-none d-md-block">Labs in Top Cities</h3>
                                 <ul className="d-none d-md-block">
                                     <li><a href="/labs-in-delhi-lbcit" onClick={(e) => {
                                         e.preventDefault();
@@ -443,7 +445,7 @@ class Footer extends React.Component {
                         </div>
                         <div className="col-md-2 col-12" key="ftr-dsktp-div-5">
                             <div className="footer-links brdr-btm-footer">
-                                <h3 style={{ cursor: 'pointer' }} onClick={() => this.toggleFooterData('doctorsCities')}>Doctors in Top Cities</h3>
+                                <h3 className="d-block d-md-none" style={{ cursor: 'pointer' }} onClick={() => this.toggleFooterData('doctorsCities')}>Doctors in Top Cities</h3>
                                 <ul className={this.state.footerDataString.length && this.state.footerDataString.includes('doctorsCities') ? `d-block d-md-none` : `d-none d-md-none`}>
                                     <li><a href="/doctors-in-delhi-sptcit" onClick={(e) => {
                                         e.preventDefault();
@@ -486,6 +488,7 @@ class Footer extends React.Component {
                                         this.navigateTo('/doctors-in-ghaziabad-sptcit')
                                     }}>Doctors in Ghaziabad</a></li>
                                 </ul>
+                                <h3 className="d-none d-md-block">Doctors in Top Cities</h3>
                                 <ul className="d-none d-md-block">
                                     <li><a href="/doctors-in-delhi-sptcit" onClick={(e) => {
                                         e.preventDefault();
@@ -533,7 +536,7 @@ class Footer extends React.Component {
                         </div>
                         <div className="col-md-2 col-12" key="ftr-dsktp-div-6">
                             <div className="footer-links brdr-btm-footer">
-                                <h3 style={{ cursor: 'pointer' }} onClick={() => this.toggleFooterData('resources')}>Useful Resources</h3>
+                                <h3 className="d-block d-md-none" style={{ cursor: 'pointer' }} onClick={() => this.toggleFooterData('resources')}>Useful Resources</h3>
                                 <ul className={this.state.footerDataString.length && this.state.footerDataString.includes('resources') ? `d-block d-md-none` : `d-none d-md-none`}>
                                     <li><a href="/all-articles" onClick={(e) => {
                                         e.preventDefault();
@@ -560,6 +563,7 @@ class Footer extends React.Component {
                                         this.navigateTo("/doctors-near-me")
                                     }}>Find a Doctor Near You</a></li>
                                 </ul>
+                                <h3 className="d-none d-md-block">Useful Resources</h3>
                                 <ul className="d-none d-md-block">
                                     <li><a href="/all-articles" onClick={(e) => {
                                         e.preventDefault();
