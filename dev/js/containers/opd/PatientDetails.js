@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails, ipdChatView, checkIpdChatAgentStatus } from '../../actions/index.js'
+import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails, ipdChatView, checkIpdChatAgentStatus, saveAvailNowInsurance } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
 
@@ -116,7 +116,8 @@ const mapDispatchToProps = (dispatch) => {
         editUserProfile: (profileData, profileId, cb) => dispatch(editUserProfile(profileData, profileId, cb)),
         patientDetails: (criteria) => dispatch(patientDetails(criteria)),
         ipdChatView: (data) => dispatch(ipdChatView(data)),
-        checkIpdChatAgentStatus: (cb) => dispatch(checkIpdChatAgentStatus(cb))
+        checkIpdChatAgentStatus: (cb) => dispatch(checkIpdChatAgentStatus(cb)),
+        saveAvailNowInsurance:(data) => dispatch(saveAvailNowInsurance(data))
     }
 }
 

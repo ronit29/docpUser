@@ -224,7 +224,7 @@ class InsuranceCancellationView extends React.Component {
     
 	render() {
 		return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
-			<ProfileHeader />
+			<ProfileHeader showPackageStrip={true}/>
 			{this.state.showCancelSection?
 				<section className="container parent-section book-appointment-section container-top-margin">
 					<div className="row main-row parent-section-row">

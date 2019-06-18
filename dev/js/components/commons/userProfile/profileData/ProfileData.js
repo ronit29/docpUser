@@ -49,10 +49,25 @@ class ProfileData extends React.Component {
 
     goToInsurance(isUserLoginInsured){
         if(isUserLoginInsured){
-            this.props.history.push('/insurance/certificate')   
+            if(this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ||this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 5){
+                this.props.history.push('/insurance/certificate')
+            }else{
+                this.props.history.push('/insurance/insurance-plans?source=profile-insurance-clicked')
+            }
         }else{
             this.props.generateInsuranceLead()
             this.props.history.push('/insurance/insurance-plans?source=profile-insurance-clicked')
+        }
+    }
+
+    getInsuranceBtnText(){
+        let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user:false
+        if(isUserLoginInsured){
+            if(this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ||this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 5){
+                return <button className="ins-userdetails-active">Active</button>
+            }else{
+                return <button className="ins-userdetails-buy">Buy Now</button>
+            }
         }
     }    
 
@@ -65,7 +80,7 @@ class ProfileData extends React.Component {
             coupon = this.props.applicableCoupons[0]
         }
 
-        let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)]?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_insured && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user:false
+        let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user:false
         
         if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
             memberClass = 'float-right ins-userdetails-active'
@@ -217,9 +232,7 @@ class ProfileData extends React.Component {
                                         </h4>
                                     </div>
                                 </a>
-                                {
-                                    isUserLoginInsured?<button className="ins-userdetails-active">Active</button>:<button className="ins-userdetails-buy">Buy Now</button>
-                                }
+                                {this.getInsuranceBtnText()}
                             </li>
                         :''
                         }

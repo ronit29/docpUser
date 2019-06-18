@@ -101,7 +101,7 @@ class LabView extends React.Component {
 
                     //Check Selected Tests for Insurance
 
-                    if (test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount >= parseInt(test.deal_price)) {
+                    if (test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount >= parseInt(test.deal_price) && test.insurance.is_user_insured) {
 
                     } else {
                         is_insurance_applicable = false
