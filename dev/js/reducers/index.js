@@ -63,12 +63,12 @@ const AUTH_PERSIST = {
 const INSURANCE_LIST_PRESIST = {
     key: 'INSURANCE',
     storage: storage,
-    whitelist: ['insurnaceData','self_data_values','selected_plan','currentSelectedInsuredMembersId','create_payment_resp', 'members_proofs', 'insurer_bank_details']
+    whitelist: ['insurnaceData','self_data_values','selected_plan','currentSelectedInsuredMembersId','create_payment_resp', 'members_proofs', 'insurer_bank_details','avail_now_data']
 }
 const IPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_IPD',
     storage: storage,
-    blacklist: ['page', 'getNewResults', 'fetchNewResults', 'locationFetched', 'HOSPITAL_DETAIL_LOADED', 'IPD_INFO_LOADED']
+    blacklist: ['page', 'getNewResults', 'fetchNewResults', 'locationFetched', 'HOSPITAL_DETAIL_LOADED', 'IPD_INFO_LOADED', 'ipd_hospital_detail_info']
 }
 
 const allReducers = combineReducers({

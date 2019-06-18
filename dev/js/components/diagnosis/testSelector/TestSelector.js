@@ -217,6 +217,9 @@ class TestSelectorView extends React.Component {
                                         <section className="wrap" style={{ paddingTop: 0 }}>
                                             <div className="widget-panel">
                                                 <div className="panel-content pd-0">
+                                                    <div>
+                                                        <p className="label-cpn text-right">Coupon applies at booking summary</p>
+                                                    </div>
                                                     <div className="detect-my-locaiton rmv-pointer mrt-10" style={{ textAlign: 'left', color: '#000', paddingLeft: "20px" }}>
                                                         {
                                                             this.state.itemSelectedVisible ?

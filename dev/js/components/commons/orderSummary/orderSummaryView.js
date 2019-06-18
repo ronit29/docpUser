@@ -113,7 +113,12 @@ class OrderSummaryView extends React.Component {
                                                                     :item.payment_type == 1 || item.payment_type == 4? <p>
                                                                         <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />
                                                                         {" " + item.effective_price}
-                                                                    </p> : <p>
+                                                                    </p> : item.payment_type == 2?
+                                                                        <p>
+                                                                            <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />
+                                                                            {" " + item.cod_deal_price}
+                                                                        </p>
+                                                                        :<p>
                                                                             <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />
                                                                             {" " + item.mrp}
                                                                         </p>

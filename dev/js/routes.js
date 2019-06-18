@@ -211,6 +211,12 @@ const IpdList = Loadable({
     loading,
 })
 
+const CodPaymentPage = Loadable({
+    loader: () => import('./containers/commons/codPayment.js'),
+    modules: ['./containers/commons/codPayment.js'],
+    webpack: () => [require.resolveWeak('./containers/commons/codPayment.js')],
+    loading,
+})
 
 /**
  * IPD ROUTES
@@ -576,7 +582,8 @@ let routes = [
     { path: '/chat/feedback' , component: ChatFeedback },
     { path: '/package/compare', exact: true, component: PackageCompare },
     { path: '/*-hpcp', exact: true, component: PackageCompare },
-    { path: '/ipd-procedures', exact: true, component: IpdList, RENDER_ON_SERVER: true }
+    { path: '/ipd-procedures', exact: true, component: IpdList, RENDER_ON_SERVER: true },
+    { path: '/order/paymentSummary', exact: true, component: CodPaymentPage }
 
 ]
 
