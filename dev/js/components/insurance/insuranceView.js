@@ -235,7 +235,7 @@ class Insurance extends React.Component {
 			let parsed = queryString.parse(this.props.location.search)
 			return (
 				<div className="profile-body-wrap">
-					<ProfileHeader />
+					<ProfileHeader showPackageStrip={true}/>
 					<HelmetTags tagsData={{
                     	canonicalUrl: `${CONFIG.API_BASE_URL}/insurance/insurance-plans`,
                     	title: 'OPD Insurance | Buy OPD Insurance Cover | OPD Cover',
