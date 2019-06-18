@@ -472,10 +472,13 @@ class InsuranceSelf extends React.Component{
         var today = new Date(),
             day = today.getUTCDate(),
             month = today.getUTCMonth(),
-            year = today.getUTCFullYear()-age_threshold + 1,
+            year = today.getUTCFullYear()-age_threshold,
             currentYear = today.getUTCFullYear(),
             daysInCurrMonth = this.daysInMonth(month, year);
-		
+			
+			daydropdown.innerHTML = ''
+			monthdropdown.innerHTML = ''
+			yeardropdown.innerHTML = ''
 		// Day
         for(var i = 1; i <= daysInCurrMonth; i++){
           var opt = document.createElement('option');
@@ -497,7 +500,7 @@ class InsuranceSelf extends React.Component{
         }
 
         // Year
-        for(var i = 0; i < age_threshold; i++){
+        for(var i = 0; i <= age_threshold; i++){
           var opt = document.createElement('option');
           opt.value = i + year;
           opt.text = i + year;
