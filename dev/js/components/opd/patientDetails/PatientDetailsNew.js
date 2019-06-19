@@ -647,6 +647,10 @@ class PatientDetailsNew extends React.Component {
     }
 
     goToInsurance(selectedDoctor,selectedClinic){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'AvailNowLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'avail-now-lab-clicked'
+        }
+        GTM.sendEvent({ data: data })
         let data={}
         data.thumbnail = selectedDoctor.thumbnail
         data.name = selectedDoctor.display_name
