@@ -433,7 +433,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 				this.props.history.push(`/insurance/insurance-user-details-review?is_endorsement=true&isAgent=${isAgent}`)
 	    	}
 	    }else{
-	    	SnackBar.show({ pos: 'bottom-center', text: "error" });
+	    	SnackBar.show({ pos: 'bottom-center', text: "Please update the required fields to proceed" });
 	    }
     }
 
