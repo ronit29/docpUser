@@ -96,8 +96,8 @@ class PrimeCareView extends React.Component {
                             <div className="col-12 center-column">
                                 <div className="container-fluid">
                                     <div className="careMainContainer mrb-15">
-                                        <div className="row no-gutters">
-                                            {/*
+                                        {/*<div className="row no-gutters">
+                                            {
                                                 this.props.data && this.props.data.plans && this.props.data.plans.length > 0 ?
                                                     Object.entries(this.props.data.plans).map(function ([key, value]) {
                                                         return (<div className="col-4" key={key}>
@@ -110,7 +110,7 @@ class PrimeCareView extends React.Component {
                                                         </div>)
                                                     })
                                                     : ''
-                                            */}
+                                            }
                                         </div>
                                         <div className="careCheckContainers">
                                             <h4 className="carechkHeading">Free Unlimited Online Consultation </h4>
@@ -147,7 +147,7 @@ class PrimeCareView extends React.Component {
                                                     }
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>*/}
                                         {
                                             Object.entries(this.props.feature_data).map(function ([key, value]) {
                                                 let feature_detail = self.props.data.feature_details.filter(x => x.id == key)
