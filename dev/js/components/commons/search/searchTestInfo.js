@@ -174,34 +174,39 @@ class SearchTestView extends React.Component {
         let selectedCriteria = []
         let nextSelectedCriterias = []
         if (this.props.searchTestInfoData && this.props.searchTestInfoData.length > 0) {
-            test.id = this.props.searchTestInfoData[0].id
-            test.name = this.props.searchTestInfoData[0].name
-            test.show_details = this.props.searchTestInfoData[0].show_details
-            test.url = this.props.searchTestInfoData[0].url
-            test.type = 'test'
-            this.props.clearAllTests()
-            nextSelectedCriterias = nextSelectedCriterias.concat(test)
-            this.props.toggleDiagnosisCriteria('test', test, false)
+            if(this.props.searchTestInfoData[0].is_package){
+                this.props.history.push('/searchpackages')
+            }else{
+                test.id = this.props.searchTestInfoData[0].id
+                test.name = this.props.searchTestInfoData[0].name
+                test.show_details = this.props.searchTestInfoData[0].show_details
+                test.url = this.props.searchTestInfoData[0].url
+                test.type = 'test'
+                this.props.clearAllTests()
+                nextSelectedCriterias = nextSelectedCriterias.concat(test)
+                this.props.toggleDiagnosisCriteria('test', test, false)
+                
+                // handle doctor name, hospital name
+                this.props.mergeLABState({
+                    filterCriteria: {
+                        ...this.props.filterCriteria,
+                        lab_name
+                    },
+                    nextFilterCriteria: {
+                        ...this.props.filterCriteria,
+                        lab_name
+                    },
+                    currentSearchedCriterias: nextSelectedCriterias,
+                    nextSelectedCriterias: nextSelectedCriterias
+                }, true)
+
+
+                this.props.history.push({
+                    pathname: '/lab/searchresults',
+                    state: { search_back: true }
+                })
+            }
         }
-        // handle doctor name, hospital name
-        this.props.mergeLABState({
-            filterCriteria: {
-                ...this.props.filterCriteria,
-                lab_name
-            },
-            nextFilterCriteria: {
-                ...this.props.filterCriteria,
-                lab_name
-            },
-            currentSearchedCriterias: nextSelectedCriterias,
-            nextSelectedCriterias: nextSelectedCriterias
-        }, true)
-
-
-        this.props.history.push({
-            pathname: '/lab/searchresults',
-            state: { search_back: true }
-        })
     }
 
     proceedBookNow(lab_name = "") {
@@ -210,43 +215,50 @@ class SearchTestView extends React.Component {
         let selectedCriteria = []
         let nextSelectedCriterias = this.props.selectedCriterias
         if (this.props.searchTestInfoData && this.props.searchTestInfoData.length > 0) {
-            test.id = this.props.searchTestInfoData[0].id
-            test.name = this.props.searchTestInfoData[0].name
-            test.show_details = this.props.searchTestInfoData[0].show_details
-            test.url = this.props.searchTestInfoData[0].url
-            test.type = 'test'
-            selectedCriteria = this.props.selectedCriterias
-            selectedCriteria = selectedCriteria.filter((x) => {
-                if (x.id == this.props.searchTestInfoData[0].id) {
-                    found = true
-                    return false
+            if(this.props.searchTestInfoData[0].is_package){
+                this.props.setPackageId(this.props.searchTestInfoData[0].id, false)
+                setTimeout(() => {
+                this.props.history.push('/searchpackages')
+                }, 100)
+            }else{ // for lab only
+                test.id = this.props.searchTestInfoData[0].id
+                test.name = this.props.searchTestInfoData[0].name
+                test.show_details = this.props.searchTestInfoData[0].show_details
+                test.url = this.props.searchTestInfoData[0].url
+                test.type = 'test'
+                selectedCriteria = this.props.selectedCriterias
+                selectedCriteria = selectedCriteria.filter((x) => {
+                    if (x.id == this.props.searchTestInfoData[0].id) {
+                        found = true
+                        return false
+                    }
+                    return true
+                })
+                if (!found) {
+                    nextSelectedCriterias = nextSelectedCriterias.concat(test)
+                    this.props.toggleDiagnosisCriteria('test', test, false)
                 }
-                return true
-            })
-            if (!found) {
-                nextSelectedCriterias = nextSelectedCriterias.concat(test)
-                this.props.toggleDiagnosisCriteria('test', test, false)
+                // handle doctor name, hospital name
+                this.props.mergeLABState({
+                    filterCriteria: {
+                        ...this.props.filterCriteria,
+                        lab_name
+                    },
+                    nextFilterCriteria: {
+                        ...this.props.filterCriteria,
+                        lab_name
+                    },
+                    currentSearchedCriterias: nextSelectedCriterias,
+                    nextSelectedCriterias: nextSelectedCriterias
+                }, true)
+
+
+                this.props.history.push({
+                    pathname: '/lab/searchresults',
+                    state: { search_back: true }
+                })
             }
         }
-        // handle doctor name, hospital name
-        this.props.mergeLABState({
-            filterCriteria: {
-                ...this.props.filterCriteria,
-                lab_name
-            },
-            nextFilterCriteria: {
-                ...this.props.filterCriteria,
-                lab_name
-            },
-            currentSearchedCriterias: nextSelectedCriterias,
-            nextSelectedCriterias: nextSelectedCriterias
-        }, true)
-
-
-        this.props.history.push({
-            pathname: '/lab/searchresults',
-            state: { search_back: true }
-        })
     }
 
     render() {
