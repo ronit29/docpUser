@@ -42,7 +42,7 @@ class InsuranceOthers extends React.Component {
 			if(Object.keys(this.props.self_data_values).length>0 && this.props.user_data.length > 0){
 				profile= Object.assign({}, this.props.self_data_values[this.props.user_data[0].id])
 				let oldDate
-				if(Object.keys(profile).length > 0){
+				if(Object.keys(profile).length > 0 && profile.dob){
 					oldDate= profile.dob.split('-')
 				    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
 				    		this.populateDates(this.props.member_id,true)
@@ -57,10 +57,15 @@ class InsuranceOthers extends React.Component {
 					if(this.props.user_data[0].relation == 'spouse'){
 						this.setState({only_adult:true})
 					}
-					oldDate= this.props.user_data[0].dob.split('-')
-	    			this.setState({...this.props.user_data[0], name:this.props.user_data[0].first_name,member_type:this.props.member_type, profile_id:this.props.user_data[0].profile,is_change:false,year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+					if(this.props.user_data && this.props.user_data[0].dob){
+						oldDate= this.props.user_data[0].dob.split('-')
+						this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+				    		this.populateDates(this.props.member_id,true)
+				    	})
+					}
+	    			this.setState({...this.props.user_data[0], name:this.props.user_data[0].first_name,member_type:this.props.member_type, profile_id:this.props.user_data[0].profile,is_change:false},()=>{
 	    				this.handleSubmit(true)
-	    				this.populateDates(this.props.member_id,true)
+	    				// this.populateDates(this.props.member_id,true)
 	    			})
 				}
 			}
