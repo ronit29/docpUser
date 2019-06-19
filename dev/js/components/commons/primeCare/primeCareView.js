@@ -95,8 +95,8 @@ class PrimeCareView extends React.Component {
                             <LeftBar />
                             <div className="col-12 center-column">
                                 <div className="container-fluid">
-                                    <div className="careMainContainer mrb-15">
-                                        {/*<div className="row no-gutters">
+                                    {/*<div className="careMainContainer mrb-15">
+                                        <div className="row no-gutters">
                                             {
                                                 this.props.data && this.props.data.plans && this.props.data.plans.length > 0 ?
                                                     Object.entries(this.props.data.plans).map(function ([key, value]) {
@@ -147,7 +147,7 @@ class PrimeCareView extends React.Component {
                                                     }
                                                 </div>
                                             </div>
-                                        </div>*/}
+                                        </div>
                                         {
                                             Object.entries(this.props.feature_data).map(function ([key, value]) {
                                                 let feature_detail = self.props.data.feature_details.filter(x => x.id == key)
@@ -173,65 +173,70 @@ class PrimeCareView extends React.Component {
                                             })
                                         }
                                     </div>
+                                    */}
                                     {
                                      this.props.data && this.props.data.plans && this.props.data.plans.length > 0 ?
-                                            <div className="care-new-container">
-                                                <h1 className="care-nw-heading">Choose a plan that’s right for your loved ones.</h1>
-                                                {Object.entries(this.props.data.plans).map(function ([key, value]) {
-                                                    return <div className="widget mrb-15" key={key}>
-                                                                <div className="widget-content">
-                                                                    <div className="care-card-catg">
-                                                                        <div className="row no-gutters d-flex align-items-center">
-                                                                            <div className="col-4">
-                                                                                <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/care-slv.png'} />
-                                                                            </div>
-                                                                            <div className="col-8">
-                                                                                <p className="care-price-cd">₹ { parseInt(value.deal_price)}/Yr<span>₹ {parseInt(value.mrp)}/Yr</span></p>
-                                                                            </div>
+                                        <div className="care-new-container">
+                                            <h1 className="care-nw-heading">Choose a plan that’s right for your loved ones.</h1>
+                                            {Object.entries(this.props.data.plans).map(function ([key, value]) {
+                                                return <div className="widget mrb-15" key={key}>
+                                                            <div className="widget-content">
+                                                                <div className="care-card-catg">
+                                                                    <div className="row no-gutters d-flex align-items-center">
+                                                                        <div className="col-4">
+                                                                            <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/care-slv.png'} />
                                                                         </div>
-                                                                    </div>
-                                                                    <div className="row no-gutters">
-                                                                        <div className="col-9">
-                                                                            <div className="care-dtls-list">
-                                                                                <div>
-                                                                                    {
-                                                                                        value.unlimited_online_consultation?
-                                                                                        <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/carechk.svg'} /> :''
-                                                                                    }
-                                                                                    <p>Free Unlimited Online Consultation
-                                                                                    </p>
-                                                                                </div>
-                                                                                <div> 
-                                                                                    {value.priority_queue?
-                                                                                      <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/carechk.svg'} />
-                                                                                      :''  
-                                                                                    }
-                                                                                    <p>Priority Queue</p>
-                                                                                </div>
-                                                                                {
-                                                                                    Object.entries(self.props.feature_data).map(function ([key, value]) {
-                                                                                        let feature_detail = self.props.data.feature_details.filter(x => x.id == key)
-                                                                                        console.log(feature_detail)
-                                                                                        return <div> <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/carechk.svg'} /> <p>{feature_detail[0].name}
-                                                                                        <span className="rpd-icon" onClick={self.testInfo.bind(self, feature_detail[0].test)}>
-                                                                                        {feature_detail[0].test.show_details ?
-                                                                                            <img src={ASSETS_BASE_URL + '/img/icons/info.svg'} />:''}
-                                                                                        ₹ 849 each 
-                                                                                        </span> 2 Test/Yr. </p></div>
-                                                                                    })
-                                                                                }
-
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="col-3">
-                                                                            <div className="care-nw-bookbtn">
-                                                                                <button onClick={self.buyNow.bind(self, value.id)}>Buy Now</button>
-                                                                            </div>
-
+                                                                        <div className="col-8">
+                                                                            <p className="care-price-cd">₹ { parseInt(value.deal_price)}/Yr<span>₹ {parseInt(value.mrp)}/Yr</span></p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <div className="row no-gutters">
+                                                                    <div className="col-9">
+                                                                        <div className="care-dtls-list">
+                                                                            <div>
+                                                                                {
+                                                                                    value.unlimited_online_consultation?
+                                                                                    <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/carechk.svg'} /> :''
+                                                                                }
+                                                                                <p>Free Unlimited Online Consultation
+                                                                                </p>
+                                                                            </div>
+                                                                            <div> 
+                                                                                {value.priority_queue?
+                                                                                  <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/carechk.svg'} />
+                                                                                  :''  
+                                                                                }
+                                                                                <p>Priority Queue</p>
+                                                                            </div>
+                                                                            {Object.entries(value.features).map(function ([k, v]){
+                                                                                let feature_detail = self.props.data.feature_details.filter(x => x.id == v.id)
+                                                                                return v.count?
+                                                                                <div key={k}> 
+                                                                                    <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/carechk.svg'} /> 
+                                                                                    <p>{feature_detail[0].name} 
+                                                                                        <span className="rpd-icon" onClick={self.testInfo.bind(self, feature_detail[0].test)}>
+                                                                                            {feature_detail[0].test.show_details ?
+                                                                                                <img src={ASSETS_BASE_URL + '/img/icons/info.svg'} />:''}
+                                                                                                each 
+                                                                                        </span> {v.count} Test/Yr. 
+                                                                                    </p>
+                                                                                </div>
+                                                                                :''
+                                                                                })
+                                                                            }
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-3">
+                                                                        <div className="care-nw-bookbtn">
+                                                                            <button onClick={self.buyNow.bind(self, value.id)}>Buy Now</button>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
                                                             </div>
+                                                        </div>
                                                 })}
                                                 
                                             </div>
