@@ -212,6 +212,12 @@ class PrimeCareView extends React.Component {
                                                                                     Object.entries(self.props.feature_data).map(function ([key, value]) {
                                                                                         let feature_detail = self.props.data.feature_details.filter(x => x.id == key)
                                                                                         console.log(feature_detail)
+                                                                                        return <div> <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/carechk.svg'} /> <p>{feature_detail[0].name}
+                                                                                        <span className="rpd-icon" onClick={self.testInfo.bind(self, feature_detail[0].test)}>
+                                                                                        {feature_detail[0].test.show_details ?
+                                                                                            <img src={ASSETS_BASE_URL + '/img/icons/info.svg'} />:''}
+                                                                                        ₹ 849 each 
+                                                                                        </span> 2 Test/Yr. </p></div>
                                                                                     })
                                                                                 }
 
