@@ -324,7 +324,7 @@ class HospitalDetailView extends React.Component {
 
 
 							{
-								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.about ?
+								this.props.ipd_hospital_detail && (this.props.ipd_hospital_detail.new_about || this.props.ipd_hospital_detail.about) ?
 									<HospitalAboutUs hospital_data={this.props.ipd_hospital_detail} />
 									: ''
 							}
