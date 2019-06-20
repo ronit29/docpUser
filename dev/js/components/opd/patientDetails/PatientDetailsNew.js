@@ -958,7 +958,7 @@ class PatientDetailsNew extends React.Component {
 
                                                                     {
                                                                         is_insurance_buy_able ?
-                                                                            <div className="test-report payment-detail mt-20 p-relative mb-0"  onClick={this.goToInsurance.bind(this,this.props.DOCTORS[this.props.selectedDoctor],this.props.selectedClinic)} style={{cursor:'pointer'}}>
+                                                                            <div className="test-report payment-detail mt-20 p-relative"  onClick={this.goToInsurance.bind(this,this.props.DOCTORS[this.props.selectedDoctor],this.props.selectedClinic)} style={{cursor:'pointer'}}>
                                                                                 <div className="d-flex justify-content-between align-items-sm-center">
                                                                     <div className="opd-ins-title-sub">
                                                                         <h4 className="title coupon-text">Pay with OPD Insurance</h4>
@@ -966,8 +966,8 @@ class PatientDetailsNew extends React.Component {
                                                                         {/* <p>Book Unlimited Doctors and Lab Tests</p> */}
                                                                     </div>
                                                                     <div>
-                                                                        <span className="opd-ins-avl">Free <img src={ASSETS_BASE_URL +  '/img/right-sc.svg'}/></span>
-                                                                        <p className="opd-ins-av-know">know more</p>
+                                                                        <span className="opd-ins-avl opd-ins-av-know">Avail Now <img src={ASSETS_BASE_URL +  '/img/right-sc.svg'}/></span>
+                                                                    
                                                                     </div>
                                                                 </div>
                                                                 
