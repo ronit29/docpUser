@@ -1895,7 +1895,7 @@ span.opd-ins-avl{
 	display: flex;
     font-size: 14px;
     font-weight: 500;
-    color: #000000;
+    color: #f78631;
     text-align: right;
     cursor: pointer;
     align-items: center;
@@ -1904,7 +1904,6 @@ span.opd-ins-avl{
 span.opd-ins-avl img{
 	width: 7px;
 	margin-left: 10px;
-	filter: grayscale(100%);
 }
 .doc-insu-prfl-img img {
     width: 10px;

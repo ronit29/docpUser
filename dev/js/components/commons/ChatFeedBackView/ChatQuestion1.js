@@ -1,11 +1,12 @@
 import React from 'react'
 import GTM from '../../../helpers/gtm.js'
+import SnackBar from 'node-snackbar'
 
 class ChatQuestion1 extends React.Component {
 	constructor(props){
 		super(props)
 		this.state={
-			feedback:'Yes'
+			feedback:''
 		}
 	}
 
@@ -24,6 +25,10 @@ class ChatQuestion1 extends React.Component {
 	}
 
 	saveFeedBack(){
+		if(!this.state.feedback) {
+			SnackBar.show({ pos: 'bottom-center', text: "Please answer the Question" })
+			return
+		}
 		let data = {
 			feedback: this.state.feedback,
 			question:'Have you taken your prescribed medicines, regularly?'

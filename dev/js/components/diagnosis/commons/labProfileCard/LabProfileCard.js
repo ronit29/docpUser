@@ -282,6 +282,10 @@ class LabProfileCard extends React.Component {
                             <p>Book this Lab for ₹0 with OPD Insurance</p>
                             <span style={{cursor:'pointer'}} onClick={(e)=>{
                                 e.stopPropagation()
+                                let data = {
+                                    'Category': 'ConsumerApp', 'Action': 'KnowMoreLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'know-more-lab-clicked'
+                                }
+                                GTM.sendEvent({ data: data })
                                 this.props.history.push('/insurance/insurance-plans?source=lab-listing&show_button=true')
                             }}>Know more</span>
                         </div>
