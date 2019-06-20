@@ -196,8 +196,10 @@ class DoctorProfileCard extends React.Component {
 
             let is_insurance_applicable = hospital.is_insurance_covered && hospital.is_user_insured && deal_price <= hospital.insurance_threshold_amount
             let offPercent = ''
-            if (mrp && (discounted_price != null) && (discounted_price < mrp)) {
+            if (mrp && (discounted_price != null) && (discounted_price < mrp) && !enabled_for_cod) {
                 offPercent = parseInt(((mrp - discounted_price) / mrp) * 100);
+            }else if(enabled_for_cod && cod_deal_price != null && cod_deal_price != mrp){
+                offPercent = parseInt(((mrp - cod_deal_price) / mrp) * 100);
             }
 
             let avgGoogleRating = ''
@@ -270,8 +272,10 @@ class DoctorProfileCard extends React.Component {
                                 {
                                     is_insurance_applicable?
                                     ''
-                                    :enabled_for_cod && cod_deal_price != null && !enabled_for_online_booking?
+                                    :enabled_for_cod && cod_deal_price != null && enabled_for_online_booking && cod_deal_price != mrp ?
                                         <p className="cst-doc-price">₹ {cod_deal_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+                                    :enabled_for_cod && cod_deal_price != null && enabled_for_online_booking && cod_deal_price == mrp ?
+                                    <p className="cst-doc-price">₹ {cod_deal_price}</p>
                                     :enabled_for_hospital_booking && (discounted_price != null) && discounted_price != mrp ?
                                         <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
                                         : mrp && mrp != 0 ?
