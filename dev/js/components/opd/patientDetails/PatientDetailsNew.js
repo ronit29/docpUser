@@ -952,12 +952,12 @@ class PatientDetailsNew extends React.Component {
                                                                     }
 
                                                                     {
-                                                                        is_insurance_buy_able ?
+                                                                        is_insurance_buy_able && this.props.common_settings && this.props.common_settings.insurance_availability?
                                                                             <hr /> : ''
                                                                     }
 
                                                                     {
-                                                                        is_insurance_buy_able ?
+                                                                        is_insurance_buy_able && this.props.common_settings && this.props.common_settings.insurance_availability?
                                                                             <div className="test-report payment-detail mt-20 p-relative mb-0"  onClick={this.goToInsurance.bind(this,this.props.DOCTORS[this.props.selectedDoctor],this.props.selectedClinic)} style={{cursor:'pointer'}}>
                                                                                 <div className="d-flex justify-content-between align-items-sm-center">
                                                                     <div className="opd-ins-title-sub">

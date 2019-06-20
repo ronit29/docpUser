@@ -277,7 +277,7 @@ class LabProfileCard extends React.Component {
                         </div>
                     </div>
                     {
-                        is_insurance_buy_able?
+                        is_insurance_buy_able && this.props.common_settings && this.props.common_settings.insurance_availability?
                         <div className="ins-buyable">
                             <p>Book this Lab for ₹0 with OPD Insurance</p>
                             <span style={{cursor:'pointer'}} onClick={(e)=>{
