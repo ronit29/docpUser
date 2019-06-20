@@ -31,7 +31,8 @@ class AppointmentSlot extends React.Component {
             doctor_leaves: [],
             enableProceed: false,
             selectedTimeSlot: {},
-            upcoming_slots:null
+            upcoming_slots: null,
+            showPopup: false
         }
     }
 
@@ -76,29 +77,41 @@ class AppointmentSlot extends React.Component {
         let doctorId = this.props.selectedDoctor
 
         this.props.getTimeSlots(doctorId, clinicId, (timeSlots) => {
-            this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, upcoming_slots: timeSlots.upcoming_slots||{} })
+            this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, upcoming_slots: timeSlots.upcoming_slots || {} })
         })
 
-        if(this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedSlot.time && this.props.selectedSlot.time.text){
-            this.setState({selectedTimeSlot:this.props.selectTimeSlot})
+        if (this.props.selectedSlot && this.props.selectedSlot.date && this.props.selectedSlot.time && this.props.selectedSlot.time.text) {
+            this.setState({ selectedTimeSlot: this.props.selectTimeSlot })
         }
 
         if (window) {
             window.scrollTo(0, 0)
         }
 
+        if (this.state.reschedule) {
+            this.setState({ showPopup: true })
+        }
+
     }
 
-    enableProceed(enable, slot={}){
-        if(enable){
-            this.setState({enableProceed: true})
-        }else{
-            if(Object.values(slot).length){
-                this.setState({enableProceed: true, selectedTimeSlot: slot})
-            }else{
-                this.setState({enableProceed: false})
+    enableProceed(enable, slot = {}) {
+        if (enable) {
+            this.setState({ enableProceed: true })
+        } else {
+            if (Object.values(slot).length) {
+                this.setState({ enableProceed: true, selectedTimeSlot: slot })
+            } else {
+                this.setState({ enableProceed: false })
             }
         }
+    }
+
+    popupBtnClick(flag) {
+        const parsed = queryString.parse(this.props.location.search);
+        if (!flag) {
+            this.props.history.push(`/opd/reschedule/${parsed.reschedule}`);
+        }
+        this.setState({ showPopup: false })
     }
 
     render() {
@@ -109,6 +122,23 @@ class AppointmentSlot extends React.Component {
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
+
+                        {
+                            this.state.showPopup ?
+                                <div className="search-el-popup-overlay" >
+                                    <div className="search-el-popup">
+                                        <div className="widget">
+                                            <div className="widget-content padiing-srch-el">
+                                                <p className="srch-el-conent">Are you sure you want to reschedule this appointment?</p>
+                                                <div className="search-el-btn-container">
+                                                    <button onClick={() => this.popupBtnClick(true)}>Yes</button>
+                                                    <button onClick={() => this.popupBtnClick(false)}>No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> : ''
+                        }
 
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             {/* <header className="skin-primary fixed horizontal top sticky-header">
