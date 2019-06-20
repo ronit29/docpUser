@@ -4,6 +4,7 @@ import ChatPanel from '../../components/commons/ChatPanel'
 import Loader from '../commons/Loader'
 import SnackBar from 'node-snackbar'
 import InitialsPicture from '../commons/initialsPicture'
+const queryString = require('query-string');
 
 class InsuranceCertificateView extends React.Component {
 	constructor(props) {
@@ -49,6 +50,7 @@ class InsuranceCertificateView extends React.Component {
 	}
 
 	render() {
+		let parsed = queryString.parse(this.props.location.search)
 		if (Object.keys(this.props.get_insured_profile).length > 0) {
 			let primaryMember
 			let FamilyMembers
@@ -137,7 +139,7 @@ class InsuranceCertificateView extends React.Component {
 								</section>*/}
 								<div className="widget">
 									<div className="widget-content">
-										{this.props.get_insured_profile ?
+										{this.props.get_insured_profile && parsed.show_congo ?
 											<div>
 												<p className="fw-500 ins-congo-text text-primary text-center mrb-10">Congratulations !</p>
 												<p className="fw-500 text-center mrb-10">Your Group Out-patient Insurance has been issued</p>

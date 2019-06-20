@@ -310,6 +310,10 @@ class DoctorProfileCard extends React.Component {
                             <p>Book this Doctor for ₹0 with OPD Insurance</p>
                             <span style={{cursor:'pointer'}} onClick={(e)=>{
                                 e.stopPropagation()
+                                let data = {
+                                    'Category': 'ConsumerApp', 'Action': 'KnowMoreDoctorClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'know-more-doctor-clicked'
+                                }
+                                GTM.sendEvent({ data: data })
                                 this.props.history.push('/insurance/insurance-plans?source=doctor-listing&show_button=true')
                             }}>Know more</span>
                         </div>
