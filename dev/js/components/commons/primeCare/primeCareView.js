@@ -214,11 +214,11 @@ class PrimeCareView extends React.Component {
                                                                                 return v.count?
                                                                                 <div key={k}> 
                                                                                     <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/carechk.svg'} /> 
-                                                                                    <p>{feature_detail[0].name} 
+                                                                                    <p>{feature_detail[0].name} each 
+                                                                                    
                                                                                         <span className="rpd-icon" onClick={self.testInfo.bind(self, feature_detail[0].test)}>
                                                                                             {feature_detail[0].test.show_details ?
-                                                                                                <img src={ASSETS_BASE_URL + '/img/icons/info.svg'} />:''}
-                                                                                                each 
+                                                                                                <img src={ASSETS_BASE_URL + '/img/icons/info.svg'} />:''} 
                                                                                         </span> {v.count} Test/Yr. 
                                                                                     </p>
                                                                                 </div>
