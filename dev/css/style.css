@@ -11857,3 +11857,16 @@ p.label-cpn{
     flex-grow: 0;
     flex-shrink: 0;
 } 
+.ins-val-bx-opd{
+    color: #f78361;
+    border: 1px dashed #f78361;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 17px;
+    padding: 3px;
+    font-size: 12px;
+    font-weight: 500;
+    display: block;
+    margin-left: auto;
+    max-width: 180px;
+}
