@@ -180,7 +180,7 @@ class ClinicSelector extends React.Component {
 
                             {
                                 hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount?
-                                <div className="ins-val-bx">Covered Under Insurance</div>
+                                <div className="ins-val-bx-opd">Covered Under Insurance</div>
                                 : ''
                             }
                             {/*
