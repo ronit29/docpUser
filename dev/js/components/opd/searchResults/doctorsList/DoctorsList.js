@@ -168,7 +168,7 @@ class DoctorsList extends React.Component {
     }
 
 
-    detectLocation() {
+    detectLocation(type) {
         let timeout = setTimeout(() => {
             if (this.state.detectLoading) {
                 this.setState({ detectLoading: false })
@@ -177,7 +177,7 @@ class DoctorsList extends React.Component {
         }, 5000)
 
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'DetectLocationSptcitClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'detect-location-sptcit-click', 'Page': 'doctor-search'
+            'Category': 'ConsumerApp', 'Action': `DetectLocation${type}Click`, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `Detect-Location-${type}-Click`, 'Page': 'doctor-search'
         }
         GTM.sendEvent({ data: data })
 
@@ -296,7 +296,7 @@ class DoctorsList extends React.Component {
                                                                                 <img src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} />
                                                                                 <p className="fw-500">See {this.props.commonSelectedCriterias[0].name} with great discounts near you</p>
                                                                             </div>
-                                                                            <div className="auto-location-btn fw-500" onClick={() => this.detectLocation()} >Detect Location</div>
+                                                                            <div className="auto-location-btn fw-500" onClick={() => this.detectLocation('Sptlitcit')} >Detect Location</div>
                                                                         </div>
                                                                     </li> : ''
                                                             }
@@ -308,7 +308,7 @@ class DoctorsList extends React.Component {
                                                                             <img src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} />
                                                                             <p className="fw-500">Show {this.props.commonSelectedCriterias[0].name} near me</p>
                                                                         </div>
-                                                                        <div className="auto-location-btn fw-500" onClick={() => this.detectLocation()} >Detect Location</div>
+                                                                        <div className="auto-location-btn fw-500" onClick={() => this.detectLocation('Sptcit')} >Detect Location</div>
                                                                     </div>
                                                                     : ''
                                                             }
@@ -333,7 +333,7 @@ class DoctorsList extends React.Component {
                                                                                 <img src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} />
                                                                                 <p className="fw-500">See more {this.props.commonSelectedCriterias[0].name} near you</p>
                                                                             </div>
-                                                                            <div className="auto-location-btn fw-500" onClick={() => this.detectLocation()} >Detect Location</div>
+                                                                            <div className="auto-location-btn fw-500" onClick={() => this.detectLocation('Sptlitcit')} >Detect Location</div>
                                                                         </div>
                                                                     </li> : ''
                                                             }
@@ -371,7 +371,7 @@ class DoctorsList extends React.Component {
                                                                                 <img src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} />
                                                                                 <p className="fw-500">See more {this.props.commonSelectedCriterias[0].name} near you</p>
                                                                             </div>
-                                                                            <div className="auto-location-btn fw-500" onClick={() => this.detectLocation()} >Detect Location</div>
+                                                                            <div className="auto-location-btn fw-500" onClick={() => this.detectLocation('Sptlitcit')} >Detect Location</div>
                                                                         </div>
                                                                     </li> : ''
                                                             }
