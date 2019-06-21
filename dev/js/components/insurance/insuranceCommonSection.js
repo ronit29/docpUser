@@ -50,12 +50,9 @@ class InsuranceCommon extends React.Component{
 										<p className="fw-500">₹ {this.props.selected_plan.amount}</p>
 									</div>
 								</div>
-							{
-								this.props.is_edit ?
-									<div className="mrt-10" style={{cursor:'pointer', paddingLeft:5}} onClick={()=>{this.props.is_edit?this.props.history.push('/insurance/insurance-plans'):this.props.history.push('/insurance/insurance-user-details')}}>
-										<p className="fw-500 text-primary">Select another plan</p>
-									</div>:''
-							}
+								<div className="mrt-10" style={{cursor:'pointer', paddingLeft:5}} onClick={()=>{this.props.is_edit?this.props.history.push('/insurance/insurance-plans'):this.props.history.push('/insurance/insurance-user-details')}}>
+									<p className="fw-500 text-primary">{this.props.is_edit?'Select another plan':'Edit'}</p>
+								</div>
 							</div> : ''
 							// <table className="table table-bordered insurance-tbl insurance-checkboxes">
 						// 	<thead>

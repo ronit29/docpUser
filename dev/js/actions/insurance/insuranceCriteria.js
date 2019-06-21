@@ -138,11 +138,6 @@ export const resetSelectedPlans = () => (dispatch) => {
         type:RESET_INSURED_PLANS
     })
 }
-export const clearInsurance = () => (dispatch) =>{
-    dispatch({
-            type: CLEAR_INSURANCE
-        })
-}
 export const generateInsuranceLead = (selectedPlan, number,lead_data,selectedLocation,callback) => (dispatch) => {
     let lat
     let long
