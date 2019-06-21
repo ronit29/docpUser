@@ -184,7 +184,7 @@ class PrimeCareView extends React.Component {
                                                                 <div className="care-card-catg">
                                                                     <div className="row no-gutters d-flex align-items-center">
                                                                         <div className="col-4">
-                                                                            <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/care-slv.png'} />
+                                                                            <img className="care-prd-icon" src={ASSETS_BASE_URL + value.icon} />
                                                                         </div>
                                                                         <div className="col-8">
                                                                             <p className="care-price-cd">₹ { parseInt(value.deal_price)}/Yr<span>₹ {parseInt(value.mrp)}/Yr</span></p>
