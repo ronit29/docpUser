@@ -835,8 +835,8 @@ p.top-head-link.card-lab-link span {
 	div.footer-links {
 		padding-left: 0px;
 	}
-	h3.foot-sub-lisitng {
-		margin-top: 40px;
+	h3.foot-sub-listing {
+		margin-top: 20px;
 	}
 	div.footer-new-copyrght{
 		text-align: center;
@@ -2858,10 +2858,16 @@ ul.list-sub-menu a:hover {
 	margin-bottom: 20px;
 }
 .health-visit-charge{
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 500;
-	float: left;	
-	position: relative;
+    float: left;
+    position: relative;
+}
+.homePickui{
+    font-size: 12px;
+    background: rgba(255,217,100,.3);
+    padding: 2px 7px;
+    border-radius: 4px;
 }
 .str-symbol{
 	color: red;
@@ -2887,20 +2893,20 @@ ul.list-sub-menu a:hover {
     padding: 40px 15px;
 }
 .footer-links{
-	margin: 20px 0px
+    margin: 20px 0px;
+    position: relative;
 }
 .footer-links h3{
-	font-size: 14px;
+	font-size: 12px;
     font-weight: 600;
     margin-bottom: 7px;
-    border-bottom: 1px solid #e6e0e0;
     padding-bottom: 7px;
 }
 .footer-links ul li{ 
 	margin-bottom: 1px;
 }
 .footer-links ul li a{ 
-    font-size: 13px;
+    font-size: 12px;
     color: #635f5f;
     font-weight: 500;
     cursor: pointer;
@@ -2908,7 +2914,7 @@ ul.list-sub-menu a:hover {
 .footer-links ul li a:hover{ 
 	color: #e2754c;
 }
-.foot-sub-lisitng{
+.foot-sub-listing{
     margin-top: 15px;
 }
 .footer-doctor-listing h2{
@@ -3447,9 +3453,10 @@ border: 1px solid #aaaa;
 }
 
 .speciality-footer-head{
-	font-size: 14px;
-    font-weight: 500;
+	font-size: 12px;
+    font-weight: 600;
     margin-bottom: 8px;
+    cursor: pointer;
 }
 
 .speciality-footer-list a{
@@ -3660,7 +3667,7 @@ padding-top: 0px !important;
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     outline: none;
-    padding: 10px 135px 10px 30px;
+    padding: 10px 148px 10px 30px;
 }
 .srch-inp-img{
     position: absolute;
@@ -11835,3 +11842,18 @@ p.label-cpn{
     font-weight: 500;
     color: #f78631;
 }
+.search-close-icon{
+    position: absolute;
+    right: 138px;
+    margin: auto;
+    width: 12px;
+    top: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.search-close-icon img{
+    width: 14px;
+    flex-grow: 0;
+    flex-shrink: 0;
+} 

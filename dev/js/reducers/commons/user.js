@@ -426,7 +426,7 @@ export default function (state = defaultState, action) {
             newState.chat_feedback = [].concat(newState.chat_feedback)
 
             newState.chat_feedback = newState.chat_feedback.filter((data)=>{
-                if(data.type.includes(action.ques)){
+                if(data.type && data.type.includes(action.ques)){
                     return false
                 }
                 return true
