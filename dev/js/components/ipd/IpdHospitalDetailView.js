@@ -181,10 +181,10 @@ class HospitalDetailView extends React.Component {
 			this.props.checkIpdChatAgentStatus((response)=> {
 				if(response && response.users && response.users.length) {
 
-					this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize: true})
+					// this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize: true})
 				}
 			})
-			this.props.showChatView(ipd_data)	
+			// this.props.showChatView(ipd_data)	
 		})
 	}
 
