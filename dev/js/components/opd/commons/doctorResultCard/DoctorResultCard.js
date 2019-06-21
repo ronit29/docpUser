@@ -145,6 +145,7 @@ class DoctorProfileCard extends React.Component {
         let { id, experience_years, gender, hospitals, hospital_count, name, distance, qualifications, thumbnail, experiences, mrp, deal_price, general_specialization, is_live, display_name, url, is_license_verified, is_gold, new_schema, enabled_for_online_booking, discounted_price, parent_url, average_rating, rating_count, google_rating, enabled_for_cod, cod_deal_price } = this.props.details
 
         let enabled_for_hospital_booking = true
+        let enabled_for_prepaid_booking = false
         let hospital = (hospitals && hospitals.length) ? hospitals[0] : {}
         let expStr = ""
 
@@ -184,7 +185,7 @@ class DoctorProfileCard extends React.Component {
 
                 unselectedCount += x.procedures.filter(x => !x.is_selected).length
             })
-
+            
             if (is_procedure && false) {
                 if (finalProcedureMrp != 0 && finalProcedureDealPrice != 0) {
                     discount = 100 - Math.round((finalProcedureDealPrice * 100) / finalProcedureMrp);
@@ -192,13 +193,14 @@ class DoctorProfileCard extends React.Component {
             }
 
             enabled_for_hospital_booking = hospitals[0].enabled_for_online_booking
+            enabled_for_prepaid_booking = hospitals[0].enabled_for_prepaid
             is_procedure = false
 
             let is_insurance_applicable = hospital.is_insurance_covered && hospital.is_user_insured && deal_price <= hospital.insurance_threshold_amount
             let offPercent = ''
-            if (mrp && (discounted_price != null) && (discounted_price < mrp) && !enabled_for_cod) {
+            if (mrp && (discounted_price != null) && (discounted_price < mrp) &&  enabled_for_prepaid_booking) {
                 offPercent = parseInt(((mrp - discounted_price) / mrp) * 100);
-            }else if(enabled_for_cod && cod_deal_price != null && cod_deal_price != mrp){
+            }else if(enabled_for_cod && cod_deal_price != null && cod_deal_price != mrp && !enabled_for_prepaid_booking ){
                 offPercent = parseInt(((mrp - cod_deal_price) / mrp) * 100);
             }
 
@@ -209,7 +211,7 @@ class DoctorProfileCard extends React.Component {
                 googleRatingCount = google_rating.rating_count || ''
             }
             let is_insurance_buy_able = hospital.is_insurance_covered && !hospital.is_user_insured && deal_price <= hospital.insurance_threshold_amount
-
+            console.log(enabled_for_prepaid_booking)
             return (
                 <div className="cstm-docCard mb-3">
                     {
@@ -272,9 +274,9 @@ class DoctorProfileCard extends React.Component {
                                 {
                                     is_insurance_applicable?
                                     ''
-                                    :enabled_for_cod && cod_deal_price != null && enabled_for_online_booking && cod_deal_price != mrp ?
+                                    :enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price != mrp ?
                                         <p className="cst-doc-price">₹ {cod_deal_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
-                                    :enabled_for_cod && cod_deal_price != null && enabled_for_online_booking && cod_deal_price == mrp ?
+                                    :enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price == mrp ?
                                     <p className="cst-doc-price">₹ {cod_deal_price}</p>
                                     :enabled_for_hospital_booking && (discounted_price != null) && discounted_price != mrp ?
                                         <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
