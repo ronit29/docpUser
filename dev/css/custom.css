@@ -2003,3 +2003,72 @@ p.nw-hsp-crd-green img {
 	width: 20px;
 }
 /* ============ new hospital card ============ */
+/* ============ more clinic card ============ */
+.nw-clinicMore{
+	color: #f78631!important;
+    font-weight: 500;
+    margin-left: 3px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+.nw-clinicMore img{
+	width: 6px !important;
+    height: 10px !important;
+    margin-left: 6px !important;
+    transform: rotate(90deg);
+}
+.clinicRadioContainer{
+    padding: 0px 12px 12px 10px;
+}
+.clinic-names-nw{
+	display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+p.clnc-name{
+    font-size: 14px;
+    font-weight: 500;
+}
+.clinc-rd-price{
+	font-size: 14px;
+    font-weight: 500;
+    color: #F78631;
+}
+.clinc-rd-price-cut{
+    font-size: 14px;
+    margin-left: 4px;
+    text-decoration: line-through;
+}
+.clck-loc{
+	font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+.clck-loc span{
+	color: #ff6d00;
+    font-weight: 500;
+    border: 1px dashed #ff6d00;
+    padding: 0 5px;
+    border-radius: 4px;
+	margin-top: 5px;
+	text-align: center;
+}
+.clnc-pricing-cont{
+	display: inline-flex;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+.clinicRadioContainer div.dtl-radio{
+	margin-bottom: .5rem!important;
+	border-bottom: 1px solid #ece8e8;
+    padding-bottom: 10px;
+}
+.clinicRadioContainer div.dtl-radio:last-child{
+	margin-bottom: 0px !important;
+	padding-bottom: 0px;
+	border-bottom: 0px solid transparent;
+}
+/* ============ more clinic card ============ */
