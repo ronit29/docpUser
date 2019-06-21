@@ -8732,13 +8732,14 @@ img.careBackIco {
     top: 72px;
 }
 .careSubImg{
-	height: 65px;
+	height: 35px;
     width: 100%;
 }
 .caresubTxt{
-	position: absolute;
-    top: 5px;
-    left: 12%;
+    z-index: 99;
+    position: fixed;
+    top: -55px;
+    left: 14%;
     width: 250px;
 }
 .caresubsmile{
@@ -8924,7 +8925,7 @@ li.careListiLi span {
 }
 @media screen and (max-width: 480px){
 	.caresubTxt{
-		width: 220px;
+		width: 170px;
 	}
 }
 @media screen and (max-width: 320px) {
@@ -8952,7 +8953,7 @@ li.careListiLi span {
 }
 @media screen and (max-width: 375px) {
 	.caresubTxt{
-		left: 6%;
+		left: 13%;
 	}
 }
 
