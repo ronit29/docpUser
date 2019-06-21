@@ -174,7 +174,8 @@ class HospitalDetailView extends React.Component {
 		}
 		let ipd_data = {
 			showChat: true,
-			ipdFormParams: ipdFormParams
+			ipdFormParams: ipdFormParams,
+			hospital:this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id?this.props.ipd_hospital_detail.id:''
 		}
 		
 		this.setState({ showLeadForm: false, ipdFormParams: ipdFormParams }, ()=>{

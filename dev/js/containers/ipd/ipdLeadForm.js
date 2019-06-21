@@ -76,6 +76,10 @@ class IpdLeadForm extends React.Component {
 			formData.procedure_id = this.props.procedure_id
 		}
 
+		if(this.props.doctor_id) {
+			formData.doctor = parseInt(this.props.doctor_id)
+		}
+		
 		let utm_tags = {
             utm_source: parsed.utm_source || '',
             utm_medium: parsed.utm_medium || '',
