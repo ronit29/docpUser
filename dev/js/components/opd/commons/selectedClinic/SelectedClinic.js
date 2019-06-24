@@ -28,6 +28,14 @@ class SelectedClinic extends React.Component {
         }
     }
 
+    selectClinic(clinic_id, is_live, rank, consultation_fee, show_contact) {
+        let clinicPhoneNo = this.state.clinicPhoneNo
+        if (!clinicPhoneNo[clinic_id]) {
+            clinicPhoneNo[clinic_id] = ""
+        }
+        this.setState({ selectedClinic: clinic_id, is_live, rank, numberShown: "", consultation_fee: consultation_fee, clinicPhoneNo: clinicPhoneNo, show_contact: show_contact })
+    }
+
     render() {
 
         let { name, hospitals, thumbnail, display_name, url, id } = this.props.selectedDoctor
@@ -56,51 +64,49 @@ class SelectedClinic extends React.Component {
                     <div className="dr-profile">
                         <h1 className="dr-name">{display_name}<span className="nwDocViewPrf" onClick={() => this.profileClick(id, url, hospital_id)}>(View Profile)</span></h1>
                         <span className="clinic-name text-sm">{hospitalName}</span>
-                        <span className="nw-clinicMore">+ 2 more Clinics <img src={ASSETS_BASE_URL + '/img/right-sc.svg'} /></span>
+                    {hospitals &&  hospitals.length > 1?        
+                        <span className="nw-clinicMore">+ {hospitals.length-1} more Clinics <img src={ASSETS_BASE_URL + '/img/right-sc.svg'} /></span>
+                    :''}
                     </div>
                 </div>
-                <div className="clinicRadioContainer">
-                    <div className="dtl-radio">
-                        <label className="container-radio m-0">
-                            <div className="clinic-names-nw">
-                                <p className="clnc-name">
-                                    Dr. Satish Kumar Gadis Clinic
-                                </p>
-                                <p className="clnc-pricing-cont"><span className="clinc-rd-price">₹ 599 </span><span className="clinc-rd-price-cut">₹ 699</span></p>
+                {
+                    hospitals &&  hospitals.length > 1?
+                    <div className="clinicRadioContainer">
+                        {hospitals.map((hospital, i) => {
+                        return i>=1?
+                            <div className="dtl-radio">
+                                <label className="container-radio m-0" onClick={() => { this.selectClinic(hospital.hospital_id, hospital.enabled_for_online_booking, i, hospital.discounted_price, hospital.show_contact) }}>
+                                    <div className="clinic-names-nw">
+                                        <p className="clnc-name">{hospital.hospital_name}</p>
+                                        <p className="clnc-pricing-cont">
+                                            {
+                                                hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount?
+                                                <span className="clinc-rd-price">₹ {0}</span>
+                                                :hospital.enabled_for_cod && hospital.cod_deal_price?
+                                                <span className="clinc-rd-price">₹ {hospital.cod_deal_price}</span>
+                                                :hospital.enabled_for_online_booking ?
+                                                <span className="clinc-rd-price">₹ {hospital.discounted_price}
+                                                        {
+                                                            parseInt(hospital.discounted_price) == parseInt(hospital.mrp)
+                                                                ? ''
+                                                                : <span className="clinc-rd-price-cut">₹ {hospital.mrp}</span>
+                                                        }
+                                                </span>
+                                                : hospital.mrp && hospital.mrp != 0 ?
+                                                <span className="clinc-rd-price">₹ {hospital.mrp}</span> : ''
+                                            }
+                                        </p>
+                                    </div>
+                                    <p className="clck-loc">{hospital.address}</p>
+                                    <input type="radio" name="gender" value='o' data-param='gender' checked />
+                                    <span className="doc-checkmark"></span>
+                                </label>
                             </div>
-                            <p className="clck-loc">Sector 44, Gurgaon</p>
-                            <input type="radio" name="gender" value='o' data-param='gender' checked />
-                            <span className="doc-checkmark"></span>
-                        </label>
+                            :''
+                        })}                        
                     </div>
-                    <div className="dtl-radio">
-                        <label className="container-radio m-0">
-                            <div className="clinic-names-nw">
-                                <p className="clnc-name">
-                                    Dr. Satish Kumar Gadis Clinic
-                                </p>
-                                <p className="clnc-pricing-cont"><span className="clinc-rd-price">₹ 599 </span><span className="clinc-rd-price-cut">₹ 699</span></p>
-                            </div>
-                            <p className="clck-loc">Sector 44, Gurgaon</p>
-                            <input type="radio" name="gender" value='o' data-param='gender' checked />
-                            <span className="doc-checkmark"></span>
-                        </label>
-                    </div>
-                    <div className="dtl-radio">
-                        <label className="container-radio m-0">
-                            <div className="clinic-names-nw">
-                                <p className="clnc-name">
-                                    Dr. Satish Kumar Gadis Clinic
-                                </p>
-                                <p className="clnc-pricing-cont"><span className="clinc-rd-price">₹ 0 </span>
-                                </p>
-                            </div>
-                            <p className="clck-loc">Sector 44, Gurgaon <span>Covered under insurance</span></p>
-                            <input type="radio" name="gender" value='o' data-param='gender' checked />
-                            <span className="doc-checkmark"></span>
-                        </label>
-                    </div>
-                </div>
+                    :''
+                }
             </div>
         );
     }
