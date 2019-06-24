@@ -45,13 +45,13 @@ class AppointmentList extends React.Component {
         status = parseInt(status)
         switch (status) {
             case 2: {
-                return <span className="appointment-status" style={{ color: '#f78631' }}>Upcoming</span>
+                return <span className="appointment-status" style={{ color: '#f78631' }}>Booked</span>
             }
             case 5: {
-                return <span className="appointment-status" style={{ color: '#f78631' }}>Upcoming</span>
+                return <span className="appointment-status" style={{ color: '#f78631' }}>Accepted</span>
             }
             case 7: {
-                return <span className="appointment-status" style={{ color: 'green' }}>Complete</span>
+                return <span className="appointment-status" style={{ color: 'green' }}>Completed</span>
             }
             case 6: {
                 return <span className="appointment-status" style={{ color: 'red' }}>Cancelled</span>
