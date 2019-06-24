@@ -1,4 +1,4 @@
-import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES,SELF_DATA,INSURANCE_PAY,SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE, SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS, DELETE_MEMBER_PROOF, SAVE_INSURANCE_BANK_DETAILS, SAVE_AVAIL_NOW_INSURANCE, CLEAR_AVAIL_NOW_INSURANCE} from '../../constants/types';
+import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES,SELF_DATA,INSURANCE_PAY,SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE, SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS, DELETE_MEMBER_PROOF, SAVE_INSURANCE_BANK_DETAILS, SAVE_AVAIL_NOW_INSURANCE, CLEAR_AVAIL_NOW_INSURANCE, CANCEL_REASON_INSURANCE} from '../../constants/types';
 
 const defaultState = {
 insurnaceData: {},
@@ -14,7 +14,8 @@ LOAD_INSURANCE: false,
 currentSelectedInsuredMembersId: [],
 insurer_bank_details:{},
 members_proofs:[],
-avail_now_data:null
+avail_now_data:null,
+cancel_reason:null
 }
 const DUMMY_PROFILE = {
     gender: "m",
@@ -286,6 +287,15 @@ export default function (state = defaultState, action) {
             }
 
             newState.avail_now_data = null
+            return newState   
+        }
+
+        case CANCEL_REASON_INSURANCE:{
+            let newState = {
+                ...state
+            }
+
+            newState.cancel_reason = action.payload
             return newState   
         }
     }
