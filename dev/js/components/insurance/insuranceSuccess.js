@@ -86,11 +86,11 @@ class InsuranceFaq extends React.Component{
   			member_list_new.push(member_new)
 		},this)}
 		this.props.updateMemberList({"members":member_list_new},(resp) =>{
-			this.props.history.push('/insurance/certificate')
+			this.props.history.push('/insurance/certificate?show_congo=true')
 		})	
 		}else if(this.state.no_disease){
 			this.props.updateMemberList({"members":member_list},(resp) =>{
-			this.props.history.push('/insurance/certificate')
+			this.props.history.push('/insurance/certificate?show_congo=true')
 		})
 		}	
 	}
