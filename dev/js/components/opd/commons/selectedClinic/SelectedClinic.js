@@ -5,7 +5,7 @@ class SelectedClinic extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            showMoreClinic:false
         }
     }
 
@@ -28,8 +28,11 @@ class SelectedClinic extends React.Component {
         }
     }
 
+    toggleMoreClinic(val){
+        this.setState({showMoreClinic:val})
+    }
+
     render() {
-        
         let { name, hospitals, thumbnail, display_name, url, id } = this.props.selectedDoctor
         let hospitalName = ""
         let hospital_id = ''
@@ -57,17 +60,16 @@ class SelectedClinic extends React.Component {
                         <h1 className="dr-name">{display_name}<span className="nwDocViewPrf" onClick={() => this.profileClick(id, url, hospital_id)}>(View Profile)</span></h1>
                         <span className="clinic-name text-sm">{hospitalName}</span>
                     {hospitals &&  hospitals.length > 1?        
-                        <span className="nw-clinicMore">+ {hospitals.length-1} more Clinics <img src={ASSETS_BASE_URL + '/img/right-sc.svg'} /></span>
+                        <span className="nw-clinicMore" onClick={this.toggleMoreClinic.bind(this,!this.state.showMoreClinic)}>+ {hospitals.length-1} more Clinics <img src={ASSETS_BASE_URL + '/img/right-sc.svg'} /></span>
                     :''}
                     </div>
                 </div>
                 {
                     hospitals &&  hospitals.length > 1?
-                    <div className="clinicRadioContainer">
+                    <div className={`clinicRadioContainer ${this.state.showMoreClinic?'':'d-none'}`}>
                         {hospitals.map((hospital, i) => {
-                        return ((hospital.hospital_id || hospital.id) != this.props.selectedClinic)?
-                            <div className="dtl-radio">
-                                <label className="container-radio m-0" onClick={() => { this.props.selectClinic(hospital.hospital_id, hospital.enabled_for_online_booking, i, hospital.discounted_price, hospital.show_contact) }}>
+                        return <div className="dtl-radio" key={i}>
+                                <label className="container-radio m-0" onClick={() => { this.props.selectClinic(hospital.hospital_id) }}>
                                     <div className="clinic-names-nw">
                                         <p className="clnc-name">{hospital.hospital_name}</p>
                                         <p className="clnc-pricing-cont">
@@ -91,12 +93,11 @@ class SelectedClinic extends React.Component {
                                     </div>
                                     <p className="clck-loc">{hospital.address}</p>
                                     {
-                                        this.props.selectedClinic == hospital.hospital_id ? <input type="radio" checked name="radio" /> : <input type="radio" name="radio" />
+                                        this.props.selectedClinic == hospital.hospital_id ? <input type="radio" defaultChecked name="radio" onChange={() => { this.props.selectClinic(hospital.hospital_id) }} /> : <input type="radio" name="radio" onChange={() => { this.props.selectClinic(hospital.hospital_id) }} />
                                     }
                                     <span className="doc-checkmark"></span>
                                 </label>
                             </div>
-                            :''
                         })}                        
                     </div>
                     :''
