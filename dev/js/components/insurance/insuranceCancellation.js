@@ -2,13 +2,15 @@ import React from 'react'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import ChatPanel from '../../components/commons/ChatPanel'
 import Loader from '../commons/Loader'
+import SnackBar from 'node-snackbar'
 
 class InsuranceCancellationView extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			showCancelPopup: false,
-			showCancelSection:true
+			showCancelSection:true,
+			cancelReason:''
 		}
 	}
 
@@ -24,7 +26,12 @@ class InsuranceCancellationView extends React.Component {
 
 	clickPopUp(type) {
 		if (type == 1) {
-			this.props.history.push('/insurance/canceldetails')
+			if(this.state.cancelReason != ''){
+				this.props.cancelReason(this.state.cancelReason)
+				this.props.history.push('/insurance/canceldetails')
+			}else{
+				SnackBar.show({ pos: 'bottom-center', text: "Please provide cancel Reason" });
+			}
 			// this.props.cancelInsurance(resp => {
 			// 	if (resp.success) {
 			// 		this.setState({ showCancelPopup: false, showCancelSection:false })
@@ -37,7 +44,12 @@ class InsuranceCancellationView extends React.Component {
 		}
 	}
 
-	render() {
+	inputHandler(e) {
+        this.setState({ cancelReason: e.target.value })
+
+    }
+
+	render() {	
 		if (this.props.data) {
 			var purchase_date = new Date(this.props.data.purchase_date)
 			let purchase_time = purchase_date.toTimeString()
@@ -50,13 +62,19 @@ class InsuranceCancellationView extends React.Component {
 			expiry_date = expiry_date.toDateString()
 			let expiryDate = expiry_date.split(" ")
 			return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
-				<ProfileHeader />
+				<ProfileHeader showPackageStrip={true}/>
 				{this.state.showCancelPopup ?
 					<div className="search-el-popup-overlay " >
 						<div className="search-el-popup">
 							<div className="widget">
 								<div className="widget-content padiing-srch-el">
 									<p className="srch-el-conent">Are you sure you want to cancel your policy?</p>
+									<form className="go-bottom mrt-20" style={{padding:'0 15px'}}>
+										<div className="labelWrap" style={{marginBottom:0}}>
+											<textarea id="Accname" name="name" type="text" onChange={this.inputHandler.bind(this)} value={this.state.cancelReason} required ref="name" style={{backgroundColor:'#f7f7f7'}} autoComplete="first_name" rows="3" className="insurance-textarea" placeholder="Write a reason for cancellation">
+											</textarea>
+										</div>
+									</form>
 									<div className="search-el-btn-container">
 										<button onClick={this.clickPopUp.bind(this, 1)}>Yes</button>
 										{/* <span className="src-el-btn-border"></span> */}
@@ -162,7 +180,7 @@ class InsuranceCancellationView extends React.Component {
 			</div>
 		} else {
 			return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
-				<ProfileHeader />
+				<ProfileHeader showPackageStrip={true}/>
 				<Loader />
 			</div>
 		}

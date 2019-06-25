@@ -123,6 +123,7 @@ class InsuranceCancellationView extends React.Component {
 				data.ifsc_code = this.state.ifscCode
 				data.bank_address = this.state.address
 				data.image_ids = [{'document_image':this.state.img_id}]
+				data.cancel_reason = this.props.cancel_reason
 	        	this.props.cancelInsurance(data,(resp)=> {
 					if (resp.success) {
 						this.setState({ policy_number:resp.policy_number,showCancelSection:false })
@@ -224,7 +225,7 @@ class InsuranceCancellationView extends React.Component {
     
 	render() {
 		return <div className="profile-body-wrap" style={{ paddingBottom: 80 }} >
-			<ProfileHeader />
+			<ProfileHeader showPackageStrip={true}/>
 			{this.state.showCancelSection?
 				<section className="container parent-section book-appointment-section container-top-margin">
 					<div className="row main-row parent-section-row">

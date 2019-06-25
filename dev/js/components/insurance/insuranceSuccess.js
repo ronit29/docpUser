@@ -86,11 +86,11 @@ class InsuranceFaq extends React.Component{
   			member_list_new.push(member_new)
 		},this)}
 		this.props.updateMemberList({"members":member_list_new},(resp) =>{
-			this.props.history.push('/insurance/certificate')
+			this.props.history.push('/insurance/certificate?show_congo=true')
 		})	
 		}else if(this.state.no_disease){
 			this.props.updateMemberList({"members":member_list},(resp) =>{
-			this.props.history.push('/insurance/certificate')
+			this.props.history.push('/insurance/certificate?show_congo=true')
 		})
 		}	
 	}
@@ -102,7 +102,7 @@ class InsuranceFaq extends React.Component{
     		is_women_only = this.props.insured_member_list.members.filter(x=>x.gender == 'f' && (x.relation== 'self' ||x.relation == 'spouse'))
 
     	return <div className="profile-body-wrap">
-            <ProfileHeader />
+            <ProfileHeader showPackageStrip={true}/>
             <section className="container parent-section book-appointment-section text-center container-top-margin">
 			<section className="section-margin-bottom congrats-space">
 				<div className="widget cong-margin-btm">

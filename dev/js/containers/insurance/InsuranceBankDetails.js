@@ -22,9 +22,10 @@ class InsuranceBankDetails extends React.Component{
 
 const mapStateToProps = (state) => {
     const USER = state.USER
-    let { insurer_bank_details} = state.INSURANCE
+    let { insurer_bank_details, cancel_reason} = state.INSURANCE
     return {
-        insurer_bank_details
+        insurer_bank_details,
+        cancel_reason
     }
 }
 

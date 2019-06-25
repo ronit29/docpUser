@@ -164,7 +164,7 @@ class LabTests extends React.Component {
                                     <span className="checkmark" />
                                 </label>
                                 {    
-                                    ( (is_insurance_applicable || !selectedTestsCount) && test.insurance && test.insurance.is_insurance_covered) || test.included_in_user_plan?
+                                    ( (is_insurance_applicable || !selectedTestsCount) && test.insurance && test.insurance.is_insurance_covered && test.insurance.is_user_insured) || test.included_in_user_plan?
                                         <span className="test-price text-sm">₹ 0 </span>
                                     :
                                     test.deal_price == test.mrp.split('.')[0]?
@@ -269,16 +269,16 @@ class LabTests extends React.Component {
                     }
                     
                     {
-                        pickup_text && (!this.props.location || !this.props.location.search || !this.props.location.search.includes('from=insurance_network')) ? <div className="clearfix">
+                        pickup_text && (!this.props.location || !this.props.location.search || !this.props.location.search.includes('from=insurance_network')) ? <div className="clearfix homePickui">
 
                             <p className="health-visit-charge">{pickup_text}</p>
 
                             {
-                                showPriceTag ? <p className="prc-tstcoin"> &#8377;{extra_price == "" ? '0' : extra_price}</p> : ''
+                                showPriceTag ? <p className="prc-tstcoin mb-0"> &#8377;{extra_price == "" ? '0' : extra_price}</p> : ''
 
                             }
                             {
-                                !showPriceTag && extra_price >= 0 && extra_price ? <p className="prc-tstcoin"> &#8377;{extra_price}</p> : ""
+                                !showPriceTag && extra_price >= 0 && extra_price ? <p className="prc-tstcoin mb-0"> &#8377;{extra_price}</p> : ""
                             }
                         </div> : ""
                     }
