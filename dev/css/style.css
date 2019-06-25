@@ -11890,3 +11890,8 @@ p.label-cpn{
     border: 1px solid #d3d3d3;
     background: white;
 }
+.sort-head-font-inline{
+	font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+}
