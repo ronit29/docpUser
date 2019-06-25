@@ -249,7 +249,7 @@ class LabProfileCard extends React.Component {
                                     <button className="pkg-btn-nw" style={{ width: '100%' }}>Book Now</button>
                                 </a>
                                 {
-                                    !is_insurance_applicable && discounted_price != price ? <p className="pkg-discountCpn">Includes coupon</p>
+                                    !is_insurance_applicable && !included_in_user_plan &&  discounted_price != price ? <p className="pkg-discountCpn">Includes coupon</p>
                                         : ""
                                 }
                                 {

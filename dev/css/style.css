@@ -11872,3 +11872,21 @@ p.label-cpn{
     margin-left: auto;
     max-width: 180px;
 }
+
+.insurance-textarea{
+	padding: 10px 15px;
+    z-index: 1;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border: none;
+    border-radius: 5px;
+    outline: 0;
+    line-height: 24px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+    border: 1px solid #d3d3d3;
+    background: white;
+}
