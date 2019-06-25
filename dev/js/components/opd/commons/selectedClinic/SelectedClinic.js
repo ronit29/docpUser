@@ -59,16 +59,17 @@ class SelectedClinic extends React.Component {
                     <div className="dr-profile">
                         <h1 className="dr-name">{display_name}<span className="nwDocViewPrf" onClick={() => this.profileClick(id, url, hospital_id)}>(View Profile)</span></h1>
                         <span className="clinic-name text-sm">{hospitalName}</span>
-                    {hospitals &&  hospitals.length > 1?        
+                    {hospitals && hospitals.length > 1?        
                         <span className="nw-clinicMore" onClick={this.toggleMoreClinic.bind(this,!this.state.showMoreClinic)}>+ {hospitals.length-1} more Clinics <img src={ASSETS_BASE_URL + '/img/right-sc.svg'} /></span>
                     :''}
                     </div>
                 </div>
                 {
-                    hospitals &&  hospitals.length > 1?
+                    hospitals && hospitals.length > 1?
                     <div className={`clinicRadioContainer ${this.state.showMoreClinic?'':'d-none'}`}>
                         {hospitals.map((hospital, i) => {
-                        return <div className="dtl-radio" key={i}>
+                        return hospital.show_contact?
+                            <div className="dtl-radio" key={i}>
                                 <label className="container-radio m-0" onClick={() => { this.props.selectClinic(hospital.hospital_id) }}>
                                     <div className="clinic-names-nw">
                                         <p className="clnc-name">{hospital.hospital_name}</p>
@@ -98,6 +99,7 @@ class SelectedClinic extends React.Component {
                                     <span className="doc-checkmark"></span>
                                 </label>
                             </div>
+                            :''
                         })}                        
                     </div>
                     :''
