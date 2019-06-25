@@ -16,6 +16,7 @@ const queryString = require('query-string')
 import IpdLeadForm from '../../containers/ipd/ipdLeadForm.js'
 import ChatIpdPanel from '../commons/ChatPanel/ChatIpdPanel.js'
 import IpdOffersPage from './IpdOffersPage.js'
+import BreadCrumbView from './breadCrumb.js'
 
 //View all rating for hospital ,content_type = 3
 
@@ -202,6 +203,11 @@ class HospitalDetailView extends React.Component {
 				{
 					this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ?
 						<div className="ipd-section">
+							{
+				            	this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.breadcrumb?
+				            	<BreadCrumbView breadcrumb={this.props.ipd_hospital_detail.breadcrumb} {...this.props}/>
+				            	:''
+				            }
 							{
 								showPopup ?
 									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} formSource='ipdHospitalPopup' />
