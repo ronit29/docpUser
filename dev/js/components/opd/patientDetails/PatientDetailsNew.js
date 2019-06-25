@@ -662,6 +662,17 @@ class PatientDetailsNew extends React.Component {
         this.props.history.push('/insurance/insurance-plans?source=doctor-summary-view&show_button=true')
     }
 
+    selectClinic(clinic_id, is_live, rank, consultation_fee, show_contact) {
+        
+        // let clinicPhoneNo = this.state.clinicPhoneNo
+        // if (!clinicPhoneNo[clinic_id]) {
+        //     clinicPhoneNo[clinic_id] = ""
+        // }
+        // this.setState({ selectedClinic: clinic_id, is_live, rank, numberShown: "", consultation_fee: consultation_fee, clinicPhoneNo: clinicPhoneNo, show_contact: show_contact })
+
+        this.setState({ selectedClinic: clinic_id, is_live, rank, numberShown: "", consultation_fee: consultation_fee, show_contact: show_contact })
+    }
+
     render() {
         const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
@@ -804,6 +815,7 @@ class PatientDetailsNew extends React.Component {
                                                             selectedDoctor={this.props.DOCTORS[this.props.selectedDoctor]}
                                                             selectedClinic={this.props.selectedClinic}
                                                             history={this.props.history}
+                                                            selectClinic= {this.selectClinic.bind(this)}
                                                         />
                                                         <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError}
 

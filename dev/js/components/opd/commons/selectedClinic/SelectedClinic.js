@@ -28,16 +28,8 @@ class SelectedClinic extends React.Component {
         }
     }
 
-    selectClinic(clinic_id, is_live, rank, consultation_fee, show_contact) {
-        let clinicPhoneNo = this.state.clinicPhoneNo
-        if (!clinicPhoneNo[clinic_id]) {
-            clinicPhoneNo[clinic_id] = ""
-        }
-        this.setState({ selectedClinic: clinic_id, is_live, rank, numberShown: "", consultation_fee: consultation_fee, clinicPhoneNo: clinicPhoneNo, show_contact: show_contact })
-    }
-
     render() {
-
+        
         let { name, hospitals, thumbnail, display_name, url, id } = this.props.selectedDoctor
         let hospitalName = ""
         let hospital_id = ''
@@ -52,7 +44,7 @@ class SelectedClinic extends React.Component {
                 }
             })
         }
-
+        
         return (
             <div className="widget mrb-15 mrng-top-12">
                 <div className="widget-header dr-qucik-info">
@@ -73,9 +65,9 @@ class SelectedClinic extends React.Component {
                     hospitals &&  hospitals.length > 1?
                     <div className="clinicRadioContainer">
                         {hospitals.map((hospital, i) => {
-                        return i>=1?
+                        return ((hospital.hospital_id || hospital.id) != this.props.selectedClinic)?
                             <div className="dtl-radio">
-                                <label className="container-radio m-0" onClick={() => { this.selectClinic(hospital.hospital_id, hospital.enabled_for_online_booking, i, hospital.discounted_price, hospital.show_contact) }}>
+                                <label className="container-radio m-0" onClick={() => { this.props.selectClinic(hospital.hospital_id, hospital.enabled_for_online_booking, i, hospital.discounted_price, hospital.show_contact) }}>
                                     <div className="clinic-names-nw">
                                         <p className="clnc-name">{hospital.hospital_name}</p>
                                         <p className="clnc-pricing-cont">
@@ -98,7 +90,9 @@ class SelectedClinic extends React.Component {
                                         </p>
                                     </div>
                                     <p className="clck-loc">{hospital.address}</p>
-                                    <input type="radio" name="gender" value='o' data-param='gender' checked />
+                                    {
+                                        this.props.selectedClinic == hospital.hospital_id ? <input type="radio" checked name="radio" /> : <input type="radio" name="radio" />
+                                    }
                                     <span className="doc-checkmark"></span>
                                 </label>
                             </div>
