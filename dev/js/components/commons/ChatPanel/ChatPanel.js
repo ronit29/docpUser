@@ -179,7 +179,10 @@ class ChatPanel extends React.Component {
                             // this.props.startLiveChat(false, this.state.selectedLocation)
                             this.setState({ initialMessage: "", selectedRoom: null, })
                             this.props.setChatRoomId(null)
-                            this.props.ipdChatView(null)
+                            let that = this
+                            setTimeout(()=>{
+                                that.props.ipdChatView(null)    
+                            },1000)
                             this.props.unSetCommonUtmTags('chat')
                             // this.props.history.go(-1)
                             break
@@ -333,7 +336,11 @@ class ChatPanel extends React.Component {
         this.setState({ showCancel: !this.state.showCancel })
         this.props.setChatRoomId(null)
         this.props.unSetCommonUtmTags('chat')
-        this.props.ipdChatView(null)
+        let that = this
+        setTimeout(()=>{
+            that.props.ipdChatView(null)    
+        },1000)
+        
     }
 
     toggleCancel(e) {
