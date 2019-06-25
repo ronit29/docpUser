@@ -211,7 +211,7 @@ class DoctorProfileCard extends React.Component {
                 googleRatingCount = google_rating.rating_count || ''
             }
             let is_insurance_buy_able = hospital.is_insurance_covered && !hospital.is_user_insured && deal_price <= hospital.insurance_threshold_amount
-            console.log(enabled_for_prepaid_booking)
+
             return (
                 <div className="cstm-docCard mb-3">
                     {
