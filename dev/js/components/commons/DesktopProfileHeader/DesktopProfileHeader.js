@@ -135,7 +135,7 @@ class DesktopProfileHeader extends React.Component {
         return (
             <header id="is_header" className={headerClass} style={styles}>
                 {
-                    this.props.showPackageStrip?''
+                    this.props.showPackageStrip || !this.props.ipd_chat?''
                     :<IpdChatPanel {...this.props}/>    
                 }
                 
