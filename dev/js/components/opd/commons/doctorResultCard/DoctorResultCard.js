@@ -259,6 +259,20 @@ class DoctorProfileCard extends React.Component {
                                                     </p>
                                                 }) : ''
                                         }
+                                        {
+                                            qualifications && qualifications.length ?
+                                                <p style={{ marginTop: 5 }}>
+                                                    <img className="cstmTimeImg" style={{ width: 15 }} src={ASSETS_BASE_URL + '/img/customer-icons/Education-01.svg'} />
+                                                    {
+                                                        qualifications.map((qualification, index) => {
+                                                            if (index < 3) {
+                                                                return <span key={index}>{qualification.qualification} {index != 2 ? '| ' : ''}</span>
+                                                            }
+                                                            else return ''
+                                                        })
+                                                    }
+                                                </p> : ''
+                                        }
                                     </div>
                                 </div>
                                 {
