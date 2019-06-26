@@ -36,7 +36,7 @@ class SelectedClinic extends React.Component {
         let { name, hospitals, thumbnail, display_name, url, id } = this.props.selectedDoctor
         let hospitalName = ""
         let hospital_id = ''
-
+        let show_clinic =0
         if (hospitals && hospitals.length) {
             hospitals.map((hospital, i) => {
                 if ((hospital.hospital_id || hospital.id) == this.props.selectedClinic) {
@@ -44,10 +44,13 @@ class SelectedClinic extends React.Component {
                     if (i == 0) {
                         hospital_id = hospital.hospital_id
                     }
+                }else {
+                    if(hospital.enabled_for_online_booking){
+                        show_clinic++
+                    }
                 }
             })
         }
-        
         return (
             <div className="widget mrb-15 mrng-top-12">
                 <div className="widget-header dr-qucik-info">
@@ -59,7 +62,7 @@ class SelectedClinic extends React.Component {
                     <div className="dr-profile">
                         <h1 className="dr-name">{display_name}<span className="nwDocViewPrf" onClick={() => this.profileClick(id, url, hospital_id)}>(View Profile)</span></h1>
                         <span className="clinic-name text-sm">{hospitalName}</span>
-                    {hospitals && hospitals.length > 1?        
+                    {hospitals && hospitals.length > 1 && show_clinic >0?        
                         <span className="nw-clinicMore" onClick={this.toggleMoreClinic.bind(this,!this.state.showMoreClinic)}>+ {hospitals.length-1} more Clinics <img src={ASSETS_BASE_URL + '/img/right-sc.svg'} /></span>
                     :''}
                     </div>
@@ -68,7 +71,7 @@ class SelectedClinic extends React.Component {
                     hospitals && hospitals.length > 1?
                     <div className={`clinicRadioContainer ${this.state.showMoreClinic?'':'d-none'}`}>
                         {hospitals.map((hospital, i) => {
-                        return hospital.show_contact?
+                        return hospital.enabled_for_online_booking?
                             <div className="dtl-radio" key={i}>
                                 <label className="container-radio m-0" onClick={() => { this.props.selectClinic(hospital.hospital_id) }}>
                                     <div className="clinic-names-nw">
