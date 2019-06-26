@@ -355,7 +355,7 @@ ul.inline-list li {
 }
 .resendOtp{
     color: #f78631;
-    font-weight: bold;
+    font-weight: 500;
     margin-top: 10px;
     cursor: pointer;
 }
