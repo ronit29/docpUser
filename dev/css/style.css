@@ -8204,6 +8204,9 @@ a.btn-search.btn-cnte{
 .custom-li-style{
 	min-height: 38px;
 }
+.custom-li-style h2 ,.custom-li-style h3{
+font-size: 16px;
+}
 .lead-form p{
 	margin-bottom: 10px;
 }
