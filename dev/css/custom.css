@@ -2112,17 +2112,21 @@ p.clnc-name{
 .clinc-rd-price{
 	font-size: 14px;
     font-weight: 500;
-    color: #F78631;
+	color: #F78631;
+	min-width: 80px;
+	text-align: right;
 }
 .clinc-rd-price-cut{
     font-size: 14px;
     margin-left: 4px;
-    text-decoration: line-through;
+	text-decoration: line-through;
+	color:#757575;
 }
 .clck-loc{
-	font-size: 12px;
+	font-size: 10px;
     display: flex;
     justify-content: space-between;
+    padding-right: 77px;
 }
 .clck-loc span{
 	color: #ff6d00;
@@ -2147,5 +2151,11 @@ p.clnc-name{
 	margin-bottom: 0px !important;
 	padding-bottom: 0px;
 	border-bottom: 0px solid transparent;
+}
+.clnc-includecpn{
+	color: #55a740;
+    font-size: 9px;
+    display: block;
+    position: absolute;
 }
 /* ============ more clinic card ============ */

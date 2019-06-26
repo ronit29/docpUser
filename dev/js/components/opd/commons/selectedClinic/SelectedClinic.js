@@ -36,7 +36,7 @@ class SelectedClinic extends React.Component {
         let { name, hospitals, thumbnail, display_name, url, id } = this.props.selectedDoctor
         let hospitalName = ""
         let hospital_id = ''
-
+        let show_clinic =0
         if (hospitals && hospitals.length) {
             hospitals.map((hospital, i) => {
                 if ((hospital.hospital_id || hospital.id) == this.props.selectedClinic) {
@@ -44,10 +44,17 @@ class SelectedClinic extends React.Component {
                     if (i == 0) {
                         hospital_id = hospital.hospital_id
                     }
+                }else {
+                    if(hospital.enabled_for_online_booking){
+                        show_clinic++
+                    }
                 }
             })
         }
-        
+        let selected_user_covered_under_insurance = false
+        if(this.props.profiles && Object.keys(this.props.profiles).length >0){
+            selected_user_covered_under_insurance = this.props.profiles[this.props.selectedProfile].is_insured
+        }
         return (
             <div className="widget mrb-15 mrng-top-12">
                 <div className="widget-header dr-qucik-info">
@@ -59,7 +66,7 @@ class SelectedClinic extends React.Component {
                     <div className="dr-profile">
                         <h1 className="dr-name">{display_name}<span className="nwDocViewPrf" onClick={() => this.profileClick(id, url, hospital_id)}>(View Profile)</span></h1>
                         <span className="clinic-name text-sm">{hospitalName}</span>
-                    {hospitals && hospitals.length > 1?        
+                    {hospitals && hospitals.length > 1 && show_clinic >0?        
                         <span className="nw-clinicMore" onClick={this.toggleMoreClinic.bind(this,!this.state.showMoreClinic)}>+ {hospitals.length-1} more Clinics <img src={ASSETS_BASE_URL + '/img/right-sc.svg'} /></span>
                     :''}
                     </div>
@@ -68,23 +75,36 @@ class SelectedClinic extends React.Component {
                     hospitals && hospitals.length > 1?
                     <div className={`clinicRadioContainer ${this.state.showMoreClinic?'':'d-none'}`}>
                         {hospitals.map((hospital, i) => {
-                        return hospital.show_contact?
+                        return hospital.enabled_for_online_booking?
                             <div className="dtl-radio" key={i}>
                                 <label className="container-radio m-0" onClick={() => { this.props.selectClinic(hospital.hospital_id) }}>
                                     <div className="clinic-names-nw">
                                         <p className="clnc-name">{hospital.hospital_name}</p>
                                         <p className="clnc-pricing-cont">
                                             {
-                                                hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount?
+                                                hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount && selected_user_covered_under_insurance?
                                                 <span className="clinc-rd-price">₹ {0}</span>
-                                                :hospital.enabled_for_cod && hospital.cod_deal_price?
-                                                <span className="clinc-rd-price">₹ {hospital.cod_deal_price}</span>
+                                                :hospital.enabled_for_cod && !hospital.enabled_for_prepaid?hospital.cod_deal_price
+                                                    ?<span className="clinc-rd-price">₹ {hospital.cod_deal_price}
+                                                        {
+                                                            parseInt(hospital.cod_deal_price) == parseInt(hospital.mrp)
+                                                                ? ''
+                                                                : <span className="clinc-rd-price-cut">₹ {hospital.mrp}
+                                                                </span>
+                                                        }
+                                                    </span>
+                                                    :<span className="clinc-rd-price">₹ {hospital.mrp}</span>
                                                 :hospital.enabled_for_online_booking ?
                                                 <span className="clinc-rd-price">₹ {hospital.discounted_price}
                                                         {
                                                             parseInt(hospital.discounted_price) == parseInt(hospital.mrp)
                                                                 ? ''
-                                                                : <span className="clinc-rd-price-cut">₹ {hospital.mrp}</span>
+                                                                : 
+                                                                <React.Fragment>
+                                                                <span className="clinc-rd-price-cut">₹ {hospital.mrp}
+                                                                </span>
+                                                                <span className="clnc-includecpn">(includes Coupon)</span>
+                                                                </React.Fragment>
                                                         }
                                                 </span>
                                                 : hospital.mrp && hospital.mrp != 0 ?
@@ -92,9 +112,15 @@ class SelectedClinic extends React.Component {
                                             }
                                         </p>
                                     </div>
-                                    <p className="clck-loc">{hospital.address}</p>
+                                    <p className={`clck-loc ${hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount && selected_user_covered_under_insurance?'p-0':''}`} >{hospital.address} 
+                                        {
+                                         hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount && selected_user_covered_under_insurance?
+                                            <span>Covered under insurance</span>
+                                            :''
+                                        }
+                                    </p>
                                     {
-                                        this.props.selectedClinic == hospital.hospital_id ? <input type="radio" defaultChecked name="radio" onChange={() => { this.props.selectClinic(hospital.hospital_id) }} /> : <input type="radio" name="radio" onChange={() => { this.props.selectClinic(hospital.hospital_id) }} />
+                                        this.props.selectedClinic == hospital.hospital_id ? <input type="radio" checked name="radio" /> : <input type="radio" name="radio" />
                                     }
                                     <span className="doc-checkmark"></span>
                                 </label>

@@ -569,8 +569,12 @@ class PatientDetailsNew extends React.Component {
 
     getBookingButtonText(total_wallet_balance, price_to_pay, mrp,enabled_for_cod_payment,is_cod_deal_price) {
         if (this.props.payment_type != 1) {
-            if(enabled_for_cod_payment && is_cod_deal_price){
-                return `Confirm Booking (₹ ${is_cod_deal_price})`
+            if(enabled_for_cod_payment){
+                if(is_cod_deal_price){
+                    return `Confirm Booking (₹ ${is_cod_deal_price})`
+                }else{
+                    return `Confirm Booking (₹ ${mrp})`
+                }
             }else{
                 return `Confirm Booking (₹ ${mrp})`
             }
@@ -677,7 +681,7 @@ class PatientDetailsNew extends React.Component {
         window.history.replaceState(window.history.state, document.title, newUrl)
 
         this.setState({ selectedClinic: clinic_id},()=>{
-            this.props.fetchData(this.props,clinic_id)
+            this.props.fetchData(this.props,clinic_id,false)
         })
     }
 
@@ -819,6 +823,7 @@ class PatientDetailsNew extends React.Component {
                                                     <div className="col-12">
 
                                                         <SelectedClinic
+                                                            {...this.props}
                                                             boxShadowHide={true}
                                                             selectedDoctor={this.props.DOCTORS[this.props.selectedDoctor]}
                                                             selectedClinic={this.state.selectedClinic}
