@@ -23,7 +23,7 @@ class HospitalListView extends React.Component {
 
     updateData(index) {
         let character = this.getCharacter(index)
-        this.props.getHospitalListAlphabetically(character, this.props.selectedLocation)
+        this.props.getHospitalList(character, this.props.selectedLocation)
     }
 
     alphabetClick(index) {

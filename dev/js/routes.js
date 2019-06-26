@@ -467,6 +467,13 @@ const Payment = Loadable({
     loading,
 })
 
+const HospitalList = Loadable({
+    loader: () => import('./containers/commons/hospitalList.js'),
+    modules: ['./containers/commons/hospitalList.js'],
+    webpack: () => [require.resolveWeak('./containers/commons/hospitalList.js')],
+    loading,
+})
+
 
 
 /**
@@ -583,7 +590,8 @@ let routes = [
     { path: '/package/compare', exact: true, component: PackageCompare },
     { path: '/*-hpcp', exact: true, component: PackageCompare },
     { path: '/ipd-procedures', exact: true, component: IpdList, RENDER_ON_SERVER: true },
-    { path: '/order/paymentSummary', exact: true, component: CodPaymentPage }
+    { path: '/order/paymentSummary', exact: true, component: CodPaymentPage },
+    { path: '/hospitalList', exact: true, component: HospitalList }
 
 ]
 

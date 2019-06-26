@@ -1,12 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import IpdListView from '../../components/commons/IpdList/IpdListView';
-import { getHospitalListAlphabetically } from '../../actions/index.js'
+import HospitalListView from '../../components/commons/hospitalList/hospitalListView';
+import { getHospitalList } from '../../actions/index.js'
 
 class HospitalList extends React.Component {
 
     static loadData(store, match) {
-        return store.dispatch(getHospitalListAlphabetically('a'))
+        return store.dispatch(getHospitalList())
     }
 
     static contextTypes = {
@@ -14,18 +14,19 @@ class HospitalList extends React.Component {
     }
 
     render() {
-
+        if(1){
+            return <h1>Hospital Listing</h1>
+        }
         return (
-            <IpdListView {...this.props} />
+            <HospitalListView {...this.props} />
         )
     }
 }
 
 const mapStateToProps = (state) => {
     const {
-        alphabeticalIpdTests,
-        selectedIpdListAlphabet,
-        ipdIndexLoading
+        hospitalIndexLoading,
+        selectedHospitalList
     } = state.SITE_MAP
 
     const {
@@ -33,9 +34,8 @@ const mapStateToProps = (state) => {
     } = state.SEARCH_CRITERIA_OPD
 
     return {
-        alphabeticalIpdTests,
-        selectedIpdListAlphabet,
-        ipdIndexLoading,
+        hospitalIndexLoading,
+        selectedHospitalList,
         selectedLocation
     }
 }
@@ -43,7 +43,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getHospitalListAlphabetically: (character, selectedLocation) => dispatch(getHospitalListAlphabetically(character, selectedLocation))
+        getHospitalList: (selectedLocation, page) => dispatch(getHospitalList(selectedLocation, page))
     }
 }
 
