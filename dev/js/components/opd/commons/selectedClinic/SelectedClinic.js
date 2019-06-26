@@ -67,7 +67,7 @@ class SelectedClinic extends React.Component {
                         <h1 className="dr-name">{display_name}<span className="nwDocViewPrf" onClick={() => this.profileClick(id, url, hospital_id)}>(View Profile)</span></h1>
                         <span className="clinic-name text-sm">{hospitalName}</span>
                     {hospitals && hospitals.length > 1 && show_clinic >0?        
-                        <span className="nw-clinicMore" onClick={this.toggleMoreClinic.bind(this,!this.state.showMoreClinic)}>+ {hospitals.length-1} more Clinics <img src={ASSETS_BASE_URL + '/img/right-sc.svg'} /></span>
+                        <span className={`${!this.state.showMoreClinic?'nw-clinicMore':'nw-clinicMore arrow-rev'}`} onClick={this.toggleMoreClinic.bind(this,!this.state.showMoreClinic)}>+ {hospitals.length-1} more Clinics <img src={ASSETS_BASE_URL + '/img/right-sc.svg'} /></span>
                     :''}
                     </div>
                 </div>

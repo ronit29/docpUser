@@ -11895,3 +11895,6 @@ p.label-cpn{
     font-weight: 500;
     display: inline-block;
 }
+.nw-clinicMore.arrow-rev img{
+	transform: rotate(-90deg);
+}
