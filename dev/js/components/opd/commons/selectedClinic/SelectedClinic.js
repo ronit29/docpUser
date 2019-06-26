@@ -77,8 +77,15 @@ class SelectedClinic extends React.Component {
                                             {
                                                 hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount?
                                                 <span className="clinc-rd-price">₹ {0}</span>
-                                                :hospital.enabled_for_cod && hospital.cod_deal_price?
-                                                <span className="clinc-rd-price">₹ {hospital.cod_deal_price}</span>
+                                                :hospital.enabled_for_cod && !hospital.enabled_for_prepaid?hospital.cod_deal_price
+                                                    ?<span className="clinc-rd-price">₹ {hospital.cod_deal_price}
+                                                        {
+                                                            parseInt(hospital.cod_deal_price) == parseInt(hospital.mrp)
+                                                                ? ''
+                                                                : <span className="clinc-rd-price-cut">₹ {hospital.mrp}</span>
+                                                        }
+                                                    </span>
+                                                    :<span className="clinc-rd-price">₹ {hospital.mrp}</span>
                                                 :hospital.enabled_for_online_booking ?
                                                 <span className="clinc-rd-price">₹ {hospital.discounted_price}
                                                         {
@@ -94,7 +101,7 @@ class SelectedClinic extends React.Component {
                                     </div>
                                     <p className="clck-loc">{hospital.address}</p>
                                     {
-                                        this.props.selectedClinic == hospital.hospital_id ? <input type="radio" defaultChecked name="radio" onChange={() => { this.props.selectClinic(hospital.hospital_id) }} /> : <input type="radio" name="radio" onChange={() => { this.props.selectClinic(hospital.hospital_id) }} />
+                                        this.props.selectedClinic == hospital.hospital_id ? <input type="radio" checked name="radio" /> : <input type="radio" name="radio" />
                                     }
                                     <span className="doc-checkmark"></span>
                                 </label>

@@ -561,8 +561,12 @@ class PatientDetailsNew extends React.Component {
 
     getBookingButtonText(total_wallet_balance, price_to_pay, mrp,enabled_for_cod_payment,is_cod_deal_price) {
         if (this.props.payment_type != 1) {
-            if(enabled_for_cod_payment && is_cod_deal_price){
-                return `Confirm Booking (₹ ${is_cod_deal_price})`
+            if(enabled_for_cod_payment){
+                if(is_cod_deal_price){
+                    return `Confirm Booking (₹ ${is_cod_deal_price})`
+                }else{
+                    return `Confirm Booking (₹ ${mrp})`
+                }
             }else{
                 return `Confirm Booking (₹ ${mrp})`
             }
@@ -1038,7 +1042,7 @@ class PatientDetailsNew extends React.Component {
                                                             </div> : <div className="widget mrb-15">
 
                                                                     <div className="widget-content clearfix">
-                                                                        <h4 className="title mb-20">Payment Summary</h4>
+                                                                        <h4 className="title mb-20">Payment Summary 12</h4>
                                                                         <div className="payment-summary-content">
                                                                             <div className="payment-detail d-flex">
                                                                                 <p>Subtotal</p>
