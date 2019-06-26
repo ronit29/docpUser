@@ -44,17 +44,26 @@ class AppointmentList extends React.Component {
     getStatus(status) {
         status = parseInt(status)
         switch (status) {
+            case 1: {
+                return <span className="appointment-status" style={{ color: '#f78631' }}>Created</span>
+            }
             case 2: {
-                return <span className="appointment-status" style={{ color: '#f78631' }}>Upcoming</span>
+                return <span className="appointment-status" style={{ color: '#f78631' }}>Booked</span>
+            }
+            case 3: {
+                return <span className="appointment-status" style={{ color: '#f78631' }}>Rescheduled</span>
+            }
+            case 4: {
+                return <span className="appointment-status" style={{ color: '#f78631' }}>Rescheduled</span>
             }
             case 5: {
-                return <span className="appointment-status" style={{ color: '#f78631' }}>Upcoming</span>
-            }
-            case 7: {
-                return <span className="appointment-status" style={{ color: 'green' }}>Complete</span>
+                return <span className="appointment-status" style={{ color: '#f78631' }}>Accepted</span>
             }
             case 6: {
                 return <span className="appointment-status" style={{ color: 'red' }}>Cancelled</span>
+            }
+            case 7: {
+                return <span className="appointment-status" style={{ color: 'green' }}>Completed</span>
             }
             default: {
                 return <span className="appointment-status" style={{ color: '#f78631' }}>Upcoming</span>
