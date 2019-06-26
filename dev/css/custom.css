@@ -2112,7 +2112,9 @@ p.clnc-name{
 .clinc-rd-price{
 	font-size: 14px;
     font-weight: 500;
-    color: #F78631;
+	color: #F78631;
+	min-width: 80px;
+	text-align: right;
 }
 .clinc-rd-price-cut{
     font-size: 14px;

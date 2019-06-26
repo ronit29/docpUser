@@ -815,6 +815,7 @@ class PatientDetailsNew extends React.Component {
                                                     <div className="col-12">
 
                                                         <SelectedClinic
+                                                            {...this.props}
                                                             boxShadowHide={true}
                                                             selectedDoctor={this.props.DOCTORS[this.props.selectedDoctor]}
                                                             selectedClinic={this.state.selectedClinic}

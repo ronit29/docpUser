@@ -51,6 +51,10 @@ class SelectedClinic extends React.Component {
                 }
             })
         }
+        let selected_user_covered_under_insurance = false
+        if(this.props.profiles && Object.keys(this.props.profiles).length >0){
+            selected_user_covered_under_insurance = this.props.profiles[this.props.selectedProfile].is_insured
+        }
         return (
             <div className="widget mrb-15 mrng-top-12">
                 <div className="widget-header dr-qucik-info">
@@ -78,7 +82,7 @@ class SelectedClinic extends React.Component {
                                         <p className="clnc-name">{hospital.hospital_name}</p>
                                         <p className="clnc-pricing-cont">
                                             {
-                                                hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount?
+                                                hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount && selected_user_covered_under_insurance?
                                                 <span className="clinc-rd-price">₹ {0}</span>
                                                 :hospital.enabled_for_cod && !hospital.enabled_for_prepaid?hospital.cod_deal_price
                                                     ?<span className="clinc-rd-price">₹ {hospital.cod_deal_price}
@@ -108,7 +112,13 @@ class SelectedClinic extends React.Component {
                                             }
                                         </p>
                                     </div>
-                                    <p className="clck-loc">{hospital.address}</p>
+                                    <p className={`clck-loc ${hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount && selected_user_covered_under_insurance?'p-0':''}`} >{hospital.address} 
+                                        {
+                                         hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount && selected_user_covered_under_insurance?
+                                            <span>Covered under insurance</span>
+                                            :''
+                                        }
+                                    </p>
                                     {
                                         this.props.selectedClinic == hospital.hospital_id ? <input type="radio" checked name="radio" /> : <input type="radio" name="radio" />
                                     }
