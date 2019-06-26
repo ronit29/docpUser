@@ -2117,7 +2117,8 @@ p.clnc-name{
 .clinc-rd-price-cut{
     font-size: 14px;
     margin-left: 4px;
-    text-decoration: line-through;
+	text-decoration: line-through;
+	color:#757575;
 }
 .clck-loc{
 	font-size: 12px;
