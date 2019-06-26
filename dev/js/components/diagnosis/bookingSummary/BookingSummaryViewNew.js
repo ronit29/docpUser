@@ -162,8 +162,12 @@ class BookingSummaryViewNew extends React.Component {
             }
 
             // if no coupon is applied
-            if (!nextProps.labCoupons[this.props.selectedLab] || (nextProps.labCoupons[this.props.selectedLab] && nextProps.labCoupons[this.props.selectedLab].length == 0)) {
+            if (!nextProps.labCoupons[this.props.selectedLab]) {
                 this.getAndApplyBestCoupons(nextProps)
+            }
+
+            if (nextProps.labCoupons[this.props.selectedLab] && nextProps.labCoupons[this.props.selectedLab].length == 0) {
+                this.props.resetLabCoupons()
             }
         }
     }
@@ -180,7 +184,7 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     getAndApplyBestCoupons(nextProps) {
-        if (nextProps.couponAutoApply) {
+        // if (nextProps.couponAutoApply) {
             let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
             this.props.getCoupons({
@@ -203,9 +207,9 @@ class BookingSummaryViewNew extends React.Component {
                     this.setState({ coupon_loading: false })
                 }
             })
-        } else {
-            this.setState({ coupon_loading: false })
-        }
+        // } else {
+        //     this.setState({ coupon_loading: false })
+        // }
     }
 
     getLabPriceData(nextProps) {
