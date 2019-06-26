@@ -29,11 +29,16 @@ class PatientDetails extends React.Component {
         router: () => null
     }
 
-    fetchData(props) {
+    fetchData(props,clinic_id,callDoctorById) {
         const parsed = queryString.parse(props.location.search)
 
         let doctor_id = props.selectedDoctor || props.match.params.id || parsed.doctor_id
-        let hospital_id = props.selectedClinic || props.match.params.clinicId || parsed.hospital_id
+        let hospital_id
+        if(clinic_id){
+            hospital_id = clinic_id
+        }else{
+            hospital_id = props.selectedClinic || props.match.params.clinicId || parsed.hospital_id
+        }
 
         if (window) {
             window.scrollTo(0, 0)
@@ -46,7 +51,9 @@ class PatientDetails extends React.Component {
         }
 
         if (doctor_id) {
-            props.getDoctorById(doctor_id, hospital_id, props.commonProfileSelectedProcedures)
+            if(callDoctorById){
+                props.getDoctorById(doctor_id, hospital_id, props.commonProfileSelectedProcedures)
+            }
 
             if (props.selectedSlot && props.selectedSlot.date && !props.selectedSlot.summaryPage) {
                 this.setState({ DATA_FETCH: true })
@@ -61,12 +68,12 @@ class PatientDetails extends React.Component {
 
     componentWillReceiveProps(props) {
         if (props.selectedDoctor != this.props.selectedDoctor) {
-            this.fetchData(props)
+            this.fetchData(props,null,true)
         }
     }
 
     componentDidMount() {
-        this.fetchData(this.props)
+        this.fetchData(this.props,null,true)
     }
 
     render() {
@@ -77,7 +84,7 @@ class PatientDetails extends React.Component {
         let hospital_id = this.props.selectedClinic || this.props.match.params.clinicId || parsed.hospital_id
 
         return (
-            <PatientDetailsView {...this.props} {...this.state} selectedDoctor={doctor_id} selectedClinic={hospital_id} />
+            <PatientDetailsView {...this.props} {...this.state} selectedDoctor={doctor_id} selectedClinic={hospital_id} fetchData={this.fetchData.bind(this)}/>
         );
     }
 }
