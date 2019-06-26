@@ -15,7 +15,8 @@ class InsuranceCancellationView extends React.Component {
 			opt_verified:false,
 			phoneNumber:'',
 			validationError:'',
-			error_message:''
+			error_message:'',
+			isOtpEdit:true
 		}
 	}
 
@@ -26,17 +27,20 @@ class InsuranceCancellationView extends React.Component {
 	}
 
 	cancelPolicy() {
-		this.submitOTPRequest()
+		this.submitOTPRequest(this.props,true,false)
 		this.setState({ showCancelPopup: true })
 	}
 
-	submitOTPRequest(resendFlag = false,viaSms,viaWhatsapp) {
-		let number = '7989972944'
-        if (number.match(/^[56789]{1}[0-9]{9}$/)) {
+	submitOTPRequest(props,viaSms,viaWhatsapp) {
+		let number
+		if(props.data){
+			number = props.data.phone_number
+		}
+        if (number && number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" ,phoneNumber:number})
-            this.props.sendOTP(number,true,false, (error) => {
+            this.props.sendOTP(number,viaSms,viaWhatsapp, (error) => {
                 if (error) {
-                    // this.setState({ validationError: "Could not generate OTP." })
+                    this.setState({ validationError: "Could not generate OTP." })
                 } else {
                     // let data = {'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupContinue', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-continue-click', 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':'', 'mobileNo':this.state.phoneNumber 
                     //     }
@@ -53,17 +57,23 @@ class InsuranceCancellationView extends React.Component {
         }
     }
 
+    handleChange(event) {
+		this.setState({otp : event.target.value},()=>{
+			if(this.state.otp.length == 6){
+				this.setState({isOtpEdit:false})
+				this.verifyOTP()	
+			}
+		})
+  	}
+
     verifyOTP() {
         let self = this
-        if (!this.state.opt) {
-            this.setState({ validationError: "Please enter OTP" })
-            return
-        }
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
             this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
                 if(exists.code == 'invalid'){
-                    this.setState({error_message:exists.message})
+                    this.setState({error_message:exists.message,otp:'',isOtpEdit:true})
+                    SnackBar.show({ pos: 'bottom-center', text: exists.message})
                 }else{
                     // let data = {'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupOptVerified', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-opt-verified'
                     //     }
@@ -123,6 +133,18 @@ class InsuranceCancellationView extends React.Component {
 								<div className="widget-content padiing-srch-el">
 									<p className="srch-el-conent">Are you sure you want to cancel your policy?</p>
 									<form className="go-bottom mrt-20" style={{padding:'0 15px'}}>
+										<p className="digi-heading">Enter 6 digit OTP sent to your mobile number ending with xxxxxxx{this.props.data.phone_number.slice(7, 10)}</p>
+										<div className="cancel-input-num">
+											<input placeholder="Enter OTP" onChange={this.handleChange.bind(this)} value={this.state.otp} type="number" disabled={this.state.otp.length == 6?true:false} style={{border:this.state.error_message !=''?'1px solid #ff0000':'none'}}/>
+											{
+											this.state.isOtpEdit?
+											<React.Fragment>
+												<span className="vrfy-via-num" onClick={this.submitOTPRequest.bind(this,this.props,false,true)}>Verify via WhatsApp</span>
+												<span className="cancl-rsnd-clk" onClick={this.submitOTPRequest.bind(this,this.props,true,false)}>Resend</span>
+											</React.Fragment>
+												:''
+											}
+										</div>
 										<div className="labelWrap" style={{marginBottom:0}}>
 											<textarea id="Accname" name="name" type="text" onChange={this.inputHandler.bind(this)} value={this.state.cancelReason} required ref="name" style={{backgroundColor:'#f7f7f7'}} autoComplete="first_name" rows="3" className="insurance-textarea" placeholder="Write a reason for cancellation">
 											</textarea>
