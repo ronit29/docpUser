@@ -91,7 +91,7 @@ class PatientDetailsNew extends React.Component {
 
             if (hospitals && hospitals.length) {
                 hospitals.map((hsptl) => {
-                    if (hsptl.hospital_id == this.props.selectedClinic) {
+                    if (hsptl.hospital_id == this.state.selectedClinic) {
                         hospital = hsptl
                     }
                 })
@@ -108,17 +108,17 @@ class PatientDetailsNew extends React.Component {
 
         if (this.props.doctorCoupons && this.props.doctorCoupons[this.props.selectedDoctor] && this.props.doctorCoupons[this.props.selectedDoctor].length) {
             let doctorCoupons = this.props.doctorCoupons[this.props.selectedDoctor]
-            if (this.props.selectedSlot.selectedClinic == this.props.selectedClinic && this.props.selectedSlot.selectedDoctor == this.props.selectedDoctor) {
+            if (this.props.selectedSlot.selectedClinic == this.state.selectedClinic && this.props.selectedSlot.selectedDoctor == this.props.selectedDoctor) {
 
                 let treatment_Price = 0
                 let selectedProcedures = {}
-                if (this.props.selectedDoctorProcedure[this.props.selectedDoctor] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].price) {
+                if (this.props.selectedDoctorProcedure[this.props.selectedDoctor] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].price) {
 
-                    treatment_Price = this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].price.deal_price || 0
+                    treatment_Price = this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
                 }
                 let deal_price = this.props.selectedSlot.time.deal_price + treatment_Price
 
-                this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.props.selectedDoctor, deal_price, this.props.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item, (err, data) => {
+                this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item, (err, data) => {
                     if (!err) {
                         this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', is_cashback: doctorCoupons[0].is_cashback })
                     } else {
@@ -129,13 +129,13 @@ class PatientDetailsNew extends React.Component {
             } else if (hospital) {
                 let deal_price = hospital.deal_price
                 let treatment_Price = 0
-                if (this.props.selectedDoctorProcedure[this.props.selectedDoctor] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].price) {
+                if (this.props.selectedDoctorProcedure[this.props.selectedDoctor] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].price) {
 
-                    treatment_Price = this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].price.deal_price || 0
+                    treatment_Price = this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
                 }
                 deal_price += treatment_Price
 
-                this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.props.selectedDoctor, deal_price, this.props.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item, (err, data) => {
+                this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item, (err, data) => {
                     if (!err) {
                         this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' })
                     } else {
@@ -154,9 +154,9 @@ class PatientDetailsNew extends React.Component {
             }
 
             let treatment_Price = 0
-            if (this.props.selectedDoctorProcedure[this.props.selectedDoctor] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].price) {
+            if (this.props.selectedDoctorProcedure[this.props.selectedDoctor] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].price) {
 
-                treatment_Price = this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].price.deal_price || 0
+                treatment_Price = this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
             }
 
             deal_price += treatment_Price
@@ -185,14 +185,14 @@ class PatientDetailsNew extends React.Component {
 
     getAndApplyBestCoupons(deal_price = 0) {
         this.props.getCoupons({
-            productId: 1, deal_price: deal_price, doctor_id: this.props.selectedDoctor, hospital_id: this.props.selectedClinic, profile_id: this.props.selectedProfile, procedures_ids: this.getProcedureIds(this.props), cart_item: this.state.cart_item,
+            productId: 1, deal_price: deal_price, doctor_id: this.props.selectedDoctor, hospital_id: this.state.selectedClinic, profile_id: this.props.selectedProfile, procedures_ids: this.getProcedureIds(this.props), cart_item: this.state.cart_item,
             cb: (coupons) => {
                 if (coupons) {
                     let validCoupon = this.getValidCoupon(coupons)
                     if (validCoupon) {
                         this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '' })
                         this.props.applyCoupons('1', validCoupon, validCoupon.coupon_id, this.props.selectedDoctor)
-                        this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.props.selectedDoctor, deal_price, this.props.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item)
+                        this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item)
                     } else {
                         this.props.resetOpdCoupons()
                     }
@@ -214,7 +214,7 @@ class PatientDetailsNew extends React.Component {
 
                 if (hospitals && hospitals.length) {
                     hospitals.map((hsptl) => {
-                        if (hsptl.hospital_id == this.props.selectedClinic) {
+                        if (hsptl.hospital_id == this.state.selectedClinic) {
                             hospital = hsptl
                         }
                     })
@@ -228,14 +228,14 @@ class PatientDetailsNew extends React.Component {
                     let deal_price = hospital.deal_price
 
                     let treatment_Price = 0
-                    if (nextProps.selectedDoctorProcedure[this.props.selectedDoctor] && nextProps.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic] && nextProps.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].price) {
+                    if (nextProps.selectedDoctorProcedure[this.props.selectedDoctor] && nextProps.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic] && nextProps.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].price) {
 
-                        treatment_Price = nextProps.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].price.deal_price || 0
+                        treatment_Price = nextProps.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
                     }
 
                     deal_price += treatment_Price
                     // let validCoupon = this.getValidCoupon(doctorCoupons)
-                    this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.props.selectedDoctor, deal_price, this.props.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item, (err, data) => {
+                    this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item, (err, data) => {
                         if (!err) {
                             this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', couponApplied: true })
                         } else {
@@ -252,9 +252,9 @@ class PatientDetailsNew extends React.Component {
                 }
 
                 let treatment_Price = 0
-                if (nextProps.selectedDoctorProcedure[this.props.selectedDoctor] && nextProps.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic] && nextProps.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].price) {
+                if (nextProps.selectedDoctorProcedure[this.props.selectedDoctor] && nextProps.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic] && nextProps.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].price) {
 
-                    treatment_Price = nextProps.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].price.deal_price || 0
+                    treatment_Price = nextProps.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
                 }
 
                 deal_price += treatment_Price
@@ -267,14 +267,14 @@ class PatientDetailsNew extends React.Component {
                     // if (this.props.selectedDoctor && deal_price && nextProps.couponAutoApply) {
                     if (this.props.selectedDoctor && deal_price) {
                         this.props.getCoupons({
-                            productId: 1, deal_price: deal_price, doctor_id: this.props.selectedDoctor, hospital_id: this.props.selectedClinic, profile_id: nextProps.selectedProfile, procedures_ids: this.getProcedureIds(nextProps), cart_item: this.state.cart_item,
+                            productId: 1, deal_price: deal_price, doctor_id: this.props.selectedDoctor, hospital_id: this.state.selectedClinic, profile_id: nextProps.selectedProfile, procedures_ids: this.getProcedureIds(nextProps), cart_item: this.state.cart_item,
                             cb: (coupons) => {
                                 if (coupons) {
                                     let validCoupon = this.getValidCoupon(coupons)
                                     if (validCoupon) {
                                         this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '', couponApplied: true })
                                         this.props.applyCoupons('1', validCoupon, validCoupon.coupon_id, this.props.selectedDoctor)
-                                        this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.props.selectedDoctor, deal_price, this.props.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item)
+                                        this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item)
                                     } else {
                                         this.setState({ couponApplied: true })
                                         this.props.resetOpdCoupons()
@@ -308,10 +308,10 @@ class PatientDetailsNew extends React.Component {
     }
 
     getProcedureIds(props) {
-        if (props.selectedDoctorProcedure[this.props.selectedDoctor] && props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic] && props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].categories) {
+        if (props.selectedDoctorProcedure[this.props.selectedDoctor] && props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic] && props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].categories) {
             let procedure_ids = []
 
-            Object.values(props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].categories).map((procedure) => {
+            Object.values(props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].categories).map((procedure) => {
                 procedure_ids = procedure_ids.concat(procedure.filter(x => x.is_selected).map(x => x.procedure_id))
             })
 
@@ -365,7 +365,7 @@ class PatientDetailsNew extends React.Component {
 
             if (hospitals && hospitals.length) {
                 hospitals.map((hsptl) => {
-                    if (hsptl.hospital_id == this.props.selectedClinic) {
+                    if (hsptl.hospital_id == this.state.selectedClinic) {
                         hospital = hsptl
                     }
                 })
@@ -400,7 +400,7 @@ class PatientDetailsNew extends React.Component {
 
         let postData = {
             doctor: this.props.selectedDoctor,
-            hospital: this.props.selectedClinic,
+            hospital: this.state.selectedClinic,
             profile: this.props.selectedProfile,
             start_date, start_time,
             payment_type: this.props.payment_type,
@@ -417,9 +417,9 @@ class PatientDetailsNew extends React.Component {
         }
 
         let procedure_ids = []
-        if (false && this.props.selectedDoctorProcedure[this.props.selectedDoctor] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].categories) {
+        if (false && this.props.selectedDoctorProcedure[this.props.selectedDoctor] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].categories) {
 
-            Object.values(this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].categories).map((procedure) => {
+            Object.values(this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].categories).map((procedure) => {
 
                 procedure_ids = procedure_ids.concat(procedure.filter(x => x.is_selected).map(x => x.procedure_id))
             })
@@ -491,10 +491,10 @@ class PatientDetailsNew extends React.Component {
         switch (where) {
             case "time": {
                 if (this.state.seoFriendly) {
-                    let url = `${window.location.pathname}?goback=true&type=opd&doctor_id=${this.props.selectedDoctor}&hospital_id=${this.props.selectedClinic}&action_page=timings`
+                    let url = `${window.location.pathname}?goback=true&type=opd&doctor_id=${this.props.selectedDoctor}&hospital_id=${this.state.selectedClinic}&action_page=timings`
                     this.props.history.push(url)
                 } else {
-                    this.props.history.push(`/opd/doctor/${this.props.selectedDoctor}/${this.props.selectedClinic}/book?goback=true&type=opd`)
+                    this.props.history.push(`/opd/doctor/${this.props.selectedDoctor}/${this.state.selectedClinic}/book?goback=true&type=opd`)
                 }
                 return
             }
@@ -528,7 +528,7 @@ class PatientDetailsNew extends React.Component {
         }
 
         GTM.sendEvent({ data: analyticData })
-        this.props.history.push(`/coupon/opd/${this.props.selectedDoctor}/${this.props.selectedClinic}?procedures_ids=${procedure_ids}&deal_price=${this.getDealPrice()}&cart_item=${this.state.cart_item || ""}`)
+        this.props.history.push(`/coupon/opd/${this.props.selectedDoctor}/${this.state.selectedClinic}?procedures_ids=${procedure_ids}&deal_price=${this.getDealPrice()}&cart_item=${this.state.cart_item || ""}`)
     }
 
     getDealPrice() {
@@ -540,7 +540,7 @@ class PatientDetailsNew extends React.Component {
 
             if (hospitals && hospitals.length) {
                 hospitals.map((hsptl) => {
-                    if (hsptl.hospital_id == this.props.selectedClinic) {
+                    if (hsptl.hospital_id == this.state.selectedClinic) {
                         hospital = hsptl
                     }
                 })
@@ -554,9 +554,9 @@ class PatientDetailsNew extends React.Component {
         }
 
         let treatment_Price = 0
-        if (this.props.selectedDoctorProcedure[this.props.selectedDoctor] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].price) {
+        if (this.props.selectedDoctorProcedure[this.props.selectedDoctor] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].price) {
 
-            treatment_Price = this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].price.deal_price || 0
+            treatment_Price = this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
         }
 
         deal_price += treatment_Price
@@ -569,8 +569,12 @@ class PatientDetailsNew extends React.Component {
 
     getBookingButtonText(total_wallet_balance, price_to_pay, mrp,enabled_for_cod_payment,is_cod_deal_price) {
         if (this.props.payment_type != 1) {
-            if(enabled_for_cod_payment && is_cod_deal_price){
-                return `Confirm Booking (₹ ${is_cod_deal_price})`
+            if(enabled_for_cod_payment){
+                if(is_cod_deal_price){
+                    return `Confirm Booking (₹ ${is_cod_deal_price})`
+                }else{
+                    return `Confirm Booking (₹ ${mrp})`
+                }
             }else{
                 return `Confirm Booking (₹ ${mrp})`
             }
@@ -612,7 +616,7 @@ class PatientDetailsNew extends React.Component {
     selectTimeSlot(slot) {
         const parsed = queryString.parse(this.props.location.search)
         slot.selectedDoctor = this.props.selectedDoctor
-        slot.selectedClinic = this.props.selectedClinic
+        slot.selectedClinic = this.state.selectedClinic
         this.props.selectOpdTimeSLot(slot, false)
     }
 
@@ -670,6 +674,17 @@ class PatientDetailsNew extends React.Component {
         this.props.history.push('/insurance/insurance-plans?source=doctor-summary-view&show_button=true')
     }
 
+    selectClinic(clinic_id) {
+        var href = new URL(window.location.href)
+        href.searchParams.set('hospital_id', clinic_id)
+        var newUrl =href.toString() 
+        window.history.replaceState(window.history.state, document.title, newUrl)
+
+        this.setState({ selectedClinic: clinic_id},()=>{
+            this.props.fetchData(this.props,clinic_id,false)
+        })
+    }
+
     render() {
         const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
@@ -689,7 +704,7 @@ class PatientDetailsNew extends React.Component {
 
             if (hospitals && hospitals.length) {
                 hospitals.map((hsptl) => {
-                    if (hsptl.hospital_id == this.props.selectedClinic) {
+                    if (hsptl.hospital_id == this.state.selectedClinic) {
                         hospital = hsptl
                     }
                     enabled_for_cod_payment = hospital.enabled_for_cod
@@ -716,7 +731,7 @@ class PatientDetailsNew extends React.Component {
 
 
             // reset time slot if doctor/hospital changes
-            if (this.props.selectedSlot.selectedClinic != this.props.selectedClinic || this.props.selectedSlot.selectedDoctor != this.props.selectedDoctor) {
+            if (this.props.selectedSlot.selectedClinic != this.state.selectedClinic || this.props.selectedSlot.selectedDoctor != this.props.selectedDoctor) {
                 let slot = { time: {} }
                 this.props.selectOpdTimeSLot(slot, false)
             }
@@ -731,11 +746,11 @@ class PatientDetailsNew extends React.Component {
         }
         let treatment_Price = 0, treatment_mrp = 0
         let selectedProcedures = {}
-        if (false && this.props.selectedDoctorProcedure[this.props.selectedDoctor] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].price) {
+        if (false && this.props.selectedDoctorProcedure[this.props.selectedDoctor] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic] && this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].price) {
 
-            treatment_Price = this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].price.deal_price || 0
-            treatment_mrp = this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].price.mrp || 0
-            selectedProcedures = this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.props.selectedClinic].categories
+            treatment_Price = this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].price.deal_price || 0
+            treatment_mrp = this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].price.mrp || 0
+            selectedProcedures = this.props.selectedDoctorProcedure[this.props.selectedDoctor][this.state.selectedClinic].categories
         }
 
         let total_price = parseInt(priceData.deal_price) + treatment_Price
@@ -808,10 +823,12 @@ class PatientDetailsNew extends React.Component {
                                                     <div className="col-12">
 
                                                         <SelectedClinic
+                                                            {...this.props}
                                                             boxShadowHide={true}
                                                             selectedDoctor={this.props.DOCTORS[this.props.selectedDoctor]}
-                                                            selectedClinic={this.props.selectedClinic}
+                                                            selectedClinic={this.state.selectedClinic}
                                                             history={this.props.history}
+                                                            selectClinic= {this.selectClinic.bind(this)}
                                                         />
                                                         <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError}
 
@@ -966,7 +983,7 @@ class PatientDetailsNew extends React.Component {
 
                                                                     {
                                                                         is_insurance_buy_able && this.props.common_settings && this.props.common_settings.insurance_availability?
-                                                                            <div className="test-report payment-detail mt-20 p-relative"  onClick={this.goToInsurance.bind(this,this.props.DOCTORS[this.props.selectedDoctor],this.props.selectedClinic)} style={{cursor:'pointer'}}>
+                                                                            <div className="test-report payment-detail mt-20 p-relative"  onClick={this.goToInsurance.bind(this,this.props.DOCTORS[this.props.selectedDoctor],this.state.selectedClinic)} style={{cursor:'pointer'}}>
                                                                                 <div className="d-flex justify-content-between align-items-sm-center">
                                                                     <div className="opd-ins-title-sub">
                                                                         <h4 className="title coupon-text">Pay with OPD Insurance</h4>

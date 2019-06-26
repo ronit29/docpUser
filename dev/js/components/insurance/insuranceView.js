@@ -39,7 +39,7 @@ class Insurance extends React.Component {
 		let lead_data = queryString.parse(this.props.location.search)
 		let phoneNumber = ''
 		if (!STORAGE.checkAuth() && lead_data.page_source == 'banner') {
-			this.setState({checkIdleTimeout:false, showPopup:true, popupClass: 'translucent-popup', overlayClass: 'white-overlay', identifyUserClick:'bannerClick'})
+			//this.setState({checkIdleTimeout:false, showPopup:true, popupClass: 'translucent-popup', overlayClass: 'white-overlay', identifyUserClick:'bannerClick'})
 		let data = {
 				'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopup', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-click', 'click_value': 'bannerClick'
 			}
@@ -60,7 +60,7 @@ class Insurance extends React.Component {
 			}
 		}
 		if(this.state.checkIdleTimeout && !STORAGE.checkAuth()){
-			this.setState({popupClass: 'translucent-popup', overlayClass: 'white-overlay'})
+			//this.setState({popupClass: 'translucent-popup', overlayClass: 'white-overlay'})
 			this.inactivityTime()
 		}
 	}

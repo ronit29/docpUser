@@ -148,8 +148,17 @@ class ClinicSelector extends React.Component {
                                             {
                                                 hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && parseInt(hospital.discounted_price) <=hospital.insurance.insurance_threshold_amount?
                                                 <span className="test-price txt-ornage">₹ {0}</span>
-                                                :hospital.enabled_for_cod && hospital.cod_deal_price?
-                                                <span className="test-price txt-ornage">₹ {hospital.cod_deal_price}</span>
+                                                :hospital.enabled_for_cod && !hospital.enabled_for_prepaid
+                                                ?hospital.cod_deal_price
+                                                    ?<span className="test-price txt-ornage">₹ {hospital.cod_deal_price}
+                                                        {
+                                                            parseInt(hospital.cod_deal_price) == parseInt(hospital.mrp)
+                                                                ? ''
+                                                                : <span className="test-mrp">₹ {hospital.mrp}</span>
+                                                        }
+                                                    </span>
+                                                    :<span className="test-price txt-ornage">₹ {hospital.mrp}</span>
+
                                                 :hospital.enabled_for_online_booking ?
                                                     <span className="test-price txt-ornage">₹ {hospital.discounted_price}
                                                         {
@@ -168,8 +177,14 @@ class ClinicSelector extends React.Component {
 
                             {
                                 hospital.insurance && hospital.insurance.is_insurance_covered && hospital.insurance.is_user_insured && 
-                                parseInt(hospital.discounted_price) <= hospital.insurance.insurance_threshold_amount ? '' :
-                                hospital.enabled_for_online_booking && hospital.discounted_price < hospital.mrp ?
+                                parseInt(hospital.discounted_price) <= hospital.insurance.insurance_threshold_amount ? '' 
+                                :hospital.enabled_for_cod && !hospital.enabled_for_prepaid
+                                ?hospital.cod_deal_price && hospital.cod_deal_price !== hospital.mrp
+                                    ?<p className="cstm-cpn">{parseInt(((hospital.mrp - hospital.cod_deal_price) / hospital.mrp) * 100)}% Off
+                                        <span><br />(includes Coupon)</span>
+                                    </p>
+                                    :''
+                                :hospital.enabled_for_online_booking && hospital.discounted_price < hospital.mrp ?
                                     <p className="cstm-cpn">{parseInt(((hospital.mrp - hospital.discounted_price) / hospital.mrp) * 100)}% Off
                                         {
                                             hospital.agreed_price != hospital.discounted_price ?

@@ -8204,6 +8204,9 @@ a.btn-search.btn-cnte{
 .custom-li-style{
 	min-height: 38px;
 }
+.custom-li-style h2 ,.custom-li-style h3{
+font-size: 16px;
+}
 .lead-form p{
 	margin-bottom: 10px;
 }
@@ -11894,4 +11897,7 @@ p.label-cpn{
 	font-size: 12px;
     font-weight: 500;
     display: inline-block;
+}
+.nw-clinicMore.arrow-rev img{
+	transform: rotate(-90deg);
 }
