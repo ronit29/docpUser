@@ -10,7 +10,12 @@ class InsuranceCancellationView extends React.Component {
 		this.state = {
 			showCancelPopup: false,
 			showCancelSection:true,
-			cancelReason:''
+			cancelReason:'',
+			otp: "",
+			opt_verified:false,
+			phoneNumber:'',
+			validationError:'',
+			error_message:''
 		}
 	}
 
@@ -21,12 +26,60 @@ class InsuranceCancellationView extends React.Component {
 	}
 
 	cancelPolicy() {
+		this.submitOTPRequest()
 		this.setState({ showCancelPopup: true })
 	}
 
+	submitOTPRequest(resendFlag = false,viaSms,viaWhatsapp) {
+		let number = '7989972944'
+        if (number.match(/^[56789]{1}[0-9]{9}$/)) {
+            this.setState({ validationError: "" ,phoneNumber:number})
+            this.props.sendOTP(number,true,false, (error) => {
+                if (error) {
+                    // this.setState({ validationError: "Could not generate OTP." })
+                } else {
+                    // let data = {'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupContinue', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-continue-click', 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':'', 'mobileNo':this.state.phoneNumber 
+                    //     }
+                    // GTM.sendEvent({ data: data })
+                    this.setState({ showOTP: true})
+                    // this.setState({ showOTP: true, otpTimeout: true,smsBtnType:viaSms?true:false })
+                    // setTimeout(() => {
+                    //     this.setState({ otpTimeout: false })
+                    // }, 10000)
+                }
+            })
+        } else {
+            this.setState({ validationError: "Please provide a valid number (10 digits)" })
+        }
+    }
+
+    verifyOTP() {
+        let self = this
+        if (!this.state.opt) {
+            this.setState({ validationError: "Please enter OTP" })
+            return
+        }
+        if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
+            this.setState({ validationError: "" })
+            this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
+                if(exists.code == 'invalid'){
+                    this.setState({error_message:exists.message})
+                }else{
+                    // let data = {'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupOptVerified', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-opt-verified'
+                    //     }
+                    // GTM.sendEvent({ data: data })
+                      this.setState({opt_verified:true})                  
+                }    
+                   
+            })
+        } else {
+            this.setState({ validationError: "Please provide a valid number (10 digits)" })
+        }
+    }
+
 	clickPopUp(type) {
 		if (type == 1) {
-			if(this.state.cancelReason != ''){
+			if(this.state.cancelReason != '' && this.state.opt_verified){
 				this.props.cancelReason(this.state.cancelReason)
 				this.props.history.push('/insurance/canceldetails')
 			}else{

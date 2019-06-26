@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { cancelInsurance, cancelledInsuranceDetails, cancelReason} from '../../actions/index.js'
+import { cancelInsurance, cancelledInsuranceDetails, cancelReason, sendOTP, submitOTP} from '../../actions/index.js'
 import InsuranceCancellationView from '../../components/insurance/insuranceCancellation.js'
 
 class InsuranceCancellation extends React.Component{
@@ -38,7 +38,9 @@ const mapDispatchToProps = (dispatch) => {
 
         cancelInsurance :(cb) => dispatch(cancelInsurance(cb)),
         cancelledInsuranceDetails:(cb) => dispatch(cancelledInsuranceDetails(cb)),
-        cancelReason:(criteria) => dispatch(cancelReason(criteria))
+        cancelReason:(criteria) => dispatch(cancelReason(criteria)),
+        sendOTP: (number,viaSms,viaWhatsapp, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp, cb)),
+        submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
     }
 }
 
