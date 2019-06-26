@@ -85,7 +85,8 @@ class SelectedClinic extends React.Component {
                                                         {
                                                             parseInt(hospital.cod_deal_price) == parseInt(hospital.mrp)
                                                                 ? ''
-                                                                : <span className="clinc-rd-price-cut">₹ {hospital.mrp}</span>
+                                                                : <span className="clinc-rd-price-cut">₹ {hospital.mrp}
+                                                                </span>
                                                         }
                                                     </span>
                                                     :<span className="clinc-rd-price">₹ {hospital.mrp}</span>
@@ -94,7 +95,12 @@ class SelectedClinic extends React.Component {
                                                         {
                                                             parseInt(hospital.discounted_price) == parseInt(hospital.mrp)
                                                                 ? ''
-                                                                : <span className="clinc-rd-price-cut">₹ {hospital.mrp}</span>
+                                                                : 
+                                                                <React.Fragment>
+                                                                <span className="clinc-rd-price-cut">₹ {hospital.mrp}
+                                                                </span>
+                                                                <span className="clnc-includecpn">(includes Coupon)</span>
+                                                                </React.Fragment>
                                                         }
                                                 </span>
                                                 : hospital.mrp && hospital.mrp != 0 ?

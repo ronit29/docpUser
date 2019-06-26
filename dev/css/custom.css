@@ -2121,9 +2121,10 @@ p.clnc-name{
 	color:#757575;
 }
 .clck-loc{
-	font-size: 12px;
+	font-size: 10px;
     display: flex;
     justify-content: space-between;
+    padding-right: 77px;
 }
 .clck-loc span{
 	color: #ff6d00;
@@ -2148,5 +2149,11 @@ p.clnc-name{
 	margin-bottom: 0px !important;
 	padding-bottom: 0px;
 	border-bottom: 0px solid transparent;
+}
+.clnc-includecpn{
+	color: #55a740;
+    font-size: 9px;
+    display: block;
+    position: absolute;
 }
 /* ============ more clinic card ============ */
