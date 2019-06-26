@@ -29,7 +29,7 @@ class PatientDetails extends React.Component {
         router: () => null
     }
 
-    fetchData(props,clinic_id) {
+    fetchData(props,clinic_id,callDoctorById) {
         const parsed = queryString.parse(props.location.search)
 
         let doctor_id = props.selectedDoctor || props.match.params.id || parsed.doctor_id
@@ -51,7 +51,9 @@ class PatientDetails extends React.Component {
         }
 
         if (doctor_id) {
-            props.getDoctorById(doctor_id, hospital_id, props.commonProfileSelectedProcedures)
+            if(callDoctorById){
+                props.getDoctorById(doctor_id, hospital_id, props.commonProfileSelectedProcedures)
+            }
 
             if (props.selectedSlot && props.selectedSlot.date && !props.selectedSlot.summaryPage) {
                 this.setState({ DATA_FETCH: true })
@@ -66,12 +68,12 @@ class PatientDetails extends React.Component {
 
     componentWillReceiveProps(props) {
         if (props.selectedDoctor != this.props.selectedDoctor) {
-            this.fetchData(props,null)
+            this.fetchData(props,null,true)
         }
     }
 
     componentDidMount() {
-        this.fetchData(this.props,null)
+        this.fetchData(this.props,null,true)
     }
 
     render() {

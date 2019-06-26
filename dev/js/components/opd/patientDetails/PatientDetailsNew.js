@@ -673,7 +673,7 @@ class PatientDetailsNew extends React.Component {
         window.history.replaceState(window.history.state, document.title, newUrl)
 
         this.setState({ selectedClinic: clinic_id},()=>{
-            this.props.fetchData(this.props,clinic_id)
+            this.props.fetchData(this.props,clinic_id,false)
         })
     }
 
@@ -1042,7 +1042,7 @@ class PatientDetailsNew extends React.Component {
                                                             </div> : <div className="widget mrb-15">
 
                                                                     <div className="widget-content clearfix">
-                                                                        <h4 className="title mb-20">Payment Summary 12</h4>
+                                                                        <h4 className="title mb-20">Payment Summary</h4>
                                                                         <div className="payment-summary-content">
                                                                             <div className="payment-detail d-flex">
                                                                                 <p>Subtotal</p>
