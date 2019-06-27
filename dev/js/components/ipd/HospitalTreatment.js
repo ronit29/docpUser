@@ -50,19 +50,19 @@ class HospitalTreatmentView extends React.Component {
     let { hospital_data } = this.props
 		return(
 			<div className="hs-card">
-       <div className="card-head"><h3 className="dsply-ipd-hdng">Procedures in {hospital_data.name} Hospitals</h3></div>   
+       <div className="card-head"><h2 className="dsply-ipd-hdng">Procedures in {hospital_data.name}</h2></div>   
        <div className="card-body clearfix">
          <ul className="hs-accordian"> 
             {
               hospital_data.ipd_procedure_categories.map((treatment, i)=> {
               return <li key={i}>
-                   <div className="accordian-head" onClick={this.toggleTreatment.bind(this, treatment.id)}>{`${treatment.name} (${treatment.ipd_procedures.length})`}
+                   <h3 className="accordian-head" onClick={this.toggleTreatment.bind(this, treatment.id)}>{`${treatment.name} (${treatment.ipd_procedures.length})`}
                       {
                         this.state.treatment.indexOf(treatment.id)>-1?
                         <img className="" src={ASSETS_BASE_URL+"/images/up-arrow.png"} />
                         :<img className="" src={ASSETS_BASE_URL+"/images/down-arrow.png"} /> 
                       }
-                   </div>
+                   </h3>
                    {
                       this.state.treatment.indexOf(treatment.id)>-1?
                       <p className="accordian-dtl">

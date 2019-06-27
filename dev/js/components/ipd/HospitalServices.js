@@ -6,12 +6,12 @@ class HospitalServicesView extends React.Component  {
 		let { hospital_data } = this.props
 		return(
 			<div className="hs-card">
-	           <div className="card-head"><h3 className="dsply-ipd-hdng">Services in {hospital_data.name} Hospitals</h3></div>   
+	           <div className="card-head"><h2 className="dsply-ipd-hdng">Facilities in {hospital_data.name}</h2></div>   
 	           <div className="card-body clearfix">
 	             <ul className="hs-services">
 	             	{
 	             		hospital_data.services.map((service, i) => {
-	             			return <li key={i}><img src={service.icon} alt="" /> {service.name} </li>  
+	             			return <h3 key={i}><img src={service.icon} alt="" /> {service.name} </h3>  
 	               		
 	             		})
 	             	}
