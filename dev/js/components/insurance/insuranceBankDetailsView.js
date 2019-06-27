@@ -287,14 +287,14 @@ class InsuranceCancellationView extends React.Component {
 											</div>
 										:<React.Fragment>
 										<p className="ins-cancl-para">Please upload either of these documents to verify your account details. </p>
-										<span className="ins-cn-btn" onClick={() => {
+										<span className="ins-cn-btn" style={{ cursor:'pointer' }} onClick={() => {
 					                        document.getElementById('imageFilePicker_').click()
 					                        document.getElementById('imageFilePicker_').value = "" }}>
 					                    	<img src={ASSETS_BASE_URL + '/img/upld.png'}/>Upload Cancelled Cheque
 					                        	<input type="file" style={{ display: 'none',cursor:'pointer' }} id={`imageFilePicker_`} onChange={this.pickFile.bind(this)} accept="image/*"/>
 					                    </span>
 					                    <p className="ins-cancl-para">OR</p>
-					                    <span className="ins-cn-btn" onClick={() => {
+					                    <span className="ins-cn-btn" style={{ cursor:'pointer' }} onClick={() => {
 					                        document.getElementById('imageFilePicker_').click()
 					                        document.getElementById('imageFilePicker_').value = "" }}>
 					                    	<img src={ASSETS_BASE_URL + "/img/upld.png"}/>Upload Account Statement

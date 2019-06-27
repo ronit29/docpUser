@@ -93,7 +93,6 @@ class InsuranceCancellationView extends React.Component {
 				this.props.cancelReason(this.state.cancelReason)
 				this.props.history.push('/insurance/canceldetails')
 			}else{
-				this.setState({otp: "",opt_verified:false,phoneNumber:'',validationError:'',error_message:'',isOtpEdit:true})
 				SnackBar.show({ pos: 'bottom-center', text: "Please provide cancel Reason" });
 			}
 			// this.props.cancelInsurance(resp => {
@@ -104,6 +103,7 @@ class InsuranceCancellationView extends React.Component {
 			// 	}
 			// })
 		} else {
+			this.setState({otp: "",opt_verified:false,phoneNumber:'',validationError:'',error_message:'',isOtpEdit:true})
 			this.setState({ showCancelPopup: false})
 		}
 	}

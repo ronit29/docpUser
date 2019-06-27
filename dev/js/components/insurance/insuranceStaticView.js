@@ -229,15 +229,11 @@ class InsuranceStaticView extends React.Component {
 	}
 
 	closeLeadPopup() {
-		this.setState({ showPopup: false, checkIdleTimeout:true },()=>{
-			this.inactivityTime()
-		})
+		this.setState({ showPopup: false})
 	}
 
 	hideLoginPopup() {
-		this.setState({showPopup: false,checkIdleTimeout:true},()=>{
-			this.inactivityTime()
-		})
+		this.setState({showPopup: false})
 	}
 
 	shortenUrl() {
@@ -298,7 +294,7 @@ class InsuranceStaticView extends React.Component {
 															<div className="lft-para-algn">
 																<p className="step-blk-para">Unlimited</p>
 																<p className="step-orng-para">Lab Tests</p>
-																<p className="step-qut-para">with <span>20,000+</span> Doctors*</p>
+																<p className="step-qut-para">at <span>2,000+</span> Diagnostic Labs*</p>
 															</div>
 														</div>
 														<div className="col-6">
@@ -324,12 +320,12 @@ class InsuranceStaticView extends React.Component {
 											</div>
 											<div className="ins-land-listing">
 												<p><img src={ASSETS_BASE_URL + '/img/ins-hrt.png'} />Pre existing diseases covered</p>
-												<p><img src={ASSETS_BASE_URL + '/img/ins-rprt.png'} />No medical test required for policy insurance</p>
-												<p><img src={ASSETS_BASE_URL + '/img/ins-yr.png'} />Valid for 1 year from policy insurance</p>
+												<p><img src={ASSETS_BASE_URL + '/img/ins-rprt.png'} />No medical test required for policy issuance</p>
+												<p><img src={ASSETS_BASE_URL + '/img/ins-yr.png'} />Valid for 1 year from policy issuance</p>
 											</div>
 											<div className="ins-network-cont">
 												<div className="ins-netwrk-heading-cont">
-													<p>*Only available on Docprime network </p>
+													<p>Only available on Docprime network* </p>
 													<span href='/insurance/network' onClick={(e) => {
 														e.preventDefault();
 														this.props.history.push('/insurance/network')
