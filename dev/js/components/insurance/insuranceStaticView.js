@@ -268,7 +268,7 @@ class InsuranceStaticView extends React.Component {
 											<div>
 												<div className="ins-steps-section">
 													<div className="doc-usr-only">
-														<h1>Group OPD Insurance exclusively <br></br>for <span>Docprime</span> users only </h1>
+														<h1>Group OPD Insurance exclusively for <span>Docprime</span> users only </h1>
 														<div className="doc-pwdby">
 															<p>Powered by</p>
 															<img style={{ width: '130px' }} src="https://cdn.docprime.com/media/insurer/images/AMHI_Logo-01.png" />
