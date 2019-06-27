@@ -445,8 +445,8 @@ class InsuranceStaticView extends React.Component {
 										</div>
 										<div className="ins-land-listing">
 											<p><img src={ASSETS_BASE_URL + '/img/ins-hrt.png'} />Pre existing diseases covered</p>
-											<p><img src={ASSETS_BASE_URL + '/img/ins-rprt.png'} />No medical test required for policy inssuance</p>
-											<p><img src={ASSETS_BASE_URL + '/img/ins-yr.png'} />Valid for 1 year from policy inssuance</p>
+											<p><img src={ASSETS_BASE_URL + '/img/ins-rprt.png'} />No medical test required for policy insurance</p>
+											<p><img src={ASSETS_BASE_URL + '/img/ins-yr.png'} />Valid for 1 year from policy insurance</p>
 										</div>
 										<div className="ins-network-cont">
 											<div className="ins-netwrk-heading-cont">
