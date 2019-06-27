@@ -11898,6 +11898,40 @@ p.label-cpn{
     font-weight: 500;
     display: inline-block;
 }
+.digi-heading{
+	    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.cancel-input-num{
+    margin-bottom: 10px;
+    position: relative;
+}
+.cancel-input-num input{
+	    width: 100%;
+    background-color: rgb(247, 247, 247);
+    border: 1px solid #d3d3d3;
+    position: relative;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+.vrfy-via-num{
+    color: #f78631;
+    font-weight: 500;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 4px;
+    display: inline-block;
+}
+.cancl-rsnd-clk{
+    color: #d11414;
+    font-weight: 500;
+    font-size: 12px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
 .nw-clinicMore.arrow-rev img{
 	transform: rotate(-90deg);
 }
