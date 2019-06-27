@@ -25,7 +25,7 @@ class InsuranceStaticView extends React.Component {
 			selected_plan_data: this.props.selected_plan ? this.props.selected_plan : '',
 			showPopup: false,
 			shortURL: "",
-			isLead: '',
+			isLead: 'proceed',
 			checkIdleTimeout:true,
 			popupClass: '',
 			overlayClass: '',
@@ -118,8 +118,19 @@ class InsuranceStaticView extends React.Component {
 	}
 
 	proceedPlan(){
+		let parsed = queryString.parse(this.props.location.search)
+		let plan = Object.assign({}, this.state.selected_plan_data)
+		let lead_data
+		let phoneNumber = ''
 		if (STORAGE.checkAuth()) {
-		this.props.history.push('/insurance/insurance-plans')
+			if (this.props.USER && this.props.USER.primaryMobile != '') {
+				phoneNumber = this.props.USER.primaryMobile
+			}
+			if (Object.keys(plan).length > 0) {
+				lead_data = parsed
+				this.props.generateInsuranceLead(plan.id, phoneNumber,lead_data,this.props.selectedLocation)
+			}
+			this.props.history.push('/insurance/insurance-plan-view')
 		}else{
 			this.setState({ showPopup: true })
 		}
@@ -396,7 +407,7 @@ class InsuranceStaticView extends React.Component {
 														<div className="lft-para-algn">
 															<p className="step-blk-para">Unlimited</p>
 															<p className="step-blk-para">Doctor</p>
-															<p className="step-orng-para">consultation</p>
+															<p className="step-orng-para">Consultation</p>
 															<p className="step-qut-para">with <span>20,000+</span> Doctors*</p>
 														</div>
 													</div>

@@ -113,17 +113,19 @@ class InsurancePopup extends React.Component {
                         if (!resp.certificate) {
                             if (this.props.isLead == 'proceed') {
                                 if (exists.user_exists) {
-                                    if (this.props.identifyUserClick == 'userClick') {
-                                        this.props.history.push('/insurance/insurance-user-details')
-                                    } else {
-                                        this.props.closeLeadPopup()
-                                    }
+                                    // if (this.props.identifyUserClick == 'userClick') {
+                                    //     this.props.history.push('/insurance/insurance-user-details')
+                                    // } else {
+                                    //     this.props.closeLeadPopup()
+                                    // }
+                                    this.props.history.push('/insurance/insurance-plans')
                                 } else {
-                                    if (this.props.identifyUserClick == 'userClick') {
-                                        this.props.history.push('/insurance/insurance-user-details')
-                                    } else {
-                                        this.props.closeLeadPopup()
-                                    }
+                                    // if (this.props.identifyUserClick == 'userClick') {
+                                    //     this.props.history.push('/insurance/insurance-user-details')
+                                    // } else {
+                                    //     this.props.closeLeadPopup()
+                                    // }
+                                    this.props.history.push('/insurance/insurance-plans')
                                 }
                             } else {
                                 self.setState({ isLeadTrue: true, })
@@ -153,6 +155,12 @@ class InsurancePopup extends React.Component {
                 this.submitOTPRequest(this.state.phoneNumber)
             }
         }
+    }
+
+    editNumber(){
+        this.setState({validationError: "", showOTP: false, otp: "" },()=>{
+            document.getElementById("number").focus()
+        })
     }
     render() {
         if (this.props.isSelectprofile) {
@@ -215,14 +223,17 @@ class InsurancePopup extends React.Component {
                                     <span className="float-right" style={{ cursor: 'pointer' }} onClick={this.props.hideLoginPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>
                                     <div className="widget-header text-center mv-header">
                                         {/*<h3 className="sign-coupon fw-700">Please login to continue</h3>*/}
-                                        {this.props.identifyUserClick == 'userClick' ?
+                                        <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >
+                                            {this.state.showOTP?'Enter your access code we’ve sent to your mobile number':'Sounds too good to be true !! But it is ! Only docprime members get to access'}</h4>
+                                        {/*
+                                            this.props.identifyUserClick == 'userClick' ?
                                             <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Sounds too good to be true !! But it is ! Only docprime members get to access</h4>
                                             : this.props.identifyUserClick == 'AutoClick' ?
                                                 <div>
                                                     <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Enter your access code we’ve sent to your mobile number</h4>
-                                                    {/* <h6 className="text-md sign-up-mbl-text" style={this.props.popupClass != '' ? {color:'#fff'}:{}} >Sounds too good to be true !! But it is ! Only docprime members get to access</h6> */}
                                                 </div>
-                                                : <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Please Enter your Mobile Number to proceed</h4>}
+                                                : <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Please Enter your Mobile Number to proceed</h4>
+                                        */}
                                     </div>
                                     <div className="widget-content text-center">
                                         {/* <div className="mobile-verification">
@@ -232,8 +243,8 @@ class InsurancePopup extends React.Component {
                                 </div> */}
                                         <div className="form-group mobile-field sup-input-pdng">
                                             <div className="adon-group enter-mobile-number">
-                                                <input type="number" className="fc-input text-center" placeholder="10 digit mobile number" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this._handleContinuePress.bind(this)} />
-                                                {this.state.showOTP?<a className="ins-num-edit">Edit</a>:''}
+                                                <input type="number" id="number" className="fc-input text-center" placeholder="10 digit mobile number" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this._handleContinuePress.bind(this)} disabled={this.state.showOTP?true:false}/>
+                                                {this.state.showOTP?<a className="ins-num-edit" onClick={this.editNumber.bind(this)}>Edit</a>:''}
                                             </div>
 
                                             {

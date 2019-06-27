@@ -30,27 +30,27 @@ class Insurance extends React.Component{
         if (window) {
             window.scrollTo(0, 0)
         }
-        // this.props.getInsurance(false)
+        this.props.getInsurance(false)
     }
 	render(){
-        // if(this.props.LOAD_INSURANCE){
-        //     return(
-        //         <InsuranceComponent {...this.props}/>
-        //     )
-        // }else{
-        //     if(this.props.insurnaceData.certificate && STORAGE.checkAuth()){
-        //         this.props.history.push('/insurance/certificate')
-        //     }
-        //     return(
-        //     <div className="profile-body-wrap">
-        //         <ProfileHeader showPackageStrip={true}/>
-        //         <Loader />
-        //     </div>
-        //         )
-        // }
-        return(
+        if(this.props.LOAD_INSURANCE){
+            return(
                 <InsuranceComponent {...this.props}/>
             )
+        }else{
+            if(this.props.insurnaceData.certificate && STORAGE.checkAuth()){
+                this.props.history.push('/insurance/certificate')
+            }
+            return(
+            <div className="profile-body-wrap">
+                <ProfileHeader showPackageStrip={true}/>
+                <Loader />
+            </div>
+                )
+        }
+        // return(
+        //         <InsuranceComponent {...this.props}/>
+        //     )
 	}
 }
 

@@ -39,11 +39,11 @@ class InsuranceStaticView extends React.Component{
             )
         }else{
             if(this.props.insurnaceData.certificate && STORAGE.checkAuth()){
-                // this.props.history.push('/insurance/certificate')
+                this.props.history.push('/insurance/certificate')
             }
             return(
             <div className="profile-body-wrap">
-                <ProfileHeader showPackageStrip={true}/>
+                {/*<ProfileHeader showPackageStrip={true}/>*/}
                 <Loader />
             </div>
                 )

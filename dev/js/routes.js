@@ -596,8 +596,8 @@ let routes = [
 if (CONFIG.ENABLE_INSURANCE) {
     routes = routes.concat([
         { path: '/insurance1', exact: true, component: InsuranceViewUI },
-        { path: '/insurance/insurance-view', exact: true, component: InsuranceStaticView, RENDER_ON_SERVER: true },
-        { path: '/insurance/insurance-plans', exact: true, component: InsuranceView, RENDER_ON_SERVER: true },
+        { path: '/insurance/insurance-plans', exact: true, component: InsuranceStaticView, RENDER_ON_SERVER: true },
+        { path: '/insurance/insurance-plan-view', exact: true, component: InsuranceView, RENDER_ON_SERVER: true },
         { path: '/insurance/insurance-user-details', exact: true, component: InsuranceDetails, RENDER_ON_SERVER: true },
         { path: '/insurance/insurance-endorsement-details', exact: true, component: InsuranceEndorsementDetails, RENDER_ON_SERVER: true },
         { path: '/insurance/insurance-user-details-review', exact: true, component: InsuranceReview, RENDER_ON_SERVER: true },
