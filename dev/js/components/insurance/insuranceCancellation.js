@@ -93,6 +93,7 @@ class InsuranceCancellationView extends React.Component {
 				this.props.cancelReason(this.state.cancelReason)
 				this.props.history.push('/insurance/canceldetails')
 			}else{
+				this.setState({otp: "",opt_verified:false,phoneNumber:'',validationError:'',error_message:'',isOtpEdit:true})
 				SnackBar.show({ pos: 'bottom-center', text: "Please provide cancel Reason" });
 			}
 			// this.props.cancelInsurance(resp => {
@@ -133,7 +134,7 @@ class InsuranceCancellationView extends React.Component {
 								<div className="widget-content padiing-srch-el">
 									<p className="srch-el-conent">Are you sure you want to cancel your policy?</p>
 									<form className="go-bottom mrt-20" style={{padding:'0 15px'}}>
-										<p className="digi-heading">Enter 6 digit OTP sent to your mobile number ending with xxxxxxx{this.props.data.phone_number.slice(7, 10)}</p>
+										<p className="digi-heading">Enter 6 digit OTP sent to your mobile number ending with xxxxxxx{this.props.data && this.props.data.phone_number?this.props.data.phone_number.slice(7, 10):''}</p>
 										<div className="cancel-input-num">
 											<input placeholder="Enter OTP" onChange={this.handleChange.bind(this)} value={this.state.otp} type="number" disabled={this.state.otp.length == 6?true:false} style={{border:this.state.error_message !=''?'1px solid #ff0000':'none'}}/>
 											{

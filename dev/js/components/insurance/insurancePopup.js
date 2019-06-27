@@ -129,6 +129,7 @@ class InsurancePopup extends React.Component {
                                     // } else {
                                     //     this.props.closeLeadPopup()
                                     // }
+                                    this.props.closeLeadPopup()
                                     this.props.history.push('/insurance/insurance-plans')
                                 } else {
                                     // if (this.props.identifyUserClick == 'userClick') {
@@ -136,10 +137,11 @@ class InsurancePopup extends React.Component {
                                     // } else {
                                     //     this.props.closeLeadPopup()
                                     // }
+                                    this.props.closeLeadPopup()
                                     this.props.history.push('/insurance/insurance-plans')
                                 }
                             } else {
-                                self.setState({ isLeadTrue: true, })
+                                self.setState({ isLeadTrue: true })
                                 // if(document.getElementById('terms_condition')){
                                 //     document.getElementById('terms_condition').click()
                                 // }
