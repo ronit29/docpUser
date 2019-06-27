@@ -87,7 +87,7 @@ class InsuranceStaticView extends React.Component {
 	    function resetTimer() {
 	        clearTimeout(time);
 	        if(self.state.checkIdleTimeout){
-	        	time = setTimeout(stop, 12000)	
+	        	time = setTimeout(stop, 20000)	
 	        }
 	    }
 	}
@@ -334,7 +334,7 @@ class InsuranceStaticView extends React.Component {
 												<p className="ins-nw-note">A few things to note... </p>
 												<ul className="ins-nw-listing">
 													<li>All procedures (dental, daycare etc..) and sessions (therapy, counselling etc..) are not covered</li>
-													<li>Any lab test or OPD appointments with MRP more than ₹1500 are not covered</li>
+													<li>Any lab test or doctor appointments with MRP more than ₹1500 are not covered</li>
 													<li>Only 5 oncology and 5 Gynecology doctor appointments are covered in a policy year</li>
 													<li>Docprime's Insurance network is dynamic in nature and may change from time to time</li>
 												</ul>
