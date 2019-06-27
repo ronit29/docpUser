@@ -2350,4 +2350,12 @@ p.clnc-name{
 	}
 
 }
+.ins-form-slider{
+	white-space: nowrap;
+    overflow: scroll;
+}
+.ins-form-slider .one,.ins-form-slider .two {
+    display: inline-block;
+    white-space: normal;
+}
 /* ============ more clinic card ============ */

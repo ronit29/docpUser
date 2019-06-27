@@ -84,12 +84,12 @@ class InsuranceStaticView extends React.Component {
 			}
 		}
 
-		function resetTimer() {
-			clearTimeout(time);
-			if (self.state.checkIdleTimeout) {
-				time = setTimeout(stop, 5000)
-			}
-		}
+	    function resetTimer() {
+	        clearTimeout(time);
+	        if(self.state.checkIdleTimeout){
+	        	time = setTimeout(stop, 12000)	
+	        }
+	    }
 	}
 
 	componentWillReceiveProps(props) {

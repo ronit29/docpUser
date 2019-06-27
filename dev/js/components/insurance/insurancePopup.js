@@ -21,6 +21,7 @@ class InsurancePopup extends React.Component {
     handleChange(profileid, newProfile, event) {
         let newProfileNames = {}
         let newName = newProfile.name.split(" ")
+        let tempArray
         if (newName.length == 2) {
             newProfileNames.name = newName[0]
             if (!this.props.self_data_values.no_lname) {
@@ -35,6 +36,16 @@ class InsurancePopup extends React.Component {
             if (!this.props.self_data_values.no_lname) {
                 newProfileNames.middle_name = newName[1]
                 newProfileNames.last_name = newName[2]
+            } else {
+                newProfileNames.middle_name = ''
+                newProfileNames.last_name = ''
+            }
+        } else if (newName.length > 3) {
+            tempArray = newName.slice(2, newName.length)
+            newProfileNames.name = newName[0]
+            if (!this.props.self_data_values.no_lname) {
+                newProfileNames.middle_name = newName[1]
+                newProfileNames.last_name = tempArray.join(' ')
             } else {
                 newProfileNames.middle_name = ''
                 newProfileNames.last_name = ''
@@ -157,10 +168,10 @@ class InsurancePopup extends React.Component {
         }
     }
 
-    editNumber(){
+    editNumber() {
         let number = this.state.phoneNumber
-        this.setState({validationError: "", showOTP: false, otp: "",phoneNumber:'' },()=>{
-            this.setState({phoneNumber:number})
+        this.setState({ validationError: "", showOTP: false, otp: "", phoneNumber: '' }, () => {
+            this.setState({ phoneNumber: number })
             document.getElementById("number").focus()
         })
     }
@@ -223,73 +234,143 @@ class InsurancePopup extends React.Component {
                                 :
                                 <div className={`widget no-shadow no-round sign-up-container widget cancel-appointment-div cancel-popup ${this.props.popupClass}`}>
                                     <span className="float-right" style={{ cursor: 'pointer' }} onClick={this.props.hideLoginPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>
-                                    <div className="widget-header text-center mv-header">
-                                        {/*<h3 className="sign-coupon fw-700">Please login to continue</h3>*/}
-                                        <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >
-                                            {this.state.showOTP?'Enter your access code we’ve sent to your mobile number':'Sounds too good to be true !! But it is ! Only docprime members get to access'}</h4>
-                                        {/*
-                                            this.props.identifyUserClick == 'userClick' ?
-                                            <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Sounds too good to be true !! But it is ! Only docprime members get to access</h4>
-                                            : this.props.identifyUserClick == 'AutoClick' ?
-                                                <div>
-                                                    <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Enter your access code we’ve sent to your mobile number</h4>
-                                                </div>
-                                                : <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Please Enter your Mobile Number to proceed</h4>
-                                        */}
-                                    </div>
-                                    <div className="widget-content text-center">
-                                        {/* <div className="mobile-verification">
-                                    <div className="verifi-mob-iocn text-center">
-                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/mob.svg"} className="img-fluid" />
-                                    </div>
-                                </div> */}
-                                        <div className="form-group mobile-field sup-input-pdng">
-                                            <div className="adon-group enter-mobile-number">
-                                                <input type="number" id="number" className="fc-input text-center" placeholder="10 digit mobile number" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this._handleContinuePress.bind(this)} disabled={this.state.showOTP?true:false}/>
-                                                {this.state.showOTP?<a className="ins-num-edit" onClick={this.editNumber.bind(this)}>Edit</a>:''}
-                                            </div>
 
-                                            {
-                                                this.state.showOTP ? <div className="adon-group enter-mobile-number">
-                                                    <br /><br />
-                                                    <input type="number" className="fc-input text-center" placeholder="Enter OTP" value={this.state.otp} onChange={this.inputHandler.bind(this)} name="otp" onKeyPress={this._handleKeyPress.bind(this)} />
-                                                    {
-                                                        this.state.otpTimeout ? "" :
-                                                            <div className="d-flex align-items-start justify-content-between">
-                                                                <a className="resendOtp" style={{ fontSize: '12px' }} onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ? 'Prefer we WhatsApp it to you?' : 'Send via SMS'}
-                                                                </a>
-                                                                <a className="resendOtp ins-otp-resend" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}>Resend
-                                                    </a>
-                                                            </div>
-                                                    }
-                                                </div> : ""
-                                            }
-                                        </div>
-                                        <span className="errorMessage m-0 mb-2">{this.state.error_message}</span>
-                                        <span className="errorMessage m-0 mb-2">{this.state.validationError}</span>
-                                        {
-                                            this.state.showOTP ?
-                                                <div className="text-center">
-                                                    <button onClick={this.verifyOTP.bind(this)} disabled={this.props.submit_otp} className="btn-grdnt v-btn v-btn-primary btn-sm">
-                                                        Access Now
-                                        </button>
-                                                </div> :
-                                                <React.Fragment>
-                                                    <div className="text-center">
-                                                        <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, false, true, false)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-sms-btn btn-grdnt">Let’s get you in
+                                    <div className="ins-form-slider">
+                                        <div className="one">
+                                            <div className="widget-header text-center mv-header">
+                                                {/*<h3 className="sign-coupon fw-700">Please login to continue</h3>*/}
+                                                <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Sounds too good to be true !! But it is ! Only docprime members get to access</h4>
                                                 {/*
-                                                    this.props.isLead == 'proceed'?'Continue':'Submit'
+                                                    this.props.identifyUserClick == 'userClick' ?
+                                                    <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Sounds too good to be true !! But it is ! Only docprime members get to access</h4>
+                                                    : this.props.identifyUserClick == 'AutoClick' ?
+                                                        <div>
+                                                            <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Enter your access code we’ve sent to your mobile number</h4>
+                                                        </div>
+                                                        : <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Please Enter your Mobile Number to proceed</h4>
                                                 */}
-                                                        </button>
+                                            </div>
+                                            <div className="widget-content text-center">
+                                                {/* 
+                                                    <div className="mobile-verification">
+                                                        <div className="verifi-mob-iocn text-center">
+                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/mob.svg"} className="img-fluid" />
+                                                        </div>
+                                                    </div> 
+                                                */}
+                                                <div className="form-group mobile-field sup-input-pdng">
+                                                    <div className="adon-group enter-mobile-number">
+                                                        <input type="number" id="number" className="fc-input text-center" placeholder="10 digit mobile number" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this._handleContinuePress.bind(this)} disabled={this.state.showOTP ? true : false} />
+                                                        {this.state.showOTP ? <a className="ins-num-edit" onClick={this.editNumber.bind(this)}>Edit</a> : ''}
                                                     </div>
-                                                    {/* <div className="text-center">
-                                            <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,false,false,true)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-wtsp-btn">
-                                            <img className="whtsp-ico" src={ASSETS_BASE_URL +'/img/wa-logo-gr.svg'} />Verify Via Whatsapp
-                                              
-                                        </button>
-                                        </div> */}
-                                                </React.Fragment>
-                                        }
+
+                                                    {
+                                                        this.state.showOTP ? <div className="adon-group enter-mobile-number">
+                                                            <br /><br />
+                                                            <input type="number" className="fc-input text-center" placeholder="Enter OTP" value={this.state.otp} onChange={this.inputHandler.bind(this)} name="otp" onKeyPress={this._handleKeyPress.bind(this)} />
+                                                            {
+                                                                this.state.otpTimeout ? "" :
+                                                                    <div className="d-flex align-items-start justify-content-between">
+                                                                        <a className="resendOtp" style={{ fontSize: '12px' }} onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ? 'Prefer we WhatsApp it to you?' : 'Send via SMS'}
+                                                                        </a>
+                                                                        <a className="resendOtp ins-otp-resend" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}>Resend
+                                                            </a>
+                                                                    </div>
+                                                            }
+                                                        </div> : ""
+                                                    }
+                                                </div>
+                                                <span className="errorMessage m-0 mb-2">{this.state.error_message}</span>
+                                                <span className="errorMessage m-0 mb-2">{this.state.validationError}</span>
+                                                {
+                                                    this.state.showOTP ?
+                                                        <div className="text-center">
+                                                            <button onClick={this.verifyOTP.bind(this)} disabled={this.props.submit_otp} className="btn-grdnt v-btn v-btn-primary btn-sm">
+                                                                Access Now
+                                                            </button>
+                                                        </div> :
+                                                        <React.Fragment>
+                                                            <div className="text-center">
+                                                                <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, false, true, false)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-sms-btn btn-grdnt">Let’s get you in
+                                                                </button>
+                                                            </div>
+                                                            {/* <div className="text-center">
+                                                                    <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,false,false,true)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-wtsp-btn">
+                                                                    <img className="whtsp-ico" src={ASSETS_BASE_URL +'/img/wa-logo-gr.svg'} />Verify Via Whatsapp
+                                                                    </button>
+                                                                </div> 
+                                                            */}
+                                                        </React.Fragment>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="two">
+                                            <div className="widget-header text-center mv-header">
+                                                {/*<h3 className="sign-coupon fw-700">Please login to continue</h3>*/}
+                                                <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Enter your access code we’ve sent to your mobile number</h4>
+                                                {/*
+                                                    this.props.identifyUserClick == 'userClick' ?
+                                                    <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Sounds too good to be true !! But it is ! Only docprime members get to access</h4>
+                                                    : this.props.identifyUserClick == 'AutoClick' ?
+                                                        <div>
+                                                            <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Enter your access code we’ve sent to your mobile number</h4>
+                                                        </div>
+                                                        : <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Please Enter your Mobile Number to proceed</h4>
+                                                */}
+                                            </div>
+                                            <div className="widget-content text-center">
+                                                {/* 
+                                                    <div className="mobile-verification">
+                                                        <div className="verifi-mob-iocn text-center">
+                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/mob.svg"} className="img-fluid" />
+                                                        </div>
+                                                    </div> 
+                                                */}
+                                                <div className="form-group mobile-field sup-input-pdng">
+                                                    <div className="adon-group enter-mobile-number">
+                                                        <input type="number" id="number" className="fc-input text-center" placeholder="10 digit mobile number" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this._handleContinuePress.bind(this)} disabled={this.state.showOTP ? true : false} />
+                                                        {this.state.showOTP ? <a className="ins-num-edit" onClick={this.editNumber.bind(this)}>Edit</a> : ''}
+                                                    </div>
+                                                    {
+                                                        this.state.showOTP ? <div className="adon-group enter-mobile-number">
+                                                            <br /><br />
+                                                            <input type="number" className="fc-input text-center" placeholder="Enter OTP" value={this.state.otp} onChange={this.inputHandler.bind(this)} name="otp" onKeyPress={this._handleKeyPress.bind(this)} />
+                                                            {
+                                                                this.state.otpTimeout ? "" :
+                                                                    <div className="d-flex align-items-start justify-content-between">
+                                                                        <a className="resendOtp" style={{ fontSize: '12px' }} onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ? 'Prefer we WhatsApp it to you?' : 'Send via SMS'}
+                                                                        </a>
+                                                                        <a className="resendOtp ins-otp-resend" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}>Resend
+                                                            </a>
+                                                                    </div>
+                                                            }
+                                                        </div> : ""
+                                                    }
+                                                </div>
+                                                <span className="errorMessage m-0 mb-2">{this.state.error_message}</span>
+                                                <span className="errorMessage m-0 mb-2">{this.state.validationError}</span>
+                                                {
+                                                    this.state.showOTP ?
+                                                        <div className="text-center">
+                                                            <button onClick={this.verifyOTP.bind(this)} disabled={this.props.submit_otp} className="btn-grdnt v-btn v-btn-primary btn-sm">
+                                                                Access Now
+                                                            </button>
+                                                        </div> :
+                                                        <React.Fragment>
+                                                            <div className="text-center">
+                                                                <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, false, true, false)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-sms-btn btn-grdnt">Let’s get you in
+                                                                </button>
+                                                            </div>
+                                                            {/* <div className="text-center">
+                                                                    <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,false,false,true)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-wtsp-btn">
+                                                                    <img className="whtsp-ico" src={ASSETS_BASE_URL +'/img/wa-logo-gr.svg'} />Verify Via Whatsapp
+                                                                    </button>
+                                                                </div> 
+                                                            */}
+                                                        </React.Fragment>
+                                                }
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <p className="text-center fw-500 p-3" style={this.props.popupClass != '' ? { fontSize: 12, color: '#fff' } : { fontSize: 12, color: '#8a8a8a' }} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: '#f78631' }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: '#f78631' }} >Privacy Policy.</a></p>
