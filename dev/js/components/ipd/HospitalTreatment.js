@@ -50,7 +50,7 @@ class HospitalTreatmentView extends React.Component {
     let { hospital_data } = this.props
 		return(
 			<div className="hs-card">
-       <div className="card-head"><h2 className="dsply-ipd-hdng">Procedures</h2></div>   
+       <div className="card-head"><h3 className="dsply-ipd-hdng">Procedures in {hospital_data.name} Hospitals</h3></div>   
        <div className="card-body clearfix">
          <ul className="hs-accordian"> 
             {
@@ -68,7 +68,7 @@ class HospitalTreatmentView extends React.Component {
                       <p className="accordian-dtl">
                         {
                           treatment.ipd_procedures.map((ipd, k)=> {
-                            return <a key={k} href="javascript:void(0);" onClick={this.goToIpdSearch.bind(this, ipd.id)} className="treat-anch">{ipd.name}</a>
+                            return <h4><a key={k} href="javascript:void(0);" onClick={this.goToIpdSearch.bind(this, ipd.id)} className="treat-anch">{ipd.name}</a></h4>
                           })
                         }
                      </p>

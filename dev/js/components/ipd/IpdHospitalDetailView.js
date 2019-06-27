@@ -232,7 +232,7 @@ class HospitalDetailView extends React.Component {
 									this.props.ipd_hospital_detail && ((this.props.ipd_hospital_detail.doctors && this.props.ipd_hospital_detail.doctors.result.length) || (this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length)) ?
 										<div>
 											<div>
-												<div className="card-head"><h2 className="dsply-ipd-hdng">Doctors</h2></div>
+												<div className="card-head"><h2 className="dsply-ipd-hdng">{`${this.props.ipd_hospital_detail.name_city?this.props.ipd_hospital_detail.name_city:''} Doctors list`}</h2></div>
 												{
 													this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length ?
 														this.props.ipd_hospital_detail.specialization_doctors.result.map((doctorCard, i) => {
@@ -275,7 +275,7 @@ class HospitalDetailView extends React.Component {
 								{
 									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.rating_graph && this.props.ipd_hospital_detail.rating_graph.star_count && this.props.ipd_hospital_detail.display_rating_widget ?
 										<div className="hs-card">
-											<div className="card-head"><h2 className="dsply-ipd-hdng">Patient Feedback</h2></div>
+											<div className="card-head"><h2 className="dsply-ipd-hdng">Reviews for {this.props.ipd_hospital_detail.name?this.props.ipd_hospital_detail.name:''} Hospitals</h2></div>
 											<RatingGraph details={this.props.ipd_hospital_detail} />
 											{
 												this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.rating && this.props.ipd_hospital_detail.rating.length && this.props.ipd_hospital_detail.display_rating_widget ?
@@ -329,7 +329,7 @@ class HospitalDetailView extends React.Component {
 									: ''
 							}
 							{
-								this.props.ipd_chat || showPopup || (this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.is_ipd_hospital)?''
+								this.props.ipd_chat || showPopup || (this.props.ipd_hospital_detail && !this.props.ipd_hospital_detail.is_ipd_hospital)?''
 								:parsed.fromProcedure?
 									<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a></div>
 									:<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Need Help?</a></div>
