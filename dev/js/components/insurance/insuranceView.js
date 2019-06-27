@@ -246,11 +246,13 @@ class Insurance extends React.Component {
 							<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
 								<section className="profile-book-screen" style={{position:'relative'}}>
 									<div>
-										{/*<div>
-                                    <span style={{ cursor: 'pointer' }} onClick={this.shortenUrl.bind(this)}>
-                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
-                                    </span>
-                                </div>*/}
+										{
+											/*<div>
+			                                    <span style={{ cursor: 'pointer' }} onClick={this.shortenUrl.bind(this)}>
+			                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
+			                                    </span>
+		                                	</div>*/
+		                            	}
 										{
 											this.state.shortURL ? <div className="shareLinkpopupOverlay" onClick={() => {
 												this.setState({ shortURL: "" })
@@ -302,13 +304,15 @@ class Insurance extends React.Component {
 										</div>
 										{/* coverage listing */}										
 									</div>
-									<div style={{position:'absolute', bottom:'-40px', right:'15px'}}><a className="fw-500" href="/terms" style={{color:"#f78631"}} onClick={(e) => {
-									e.preventDefaut();
-									this.props.history.push('/terms')
-								}}>Website T&C Apply</a></div>
+										<div style={{position:'absolute', bottom:'-40px', right:'15px'}}>
+											<a className="fw-500" href="/terms" style={{color:"#f78631"}} onClick={(e) => {e.preventDefaut();
+															this.props.history.push('/terms')}}>
+															Website T&C Apply</a>
+										</div>
 								</section>
 
-								{this.state.showPopup ?
+								{
+									this.state.showPopup ?
 									<InsurPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} popupClass={this.state.popupClass} overlayClass={this.state.overlayClass} identifyUserClick={this.state.identifyUserClick}/> : ''
 								}
 								{

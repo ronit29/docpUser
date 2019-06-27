@@ -233,7 +233,7 @@ class InsurancePopup extends React.Component {
                                         <div className="form-group mobile-field sup-input-pdng">
                                             <div className="adon-group enter-mobile-number">
                                                 <input type="number" className="fc-input text-center" placeholder="10 digit mobile number" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this._handleContinuePress.bind(this)} />
-                                                <a className="ins-num-edit">Edit</a>
+                                                {this.state.showOTP?<a className="ins-num-edit">Edit</a>:''}
                                             </div>
 
                                             {

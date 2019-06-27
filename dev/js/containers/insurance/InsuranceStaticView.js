@@ -2,13 +2,13 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import { getInsurance, selectInsurancePlan , saveCurrentSelectedMembers,resetSelectedInsuranceMembers,resetSelectedPlans,sendOTP, submitOTP, resetAuth, getUserProfile, userData, generateInsuranceLead, urlShortner } from '../../actions/index.js'
-import InsuranceComponent from '../../components/insurance/insuranceView.js'
+import InsuranceComponent from '../../components/insurance/insuranceStaticView.js'
 import Loader from '../../components/commons/Loader'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
 
-class Insurance extends React.Component{
+class InsuranceStaticView extends React.Component{
 
     constructor(props) {
         super(props)
@@ -81,4 +81,4 @@ const mapDispatchToProps = (dispatch) => {
 
 
 
-export default connect(mapStateToProps , mapDispatchToProps)(Insurance)
+export default connect(mapStateToProps , mapDispatchToProps)(InsuranceStaticView)
