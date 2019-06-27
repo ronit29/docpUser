@@ -158,7 +158,9 @@ class InsurancePopup extends React.Component {
     }
 
     editNumber(){
-        this.setState({validationError: "", showOTP: false, otp: "" },()=>{
+        let number = this.state.phoneNumber
+        this.setState({validationError: "", showOTP: false, otp: "",phoneNumber:'' },()=>{
+            this.setState({phoneNumber:number})
             document.getElementById("number").focus()
         })
     }

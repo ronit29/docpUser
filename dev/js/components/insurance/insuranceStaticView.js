@@ -468,9 +468,18 @@ class InsuranceStaticView extends React.Component {
 								</div>
 							</div>
 						</div>
-						<div className="sticky-btn fixed insuBtnsContainer">
-							<button id="proceedLead" className="insu-right-orng-btn ins-buy-btn" onClick={this.proceedPlan.bind(this)}>Buy Now</button>
-						</div>
+						{parsed.show_button?
+							<div className="sticky-btn fixed insuBtnsContainer">
+								<button className="insu-left-white-btn" onClick={()=>this.props.history.go(-1)}>Back to Booking
+								</button>
+								<button className="insu-right-orng-btn" onClick={this.proceedPlan.bind(this)}>Buy Now 
+								</button>
+							</div>
+						:
+							<div className="sticky-btn fixed insuBtnsContainer">
+								<button id="proceedLead" className="insu-right-orng-btn ins-buy-btn" onClick={this.proceedPlan.bind(this)}>Buy Now</button>
+							</div>
+						}
 					</section>
 					{this.state.showPopup ?
 						<InsurPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} popupClass={this.state.popupClass} overlayClass={this.state.overlayClass} identifyUserClick={this.state.identifyUserClick}/> : ''
