@@ -73,7 +73,7 @@ class InsurancePopup extends React.Component {
         }
     }
 
-    submitOTPRequest(number, resendFlag = false, viaSms, viaWhatsapp) {
+    submitOTPRequest(number, resendFlag = false, viaSms, viaWhatsapp, fromPopup=null) {
         let lead_data = queryString.parse(this.props.location.search)
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
@@ -92,6 +92,14 @@ class InsurancePopup extends React.Component {
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
                     }, 10000)
+
+                    if(fromPopup && document.getElementsByClassName('ins-form-slider')){
+                        if(fromPopup=='one'){
+                            document.getElementsByClassName('ins-form-slider')[0].scroll({ left: 999, behavior: 'smooth' })
+                        }else {
+                            document.getElementsByClassName('ins-form-slider')[0].scroll({ left: 999, behavior: 'smooth' })
+                        }
+                    }
                 }
             })
         } else {
@@ -273,7 +281,7 @@ class InsurancePopup extends React.Component {
                                                             {
                                                                 this.state.otpTimeout ? "" :
                                                                     <div className="d-flex align-items-start justify-content-between">
-                                                                        <a className="resendOtp" style={{ fontSize: '12px' }} onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ? 'Prefer we WhatsApp it to you?' : 'Send via SMS'}
+                                                                        <a className="resendOtp" style={{ fontSize: '12px' }} onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true, 'one')}>{this.state.smsBtnType ? 'Prefer we WhatsApp it to you?' : 'Send via SMS'}
                                                                         </a>
                                                                         <a className="resendOtp ins-otp-resend" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}>Resend
                                                             </a>
@@ -340,9 +348,9 @@ class InsurancePopup extends React.Component {
                                                             {
                                                                 this.state.otpTimeout ? "" :
                                                                     <div className="d-flex align-items-start justify-content-between">
-                                                                        <a className="resendOtp" style={{ fontSize: '12px' }} onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ? 'Prefer we WhatsApp it to you?' : 'Send via SMS'}
+                                                                        <a className="resendOtp" style={{ fontSize: '12px' }} onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true, 'two')}>{this.state.smsBtnType ? 'Prefer we WhatsApp it to you?' : 'Send via SMS'}
                                                                         </a>
-                                                                        <a className="resendOtp ins-otp-resend" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}>Resend
+                                                                        <a className="resendOtp ins-otp-resend" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false, 'two')}>Resend
                                                             </a>
                                                                     </div>
                                                             }
