@@ -9,10 +9,10 @@ class HospitalAboutUsView extends React.Component {
                <div className="card-head"><h2 className="dsply-ipd-hdng">About</h2></div> 
                {
                	hospital_data.new_about?
-               		<div className="card-body clearfix custom-li-style" style={{textAlign:'justify'}} dangerouslySetInnerHTML={{ __html: hospital_data.new_about }}>
+               		<div className="card-body clearfix custom-li-style" style={{}} dangerouslySetInnerHTML={{ __html: hospital_data.new_about }}>
                		</div>   
                		:
-               		<div className="card-body clearfix custom-li-style" style={{textAlign:'justify'}} dangerouslySetInnerHTML={{ __html: hospital_data.about }}>
+               		<div className="card-body clearfix custom-li-style" style={{}} dangerouslySetInnerHTML={{ __html: hospital_data.about }}>
                		</div>   
                }  
              </div>
