@@ -55,7 +55,7 @@ class HospitalListView extends React.Component {
                                     this.props.selectedHospitalList && this.props.selectedHospitalList.length ?
                                         this.props.selectedHospitalList.map((test, index) => {
                                             return <div key={index} className="col-12 col-md-6 col-lg-4 tests-brdr-btm">
-                                                <div className="anchor-data-style" onClick={() => this.props.history.push(`/${test.url?test.url:`ipdInfo?ipd_id=${test.id}`}`) }>
+                                                <div className="anchor-data-style" onClick={() => this.props.history.push(`/${test.url?test.url:``}`) }>
                                                     {
                                                         test.url ?
                                                             <div>
