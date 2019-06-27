@@ -14,9 +14,6 @@ class HospitalList extends React.Component {
     }
 
     render() {
-        if(1){
-            return <h1>Hospital Listing</h1>
-        }
         return (
             <HospitalListView {...this.props} />
         )

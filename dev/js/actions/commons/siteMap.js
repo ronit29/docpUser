@@ -161,7 +161,7 @@ export const getHospitalList = (selectedLocation=null, page=1) => (dispatch) => 
         locality = "Delhi"
     }
 
-	let url = `/api/v1/api/location/city-inventory-hospitals?city=${locality}&lat=${lat}&long=${long}&page=1`
+	let url = `/api/v1/location/city-inventory-hospitals?city=${locality}&lat=${lat}&long=${long}&page=1`
 	dispatch({
 		type: START_FETCHING_HOSPITAL_LIST,
 		flag: true

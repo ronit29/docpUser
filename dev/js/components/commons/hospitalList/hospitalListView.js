@@ -9,45 +9,24 @@ class HospitalListView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedChar: 0
+            page: 1
         }
     }
 
     componentDidMount() {
-        this.updateData(this.state.selectedChar)
+        this.getHospitalList()
     }
 
-    getCharacter(index) {
-        return String.fromCharCode(97 + index)
-    }
-
-    updateData(index) {
-        let character = this.getCharacter(index)
-        this.props.getHospitalList(character, this.props.selectedLocation)
-    }
-
-    alphabetClick(index) {
-        this.setState({ selectedChar: index })
-        this.updateData(index)
-    }
-
-    getAlphabets() {
-        let alphabets = []
-        for (let i = 0; i <= 25; i++) {
-            alphabets.push(String.fromCharCode(65 + i))
-        }
-        return alphabets
+    getHospitalList() {
+        this.props.getHospitalList(this.props.selectedLocation, this.state.page)
     }
 
     render() {
-        let alphabets = this.getAlphabets()
-        let selectedAlphabet = this.getCharacter(this.state.selectedChar)
-        let data = this.props
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader {...this.props} />
                 <HelmetTags tagsData={{
-                    title: 'Procedures Index | Details, Preparation, Procedure and Normal Range',
+                    title: 'Hospital Index | Details, Preparation, Procedure and Normal Range',
                     description: 'Procedures Index: Find detailed information about test preparation, procedure, normal ranges, duration and more.',
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
                 }} />
@@ -71,20 +50,10 @@ class HospitalListView extends React.Component {
                             <div>
                                 <h1 className="fw-500 sitemap-title">Hospital Index</h1>
                             </div>
-                            <div className="d-flex align-items-center mrb-10 mrt-20 test-index-div">
-                                {
-                                    alphabets && alphabets.length ?
-                                        alphabets.map((character, i) => {
-                                            return <div key={i} className={i == this.state.selectedChar ? 'charSelected' : ''} onClick={() => this.alphabetClick(i)}>
-                                                <span>{character}</span>
-                                            </div>
-                                        }) : ''
-                                }
-                            </div>
                             <div className="row sitemap-row">
                                 {
-                                    this.props.alphabeticalIpdTests && this.props.alphabeticalIpdTests.ipd_procedures && this.props.alphabeticalIpdTests.ipd_procedures.length && (selectedAlphabet == this.props.selectedIpdListAlphabet) ?
-                                        this.props.alphabeticalIpdTests.ipd_procedures.map((test, index) => {
+                                    this.props.selectedHospitalList && this.props.selectedHospitalList.length ?
+                                        this.props.selectedHospitalList.map((test, index) => {
                                             return <div key={index} className="col-12 col-md-6 col-lg-4 tests-brdr-btm">
                                                 <div className="anchor-data-style" onClick={() => this.props.history.push(`/${test.url?test.url:`ipdInfo?ipd_id=${test.id}`}`) }>
                                                     {
@@ -103,8 +72,7 @@ class HospitalListView extends React.Component {
                                                 </div>
                                             </div>
                                         })
-                                        : !!!this.props.ipdIndexLoading ?
-                                            <div className="col-12 fw-500 text-center mrt-20" style={{ fontSize: 18 }} >No record Found !!</div> : ''
+                                        :<div className="col-12 fw-500 text-center mrt-20" style={{ fontSize: 18 }} >No record Found !!</div> 
                                 }
                             </div>
                         </div>
