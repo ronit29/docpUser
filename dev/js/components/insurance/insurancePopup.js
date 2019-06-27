@@ -21,6 +21,7 @@ class InsurancePopup extends React.Component {
     handleChange(profileid, newProfile, event) {
         let newProfileNames = {}
         let newName = newProfile.name.split(" ")
+        let tempArray
         if (newName.length == 2) {
             newProfileNames.name = newName[0]
             if (!this.props.self_data_values.no_lname) {
@@ -35,6 +36,16 @@ class InsurancePopup extends React.Component {
             if (!this.props.self_data_values.no_lname) {
                 newProfileNames.middle_name = newName[1]
                 newProfileNames.last_name = newName[2]
+            } else {
+                newProfileNames.middle_name = ''
+                newProfileNames.last_name = ''
+            }
+        }else if(newName.length >3){
+            tempArray = newName.slice(2,newName.length)
+            newProfileNames.name = newName[0]
+            if (!this.props.self_data_values.no_lname) {
+                newProfileNames.middle_name = newName[1]
+                newProfileNames.last_name = tempArray.join(' ')
             } else {
                 newProfileNames.middle_name = ''
                 newProfileNames.last_name = ''
