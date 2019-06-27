@@ -2,6 +2,7 @@ import React from 'react'
 // import Lightbox from '../../helpers/lightbox';
 import GTM from '../../helpers/gtm.js'
 import Lightbox from 'react-image-lightbox';
+import RatingStars from '../commons/ratingsProfileView/RatingStars';
 
 class HospitalInfoView extends React.Component{
 
@@ -36,8 +37,18 @@ class HospitalInfoView extends React.Component{
                   </div>
                   :'' 
                 }
-                
-                  <h1 className="section-heading">{hospital_data.name}</h1>
+                {
+                    hospital_data.rating_graph && hospital_data.rating_graph.avg_rating ?
+                        <RatingStars average_rating={hospital_data.rating_graph.avg_rating} rating_count={''} width="12px" height="12px" /> : ''
+                }
+                <h1 className="section-heading">{hospital_data.name}</h1>
+                {
+                  hospital_data.address?
+                  <div className="opd-timing">
+                    <span>{hospital_data.address} </span>
+                  </div>
+                  :''  
+                }
                 <div className="hsptl-info">
                   {
                     hospital_data.bed_count?
@@ -51,19 +62,6 @@ class HospitalInfoView extends React.Component{
                   }
                   
                 </div>
-                {
-                  hospital_data.address?
-                  <div className="opd-timing">
-                    <span>{hospital_data.address} </span>
-                    {
-                      hospital_data.open_today?
-                      <span className="opd-status"> Open Today</span>
-                      :''
-                    }
-                  </div>
-                  :''  
-                }
-                
                  <hr />
                 <ul className="hsptl-contact text-left">
                   {
@@ -110,6 +108,11 @@ class HospitalInfoView extends React.Component{
                     <li className="li-address">
                       <div className="hsptl-title hs-tle">OPD Timings:</div>
                       <div className="hsptl-title hsptl-add">{hospital_data.opd_timings}</div>
+                      {
+                        hospital_data.open_today?
+                        <span className="opd-status"> Open Today</span>
+                        :''
+                      }
                       {/*<div className="hsptl-title">
                         <a href={`https://www.google.com/maps/search/?api=1&query=${hospital_data.lat},${hospital_data.long}`} target="_blank">
                           <img src={ASSETS_BASE_URL + "/images/white-map.png"} alt="" className="img-fluid img-map" />
