@@ -97,7 +97,7 @@ class InsurancePopup extends React.Component {
                         if(fromPopup=='one'){
                             document.getElementsByClassName('ins-form-slider')[0].scroll({ left: 999, behavior: 'smooth' })
                         }else {
-                            document.getElementsByClassName('ins-form-slider')[0].scroll({ left: 999, behavior: 'smooth' })
+                            document.getElementsByClassName('ins-form-slider')[0].scroll({ left: -999, behavior: 'smooth' })
                         }
                     }
                 }
@@ -173,17 +173,22 @@ class InsurancePopup extends React.Component {
     _handleContinuePress(e) {
         if (e.key === 'Enter') {
             if (!this.state.showOTP) {
-                this.submitOTPRequest(this.state.phoneNumber)
+                this.submitOTPRequest(this.state.phoneNumber,'',true,false,'one')
             }
         }
     }
 
     editNumber() {
         let number = this.state.phoneNumber
-        this.setState({ validationError: "", showOTP: false, otp: "", phoneNumber: '' }, () => {
-            this.setState({ phoneNumber: number })
-            document.getElementById("number").focus()
-        })
+        
+        document.getElementsByClassName('ins-form-slider')[0].scroll({ left: -999, behavior: 'smooth' })
+
+        setTimeout(() => {
+                this.setState({ validationError: "", showOTP: false, otp: "", phoneNumber: '' }, () => {
+                this.setState({ phoneNumber: number })
+                document.getElementById("number").focus()
+            })
+            }, 200)
     }
     render() {
         if (this.props.isSelectprofile) {
@@ -271,37 +276,13 @@ class InsurancePopup extends React.Component {
                                                 <div className="form-group mobile-field sup-input-pdng">
                                                     <div className="adon-group enter-mobile-number">
                                                         <input type="number" id="number" className="fc-input text-center" placeholder="10 digit mobile number" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this._handleContinuePress.bind(this)} disabled={this.state.showOTP ? true : false} />
-                                                        {this.state.showOTP ? <a className="ins-num-edit" onClick={this.editNumber.bind(this)}>Edit</a> : ''}
                                                     </div>
-
-                                                    {
-                                                        this.state.showOTP ? <div className="adon-group enter-mobile-number">
-                                                            <br /><br />
-                                                            <input type="number" className="fc-input text-center" placeholder="Enter OTP" value={this.state.otp} onChange={this.inputHandler.bind(this)} name="otp" onKeyPress={this._handleKeyPress.bind(this)} />
-                                                            {
-                                                                this.state.otpTimeout ? "" :
-                                                                    <div className="d-flex align-items-start justify-content-between">
-                                                                        <a className="resendOtp" style={{ fontSize: '12px' }} onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true, 'one')}>{this.state.smsBtnType ? 'Prefer we WhatsApp it to you?' : 'Send via SMS'}
-                                                                        </a>
-                                                                        <a className="resendOtp ins-otp-resend" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}>Resend
-                                                            </a>
-                                                                    </div>
-                                                            }
-                                                        </div> : ""
-                                                    }
                                                 </div>
                                                 <span className="errorMessage m-0 mb-2">{this.state.error_message}</span>
-                                                <span className="errorMessage m-0 mb-2">{this.state.validationError}</span>
-                                                {
-                                                    this.state.showOTP ?
-                                                        <div className="text-center">
-                                                            <button onClick={this.verifyOTP.bind(this)} disabled={this.props.submit_otp} className="btn-grdnt v-btn v-btn-primary btn-sm">
-                                                                Access Now
-                                                            </button>
-                                                        </div> :
+                                                <span className="errorMessage m-0 mb-2">{this.state.validationError}</span>                                                    
                                                         <React.Fragment>
                                                             <div className="text-center">
-                                                                <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, false, true, false)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-sms-btn btn-grdnt">Let’s get you in
+                                                                <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, false, true, false,'one')} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-sms-btn btn-grdnt">Let’s get you in
                                                                 </button>
                                                             </div>
                                                             {/* <div className="text-center">
@@ -311,7 +292,6 @@ class InsurancePopup extends React.Component {
                                                                 </div> 
                                                             */}
                                                         </React.Fragment>
-                                                }
                                             </div>
                                         </div>
                                         <div className="two">
@@ -339,22 +319,23 @@ class InsurancePopup extends React.Component {
                                                 <div className="form-group mobile-field sup-input-pdng">
                                                     <div className="adon-group enter-mobile-number">
                                                         <input type="number" id="number" className="fc-input text-center" placeholder="10 digit mobile number" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this._handleContinuePress.bind(this)} disabled={this.state.showOTP ? true : false} />
-                                                        {this.state.showOTP ? <a className="ins-num-edit" onClick={this.editNumber.bind(this)}>Edit</a> : ''}
+                                                        <a className="ins-num-edit" onClick={this.editNumber.bind(this)}>Edit</a>
                                                     </div>
                                                     {
-                                                        this.state.showOTP ? <div className="adon-group enter-mobile-number">
-                                                            <br /><br />
-                                                            <input type="number" className="fc-input text-center" placeholder="Enter OTP" value={this.state.otp} onChange={this.inputHandler.bind(this)} name="otp" onKeyPress={this._handleKeyPress.bind(this)} />
-                                                            {
-                                                                this.state.otpTimeout ? "" :
-                                                                    <div className="d-flex align-items-start justify-content-between">
-                                                                        <a className="resendOtp" style={{ fontSize: '12px' }} onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true, 'two')}>{this.state.smsBtnType ? 'Prefer we WhatsApp it to you?' : 'Send via SMS'}
-                                                                        </a>
-                                                                        <a className="resendOtp ins-otp-resend" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false, 'two')}>Resend
-                                                            </a>
-                                                                    </div>
-                                                            }
-                                                        </div> : ""
+                                                        this.state.showOTP ? 
+                                                            <div className="adon-group enter-mobile-number">
+                                                                <br /><br />
+                                                                <input type="number" className="fc-input text-center" placeholder="Enter OTP" value={this.state.otp} onChange={this.inputHandler.bind(this)} name="otp" onKeyPress={this._handleKeyPress.bind(this)} />
+                                                                {
+                                                                    this.state.otpTimeout ? "" :
+                                                                        <div className="d-flex align-items-start justify-content-between">
+                                                                            <a className="resendOtp" style={{ fontSize: '12px' }} onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true, 'two')}>{this.state.smsBtnType ? 'Prefer we WhatsApp it to you?' : 'Send via SMS'}
+                                                                            </a>
+                                                                            <a className="resendOtp ins-otp-resend" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false, 'two')}>Resend
+                                                                            </a>
+                                                                        </div>
+                                                                }
+                                                            </div> : ""
                                                     }
                                                 </div>
                                                 <span className="errorMessage m-0 mb-2">{this.state.error_message}</span>
@@ -365,8 +346,8 @@ class InsurancePopup extends React.Component {
                                                             <button onClick={this.verifyOTP.bind(this)} disabled={this.props.submit_otp} className="btn-grdnt v-btn v-btn-primary btn-sm">
                                                                 Access Now
                                                             </button>
-                                                        </div> :
-                                                        <React.Fragment>
+                                                        </div> 
+                                                        :<React.Fragment>
                                                             <div className="text-center">
                                                                 <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, false, true, false)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-sms-btn btn-grdnt">Let’s get you in
                                                                 </button>
