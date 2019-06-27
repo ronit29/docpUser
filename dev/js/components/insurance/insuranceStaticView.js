@@ -451,7 +451,10 @@ class InsuranceStaticView extends React.Component {
 										<div className="ins-network-cont">
 											<div className="ins-netwrk-heading-cont">
 												<p>*Only available on Docprime network </p>
-												<span>View network</span>
+												<span href='/insurance/network' onClick={(e)=>{
+													e.preventDefault();
+													this.props.history.push('/insurance/network')
+													}}>View network</span>
 											</div>
 											<p className="ins-nw-note">A few things to note... </p>
 											<ul className="ins-nw-listing">
