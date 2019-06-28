@@ -137,6 +137,7 @@ class InsuranceSelf extends React.Component{
     getUserDetails(profile){
 		let newName=[]
 		let oldDate
+		let tempArray
 	    newName =  profile.name.split(" ")
 	    if(newName.length == 2){
 	    	this.setState({
@@ -145,6 +146,11 @@ class InsuranceSelf extends React.Component{
 	    }else if(newName.length ==3){
 	    	this.setState({name:profile.isDummyUser?'':newName[0],
 			last_name:profile.isDummyUser?'':newName[2],
+			middle_name:profile.isDummyUser?'':newName[1]})
+		}else if(newName.length >3){
+			tempArray = newName.slice(2,newName.length)
+	    	this.setState({name:profile.isDummyUser?'':newName[0],
+			last_name:profile.isDummyUser?'':tempArray.join(' '),
 			middle_name:profile.isDummyUser?'':newName[1]})
 	    }else{
 	    	this.setState({name:profile.isDummyUser?'':profile.name})

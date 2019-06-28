@@ -31,8 +31,10 @@ class ChatQuestion5 extends React.Component {
 		}
 		let feedback = this.props.chat_feedback.filter(x=>!x.type.includes('ques5'))
 		feedback.push({type: 'ques5', data: data})
+		feedback.push({createdOn: new Date()})
 		this.props.saveChatFeedBack('ques5', data)
 		let roomId = this.props.chat_feedback_roomId
+
 		let postData = {
 			rid: roomId,
 			data: feedback
