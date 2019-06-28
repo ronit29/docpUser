@@ -1019,7 +1019,7 @@ width: 110px;
 	min-width: 90px;
 	max-width: 90px;
 	border-radius: 10px;
-	margin-right: 5px;
+	margin-right: 15px;
 	cursor: pointer;
 }
 .sort-cards-list.chitActive{
@@ -2080,3 +2080,283 @@ p.nw-hsp-crd-green img {
 	width: 20px;
 }
 /* ============ new hospital card ============ */
+/* ============ insurance landing ============ */
+.ins-steps-section{
+	border-bottom: 1px solid whitesmoke;
+    padding: 25px 0px;
+    text-align: center;
+}
+.ins-steps-section:last-child{
+	border-bottom: 1px solid transparent;
+}
+.doc-usr-only{
+	text-align: center;
+}
+.doc-usr-only h1 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.doc-usr-only h1 span {
+    color: #f78631;
+}
+.doc-pwdby{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.doc-pwdby p {
+    margin-right: 10px;
+    color: #4e4e4e;
+    font-size: 14px;
+    font-weight: 500;
+}
+.align-item-center{
+	align-items: center !important;
+}
+.ins-step-img{
+	width: 50%;
+}
+.step-blk-para{
+	font-weight: 700;
+	font-size: 20px;
+	text-align: left;
+}
+.step-orng-para{
+	font-weight: 700;
+	color:#f78631;
+	font-size: 20px;
+	text-align: left;
+}
+.step-qut-para{
+	margin-top: 10px;
+	font-size: 16px;
+	text-align: left;
+}
+.step-qut-para span{
+	font-weight: 500;
+}
+.ins-land-listing{
+    margin: 30px 0;
+}
+.ins-land-listing p{
+	display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    font-size: 16px; 
+    font-weight: 500;
+}
+.ins-land-listing p img{
+	width: 30px;
+    margin-right: 19px;
+}
+.lft-cntn-algn img{
+	display: block;
+	margin: auto;
+}
+.lft-para-algn{
+	display: inline-block;
+	margin: auto;
+}
+
+.ins-network-cont{
+	padding-bottom: 50px;
+}
+.ins-netwrk-heading-cont{
+    background: #f7f7f7;
+    margin: 0 -15px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 12px 10px;
+    font-size: 16px;
+}
+.ins-netwrk-heading-cont p{
+    font-weight: 500;
+}
+.ins-netwrk-heading-cont span{
+	font-weight: 500;
+    color: #f78631;
+	cursor: pointer;
+	font-size: 14px;
+}
+p.ins-nw-note {
+    font-size: 16px;
+    margin-top: 20px;
+}
+ul.ins-nw-listing {
+    margin-top: 20px;
+    list-style: disc;
+    padding-left: 15px;
+}
+.ins-nw-listing li {
+    list-style: disc;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+button.ins-buy-btn{
+padding: 7px 0px;
+font-size: 16px;
+}
+
+.btn-grdnt{
+	background-image: linear-gradient(to left,#f78631,#ff6d00);
+}
+.ins-otp-resend{
+	position: absolute;
+    bottom: 40px;
+    right: 0;
+	font-size: 12px;
+	font-weight: 500 !important;
+}
+a.ins-num-edit {
+    color: #f78631;
+    font-weight: 500;
+    margin-top: 10px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 12px;
+    right: 0;
+    font-size: 12px;
+}
+/* ============ insurance landing ============ */
+/* ============ more clinic card ============ */
+.nw-clinicMore{
+	color: #f78631!important;
+    font-weight: 500;
+    margin-left: 3px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+.nw-clinicMore img{
+	width: 6px !important;
+    height: 10px !important;
+    margin-left: 6px !important;
+    transform: rotate(90deg);
+}
+.clinicRadioContainer{
+    padding: 0px 12px 12px 10px;
+}
+.clinic-names-nw{
+	display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+p.clnc-name{
+    font-size: 14px;
+    font-weight: 500;
+}
+.clinc-rd-price{
+	font-size: 14px;
+    font-weight: 500;
+	color: #F78631;
+	min-width: 80px;
+	text-align: right;
+}
+.clinc-rd-price-cut{
+    font-size: 14px;
+    margin-left: 4px;
+	text-decoration: line-through;
+	color:#757575;
+}
+.clck-loc{
+	font-size: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 77px;
+}
+.clck-loc span{
+	color: #ff6d00;
+    font-weight: 500;
+    border: 1px dashed #ff6d00;
+    padding: 0 5px;
+    border-radius: 4px;
+	margin-top: 5px;
+	text-align: center;
+}
+.clnc-pricing-cont{
+	display: inline-flex;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+.clinicRadioContainer div.dtl-radio{
+	margin-bottom: .5rem!important;
+	border-bottom: 1px solid #ece8e8;
+    padding-bottom: 10px;
+}
+.clinicRadioContainer div.dtl-radio:last-child{
+	margin-bottom: 0px !important;
+	padding-bottom: 0px;
+	border-bottom: 0px solid transparent;
+}
+.clnc-includecpn{
+	color: #55a740;
+    font-size: 9px;
+    display: block;
+    position: absolute;
+}
+.ins-landing-shadow{
+	box-shadow: 0 1px 5px rgba(76,76,76,.12), 1px 1px 4px rgba(128,128,128,.24);
+	border-radius: 5px;
+}
+@media (max-width :767px){
+	.doc-usr-only h1 {
+		font-size: 15px;
+		font-weight: 500;
+		margin-bottom: 10px;
+	}
+	.doc-pwdby p {
+		margin-right: 10px;
+		color: #4e4e4e;
+		font-size: 13px;
+		font-weight: 500;
+	}
+	.step-blk-para{
+		font-weight: 700;
+		font-size: 14px;
+	}
+	.step-orng-para{
+		font-weight: 700;
+		color:#f78631;
+		font-size: 14px;
+	}
+	.step-qut-para{
+		margin-top: 10px;
+		font-size: 14px;
+	}
+	.ins-land-listing p{
+		font-size: 14px;
+	}
+	.ins-step-img{
+		width: 70%;
+	}
+	div.ins-netwrk-heading-cont{
+	font-size: 14px;
+	}
+	p.ins-nw-note {
+		margin-top: 14px;
+	}
+	ul.ins-nw-listing li {
+		font-size: 14px;
+	}
+	.ins-landing-shadow{
+		border-radius: 0px;
+	}
+	.ins-netwrk-heading-cont span{
+		font-size: 12px;
+	}
+
+}
+.ins-form-slider{
+	white-space: nowrap;
+    overflow: scroll;
+}
+.ins-form-slider .one,.ins-form-slider .two {
+    display: inline-block;
+    white-space: normal;
+}
+
+/* ============ more clinic card ============ */

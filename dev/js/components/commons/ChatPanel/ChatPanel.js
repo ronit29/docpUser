@@ -179,7 +179,10 @@ class ChatPanel extends React.Component {
                             // this.props.startLiveChat(false, this.state.selectedLocation)
                             this.setState({ initialMessage: "", selectedRoom: null, })
                             this.props.setChatRoomId(null)
-                            this.props.ipdChatView(null)
+                            let that = this
+                            setTimeout(()=>{
+                                that.props.ipdChatView(null)    
+                            },1000)
                             this.props.unSetCommonUtmTags('chat')
                             // this.props.history.go(-1)
                             break
@@ -333,7 +336,11 @@ class ChatPanel extends React.Component {
         this.setState({ showCancel: !this.state.showCancel })
         this.props.setChatRoomId(null)
         this.props.unSetCommonUtmTags('chat')
-        this.props.ipdChatView(null)
+        let that = this
+        setTimeout(()=>{
+            that.props.ipdChatView(null)    
+        },1000)
+        
     }
 
     toggleCancel(e) {
@@ -575,24 +582,24 @@ class ChatPanel extends React.Component {
                                                 </span> : ""
                                             }
 
+                                            {
+                                                is_religare?
+                                                <span onClick={this.toggleCancel.bind(this)}>
+                                                    <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/rel_chatclose.svg"} title="start a new chat" />
+
+                                                </span>
+                                                :<span onClick={this.toggleCancel.bind(this)}>
+                                                    <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatclose.svg"} title="start a new chat" />
+
+                                                </span>
+                                            }
 
                                             {
                                                 this.state.showChatBlock
                                                     ? is_religare?
-                                                        <span onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/rel_chatminimize.svg"} /></span>
-                                                        :<span onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatminimize.svg"} /></span>
+                                                        <span className="ml-2" onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/rel_chatminimize.svg"} /></span>
+                                                        :<span className="ml-2" onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatminimize.svg"} /></span>
                                                     : ''
-                                            }
-                                            {
-                                                is_religare?
-                                                <span className="ml-2" onClick={this.toggleCancel.bind(this)}>
-                                                    <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/rel_chatclose.svg"} title="start a new chat" />
-
-                                                </span>
-                                                :<span className="ml-2" onClick={this.toggleCancel.bind(this)}>
-                                                    <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatclose.svg"} title="start a new chat" />
-
-                                                </span>
                                             }
                                         </div>
                                     </div>

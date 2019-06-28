@@ -5,6 +5,7 @@ import { getInsuranceMemberList,updateMemberList} from '../../actions/index.js'
 import InsuranceSuccessComp from '../../components/insurance/insuranceSuccess.js'
 import GTM from '../../helpers/gtm.js'
 const queryString = require('query-string');
+import STORAGE from '../../helpers/storage'
 
 
 class InsuranceSuccess extends React.Component{
@@ -15,6 +16,10 @@ class InsuranceSuccess extends React.Component{
             'Category': 'ConsumerApp', 'Action': 'OpdInsuranceBooked', 'CustomerID': GTM.getUserId() || '', 'leadid': parsed.id?parsed.id:0, 'event': 'opd-insurance-booked'
         }
         GTM.sendEvent({ data: data })
+
+        if (STORAGE.checkAuth()) {
+            this.props.getUserProfile()
+        }
     }
 
 	render(){

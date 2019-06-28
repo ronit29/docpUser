@@ -351,7 +351,8 @@ class BookingView extends React.Component {
                                                                 <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/clock.svg"} className="visit-time-icon" /></span>Visit Time
 
                                                                     {
-                                                                        !is_thyrocare && actions.indexOf(4) > -1 ? <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""
+                                                                        (!is_thyrocare) && (actions.indexOf(4) > -1) && (new Date(date).getTime() > new Date().getTime()) ?
+                                                                            <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""
                                                                     }
 
                                                                 </h4>

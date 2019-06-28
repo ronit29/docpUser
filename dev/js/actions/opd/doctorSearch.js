@@ -27,7 +27,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	let sits_at = []
 	if(filterCriteria.sits_at_clinic) sits_at.push('Clinic');
 	if(filterCriteria.sits_at_hospital) sits_at.push('Hospital');
-	if(sits_at.length == 0) sits_at = ['Clinic','Hospital'];
+	if(sits_at.length == 0) sits_at = [''];
 	sits_at = sits_at.join(',')
 
 	let lat = 28.644800
