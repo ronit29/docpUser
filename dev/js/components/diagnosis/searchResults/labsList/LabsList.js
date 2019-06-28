@@ -124,6 +124,11 @@ class LabsList extends React.Component {
             }
         }
 
+        let gtmData = {
+            'Category': 'LabQuickFilterClicked', 'Action': 'LabQuickFilterClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-quick-filter-clicked', 'url': window.location.pathname, 'type': type, 'val': val
+        }
+        GTM.sendEvent({ data: gtmData })
+
         let filters = {...this.props.filterCriteria}
         if(type.includes('sort_on') ) {
 
