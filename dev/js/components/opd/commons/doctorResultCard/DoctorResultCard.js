@@ -274,10 +274,6 @@ class DoctorProfileCard extends React.Component {
                                                                 return <span key={index}>{qualification.qualification} {(index < qualificationsArray.length - 1) && (index != 2) ? '| ' : ''}</span>
                                                             }
                                                             else return ''
-                                                            // if (index < 3) {
-                                                            //     return <span key={index}>{qualification.qualification} {(index < qualifications.length - 1) && (index != 2) ? '| ' : ''}</span>
-                                                            // }
-                                                            // else return ''
                                                         })
                                                     }
                                                 </p> : ''
