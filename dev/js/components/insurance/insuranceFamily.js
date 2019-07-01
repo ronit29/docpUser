@@ -317,6 +317,7 @@ class InsuranceOthers extends React.Component {
     	var daydropdown = document.getElementById('daydropdown_'+member_id),
           monthdropdown = document.getElementById('monthdropdown_'+member_id),
           yeardropdown = document.getElementById('yeardropdown_'+member_id);
+          	
         var today = new Date(),
             day = today.getUTCDate(),
             month = today.getUTCMonth(),
@@ -324,10 +325,28 @@ class InsuranceOthers extends React.Component {
             currentYear = today.getUTCFullYear(),
             daysInCurrMonth = this.daysInMonth(month, year);
 		if(daydropdown && monthdropdown && yeardropdown){
+			
+			daydropdown.innerHTML = ''
+			monthdropdown.innerHTML = ''
+			yeardropdown.innerHTML = ''
+
+			var opt_dd = document.createElement('option');
+				opt_dd.value = 'DD'
+	          	opt_dd.text = 'DD'
+	          	opt_dd.hidden = true
+	          	daydropdown.appendChild(opt_dd);
+	        var opt_mm = document.createElement('option');
+				opt_mm.value = 'MM'
+	          	opt_mm.text = 'MM'
+	          	opt_mm.hidden = true
+	          	monthdropdown.appendChild(opt_mm);
+	        var opt_yy = document.createElement('option');
+				opt_yy.value = 'YYYY'
+	          	opt_yy.text = 'YYYY'
+	          	opt_yy.hidden = true
+	          	yeardropdown.appendChild(opt_yy);
+
 				// Day
-				daydropdown.innerHTML = ''
-				monthdropdown.innerHTML = ''
-				yeardropdown.innerHTML = ''
 		        for(var i = 1; i <= daysInCurrMonth; i++){
 		          var opt = document.createElement('option');
 		          if(i<=9){
