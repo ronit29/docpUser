@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { getInsuranceMemberList,updateMemberList} from '../../actions/index.js'
+import { getInsuranceMemberList,updateMemberList, getUserProfile} from '../../actions/index.js'
 import InsuranceSuccessComp from '../../components/insurance/insuranceSuccess.js'
 import GTM from '../../helpers/gtm.js'
 const queryString = require('query-string');
@@ -40,7 +40,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getInsuranceMemberList :(member_list_id) => dispatch(getInsuranceMemberList(member_list_id)),
-        updateMemberList :(member_list,callback) => dispatch(updateMemberList(member_list,callback))
+        updateMemberList :(member_list,callback) => dispatch(updateMemberList(member_list,callback)),
+        getUserProfile: () => dispatch(getUserProfile()),
     }
 }
 
