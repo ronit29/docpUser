@@ -69,7 +69,7 @@ class InsuranceSelf extends React.Component{
     			profile= Object.assign({}, this.props.self_data_values[this.props.user_data[0].id])
     			if(Object.keys(profile).length>0 && profile.dob){
 	    			oldDate= profile.dob.split('-')
-				    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+				    	this.setState({year:oldDate[0],mnth:oldDate[2],day:oldDate[1]},()=>{
 				    		this.populateDates()
 				    })
 				}
@@ -80,7 +80,7 @@ class InsuranceSelf extends React.Component{
     			if(this.props.user_data && this.props.user_data.length > 0){
     				if(this.props.user_data[0].dob){
 	    				oldDate= this.props.user_data[0].dob.split('-')
-				    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+				    	this.setState({year:oldDate[0],mnth:oldDate[2],day:oldDate[1]},()=>{
 				    		this.populateDates()
 				    	})
 				    }
@@ -137,6 +137,7 @@ class InsuranceSelf extends React.Component{
     getUserDetails(profile){
 		let newName=[]
 		let oldDate
+		let tempArray
 	    newName =  profile.name.split(" ")
 	    if(newName.length == 2){
 	    	this.setState({
@@ -145,6 +146,11 @@ class InsuranceSelf extends React.Component{
 	    }else if(newName.length ==3){
 	    	this.setState({name:profile.isDummyUser?'':newName[0],
 			last_name:profile.isDummyUser?'':newName[2],
+			middle_name:profile.isDummyUser?'':newName[1]})
+		}else if(newName.length >3){
+			tempArray = newName.slice(2,newName.length)
+	    	this.setState({name:profile.isDummyUser?'':newName[0],
+			last_name:profile.isDummyUser?'':tempArray.join(' '),
 			middle_name:profile.isDummyUser?'':newName[1]})
 	    }else{
 	    	this.setState({name:profile.isDummyUser?'':profile.name})

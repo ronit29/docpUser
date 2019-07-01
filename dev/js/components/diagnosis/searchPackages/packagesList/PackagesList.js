@@ -117,6 +117,10 @@ class packagesList extends React.Component {
             catId: viewMore?[]:[category],
             viewMore: viewMore
         }
+        let gtmData = {
+            'Category': 'PackageQuickFilterClicked', 'Action': 'PackageQuickFilterClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'package-quick-filter-clicked', 'url': window.location.pathname, 'type': category
+        }
+        GTM.sendEvent({ data: gtmData })
         this.props.applyQuickFilter(filters)
     }
 
