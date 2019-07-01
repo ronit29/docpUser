@@ -6280,7 +6280,7 @@ h3.pkg-include{
     padding-left: 8px;
     padding-right: 8px;
     color: rgb(117, 117, 117);
-    border: 1px dashed #f78631;
+    border: 1px dashed rgb(117, 117, 117);;
     border-radius: 4px;
     display: inline;
 }
@@ -6817,7 +6817,8 @@ span.pkg-ofr-ribbon:after {
 	margin-left: 5px;
 }
 .pkg-btn-nw{
-	background: #f78631;
+    background-image: linear-gradient(to left,#f78631,#ff6d00);
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
     border: none;
     color: white;
     font-weight: 500;
