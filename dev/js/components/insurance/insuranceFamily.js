@@ -44,7 +44,7 @@ class InsuranceOthers extends React.Component {
 				let oldDate
 				if(Object.keys(profile).length > 0 && profile.dob){
 					oldDate= profile.dob.split('-')
-				    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+				    	this.setState({year:oldDate[0],mnth:oldDate[2],day:oldDate[1]},()=>{
 				    		this.populateDates(this.props.member_id,true)
 				    })
 				}
@@ -59,7 +59,7 @@ class InsuranceOthers extends React.Component {
 					}
 					if(this.props.user_data && this.props.user_data[0].dob){
 						oldDate= this.props.user_data[0].dob.split('-')
-						this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+						this.setState({year:oldDate[0],mnth:oldDate[2],day:oldDate[1]},()=>{
 				    		this.populateDates(this.props.member_id,true)
 				    	})
 					}
@@ -214,7 +214,7 @@ class InsuranceOthers extends React.Component {
 			}
 			if(newProfile && newProfile.dob){
 				oldDate= newProfile.dob.split('-')
-				this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+				this.setState({year:oldDate[0],mnth:oldDate[2],day:oldDate[1]},()=>{
 	    			this.populateDates(newProfileid,false)
 	    		})
 			}else{
