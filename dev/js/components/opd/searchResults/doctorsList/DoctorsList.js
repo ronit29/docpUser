@@ -129,6 +129,11 @@ class DoctorsList extends React.Component {
             }
         }
 
+        let gtmData = {
+            'Category': 'OpdQuickFilterClicked', 'Action': 'OpdQuickFilterClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-quick-filter-clicked', 'url': window.location.pathname, 'type': type, 'val': val
+        }
+        GTM.sendEvent({ data: gtmData })
+
         let filters = { ...this.props.filterCriteria }
         if (type.includes('sort_on')) {
 

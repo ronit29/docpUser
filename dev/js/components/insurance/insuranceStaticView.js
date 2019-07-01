@@ -311,8 +311,8 @@ class InsuranceStaticView extends React.Component {
 														</div>
 														<div className="col-6">
 															<div className="lft-para-algn">
-																<p className="step-orng-para">Instant activation</p>
-																<p className="step-blk-para">upon purchase</p>
+																<p className="step-orng-para">Instant Activation</p>
+																<p className="step-blk-para">Upon Purchase</p>
 															</div>
 														</div>
 													</div>
