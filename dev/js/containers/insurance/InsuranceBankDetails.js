@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { cancelInsurance, cancelledInsuranceDetails, saveUserBankDetails, uploadBankProof} from '../../actions/index.js'
+import { cancelInsurance, cancelledInsuranceDetails, saveUserBankDetails, uploadBankProof,clearBankDetails} from '../../actions/index.js'
 import InsuranceBankDetailsView from '../../components/insurance/insuranceBankDetailsView.js'
 
 class InsuranceBankDetails extends React.Component{
@@ -34,7 +34,8 @@ const mapDispatchToProps = (dispatch) => {
 
         cancelInsurance :(data,cb) => dispatch(cancelInsurance(data,cb)),
         saveUserBankDetails:(criteria) => dispatch(saveUserBankDetails(criteria)),
-        uploadBankProof:(file,imgType,cb) =>dispatch(uploadBankProof(file,imgType,cb))
+        uploadBankProof:(file,imgType,cb) =>dispatch(uploadBankProof(file,imgType,cb)),
+        clearBankDetails:() => dispatch(clearBankDetails())
     }
 }
 

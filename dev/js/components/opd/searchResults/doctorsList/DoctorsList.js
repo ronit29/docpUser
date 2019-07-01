@@ -307,7 +307,7 @@ class DoctorsList extends React.Component {
                                                             }
 
                                                             {
-                                                                (i == 2 && this.props.seoFriendly && this.props.match.url.includes('-sptcit') && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) ?
+                                                                (i == 1 && this.props.seoFriendly && this.props.match.url.includes('-sptcit') && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) ?
                                                                     <div className="d-flex align-items-center justify-content-between auto-location-widget mb-3">
                                                                         <div className="d-flex align-items-center auto-location-text">
                                                                             <img src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} />

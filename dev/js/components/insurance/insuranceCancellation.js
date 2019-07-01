@@ -93,7 +93,11 @@ class InsuranceCancellationView extends React.Component {
 				this.props.cancelReason(this.state.cancelReason)
 				this.props.history.push('/insurance/canceldetails')
 			}else{
-				SnackBar.show({ pos: 'bottom-center', text: "Please provide cancel Reason" });
+				if(this.state.cancelReason == ''){
+					SnackBar.show({ pos: 'bottom-center', text: "Please provide cancel Reason" });
+				}else if(!this.state.opt_verified){
+					SnackBar.show({ pos: 'bottom-center', text: "Please enter otp" });
+				}
 			}
 			// this.props.cancelInsurance(resp => {
 			// 	if (resp.success) {
