@@ -3,6 +3,7 @@ import ProfileHeader from '../DesktopProfileHeader';
 import HelmetTags from '../HelmetTags';
 import CONFIG from '../../../config/config';
 import Footer from '../Home/footer';
+import Loader from '../Loader'
 
 class HospitalListView extends React.Component {
 
@@ -52,10 +53,12 @@ class HospitalListView extends React.Component {
                             </div>
                             <div className="row sitemap-row">
                                 {
-                                    this.props.selectedHospitalList && this.props.selectedHospitalList.length ?
+                                this.props.hospitalIndexLoading?
+                                    <Loader/>
+                                    :this.props.selectedHospitalList && this.props.selectedHospitalList.length ?
                                         this.props.selectedHospitalList.map((test, index) => {
                                             return <div key={index} className="col-12 col-md-6 col-lg-4 tests-brdr-btm">
-                                                <div className="anchor-data-style" onClick={() => this.props.history.push(`/${test.url?test.url:``}`) }>
+                                                <div className="anchor-data-style" onClick={() => this.props.history.push(`/${test.url?test.url:`/`}`) }>
                                                     {
                                                         test.url ?
                                                             <div>
