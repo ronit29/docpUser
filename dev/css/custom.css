@@ -2201,6 +2201,7 @@ font-size: 16px;
 
 .btn-grdnt{
 	background-image: linear-gradient(to left,#f78631,#ff6d00);
+	padding: 10px 25px;
 }
 .ins-otp-resend{
 	position: absolute;
@@ -2352,7 +2353,7 @@ p.clnc-name{
 }
 .ins-form-slider{
 	white-space: nowrap;
-    overflow: scroll;
+    overflow: hidden;
 }
 .ins-form-slider .one,.ins-form-slider .two {
     display: inline-block;

@@ -87,6 +87,11 @@ app.all('*', function (req, res) {
     /**
      * Fetch Css files
      */
+     if(req.protocol && req.protocol.includes('www.')) {
+        let redirect_url = "https://" + req.get('host') + req.originalUrl
+        res.writeHead(301, { "Location": redirect_url })
+        return res.end()
+     }
     _readStyles().then((styleFiles) => {
 
         let css_file = styleFiles[0]
