@@ -11,7 +11,7 @@ class HospitalServicesView extends React.Component  {
 	             <ul className="hs-services">
 	             	{
 	             		hospital_data.services.map((service, i) => {
-	             			return <h3 key={i}><img src={service.icon} alt="" /> {service.name} </h3>  
+	             			return <li><h3 key={i}><img src={service.icon} alt="" /> {service.name} </h3></li>  
 	               		
 	             		})
 	             	}

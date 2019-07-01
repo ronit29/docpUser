@@ -37,10 +37,12 @@ class HospitalInfoView extends React.Component{
                   </div>
                   :'' 
                 }
+                <div className="ipd-st-rating">
                 {
                     hospital_data.rating_graph && hospital_data.rating_graph.avg_rating ?
                         <RatingStars average_rating={hospital_data.rating_graph.avg_rating} rating_count={''} width="12px" height="12px" /> : ''
                 }
+                </div>
                 <h1 className="section-heading">{hospital_data.name}</h1>
                 {
                   hospital_data.address?
@@ -57,7 +59,7 @@ class HospitalInfoView extends React.Component{
                   }
                   {
                     hospital_data.multi_speciality?
-                    <div className="hos-certified"><img src={ASSETS_BASE_URL+"/images/multi-speciality.png"} alt="" className="img-splty" />Multi Speciality</div>
+                    <div className="hos-certified"><img style={{marginTop: '4px'}} src={ASSETS_BASE_URL+"/images/multi-speciality.png"} alt="" className="img-splty" />Multi Speciality</div>
                     :''  
                   }
                   

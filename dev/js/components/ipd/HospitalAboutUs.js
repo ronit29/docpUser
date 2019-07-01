@@ -28,7 +28,7 @@ class HospitalAboutUsView extends React.Component {
           }
 
 		return(
-			<div className="hs-card">
+			<div className="hs-card" style={{paddingBottom:'10px'}}>
                <div className="card-head"><h2 className="dsply-ipd-hdng">About {hospital_data.name}</h2></div> 
 
                {
@@ -38,9 +38,9 @@ class HospitalAboutUsView extends React.Component {
                     :<div className="card-body clearfix custom-li-style" style={{}} dangerouslySetInnerHTML={{ __html: aboutText }}>
                     </div>
                }
-               <a className="fw-700 text-primary" style={{ cursor: 'pointer' }} onClick={() => {
+               <a  className="fw-700 text-primary show-less-ipd" style={{ cursor: 'pointer' }} onClick={() => {
                         this.setState({ readMore: !this.state.readMore })
-                    }}>{this.state.readMore?'Show More':'Show Less'}<span style={{ fontSize: 11, display: 'inline-block', verticalAlign: 'middle' }}>&#9650;</span></a>
+                    }}>{this.state.readMore?'Show More':'Show Less'}<span className={this.state.readMore?'show-ipd-more-rotate':''} style={{ fontSize: 11, display: 'inline-block', verticalAlign: 'middle' }}>&#9650;</span></a>
 
              </div>
 			)
