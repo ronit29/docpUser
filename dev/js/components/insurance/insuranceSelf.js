@@ -97,8 +97,8 @@ class InsuranceSelf extends React.Component{
     	let self = this
     	let profileLength = Object.keys(props.USER.profiles).length;
     	if(profileLength > 0 && this.state.profile_flag && !props.is_endorsement){
+    		let isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
 	    	if(Object.keys(props.self_data_values).length>0){
-	    		let isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
 	    		let profile
 	    		if(!isDummyUser){
 	    			profile= Object.assign({}, props.self_data_values[props.USER.defaultProfile])
@@ -128,8 +128,9 @@ class InsuranceSelf extends React.Component{
 		    	let profile  = Object.assign({}, props.USER.profiles[props.USER.defaultProfile])
 					newName =  profile.name.split(" ")
 					this.getUserDetails(profile)
+					this.populateDates()
     		}	    	
-    	}else{
+    	}else if(props.is_endorsement){
     		this.populateDates()
     	}
     }
@@ -487,21 +488,41 @@ class InsuranceSelf extends React.Component{
 			daydropdown.innerHTML = ''
 			monthdropdown.innerHTML = ''
 			yeardropdown.innerHTML = ''
+
+		var opt_dd = document.createElement('option');
+			opt_dd.value = 'DD'
+          	opt_dd.text = 'DD'
+          	opt_dd.hidden = true
+          	daydropdown.appendChild(opt_dd);
+        var opt_mm = document.createElement('option');
+			opt_mm.value = 'MM'
+          	opt_mm.text = 'MM'
+          	opt_mm.hidden = true
+          	monthdropdown.appendChild(opt_mm);
+        var opt_yy = document.createElement('option');
+			opt_yy.value = 'YYYY'
+          	opt_yy.text = 'YYYY'
+          	opt_yy.hidden = true
+          	yeardropdown.appendChild(opt_yy);
+          		
 		// Day
         for(var i = 1; i <= daysInCurrMonth; i++){
           var opt = document.createElement('option');
-          if(i<=9){
+          if(i<=9){	
           	opt.value = '0' + i;
           	opt.text = '0' + i;
           }else{
           	opt.value = i;
           	opt.text = i;
           }
+
           daydropdown.appendChild(opt);
         }
         // Month
         for(var i = 0; i < 12; i++){
           var opt = document.createElement('option');
+          opt.value = 'MM'
+          opt.text = 'MM'
           opt.value = default_months[i]
           opt.text = default_months[i]
           monthdropdown.appendChild(opt);
@@ -510,6 +531,8 @@ class InsuranceSelf extends React.Component{
         // Year
         for(var i = 0; i <= age_threshold; i++){
           var opt = document.createElement('option');
+          opt.value = 'YYYY'
+          opt.text = 'YYYY'
           opt.value = i + year;
           opt.text = i + year;
           yeardropdown.appendChild(opt);
