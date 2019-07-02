@@ -205,16 +205,16 @@ class LabProfileCard extends React.Component {
                                     </InitialsPicture>
                                     <div className="thy-sub-icon">
                                         {pickup_text?
-                                            <p className="test-pkup">
+                                            <div className="test-pkup">
                                                 <img src={ASSETS_BASE_URL + "/img/laby.png"} />
-                                                <span>Free Sample Collection</span>
-                                            </p>
+                                                <p>Free Sample <span className="tstblk">Collection</span></p>
+                                            </div>
                                         :''
                                         }
-                                        {/*<p className="test-pkup">
+                                        {/*<div className="test-pkup">
                                             <img src={ASSETS_BASE_URL + "/img/laby2.png"} />
-                                            <span>Integrated Partners</span>
-                                        </p>*/}
+                                            <p>Integrated <span className="tstblk">Partners</span></p>
+                                        </div>*/}
                                     </div>
                                 </div>
                                 <a href={`/${this.props.details.url || ''}`} onClick={(e) => {
@@ -306,8 +306,8 @@ class LabProfileCard extends React.Component {
                 </div>
                 <div className="cstmCardFooter">
                     <div className="pkg-crd-foot-img-text">
-                        <img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} style={{ marginTop: '2px', width: '15px' }} />
-                        {lab.locality} {lab.city}
+                        <img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} style={{ width: '10px' }} />
+                        <p>{lab.locality} {lab.city}</p>
                     </div>
                     {/*<div className="pkg-crd-foot-img-text">
                         <img src={ASSETS_BASE_URL + "/img/infoerror.svg"} style={{ marginTop: '2px', width: '15px' }} />

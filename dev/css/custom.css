@@ -2377,6 +2377,9 @@ p.clnc-name{
     font-weight: 500;
     color: #757575;
 }
+.tstblk{
+	display: block;
+}
 .thy-sub-icon img{
 	margin-right: 5px;
 }
