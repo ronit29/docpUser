@@ -18,6 +18,12 @@ class HelmetTags extends React.Component {
         let prev = (tagsData && tagsData.prev) ? tagsData.prev : ""
         let next = (tagsData && tagsData.next) ? tagsData.next : ""
         let schema = (tagsData && tagsData.schema) ? tagsData.schema : null
+        let ogUrl = (tagsData && tagsData.ogUrl) ? tagsData.ogUrl : null
+        let ogType = (tagsData && tagsData.ogType) ? tagsData.ogType : null
+        let ogTitle = (tagsData && tagsData.ogTitle) ? tagsData.ogTitle : null
+        let ogDescription = (tagsData && tagsData.ogDescription) ? tagsData.ogDescription : null
+        let ogImage = (tagsData && tagsData.ogImage) ? tagsData.ogImage : null
+
         try {
             if (schema) {
                 schema = JSON.stringify(schema)
@@ -69,6 +75,26 @@ class HelmetTags extends React.Component {
                     schema ? <script type="application/ld+json">
                         {`${schema}`}
                     </script> : ""
+                }
+                {
+                    ogUrl ?
+                        <meta property="og:url" content={ogUrl} /> : ''
+                }
+                {
+                    ogType ?
+                        <meta property="og:type" content={ogType} /> : ''
+                }
+                {
+                    ogTitle ?
+                        <meta property="og:title" content={ogTitle} /> : ''
+                }
+                {
+                    ogDescription ?
+                        <meta property="og:description" content={ogDescription} /> : ''
+                }
+                {
+                    ogImage ?
+                        <meta property="og:image" content={ogImage} /> : ''
                 }
             </Helmet>
         )
