@@ -1119,7 +1119,7 @@ class PatientDetailsNew extends React.Component {
                                     </div> : <Loader />
                             }
                             {
-                                this.state.openCancellation ? <CancelationPolicy props={this.props} toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
+                                this.state.openCancellation ? <CancelationPolicy props={this.props} toggle={this.toggle.bind(this, 'openCancellation')} is_insurance_applicable={is_insurance_applicable}/> : ""
                             }
 
                             {/* {
