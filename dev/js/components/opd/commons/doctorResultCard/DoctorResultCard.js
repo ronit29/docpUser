@@ -235,7 +235,7 @@ class DoctorProfileCard extends React.Component {
                                 <div className="cstm-doc-details-container">
                                     <div className="cstm-doc-img-container">
                                         <div>
-                                            <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')} title={display_name}>
+                                            <a href="javascript:;" onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')} title={display_name}>
                                                 <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds" style={{ width: 50, height: 50, fontSize: '1.5em' }} >
                                                     <img className="img-round" src={thumbnail} alt={display_name} title={display_name} />
                                                 </InitialsPicture>
