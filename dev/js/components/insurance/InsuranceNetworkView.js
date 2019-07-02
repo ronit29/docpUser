@@ -192,7 +192,7 @@ class InsuranceNetworkView extends React.Component {
         let alphabets = this.getAlphabets()
         return (
             <div className="profile-body-wrap">
-                <ProfileHeader {...this.props} showPackageStrip={true}/>
+                <ProfileHeader {...this.props} showPackageStrip={true} />
                 <section className="container dp-container-div">
                     <div className="row">
                         <div className="col-12 col-md-7 col-lg-7 center-column">
@@ -307,9 +307,12 @@ class InsuranceNetworkView extends React.Component {
                                                                                         <p className="ntwrk-list-content-city fw-500">{result.city}</p>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div className="ntwrk-list-dist">
-                                                                                    <p className="fw-500">{result.distance} km</p>
-                                                                                </div>
+                                                                                {
+                                                                                    result.distance ?
+                                                                                        <div className="ntwrk-list-dist">
+                                                                                            <p className="fw-500">{result.distance} km</p>
+                                                                                        </div> : ''
+                                                                                }
                                                                             </li>
                                                                         })
                                                                     }
