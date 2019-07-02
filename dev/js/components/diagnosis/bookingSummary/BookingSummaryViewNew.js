@@ -1192,7 +1192,7 @@ class BookingSummaryViewNew extends React.Component {
                             }
 
                             {
-                                this.state.openCancellation ? <CancelationPolicy props={this.props} toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
+                                this.state.openCancellation ? <CancelationPolicy props={this.props} toggle={this.toggle.bind(this, 'openCancellation')} is_insurance_applicable={is_insurance_applicable}/> : ""
                             }
 
 
