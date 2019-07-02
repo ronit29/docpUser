@@ -2376,6 +2376,7 @@ p.clnc-name{
     display: flex;
     font-weight: 500;
     color: #757575;
+    margin-right:5px;
 }
 .tstblk{
 	display: block;
