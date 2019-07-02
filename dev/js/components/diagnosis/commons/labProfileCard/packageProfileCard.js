@@ -211,10 +211,12 @@ class LabProfileCard extends React.Component {
                                             </div>
                                         :''
                                         }
-                                        {/*<div className="test-pkup">
-                                            <img src={ASSETS_BASE_URL + "/img/laby2.png"} />
-                                            <p>Integrated <span className="tstblk">Partners</span></p>
-                                        </div>*/}
+                                        {lab && lab.is_thyrocare?
+                                            <div className="test-pkup">
+                                                <img src={ASSETS_BASE_URL + "/img/laby2.png"} />
+                                                <p>Integrated <span className="tstblk">Partners</span></p>
+                                            </div>
+                                        :''}
                                     </div>
                                 </div>
                                 <a href={`/${this.props.details.url || ''}`} onClick={(e) => {
