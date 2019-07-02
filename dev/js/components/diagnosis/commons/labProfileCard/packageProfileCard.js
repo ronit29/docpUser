@@ -204,14 +204,17 @@ class LabProfileCard extends React.Component {
                                         <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
                                     </InitialsPicture>
                                     <div className="thy-sub-icon">
-                                        <p className="test-pkup">
-                                            <img src={ASSETS_BASE_URL + "/img/laby.png"} />
-                                            <span>Free Sample Collection</span>
-                                        </p>
-                                        <p className="test-pkup">
+                                        {pickup_text?
+                                            <p className="test-pkup">
+                                                <img src={ASSETS_BASE_URL + "/img/laby.png"} />
+                                                <span>Free Sample Collection</span>
+                                            </p>
+                                        :''
+                                        }
+                                        {/*<p className="test-pkup">
                                             <img src={ASSETS_BASE_URL + "/img/laby2.png"} />
                                             <span>Integrated Partners</span>
-                                        </p>
+                                        </p>*/}
                                     </div>
                                 </div>
                                 <a href={`/${this.props.details.url || ''}`} onClick={(e) => {
@@ -255,16 +258,23 @@ class LabProfileCard extends React.Component {
                                             </div>
                                             : ''
                                     }
-
-                                    <p className="dc-cpn-include">50% Off <span>(includes Coupon)</span></p>
+                                    {
+                                        !is_insurance_applicable && !hide_price && offPercent && offPercent > 0 ?
+                                            <p className="dc-cpn-include">{offPercent}% Off 
+                                                {!is_insurance_applicable && !included_in_user_plan && discounted_price != price?
+                                                    <span>(includes Coupon)</span>
+                                                :''}
+                                            </p>
+                                             : ''
+                                    }
                                 </div>
                                 <a href={`/${this.props.details.lab.url}`} onClick={(e) => e.preventDefault()}>
                                     <button className="pkg-btn-nw" style={{ width: '100%' }}>Book Now</button>
                                 </a>
-                                {
+                                {/*
                                     !is_insurance_applicable && !included_in_user_plan && discounted_price != price ? <p className="pkg-discountCpn">Includes coupon</p>
                                         : ""
-                                }
+                                */}
                                 {
                                     included_in_user_plan && !is_insurance_applicable ?
                                         <p className="pkg-discountCpn">Docprime Care Benefit</p>
@@ -296,14 +306,18 @@ class LabProfileCard extends React.Component {
                 </div>
                 <div className="cstmCardFooter">
                     <div className="pkg-crd-foot-img-text">
+                        <img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} style={{ marginTop: '2px', width: '15px' }} />
+                        {lab.locality} {lab.city}
+                    </div>
+                    {/*<div className="pkg-crd-foot-img-text">
                         <img src={ASSETS_BASE_URL + "/img/infoerror.svg"} style={{ marginTop: '2px', width: '15px' }} />
                         {pickup_text ? <p>{pickup_text}</p> : ""}
-                    </div>
+                    </div>*/}
                     {/* <div className="pkg-crd-foot-img-text">
                         <img src={ASSETS_BASE_URL + "/img/watch-date.svg"} style={{ marginTop: '2px', width: '15px' }} />
                         <p>{buildOpenBanner(lab_timing, lab_timing_data, next_lab_timing, next_lab_timing_data)}</p>
                     </div> */}
-                    <div className="cstmDocLoc"><p className=""><img src={ASSETS_BASE_URL + "/img/cstmdist.svg"} />0.9 km</p></div>
+                    <div className="cstmDocLoc"><p className=""><img src={ASSETS_BASE_URL + "/img/cstmdist.svg"} />{distance} km</p></div>
                 </div>
             </div>
         );
