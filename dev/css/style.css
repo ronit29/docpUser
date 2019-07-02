@@ -11935,3 +11935,20 @@ p.label-cpn{
 .nw-clinicMore.arrow-rev img{
 	transform: rotate(-90deg);
 }
+.chat-pop-heading{
+    position: absolute;
+    text-align: center;
+    top: 10%;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.chat-pop-heading h3{
+    color: white;
+    font-weight: 500;
+    margin-bottom: 7px;
+}
+.chat-pop-heading p{
+    color: white;
+    font-weight: 500;
+}
