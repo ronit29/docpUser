@@ -206,14 +206,14 @@ class LabProfileCard extends React.Component {
                                     <div className="thy-sub-icon">
                                         {pickup_text?
                                             <div className="test-pkup">
-                                                <img src={ASSETS_BASE_URL + "/img/laby.png"} />
+                                                <img src={ASSETS_BASE_URL + "/img/laby1.svg"} />
                                                 <p>Free Sample <span className="tstblk">Collection</span></p>
                                             </div>
                                         :''
                                         }
                                         {lab && lab.is_thyrocare?
                                             <div className="test-pkup">
-                                                <img src={ASSETS_BASE_URL + "/img/laby2.png"} />
+                                                <img src={ASSETS_BASE_URL + "/img/laby3.svg"} />
                                                 <p>Integrated <span className="tstblk">Partners</span></p>
                                             </div>
                                         :''}
