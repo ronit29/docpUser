@@ -17,7 +17,7 @@ class ChatFeedBackView extends React.Component {
 			<div>
 
 				<Route exact path={`${this.props.match.url}/`} render={(props) => {
-                    return <ChatFeedBack {...this.props} {...props} />
+                    return <ChatQuestion1 {...this.props} {...props} />
                 }} />
 
                 <Route exact path={`${this.props.match.url}/ques1`} render={(props) => {

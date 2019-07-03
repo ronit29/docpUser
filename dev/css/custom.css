@@ -2361,3 +2361,46 @@ p.clnc-name{
 }
 
 /* ============ more clinic card ============ */
+/* ============ new pkg card ============ */
+.nw-pkg-crd-img{
+	display: flex;
+	align-items: center;
+}
+.thy-sub-icon{
+	margin-left: 4px;
+    display: flex;
+    align-items: baseline;
+}
+.thy-sub-icon .test-pkup{
+	font-size: 10px;
+    display: flex;
+    font-weight: 500;
+    color: #757575;
+    margin-right:5px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.tstblk{
+	display: block;
+}
+.thy-sub-icon img{
+	margin-right: 5px;
+}
+.dc-prc{
+	color: #757575;
+    font-size: 11px;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+.dc-cpn-include{
+	color: #55A740;
+	font-size: 11px;
+    font-weight: 500;
+}
+.dc-cpn-include span{
+	display: inline-block;
+}
+.pkg-new-time-sl{
+	margin-top: 5px;
+}
+/* ============ new pkg card ============ */

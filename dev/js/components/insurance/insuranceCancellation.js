@@ -38,7 +38,7 @@ class InsuranceCancellationView extends React.Component {
 		}
         if (number && number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" ,phoneNumber:number})
-            this.props.sendOTP(number,viaSms,viaWhatsapp, (error) => {
+            this.props.sendOTP(number,viaSms,viaWhatsapp,'insurance-cancel', (error) => {
                 if (error) {
                     this.setState({ validationError: "Could not generate OTP." })
                 } else {

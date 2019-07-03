@@ -77,7 +77,7 @@ class InsurancePopup extends React.Component {
         let lead_data = queryString.parse(this.props.location.search)
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
-            this.props.sendOTP(number, viaSms, viaWhatsapp, (error) => {
+            this.props.sendOTP(number, viaSms, viaWhatsapp,'insurance-login', (error) => {
                 if (error) {
                     // this.setState({ validationError: "Could not generate OTP." })
                 } else {
@@ -198,7 +198,7 @@ class InsurancePopup extends React.Component {
             })
             return (
                 <div>
-                    <div className="cancel-overlay" onClick={this.props.hideSelectProfilePopup.bind(this)}></div>
+                    <div className="cancel-overlay cancel-overlay-zindex" onClick={this.props.hideSelectProfilePopup.bind(this)}></div>
                     <div className="widget cancel-appointment-div cancel-popup onscreen-scroll">
                         <div className="pop-top-heading">
                             My Family
@@ -233,7 +233,7 @@ class InsurancePopup extends React.Component {
         } else {
             return (
                 <div className="col-12 col-md-7  center-column">
-                    <div className={`cancel-overlay ${this.props.overlayClass}`} onClick={this.props.hideLoginPopup.bind(this)}>
+                    <div className={`cancel-overlay cancel-overlay-zindex ${this.props.overlayClass}`} onClick={this.props.hideLoginPopup.bind(this)}>
                     </div>
                     <section className="mobile-verification-screen p-3">
                         {

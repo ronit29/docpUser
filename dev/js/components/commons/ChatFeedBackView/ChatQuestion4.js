@@ -51,7 +51,7 @@ class ChatQuestion4 extends React.Component {
 				<div className="cf-card">
 		            <div className="cf-body">
 		              <p className="cf-prgh">What do you think can be improved?*</p> 
-		              <ul className="cf-radio">
+		              <ul className="cf-radio chat-radio-align">
 		                <li className={`${this.state.feedback.includes('0')?'active':''}`}>
 		                    <label className="custom-radio">
 		                        <span className="cf-radio-text">Better treatment</span>
