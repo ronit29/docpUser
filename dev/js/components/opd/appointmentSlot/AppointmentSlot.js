@@ -77,10 +77,23 @@ class AppointmentSlot extends React.Component {
     }
 
     getFormattedDate(date) {
-        let day = new Date(date).getDate()<10?'0'+new Date(date).getDate():new Date(date).getDate()
-        let month = new Date(date).getMonth()<10?'0'+new Date(date).getMonth():new Date(date).getMonth()
-        let year = new Date(date).getFullYear()
-        return year+'-'+month+'-'+day
+
+        var dd = date.getDate();
+
+        var mm = date.getMonth()+1; 
+        var yyyy = date.getFullYear();
+        if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        }
+
+        var today = yyyy+'-'+mm+'-'+dd;
+        return today
     }
 
     componentDidMount() {
