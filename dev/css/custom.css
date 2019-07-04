@@ -2425,15 +2425,36 @@ p.clnc-name{
     border-bottom: 1px solid #e6e5e5;
     min-height: auto !important;
     outline: none;
-	padding-left: 30px;
-	width: 170px;
+    padding-left: 21px;
+    width: 180px;
+    background: white;
+    cursor: pointer;
+	padding-bottom: 2px;
+	font-weight: 500;
 }
 .caln-input-tp{
 	position: relative;
 }
 .inp-nw-cal{
-	width: 20px;
+	width: 16px;
     position: absolute;
-    top: -2px;
+    top: 3px;
+}
+.inp-nw-time{
+	width: 16px;
+    position: absolute;
+    top: 1px;
+}
+.tm-arw-sgn{
+	position: absolute;
+    right: 0;
+    transform: rotate(-90deg);
+    bottom: 7px;
+}
+@media (max-width: 345px) {
+	.nw-pick-hdng{
+		margin-right: 12px;
+margin-left: 0px;
+	}
 }
 /* ============ new time slot design ============ */
