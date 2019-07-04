@@ -885,8 +885,8 @@ class PatientDetailsNew extends React.Component {
                                                         }
 
                                                         {
-                                                            this.props.payment_type == 1 && ((parseInt(priceData.deal_price) + treatment_Price) != 0) ?
-                                                                <div className="widget mrb-15 cursor-pointer" onClick={this.applyCoupons.bind(this)}>
+                                                            ((parseInt(priceData.deal_price) + treatment_Price) != 0) ?
+                                                                <div className= {`widget cpn-blur mrb-15 cursor-pointer ${this.props.payment_type != 1?'disable_coupon':''}` } onClick={this.applyCoupons.bind(this)}>
                                                                     {
                                                                         doctorCoupons.length ?
                                                                             <div className="widget-content d-flex jc-spaceb" >
@@ -899,7 +899,7 @@ class PatientDetailsNew extends React.Component {
                                                                                         </h4>
                                                                                 </div>
                                                                                 <div className=" d-flex">
-                                                                                    <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
+                                                                                    <h4 className="title" style={{ color: 'green', marginRight: 13,fontSize:'12px',marginTop:'6px' }}>
                                                                                         {doctorCoupons[0].code}
                                                                                     </h4>
                                                                                     <span className="visit-time-icon coupon-icon">
@@ -1126,20 +1126,21 @@ class PatientDetailsNew extends React.Component {
 
 
                                                         {
-                                                            !is_insurance_applicable && this.props.payment_type == 1 && total_wallet_balance && total_wallet_balance > 0 && (parseInt(priceData.mrp) + treatment_mrp) > 0 ? <div className="widget mrb-15">
-                                                                <div className="widget-content">
-                                                                    <div className="select-pt-form">
-                                                                        <div className="referral-select mb-0">
-                                                                            <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Use docprime wallet money<input type="checkbox" onChange={this.toggleWalletUse.bind(this)} checked={this.state.use_wallet} /><span className="checkmark"></span></label>
-                                                                            <span className="rfrl-avl-balance">Available <img style={{ width: '6px', marginTop: '5px', marginRight:'3px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} />{total_wallet_balance}</span>
-                                                                            {
-                                                                                this.state.is_payment_coupon_applied ?
-                                                                                <span className="cpn-pymnt-txt">Wallet Amount can not be used because payment gateway specific coupon is applied.</span> : ''
-                                                                            }
+                                                            !is_insurance_applicable && this.props.payment_type == 1 && total_wallet_balance && total_wallet_balance > 0 && (parseInt(priceData.mrp) + treatment_mrp) > 0 ?
+                                                                <div className={"widget mrb-15" + (this.state.is_payment_coupon_applied ? " disable_coupon" : "")}>
+                                                                    <div className="widget-content">
+                                                                        <div className="select-pt-form">
+                                                                            <div className="referral-select mb-0">
+                                                                                <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Use docprime wallet money<input type="checkbox" onChange={this.toggleWalletUse.bind(this)} checked={this.state.use_wallet} /><span className="checkmark"></span></label>
+                                                                                <span className="rfrl-avl-balance">Available <img style={{ width: '6px', marginTop: '5px', marginRight:'3px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} />{total_wallet_balance}</span>
+                                                                                {
+                                                                                    this.state.is_payment_coupon_applied ?
+                                                                                    <span className="cpn-pymnt-txt">Wallet Amount can not be used because payment gateway specific coupon is applied.</span> : ''
+                                                                                }
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </div> : ""
+                                                                </div> : ""
                                                         }
                                                         <WhatsAppOptinView {...this.props} profiles={patient} toggleWhatsap={this.toggleWhatsap.bind(this)} />
 
