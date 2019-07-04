@@ -16,6 +16,7 @@ const queryString = require('query-string')
 import IpdLeadForm from '../../containers/ipd/ipdLeadForm.js'
 import ChatIpdPanel from '../commons/ChatPanel/ChatIpdPanel.js'
 import IpdOffersPage from './IpdOffersPage.js'
+import IpdCarousel from './IpdHospitalDetailCarousel.js'
 
 //View all rating for hospital ,content_type = 3
 
@@ -293,6 +294,9 @@ class HospitalDetailView extends React.Component {
 								</div>
 								:''	 
 							}
+
+
+							<IpdCarousel />
 							
 							
 							<div ref="view_more">
@@ -334,6 +338,7 @@ class HospitalDetailView extends React.Component {
 									<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a></div>
 									:<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Need Help?</a></div>
 							}
+
 
 						</div>
 						: <Loader />
