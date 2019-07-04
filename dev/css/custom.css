@@ -2404,3 +2404,36 @@ p.clnc-name{
 	margin-top: 5px;
 }
 /* ============ new pkg card ============ */
+/* ============ new time slot design ============ */
+.nw-inpt-selctr{
+	display: flex;
+    align-items: flex-end;
+    margin-top: 20px;
+}
+.nw-pick-hdng{
+	text-align: center;
+    font-weight: 500;
+    margin-right: 30px;
+    margin-left: 30px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.nw-inpt-selctr input{
+	border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #e6e5e5;
+    min-height: auto !important;
+    outline: none;
+	padding-left: 30px;
+	width: 170px;
+}
+.caln-input-tp{
+	position: relative;
+}
+.inp-nw-cal{
+	width: 20px;
+    position: absolute;
+    top: -2px;
+}
+/* ============ new time slot design ============ */
