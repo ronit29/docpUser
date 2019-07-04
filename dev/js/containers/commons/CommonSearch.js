@@ -75,7 +75,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 
 	return {
-		getElasticCriteriaResults: (searchString, type, location, callback) => dispatch(getElasticCriteriaResults(searchString, type, location, callback)),
+		getElasticCriteriaResults: (searchString, type, location, extraSearchParams) => dispatch(getElasticCriteriaResults(searchString, type, location, extraSearchParams)),
 		cloneCommonSelectedCriterias: (selectedCriterias) => dispatch(cloneCommonSelectedCriterias(selectedCriterias)),
 		mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
 		clearExtraTests: () => dispatch(clearExtraTests()),

@@ -25,7 +25,16 @@ class CommonSearch extends React.Component {
 	}
 
 	componentDidMount(){
-		this.getSearchResults = debouncer(this.getSearchResults.bind(this), 200)
+
+        if(this.props.hospital_id_search) {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'IpdHospitalSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-search', 'searched': '', 'searchString': this.state.searchValue, hospital_id: this.props.hospital_id_search
+            }
+            
+            GTM.sendEvent({ data: data })
+                
+        }
+        this.getSearchResults = debouncer(this.getSearchResults.bind(this), 200)
 	}
 
 	inputHandler(e) {
@@ -63,8 +72,15 @@ class CommonSearch extends React.Component {
         }
 
         let location = { lat: lat, long: long }
+        let searchType = ''
+        let extraSearchParams = {}
+        if(this.props.hospital_id_search) {
+            extraSearchParams.hospital_id = this.props.hospital_id_search
+            searchType = 'opd'
+        }
 
-        this.props.getElasticCriteriaResults(this.state.searchValue.trim(),'', location).then((filterSearchResults)=> {
+
+        this.props.getElasticCriteriaResults(this.state.searchValue.trim(),searchType, location, extraSearchParams).then((filterSearchResults)=> {
 
             if (filterSearchResults && filterSearchResults.suggestion) {
 
@@ -276,7 +292,7 @@ class CommonSearch extends React.Component {
 
 			<div className="articleSearchWidget">
                 <div className="articleInputContainer">
-                    <input className="artc-inp" type="text" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder="Search Doctors & Tests"  onBlur={() => this.focusOut()} />
+                    <input className="artc-inp" type="text" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.hospital_id_search?'Search Doctors':"Search Doctors & Tests"}  onBlur={() => this.focusOut()} />
                     <img className="artc-img" src={ASSETS_BASE_URL + "/images/vall.png"} />
                     {
                         this.props.commonSearch?''
@@ -299,7 +315,7 @@ class CommonSearch extends React.Component {
                                             return <li key={j} onClick={this.addCriteria.bind(this, cat)}>
                                                 <div className="serach-rslt-with-img">
                                                     {
-                                                        cat.type.includes('doctor') ?
+                                                        cat.type && cat.type.includes('doctor') ?
                                                             <InitialsPicture name={cat.name} has_image={!!cat.image_path} className="elasticInitalPic initialsPicture-ds fltr-initialPicture-ds">
                                                                 <span className="srch-rslt-wd-span usr-srch-img">
                                                                     <img style={{ width: '35px', height: '35px', borderRadius: '50%' }} className="" src={`https://cdn.docprime.com/media/${cat.image_path}`} alt={cat.name} title={cat.name} />
@@ -315,13 +331,13 @@ class CommonSearch extends React.Component {
                                                     <p style={{ padding: '0 50px 0 0' }} >
                                                         {cat.name}
                                                         {
-                                                            cat.type.includes('ipd')
+                                                            cat.type && cat.type.includes('ipd')
                                                                 ? <span className="search-span-sub">IPD Procedures</span>
                                                                 : cat.is_package && cat.is_package.length && cat.is_package[0] ?
                                                                     <span className="search-span-sub">Health Package {cat.number_of_tests && cat.number_of_tests.length && cat.number_of_tests[0] ? ` | ${cat.number_of_tests[0]} Test Included` : ''}</span>
-                                                                    : cat.type.includes("hospital")
+                                                                    : cat.type && cat.type.includes("hospital")
                                                                         ? <span className="search-span-sub">{cat.locality && Array.isArray(cat.locality) ? cat.locality.join(', ') : cat.visible_name}</span>
-                                                                        : <span className="search-span-sub">{cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name) ? cat.primary_name.slice(0, 2).join(', ') : cat.visible_name}</span>
+                                                                        : <span className="search-span-sub">{cat.type && cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name) ? cat.primary_name.slice(0, 2).join(', ') : cat.visible_name}</span>
                                                         }
                                                     </p>
                                                 </div>
@@ -332,7 +348,7 @@ class CommonSearch extends React.Component {
                                                         </div> : ''
                                                 }
                                                 {
-                                                    cat.name.includes('Aarogyam C') ?
+                                                    cat.name && cat.name.includes('Aarogyam C') ?
                                                         <div className="popular-txt">
                                                             <span className="fw-500">Popular</span>
                                                         </div> : ''

@@ -16,6 +16,7 @@ const queryString = require('query-string')
 import IpdLeadForm from '../../containers/ipd/ipdLeadForm.js'
 import ChatIpdPanel from '../commons/ChatPanel/ChatIpdPanel.js'
 import IpdOffersPage from './IpdOffersPage.js'
+import CommonSearch from '../../containers/commons/CommonSearch.js'
 
 //View all rating for hospital ,content_type = 3
 
@@ -226,7 +227,7 @@ class HospitalDetailView extends React.Component {
 								}
 								
 							</div>
-
+							<CommonSearch {...this.props} hospital_id_search={this.props.hospital_id} commonSearch={true}/>
 							<div id="doctors" ref="doctors">
 								{
 									this.props.ipd_hospital_detail && ((this.props.ipd_hospital_detail.doctors && this.props.ipd_hospital_detail.doctors.result.length) || (this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length)) ?
