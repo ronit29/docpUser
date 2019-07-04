@@ -841,6 +841,8 @@ class PatientDetailsNew extends React.Component {
             date = new Date(date).toDateString()
         }
 
+        let upcoming_date = this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length?Object.keys(this.props.upcoming_slots)[0]:''
+
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader bookingPage={true} />
@@ -892,7 +894,7 @@ class PatientDetailsNew extends React.Component {
                                                                         <span className="nw-pick-hdng">Pick date:</span>
                                                                         <div className="caln-input-tp">
                                                                             <img className="inp-nw-cal" src={ASSETS_BASE_URL + '/img/calnext.svg'} />
-                                                                            <input type="date" name="date" onChange={this.selectDate.bind(this)} value={this.state.dateTimeSelectedValue} min={this.getFormattedDate(new Date())} max={this.getFormattedDate( new Date().setDate(new Date().getDate()+24) )}/>
+                                                                            <input type="date" name="date" onChange={this.selectDate.bind(this)} value={this.state.dateTimeSelectedValue?this.state.dateTimeSelectedValue:upcoming_date} min={this.getFormattedDate(new Date())} max={this.getFormattedDate( new Date().setDate(new Date().getDate()+24) )}/>
                                                                         </div>
                                                                     </div>
                                                                 </div>
