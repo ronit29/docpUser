@@ -32,7 +32,8 @@ class HospitalTreatmentView extends React.Component {
     this.setState({treatment: treatment})
   }
 
-  goToIpdSearch(id){
+  goToIpdSearch(id, e){
+      e.preventDefault()
       let gtmData = {
           'Category': 'ConsumerApp', 'Action': 'IpdTreatmentSelectedDetailPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-treatment-selected-detail-page', 'selectedId': id || ''
       }
@@ -68,7 +69,7 @@ class HospitalTreatmentView extends React.Component {
                       <p className="accordian-dtl">
                         {
                           treatment.ipd_procedures.map((ipd, k)=> {
-                            return <h4><a key={k} href="javascript:void(0);" onClick={this.goToIpdSearch.bind(this, ipd.id)} className="treat-anch">{ipd.name}</a></h4>
+                            return <h4><a key={k} href={ipd.url?`/${ipd.url}`:`/ipdInfo?ipd_id=${ipd.id}`} onClick={this.goToIpdSearch.bind(this, ipd.id)} className="treat-anch">{ipd.name}</a></h4>
                           })
                         }
                      </p>

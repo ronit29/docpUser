@@ -43,11 +43,11 @@ class HospitalInfoView extends React.Component{
                         <RatingStars average_rating={hospital_data.rating_graph.avg_rating} rating_count={''} width="12px" height="12px" /> : ''
                 }
                 </div>
-                <h1 className="section-heading">{hospital_data.name}</h1>
+                <h1 className="section-heading">{hospital_data.name_city}</h1>
                 {
                   hospital_data.address?
                   <div className="opd-timing">
-                    <span>{hospital_data.address} </span>
+                    <h2>{hospital_data.address} </h2>
                   </div>
                   :''  
                 }

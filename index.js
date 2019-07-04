@@ -87,6 +87,11 @@ app.all('*', function (req, res) {
     /**
      * Fetch Css files
      */
+     if(req.get('host') && req.get('host').includes('www.')) {
+        let redirect_url = "https://docprime.com" + req.originalUrl
+        res.writeHead(301, { "Location": redirect_url })
+        return res.end()
+     }
     _readStyles().then((styleFiles) => {
 
         let css_file = styleFiles[0]

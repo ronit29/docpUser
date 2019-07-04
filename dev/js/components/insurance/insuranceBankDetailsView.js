@@ -126,6 +126,7 @@ class InsuranceCancellationView extends React.Component {
 				data.cancel_reason = this.props.cancel_reason
 	        	this.props.cancelInsurance(data,(resp)=> {
 					if (resp.success) {
+						this.props.clearBankDetails()
 						this.setState({ policy_number:resp.policy_number,showCancelSection:false })
 					}
 				})

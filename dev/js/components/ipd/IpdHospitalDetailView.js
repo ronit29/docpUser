@@ -211,18 +211,30 @@ class HospitalDetailView extends React.Component {
 							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} showPopup={showPopup} />
 
 							<div className="ipd-tabs-container">
-								<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'doctors' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'doctors')}>Doctors</p>
+								<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type=doctors`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'doctors' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
+									e.preventDefault()
+									this.toggleTabs('doctors')
+								}}>Doctors</a>
 								{
 									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count && false ?
-										<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'bookNow' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'bookNow')}>Book Now</p>
+										<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type=bookNow`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'bookNow' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
+											e.preventDefault()
+											this.toggleTabs('bookNow')
+										}}>Book Now</a>
 										: ''
 								}
 
-								<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'feedback' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'feedback')}>Feedback</p>
+								<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type=feedback`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'feedback' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
+									e.preventDefault()
+									this.toggleTabs('feedback')
+								}}>Feedback</a>
 
 								{
 									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.offers && this.props.ipd_hospital_detail.offers.length?
-									<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'offers' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'offers')}>Offers</p>
+									<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type=offers`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'offers' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
+										e.preventDefault()
+										this.toggleTabs('offers')
+									}}>Offers</a>
 									:''	
 								}
 								

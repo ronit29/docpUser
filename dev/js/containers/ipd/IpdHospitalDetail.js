@@ -102,7 +102,7 @@ class HospitalDetail extends React.Component {
 		let description = ""
 		if (seoData) {
 			title = seoData.name_city?`${seoData.name_city} | Book Appointment, Check Doctors List, Reviews, Contact Number`:''
-			description = seoData.name_city?`${seoData.name_city} : Get free booking on first appointment. Check ${seoData.name?seoData.name:''} Doctors List, Reviews, Contact Number, Address, Procedures and more.`:''
+			description = seoData.name_city?`${seoData.name_city} : Get free booking on first appointment.Check ${seoData.name?seoData.name:''} Doctors List, Reviews, Contact Number, Address, Procedures and more.`:''
 		}
 		return { title, description }
 	}

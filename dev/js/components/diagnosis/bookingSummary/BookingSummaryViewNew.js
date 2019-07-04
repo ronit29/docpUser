@@ -916,7 +916,7 @@ class BookingSummaryViewNew extends React.Component {
                                     <div>
                                         <section className="dr-profile-screen booking-confirm-screen">
                                             <div className="container-fluid">
-                                                <div className="row mrb-20">
+                                                <div className="row mrb-60">
                                                     <div className="col-12">
                                                         <div className="widget mrb-15 mrng-top-12" onClick={this.goToProfile.bind(this, this.props.selectedLab, labDetail.url)} style={{ cursor: 'pointer' }}>
                                                             <div className="widget-content">
@@ -1192,7 +1192,7 @@ class BookingSummaryViewNew extends React.Component {
                             }
 
                             {
-                                this.state.openCancellation ? <CancelationPolicy props={this.props} toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
+                                this.state.openCancellation ? <CancelationPolicy props={this.props} toggle={this.toggle.bind(this, 'openCancellation')} is_insurance_applicable={is_insurance_applicable}/> : ""
                             }
 
 
