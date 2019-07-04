@@ -468,7 +468,7 @@ class InsuranceSelf extends React.Component{
 	}
 
 	daysInMonth(month, year) {
-        return new Date(year, month, 0).getDate();
+        return new Date(year, month, 31).getDate();
     }
 
     populateDates(){
