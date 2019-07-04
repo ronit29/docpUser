@@ -39,7 +39,7 @@ class Insurance extends React.Component {
 		let lead_data = queryString.parse(this.props.location.search)
 		let phoneNumber = ''
 		if (!STORAGE.checkAuth() && lead_data.page_source == 'banner') {
-			this.setState({checkIdleTimeout:false, showPopup:true, popupClass: 'translucent-popup', overlayClass: 'white-overlay', identifyUserClick:'bannerClick'})
+			//this.setState({checkIdleTimeout:false, showPopup:true, popupClass: 'translucent-popup', overlayClass: 'white-overlay', identifyUserClick:'bannerClick'})
 		let data = {
 				'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopup', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-click', 'click_value': 'bannerClick'
 			}
@@ -49,7 +49,7 @@ class Insurance extends React.Component {
 		if (STORAGE.checkAuth() && this.props.USER && this.props.USER.primaryMobile != '') {
             phoneNumber = this.props.USER.primaryMobile
         }
-        this.props.generateInsuranceLead('',phoneNumber,lead_data,this.props.selectedLocation)
+        // this.props.generateInsuranceLead('',phoneNumber,lead_data,this.props.selectedLocation)
 		let selectedId = this.props.selected_plan ? this.props.selected_plan.id : ''
 		if (selectedId) {
 			this.selectPlan(this.props.selected_plan)
@@ -60,7 +60,7 @@ class Insurance extends React.Component {
 			}
 		}
 		if(this.state.checkIdleTimeout && !STORAGE.checkAuth()){
-			this.setState({popupClass: 'translucent-popup', overlayClass: 'white-overlay'})
+			//this.setState({popupClass: 'translucent-popup', overlayClass: 'white-overlay'})
 			this.inactivityTime()
 		}
 	}
@@ -136,10 +136,10 @@ class Insurance extends React.Component {
 			if (this.props.USER && this.props.USER.primaryMobile != '') {
 				phoneNumber = this.props.USER.primaryMobile
 			}
-			if (Object.keys(plan).length > 0) {
-				lead_data = parsed
-				this.props.generateInsuranceLead(plan.id, phoneNumber,lead_data,this.props.selectedLocation)
-			}
+			// if (Object.keys(plan).length > 0) {
+			// 	lead_data = parsed
+			// 	this.props.generateInsuranceLead(plan.id, phoneNumber,lead_data,this.props.selectedLocation)
+			// }
 			profileLength = Object.keys(this.props.USER.profiles).length
 			memberStoreDataLength = Object.keys(this.props.self_data_values).length
 			if (profileLength > 0 && memberStoreDataLength > 0) {
@@ -235,9 +235,9 @@ class Insurance extends React.Component {
 			let parsed = queryString.parse(this.props.location.search)
 			return (
 				<div className="profile-body-wrap">
-					<ProfileHeader />
+					<ProfileHeader showPackageStrip={true}/>
 					<HelmetTags tagsData={{
-                    	canonicalUrl: `${CONFIG.API_BASE_URL}/insurance/insurance-plans`,
+                    	canonicalUrl: `${CONFIG.API_BASE_URL}/insurance/insurance-view`,
                     	title: 'OPD Insurance | Buy OPD Insurance Cover | OPD Cover',
                     	description: 'OPD Insurance: Buy OPD insurance cover & get cashless benefits on lab tests & doctor consultation with a network of over 15000 doctors and 2000 labs.'
                 	}} noIndex={false} />                
@@ -246,11 +246,13 @@ class Insurance extends React.Component {
 							<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
 								<section className="profile-book-screen" style={{position:'relative'}}>
 									<div>
-										{/*<div>
-                                    <span style={{ cursor: 'pointer' }} onClick={this.shortenUrl.bind(this)}>
-                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
-                                    </span>
-                                </div>*/}
+										{
+											/*<div>
+			                                    <span style={{ cursor: 'pointer' }} onClick={this.shortenUrl.bind(this)}>
+			                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/url-short.svg"} style={{ width: 80 }} />
+			                                    </span>
+		                                	</div>*/
+		                            	}
 										{
 											this.state.shortURL ? <div className="shareLinkpopupOverlay" onClick={() => {
 												this.setState({ shortURL: "" })
@@ -302,13 +304,15 @@ class Insurance extends React.Component {
 										</div>
 										{/* coverage listing */}										
 									</div>
-									<div style={{position:'absolute', bottom:'-40px', right:'15px'}}><a className="fw-500" href="/terms" style={{color:"#f78631"}} onClick={(e) => {
-									e.preventDefaut();
-									this.props.history.push('/terms')
-								}}>Website T&C Apply</a></div>
+										<div style={{position:'absolute', bottom:'-40px', right:'15px'}}>
+											<a className="fw-500" href="/terms" style={{color:"#f78631"}} onClick={(e) => {e.preventDefaut();
+															this.props.history.push('/terms')}}>
+															Website T&C Apply</a>
+										</div>
 								</section>
 
-								{this.state.showPopup ?
+								{
+									this.state.showPopup ?
 									<InsurPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} popupClass={this.state.popupClass} overlayClass={this.state.overlayClass} identifyUserClick={this.state.identifyUserClick}/> : ''
 								}
 								{

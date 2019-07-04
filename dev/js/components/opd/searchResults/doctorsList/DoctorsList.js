@@ -70,10 +70,10 @@ class DoctorsList extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        if(props.filterCriteria) {
-            this.setState({ sort_on: props.filterCriteria.sort_on, sort_order: props.filterCriteria.sort_order,  availability: props.filterCriteria.availability || [] })    
+        if (props.filterCriteria) {
+            this.setState({ sort_on: props.filterCriteria.sort_on, sort_order: props.filterCriteria.sort_order, availability: props.filterCriteria.availability || [] })
         }
-        
+
     }
 
     componentWillUnmount() {
@@ -117,44 +117,49 @@ class DoctorsList extends React.Component {
         if (isArray) {
             let selectedVal = [].concat(this.state[type]) || []
             let found = false
-            value = selectedVal.filter((data)=> {
-                if(data==val){
+            value = selectedVal.filter((data) => {
+                if (data == val) {
                     found = true
                     return false
                 }
                 return true
             })
-            if(!found){
-                value.push(val)    
+            if (!found) {
+                value.push(val)
             }
         }
 
-        let filters = {...this.props.filterCriteria}
-        if(type.includes('sort_on') ) {
+        let gtmData = {
+            'Category': 'OpdQuickFilterClicked', 'Action': 'OpdQuickFilterClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-quick-filter-clicked', 'url': window.location.pathname, 'type': type, 'val': val
+        }
+        GTM.sendEvent({ data: gtmData })
 
-            if(val.includes('price_asc') || val.includes('price_desc') ){
+        let filters = { ...this.props.filterCriteria }
+        if (type.includes('sort_on')) {
 
-                if(this.state[type]=='fees' && ( (this.state['sort_order']=='asc' && val.includes('price_asc') ) || (this.state['sort_order']=='desc' && val.includes('price_desc') ) ) ){
-                    this.setState({sort_on: null, sort_order: null}, ()=> {
-                        filters = Object.assign({filters, ...this.state})
+            if (val.includes('price_asc') || val.includes('price_desc')) {
+
+                if (this.state[type] == 'fees' && ((this.state['sort_order'] == 'asc' && val.includes('price_asc')) || (this.state['sort_order'] == 'desc' && val.includes('price_desc')))) {
+                    this.setState({ sort_on: null, sort_order: null }, () => {
+                        filters = Object.assign({ filters, ...this.state })
                         this.props.applyFilters(filters)
                     })
-                }else{
-                    this.setState({sort_on: 'fees', sort_order: val.includes('price_asc')?'asc':'desc'},()=>{
-                        filters = Object.assign({filters, ...this.state})
+                } else {
+                    this.setState({ sort_on: 'fees', sort_order: val.includes('price_asc') ? 'asc' : 'desc' }, () => {
+                        filters = Object.assign({ filters, ...this.state })
                         this.props.applyFilters(filters)
                     })
                 }
-                
-            }else {
-                this.setState({ sort_on: this.state[type]==value?null:value, sort_order: null },()=> {
-                    filters = Object.assign({filters, ...this.state})
+
+            } else {
+                this.setState({ sort_on: this.state[type] == value ? null : value, sort_order: null }, () => {
+                    filters = Object.assign({ filters, ...this.state })
                     this.props.applyFilters(filters)
-                })    
+                })
             }
-        }else{
-            this.setState({ [type]: this.state[type]==value?'':value }, ()=> {
-                filters = Object.assign({filters, ...this.state})
+        } else {
+            this.setState({ [type]: this.state[type] == value ? '' : value }, () => {
+                filters = Object.assign({ filters, ...this.state })
                 this.props.applyFilters(filters)
             })
         }
@@ -168,7 +173,7 @@ class DoctorsList extends React.Component {
     }
 
 
-    detectLocation() {
+    detectLocation(type) {
         let timeout = setTimeout(() => {
             if (this.state.detectLoading) {
                 this.setState({ detectLoading: false })
@@ -177,7 +182,7 @@ class DoctorsList extends React.Component {
         }, 5000)
 
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'DetectLocationSptcitClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'detect-location-sptcit-click', 'Page': 'doctor-search'
+            'Category': 'ConsumerApp', 'Action': `DetectLocation${type}Click`, 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `Detect-Location-${type}-Click`, 'Page': 'doctor-search'
         }
         GTM.sendEvent({ data: data })
 
@@ -207,6 +212,8 @@ class DoctorsList extends React.Component {
 
     render() {
 
+        let detectFlag = true
+
         let { HOSPITALS, DOCTORS, doctorList, hospitalList } = this.props
 
         let start_page = 0
@@ -225,6 +232,21 @@ class DoctorsList extends React.Component {
             result_data = HOSPITALS
         }
 
+        let card_ID = null
+        let bookableDoctors = true
+
+        result_list.map((cardId, i) => {
+            if (detectFlag && result_data[cardId] && !result_data[cardId].hospitals[0].enabled_for_online_booking && this.props.seoFriendly && this.props.match.url.includes('-sptlitcit') && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) {
+                card_ID = cardId
+                detectFlag = false;
+            }
+            if (i == 0) {
+                if (result_data[cardId] && !result_data[cardId].hospitals[0].enabled_for_online_booking && this.props.seoFriendly && this.props.match.url.includes('-sptlitcit') && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) {
+                    bookableDoctors = false
+                }
+            }
+        })
+
         return (
             <section ref="checkIfExists">
                 {
@@ -232,7 +254,7 @@ class DoctorsList extends React.Component {
                         <div className="container-fluid cardMainPaddingRmv">
                             {
                                 this.props.search_content && this.props.search_content != '' && parseInt(this.props.page) == 1 ?
-                                    <div className="search-result-card-collpase d-none d-md-block" style={{borderRadius: '5px',marginTop: '5px'}}>
+                                    <div className="search-result-card-collpase d-none d-md-block" style={{ borderRadius: '5px', marginTop: '5px' }}>
                                         <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.search_content }} >
                                         </div>
 
@@ -269,46 +291,72 @@ class DoctorsList extends React.Component {
                                                 result_list.map((cardId, i) => {
                                                     if (result_data[cardId]) {
 
-                                                    return <React.Fragment key={i}>
+                                                        return <React.Fragment key={i}>
 
-                                                            { 
-                                                                (i == 2 && this.props.seoFriendly && this.props.match.url.includes('-sptcit') && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length)?
-                                                                <div className="d-flex align-items-center justify-content-between auto-location-widget mb-3">
-                                                                    <div className="d-flex align-items-center auto-location-text">
-                                                                        <img src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} />
-                                                                        <p className="fw-500">Show {this.props.commonSelectedCriterias[0].name} near me</p>
-                                                                    </div>
-                                                                    <div className="auto-location-btn fw-500" onClick={() => this.detectLocation()} >Detect Location</div>
-                                                                </div>
-                                                                :''
-                                                            }
                                                             {
-                                                                i==3 && (!this.state.availability || !this.state.availability.length)?
-                                                                <div className="sort-sub-filter-container mb-3">
-                                                                    <p>Filter by <span className="fw-700">Availability </span><span className="fw-500 sort-more-filter" onClick={this.viewMoreClicked.bind(this)}>More filters</span></p>
-                                                                    <div className="srt-sb-btn-cont">
-                                                                        <button className={`${this.state.availability && this.state.availability.length && this.state.availability.indexOf('1') > -1?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'availability', '1', true)}>Today</button>
-                                                                        <button className={`${this.state.availability && this.state.availability.length && this.state.availability.indexOf('2') > -1?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'availability', '2', true)}>Tomorrow</button>
-                                                                        <button className={`${this.state.availability && this.state.availability.length && this.state.availability.indexOf('3') > -1?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'availability', '3', true)}>Next 3 Days</button>
-                                                                    </div>
-                                                                </div>
-                                                                :''    
+                                                                i == 1 && !!!bookableDoctors ?
+                                                                    <li key={i}>
+                                                                        <div className="d-flex align-items-center justify-content-between auto-location-widget mb-3">
+                                                                            <div className="d-flex align-items-center auto-location-text">
+                                                                                <img src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} />
+                                                                                <p className="fw-500">See {this.props.commonSelectedCriterias[0].name} with great discounts near you</p>
+                                                                            </div>
+                                                                            <div className="auto-location-btn fw-500" onClick={() => this.detectLocation('Sptlitcit')} >Detect Location</div>
+                                                                        </div>
+                                                                    </li> : ''
                                                             }
 
                                                             {
-                                                                this.props.insurance_status != 1 && !this.state.sort_order && ( (i==6 && this.state.availability && !this.state.availability.length) || (i==3 && this.state.availability && this.state.availability.length) )?
-                                                                <div className="sort-sub-filter-container mb-3">
-                                                                    <p>Sort by <span className="fw-700"></span><span className="fw-500 sort-more-filter" onClick={this.viewMoreClicked.bind(this)}>More filters</span></p>
-                                                                    <div className="srt-sb-btn-cont">
-                                                                        <button className={`${this.state.sort_on=='fees' && this.state.sort_order=='asc'?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'sort_on', 'price_asc', false)}>Price Low to High</button>
-                                                                        <button className={`${this.state.sort_on=='fees' && this.state.sort_order=='desc'?'srt-act':''}`} onClick={this.applyQuickFilters.bind(this, 'sort_on', 'price_desc', false)}>Price High to Low</button>
+                                                                (i == 0 && this.props.seoFriendly && this.props.match.url.includes('-sptcit') && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) ?
+                                                                    <div className="d-flex align-items-center justify-content-between auto-location-widget mb-3 mrt-20">
+                                                                        <div className="d-flex align-items-center auto-location-text">
+                                                                            <img src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} />
+                                                                            <p className="fw-500">Show {this.props.commonSelectedCriterias[0].name} near me</p>
+                                                                        </div>
+                                                                        <div className="auto-location-btn fw-500" onClick={() => this.detectLocation('Sptcit')} >Detect Location</div>
                                                                     </div>
-                                                                </div>
-                                                                :''    
+                                                                    : ''
+                                                            }
+                                                            {
+                                                                i == 3 && (!this.state.availability || !this.state.availability.length) ?
+                                                                    <div className="sort-sub-filter-container mb-3">
+                                                                        <p>Filter by <span className="fw-700">Availability </span><span className="fw-500 sort-more-filter" onClick={this.viewMoreClicked.bind(this)}>More filters</span></p>
+                                                                        <div className="srt-sb-btn-cont">
+                                                                            <button className={`${this.state.availability && this.state.availability.length && this.state.availability.indexOf('1') > -1 ? 'srt-act' : ''}`} onClick={this.applyQuickFilters.bind(this, 'availability', '1', true)}>Today</button>
+                                                                            <button className={`${this.state.availability && this.state.availability.length && this.state.availability.indexOf('2') > -1 ? 'srt-act' : ''}`} onClick={this.applyQuickFilters.bind(this, 'availability', '2', true)}>Tomorrow</button>
+                                                                            <button className={`${this.state.availability && this.state.availability.length && this.state.availability.indexOf('3') > -1 ? 'srt-act' : ''}`} onClick={this.applyQuickFilters.bind(this, 'availability', '3', true)}>Next 3 Days</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    : ''
                                                             }
 
                                                             {
-                                                                i==5 && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'doctor_search_page').length && !this.state.is_insured ?
+                                                                (card_ID) && (card_ID == cardId) && (bookableDoctors) ?
+                                                                    <li key={i}>
+                                                                        <div className="d-flex align-items-center justify-content-between auto-location-widget mb-3">
+                                                                            <div className="d-flex align-items-center auto-location-text">
+                                                                                <img src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} />
+                                                                                <p className="fw-500">See more {this.props.commonSelectedCriterias[0].name} near you</p>
+                                                                            </div>
+                                                                            <div className="auto-location-btn fw-500" onClick={() => this.detectLocation('Sptlitcit')} >Detect Location</div>
+                                                                        </div>
+                                                                    </li> : ''
+                                                            }
+
+                                                            {
+                                                                this.props.insurance_status != 1 && !this.state.sort_order && ((i == 6 && this.state.availability && !this.state.availability.length) || (i == 3 && this.state.availability && this.state.availability.length)) ?
+                                                                    <div className="sort-sub-filter-container mb-3">
+                                                                        <p>Sort by <span className="fw-700"></span><span className="fw-500 sort-more-filter" onClick={this.viewMoreClicked.bind(this)}>More filters</span></p>
+                                                                        <div className="srt-sb-btn-cont">
+                                                                            <button className={`${this.state.sort_on == 'fees' && this.state.sort_order == 'asc' ? 'srt-act' : ''}`} onClick={this.applyQuickFilters.bind(this, 'sort_on', 'price_asc', false)}>Price Low to High</button>
+                                                                            <button className={`${this.state.sort_on == 'fees' && this.state.sort_order == 'desc' ? 'srt-act' : ''}`} onClick={this.applyQuickFilters.bind(this, 'sort_on', 'price_desc', false)}>Price High to Low</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    : ''
+                                                            }
+
+                                                            {
+                                                                i == 5 && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'doctor_search_page').length && !this.state.is_insured ?
                                                                     <div className="col-12">
                                                                         <BannerCarousel {...this.props} sliderLocation="doctor_search_page" />
                                                                     </div> : ''
@@ -319,6 +367,19 @@ class DoctorsList extends React.Component {
                                                                     this.props.clinic_card ? <ClinicResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} /> : <DoctorResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} />
                                                                 }
                                                             </li>
+
+                                                            {
+                                                                !!!card_ID && i == result_list.length - 1 && this.props.seoFriendly && this.props.match.url.includes('-sptlitcit') && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length ?
+                                                                    <li key={i}>
+                                                                        <div className="d-flex align-items-center justify-content-between auto-location-widget mb-3">
+                                                                            <div className="d-flex align-items-center auto-location-text">
+                                                                                <img src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} />
+                                                                                <p className="fw-500">See more {this.props.commonSelectedCriterias[0].name} near you</p>
+                                                                            </div>
+                                                                            <div className="auto-location-btn fw-500" onClick={() => this.detectLocation('Sptlitcit')} >Detect Location</div>
+                                                                        </div>
+                                                                    </li> : ''
+                                                            }
 
                                                         </React.Fragment>
                                                     } else {

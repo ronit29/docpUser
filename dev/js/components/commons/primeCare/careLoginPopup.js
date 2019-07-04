@@ -24,6 +24,7 @@ class CareLoginPopup extends React.Component{
     }
 
     submitOTPRequest(number, resendFlag = false, viaSms, viaWhatsapp) {
+        let parsed = queryString.parse(this.props.location.search)
         if (resendFlag) {
             let analyticData = {
                 'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': number, 'pageSource': parsed.login || '' , 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''}
@@ -36,7 +37,7 @@ class CareLoginPopup extends React.Component{
         }
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
-            this.props.sendOTP(number,viaSms,viaWhatsapp, (error) => {
+            this.props.sendOTP(number,viaSms,viaWhatsapp,'care-login', (error) => {
                 if (error) {
                     // this.setState({ validationError: "Could not generate OTP." })
                 } else {

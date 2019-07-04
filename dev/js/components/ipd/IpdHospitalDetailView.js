@@ -118,7 +118,6 @@ class HospitalDetailView extends React.Component {
 		let state = {}
 
 		if (specializedSearch) {
-			hospital_id = ''
 			this.props.cloneCommonSelectedCriterias({ id: this.props.specialization_id, type: 'speciality' })
 		}
 
@@ -174,17 +173,18 @@ class HospitalDetailView extends React.Component {
 		}
 		let ipd_data = {
 			showChat: true,
-			ipdFormParams: ipdFormParams
+			ipdFormParams: ipdFormParams,
+			hospital:this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id?this.props.ipd_hospital_detail.id:''
 		}
 		
 		this.setState({ showLeadForm: false, ipdFormParams: ipdFormParams }, ()=>{
 			this.props.checkIpdChatAgentStatus((response)=> {
 				if(response && response.users && response.users.length) {
 
-					this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize: true})
+					// this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize: true})
 				}
 			})
-			this.props.showChatView(ipd_data)	
+			// this.props.showChatView(ipd_data)	
 		})
 	}
 
@@ -212,7 +212,7 @@ class HospitalDetailView extends React.Component {
 							<div className="ipd-tabs-container">
 								<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'doctors' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'doctors')}>Doctors</p>
 								{
-									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count ?
+									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count && false ?
 										<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'bookNow' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'bookNow')}>Book Now</p>
 										: ''
 								}
@@ -264,7 +264,7 @@ class HospitalDetailView extends React.Component {
 								}
 							</div>
 							{
-								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count ?
+								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count && false?
 									<div id="bookNow" ref="bookNow" className="nav_top_bar">
 										<IpdFormView {...this.props} tabView={true} formSource='IpdHospitalDetailPage' />
 									</div>
@@ -324,12 +324,12 @@ class HospitalDetailView extends React.Component {
 
 
 							{
-								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.about ?
+								this.props.ipd_hospital_detail && (this.props.ipd_hospital_detail.new_about || this.props.ipd_hospital_detail.about) ?
 									<HospitalAboutUs hospital_data={this.props.ipd_hospital_detail} />
 									: ''
 							}
 							{
-								this.props.ipd_chat || showPopup?''
+								this.props.ipd_chat || showPopup || (this.props.ipd_hospital_detail && !this.props.ipd_hospital_detail.is_ipd_hospital)?''
 								:parsed.fromProcedure?
 									<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a></div>
 									:<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Need Help?</a></div>

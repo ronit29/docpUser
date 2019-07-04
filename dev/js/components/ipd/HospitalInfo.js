@@ -52,9 +52,9 @@ class HospitalInfoView extends React.Component{
                   
                 </div>
                 {
-                  hospital_data.opd_timings?
+                  hospital_data.address?
                   <div className="opd-timing">
-                    <span><b>OPD Timing:</b> {hospital_data.opd_timings} </span>
+                    <span>{hospital_data.address} </span>
                     {
                       hospital_data.open_today?
                       <span className="opd-status"> Open Today</span>
@@ -106,15 +106,15 @@ class HospitalInfoView extends React.Component{
                   }
                   
                   {
-                    hospital_data.address?
+                    hospital_data.opd_timings?
                     <li className="li-address">
-                      <div className="hsptl-title hs-tle">Address:</div>
-                      <div className="hsptl-title hsptl-add">{hospital_data.address}</div>
-                      <div className="hsptl-title">
+                      <div className="hsptl-title hs-tle">OPD Timings:</div>
+                      <div className="hsptl-title hsptl-add">{hospital_data.opd_timings}</div>
+                      {/*<div className="hsptl-title">
                         <a href={`https://www.google.com/maps/search/?api=1&query=${hospital_data.lat},${hospital_data.long}`} target="_blank">
                           <img src={ASSETS_BASE_URL + "/images/white-map.png"} alt="" className="img-fluid img-map" />
                         </a>
-                      </div>
+                      </div>*/}
                       
                     </li>
                     :''  

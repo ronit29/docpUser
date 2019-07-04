@@ -12,7 +12,8 @@ class IpdLeadForm extends React.Component {
 		this.state = {
 			name: '',
 			phone_number: '',
-			showForm: true
+			showForm: true,
+			comments:''
 /*			gender: '',
 			comments: '',
 			whatsapp_optin: true*/
@@ -56,10 +57,10 @@ class IpdLeadForm extends React.Component {
 			return
 		}
 
-		/*if (!this.state.gender) {
-			SnackBar.show({ pos: 'bottom-center', text: "Please select your gender" })
+		if (!this.state.comments) {
+			SnackBar.show({ pos: 'bottom-center', text: "Please enter your Comment" })
 			return
-		}*/
+		}
 
 		const parsed = queryString.parse(this.props.location.search)
 
@@ -75,6 +76,10 @@ class IpdLeadForm extends React.Component {
 			formData.procedure_id = this.props.procedure_id
 		}
 
+		if(this.props.doctor_id) {
+			formData.doctor = parseInt(this.props.doctor_id)
+		}
+		
 		let utm_tags = {
             utm_source: parsed.utm_source || '',
             utm_medium: parsed.utm_medium || '',
@@ -170,7 +175,7 @@ class IpdLeadForm extends React.Component {
 										:''
 									}
 
-									{
+									{/*
 										parsed.type && parsed.type.includes('offers')?
 										<React.Fragment>
 											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>Upto 30% Off on Surgery (with Implants)</span></p>
@@ -178,10 +183,10 @@ class IpdLeadForm extends React.Component {
 											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>50% Off on Physiotherapy (Post Operation)</span></p>
 											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>Dedicated Doctor for Medical Advice</span></p>
 										</React.Fragment>:''
-									}
+									*/}
 									
 									{
-										!parsed.type?
+										!parsed.type || true?
 										<React.Fragment>
 											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>{this.props.procedure_name?'Book the right Doctor/Hospital':'Get upto 30% Off on Appointments'}</span></p>
 											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>{this.props.procedure_name?'Compare Surgery Cost across Hospitals':'Instant Booking Confirmation'}</span></p>
@@ -199,10 +204,10 @@ class IpdLeadForm extends React.Component {
 										e.stopPropagation()
 										e.preventDefault()
 									}}>
-										<input type="text" value={this.state.name} name='name' placeholder="Name" onChange={this.inputHandler.bind(this)} />
-										<input type="Number" value={this.state.phone_number} name='phone_number' placeholder="Mobile Number" onChange={this.inputHandler.bind(this)} />
+										<input type="text" value={this.state.name} name='name' placeholder="*Name" onChange={this.inputHandler.bind(this)} />
+										<input type="Number" value={this.state.phone_number} name='phone_number' placeholder="*Mobile Number" onChange={this.inputHandler.bind(this)} />
 										<div className="ipd-lead-textarea">
-											<textarea placeholder="How can we help you?" style={{fontWeight:500}} rows='1' value={this.state.comments} name='comments' onChange={this.inputHandler.bind(this)}></textarea>
+											<textarea placeholder="*How can we help you?" style={{fontWeight:500}} rows='1' value={this.state.comments} name='comments' onChange={this.inputHandler.bind(this)}></textarea>
 										</div>
 										{/*<div className="d-flex align-items-center flex-wrap mrt-10">
 											<div className="dtl-radio">

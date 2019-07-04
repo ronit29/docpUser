@@ -1,4 +1,4 @@
-import { SET_SUMMARY_UTM, AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL, CLOSE_POPUP, SELECT_USER_ADDRESS } from '../../constants/types';
+import { SET_SUMMARY_UTM, AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL, CLOSE_POPUP, SELECT_USER_ADDRESS, CLEAR_INSURANCE } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import STORAGE from '../../helpers/storage'
 import NAVIGATE from '../../helpers/navigate'
@@ -6,13 +6,14 @@ import SnackBar from 'node-snackbar'
 import Axios from 'axios';
 import CONFIG from '../../config/config.js'
 
-export const sendOTP = (number,viaSms,viaWhatsapp, cb) => (dispatch) => {
+export const sendOTP = (number,viaSms,viaWhatsapp,message_type, cb) => (dispatch) => {
     dispatch({
         type: SEND_OTP_REQUEST,
         payload: {
             phoneNumber: number,
             via_sms:viaSms,
-            via_whatsapp:viaWhatsapp
+            via_whatsapp:viaWhatsapp,
+            message_type:message_type
         }
     })
 
@@ -20,7 +21,8 @@ export const sendOTP = (number,viaSms,viaWhatsapp, cb) => (dispatch) => {
         "phone_number": number,
         "request_source": "DocprimeWeb",
         "via_sms":viaSms,
-        "via_whatsapp":viaWhatsapp
+        "via_whatsapp":viaWhatsapp,
+        "message_type":message_type
     }).then(function (response) {
         SnackBar.show({ pos: 'bottom-center', text: "OTP Sent Successfuly." });
         dispatch({
@@ -148,6 +150,7 @@ export const agentLogin = (token, cb) => (dispatch) => {
             payload: {}
         })
         STORAGE.setAuthToken(token)
+        clearInsurance()(dispatch)
         cb()
     })
 }
@@ -293,3 +296,9 @@ export function chat_utm(term) {
     let url = CONFIG.CHAT_API_URL + `/livechat/healthservices/intentresponse/BasicEnquiry?text=${term}`
     return Axios.get(url)
 } 
+
+export const clearInsurance = () => (dispatch) =>{
+    dispatch({
+            type: CLEAR_INSURANCE
+        })
+}

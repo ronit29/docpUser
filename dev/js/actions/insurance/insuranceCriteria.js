@@ -1,4 +1,4 @@
-import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, INSURANCE_PAY, SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE , SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, PUSH_USER_DATA, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS, DELETE_MEMBER_PROOF, SAVE_INSURANCE_BANK_DETAILS, SAVE_AVAIL_NOW_INSURANCE} from '../../constants/types';
+import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, INSURANCE_PAY, SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE , SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, PUSH_USER_DATA, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS, DELETE_MEMBER_PROOF, SAVE_INSURANCE_BANK_DETAILS, SAVE_AVAIL_NOW_INSURANCE, CLEAR_AVAIL_NOW_INSURANCE, CANCEL_REASON_INSURANCE, CLEAR_BANK_DETAILS_INSURANCE} from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
 export const getInsurance = (is_endorsement,callback) => (dispatch) => {
@@ -137,11 +137,6 @@ export const resetSelectedPlans = () => (dispatch) => {
     dispatch({
         type:RESET_INSURED_PLANS
     })
-}
-export const clearInsurance = () => (dispatch) =>{
-    dispatch({
-            type: CLEAR_INSURANCE
-        })
 }
 export const generateInsuranceLead = (selectedPlan, number,lead_data,selectedLocation,callback) => (dispatch) => {
     let lat
@@ -314,5 +309,22 @@ export const saveAvailNowInsurance = (criteria) => (dispatch) => {
     dispatch({
         type:SAVE_AVAIL_NOW_INSURANCE,
         payload:criteria
+    })
+}
+
+export const clearAvailNowInsurance = () => (dispatch) => {
+    dispatch({
+        type:CLEAR_AVAIL_NOW_INSURANCE
+    })
+}
+export const cancelReason = (criteria) => (dispatch) => {
+    dispatch({
+        type:CANCEL_REASON_INSURANCE,
+        payload:criteria
+    })
+}
+export const clearBankDetails = () => (dispatch) => {
+    dispatch({
+        type:CLEAR_BANK_DETAILS_INSURANCE
     })
 }

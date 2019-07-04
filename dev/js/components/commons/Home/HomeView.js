@@ -409,10 +409,15 @@ class HomeView extends React.Component {
 		}
 
 		return (
-			<div className="profile-body-wrap">
+			<div className="profile-body-wrap fxd-ftr-btm-pdng">
 
 				<HelmetTags tagsData={{
-					canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
+					canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+					ogUrl: 'https://docprime.com',
+					ogType: 'website',
+                    ogTitle: 'Book Doctor Online | 50% Off on Doctor Appointment & Lab Tests',
+					ogDescription: 'Book Doctor Appointment at Docprime & get 50% off. Find & Book Doctor online, find & Book best Labs, and & Hospitals.',
+					ogImage: 'https://cdn.docprime.com/media/banner/images/1200X628.png'
 				}} setDefault={true} />
 
 				<ProfileHeader homePage={true} showSearch={true} showPackageStrip={showPackageStrip}/>

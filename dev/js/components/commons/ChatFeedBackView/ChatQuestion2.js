@@ -1,5 +1,6 @@
 import React from 'react'
 import GTM from '../../../helpers/gtm.js'
+import SnackBar from 'node-snackbar'
 
 class ChatQuestion2 extends React.Component {
 	constructor(props){
@@ -24,6 +25,10 @@ class ChatQuestion2 extends React.Component {
 	}
 
 	saveFeedBack(data){
+		if(!this.state.feedback) {
+			SnackBar.show({ pos: 'bottom-center', text: "Please answer the Question" })
+			return
+		}
 		data = {
 			feedback: this.state.feedback,
 			question:'How have your symptoms improved with our treatment?'
@@ -91,7 +96,7 @@ class ChatQuestion2 extends React.Component {
 		             </ul>
 		            </div>
 		            <div className="cf-footer">
-		               <a href="javascript:void(0);" onClick={()=>this.props.history.push('/chat/feedback/ques1')} className="cf-btn cf-prev"> 
+		               <a href="javascript:void(0);" onClick={()=>this.props.history.push('/chat/feedback')} className="cf-btn cf-prev"> 
 		                   <img src="/assets/images/right_arrow.png" alt="r-arrow" className="cf-img cf-rotate" />
 		                   PREVIOUS
 		               </a>

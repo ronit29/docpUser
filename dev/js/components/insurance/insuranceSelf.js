@@ -67,9 +67,9 @@ class InsuranceSelf extends React.Component{
     		let oldDate
     		if(Object.keys(this.props.self_data_values).length>0){
     			profile= Object.assign({}, this.props.self_data_values[this.props.user_data[0].id])
-    			if(Object.keys(profile).length>0){
+    			if(Object.keys(profile).length>0 && profile.dob){
 	    			oldDate= profile.dob.split('-')
-				    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+				    	this.setState({year:oldDate[0],mnth:oldDate[2],day:oldDate[1]},()=>{
 				    		this.populateDates()
 				    })
 				}
@@ -78,10 +78,12 @@ class InsuranceSelf extends React.Component{
 	    			})
     		}else{
     			if(this.props.user_data && this.props.user_data.length > 0){
-    				oldDate= this.props.user_data[0].dob.split('-')
-			    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
-			    		this.populateDates()
-			    	})
+    				if(this.props.user_data[0].dob){
+	    				oldDate= this.props.user_data[0].dob.split('-')
+				    	this.setState({year:oldDate[0],mnth:oldDate[2],day:oldDate[1]},()=>{
+				    		this.populateDates()
+				    	})
+				    }
 	    			this.setState({...this.props.user_data[0], name:this.props.user_data[0].first_name,member_type:this.props.member_type, profile_id:this.props.user_data[0].profile,is_change:false,town_code:this.props.user_data[0].city_code},()=>{
 	    				this.handleSubmit(true)
 	    			})
@@ -95,8 +97,8 @@ class InsuranceSelf extends React.Component{
     	let self = this
     	let profileLength = Object.keys(props.USER.profiles).length;
     	if(profileLength > 0 && this.state.profile_flag && !props.is_endorsement){
+    		let isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
 	    	if(Object.keys(props.self_data_values).length>0){
-	    		let isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
 	    		let profile
 	    		if(!isDummyUser){
 	    			profile= Object.assign({}, props.self_data_values[props.USER.defaultProfile])
@@ -126,8 +128,9 @@ class InsuranceSelf extends React.Component{
 		    	let profile  = Object.assign({}, props.USER.profiles[props.USER.defaultProfile])
 					newName =  profile.name.split(" ")
 					this.getUserDetails(profile)
+					this.populateDates()
     		}	    	
-    	}else{
+    	}else if(props.is_endorsement){
     		this.populateDates()
     	}
     }
@@ -135,6 +138,7 @@ class InsuranceSelf extends React.Component{
     getUserDetails(profile){
 		let newName=[]
 		let oldDate
+		let tempArray
 	    newName =  profile.name.split(" ")
 	    if(newName.length == 2){
 	    	this.setState({
@@ -144,12 +148,17 @@ class InsuranceSelf extends React.Component{
 	    	this.setState({name:profile.isDummyUser?'':newName[0],
 			last_name:profile.isDummyUser?'':newName[2],
 			middle_name:profile.isDummyUser?'':newName[1]})
+		}else if(newName.length >3){
+			tempArray = newName.slice(2,newName.length)
+	    	this.setState({name:profile.isDummyUser?'':newName[0],
+			last_name:profile.isDummyUser?'':tempArray.join(' '),
+			middle_name:profile.isDummyUser?'':newName[1]})
 	    }else{
 	    	this.setState({name:profile.isDummyUser?'':profile.name})
 	    }
 	    if(profile.isDummyUser && profile.dob){
 	    	this.setState({day:null,year:null,mnth:null})
-	    }else if(Object.keys(profile).length > 0 &&  profile.dob){
+	    }else if(Object.keys(profile).length > 0 && profile.dob){
 	    	oldDate= profile.dob.split('-')
 	    	this.setState({year:oldDate[0],mnth:oldDate[1],day:oldDate[2]},()=>{
 	    		this.populateDates()
@@ -459,7 +468,7 @@ class InsuranceSelf extends React.Component{
 	}
 
 	daysInMonth(month, year) {
-        return new Date(year, month, 0).getDate();
+        return new Date(year, month, 31).getDate();
     }
 
     populateDates(){
@@ -472,33 +481,58 @@ class InsuranceSelf extends React.Component{
         var today = new Date(),
             day = today.getUTCDate(),
             month = today.getUTCMonth(),
-            year = today.getUTCFullYear()-age_threshold + 1,
+            year = today.getUTCFullYear()-age_threshold,
             currentYear = today.getUTCFullYear(),
             daysInCurrMonth = this.daysInMonth(month, year);
-		
+			
+			daydropdown.innerHTML = ''
+			monthdropdown.innerHTML = ''
+			yeardropdown.innerHTML = ''
+
+		var opt_dd = document.createElement('option');
+			opt_dd.value = 'DD'
+          	opt_dd.text = 'DD'
+          	opt_dd.hidden = true
+          	daydropdown.appendChild(opt_dd);
+        var opt_mm = document.createElement('option');
+			opt_mm.value = 'MM'
+          	opt_mm.text = 'MM'
+          	opt_mm.hidden = true
+          	monthdropdown.appendChild(opt_mm);
+        var opt_yy = document.createElement('option');
+			opt_yy.value = 'YYYY'
+          	opt_yy.text = 'YYYY'
+          	opt_yy.hidden = true
+          	yeardropdown.appendChild(opt_yy);
+          		
 		// Day
         for(var i = 1; i <= daysInCurrMonth; i++){
           var opt = document.createElement('option');
-          if(i<=9){
+          if(i<=9){	
           	opt.value = '0' + i;
           	opt.text = '0' + i;
           }else{
           	opt.value = i;
           	opt.text = i;
           }
+
           daydropdown.appendChild(opt);
         }
         // Month
         for(var i = 0; i < 12; i++){
           var opt = document.createElement('option');
+          opt.value = 'MM'
+          opt.text = 'MM'
           opt.value = default_months[i]
           opt.text = default_months[i]
           monthdropdown.appendChild(opt);
         }
 
         // Year
-        for(var i = 0; i < age_threshold; i++){
+        for(var i = 0; i <= age_threshold; i++){
           var opt = document.createElement('option');
+          opt.value = 'YYYY'
+          opt.text = 'YYYY'
           opt.value = i + year;
           opt.text = i + year;
           yeardropdown.appendChild(opt);

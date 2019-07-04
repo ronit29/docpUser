@@ -117,6 +117,10 @@ class packagesList extends React.Component {
             catId: viewMore?[]:[category],
             viewMore: viewMore
         }
+        let gtmData = {
+            'Category': 'PackageQuickFilterClicked', 'Action': 'PackageQuickFilterClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'package-quick-filter-clicked', 'url': window.location.pathname, 'type': category
+        }
+        GTM.sendEvent({ data: gtmData })
         this.props.applyQuickFilter(filters)
     }
 
@@ -217,7 +221,7 @@ class packagesList extends React.Component {
                                                                         <BannerCarousel {...this.props} sliderLocation={this.props.forTaxSaver ? "tax_saver_packages_page" : this.props.forOrganicSearch ? 'full_body_chechkup_page' : 'search_packages_page'} />
                                                                     </div> : ''
                                                             }
-                                                            <li id={`scrollById_${packages.id}_${packages.lab.id}`}>
+                                                            <li id={`scrollById_${packages.id}`}>
                                                                 <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
                                                             </li>
                                                            </React.Fragment>

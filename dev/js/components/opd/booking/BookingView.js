@@ -34,7 +34,8 @@ class BookingView extends React.Component {
             showCancel: false,
             payment_success: this.props.location.search.includes('payment_success'),
             hide_button: this.props.location.search.includes('payment_success') || this.props.location.search.includes('hide_button'),
-            isCompleted:false
+            isCompleted: false,
+            showPopup: false
         }
     }
 
@@ -50,13 +51,13 @@ class BookingView extends React.Component {
             if (!err) {
                 this.setState({ data: data[0], loading: false }, () => {
 
-                    if(smsComplete){
-                        if(data[0].status != 7){
-                            this.getAppointment()
+                    if (smsComplete) {
+                        if (data[0].status != 7) {
+                            this.setState({ showPopup: true })
                         }
                     }
                 })
-                
+
                 let info = {}
                 info[appointmentId] = []
                 info[appointmentId].push({ 'booking_id': appointmentId, 'mrp': data.length ? data[0].mrp : '', 'deal_price': data.length ? data[0].deal_price : '' })
@@ -166,6 +167,13 @@ class BookingView extends React.Component {
         this.props.history.push(where)
     }
 
+    popupBtnClick(flag) {
+        if (flag) {
+            this.getAppointment();
+        }
+        this.setState({ showPopup: false })
+    }
+
     render() {
 
         let doctor = {}
@@ -200,9 +208,29 @@ class BookingView extends React.Component {
             <div className="profile-body-wrap">
                 {summary_utm_tag}
                 {
-                    this.state.isCompleted?<RatingsPopUp {...this.props} />:''
+                    this.state.isCompleted ? <RatingsPopUp {...this.props} /> : ''
                 }
                 <ProfileHeader />
+
+
+                {
+                    this.state.showPopup ?
+                        <div className="search-el-popup-overlay" >
+                            <div className="search-el-popup">
+                                <div className="widget">
+                                    <div className="widget-content padiing-srch-el">
+                                        <p className="srch-el-conent">Are you sure you want to complete this appointment?</p>
+                                        <div className="search-el-btn-container">
+                                            <button onClick={() => this.popupBtnClick(true)}>Yes</button>
+                                            <button onClick={() => this.popupBtnClick(false)}>No</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> : ''
+                }
+
+
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <LeftBar />
@@ -326,7 +354,8 @@ class BookingView extends React.Component {
                                                             <h4 className="title"><span><img style={{ marginRight: '10px' }} className="visit-time-icon" src={ASSETS_BASE_URL + "/img/watch-date.svg"} /></span>Clinic Visit Time
 
                                                                 {
-                                                                    actions.indexOf(4) > -1 ? <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""
+                                                                    (actions.indexOf(4) > -1) && (new Date(date).getTime() > new Date().getTime()) ?
+                                                                        <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""
                                                                 }
 
                                                             </h4>

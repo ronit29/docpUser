@@ -255,7 +255,7 @@ class DoctorProfileView extends React.Component {
         }
         
         this.setState({ showIpdLeadForm: false }, ()=>{
-            this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize:true})   
+            // this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize:true})   
         })
     }
 

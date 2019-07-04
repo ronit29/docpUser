@@ -50,12 +50,9 @@ class InsuranceCommon extends React.Component{
 										<p className="fw-500">₹ {this.props.selected_plan.amount}</p>
 									</div>
 								</div>
-							{
-								this.props.is_edit ?
-									<div className="mrt-10" style={{cursor:'pointer', paddingLeft:5}} onClick={()=>{this.props.is_edit?this.props.history.push('/insurance/insurance-plans'):this.props.history.push('/insurance/insurance-user-details')}}>
-										<p className="fw-500 text-primary">Select another plan</p>
-									</div>:''
-							}
+								<div className="mrt-10" style={{cursor:'pointer', paddingLeft:5}} onClick={()=>{this.props.is_edit?this.props.history.push('/insurance/insurance-plan-view'):this.props.history.push('/insurance/insurance-user-details')}}>
+									<p className="fw-500 text-primary">{this.props.is_edit?'Select another plan':'Edit'}</p>
+								</div>
 							</div> : ''
 							// <table className="table table-bordered insurance-tbl insurance-checkboxes">
 						// 	<thead>
@@ -83,65 +80,65 @@ class InsuranceCommon extends React.Component{
 						// 	</tbody>
 						// </table>
 					}
-					{
-					this.props.isSelectPlan?
-					<div className="ins-swich-tabs-container">
-						<div className="ins-tabs">
-							<ul>
-								<li onClick={()=> this.setState({toggle:'one'})}>
-									<p className={this.state.toggle == "one"?'active':'ins-tab-inactive'} >Salient Features</p>
-								</li>
-								<li onClick={()=> this.setState({toggle:'two'})}>
-									<p className={this.state.toggle == "two"?'active ':'ins-tab-inactive'} >What's not Covered?</p></li>
-							</ul>
-						</div>
-						<div className="ins-tabs-content">
-							<div style={{paddingBottom:10}}>													
-								{
-									this.state.toggle == "one"?
-									Object.values(this.props.insurnaceData['insurance'][0].plans).filter(x=>x.id==this.props.is_checked).map((selected_plan,i) => {
-										return (<ul key={i}>
-										{selected_plan.content['salient_features'].map((result, i) => { 
-												return <li key={i}>
-												<p>{result}</p>
-												</li>})
-										}
-										</ul>)					
-									})
-									:Object.values(this.props.insurnaceData['insurance'][0].plans).filter(x=>x.id==this.props.is_checked).map((selected_plan,i) => {
-										return (<ul key={i}>
-										{selected_plan.content['whats_not_covered'].map((result, i) => { 
+					{/*
+						this.props.isSelectPlan?
+						<div className="ins-swich-tabs-container">
+							<div className="ins-tabs">
+								<ul>
+									<li onClick={()=> this.setState({toggle:'one'})}>
+										<p className={this.state.toggle == "one"?'active':'ins-tab-inactive'} >Salient Features</p>
+									</li>
+									<li onClick={()=> this.setState({toggle:'two'})}>
+										<p className={this.state.toggle == "two"?'active ':'ins-tab-inactive'} >What's not Covered?</p></li>
+								</ul>
+							</div>
+							<div className="ins-tabs-content">
+								<div style={{paddingBottom:10}}>													
+									{
+										this.state.toggle == "one"?
+										Object.values(this.props.insurnaceData['insurance'][0].plans).filter(x=>x.id==this.props.is_checked).map((selected_plan,i) => {
+											return (<ul key={i}>
+											{selected_plan.content['salient_features'].map((result, i) => { 
 													return <li key={i}>
 													<p>{result}</p>
 													</li>})
-										}	
-										</ul>)					
-									}) 
-						        }
-						        {this.state.toggle == 'one'?
-						        <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-									<a style={{paddingLeft: '12px',fontWeight: '500',fontSize: '12px',color:'#f78631',textDecoration: 'underline',cursor: 'pointer'}} href={this.props.insurnaceData['insurance'][0].insurer_document} download target="_blank" id="terms_condition">T&C apply</a>
-									<a style={{paddingRight: '12px',fontWeight: '500',fontSize: '12px',color:'#f78631',textDecoration: 'underline',cursor: 'pointer'}} href='/insurance/network' onClick={(e)=>{
-										e.preventDefault();
-										this.props.history.push('/insurance/network')
-									}}>View Network</a>
-						        </div>
-						        :''
-						        }	
-							</div>												
+											}
+											</ul>)					
+										})
+										:Object.values(this.props.insurnaceData['insurance'][0].plans).filter(x=>x.id==this.props.is_checked).map((selected_plan,i) => {
+											return (<ul key={i}>
+											{selected_plan.content['whats_not_covered'].map((result, i) => { 
+														return <li key={i}>
+														<p>{result}</p>
+														</li>})
+											}	
+											</ul>)					
+										}) 
+							        }
+							        {this.state.toggle == 'one'?
+							        <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+										<a style={{paddingLeft: '12px',fontWeight: '500',fontSize: '12px',color:'#f78631',textDecoration: 'underline',cursor: 'pointer'}} href={this.props.insurnaceData['insurance'][0].insurer_document} download target="_blank" id="terms_condition">T&C apply</a>
+										<a style={{paddingRight: '12px',fontWeight: '500',fontSize: '12px',color:'#f78631',textDecoration: 'underline',cursor: 'pointer'}} href='/insurance/network' onClick={(e)=>{
+											e.preventDefault();
+											this.props.history.push('/insurance/network')
+										}}>View Network</a>
+							        </div>
+							        :''
+							        }	
+								</div>												
+							</div>
 						</div>
-					</div>
-				:''
-				}
+					:''
+					*/}
 				</div>
 				<div className="ins-status-container">
 					<div className="navigation_menu" id="">
 						<ul className="navigation_tabs" id="">
 							<li className="tab_inactive">
-								<a href="#">Select Plan</a>
+								<a href="#">Choose Your Plan</a>
 							</li>
 							<li className={this.props.isSelectPlan?'':'tab_inactive'}>
-								<a href="#">Member Details</a>
+								<a href="#">Fill Member Details</a>
 							</li>
 							<li className="tab_disabled">
 								<a href="#">Payment</a>

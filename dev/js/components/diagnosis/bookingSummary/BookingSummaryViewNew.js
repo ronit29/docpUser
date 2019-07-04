@@ -163,8 +163,12 @@ class BookingSummaryViewNew extends React.Component {
             }
 
             // if no coupon is applied
-            if (!nextProps.labCoupons[this.props.selectedLab] || (nextProps.labCoupons[this.props.selectedLab] && nextProps.labCoupons[this.props.selectedLab].length == 0)) {
+            if (!nextProps.labCoupons[this.props.selectedLab]) {
                 this.getAndApplyBestCoupons(nextProps)
+            }
+
+            if (nextProps.labCoupons[this.props.selectedLab] && nextProps.labCoupons[this.props.selectedLab].length == 0) {
+                this.props.resetLabCoupons()
             }
         }
     }
@@ -181,7 +185,7 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     getAndApplyBestCoupons(nextProps) {
-        if (nextProps.couponAutoApply) {
+        // if (nextProps.couponAutoApply) {
             let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
             this.props.getCoupons({
@@ -204,9 +208,9 @@ class BookingSummaryViewNew extends React.Component {
                     this.setState({ coupon_loading: false })
                 }
             })
-        } else {
-            this.setState({ coupon_loading: false })
-        }
+        // } else {
+        //     this.setState({ coupon_loading: false })
+        // }
     }
 
     getLabPriceData(nextProps) {
@@ -930,16 +934,22 @@ class BookingSummaryViewNew extends React.Component {
                                     <div>
                                         <section className="dr-profile-screen booking-confirm-screen">
                                             <div className="container-fluid">
-                                                <div className="row mrb-20">
+                                                <div className="row mrb-60">
                                                     <div className="col-12">
                                                         <div className="widget mrb-15 mrng-top-12" onClick={this.goToProfile.bind(this, this.props.selectedLab, labDetail.url)} style={{ cursor: 'pointer' }}>
                                                             <div className="widget-content">
                                                                 <div className="lab-visit-time d-flex jc-spaceb">
-                                                                    <h4 className="title d-flex"><span>
-                                                                        <img style={{ width: '22px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/hospital.svg"} />
-                                                                    </span>
+                                                                    <h4 className="title d-flex">
+                                                                        <span>
+                                                                            <img style={{ width: '22px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/hospital.svg"} />
+                                                                        </span>
                                                                         <p className="lab-crd-txt-pr">{labDetail.name}
-                                                                            <span>{labDetail.address || ''}</span></p></h4>
+                                                                            {
+                                                                                this.props.selectedAppointmentType == 'lab' ?
+                                                                                    <span>{labDetail.address || ''}</span> : ''
+                                                                            }
+                                                                        </p>
+                                                                    </h4>
                                                                     {/*<div className="float-right  mbl-view-formatting text-right">
                                                                         <a href="" style={{ width: '100px', display: 'inline-block' }} onClick={(e) => {
                                                                             e.preventDefault()
@@ -1200,7 +1210,7 @@ class BookingSummaryViewNew extends React.Component {
                             }
 
                             {
-                                this.state.openCancellation ? <CancelationPolicy props={this.props} toggle={this.toggle.bind(this, 'openCancellation')} /> : ""
+                                this.state.openCancellation ? <CancelationPolicy props={this.props} toggle={this.toggle.bind(this, 'openCancellation')} is_insurance_applicable={is_insurance_applicable}/> : ""
                             }
 
 

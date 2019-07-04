@@ -11,11 +11,21 @@ class TopHospitalWidgets extends React.Component {
         }
         GTM.sendEvent({ data: gtmData })
 
+        let redirectUrl = ''
+
         if(data.url) {
-            this.props.history.push(`/${data.url}?showPopup=true&get_feedback=1`)
+            redirectUrl = `/${data.url}?showPopup=true`
         }else {
-            this.props.history.push(`/ipd/hospital/${data.id}?showPopup=true&get_feedback=1`)
+            redirectUrl = `/ipd/hospital/${data.id}?showPopup=true`
         }
+
+        /*if(this.props.is_ipd_form_submitted){
+
+        }else {
+            redirectUrl+= '&get_feedback=1'
+        }*/
+
+        this.props.history.push(redirectUrl)
     }
 
     scroll(type) {
@@ -47,7 +57,7 @@ class TopHospitalWidgets extends React.Component {
 	render(){
 
 		return(
-		     <div className="pakg-slider-container">
+		     <div className="pakg-slider-container mb-10">
                 <div className="pkgSliderHeading">
                     <h5>Top Hospitals</h5>
                     {/*<span>View All</span>*/}
@@ -56,7 +66,7 @@ class TopHospitalWidgets extends React.Component {
                     <div className='pkgCardsList d-inline-flex sub-wd-cards top_hospitals_list'>
                     	{
                     		this.props.top_data.map((data, i) => {
-                    			return <a key={this.props.mergeState?i:data.logo} href={data.url?`/${data.url}`:`/ipd/hospital/${data.id}`} className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
+                    			return <a key={this.props.mergeState?i:data.logo?data.logo:i} href={data.url?`/${data.url}`:`/ipd/hospital/${data.id}`} className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
 				                            <div className="pkgcardImgCont">
 				                                <img style={{width:82}} className="img-fluid" src={data.logo} />
 				                            </div>
