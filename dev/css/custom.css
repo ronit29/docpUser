@@ -2404,3 +2404,40 @@ p.clnc-name{
 	margin-top: 5px;
 }
 /* ============ new pkg card ============ */
+/* ============ new chat feedback qa ============ */
+h3.nechatheding{
+	color: #f78631;
+    font-weight: 500;
+    font-size: 16px;
+}
+.chat-qa-cont {
+    margin-top: 20px;
+    text-align: left;
+}
+.chat-qa-cont h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+ul.chat-qa-listing {
+    padding-left: 15px;
+}
+ul.chat-qa-listing li {
+    margin-bottom: 10px;
+}
+ul.chat-qa-listing li .rate-feed-text {
+    font-size: 13px;
+    font-weight: 400;
+}
+ul.chat-qa-listing li span.checkmark {
+    border-color: #f78631;
+    border-radius: 0px;
+}
+.chat-qa-cont textarea{
+	width: 100%;
+    border-radius: 5px;
+    border-color: rgba(0, 0, 0, 0.12);
+	min-height: 80px;
+	outline: none;
+}
+/* ============ new chat feedback qa ============ */
