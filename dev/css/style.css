@@ -11957,3 +11957,9 @@ ul.chat-radio-align .custom-radio .radio-checkmark.checkmark:after{
     top:5px;
     left: 5px;
 }
+.disable_coupon{
+	pointer-events: none;
+    filter: grayscale(1);
+    opacity: .7;
+    cursor: no-drop;
+}
