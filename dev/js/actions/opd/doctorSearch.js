@@ -255,13 +255,14 @@ export const getDoctorByUrl = (doctor_url, hospitalId = "", procedure_ids = "", 
 	})
 }
 
-export const selectOpdTimeSLot = (slot, reschedule = false, appointmentId = null) => (dispatch) => {
+export const selectOpdTimeSLot = (slot, reschedule = false, appointmentId = null, extraDateParams=null) => (dispatch) => {
 	dispatch({
 		type: SELECT_OPD_TIME_SLOT,
 		payload: {
 			reschedule,
 			slot,
-			appointmentId
+			appointmentId,
+			extraDateParams
 		}
 	})
 }

@@ -23,6 +23,9 @@ import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup.js'
 import IpdLeadForm from '../../../containers/ipd/ipdLeadForm.js'
 
+const MONTHS = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+const WEEK_DAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
+
 
 class PatientDetailsNew extends React.Component {
     constructor(props) {
@@ -54,7 +57,8 @@ class PatientDetailsNew extends React.Component {
             showConfirmationPopup: false,
             coupon_loading: false,
             seoFriendly: this.props.match.url.includes('-dpp'),
-            showIpdLeadForm: true
+            showIpdLeadForm: true,
+            dateTimeSelectedValue :''
         }
     }
 
@@ -205,6 +209,10 @@ class PatientDetailsNew extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        //Ref to update date every time on route
+        if(nextProps.selectedDateFormat && nextProps.selectedDateFormat!= this.state.dateTimeSelectedValue) {
+            this.setState({dateTimeSelectedValue: nextProps.selectedDateFormat })
+        }
         if (!this.state.couponApplied && nextProps.DOCTORS[this.props.selectedDoctor]) {
             let hospital = {}
             let doctorDetails = nextProps.DOCTORS[this.props.selectedDoctor]
@@ -685,6 +693,33 @@ class PatientDetailsNew extends React.Component {
         })
     }
 
+    selectDate(e){
+        let slot = { time: {} }
+        let date = e.target.value
+        this.setState({dateTimeSelectedValue: date})
+        this.props.selectOpdTimeSLot(slot, false, null, date)
+    }
+
+    getFormattedDate(date) {
+        date = new Date(date)
+        var dd = date.getDate();
+
+        var mm = date.getMonth()+1; 
+        var yyyy = date.getFullYear();
+        if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        }
+
+        var today = yyyy+'-'+mm+'-'+dd;
+        return today
+    }
+
     render() {
         const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
@@ -797,6 +832,15 @@ class PatientDetailsNew extends React.Component {
         }
 
         let is_add_to_card = STORAGE.isAgent() || !is_default_user_insured
+
+        //Select Next Upcoming Date 
+        
+        let { date, time } = this.props.selectedSlot
+
+        if (date) {
+            date = new Date(date).toDateString()
+        }
+
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader bookingPage={true} />
@@ -832,6 +876,8 @@ class PatientDetailsNew extends React.Component {
                                                         />
                                                         {/* new time slot */}
                                                         <div className="widget mrb-15">
+                                                        {
+                                                            ( (this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length) || (this.props.selectedSlot && this.props.selectedSlot.date) || (this.props.selectedDateFormat))?
                                                             <div className="widget-content pos-relative">
                                                                 <div className="lab-visit-time d-flex jc-spaceb mb-0">
                                                                     <h4 className="title mb-0">
@@ -846,7 +892,7 @@ class PatientDetailsNew extends React.Component {
                                                                         <span className="nw-pick-hdng">Pick date:</span>
                                                                         <div className="caln-input-tp">
                                                                             <img className="inp-nw-cal" src={ASSETS_BASE_URL + '/img/calnext.svg'} />
-                                                                            <input type="date" name="bday" />
+                                                                            <input type="date" name="date" onChange={this.selectDate.bind(this)} value={this.state.dateTimeSelectedValue} min={this.getFormattedDate(new Date())} max={this.getFormattedDate( new Date().setDate(new Date().getDate()+24) )}/>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -855,22 +901,23 @@ class PatientDetailsNew extends React.Component {
                                                                         <span className="nw-pick-hdng">Pick Time:</span>
                                                                         <div className="caln-input-tp">
                                                                             <img className="inp-nw-cal" src={ASSETS_BASE_URL + '/img/nw-watch.svg'} />
-                                                                            <input type="text" name="bday" placeholder="Select" />
+                                                                            <input type="text" name="bday" placeholder="Select" value ={time && time.text?`${date?`${WEEK_DAYS[new Date(date).getDay()]}, ${new Date(date).getDate()} ${MONTHS[new Date(date).getMonth()]}`:''} ${time.text ? "|" : ""} ${time.text} ${time.text ? (time.value >= 12 ? 'PM' : 'AM') : ''}`:''} onClick={()=>this.navigateTo('time')}/>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div>:<p>No Time Slot Available</p>
+                                                        }
                                                         </div>
                                                         {/* new time slot */}
 
 
-                                                        <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError}
+                                                        {/*<VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError}
 
                                                             timeSlots={this.props.timeSlots}
                                                             selectTimeSlot={this.selectTimeSlot.bind(this)}
                                                             doctor_leaves={this.props.doctor_leaves || []}
                                                             upcoming_slots={this.props.upcoming_slots || null}
-                                                        />
+                                                        />*/}
                                                         <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} />
                                                         {
                                                             Object.values(selectedProcedures).length ?

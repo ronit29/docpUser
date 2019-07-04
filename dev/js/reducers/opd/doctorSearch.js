@@ -26,7 +26,8 @@ const defaultState = {
     show404: false,
     payment_type: 1,
     canonical_url: null,
-    hospitalData: null
+    hospitalData: null,
+    selectedDateFormat: null
 }
 
 export default function (state = defaultState, action) {
@@ -136,6 +137,8 @@ export default function (state = defaultState, action) {
             }
 
             newState.selectedSlot = { ...action.payload.slot }
+
+            newState.selectedDateFormat = action.payload.extraDateParams
 
             return newState
         }

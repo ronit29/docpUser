@@ -60,11 +60,11 @@ const mapStateToProps = (state) => {
 
     let DOCTORS = state.DOCTOR_PROFILES
 
-    let { selectedSlot, rescheduleSlot, selectedDoctorProcedure, commonProfileSelectedProcedures } = state.DOCTOR_SEARCH
+    let { selectedSlot, rescheduleSlot, selectedDoctorProcedure, commonProfileSelectedProcedures, selectedDateFormat } = state.DOCTOR_SEARCH
 
     let { commonProcedurers } = state.SEARCH_CRITERIA_OPD
     return {
-        DOCTORS, selectedSlot, rescheduleSlot, commonProcedurers, selectedDoctorProcedure, commonProfileSelectedProcedures
+        DOCTORS, selectedSlot, rescheduleSlot, commonProcedurers, selectedDoctorProcedure, commonProfileSelectedProcedures, selectedDateFormat
     }
 }
 
@@ -72,7 +72,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getDoctorById: (doctorId, clinicId, procedure_ids, category_ids) => dispatch(getDoctorById(doctorId, clinicId, procedure_ids, category_ids)),
         getTimeSlots: (doctorId, clinicId, callback) => dispatch(getTimeSlots(doctorId, clinicId, callback)),
-        selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId))
+        selectOpdTimeSLot: (slot, reschedule, appointmentId, dateParam) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId, dateParam))
     }
 }
 
