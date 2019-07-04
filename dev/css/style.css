@@ -11960,6 +11960,14 @@ ul.chat-radio-align .custom-radio .radio-checkmark.checkmark:after{
 .disable_coupon{
 	pointer-events: none;
     filter: grayscale(1);
-    opacity: .7;
+    opacity: .6;
     cursor: no-drop;
+}
+.cpn-blur{
+    transition: all;
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+
 }

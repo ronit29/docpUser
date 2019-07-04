@@ -847,7 +847,7 @@ class PatientDetailsNew extends React.Component {
 
                                                         {
                                                             ((parseInt(priceData.deal_price) + treatment_Price) != 0) ?
-                                                                <div className= {`widget mrb-15 cursor-pointer ${this.props.payment_type != 1?'disable_coupon':''}` } onClick={this.applyCoupons.bind(this)}>
+                                                                <div className= {`widget cpn-blur mrb-15 cursor-pointer ${this.props.payment_type != 1?'disable_coupon':''}` } onClick={this.applyCoupons.bind(this)}>
                                                                     {
                                                                         doctorCoupons.length ?
                                                                             <div className="widget-content d-flex jc-spaceb" >
