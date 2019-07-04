@@ -11957,3 +11957,9 @@ ul.chat-radio-align .custom-radio .radio-checkmark.checkmark:after{
     top:5px;
     left: 5px;
 }
+.cpn-pymnt-txt{
+	display: block;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+}

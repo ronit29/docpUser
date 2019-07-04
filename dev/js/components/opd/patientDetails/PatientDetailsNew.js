@@ -54,12 +54,17 @@ class PatientDetailsNew extends React.Component {
             showConfirmationPopup: false,
             coupon_loading: false,
             seoFriendly: this.props.match.url.includes('-dpp'),
-            showIpdLeadForm: true
+            showIpdLeadForm: true,
+            is_payment_coupon_applied: false
         }
     }
 
     toggleWalletUse(e) {
-        this.setState({ use_wallet: e.target.checked })
+        if(this.state.is_payment_coupon_applied) {
+            this.setState({ use_wallet: false })
+        } else {
+            this.setState({ use_wallet: e.target.checked })
+        }
     }
 
     toggle(which) {
@@ -121,6 +126,9 @@ class PatientDetailsNew extends React.Component {
                 this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item, (err, data) => {
                     if (!err) {
                         this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', is_cashback: doctorCoupons[0].is_cashback })
+                        if (doctorCoupons[0].is_payment_specific) {
+                            this.setState({use_wallet: false, is_payment_coupon_applied: true})
+                        }
                     } else {
                         this.setState({ coupon_loading: true })
                         this.getAndApplyBestCoupons(deal_price)
@@ -138,6 +146,9 @@ class PatientDetailsNew extends React.Component {
                 this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item, (err, data) => {
                     if (!err) {
                         this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' })
+                        if (doctorCoupons[0].is_payment_specific) {
+                            this.setState({use_wallet: false, is_payment_coupon_applied: true})
+                        }
                     } else {
                         this.setState({ coupon_loading: true })
                         this.getAndApplyBestCoupons(deal_price)
@@ -166,6 +177,7 @@ class PatientDetailsNew extends React.Component {
                 this.getAndApplyBestCoupons(deal_price)
             } else {
                 this.props.resetOpdCoupons()
+                this.setState({use_wallet: true, is_payment_coupon_applied: false})
             }
         }
 
@@ -193,11 +205,16 @@ class PatientDetailsNew extends React.Component {
                         this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '' })
                         this.props.applyCoupons('1', validCoupon, validCoupon.coupon_id, this.props.selectedDoctor)
                         this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item)
+                        if (validCoupon.is_payment_specific) {
+                            this.setState({use_wallet: false, is_payment_coupon_applied: true})
+                        }
                     } else {
                         this.props.resetOpdCoupons()
+                        this.setState({use_wallet: true, is_payment_coupon_applied: false})
                     }
                 } else {
                     this.props.resetOpdCoupons()
+                    this.setState({use_wallet: true, is_payment_coupon_applied: false})
                 }
                 this.setState({ coupon_loading: false })
             }
@@ -238,6 +255,9 @@ class PatientDetailsNew extends React.Component {
                     this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item, (err, data) => {
                         if (!err) {
                             this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', couponApplied: true })
+                            if (doctorCoupons[0].is_payment_specific) {
+                                this.setState({use_wallet: false, is_payment_coupon_applied: true})
+                            }
                         } else {
                             this.setState({ coupon_loading: true })
                             this.getAndApplyBestCoupons(deal_price)
@@ -261,6 +281,7 @@ class PatientDetailsNew extends React.Component {
 
                 if (nextProps.doctorCoupons && nextProps.doctorCoupons[this.props.selectedDoctor] && nextProps.doctorCoupons[this.props.selectedDoctor].length == 0) {
                     this.props.resetOpdCoupons()
+                    this.setState({use_wallet: true, is_payment_coupon_applied: false})
                 }
                 else {
                     //auto apply coupon if no coupon is apllied
@@ -275,18 +296,21 @@ class PatientDetailsNew extends React.Component {
                                         this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '', couponApplied: true })
                                         this.props.applyCoupons('1', validCoupon, validCoupon.coupon_id, this.props.selectedDoctor)
                                         this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item)
+                                        if (validCoupon.is_payment_specific) {
+                                            this.setState({use_wallet: false, is_payment_coupon_applied: true})
+                                        }
                                     } else {
-                                        this.setState({ couponApplied: true })
+                                        this.setState({ couponApplied: true, use_wallet: true, is_payment_coupon_applied: false })
                                         this.props.resetOpdCoupons()
                                     }
                                 } else {
-                                    this.setState({ couponApplied: true })
+                                    this.setState({ couponApplied: true, use_wallet: true, is_payment_coupon_applied: false })
                                     this.props.resetOpdCoupons()
                                 }
                             }
                         })
                     } else {
-                        this.setState({ couponApplied: true })
+                        this.setState({ couponApplied: true, use_wallet: true, is_payment_coupon_applied: false })
                         this.props.resetOpdCoupons()
                     }
                 }
@@ -887,6 +911,7 @@ class PatientDetailsNew extends React.Component {
                                                                                             }
                                                                                             GTM.sendEvent({ data: analyticData })
                                                                                             this.props.removeCoupons(this.props.selectedDoctor, doctorCoupons[0].coupon_id)
+                                                                                            this.setState({use_wallet: true, is_payment_coupon_applied: false })
                                                                                         }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
                                                                                     </span>
                                                                                 </div>
@@ -1104,9 +1129,13 @@ class PatientDetailsNew extends React.Component {
                                                             !is_insurance_applicable && this.props.payment_type == 1 && total_wallet_balance && total_wallet_balance > 0 && (parseInt(priceData.mrp) + treatment_mrp) > 0 ? <div className="widget mrb-15">
                                                                 <div className="widget-content">
                                                                     <div className="select-pt-form">
-                                                                        <div className="referral-select">
+                                                                        <div className="referral-select mb-0">
                                                                             <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Use docprime wallet money<input type="checkbox" onChange={this.toggleWalletUse.bind(this)} checked={this.state.use_wallet} /><span className="checkmark"></span></label>
-                                                                            <span className="rfrl-avl-balance">Available <img style={{ width: '9px', marginTop: '4px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} />{total_wallet_balance}</span>
+                                                                            <span className="rfrl-avl-balance">Available <img style={{ width: '6px', marginTop: '5px', marginRight:'3px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} />{total_wallet_balance}</span>
+                                                                            {
+                                                                                this.state.is_payment_coupon_applied ?
+                                                                                <span className="cpn-pymnt-txt">Wallet Amount can not be used because payment gateway specific coupon is applied.</span> : ''
+                                                                            }
                                                                         </div>
                                                                     </div>
                                                                 </div>
