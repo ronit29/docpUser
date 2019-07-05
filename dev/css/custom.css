@@ -2460,4 +2460,10 @@ p.clnc-name{
 margin-left: 0px;
 	}
 }
+.no-tm-slot{
+	padding: 12px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
 /* ============ new time slot design ============ */

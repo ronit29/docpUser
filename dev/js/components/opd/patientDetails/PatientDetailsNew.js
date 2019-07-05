@@ -910,7 +910,7 @@ class PatientDetailsNew extends React.Component {
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>:<p>No Time Slot Available</p>
+                                                            </div>:<p className="no-tm-slot"><img src={ASSETS_BASE_URL +"/images/warning-icon.png"} style={{height: '15px', width: '15px', marginRight: '8px'}}/>No Time Slot Available</p>
                                                         }
                                                         </div>
                                                         {/* new time slot */}
