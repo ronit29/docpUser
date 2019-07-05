@@ -1,6 +1,7 @@
 import React from 'react'
 import GTM from '../../../helpers/gtm.js'
 import SnackBar from 'node-snackbar'
+const queryString = require('query-string');
 
 class ChatQuestion2 extends React.Component {
 	constructor(props) {
@@ -49,20 +50,36 @@ class ChatQuestion2 extends React.Component {
 			return
 		}
 
+		let rid = ''
+		const parsed = queryString.parse(this.props.location.search)
+		if(parsed.rid){
+			let rid = parsed.rid
+			try{
+				if(window && window.atob(rid) ){
+					rid = window.atob(rid)
+				}
+			}catch(e){
+				
+			}
+		}
+
 		let postData = {
-			rid: 33,
+			rid: rid,
 			data: [{ques:'1', data: ques1},
 				{ques:'2', data: ques2},
 				{ques:'3', data: [this.state.comments]}
 			]
 		}
+
 		this.props.submitChatFeedback(postData)
 		let gtmData = {
 
 			'Category': 'Chat', 'Action': 'ChatNewFeedbackSubmitted', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-new-feedback-submitted', "url": window.location.pathname
 		}
 		GTM.sendEvent({ data: gtmData })
-		this.props.history.push('/chat/feedback/ques3')
+		setTimeout(()=>{
+			this.props.history.push('/chat/feedback/thanks')	
+		},1000)
 	}
 
 	render() {
