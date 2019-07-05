@@ -763,9 +763,6 @@ div.onln-cnslt-head {
 	}
 }
 @media(max-width: 415px) {
-	.headerSubLinkContainer{
-		display: none;
-	}
 	div.onln-cnslt-head {
     margin-top: 0px;
 }
