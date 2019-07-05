@@ -6,8 +6,9 @@ const WEEK_DAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
 class VisitTimeNew extends React.Component {
     constructor(props) {
         super(props)
+        let is_thyrocare = this.is_thyrocare_lab(props)
         this.state = {
-            dateTimeSelectedValue: props.selectedDateFormat?props.selectedDateFormat:this.getFormattedDate(new Date())
+            dateTimeSelectedValue: props.selectedDateFormat?props.selectedDateFormat:this.getFormattedDate( is_thyrocare?new Date(this.getDateAfter(1) ):new Date() )
         }
     }
 
@@ -43,6 +44,14 @@ class VisitTimeNew extends React.Component {
         return today
     }
 
+    getDateAfter(i=0) {
+        return new Date().setDate(new Date().getDate()+i)
+    }
+
+    is_thyrocare_lab(props) {
+        return props.LABS && props.LABS[props.selectedLab] && props.LABS[props.selectedLab].lab && props.LABS[props.selectedLab].lab.is_thyrocare
+    }
+
     render() {
 
         let { date, time } = this.props.selectedSlot
@@ -51,7 +60,7 @@ class VisitTimeNew extends React.Component {
             date = new Date(date).toDateString()
         }
 
-        let dateAfter24Days = new Date().setDate(new Date().getDate()+24) 
+        let is_thyrocare = this.is_thyrocare_lab(this.props)
 
         return (
             <div className={`widget mrb-15 ${this.props.timeError?'rnd-error-nm':''}`}>
@@ -88,7 +97,7 @@ class VisitTimeNew extends React.Component {
                 </div>*/}
                 <div className="widget-content pos-relative">
                     {
-                        this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].lab && this.props.LABS[this.props.selectedLab].lab.is_thyrocare?
+                        is_thyrocare?
                             this.props.pincode?
                             <div className="area-pin" onClick={()=>this.props.toggle()}>
                                 Area Pincode - <b>{this.props.pincode}</b>
@@ -113,16 +122,17 @@ class VisitTimeNew extends React.Component {
                             <span className="nw-pick-hdng">Pick date:</span>
                             <div className="caln-input-tp">
                                 <img className="inp-nw-cal" src={ASSETS_BASE_URL + '/img/calnext.svg'} />
-                                <input type="date" name="date" onChange={this.selectDate.bind(this)} value={this.state.dateTimeSelectedValue?this.state.dateTimeSelectedValue:''}  min={this.getFormattedDate(new Date())} max={this.getFormattedDate(new Date(dateAfter24Days) )} />
+                                <input type="date" name="date" onChange={this.selectDate.bind(this)} value={this.state.dateTimeSelectedValue?this.state.dateTimeSelectedValue:''}  min={this.getFormattedDate( is_thyrocare?new Date(this.getDateAfter(1) ):new Date()) } max={this.getFormattedDate( new Date(this.getDateAfter(23) ))} />
                             </div>
                         </div>
                     </div>
                     <div className="date-slecet-cont">
                         <div className="nw-inpt-selctr">
                             <span className="nw-pick-hdng">Pick Time:</span>
-                            <div className="caln-input-tp">
+                            <div className="caln-input-tp" onClick={()=>this.props.navigateTo('time',this.props.is_insurance_applicable)}>
                                 <img className="inp-nw-cal" src={ASSETS_BASE_URL + '/img/nw-watch.svg'} />
-                                <input type="text" name="bday" placeholder="Select" value ={time && time.text?`${date?`${WEEK_DAYS[new Date(date).getDay()]}, ${new Date(date).getDate()} ${MONTHS[new Date(date).getMonth()]}`:''} ${time.text ? "|" : ""} ${time.text} ${time.text ? (time.value >= 12 ? 'PM' : 'AM') : ''}`:''} onClick={()=>this.props.navigateTo('time',this.props.is_insurance_applicable)}/>
+                                <input type="text" disabled={true} name="bday" placeholder="Select" value ={time && time.text?`${date?`${WEEK_DAYS[new Date(date).getDay()]}, ${new Date(date).getDate()} ${MONTHS[new Date(date).getMonth()]}`:''} ${time.text ? "|" : ""} ${time.text} ${time.text ? (time.value >= 12 ? 'PM' : 'AM') : ''}`:''} />
+                                <img className="tm-arw-sgn" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                             </div>
                         </div>
                     </div>
