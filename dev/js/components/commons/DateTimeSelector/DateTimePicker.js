@@ -226,7 +226,7 @@ class DateTimePicker extends React.Component {
 				                </div>
 				            </div>
 				            {
-				            	this.props.timeSlots && this.props.timeSlots[selectedFormattedDate]?
+				            	this.props.timeSlots && this.props.timeSlots[selectedFormattedDate] && this.props.timeSlots[selectedFormattedDate].length?
 				            	this.props.timeSlots[selectedFormattedDate].map((schedule, key) => {
 
 				            		return schedule.timing && schedule.timing.length?
@@ -250,7 +250,9 @@ class DateTimePicker extends React.Component {
 					                </div>
 					                :''
 				            	})
-				            	:''
+				            	:<div className="select-time-slot-container">
+                                    <p style={{ textAlign: 'center' }}>Not available on this day.</p>
+                                </div>
 				            }
 				        </div>
 				        :<div className="select-time-slot-container">
