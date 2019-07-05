@@ -843,7 +843,7 @@ class PatientDetailsNew extends React.Component {
 
         let upcoming_date = this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length?Object.keys(this.props.upcoming_slots)[0]:''
 
-        let dateAfter24Days = new Date().setDate(new Date().getDate()+24)
+        let dateAfter24Days = new Date().setDate(new Date().getDate()+23)
 
         return (
             <div className="profile-body-wrap">

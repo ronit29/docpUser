@@ -43,6 +43,10 @@ class VisitTimeNew extends React.Component {
         return today
     }
 
+    getDateAfter(i=0) {
+        return new Date().setDate(new Date().getDate()+i)
+    }
+
     render() {
 
         let { date, time } = this.props.selectedSlot
@@ -51,7 +55,7 @@ class VisitTimeNew extends React.Component {
             date = new Date(date).toDateString()
         }
 
-        let dateAfter24Days = new Date().setDate(new Date().getDate()+24) 
+        let is_thyrocare = this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].lab && this.props.LABS[this.props.selectedLab].lab.is_thyrocare
 
         return (
             <div className={`widget mrb-15 ${this.props.timeError?'rnd-error-nm':''}`}>
@@ -88,7 +92,7 @@ class VisitTimeNew extends React.Component {
                 </div>*/}
                 <div className="widget-content pos-relative">
                     {
-                        this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].lab && this.props.LABS[this.props.selectedLab].lab.is_thyrocare?
+                        is_thyrocare?
                             this.props.pincode?
                             <div className="area-pin" onClick={()=>this.props.toggle()}>
                                 Area Pincode - <b>{this.props.pincode}</b>
@@ -113,7 +117,7 @@ class VisitTimeNew extends React.Component {
                             <span className="nw-pick-hdng">Pick date:</span>
                             <div className="caln-input-tp">
                                 <img className="inp-nw-cal" src={ASSETS_BASE_URL + '/img/calnext.svg'} />
-                                <input type="date" name="date" onChange={this.selectDate.bind(this)} value={this.state.dateTimeSelectedValue?this.state.dateTimeSelectedValue:''}  min={this.getFormattedDate(new Date())} max={this.getFormattedDate(new Date(dateAfter24Days) )} />
+                                <input type="date" name="date" onChange={this.selectDate.bind(this)} value={this.state.dateTimeSelectedValue?this.state.dateTimeSelectedValue:''}  min={this.getFormattedDate( is_thyrocare?new Date(this.getDateAfter(1) ):new Date()) } max={this.getFormattedDate( new Date(this.getDateAfter(23) ))} />
                             </div>
                         </div>
                     </div>
