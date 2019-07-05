@@ -251,12 +251,12 @@ class DateTimePicker extends React.Component {
 					                :''
 				            	})
 				            	:<div className="select-time-slot-container">
-                                    <p style={{ textAlign: 'center' }}>Not available on this day.</p>
+                                    <p className="no-tm-slot pl-0 pt-20"><img src={ASSETS_BASE_URL +"/images/warning-icon.png"} style={{height: '15px', width: '15px', marginRight: '8px'}}/>Not available on this day.</p>
                                 </div>
 				            }
 				        </div>
 				        :<div className="select-time-slot-container">
-				            <p style={{ textAlign: 'center' }}>Not available on this day.</p>
+				            <p className="no-tm-slot pl-0 pt-20"><img src={ASSETS_BASE_URL +"/images/warning-icon.png"} style={{height: '15px', width: '15px', marginRight: '8px'}}/>Not available on this day.</p>
 				        </div>
 
                     }
