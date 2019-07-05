@@ -835,7 +835,7 @@ class BookingSummaryViewNew extends React.Component {
                     </p>)
 
                 tests_with_price.push(
-                    <div className="payment-detail d-flex">
+                    <div className="payment-detail d-flex" key={i}>
                         <p>{twp.test.name}</p>
                         {
                             is_corporate || is_insurance_applicable || is_plan_applicable ?
