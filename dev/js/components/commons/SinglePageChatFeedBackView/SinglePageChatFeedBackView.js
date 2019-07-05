@@ -68,7 +68,8 @@ class ChatQuestion2 extends React.Component {
 			data: [{ques:'1', data: ques1},
 				{ques:'2', data: ques2},
 				{ques:'3', data: [this.state.comments]}
-			]
+			],
+			type: 'SinglePageFeedback'
 		}
 
 		this.props.submitChatFeedback(postData)
