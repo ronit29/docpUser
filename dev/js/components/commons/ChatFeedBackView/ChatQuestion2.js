@@ -48,74 +48,7 @@ class ChatQuestion2 extends React.Component {
 			<div className="customer-feedback cf-hght">
 				<div className="cf-card">
 					<div className="cf-body">
-						<h3 className="nechatheding">Online consultation <br></br>feedback</h3>
-						<div className="chat-qa-cont">
-							<h4>Q 1: What do you think can be improved?</h4>
-							<ul className="chat-qa-listing">
-								<li>
-									<label className="ck-bx">
-										<span className="rate-feed-text">Better treatment</span>
-										<input type="checkbox" />
-										<span className="checkmark" />
-									</label>
-								</li>
-								<li>
-									<label className="ck-bx">
-										<span className="rate-feed-text">The doctor could have explained the treatment better</span>
-										<input type="checkbox" />
-										<span className="checkmark" />
-									</label>
-								</li>
-								<li>
-									<label className="ck-bx">
-										<span className="rate-feed-text">Too many questions/ Irrelevant questions</span>
-										<input type="checkbox" />
-										<span className="checkmark" />
-									</label>
-								</li>
-								<li>
-									<label className="ck-bx">
-										<span className="rate-feed-text">Everything was perfect</span>
-										<input type="checkbox" />
-										<span className="checkmark" />
-									</label>
-								</li>
-							</ul>
-							<h4>Q 2: What did you like about the service?</h4>
-							<ul className="chat-qa-listing">
-								<li>
-									<label className="ck-bx">
-										<span className="rate-feed-text">Quick consultation time</span>
-										<input type="checkbox" />
-										<span className="checkmark" />
-									</label>
-								</li>
-								<li>
-									<label className="ck-bx">
-										<span className="rate-feed-text">Right advice/treatment</span>
-										<input type="checkbox" />
-										<span className="checkmark" />
-									</label>
-								</li>
-								<li>
-									<label className="ck-bx">
-										<span className="rate-feed-text">Easy to understand interface</span>
-										<input type="checkbox" />
-										<span className="checkmark" />
-									</label>
-								</li>
-								<li>
-									<label className="ck-bx">
-										<span className="rate-feed-text">Did not like anything</span>
-										<input type="checkbox" />
-										<span className="checkmark" />
-									</label>
-								</li>
-							</ul>
-							<h4>Q 3: Any Comments?</h4>
-							<textarea></textarea>
-						</div>
-						{/* <p className="cf-prgh">How have your symptoms improved with our treatment?*</p>  
+						 <p className="cf-prgh">How have your symptoms improved with our treatment?*</p>  
 		              <span className="cf-light-txt">Rate on a scale from 1 - 5, where 5 is perfectly recovered/healthy</span>
 		              <ul className="cf-rating cursor-pntr">
 		                <li onClick={()=>this.setState({feedback: 1})}>
@@ -160,7 +93,7 @@ class ChatQuestion2 extends React.Component {
 		                	<span className="cf-rating-val">5</span>
 		                    <div className="rating-txt">Fantastic</div>
 		                </li>
-		             </ul> */}
+		             </ul> 
 					</div>
 					<div className="cf-footer">
 						<a href="javascript:void(0);" onClick={() => this.props.history.push('/chat/feedback')} className="cf-btn cf-prev">
