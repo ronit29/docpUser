@@ -31,13 +31,12 @@ class PatientDetails extends React.Component {
 
     fetchData(props,clinic_id,callDoctorById) {
         const parsed = queryString.parse(props.location.search)
-
         let doctor_id = props.selectedDoctor || props.match.params.id || parsed.doctor_id
         let hospital_id
         if(clinic_id){
             hospital_id = clinic_id
         }else{
-            hospital_id = props.selectedClinic || props.match.params.clinicId || parsed.hospital_id
+            hospital_id = parsed.hospital_id || props.match.params.clinicId
         }
 
         if (window) {
@@ -81,7 +80,7 @@ class PatientDetails extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
 
         let doctor_id = this.props.selectedDoctor || this.props.match.params.id || parsed.doctor_id
-        let hospital_id = this.props.selectedClinic || this.props.match.params.clinicId || parsed.hospital_id
+        let hospital_id = parsed.hospital_id || this.props.match.params.clinicId 
 
         return (
             <PatientDetailsView {...this.props} {...this.state} selectedDoctor={doctor_id} selectedClinic={hospital_id} fetchData={this.fetchData.bind(this)}/>

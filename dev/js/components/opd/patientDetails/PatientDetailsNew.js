@@ -720,6 +720,11 @@ class PatientDetailsNew extends React.Component {
         return today
     }
 
+    setDataOnClinicChange(){
+        let slot = { time: {} }
+        this.props.selectOpdTimeSLot(slot, false)
+    }
+
     render() {
         const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
@@ -767,8 +772,7 @@ class PatientDetailsNew extends React.Component {
 
             // reset time slot if doctor/hospital changes
             if (this.props.selectedSlot.selectedClinic != this.state.selectedClinic || this.props.selectedSlot.selectedDoctor != this.props.selectedDoctor) {
-                let slot = { time: {} }
-                this.props.selectOpdTimeSLot(slot, false)
+                this.setDataOnClinicChange()
             }
         } else if (hospital) {
             priceData.mrp = hospital.mrp
