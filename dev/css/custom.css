@@ -2451,6 +2451,9 @@ p.clnc-name{
     transform: rotate(-90deg);
     bottom: 7px;
 }
+[type="date"]::-webkit-datetime-edit-month-field { color: black; }
+[type="date"]::-webkit-datetime-edit-day-field { color: black; }
+[type="date"]::-webkit-datetime-edit-year-field { color: black; }
 @media (max-width: 345px) {
 	.nw-pick-hdng{
 		margin-right: 12px;
