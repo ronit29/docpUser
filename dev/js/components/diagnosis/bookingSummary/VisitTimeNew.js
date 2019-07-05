@@ -6,8 +6,9 @@ const WEEK_DAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
 class VisitTimeNew extends React.Component {
     constructor(props) {
         super(props)
+        let is_thyrocare = this.is_thyrocare_lab(props)
         this.state = {
-            dateTimeSelectedValue: props.selectedDateFormat?props.selectedDateFormat:this.getFormattedDate(new Date())
+            dateTimeSelectedValue: props.selectedDateFormat?props.selectedDateFormat:this.getFormattedDate( is_thyrocare?new Date(this.getDateAfter(1) ):new Date() )
         }
     }
 
@@ -47,6 +48,10 @@ class VisitTimeNew extends React.Component {
         return new Date().setDate(new Date().getDate()+i)
     }
 
+    is_thyrocare_lab(props) {
+        return props.LABS && props.LABS[props.selectedLab] && props.LABS[props.selectedLab].lab && props.LABS[props.selectedLab].lab.is_thyrocare
+    }
+
     render() {
 
         let { date, time } = this.props.selectedSlot
@@ -55,7 +60,7 @@ class VisitTimeNew extends React.Component {
             date = new Date(date).toDateString()
         }
 
-        let is_thyrocare = this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].lab && this.props.LABS[this.props.selectedLab].lab.is_thyrocare
+        let is_thyrocare = this.is_thyrocare_lab(this.props)
 
         return (
             <div className={`widget mrb-15 ${this.props.timeError?'rnd-error-nm':''}`}>
