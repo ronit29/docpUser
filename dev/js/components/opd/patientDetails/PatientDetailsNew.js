@@ -904,8 +904,9 @@ class PatientDetailsNew extends React.Component {
                                                                     <div className="nw-inpt-selctr">
                                                                         <span className="nw-pick-hdng">Pick Time:</span>
                                                                         <div className="caln-input-tp">
-                                                                            <img className="inp-nw-cal" src={ASSETS_BASE_URL + '/img/nw-watch.svg'} />
+                                                                            <img className="inp-nw-time" src={ASSETS_BASE_URL + '/img/nw-watch.svg'} />
                                                                             <input type="text" name="bday" placeholder="Select" value ={time && time.text?`${date?`${WEEK_DAYS[new Date(date).getDay()]}, ${new Date(date).getDate()} ${MONTHS[new Date(date).getMonth()]}`:''} ${time.text ? "|" : ""} ${time.text} ${time.text ? (time.value >= 12 ? 'PM' : 'AM') : ''}`:''} onClick={()=>this.navigateTo('time')}/>
+                                                                            <img className="tm-arw-sgn" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
                                                                         </div>
                                                                     </div>
                                                                 </div>
