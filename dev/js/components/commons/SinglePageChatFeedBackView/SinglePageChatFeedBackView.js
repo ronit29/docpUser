@@ -158,7 +158,7 @@ class ChatQuestion2 extends React.Component {
 						</div>
 					</div>
 					<div className="cf-footer">
-						<a href="javascript:void(0);" onClick={this.saveFeedBack.bind(this)} className="cf-btn cf-next">SUBMIT
+						<a style={{margin:'auto'}} href="javascript:void(0);" onClick={this.saveFeedBack.bind(this)} className="cf-btn">SUBMIT
 		                   <img src="/assets/images/right_arrow.png" alt="r-arrow" className="cf-img" />
 						</a>
 					</div>
