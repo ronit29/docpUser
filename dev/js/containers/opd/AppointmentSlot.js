@@ -26,7 +26,7 @@ class AppointmentSlot extends React.Component {
         const parsed = queryString.parse(props.location.search)
 
         let doctor_id = props.selectedDoctor || props.match.params.id || parsed.doctor_id
-        let hospital_id = props.selectedClinic || props.match.params.clinicId || parsed.hospital_id
+        let hospital_id = parsed.hospital_id || props.match.params.clinicId
 
         if (doctor_id) {
             props.getDoctorById(doctor_id, hospital_id, props.commonProfileSelectedProcedures)
@@ -48,7 +48,7 @@ class AppointmentSlot extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
 
         let doctor_id = this.props.selectedDoctor || this.props.match.params.id || parsed.doctor_id
-        let hospital_id = this.props.selectedClinic || this.props.match.params.clinicId || parsed.hospital_id
+        let hospital_id = parsed.hospital_id || this.props.match.params.clinicId 
 
         return (
             <AppointmentSlotView {...this.props} selectedDoctor={doctor_id} selectedClinic={hospital_id} />

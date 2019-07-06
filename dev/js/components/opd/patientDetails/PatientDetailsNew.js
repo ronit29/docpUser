@@ -723,6 +723,7 @@ class PatientDetailsNew extends React.Component {
     setDataOnClinicChange(){
         let slot = { time: {} }
         this.props.selectOpdTimeSLot(slot, false)
+        this.setState({dateTimeSelectedValue: ''})
     }
 
     render() {
@@ -885,7 +886,8 @@ class PatientDetailsNew extends React.Component {
                                                         {/* new time slot */}
                                                         <div className={`widget mrb-15 ${this.state.showTimeError?'rnd-error-nm':''}`}>
                                                         {
-                                                            ( (this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length) || (this.props.selectedSlot && this.props.selectedSlot.date) || (this.props.selectedDateFormat))?
+                                                            this.props.TIMESLOT_DATA_LOADING?<p className="no-tm-slot"><img src={ASSETS_BASE_URL +"/images/warning-icon.png"} style={{height: '15px', width: '15px', marginRight: '8px'}}/>Loading ......</p>
+                                                            :( (this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length) || (this.props.selectedSlot && this.props.selectedSlot.date) || (this.props.selectedDateFormat))?
                                                             <div className="widget-content pos-relative">
                                                                 <div className="lab-visit-time d-flex jc-spaceb mb-0">
                                                                     <h4 className="title mb-0">

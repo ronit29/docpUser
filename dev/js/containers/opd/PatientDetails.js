@@ -92,11 +92,11 @@ const mapStateToProps = (state) => {
 
     let DOCTORS = state.DOCTOR_PROFILES
     const { selectedProfile, profiles, userWalletBalance, userCashbackBalance, defaultProfile, ipd_chat } = state.USER
-    let { selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, payment_type, selectedDateFormat } = state.DOCTOR_SEARCH
+    let { selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, payment_type, selectedDateFormat, TIMESLOT_DATA_LOADING } = state.DOCTOR_SEARCH
     const { saved_patient_details } = state.SEARCH_CRITERIA_LABS
     const { common_settings } = state.SEARCH_CRITERIA_OPD
     return {
-        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details, defaultProfile, ipd_chat, common_settings, selectedDateFormat
+        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details, defaultProfile, ipd_chat, common_settings, selectedDateFormat, TIMESLOT_DATA_LOADING
     }
 }
 
