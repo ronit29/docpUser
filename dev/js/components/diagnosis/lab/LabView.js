@@ -179,9 +179,9 @@ class LabView extends React.Component {
                                             title: this.getMetaTagsData(this.props.LABS[lab_id].lab.seo).title,
                                             description: this.getMetaTagsData(this.props.LABS[lab_id].lab.seo).description,
                                             canonicalUrl: `${CONFIG.API_BASE_URL}${seo_url || this.props.match.url}`
-                                        }} noIndex={false && !this.state.seoFriendly} />
+                                        }} noIndex={this.props.location && this.props.location.pathname && this.props.location.pathname.includes('ck-birla-hospital-for-women-in-sector-50-gurgaon-lpp')} />
 
-                                        <LabDetails {...this.props} is_insurance_applicable={is_insurance_applicable} data={this.props.LABS[lab_id]} is_plan_applicable={is_plan_applicable} hide_price={hide_price} is_user_insured={is_user_insured} seoFriendly={this.state.seoFriendly}/>
+                                        <LabDetails {...this.props} is_insurance_applicable={is_insurance_applicable} data={this.props.LABS[lab_id]} is_plan_applicable={is_plan_applicable} hide_price={hide_price} is_user_insured={is_user_insured} seoFriendly={this.state.seoFriendly} />
 
                                         <button disabled={
                                             this.props.currentLabSelectedTests.filter(x => x.is_selected).length < 1

@@ -485,6 +485,14 @@ class ChatPanel extends React.Component {
         }else{
             iframe_url += '&product=DocPrime'      
         }
+
+        if(parsedHref.booking_id) {
+            iframe_url += `&booking_id=${parsedHref.booking_id}`
+        }
+
+        if(parsedHref.source && parsedHref.source.includes('thyrocare')){
+            iframe_url += '&msg=startchat'
+        }
         
         if(this.props.showHalfScreenChat && !this.props.showDesktopIpd) {
             return(
