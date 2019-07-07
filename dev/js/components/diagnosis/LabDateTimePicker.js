@@ -37,9 +37,11 @@ class DateTimePicker extends React.Component {
             if(this.props.selectedDateFormat) {
                 upcoming_time = this.props.selectedDateFormat
             
-            }else if(this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length){
+            }else{
+                upcoming_time = this.getFormattedDate(new Date())
+            }/*else if(this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length){
                 upcoming_time = Object.keys(this.props.upcoming_slots)[0]
-            }
+            }*/
 
 
             if(upcoming_time && this.props.timeSlots[upcoming_time]){
