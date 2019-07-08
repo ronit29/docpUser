@@ -58,7 +58,7 @@ class PatientDetailsNew extends React.Component {
             coupon_loading: false,
             seoFriendly: this.props.match.url.includes('-dpp'),
             showIpdLeadForm: true,
-            dateTimeSelectedValue :''
+            dateTimeSelectedValue: ''
         }
     }
 
@@ -210,8 +210,8 @@ class PatientDetailsNew extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         //Ref to update date every time on route
-        if(nextProps.selectedDateFormat && nextProps.selectedDateFormat!= this.state.dateTimeSelectedValue) {
-            this.setState({dateTimeSelectedValue: nextProps.selectedDateFormat })
+        if (nextProps.selectedDateFormat && nextProps.selectedDateFormat != this.state.dateTimeSelectedValue) {
+            this.setState({ dateTimeSelectedValue: nextProps.selectedDateFormat })
         }
         if (!this.state.couponApplied && nextProps.DOCTORS[this.props.selectedDoctor]) {
             let hospital = {}
@@ -693,12 +693,12 @@ class PatientDetailsNew extends React.Component {
         })
     }
 
-    selectDate(e){
+    selectDate(e) {
 
-        if(e.target.value){
+        if (e.target.value) {
             let slot = { time: {} }
             let date = e.target.value
-            this.setState({dateTimeSelectedValue: date})
+            this.setState({ dateTimeSelectedValue: date })
             this.props.selectOpdTimeSLot(slot, false, null, date)
         }
     }
@@ -707,26 +707,24 @@ class PatientDetailsNew extends React.Component {
         date = new Date(date)
         var dd = date.getDate();
 
-        var mm = date.getMonth()+1; 
+        var mm = date.getMonth() + 1;
         var yyyy = date.getFullYear();
-        if(dd<10) 
-        {
-            dd='0'+dd;
-        } 
-
-        if(mm<10) 
-        {
-            mm='0'+mm;
+        if (dd < 10) {
+            dd = '0' + dd;
         }
 
-        var today = yyyy+'-'+mm+'-'+dd;
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        var today = yyyy + '-' + mm + '-' + dd;
         return today
     }
 
-    setDataOnClinicChange(){
+    setDataOnClinicChange() {
         let slot = { time: {} }
         this.props.selectOpdTimeSLot(slot, false)
-        this.setState({dateTimeSelectedValue: ''})
+        this.setState({ dateTimeSelectedValue: '' })
     }
 
     render() {
@@ -842,15 +840,15 @@ class PatientDetailsNew extends React.Component {
         let is_add_to_card = STORAGE.isAgent() || !is_default_user_insured
 
         //Select Next Upcoming Date 
-        
+
         let { date, time } = this.props.selectedSlot
 
         if (date) {
             date = new Date(date).toDateString()
         }
 
-        let upcoming_date = this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length?Object.keys(this.props.upcoming_slots)[0]:''
-        let dateAfter24Days = new Date().setDate(new Date().getDate()+23)
+        let upcoming_date = this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length ? Object.keys(this.props.upcoming_slots)[0] : ''
+        let dateAfter24Days = new Date().setDate(new Date().getDate() + 23)
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader bookingPage={true} />
@@ -885,40 +883,51 @@ class PatientDetailsNew extends React.Component {
                                                             selectClinic={this.selectClinic.bind(this)}
                                                         />
                                                         {/* new time slot */}
-                                                        <div className={`widget mrb-15 ${this.state.showTimeError?'rnd-error-nm':''}`}>
-                                                        {
-                                                            this.props.TIMESLOT_DATA_LOADING?<p className="no-tm-slot"><img src={ASSETS_BASE_URL +"/images/warning-icon.png"} style={{height: '15px', width: '15px', marginRight: '8px'}}/>Loading ......</p>
-                                                            :( (this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length) || (this.props.selectedSlot && this.props.selectedSlot.date) || (this.props.selectedDateFormat))?
-                                                            <div className="widget-content pos-relative">
-                                                                <div className="lab-visit-time d-flex jc-spaceb mb-0">
-                                                                    <h4 className="title mb-0">
-                                                                        <span>
-                                                                            <img className="visit-time-icon" src={ASSETS_BASE_URL + '/img/watch-date.svg'} />
-                                                                        </span>
-                                                                        Select Visit Time
+                                                        <div className={`widget mrb-15 ${this.state.showTimeError ? 'rnd-error-nm' : ''}`}>
+                                                            {
+                                                                this.props.TIMESLOT_DATA_LOADING?
+                                                                    <div className="loader-for-chat-div mt-0">
+                                                                        <div className='loader-for-chat mb-0'>
+                                                                            <span></span>
+                                                                            <span></span>
+                                                                            <span></span>
+                                                                            <span></span>
+                                                                            <span></span>
+                                                                            <span></span>
+                                                                        </div>
+                                                                        <p className="ldng-text"></p>
+                                                                    </div>
+                                                                    : ((this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length) || (this.props.selectedSlot && this.props.selectedSlot.date) || (this.props.selectedDateFormat)) ?
+                                                                        <div className="widget-content pos-relative">
+                                                                            <div className="lab-visit-time d-flex jc-spaceb mb-0">
+                                                                                <h4 className="title mb-0">
+                                                                                    <span>
+                                                                                        <img className="visit-time-icon" src={ASSETS_BASE_URL + '/img/watch-date.svg'} />
+                                                                                    </span>
+                                                                                    Select Visit Time
                                                                     </h4>
-                                                                </div>
-                                                                <div className="date-slecet-cont">
-                                                                    <div className="nw-inpt-selctr">
-                                                                        <span className="nw-pick-hdng">Pick date:</span>
-                                                                        <div className="caln-input-tp">
-                                                                            <img className="inp-nw-cal" src={ASSETS_BASE_URL + '/img/calnext.svg'} />
-                                                                            <input type="date" name="date" onChange={this.selectDate.bind(this)} value={this.state.dateTimeSelectedValue?this.state.dateTimeSelectedValue:upcoming_date} min={this.getFormattedDate(new Date())} max={this.getFormattedDate( new Date(dateAfter24Days) ) }/>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="date-slecet-cont">
-                                                                    <div className="nw-inpt-selctr">
-                                                                        <span className="nw-pick-hdng">Pick Time:</span>
-                                                                        <div className="caln-input-tp" onClick={()=>this.navigateTo('time')}>
-                                                                            <img className="inp-nw-time" src={ASSETS_BASE_URL + '/img/nw-watch.svg'} />
-                                                                            <input type="text" disabled={true}  name="bday" placeholder="Select" value ={time && time.text?`${date?`${WEEK_DAYS[new Date(date).getDay()]}, ${new Date(date).getDate()} ${MONTHS[new Date(date).getMonth()]}`:''} ${time.text ? "|" : ""} ${time.text} ${time.text ? (time.value >= 12 ? 'PM' : 'AM') : ''}`:''} />
-                                                                            <img className="tm-arw-sgn" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'}/>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>:<p className="no-tm-slot"><img src={ASSETS_BASE_URL +"/images/warning-icon.png"} style={{height: '15px', width: '15px', marginRight: '8px'}}/>No Time Slot Available</p>
-                                                        }
+                                                                            </div>
+                                                                            <div className="date-slecet-cont">
+                                                                                <div className="nw-inpt-selctr">
+                                                                                    <span className="nw-pick-hdng">Pick date:</span>
+                                                                                    <div className="caln-input-tp">
+                                                                                        <img className="inp-nw-cal" src={ASSETS_BASE_URL + '/img/calnext.svg'} />
+                                                                                        <input type="date" name="date" onChange={this.selectDate.bind(this)} value={this.state.dateTimeSelectedValue ? this.state.dateTimeSelectedValue : upcoming_date} min={this.getFormattedDate(new Date())} max={this.getFormattedDate(new Date(dateAfter24Days))} />
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="date-slecet-cont">
+                                                                                <div className="nw-inpt-selctr">
+                                                                                    <span className="nw-pick-hdng">Pick Time:</span>
+                                                                                    <div className="caln-input-tp" onClick={() => this.navigateTo('time')}>
+                                                                                        <img className="inp-nw-time" src={ASSETS_BASE_URL + '/img/nw-watch.svg'} />
+                                                                                        <input type="text" disabled={true} name="bday" placeholder="Select" value={time && time.text ? `${date ? `${WEEK_DAYS[new Date(date).getDay()]}, ${new Date(date).getDate()} ${MONTHS[new Date(date).getMonth()]}` : ''} ${time.text ? "|" : ""} ${time.text} ${time.text ? (time.value >= 12 ? 'PM' : 'AM') : ''}` : ''} />
+                                                                                        <img className="tm-arw-sgn" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div> : <p className="no-tm-slot"><img src={ASSETS_BASE_URL + "/images/warning-icon.png"} style={{ height: '15px', width: '15px', marginRight: '8px' }} />No Time Slot Available</p>
+                                                            }
                                                         </div>
                                                         {/* new time slot */}
 
@@ -940,7 +949,7 @@ class PatientDetailsNew extends React.Component {
 
                                                         {
                                                             ((parseInt(priceData.deal_price) + treatment_Price) != 0) ?
-                                                                <div className= {`widget cpn-blur mrb-15 cursor-pointer ${this.props.payment_type != 1?'disable_coupon':''}` } onClick={this.applyCoupons.bind(this)}>
+                                                                <div className={`widget cpn-blur mrb-15 cursor-pointer ${this.props.payment_type != 1 ? 'disable_coupon' : ''}`} onClick={this.applyCoupons.bind(this)}>
                                                                     {
                                                                         doctorCoupons.length ?
                                                                             <div className="widget-content d-flex jc-spaceb" >
@@ -953,7 +962,7 @@ class PatientDetailsNew extends React.Component {
                                                                                         </h4>
                                                                                 </div>
                                                                                 <div className=" d-flex">
-                                                                                    <h4 className="title" style={{ color: 'green', marginRight: 13,fontSize:'12px',marginTop:'6px' }}>
+                                                                                    <h4 className="title" style={{ color: 'green', marginRight: 13, fontSize: '12px', marginTop: '6px' }}>
                                                                                         {doctorCoupons[0].code}
                                                                                     </h4>
                                                                                     <span className="visit-time-icon coupon-icon">

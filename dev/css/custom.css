@@ -1308,7 +1308,7 @@ p.rev-ins-header a img{
 	align-items: center;
 	justify-content: space-around;
 	position: sticky;
-	top: 107px;
+	top: 94px;
 	z-index: 9;
 	box-shadow: 0 1px 1px #dedede;
 }
@@ -2410,7 +2410,7 @@ p.clnc-name{
 .nw-pick-hdng{
 	text-align: center;
     font-weight: 500;
-    margin-right: 30px;
+    margin-right: 25px;
     margin-left: 30px;
     flex-grow: 0;
     flex-shrink: 0;
@@ -2423,7 +2423,7 @@ p.clnc-name{
     min-height: auto !important;
     outline: none;
     padding-left: 21px;
-    width: 180px;
+    width: 190px;
     background: white;
     cursor: pointer;
 	padding-bottom: 2px;
