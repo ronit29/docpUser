@@ -694,10 +694,13 @@ class PatientDetailsNew extends React.Component {
     }
 
     selectDate(e){
-        let slot = { time: {} }
-        let date = e.target.value
-        this.setState({dateTimeSelectedValue: date})
-        this.props.selectOpdTimeSLot(slot, false, null, date)
+
+        if(e.target.value){
+            let slot = { time: {} }
+            let date = e.target.value
+            this.setState({dateTimeSelectedValue: date})
+            this.props.selectOpdTimeSLot(slot, false, null, date)
+        }
     }
 
     getFormattedDate(date) {
@@ -847,9 +850,7 @@ class PatientDetailsNew extends React.Component {
         }
 
         let upcoming_date = this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length?Object.keys(this.props.upcoming_slots)[0]:''
-
         let dateAfter24Days = new Date().setDate(new Date().getDate()+23)
-
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader bookingPage={true} />

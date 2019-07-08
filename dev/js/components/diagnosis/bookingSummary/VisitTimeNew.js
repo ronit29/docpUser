@@ -19,10 +19,12 @@ class VisitTimeNew extends React.Component {
     }
 
     selectDate(e){
-        let date = e.target.value
-        this.setState({dateTimeSelectedValue: date})
-        let slot = { time: {} }
-        this.props.selectLabTimeSLot(slot, false, date)
+        if(e.target.value) {
+            let date = e.target.value
+            this.setState({dateTimeSelectedValue: date})
+            let slot = { time: {} }
+            this.props.selectLabTimeSLot(slot, false, date)
+        }
     }
 
     getFormattedDate(date){
