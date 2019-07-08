@@ -57,11 +57,11 @@ const mapStateToProps = (state) => {
 
     let LABS = state.LABS
     let { pincode, selectedCriterias } = state.SEARCH_CRITERIA_LABS
-    let { selectedSlot } = state.LAB_SEARCH
+    let { selectedSlot, selectedDateFormat } = state.LAB_SEARCH
     const { selectedProfile, profiles } = state.USER
 
     return {
-        LABS, selectedSlot, pincode, selectedProfile, profiles, selectedCriterias
+        LABS, selectedSlot, pincode, selectedProfile, profiles, selectedCriterias, selectedDateFormat
     }
 }
 
@@ -69,7 +69,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getLabById: (labId) => dispatch(getLabById(labId)),
         getLabTimeSlots: (labId, pickup, pincode, date, callback) => dispatch(getLabTimeSlots(labId, pickup, pincode, date, callback)),
-        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
+        selectLabTimeSLot: (slot, reschedule, dateParam) => dispatch(selectLabTimeSLot(slot, reschedule, dateParam)),
         preBooking:(slot) => dispatch(preBooking(slot))
     }
 }

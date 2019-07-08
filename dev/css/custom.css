@@ -1308,7 +1308,7 @@ p.rev-ins-header a img{
 	align-items: center;
 	justify-content: space-around;
 	position: sticky;
-	top: 107px;
+	top: 94px;
 	z-index: 9;
 	box-shadow: 0 1px 1px #dedede;
 }
@@ -2451,6 +2451,76 @@ p.clnc-name{
 	margin-top: 5px;
 }
 /* ============ new pkg card ============ */
+/* ============ new time slot design ============ */
+.nw-inpt-selctr{
+	display: flex;
+    align-items: flex-end;
+    margin-top: 20px;
+}
+.nw-pick-hdng{
+	text-align: center;
+    font-weight: 500;
+    margin-right: 25px;
+    margin-left: 30px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.nw-inpt-selctr input{
+	border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #e6e5e5;
+    min-height: auto !important;
+    outline: none;
+    padding-left: 21px;
+    width: 190px;
+    background: white;
+    cursor: pointer;
+	padding-bottom: 2px;
+	font-weight: 500;
+}
+.caln-input-tp{
+	position: relative;
+}
+.inp-nw-cal{
+	width: 16px;
+    position: absolute;
+    top: 3px;
+}
+.inp-nw-time{
+	width: 16px;
+    position: absolute;
+    top: 1px;
+}
+.tm-arw-sgn{
+	position: absolute;
+    right: 0;
+    transform: rotate(-90deg);
+    bottom: 7px;
+}
+[type="date"]::-webkit-datetime-edit-month-field { color: black; }
+[type="date"]::-webkit-datetime-edit-day-field { color: black; }
+[type="date"]::-webkit-datetime-edit-year-field { color: black; }
+@media (max-width: 345px) {
+	.nw-pick-hdng{
+		margin-right: 12px;
+margin-left: 0px;
+	}
+}
+.no-tm-slot{
+	padding: 12px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+.caln-input-tp input:disabled {
+	color: black;
+	cursor: pointer;
+}
+.pt-20{
+	padding-top: 20px !important;
+}
+/* ============ new time slot design ============ */
 /* ============ new chat feedback qa ============ */
 h3.nechatheding{
 	color: #f78631;
