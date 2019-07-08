@@ -2558,3 +2558,61 @@ ul.chat-qa-listing li span.checkmark {
 	outline: none;
 }
 /* ============ new chat feedback qa ============ */
+/* ============ email insurance ============ */
+.vrfy-edit{
+	position: absolute;
+    right: 5px;
+    bottom: 8px;
+    font-size: 11px;
+    color: #329e0c;
+    font-weight: 500;
+    cursor: pointer;
+}
+.ins-email-cont{
+	border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+    padding: 13px 5px;
+}
+.ins-otp-mail-cont{
+    padding-left: 11px;
+}
+.ins-em-otp{
+	font-size: 12px;
+    color: #757575;
+    font-weight: 500;
+    padding: 5px 0 5px 0px;
+}
+.em-ins-inp-cont{
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+.em-ins-inpu{
+	border: none;
+    background: rgba(0, 0, 0, .05);
+    padding: 5px 2px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 12px;
+    color: #3d3d3d;
+	font-weight: 500;
+	outline: none;
+}
+.em-ins-inp-cont button {
+    background-image: linear-gradient(to left,#f78631,#ff6d00);
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    color: white;
+    border-radius: 5px;
+    padding: 5px 15px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.rdsn-ipt-md{
+    color: #e71818;
+    font-size: 12px;
+    font-weight: 500;
+}
+/* ============ email insurance ============ */
