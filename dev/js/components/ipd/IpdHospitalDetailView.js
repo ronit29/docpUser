@@ -306,10 +306,6 @@ class HospitalDetailView extends React.Component {
 								</div>
 								:''	 
 							}
-
-
-							<IpdCarousel />
-							
 							
 							<div ref="view_more">
 							</div>
