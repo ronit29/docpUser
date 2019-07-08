@@ -2358,6 +2358,56 @@ p.clnc-name{
 }
 
 /* ============ more clinic card ============ */
+/* ============ ipd slider card ============ */
+.ipd-carousel-container {
+    margin-bottom: 10px;
+}
+.ipd-carousel-container h3{
+	font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #000;
+}
+.ipd-carousel-card{
+	background-color: #fff;
+    box-shadow: 0 1px 5px rgba(76,76,76,.12), 1px 1px 4px rgba(128,128,128,.24);
+    border: 0;
+    border-radius: 5px;
+    min-width: 180px;
+    max-width: 180px;
+    min-height: 125px;
+    padding: 8px;
+    position: relative;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 2px;
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.ipd-crsl-img-cont {
+    margin-bottom: 10px;
+}
+.ipd-crsl-img img {
+    width: 120px;
+    margin-bottom: 8px;
+}
+.ipd-crsl-img-cont p {
+    font-weight: 500;
+    font-size: 13px;
+}
+.ipd-cd-content p {
+    font-size: 11px;
+    font-weight: 500;
+    color: #757575;
+}
+.ipd-carousel-slider{
+	overflow: auto;
+    margin: 0 -15px;
+    padding: 0px 15px;
+}
+/* ============ ipd slider card ============ */
 /* ============ new pkg card ============ */
 .nw-pkg-crd-img{
 	display: flex;
