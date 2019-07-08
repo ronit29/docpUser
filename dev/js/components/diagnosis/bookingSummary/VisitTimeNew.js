@@ -1,7 +1,7 @@
 import React from 'react';
 const MONTHS = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
 const WEEK_DAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
-
+import GTM from '../../../helpers/gtm.js'
 
 class VisitTimeNew extends React.Component {
     constructor(props) {
@@ -19,6 +19,11 @@ class VisitTimeNew extends React.Component {
     }
 
     selectDate(e){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'LabDateClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-date-clicked'
+        }
+
+        GTM.sendEvent({ data: data })
         if(e.target.value) {
             let date = e.target.value
             this.setState({dateTimeSelectedValue: date})

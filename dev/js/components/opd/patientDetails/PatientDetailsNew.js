@@ -694,7 +694,11 @@ class PatientDetailsNew extends React.Component {
     }
 
     selectDate(e) {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'OpdDateClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-date-clicked'
+        }
 
+        GTM.sendEvent({ data: data })
         if (e.target.value) {
             let slot = { time: {} }
             let date = e.target.value
