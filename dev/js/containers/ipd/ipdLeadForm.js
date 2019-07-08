@@ -73,7 +73,7 @@ class IpdLeadForm extends React.Component {
 		}
 
 		if(this.props.procedure_id) {
-			formData.procedure_id = this.props.procedure_id
+			formData.ipd_procedure = this.props.procedure_id
 		}
 
 		if(this.props.doctor_id) {
@@ -85,7 +85,8 @@ class IpdLeadForm extends React.Component {
             utm_medium: parsed.utm_medium || '',
             utm_term: parsed.utm_term || '',
             utm_campaign: parsed.utm_campaign || '',
-            referrer: document.referrer || ''
+            referrer: document.referrer || '',
+            gclid: parsed.gclid || ''
         }
 
         formData.data = {}

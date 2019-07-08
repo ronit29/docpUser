@@ -48,7 +48,9 @@ class HospitalInfoView extends React.Component {
             hospital_data.address ?
               <div className="opd-timing opd-mapico">
                 <h2>{hospital_data.address} </h2>
-                <img style={{width:'25px',height: '25px'}} src={ASSETS_BASE_URL + '/img/customer-icons/map-icon.png'} />
+                <a href={`https://www.google.com/maps/search/?api=1&query=${hospital_data.lat},${hospital_data.long}`} style={{ float: 'right', cursor: 'pointer' }} target="_blank">
+                  <img style={{width:'25px',height: '25px'}} src={ASSETS_BASE_URL + '/img/customer-icons/map-icon.png'} />
+                </a>
               </div>
               : ''
           }
