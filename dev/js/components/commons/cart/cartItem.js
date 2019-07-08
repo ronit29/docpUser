@@ -63,6 +63,25 @@ class CartItem extends React.Component {
 
     }
 
+    getFormattedDate(date){
+        var dd = date.getDate();
+
+        var mm = date.getMonth()+1; 
+        var yyyy = date.getFullYear();
+        if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        }
+
+        var today = yyyy+'-'+mm+'-'+dd
+        return today
+    }
+
     setOpdBooking(data) {
 
         if (data.valid) {
@@ -75,7 +94,11 @@ class CartItem extends React.Component {
                 selectedDoctor: data.actual_data.doctor,
                 selectedClinic: data.actual_data.hospital
             }
-            this.props.selectOpdTimeSLot(timeSlot, false)
+            let extraTimeParams = null
+            if(timeSlot.date) {
+                extraTimeParams = this.getFormattedDate(timeSlot.date)
+            }
+            this.props.selectOpdTimeSLot(timeSlot, false, null, extraTimeParams)
 
             if (data.actual_data.coupon_code) {
                 let coupon_id = ''
@@ -129,7 +152,11 @@ class CartItem extends React.Component {
                 date: new Date(data.data.date),
                 time: time_slot
             }
-            this.props.selectLabTimeSLot(timeSlot, false)
+            let extraTimeParams = null
+            if(timeSlot.date){
+                extraTimeParams = this.getFormattedDate(timeSlot.date)
+            }
+            this.props.selectLabTimeSLot(timeSlot, false, extraTimeParams)
             if (data.actual_data.coupon_code) {
 
                 let coupon_id = ''

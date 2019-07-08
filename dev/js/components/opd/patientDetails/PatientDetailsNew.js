@@ -58,7 +58,7 @@ class PatientDetailsNew extends React.Component {
             coupon_loading: false,
             seoFriendly: this.props.match.url.includes('-dpp'),
             showIpdLeadForm: true,
-            dateTimeSelectedValue: ''
+            dateTimeSelectedValue: this.props.selectedDateFormat?this.props.selectedDateFormat:''
         }
     }
 
