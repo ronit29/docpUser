@@ -63,6 +63,25 @@ class CartItem extends React.Component {
 
     }
 
+    getFormattedDate(date){
+        var dd = date.getDate();
+
+        var mm = date.getMonth()+1; 
+        var yyyy = date.getFullYear();
+        if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        }
+
+        var today = yyyy+'-'+mm+'-'+dd
+        return today
+    }
+
     setOpdBooking(data) {
 
         if (data.valid) {
@@ -75,7 +94,11 @@ class CartItem extends React.Component {
                 selectedDoctor: data.actual_data.doctor,
                 selectedClinic: data.actual_data.hospital
             }
-            this.props.selectOpdTimeSLot(timeSlot, false)
+            let extraTimeParams = null
+            if(timeSlot.date) {
+                extraTimeParams = this.getFormattedDate(timeSlot.date)
+            }
+            this.props.selectOpdTimeSLot(timeSlot, false, null, extraTimeParams)
 
             if (data.actual_data.coupon_code) {
                 let coupon_id = ''
@@ -129,7 +152,11 @@ class CartItem extends React.Component {
                 date: new Date(data.data.date),
                 time: time_slot
             }
-            this.props.selectLabTimeSLot(timeSlot, false)
+            let extraTimeParams = null
+            if(timeSlot.date){
+                extraTimeParams = this.getFormattedDate(timeSlot.date)
+            }
+            this.props.selectLabTimeSLot(timeSlot, false, extraTimeParams)
             if (data.actual_data.coupon_code) {
 
                 let coupon_id = ''
@@ -207,7 +234,7 @@ class CartItem extends React.Component {
                                     {
                                         doctor ? <InitialsPicture name={doctor.name} has_image={!!thumbnail} className="initialsPicture-dbd cart-initialspic">
                                             <img src={thumbnail} style={{ width: '50px', height: '50px', marginTop: '8px' }} className="img-fluid img-round" />
-                                        </InitialsPicture> : <InitialsPicture name={lab.name} has_image={!!thumbnail} className="initialsPicture-xs-cart">
+                                        </InitialsPicture> : <InitialsPicture name={lab && lab.name?lab.name:''} has_image={!!thumbnail} className="initialsPicture-xs-cart">
                                                 <img style={{ height: 'auto', width: 'auto', marginTop: '15px' }} src={thumbnail} className="fltr-usr-image-lab" />
                                             </InitialsPicture>
                                     }
@@ -221,7 +248,7 @@ class CartItem extends React.Component {
                                     }
                                     <p className="clinic-name text-sm">{hospital.name}</p>
                                 </div> : <div className="dr-profile mrt-10">
-                                        <h1 className="dr-name">{lab.name}</h1>
+                                        <h1 className="dr-name">{lab && lab.name?lab.name:''}</h1>
                                     </div>
                             }
 
