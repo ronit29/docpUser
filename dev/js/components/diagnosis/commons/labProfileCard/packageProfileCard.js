@@ -204,7 +204,7 @@ class LabProfileCard extends React.Component {
                                         <img className="fltr-usr-image-lab" src={lab.lab_thumbnail} />
                                     </InitialsPicture>
                                     <div className="thy-sub-icon">
-                                        {pickup_text?
+                                        {pickup_available == 1 && distance_related_charges == 0 && lab.is_home_collection_enabled && lab.home_pickup_charges == 0?
                                             <div className="test-pkup">
                                                 <img src={ASSETS_BASE_URL + "/img/laby1.svg"} />
                                                 <p>Free Sample <span className="tstblk">Collection</span></p>

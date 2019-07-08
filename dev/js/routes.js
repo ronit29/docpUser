@@ -481,6 +481,12 @@ const HospitalList = Loadable({
 })
 
 
+const SingleChatPageFeedback = Loadable({
+    loader: () => import('./containers/commons/SingleChatPageFeedback.js'),
+    modules: ['./containers/commons/SingleChatPageFeedback.js'],
+    webpack: () => [require.resolveWeak('./containers/commons/SingleChatPageFeedback.js')],
+    loading,
+})
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -597,7 +603,8 @@ let routes = [
     { path: '/*-hpcp', exact: true, component: PackageCompare },
     { path: '/ipd-procedures', exact: true, component: IpdList, RENDER_ON_SERVER: true },
     { path: '/order/paymentSummary', exact: true, component: CodPaymentPage },
-    { path: '/hospitals', exact: true, component: HospitalList, RENDER_ON_SERVER: true }
+    { path: '/hospitals', exact: true, component: HospitalList, RENDER_ON_SERVER: true },
+    { path: '/Chat/Review', exact: true, component: SingleChatPageFeedback }
 
 ]
 

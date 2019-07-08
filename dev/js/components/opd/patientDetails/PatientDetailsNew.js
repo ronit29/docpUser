@@ -846,8 +846,8 @@ class PatientDetailsNew extends React.Component {
                                                         }
 
                                                         {
-                                                            this.props.payment_type == 1 && ((parseInt(priceData.deal_price) + treatment_Price) != 0) ?
-                                                                <div className="widget mrb-15 cursor-pointer" onClick={this.applyCoupons.bind(this)}>
+                                                            ((parseInt(priceData.deal_price) + treatment_Price) != 0) ?
+                                                                <div className= {`widget cpn-blur mrb-15 cursor-pointer ${this.props.payment_type != 1?'disable_coupon':''}` } onClick={this.applyCoupons.bind(this)}>
                                                                     {
                                                                         doctorCoupons.length ?
                                                                             <div className="widget-content d-flex jc-spaceb" >
@@ -860,7 +860,7 @@ class PatientDetailsNew extends React.Component {
                                                                                         </h4>
                                                                                 </div>
                                                                                 <div className=" d-flex">
-                                                                                    <h4 className="title coupon-text" style={{ color: 'green', marginRight: 13 }}>
+                                                                                    <h4 className="title" style={{ color: 'green', marginRight: 13,fontSize:'12px',marginTop:'6px' }}>
                                                                                         {doctorCoupons[0].code}
                                                                                     </h4>
                                                                                     <span className="visit-time-icon coupon-icon">
