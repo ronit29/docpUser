@@ -15,6 +15,12 @@ const queryString = require('query-string');
 class ChatPanel extends React.Component {
     constructor(props) {
         super(props)
+        let parsedHref = ''
+        let is_thyrocare = false
+        if (typeof window == "object") {
+            parsedHref = queryString.parse(window.location.search)
+            is_thyrocare = (parsedHref && parsedHref.utm_source && parsedHref.utm_source.includes('Thyrocare'))
+        }
         this.state = {
             selectedRoom: null,
             token: "",
@@ -23,9 +29,9 @@ class ChatPanel extends React.Component {
             showCancel: false,
             showChatBlock: false,
             additionClasses: ' chat-load-mobile',
-            hideIframe: true,
-            iframeLoading: true,
-            showStaticView: true,
+            hideIframe: is_thyrocare?false:true,
+            iframeLoading: is_thyrocare?false:true,
+            showStaticView: is_thyrocare?false:true,
             initialMessage: "",
             callTimeout: false
         }
@@ -275,6 +281,11 @@ class ChatPanel extends React.Component {
     }
 
     componentWillReceiveProps(props) {
+        let parsedHref = ''
+        if (typeof window == "object") {
+            parsedHref = queryString.parse(window.location.search);
+        }
+        let is_thyrocare = (parsedHref && parsedHref.utm_source && parsedHref.utm_source.includes('Thyrocare'))?true:false
 
         if (this.props.selectedLocation != props.selectedLocation && props.selectedLocation) {
             this.sendLocationNotification(props.selectedLocation)
@@ -306,7 +317,7 @@ class ChatPanel extends React.Component {
             })
         } else {
             if (props.USER && !props.USER.liveChatStarted) {
-                this.setState({ showStaticView: true, iframeLoading: false })
+                this.setState({ showStaticView: is_thyrocare?false:true, iframeLoading: false })
             }
         }
 
@@ -490,7 +501,7 @@ class ChatPanel extends React.Component {
             iframe_url += `&booking_id=${parsedHref.booking_id}`
         }
 
-        if(parsedHref.source && parsedHref.source.includes('thyrocare')){
+        if(parsedHref.utm_source && parsedHref.utm_source.includes('Thyrocare')){
             iframe_url += '&msg=startchat'
         }
         
