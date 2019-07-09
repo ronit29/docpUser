@@ -1128,15 +1128,11 @@ class PatientDetailsNew extends React.Component {
                                                                             <p>Subtotal</p>
                                                                             <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
                                                                         </div>
-                                                                        <div className="payment-detail d-flex">
+                                                                        {priceData.fees != 0?<div className="payment-detail d-flex">
                                                                             <p>Docprime Discount</p>
-                                                                            {
-                                                                                priceData.fees != 0?
-                                                                                <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
-                                                                                :
-                                                                                <p>- &#8377; {(parseInt(priceData.mrp))}</p>
-                                                                            }
+                                                                            <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
                                                                         </div>
+                                                                        :''}
                                                                         {
                                                                             priceData.fees == 0?
                                                                             <React.Fragment>
@@ -1190,16 +1186,11 @@ class PatientDetailsNew extends React.Component {
                                                                             </div>
                                                                         </div>
                                                                         {
-                                                                            enabled_for_cod_payment && priceData.is_cod_deal_price?
+                                                                            enabled_for_cod_payment && priceData.is_cod_deal_price && priceData.fees != 0?
                                                                                 <React.Fragment>
                                                                                     <div className="payment-detail d-flex">
                                                                                         <p>Docprime Discount</p>
-                                                                                        {
-                                                                                            priceData.fees != 0?
-                                                                                            <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))}</p>
-                                                                                            :
-                                                                                            <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp)}</p>
-                                                                                        }
+                                                                                        <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))}</p>
                                                                                     </div>
                                                                                     <hr />
                                                                                 </React.Fragment> 
