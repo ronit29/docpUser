@@ -122,7 +122,7 @@ class IpdLeadForm extends React.Component {
 
 	closePopUpClicked() {
 		const parsed = queryString.parse(this.props.location.search)
-		if (parsed.get_feedback && parsed.get_feedback == '1') {
+		if ((parsed.get_feedback && parsed.get_feedback == '1') || this.props.forcedPopup) {
 			SnackBar.show({ pos: 'bottom-center', text: "Please fill the feedback form" })
 		} else {
 			this.redirectToChat()
@@ -154,7 +154,7 @@ class IpdLeadForm extends React.Component {
 							this.state.showForm ?
 								<div className="p-relative">
 									{
-										parsed.get_feedback && parsed.get_feedback == '1' ? ''
+										(parsed.get_feedback && parsed.get_feedback == '1') || this.props.forcedPopup ? ''
 											: <span className="ipd-pop-cls" onClick={(e) => {
 												e.stopPropagation()
 												e.preventDefault()
