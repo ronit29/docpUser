@@ -342,7 +342,9 @@ class DoctorsList extends React.Component {
                                                                         </div>
                                                                     </li> : ''
                                                             }
-
+                                                            <div className="mb-3 referDocimg">
+                                                                <img src={ASSETS_BASE_URL + "/img/refrlbnr.png"} />
+                                                            </div>
                                                             {
                                                                 this.props.insurance_status != 1 && !this.state.sort_order && ((i == 6 && this.state.availability && !this.state.availability.length) || (i == 3 && this.state.availability && this.state.availability.length)) ?
                                                                     <div className="sort-sub-filter-container mb-3">
