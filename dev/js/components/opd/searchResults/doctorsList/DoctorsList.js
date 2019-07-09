@@ -254,7 +254,7 @@ class DoctorsList extends React.Component {
                         <div className="container-fluid cardMainPaddingRmv">
                             {
                                 this.props.search_content && this.props.search_content != '' && parseInt(this.props.page) == 1 ?
-                                    <div className="search-result-card-collpase d-none d-md-block" style={{ borderRadius: '5px', marginTop: '5px' }}>
+                                    <div className="search-result-card-collpase d-none d-md-block mb-0" style={{ borderRadius: '5px', marginTop: '5px' }}>
                                         <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.search_content }} >
                                         </div>
 
