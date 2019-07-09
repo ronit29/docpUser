@@ -11992,3 +11992,13 @@ ul.chat-radio-align .custom-radio .radio-checkmark.checkmark:after{
     border-radius: 4px;
     cursor: pointer;
 }
+.referDoctorbtn{
+    background-image: linear-gradient(to left,#f78631,#ff6d00);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    margin-top: 20px;
+    padding: 10px 15px;
+font-weight: 500;
+}
