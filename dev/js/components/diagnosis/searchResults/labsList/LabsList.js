@@ -213,7 +213,7 @@ class LabsList extends React.Component {
 
                                                         return <React.Fragment key={i}>
                                                                 {
-                                                                    i==3 && !this.state.avg_ratings ?
+                                                                    i==4 && !this.state.avg_ratings ?
                                                                     <div className="sort-sub-filter-container mb-3">
                                                                         <p>Filter by <span className="fw-700"> Ratings </span><span className="fw-500 sort-more-filter" onClick={this.viewMoreClicked.bind(this)}>More filters</span></p>
                                                                         <div className="srt-sb-btn-cont">
@@ -238,6 +238,10 @@ class LabsList extends React.Component {
                                                                             : <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
                                                                     }
                                                                 </li>
+                                                                {labList && labList.length > 5 &&  i == 2?
+                                                                <div className="mb-3 referDocimg" onClick={()=>{this.props.history.push('/doctorsignup')}}>
+                                                                    <img src={ASSETS_BASE_URL + "/img/refrlbnr.png"} />
+                                                                </div>:''}
                                                                </React.Fragment>
                                                         
                                                     } else {

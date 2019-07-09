@@ -318,7 +318,7 @@ class DoctorsList extends React.Component {
                                                                     : ''
                                                             }
                                                             {
-                                                                i == 3 && (!this.state.availability || !this.state.availability.length) ?
+                                                                i == 4 && (!this.state.availability || !this.state.availability.length) ?
                                                                     <div className="sort-sub-filter-container mb-3">
                                                                         <p>Filter by <span className="fw-700">Availability </span><span className="fw-500 sort-more-filter" onClick={this.viewMoreClicked.bind(this)}>More filters</span></p>
                                                                         <div className="srt-sb-btn-cont">
@@ -342,9 +342,11 @@ class DoctorsList extends React.Component {
                                                                         </div>
                                                                     </li> : ''
                                                             }
-                                                            <div className="mb-3 referDocimg">
+
+                                                            {result_list && result_list.length > 5 &&  i == 3?
+                                                                <div className="mb-3 referDocimg" onClick={()=>{this.props.history.push('/doctorsignup')}}>
                                                                 <img src={ASSETS_BASE_URL + "/img/refrlbnr.png"} />
-                                                            </div>
+                                                            </div>:''}
                                                             {
                                                                 this.props.insurance_status != 1 && !this.state.sort_order && ((i == 6 && this.state.availability && !this.state.availability.length) || (i == 3 && this.state.availability && this.state.availability.length)) ?
                                                                     <div className="sort-sub-filter-container mb-3">
