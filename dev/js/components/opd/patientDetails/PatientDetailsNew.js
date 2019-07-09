@@ -782,6 +782,7 @@ class PatientDetailsNew extends React.Component {
             }
         } else if (hospital) {
             priceData.mrp = hospital.mrp
+            priceData.fees = hospital.fees
             priceData.deal_price = hospital.deal_price
             priceData.payable_amount = hospital.deal_price
             priceData.is_cod_deal_price = hospital.cod_deal_price
@@ -839,6 +840,10 @@ class PatientDetailsNew extends React.Component {
             finalPrice = 0
             priceData.deal_price = 0
             priceData.mrp = 0
+        }
+
+        if(priceData.fees ==0){
+            finalPrice = ((parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)) - (this.props.disCountedOpdPrice ? this.props.disCountedOpdPrice : 0)
         }
 
         let is_add_to_card = STORAGE.isAgent() || !is_default_user_insured
@@ -1125,8 +1130,27 @@ class PatientDetailsNew extends React.Component {
                                                                         </div>
                                                                         <div className="payment-detail d-flex">
                                                                             <p>Docprime Discount</p>
-                                                                            <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
+                                                                            {
+                                                                                priceData.fees != 0?
+                                                                                <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
+                                                                                :
+                                                                                <p>- &#8377; {(parseInt(priceData.mrp))}</p>
+                                                                            }
                                                                         </div>
+                                                                        {
+                                                                            priceData.fees == 0?
+                                                                            <React.Fragment>
+                                                                            <div className="payment-detail d-flex">
+                                                                                <p>Docprime price</p>
+                                                                                <p>Free</p>
+                                                                            </div>
+                                                                            <div className="payment-detail d-flex">
+                                                                                <p>Platform Convenience Fee</p>
+                                                                                <p>&#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
+                                                                            </div>
+                                                                            </React.Fragment>
+                                                                        :''
+                                                                        }
                                                                         {
                                                                             this.props.disCountedOpdPrice && !this.state.is_cashback
                                                                                 ? <div className="payment-detail d-flex">
@@ -1140,7 +1164,7 @@ class PatientDetailsNew extends React.Component {
 
                                                                     {
                                                                         priceData ? <div className="test-report payment-detail mt-20">
-                                                                            <h4 className="title payment-amt-label">Amount Payable</h4>
+                                                                            <h4 className="title payment-amt-label">Amount Payable 1</h4>
                                                                             <h5 className="payment-amt-value">&#8377; {finalPrice || 0}</h5>
                                                                         </div> : ""
                                                                     }
@@ -1166,22 +1190,45 @@ class PatientDetailsNew extends React.Component {
                                                                             </div>
                                                                         </div>
                                                                         {
-                                                                            enabled_for_cod_payment && priceData.is_cod_deal_price ?
+                                                                            enabled_for_cod_payment && priceData.is_cod_deal_price?
                                                                                 <React.Fragment>
                                                                                     <div className="payment-detail d-flex">
                                                                                         <p>Docprime Discount</p>
-                                                                                        <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))}</p>
+                                                                                        {
+                                                                                            priceData.fees != 0?
+                                                                                            <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))}</p>
+                                                                                            :
+                                                                                            <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp)}</p>
+                                                                                        }
                                                                                     </div>
                                                                                     <hr />
-                                                                                </React.Fragment> : ''}
+                                                                                </React.Fragment> 
+                                                                        : ''
+                                                                        }
+                                                                        {
+                                                                            priceData.fees == 0?
+                                                                            <React.Fragment>
+                                                                            <div className="payment-detail d-flex">
+                                                                                <p>Docprime price</p>
+                                                                                <p>Free</p>
+                                                                            </div>
+                                                                            <div className="payment-detail d-flex">
+                                                                                <p>Platform Convenience Fee</p>
+                                                                                <p>&#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
+                                                                            </div>
+                                                                            </React.Fragment>
+                                                                        :''
+                                                                        }
                                                                         {
                                                                             is_insurance_applicable && this.props.payment_type != 2 ?
                                                                                 <div className="ins-val-bx">Covered Under Insurance</div>
                                                                                 : priceData ? <div className="test-report payment-detail mt-20">
-                                                                                    <h4 className="title payment-amt-label">Amount Payable</h4>
+                                                                                    <h4 className="title payment-amt-label">Amount Payable 2</h4>
                                                                                     {
-                                                                                        enabled_for_cod_payment && priceData.is_cod_deal_price ? <h5 className="payment-amt-value">&#8377; {parseInt(priceData.is_cod_deal_price)}</h5> :
-                                                                                            <h5 className="payment-amt-value">&#8377; {parseInt(priceData.mrp) + treatment_mrp}</h5>
+                                                                                        enabled_for_cod_payment && priceData.is_cod_deal_price && priceData.fees !=0 ? <h5 className="payment-amt-value">&#8377; {parseInt(priceData.is_cod_deal_price)}</h5> :
+                                                                                            priceData.fees== 0?
+                                                                                            <h5 className="payment-amt-value">{(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</h5>
+                                                                                            :<h5 className="payment-amt-value">&#8377; {parseInt(priceData.mrp) + treatment_mrp}</h5>
                                                                                     }
                                                                                 </div> : ""
                                                                         }
