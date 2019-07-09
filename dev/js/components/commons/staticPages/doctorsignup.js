@@ -9,7 +9,7 @@ class Doctorsignup extends React.Component {
 			mobile: "",
 			email: "",
 			city: "",
-			member_type: "",
+			member_type: this.props.member_type?this.props.member_type:'',
 			cityDropdownVisible: false,
 			city_name: "",
 			utm_params: props.utm_tags || {},

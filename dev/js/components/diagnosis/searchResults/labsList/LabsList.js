@@ -239,8 +239,8 @@ class LabsList extends React.Component {
                                                                     }
                                                                 </li>
                                                                 {labList && labList.length > 5 &&  i == 2?
-                                                                <div className="mb-3 referDocimg" onClick={()=>{this.props.history.push('/doctorsignup')}}>
-                                                                    <img src={ASSETS_BASE_URL + "/img/refrlbnr.png"} />
+                                                                <div className="mb-3 referDocimg" onClick={()=>{this.props.history.push('/doctorsignup?member_type=2')}}>
+                                                                    <img src={ASSETS_BASE_URL + "/img/zero_lab-min.png"} />
                                                                 </div>:''}
                                                                </React.Fragment>
                                                         

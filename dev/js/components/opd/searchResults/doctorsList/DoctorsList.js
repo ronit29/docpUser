@@ -344,7 +344,7 @@ class DoctorsList extends React.Component {
                                                             }
 
                                                             {result_list && result_list.length > 5 &&  i == 3?
-                                                                <div className="mb-3 referDocimg" onClick={()=>{this.props.history.push('/doctorsignup')}}>
+                                                                <div className="mb-3 referDocimg" onClick={()=>{this.props.history.push('/doctorsignup?member_type=1')}}>
                                                                 <img src={ASSETS_BASE_URL + "/img/refrlbnr.png"} />
                                                             </div>:''}
                                                             {
