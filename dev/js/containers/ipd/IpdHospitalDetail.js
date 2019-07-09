@@ -100,11 +100,12 @@ class HospitalDetail extends React.Component {
 	getMetaTagsData(seoData) {
 		let title = "Hospital Profile Page"
 		let description = ""
+		let schema = {}
 		if (seoData) {
 			title = seoData.name_city?`${seoData.name_city} | Book Appointment, Check Doctors List, Reviews, Contact Number`:''
 			description = seoData.name_city?`${seoData.name_city} : Get free booking on first appointment.Check ${seoData.name?seoData.name:''} Doctors List, Reviews, Contact Number, Address, Procedures and more.`:''
 		}
-		return { title, description }
+		return { title, description, schema }
 	}
 
 	showChatView(showIpd=false){
@@ -122,7 +123,8 @@ class HospitalDetail extends React.Component {
 					<HelmetTags tagsData={{
 						canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
 						title: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail : null).title,
-						description: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail : null).description
+						description: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail : null).description,
+						schema: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail : null).schema
 					}} noIndex={!this.state.is_seo} />
 					<section className="container parent-section book-appointment-section breadcrumb-mrgn">
 						{
