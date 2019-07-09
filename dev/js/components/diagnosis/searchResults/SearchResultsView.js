@@ -453,9 +453,9 @@ class SearchResultsView extends React.Component {
                                                 <p className="pkg-ty-agn cursor-pntr" onClick={this.applyQuickFilter.bind(this, {viewMore: true})}>Try again with fewer filters</p>
                                                 </React.Fragment>
                                             : <React.Fragment>
-                                                <img className="n-rslt-img" src={ASSETS_BASE_URL + '/img/no-result.png'} />
-                                                <p className="pkg-ty-agn cursor-pntr" onClick={this.applyQuickFilter.bind(this, {viewMore: true})}>Test lab</p>
-                                                <button onClick={()=>{this.props.history.push('/doctorsignup')}}> refer your lab</button>
+                                                <img style={{width:'130px'}} className="n-rslt-img" src={ASSETS_BASE_URL + '/img/vct-no.png'} />
+                                                <p className="pkg-ty-agn text-dark text-center">Can’t find your lab here?<br></br>Help us to list your lab</p>
+                                                <button className="referDoctorbtn" onClick={()=>{this.props.history.push('/doctorsignup')}}>Refer your Lab</button>
                                                 </React.Fragment>
                                         }
                                         </div>
