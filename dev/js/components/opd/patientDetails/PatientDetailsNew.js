@@ -1160,7 +1160,7 @@ class PatientDetailsNew extends React.Component {
 
                                                                     {
                                                                         priceData ? <div className="test-report payment-detail mt-20">
-                                                                            <h4 className="title payment-amt-label">Amount Payable 1</h4>
+                                                                            <h4 className="title payment-amt-label">Amount Payable</h4>
                                                                             <h5 className="payment-amt-value">&#8377; {finalPrice || 0}</h5>
                                                                         </div> : ""
                                                                     }
@@ -1214,7 +1214,7 @@ class PatientDetailsNew extends React.Component {
                                                                             is_insurance_applicable && this.props.payment_type != 2 ?
                                                                                 <div className="ins-val-bx">Covered Under Insurance</div>
                                                                                 : priceData ? <div className="test-report payment-detail mt-20">
-                                                                                    <h4 className="title payment-amt-label">Amount Payable 2</h4>
+                                                                                    <h4 className="title payment-amt-label">Amount Payable</h4>
                                                                                     {
                                                                                         enabled_for_cod_payment && priceData.is_cod_deal_price && priceData.fees !=0 ? <h5 className="payment-amt-value">&#8377; {parseInt(priceData.is_cod_deal_price)}</h5> :
                                                                                             priceData.fees== 0?
