@@ -249,6 +249,19 @@ class DoctorProfileCard extends React.Component {
                                     <div className="cstm-doc-content-container">
                                         <h3>{this.getQualificationStr(general_specialization || [])}</h3>
                                         {
+                                            qualifications && qualifications.length && qualificationsArray.length ?
+                                                <p>
+                                                    {
+                                                        qualificationsArray.map((qualification, index) => {
+                                                            if (index < 3) {
+                                                                return <span key={index}>{qualification.qualification} {(index < qualificationsArray.length - 1) && (index != 2) ? '| ' : ''}</span>
+                                                            }
+                                                            else return ''
+                                                        })
+                                                    }
+                                                </p> : ''
+                                        }
+                                        {
                                             experience_years ?
                                                 <h3 style={{ marginBottom: 5 }}>{experience_years} Years Experience</h3> : ''
                                         }
@@ -263,20 +276,6 @@ class DoctorProfileCard extends React.Component {
                                                         {time}
                                                     </p>
                                                 }) : ''
-                                        }
-                                        {
-                                            qualifications && qualifications.length && qualificationsArray.length ?
-                                                <p style={{ marginTop: 5 }}>
-                                                    <img className="cstmTimeImg" style={{ width: 15 }} src={ASSETS_BASE_URL + '/img/customer-icons/Education-01.svg'} />
-                                                    {
-                                                        qualificationsArray.map((qualification, index) => {
-                                                            if (index < 3) {
-                                                                return <span key={index}>{qualification.qualification} {(index < qualificationsArray.length - 1) && (index != 2) ? '| ' : ''}</span>
-                                                            }
-                                                            else return ''
-                                                        })
-                                                    }
-                                                </p> : ''
                                         }
                                     </div>
                                 </div>
@@ -349,19 +348,21 @@ class DoctorProfileCard extends React.Component {
                         <div className="cstmfooterContent">
                             {
                                 hospital.url && hospital.url.length ?
-                                    <a href={`/${hospital.url}`} onClick={
-                                        (e) => {
-                                            e.preventDefault()
-                                            this.props.history.push(`/${hospital.url}`)
-                                        }
-                                    }>
-                                        <h3><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />{hospital.hospital_name}
-                                            {
-                                                hospital_count > 1 ?
-                                                    <span> &amp; {hospital_count - 1} More </span> : ''
+
+                                    <h3><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />
+                                        <a href={`/${hospital.url}`} style={{ color: '#000' }} onClick={
+                                            (e) => {
+                                                e.preventDefault()
+                                                this.props.history.push(`/${hospital.url}`)
                                             }
-                                        </h3>
-                                    </a>
+                                        }>
+                                            {hospital.hospital_name}
+                                        </a>
+                                        {
+                                            hospital_count > 1 ?
+                                                <span> &amp; {hospital_count - 1} More </span> : ''
+                                        }
+                                    </h3>
                                     : <h3><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />{hospital.hospital_name}
                                         {
                                             hospital_count > 1 ?

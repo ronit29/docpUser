@@ -190,12 +190,13 @@ export const getLabTimeSlots = (labId, pickup, pincode, date, callback) => (disp
 	})
 }
 
-export const selectLabTimeSLot = (slot, reschedule = false) => (dispatch) => {
+export const selectLabTimeSLot = (slot, reschedule = false, dateParams=null) => (dispatch) => {
 	dispatch({
 		type: SELECT_LAB_TIME_SLOT,
 		payload: {
 			reschedule,
-			slot
+			slot,
+			dateParams
 		}
 	})
 }

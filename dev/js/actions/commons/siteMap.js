@@ -1,4 +1,4 @@
-import { GET_CITIES_MAP, GET_CITIES_SPECIALITIES, GET_SPECIALITIES_CITIES, GET_SPECIALITIES_MAP, GET_TESTS_ALPHABETICALLY, GET_TESTS_FLAG, GET_INSURANCE_NETWORK, SET_NETWORK_TYPE, START_FETCHING_IPD_LIST, GET_IPD_ALPHABETICALLY } from '../../constants/types';
+import { GET_CITIES_MAP, GET_CITIES_SPECIALITIES, GET_SPECIALITIES_CITIES, GET_SPECIALITIES_MAP, GET_TESTS_ALPHABETICALLY, GET_TESTS_FLAG, GET_INSURANCE_NETWORK, SET_NETWORK_TYPE, START_FETCHING_IPD_LIST, GET_IPD_ALPHABETICALLY, START_FETCHING_HOSPITAL_LIST, GET_HOSPITAL_LIST_DATA  } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 export const getCitiesMap = (city = "", page = 0) => (dispatch) => {
@@ -135,6 +135,42 @@ export const getIPDAlphabetically = (character, selectedLocation) => (dispatch) 
 			payload: response,
 			flag: false,
 			character: character
+		})
+	}).catch(function (error) {
+
+	})
+}
+
+export const getHospitalList = (selectedLocation=null, page=1) => (dispatch) => {
+
+	let lat = 28.644800
+    let long = 77.216721
+    let place_id = ""
+    let locality = ""
+    let sub_locality = ""
+
+    if (selectedLocation && (selectedLocation.geometry || selectedLocation.place_id) ) {
+        lat = selectedLocation.geometry.location.lat
+        long = selectedLocation.geometry.location.lng
+        place_id = selectedLocation.place_id || ""
+        if (typeof lat === 'function') lat = lat()
+        if (typeof long === 'function') long = long()
+        locality = selectedLocation.locality || ""
+        sub_locality = selectedLocation.sub_locality || ""
+    }else{
+        locality = "Delhi"
+    }
+
+	let url = `/api/v1/location/city-inventory-hospitals?city=${locality}&lat=${lat}&long=${long}&page=1`
+	dispatch({
+		type: START_FETCHING_HOSPITAL_LIST,
+		flag: true
+	})
+	return API_GET(url).then(function (response) {
+		dispatch({
+			type: GET_HOSPITAL_LIST_DATA,
+			payload: response,
+			flag: false
 		})
 	}).catch(function (error) {
 

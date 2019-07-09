@@ -14,7 +14,7 @@ class DateTimePicker extends React.Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			selectedDateSpan: props.selectedSlot && props.selectedSlot.date?new Date(props.selectedSlot.date):new Date(),
+			selectedDateSpan: props.selectedSlot && props.selectedSlot.date?new Date(props.selectedSlot.date):props.selectedDateFormat?new Date(props.selectedDateFormat):new Date(),
 			currentTimeSlot: props.selectedSlot && props.selectedSlot.time ? props.selectedSlot.time : {},
 			dateModal: false,
 			daySeries:[]
@@ -32,14 +32,24 @@ class DateTimePicker extends React.Component {
             this.generateDays(true, this.props.selectedSlot.date)
         } else {
             let getUpcomingDate= false
-            if(this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length){
-                let upcoming_time = Object.keys(this.props.upcoming_slots)
-                if(this.props.timeSlots[upcoming_time[0]]){
-                    getUpcomingDate = true
-                    this.setState({selectedDateSpan: new Date(upcoming_time[0])})
-                    this.generateDays(true, new Date(upcoming_time[0]))
-                }
+            let upcoming_time = null
+
+            if(this.props.selectedDateFormat) {
+                upcoming_time = this.props.selectedDateFormat
+            
+            }else{
+                upcoming_time = this.getFormattedDate(new Date())
+            }/*else if(this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length){
+                upcoming_time = Object.keys(this.props.upcoming_slots)[0]
+            }*/
+
+
+            if(upcoming_time && this.props.timeSlots[upcoming_time]){
+                getUpcomingDate = true
+                this.setState({selectedDateSpan: new Date(upcoming_time)})
+                this.generateDays(true, new Date(upcoming_time))
             }
+
             if(!getUpcomingDate){
                 if(this.props.is_thyrocare){
                     let nextDate = new Date()

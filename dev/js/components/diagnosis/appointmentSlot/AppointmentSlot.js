@@ -77,7 +77,11 @@ class AppointmentSlot extends React.Component {
     }
 
     selectTimeSlot(slot) {
-        this.props.selectLabTimeSLot(slot, this.state.reschedule)
+        let extraTimeParams = null
+        if(this.state.selectedTimeSlot && this.state.selectedTimeSlot.date) {
+            extraTimeParams = this.getFormattedDate(this.state.selectedTimeSlot.date)
+        }
+        this.props.selectLabTimeSLot(slot, this.state.reschedule, extraTimeParams)
     }
 
     componentDidMount() {
@@ -93,8 +97,18 @@ class AppointmentSlot extends React.Component {
             if(parsed.is_thyrocare && parsed.is_thyrocare.includes('true')){
                     
                 let nextDate = new Date()
-                nextDate.setDate(new Date().getDate() + 1)
+                if(this.props.selectedDateFormat) {
+                    
+                    if(new Date().toDateString()==new Date(this.props.selectedDateFormat).toDateString()){
+                        nextDate.setDate(new Date().getDate() + 1)
+                    }else {
+                        nextDate = new Date(this.props.selectedDateFormat)
+                    }
+                }else {
+                    nextDate.setDate(new Date().getDate() + 1)
+                }
                 this.getTimeSlots(nextDate)
+                
                 
             }else{
                 this.getTimeSlots(new Date())
