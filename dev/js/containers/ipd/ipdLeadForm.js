@@ -233,7 +233,7 @@ class IpdLeadForm extends React.Component {
 					                            <span className="sm-wtsp-img fw-400"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" checked={this.state.whatsapp_optin} /><span className="checkmark" style={{left: '7px'}}></span>
 					                        </label>
 					                	</div>*/}
-					                	<div>
+					                	<div className="skip-btn-sgn">
 											<button className="ipd-inp-sbmt" onClick={(e) => {
 												e.stopPropagation()
 												e.preventDefault()

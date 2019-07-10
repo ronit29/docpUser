@@ -11987,3 +11987,19 @@ ul.chat-radio-align .custom-radio .radio-checkmark.checkmark:after{
     -o-transition: all .5s ease-in-out;
     transition: all .5s ease-in-out;
 }
+.skip-btn-sgn{
+    position: relative;
+}
+.skip-btn-sgn p{ 
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    font-size: 13px;
+    font-weight: 500;
+    color: #f78631;
+    cursor: pointer;
+}
