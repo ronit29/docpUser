@@ -7551,8 +7551,7 @@ p.cstm-cpn{
     bottom: 0;
     margin-top: 20px;
     z-index: 9;
-    margin-left: -5px;
-    margin-right: -5px;
+    
 
 }
 
@@ -8266,7 +8265,7 @@ font-size: 16px;
 
 @media screen and (max-width: 767px){
 	 .ipd-section{
-    	padding:0 15px;
+    	padding:0 5px;
     	margin-top: -10px;
     }
     .ipd-section .full-widget.mrg-b0{
@@ -8291,8 +8290,9 @@ font-size: 16px;
 		right: -83%;
     }
     .ipd-section a.btn-search{
-        margin: 0px -10px;
+        margin: 0px -5px;
     }
+    
 	
 }
 @media screen and (max-width: 576px){
