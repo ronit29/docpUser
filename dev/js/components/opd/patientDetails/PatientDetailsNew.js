@@ -843,7 +843,7 @@ class PatientDetailsNew extends React.Component {
         }
 
         if(priceData.fees ==0){
-            finalPrice = ((parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)) - (this.props.disCountedOpdPrice ? this.props.disCountedOpdPrice : 0)
+            finalPrice = parseInt(priceData.deal_price) - (this.props.disCountedOpdPrice ? this.props.disCountedOpdPrice : 0)
         }
 
         let is_add_to_card = STORAGE.isAgent() || !is_default_user_insured
@@ -1142,7 +1142,7 @@ class PatientDetailsNew extends React.Component {
                                                                             </div>
                                                                             <div className="payment-detail d-flex">
                                                                                 <p>Platform Convenience Fee</p>
-                                                                                <p>&#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
+                                                                                <p>&#8377; {parseInt(priceData.deal_price)}</p>
                                                                             </div>
                                                                             </React.Fragment>
                                                                         :''
@@ -1205,7 +1205,7 @@ class PatientDetailsNew extends React.Component {
                                                                             </div>
                                                                             <div className="payment-detail d-flex">
                                                                                 <p>Platform Convenience Fee</p>
-                                                                                <p>&#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
+                                                                                <p>&#8377; {parseInt(priceData.deal_price)}</p>
                                                                             </div>
                                                                             </React.Fragment>
                                                                         :''

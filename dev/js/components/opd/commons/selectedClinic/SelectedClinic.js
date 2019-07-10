@@ -99,7 +99,7 @@ class SelectedClinic extends React.Component {
                                                     </span>
                                                     :<span className="clinc-rd-price">₹ {hospital.mrp}</span>
                                                 :hospital.enabled_for_online_booking ?
-                                                <span className="clinc-rd-price">₹ {hospital.deal_price}
+                                                <span className="clinc-rd-price">₹ {hospital.discounted_price}
                                                         {
                                                             parseInt(hospital.discounted_price) == parseInt(hospital.mrp)
                                                                 ? ''
