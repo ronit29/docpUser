@@ -720,35 +720,38 @@ class InsuranceSelf extends React.Component {
 								<span className="fill-error-span">{this.props.createApiErrors.gender[0]}</span> : ''
 						}
 					</div>
-					<div className="col-12 mrt-10">
-						<div className="ins-form-group">
-							<input type="text" id={`emails_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('email') > -1 ? 'fill-error' : ''}`} required autoComplete="email" name="email" value={this.state.email} data-param='email' onChange={this.handleChange.bind(this, 'email')} onBlur={this.handleEmail} onFocus={this.handleOnFocus.bind(this, 'email')} />
-							<label className={this.state.disableEmail ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`emails_${this.props.member_id}`}><span className="labelDot"></span>Email</label>
-							<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
-						</div>
-						{
-							this.props.validateErrors.indexOf('email') > -1 ?
-								<span className="fill-error-span">{this.props.errorMessages['valid_email']}</span> : ''
-						}
-					</div>
-					<div className="col-12 mrt-10">
-						<div className="ins-email-cont">
-							<div className="ins-form-group mb-0">
-								<input type="text" id="statick" className="form-control ins-form-control" required autoComplete="email" name="email" data-param='email' />
-								<label className="form-control-placeholder datePickerLabel" htmlFor="statick"><span className="labelDot"></span>Email</label>
+					{
+						this.props.is_endorsement?
+						<div className="col-12 mrt-10">
+							<div className="ins-form-group">
+								<input type="text" id={`emails_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('email') > -1 ? 'fill-error' : ''}`} required autoComplete="email" name="email" value={this.state.email} data-param='email' onChange={this.handleChange.bind(this, 'email')} onBlur={this.handleEmail} onFocus={this.handleOnFocus.bind(this, 'email')} />
+								<label className={this.state.disableEmail ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`emails_${this.props.member_id}`}><span className="labelDot"></span>Email</label>
 								<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
-								<span className="vrfy-edit">Verify now</span>
 							</div>
-							<div className="ins-otp-mail-cont">
-								<p className="ins-em-otp">An OTP has been sent to your email address</p>
-								<div className="em-ins-inp-cont">
-									<input className="em-ins-inpu" />
-									<button>Submit</button>
+							{
+								this.props.validateErrors.indexOf('email') > -1 ?
+									<span className="fill-error-span">{this.props.errorMessages['valid_email']}</span> : ''
+							}
+						</div>
+						:<div className="col-12 mrt-10">
+							<div className="ins-email-cont">
+								<div className="ins-form-group mb-0">
+									<input type="text" id="statick" className="form-control ins-form-control" required autoComplete="email" name="email" data-param='email' />
+									<label className="form-control-placeholder datePickerLabel" htmlFor="statick"><span className="labelDot"></span>Email</label>
+									<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
+									<span className="vrfy-edit">Verify now</span>
 								</div>
-								<span className="rdsn-ipt-md">Resend</span>
+								<div className="ins-otp-mail-cont">
+									<p className="ins-em-otp">An OTP has been sent to your email address</p>
+									<div className="em-ins-inp-cont">
+										<input className="em-ins-inpu" />
+										<button>Submit</button>
+									</div>
+									<span className="rdsn-ipt-md">Resend</span>
+								</div>
 							</div>
 						</div>
-					</div>
+					}
 					<div className="col-12">
 						<div className="ins-form-group">
 							{/* <input type="button"  id={`isn-date_${this.props.member_id}`} className={`form-control ins-form-control text-left ${this.props.validateErrors.indexOf('dob')> -1?'fill-error':''}`} required autoComplete="dob" name="dob" value={this.state.dob?this.state.dob:'yyyy/mm/dd'} data-param='dob' onClick={this.openDateModal.bind(this)}/> */}
