@@ -88,7 +88,8 @@ class Doctorsignup extends React.Component {
 					}
 					<div className="col-12 dsp-main-info-div">
 						<div className="dsp-phone-img-div">
-							<img src="https://cdn.docprime.com/static/web/images/phone_doc.c1fe8649711f.png" className="dsp-phone-img" />
+							{/*<img src="https://cdn.docprime.com/static/web/images/phone_doc.c1fe8649711f.png" className="dsp-phone-img" />*/}
+							<img src={ASSETS_BASE_URL + "/img/doc-signup.png"} style={{width:320}} className="dsp-phone-img" />
 						</div>
 						<div className="dsp-img-info-div">
 							<div className="dsp-logo-div">
