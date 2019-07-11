@@ -426,6 +426,43 @@ class SearchResultsView extends React.Component {
         this.setState({quickFilter: filter})
     }
 
+    isFilterApplied(filterCriteria){
+        //Check if any filter applied 
+        let is_filter_applied = false
+        if(filterCriteria){
+            let sort_on = filterCriteria.sort_on || ""
+            let sort_order = filterCriteria.sort_order || ""
+            let availability = filterCriteria.availability || []
+            let avg_ratings = filterCriteria.avg_ratings || []
+            let gender = filterCriteria.gender || ''
+            let sits_at_hospital = filterCriteria.sits_at_hospital
+            let sits_at_clinic = filterCriteria.sits_at_clinic
+
+
+            let hospital_name = filterCriteria.hospital_name || ""
+            let doctor_name = filterCriteria.doctor_name || ""
+            let hospital_id = filterCriteria.hospital_id || ""
+            let is_insured = filterCriteria.is_insured || false
+
+            if (sort_on) {
+                is_filter_applied = true
+            }
+            if (availability && availability.length) {
+                is_filter_applied = true
+            }
+
+            if (avg_ratings && avg_ratings.length) {
+                is_filter_applied = true
+            }
+
+            if (gender) {
+                is_filter_applied = true
+            }
+        }
+
+        return is_filter_applied
+    }
+
     render() {
         let show_pagination = this.props.doctorList && this.props.doctorList.length > 0
         let url = `${CONFIG.API_BASE_URL}${this.props.location.pathname}`
@@ -484,8 +521,19 @@ class SearchResultsView extends React.Component {
                                     <div className="pkg-card-container mt-20 mb-3">
                                         <div className="pkg-no-result">
                                             <p className="pkg-n-rslt">No result found!</p>
-                                            <img className="n-rslt-img" src={ASSETS_BASE_URL + '/img/no-result.png'} />
-                                            <p className="pkg-ty-agn cursor-pntr" onClick={this.applyQuickFilter.bind(this, {viewMore: true})}>Try again with fewer filters</p>
+                                            {
+                                                this.isFilterApplied(this.props.filterCriteria)?
+                                                <React.Fragment>
+                                                    <img className="n-rslt-img" src={ASSETS_BASE_URL + '/img/no-result.png'} />
+                                                    <p className="pkg-ty-agn cursor-pntr" onClick={this.applyQuickFilter.bind(this, {viewMore: true})}>Try again with fewer filters</p>
+                                                </React.Fragment>
+                                                :
+                                                <React.Fragment>
+                                                    <img style={{width:'130px'}} className="n-rslt-img" src={ASSETS_BASE_URL + '/img/vct-no.png'} />
+                                                    <p className="pkg-ty-agn text-dark text-center">Can’t find your doctor here?<br></br>Help us to list your doctor</p>
+                                                    <button className="referDoctorbtn" onClick={()=>{this.props.history.push('/doctorsignup?member_type=2')}}>Refer your Doctor</button>
+                                                </React.Fragment>
+                                            }
                                         </div>
                                     </div>
                                 </div>

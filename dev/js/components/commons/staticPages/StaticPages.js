@@ -97,7 +97,7 @@ class StaticPagesView extends React.Component {
                 }} />
 
                 <Route exact path={'/doctorsignup'} render={(props) => {
-                    return <Doctorsignup {...this.props} {...props} />
+                    return <Doctorsignup {...this.props} {...props} member_type={parsed.member_type?parseInt(parsed.member_type):''}/>
                 }} />
 
                 <Route exact path={'/cancelpolicy'} render={(props) => {
