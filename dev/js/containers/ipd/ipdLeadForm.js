@@ -239,12 +239,15 @@ class IpdLeadForm extends React.Component {
 												e.preventDefault()
 												this.submitLeadForm()
 											}}>Click to Proceed</button>
-
-											<p onClick={(e) => {
+											{
+												(parsed && parsed.get_feedback && parsed.get_feedback == '1') || this.props.forcedPopup ?''
+												:<p onClick={(e) => {
 													e.stopPropagation()
 													e.preventDefault()
 													this.closePopUpClicked()
 												}}>Skip</p>
+											}
+											
 										</div>
 									</div>
 								</div>
