@@ -3,6 +3,7 @@ import SnackBar from 'node-snackbar'
 import Calendar from 'rc-calendar'
 import StateCityAutoComplete from './stateCityAutoComplete.js'
 import InsuranceProofs from './insuranceProofs.js'
+import VerifyEmail from './verifyEmail.js'
 const moment = require('moment')
 
 class InsuranceSelf extends React.Component {
@@ -40,7 +41,8 @@ class InsuranceSelf extends React.Component {
 			is_change: false,
 			year: null,
 			mnth: null,
-			day: null
+			day: null,
+			emailVerified:false,
 
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -580,6 +582,13 @@ class InsuranceSelf extends React.Component {
 			})
 		}
 	}
+
+	verifyEndorsementEmail(){
+		this.setState({emailVerified:true},()=>{
+			this.handleSubmit()
+		})
+	}
+
 	render() {
 		let self = this
 		let show_createApi_keys = []
@@ -721,7 +730,7 @@ class InsuranceSelf extends React.Component {
 						}
 					</div>
 					{
-						this.props.is_endorsement?
+						!this.props.is_endorsement?
 						<div className="col-12 mrt-10">
 							<div className="ins-form-group">
 								<input type="text" id={`emails_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('email') > -1 ? 'fill-error' : ''}`} required autoComplete="email" name="email" value={this.state.email} data-param='email' onChange={this.handleChange.bind(this, 'email')} onBlur={this.handleEmail} onFocus={this.handleOnFocus.bind(this, 'email')} />
@@ -733,24 +742,13 @@ class InsuranceSelf extends React.Component {
 									<span className="fill-error-span">{this.props.errorMessages['valid_email']}</span> : ''
 							}
 						</div>
-						:<div className="col-12 mrt-10">
-							<div className="ins-email-cont">
-								<div className="ins-form-group mb-0">
-									<input type="text" id="statick" className="form-control ins-form-control" required autoComplete="email" name="email" data-param='email' />
-									<label className="form-control-placeholder datePickerLabel" htmlFor="statick"><span className="labelDot"></span>Email</label>
-									<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
-									<span className="vrfy-edit">Verify now</span>
-								</div>
-								<div className="ins-otp-mail-cont">
-									<p className="ins-em-otp">An OTP has been sent to your email address</p>
-									<div className="em-ins-inp-cont">
-										<input className="em-ins-inpu" />
-										<button>Submit</button>
-									</div>
-									<span className="rdsn-ipt-md">Resend</span>
-								</div>
-							</div>
-						</div>
+						:<React.Fragment>
+							<VerifyEmail {...this.props} is_endorsement={true} member_id={this.props.member_id} validateErrors ={this.props.validateErrors} email={this.state.email} handleSubmit={this.handleSubmit.bind(this)} verifyEndorsementEmail={this.verifyEndorsementEmail.bind(this)}/>
+							{
+								this.props.validateErrors.indexOf('email') > -1 ?
+									<span className="fill-error-span">{this.props.errorMessages['valid_email']}</span> : ''
+							}
+						</React.Fragment>
 					}
 					<div className="col-12">
 						<div className="ins-form-group">

@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Loader from '../../components/commons/Loader'
 
-import { userData,selectInsuranceProfile, saveCurrentSelectedMembers, pushUserData, resetSelectedInsuranceMembers, getInsurance, getEndorsedMemberList, pushUserEndorsedData, selectInsurancePlan, uploadProof, storeMemberProofs, removeMemberProof} from '../../actions/index.js'
+import { userData,selectInsuranceProfile, saveCurrentSelectedMembers, pushUserData, resetSelectedInsuranceMembers, getInsurance, getEndorsedMemberList, pushUserEndorsedData, selectInsurancePlan, uploadProof, storeMemberProofs, removeMemberProof, sendEmailOtp,submitEmailOTP} from '../../actions/index.js'
 import InsuranceComponentView from '../../components/insurance/insuranceEndorsementDetailsView.js'
 
 class InsuranceEndorsementDetails extends React.Component{
@@ -62,7 +62,9 @@ const mapDispatchToProps = (dispatch) => {
         selectInsurancePlan: (plan,criteria) => dispatch(selectInsurancePlan(plan,criteria)),        
         uploadProof:(profileData, profileId,imgType, cb) =>dispatch(uploadProof(profileData, profileId,imgType, cb)),
         storeMemberProofs:(imgUrl,cb)=>dispatch(storeMemberProofs(imgUrl,cb)),
-        removeMemberProof:(criteria)=>dispatch(removeMemberProof(criteria))
+        removeMemberProof:(criteria)=>dispatch(removeMemberProof(criteria)),
+        sendEmailOtp: (email, cb) => dispatch(sendEmailOtp(email, cb)),
+        submitEmailOTP: (email, otp, cb) => dispatch(submitEmailOTP(email, otp, cb)),
     }
 }
 
