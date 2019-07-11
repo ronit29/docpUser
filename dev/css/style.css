@@ -12018,3 +12018,11 @@ font-weight: 500;
     color: #f78631;
     cursor: pointer;
 }
+.reg-fee-cont p {
+    background: #f5e28a;
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
