@@ -234,12 +234,15 @@ export const getHospitaDetails = (hospitalId, selectedLocation, searchByUrl=null
     }
 
     return API_GET(url).then( function( response) {
-        dispatch({
-            type: GET_IPD_HOSPITAL_DETAIL,
-            payload: response
-        })
+        if(response.status){
+        }else {
+            dispatch({
+                type: GET_IPD_HOSPITAL_DETAIL,
+                payload: response
+            })
+                
+        }
         if(cb)cb(response)
-
     }).catch( function( error) {
 
     })
