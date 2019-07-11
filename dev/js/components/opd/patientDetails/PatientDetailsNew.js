@@ -58,7 +58,7 @@ class PatientDetailsNew extends React.Component {
             coupon_loading: false,
             seoFriendly: this.props.match.url.includes('-dpp'),
             showIpdLeadForm: true,
-            dateTimeSelectedValue: ''
+            dateTimeSelectedValue: this.props.selectedDateFormat?this.props.selectedDateFormat:''
         }
     }
 
@@ -913,7 +913,7 @@ class PatientDetailsNew extends React.Component {
                                                                             </div>
                                                                             <div className="date-slecet-cont">
                                                                                 <div className="nw-inpt-selctr">
-                                                                                    <span className="nw-pick-hdng">Pick date:</span>
+                                                                                    <span className="nw-pick-hdng">Date:</span>
                                                                                     <div className="caln-input-tp">
                                                                                         <img className="inp-nw-cal" src={ASSETS_BASE_URL + '/img/calnext.svg'} />
                                                                                         <input type="date" name="date" onChange={this.selectDate.bind(this)} value={this.state.dateTimeSelectedValue ? this.state.dateTimeSelectedValue : upcoming_date} min={this.getFormattedDate(new Date())} max={this.getFormattedDate(new Date(dateAfter24Days))} />
@@ -922,10 +922,10 @@ class PatientDetailsNew extends React.Component {
                                                                             </div>
                                                                             <div className="date-slecet-cont">
                                                                                 <div className="nw-inpt-selctr">
-                                                                                    <span className="nw-pick-hdng">Pick Time:</span>
+                                                                                    <span className="nw-pick-hdng">Time:</span>
                                                                                     <div className="caln-input-tp" onClick={() => this.navigateTo('time')}>
                                                                                         <img className="inp-nw-time" src={ASSETS_BASE_URL + '/img/nw-watch.svg'} />
-                                                                                        <input type="text" disabled={true} name="bday" placeholder="Select" value={time && time.text ? `${date ? `${WEEK_DAYS[new Date(date).getDay()]}, ${new Date(date).getDate()} ${MONTHS[new Date(date).getMonth()]}` : ''} ${time.text ? "|" : ""} ${time.text} ${time.text ? (time.value >= 12 ? 'PM' : 'AM') : ''}` : ''} />
+                                                                                        <input type="text" disabled={true} name="bday" placeholder="Select" value={time && time.text?`${time.text} ${time.value >= 12 ? 'PM' : 'AM'}` : ''} />
                                                                                         <img className="tm-arw-sgn" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
                                                                                     </div>
                                                                                 </div>

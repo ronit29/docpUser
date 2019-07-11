@@ -65,7 +65,9 @@ class HospitalDetail extends React.Component {
         let hospitalId = searchUrl?'':this.props.match.params.hospitalId
         //if(!this.state.hospital_id || !this.props.ipd_hospital_detail_info || !this.props.ipd_hospital_detail_info[this.state.hospital_id]) {
         	this.props.getHospitaDetails(hospitalId, this.props.selectedLocation, searchUrl, specialization_id, (resp) => {
-        		if(resp && resp.id) {
+        		if(resp && resp.status && resp.status==301){
+        			this.props.history.push(`/${resp.url}`)
+        		}else if(resp && resp.id) {
         			this.setState({hospital_id: resp.id})
         		}
         	})	
@@ -88,8 +90,9 @@ class HospitalDetail extends React.Component {
 
 	       // if(!this.state.hospital_id || !nextProps.ipd_hospital_detail_info || !nextProps.ipd_hospital_detail_info[this.state.hospital_id]) {
 	        	this.props.getHospitaDetails(this.props.match.params.hospitalId, nextProps.selectedLocation, searchUrl, specialization_id, (resp) => {
-
-	        		if(resp && resp.id) {
+	        		if(resp && resp.status && resp.status==301){
+	        			this.props.history.push(`/${resp.url}`)
+	        		}else if(resp && resp.id) {
 	        			this.setState({hospital_id: resp.id})
 	        		}
 	        	})
@@ -101,8 +104,8 @@ class HospitalDetail extends React.Component {
 		let title = "Hospital Profile Page"
 		let description = ""
 		if (seoData) {
-			title = seoData.name_city?`${seoData.name_city} | Book Appointment, Check Doctors List, Reviews, Contact Number`:''
-			description = seoData.name_city?`${seoData.name_city} : Get free booking on first appointment.Check ${seoData.name?seoData.name:''} Doctors List, Reviews, Contact Number, Address, Procedures and more.`:''
+			title = seoData && seoData.seo && seoData.seo.title?seoData.seo.title :seoData.name_city?`${seoData.name_city} | Book Appointment, Check Doctors List, Reviews, Contact Number`:''
+			description = seoData && seoData.seo && seoData.seo.description?seoData.seo.description :seoData.name_city?`${seoData.name_city} : Get free booking on first appointment.Check ${seoData.name?seoData.name:''} Doctors List, Reviews, Contact Number, Address, Procedures and more.`:''
 		}
 		return { title, description }
 	}
