@@ -925,12 +925,22 @@ class BookingSummaryViewNew extends React.Component {
                                                                         <span>
                                                                             <img style={{ width: '22px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/hospital.svg"} />
                                                                         </span>
-                                                                        <p className="lab-crd-txt-pr">{labDetail.name}
-                                                                            {
-                                                                                this.props.selectedAppointmentType == 'lab' ?
-                                                                                    <span>{labDetail.address || ''}</span> : ''
-                                                                            }
-                                                                        </p>
+                                                                        {
+                                                                            labDetail.name && labDetail.name.toLowerCase().includes('thyrocare') ?
+                                                                                <p className="lab-crd-txt-pr">{labDetail.name.split('-')[0]}
+                                                                                    {
+                                                                                        this.props.selectedAppointmentType == 'lab' ?
+                                                                                            <span>{labDetail.address || ''}</span> : ''
+                                                                                    }
+                                                                                </p>
+                                                                                :
+                                                                                <p className="lab-crd-txt-pr">{labDetail.name}
+                                                                                    {
+                                                                                        this.props.selectedAppointmentType == 'lab' ?
+                                                                                            <span>{labDetail.address || ''}</span> : ''
+                                                                                    }
+                                                                                </p>
+                                                                        }
                                                                     </h4>
                                                                     {/*<div className="float-right  mbl-view-formatting text-right">
                                                                         <a href="" style={{ width: '100px', display: 'inline-block' }} onClick={(e) => {

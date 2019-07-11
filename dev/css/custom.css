@@ -1314,7 +1314,7 @@ p.rev-ins-header a img{
 }
 @media(max-width: 767px){
 .ipd-tabs-container{
-	margin: 0 -15px 15px -15px !important;
+	margin: 0 -5px 15px -5px !important;
 	top: 89px !important;
 }
 .sort-sub-filter-container{

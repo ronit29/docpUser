@@ -65,9 +65,9 @@ class ChatQuestion2 extends React.Component {
 		let postData = {
 			rid: rid,
 			data: [
-				{ques:'1', data: ques1},
-				{ques:'2', data: ques2},
-				{ques:'3', data: [this.state.comments]},
+				{type:'ques1', data: {question: 'What do you think can be improved?', feedback:ques1} },
+				{type:'ques2', data: {question:'What did you like about the service?', feedback:ques2} },
+				{type:'ques3', data: {question:'Any Comments?', feedback:[this.state.comments]} },
 				{createdOn: new Date()},
 				{type: 'SinglePageFeedback'}
 			]
