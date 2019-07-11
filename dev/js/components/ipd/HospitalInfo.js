@@ -68,9 +68,13 @@ class HospitalInfoView extends React.Component {
             }
 
           </div>
-          <div className="reg-fee-cont">
-            <p>No Registration Fee</p>
-          </div>
+          {
+            hospital_data && hospital_data.id==3240?
+            <div className="reg-fee-cont">
+              <p>No Registration Fee</p>
+            </div>
+            :''
+          }
           <hr />
           <ul className="hsptl-contact text-left">
             {
