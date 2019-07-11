@@ -208,7 +208,7 @@ class HospitalDetailView extends React.Component {
 									: ''
 							}
 
-							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} showPopup={showPopup} />
+							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} showPopup={showPopup} isSeo={this.state.seoFriendly}/>
 
 							<div className="ipd-tabs-container">
 								<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type=doctors`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'doctors' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{

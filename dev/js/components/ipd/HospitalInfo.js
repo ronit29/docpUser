@@ -69,7 +69,7 @@ class HospitalInfoView extends React.Component {
 
           </div>
           {
-            hospital_data && hospital_data.id==3240?
+            hospital_data && hospital_data.id==3240 && this.props.isSeo?
             <div className="reg-fee-cont">
               <p>No Registration Fee</p>
             </div>
