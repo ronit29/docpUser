@@ -343,13 +343,14 @@ class DoctorProfileView extends React.Component {
         }
 
         const parsed = queryString.parse(this.props.location.search)
+        let showForcedPopup = landing_page && this.state.seoFriendly && doctor_id && this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].is_congot
 
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
                 {
-                    this.props.DOCTORS[doctor_id] && parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE?
-                    <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={selectedClinicName} hospital_id={this.state.selectedClinic} doctor_name={this.props.DOCTORS[doctor_id].name?this.props.DOCTORS[doctor_id].name:''} formSource='DoctorBookingPage'/>
+                    (this.props.DOCTORS[doctor_id] && parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE) || showForcedPopup?
+                    <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={selectedClinicName} hospital_id={this.state.selectedClinic} doctor_name={this.props.DOCTORS[doctor_id].name?this.props.DOCTORS[doctor_id].name:''} formSource='DoctorBookingPage' forcedPopup={showForcedPopup}/>
                     :''
                 }
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">
