@@ -424,7 +424,7 @@ class DoctorProfileView extends React.Component {
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">
-                                                    <button className="doc-top-book-btn">
+                                                    <button className="doc-top-book-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>
                                                         Book Now
                                                     </button>
                                                     {/* Hospital Selection Block */}
