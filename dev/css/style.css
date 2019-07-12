@@ -12026,3 +12026,10 @@ font-weight: 500;
     font-size: 12px;
     font-weight: 500;
 }
+.doc-top-book-btn{
+    width: 100%;
+    color: #f78631;
+    border: 1px solid #ffc59a;
+    padding: 8px 0px;
+    border-radius: 4px;
+}

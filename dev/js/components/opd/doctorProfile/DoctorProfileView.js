@@ -228,7 +228,7 @@ class DoctorProfileView extends React.Component {
         this.setState({ displayHospitalRatingBlock: 1 })
     }
 
-    hospitalPopUpState(){
+    hospitalPopUpState() {
         this.setState({ displayHospitalRatingBlock: 0 })
     }
 
@@ -243,7 +243,7 @@ class DoctorProfileView extends React.Component {
     }
 
     submitLeadFormGeneration(ipdFormParams) {
-        if(ipdFormParams) {
+        if (ipdFormParams) {
             let gtmData = {
                 'Category': 'ConsumerApp', 'Action': 'DoctorProfileIpdFormClosed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-profile-ipd-form-closed'
             }
@@ -253,8 +253,8 @@ class DoctorProfileView extends React.Component {
             showChat: true,
             ipdFormParams: ipdFormParams
         }
-        
-        this.setState({ showIpdLeadForm: false }, ()=>{
+
+        this.setState({ showIpdLeadForm: false }, () => {
             // this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize:true})   
         })
     }
@@ -349,9 +349,9 @@ class DoctorProfileView extends React.Component {
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
                 {
-                    (this.props.DOCTORS[doctor_id] && parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE) || showForcedPopup?
-                    <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={selectedClinicName} hospital_id={this.state.selectedClinic} doctor_name={this.props.DOCTORS[doctor_id].name?this.props.DOCTORS[doctor_id].name:''} formSource='DoctorBookingPage' forcedPopup={showForcedPopup}/>
-                    :''
+                    (this.props.DOCTORS[doctor_id] && parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE) || showForcedPopup ?
+                        <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={selectedClinicName} hospital_id={this.state.selectedClinic} doctor_name={this.props.DOCTORS[doctor_id].name ? this.props.DOCTORS[doctor_id].name : ''} formSource='DoctorBookingPage' forcedPopup={showForcedPopup} />
+                        : ''
                 }
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">
                     {this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].breadcrumb && this.props.DOCTORS[doctor_id].breadcrumb.length ?
@@ -424,9 +424,12 @@ class DoctorProfileView extends React.Component {
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">
+                                                    <button className="doc-top-book-btn">
+                                                        Book Now
+                                                    </button>
                                                     {/* Hospital Selection Block */}
-                                                    { this.state.displayHospitalRatingBlock ?
-                                                         <HospitalPopUp {...this.props} doctor_details = {this.props.DOCTORS[doctor_id]} popUpState={this.hospitalPopUpState.bind(this)} /> : ""
+                                                    {this.state.displayHospitalRatingBlock ?
+                                                        <HospitalPopUp {...this.props} doctor_details={this.props.DOCTORS[doctor_id]} popUpState={this.hospitalPopUpState.bind(this)} /> : ""
                                                     }
 
                                                     {
@@ -552,7 +555,7 @@ class DoctorProfileView extends React.Component {
                                                             />
 
                                                             {/* this one is rating */}
-                                                            { STORAGE.checkAuth() ? 
+                                                            {STORAGE.checkAuth() ?
                                                                 <div className="widget-panel">
                                                                     <div className="panel-content ratecardBrdr">
                                                                         <div className="rateUrDoc">
@@ -560,7 +563,7 @@ class DoctorProfileView extends React.Component {
                                                                             <button onClick={this.display_hospital_rating_block}>Rate Now</button>
                                                                         </div>
                                                                     </div>
-                                                                </div> : "" 
+                                                                </div> : ""
                                                             }
                                                             {/* this one is rating */}
                                                             {
@@ -678,7 +681,7 @@ class DoctorProfileView extends React.Component {
                                     </section> : <Loader />
                             }
                         </div>
-                        <RightBar extraClass=" chat-float-btn-2" type="opd" noChatButton={!this.state.searchDataHidden} showDesktopIpd={true}/>
+                        <RightBar extraClass=" chat-float-btn-2" type="opd" noChatButton={!this.state.searchDataHidden} showDesktopIpd={true} />
                     </div>
                 </section>
                 <Footer footerData={this.state.footerData} />
