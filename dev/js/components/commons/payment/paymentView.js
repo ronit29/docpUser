@@ -202,9 +202,10 @@ class PaymentView extends React.Component {
                                         </div>
                                     </div>
                                     {
-                                        true?''
-                                        :<div className="mrt-20 d-flex align-items-start labTest-dtls">
-                                            <p className="fw-500" style={{ flex: 1 }} >American Express cards not accepted</p>
+                                        false?''
+                                        :<div className=" d-flex align-items-start labTest-dtls" style={{'marginTop':'11px', marginBottom:'10px'}}>
+                                            <img src={ASSETS_BASE_URL + "/img/icons/info.svg"} />
+                                            <p className="fw-500" style={{ flex: 1, paddingLeft: '6px' }} >American Express cards are not accepted</p>
                                         </div>
                                     }
                                 </div>
