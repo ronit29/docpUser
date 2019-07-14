@@ -531,7 +531,7 @@ class SearchResultsView extends React.Component {
                                                 <React.Fragment>
                                                     <img style={{width:'130px'}} className="n-rslt-img" src={ASSETS_BASE_URL + '/img/vct-no.png'} />
                                                     <p className="pkg-ty-agn text-dark text-center">Can’t find your doctor here?<br></br>Help us to list your doctor</p>
-                                                    <button className="referDoctorbtn" onClick={()=>{this.props.history.push('/doctorsignup?member_type=2')}}>Refer your Doctor</button>
+                                                    <button className="referDoctorbtn" onClick={()=>{this.props.history.push('/doctorsignup?member_type=1')}}>Refer your Doctor</button>
                                                 </React.Fragment>
                                             }
                                         </div>
