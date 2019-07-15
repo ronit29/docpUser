@@ -14,7 +14,8 @@ class ChoosePatientNewView extends React.Component {
             gender: '',
             data: false,
             email:'',
-            smsBtnType:null
+            smsBtnType:null,
+            isEmailNotValid:false
         }
     }
 
@@ -99,12 +100,14 @@ class ChoosePatientNewView extends React.Component {
     profileEmailValidation() {
         let data = {...this.props.patient}
         if(!this.state.email.match(/\S+@\S+\.\S+/)){
+            this.setState({isEmailNotValid:true})
             setTimeout(() => {
                 SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Email Id" })
             }, 500)
             return 
         }else{
             data.email = this.state.email
+            this.setState({isEmailNotValid:false})
             this.props.editUserProfile(data,this.props.patient.id, (err, res) => {
                 this.props.getUserProfile()
             })
@@ -196,7 +199,7 @@ class ChoosePatientNewView extends React.Component {
                                     </span>Patient</h4>
                                     {this.props.is_lab && !this.props.patient.email ?
                                         <div className="mrb-20" style={{ paddingLeft: 28 }}>
-                                            <input className="slt-text-input" autoComplete="off" type="text" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileEmailValidation.bind(this)} placeholder="Enter your email" style={true?{borderBottom:'1px solid red'}:{}} />
+                                            <input className="slt-text-input" autoComplete="off" type="text" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileEmailValidation.bind(this)} placeholder="Enter your email" style={(this.props.isEmailNotValid || this.state.isEmailNotValid)?{borderBottom:'1px solid red'}:{}} />
                                         </div>
                                         : ''
                                     }
