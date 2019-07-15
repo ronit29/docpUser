@@ -842,7 +842,7 @@ class PatientDetailsNew extends React.Component {
             priceData.mrp = 0
         }
 
-        if(priceData.fees ==0){
+        if(priceData.fees ==0 && !is_insurance_applicable){
             finalPrice = parseInt(priceData.deal_price) - (this.props.disCountedOpdPrice ? this.props.disCountedOpdPrice : 0)
         }
 
