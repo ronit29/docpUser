@@ -398,6 +398,10 @@ class BookingSummaryViewNew extends React.Component {
             window.scrollTo(0, 0)
             return
         }
+        if(patient && !patient.email){
+            SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
+            return 
+        }
         if (!addressPicked) {
             this.setState({ showAddressError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick an address." });

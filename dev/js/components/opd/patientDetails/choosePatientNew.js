@@ -96,6 +96,21 @@ class ChoosePatientNewView extends React.Component {
         this.props.profileDataCompleted(this.state)
     }
 
+    profileEmailValidation() {
+        let data = {...this.props.patient}
+        if(!this.state.email.match(/\S+@\S+\.\S+/)){
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Email Id" })
+            }, 500)
+            return 
+        }else{
+            data.email = this.state.email
+            this.props.editUserProfile(data,this.props.patient.id, (err, res) => {
+                this.props.getUserProfile()
+            })
+        }
+    }
+
     verify(resendFlag = false,viaSms,viaWhatsapp) {
         let self = this
 
@@ -178,6 +193,10 @@ class ChoosePatientNewView extends React.Component {
                                 <h4 className="title d-flex"><span>
                                     <img style={{ width: '20px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
                                 </span>Patient</h4>
+                                {this.props.is_lab && !this.props.patient.email?
+                                    <input className="slt-text-input" autoComplete="off" type="text" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileEmailValidation.bind(this)} placeholder="" />
+                                :''
+                                }
                                 <div className="float-right  mbl-view-formatting text-right">
                                     <h4 className="date-time title" style={{textTransform:'capitalize'}} >{this.props.patient ? this.props.patient.name : ""} </h4>
                                     <a href="#" onClick={(e) => {
