@@ -214,7 +214,7 @@ class LabProfileCard extends React.Component {
                                         {lab && lab.is_thyrocare?
                                             <div className="test-pkup">
                                                 <img src={ASSETS_BASE_URL + "/img/laby3.svg"} />
-                                                <p>Integrated <span className="tstblk">Partners</span></p>
+                                            <p>Integrated <span className="tstblk">Lab</span></p>
                                             </div>
                                         :''}
                                     </div>

@@ -32,7 +32,7 @@ class HospitalInfoView extends React.Component {
             hospital_data.logo ?
               <div className="hosNme">
                 <div className={`hs-nme hsptName ${this.props.showPopup ? 'popupTopChange' : ''}`}>
-                  <img src={hospital_data.logo} alt="" className="img-fluid" />
+                  <img style={{ width: '135px' }} src={hospital_data.logo} alt="" className="img-fluid" />
                 </div>
               </div>
               : ''
@@ -43,17 +43,18 @@ class HospitalInfoView extends React.Component {
                 <RatingStars average_rating={hospital_data.rating_graph.avg_rating} rating_count={''} width="12px" height="12px" /> : ''
             }
           </div>
-          <h1 className="section-heading pb-5">{hospital_data.name_city}</h1>
+          <h1 className="section-heading pb-5">{hospital_data && hospital_data.seo && hospital_data.seo.h1_title?hospital_data.seo.h1_title:hospital_data.name_city}</h1>
           {
             hospital_data.address ?
               <div className="opd-timing opd-mapico">
                 <h2>{hospital_data.address} </h2>
                 <a href={`https://www.google.com/maps/search/?api=1&query=${hospital_data.lat},${hospital_data.long}`} style={{ float: 'right', cursor: 'pointer' }} target="_blank">
-                  <img style={{width:'25px',height: '25px'}} src={ASSETS_BASE_URL + '/img/customer-icons/map-icon.png'} />
+                  <img style={{ width: '25px', height: '25px' }} src={ASSETS_BASE_URL + '/img/customer-icons/map-icon.png'} />
                 </a>
               </div>
               : ''
           }
+          
           <div className="hsptl-info">
             {
               hospital_data.bed_count ?
@@ -67,6 +68,13 @@ class HospitalInfoView extends React.Component {
             }
 
           </div>
+          {
+            hospital_data && hospital_data.id==3240 && this.props.isSeo?
+            <div className="reg-fee-cont">
+              <p>No Registration Fee</p>
+            </div>
+            :''
+          }
           <hr />
           <ul className="hsptl-contact text-left">
             {

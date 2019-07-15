@@ -122,7 +122,7 @@ class IpdLeadForm extends React.Component {
 
 	closePopUpClicked() {
 		const parsed = queryString.parse(this.props.location.search)
-		if (parsed.get_feedback && parsed.get_feedback == '1') {
+		if ((parsed.get_feedback && parsed.get_feedback == '1') || this.props.forcedPopup) {
 			SnackBar.show({ pos: 'bottom-center', text: "Please fill the feedback form" })
 		} else {
 			this.redirectToChat()
@@ -154,13 +154,13 @@ class IpdLeadForm extends React.Component {
 							this.state.showForm ?
 								<div className="p-relative">
 									{
-										parsed.get_feedback && parsed.get_feedback == '1' ? ''
+										/*(parsed.get_feedback && parsed.get_feedback == '1') || this.props.forcedPopup ? ''
 											: <span className="ipd-pop-cls" onClick={(e) => {
 												e.stopPropagation()
 												e.preventDefault()
 												this.closePopUpClicked()
 											}}><img src={ASSETS_BASE_URL + "/img/icons/close.png"} />
-											</span>
+											</span>*/
 									}
 									{
 										this.props.doctor_name?
@@ -233,11 +233,22 @@ class IpdLeadForm extends React.Component {
 					                            <span className="sm-wtsp-img fw-400"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" checked={this.state.whatsapp_optin} /><span className="checkmark" style={{left: '7px'}}></span>
 					                        </label>
 					                	</div>*/}
-										<button className="ipd-inp-sbmt" onClick={(e) => {
-											e.stopPropagation()
-											e.preventDefault()
-											this.submitLeadForm()
-										}}>Click to Proceed</button>
+					                	<div className="skip-btn-sgn">
+											<button className="ipd-inp-sbmt" onClick={(e) => {
+												e.stopPropagation()
+												e.preventDefault()
+												this.submitLeadForm()
+											}}>Click to Proceed</button>
+											{
+												(parsed && parsed.get_feedback && parsed.get_feedback == '1') || this.props.forcedPopup ?''
+												:<p onClick={(e) => {
+													e.stopPropagation()
+													e.preventDefault()
+													this.closePopUpClicked()
+												}}>Skip</p>
+											}
+											
+										</div>
 									</div>
 								</div>
 								: ''
