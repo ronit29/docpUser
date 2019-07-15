@@ -404,18 +404,18 @@ class HomeChatView extends React.Component {
 					canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
 					ogUrl: 'https://docprime.com',
 					ogType: 'website',
-                    ogTitle: 'Book Doctor Online | 50% Off on Doctor Appointment & Lab Tests',
+					ogTitle: 'Book Doctor Online | 50% Off on Doctor Appointment & Lab Tests',
 					ogDescription: 'Book Doctor Appointment at Docprime & get 50% off. Find & Book Doctor online, find & Book best Labs, and & Hospitals.',
 					ogImage: 'https://cdn.docprime.com/media/banner/images/1200X628.png'
 				}} setDefault={true} />
 
-				<ProfileHeader homePage={true} chatPage={true} showSearch={true} showPackageStrip={showPackageStrip}/>
+				<ProfileHeader homePage={true} chatPage={true} showSearch={true} showPackageStrip={showPackageStrip} />
 
 				{/* <div className="sub-header mrg-top"></div> */}
 				<div className="headerSubLinkContainer">
 					<div className="container">
 						<div className="head_text_container">
-							{this.props.common_settings && this.props.common_settings.insurance_availability?
+							{this.props.common_settings && this.props.common_settings.insurance_availability ?
 								<a href="/insurance/insurance-plans" onClick={(e) => {
 									let data = {
 										'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-navbar-insurance-clicked'
@@ -426,7 +426,7 @@ class HomeChatView extends React.Component {
 								}}>OPD Insurance
 								<span className="opdNewHeaderOfr">New</span>
 								</a>
-							:''}
+								: ''}
 							<a href="/search" onClick={(e) => {
 								e.preventDefault();
 								this.navigateTo("/search", 'opd')
@@ -459,7 +459,7 @@ class HomeChatView extends React.Component {
 
 					<Accordian />
 					{
-						showPackageStrip?
+						showPackageStrip ?
 							<PackageCompareStrip {...this.props} />
 							:
 							<FixedMobileFooter {...this.props} />
