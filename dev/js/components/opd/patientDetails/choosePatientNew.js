@@ -190,21 +190,27 @@ class ChoosePatientNewView extends React.Component {
                     this.props.patient ?
                         <div className="widget-content">
                             <div className="lab-visit-time d-flex jc-spaceb">
-                                <h4 className="title d-flex"><span>
-                                    <img style={{ width: '20px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
-                                </span>Patient</h4>
-                                {this.props.is_lab && !this.props.patient.email?
-                                    <input className="slt-text-input" autoComplete="off" type="text" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileEmailValidation.bind(this)} placeholder="" />
-                                :''
-                                }
-                                <div className="float-right  mbl-view-formatting text-right">
-                                    <h4 className="date-time title" style={{textTransform:'capitalize'}} >{this.props.patient ? this.props.patient.name : ""} </h4>
-                                    <a href="#" onClick={(e) => {
-                                        e.preventDefault()
-                                        e.stopPropagation()
-                                        this.props.navigateTo('patient',this.props.is_insurance_applicable)
-                                    }} className="text-primary fw-700 text-sm">{this.props.patient ? "Change Patient" : "Select Patient"}</a>
+                                <div className="d-flex flex-1" style={{ flexDirection: 'column', paddingRight: 15 }} >
+                                    <h4 className="title d-flex"><span>
+                                        <img style={{ width: '20px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
+                                    </span>Patient</h4>
+                                    {this.props.is_lab && !this.props.patient.email ?
+                                        <div className="mrb-20" style={{ paddingLeft: 28 }}>
+                                            <input className="slt-text-input" autoComplete="off" type="text" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileEmailValidation.bind(this)} placeholder="Enter your email" style={true?{borderBottom:'1px solid red'}:{}} />
+                                        </div>
+                                        : ''
+                                    }
                                 </div>
+                                <div className="float-right  mbl-view-formatting text-right">
+                                    <h4 className="date-time title" style={{ textTransform: 'capitalize' }} >{this.props.patient ? this.props.patient.name : ""} </h4>
+                                </div>
+                            </div>
+                            <div className="text-right">
+                                <a href="#" onClick={(e) => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                    this.props.navigateTo('patient', this.props.is_insurance_applicable)
+                                }} className="text-primary fw-700 text-sm">{this.props.patient ? "Change Patient" : "Select Patient"}</a>
                             </div>
                         </div>
                         : <div className="widget-content">
