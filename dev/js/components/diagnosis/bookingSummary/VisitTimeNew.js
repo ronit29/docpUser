@@ -124,6 +124,7 @@ class VisitTimeNew extends React.Component {
                             Select Visit Time
                         </h4>
                     </div>
+                    <p className="appmnt-avl">The appointment is subject to confirmation from the Lab. </p>
                     <div className="date-slecet-cont">
                         <div className="nw-inpt-selctr">
                             <span className="nw-pick-hdng">Date:</span>
