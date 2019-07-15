@@ -93,6 +93,9 @@ class IpdLeadForm extends React.Component {
         formData.data.utm_tags = utm_tags
         formData.data.url = window.location.href
         formData.data.formSource = this.props.formSource || 'PopupLeadForm'
+        if(this.props.sourceTag) {
+        	formData.source = this.props.sourceTag
+        }
 
 		this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
 			if (!error && response) {
