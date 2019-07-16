@@ -50,6 +50,7 @@ class CartView extends React.Component {
         let total_coupon_cashback = 0
         let coupon_breakup = {}
         let cashback_breakup = {}
+        let platformConvFees = 0
         for (let item of cart_items) {
             if (item.valid && item.actual_data.payment_type == 1) {
                 
@@ -61,7 +62,6 @@ class CartView extends React.Component {
                     total_mrp += item.mrp
                     total_deal_price += item.deal_price    
                     total_home_pickup_charges += item.total_home_pickup_charges || 0
-                    
                     if (item.data.coupons && item.data.coupons.length) {
                         total_coupon_discount += item.coupon_discount
                         total_coupon_cashback += item.coupon_cashback
@@ -79,6 +79,9 @@ class CartView extends React.Component {
                             }
                         }
                     }
+                    if(item.consultation && item.consultation.fees == 0){
+                        platformConvFees += parseInt(item.deal_price)
+                    }
                 }
                 
             }
@@ -90,7 +93,8 @@ class CartView extends React.Component {
             total_coupon_discount,
             total_coupon_cashback,
             coupon_breakup,
-            cashback_breakup
+            cashback_breakup,
+            platformConvFees
         }
     }
 
@@ -168,7 +172,8 @@ class CartView extends React.Component {
             total_coupon_discount,
             total_coupon_cashback,
             coupon_breakup,
-            cashback_breakup
+            cashback_breakup,
+            platformConvFees
         } = this.getPriceBreakup(cart)
 
         let total_wallet_balance = 0
@@ -180,6 +185,7 @@ class CartView extends React.Component {
         let valid_items = false
         let all_appointments_insured = true
         let is_cod_applicable = true
+        let is_platform_conv_fees = 0
         if (cart && cart.length) {
             cart.map((cart_item, i) => {
                 if (!cart_item.valid) {
@@ -189,6 +195,9 @@ class CartView extends React.Component {
                     if(cart_item.actual_data && !cart_item.actual_data.is_appointment_insured){
                         all_appointments_insured = false
                     }
+                    if(cart_item.consultation && cart_item.consultation.fees == 0){
+                        is_platform_conv_fees++
+                    }
                     //Check if COD applicable for all appointments
                     if( cart_item.actual_data && cart_item.actual_data.payment_type && cart_item.actual_data.payment_type!=2 ){
                         is_cod_applicable = false
@@ -196,9 +205,7 @@ class CartView extends React.Component {
                 }
             })
         }
-
         is_cod_applicable = is_cod_applicable && cart && cart.length && cart.filter(x => x.valid).length==1
-
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -256,6 +263,14 @@ class CartView extends React.Component {
                                                                             <p>Total Fees</p>
                                                                             <p>&#8377; {parseInt(total_mrp)}</p>
                                                                         </div>
+                                                                        {
+                                                                            is_platform_conv_fees>0?
+                                                                            <div className="payment-detail d-flex">
+                                                                                <p>Platform Convenience Fee</p>
+                                                                                <p>&#8377; {parseInt(platformConvFees)}</p>
+                                                                            </div>
+                                                                            :''
+                                                                        }
                                                                         <div className="payment-detail d-flex">
                                                                             <p>Docprime Discount</p>
                                                                             <p>- &#8377; {parseInt(total_mrp) - parseInt(total_deal_price)}</p>

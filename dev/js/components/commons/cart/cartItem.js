@@ -38,6 +38,7 @@ class CartItem extends React.Component {
             deal_price: data.consultation.deal_price,
             is_available: true,
             mrp: data.consultation.mrp,
+            fees:data.consultation.fees,
             price: data.consultation.deal_price,
             title: new Date(data.data.date).getHours() >= 12 ? 'PM' : 'AM',
             value: new Date(data.data.date).getHours() + new Date(data.data.date).getMinutes() / 60
