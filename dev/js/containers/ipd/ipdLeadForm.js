@@ -73,7 +73,7 @@ class IpdLeadForm extends React.Component {
 		}
 
 		if(this.props.procedure_id) {
-			formData.procedure_id = this.props.procedure_id
+			formData.ipd_procedure = this.props.procedure_id
 		}
 
 		if(this.props.doctor_id) {
@@ -85,13 +85,17 @@ class IpdLeadForm extends React.Component {
             utm_medium: parsed.utm_medium || '',
             utm_term: parsed.utm_term || '',
             utm_campaign: parsed.utm_campaign || '',
-            referrer: document.referrer || ''
+            referrer: document.referrer || '',
+            gclid: parsed.gclid || ''
         }
 
         formData.data = {}
         formData.data.utm_tags = utm_tags
         formData.data.url = window.location.href
         formData.data.formSource = this.props.formSource || 'PopupLeadForm'
+        if(this.props.sourceTag) {
+        	formData.source = this.props.sourceTag
+        }
 
 		this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
 			if (!error && response) {
@@ -121,7 +125,7 @@ class IpdLeadForm extends React.Component {
 
 	closePopUpClicked() {
 		const parsed = queryString.parse(this.props.location.search)
-		if (parsed.get_feedback && parsed.get_feedback == '1') {
+		if ((parsed.get_feedback && parsed.get_feedback == '1') || this.props.forcedPopup) {
 			SnackBar.show({ pos: 'bottom-center', text: "Please fill the feedback form" })
 		} else {
 			this.redirectToChat()
@@ -153,13 +157,13 @@ class IpdLeadForm extends React.Component {
 							this.state.showForm ?
 								<div className="p-relative">
 									{
-										parsed.get_feedback && parsed.get_feedback == '1' ? ''
+										/*(parsed.get_feedback && parsed.get_feedback == '1') || this.props.forcedPopup ? ''
 											: <span className="ipd-pop-cls" onClick={(e) => {
 												e.stopPropagation()
 												e.preventDefault()
 												this.closePopUpClicked()
 											}}><img src={ASSETS_BASE_URL + "/img/icons/close.png"} />
-											</span>
+											</span>*/
 									}
 									{
 										this.props.doctor_name?
@@ -175,7 +179,7 @@ class IpdLeadForm extends React.Component {
 										:''
 									}
 
-									{
+									{/*
 										parsed.type && parsed.type.includes('offers')?
 										<React.Fragment>
 											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>Upto 30% Off on Surgery (with Implants)</span></p>
@@ -183,10 +187,10 @@ class IpdLeadForm extends React.Component {
 											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>50% Off on Physiotherapy (Post Operation)</span></p>
 											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>Dedicated Doctor for Medical Advice</span></p>
 										</React.Fragment>:''
-									}
+									*/}
 									
 									{
-										!parsed.type?
+										!parsed.type || true?
 										<React.Fragment>
 											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>{this.props.procedure_name?'Book the right Doctor/Hospital':'Get upto 30% Off on Appointments'}</span></p>
 											<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span>{this.props.procedure_name?'Compare Surgery Cost across Hospitals':'Instant Booking Confirmation'}</span></p>
@@ -232,11 +236,22 @@ class IpdLeadForm extends React.Component {
 					                            <span className="sm-wtsp-img fw-400"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" checked={this.state.whatsapp_optin} /><span className="checkmark" style={{left: '7px'}}></span>
 					                        </label>
 					                	</div>*/}
-										<button className="ipd-inp-sbmt" onClick={(e) => {
-											e.stopPropagation()
-											e.preventDefault()
-											this.submitLeadForm()
-										}}>Click to Proceed</button>
+					                	<div className="skip-btn-sgn">
+											<button className="ipd-inp-sbmt" onClick={(e) => {
+												e.stopPropagation()
+												e.preventDefault()
+												this.submitLeadForm()
+											}}>Click to Proceed</button>
+											{
+												(parsed && parsed.get_feedback && parsed.get_feedback == '1') || this.props.forcedPopup ?''
+												:<p onClick={(e) => {
+													e.stopPropagation()
+													e.preventDefault()
+													this.closePopUpClicked()
+												}}>Skip</p>
+											}
+											
+										</div>
 									</div>
 								</div>
 								: ''

@@ -15,6 +15,12 @@ const queryString = require('query-string');
 class ChatPanel extends React.Component {
     constructor(props) {
         super(props)
+        let parsedHref = ''
+        let is_thyrocare = false
+        if (typeof window == "object") {
+            parsedHref = queryString.parse(window.location.search)
+            is_thyrocare = (parsedHref && parsedHref.utm_source && parsedHref.utm_source.includes('Thyrocare'))
+        }
         this.state = {
             selectedRoom: null,
             token: "",
@@ -23,17 +29,17 @@ class ChatPanel extends React.Component {
             showCancel: false,
             showChatBlock: false,
             additionClasses: ' chat-load-mobile',
-            hideIframe: true,
-            iframeLoading: true,
-            showStaticView: true,
+            hideIframe: is_thyrocare ? false : true,
+            iframeLoading: is_thyrocare ? false : true,
+            showStaticView: is_thyrocare ? false : true,
             initialMessage: "",
             callTimeout: false
         }
     }
 
     componentDidMount() {
-        if(this.props.onRefIpd) {
-            this.props.onRefIpd(this)    
+        if (this.props.onRefIpd) {
+            this.props.onRefIpd(this)
         }
         if (this.props.selectedLocation) {
             this.sendLocationNotification(this.props.selectedLocation)
@@ -56,7 +62,7 @@ class ChatPanel extends React.Component {
         /**
          * Check for static message and hide/show iframe with loader accordingly.
          */
-        if (this.props.USER && (this.props.USER.liveChatStarted || this.props.USER.ipd_chat && this.props.USER.ipd_chat.showIpdChat) ){
+        if (this.props.USER && (this.props.USER.liveChatStarted || this.props.USER.ipd_chat && this.props.USER.ipd_chat.showIpdChat)) {
             this.setState({ showStaticView: false, iframeLoading: true }, () => {
                 this.setState({ hideIframe: false }, () => {
                     let iframe = this.refs.chat_frame
@@ -180,9 +186,9 @@ class ChatPanel extends React.Component {
                             this.setState({ initialMessage: "", selectedRoom: null, })
                             this.props.setChatRoomId(null)
                             let that = this
-                            setTimeout(()=>{
-                                that.props.ipdChatView(null)    
-                            },1000)
+                            setTimeout(() => {
+                                that.props.ipdChatView(null)
+                            }, 1000)
                             this.props.unSetCommonUtmTags('chat')
                             // this.props.history.go(-1)
                             break
@@ -228,7 +234,7 @@ class ChatPanel extends React.Component {
                      * redirecting chat to new page for mobile users on homepage and on focus
                      * TODO : review this
                      */
-                    if (data.message && data.message == 'focus' && !(this.props.USER && this.props.USER.ipd_chat && this.props.USER.ipd_chat.showIpdChat) ) {
+                    if (data.message && data.message == 'focus' && !(this.props.USER && this.props.USER.ipd_chat && this.props.USER.ipd_chat.showIpdChat)) {
                         let iframe = this.refs.chat_frame
                         // iframe.scrollTop = iframe.scrollHeight
                         if (this.props.homePage && window.innerWidth < 768 && !this.props.history.location.pathname.includes('mobileviewchat')) {
@@ -243,8 +249,8 @@ class ChatPanel extends React.Component {
     }
 
     componentWillUnmount() {
-        if(this.props.onRefIpd) {
-            this.props.onRefIpd(undefined)    
+        if (this.props.onRefIpd) {
+            this.props.onRefIpd(undefined)
         }
     }
 
@@ -259,33 +265,38 @@ class ChatPanel extends React.Component {
         this.dispatchCustomEvent('location', data)
     }
 
-    sendUserDetails(){
-        let data={}
-        setTimeout(()=>{
+    sendUserDetails() {
+        let data = {}
+        setTimeout(() => {
             let user = this.props.USER
-            if(user && user.profiles && Object.keys(user.profiles).length > 0 && user.profiles[user.selectedProfile]){
+            if (user && user.profiles && Object.keys(user.profiles).length > 0 && user.profiles[user.selectedProfile]) {
 
-                this.dispatchCustomEvent('user_details', {is_insured: user.profiles[user.selectedProfile].is_insured, name:user.profiles[user.selectedProfile].name})     
-            }else {
-                this.dispatchCustomEvent('user_details', {is_insured: false, name:''})
+                this.dispatchCustomEvent('user_details', { is_insured: user.profiles[user.selectedProfile].is_insured, name: user.profiles[user.selectedProfile].name })
+            } else {
+                this.dispatchCustomEvent('user_details', { is_insured: false, name: '' })
             }
-            
-        },1000)
-        
+
+        }, 1000)
+
     }
 
     componentWillReceiveProps(props) {
+        let parsedHref = ''
+        if (typeof window == "object") {
+            parsedHref = queryString.parse(window.location.search);
+        }
+        let is_thyrocare = (parsedHref && parsedHref.utm_source && parsedHref.utm_source.includes('Thyrocare')) ? true : false
 
         if (this.props.selectedLocation != props.selectedLocation && props.selectedLocation) {
             this.sendLocationNotification(props.selectedLocation)
         }
 
-        if ((props.USER && props.USER.liveChatStarted && props.USER.liveChatStarted != this.props.USER.liveChatStarted) || (props.USER && props.USER.ipd_chat && props.USER.ipd_chat.showIpdChat) ) {
+        if ((props.USER && props.USER.liveChatStarted && props.USER.liveChatStarted != this.props.USER.liveChatStarted) || (props.USER && props.USER.ipd_chat && props.USER.ipd_chat.showIpdChat)) {
             //this.sendUserDetails(props.USER)
             this.setState({ showStaticView: false, iframeLoading: true }, () => {
                 this.setState({ hideIframe: false }, () => {
 
-                    let iframe = this.refs.chat_frame 
+                    let iframe = this.refs.chat_frame
                     if (iframe) {
                         iframe.onload = () => {
                             this.setState({ iframeLoading: false })
@@ -306,7 +317,7 @@ class ChatPanel extends React.Component {
             })
         } else {
             if (props.USER && !props.USER.liveChatStarted) {
-                this.setState({ showStaticView: true, iframeLoading: false })
+                this.setState({ showStaticView: is_thyrocare ? false : true, iframeLoading: false })
             }
         }
 
@@ -315,13 +326,13 @@ class ChatPanel extends React.Component {
     dispatchCustomEvent(eventName, data = {}) {
         let event = new Event(eventName)
         let iframe = this.refs.chat_frame
-        
-        if(iframe){
+
+        if (iframe) {
             iframe.dispatchEvent(event)
             iframe.contentWindow.postMessage({ 'event': eventName, data }, '*')
         }
         let iframe1 = this.refs.chat_frame1
-         if(iframe1){
+        if (iframe1) {
             iframe1.dispatchEvent(event)
             iframe1.contentWindow.postMessage({ 'event': eventName, data }, '*')
         }
@@ -337,10 +348,10 @@ class ChatPanel extends React.Component {
         this.props.setChatRoomId(null)
         this.props.unSetCommonUtmTags('chat')
         let that = this
-        setTimeout(()=>{
-            that.props.ipdChatView(null)    
-        },1000)
-        
+        setTimeout(() => {
+            that.props.ipdChatView(null)
+        }, 1000)
+
     }
 
     toggleCancel(e) {
@@ -449,17 +460,17 @@ class ChatPanel extends React.Component {
                 iframe_url += `&source=religare&visitid=${religareTag[0].visitorId}`
             }
         }
-        if(parsedHref && parsedHref.utm_source) {
+        if (parsedHref && parsedHref.utm_source) {
 
-            if(parsedHref.utm_source!='religare') {
+            if (parsedHref.utm_source != 'religare') {
                 iframe_url += `&source=${parsedHref.utm_source}`
             }
 
-            if(!is_religare && parsedHref.utm_source.includes('religare')) {
+            if (!is_religare && parsedHref.utm_source.includes('religare')) {
                 is_religare = true
-                iframe_url += `&source=religare&visitid=${parsedHref.visitid?parsedHref.visitid:''}`
+                iframe_url += `&source=religare&visitid=${parsedHref.visitid ? parsedHref.visitid : ''}`
             }
-            
+
         }
         is_religare = is_religare && this.props.mobilechatview
         let chatBtnContent1 = ''
@@ -476,18 +487,26 @@ class ChatPanel extends React.Component {
             recentArticles = this.props.articleData.recent_articles
         }
 
-        
+
         //if(this.props.showHalfScreenChat && this.props.ipdFormParams) {
-        if(this.props.USER && this.props.USER.ipd_chat && this.props.USER.ipd_chat.ipdForm){
+        if (this.props.USER && this.props.USER.ipd_chat && this.props.USER.ipd_chat.ipdForm) {
 
             let params = JSON.stringify(this.props.USER.ipd_chat.ipdForm)
             iframe_url += `&product=IPD&params=${params}&msg=startchat`
-        }else{
-            iframe_url += '&product=DocPrime'      
+        } else {
+            iframe_url += '&product=DocPrime'
         }
-        
-        if(this.props.showHalfScreenChat && !this.props.showDesktopIpd) {
-            return(
+
+        if (parsedHref.booking_id) {
+            iframe_url += `&booking_id=${parsedHref.booking_id}`
+        }
+
+        if (parsedHref.utm_source && parsedHref.utm_source.includes('Thyrocare')) {
+            iframe_url += '&msg=startchat'
+        }
+
+        if (this.props.showHalfScreenChat && !this.props.showDesktopIpd) {
+            return (
                 <div className="chat-body">
                     {
                         STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? `chat-iframe ${this.state.iframeLoading ? 'd-none' : ''}` : `chat-iframe-inner float-chat-height ${this.state.iframeLoading ? 'd-none' : ''}`} src={iframe_url} allow="microphone;camera" ref="chat_frame1"></iframe>
@@ -508,8 +527,8 @@ class ChatPanel extends React.Component {
                             : ""
                     }
                 </div>
-                )
-        }else {
+            )
+        } else {
             return (
                 <div>
                     {
@@ -531,10 +550,10 @@ class ChatPanel extends React.Component {
                                 <TableOfContent searchTestInfoData={this.props.searchTestInfoData} updateTabsValues={this.props.updateTabsValues} resp_test_id={this.props.resp_test_id} />
                             </div> : ''
                     }
-                    <div className={`${this.state.showChatBlock?"floating-chat " : ""} ${is_religare?' chat-rlgr-view':''}`}>
+                    <div className={`${this.state.showChatBlock ? "floating-chat " : ""} ${is_religare ? ' chat-rlgr-view' : ''}`}>
                         {
                             this.state.showStaticView ?
-                                <ChatStaticView {...this.props} startLiveChatWithMessage={this.startLiveChatWithMessage.bind(this)} hideStaticChat={this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`} is_religare={is_religare}/>
+                                <ChatStaticView {...this.props} startLiveChatWithMessage={this.startLiveChatWithMessage.bind(this)} hideStaticChat={this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`} is_religare={is_religare} />
                                 :
                                 <div className={this.state.showChatBlock ? "chatbox-right test-chat" : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}>
 
@@ -582,24 +601,24 @@ class ChatPanel extends React.Component {
                                                 </span> : ""
                                             }
 
+                                            {
+                                                is_religare ?
+                                                    <span onClick={this.toggleCancel.bind(this)}>
+                                                        <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/rel_chatclose.svg"} title="start a new chat" />
+
+                                                    </span>
+                                                    : <span onClick={this.toggleCancel.bind(this)}>
+                                                        <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatclose.svg"} title="start a new chat" />
+
+                                                    </span>
+                                            }
 
                                             {
                                                 this.state.showChatBlock
-                                                    ? is_religare?
-                                                        <span onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/rel_chatminimize.svg"} /></span>
-                                                        :<span onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatminimize.svg"} /></span>
+                                                    ? is_religare ?
+                                                        <span className="ml-2" onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/rel_chatminimize.svg"} /></span>
+                                                        : <span className="ml-2" onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatminimize.svg"} /></span>
                                                     : ''
-                                            }
-                                            {
-                                                is_religare?
-                                                <span className="ml-2" onClick={this.toggleCancel.bind(this)}>
-                                                    <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/rel_chatclose.svg"} title="start a new chat" />
-
-                                                </span>
-                                                :<span className="ml-2" onClick={this.toggleCancel.bind(this)}>
-                                                    <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatclose.svg"} title="start a new chat" />
-
-                                                </span>
                                             }
                                         </div>
                                     </div>
@@ -661,13 +680,13 @@ class ChatPanel extends React.Component {
                             </div> : ''
                     }
                     {
-                        this.props.homePage && !this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+                        this.props.homePage && !!!this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
                             <BannerCarousel {...this.props} sliderLocation="home_page" />
-                            :
-                            this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'online_consultation').length ?
-                                <div className="mrt-20">
-                                    <BannerCarousel {...this.props} sliderLocation="online_consultation" />
-                                </div> : ''
+                            : ''
+                    }
+                    {
+                        this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'online_consultation').length ?
+                            <BannerCarousel {...this.props} sliderLocation="online_consultation" chatPage={this.props.chatPage} /> : ''
                     }
                 </div>
             );

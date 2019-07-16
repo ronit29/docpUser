@@ -1,14 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList } from '../../actions/index.js'
+import { clearAllTests, toggleOPDCriteria, toggleDiagnosisCriteria, resetFilters, getUserProfile, fetchArticles, fetchHeatlhTip, loadOPDCommonCriteria, loadLabCommonCriterias, clearExtraTests, getSpecialityFooterData, selectSearchType, getOfferList, setPackageId, getUpComingAppointment, resetPkgCompare, toggleIPDCriteria, loadOPDInsurance } from '../../actions/index.js'
 
-import HomeChatView from '../../components/commons/Home/HomeChatView'
 import STORAGE from '../../helpers/storage'
+import HomeChatView from '../../components/commons/Home/HomeChatView.js';
 
-class Home extends React.Component {
+class HomeChat extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            mergeState: false
+        }
     }
 
     static loadData(store, match) {
@@ -30,18 +33,28 @@ class Home extends React.Component {
     componentDidMount() {
         if (STORAGE.checkAuth()) {
             this.props.getUserProfile()
+            this.props.getUpComingAppointment()
         }
+
         // this.props.fetchHeatlhTip()
         // this.props.fetchArticles()
-        this.props.loadOPDCommonCriteria()
-        this.props.loadLabCommonCriterias()
+        if (!this.props.common_tests.length || !this.props.common_package.length || !this.props.specializations.length || (this.props.selectedLocation && this.props.selectedLocation.locality)) {
+
+            this.props.loadLabCommonCriterias()
+            this.props.loadOPDInsurance(this.props.selectedLocation)
+        }
+        this.props.loadOPDCommonCriteria(this.props.selectedLocation)
+
         this.props.resetFilters()
         this.props.clearExtraTests()
+        setTimeout(() => {
+            this.setState({ mergeState: true })
+        }, 100)
     }
 
     render() {
         return (
-            <HomeChatView {...this.props} />
+            <HomeChatView {...this.props} {...this.state} />
         );
     }
 }
@@ -57,32 +70,37 @@ const mapStateToProps = (state, passedProps) => {
     }
 
     let {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, device_info, offerList
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, device_info, offerList, upcoming_appointments, is_ipd_form_submitted
     } = state.USER
 
     const {
         LOADED_SEARCH_CRITERIA_LAB,
         common_tests,
         common_package,
-        selectedLocation
+        selectedLocation,
+        compare_packages
     } = state.SEARCH_CRITERIA_LABS
     let filterCriteria_lab = state.SEARCH_CRITERIA_LABS.filterCriteria
 
     const {
         LOADED_SEARCH_CRITERIA_OPD,
-        specializations
+        specializations,
+        ipd_procedures,
+        top_hospitals,
+        common_settings
     } = state.SEARCH_CRITERIA_OPD
+
     let filterCriteria_opd = state.SEARCH_CRITERIA_OPD.filterCriteria
 
     return {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, upcoming_appointments, compare_packages, ipd_procedures, top_hospitals, common_settings, is_ipd_form_submitted
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         loadLabCommonCriterias: () => dispatch(loadLabCommonCriterias()),
-        loadOPDCommonCriteria: () => dispatch(loadOPDCommonCriteria()),
+        loadOPDCommonCriteria: (city) => dispatch(loadOPDCommonCriteria(city)),
         toggleOPDCriteria: (type, criteria, forceAdd, filters) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filters)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd, filters) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filters)),
         getUserProfile: () => dispatch(getUserProfile()),
@@ -91,10 +109,16 @@ const mapDispatchToProps = (dispatch) => {
         resetFilters: () => dispatch(resetFilters()),
         clearExtraTests: () => dispatch(clearExtraTests()),
         getSpecialityFooterData: (cb) => dispatch(getSpecialityFooterData(cb)),
+        selectSearchType: (type) => dispatch(selectSearchType(type)),
         getOfferList: (lat, long) => dispatch(getOfferList(lat, long)),
-        selectSearchType: (type) => dispatch(selectSearchType(type))
+        clearAllTests: () => dispatch(clearAllTests()),
+        setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage)),
+        getUpComingAppointment: () => dispatch(getUpComingAppointment()),
+        resetPkgCompare: () => dispatch(resetPkgCompare()),
+        toggleIPDCriteria: (criteria, forceAdd) => dispatch(toggleIPDCriteria(criteria, forceAdd)),
+        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city))
     }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeChat);

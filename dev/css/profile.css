@@ -1218,7 +1218,18 @@
 	display: flex;
 	justify-content: space-between;
 }
-
+.cancelPolicyHeight{
+	max-height: 400px;
+    overflow: auto;
+}
+ul.booking-cancel{
+	padding-left: 10px;
+    list-style: disc;
+}
+ul.booking-cancel li {
+    list-style: disc;
+    margin-bottom: 10px;
+}
 .payment-content{
 	font-size: 14px;
 }

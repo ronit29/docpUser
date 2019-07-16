@@ -115,7 +115,7 @@ class DesktopProfileHeader extends React.Component {
         let headerClass = "doc-header header-overflow"
 
         if (this.props.homePage) {
-            headerClass = "doc-header header-relative"
+            headerClass = "doc-header"
         }
 
         if (!this.props.showSearch) {
@@ -276,6 +276,10 @@ class DesktopProfileHeader extends React.Component {
                                                 e.preventDefault();
                                                 this.props.history.push("/ipd-procedures")
                                             }}>Procedures</a></li>
+                                            <li><a href="/hospitals" onClick={(e) => {
+                                                e.preventDefault();
+                                                this.props.history.push("/hospitals")
+                                            }}>Hospitals</a></li>
                                         </ul>
                                     </div>
                                 </div>

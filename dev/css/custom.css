@@ -763,9 +763,6 @@ div.onln-cnslt-head {
 	}
 }
 @media(max-width: 415px) {
-	.headerSubLinkContainer{
-		display: none;
-	}
 	div.onln-cnslt-head {
     margin-top: 0px;
 }
@@ -1019,7 +1016,7 @@ width: 110px;
 	min-width: 90px;
 	max-width: 90px;
 	border-radius: 10px;
-	margin-right: 5px;
+	margin-right: 15px;
 	cursor: pointer;
 }
 .sort-cards-list.chitActive{
@@ -1311,13 +1308,13 @@ p.rev-ins-header a img{
 	align-items: center;
 	justify-content: space-around;
 	position: sticky;
-	top: 107px;
+	top: 94px;
 	z-index: 9;
 	box-shadow: 0 1px 1px #dedede;
 }
 @media(max-width: 767px){
 .ipd-tabs-container{
-	margin: 0 -15px 15px -15px !important;
+	margin: 0 -5px 15px -5px !important;
 	top: 89px !important;
 }
 .sort-sub-filter-container{
@@ -1656,7 +1653,7 @@ display: none;
 }
 .n-rslt-img{
 	width: 110px;
-	margin: 40px 0;
+	margin: 30px 0;
 }
 .pkg-ty-agn{
 	color: #f78631;
@@ -2080,3 +2077,526 @@ p.nw-hsp-crd-green img {
 	width: 20px;
 }
 /* ============ new hospital card ============ */
+/* ============ insurance landing ============ */
+.ins-steps-section{
+	border-bottom: 1px solid whitesmoke;
+    padding: 25px 0px;
+    text-align: center;
+}
+.ins-steps-section:last-child{
+	border-bottom: 1px solid transparent;
+}
+.doc-usr-only{
+	text-align: center;
+}
+.doc-usr-only h1 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.doc-usr-only h1 span {
+    color: #f78631;
+}
+.doc-pwdby{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.doc-pwdby p {
+    margin-right: 10px;
+    color: #4e4e4e;
+    font-size: 14px;
+    font-weight: 500;
+}
+.align-item-center{
+	align-items: center !important;
+}
+.ins-step-img{
+	width: 50%;
+}
+.step-blk-para{
+	font-weight: 700;
+	font-size: 20px;
+	text-align: left;
+}
+.step-orng-para{
+	font-weight: 700;
+	color:#f78631;
+	font-size: 20px;
+	text-align: left;
+}
+.step-qut-para{
+	margin-top: 10px;
+	font-size: 16px;
+	text-align: left;
+}
+.step-qut-para span{
+	font-weight: 500;
+}
+.ins-land-listing{
+    margin: 30px 0;
+}
+.ins-land-listing p{
+	display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    font-size: 16px; 
+    font-weight: 500;
+}
+.ins-land-listing p img{
+	width: 30px;
+    margin-right: 19px;
+}
+.lft-cntn-algn img{
+	display: block;
+	margin: auto;
+}
+.lft-para-algn{
+	display: inline-block;
+	margin: auto;
+}
+
+.ins-network-cont{
+	padding-bottom: 50px;
+}
+.ins-netwrk-heading-cont{
+    background: #f7f7f7;
+    margin: 0 -15px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 12px 10px;
+    font-size: 16px;
+}
+.ins-netwrk-heading-cont p{
+    font-weight: 500;
+}
+.ins-netwrk-heading-cont span{
+	font-weight: 500;
+    color: #f78631;
+	cursor: pointer;
+	font-size: 14px;
+}
+p.ins-nw-note {
+    font-size: 16px;
+    margin-top: 20px;
+}
+ul.ins-nw-listing {
+    margin-top: 20px;
+    list-style: disc;
+    padding-left: 15px;
+}
+.ins-nw-listing li {
+    list-style: disc;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+button.ins-buy-btn{
+padding: 7px 0px;
+font-size: 16px;
+}
+
+.btn-grdnt{
+	background-image: linear-gradient(to left,#f78631,#ff6d00);
+	padding: 10px 25px;
+}
+.ins-otp-resend{
+	position: absolute;
+    bottom: 40px;
+    right: 0;
+	font-size: 12px;
+	font-weight: 500 !important;
+}
+a.ins-num-edit {
+    color: #f78631;
+    font-weight: 500;
+    margin-top: 10px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 12px;
+    right: 0;
+    font-size: 12px;
+}
+/* ============ insurance landing ============ */
+/* ============ more clinic card ============ */
+.nw-clinicMore{
+	color: #f78631!important;
+    font-weight: 500;
+    margin-left: 3px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+.nw-clinicMore img{
+	width: 6px !important;
+    height: 10px !important;
+    margin-left: 6px !important;
+    transform: rotate(90deg);
+}
+.clinicRadioContainer{
+    padding: 0px 12px 12px 10px;
+}
+.clinic-names-nw{
+	display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+p.clnc-name{
+    font-size: 14px;
+    font-weight: 500;
+}
+.clinc-rd-price{
+	font-size: 14px;
+    font-weight: 500;
+	color: #F78631;
+	min-width: 80px;
+	text-align: right;
+}
+.clinc-rd-price-cut{
+    font-size: 14px;
+    margin-left: 4px;
+	text-decoration: line-through;
+	color:#757575;
+}
+.clck-loc{
+	font-size: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 77px;
+}
+.clck-loc span{
+	color: #ff6d00;
+    font-weight: 500;
+    border: 1px dashed #ff6d00;
+    padding: 0 5px;
+    border-radius: 4px;
+	margin-top: 5px;
+	text-align: center;
+}
+.clnc-pricing-cont{
+	display: inline-flex;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+.clinicRadioContainer div.dtl-radio{
+	margin-bottom: .5rem!important;
+	border-bottom: 1px solid #ece8e8;
+    padding-bottom: 10px;
+}
+.clinicRadioContainer div.dtl-radio:last-child{
+	margin-bottom: 0px !important;
+	padding-bottom: 0px;
+	border-bottom: 0px solid transparent;
+}
+.clnc-includecpn{
+	color: #55a740;
+    font-size: 9px;
+    display: block;
+    position: absolute;
+}
+.ins-landing-shadow{
+	box-shadow: 0 1px 5px rgba(76,76,76,.12), 1px 1px 4px rgba(128,128,128,.24);
+	border-radius: 5px;
+}
+@media (max-width :767px){
+	.doc-usr-only h1 {
+		font-size: 15px;
+		font-weight: 500;
+		margin-bottom: 10px;
+	}
+	.doc-pwdby p {
+		margin-right: 10px;
+		color: #4e4e4e;
+		font-size: 13px;
+		font-weight: 500;
+	}
+	.step-blk-para{
+		font-weight: 700;
+		font-size: 14px;
+	}
+	.step-orng-para{
+		font-weight: 700;
+		color:#f78631;
+		font-size: 14px;
+	}
+	.step-qut-para{
+		margin-top: 10px;
+		font-size: 14px;
+	}
+	.ins-land-listing p{
+		font-size: 14px;
+	}
+	.ins-step-img{
+		width: 70%;
+	}
+	div.ins-netwrk-heading-cont{
+	font-size: 14px;
+	}
+	p.ins-nw-note {
+		margin-top: 14px;
+	}
+	ul.ins-nw-listing li {
+		font-size: 14px;
+	}
+	.ins-landing-shadow{
+		border-radius: 0px;
+	}
+	.ins-netwrk-heading-cont span{
+		font-size: 12px;
+	}
+
+}
+.ins-form-slider{
+	white-space: nowrap;
+    overflow: hidden;
+}
+.ins-form-slider .one,.ins-form-slider .two {
+    display: inline-block;
+    white-space: normal;
+}
+
+/* ============ more clinic card ============ */
+/* ============ ipd slider card ============ */
+.ipd-carousel-container {
+    margin-bottom: 10px;
+}
+.ipd-carousel-container h3{
+	font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #000;
+}
+.ipd-carousel-card{
+	background-color: #fff;
+    box-shadow: 0 1px 5px rgba(76,76,76,.12), 1px 1px 4px rgba(128,128,128,.24);
+    border: 0;
+    border-radius: 5px;
+    min-width: 180px;
+    max-width: 180px;
+    min-height: 125px;
+    padding: 8px;
+    position: relative;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 2px;
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.ipd-crsl-img-cont {
+    margin-bottom: 10px;
+}
+.ipd-crsl-img img {
+    width: 120px;
+    margin-bottom: 8px;
+}
+.ipd-crsl-img-cont p {
+    font-weight: 500;
+    font-size: 13px;
+}
+.ipd-cd-content p {
+    font-size: 11px;
+    font-weight: 500;
+    color: #757575;
+}
+.ipd-carousel-slider{
+	overflow: auto;
+    margin: 0 -15px;
+    padding: 0px 15px;
+}
+/* ============ ipd slider card ============ */
+/* ============ new pkg card ============ */
+.nw-pkg-crd-img{
+	display: flex;
+	align-items: center;
+}
+.thy-sub-icon{
+	margin-left: 4px;
+    display: flex;
+    align-items: baseline;
+}
+.thy-sub-icon .test-pkup{
+	font-size: 10px;
+    display: flex;
+    font-weight: 500;
+    color: #757575;
+    margin-right:5px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.tstblk{
+	display: block;
+}
+.thy-sub-icon img{
+	margin-right: 5px;
+}
+.dc-prc{
+	color: #757575;
+    font-size: 11px;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+.dc-cpn-include{
+	color: #55A740;
+	font-size: 11px;
+    font-weight: 500;
+}
+.dc-cpn-include span{
+	display: inline-block;
+}
+.pkg-new-time-sl{
+	margin-top: 5px;
+}
+/* ============ new pkg card ============ */
+/* ============ new time slot design ============ */
+.nw-inpt-selctr{
+	display: flex;
+    align-items: flex-end;
+    margin-top: 20px;
+}
+.nw-pick-hdng{
+	text-align: center;
+    font-weight: 500;
+    margin-right: 25px;
+    margin-left: 30px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.nw-inpt-selctr input{
+	border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #e6e5e5;
+    min-height: auto !important;
+    outline: none;
+    padding-left: 21px;
+    width: 190px;
+    background: white;
+    cursor: pointer;
+	padding-bottom: 2px;
+	font-weight: 500;
+}
+.caln-input-tp{
+	position: relative;
+}
+.inp-nw-cal{
+	width: 16px;
+    position: absolute;
+    top: 3px;
+}
+.inp-nw-time{
+	width: 16px;
+    position: absolute;
+    top: 1px;
+}
+.tm-arw-sgn{
+	position: absolute;
+    right: 0;
+    transform: rotate(-90deg);
+    bottom: 7px;
+}
+[type="date"]::-webkit-datetime-edit-month-field { color: black; }
+[type="date"]::-webkit-datetime-edit-day-field { color: black; }
+[type="date"]::-webkit-datetime-edit-year-field { color: black; }
+@media (max-width: 345px) {
+	.nw-pick-hdng{
+		margin-right: 12px;
+margin-left: 0px;
+	}
+}
+.no-tm-slot{
+	padding: 12px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+.caln-input-tp input:disabled {
+	color: black;
+	cursor: pointer;
+}
+.pt-20{
+	padding-top: 20px !important;
+}
+/* ============ new time slot design ============ */
+/* ============ new chat feedback qa ============ */
+h3.nechatheding{
+	color: #f78631;
+    font-weight: 500;
+    font-size: 16px;
+}
+.chat-qa-cont {
+    margin-top: 20px;
+    text-align: left;
+}
+.chat-qa-cont h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+ul.chat-qa-listing {
+    padding-left: 15px;
+}
+ul.chat-qa-listing li {
+    margin-bottom: 10px;
+}
+ul.chat-qa-listing li .rate-feed-text {
+    font-size: 13px;
+    font-weight: 400;
+}
+ul.chat-qa-listing li span.checkmark {
+    border-color: #f78631;
+    border-radius: 0px;
+}
+.chat-qa-cont textarea{
+	width: 100%;
+    border-radius: 5px;
+    border-color: rgba(0, 0, 0, 0.12);
+	min-height: 80px;
+	outline: none;
+}
+/* ============ new chat feedback qa ============ */
+/* ============ doc lab sign up ============ */
+form.doc-lab-sgnup-cont {
+    margin-top: 15px;
+}
+.doc-lab-sgnup-cont div.form-group {
+    margin-bottom: 13px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    align-items: center;
+}
+.doc-lab-sgnup-cont div.form-group label {
+	flex-grow: 0;
+    flex-shrink: 0;
+    min-width: 80px;
+    text-align: left;
+    font-weight: 500;
+    color: #757575;
+}
+.doc-lab-sgnup-cont div.form-group select{
+	border: transparent;
+    box-shadow: none;
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    border-radius: 0px !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-position: right 50%;
+    background-repeat: no-repeat;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDZFNDEwNjlGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDZFNDEwNkFGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NkU0MTA2N0Y3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NkU0MTA2OEY3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuGsgwQAAAA5SURBVHjaYvz//z8DOYCJgUxAf42MQIzTk0D/M+KzkRGPoQSdykiKJrBGpOhgJFYTWNEIiEeAAAMAzNENEOH+do8AAAAASUVORK5CYII=);
+    padding-right: 1.5em;
+}
+.doc-lab-sgnup-cont div.form-group input{
+	border: transparent;
+    box-shadow: none;
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    border-radius: 0px !important;
+}
+.cty-rltv{
+	position: relative;
+	width: 100%;
+}
+/* ============ doc lab sign up ============ */

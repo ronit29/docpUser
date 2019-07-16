@@ -264,6 +264,12 @@ const adsBooking = Loadable({
     webpack: () => [require.resolveWeak('./containers/commons/adsBooking.js')],
     loading,
 })
+const InsuranceStaticView = Loadable({
+    loader: () => import('./containers/insurance/InsuranceStaticView'),
+    modules: ['./containers/insurance/InsuranceStaticView'],
+    webpack: () => [require.resolveWeak('./containers/insurance/InsuranceStaticView')],
+    loading,
+})
 const InsuranceView = Loadable({
     loader: () => import('./containers/insurance/InsuranceView'),
     modules: ['./containers/insurance/InsuranceView'],
@@ -467,7 +473,20 @@ const Payment = Loadable({
     loading,
 })
 
+const HospitalList = Loadable({
+    loader: () => import('./containers/commons/hospitalList.js'),
+    modules: ['./containers/commons/hospitalList.js'],
+    webpack: () => [require.resolveWeak('./containers/commons/hospitalList.js')],
+    loading,
+})
 
+
+const SingleChatPageFeedback = Loadable({
+    loader: () => import('./containers/commons/SingleChatPageFeedback.js'),
+    modules: ['./containers/commons/SingleChatPageFeedback.js'],
+    webpack: () => [require.resolveWeak('./containers/commons/SingleChatPageFeedback.js')],
+    loading,
+})
 
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
@@ -583,14 +602,17 @@ let routes = [
     { path: '/package/compare', exact: true, component: PackageCompare },
     { path: '/*-hpcp', exact: true, component: PackageCompare },
     { path: '/ipd-procedures', exact: true, component: IpdList, RENDER_ON_SERVER: true },
-    { path: '/order/paymentSummary', exact: true, component: CodPaymentPage }
+    { path: '/order/paymentSummary', exact: true, component: CodPaymentPage },
+    { path: '/hospitals', exact: true, component: HospitalList, RENDER_ON_SERVER: true },
+    { path: '/Chat/Review', exact: true, component: SingleChatPageFeedback }
 
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {
     routes = routes.concat([
         { path: '/insurance1', exact: true, component: InsuranceViewUI },
-        { path: '/insurance/insurance-plans', exact: true, component: InsuranceView, RENDER_ON_SERVER: true },
+        { path: '/insurance/insurance-plans', exact: true, component: InsuranceStaticView, RENDER_ON_SERVER: true },
+        { path: '/insurance/insurance-plan-view', exact: true, component: InsuranceView, RENDER_ON_SERVER: true },
         { path: '/insurance/insurance-user-details', exact: true, component: InsuranceDetails, RENDER_ON_SERVER: true },
         { path: '/insurance/insurance-endorsement-details', exact: true, component: InsuranceEndorsementDetails, RENDER_ON_SERVER: true },
         { path: '/insurance/insurance-user-details-review', exact: true, component: InsuranceReview, RENDER_ON_SERVER: true },

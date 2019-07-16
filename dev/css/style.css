@@ -5578,7 +5578,7 @@ color: 	#fe7108;
     font-weight: 500;
 }
 .pb-5{
-	padding-bottom: 5px;
+	padding-bottom: 5px !important;
 }
 .pb-10{
 	padding-bottom:10px !important;
@@ -6280,7 +6280,7 @@ h3.pkg-include{
     padding-left: 8px;
     padding-right: 8px;
     color: rgb(117, 117, 117);
-    border: 1px dashed #f78631;
+    border: 1px dashed rgb(117, 117, 117);;
     border-radius: 4px;
     display: inline;
 }
@@ -6817,7 +6817,8 @@ span.pkg-ofr-ribbon:after {
 	margin-left: 5px;
 }
 .pkg-btn-nw{
-	background: #f78631;
+    background-image: linear-gradient(to left,#f78631,#ff6d00);
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
     border: none;
     color: white;
     font-weight: 500;
@@ -7550,8 +7551,7 @@ p.cstm-cpn{
     bottom: 0;
     margin-top: 20px;
     z-index: 9;
-    margin-left: -5px;
-    margin-right: -5px;
+    
 
 }
 
@@ -7567,6 +7567,16 @@ p.cstm-cpn{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,.12);
     background: #fff;
     margin-bottom: 15px;
+    position: relative;
+}
+.show-less-ipd{
+    cursor: pointer;
+    position: absolute;
+    bottom: 1px;
+    right: 10px;
+}
+.show-ipd-more-rotate{
+    transform: rotate(180deg);
 }
 .ipd-section .banner img{
     border-top-left-radius: 5px;
@@ -7680,6 +7690,9 @@ p.cstm-cpn{
     text-indent: -34px;
     padding: 10px 0 10px 35px;
 }
+.ipd-section .hs-services li h3{
+    font-size: 14px;
+}
 .ipd-section .hs-services li:fisrt-child,.hs-services li:nth-child(2){
     padding-top: 0;
 }
@@ -7716,6 +7729,7 @@ p.cstm-cpn{
 }
 .ipd-section .accordian-head{
     position: relative;
+    font-size: 14px;
 }
 .ipd-section .accordian-head img{
     position: absolute;
@@ -8204,6 +8218,9 @@ a.btn-search.btn-cnte{
 .custom-li-style{
 	min-height: 38px;
 }
+.custom-li-style h2 ,.custom-li-style h3{
+font-size: 16px;
+}
 .lead-form p{
 	margin-bottom: 10px;
 }
@@ -8248,7 +8265,7 @@ a.btn-search.btn-cnte{
 
 @media screen and (max-width: 767px){
 	 .ipd-section{
-    	padding:0 15px;
+    	padding:0 5px;
     	margin-top: -10px;
     }
     .ipd-section .full-widget.mrg-b0{
@@ -8273,8 +8290,9 @@ a.btn-search.btn-cnte{
 		right: -83%;
     }
     .ipd-section a.btn-search{
-        margin: 0px -10px;
+        margin: 0px -5px;
     }
+    
 	
 }
 @media screen and (max-width: 576px){
@@ -8419,6 +8437,9 @@ a.btn-search.btn-cnte{
         margin-top: 0px;
     }
    
+}
+.ipd-st-rating div.cstm-doc-rtng{
+    justify-content: center;
 }
 /*=========== IPD NEW CSS ================*/
 
@@ -11795,11 +11816,11 @@ p.lab-crd-txt-pr span{
     font-size: 12px;
 }
 .appmnt-avl{
-	    font-size: 11px;
+	    font-size: 10px;
     font-style: italic;
 }
 .apnt-doc-dtl{
-	    font-size: 11px;
+	    font-size: 10px;
     font-style: italic;
     padding-left: 27px;
     margin-bottom: 9px;
@@ -11894,4 +11915,122 @@ p.label-cpn{
 	font-size: 12px;
     font-weight: 500;
     display: inline-block;
+}
+.digi-heading{
+	    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.cancel-input-num{
+    margin-bottom: 10px;
+    position: relative;
+}
+.cancel-input-num input{
+	    width: 100%;
+    background-color: rgb(247, 247, 247);
+    border: 1px solid #d3d3d3;
+    position: relative;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+.vrfy-via-num{
+    color: #f78631;
+    font-weight: 500;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 4px;
+    display: inline-block;
+}
+.cancl-rsnd-clk{
+    color: #d11414;
+    font-weight: 500;
+    font-size: 12px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+.nw-clinicMore.arrow-rev img{
+	transform: rotate(-90deg);
+}
+.chat-pop-heading{
+    position: absolute;
+    text-align: center;
+    top: 10%;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.chat-pop-heading h3{
+    color: white;
+    font-weight: 500;
+    margin-bottom: 7px;
+}
+.chat-pop-heading p{
+    color: white;
+    font-weight: 500;
+}
+ul.chat-radio-align .custom-radio .radio-checkmark.checkmark:after{
+    top:5px;
+    left: 5px;
+}
+.disable_coupon{
+	pointer-events: none;
+    filter: grayscale(1);
+    opacity: .6;
+    cursor: no-drop;
+}
+.cpn-blur{
+    transition: all;
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+.mb-3.referDocimg img {
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.referDoctorbtn{
+    background-image: linear-gradient(to left,#f78631,#ff6d00);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    margin-top: 20px;
+    padding: 10px 15px;
+font-weight: 500;
+}
+.skip-btn-sgn{
+    position: relative;
+}
+.skip-btn-sgn p{ 
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    font-size: 13px;
+    font-weight: 500;
+    color: #f78631;
+    cursor: pointer;
+}
+.reg-fee-cont p {
+    background: #f5e28a;
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+.doc-top-book-btn{
+    width: 100%;
+    color: #f78631;
+    border: 1px solid #ffc59a;
+    padding: 8px 0px;
+    border-radius: 4px;
+    background: white;
 }

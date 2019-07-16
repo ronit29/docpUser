@@ -148,7 +148,7 @@ class InsuranceCertificateView extends React.Component {
 										<div className="ins-flex mrb-20">
 											<img width="100" src="https://qacdn.docprime.com/media/insurer/images/apllogo.png" />
 											{/*<p className="fw-500">OPD Insurance <br />by <span className="fw-700">Apollo Munich</span></p>*/}
-											<p className="fw-500">Group Out-patient Insurance</p>
+											<p className="fw-500">Group Out-Patient Insurance</p>
 											{this.props.get_insured_profile ?
 												<div style={{ flexGrow: '0', flexShrink: '0' }}>
 													<img width="30" src={ASSETS_BASE_URL + "/img/chk-green.svg"} style={{ verticalAlign: '-31px' }} />

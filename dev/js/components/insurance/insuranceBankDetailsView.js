@@ -126,6 +126,7 @@ class InsuranceCancellationView extends React.Component {
 				data.cancel_reason = this.props.cancel_reason
 	        	this.props.cancelInsurance(data,(resp)=> {
 					if (resp.success) {
+						this.props.clearBankDetails()
 						this.setState({ policy_number:resp.policy_number,showCancelSection:false })
 					}
 				})
@@ -287,18 +288,18 @@ class InsuranceCancellationView extends React.Component {
 											</div>
 										:<React.Fragment>
 										<p className="ins-cancl-para">Please upload either of these documents to verify your account details. </p>
-										<span className="ins-cn-btn" onClick={() => {
+										<span className="ins-cn-btn" style={{ cursor:'pointer' }} onClick={() => {
 					                        document.getElementById('imageFilePicker_').click()
 					                        document.getElementById('imageFilePicker_').value = "" }}>
 					                    	<img src={ASSETS_BASE_URL + '/img/upld.png'}/>Upload Cancelled Cheque
-					                        	<input type="file" style={{ display: 'none' }} id={`imageFilePicker_`} onChange={this.pickFile.bind(this)} accept="image/*"/>
+					                        	<input type="file" style={{ display: 'none',cursor:'pointer' }} id={`imageFilePicker_`} onChange={this.pickFile.bind(this)} accept="image/*"/>
 					                    </span>
 					                    <p className="ins-cancl-para">OR</p>
-					                    <span className="ins-cn-btn" onClick={() => {
+					                    <span className="ins-cn-btn" style={{ cursor:'pointer' }} onClick={() => {
 					                        document.getElementById('imageFilePicker_').click()
 					                        document.getElementById('imageFilePicker_').value = "" }}>
 					                    	<img src={ASSETS_BASE_URL + "/img/upld.png"}/>Upload Account Statement
-					                        	<input type="file" style={{ display: 'none' }} id={`imageFilePicker_`} onChange={this.pickFile.bind(this)} accept="image/*"/>
+					                        	<input type="file" style={{ display: 'none',cursor:'pointer' }} id={`imageFilePicker_`} onChange={this.pickFile.bind(this)} accept="image/*"/>
 					                    </span>
 										{/*<p className="ins-cancl-para">We need to confirm if this account belongs to you. Please fill more details below </p>
 										<button className="ins-cn-btn"><img src={ASSETS_BASE_URL + '/img/upld.png'} />Upload Cancelled Cheque</button>

@@ -190,12 +190,13 @@ export const getLabTimeSlots = (labId, pickup, pincode, date, callback) => (disp
 	})
 }
 
-export const selectLabTimeSLot = (slot, reschedule = false) => (dispatch) => {
+export const selectLabTimeSLot = (slot, reschedule = false, dateParams=null) => (dispatch) => {
 	dispatch({
 		type: SELECT_LAB_TIME_SLOT,
 		payload: {
 			reschedule,
-			slot
+			slot,
+			dateParams
 		}
 	})
 }
@@ -370,7 +371,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 
 	if (forTaxSaver) {
 		package_category_id = parsed.package_category_ids
-		url += `long=${long || ""}&lat=${lat || ""}&package_category_ids=${package_category_id}`
+		url += `long=${long || ""}&lat=${lat || ""}&package_category_ids=${package_category_id}&page=${page}`
 	}
 
 	if (!forTaxSaver) {

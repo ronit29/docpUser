@@ -66,7 +66,7 @@ class DoctorProfileCard extends React.Component {
 
         let { procedure_ids } = this.trackingEventsBookNow(id)
         this.props.saveProfileProcedures('', '', procedure_ids, true)
-        if(url){
+        if (url) {
             this.props.history.push(`/${url}/booking?doctor_id=${id}&hospital_id=${hospital_id}`)
         } else {
             this.props.history.push(`/opd/doctor/${id}/${hospital_id}/bookdetails`)
@@ -185,7 +185,7 @@ class DoctorProfileCard extends React.Component {
 
                 unselectedCount += x.procedures.filter(x => !x.is_selected).length
             })
-            
+
             if (is_procedure && false) {
                 if (finalProcedureMrp != 0 && finalProcedureDealPrice != 0) {
                     discount = 100 - Math.round((finalProcedureDealPrice * 100) / finalProcedureMrp);
@@ -198,9 +198,9 @@ class DoctorProfileCard extends React.Component {
 
             let is_insurance_applicable = hospital.is_insurance_covered && hospital.is_user_insured && deal_price <= hospital.insurance_threshold_amount
             let offPercent = ''
-            if (mrp && (discounted_price != null) && (discounted_price < mrp) &&  enabled_for_prepaid_booking) {
+            if (mrp && (discounted_price != null) && (discounted_price < mrp) && enabled_for_prepaid_booking) {
                 offPercent = parseInt(((mrp - discounted_price) / mrp) * 100);
-            }else if(enabled_for_cod && cod_deal_price != null && cod_deal_price != mrp && !enabled_for_prepaid_booking ){
+            } else if (enabled_for_cod && cod_deal_price != null && cod_deal_price != mrp && !enabled_for_prepaid_booking) {
                 offPercent = parseInt(((mrp - cod_deal_price) / mrp) * 100);
             }
 
@@ -211,7 +211,12 @@ class DoctorProfileCard extends React.Component {
                 googleRatingCount = google_rating.rating_count || ''
             }
             let is_insurance_buy_able = hospital.is_insurance_covered && !hospital.is_user_insured && deal_price <= hospital.insurance_threshold_amount
-            console.log(enabled_for_prepaid_booking)
+
+            let qualificationsArray = [];
+            if (qualifications && qualifications.length) {
+                qualificationsArray = qualifications.filter(x => x.qualification.length <= 6);
+            }
+
             return (
                 <div className="cstm-docCard mb-3">
                     {
@@ -219,9 +224,9 @@ class DoctorProfileCard extends React.Component {
                             __html: new_schema
                         }} /> : ""
                     }
-                    
-                    <div className="cstm-docCard-content" onClick={enabled_for_hospital_booking?this.bookNowClicked.bind(this, id, url, hospital.hospital_id || ''):this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')}>
-                    
+
+                    <div className="cstm-docCard-content" onClick={enabled_for_hospital_booking ? this.bookNowClicked.bind(this, id, url, hospital.hospital_id || '') : this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')}>
+
                         <div className="row no-gutters">
                             <div className="col-8">
                                 <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')} title={display_name}>
@@ -230,7 +235,7 @@ class DoctorProfileCard extends React.Component {
                                 <div className="cstm-doc-details-container">
                                     <div className="cstm-doc-img-container">
                                         <div>
-                                            <a href={url ? `/${url}` : `/opd/doctor/${id}`} onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')} title={display_name}>
+                                            <a href="javascript:;" onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')} title={display_name}>
                                                 <InitialsPicture name={name} has_image={!!thumbnail} className="initialsPicture-ds fltr-initialPicture-ds" style={{ width: 50, height: 50, fontSize: '1.5em' }} >
                                                     <img className="img-round" src={thumbnail} alt={display_name} title={display_name} />
                                                 </InitialsPicture>
@@ -243,6 +248,19 @@ class DoctorProfileCard extends React.Component {
                                     </div>
                                     <div className="cstm-doc-content-container">
                                         <h3>{this.getQualificationStr(general_specialization || [])}</h3>
+                                        {
+                                            qualifications && qualifications.length && qualificationsArray.length ?
+                                                <p>
+                                                    {
+                                                        qualificationsArray.map((qualification, index) => {
+                                                            if (index < 3) {
+                                                                return <span key={index}>{qualification.qualification} {(index < qualificationsArray.length - 1) && (index != 2) ? '| ' : ''}</span>
+                                                            }
+                                                            else return ''
+                                                        })
+                                                    }
+                                                </p> : ''
+                                        }
                                         {
                                             experience_years ?
                                                 <h3 style={{ marginBottom: 5 }}>{experience_years} Years Experience</h3> : ''
@@ -272,18 +290,18 @@ class DoctorProfileCard extends React.Component {
                                         <p className="cstm-doc-price">Docprime Price</p> : ''
                                 }
                                 {
-                                    is_insurance_applicable?
-                                    ''
-                                    :enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price != mrp ?
-                                        <p className="cst-doc-price">₹ {cod_deal_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
-                                    :enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price == mrp ?
-                                    <p className="cst-doc-price">₹ {cod_deal_price}</p>
-                                    :enabled_for_hospital_booking && (discounted_price != null) && discounted_price != mrp ?
-                                        <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
-                                        : mrp && mrp != 0 ?
-                                            <p className="cst-doc-price">₹ {mrp}</p>
-                                            : mrp != null && enabled_for_hospital_booking ?
-                                                <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
+                                    is_insurance_applicable ?
+                                        ''
+                                        : enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price != mrp ?
+                                            <p className="cst-doc-price">₹ {cod_deal_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+                                            : enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price == mrp ?
+                                                <p className="cst-doc-price">₹ {cod_deal_price}</p>
+                                                : enabled_for_hospital_booking && (discounted_price != null) && discounted_price != mrp ?
+                                                    <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+                                                    : mrp && mrp != 0 ?
+                                                        <p className="cst-doc-price">₹ {mrp}</p>
+                                                        : mrp != null && enabled_for_hospital_booking ?
+                                                            <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
                                 }
                                 {
                                     !is_insurance_applicable && enabled_for_hospital_booking && offPercent && offPercent > 0 ?
@@ -295,12 +313,12 @@ class DoctorProfileCard extends React.Component {
                                         </p> : ''
                                 }
                                 {
-                                    is_insurance_applicable?
-                                    <div>
-                                        <p className="cst-doc-price">₹ {0}</p>
-                                        <div className="ins-val-bx">Covered Under Insurance</div>
-                                    </div>
-                                    :''
+                                    is_insurance_applicable ?
+                                        <div>
+                                            <p className="cst-doc-price">₹ {0}</p>
+                                            <div className="ins-val-bx">Covered Under Insurance</div>
+                                        </div>
+                                        : ''
                                 }
                                 {
                                     enabled_for_hospital_booking ?
@@ -311,44 +329,46 @@ class DoctorProfileCard extends React.Component {
                             </div>
                         </div>
                         {
-                        is_insurance_buy_able && this.props.common_settings && this.props.common_settings.insurance_availability?
-                        <div className="ins-buyable">
-                            <p>Book this Doctor for ₹0 with OPD Insurance</p>
-                            <span style={{cursor:'pointer'}} onClick={(e)=>{
-                                e.stopPropagation()
-                                let data = {
-                                    'Category': 'ConsumerApp', 'Action': 'KnowMoreDoctorClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'know-more-doctor-clicked'
-                                }
-                                GTM.sendEvent({ data: data })
-                                this.props.history.push('/insurance/insurance-plans?source=doctor-listing&show_button=true')
-                            }}>Know more</span>
-                        </div>
-                        :''
+                            is_insurance_buy_able && this.props.common_settings && this.props.common_settings.insurance_availability ?
+                                <div className="ins-buyable">
+                                    <p>Book this Doctor for ₹0 with OPD Insurance</p>
+                                    <span style={{ cursor: 'pointer' }} onClick={(e) => {
+                                        e.stopPropagation()
+                                        let data = {
+                                            'Category': 'ConsumerApp', 'Action': 'KnowMoreDoctorClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'know-more-doctor-clicked'
+                                        }
+                                        GTM.sendEvent({ data: data })
+                                        this.props.history.push('/insurance/insurance-plans?source=doctor-listing&show_button=true')
+                                    }}>Know more</span>
+                                </div>
+                                : ''
                         }
                     </div>
                     <div className="cstmCardFooter">
                         <div className="cstmfooterContent">
                             {
-                                hospital.url && hospital.url.length?
-                                <a href={`/${hospital.url}`} onClick={
+                                hospital.url && hospital.url.length ?
+
+                                    <h3><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />
+                                        <a href={`/${hospital.url}`} style={{ color: '#000' }} onClick={
                                             (e) => {
                                                 e.preventDefault()
                                                 this.props.history.push(`/${hospital.url}`)
                                             }
                                         }>
-                                    <h3><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />{hospital.hospital_name}
+                                            {hospital.hospital_name}
+                                        </a>
                                         {
                                             hospital_count > 1 ?
                                                 <span> &amp; {hospital_count - 1} More </span> : ''
                                         }
                                     </h3>
-                                </a>
-                                :<h3><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />{hospital.hospital_name}
-                                    {
-                                        hospital_count > 1 ?
-                                            <span> &amp; {hospital_count - 1} More </span> : ''
-                                    }
-                                </h3>
+                                    : <h3><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />{hospital.hospital_name}
+                                        {
+                                            hospital_count > 1 ?
+                                                <span> &amp; {hospital_count - 1} More </span> : ''
+                                        }
+                                    </h3>
                             }
                             {
                                 google_rating && !average_rating ?

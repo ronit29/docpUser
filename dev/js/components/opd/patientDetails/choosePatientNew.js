@@ -147,7 +147,7 @@ class ChoosePatientNewView extends React.Component {
                 GTM.sendEvent({ data: analyticData })
             }
 
-            this.props.sendOTP(this.state.phoneNumber,viaSms,viaWhatsapp, (error) => {
+            this.props.sendOTP(this.state.phoneNumber,viaSms,viaWhatsapp,'booking-login', (error) => {
                 if (error) {
                     setTimeout(() => {
                         SnackBar.show({ pos: 'bottom-center', text: "Could not generate OTP." })

@@ -44,7 +44,7 @@ class InsuranceOthers extends React.Component {
 				let oldDate
 				if(Object.keys(profile).length > 0 && profile.dob){
 					oldDate= profile.dob.split('-')
-				    	this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+				    	this.setState({year:oldDate[0],mnth:oldDate[2],day:oldDate[1]},()=>{
 				    		this.populateDates(this.props.member_id,true)
 				    })
 				}
@@ -59,7 +59,7 @@ class InsuranceOthers extends React.Component {
 					}
 					if(this.props.user_data && this.props.user_data[0].dob){
 						oldDate= this.props.user_data[0].dob.split('-')
-						this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+						this.setState({year:oldDate[0],mnth:oldDate[2],day:oldDate[1]},()=>{
 				    		this.populateDates(this.props.member_id,true)
 				    	})
 					}
@@ -214,7 +214,7 @@ class InsuranceOthers extends React.Component {
 			}
 			if(newProfile && newProfile.dob){
 				oldDate= newProfile.dob.split('-')
-				this.setState({year:oldDate[0],day:oldDate[1],mnth:oldDate[2]},()=>{
+				this.setState({year:oldDate[0],mnth:oldDate[2],day:oldDate[1]},()=>{
 	    			this.populateDates(newProfileid,false)
 	    		})
 			}else{
@@ -300,7 +300,7 @@ class InsuranceOthers extends React.Component {
     }
 
     daysInMonth(month, year) {
-        return new Date(year, month, 0).getDate();
+        return new Date(year, month, 31).getDate();
     }
 
     populateDates(member_id,toCreateOptions){
@@ -317,6 +317,7 @@ class InsuranceOthers extends React.Component {
     	var daydropdown = document.getElementById('daydropdown_'+member_id),
           monthdropdown = document.getElementById('monthdropdown_'+member_id),
           yeardropdown = document.getElementById('yeardropdown_'+member_id);
+          	
         var today = new Date(),
             day = today.getUTCDate(),
             month = today.getUTCMonth(),
@@ -324,10 +325,28 @@ class InsuranceOthers extends React.Component {
             currentYear = today.getUTCFullYear(),
             daysInCurrMonth = this.daysInMonth(month, year);
 		if(daydropdown && monthdropdown && yeardropdown){
+			
+			daydropdown.innerHTML = ''
+			monthdropdown.innerHTML = ''
+			yeardropdown.innerHTML = ''
+
+			var opt_dd = document.createElement('option');
+				opt_dd.value = 'DD'
+	          	opt_dd.text = 'DD'
+	          	opt_dd.hidden = true
+	          	daydropdown.appendChild(opt_dd);
+	        var opt_mm = document.createElement('option');
+				opt_mm.value = 'MM'
+	          	opt_mm.text = 'MM'
+	          	opt_mm.hidden = true
+	          	monthdropdown.appendChild(opt_mm);
+	        var opt_yy = document.createElement('option');
+				opt_yy.value = 'YYYY'
+	          	opt_yy.text = 'YYYY'
+	          	opt_yy.hidden = true
+	          	yeardropdown.appendChild(opt_yy);
+
 				// Day
-				daydropdown.innerHTML = ''
-				monthdropdown.innerHTML = ''
-				yeardropdown.innerHTML = ''
 		        for(var i = 1; i <= daysInCurrMonth; i++){
 		          var opt = document.createElement('option');
 		          if(i<=9){

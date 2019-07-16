@@ -69,7 +69,31 @@ class AppointmentSlot extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
         slot.selectedDoctor = this.props.selectedDoctor
         slot.selectedClinic = this.props.selectedClinic
-        this.props.selectOpdTimeSLot(slot, this.state.reschedule, parsed.reschedule)
+        let extraTimeParams = null
+        if(this.state.selectedTimeSlot && this.state.selectedTimeSlot.date) {
+            extraTimeParams = this.getFormattedDate(this.state.selectedTimeSlot.date)
+        }
+        this.props.selectOpdTimeSLot(slot, this.state.reschedule, parsed.reschedule, extraTimeParams)
+    }
+
+    getFormattedDate(date) {
+
+        var dd = date.getDate();
+
+        var mm = date.getMonth()+1; 
+        var yyyy = date.getFullYear();
+        if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        }
+
+        var today = yyyy+'-'+mm+'-'+dd;
+        return today
     }
 
     componentDidMount() {
