@@ -29,7 +29,8 @@ class HospitalDetailView extends React.Component {
 			seoFriendly: this.props.match.url.includes('-hpp'),
 			toggleTabType: 'doctors',
 			showLeadForm: true,
-			ipdFormParams: {}
+			ipdFormParams: {},
+			showForcedPopup: false
 		}
 	}
 
@@ -80,6 +81,9 @@ class HospitalDetailView extends React.Component {
 			this.toggleTabs(parsed.type)
 		}
 
+		setTimeout(()=>{
+			this.setState({showForcedPopup: true})
+		},1000)
 
 	}
 
@@ -206,16 +210,20 @@ class HospitalDetailView extends React.Component {
 
 		showPopup = parsed.showPopup && this.state.showLeadForm && !this.props.is_ipd_form_submitted
 
-		let showForcedPopup= showPopup && typeof window == 'object' && window.ON_LANDING_PAGE && this.state.seoFriendly
+		let landing_page = false
+        if (typeof window == 'object' && window.ON_LANDING_PAGE) {
+            landing_page = true
+        }
 
+		let showForcedPopup= this.state.showLeadForm && landing_page && this.state.seoFriendly && this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.is_ipd_hospital && this.state.showForcedPopup
 		return (
 			<React.Fragment>
 				{
 					this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ?
 						<div className="ipd-section">
 							{
-								showPopup ?
-									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} formSource='ipdHospitalPopup' forcedPopup={showForcedPopup}/>
+								(showPopup || showForcedPopup)?
+									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} formSource='ipdHospitalPopup'/>
 									: ''
 							}
 

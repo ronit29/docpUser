@@ -11816,11 +11816,11 @@ p.lab-crd-txt-pr span{
     font-size: 12px;
 }
 .appmnt-avl{
-	    font-size: 11px;
+	    font-size: 10px;
     font-style: italic;
 }
 .apnt-doc-dtl{
-	    font-size: 11px;
+	    font-size: 10px;
     font-style: italic;
     padding-left: 27px;
     margin-bottom: 9px;
@@ -12025,4 +12025,12 @@ font-weight: 500;
     border-radius: 4px;
     font-size: 12px;
     font-weight: 500;
+}
+.doc-top-book-btn{
+    width: 100%;
+    color: #f78631;
+    border: 1px solid #ffc59a;
+    padding: 8px 0px;
+    border-radius: 4px;
+    background: white;
 }
