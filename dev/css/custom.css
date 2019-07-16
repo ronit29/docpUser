@@ -2599,4 +2599,12 @@ form.doc-lab-sgnup-cont {
 	position: relative;
 	width: 100%;
 }
+.ipd-sl-srch div.articleSearchWidget{
+	margin: 10px -5px;
+	margin-bottom: 0px;
+}
+.ipd-sl-srch div.articleSearchWidget input.artc-inp{
+padding-right: 15px;
+}
+
 /* ============ doc lab sign up ============ */

@@ -143,7 +143,8 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 			type: SAVE_RESULTS_WITH_SEARCHID,
 			payload: response,
 			page: page,
-			clinic_card: clinic_card
+			clinic_card: clinic_card,
+			commonSelectedCriterias
 		})
 		if (clinic_card) {
 			dispatch({
