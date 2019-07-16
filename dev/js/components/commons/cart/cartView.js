@@ -51,6 +51,8 @@ class CartView extends React.Component {
         let coupon_breakup = {}
         let cashback_breakup = {}
         let platformConvFees = 0
+        let total_amnt = 0
+        let dd = 0
         for (let item of cart_items) {
             if (item.valid && item.actual_data.payment_type == 1) {
                 
@@ -60,7 +62,15 @@ class CartView extends React.Component {
 
                 }else{
                     total_mrp += item.mrp
-                    total_deal_price += item.deal_price    
+                    if(item.consultation && item.consultation.fees == 0){
+                        dd = item.mrp
+                    }else{
+                        dd = item.mrp - item.deal_price
+                    }
+                    console.log('dd='+dd)
+                    total_deal_price += dd
+                    console.log(total_deal_price)
+                    // total_deal_price += item.deal_price  
                     total_home_pickup_charges += item.total_home_pickup_charges || 0
                     if (item.data.coupons && item.data.coupons.length) {
                         total_coupon_discount += item.coupon_discount
@@ -86,6 +96,8 @@ class CartView extends React.Component {
                 
             }
         }
+        total_amnt = total_mrp - total_deal_price + platformConvFees - total_coupon_discount
+        console.log(total_amnt)
         return {
             total_mrp,
             total_deal_price,
@@ -94,7 +106,8 @@ class CartView extends React.Component {
             total_coupon_cashback,
             coupon_breakup,
             cashback_breakup,
-            platformConvFees
+            platformConvFees,
+            total_amnt
         }
     }
 
@@ -173,7 +186,8 @@ class CartView extends React.Component {
             total_coupon_cashback,
             coupon_breakup,
             cashback_breakup,
-            platformConvFees
+            platformConvFees,
+            total_amnt
         } = this.getPriceBreakup(cart)
 
         let total_wallet_balance = 0
@@ -273,7 +287,7 @@ class CartView extends React.Component {
                                                                         }
                                                                         <div className="payment-detail d-flex">
                                                                             <p>Docprime Discount</p>
-                                                                            <p>- &#8377; {parseInt(total_mrp) - parseInt(total_deal_price)}</p>
+                                                                            <p>- &#8377; {parseInt(total_deal_price)}</p>
                                                                         </div>
                                                                         {
                                                                             total_home_pickup_charges ? <div className="payment-detail d-flex">
@@ -303,7 +317,7 @@ class CartView extends React.Component {
 
                                                                 <div className="test-report payment-detail mt-20">
                                                                     <h4 className="title payment-amt-label">Amount Payable</h4>
-                                                                    <h5 className="payment-amt-value">&#8377; {total_deal_price - total_coupon_discount}</h5>
+                                                                    <h5 className="payment-amt-value">&#8377; {total_amnt}</h5>
                                                                 </div>
 
                                                                 {
@@ -349,7 +363,7 @@ class CartView extends React.Component {
                                                     GTM.sendEvent({ data: data });
 
                                                 }}>Add more to cart</button>
-                                                <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" onClick={this.processCart.bind(this, total_deal_price - total_coupon_discount)}>{this.getBookingButtonText(total_wallet_balance, total_deal_price - total_coupon_discount)}</button>
+                                                <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" onClick={this.processCart.bind(this, total_deal_price - total_coupon_discount)}>{this.getBookingButtonText(total_wallet_balance, total_amnt)}</button>
                                             </div> : ""
                                         }
 
