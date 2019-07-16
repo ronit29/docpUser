@@ -524,13 +524,15 @@ class PatientDetailsNew extends React.Component {
     processPayment(data) {
         if (data && data.status) {
             this.setState({ paymentData: data.data }, () => {
-                if (document.getElementById('paymentForm') && Object.keys(this.state.paymentData).length > 0) {
-                    let form = document.getElementById('paymentForm')
-                    setTimeout(() => {
-                        this.props.removeCoupons(this.props.selectedDoctor, this.state.couponId)
-                    },3000)
-                    form.submit()
-                }
+                setTimeout(()=>{
+                    if (document.getElementById('paymentForm') && Object.keys(this.state.paymentData).length > 0) {
+                        let form = document.getElementById('paymentForm')
+                        setTimeout(() => {
+                            this.props.removeCoupons(this.props.selectedDoctor, this.state.couponId)
+                        },3000)
+                        form.submit()
+                    }
+                },1000)
             })
         }
     }

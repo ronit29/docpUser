@@ -76,10 +76,12 @@ class PrimeCareBookingView extends React.Component {
     processPayment(data) {
         if (data && data.status) {
             this.setState({ paymentData: data.data }, () => {
-                if (document.getElementById('paymentForm') && Object.keys(this.state.paymentData).length > 0) {
-                    let form = document.getElementById('paymentForm')
-                    form.submit()
-                }
+                setTimeout(()=>{
+                    if (document.getElementById('paymentForm') && Object.keys(this.state.paymentData).length > 0) {
+                        let form = document.getElementById('paymentForm')
+                        form.submit()
+                    }
+                },1000)
             })
         }
     }
