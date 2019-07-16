@@ -13,7 +13,9 @@ class IpdLeadForm extends React.Component {
 			name: '',
 			phone_number: '',
 			showForm: true,
-			comments:''
+			comments:'',
+			lname:'',
+			gender:''
 /*			gender: '',
 			comments: '',
 			whatsapp_optin: true*/

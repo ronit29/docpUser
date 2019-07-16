@@ -146,7 +146,7 @@ class IpdLeadForm extends React.Component {
 			<div className="search-el-popup-overlay cancel-overlay-zindex" onClick={(e) => {
 				e.preventDefault()
 				e.stopPropagation()
-				this.closePopUpClicked()
+				//this.closePopUpClicked()
 			}}>
 				<div className="search-el-popup ipd-pop-width">
 					<div className="widget p-12">
@@ -156,39 +156,8 @@ class IpdLeadForm extends React.Component {
 							<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Instant Booking Confirmation</span></p>
 							<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Dedicated Doctor for Advice</span></p>
 							<div className="ipd-pop-scrl">
-								{/*<div className="ipd-inp-section">
-									<div className="nm-lst-inputcnt">
-										<input style={{ marginRight: '8px' }} type="text" value={this.state.name} name='name' placeholder="*First Name" />
-										<input type="text" value={this.state.name} name='name' placeholder="*Last Name" />
-									</div>
-									<input type="text" value={this.state.name} name='name' placeholder="*Mobile Number" />
-									<div className="slt-nw-input radio-mbl mb-10">
-										<label className="slt-label" htmlFor="male" ><sup className="requiredAst">*</sup>Gender:</label>
-										<div className="slt-label-radio">
-											<div className="dtl-radio">
-												<label className="container-radio">Male
-                                                        <input type="radio" name="gender" name="gender" />
-													<span className="doc-checkmark"></span>
-												</label>
-											</div>
-											<div className="dtl-radio">
-												<label className="container-radio">Female
-                                                        <input type="radio" name="gender" value="m" name="gender" />
-													<span className="doc-checkmark"></span>
-												</label>
-											</div>
-										</div>
-									</div>
-									<div className="ipd-lead-textarea">
-										<textarea placeholder="*How can we help you?" style={{ fontWeight: 500 }} rows='1' name='comments'></textarea>
-									</div>
-									<div className="skip-btn-sgn">
-										<button className="ipd-inp-sbmt">Click to Proceed</button>
-										<p>Skip</p>
-									</div>
-								</div>*/}
 								{/* second screen */}
-								<div className="ipd-inp-section" onClick={(e) => {
+								{/*<div className="ipd-inp-section" onClick={(e) => {
 								e.preventDefault()
 								e.stopPropagation()}}>
 									<div className="sel-ipd-input-cnt">
@@ -219,7 +188,7 @@ class IpdLeadForm extends React.Component {
 										<button className="ipd-inp-sbmt">Submit</button>
 										<p>Skip</p>
 									</div>
-								</div>
+								</div>*/}
 								{/* third screen */}
 								<div className="ipd-inp-section" onClick={(e) => {
 								e.preventDefault()

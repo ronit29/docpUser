@@ -17,7 +17,7 @@ import IpdLeadForm from '../../containers/ipd/ipdLeadForm.js'
 import ChatIpdPanel from '../commons/ChatPanel/ChatIpdPanel.js'
 import IpdOffersPage from './IpdOffersPage.js'
 import IpdCarousel from './IpdHospitalDetailCarousel.js'
-import IpdSecondPopup from '../../containers/ipd/IpdSecondPopup.js'
+import IpdSecondPopup from '../../containers/ipd/IpdDoctorCityPopup.js'
 
 //View all rating for hospital ,content_type = 3
 
