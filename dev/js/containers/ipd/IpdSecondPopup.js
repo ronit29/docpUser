@@ -13,7 +13,7 @@ class IpdLeadForm extends React.Component {
 			name: '',
 			phone_number: '',
 			showForm: true,
-			comments:''
+			comments: ''
 		}
 	}
 
@@ -65,47 +65,47 @@ class IpdLeadForm extends React.Component {
 			...this.state
 		}
 
-		if(this.props.hospital_id) {
+		if (this.props.hospital_id) {
 			formData.hospital = this.props.hospital_id
 		}
 
-		if(this.props.procedure_id) {
+		if (this.props.procedure_id) {
 			formData.ipd_procedure = this.props.procedure_id
 		}
 
-		if(this.props.doctor_id) {
+		if (this.props.doctor_id) {
 			formData.doctor = parseInt(this.props.doctor_id)
 		}
-		
-		let utm_tags = {
-            utm_source: parsed.utm_source || '',
-            utm_medium: parsed.utm_medium || '',
-            utm_term: parsed.utm_term || '',
-            utm_campaign: parsed.utm_campaign || '',
-            referrer: document.referrer || '',
-            gclid: parsed.gclid || ''
-        }
 
-        formData.data = {}
-        formData.data.utm_tags = utm_tags
-        formData.data.url = window.location.href
-        formData.data.formSource = this.props.formSource || 'PopupLeadForm'
-        if(this.props.sourceTag) {
-        	formData.source = this.props.sourceTag
-        }
+		let utm_tags = {
+			utm_source: parsed.utm_source || '',
+			utm_medium: parsed.utm_medium || '',
+			utm_term: parsed.utm_term || '',
+			utm_campaign: parsed.utm_campaign || '',
+			referrer: document.referrer || '',
+			gclid: parsed.gclid || ''
+		}
+
+		formData.data = {}
+		formData.data.utm_tags = utm_tags
+		formData.data.url = window.location.href
+		formData.data.formSource = this.props.formSource || 'PopupLeadForm'
+		if (this.props.sourceTag) {
+			formData.source = this.props.sourceTag
+		}
 
 		this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
 			if (!error && response) {
 				this.props.ipdPopupFired()
-				if(this.state.name && this.state.name.includes('test')) {
+				if (this.state.name && this.state.name.includes('test')) {
 
-				}else {
+				} else {
 					let gtmData = {
-						'Category': 'ConsumerApp', 'Action': 'IPD-popup-lead', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'IPD-popup-lead', selectedId: '', 'hospitalId': '', 'from': 'leadForm', 'mobileNo':this.state.phone_number
+						'Category': 'ConsumerApp', 'Action': 'IPD-popup-lead', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'IPD-popup-lead', selectedId: '', 'hospitalId': '', 'from': 'leadForm', 'mobileNo': this.state.phone_number
 					}
 					GTM.sendEvent({ data: gtmData })
 				}
-				
+
 				setTimeout(() => {
 					SnackBar.show({ pos: 'bottom-center', text: "Your request has been submitted sucessfully" })
 				}, 500)
@@ -136,8 +136,8 @@ class IpdLeadForm extends React.Component {
 	}
 
 	toggleWhatsap(e) {
-        this.setState({ whatsapp_optin: !this.state.whatsapp_optin })
-    }
+		this.setState({ whatsapp_optin: !this.state.whatsapp_optin })
+	}
 
 	render() {
 		const parsed = queryString.parse(this.props.location.search)
@@ -149,8 +149,121 @@ class IpdLeadForm extends React.Component {
 				this.closePopUpClicked()
 			}}>
 				<div className="search-el-popup ipd-pop-width">
-					
-
+					<div className="widget p-12">
+						<div className="p-relative">
+							<p className="ipd-needHelp">Need help with an appointment at Fortis Hospital?</p>
+							<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Get upto 30% Off on Appointments</span></p>
+							<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Instant Booking Confirmation</span></p>
+							<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Dedicated Doctor for Advice</span></p>
+							<div className="ipd-pop-scrl">
+								<div className="ipd-inp-section">
+									<div className="nm-lst-inputcnt">
+										<input style={{ marginRight: '8px' }} type="text" value={this.state.name} name='name' placeholder="*First Name" />
+										<input type="text" value={this.state.name} name='name' placeholder="*Last Name" />
+									</div>
+									<input type="text" value={this.state.name} name='name' placeholder="*Mobile Number" />
+									<div className="slt-nw-input radio-mbl mb-10">
+										<label className="slt-label" htmlFor="male" ><sup className="requiredAst">*</sup>Gender:</label>
+										<div className="slt-label-radio">
+											<div className="dtl-radio">
+												<label className="container-radio">Male
+                                                        <input type="radio" name="gender" name="gender" />
+													<span className="doc-checkmark"></span>
+												</label>
+											</div>
+											<div className="dtl-radio">
+												<label className="container-radio">Female
+                                                        <input type="radio" name="gender" value="m" name="gender" />
+													<span className="doc-checkmark"></span>
+												</label>
+											</div>
+										</div>
+									</div>
+									<div className="ipd-lead-textarea">
+										<textarea placeholder="*How can we help you?" style={{ fontWeight: 500 }} rows='1' name='comments'></textarea>
+									</div>
+									<div className="skip-btn-sgn">
+										<button className="ipd-inp-sbmt">Click to Proceed</button>
+										<p>Skip</p>
+									</div>
+								</div>
+								{/* second screen */}
+								<div className="ipd-inp-section">
+									<div className="sel-ipd-input-cnt">
+										<img src={ASSETS_BASE_URL + "/img/calnext.svg"} />
+										<input type="date" value={this.state.name} name='name' placeholder="*Select Date" />
+									</div>
+									<div className="ipd-dob-cont">
+										<div className="ipd-db-hdng">*Date of birth:</div>
+										<div className="ipd-db-selects">
+											<select>
+												<option value="" disabled selected>Date</option>
+												<option value="">1</option>
+											</select>
+											<select>
+												<option value="" disabled selected>Month</option>
+												<option value="" >Jan</option>
+											</select>
+											<select>
+												<option value="" disabled selected>Year</option>
+												<option value="">1990</option>
+											</select>
+										</div>
+									</div>
+									<div className="ipd-lead-textarea">
+										<textarea placeholder="*Your City" style={{ fontWeight: 500 }} rows='1' name='comments'></textarea>
+									</div>
+									<div className="skip-btn-sgn">
+										<button className="ipd-inp-sbmt">Submit</button>
+										<p>Skip</p>
+									</div>
+								</div>
+								{/* third screen */}
+								<div className="ipd-inp-section">
+									<div className="ipd-slects-doc">
+										<select>
+											<option value="">Year</option>
+											<option value="">1990</option>
+										</select>
+									</div>
+									<div className="nm-lst-inputcnt justify-content-between">
+										<div className="sel-ipd-input-cnt" style={{width: '48%' }}>
+											<img src={ASSETS_BASE_URL + "/img/calnext.svg"} />
+											<input type="date" value={this.state.name} name='name' placeholder="*Select Date" />
+										</div>
+										<div className="sel-ipd-input-cnt" style={{width: '48%'}}>
+											<img src={ASSETS_BASE_URL + "/img/calnext.svg"} />
+											<input type="text" value={this.state.name} name='name' placeholder="*Select Time" />
+										</div>
+									</div>
+									<div className="ipd-dob-cont">
+										<div className="ipd-db-hdng">*Date of birth:</div>
+										<div className="ipd-db-selects">
+											<select>
+												<option value="" disabled selected>Date</option>
+												<option value="">1</option>
+											</select>
+											<select>
+												<option value="" disabled selected>Month</option>
+												<option value="">Jan</option>
+											</select>
+											<select>
+												<option value="" disabled selected>Year</option>
+												<option value="">1990</option>
+											</select>
+										</div>
+									</div>
+									<div className="ipd-lead-textarea">
+										<textarea placeholder="*Your City" style={{ fontWeight: 500 }} rows='1' name='comments'></textarea>
+									</div>
+									<div className="skip-btn-sgn">
+										<button className="ipd-inp-sbmt">Submit</button>
+										<p>Skip</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		)
