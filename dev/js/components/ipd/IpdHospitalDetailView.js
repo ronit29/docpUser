@@ -202,6 +202,12 @@ class HospitalDetailView extends React.Component {
 		this.viewDoctorsClicked(id)
 	}
 
+	getInputFocus() {
+		let headerHeight = document.getElementById('common_search')?document.getElementById('common_search').offsetTop:0
+		headerHeight = headerHeight - 89
+		window.scrollTo(0, headerHeight)
+	}
+
 	render() {
 
 		const parsed = queryString.parse(this.props.location.search)
@@ -258,7 +264,9 @@ class HospitalDetailView extends React.Component {
 								}
 								
 							</div>
-							<CommonSearch {...this.props} hospital_id_search={this.props.hospital_id} commonSearch={true}/>
+							<div id="common_search">
+								<CommonSearch {...this.props} hospital_id_search={this.props.hospital_id} commonSearch={true} getInputFocus={this.getInputFocus.bind(this)}/>
+							</div>
 							{
 								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.all_specializations && this.props.ipd_hospital_detail.all_specializations.length?
 								<div className="sort-sub-filter-container mb-3">

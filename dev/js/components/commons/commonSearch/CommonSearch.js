@@ -284,6 +284,12 @@ class CommonSearch extends React.Component {
         this.props.history.push('/lab/searchresults')
     }
 
+    onFocusIn() {
+        if(this.props.getInputFocus){
+            this.props.getInputFocus()
+        }
+    }
+
     render(){
 
     	return(
@@ -292,7 +298,7 @@ class CommonSearch extends React.Component {
 
 			<div className="articleSearchWidget">
                 <div className="articleInputContainer">
-                    <input className="artc-inp" type="text" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.hospital_id_search?'Search Doctors':"Search Doctors & Tests"}  onBlur={() => this.focusOut()} />
+                    <input className="artc-inp" type="text" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.hospital_id_search?'Search Doctors':"Search Doctors & Tests"}  onBlur={() => this.focusOut()} onFocus ={this.onFocusIn.bind(this)}/>
                     <img className="artc-img" src={ASSETS_BASE_URL + "/images/vall.png"} />
                     {
                         this.props.commonSearch?''
