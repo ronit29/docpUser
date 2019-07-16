@@ -113,63 +113,58 @@ class Doctorsignup extends React.Component {
 								<div className="dsp-logo-div">
 									<img src="https://cdn.docprime.com/static/web/images/logo.9ea116657a60.png" className="dsp-logo" style={{ width: 160 }} />
 								</div>
-								<div className="dsp-img-info-div">
-									<div className="dsp-logo-div">
-										<img src="https://cdn.docprime.com/static/web/images/logo.9ea116657a60.png" className="dsp-logo" style={{ width: 160 }} />
-									</div>
-									{/* <div className="coming-soon-div">
+								{/* <div className="coming-soon-div">
 								<p className="coming-soon-text">COMING SOON</p>
 							</div> */}
-									<div className="dsp-detail-text-div mrt-20">
-										<p className="dsp-detail-text">Become our partner &amp; help us serve millions of patients across India</p>
-									</div>
-									<form className="doc-lab-sgnup-cont" onSubmit={(e) => this.onSubmitData(e)} autoComplete="off" autoCorrect="off" spellCheck="off">
-										{/* <div className="dsp-signup-div mrt-20">
+								<div className="dsp-detail-text-div mrt-20">
+									<p className="dsp-detail-text">Become our partner &amp; help us serve millions of patients across India</p>
+								</div>
+								<form className="doc-lab-sgnup-cont" onSubmit={(e) => this.onSubmitData(e)} autoComplete="off" autoCorrect="off" spellCheck="off">
+									{/* <div className="dsp-signup-div mrt-20">
 									<p className="dsp-signup-label">SignUp as</p>
 								</div> */}
-										<div className="form-group">
-											<label>SignUp as</label>
-											<select name="member_type" className="form-control" value={this.state.member_type} required id="dsp-select-profession" onChange={(event) => this.changeHandler(event, 'member_type')}>
-												<option value="">Select</option>
-												<option value={1}>Doctor</option>
-												<option value={2}>Diagnostic Center</option>
-												<option value={3}>Hospital/Clinic</option>
-											</select>
-										</div>
-										<div className="form-group">
-											<label>Name</label>
-											<input type="text" name="name" maxLength={255} className="form-control" required id="dsp-name" value={this.state.name} onChange={(event) => this.changeHandler(event, 'name')} />
-										</div>
-										<div className="form-group">
-											<label>Mobile No:</label>
-											<input type="number" name="mobile" max={9999999999} id="dsp-mobile" className="form-control" required min={5000000000} value={this.state.mobile} onChange={(event) => this.changeHandler(event, 'mobile')} />
-										</div>
-										<div className="form-group">
+									<div className="form-group">
+										<label>SignUp as</label>
+										<select name="member_type" className="form-control" value={this.state.member_type} required id="dsp-select-profession" onChange={(event) => this.changeHandler(event, 'member_type')}>
+											<option value="">Select</option>
+											<option value={1}>Doctor</option>
+											<option value={2}>Diagnostic Center</option>
+											<option value={3}>Hospital/Clinic</option>
+										</select>
+									</div>
+									<div className="form-group">
+										<label>Name</label>
+										<input type="text" name="name" maxLength={255} className="form-control" required id="dsp-name" value={this.state.name} onChange={(event) => this.changeHandler(event, 'name')} />
+									</div>
+									<div className="form-group">
+										<label>Mobile No:</label>
+										<input type="number" name="mobile" max={9999999999} id="dsp-mobile" className="form-control" required min={5000000000} value={this.state.mobile} onChange={(event) => this.changeHandler(event, 'mobile')} />
+									</div>
+									<div className="form-group">
 
-											<label>City:</label>
-											<div className="cty-rltv">
-												<input type="text" name="city_name" maxLength={255} className="form-control" required id="dsp-city" value={this.state.city} onChange={(event) => this.changeHandler(event, 'city')} />
-												{
-													this.state.cityDropdownVisible ?
-														<div className="dsp-city-dropdown">
-															<ul className="dsp-city-list">
-																{
-																	this.props.citiesName.map(city => {
-																		return <li onClick={() => this.setCity(city.name, city.value)} className="dsp-city-list-item" key={city.value}>{city.name}</li>
-																	})
-																}
-															</ul>
-														</div> : ""
-												}
-											</div>
+										<label>City:</label>
+										<div className="cty-rltv">
+											<input type="text" name="city_name" maxLength={255} className="form-control" required id="dsp-city" value={this.state.city} onChange={(event) => this.changeHandler(event, 'city')} />
+											{
+												this.state.cityDropdownVisible ?
+													<div className="dsp-city-dropdown">
+														<ul className="dsp-city-list">
+															{
+																this.props.citiesName.map(city => {
+																	return <li onClick={() => this.setCity(city.name, city.value)} className="dsp-city-list-item" key={city.value}>{city.name}</li>
+																})
+															}
+														</ul>
+													</div> : ""
+											}
 										</div>
-										<div className="form-group">
-											<label>Email:</label>
-											<input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" value={this.state.email} className="form-control" required maxLength={254} id="dsp-email" onChange={(event) => this.changeHandler(event, 'email')} />
-										</div>
-										<button type="submit" className="btn btn-primary dsp-send-btn">Submit</button>
-									</form>
-								</div>
+									</div>
+									<div className="form-group">
+										<label>Email:</label>
+										<input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" value={this.state.email} className="form-control" required maxLength={254} id="dsp-email" onChange={(event) => this.changeHandler(event, 'email')} />
+									</div>
+									<button type="submit" className="btn btn-primary dsp-send-btn">Submit</button>
+								</form>
 							</div>
 						</div>
 					</div>
