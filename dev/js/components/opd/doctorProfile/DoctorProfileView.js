@@ -343,7 +343,12 @@ class DoctorProfileView extends React.Component {
         }
 
         const parsed = queryString.parse(this.props.location.search)
-        let showForcedPopup = landing_page && this.state.seoFriendly && doctor_id && this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].is_congot && this.state.showIpdLeadForm && this.props.DOCTORS[doctor_id].potential_ipd
+        //check if any utm tag exist in url
+        let isUtmTagsExist = false
+        if(parsed.utm_source || parsed.utm_medium || parsed.utm_term || parsed.utm_campaign){
+            isUtmTagsExist = true
+        }
+        let showForcedPopup = !isUtmTagsExist && landing_page && this.state.seoFriendly && doctor_id && this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].is_congot && this.state.showIpdLeadForm && this.props.DOCTORS[doctor_id].potential_ipd
 
         return (
             <div className="profile-body-wrap">
@@ -425,7 +430,7 @@ class DoctorProfileView extends React.Component {
                                             <div className="row">
                                                 <div className="col-12">
                                                     {
-                                                        landing_page?
+                                                        this.state.is_live && landing_page && this.state.seoFriendly?
                                                         <button className="doc-top-book-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>
                                                         Book Now
                                                         </button>
