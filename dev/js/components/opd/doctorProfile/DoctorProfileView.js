@@ -126,9 +126,14 @@ class DoctorProfileView extends React.Component {
         this.setState({ selectedClinic: clinic_id, is_live, rank, numberShown: "", consultation_fee: consultation_fee, clinicPhoneNo: clinicPhoneNo, show_contact: show_contact })
     }
 
-    navigateToClinic(doctor_id, clinicId) {
+    navigateToClinic(doctor_id, clinicId, topBookNow) {
         let rank = this.state.rank
-
+        if(topBookNow) {
+            let gtmData = {
+                'Category': 'ConsumerApp', 'Action': 'OpdTopBookNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-top-book-now-clicked', 'selectedId': clinicId || ''
+            }
+            GTM.sendEvent({ data: gtmData })
+        }
         if (this.state.is_live) {
 
             let data = {
@@ -431,7 +436,7 @@ class DoctorProfileView extends React.Component {
                                                 <div className="col-12">
                                                     {
                                                         this.state.is_live && landing_page && this.state.seoFriendly?
-                                                        <button className="doc-top-book-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>
+                                                        <button className="doc-top-book-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic, true)}>
                                                         Book Now
                                                         </button>
                                                         :''    
@@ -631,7 +636,7 @@ class DoctorProfileView extends React.Component {
                                                                 <p>{`View ${search_data.result_count} ${search_data.title}`}</p>
                                                             </a> : ''
                                                     } */}
-                                                    <div className="dpp-btn-book dpp-btn-book-custom" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>
+                                                    <div className="dpp-btn-book dpp-btn-book-custom" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic, false)}>
                                                         {/*<p>{`Book Now (₹ ${final_price})`}</p>*/}
                                                         <p style={{ flex: 2 }}><span style={{ marginTop: '5px', display: 'inline-block' }}>Book Now</span></p>
                                                         {
