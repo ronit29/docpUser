@@ -2262,3 +2262,16 @@ p.rt-doc-nm{
         border-bottom: 1px solid #e6e0e0;
     }
 }
+.opd-mapico{
+    display: flex;
+    justify-content: space-between;
+}
+.opd-mapico h2 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    flex:1;
+}
+.opd-mapico img{
+
+}

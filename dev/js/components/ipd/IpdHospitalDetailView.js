@@ -16,6 +16,7 @@ const queryString = require('query-string')
 import IpdLeadForm from '../../containers/ipd/ipdLeadForm.js'
 import ChatIpdPanel from '../commons/ChatPanel/ChatIpdPanel.js'
 import IpdOffersPage from './IpdOffersPage.js'
+import IpdCarousel from './IpdHospitalDetailCarousel.js'
 
 //View all rating for hospital ,content_type = 3
 
@@ -27,7 +28,8 @@ class HospitalDetailView extends React.Component {
 			seoFriendly: this.props.match.url.includes('-hpp'),
 			toggleTabType: 'doctors',
 			showLeadForm: true,
-			ipdFormParams: {}
+			ipdFormParams: {},
+			showForcedPopup: false
 		}
 	}
 
@@ -78,6 +80,9 @@ class HospitalDetailView extends React.Component {
 			this.toggleTabs(parsed.type)
 		}
 
+		setTimeout(()=>{
+			this.setState({showForcedPopup: true})
+		},1000)
 
 	}
 
@@ -196,32 +201,50 @@ class HospitalDetailView extends React.Component {
 
 		showPopup = parsed.showPopup && this.state.showLeadForm && !this.props.is_ipd_form_submitted
 
+		let landing_page = false
+        if (typeof window == 'object' && window.ON_LANDING_PAGE) {
+            landing_page = true
+        }
+
+		let showForcedPopup= this.state.showLeadForm && landing_page && this.state.seoFriendly && this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.is_ipd_hospital && this.state.showForcedPopup
 		return (
 			<React.Fragment>
 				{
 					this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ?
 						<div className="ipd-section">
 							{
-								showPopup ?
-									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} formSource='ipdHospitalPopup' />
+								(showPopup || showForcedPopup)?
+									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} formSource='ipdHospitalPopup'/>
 									: ''
 							}
 
-							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} showPopup={showPopup} />
+							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} showPopup={showPopup} isSeo={this.state.seoFriendly}/>
 
 							<div className="ipd-tabs-container">
-								<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'doctors' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'doctors')}>Doctors</p>
+								<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type=doctors`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'doctors' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
+									e.preventDefault()
+									this.toggleTabs('doctors')
+								}}>Doctors</a>
 								{
 									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count && false ?
-										<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'bookNow' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'bookNow')}>Book Now</p>
+										<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type=bookNow`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'bookNow' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
+											e.preventDefault()
+											this.toggleTabs('bookNow')
+										}}>Book Now</a>
 										: ''
 								}
 
-								<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'feedback' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'feedback')}>Feedback</p>
+								<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type=feedback`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'feedback' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
+									e.preventDefault()
+									this.toggleTabs('feedback')
+								}}>Feedback</a>
 
 								{
 									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.offers && this.props.ipd_hospital_detail.offers.length?
-									<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'offers' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'offers')}>Offers</p>
+									<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type=offers`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'offers' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
+										e.preventDefault()
+										this.toggleTabs('offers')
+									}}>Offers</a>
 									:''	
 								}
 								
@@ -232,7 +255,7 @@ class HospitalDetailView extends React.Component {
 									this.props.ipd_hospital_detail && ((this.props.ipd_hospital_detail.doctors && this.props.ipd_hospital_detail.doctors.result.length) || (this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length)) ?
 										<div>
 											<div>
-												<div className="card-head"><h2 className="dsply-ipd-hdng">Doctors</h2></div>
+												<div className="card-head"><h2 className="dsply-ipd-hdng">{`${this.props.ipd_hospital_detail.name_city?this.props.ipd_hospital_detail.name_city:''} Doctors List`}</h2></div>
 												{
 													this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length ?
 														this.props.ipd_hospital_detail.specialization_doctors.result.map((doctorCard, i) => {
@@ -275,7 +298,7 @@ class HospitalDetailView extends React.Component {
 								{
 									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.rating_graph && this.props.ipd_hospital_detail.rating_graph.star_count && this.props.ipd_hospital_detail.display_rating_widget ?
 										<div className="hs-card">
-											<div className="card-head"><h2 className="dsply-ipd-hdng">Patient Feedback</h2></div>
+											<div className="card-head"><h2 className="dsply-ipd-hdng">Reviews for {this.props.ipd_hospital_detail.name?this.props.ipd_hospital_detail.name:''}</h2></div>
 											<RatingGraph details={this.props.ipd_hospital_detail} />
 											{
 												this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.rating && this.props.ipd_hospital_detail.rating.length && this.props.ipd_hospital_detail.display_rating_widget ?
@@ -293,7 +316,6 @@ class HospitalDetailView extends React.Component {
 								</div>
 								:''	 
 							}
-							
 							
 							<div ref="view_more">
 							</div>
@@ -334,6 +356,7 @@ class HospitalDetailView extends React.Component {
 									<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a></div>
 									:<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Need Help?</a></div>
 							}
+
 
 						</div>
 						: <Loader />

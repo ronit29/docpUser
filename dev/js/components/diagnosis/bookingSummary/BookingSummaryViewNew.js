@@ -867,7 +867,7 @@ class BookingSummaryViewNew extends React.Component {
                     </p>)
 
                 tests_with_price.push(
-                    <div className="payment-detail d-flex">
+                    <div className="payment-detail d-flex" key={i}>
                         <p>{twp.test.name}</p>
                         {
                             is_corporate || is_insurance_applicable || is_plan_applicable ?
@@ -957,12 +957,22 @@ class BookingSummaryViewNew extends React.Component {
                                                                         <span>
                                                                             <img style={{ width: '22px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/hospital.svg"} />
                                                                         </span>
-                                                                        <p className="lab-crd-txt-pr">{labDetail.name}
-                                                                            {
-                                                                                this.props.selectedAppointmentType == 'lab' ?
-                                                                                    <span>{labDetail.address || ''}</span> : ''
-                                                                            }
-                                                                        </p>
+                                                                        {
+                                                                            labDetail.name && labDetail.name.toLowerCase().includes('thyrocare') ?
+                                                                                <p className="lab-crd-txt-pr">{labDetail.name.split('-')[0]}
+                                                                                    {
+                                                                                        this.props.selectedAppointmentType == 'lab' ?
+                                                                                            <span>{labDetail.address || ''}</span> : ''
+                                                                                    }
+                                                                                </p>
+                                                                                :
+                                                                                <p className="lab-crd-txt-pr">{labDetail.name}
+                                                                                    {
+                                                                                        this.props.selectedAppointmentType == 'lab' ?
+                                                                                            <span>{labDetail.address || ''}</span> : ''
+                                                                                    }
+                                                                                </p>
+                                                                        }
                                                                     </h4>
                                                                     {/*<div className="float-right  mbl-view-formatting text-right">
                                                                         <a href="" style={{ width: '100px', display: 'inline-block' }} onClick={(e) => {

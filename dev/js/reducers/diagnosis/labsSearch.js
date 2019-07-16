@@ -19,7 +19,8 @@ const defaultState = {
     test_data: [],
     show404: false,
     user_prescriptions:[],
-    is_prescription_needed:null
+    is_prescription_needed:null,
+    selectedDateFormat: null
 }
 
 export default function (state = defaultState, action) {
@@ -80,6 +81,7 @@ export default function (state = defaultState, action) {
                 newState.rescheduleSlot = { ...action.payload.slot }
             }
             newState.selectedSlot = { ...action.payload.slot }
+            newState.selectedDateFormat = action.payload.dateParams
 
 
             return newState

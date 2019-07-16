@@ -65,7 +65,9 @@ class HospitalDetail extends React.Component {
         let hospitalId = searchUrl?'':this.props.match.params.hospitalId
         //if(!this.state.hospital_id || !this.props.ipd_hospital_detail_info || !this.props.ipd_hospital_detail_info[this.state.hospital_id]) {
         	this.props.getHospitaDetails(hospitalId, this.props.selectedLocation, searchUrl, specialization_id, (resp) => {
-        		if(resp && resp.id) {
+        		if(resp && resp.status && resp.status==301){
+        			this.props.history.push(`/${resp.url}`)
+        		}else if(resp && resp.id) {
         			this.setState({hospital_id: resp.id})
         		}
         	})	
@@ -88,8 +90,9 @@ class HospitalDetail extends React.Component {
 
 	       // if(!this.state.hospital_id || !nextProps.ipd_hospital_detail_info || !nextProps.ipd_hospital_detail_info[this.state.hospital_id]) {
 	        	this.props.getHospitaDetails(this.props.match.params.hospitalId, nextProps.selectedLocation, searchUrl, specialization_id, (resp) => {
-
-	        		if(resp && resp.id) {
+	        		if(resp && resp.status && resp.status==301){
+	        			this.props.history.push(`/${resp.url}`)
+	        		}else if(resp && resp.id) {
 	        			this.setState({hospital_id: resp.id})
 	        		}
 	        	})
@@ -99,15 +102,13 @@ class HospitalDetail extends React.Component {
 
 	getMetaTagsData(seoData) {
 		let title = "Hospital Profile Page"
-		if (this.state.is_seo) {
-			title = ""
-		}
 		let description = ""
+		let schema = {}
 		if (seoData) {
-			title = seoData.title ? seoData.title : title
-			description = seoData.description || ""
+			title = seoData && seoData.seo && seoData.seo.title?seoData.seo.title :seoData.name_city?`${seoData.name_city} | Book Appointment, Check Doctors List, Reviews, Contact Number`:''
+			description = seoData && seoData.seo && seoData.seo.description?seoData.seo.description :seoData.name_city?`${seoData.name_city} : Get free booking on first appointment.Check ${seoData.name?seoData.name:''} Doctors List, Reviews, Contact Number, Address, Procedures and more.`:''
 		}
-		return { title, description }
+		return { title, description, schema }
 	}
 
 	showChatView(showIpd=false){
@@ -124,8 +125,9 @@ class HospitalDetail extends React.Component {
 					<ProfileHeader showSearch={true} />
 					<HelmetTags tagsData={{
 						canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
-						title: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail.seo : null).title,
-						description: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail.seo : null).description
+						title: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail : null).title,
+						description: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail : null).description,
+						schema: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail : null).schema
 					}} noIndex={!this.state.is_seo} />
 					<section className="container parent-section book-appointment-section breadcrumb-mrgn">
 						{
