@@ -532,7 +532,7 @@ class PatientDetailsNew extends React.Component {
                         },3000)
                         form.submit()
                     }
-                },1000)
+                },500)
             })
         }
     }

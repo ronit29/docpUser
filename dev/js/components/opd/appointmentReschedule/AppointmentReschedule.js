@@ -83,7 +83,7 @@ class AppointmentReschedule extends React.Component {
                         let form = document.getElementById('paymentForm')
                         form.submit()
                     }
-                },1000)
+                },500)
             })
         }
     }
