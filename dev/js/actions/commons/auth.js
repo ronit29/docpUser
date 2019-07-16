@@ -303,31 +303,22 @@ export const clearInsurance = () => (dispatch) =>{
         })
 }
 
-export const submitEmailOTP = (email, otp, cb) => (dispatch) => {
+export const submitEmailOTP = (data, callback) => (dispatch) => {
 
-    API_POST('/api/v1/user/login', {
-        "email": email,
-        "otp": otp
-    }).then(function (response) {
-        if (cb) cb(response);
-
+    API_POST(`/api/v1/user/profile-email/update`, data).then(function (response) {
+        if (callback) callback(response)
     }).catch(function (error) {
-        if (cb) cb(error);
+        if (callback) callback(error)
     })
 }
 
-export const sendEmailOTP = (email, cb) => (dispatch) => {
-
-    API_POST('/api/v1/user/otp/generate', {
-        "email": email,
-        
-    }).then(function (response) {
+export const sendOtpOnEmail = (data, callback) =>(dispatch) =>{
+    API_POST(`/api/v1/user/profile-email/update/init`, data).then(function (response) {
         SnackBar.show({ pos: 'bottom-center', text: "OTP Sent Successfuly." });    
-        if (cb) cb();
-    }).catch(function (error) {        
+        if (callback) callback(response)
+    }).catch(function (error) {
         let message = "Cannot generate OTP."
         SnackBar.show({ pos: 'bottom-center', text: message });
-        if (cb) cb(message);
+        if (callback) callback(error)
     })
-
 }

@@ -11,7 +11,8 @@ class VerifyEmail extends React.Component {
 			showOtp:false,
 			otpTimeout:false,
 			initialStage:true,
-			otpValue:''
+			otpValue:'',
+			emailSuccessId:''
 		}
 	}
 	
@@ -44,33 +45,47 @@ class VerifyEmail extends React.Component {
 		})
 	}
 
-	VerifyEmail(){
-        this.setState({ showOtp: true, otpTimeout: false })
-        setTimeout(() => {
-            this.setState({ otpTimeout: true })
-        }, 10000)
-
-		//this.props.sendEmailOtp(this.state.email, (error) => {
-            // if (error) {
-            //     // this.setState({ validationError: "Could not generate OTP." })
-            // } else {
-            //     this.setState({ showOTP: true, otpTimeout: false })
-            //     setTimeout(() => {
-            //         this.setState({ otpTimeout: true })
-            //     }, 10000)
-            // }
-        // })
+	VerifyEmail(resendFlag){
+		if(resendFlag){
+			this.setState({otpTimeout:false,otpValue:'' })
+		}
+        let data={}
+        if (this.props.user_data && this.props.user_data.length > 0) {
+			data.profile = this.props.user_data[0].profile
+		}
+		data.email= this.state.email
+		this.props.sendOtpOnEmail(data, (resp) => {
+            if (!resp) {
+                this.setState({ validationError: "Could not generate OTP." })
+            } else {
+            	if(resp && resp.id){
+	            	this.setState({emailSuccessId:resp.id, showOtp: true, otpTimeout: false })
+	                setTimeout(() => {
+	                    this.setState({ otpTimeout: true })
+	                }, 10000)
+	            }
+            }
+        })
 	}
 
 	setOtp(event){
 		this.setState({otpValue: event.target.value})
 	}
 	submitOtp(){
-		this.props.submitEmailOTP(this.state.otpValue,(error) =>{
-			if(error){
-
-			}else{
+		let data={}
+		data.id = this.state.emailSuccessId
+		if (this.props.user_data && this.props.user_data.length > 0) {
+			data.profile = this.props.user_data[0].profile
+		}
+		data.otp = this.state.otpValue
+		data.process_immediately = false
+		this.props.submitEmailOTP(data,(resp) =>{
+			if(resp && resp.success){
 				this.props.verifyEndorsementEmail()
+				this.setState({VerifyEmails:false,showOtp:false,otpTimeout:false,otpValue:'',emailSuccessId:''})
+				SnackBar.show({ pos: 'bottom-center', text: resp.message });
+			}else{
+				SnackBar.show({ pos: 'bottom-center', text: resp.message });
 			}
 		})
 	}
@@ -86,7 +101,7 @@ class VerifyEmail extends React.Component {
 						<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
 						{
 							this.state.VerifyEmails?
-								<span className="vrfy-edit" onClick={this.VerifyEmail.bind(this, 'email')}>Verify now</span>
+								<span className="vrfy-edit" onClick={this.VerifyEmail.bind(this, false)}>Verify now</span>
 							:''
 						}
 					</div>
@@ -97,14 +112,14 @@ class VerifyEmail extends React.Component {
 							<div className="em-ins-inp-cont">
 								<input className="em-ins-inpu" onChange={this.setOtp.bind(this)} value={this.state.otpValue} />
 								{
-									this.state.otpValue.length >=5?
+									this.state.otpValue.length ==6?
 										<button onClick={this.submitOtp.bind(this)}>Submit</button>
 									:''
 								}
 							</div>
 							{
 								this.state.otpTimeout?
-								<span className="rdsn-ipt-md">Resend</span>
+								<span className="rdsn-ipt-md" onClick={this.VerifyEmail.bind(this,true)}>Resend</span>
 								:''
 							}
 							
