@@ -17,6 +17,7 @@ import IpdLeadForm from '../../containers/ipd/ipdLeadForm.js'
 import ChatIpdPanel from '../commons/ChatPanel/ChatIpdPanel.js'
 import IpdOffersPage from './IpdOffersPage.js'
 import IpdCarousel from './IpdHospitalDetailCarousel.js'
+import IpdSecondPopup from '../../containers/ipd/IpdSecondPopup.js'
 
 //View all rating for hospital ,content_type = 3
 
@@ -29,7 +30,8 @@ class HospitalDetailView extends React.Component {
 			toggleTabType: 'doctors',
 			showLeadForm: true,
 			ipdFormParams: {},
-			showForcedPopup: false
+			showForcedPopup: false,
+			showSecondPopup: false
 		}
 	}
 
@@ -81,7 +83,7 @@ class HospitalDetailView extends React.Component {
 		}
 
 		setTimeout(()=>{
-			this.setState({showForcedPopup: true})
+			this.setState({showForcedPopup: true, showSecondPopup:true })
 		},1000)
 
 	}
@@ -193,6 +195,30 @@ class HospitalDetailView extends React.Component {
 		})
 	}
 
+	submitSecondLeadFormGeneration(ipdFormParams) {
+		if (close) {
+			let gtmData = {
+				'Category': 'ConsumerApp', 'Action': 'IpdHospitalDetailPageFormClosed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-detail-page-form-closed'
+			}
+			GTM.sendEvent({ data: gtmData })
+		}
+		let ipd_data = {
+			showChat: true,
+			ipdFormParams: ipdFormParams,
+			hospital:this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id?this.props.ipd_hospital_detail.id:''
+		}
+		
+		this.setState({ showSecondPopup: false, ipdFormParams: ipdFormParams }, ()=>{
+			this.props.checkIpdChatAgentStatus((response)=> {
+				if(response && response.users && response.users.length) {
+
+					// this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize: true})
+				}
+			})
+			// this.props.showChatView(ipd_data)	
+		})
+	}
+
 	render() {
 
 		const parsed = queryString.parse(this.props.location.search)
@@ -213,9 +239,14 @@ class HospitalDetailView extends React.Component {
 					this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ?
 						<div className="ipd-section">
 							{
-								(showPopup || showForcedPopup)?
+								(showPopup || showForcedPopup) && false?
 									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} formSource='ipdHospitalPopup'/>
 									: ''
+							}
+							{
+								this.state.showSecondPopup?
+								<IpdSecondPopup {...this.props} submitLeadFormGeneration={this.submitSecondLeadFormGeneration.bind(this)}/>
+								:''
 							}
 
 							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} showPopup={showPopup} isSeo={this.state.seoFriendly}/>
