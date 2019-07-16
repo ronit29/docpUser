@@ -373,7 +373,7 @@ class CommonSearch extends React.Component {
                                                 }
                                                 GTM.sendEvent({ data: data })
 
-                                                this.searchProceedOPD(this.state.searchValue, "")
+                                                this.searchProceedOPD(this.state.searchValue, "", this.props.hospital_id_search||'')
                                             }}>
                                                 <div className="serach-rslt-with-img">
                                                     <span className="srch-rslt-wd-span text-center srch-img">
@@ -385,7 +385,7 @@ class CommonSearch extends React.Component {
                                             : ''
                                     }
                                     {
-                                    	this.state.searchValue.length > 2 ?
+                                    	this.state.searchValue.length > 2  && !this.props.hospital_id_search?
                                     	<li onClick={() => {
 
                                             let data = {
@@ -413,7 +413,7 @@ class CommonSearch extends React.Component {
                                             }
                                             GTM.sendEvent({ data: data })
 
-                                            this.searchProceedOPD("", this.state.searchValue)
+                                            this.searchProceedOPD("", this.state.searchValue, this.props.hospital_id_search || '')
                                         }}>
                                             <div className="serach-rslt-with-img">
                                                 <span className="srch-rslt-wd-span text-center srch-img">
