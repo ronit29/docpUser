@@ -264,9 +264,14 @@ class HospitalDetailView extends React.Component {
 								}
 								
 							</div>
-							<div id="common_search">
-								<CommonSearch {...this.props} hospital_id_search={this.props.hospital_id} commonSearch={true} getInputFocus={this.getInputFocus.bind(this)}/>
-							</div>
+							{
+								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.is_ipd_hospital?
+								<div id="common_search">
+									<CommonSearch {...this.props} hospital_id_search={this.props.hospital_id} commonSearch={true} getInputFocus={this.getInputFocus.bind(this)} hospital_lat= {this.props.ipd_hospital_detail.lat} hospital_long = {this.props.ipd_hospital_detail.long}/>
+								</div>
+								:''
+							}
+							
 							{
 								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.all_specializations && this.props.ipd_hospital_detail.all_specializations.length?
 								<div className="sort-sub-filter-container mb-3">

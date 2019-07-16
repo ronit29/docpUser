@@ -77,6 +77,8 @@ class CommonSearch extends React.Component {
         if(this.props.hospital_id_search) {
             extraSearchParams.hospital_id = this.props.hospital_id_search
             searchType = 'opd'
+            location.lat = this.props.hospital_lat || location.lat
+            location.long = this.props.hospital_long || location.long
         }
 
 
