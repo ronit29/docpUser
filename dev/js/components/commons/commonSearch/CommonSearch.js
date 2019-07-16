@@ -231,7 +231,7 @@ class CommonSearch extends React.Component {
             if(type=='opd'){
             	this.props.cloneCommonSelectedCriterias(criteria)
     	        this.setState({ searchValue: "" })
-	            this.searchProceedOPD()
+	            this.searchProceedOPD('', '', this.props.hospital_id_search||'')
 
             }
         }
