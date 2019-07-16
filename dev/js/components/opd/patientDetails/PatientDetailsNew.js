@@ -842,7 +842,7 @@ class PatientDetailsNew extends React.Component {
             priceData.mrp = 0
         }
 
-        if(priceData.fees ==0){
+        if(priceData.fees ==0 && !is_insurance_applicable){
             finalPrice = parseInt(priceData.deal_price) - (this.props.disCountedOpdPrice ? this.props.disCountedOpdPrice : 0)
         }
 
@@ -916,6 +916,7 @@ class PatientDetailsNew extends React.Component {
                                                                                     Select Visit Time
                                                                     </h4>
                                                                             </div>
+                                                                            <p className="apnt-doc-dtl">The appointment is subject to confirmation from the Doctor. </p>
                                                                             <div className="date-slecet-cont">
                                                                                 <div className="nw-inpt-selctr">
                                                                                     <span className="nw-pick-hdng">Date:</span>
