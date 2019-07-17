@@ -16,7 +16,7 @@ const PROD_CONFIG = {
     SOCKET_BASE_PATH: "/io",
     RAVEN_DSN_KEY: "https://bbd8f89e401548749ce274c4e9dd9741@sentry.io/1244528",
     RAVEN_SERVER_DSN_KEY: "https://b8816627d7f84535bfd7d634d94916a3@sentry.io/1290505",
-    PG_URL: "https://pay.docprime.com/dp/pay/init",
+    PG_URL: "https://pay.docprime.com/dp/pay/dpOrder",
     CHAT_URL: "https://telemed.docprime.com/livechat",
     CHAT_API_URL: "https://telemed.docprime.com/api/v1",
     env: "production",
