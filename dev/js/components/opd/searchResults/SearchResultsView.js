@@ -401,35 +401,36 @@ class SearchResultsView extends React.Component {
     }
 
     getMetaTagsData(seoData) {
-        let title = "Doctor Search"
-        if (this.state.seoFriendly) {
-            title = ""
-        }
+        let title = ''
         let description = ""
+        if (this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) {
+            title = `${this.props.commonSelectedCriterias[0].name} : Book Best ${this.props.commonSelectedCriterias[0].name} Doctors Near You`
+            description = `${this.props.commonSelectedCriterias[0].name}: Book appointment with the best ${this.props.commonSelectedCriterias[0].name} from top hospitals and clinics near you at discounted price. Check doctor reviews and more.`
+        }
         let schema = {}
         if (seoData) {
-            title = seoData.title || ""
-            description = seoData.description || ""
-            schema = seoData.schema
+            title = seoData.title || title
+            description = seoData.description || description
+            schema = seoData.schema || schema
         }
         if (parseInt(this.props.page) != 1) {
-            title = 'Page  ' + this.props.page + ' - ' + title
+            title = 'Page ' + this.props.page + ' - ' + title
         }
         return { title, description, schema }
     }
 
-    resetQuickFilters(){
-        this.setState({quickFilter: {}})
+    resetQuickFilters() {
+        this.setState({ quickFilter: {} })
     }
 
     applyQuickFilter(filter) {
-        this.setState({quickFilter: filter})
+        this.setState({ quickFilter: filter })
     }
 
-    isFilterApplied(filterCriteria){
+    isFilterApplied(filterCriteria) {
         //Check if any filter applied 
         let is_filter_applied = false
-        if(filterCriteria){
+        if (filterCriteria) {
             let sort_on = filterCriteria.sort_on || ""
             let sort_order = filterCriteria.sort_order || ""
             let availability = filterCriteria.availability || []
@@ -504,7 +505,11 @@ class SearchResultsView extends React.Component {
                     schema: this.getMetaTagsData(this.props.seoData).schema,
                     seoFriendly: this.state.seoFriendly,
                     prev: prev,
-                    next: next
+                    next: next,
+                    ogType: 'Website',
+                    ogSiteName: 'Docprime',
+                    ogTitle: this.getMetaTagsData(this.props.seoData).title,
+                    ogDescription: this.getMetaTagsData(this.props.seoData).description
                 }} />
 
                 <CriteriaSearch {...this.props} checkForLoad={landing_page || this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card} newChatBtn={true} searchDoctors={true}>

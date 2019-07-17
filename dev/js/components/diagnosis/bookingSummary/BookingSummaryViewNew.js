@@ -21,6 +21,7 @@ import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 import PincodeErrorPopup from './PincodeErrorPopup.js'
 import BookingConfirmationPopup from './BookingConfirmationPopup.js'
 import UploadPrescription from './uploadPrescription.js'
+import PaymentForm from '../../commons/paymentForm'
 
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
@@ -31,7 +32,7 @@ class BookingSummaryViewNew extends React.Component {
 
         this.state = {
             selectedLab: lab_id,
-            paymentData: {},
+            paymentData: null,
             loading: false,
             error: "",
             openCancellation: false,
@@ -54,7 +55,8 @@ class BookingSummaryViewNew extends React.Component {
             showConfirmationPopup: false,
             coupon_loading: false,
             seoFriendly: this.props.match.url.includes('-lpp'),
-            isEmailNotValid:false
+            isEmailNotValid:false,
+            is_payment_coupon_applied: false
         }
     }
 
@@ -63,7 +65,11 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     toggleWalletUse(e) {
-        this.setState({ use_wallet: e.target.checked })
+        if (this.state.is_payment_coupon_applied) {
+            this.setState({ use_wallet: false })
+        } else {
+            this.setState({ use_wallet: e.target.checked })
+        }
     }
 
     componentDidMount() {
@@ -122,7 +128,7 @@ class BookingSummaryViewNew extends React.Component {
 
                 if (!corporate) {
                     this.props.resetLabCoupons()
-                    this.setState({ couponCode: "", couponId: '', is_cashback: false })
+                    this.setState({ couponCode: "", couponId: '', is_cashback: false, use_wallet: true, is_payment_coupon_applied: false })
                     if (nextProps.labCoupons[this.props.selectedLab]) {
                         this.props.removeLabCoupons(this.props.selectedLab, nextProps.corporateCoupon.coupon_id)
                     }
@@ -140,6 +146,9 @@ class BookingSummaryViewNew extends React.Component {
                     this.setState({ is_cashback: labCoupon.is_cashback, couponCode: labCoupon.code, couponId: labCoupon.coupon_id || '' })
                     this.props.applyCoupons('2', labCoupon, labCoupon.coupon_id, this.props.selectedLab)
                     this.props.applyLabCoupons('2', labCoupon.code, labCoupon.coupon_id, this.props.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item)
+                    if (labCoupon.is_payment_specific) {
+                        this.setState({use_wallet: false, is_payment_coupon_applied: true})
+                    }
                 }
                 return
             }
@@ -153,6 +162,9 @@ class BookingSummaryViewNew extends React.Component {
                     this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.props.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item, (err, data) => {
                         if (!err) {
                             this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '' })
+                            if (labCoupons[0].is_payment_specific) {
+                                this.setState({use_wallet: false, is_payment_coupon_applied: true})
+                            }
                         } else {
                             this.setState({ coupon_loading: true })
                             this.getAndApplyBestCoupons(nextProps)
@@ -197,13 +209,16 @@ class BookingSummaryViewNew extends React.Component {
                             this.props.applyCoupons('2', validCoupon, validCoupon.coupon_id, this.props.selectedLab)
                             this.props.applyLabCoupons('2', validCoupon.code, validCoupon.coupon_id, this.props.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item)
                             this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '' })
+                            if (validCoupon.is_payment_specific) {
+                                this.setState({use_wallet: false, is_payment_coupon_applied: true})
+                            }
                         } else {
                             this.props.resetLabCoupons()
-                            this.setState({ couponCode: "", couponId: '', is_cashback: false })
+                            this.setState({ couponCode: "", couponId: '', is_cashback: false, use_wallet: true, is_payment_coupon_applied: false })
                         }
                     } else {
                         this.props.resetLabCoupons()
-                        this.setState({ couponCode: "", couponId: '', is_cashback: false })
+                        this.setState({ couponCode: "", couponId: '', is_cashback: false, use_wallet: true, is_payment_coupon_applied: false })
                     }
                     this.setState({ coupon_loading: false })
                 }
@@ -585,11 +600,12 @@ class BookingSummaryViewNew extends React.Component {
         GTM.sendEvent({ data: analyticData })
         this.props.createLABAppointment(postData, (err, data) => {
             if (!err) {
-                this.props.removeLabCoupons(this.props.selectedLab, this.state.couponId)
                 if (this.props.user_prescriptions && this.props.user_prescriptions.length > 0) {
+                    this.props.removeLabCoupons(this.props.selectedLab, this.state.couponId)
                     this.props.clearPrescriptions()
                 }
                 if (data.is_agent) {
+                    this.props.removeLabCoupons(this.props.selectedLab, this.state.couponId)
                     // this.props.history.replace(this.props.location.pathname + `?order_id=${data.data.orderId}`)
                     this.setState({ order_id: data.data.orderId })
                     return
@@ -600,9 +616,11 @@ class BookingSummaryViewNew extends React.Component {
                         'Category': 'ConsumerApp', 'Action': 'LabOrderCreated', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'lab_order_created'
                     }
                     GTM.sendEvent({ data: analyticData })
-                    this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
+                    // this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
+                    this.processPayment(data)
 
                 } else {
+                    this.props.removeLabCoupons(this.props.selectedLab, this.state.couponId)
                     // send back to appointment page
                     this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
                 }
@@ -614,6 +632,22 @@ class BookingSummaryViewNew extends React.Component {
                 this.setState({ loading: false, error: message })
             }
         })
+    }
+
+     processPayment(data) {
+        if (data && data.status) {
+            this.setState({ paymentData: data.data }, () => {
+                setTimeout(()=>{
+                    if (document.getElementById('paymentForm') && Object.keys(this.state.paymentData).length > 0) {
+                        let form = document.getElementById('paymentForm')
+                        setTimeout(() => {
+                            this.props.removeLabCoupons(this.props.selectedLab, this.state.couponId)
+                        },3000)
+                        form.submit()
+                    }
+                },500)
+            })
+        }
     }
 
     sendAgentBookingURL() {
@@ -1035,6 +1069,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                             GTM.sendEvent({ data: analyticData })
                                                                                             this.setState({ couponCode: '', couponId: '' })
                                                                                             this.props.removeLabCoupons(this.props.selectedLab, labCoupons[0].coupon_id)
+                                                                                            this.setState({ use_wallet: true, is_payment_coupon_applied: false })
                                                                                         }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
                                                                                         </span>
                                                                                     }
@@ -1160,16 +1195,21 @@ class BookingSummaryViewNew extends React.Component {
 
 
                                                         {
-                                                            !is_insurance_applicable && total_wallet_balance && total_wallet_balance > 0 ? <div className="widget mrb-15">
-                                                                <div className="widget-content">
-                                                                    <div className="select-pt-form">
-                                                                        <div className="referral-select">
-                                                                            <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Use docprime wallet money<input type="checkbox" onChange={this.toggleWalletUse.bind(this)} checked={this.state.use_wallet} /><span className="checkmark"></span></label>
-                                                                            <span className="rfrl-avl-balance">Available <img style={{ width: '9px', marginTop: '4px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} />{total_wallet_balance}</span>
+                                                            !is_insurance_applicable && total_wallet_balance && total_wallet_balance > 0 ?
+                                                                <div className={"widget mrb-15" + (this.state.is_payment_coupon_applied ? " disable_coupon" : "")}>
+                                                                    <div className="widget-content">
+                                                                        <div className="select-pt-form">
+                                                                            <div className="referral-select mb-0">
+                                                                                <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Use docprime wallet money<input type="checkbox" onChange={this.toggleWalletUse.bind(this)} checked={this.state.use_wallet} /><span className="checkmark"></span></label>
+                                                                                <span className="rfrl-avl-balance">Available <img style={{ width: '6px', marginTop: '5px', marginRight:'3px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} />{total_wallet_balance}</span>
+                                                                                {
+                                                                                    this.state.is_payment_coupon_applied ?
+                                                                                    <span className="cpn-pymnt-txt">Wallet Amount can not be used because payment gateway specific coupon is applied.</span> : ''
+                                                                                }
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </div> : ""
+                                                                </div> : ""
                                                         }
                                                         <WhatsAppOptinView {...this.props} profiles={patient} toggleWhatsap={this.toggleWhatsap.bind(this)} />
                                                         <div className="lab-visit-time test-report" style={{ marginTop: 10, cursor: 'pointer', marginBottom: 0 }} onClick={this.toggle.bind(this, 'openCancellation')}>
@@ -1243,6 +1283,9 @@ class BookingSummaryViewNew extends React.Component {
                         <RightBar extraClass=" chat-float-btn-2" type="lab" noChatButton={true} />
                     </div>
                 </section>
+                {
+                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='lab' /> : ""
+                }
             </div>
 
         );

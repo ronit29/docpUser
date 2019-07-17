@@ -2171,7 +2171,7 @@ p.rt-doc-nm{
     flex-grow: 0;
 }
 
-.auto-location-text>p, .auto-location-btn{
+.auto-location-text>p, .auto-location-btn, .auto-location-text>h2{
     font-size: 14px;
 }
 
