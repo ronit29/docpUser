@@ -120,7 +120,7 @@ class VerifyEmail extends React.Component {
 						<div className="ins-otp-mail-cont">
 							<p className="ins-em-otp">An OTP has been sent to your email address</p>
 							<div className="em-ins-inp-cont">
-								<input className="em-ins-inpu" placeholder="Enter OTP" onChange={this.setOtp.bind(this)} value={this.state.otpValue} />
+								<input type="number" className="em-ins-inpu" placeholder="Enter OTP" onChange={this.setOtp.bind(this)} value={this.state.otpValue} />
 								{
 									this.state.otpValue.length ==6?
 										<button onClick={this.submitOtp.bind(this)}>Submit</button>
