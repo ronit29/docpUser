@@ -16,6 +16,7 @@ const queryString = require('query-string')
 import IpdLeadForm from '../../containers/ipd/ipdLeadForm.js'
 import ChatIpdPanel from '../commons/ChatPanel/ChatIpdPanel.js'
 import IpdOffersPage from './IpdOffersPage.js'
+import CommonSearch from '../../containers/commons/CommonSearch.js'
 import IpdCarousel from './IpdHospitalDetailCarousel.js'
 import IpdSecondPopup from '../../containers/ipd/IpdDoctorCityPopup.js'
 
@@ -102,7 +103,7 @@ class HospitalDetailView extends React.Component {
 
 	}
 
-	viewDoctorsClicked(specializedSearch = false, e) {
+	viewDoctorsClicked(specializationId = null, e) {
 		/*if(this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length){
 
 
@@ -124,8 +125,8 @@ class HospitalDetailView extends React.Component {
 		let hospital_name = ''
 		let state = {}
 
-		if (specializedSearch) {
-			this.props.cloneCommonSelectedCriterias({ id: this.props.specialization_id, type: 'speciality' })
+		if (specializationId) {
+			this.props.cloneCommonSelectedCriterias({ id: specializationId, type: 'speciality' })
 		}
 
 		state = {
@@ -218,6 +219,20 @@ class HospitalDetailView extends React.Component {
 			// this.props.showChatView(ipd_data)	
 		})
 	}
+	
+	applyQuickFilters(id) {
+		let gtmData = {
+			'Category': 'ConsumerApp', 'Action': 'IpdHospitalSpecializationSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-specialization-search'
+		}
+		GTM.sendEvent({ data: gtmData })
+		this.viewDoctorsClicked(id)
+	}
+
+	getInputFocus() {
+		let headerHeight = document.getElementById('common_search')?document.getElementById('common_search').offsetTop:0
+		headerHeight = headerHeight - 89
+		window.scrollTo(0, headerHeight)
+	}
 
 	render() {
 
@@ -280,7 +295,27 @@ class HospitalDetailView extends React.Component {
 								}
 								
 							</div>
-
+							{
+								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.is_ipd_hospital?
+								<div id="common_search" className="ipd-sl-srch">
+									<CommonSearch {...this.props} hospital_id_search={this.props.hospital_id} commonSearch={true} getInputFocus={this.getInputFocus.bind(this)} hospital_lat= {this.props.ipd_hospital_detail.lat} hospital_long = {this.props.ipd_hospital_detail.long}  hospital_search_name={this.props.ipd_hospital_detail.name ||''}/>
+								</div>
+								:''
+							}
+							
+							{
+								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.all_specializations && this.props.ipd_hospital_detail.all_specializations.length?
+								<div className="sort-sub-filter-container mb-3">
+	                                <p><span className="fw-700">Popular Specializations</span></p>
+	                                <div className="srt-sb-btn-cont">
+	                                {
+	                                    this.props.ipd_hospital_detail.all_specializations.map((category, j) => {
+	                                        return <button key={j} className='srt-act' id={category.id} onClick={this.applyQuickFilters.bind(this, category.id)}> {category.name}</button>
+	                                    })
+	                                }
+	                                </div>
+	                            </div>:''
+							}
 							<div id="doctors" ref="doctors">
 								{
 									this.props.ipd_hospital_detail && ((this.props.ipd_hospital_detail.doctors && this.props.ipd_hospital_detail.doctors.result.length) || (this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length)) ?
@@ -301,7 +336,7 @@ class HospitalDetailView extends React.Component {
 
 												{
 													this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length ?
-														<a href="javascript:void(0);" onClick={this.viewDoctorsClicked.bind(this, true)}>{this.getSpecializationName()}</a>
+														<a href="javascript:void(0);" onClick={this.viewDoctorsClicked.bind(this, this.props.specialization_id||'')}>{this.getSpecializationName()}</a>
 														: ''
 
 												}
