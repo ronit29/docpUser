@@ -51,14 +51,15 @@ class VerifyEmail extends React.Component {
         if (this.props.user_data && this.props.user_data.length > 0) {
 			data.profile = this.props.user_data[0].profile
 		}
-		data.email= this.state.email
 		let validEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		if (this.state.email != '') {			
 			validEmail = validEmail.test(this.state.email)
-			if (validEmail) {	
+			if (validEmail) {
+				data.email= this.state.email	
 				this.props.sendOtpOnEmail(data, (resp) => {        
 	            	if(resp && resp.id){
 		            	this.setState({emailSuccessId:resp.id, showOtp: true, otpTimeout: false })
+		            	this.props.handleSubmit(false,true)
 		                setTimeout(() => {
 		                    this.setState({ otpTimeout: true })
 		                }, 10000)
@@ -91,7 +92,7 @@ class VerifyEmail extends React.Component {
 		data.process_immediately = false
 		this.props.submitEmailOTP(data,(resp) =>{
 			if(resp && resp.success){
-				this.props.verifyEndorsementEmail()
+		        this.props.verifyEndorsementEmail(this.state.email)
 				this.setState({VerifyEmails:false,showOtp:false,otpTimeout:false,otpValue:'',emailSuccessId:''})
 				SnackBar.show({ pos: 'bottom-center', text: resp.message });
 			}else{

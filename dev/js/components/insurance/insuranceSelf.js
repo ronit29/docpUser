@@ -241,7 +241,6 @@ class InsuranceSelf extends React.Component {
 				self_data.last_name = self_data.last_name.slice(0, 50)
 			}
 		}
-		console.log(is_endorse_email)
 		if (!is_endoresment && !is_endorse_email) {
 			self_data.is_change = true
 			self_data.first_name = self_data.name
@@ -585,8 +584,8 @@ class InsuranceSelf extends React.Component {
 		}
 	}
 
-	verifyEndorsementEmail(){
-		this.setState({emailVerified:true},()=>{
+	verifyEndorsementEmail(newemail){
+		this.setState({emailVerified:true,email:newemail},()=>{
 			this.props.checkIsEmailVerfied()
 			this.handleSubmit(true,true)
 		})
