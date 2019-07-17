@@ -2615,6 +2615,7 @@ ul.chat-qa-listing li span.checkmark {
     color: #e71818;
     font-size: 12px;
     font-weight: 500;
+    cursor: pointer;
 }
 /* ============ email insurance ============ */
 /* ============ doc lab sign up ============ */
