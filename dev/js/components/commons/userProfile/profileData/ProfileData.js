@@ -49,7 +49,8 @@ class ProfileData extends React.Component {
 
     goToInsurance(isUserLoginInsured){
         if(isUserLoginInsured){
-            if(this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ||this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 5){
+            if(this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ||
+                this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 4 || this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 5){
                 this.props.history.push('/insurance/certificate')
             }else{
                 this.props.history.push('/insurance/insurance-plans?source=profile-insurance-clicked')
