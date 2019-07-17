@@ -36,7 +36,7 @@ class VerifyEmail extends React.Component {
 					if(oldEmail !== this.state.email){
 						this.setState({VerifyEmails:true})
 					}	
-					this.props.handleSubmit(false)
+					this.props.handleSubmit(false,true)
 				} else {
 					this.setState({VerifyEmails:false})
 					SnackBar.show({ pos: 'bottom-center', text: "Please Enter valid Email" });

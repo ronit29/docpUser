@@ -77,7 +77,7 @@ class InsuranceSelf extends React.Component {
 					})
 				}
 				this.setState({ ...profile }, () => {
-					this.handleSubmit(true)
+					this.handleSubmit(true,false)
 				})
 			} else {
 				if (this.props.user_data && this.props.user_data.length > 0) {
@@ -88,7 +88,7 @@ class InsuranceSelf extends React.Component {
 						})
 					}
 					this.setState({ ...this.props.user_data[0], name: this.props.user_data[0].first_name, member_type: this.props.member_type, profile_id: this.props.user_data[0].profile, is_change: false, town_code: this.props.user_data[0].city_code,profile:this.props.user_data[0].profile }, () => {
-						this.handleSubmit(true)
+						this.handleSubmit(true,false)
 					})
 				}
 			}
@@ -113,11 +113,11 @@ class InsuranceSelf extends React.Component {
 					this.setState({ ...profile, disableEmail: profile.email != '' ? true : false, disableDob: profile.dob != null ? true : false, disableName: profile.name != '' ? true : false }, () => {
 						if (profile.gender == 'm') {
 							this.setState({ title: 'mr.' }, () => {
-								this.handleSubmit(false)
+								this.handleSubmit(false,false)
 							})
 						} else if (profile.gender == 'f') {
 							this.setState({ title: 'mrs.' }, () => {
-								this.handleSubmit(false)
+								this.handleSubmit(false,false)
 							})
 						}
 					})
@@ -192,7 +192,7 @@ class InsuranceSelf extends React.Component {
 					this.setState({ title: 'miss' })
 				}
 			}
-			this.handleSubmit(false)
+			this.handleSubmit(false,false)
 		})
 	}
 	handleChange(field, event) {
@@ -218,7 +218,7 @@ class InsuranceSelf extends React.Component {
 			this.props.userData('self_data', self_data)
 		})
 	}
-	handleSubmit(is_endoresment) {
+	handleSubmit(is_endoresment,is_endorse_email) {
 		let profile = Object.assign({}, this.props.USER.profiles[this.props.USER.defaultProfile])
 		if (!profile.isDummyUser) {
 			this.setState({ profile_id: this.props.member_id })
@@ -241,7 +241,8 @@ class InsuranceSelf extends React.Component {
 				self_data.last_name = self_data.last_name.slice(0, 50)
 			}
 		}
-		if (!is_endoresment) {
+		console.log(is_endorse_email)
+		if (!is_endoresment && !is_endorse_email) {
 			self_data.is_change = true
 			self_data.first_name = self_data.name
 		}
@@ -274,7 +275,7 @@ class InsuranceSelf extends React.Component {
 			let validEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 			validEmail = validEmail.test(this.state.email);
 			if (validEmail) {
-				this.handleSubmit(false);
+				this.handleSubmit(false,false);
 			} else {
 				SnackBar.show({ pos: 'bottom-center', text: "Please Enter valid Email" });
 			}
@@ -290,7 +291,7 @@ class InsuranceSelf extends React.Component {
 		this.setState({
 			gender: event.target.value
 		}, () => {
-			this.handleSubmit(false, event)
+			this.handleSubmit(false,false)
 		})
 	}
 	openDateModal() {
@@ -304,7 +305,7 @@ class InsuranceSelf extends React.Component {
 			let day = ("0" + date.getDate()).slice(-2);
 			let actual_date = [date.getFullYear(), mnth, day].join("-");
 			this.setState({ selectedDateSpan: actual_date, dateModal: false, currentDate: new Date(date).getDate(), dob: actual_date }, () => {
-				this.handleSubmit(false)
+				this.handleSubmit(false,false)
 			})
 		} else {
 			this.setState({ dateModal: false })
@@ -333,7 +334,7 @@ class InsuranceSelf extends React.Component {
 	// }
 	handleLastname(event) {
 		this.setState({ no_lname: !this.state.no_lname }, () => {
-			this.handleSubmit(false, event)
+			this.handleSubmit(false,false)
 		})
 	}
 	showAlert() {
@@ -586,7 +587,8 @@ class InsuranceSelf extends React.Component {
 
 	verifyEndorsementEmail(){
 		this.setState({emailVerified:true},()=>{
-			this.handleSubmit()
+			this.props.checkIsEmailVerfied()
+			this.handleSubmit(true,true)
 		})
 	}
 
@@ -652,7 +654,21 @@ class InsuranceSelf extends React.Component {
 					</div>
 					<div className="col-6">
 						<div className="ins-form-group inp-margin-right ">
-							<input style={{ 'textTransform': 'capitalize' }} type="text" id={`name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('name') > -1 ? 'fill-error' : ''}`} required autoComplete="first_name" name="name" value={this.state.name} data-param='name' onChange={this.handleChange.bind(this, 'name')} onBlur={this.handleSubmit.bind(this, false)} onFocus={this.handleOnFocus.bind(this, 'name')} disabled={this.state.disableName ? 'disabled' : ''} onKeyPress={this.handleNameCharacters.bind(this, 'name')} />
+							<input 
+								style={{ 'textTransform': 'capitalize' }} 
+								type="text" 
+								id={`name_${this.props.member_id}`} 
+								className={`form-control ins-form-control ${this.props.validateErrors.indexOf('name') > -1 ? 'fill-error' : ''}`} required 
+								autoComplete="first_name" 
+								name="name" 
+								value={this.state.name} 
+								data-param='name' 
+								onChange={this.handleChange.bind(this, 'name')} 
+								onBlur={this.handleSubmit.bind(this, false,false)} 
+								onFocus={this.handleOnFocus.bind(this, 'name')} 
+								disabled={this.state.disableName ? 'disabled' : ''} 
+								onKeyPress={this.handleNameCharacters.bind(this, 'name')} 
+							/>
 							<label className={this.state.disableName ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`name_${this.props.member_id}`}><span className="labelDot"></span>First Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 						</div>
@@ -667,7 +683,21 @@ class InsuranceSelf extends React.Component {
 					</div>
 					<div className="col-6">
 						<div className="ins-form-group inp-margin-right ">
-							<input style={{ 'textTransform': 'capitalize' }} type="text" id={`middle_name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('middle_name') > -1 ? 'fill-error' : ''}`} required autoComplete="middle_name" name="middle_name" value={this.state.no_lname ? '' : this.state.middle_name} data-param='middle_name' onChange={this.handleChange.bind(this, 'middle_name')} onBlur={this.handleSubmit.bind(this, false)} onFocus={this.handleOnFocus.bind(this, 'middle_name')} onKeyPress={this.handleNameCharacters.bind(this, 'middle_name')} disabled={this.state.no_lname ? 'disabled' : ""} disabled={this.state.disableName ? 'disabled' : ''} />
+							<input 
+								style={{ 'textTransform': 'capitalize' }} 
+								type="text" 
+								id={`middle_name_${this.props.member_id}`} 
+								className={`form-control ins-form-control ${this.props.validateErrors.indexOf('middle_name') > -1 ? 'fill-error' : ''}`} required 
+								autoComplete="middle_name" 
+								name="middle_name" 
+								value={this.state.no_lname ? '' : this.state.middle_name} 
+								data-param='middle_name' 
+								onChange={this.handleChange.bind(this, 'middle_name')} 
+								onBlur={this.handleSubmit.bind(this, false,false)} 
+								onFocus={this.handleOnFocus.bind(this, 'middle_name')} 
+								onKeyPress={this.handleNameCharacters.bind(this, 'middle_name')} 
+								disabled={this.state.no_lname || this.state.disableName? 'disabled' : ""}
+							/>
 							<label className={this.state.disableName ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`middle_name_${this.props.member_id}`}>Middle Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 						</div>
@@ -678,7 +708,21 @@ class InsuranceSelf extends React.Component {
 					</div>
 					<div className="col-6">
 						<div className="ins-form-group ins-form-group inp-margin-right">
-							<input style={{ 'textTransform': 'capitalize' }} type="text" id={`last_name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('last_name') > -1 ? 'fill-error' : ''}`} required autoComplete="last_name" name="last_name" value={this.state.no_lname ? '' : this.state.last_name} data-param='last_name' onChange={this.handleChange.bind(this, 'last_name')} onBlur={this.handleSubmit.bind(this, false)} onFocus={this.handleOnFocus.bind(this, 'last_name')} disabled={this.state.no_lname ? 'disabled' : ""} onKeyPress={this.handleNameCharacters.bind(this, 'last_name')} disabled={this.state.disableName ? 'disabled' : ''} />
+							<input 
+								style={{ 'textTransform': 'capitalize' }} 
+								type="text" 
+								id={`last_name_${this.props.member_id}`} 
+								className={`form-control ins-form-control ${this.props.validateErrors.indexOf('last_name') > -1 ? 'fill-error' : ''}`} required 
+								autoComplete="last_name" 
+								name="last_name" 
+								value={this.state.no_lname ? '' : this.state.last_name} 
+								data-param='last_name' 
+								onChange={this.handleChange.bind(this, 'last_name')} 
+								onBlur={this.handleSubmit.bind(this, false,false)} 
+								onFocus={this.handleOnFocus.bind(this, 'last_name')} 
+								disabled={this.state.no_lname || this.state.disableName ? 'disabled' : ""} 
+								onKeyPress={this.handleNameCharacters.bind(this, 'last_name')} 
+							/>
 							<label className={this.state.disableName ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot"></span>Last Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 						</div>
@@ -734,7 +778,17 @@ class InsuranceSelf extends React.Component {
 						!this.props.is_endorsement?
 						<div className="col-12 mrt-10">
 							<div className="ins-form-group">
-								<input type="text" id={`emails_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('email') > -1 ? 'fill-error' : ''}`} required autoComplete="email" name="email" value={this.state.email} data-param='email' onChange={this.handleChange.bind(this, 'email')} onBlur={this.handleEmail} onFocus={this.handleOnFocus.bind(this, 'email')} />
+								<input 
+									type="text" id={`emails_${this.props.member_id}`} 
+									className={`form-control ins-form-control ${this.props.validateErrors.indexOf('email') > -1 ? 'fill-error' : ''}`} required 
+									autoComplete="email" 
+									name="email" 
+									value={this.state.email} 
+									data-param='email' 
+									onChange={this.handleChange.bind(this, 'email')} 
+									onBlur={this.handleEmail} 
+									onFocus={this.handleOnFocus.bind(this, 'email')} 
+								/>
 								<label className={this.state.disableEmail ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`emails_${this.props.member_id}`}><span className="labelDot"></span>Email</label>
 								<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
 							</div>
@@ -801,7 +855,20 @@ class InsuranceSelf extends React.Component {
 					</div>
 					<div className="col-12">
 						<div className="ins-form-group autocomplete">
-							<input style={{ 'textTransform': 'capitalize' }} type="text" id={`isnstate_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state') > -1 ? 'fill-error' : ''} userState`} required autoComplete="state" name="state" value={this.state.state} data-param='state' onChange={this.handleState.bind(this, 'state')} onBlur={this.handleSubmit.bind(this, false)} onFocus={this.handleOnFocus.bind(this, 'state')} data-state-code={this.state.state_code} />
+							<input 
+								style={{ 'textTransform': 'capitalize' }} 
+								type="text" 
+								id={`isnstate_${this.props.member_id}`} 
+								className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state') > -1 ? 'fill-error' : ''} userState`} required 
+								autoComplete="state" 
+								name="state" 
+								value={this.state.state} 
+								data-param='state' 
+								onChange={this.handleState.bind(this, 'state')} 
+								onBlur={this.handleSubmit.bind(this, false,false)} 
+								onFocus={this.handleOnFocus.bind(this, 'state')} 
+								data-state-code={this.state.state_code} 
+							/>
 							<label className="form-control-placeholder" htmlFor={`isnstate_${this.props.member_id}`}>State</label>
 							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
@@ -817,12 +884,34 @@ class InsuranceSelf extends React.Component {
 					<div className="col-12">
 						{this.state.state_code != '' ?
 							<div className="ins-form-group autocomplete">
-								<input style={{ 'textTransform': 'capitalize' }} type="text" id={`isndistrict_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state') > -1 ? 'fill-error' : ''} userDistrict`} required autoComplete="district" name="district" value={this.state.district} data-param='district' onChange={this.handleDistrict.bind(this, 'district')} onBlur={this.handleSubmit.bind(this, false)} onFocus={this.handleOnFocus.bind(this, 'district')} data-state-code={this.state.district_code} />
+								<input 
+									style={{ 'textTransform': 'capitalize' }} 
+									type="text" 
+									id={`isndistrict_${this.props.member_id}`} 
+									className={`form-control ins-form-control ${this.props.validateErrors.indexOf('state') > -1 ? 'fill-error' : ''} userDistrict`} required 
+									autoComplete="district" 
+									name="district" 
+									value={this.state.district} 
+									data-param='district' 
+									onChange={this.handleDistrict.bind(this, 'district')} 
+									onBlur={this.handleSubmit.bind(this, false,false)} 
+									onFocus={this.handleOnFocus.bind(this, 'district')} 
+									data-state-code={this.state.district_code} 
+								/>
 								<label className="form-control-placeholder" htmlFor={`isndistrict_${this.props.member_id}`}>District</label>
 								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 							</div>
 							: <div className="ins-form-group" onClick={this.showAlert.bind(this)}>
-								<input style={{ 'textTransform': 'capitalize', fontWeight: '100', color: 'gray' }} type="text" id={`isndistrict_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('district') > -1 ? 'fill-error' : ''}`} required autoComplete="district" name="district" value="Select District" disabled data-param='district' />
+								<input 
+									style={{ 'textTransform': 'capitalize', fontWeight: '100', color: 'gray' }} 
+									type="text" 
+									id={`isndistrict_${this.props.member_id}`} 
+									className={`form-control ins-form-control ${this.props.validateErrors.indexOf('district') > -1 ? 'fill-error' : ''}`} required 
+									autoComplete="district" 
+									name="district" 
+									value="Select District" disabled 
+									data-param='district' 
+								/>
 								<label className="form-control-placeholder datePickerLabel" htmlFor={`isndistrict_${this.props.member_id}`}>District</label>
 								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 
@@ -849,14 +938,24 @@ class InsuranceSelf extends React.Component {
 									value={this.state.town}
 									data-param='town'
 									onChange={this.handleTown.bind(this, 'town')}
-									onBlur={this.handleSubmit.bind(this, false)}
+									onBlur={this.handleSubmit.bind(this, false,false)}
 									onFocus={this.handleOnFocus.bind(this, 'town')}
-									data-state-code={this.state.town_code} />
+									data-state-code={this.state.town_code} 
+								/>
 								<label className="form-control-placeholder" htmlFor={`isnTown_${this.props.member_id}`}>Town</label>
 								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 							</div>
 							: <div className="ins-form-group" onClick={this.showAlert.bind(this)}>
-								<input style={{ 'textTransform': 'capitalize', fontWeight: '100', color: 'gray' }} type="text" id={`isndistrict_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('town') > -1 ? 'fill-error' : ''}`} required autoComplete="town" name="town" value="Select Town" disabled data-param='town' />
+								<input 
+									style={{ 'textTransform': 'capitalize', fontWeight: '100', color: 'gray' }} 
+									type="text" 
+									id={`isndistrict_${this.props.member_id}`} 
+									className={`form-control ins-form-control ${this.props.validateErrors.indexOf('town') > -1 ? 'fill-error' : ''}`} required 
+									autoComplete="town" 
+									name="town" 
+									value="Select Town" disabled 
+									data-param='town' 
+								/>
 								<label className="form-control-placeholder datePickerLabel" htmlFor={`isndistrict_${this.props.member_id}`}>Town</label>
 								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 
@@ -961,7 +1060,19 @@ class InsuranceSelf extends React.Component {
 					</div>*/}
 					<div className="col-12">
 						<div className="ins-form-group">
-							<input style={{ 'textTransform': 'capitalize' }} type="text" id={`insaddress${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('address') > -1 ? 'fill-error' : ''}`} required autoComplete="address" name="address" value={this.state.address} data-param='address' onChange={this.handleChange.bind(this, 'address')} onBlur={this.handleSubmit.bind(this, false)} onFocus={this.handleOnFocus.bind(this, 'address')} />
+							<input 
+								style={{ 'textTransform': 'capitalize' }} 
+								type="text" 
+								id={`insaddress${this.props.member_id}`} 
+								className={`form-control ins-form-control ${this.props.validateErrors.indexOf('address') > -1 ? 'fill-error' : ''}`} required 
+								autoComplete="address" 
+								name="address" 
+								value={this.state.address} 
+								data-param='address' 
+								onChange={this.handleChange.bind(this, 'address')} 
+								onBlur={this.handleSubmit.bind(this, false,false)} 
+								onFocus={this.handleOnFocus.bind(this, 'address')} 
+							/>
 							<label className="form-control-placeholder" htmlFor={`insaddress${this.props.member_id}`}><span className="labelDot"></span>Full Address</label>
 							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
@@ -976,7 +1087,19 @@ class InsuranceSelf extends React.Component {
 					</div>
 					<div className="col-12">
 						<div className="ins-form-group mb-0">
-							<input type="number" id={`isnpin_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('pincode') > -1 ? 'fill-error' : ''}`} required autoComplete="pincode" name="pincode" value={this.state.pincode} data-param='pincode' onKeyPress={this.handlekey.bind(this)} onChange={this.handleChange.bind(this, 'pincode')} onBlur={this.handleSubmit.bind(this, false)} onFocus={this.handleOnFocus.bind(this, 'pincode')} />
+							<input 
+								type="number" 
+								id={`isnpin_${this.props.member_id}`} 
+								className={`form-control ins-form-control ${this.props.validateErrors.indexOf('pincode') > -1 ? 'fill-error' : ''}`} required 
+								autoComplete="pincode" 
+								name="pincode" 
+								value={this.state.pincode} 
+								data-param='pincode' 
+								onKeyPress={this.handlekey.bind(this)} 
+								onChange={this.handleChange.bind(this, 'pincode')} 
+								onBlur={this.handleSubmit.bind(this, false,false)} 
+								onFocus={this.handleOnFocus.bind(this, 'pincode')} 
+							/>
 							<label className="form-control-placeholder" htmlFor={`isnpin_${this.props.member_id}`}><span className="labelDot"></span>Pincode</label>
 							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
