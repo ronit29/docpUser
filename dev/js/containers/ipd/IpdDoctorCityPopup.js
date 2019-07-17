@@ -5,6 +5,8 @@ import SnackBar from 'node-snackbar'
 import GTM from '../../helpers/gtm.js'
 const queryString = require('query-string')
 import DateSelector from '../../components/commons/DateSelector'
+import Calendar from 'rc-calendar';
+const moment = require('moment');
 
 class IpdDoctorCityPopup extends React.Component {
 
@@ -16,7 +18,8 @@ class IpdDoctorCityPopup extends React.Component {
 			selectedCity:'',
 			dob:'',
 			requested_date_time: new Date().toDateString(),
-			timeSlot: ''
+			timeSlot: '',
+			dateModal: false
 		}
 	}
 
@@ -169,6 +172,19 @@ class IpdDoctorCityPopup extends React.Component {
 		return timeSlot
 	}
 
+	openDateModal() {
+        this.setState({ dateModal: !this.state.dateModal })
+    }
+
+    selectDateFromCalendar(date) {
+        if (date) {
+            date = date.toDate()
+            this.setState({ dateModal: false })
+        } else {
+            this.setState({ dateModal: false })
+        }
+    }
+
 	render() {console.log(this.state)
 		const parsed = queryString.parse(this.props.location.search)
 
@@ -204,10 +220,22 @@ class IpdDoctorCityPopup extends React.Component {
 										</div>:''
 									}
 									<div className="nm-lst-inputcnt justify-content-between">
-										<div className="sel-ipd-input-cnt" style={{width: '48%' }}>
+										<div className="sel-ipd-input-cnt" style={{width: '48%' }} onClick={this.openDateModal.bind(this)}>
 											<img src={ASSETS_BASE_URL + "/img/calnext.svg"} />
-											<input type="date" name='name' placeholder="*Select Date" />
+											
 										</div>
+										{
+		                                    this.state.dateModal ? <div className="calendar-overlay"><div className="date-picker-modal">
+		                                        <Calendar
+		                                            showWeekNumber={false}
+		                                            disabledDate={(date) => {
+		                                                return date.diff(moment((new Date)), 'days') < 0 || date.diff(moment((new Date)), 'days') > 30
+		                                            }}
+		                                            showToday
+		                                            onSelect={this.selectDateFromCalendar.bind(this)}
+		                                        />
+		                                    </div></div> : ""
+		                                }
 										<div className="sel-ipd-input-cnt" style={{width: '48%'}}>
 											<img src={ASSETS_BASE_URL + "/img/calnext.svg"} />
 											<div className="ipd-slects-doc">
