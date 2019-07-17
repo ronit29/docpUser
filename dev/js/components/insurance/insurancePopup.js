@@ -196,6 +196,19 @@ class InsurancePopup extends React.Component {
             this.props.currentSelectedInsuredMembersId.map((val, key) => {
                 currentSelectedProfiles.push(val[key])
             })
+            let threshold_max_age 
+            let threshold_min_age
+            if(this.props.self_data_values && this.props.self_data_values.member_type == 'adult'){
+                if(this.props.selected_plan && this.props.selected_plan.threshold && this.props.selected_plan.threshold[0]){
+                    threshold_max_age = this.props.selected_plan.threshold[0].max_age
+                    threshold_min_age = this.props.selected_plan.threshold[0].min_age
+                }
+            }else{
+                    threshold_max_age = this.props.selected_plan.threshold[0].child_max_age
+                    threshold_min_age = this.props.selected_plan.threshold[0].child_min_age
+            }
+            console.log(threshold_max_age)
+            console.log(threshold_min_age)
             return (
                 <div>
                     <div className="cancel-overlay cancel-overlay-zindex" onClick={this.props.hideSelectProfilePopup.bind(this)}></div>

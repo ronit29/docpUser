@@ -198,6 +198,7 @@ class InsuranceOthers extends React.Component {
 	}
 	togglePopup(newProfileid, member_id, newProfile) {
 		let oldDate
+		let finalDate
 		if(newProfileid !== ''){
 			if(this.props.is_child_only){
 				if(newProfile.gender == 'm'){
@@ -214,8 +215,12 @@ class InsuranceOthers extends React.Component {
 			}
 			if(newProfile && newProfile.dob){
 				oldDate= newProfile.dob.split('-')
-				this.setState({year:oldDate[0],mnth:oldDate[2],day:oldDate[1]},()=>{
+				console.log(newProfile.dob)
+				console.log(oldDate)
+				this.setState({year:oldDate[0],mnth:oldDate[1],day:oldDate[2]},()=>{
 	    			this.populateDates(newProfileid,false)
+	    			finalDate = this.state.year + '-'+ this.state.mnth + '-'+this.state.day 
+	    			this.setState({dob:finalDate})
 	    		})
 			}else{
 				this.populateDates(newProfileid,false)
@@ -712,7 +717,13 @@ class InsuranceOthers extends React.Component {
 				</div>
 				
 				{this.state.showPopup ?
-					<InsurPopup {...this.state.userProfiles} currentSelectedInsuredMembersId={this.props.currentSelectedInsuredMembersId} member_id={this.props.member_id} closePopup={this.togglePopup.bind(this)} isSelectprofile = {true} self_data_values ={this.props.self_data_values[this.props.member_id]} hideSelectProfilePopup={this.hideSelectProfilePopup.bind(this)}
+					<InsurPopup {...this.state.userProfiles} {...this.props} 
+						currentSelectedInsuredMembersId={this.props.currentSelectedInsuredMembersId} 
+						member_id={this.props.member_id} 
+						closePopup={this.togglePopup.bind(this)} 
+						isSelectprofile = {true} 
+						self_data_values ={this.props.self_data_values[this.props.member_id]}
+						hideSelectProfilePopup={this.hideSelectProfilePopup.bind(this)} 
 					/> : ''
 				}
 			</div>
