@@ -833,8 +833,8 @@ class PatientDetailsNew extends React.Component {
             payment_mode_count++
         if (enabled_for_cod_payment)
             payment_mode_count++
-        if (enabled_for_prepaid_payment && is_insurance_buy_able)
-            payment_mode_count++
+        // if (enabled_for_prepaid_payment && is_insurance_buy_able)
+        //     payment_mode_count++
         let clinic_mrp = priceData.mrp
         if (is_insurance_applicable && this.props.payment_type != 2) {
             finalPrice = 0
