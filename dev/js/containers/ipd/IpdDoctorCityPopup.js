@@ -1,68 +1,67 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { submitIPDForm, ipdPopupFired } from '../../actions/index.js'
+import { submitSecondIPDForm, ipdPopupFired } from '../../actions/index.js'
 import SnackBar from 'node-snackbar'
 import GTM from '../../helpers/gtm.js'
 const queryString = require('query-string')
+import DateSelector from '../../components/commons/DateSelector'
 
-class IpdLeadForm extends React.Component {
+class IpdDoctorCityPopup extends React.Component {
 
 	constructor(props) {
 		super(props)
 		this.state = {
-			name: '',
-			phone_number: '',
-			showForm: true,
-			comments: ''
+			selectedDoctor: '',
+			selectedDoctorId:'',
+			selectedCity:'',
+			dob:''
 		}
 	}
 
-	inputHandler(e) {
-		e.stopPropagation()
-		if (e.target.name == 'phone_number') {
-			e.target.value.length <= 10
-				? e.target.value.length == 10
-					? this.setState({
-						[e.target.name]: e.target.value
-					})
-					: this.setState({
-						[e.target.name]: e.target.value
-					})
-				: ''
-		} else {
-			this.setState({ [e.target.name]: e.target.value })
-		}
-
+	submitClicked(){
+		this.isDateSelected()
+		setTimeout(()=>{
+			this.submitLeadForm()
+		},0)
 	}
 
 	submitLeadForm() {
-		if (!this.state.name.match(/^[a-zA-Z ]+$/)) {
+
+		let doctor=''
+		let city=''
+
+		if (!this.state.selectedDoctor && this.props.hospitalProfilePage) {
 			setTimeout(() => {
-				if (!this.state.name) {
-					SnackBar.show({ pos: 'bottom-center', text: "Please enter patient's name." })
-				} else {
-					SnackBar.show({ pos: 'bottom-center', text: "Name should only contain alphabets." })
-				}
+				SnackBar.show({ pos: 'bottom-center', text: "Please select the Doctor" })
+			}, 500)
+			return
+		}else {
+			doctor = this.props.all_doctors.filter(x=>x.name==this.state.selectedDoctor).map(x=>x.id)
+		}
+
+		if (!this.state.dob) {
+			setTimeout(() => {
+				SnackBar.show({ pos: 'bottom-center', text: "Please enter DOB" })
 			}, 500)
 			return
 		}
 
-		if (this.state.phone_number.match(/^[56789]{1}[0-9]{9}$/)) {
-
-		} else {
-			SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Mobile No" })
+		if (!this.state.selectedCity) {
+			setTimeout(() => {
+				SnackBar.show({ pos: 'bottom-center', text: "Please select the City" })
+			}, 500)
 			return
-		}
-
-		if (!this.state.comments) {
-			SnackBar.show({ pos: 'bottom-center', text: "Please enter your Comment" })
-			return
+		}else {
+			city = this.props.all_cities.filter(x=>x.name==this.state.selectedCity).map(x=>x.id)
 		}
 
 		const parsed = queryString.parse(this.props.location.search)
 
 		let formData = {
-			...this.state
+			dob:this.state.dob,
+			doctor:doctor.length?doctor[0]:'',
+			city: city.length?city[0]:'',
+			id: this.props.firstLeadId || 2
 		}
 
 		if (this.props.hospital_id) {
@@ -94,28 +93,21 @@ class IpdLeadForm extends React.Component {
 			formData.source = this.props.sourceTag
 		}
 
-		this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
+		
+
+		this.props.submitSecondIPDForm(formData, this.props.selectedLocation, (error, response) => {
 			if (!error && response) {
 				this.props.ipdPopupFired()
-				if (this.state.name && this.state.name.includes('test')) {
-
-				} else {
-					let gtmData = {
-						'Category': 'ConsumerApp', 'Action': 'IPD-popup-lead', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'IPD-popup-lead', selectedId: '', 'hospitalId': '', 'from': 'leadForm', 'mobileNo': this.state.phone_number
-					}
-					GTM.sendEvent({ data: gtmData })
-				}
 
 				setTimeout(() => {
 					SnackBar.show({ pos: 'bottom-center', text: "Your request has been submitted sucessfully" })
 				}, 500)
-				this.setState({ showForm: false })
+
 			} else {
 				setTimeout(() => {
 					SnackBar.show({ pos: 'bottom-center', text: "Please try after some time" })
 				}, 500)
 			}
-			this.props.submitLeadFormGeneration(this.state)
 		})
 
 	}
@@ -126,7 +118,9 @@ class IpdLeadForm extends React.Component {
 			SnackBar.show({ pos: 'bottom-center', text: "Please fill the feedback form" })
 		} else {
 			this.redirectToChat()
-			this.props.submitLeadFormGeneration(this.state)
+			this.props.submitSecondIPDForm(this.state, this.props.selectedLocation, (cb)=>{
+
+			})
 		}
 	}
 
@@ -135,11 +129,21 @@ class IpdLeadForm extends React.Component {
 		this.props.history.push(`/mobileviewchat?product=IPD&params=${params}&source=${this.props.hospital_id}`)*/
 	}
 
-	toggleWhatsap(e) {
-		this.setState({ whatsapp_optin: !this.state.whatsapp_optin })
+	isDateSelected(){
+		this.child.getSelectedDate()
 	}
 
-	render() {
+	getSelectedDate(date){
+		if(!date || !date.year || !date.month || !date.day){
+			return false
+		}else {
+			let dob = `${date.year}-${date.month>=10?date.month:`0${date.month}`}-${date.day>=10?date.day:`0${date.day}`}`
+			this.setState({dob:dob})
+			return true
+		}
+	}
+
+	render() {console.log(this.state)
 		const parsed = queryString.parse(this.props.location.search)
 
 		return (
@@ -152,57 +156,31 @@ class IpdLeadForm extends React.Component {
 					<div className="widget p-12">
 						<div className="p-relative">
 							<p className="ipd-needHelp">Need help with an appointment at Fortis Hospital?</p>
-							<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Get upto 30% Off on Appointments</span></p>
+							{/*<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Get upto 30% Off on Appointments</span></p>
 							<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Instant Booking Confirmation</span></p>
-							<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Dedicated Doctor for Advice</span></p>
+							<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Dedicated Doctor for Advice</span></p>*/}
 							<div className="ipd-pop-scrl">
-								{/* second screen */}
-								{/*<div className="ipd-inp-section" onClick={(e) => {
-								e.preventDefault()
-								e.stopPropagation()}}>
-									<div className="sel-ipd-input-cnt">
-										<img src={ASSETS_BASE_URL + "/img/calnext.svg"} />
-										<input type="date" value={this.state.name} name='name' placeholder="*Select Date" />
-									</div>
-									<div className="ipd-dob-cont">
-										<div className="ipd-db-hdng">*Date of birth:</div>
-										<div className="ipd-db-selects">
-											<select>
-												<option value="" disabled selected>Date</option>
-												<option value="">1</option>
-											</select>
-											<select>
-												<option value="" disabled selected>Month</option>
-												<option value="" >Jan</option>
-											</select>
-											<select>
-												<option value="" disabled selected>Year</option>
-												<option value="">1990</option>
-											</select>
-										</div>
-									</div>
-									<div className="ipd-lead-textarea">
-										<textarea placeholder="*Your City" style={{ fontWeight: 500 }} rows='1' name='comments'></textarea>
-									</div>
-									<div className="skip-btn-sgn">
-										<button className="ipd-inp-sbmt">Submit</button>
-										<p>Skip</p>
-									</div>
-								</div>*/}
-								{/* third screen */}
 								<div className="ipd-inp-section" onClick={(e) => {
 								e.preventDefault()
 								e.stopPropagation()}}>
-									<div className="ipd-slects-doc">
-										<select>
-											<option value="">Year</option>
-											<option value="">1990</option>
-										</select>
-									</div>
+									{
+										this.props.all_doctors && this.props.all_doctors.length?
+										<div className="ipd-slects-doc">
+											<select defaultValue={this.state.selectedDoctor} onChange={ (e)=> this.setState({'selectedDoctor': e.target.value, selectedDoctorId: e.target.id}) }>
+												<option value="">*Select Doctor</option>
+												{
+													this.props.all_doctors.map((doctor, key)=>{
+
+														return <option key={key} id={doctor.id} defaultValue="">{doctor.name}</option>
+													})
+												}
+											</select>
+										</div>:''
+									}
 									<div className="nm-lst-inputcnt justify-content-between">
 										<div className="sel-ipd-input-cnt" style={{width: '48%' }}>
 											<img src={ASSETS_BASE_URL + "/img/calnext.svg"} />
-											<input type="date" value={this.state.name} name='name' placeholder="*Select Date" />
+											<input type="date" name='name' placeholder="*Select Date" />
 										</div>
 										<div className="sel-ipd-input-cnt" style={{width: '48%'}}>
 											<img src={ASSETS_BASE_URL + "/img/calnext.svg"} />
@@ -211,27 +189,32 @@ class IpdLeadForm extends React.Component {
 									</div>
 									<div className="ipd-dob-cont">
 										<div className="ipd-db-hdng">*Date of birth:</div>
-										<div className="ipd-db-selects">
-											<select>
-												<option value="" disabled selected>Date</option>
-												<option value="">1</option>
-											</select>
-											<select>
-												<option value="" disabled selected>Month</option>
-												<option value="">Jan</option>
-											</select>
-											<select>
-												<option value="" disabled selected>Year</option>
-												<option value="">1990</option>
-											</select>
-										</div>
+										<DateSelector getSelectedDate={this.getSelectedDate.bind(this)} onRef={ref => (this.child = ref)}/>
 									</div>
-									<div className="ipd-lead-textarea">
+									{/*<div className="ipd-lead-textarea">
 										<textarea placeholder="*Your City" style={{ fontWeight: 500 }} rows='1' name='comments'></textarea>
-									</div>
+									</div>*/}
+									{
+										this.props.all_cities && this.props.all_cities.length?
+										<div className="ipd-slects-doc">
+											<select defaultValue={this.state.selectedCity} onChange={ (e)=> this.setState({'selectedCity': e.target.value}) }>
+												<option value="">*Select City</option>
+												{
+													this.props.all_cities.map((city, key)=>{
+
+														return <option key={key} id={city.id} defaultValue="">{city.name}</option>
+													})
+												}
+											</select>
+										</div>:''
+									}
 									<div className="skip-btn-sgn">
-										<button className="ipd-inp-sbmt">Submit</button>
-										<p>Skip</p>
+										<button className="ipd-inp-sbmt" onClick={this.submitClicked.bind(this)}>Submit</button>
+										<p onClick={(e) => {
+											e.preventDefault()
+											e.stopPropagation()
+											this.closePopUpClicked()
+										}}>Skip</p>
 									</div>
 								</div>
 							</div>
@@ -257,9 +240,9 @@ const mapStateToProps = (state, passedProps) => {
 const mapDispatchToProps = (dispatch) => {
 
 	return {
-		submitIPDForm: (formData, selectedLocation, cb) => dispatch(submitIPDForm(formData, selectedLocation, cb)),
-		ipdPopupFired: () => dispatch(ipdPopupFired())
+		submitSecondIPDForm: (formData, selectedLocation, cb) => dispatch(submitSecondIPDForm(formData, selectedLocation, cb)),
+		ipdPopupFired: ()=> dispatch(ipdPopupFired())
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(IpdLeadForm)
+export default connect(mapStateToProps, mapDispatchToProps)(IpdDoctorCityPopup)

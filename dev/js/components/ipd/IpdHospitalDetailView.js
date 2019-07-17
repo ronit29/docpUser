@@ -32,7 +32,8 @@ class HospitalDetailView extends React.Component {
 			showLeadForm: true,
 			ipdFormParams: {},
 			showForcedPopup: false,
-			showSecondPopup: false
+			showSecondPopup: false,
+			firstLeadId:''
 		}
 	}
 
@@ -84,7 +85,7 @@ class HospitalDetailView extends React.Component {
 		}
 
 		setTimeout(()=>{
-			this.setState({showForcedPopup: true, showSecondPopup:true })
+			this.setState({showForcedPopup: true })
 		},1000)
 
 	}
@@ -234,6 +235,12 @@ class HospitalDetailView extends React.Component {
 		window.scrollTo(0, headerHeight)
 	}
 
+	saveLeadIdForUpdation(response) {
+		if(response.id){
+			this.setState({firstLeadId: response.id, showSecondPopup: true})
+		}
+	}
+
 	render() {
 
 		const parsed = queryString.parse(this.props.location.search)
@@ -255,12 +262,12 @@ class HospitalDetailView extends React.Component {
 						<div className="ipd-section">
 							{
 								(showPopup || showForcedPopup) && false?
-									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} formSource='ipdHospitalPopup'/>
+									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} formSource='ipdHospitalPopup' saveLeadIdForUpdation={this.saveLeadIdForUpdation.bind(this)}/>
 									: ''
 							}
 							{
-								this.state.showSecondPopup?
-								<IpdSecondPopup {...this.props} submitLeadFormGeneration={this.submitSecondLeadFormGeneration.bind(this)}/>
+								(this.state.showSecondPopup && this.state.firstLeadId) || true?
+								<IpdSecondPopup {...this.props} firstLeadId={this.state.firstLeadId} all_doctors={this.props.ipd_hospital_detail.all_doctors} all_cities={this.props.ipd_hospital_detail.all_cities} hospitalProfilePage={true}/>
 								:''
 							}
 
