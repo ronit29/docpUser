@@ -33,7 +33,8 @@ class ResultCount extends React.Component {
             // packageType:'',
             // gender:'',
             // catIds:[],
-            // test_ids:''
+            // test_ids:'',
+            ssrFlag: false
         }
     }
 
@@ -54,7 +55,7 @@ class ResultCount extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ ...this.props.filterCriteriaPackages })
+        this.setState({ ...this.props.filterCriteriaPackages, ssrFlag: true })
         this.shortenUrl()
         if (this.props.seoData && this.props.seoData.location) {
             this.setState({ showLocationPopup: false })
@@ -326,7 +327,7 @@ class ResultCount extends React.Component {
                                                 <span className="search-result-span">
                                                     {
                                                         this.state.showLocationPopup && false ? ''
-                                                            : locationName ? <span className="location-edit">{` in ${locationName}`}</span> : ''
+                                                            : locationName && this.state.ssrFlag ? <span className="location-edit">{` in ${locationName}`}</span> : ''
                                                     }
                                                     <img style={{ width: 15, height: 15, marginLeft: 7, cursor: 'pointer' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} onClick={this.goToLocation.bind(this)} />
                                                 </span>
