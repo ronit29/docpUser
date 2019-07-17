@@ -14,7 +14,9 @@ class IpdDoctorCityPopup extends React.Component {
 			selectedDoctor: '',
 			selectedDoctorId:'',
 			selectedCity:'',
-			dob:''
+			dob:'',
+			requested_date_time: new Date().toDateString(),
+			timeSlot: ''
 		}
 	}
 
@@ -39,6 +41,13 @@ class IpdDoctorCityPopup extends React.Component {
 			doctor = this.props.all_doctors.filter(x=>x.name==this.state.selectedDoctor).map(x=>x.id)
 		}
 
+		if(!this.state.timeSlot){
+			setTimeout(() => {
+				SnackBar.show({ pos: 'bottom-center', text: "Please select the Time Slots" })
+			}, 500)
+			return
+		}
+
 		if (!this.state.dob) {
 			setTimeout(() => {
 				SnackBar.show({ pos: 'bottom-center', text: "Please enter DOB" })
@@ -60,7 +69,8 @@ class IpdDoctorCityPopup extends React.Component {
 		let formData = {
 			dob:this.state.dob,
 			doctor:doctor.length?doctor[0]:'',
-			city: city.length?city[0]:'',
+			matrix_city: city.length?city[0]:'',
+			city: this.state.selectedCity,
 			id: this.props.firstLeadId || 2
 		}
 
@@ -108,6 +118,7 @@ class IpdDoctorCityPopup extends React.Component {
 					SnackBar.show({ pos: 'bottom-center', text: "Please try after some time" })
 				}, 500)
 			}
+			this.props.secondIpdFormSubmitted()
 		})
 
 	}
@@ -118,9 +129,7 @@ class IpdDoctorCityPopup extends React.Component {
 			SnackBar.show({ pos: 'bottom-center', text: "Please fill the feedback form" })
 		} else {
 			this.redirectToChat()
-			this.props.submitSecondIPDForm(this.state, this.props.selectedLocation, (cb)=>{
-
-			})
+			this.props.secondIpdFormSubmitted()
 		}
 	}
 
@@ -141,6 +150,23 @@ class IpdDoctorCityPopup extends React.Component {
 			this.setState({dob:dob})
 			return true
 		}
+	}
+
+	getTimeSlots(){
+		let offset =  new Date()
+		let currentTime = parseInt(new Date().toLocaleTimeString())
+		let timeSlot = []
+		if(this.state.requested_date_time == new Date().toDateString()){
+			currentTime = 8
+		}
+		for(var i=currentTime ;i<=20;i++){
+			offset.setHours(i)
+			timeSlot.push(<option key={i} defaultValue="">{offset.toLocaleString('en-US', { hour: 'numeric', hour12: true })}</option>)
+		}
+		if(!timeSlot.length) {
+			timeSlot.push(<option key={'0'} defaultValue="">Choose another date</option>)	
+		}
+		return timeSlot
 	}
 
 	render() {console.log(this.state)
@@ -166,8 +192,8 @@ class IpdDoctorCityPopup extends React.Component {
 									{
 										this.props.all_doctors && this.props.all_doctors.length?
 										<div className="ipd-slects-doc">
-											<select defaultValue={this.state.selectedDoctor} onChange={ (e)=> this.setState({'selectedDoctor': e.target.value, selectedDoctorId: e.target.id}) }>
-												<option value="">*Select Doctor</option>
+											<select defaultValue={this.state.selectedDoctor} onChange={ (e)=> this.setState({'selectedDoctor': e.target.value}) }>
+												<option defaultValue="">*Select Doctor</option>
 												{
 													this.props.all_doctors.map((doctor, key)=>{
 
@@ -184,7 +210,14 @@ class IpdDoctorCityPopup extends React.Component {
 										</div>
 										<div className="sel-ipd-input-cnt" style={{width: '48%'}}>
 											<img src={ASSETS_BASE_URL + "/img/calnext.svg"} />
-											<input type="text" value={this.state.name} name='name' placeholder="*Select Time" />
+											<div className="ipd-slects-doc">
+												<select defaultValue={this.state.timeSlot} onChange={ (e)=> this.setState({'timeSlot': e.target.value}) }>
+													<option defaultValue="">*Select Time</option>
+													{
+														this.getTimeSlots()
+													}
+												</select>
+											</div>
 										</div>
 									</div>
 									<div className="ipd-dob-cont">
@@ -198,11 +231,11 @@ class IpdDoctorCityPopup extends React.Component {
 										this.props.all_cities && this.props.all_cities.length?
 										<div className="ipd-slects-doc">
 											<select defaultValue={this.state.selectedCity} onChange={ (e)=> this.setState({'selectedCity': e.target.value}) }>
-												<option value="">*Select City</option>
-												{
+												{/*<option value="">*Select City</option>
+												*/}{
 													this.props.all_cities.map((city, key)=>{
 
-														return <option key={key} id={city.id} defaultValue="">{city.name}</option>
+														return <option key={key}  id={city.id} defaultValue="">{city.name}</option>
 													})
 												}
 											</select>

@@ -241,6 +241,10 @@ class HospitalDetailView extends React.Component {
 		}
 	}
 
+	secondIpdFormSubmitted(){
+		this.setState({showSecondPopup: false})
+	}
+
 	render() {
 
 		const parsed = queryString.parse(this.props.location.search)
@@ -267,7 +271,7 @@ class HospitalDetailView extends React.Component {
 							}
 							{
 								(this.state.showSecondPopup && this.state.firstLeadId) || true?
-								<IpdSecondPopup {...this.props} firstLeadId={this.state.firstLeadId} all_doctors={this.props.ipd_hospital_detail.all_doctors} all_cities={this.props.ipd_hospital_detail.all_cities} hospitalProfilePage={true}/>
+								<IpdSecondPopup {...this.props} firstLeadId={this.state.firstLeadId} all_doctors={this.props.ipd_hospital_detail.all_doctors} all_cities={this.props.ipd_hospital_detail.all_cities} hospitalProfilePage={true} secondIpdFormSubmitted={this.secondIpdFormSubmitted.bind(this)}/>
 								:''
 							}
 
