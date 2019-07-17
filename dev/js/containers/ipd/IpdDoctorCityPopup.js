@@ -19,7 +19,8 @@ class IpdDoctorCityPopup extends React.Component {
 			dob:'',
 			requested_date_time: new Date().toDateString(),
 			timeSlot: '',
-			dateModal: false
+			dateModal: false,
+			requestedDateFormat: this.getFormattedDate(new Date())
 		}
 	}
 
@@ -179,10 +180,18 @@ class IpdDoctorCityPopup extends React.Component {
     selectDateFromCalendar(date) {
         if (date) {
             date = date.toDate()
-            this.setState({ dateModal: false })
+            date = this.getFormattedDate(date)
+            this.setState({ dateModal: false, requestedDateFormat: date })
         } else {
             this.setState({ dateModal: false })
         }
+    }
+
+    getFormattedDate(date){
+    	date = new Date(date)
+    	let month = parseInt(date.getMonth())+1
+        let day = date.getDate()
+    	return `${day>=10?day:`0${day}`}-${month>=10?month:`0${month}-${date.getFullYear()}`}`
     }
 
 	render() {console.log(this.state)
@@ -222,7 +231,7 @@ class IpdDoctorCityPopup extends React.Component {
 									<div className="nm-lst-inputcnt justify-content-between">
 										<div className="sel-ipd-input-cnt" style={{width: '48%' }} onClick={this.openDateModal.bind(this)}>
 											<img src={ASSETS_BASE_URL + "/img/calnext.svg"} />
-											
+											<p>{this.state.requestedDateFormat}</p>
 										</div>
 										{
 		                                    this.state.dateModal ? <div className="calendar-overlay"><div className="date-picker-modal">
