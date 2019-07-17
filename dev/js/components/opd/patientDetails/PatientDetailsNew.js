@@ -1126,7 +1126,7 @@ class PatientDetailsNew extends React.Component {
                                                                     <h4 className="title mb-20">Payment Summary</h4>
                                                                     <div className="payment-summary-content">
                                                                         <div className="payment-detail d-flex">
-                                                                            <p>Subtotal</p>
+                                                                            <p>MRP</p>
                                                                             <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
                                                                         </div>
                                                                         {priceData.fees != 0?<div className="payment-detail d-flex">
@@ -1180,7 +1180,7 @@ class PatientDetailsNew extends React.Component {
                                                                         <h4 className="title mb-20">Payment Summary</h4>
                                                                         <div className="payment-summary-content">
                                                                             <div className="payment-detail d-flex">
-                                                                                <p>Subtotal</p>
+                                                                                <p>MRP</p>
                                                                                 {
                                                                                     enabled_for_cod_payment && priceData.is_cod_deal_price ? <p>&#8377;  {parseInt(priceData.mrp) + treatment_mrp}</p> : <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
                                                                                 }

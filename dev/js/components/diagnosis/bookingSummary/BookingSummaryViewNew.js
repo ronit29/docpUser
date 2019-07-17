@@ -1087,7 +1087,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                             is_plan_applicable || is_insurance_applicable ?
                                                                                 <div className="payment-summary-content">
                                                                                     <div className="payment-detail d-flex">
-                                                                                        <p className="payment-content fw-500">Subtotal</p>
+                                                                                        <p className="payment-content fw-500">MRP</p>
                                                                                         <p className="payment-content fw-500">&#8377; {total_price || 0}</p>
                                                                                     </div>
                                                                                 </div>
@@ -1114,10 +1114,10 @@ class BookingSummaryViewNew extends React.Component {
                                                                                     }
                                                                                     {
                                                                                         (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
-                                                                                            <p className="payment-content fw-500">Subtotal</p>
+                                                                                            <p className="payment-content fw-500">MRP</p>
                                                                                             <p className="payment-content fw-500">&#8377; {total_price || 0}</p>
                                                                                         </div> : <div className="payment-detail d-flex">
-                                                                                                <p className="payment-content fw-500">Subtotal</p>
+                                                                                                <p className="payment-content fw-500">MRP</p>
                                                                                                 <p className="payment-content fw-500">&#8377; {total_price || 0}</p>
                                                                                             </div>
                                                                                     }
