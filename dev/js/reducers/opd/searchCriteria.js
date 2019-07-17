@@ -295,9 +295,10 @@ export default function (state = defaultState, action) {
             if (newState.search_id_data && newState.search_id_data[newState.currentSearchId]) {
 
                 newState.search_id_data[newState.currentSearchId] = Object.assign(newState.search_id_data[newState.currentSearchId])
+                newState.search_id_data[newState.currentSearchId].commonSelectedCriterias = action.commonSelectedCriterias
                 if (action.page == 1) {
                     newState.search_id_data[newState.currentSearchId].data = action.payload
-                    newState.search_id_data[newState.currentSearchId].clinic_card = action.payload.clinic_card
+                    newState.search_id_data[newState.currentSearchId].clinic_card = action.clinic_card
 
                 } else if (newState.search_id_data[newState.currentSearchId].data) {
                     if (Object.values(newState.search_id_data[newState.currentSearchId].data).length && newState.search_id_data[newState.currentSearchId].data.result) {
@@ -305,7 +306,7 @@ export default function (state = defaultState, action) {
                         newState.search_id_data[newState.currentSearchId].data.result = newState.search_id_data[newState.currentSearchId].data.result.concat(action.payload.result)
                     } else {
                         newState.search_id_data[newState.currentSearchId].data = action.payload
-                        newState.search_id_data[newState.currentSearchId].clinic_card = action.payload.clinic_card
+                        newState.search_id_data[newState.currentSearchId].clinic_card = action.clinic_card
                     }
 
                 }

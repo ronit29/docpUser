@@ -244,7 +244,9 @@ export const getHospitaDetails = (hospitalId, selectedLocation, searchByUrl=null
         }
         if(cb)cb(response)
     }).catch( function( error) {
-
+        if(error && error.status) {
+            if(cb)cb(error)
+        }
     })
 
 }
