@@ -724,6 +724,7 @@ class InsuranceOthers extends React.Component {
 						isSelectprofile = {true} 
 						self_data_values ={this.props.self_data_values[this.props.member_id]}
 						hideSelectProfilePopup={this.hideSelectProfilePopup.bind(this)} 
+						is_child_only = {this.props.is_child_only}
 					/> : ''
 				}
 			</div>

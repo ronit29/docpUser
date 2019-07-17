@@ -1,6 +1,7 @@
 import React from 'react'
 const queryString = require('query-string');
 import GTM from '../../helpers/gtm.js'
+import SnackBar from 'node-snackbar'
 
 class InsurancePopup extends React.Component {
     constructor(props) {
@@ -15,10 +16,11 @@ class InsurancePopup extends React.Component {
             otpTimeout: false,
             error_message: '',
             isLeadTrue: false,
-            smsBtnType: null
+            smsBtnType: null,
+            selectedProfileAge:''
         }
     }
-    handleChange(profileid, newProfile, event) {
+    handleChange(profileid, newProfile,selectedProfileAge, event) {
         let newProfileNames = {}
         let newName = newProfile.name.split(" ")
         let tempArray
@@ -61,9 +63,7 @@ class InsurancePopup extends React.Component {
             }
         }
         let exactProfile = { ...newProfile, ...newProfileNames }
-        this.setState({
-            profile_id: profileid, newprofile: exactProfile
-        })
+        this.setState({profile_id: profileid, newprofile: exactProfile,selectedProfileAge:selectedProfileAge})
     }
     inputHandler(e) {
         if (this.state.showOTP && e.target.name == 'phoneNumber') {
@@ -190,25 +190,36 @@ class InsurancePopup extends React.Component {
             })
             }, 200)
     }
+    closeSelectFromProfile(){
+        let threshold_max_age 
+        let threshold_min_age
+        let errorMessage
+        
+        if(this.props.selected_plan && this.props.selected_plan.threshold && this.props.selected_plan.threshold[0]){
+            if(this.props.is_child_only){
+                threshold_max_age = this.props.selected_plan.threshold[0].child_max_age
+                threshold_min_age = 0
+                 18 and 65 years
+                errorMessage = `The age of the selected member should be between ${this.props.selected_plan.threshold[0].child_min_age} and ${this.props.selected_plan.threshold[0].child_max_age} years`
+            }else{
+                threshold_max_age = this.props.selected_plan.threshold[0].max_age
+                threshold_min_age = this.props.selected_plan.threshold[0].min_age
+                errorMessage = `The age of the selected member should be between ${this.props.selected_plan.threshold[0].min_age} and ${this.props.selected_plan.threshold[0].max_age} years`
+            }
+        }
+        if(this.state.selectedProfileAge > threshold_min_age && this.state.selectedProfileAge < threshold_max_age){
+            this.props.closePopup(this.state.profile_id, this.props.member_id, this.state.newprofile)    
+        }else{
+            SnackBar.show({ pos: 'bottom-center', text: errorMessage })   
+        }
+        
+    }
     render() {
         if (this.props.isSelectprofile) {
             let currentSelectedProfiles = []
             this.props.currentSelectedInsuredMembersId.map((val, key) => {
                 currentSelectedProfiles.push(val[key])
             })
-            let threshold_max_age 
-            let threshold_min_age
-            if(this.props.self_data_values && this.props.self_data_values.member_type == 'adult'){
-                if(this.props.selected_plan && this.props.selected_plan.threshold && this.props.selected_plan.threshold[0]){
-                    threshold_max_age = this.props.selected_plan.threshold[0].max_age
-                    threshold_min_age = this.props.selected_plan.threshold[0].min_age
-                }
-            }else{
-                    threshold_max_age = this.props.selected_plan.threshold[0].child_max_age
-                    threshold_min_age = this.props.selected_plan.threshold[0].child_min_age
-            }
-            console.log(threshold_max_age)
-            console.log(threshold_min_age)
             return (
                 <div>
                     <div className="cancel-overlay cancel-overlay-zindex" onClick={this.props.hideSelectProfilePopup.bind(this)}></div>
@@ -229,7 +240,7 @@ class InsurancePopup extends React.Component {
                                         return <div key={key} className="dtl-radio">
                                             <label className="container-radio">
                                                 {value.name}
-                                                <input type="radio" name="profile_id" value='' id={key} data-param='profile_id' checked={this.state.profile_id === value.id} onChange={this.handleChange.bind(this, value.id, value)} />
+                                                <input type="radio" name="profile_id" value='' id={key} data-param='profile_id' checked={this.state.profile_id === value.id} onChange={this.handleChange.bind(this, value.id, value,value.age)} />
                                                 <span className="doc-checkmark"></span>
                                             </label>
                                         </div>
@@ -237,7 +248,7 @@ class InsurancePopup extends React.Component {
                                 }, this)}
                             </div>
                         </div>
-                        <div className="procedures-btn-pop" onClick={() => this.props.closePopup(this.state.profile_id, this.props.member_id, this.state.newprofile)}>
+                        <div className="procedures-btn-pop" onClick={this.closeSelectFromProfile.bind(this)}>
                             <button className={this.state.profile_id == '' ? 'fw-500 btn-disabled' : 'fw-500'} disabled={this.state.profile_id == '' ? 'disabled' : ''}>Done</button>
                         </div>
                     </div>
