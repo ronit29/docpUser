@@ -32,19 +32,24 @@ class HospitalTreatmentView extends React.Component {
     this.setState({treatment: treatment})
   }
 
-  goToIpdSearch(id, e){
+  goToIpdSearch(ipd, e){
       e.preventDefault()
       let gtmData = {
-          'Category': 'ConsumerApp', 'Action': 'IpdTreatmentSelectedDetailPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-treatment-selected-detail-page', 'selectedId': id || ''
+          'Category': 'ConsumerApp', 'Action': 'IpdTreatmentSelectedDetailPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-treatment-selected-detail-page', 'selectedId': ipd.id || ''
       }
       GTM.sendEvent({ data: gtmData })
 
       let selectedCriteria = {}
       selectedCriteria.type = 'ipd'
-      selectedCriteria.id = id
+      selectedCriteria.id = ipd.id
       selectedCriteria.name = ''
       this.props.toggleIPDCriteria(selectedCriteria, true)
-      this.props.history.push(`/ipdInfo?ipd_id=${id}`)
+      if(ipd.url){
+          this.props.history.push(`/${ipd.url}?showPopup=true`)
+      }else {
+        this.props.history.push(`/ipdInfo?ipd_id=${ipd.id}`)  
+      }
+      
   }
 
 	render(){
@@ -69,7 +74,7 @@ class HospitalTreatmentView extends React.Component {
                       <p className="accordian-dtl">
                         {
                           treatment.ipd_procedures.map((ipd, k)=> {
-                            return <h4><a key={k} href={ipd.url?`/${ipd.url}`:`/ipdInfo?ipd_id=${ipd.id}`} onClick={this.goToIpdSearch.bind(this, ipd.id)} className="treat-anch">{ipd.name}</a></h4>
+                            return <h4 key={ipd.id}><a  href={ipd.url?`/${ipd.url}`:`/ipdInfo?ipd_id=${ipd.id}`} onClick={this.goToIpdSearch.bind(this, ipd)} className="treat-anch">{ipd.name}</a></h4>
                           })
                         }
                      </p>
