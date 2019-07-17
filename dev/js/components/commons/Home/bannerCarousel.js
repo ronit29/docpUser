@@ -393,7 +393,7 @@ class BannerCarousel extends React.Component {
         let offerVisible = filteredBanners[this.state.index]
 
         return (
-            <div style={this.props.sliderLocation == 'home_page' || this.props.sliderLocation == 'medicine_detail_page' || (filteredBanners && filteredBanners.length == 1) || !filteredBanners ? {} : { margin: '0 -15px' }}>
+            <div style={this.props.sliderLocation == 'home_page' || this.props.sliderLocation == 'online_consultation' || this.props.sliderLocation == 'medicine_detail_page' || (filteredBanners && filteredBanners.length == 1) || !filteredBanners ? {} : { margin: '0 -15px' }}>
                 {
                     this.props.sliderLocation === "medicine_detail_page" ?
                         <div className="medic-img-slider">
@@ -425,19 +425,23 @@ class BannerCarousel extends React.Component {
                                 }
                             </div>
                             {/* code for banner slider (visible only on mobile screen) */}
-                            <div className="d-md-none">
-                                {
-                                    filteredBanners && filteredBanners.length ?
-                                        <div className={`${this.props.ipd?'ipd-banner-mbl':''} ${filteredBanners.length == 1 ? `banner-home-scrollable mrt-20 mrb-20` : `banner-home-scrollable mrt-20 mrb-20 pd-lt-15`}`} style={this.props.sliderLocation == 'home_page' ? { position: 'absolute' } : { position: 'relative' }}>
-                                            {
-                                                filteredBanners.map((banner, index) => {
-                                                    return <img key={index} src={banner.image} onClick={() => this.navigateTo(banner)} style={banner.url ? { cursor: 'pointer' } : {}} className={filteredBanners.length == 1 ? `sngl-banner` : `mltpl-banner`} loading="lazy" />
-                                                })
-                                            }
-                                        </div>
-                                        : ''
-                                }
-                            </div>
+                            {
+                                this.props.chatPage ?
+                                    '' :
+                                    <div className="d-md-none">
+                                        {
+                                            filteredBanners && filteredBanners.length ?
+                                                <div className={`${this.props.ipd ? 'ipd-banner-mbl' : ''} ${filteredBanners.length == 1 ? `banner-home-scrollable mrt-20 mrb-20` : `banner-home-scrollable mrt-20 mrb-20 pd-lt-15`}`} style={this.props.sliderLocation == 'home_page' || this.props.sliderLocation == 'online_consultation' ? { position: 'absolute' } : { position: 'relative' }}>
+                                                    {
+                                                        filteredBanners.map((banner, index) => {
+                                                            return <img key={index} src={banner.image} onClick={() => this.navigateTo(banner)} style={banner.url ? { cursor: 'pointer' } : {}} className={filteredBanners.length == 1 ? `sngl-banner` : `mltpl-banner`} loading="lazy" />
+                                                        })
+                                                    }
+                                                </div>
+                                                : ''
+                                        }
+                                    </div>
+                            }
                         </div>
                 }
             </div>

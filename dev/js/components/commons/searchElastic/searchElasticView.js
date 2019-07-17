@@ -357,7 +357,7 @@ class SearchElasticView extends React.Component {
                             {commonSearched}
 
                             {
-                                this.props.selectedSearchType.includes('lab') ?
+                                this.props.selectedSearchType.includes('lab') && !this.props.is_login_user_insured ?
                                     <CommonlySearched {...this.props}
                                         heading="Common Health Packages"
                                         type="test"
