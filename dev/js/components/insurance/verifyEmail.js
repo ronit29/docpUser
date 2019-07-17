@@ -21,22 +21,26 @@ class VerifyEmail extends React.Component {
 			this.setState({email:this.props.email, initialStage:false})	
 		}
 	}
-	handleChangeEndoresmentEmail(event){
-		this.setState({email:event.target.value})
-	}
+	
 	handleEndoresmentEmail(event) {
 		let oldEmail
 		if (this.props.user_data && this.props.user_data.length > 0) {
 			oldEmail = this.props.user_data[0].email
 		}
-		if(oldEmail !== this.state.email){
-			this.setState({VerifyEmails:true})
-			this.props.handleSubmit(false,true)
-		}
-		if(this.state.email == ''){
-			this.setState({VerifyEmails:false})
-			this.props.handleSubmit(false,true)	
-		}
+		this.setState({email:event.target.value},()=>{
+			if(oldEmail !== this.state.email){
+				let validEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+				validEmail = validEmail.test(this.state.email)
+				if (validEmail) {	
+					this.setState({VerifyEmails:true})
+				}
+				this.props.handleSubmit(false,true)
+			}
+			if(this.state.email == ''){
+				this.setState({VerifyEmails:false})
+				this.props.handleSubmit(false,true)	
+			}
+		})
 	}
 
 	VerifyEmail(resendFlag){
@@ -52,16 +56,16 @@ class VerifyEmail extends React.Component {
 		if (this.state.email != '') {			
 			validEmail = validEmail.test(this.state.email)
 			if (validEmail) {	
-				this.props.sendOtpOnEmail(data, (resp) => {
-		            if (!resp) {
-		                this.setState({ validationError: "Could not generate OTP." })
-		            } else {
-		            	if(resp && resp.id){
-			            	this.setState({emailSuccessId:resp.id, showOtp: true, otpTimeout: false })
-			                setTimeout(() => {
-			                    this.setState({ otpTimeout: true })
-			                }, 10000)
-			            }
+				this.props.sendOtpOnEmail(data, (resp) => {        
+	            	if(resp && resp.id){
+		            	this.setState({emailSuccessId:resp.id, showOtp: true, otpTimeout: false })
+		                setTimeout(() => {
+		                    this.setState({ otpTimeout: true })
+		                }, 10000)
+		                SnackBar.show({ pos: 'bottom-center', text: "OTP Sent Successfuly."})
+		            }else {
+		            	this.setState({showOtp: false, otpTimeout: false })
+		            	SnackBar.show({ pos: 'bottom-center', text: resp.message })
 		            }
 		        })
 			} else {
@@ -101,7 +105,7 @@ class VerifyEmail extends React.Component {
 			<div className="col-12 mrt-10">
 				<div className={this.state.showOtp?'ins-email-cont':''}>
 					<div className={`ins-form-group ${this.state.showOtp?'mb-0':''}`}>
-						<input type="text" id="statick" id={`emails_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('email') > -1 ? 'fill-error' : ''}`} required autoComplete="email" name="email" data-param='email' value={this.state.email} onChange={this.handleChangeEndoresmentEmail.bind(this)} onBlur={this.handleEndoresmentEmail.bind(this)} />
+						<input type="text" id="statick" id={`emails_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('email') > -1 ? 'fill-error' : ''}`} required autoComplete="email" name="email" data-param='email' value={this.state.email} onChange={this.handleEndoresmentEmail.bind(this)} onBlur={this.handleEndoresmentEmail.bind(this)} />
 						<label className="form-control-placeholder datePickerLabel" htmlFor="statick"><span className="labelDot"></span>Email</label>
 						<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
 						{
