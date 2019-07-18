@@ -247,7 +247,7 @@ class HospitalDetailView extends React.Component {
 							}
 							{
 								this.state.showSecondPopup && this.state.firstLeadId && parsed.get_feedback && parsed.get_feedback == '1'?
-								<IpdSecondPopup {...this.props} firstLeadId={this.state.firstLeadId} all_doctors={this.props.ipd_hospital_detail.all_doctors} all_cities={this.props.ipd_hospital_detail.all_cities} hospitalProfilePage={true} secondIpdFormSubmitted={this.secondIpdFormSubmitted.bind(this)}/>
+								<IpdSecondPopup {...this.props} firstLeadId={this.state.firstLeadId} all_doctors={this.props.ipd_hospital_detail.all_doctors} all_cities={this.props.ipd_hospital_detail.all_cities} hospitalProfilePage={true} secondIpdFormSubmitted={this.secondIpdFormSubmitted.bind(this)} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id}/>
 								:''
 							}
 
