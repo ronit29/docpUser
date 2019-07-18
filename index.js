@@ -205,6 +205,10 @@ app.all('*', function (req, res) {
                         res.status(404)
                     }
 
+                    if (context.data && context.data.status && context.data.status == 301) {
+                        res.status(301)
+                    }
+
                     const storeData = JSON.stringify(store.getState())
 
                     /**
