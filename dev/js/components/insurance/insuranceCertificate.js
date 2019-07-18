@@ -269,7 +269,7 @@ class InsuranceCertificateView extends React.Component {
 								}
 							</section>
 							{
-								this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 1 ?
+								this.props.get_insured_profile && (this.props.get_insured_profile.insurance_status == 1 || this.props.get_insured_profile.insurance_status == 4 || this.props.get_insured_profile.insurance_status == 7) ?
 									<div className="sticky-btn fixed insuBtnsContainer">
 										<button className="insu-left-white-btn" onClick={this.cancelPolicy.bind(this)} style={{ color: this.props.get_insured_profile.is_cancel_allowed ? '#f78631' : '#757575' }}>Cancel Policy
 										</button>
