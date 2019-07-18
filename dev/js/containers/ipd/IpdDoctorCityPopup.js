@@ -15,7 +15,7 @@ class IpdDoctorCityPopup extends React.Component {
 		this.state = {
 			selectedDoctor: '',
 			selectedDoctorId:'',
-			selectedCity:'',
+			selectedCity:this.props.all_cities && this.props.all_cities.length?this.props.all_cities[0].name:'',
 			dob:'',
 			requested_date_time: new Date().toDateString(),
 			timeSlot: '',
@@ -46,7 +46,14 @@ class IpdDoctorCityPopup extends React.Component {
 			doctor = this.props.all_doctors.filter(x=>x.name==this.state.selectedDoctor).map(x=>x.id)
 		}
 
-		if(!this.state.timeSlot){
+		if(!this.state.requested_date_format){
+			setTimeout(() => {
+				SnackBar.show({ pos: 'bottom-center', text: "Please select the Date" })
+			}, 500)
+			return
+		}
+
+		if(!this.state.timeSlot || !(parseInt(this.state.timeSlot))){
 			setTimeout(() => {
 				SnackBar.show({ pos: 'bottom-center', text: "Please select the Time Slots" })
 			}, 500)
@@ -77,6 +84,16 @@ class IpdDoctorCityPopup extends React.Component {
 			matrix_city: city.length?city[0]:'',
 			city: this.state.selectedCity,
 			id: this.props.firstLeadId || 2
+		}
+
+		if(this.state.requested_date_format) {
+			let requestedDate = new Date(this.state.requested_date_format)
+			let month = parseInt(requestedDate.getMonth())+1
+			let year = parseInt(requestedDate.getFullYear())
+			let day = parseInt(requestedDate.getDate())
+			let time = parseInt(this.state.timeSlot)
+			let dateFormat = `${year}-${month>=10?month:`0${month}`}-${day>=10?day:`0${day}`}T${time>10?`${time}`:`0${time}`}:00`
+			formData.requested_date_time = dateFormat
 		}
 
 		if (this.props.hospital_id) {
@@ -181,8 +198,9 @@ class IpdDoctorCityPopup extends React.Component {
     selectDateFromCalendar(date) {
         if (date) {
             date = date.toDate()
+            let dateFormat = new Date(date)
             date = this.getFormattedDate(date)
-            this.setState({ dateModal: false, requestedDateFormat: date, requested_date_format:new Date(date) })
+            this.setState({ dateModal: false, requestedDateFormat: date, requested_date_format:dateFormat })
         } else {
             this.setState({ dateModal: false })
         }
@@ -195,7 +213,7 @@ class IpdDoctorCityPopup extends React.Component {
     	return `${day>=10?day:`0${day}`}-${month>=10?month:`0${month}-${date.getFullYear()}`}`
     }
 
-	render() {console.log(this.state)
+	render() {
 		const parsed = queryString.parse(this.props.location.search)
 
 		return (
@@ -232,7 +250,7 @@ class IpdDoctorCityPopup extends React.Component {
 									<div className="nm-lst-inputcnt justify-content-between">
 										<div className="sel-ipd-input-cnt" style={{width: '48%' }}>
 											<img src={ASSETS_BASE_URL + "/img/calnext.svg"} />
-											<input className="slct-inpt-cntnr-fcs" onClick={this.openDateModal.bind(this)} value={this.state.requestedDateFormat} />
+											<input className="slct-inpt-cntnr-fcs" onClick={this.openDateModal.bind(this)} onChange={()=>{}} value={this.state.requestedDateFormat} />
 										</div>
 										{
 		                                    this.state.dateModal ? <div className="calendar-overlay"><div className="date-picker-modal">

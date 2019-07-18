@@ -10,7 +10,7 @@ class DateSelector extends React.Component {
 			selectedYear: 1940,
 			selectedMonth:'Jan',
 			selectedDate:'1',
-			noOfDaysInMonth: 30
+			noOfDaysInMonth: 31
 		}
 	}
 
