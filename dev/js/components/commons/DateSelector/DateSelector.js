@@ -53,7 +53,7 @@ class DateSelector extends React.Component {
 		let currentYear = new Date().getFullYear()
 		return(
 			<div className="ipd-db-selects">
-				<select defaultValue={this.state.selectedDate.toString()} onChange={ (e)=> this.selectOptions('selectedDate', e.target.value)}>
+				<select style={{textIndent:'12px'}} defaultValue={this.state.selectedDate.toString()} onChange={ (e)=> this.selectOptions('selectedDate', e.target.value)}>
 					<option defaultValue="" disabled >Date</option>
 					{
 						[...Array(this.state.noOfDaysInMonth).keys()].map((year, key)=>{
@@ -61,7 +61,7 @@ class DateSelector extends React.Component {
 						})
 					}
 				</select>
-				<select defaultValue={this.state.selectedMonth} onChange={ (e)=> this.selectOptions('selectedMonth', e.target.value)}>
+				<select style={{textIndent:'4px'}} defaultValue={this.state.selectedMonth} onChange={ (e)=> this.selectOptions('selectedMonth', e.target.value)}>
 					{
 						MONTHS.map((month, i)=>{
 							return <option defaultValue="" key={i} >{month}</option>

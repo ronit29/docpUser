@@ -2616,8 +2616,8 @@ padding-right: 15px;
     position: relative;
 }
 .sel-ipd-input-cnt img {
-    position: absolute;
-    top: 0;
+	position: absolute;
+    top: -11px;
     left: 5px;
     bottom: 0;
     margin: auto;
@@ -2654,6 +2654,7 @@ padding-right: 15px;
 	margin: 0 4px;
 	font-size: 13px;
 	color: #757575;
+	outline: none;
 }
 .ipd-slects-doc{
     margin-bottom: 10px;
@@ -2662,10 +2663,20 @@ padding-right: 15px;
 	width: 100%;
     border: 1px solid rgba(0, 0, 0, .1);
     border-radius: 4px;
-    padding: 8px;
+    padding: 0px 8px;
     outline: none;
     resize: none;
     background: white;
     height: 34px;
+}
+input.slct-inpt-cntnr-fcs{
+	cursor: pointer;
+}
+input.slct-inpt-cntnr-fcs:focus{
+	outline : none;
+}
+select.slct-ipn-ti{
+	text-indent: 25px;
+    padding: 0px;
 }
 /* ============ ipdnewpopup ============ */
