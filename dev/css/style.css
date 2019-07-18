@@ -9031,6 +9031,9 @@ ul.careListing li {
 	    width: 20px;
     margin-right: 8px;
 }
+.care-cnt{
+    display: inline-block;
+}
 /* ==================== docprime care html page ==================== */
 .medic-img-slider {
     white-space: nowrap;
