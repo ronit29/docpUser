@@ -250,7 +250,7 @@ class DoctorProfileCard extends React.Component {
                                         <h3>{this.getQualificationStr(general_specialization || [])}</h3>
                                         {
                                             qualifications && qualifications.length && qualificationsArray.length ?
-                                                <p>
+                                                <h3>
                                                     {
                                                         qualificationsArray.map((qualification, index) => {
                                                             if (index < 3) {
@@ -259,7 +259,7 @@ class DoctorProfileCard extends React.Component {
                                                             else return ''
                                                         })
                                                     }
-                                                </p> : ''
+                                                </h3> : ''
                                         }
                                         {
                                             experience_years ?
