@@ -353,7 +353,7 @@ class DoctorProfileView extends React.Component {
         if(parsed.utm_source || parsed.utm_medium || parsed.utm_term || parsed.utm_campaign){
             isUtmTagsExist = true
         }
-        let showForcedPopup = !isUtmTagsExist && landing_page && this.state.seoFriendly && doctor_id && this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].is_congot && this.state.showIpdLeadForm && this.props.DOCTORS[doctor_id].potential_ipd
+        let showForcedPopup = !isUtmTagsExist && landing_page && this.state.seoFriendly && doctor_id && this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].is_congot && this.state.showIpdLeadForm && this.props.DOCTORS[doctor_id].potential_ipd && !this.state.is_live
 
         return (
             <div className="profile-body-wrap">

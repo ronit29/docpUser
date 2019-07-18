@@ -125,7 +125,7 @@ class HospitalDetailView extends React.Component {
 		let state = {}
 
 		if (specializationId) {
-			this.props.cloneCommonSelectedCriterias({ id: specializationId, type: 'speciality' })
+			this.props.cloneCommonSelectedCriterias({id: specializationId, type: 'speciality'})
 		}
 
 		state = {
@@ -195,12 +195,38 @@ class HospitalDetailView extends React.Component {
 		})
 	}
 
-	applyQuickFilters(id) {
+	applyQuickFilters(category) {
 		let gtmData = {
-			'Category': 'ConsumerApp', 'Action': 'IpdHospitalSpecializationSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-specialization-search', 'specializationId': id
+			'Category': 'ConsumerApp', 'Action': 'IpdHospitalSpecializationSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-specialization-search', 'specializationId': category.id
 		}
 		GTM.sendEvent({ data: gtmData })
-		this.viewDoctorsClicked(id)
+		let self = this
+
+		let hospital_id = this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ? this.props.ipd_hospital_detail.id : ''
+		let doctor_name = ''
+		let hospital_name = ''
+		let state = {}
+		let specialization_category = []
+		if(category.specialization_ids && category.specialization_ids.length) {
+			category.specialization_ids.map((x)=>{
+				specialization_category.push({ id: x, type: 'speciality'})
+			})
+		}
+		
+		this.props.cloneCommonSelectedCriterias(specialization_category)
+		state = {
+			filterCriteria: {
+				...self.props.filterCriteria,
+				hospital_id, doctor_name, hospital_name
+			},
+			nextFilterCriteria: {
+				...self.props.filterCriteria,
+				hospital_id, doctor_name, hospital_name
+			}
+		}
+
+		this.props.mergeOPDState(state)
+		this.props.history.push(`/opd/searchresults`)
 	}
 
 	getInputFocus() {
@@ -274,13 +300,13 @@ class HospitalDetailView extends React.Component {
 							}
 							
 							{
-								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.all_specializations && this.props.ipd_hospital_detail.all_specializations.length?
+								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.all_specialization_groups && this.props.ipd_hospital_detail.all_specialization_groups.length?
 								<div className="sort-sub-filter-container mb-3">
 	                                <p><span className="fw-700">Popular Specializations</span></p>
 	                                <div className="srt-sb-btn-cont">
 	                                {
-	                                    this.props.ipd_hospital_detail.all_specializations.map((category, j) => {
-	                                        return <button key={j} className='srt-act' id={category.id} onClick={this.applyQuickFilters.bind(this, category.id)}> {category.name}</button>
+	                                    this.props.ipd_hospital_detail.all_specialization_groups.map((category, j) => {
+	                                        return <button key={j} className='srt-act' id={category.id} onClick={this.applyQuickFilters.bind(this, category)}> {category.name}</button>
 	                                    })
 	                                }
 	                                </div>
