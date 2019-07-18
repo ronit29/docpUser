@@ -5,6 +5,7 @@ import ProfileHeader from '../commons/DesktopProfileHeader'
 import STORAGE from '../../helpers/storage'
 import Loader from '../commons/Loader'
 import SnackBar from 'node-snackbar'
+import PaymentForm from '../commons/paymentForm'
 
 class InsuranceReview extends React.Component{
 	constructor(props) {
@@ -13,7 +14,8 @@ class InsuranceReview extends React.Component{
         	selectedProfile:'',
         	selected_plan_price:'',
         	is_edit:false,
-        	gst: 'inclusive of 18% GST'
+        	gst: 'inclusive of 18% GST',
+            paymentData: null
         }
     }
     componentDidMount(){
@@ -167,7 +169,8 @@ class InsuranceReview extends React.Component{
 						this.props.history.push('/insurance/certificate')
 					}else{
 						if(resp.payment_required){
-							this.props.history.push(`/payment/${resp.data.orderId}?refs=opd`)
+							// this.props.history.push(`/payment/${resp.data.orderId}?refs=opd`)
+                            this.processPayment(resp)
 						}else{
 							success_id = '/insurance/complete?payment_success=true&id='+resp.data.id
 							this.props.history.push(success_id)
@@ -189,6 +192,19 @@ class InsuranceReview extends React.Component{
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SENT SUCCESSFULY" })
             }
         })
+    }
+    
+    processPayment(data) {
+        if (data && data.status) {
+            this.setState({ paymentData: data.data }, () => {
+            	setTimeout(()=>{
+            		if (document.getElementById('paymentForm') && Object.keys(this.state.paymentData).length > 0) {
+	                    let form = document.getElementById('paymentForm')
+	                    form.submit()
+	                }
+            	},500)
+            })
+        }
     }
 
 	render(){	
@@ -386,6 +402,9 @@ class InsuranceReview extends React.Component{
 				<ChatPanel />
 				</div>
 				</section>
+                {
+                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='opd' /> : ""
+                }
 				</div>
 
 				)
