@@ -230,9 +230,9 @@ class IpdDoctorCityPopup extends React.Component {
 										</div>:''
 									}
 									<div className="nm-lst-inputcnt justify-content-between">
-										<div className="sel-ipd-input-cnt" style={{width: '48%' }} onClick={this.openDateModal.bind(this)}>
+										<div className="sel-ipd-input-cnt" style={{width: '48%' }}>
 											<img src={ASSETS_BASE_URL + "/img/calnext.svg"} />
-											<p>{this.state.requestedDateFormat} </p>
+											<input className="slct-inpt-cntnr-fcs" onClick={this.openDateModal.bind(this)} value={this.state.requestedDateFormat} />
 										</div>
 										{
 		                                    this.state.dateModal ? <div className="calendar-overlay"><div className="date-picker-modal">
@@ -249,7 +249,7 @@ class IpdDoctorCityPopup extends React.Component {
 										<div className="sel-ipd-input-cnt" style={{width: '48%'}}>
 											<img src={ASSETS_BASE_URL + "/img/calnext.svg"} />
 											<div className="ipd-slects-doc">
-												<select defaultValue={this.state.timeSlot} onChange={ (e)=> this.setState({'timeSlot': e.target.value}) }>
+												<select className="slct-ipn-ti" defaultValue={this.state.timeSlot} onChange={ (e)=> this.setState({'timeSlot': e.target.value}) }>
 													<option defaultValue="">*Select Time</option>
 													{
 														this.getTimeSlots()
