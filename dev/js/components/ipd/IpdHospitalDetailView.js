@@ -196,7 +196,7 @@ class HospitalDetailView extends React.Component {
 
 	applyQuickFilters(id) {
 		let gtmData = {
-			'Category': 'ConsumerApp', 'Action': 'IpdHospitalSpecializationSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-specialization-search'
+			'Category': 'ConsumerApp', 'Action': 'IpdHospitalSpecializationSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-specialization-search', 'specializationId': id
 		}
 		GTM.sendEvent({ data: gtmData })
 		this.viewDoctorsClicked(id)
