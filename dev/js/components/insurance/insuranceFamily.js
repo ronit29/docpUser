@@ -454,8 +454,8 @@ class InsuranceOthers extends React.Component {
 				<div className="sub-form-input-data" style={{marginBottom:10}} >
 					<div>
 						{this.props.is_endorsement?
-							<p className="sub-form-hed">{this.props.is_child_only? `Child ${this.props.member_view_id}`:`Spouse`}</p>
-							:<p className="sub-form-hed">{this.props.is_child_only? `Child ${this.props.member_view_id}`:`Spouse`}</p>
+							<p className="sub-form-hed">{this.props.is_child_only? `Child ${this.props.member_view_id-1}`:`Spouse`}</p>
+							:<p className="sub-form-hed">{this.props.is_child_only? `Child ${this.props.member_view_id-1}`:`Spouse`}</p>
 						}
 					</div>
 					<div>
