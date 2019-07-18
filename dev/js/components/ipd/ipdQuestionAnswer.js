@@ -39,7 +39,7 @@ class IpdQnA extends React.Component {
             {
               hospital_data.question_answers.map((treatment, i)=> {
               return <li key={i}>
-                   <h3 className="accordian-head" onClick={this.toggleTreatment.bind(this, treatment.id)}>{`${treatment.name}`}
+                   <h3 className="accordian-head fw-500" onClick={this.toggleTreatment.bind(this, treatment.id)}>{`${treatment.name}`}
                       {
                         this.state.treatment.indexOf(treatment.id)>-1?
                         <img className="" src={ASSETS_BASE_URL+"/images/up-arrow.png"} />
@@ -48,9 +48,8 @@ class IpdQnA extends React.Component {
                    </h3>
                    {
                       this.state.treatment.indexOf(treatment.id)>-1?
-                      <p className="accordian-dtl">
-                        <div className="widget custom-li-style pb-30" style={{textAlign:'justify'}} dangerouslySetInnerHTML={{ __html: treatment.answer}}>
-                        </div>
+                      <p className="accordian-dtl"  style={{textAlign:'justify', fontSize:'14px'}} dangerouslySetInnerHTML={{ __html: treatment.answer}}>
+        
                      </p>
                      :''   
                    }

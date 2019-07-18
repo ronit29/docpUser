@@ -7053,7 +7053,7 @@ button.padding-btn-adjust{
 	margin-bottom: 0;
 }
 .ipd-section .section-heading{
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 500;
     padding: 10px 0;
     color: #000;
@@ -7617,6 +7617,7 @@ p.cstm-cpn{
 }
 .ipd-section .opd-status{
     color: #0ca854;
+    display: inline-block;
 }
 .ipd-section .hsptl-contact li{
     display: flex;
