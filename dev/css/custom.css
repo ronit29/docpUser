@@ -2679,4 +2679,10 @@ select.slct-ipn-ti{
 	text-indent: 25px;
     padding: 0px;
 }
+.ipd-pop-ild{
+	position: absolute;
+    right: -8px;
+    top: -8px;
+    cursor: pointer;
+}
 /* ============ ipdnewpopup ============ */

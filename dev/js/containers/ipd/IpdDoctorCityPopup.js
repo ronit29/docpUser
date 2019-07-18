@@ -129,6 +129,11 @@ class IpdDoctorCityPopup extends React.Component {
 
 		this.props.submitSecondIPDForm(formData, this.props.selectedLocation, (error, response) => {
 			if (!error && response) {
+				let gtmData = {
+					'Category': 'ConsumerApp', 'Action': 'IPD-popup-lead', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'IPD-popup-lead', selectedId: '', 'hospitalId': '', 'from': 'leadForm', 'mobileNo':this.state.phone_number, 'formNo':'2'
+				}
+				GTM.sendEvent({ data: gtmData })
+
 				this.props.ipdPopupFired()
 
 				setTimeout(() => {
@@ -146,13 +151,7 @@ class IpdDoctorCityPopup extends React.Component {
 	}
 
 	closePopUpClicked() {
-		const parsed = queryString.parse(this.props.location.search)
-		if ((parsed.get_feedback && parsed.get_feedback == '1') || this.props.forcedPopup) {
-			SnackBar.show({ pos: 'bottom-center', text: "Please fill the feedback form" })
-		} else {
-			this.redirectToChat()
-			this.props.secondIpdFormSubmitted()
-		}
+		this.props.secondIpdFormSubmitted()
 	}
 
 	redirectToChat() {
@@ -225,6 +224,12 @@ class IpdDoctorCityPopup extends React.Component {
 				<div className="search-el-popup ipd-pop-width">
 					<div className="widget p-12">
 						<div className="p-relative">
+							<span className="ipd-pop-ild" onClick={(e) => {
+								e.stopPropagation()
+								e.preventDefault()
+								this.closePopUpClicked()
+							}}><img src={ASSETS_BASE_URL + "/img/icons/close.png"} />
+							</span>
 							<p className="ipd-needHelp">Need help with an appointment at Fortis Hospital?</p>
 							{/*<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Get upto 30% Off on Appointments</span></p>
 							<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Instant Booking Confirmation</span></p>
