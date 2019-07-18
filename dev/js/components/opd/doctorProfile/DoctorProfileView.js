@@ -378,7 +378,7 @@ class DoctorProfileView extends React.Component {
                         : ''
                 }
                 {
-                    this.props.DOCTORS[doctor_id] && this.state.showSecondPopup?
+                    this.props.DOCTORS[doctor_id] && this.state.showSecondPopup && parsed.get_feedback && parsed.get_feedback == '1'?
                     <IpdSecondPopup {...this.props} firstLeadId={this.state.firstLeadId} all_doctors={[]} all_cities={this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].all_cities?this.props.DOCTORS[doctor_id].all_cities:[]} doctorProfilePage={true} secondIpdFormSubmitted={this.secondIpdFormSubmitted.bind(this)}/>
                     :''
                 }
