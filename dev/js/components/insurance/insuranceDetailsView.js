@@ -65,7 +65,11 @@ class InsuranceInputView extends React.Component{
 					})
 
 	    		card = [...Array(props.selected_plan.child_count)].map((e, i) => {
-						membersId.push({[i+1]: i+1, type:'child'})
+	    				if(props.selected_plan.adult_count >1){
+	    					membersId.push({[i+2]: i+2, type:'child'})
+	    				}else{
+							membersId.push({[i+1]: i+1, type:'child'})
+						}
 					})
 /*
 				if(n !== 0){
@@ -76,11 +80,22 @@ class InsuranceInputView extends React.Component{
 			}else{
 				membersId.push({'0':0, type:'self'})
 				var n = (props.selected_plan.adult_count + props.selected_plan.child_count) - 1;
-				if(n !== 0){
-					card = [...Array(n)].map((e, i) => {
-						membersId.push({[i+1]: i+1})
+				card = [...Array(props.selected_plan.adult_count-1)].map((e, i) => {
+						membersId.push({[i+1]: i+1, type:'adult'})
 					})
-				}
+
+	    		card = [...Array(props.selected_plan.child_count)].map((e, i) => {
+	    				if(props.selected_plan.adult_count >1){
+	    					membersId.push({[i+2]: i+2, type:'child'})
+	    				}else{
+							membersId.push({[i+1]: i+1, type:'child'})
+						}
+					})
+				// if(n !== 0){
+				// 	card = [...Array(n)].map((e, i) => {
+				// 		membersId.push({[i+1]: i+1})
+				// 	})
+				// }
 			}
 			props.saveCurrentSelectedMembers(membersId)
 			this.setState({ saveMembers: true})
@@ -363,6 +378,16 @@ class InsuranceInputView extends React.Component{
 				is_disable = true
 				errorMessagesObj.sameName = '*Name of the members cannot be same'
 			}
+			console.log('validateErrors')
+			console.log(validatingErrors)
+			console.log('validateOtherErrors')
+			console.log(validatingOtherErrors)
+			console.log('validatingNames')
+			console.log(invalidname)
+			console.log('validatingDobErrors')
+			console.log(validatingDobErrors)
+			console.log('member_ref')
+			console.log(member_ref)
 		this.setState({validateErrors: validatingErrors,validateOtherErrors: validatingOtherErrors,validatingNames:invalidname,validateDobErrors:validatingDobErrors,errorMessages:errorMessagesObj})
     	if(is_disable && document.getElementById(member_ref)){    		
     		document.getElementById(member_ref).scrollIntoView();
@@ -396,12 +421,13 @@ class InsuranceInputView extends React.Component{
 		let adult
 		let userProfile
 		let selectedProfileId = parseInt(this.props.USER.defaultProfile)
+		let selectedMembersId =0
 		if(Object.keys(this.props.selected_plan).length >0){
 		
 			userProfile = Object.assign({}, this.props.USER.profiles[this.props.USER.defaultProfile])
-			
+
 			if(this.props.selected_plan.adult_count == 2 && this.props.currentSelectedInsuredMembersId.length>1){
-			
+				selectedMembersId++
 				adult = <InsurOthers {...this.props} 
 							self_gender={userProfile.gender} 
 							param_id = {'1'} 
@@ -417,6 +443,7 @@ class InsuranceInputView extends React.Component{
 							validatingNames={this.state.validatingNames||[]}
 							is_endorsement = {false}
 							endorsementError={this.state.endorsementError}
+							member_type = 'adult' 
 						/>
 			}
 		
@@ -424,23 +451,25 @@ class InsuranceInputView extends React.Component{
 		
 			if(n !== 0){
 				child =this.props.currentSelectedInsuredMembersId.filter(x=>x.type ==='child').map((data, i) =>{
+					selectedMembersId++
 						return <InsurOthers {...this.props} 
 									key={i} 
-									member_id={data[i+1]} 
+									member_id={data[selectedMembersId]} 
 									checkForValidation ={this.checkForValidation.bind(this)} 
 									is_child_only={true} 
-									id={`member_${i+1}`} 
-									param_id = {i+1} 
-									member_view_id= {i+1} 
-									validateErrors={this.state.validateErrors[i+1] || []} 
+									id={`member_${selectedMembersId}`} 
+									param_id = {selectedMembersId} 
+									member_view_id= {selectedMembersId} 
+									validateErrors={this.state.validateErrors[selectedMembersId] || []} 
 									validateOtherErrors={[]} 
 									createApiErrorsChild={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members:[]} 
 									show_selected_profiles={this.state.show_selected_profiles} 
-									validateDobErrors={this.state.validateDobErrors[i+1] || []} 
+									validateDobErrors={this.state.validateDobErrors[selectedMembersId] || []} 
 									errorMessages={this.state.errorMessages} 
 									validatingNames={this.state.validatingNames||[]}
 									is_endorsement = {false}
 									endorsementError={this.state.endorsementError}
+									member_type = 'child'
 								/>
 				})
 			}
