@@ -180,43 +180,19 @@ class HospitalDetailView extends React.Component {
 			}
 			GTM.sendEvent({ data: gtmData })
 		}
-		let ipd_data = {
+		/*let ipd_data = {
 			showChat: true,
 			ipdFormParams: ipdFormParams,
 			hospital:this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id?this.props.ipd_hospital_detail.id:''
-		}
+		}*/
 		
 		this.setState({ showLeadForm: false, ipdFormParams: ipdFormParams }, ()=>{
-			this.props.checkIpdChatAgentStatus((response)=> {
+			/*this.props.checkIpdChatAgentStatus((response)=> {
 				if(response && response.users && response.users.length) {
 
 					// this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize: true})
 				}
-			})
-			// this.props.showChatView(ipd_data)	
-		})
-	}
-
-	submitSecondLeadFormGeneration(ipdFormParams) {
-		if (close) {
-			let gtmData = {
-				'Category': 'ConsumerApp', 'Action': 'IpdHospitalDetailPageFormClosed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-detail-page-form-closed'
-			}
-			GTM.sendEvent({ data: gtmData })
-		}
-		let ipd_data = {
-			showChat: true,
-			ipdFormParams: ipdFormParams,
-			hospital:this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id?this.props.ipd_hospital_detail.id:''
-		}
-		
-		this.setState({ showSecondPopup: false, ipdFormParams: ipdFormParams }, ()=>{
-			this.props.checkIpdChatAgentStatus((response)=> {
-				if(response && response.users && response.users.length) {
-
-					// this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize: true})
-				}
-			})
+			})*/
 			// this.props.showChatView(ipd_data)	
 		})
 	}

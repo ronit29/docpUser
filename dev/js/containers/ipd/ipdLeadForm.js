@@ -59,6 +59,11 @@ class IpdLeadForm extends React.Component {
 			return
 		}
 
+		if (!this.state.gender) {
+			SnackBar.show({ pos: 'bottom-center', text: "Please select your Gender" })
+			return
+		}
+
 		if (!this.state.comments) {
 			SnackBar.show({ pos: 'bottom-center', text: "Please enter your Comment" })
 			return
@@ -246,7 +251,7 @@ class IpdLeadForm extends React.Component {
 												<div className="ipd-inp-section">
 													<div className="nm-lst-inputcnt">
 														<input style={{ marginRight: '8px' }} type="text" value={this.state.first_name} name='first_name' placeholder="*First Name" onChange={this.inputHandler.bind(this)}/>
-														<input type="text" value={this.state.last_name} name='last_name' placeholder="*Last Name" onChange={this.inputHandler.bind(this)}/>
+														<input type="text" value={this.state.last_name} name='last_name' placeholder="Last Name" onChange={this.inputHandler.bind(this)}/>
 													</div>
 													<input type="text" value={this.state.phone_number} name='phone_number' placeholder="*Mobile Number" onChange={this.inputHandler.bind(this)}/>
 													<div className="slt-nw-input radio-mbl mb-10">

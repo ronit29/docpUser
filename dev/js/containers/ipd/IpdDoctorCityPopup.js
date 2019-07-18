@@ -20,7 +20,8 @@ class IpdDoctorCityPopup extends React.Component {
 			requested_date_time: new Date().toDateString(),
 			timeSlot: '',
 			dateModal: false,
-			requestedDateFormat: this.getFormattedDate(new Date())
+			requestedDateFormat: this.getFormattedDate(new Date()),
+			requested_date_format: new Date()
 		}
 	}
 
@@ -158,10 +159,10 @@ class IpdDoctorCityPopup extends React.Component {
 
 	getTimeSlots(){
 		let offset =  new Date()
-		let currentTime = parseInt(new Date().toLocaleTimeString())
+		let currentTime = 8
 		let timeSlot = []
-		if(this.state.requested_date_time == new Date().toDateString()){
-			currentTime = 8
+		if(new Date(this.state.requested_date_format).toDateString() == new Date().toDateString()){
+			currentTime = parseInt(new Date().toLocaleTimeString()) + 1
 		}
 		for(var i=currentTime ;i<=20;i++){
 			offset.setHours(i)
@@ -181,7 +182,7 @@ class IpdDoctorCityPopup extends React.Component {
         if (date) {
             date = date.toDate()
             date = this.getFormattedDate(date)
-            this.setState({ dateModal: false, requestedDateFormat: date })
+            this.setState({ dateModal: false, requestedDateFormat: date, requested_date_format:new Date(date) })
         } else {
             this.setState({ dateModal: false })
         }
