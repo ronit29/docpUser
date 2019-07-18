@@ -63,7 +63,7 @@ class VerifyEmail extends React.Component {
 		                setTimeout(() => {
 		                    this.setState({ otpTimeout: true })
 		                }, 10000)
-		                SnackBar.show({ pos: 'bottom-center', text: "OTP Sent Successfuly."})
+		                SnackBar.show({ pos: 'bottom-center', text: "OTP has been sent successfuly to your new email."})
 		            }else {
 		            	this.setState({showOtp: false, otpTimeout: false })
 		            	SnackBar.show({ pos: 'bottom-center', text: resp.message })
