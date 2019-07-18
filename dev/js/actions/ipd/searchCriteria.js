@@ -256,3 +256,38 @@ export const clearIpdSearchId = () => (dispatch) => {
         type: CLEAR_IPD_SEARCH_IDS
     })
 }
+
+export const submitSecondIPDForm = (formData, selectedLocation, cb) => (dispatch) => {
+
+    let lat = 28.644800
+    let long = 77.216721
+    let place_id = ""
+    let locality = ""
+    let sub_locality = ""
+
+    if (selectedLocation) {
+        lat = selectedLocation.geometry.location.lat
+        long = selectedLocation.geometry.location.lng
+        place_id = selectedLocation.place_id || ""
+        if (typeof lat === 'function') lat = lat()
+        if (typeof long === 'function') long = long()
+        locality = selectedLocation.locality || ""
+        sub_locality = selectedLocation.sub_locality || ""
+    }else{
+        locality = 'Delhi'
+    }
+
+    if(formData) {
+        formData.lat = lat
+        formData.long = long
+        formData.locality = locality
+        formData.sub_locality = sub_locality
+    }
+
+
+    return API_POST('/api/v1/doctor/ipd_procedure/update_lead', formData).then(function(response) {
+        if(cb) cb(null, response)
+    }).catch(function(error){
+        if(cb) cb(error, null)
+    })
+}
