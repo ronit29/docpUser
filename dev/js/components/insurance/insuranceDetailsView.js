@@ -58,15 +58,23 @@ class InsuranceInputView extends React.Component{
     		}
     		isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
     		if(!isDummyUser){
-	    		membersId.push({'0':loginUser})
+	    		membersId.push({'0':loginUser, type: 'self'})
 	    		var n = (props.selected_plan.adult_count + props.selected_plan.child_count) - 1;
+	    		card = [...Array(props.selected_plan.adult_count-1)].map((e, i) => {
+						membersId.push({[i+1]: i+1, type:'adult'})
+					})
+
+	    		card = [...Array(props.selected_plan.child_count)].map((e, i) => {
+						membersId.push({[i+1]: i+1, type:'child'})
+					})
+/*
 				if(n !== 0){
 					card = [...Array(n)].map((e, i) => {
-						membersId.push({[i+1]: i+1})
+						membersId.push({[i+1]: i+1, type:''})
 					})
-				}
+				}*/
 			}else{
-				membersId.push({'0':0})
+				membersId.push({'0':0, type:'self'})
 				var n = (props.selected_plan.adult_count + props.selected_plan.child_count) - 1;
 				if(n !== 0){
 					card = [...Array(n)].map((e, i) => {
@@ -415,28 +423,25 @@ class InsuranceInputView extends React.Component{
 			var n = (this.props.selected_plan.child_count);
 		
 			if(n !== 0){
-				child =this.props.currentSelectedInsuredMembersId.map((data, i) =>{
-					if(i!=0 && i!=1){
-			
+				child =this.props.currentSelectedInsuredMembersId.filter(x=>x.type ==='child').map((data, i) =>{
 						return <InsurOthers {...this.props} 
 									key={i} 
-									member_id={data[i]} 
+									member_id={data[i+1]} 
 									checkForValidation ={this.checkForValidation.bind(this)} 
 									is_child_only={true} 
 									id={`member_${i+1}`} 
-									param_id = {i} 
-									member_view_id= {i} 
-									validateErrors={this.state.validateErrors[i] || []} 
+									param_id = {i+1} 
+									member_view_id= {i+1} 
+									validateErrors={this.state.validateErrors[i+1] || []} 
 									validateOtherErrors={[]} 
 									createApiErrorsChild={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members:[]} 
 									show_selected_profiles={this.state.show_selected_profiles} 
-									validateDobErrors={this.state.validateDobErrors[i] || []} 
+									validateDobErrors={this.state.validateDobErrors[i+1] || []} 
 									errorMessages={this.state.errorMessages} 
 									validatingNames={this.state.validatingNames||[]}
 									is_endorsement = {false}
 									endorsementError={this.state.endorsementError}
 								/>
-					}
 				})
 			}
 
