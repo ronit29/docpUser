@@ -231,7 +231,7 @@ class IpdDoctorCityPopup extends React.Component {
 									<div className="nm-lst-inputcnt justify-content-between">
 										<div className="sel-ipd-input-cnt" style={{width: '48%' }} onClick={this.openDateModal.bind(this)}>
 											<img src={ASSETS_BASE_URL + "/img/calnext.svg"} />
-											<p>{this.state.requestedDateFormat}</p>
+											<p>{this.state.requestedDateFormat} </p>
 										</div>
 										{
 		                                    this.state.dateModal ? <div className="calendar-overlay"><div className="date-picker-modal">
