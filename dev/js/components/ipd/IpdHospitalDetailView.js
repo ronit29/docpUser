@@ -18,6 +18,7 @@ import ChatIpdPanel from '../commons/ChatPanel/ChatIpdPanel.js'
 import IpdOffersPage from './IpdOffersPage.js'
 import CommonSearch from '../../containers/commons/CommonSearch.js'
 import IpdCarousel from './IpdHospitalDetailCarousel.js'
+import IpdQuestionAnswer from './ipdQuestionAnswer.js'
 
 //View all rating for hospital ,content_type = 3
 
@@ -381,9 +382,15 @@ class HospitalDetailView extends React.Component {
 
 
 							{
-								this.props.ipd_hospital_detail && (this.props.ipd_hospital_detail.new_about || this.props.ipd_hospital_detail.about) ?
+								this.props.ipd_hospital_detail && (this.props.ipd_hospital_detail.new_about) ?
 									<HospitalAboutUs hospital_data={this.props.ipd_hospital_detail} />
 									: ''
+							}
+
+							{
+								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.question_answers && this.props.ipd_hospital_detail.question_answers.length?
+									<IpdQuestionAnswer hospital_data={this.props.ipd_hospital_detail}/>
+									:''
 							}
 							{
 								this.props.ipd_chat || showPopup || (this.props.ipd_hospital_detail && !this.props.ipd_hospital_detail.is_ipd_hospital)?''
