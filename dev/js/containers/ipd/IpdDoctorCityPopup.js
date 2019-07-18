@@ -83,7 +83,7 @@ class IpdDoctorCityPopup extends React.Component {
 			doctor:doctor.length?doctor[0]:'',
 			matrix_city: city.length?city[0]:'',
 			city: this.state.selectedCity,
-			id: this.props.firstLeadId || 2
+			id: this.props.firstLeadId
 		}
 
 		if(this.state.requested_date_format) {
@@ -130,7 +130,7 @@ class IpdDoctorCityPopup extends React.Component {
 		this.props.submitSecondIPDForm(formData, this.props.selectedLocation, (error, response) => {
 			if (!error && response) {
 				let gtmData = {
-					'Category': 'ConsumerApp', 'Action': 'IPD-popup-lead', 'CustomerID': GTM.getUserId() || '', 'leadid': response.id || '', 'event': 'IPD-popup-lead', selectedId: '', 'hospitalId': '', 'from': 'leadForm', 'mobileNo':this.state.phone_number, 'formNo':'2'
+					'Category': 'ConsumerApp', 'Action': 'IPD-popup-lead', 'CustomerID': GTM.getUserId() || '', 'leadid': this.props.firstLeadId || '', 'event': 'IPD-popup-lead', selectedId: '', 'hospitalId': '', 'from': 'leadForm', 'mobileNo':this.state.phone_number, 'formNo':'2'
 				}
 				GTM.sendEvent({ data: gtmData })
 
