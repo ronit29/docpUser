@@ -199,7 +199,6 @@ class InsurancePopup extends React.Component {
             if(this.props.is_child_only){
                 threshold_max_age = this.props.selected_plan.threshold[0].child_max_age
                 threshold_min_age = 0
-                 18 and 65 years
                 errorMessage = `The age of the selected member should be between ${this.props.selected_plan.threshold[0].child_min_age} and ${this.props.selected_plan.threshold[0].child_max_age} years`
             }else{
                 threshold_max_age = this.props.selected_plan.threshold[0].max_age
