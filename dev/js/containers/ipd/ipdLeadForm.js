@@ -10,10 +10,12 @@ class IpdLeadForm extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			name: '',
+			first_name: '',
+			last_name:'',
 			phone_number: '',
 			showForm: true,
-			comments:''
+			comments:'',
+			gender:''
 /*			gender: '',
 			comments: '',
 			whatsapp_optin: true*/
@@ -39,9 +41,9 @@ class IpdLeadForm extends React.Component {
 	}
 
 	submitLeadForm() {
-		if (!this.state.name.match(/^[a-zA-Z ]+$/)) {
+		if (!this.state.first_name.match(/^[a-zA-Z ]+$/)) {
 			setTimeout(() => {
-				if (!this.state.name) {
+				if (!this.state.first_name) {
 					SnackBar.show({ pos: 'bottom-center', text: "Please enter patient's name." })
 				} else {
 					SnackBar.show({ pos: 'bottom-center', text: "Name should only contain alphabets." })
@@ -54,6 +56,11 @@ class IpdLeadForm extends React.Component {
 
 		} else {
 			SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Mobile No" })
+			return
+		}
+
+		if (!this.state.gender) {
+			SnackBar.show({ pos: 'bottom-center', text: "Please select your Gender" })
 			return
 		}
 
@@ -100,7 +107,10 @@ class IpdLeadForm extends React.Component {
 		this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
 			if (!error && response) {
 				this.props.ipdPopupFired()
-				if(this.state.name && this.state.name.includes('test')) {
+				if(this.props.saveLeadIdForUpdation && typeof(this.props.saveLeadIdForUpdation)=='function'){
+					this.props.saveLeadIdForUpdation(response)
+				}
+				if(this.state.first_name && this.state.first_name.includes('test')) {
 
 				}else {
 					let gtmData = {
@@ -151,7 +161,11 @@ class IpdLeadForm extends React.Component {
 				e.stopPropagation()
 				this.closePopUpClicked()
 			}}>
-				<div className="search-el-popup ipd-pop-width">
+				<div className="search-el-popup ipd-pop-width" onClick={(e) => {
+					e.preventDefault()
+					e.stopPropagation()
+				
+					}}>
 					<div className="widget p-12">
 						{
 							this.state.showForm ?
@@ -204,7 +218,7 @@ class IpdLeadForm extends React.Component {
 										<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'}/> <span className="d-block">Dedicated Doctor for Medical Advice</span></p>
 										:''
 									}
-									<div className="ipd-inp-section" onClick={(e) => {
+									{/*<div className="ipd-inp-section" onClick={(e) => {
 										e.stopPropagation()
 										e.preventDefault()
 									}}>
@@ -213,29 +227,6 @@ class IpdLeadForm extends React.Component {
 										<div className="ipd-lead-textarea">
 											<textarea placeholder="*How can we help you?" style={{fontWeight:500}} rows='1' value={this.state.comments} name='comments' onChange={this.inputHandler.bind(this)}></textarea>
 										</div>
-										{/*<div className="d-flex align-items-center flex-wrap mrt-10">
-											<div className="dtl-radio">
-												<label className="container-radio" style={{ fontSize: 14, fontWeight: 400 }} onClick={() => this.setState({ gender: 'm' })}>Male<input type="radio" checked={this.state.gender === 'm'} name="radio" value={this.state.gender} style={{ width: 10 }} />
-													<span className="doc-checkmark"></span>
-												</label>
-											</div>
-											<div className="dtl-radio">
-												<label className="container-radio" style={{ fontSize: 14, fontWeight: 400 }} onClick={() => this.setState({ gender: 'f' })}>Female<input type="radio" checked={this.state.gender === 'f'} name="radio" value={this.state.gender} style={{ width: 10 }} />
-													<span className="doc-checkmark"></span>
-												</label>
-											</div>
-											<div className="dtl-radio">
-												<label className="container-radio" style={{ fontSize: 14, fontWeight: 400 }} onClick={() => this.setState({ gender: 'o' })}>Other<input type="radio" checked={this.state.gender === 'o'} name="radio" value={this.state.gender} style={{ width: 10 }} />
-													<span className="doc-checkmark"></span>
-												</label>
-											</div>
-										</div>
-										
-										<div className="mrb-20">
-					                        <label className="ck-bx p-0" style={{ fontWeight: '400', fontSize: '14px' }} onClick={this.toggleWhatsap.bind(this)}>Enable 
-					                            <span className="sm-wtsp-img fw-400"><img src={ASSETS_BASE_URL + "/img/wa-logo-sm.png"} />WhatsApp</span> notification<input type="checkbox" checked={this.state.whatsapp_optin} /><span className="checkmark" style={{left: '7px'}}></span>
-					                        </label>
-					                	</div>*/}
 					                	<div className="skip-btn-sgn">
 											<button className="ipd-inp-sbmt" onClick={(e) => {
 												e.stopPropagation()
@@ -252,7 +243,54 @@ class IpdLeadForm extends React.Component {
 											}
 											
 										</div>
-									</div>
+									</div>*/}
+											<div className="ipd-pop-scrl" onClick={(e) => {
+												e.stopPropagation()
+												e.preventDefault()
+											}}>
+												<div className="ipd-inp-section">
+													<div className="nm-lst-inputcnt">
+														<input style={{ marginRight: '8px' }} type="text" value={this.state.first_name} name='first_name' placeholder="*First Name" onChange={this.inputHandler.bind(this)}/>
+														<input type="text" value={this.state.last_name} name='last_name' placeholder="Last Name" onChange={this.inputHandler.bind(this)}/>
+													</div>
+													<input type="text" value={this.state.phone_number} name='phone_number' placeholder="*Mobile Number" onChange={this.inputHandler.bind(this)}/>
+													<div className="slt-nw-input radio-mbl mb-10">
+														<label className="slt-label" htmlFor="male" ><sup className="requiredAst">*</sup>Gender:</label>
+														<div className="slt-label-radio">
+															<div className="dtl-radio">
+																<label className="container-radio" onClick={() => this.setState({ gender: 'm' })}>Male
+				                                                        <input type="radio" name="gender" name="gender" checked={this.state.gender==='m'}/>
+																	<span className="doc-checkmark"></span>
+																</label>
+															</div>
+															<div className="dtl-radio">
+																<label className="container-radio" onClick={() => this.setState({ gender: 'f' })}>Female
+				                                                        <input type="radio" name="gender" value="m" name="gender" checked={this.state.gender==='f'}/>
+																	<span className="doc-checkmark"></span>
+																</label>
+															</div>
+														</div>
+													</div>
+													<div className="ipd-lead-textarea">
+														<textarea placeholder="*How can we help you?" style={{ fontWeight: 500 }} rows='1' name='comments' value={this.state.comments} onChange={this.inputHandler.bind(this)}></textarea>
+													</div>
+													<div className="skip-btn-sgn">
+														<button className="ipd-inp-sbmt" onClick={(e) => {
+																e.stopPropagation()
+																e.preventDefault()
+																this.submitLeadForm()
+															}}>Click to Proceed</button>
+														{
+															(parsed && parsed.get_feedback && parsed.get_feedback == '1') || this.props.forcedPopup ?''
+															:<p onClick={(e) => {
+																e.stopPropagation()
+																e.preventDefault()
+																this.closePopUpClicked()
+															}}>Skip</p>
+														}
+													</div>
+												</div>
+											</div>
 								</div>
 								: ''
 						}
