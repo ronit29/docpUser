@@ -8,7 +8,8 @@ class UserAppointmentsView extends React.Component {
         super(props)
         this.state = {
             showReports: false,
-            appointmentReports: []
+            appointmentReports: [],
+            show_sorted_results: false
         }
     }
 
@@ -36,12 +37,22 @@ class UserAppointmentsView extends React.Component {
         }
     }
 
+    toggleSortOrder(){
+
+        this.setState({show_sorted_results: !this.state.show_sorted_results})
+    }
+
     render() {
 
         let { appointments, selectedProfile } = this.props.USER
 
         return (
             <div className="widget-content pl-0 pr-0">
+                <div className="tg-list-item">
+                    <p>Sort by Appointment Status</p>
+                    <input className="tgl tgl-ios" id="lab_insurance" type="checkbox" checked={this.state.show_sorted_results} onChange={this.toggleSortOrder.bind(this)} />
+                    <label className="tgl-btn" htmlFor="lab_insurance"></label>
+                </div>
                 {
                     appointments[selectedProfile] ? <ul className="list online-consultant-list dp-user-list" style={{ marginTop: 15, marginBottom: 70 }}>
                         {
@@ -50,8 +61,8 @@ class UserAppointmentsView extends React.Component {
                                     return ((app.type == 'lab' && app.lab) || app.type == 'doctor') ?
                                         <AppointmentList key={i} {...this.props} data={app} viewReportClick={this.viewReportClick.bind(this)} />
                                         : ''
-
-                                }) : <div className="text-center pd-20">
+                                }) : 
+                                <div className="text-center pd-20">
                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/no-appointment.png"} />
                                     <p className="fw-500 text-lg mrt-20">No Appointments !!</p>
                                 </div>
