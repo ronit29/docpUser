@@ -28,7 +28,8 @@ class InsuranceEndoresmentInputView extends React.Component{
             show_selected_profiles:[],
             validateDobErrors:[],
            	errorMessages:[],
-           	endorsementError:[]
+           	endorsementError:[],
+           	emailVerified:false
         }
     }
     componentDidMount(){
@@ -118,6 +119,10 @@ class InsuranceEndoresmentInputView extends React.Component{
     	let is_enable = profiles.filter(x=> !x.isformCompleted)
     	is_enable = is_enable.length?false:true
     	this.setState({enable_proceed: is_enable, profiles_selected: profiles})
+    }
+
+    checkIsEmailVerfied(){
+    	this.setState({emailVerified:true})
     }
 
     proceedPlan(){
@@ -386,15 +391,17 @@ class InsuranceEndoresmentInputView extends React.Component{
 					if(this.props.self_data_values[id]) {
 						let selectedProfile = this.props.self_data_values[id]
 						let selectedApiProfile = this.props.endorsed_member_data.members[i]
-						for(let j in  selectedApiProfile ) {
-							if(selectedProfile[j] != selectedApiProfile[j]) {
-								is_fields_edited.push(id)
-								if(edited_fields[id]) {
+						for(let j in  selectedApiProfile ) {							
+							if(j!='email') {
+								if(selectedProfile[j] != selectedApiProfile[j]) {
+									is_fields_edited.push(id)
+									if(edited_fields[id]) {
 
-								}else {
-									edited_fields[id] = []
+									}else {
+										edited_fields[id] = []
+									}
+									edited_fields[id].push(j)
 								}
-								edited_fields[id].push(j)
 							}
 						} 
 					}
@@ -422,7 +429,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 			}
 			console.log(member_ref)
 		this.setState({validateErrors: validatingErrors,validateOtherErrors: validatingOtherErrors,validatingNames:invalidname,validateDobErrors:validatingDobErrors,errorMessages:errorMessagesObj,endorsementError:newIdProofs})
-		if(Object.keys(edited_fields).length >0){
+		if(Object.keys(edited_fields).length >0 || this.state.emailVerified){
 	    	if(is_disable && document.getElementById(member_ref)){    		
 	    		document.getElementById(member_ref).scrollIntoView();
 	    	}else{
@@ -554,6 +561,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 											user_data={this.props.endorsed_member_data.members.filter(x=>x.relation == 'self')} 
 											member_type={'adult'}
 											endorsementError={this.state.endorsementError}
+											checkIsEmailVerfied = {this.checkIsEmailVerfied.bind(this)}
 										/>
 									</div>
 								</div>

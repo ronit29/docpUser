@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Loader from '../../components/commons/Loader'
 
-import { userData,selectInsuranceProfile, saveCurrentSelectedMembers, pushUserData, resetSelectedInsuranceMembers, getInsurance, getEndorsedMemberList, pushUserEndorsedData, selectInsurancePlan, uploadProof, storeMemberProofs, removeMemberProof} from '../../actions/index.js'
+import { userData,selectInsuranceProfile, saveCurrentSelectedMembers, pushUserData, resetSelectedInsuranceMembers, getInsurance, getEndorsedMemberList, pushUserEndorsedData, selectInsurancePlan, uploadProof, storeMemberProofs, removeMemberProof, submitEmailOTP, sendOtpOnEmail} from '../../actions/index.js'
 import InsuranceComponentView from '../../components/insurance/insuranceEndorsementDetailsView.js'
 
 class InsuranceEndorsementDetails extends React.Component{
@@ -28,6 +28,7 @@ class InsuranceEndorsementDetails extends React.Component{
         }) 
     }
 	render(){
+
         if(this.state.members_data && this.state.insurance_data){
     		return(
     			<InsuranceComponentView {...this.props} endorseData={this.state.members_data}/>
@@ -62,7 +63,9 @@ const mapDispatchToProps = (dispatch) => {
         selectInsurancePlan: (plan,criteria) => dispatch(selectInsurancePlan(plan,criteria)),        
         uploadProof:(profileData, profileId,imgType, cb) =>dispatch(uploadProof(profileData, profileId,imgType, cb)),
         storeMemberProofs:(imgUrl,cb)=>dispatch(storeMemberProofs(imgUrl,cb)),
-        removeMemberProof:(criteria)=>dispatch(removeMemberProof(criteria))
+        removeMemberProof:(criteria)=>dispatch(removeMemberProof(criteria)),
+        sendOtpOnEmail:(criteria,callback)=>dispatch(sendOtpOnEmail(criteria,callback)),
+        submitEmailOTP: (data, cb) => dispatch(submitEmailOTP(data, cb)),
     }
 }
 

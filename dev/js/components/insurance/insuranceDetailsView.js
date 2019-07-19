@@ -382,6 +382,10 @@ class InsuranceInputView extends React.Component{
 		})
 		this.props.pushUserData(insuranceUserData)
     }
+
+    checkIsEmailVerfied(){
+    	
+    }
     
 	render(){
 		let child
@@ -467,7 +471,9 @@ class InsuranceInputView extends React.Component{
 												createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} 
 												errorMessages={this.state.errorMessages} 
 												is_endorsement = {false} 
-												endorsementError={this.state.endorsementError}/>
+												endorsementError={this.state.endorsementError}
+												checkIsEmailVerfied = {this.checkIsEmailVerfied.bind(this)}
+												/>
 										</div>
 									</div>
 									{adult}
