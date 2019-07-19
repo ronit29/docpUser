@@ -37,9 +37,9 @@ class UserAppointmentsView extends React.Component {
         }
     }
 
-    toggleSortOrder(){
+    toggleSortOrder() {
 
-        this.setState({show_sorted_results: !this.state.show_sorted_results})
+        this.setState({ show_sorted_results: !this.state.show_sorted_results })
     }
 
     render() {
@@ -48,11 +48,20 @@ class UserAppointmentsView extends React.Component {
 
         return (
             <div className="widget-content pl-0 pr-0">
-                <div className="tg-list-item">
+                <div className="apt-sorting">
+                    <label>View by:</label>
+                    <select>
+                        <option value="" disabled selected>All Appointments</option>
+                        <option value="">values</option>
+                        <option value="">values</option>
+                        <option value="">values</option>
+                    </select>
+                </div>
+                {/* <div className="tg-list-item">
                     <p>Sort by Appointment Status</p>
                     <input className="tgl tgl-ios" id="lab_insurance" type="checkbox" checked={this.state.show_sorted_results} onChange={this.toggleSortOrder.bind(this)} />
                     <label className="tgl-btn" htmlFor="lab_insurance"></label>
-                </div>
+                </div> */}
                 {
                     appointments[selectedProfile] ? <ul className="list online-consultant-list dp-user-list" style={{ marginTop: 15, marginBottom: 70 }}>
                         {
@@ -61,7 +70,7 @@ class UserAppointmentsView extends React.Component {
                                     return ((app.type == 'lab' && app.lab) || app.type == 'doctor') ?
                                         <AppointmentList key={i} {...this.props} data={app} viewReportClick={this.viewReportClick.bind(this)} />
                                         : ''
-                                }) : 
+                                }) :
                                 <div className="text-center pd-20">
                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/no-appointment.png"} />
                                     <p className="fw-500 text-lg mrt-20">No Appointments !!</p>
