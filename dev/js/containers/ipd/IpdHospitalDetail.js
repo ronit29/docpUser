@@ -33,7 +33,19 @@ class HospitalDetail extends React.Component {
         if (match.url.includes('-hpp') ) {
             searchUrl = match.url.toLowerCase()
         }
-		return store.dispatch(getHospitaDetails(match.params.hospitalId, null, searchUrl, query.specialization_id || ''))
+        return new Promise((resolve, reject)=>{
+        	try{
+        		return store.dispatch(getHospitaDetails(match.params.hospitalId, null, searchUrl, query.specialization_id || '', (resp)=>{
+        			if(resp && resp.status && resp.status==301){
+        				resolve({ status: 301 })
+        			}else{
+        				resolve({})
+        			}
+        		}) )
+        	}catch(e){
+        		reject()
+        	}
+        })
 	}
 
 	static contextTypes = {
