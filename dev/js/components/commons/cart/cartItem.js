@@ -1,5 +1,6 @@
 import React from 'react';
 import InitialsPicture from '../../commons/initialsPicture'
+const queryString = require('query-string');
 
 class CartItem extends React.Component {
     constructor(props) {
@@ -202,6 +203,7 @@ class CartItem extends React.Component {
         if (date) {
             date = new Date(date)
         }
+        let parsed = queryString.parse(this.props.location.search)
         return (
             <div>
                 <div className="widget mrb-15 mrng-top-12 p-relative">
@@ -339,7 +341,11 @@ class CartItem extends React.Component {
 
                     <div className="shpng-card-btns">
                         <button onClick={this.removeFromCart.bind(this, id)}>Remove</button>
-                        <button onClick={this.edit.bind(this)}>Edit</button>
+                        {
+                            parsed.is_agent_booking && parsed.is_agent_booking == 'true' && is_appointment_insured?''
+                            :<button onClick={this.edit.bind(this)}>Edit</button>
+                        }
+                        {/*<button onClick={this.edit.bind(this)}>Edit</button>*/}
                     </div>
                 </div>
 
