@@ -24,8 +24,10 @@ class VerifyEmail extends React.Component {
 	
 	handleEndoresmentEmail(event) {
 		let oldEmail
-		if (this.props.user_data && this.props.user_data.length > 0) {
+		if (this.props.is_endorsement && this.props.user_data && this.props.user_data.length > 0) {
 			oldEmail = this.props.user_data[0].email
+		}else{
+			oldEmail = this.props.email
 		}
 		this.setState({email:event.target.value},()=>{
 			if(oldEmail !== this.state.email){
@@ -34,11 +36,15 @@ class VerifyEmail extends React.Component {
 				if (validEmail) {	
 					this.setState({VerifyEmails:true})
 				}
-				this.props.handleSubmit(false,true)
+				if(this.props.is_endorsement){
+					this.props.handleSubmit(false,true)
+				}
 			}
 			if(this.state.email == ''){
 				this.setState({VerifyEmails:false})
-				this.props.handleSubmit(false,true)	
+				if(this.props.is_endorsement){
+					this.props.handleSubmit(false,true)	
+				}
 			}
 		})
 	}
@@ -48,8 +54,10 @@ class VerifyEmail extends React.Component {
 			this.setState({otpTimeout:false,otpValue:'' })
 		}
 		let data={}
-        if (this.props.user_data && this.props.user_data.length > 0) {
+        if (this.props.is_endorsement && this.props.user_data && this.props.user_data.length > 0) {
 			data.profile = this.props.user_data[0].profile
+		}else{
+			data.profile = this.props.member_id.id
 		}
 		let validEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		if (this.state.email != '') {			
@@ -59,7 +67,9 @@ class VerifyEmail extends React.Component {
 				this.props.sendOtpOnEmail(data, (resp) => {        
 	            	if(resp && resp.id){
 		            	this.setState({emailSuccessId:resp.id, showOtp: true, otpTimeout: false })
-		            	this.props.handleSubmit(false,true)
+		            	if(this.props.is_endorsement){
+		            		this.props.handleSubmit(false,true)
+		            	}
 		                setTimeout(() => {
 		                    this.setState({ otpTimeout: true })
 		                }, 10000)
@@ -85,11 +95,17 @@ class VerifyEmail extends React.Component {
 	submitOtp(){
 		let data={}
 		data.id = this.state.emailSuccessId
-		if (this.props.user_data && this.props.user_data.length > 0) {
+		if (this.props.is_endorsement && this.props.user_data && this.props.user_data.length > 0) {
 			data.profile = this.props.user_data[0].profile
+		}else{
+			data.profile = this.props.member_id.id
 		}
 		data.otp = this.state.otpValue
-		data.process_immediately = false
+		if(this.props.is_endorsement){
+			data.process_immediately = false
+		}else{
+			data.process_immediately = true
+		}
 		this.props.submitEmailOTP(data,(resp) =>{
 			if(resp && resp.success){
 		        this.props.verifyEndorsementEmail(this.state.email)
@@ -106,7 +122,7 @@ class VerifyEmail extends React.Component {
 			<div className="col-12 mrt-10">
 				<div className={this.state.showOtp?'ins-email-cont':''}>
 					<div className={`ins-form-group ${this.state.showOtp?'mb-0':''}`}>
-						<input type="text" id="statick" id={`emails_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('email') > -1 ? 'fill-error' : ''}`} required autoComplete="email" name="email" data-param='email' value={this.state.email} onChange={this.handleEndoresmentEmail.bind(this)} onBlur={this.handleEndoresmentEmail.bind(this)} />
+						<input type="text" id="statick" id={`emails_${this.props.member_id.id}`} className={`form-control ins-form-control ${this.props.validateErrors && this.props.validateErrors.indexOf('email') > -1 ? this.props.is_endorsement?'fill-error':'errorColorBorder': ''}`} required autoComplete="email" name="email" data-param='email' value={this.state.email} onChange={this.handleEndoresmentEmail.bind(this)} onBlur={this.handleEndoresmentEmail.bind(this)} />
 						<label className="form-control-placeholder datePickerLabel" htmlFor="statick"><span className="labelDot"></span>Email</label>
 						<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
 						{
