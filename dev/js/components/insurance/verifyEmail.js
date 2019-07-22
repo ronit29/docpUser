@@ -21,6 +21,12 @@ class VerifyEmail extends React.Component {
 			this.setState({email:this.props.email, initialStage:false})	
 		}
 	}
+
+	componentDidMount(){
+		if(this.state.initialStage && this.props.email !=''){
+			this.setState({email:this.props.email, initialStage:false})	
+		}	
+	}
 	
 	handleEndoresmentEmail(event) {
 		let oldEmail
