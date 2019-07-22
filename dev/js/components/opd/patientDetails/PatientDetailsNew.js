@@ -1230,30 +1230,49 @@ class PatientDetailsNew extends React.Component {
                                                                             </div>
                                                                         </div>
                                                                         {
-                                                                            enabled_for_cod_payment && priceData.is_cod_deal_price && priceData.fees != 0?
+                                                                            enabled_for_cod_payment && priceData.fees != 0 && priceData.is_cod_deal_price !== priceData.mrp?
                                                                                 <React.Fragment>
                                                                                     <div className="payment-detail d-flex">
                                                                                         <p>Docprime Discount</p>
-                                                                                        <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))}</p>
+                                                                                        {
+                                                                                            priceData.is_cod_deal_price?
+                                                                                            <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))}</p>
+                                                                                            :
+                                                                                            <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price))}</p>
+                                                                                        }
                                                                                     </div>
                                                                                     <hr />
                                                                                 </React.Fragment> 
-                                                                        : this.props.payment_type == 1 && priceData.fees == 0?
-                                                                            <React.Fragment>
-                                                                                <div className="payment-detail d-flex">
-                                                                                    <p>Docprime price</p>
-                                                                                    <p>Free</p>
-                                                                                </div>
-                                                                                <div className="payment-detail d-flex">
-                                                                                    <p>Platform Convenience Fee</p>
-                                                                                    {
-                                                                                        enabled_for_cod_payment && priceData.is_cod_deal_price?
-                                                                                        <p>&#8377; {parseInt(priceData.is_cod_deal_price)}</p>
-                                                                                        :<p>&#8377; {parseInt(priceData.deal_price)}</p>
-                                                                                    }
-                                                                                </div>
-                                                                            </React.Fragment>
+                                                                            :enabled_for_cod_payment && priceData.fees == 0 && priceData.is_cod_deal_price !== priceData.mrp?
+                                                                                <React.Fragment>
+                                                                                    <div className="payment-detail d-flex">
+                                                                                        <p>Docprime Discount</p>
+                                                                                        {
+                                                                                            priceData.is_cod_deal_price?
+                                                                                            <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))}</p>
+                                                                                            :
+                                                                                            <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price))}</p>
+                                                                                        }
+                                                                                    </div>
+                                                                                    <hr />
+                                                                                </React.Fragment> 
                                                                             :''
+                                                                        // : this.props.payment_type == 1 && priceData.fees == 0?
+                                                                        //     <React.Fragment>
+                                                                        //         <div className="payment-detail d-flex">
+                                                                        //             <p>Docprime price</p>
+                                                                        //             <p>Free</p>
+                                                                        //         </div>
+                                                                        //         <div className="payment-detail d-flex">
+                                                                        //             <p>Platform Convenience Fee</p>
+                                                                        //             {
+                                                                        //                 enabled_for_cod_payment && priceData.is_cod_deal_price?
+                                                                        //                 <p>&#8377; {parseInt(priceData.is_cod_deal_price)}</p>
+                                                                        //                 :<p>&#8377; {parseInt(priceData.deal_price)}</p>
+                                                                        //             }
+                                                                        //         </div>
+                                                                        //     </React.Fragment>
+                                                                        //     :''
                                                                         }
                                                                         
                                                                         {

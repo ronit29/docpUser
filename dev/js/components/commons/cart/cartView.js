@@ -96,16 +96,6 @@ class CartView extends React.Component {
                     }
                 }
 
-            }else if(item.valid && item.actual_data.payment_type == 2){
-                total_mrp += item.mrp
-                // if(item.consultation && item.consultation.fees == 0){
-                    if(item.cod_deal_price){
-                        dd = item.mrp - item.cod_deal_price
-                    }else{
-                        dd = item.mrp - item.deal_price
-                    }
-                // }
-                total_deal_price += dd
             }
         }
         total_amnt = total_mrp - total_deal_price + platformConvFees - total_coupon_discount
@@ -310,10 +300,13 @@ class CartView extends React.Component {
                                                                             </div>
                                                                             :''
                                                                         }
-                                                                        <div className="payment-detail d-flex">
-                                                                            <p>Docprime Discount</p>
-                                                                            <p>- &#8377; {parseInt(total_deal_price)}</p>
-                                                                        </div>
+                                                                        {total_deal_price !=0 && total_mrp !=total_deal_price?
+                                                                            <div className="payment-detail d-flex">
+                                                                                <p>Docprime Discount</p>
+                                                                                <p>- &#8377; {parseInt(total_deal_price)}</p>
+                                                                            </div>
+                                                                        :''}
+
                                                                         {
                                                                             total_home_pickup_charges ? <div className="payment-detail d-flex">
                                                                                 <p>Home pickup charges</p>

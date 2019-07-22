@@ -224,7 +224,7 @@ class CartItem extends React.Component {
                                             mrp ? <p>₹ {deal_price} <span className="shopng-cart-price-cut">₹ {mrp}</span></p> : ""
                                         }
                                     </div>
-                                    :payment_type == 2 && is_enabled_for_cod? <div className="shopng-cart-price">
+                                    :payment_type == 2 && is_enabled_for_cod && mrp != cod_deal_price? <div className="shopng-cart-price">
                                         {
                                             mrp ? <p>₹ {cod_deal_price?cod_deal_price:deal_price} 
                                                     <span className="shopng-cart-price-cut">₹ {mrp}</span>
