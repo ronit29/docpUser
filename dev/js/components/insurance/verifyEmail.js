@@ -38,12 +38,16 @@ class VerifyEmail extends React.Component {
 				}
 				if(this.props.is_endorsement){
 					this.props.handleSubmit(false,true)
+				}else{
+					this.props.verifyEndorsementEmail(this.state.email,false)
 				}
 			}
 			if(this.state.email == ''){
 				this.setState({VerifyEmails:false})
 				if(this.props.is_endorsement){
 					this.props.handleSubmit(false,true)	
+				}else{
+					this.props.verifyEndorsementEmail(this.state.email,false)
 				}
 			}
 		})
@@ -81,6 +85,9 @@ class VerifyEmail extends React.Component {
 		        })
 			} else {
 				this.setState({VerifyEmails:false})
+				if(!this.props.is_endorsement){
+					this.props.verifyEndorsementEmail(this.state.email,false)
+				}
 				SnackBar.show({ pos: 'bottom-center', text: "Please Enter valid Email" });
 			}
 		}else {
@@ -108,7 +115,7 @@ class VerifyEmail extends React.Component {
 		}
 		this.props.submitEmailOTP(data,(resp, error) =>{
 			if(resp){
-		        this.props.verifyEndorsementEmail(this.state.email)
+		        this.props.verifyEndorsementEmail(this.state.email,true)
 				this.setState({VerifyEmails:false,showOtp:false,otpTimeout:false,otpValue:'',emailSuccessId:''})
 				SnackBar.show({ pos: 'bottom-center', text: resp.message });
 			}else{
@@ -124,7 +131,17 @@ class VerifyEmail extends React.Component {
 			}}>
 				<div className={this.state.showOtp?'ins-email-cont':''}>
 					<div className={`ins-form-group ${this.state.showOtp?'mb-0':''}`}>
-						<input type="text" id="statick" id={`emails_${this.props.member_id.id}`} className={`form-control ins-form-control ${this.props.validateErrors && this.props.validateErrors.indexOf('email') > -1 ? this.props.is_endorsement?'fill-error':'errorColorBorder': ''}`} required autoComplete="email" name="email" data-param='email' value={this.state.email} onChange={this.handleEndoresmentEmail.bind(this)} onBlur={this.handleEndoresmentEmail.bind(this)} />
+						<input 
+							type="text" 
+							id={`emails_${this.props.member_id.id}`} 
+							className={`form-control ins-form-control ${this.props.validateErrors && this.props.is_endorsement && this.props.validateErrors.indexOf('email') > -1 ? 'fill-error': ''} ${this.props.isEmailVerified?'errorColorBorder':''}`} required 
+							autoComplete="email" 
+							name="email" 
+							data-param='email' 
+							value={this.state.email} 
+							onChange={this.handleEndoresmentEmail.bind(this)} 
+							onBlur={this.handleEndoresmentEmail.bind(this)} 
+						/>
 						<label className="form-control-placeholder datePickerLabel" htmlFor="statick"><span className="labelDot"></span>Email</label>
 						<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
 						{
