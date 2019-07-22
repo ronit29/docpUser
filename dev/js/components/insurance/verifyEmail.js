@@ -113,7 +113,7 @@ class VerifyEmail extends React.Component {
 		}else{
 			data.profile = this.props.member_id.id
 		}
-		data.otp = this.state.otpValue
+		data.otp = parseInt(this.state.otpValue)
 		if(this.props.is_endorsement){
 			data.process_immediately = false
 		}else{
