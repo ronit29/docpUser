@@ -98,13 +98,13 @@ class CartView extends React.Component {
 
             }else if(item.valid && item.actual_data.payment_type == 2){
                 total_mrp += item.mrp
-                if(item.consultation && item.consultation.fees == 0){
+                // if(item.consultation && item.consultation.fees == 0){
                     if(item.cod_deal_price){
                         dd = item.mrp - item.cod_deal_price
                     }else{
                         dd = item.mrp - item.deal_price
                     }
-                }
+                // }
                 total_deal_price += dd
             }
         }
