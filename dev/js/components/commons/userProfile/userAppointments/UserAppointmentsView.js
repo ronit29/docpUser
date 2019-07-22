@@ -9,7 +9,7 @@ class UserAppointmentsView extends React.Component {
         this.state = {
             showReports: false,
             appointmentReports: [],
-            show_sorted_results: false
+            show_sorted_results: ''
         }
     }
 
@@ -42,19 +42,31 @@ class UserAppointmentsView extends React.Component {
         this.setState({ show_sorted_results: !this.state.show_sorted_results })
     }
 
+    selectOptions(type, value) {
+        this.setState({[type]: parseInt(value)?parseInt(value):value})
+    }
+
+
     render() {
 
         let { appointments, selectedProfile } = this.props.USER
+        let appointment_list = appointments[selectedProfile] || []
+        if(this.state.show_sorted_results){
+            appointment_list = appointments[selectedProfile] && appointments[selectedProfile].length?appointments[selectedProfile].filter(x=>x.status==this.state.show_sorted_results):[]
+        }
 
         return (
             <div className="widget-content pl-0 pr-0">
                 <div className="apt-sorting">
                     <label>View by:</label>
-                    <select>
-                        <option value="" disabled selected>All Appointments</option>
-                        <option value="">values</option>
-                        <option value="">values</option>
-                        <option value="">values</option>
+                    <select onChange={ (e)=> this.selectOptions('show_sorted_results', e.target.value)}>
+                        <option value="" selected>All Appointments</option>
+                        <option value="1">Created</option>
+                        <option value="2">Booked</option>
+                        <option value="3">Rescheduled</option>
+                        <option value="5">Accepted</option>
+                        <option value="6">Cancelled</option>
+                        <option value="7">Completed</option>
                     </select>
                 </div>
                 {/* <div className="tg-list-item">
@@ -63,10 +75,10 @@ class UserAppointmentsView extends React.Component {
                     <label className="tgl-btn" htmlFor="lab_insurance"></label>
                 </div> */}
                 {
-                    appointments[selectedProfile] ? <ul className="list online-consultant-list dp-user-list" style={{ marginTop: 15, marginBottom: 70 }}>
+                    appointment_list ? <ul className="list online-consultant-list dp-user-list" style={{ marginTop: 15, marginBottom: 70 }}>
                         {
-                            (appointments[selectedProfile] && appointments[selectedProfile].length) ?
-                                appointments[selectedProfile].map((app, i) => {
+                            (appointment_list && appointment_list.length) ?
+                                appointment_list.map((app, i) => {
                                     return ((app.type == 'lab' && app.lab) || app.type == 'doctor') ?
                                         <AppointmentList key={i} {...this.props} data={app} viewReportClick={this.viewReportClick.bind(this)} />
                                         : ''
