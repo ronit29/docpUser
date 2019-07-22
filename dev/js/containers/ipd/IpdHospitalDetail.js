@@ -134,7 +134,7 @@ class HospitalDetail extends React.Component {
 
 		return(
 				<div className="profile-body-wrap">
-					<ProfileHeader showSearch={true} />
+					<ProfileHeader showSearch={true} pageType='HospitalDetailPage'/>
 					<HelmetTags tagsData={{
 						canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
 						title: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail : null).title,
