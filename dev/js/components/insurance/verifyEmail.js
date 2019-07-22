@@ -106,8 +106,8 @@ class VerifyEmail extends React.Component {
 		}else{
 			data.process_immediately = true
 		}
-		this.props.submitEmailOTP(data,(resp) =>{
-			if(resp && resp.success){
+		this.props.submitEmailOTP(data,(resp, error) =>{
+			if(resp){
 		        this.props.verifyEndorsementEmail(this.state.email)
 				this.setState({VerifyEmails:false,showOtp:false,otpTimeout:false,otpValue:'',emailSuccessId:''})
 				SnackBar.show({ pos: 'bottom-center', text: resp.message });
@@ -119,7 +119,9 @@ class VerifyEmail extends React.Component {
 	render() {
 		let self = this
 		return (
-			<div className="col-12 mrt-10">
+			<div className="col-12 mrt-10" onClick={(e)=>{e.stopPropagation()
+				e.preventDefault()
+			}}>
 				<div className={this.state.showOtp?'ins-email-cont':''}>
 					<div className={`ins-form-group ${this.state.showOtp?'mb-0':''}`}>
 						<input type="text" id="statick" id={`emails_${this.props.member_id.id}`} className={`form-control ins-form-control ${this.props.validateErrors && this.props.validateErrors.indexOf('email') > -1 ? this.props.is_endorsement?'fill-error':'errorColorBorder': ''}`} required autoComplete="email" name="email" data-param='email' value={this.state.email} onChange={this.handleEndoresmentEmail.bind(this)} onBlur={this.handleEndoresmentEmail.bind(this)} />
