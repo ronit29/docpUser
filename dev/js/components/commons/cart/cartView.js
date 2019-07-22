@@ -95,11 +95,20 @@ class CartView extends React.Component {
                         platformConvFees += parseInt(item.deal_price)
                     }
                 }
-                
+
+            }else if(item.valid && item.actual_data.payment_type == 2){
+                total_mrp += item.mrp
+                if(item.consultation && item.consultation.fees == 0){
+                    if(item.cod_deal_price){
+                        dd = item.mrp - item.cod_deal_price
+                    }else{
+                        dd = item.mrp - item.deal_price
+                    }
+                }
+                total_deal_price += dd
             }
         }
         total_amnt = total_mrp - total_deal_price + platformConvFees - total_coupon_discount
-        console.log(total_amnt)
         return {
             total_mrp,
             total_deal_price,
@@ -225,7 +234,7 @@ class CartView extends React.Component {
                     if(cart_item.actual_data && !cart_item.actual_data.is_appointment_insured){
                         all_appointments_insured = false
                     }
-                    if(cart_item.consultation && cart_item.consultation.fees == 0){
+                    if(cart_item.consultation && cart_item.consultation.fees == 0 && cart_item.actual_data.payment_type == 1){
                         is_platform_conv_fees++
                     }
                     //Check if COD applicable for all appointments

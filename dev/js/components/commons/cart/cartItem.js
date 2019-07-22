@@ -196,7 +196,7 @@ class CartItem extends React.Component {
 
     render() {
 
-        let { valid, product_id, mrp, deal_price, id } = this.props
+        let { valid, product_id, mrp, deal_price, id, is_enabled_for_cod, cod_deal_price } = this.props
         let { lab, tests, doctor, hospital, coupons, profile, date, thumbnail, procedures } = this.props.data
         let { is_home_pickup, payment_type, insurance_message, is_appointment_insured, included_in_user_plan } = this.props.actual_data
 
@@ -223,7 +223,15 @@ class CartItem extends React.Component {
                                         {
                                             mrp ? <p>₹ {deal_price} <span className="shopng-cart-price-cut">₹ {mrp}</span></p> : ""
                                         }
-                                    </div> : <div className="shopng-cart-price">
+                                    </div>
+                                    :payment_type == 2 && is_enabled_for_cod? <div className="shopng-cart-price">
+                                        {
+                                            mrp ? <p>₹ {cod_deal_price?cod_deal_price:deal_price} 
+                                                    <span className="shopng-cart-price-cut">₹ {mrp}</span>
+                                                </p> : ""
+                                        }
+                                    </div>
+                                    : <div className="shopng-cart-price">
                                             {
                                                 mrp ? <p>₹ {mrp}</p> : ""
                                             }
