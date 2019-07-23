@@ -217,7 +217,7 @@ class BasicDetails extends React.Component {
                             }
                             {
                                 this.props.is_profile_editable?''
-                                :<span>Profile cannot be changed which are covered under insurance.</span>
+                                :<span>*Details of the profiles which are covered under insurance cannot be updated</span>
                             }
                         </div>
                     </div>
