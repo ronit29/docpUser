@@ -18,13 +18,13 @@ class VerifyEmail extends React.Component {
 	
 	componentWillReceiveProps(props) {
 		if(this.state.initialStage && this.props.email !=''){
-			this.setState({email:this.props.email, initialStage:false})	
+			this.setState({email:this.props.email,oldEmail:this.props.email, initialStage:false})	
 		}
 	}
 
 	componentDidMount(){
 		if(this.state.initialStage && this.props.email !=''){
-			this.setState({email:this.props.email, initialStage:false})	
+			this.setState({email:this.props.email,oldEmail:this.props.email, initialStage:false})	
 		}	
 	}
 	
@@ -33,7 +33,7 @@ class VerifyEmail extends React.Component {
 		if (this.props.is_endorsement && this.props.user_data && this.props.user_data.length > 0) {
 			oldEmail = this.props.user_data[0].email
 		}else{
-			oldEmail = this.props.email
+			oldEmail = this.state.oldEmail
 		}
 		this.setState({email:event.target.value},()=>{
 			if(oldEmail !== this.state.email){
@@ -41,19 +41,22 @@ class VerifyEmail extends React.Component {
 				validEmail = validEmail.test(this.state.email)
 				if (validEmail) {	
 					this.setState({VerifyEmails:true})
+					if(this.props.is_endorsement){
+						this.props.handleSubmit(false,true)
+					}else{
+						this.props.verifyEndorsementEmail(this.state.email,false,true)
+					}
 				}
-				if(this.props.is_endorsement){
-					this.props.handleSubmit(false,true)
-				}else{
-					this.props.verifyEndorsementEmail(this.state.email,false)
-				}
+			}else{
+				this.props.verifyEndorsementEmail(this.state.email,false,false)
+				this.setState({VerifyEmails:false})
 			}
 			if(this.state.email == ''){
 				this.setState({VerifyEmails:false})
 				if(this.props.is_endorsement){
 					this.props.handleSubmit(false,true)	
 				}else{
-					this.props.verifyEndorsementEmail(this.state.email,false)
+					this.props.verifyEndorsementEmail(this.state.email,false,true)
 				}
 			}
 		})
@@ -92,7 +95,7 @@ class VerifyEmail extends React.Component {
 			} else {
 				this.setState({VerifyEmails:false})
 				if(!this.props.is_endorsement){
-					this.props.verifyEndorsementEmail(this.state.email,false)
+					this.props.verifyEndorsementEmail(this.state.email,false,true)
 				}
 				SnackBar.show({ pos: 'bottom-center', text: "Please Enter valid Email" });
 			}
@@ -121,7 +124,7 @@ class VerifyEmail extends React.Component {
 		}
 		this.props.submitEmailOTP(data,(resp, error) =>{
 			if(resp){
-		        this.props.verifyEndorsementEmail(this.state.email,true)
+		        this.props.verifyEndorsementEmail(this.state.email,true,false)
 				this.setState({VerifyEmails:false,showOtp:false,otpTimeout:false,otpValue:'',emailSuccessId:''})
 				SnackBar.show({ pos: 'bottom-center', text: resp.message });
 			}else{
@@ -140,7 +143,7 @@ class VerifyEmail extends React.Component {
 						<input 
 							type="text" 
 							id={`emails_${this.props.member_id.id}`} 
-							className={`form-control ins-form-control ${this.props.validateErrors && this.props.is_endorsement && this.props.validateErrors.indexOf('email') > -1 ? 'fill-error': ''} ${this.props.isEmailVerified?'errorColorBorder':''}`} required 
+							className={`form-control ins-form-control ${this.props.validateErrors && this.props.is_endorsement && this.props.validateErrors.indexOf('email') > -1 ? 'fill-error': ''} ${this.props.isEmailError?'errorColorBorder':''}`} required 
 							autoComplete="email" 
 							name="email" 
 							data-param='email' 

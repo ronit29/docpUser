@@ -23,7 +23,8 @@ class EditProfile extends React.Component {
             },
             whatsapp_optin:currentProfile.whatsapp_optin,
             isEmailVerified:false,
-            isEmailUpdated:false
+            isEmailUpdated:false,
+            isEmailError:false
         }
     }
 
@@ -67,7 +68,7 @@ class EditProfile extends React.Component {
                                 errors={this.state.errors} 
                                 toggleOpenCrop={this.toggleOpenCrop.bind(this)} 
                                 show_default_checkBox={show_default_checkBox} 
-                                isEmailVerified={this.state.isEmailVerified} 
+                                isEmailError={this.state.isEmailError} 
                                 verifyEndorsementEmail={this.verifyEndorsementEmail.bind(this)}
                             />
                             <WhatsAppOptinView {...this.props} 
@@ -88,13 +89,13 @@ class EditProfile extends React.Component {
         this.setState({ profileData: this.state.profileData })
     }
 
-    verifyEndorsementEmail(newemail,verified){        
+    verifyEndorsementEmail(newemail,verified,is_email_changed){        
         this.state.profileData['email'] = newemail
         this.setState({ profileData: this.state.profileData })
         if(verified){
-           this.setState({isEmailUpdated:true,isEmailVerified:false})
+           this.setState({isEmailUpdated:verified,isEmailVerified:is_email_changed})
         }else{
-            this.setState({isEmailUpdated:false,isEmailVerified:true})
+            this.setState({isEmailUpdated:verified,isEmailVerified:is_email_changed})
         }
     }
 
@@ -145,7 +146,7 @@ class EditProfile extends React.Component {
                 }
             }
             if(!this.state.isEmailUpdated && this.state.isEmailVerified){
-                this.setState({isEmailVerified:true})
+                this.setState({isEmailError:true})
                 return
             }
             if (validated) {
