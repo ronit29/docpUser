@@ -21,7 +21,7 @@ class ChatStatic extends React.Component {
         if ((this.state.BasicEnquiry || this.state.force_start) && this.props.mobilechatview) {
             this.getIframe()
         } else {
-            if (this.state.utm_term) {
+            /*if (this.state.utm_term) {
                 chat_utm(this.state.utm_term).then((data) => {
                     if (data && data.data && data.data.BasicEnquiry) {
                         this.setState({ BasicEnquiry: data.data.BasicEnquiry, utm_loader: false })
@@ -39,7 +39,12 @@ class ChatStatic extends React.Component {
                         utm_loader: false
                     })
                 })
-            }
+            }*/
+             this.setState({
+                            BasicEnquiry: "",
+                            utm_term: "",
+                            utm_loader: false
+                        })
         }
     }
 
