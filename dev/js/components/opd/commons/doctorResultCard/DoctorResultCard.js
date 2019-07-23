@@ -220,7 +220,7 @@ class DoctorProfileCard extends React.Component {
             return (
                 <div className="cstm-docCard mb-3">
                     {
-                        new_schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
+                        new_schema && !this.props.noSchemaBinding? <script type="application/ld+json" dangerouslySetInnerHTML={{
                             __html: new_schema
                         }} /> : ""
                     }
