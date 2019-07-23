@@ -45,14 +45,20 @@ class EditProfile extends React.Component {
         if (this.state.loading) {
             return <Loader />
         }
-
+        let self = this
         let show_default_checkBox= true
+        let is_profile_editable = true
         if(this.props.USER && this.props.USER.profiles){
             if(Object.keys(this.props.USER.profiles).length > 0){
                Object.entries(this.props.USER.profiles).map(function([key, value]) {
                     if(show_default_checkBox && value.is_insured){
                         show_default_checkBox = false
                     }
+                    if(self.state.profileData){
+                        if(value.id == self.state.profileData.id && value.is_insured){
+                            is_profile_editable = false
+                        }
+                    }  
                 })
             }
         }
@@ -70,6 +76,7 @@ class EditProfile extends React.Component {
                                 show_default_checkBox={show_default_checkBox} 
                                 isEmailError={this.state.isEmailError} 
                                 verifyEndorsementEmail={this.verifyEndorsementEmail.bind(this)}
+                                is_profile_editable={is_profile_editable}
                             />
                             <WhatsAppOptinView {...this.props} 
                                 toggleWhatsap={this.toggleWhatsap.bind(this)} 

@@ -130,7 +130,7 @@ class BasicDetails extends React.Component {
         let { name, email, gender, phone_number, profile_image, id, dob} = this.props.profileData
         profile_image = profile_image || (ASSETS_BASE_URL + "/img/customer-icons/user.png")
         return (
-            <section className="myProfile profile-details mrb-15">
+            <section className={`myProfile profile-details mrb-15 ${this.props.is_profile_editable?'':'click-disable'}`}>
                 {
                     this.state.loading ? "" : <div className="widget no-shadow no-radius">
                         <div className="widget-content">
@@ -214,6 +214,10 @@ class BasicDetails extends React.Component {
                                 this.state.is_default_user}/><span className="checkmark"></span></label>
                             </div>
                             :''
+                            }
+                            {
+                                this.props.is_profile_editable?''
+                                :<span>Profile cannot be changed which are covered under insurance.</span>
                             }
                         </div>
                     </div>
