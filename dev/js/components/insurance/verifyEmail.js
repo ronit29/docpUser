@@ -135,7 +135,7 @@ class VerifyEmail extends React.Component {
 	render() {
 		let self = this
 		return (
-			<div className="col-12 mrt-10" onClick={(e)=>{e.stopPropagation()
+			<div className={`col-12 mrt-10 ${this.props.is_endorsement?'': 'ins-fmpage-input'}`} onClick={(e)=>{e.stopPropagation()
 				e.preventDefault()
 			}}>
 				<div className={this.state.showOtp?'ins-email-cont':''}>

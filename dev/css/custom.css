@@ -2746,3 +2746,27 @@ select.slct-ipn-ti{
     cursor: pointer;
 }
 /* ============ ipdnewpopup ============ */
+/* ============ ins-form ============ */
+.col-12.mrt-10.ins-fmpage-input {
+    padding: 0;
+}
+.col-12.mrt-10.ins-fmpage-input input {
+    height: 45px;
+    padding-left: 15px;
+    font-weight: bold;
+}
+.col-12.mrt-10.ins-fmpage-input label {
+    left: 11px;
+    color: #f78631;
+    font-weight: bold;
+}
+.col-12.mrt-10.ins-fmpage-input img {
+    display: none;
+}
+.col-12.mrt-10.ins-fmpage-input span.vrfy-edit{
+	bottom: 14px;
+}
+.click-disable{
+	pointer-events: none;
+}
+/* ============ ins-form ============ */
