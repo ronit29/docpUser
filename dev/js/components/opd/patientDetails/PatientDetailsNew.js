@@ -62,7 +62,8 @@ class PatientDetailsNew extends React.Component {
             is_payment_coupon_applied: false,
             dateTimeSelectedValue: this.props.selectedDateFormat?this.props.selectedDateFormat:'',
             showSecondPopup: false,
-            firstLeadId:''
+            firstLeadId:'',
+            timeErrorText:''
         }
     }
 
@@ -812,9 +813,7 @@ class PatientDetailsNew extends React.Component {
                             if(foundTimeSlot && Object.keys(foundTimeSlot).length){
                                 
                             }else {
-                                setTimeout(() => {
-                                    SnackBar.show({ pos: 'bottom-center', text: "Please Choose another time" })
-                                }, 500)
+                                this.setState({showTimeError: true, timeErrorText:'Please Choose another time' })
                             }
                             this.selectTime(foundTimeSlot, date)
                         }
@@ -1066,6 +1065,11 @@ class PatientDetailsNew extends React.Component {
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+                                                                            {
+                                                                                this.state.timeErrorText?
+                                                                                <p className="apnt-doc-dtl slc-date-error">Choose another time slot</p>
+                                                                                :''
+                                                                            }
                                                                         </div> : <p className="no-tm-slot"><img src={ASSETS_BASE_URL + "/images/warning-icon.png"} style={{ height: '15px', width: '15px', marginRight: '8px' }} />No Time Slot Available</p>
                                                             }
                                                         </div>

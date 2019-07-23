@@ -250,6 +250,7 @@ class IpdDoctorCityPopup extends React.Component {
 								<div className="ipd-inp-section" onClick={(e) => {
 								e.preventDefault()
 								e.stopPropagation()}}>
+									<p className="apnt-doc-dtl p-0">*The appointment is subject to confirmation from the Doctor. </p>
 									{
 										this.props.all_doctors && this.props.all_doctors.length?
 										<div className="ipd-slects-doc">
@@ -281,6 +282,7 @@ class IpdDoctorCityPopup extends React.Component {
 		                                        />
 		                                    </div></div> : ""
 		                                }
+
 										<div className="sel-ipd-input-cnt" style={{width: '48%'}}>
 											<img src={ASSETS_BASE_URL + "/img/calnext.svg"} />
 											<div className="ipd-slects-doc">

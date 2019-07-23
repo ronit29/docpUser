@@ -2520,6 +2520,10 @@ margin-left: 0px;
 .pt-20{
 	padding-top: 20px !important;
 }
+.slc-date-error{
+	color: red;
+    margin-top: 8px;
+}
 /* ============ new time slot design ============ */
 /* ============ new chat feedback qa ============ */
 h3.nechatheding{
