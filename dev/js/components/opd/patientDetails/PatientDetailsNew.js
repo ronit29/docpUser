@@ -512,7 +512,12 @@ class PatientDetailsNew extends React.Component {
                     this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
                 }
             } else {
-                let message = "Could not create appointment. Try again later !"
+                let message 
+                if(err.error){
+                    message = err.error
+                }else{
+                    message = "Could not create appointment. Try again later !"
+                }
                 if (err.message) {
                     message = err.message
                 }

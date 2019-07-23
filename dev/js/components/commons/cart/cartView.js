@@ -109,7 +109,12 @@ class CartView extends React.Component {
                 this.props.history.replace(`/order/summary/${data.data.orderId}`)
             }
         }).catch((e) => {
-            let error_message = 'Error Processing cart'
+            let error_message 
+                if(e.error){
+                    error_message = e.error
+                }else{
+                    error_message = "Error Processing cart"
+                }
             if(e.message){
                 error_message = e.message
             }
