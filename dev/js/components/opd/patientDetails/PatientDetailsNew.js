@@ -813,7 +813,7 @@ class PatientDetailsNew extends React.Component {
                             if(foundTimeSlot && Object.keys(foundTimeSlot).length){
                                 
                             }else {
-                                this.setState({showTimeError: true, timeErrorText:'Please Choose another time' })
+                                this.setState({showTimeError: true, timeErrorText:'Your requested time slot is not available. Please choose a different one.' })
                             }
                             this.selectTime(foundTimeSlot, date)
                         }

@@ -123,9 +123,11 @@ class IpdLeadForm extends React.Component {
 					GTM.sendEvent({ data: gtmData })
 				}
 				
-				setTimeout(() => {
-					SnackBar.show({ pos: 'bottom-center', text: "Your request has been submitted sucessfully" })
-				}, 500)
+				if(!this.props.is_booking_page) {
+					setTimeout(() => {
+						SnackBar.show({ pos: 'bottom-center', text: "Your request has been submitted sucessfully" })
+					}, 500)
+				}
 				this.setState({ showForm: false })
 			} else {
 				setTimeout(() => {

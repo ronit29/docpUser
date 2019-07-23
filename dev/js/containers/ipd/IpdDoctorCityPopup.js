@@ -237,21 +237,21 @@ class IpdDoctorCityPopup extends React.Component {
 							</span>
 							{/*<p className="ipd-needHelp">Need help with an appointment at Fortis Hospital?</p>*/}
 							{
-								/*this.props.doctor_name?
+								this.props.doctor_name?
 								<p className="ipd-needHelp">{`Need to book an appointment with ${this.props.doctor_name} ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
 								:this.props.hospital_name?
 								<p className="ipd-needHelp">{`Need help with an appointment ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
-								:''*/
+								:''
 							}
 							{/*<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Get upto 30% Off on Appointments</span></p>
 							<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Instant Booking Confirmation</span></p>
 							<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Dedicated Doctor for Advice</span></p>*/}
-							<p className="ipd-needHelp">Your request has been submitted. To help us serve you better, please fill the additional details below:</p>
+							{/*<p className="ipd-needHelp">Your request has been submitted. To help us serve you better, please fill the additional details below:</p>*/}
 							<div className="ipd-pop-scrl">
 								<div className="ipd-inp-section" onClick={(e) => {
 								e.preventDefault()
 								e.stopPropagation()}}>
-									<p className="apnt-doc-dtl p-0">*The appointment is subject to confirmation from the Doctor. </p>
+									
 									{
 										this.props.all_doctors && this.props.all_doctors.length?
 										<div className="ipd-slects-doc">
@@ -268,6 +268,7 @@ class IpdDoctorCityPopup extends React.Component {
 									}
 									<div className="nm-lst-inputcnt justify-content-between">
 										<div className="sel-ipd-input-cnt" style={{width: '48%' }}>
+											<p className="apnt-doc-dtl p-0">Preferred Date</p>
 											<img src={ASSETS_BASE_URL + "/img/calnext.svg"} />
 											<input className="slct-inpt-cntnr-fcs" onClick={this.openDateModal.bind(this)} onChange={()=>{}} value={this.state.requestedDateFormat} />
 										</div>
@@ -285,6 +286,7 @@ class IpdDoctorCityPopup extends React.Component {
 		                                }
 
 										<div className="sel-ipd-input-cnt" style={{width: '48%'}}>
+											<p className="apnt-doc-dtl p-0">Preferred Time</p>
 											<img src={ASSETS_BASE_URL + "/img/calnext.svg"} />
 											<div className="ipd-slects-doc">
 												<select className="slct-ipn-ti" defaultValue={this.state.timeSlot} onChange={ (e)=> this.setState({'timeSlot': e.target.value}) }>
