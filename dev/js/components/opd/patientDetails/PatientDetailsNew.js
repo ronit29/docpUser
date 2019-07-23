@@ -999,7 +999,7 @@ class PatientDetailsNew extends React.Component {
                                     <div>
                                         {
                                             showPopup?
-                                                <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={hospital && hospital.hospital_name ? hospital.hospital_name : null} hospital_id={hospital && hospital.hospital_id ? hospital.hospital_id : null} doctor_name={this.props.DOCTORS[this.props.selectedDoctor].display_name ? this.props.DOCTORS[this.props.selectedDoctor].display_name : null} doctor_id={this.props.selectedDoctor} formSource='DoctorBookingPage' saveLeadIdForUpdation={this.saveLeadIdForUpdation.bind(this)} is_booking_page={true}/>
+                                                <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={hospital && hospital.hospital_name ? hospital.hospital_name : null} hospital_id={hospital && hospital.hospital_id ? hospital.hospital_id : null} doctor_name={this.props.DOCTORS[this.props.selectedDoctor].display_name ? this.props.DOCTORS[this.props.selectedDoctor].display_name : null} doctor_id={this.props.selectedDoctor} formSource='DoctorBookingPage' saveLeadIdForUpdation={this.saveLeadIdForUpdation.bind(this)} noToastMessage={true} is_booking_page={true}/>
                                                 : ''
                                         }
                                         {
@@ -1067,7 +1067,7 @@ class PatientDetailsNew extends React.Component {
                                                                             </div>
                                                                             {
                                                                                 this.state.timeErrorText?
-                                                                                <p className="apnt-doc-dtl slc-date-error">Choose another time slot</p>
+                                                                                <p className="apnt-doc-dtl slc-date-error">{this.state.timeErrorText}</p>
                                                                                 :''
                                                                             }
                                                                         </div> : <p className="no-tm-slot"><img src={ASSETS_BASE_URL + "/images/warning-icon.png"} style={{ height: '15px', width: '15px', marginRight: '8px' }} />No Time Slot Available</p>
