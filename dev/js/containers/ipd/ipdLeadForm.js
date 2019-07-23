@@ -261,7 +261,7 @@ class IpdLeadForm extends React.Component {
 													</div>
 													<input type="text" value={this.state.phone_number} name='phone_number' placeholder="*Mobile Number" onChange={this.inputHandler.bind(this)}/>
 													<div className="slt-nw-input radio-mbl mb-10">
-														<label className="slt-label" htmlFor="male" ><sup className="requiredAst">*</sup>Gender:</label>
+														<label className="slt-label" htmlFor="male" >*Gender:</label>
 														<div className="slt-label-radio">
 															<div className="dtl-radio">
 																<label className="container-radio" onClick={() => this.setState({ gender: 'm' })}>Male

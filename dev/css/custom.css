@@ -2681,7 +2681,7 @@ padding-right: 15px;
 }
 .sel-ipd-input-cnt img {
 	position: absolute;
-    top: -11px;
+    top: 12px;
     left: 5px;
     bottom: 0;
     margin: auto;
