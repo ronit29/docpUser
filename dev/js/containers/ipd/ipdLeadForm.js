@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { submitIPDForm, ipdPopupFired } from '../../actions/index.js'
+import { submitIPDForm, ipdPopupFired, saveIpdPopupData } from '../../actions/index.js'
 import SnackBar from 'node-snackbar'
 import GTM from '../../helpers/gtm.js'
 const queryString = require('query-string')
@@ -106,6 +106,10 @@ class IpdLeadForm extends React.Component {
 
 		this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
 			if (!error && response) {
+				//Save popup data for doctor profile data auto filled
+				if(this.props.is_booking_page){
+					this.props.saveIpdPopupData('popup1', formData)	
+				}
 				this.props.ipdPopupFired()
 				if(this.props.saveLeadIdForUpdation && typeof(this.props.saveLeadIdForUpdation)=='function'){
 					this.props.saveLeadIdForUpdation(response)
@@ -317,7 +321,8 @@ const mapDispatchToProps = (dispatch) => {
 
 	return {
 		submitIPDForm: (formData, selectedLocation, cb) => dispatch(submitIPDForm(formData, selectedLocation, cb)),
-		ipdPopupFired: () => dispatch(ipdPopupFired())
+		ipdPopupFired: () => dispatch(ipdPopupFired()),
+		saveIpdPopupData: (type, data) => dispatch(saveIpdPopupData(type, data))
 	}
 }
 

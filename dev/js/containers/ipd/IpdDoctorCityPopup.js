@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { submitSecondIPDForm, ipdPopupFired } from '../../actions/index.js'
+import { submitSecondIPDForm, ipdPopupFired, saveIpdPopupData } from '../../actions/index.js'
 import SnackBar from 'node-snackbar'
 import GTM from '../../helpers/gtm.js'
 const queryString = require('query-string')
@@ -92,8 +92,9 @@ class IpdDoctorCityPopup extends React.Component {
 			let year = parseInt(requestedDate.getFullYear())
 			let day = parseInt(requestedDate.getDate())
 			let time = parseInt(this.state.timeSlot)
-			let dateFormat = `${year}-${month>=10?month:`0${month}`}-${day>=10?day:`0${day}`}T${time>10?`${time}`:`0${time}`}:00`
+			let dateFormat = `${year}-${month>=10?month:`0${month}`}-${day>=10?day:`0${day}`}T${time>=10?`${time}`:`0${time}`}:00`
 			formData.requested_date_time = dateFormat
+			formData.title = this.state.timeSlot && this.state.timeSlot.includes('AM')?'AM':'PM'
 		}
 
 		if (this.props.hospital_id) {
@@ -129,6 +130,10 @@ class IpdDoctorCityPopup extends React.Component {
 
 		this.props.submitSecondIPDForm(formData, this.props.selectedLocation, (error, response) => {
 			if (!error && response) {
+				//Save popup data for doctor profile data auto filled
+				if(this.props.is_booking_page){
+					this.props.saveIpdPopupData('popup2',formData)	
+				}
 				let gtmData = {
 					'Category': 'ConsumerApp', 'Action': 'IPD-popup-lead', 'CustomerID': GTM.getUserId() || '', 'leadid': this.props.firstLeadId || '', 'event': 'IPD-popup-lead', selectedId: '', 'hospitalId': '', 'from': 'leadForm', 'mobileNo':this.state.phone_number, 'formNo':'2'
 				}
@@ -145,7 +150,7 @@ class IpdDoctorCityPopup extends React.Component {
 					SnackBar.show({ pos: 'bottom-center', text: "Please try after some time" })
 				}, 500)
 			}
-			this.props.secondIpdFormSubmitted()
+			this.props.secondIpdFormSubmitted(formData)
 		})
 
 	}
@@ -342,7 +347,8 @@ const mapDispatchToProps = (dispatch) => {
 
 	return {
 		submitSecondIPDForm: (formData, selectedLocation, cb) => dispatch(submitSecondIPDForm(formData, selectedLocation, cb)),
-		ipdPopupFired: ()=> dispatch(ipdPopupFired())
+		ipdPopupFired: ()=> dispatch(ipdPopupFired()),
+		saveIpdPopupData: (type, data) => dispatch(saveIpdPopupData(type, data))
 	}
 }
 

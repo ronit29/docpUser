@@ -23,7 +23,7 @@ import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup.js'
 import IpdLeadForm from '../../../containers/ipd/ipdLeadForm.js'
 import PaymentForm from '../../commons/paymentForm'
-
+import IpdSecondPopup from '../../../containers/ipd/IpdDoctorCityPopup.js'
 const MONTHS = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
 const WEEK_DAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
 
@@ -60,7 +60,9 @@ class PatientDetailsNew extends React.Component {
             seoFriendly: this.props.match.url.includes('-dpp'),
             showIpdLeadForm: true,
             is_payment_coupon_applied: false,
-            dateTimeSelectedValue: this.props.selectedDateFormat?this.props.selectedDateFormat:''
+            dateTimeSelectedValue: this.props.selectedDateFormat?this.props.selectedDateFormat:'',
+            showSecondPopup: false,
+            firstLeadId:''
         }
     }
 
@@ -697,14 +699,14 @@ class PatientDetailsNew extends React.Component {
             ipdFormParams: ipdFormParams
         }
 
-        this.setState({ showIpdLeadForm: false }, () => {
-
+        this.setState({ showIpdLeadForm: false, showSecondPopup: true }, () => {
+/*
             this.props.checkIpdChatAgentStatus((response) => {
                 if (response && response.users && response.users.length) {
 
                     this.props.ipdChatView({ showIpdChat: true, ipdForm: ipdFormParams, showMinimize: true })
                 }
-            })
+            })*/
         })
     }
 
@@ -773,6 +775,84 @@ class PatientDetailsNew extends React.Component {
         this.setState({ dateTimeSelectedValue: '' })
     }
 
+    saveLeadIdForUpdation(response) {
+        if(response.id){
+            this.setState({firstLeadId: response.id, showSecondPopup: true})
+        }
+    }
+
+    secondIpdFormSubmitted(formData){
+        this.setState({showSecondPopup: false}, ()=>{
+            if(formData){
+                try{
+                    let popup1 = formData
+                    
+                    if(popup1 && popup1.requested_date_time){
+                        let requested_date = new Date(popup1.requested_date_time)
+                        let date = this.getFormattedDate(requested_date)
+                        if (date) {
+                            this.setState({ dateTimeSelectedValue: date })
+                            let hours = formData.title=='AM'?requested_date.getHours():requested_date.getHours()+12
+                            let title = formData.title
+                            let foundTimeSlot = null
+
+                            if(this.props.timeSlots && this.props.timeSlots[date] && this.props.timeSlots[date].length) {
+                                
+                                let timeSlotData = this.props.timeSlots[date].filter(x=>x.title==title)
+                                if(timeSlotData && timeSlotData.length && timeSlotData[0].timing && timeSlotData[0].timing.length) {
+                                    timeSlotData[0].timing.map((x)=>{
+                                        if(x.value == hours){    
+                                            foundTimeSlot = x
+                                        }
+                                    })
+                                }
+
+                                
+                            }
+                            if(foundTimeSlot && Object.keys(foundTimeSlot).length){
+                                
+                            }else {
+                                setTimeout(() => {
+                                    SnackBar.show({ pos: 'bottom-center', text: "Please Choose another time" })
+                                }, 500)
+                            }
+                            this.selectTime(foundTimeSlot, date)
+                        }
+                    }                    
+
+                }catch(e){
+                    console.log('Error is '+e)
+                }
+
+            }
+        })
+    }
+
+    selectTime(time, date){
+        let data = null
+        if(time) {
+
+            let timeSpan = Object.assign({}, time)
+            timeSpan.title = time.value>=12?'PM':'AM'
+            data = {
+                date: new Date(date),
+                month: MONTHS[new Date(date).getMonth()],
+                slot: '',
+                time: timeSpan
+            }
+
+            data.selectedDoctor = this.props.selectedDoctor
+            data.selectedClinic = this.state.selectedClinic
+        }else {
+            data = { time: {} }
+        }
+        let extraTimeParams = null
+        if(date) {
+            extraTimeParams = this.getFormattedDate(date)
+        }
+        this.props.selectOpdTimeSLot(data, false, null, extraTimeParams)
+    }
+
     render() {
         const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
@@ -787,6 +867,7 @@ class PatientDetailsNew extends React.Component {
         let is_default_user_insured = false
         let is_insurance_buy_able = false
         let payment_mode_count = 0
+        let all_cities = this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].all_cities?this.props.DOCTORS[this.props.selectedDoctor].all_cities:[]
         if (doctorDetails) {
             let { name, qualifications, hospitals, enabled_for_cod } = doctorDetails
 
@@ -900,6 +981,8 @@ class PatientDetailsNew extends React.Component {
 
         let upcoming_date = this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length ? Object.keys(this.props.upcoming_slots)[0] : ''
         let dateAfter24Days = new Date().setDate(new Date().getDate() + 23)
+
+        let showPopup = parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE  && !this.props.is_ipd_form_submitted
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader bookingPage={true} />
@@ -916,9 +999,14 @@ class PatientDetailsNew extends React.Component {
                                 this.props.DOCTORS[this.props.selectedDoctor] && this.props.DATA_FETCH ?
                                     <div>
                                         {
-                                            parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE ?
-                                                <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={hospital && hospital.hospital_name ? hospital.hospital_name : null} hospital_id={hospital && hospital.hospital_id ? hospital.hospital_id : null} doctor_name={this.props.DOCTORS[this.props.selectedDoctor].display_name ? this.props.DOCTORS[this.props.selectedDoctor].display_name : null} doctor_id={this.props.selectedDoctor} formSource='DoctorBookingPage' />
+                                            showPopup?
+                                                <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={hospital && hospital.hospital_name ? hospital.hospital_name : null} hospital_id={hospital && hospital.hospital_id ? hospital.hospital_id : null} doctor_name={this.props.DOCTORS[this.props.selectedDoctor].display_name ? this.props.DOCTORS[this.props.selectedDoctor].display_name : null} doctor_id={this.props.selectedDoctor} formSource='DoctorBookingPage' saveLeadIdForUpdation={this.saveLeadIdForUpdation.bind(this)} is_booking_page={true}/>
                                                 : ''
+                                        }
+                                        {
+                                            this.props.DOCTORS[this.props.selectedDoctor] && this.state.showSecondPopup && parsed.get_feedback && parsed.get_feedback == '1'?
+                                            <IpdSecondPopup {...this.props} firstLeadId={this.state.firstLeadId} all_doctors={[]} all_cities={all_cities} doctorProfilePage={true} secondIpdFormSubmitted={this.secondIpdFormSubmitted.bind(this)} hospital_name={hospital && hospital.hospital_name ? hospital.hospital_name : null} hospital_id={hospital && hospital.hospital_id ? hospital.hospital_id : null} doctor_name={this.props.DOCTORS[this.props.selectedDoctor].name ? this.props.DOCTORS[this.props.selectedDoctor].name : ''} formSource='DoctorBookingPage' is_booking_page={true}/>
+                                            :''
                                         }
                                         <section className="dr-profile-screen booking-confirm-screen mrb-60">
                                             <div className="container-fluid">
@@ -991,7 +1079,7 @@ class PatientDetailsNew extends React.Component {
                                                             doctor_leaves={this.props.doctor_leaves || []}
                                                             upcoming_slots={this.props.upcoming_slots || null}
                                                         />*/}
-                                                        <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} />
+                                                        <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true"/>
                                                         {
                                                             Object.values(selectedProcedures).length ?
                                                                 <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
