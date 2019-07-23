@@ -248,7 +248,7 @@ class IpdDoctorCityPopup extends React.Component {
 							<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Dedicated Doctor for Advice</span></p>*/}
 							{/*<p className="ipd-needHelp">Your request has been submitted. To help us serve you better, please fill the additional details below:</p>*/}
 							<div className="ipd-pop-scrl">
-								<div className="ipd-inp-section" onClick={(e) => {
+								<div className="ipd-inp-section ipd-sctn-chng" onClick={(e) => {
 								e.preventDefault()
 								e.stopPropagation()}}>
 									

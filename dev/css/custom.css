@@ -2749,4 +2749,10 @@ select.slct-ipn-ti{
     top: -8px;
     cursor: pointer;
 }
+.ipd-sctn-chng{
+	margin-top: 45px;
+}
+.ipd-sctn-chng .skip-btn-sgn{
+	margin-top: 60px;
+}
 /* ============ ipdnewpopup ============ */
