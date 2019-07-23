@@ -228,6 +228,16 @@ class ChatPanel extends React.Component {
                             break;
                         }
 
+                        case 'preventive': {
+
+
+                            let analyticData = {
+                                    'Category': 'Chat', 'Action': 'PreventiveFired', 'CustomerID': '', 'leadid': 0, 'event': 'preventive-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname
+                            }
+                            GTM.sendEvent({ data: analyticData })
+                            break;
+                        }
+
                     }
 
                     /**
