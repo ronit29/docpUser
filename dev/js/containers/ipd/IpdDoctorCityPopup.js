@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { submitSecondIPDForm, ipdPopupFired } from '../../actions/index.js'
+import { submitSecondIPDForm, ipdPopupFired, saveIpdPopupData } from '../../actions/index.js'
 import SnackBar from 'node-snackbar'
 import GTM from '../../helpers/gtm.js'
 const queryString = require('query-string')
@@ -92,8 +92,9 @@ class IpdDoctorCityPopup extends React.Component {
 			let year = parseInt(requestedDate.getFullYear())
 			let day = parseInt(requestedDate.getDate())
 			let time = parseInt(this.state.timeSlot)
-			let dateFormat = `${year}-${month>=10?month:`0${month}`}-${day>=10?day:`0${day}`}T${time>10?`${time}`:`0${time}`}:00`
+			let dateFormat = `${year}-${month>=10?month:`0${month}`}-${day>=10?day:`0${day}`}T${time>=10?`${time}`:`0${time}`}:00`
 			formData.requested_date_time = dateFormat
+			formData.title = this.state.timeSlot && this.state.timeSlot.includes('AM')?'AM':'PM'
 		}
 
 		if (this.props.hospital_id) {
@@ -129,6 +130,10 @@ class IpdDoctorCityPopup extends React.Component {
 
 		this.props.submitSecondIPDForm(formData, this.props.selectedLocation, (error, response) => {
 			if (!error && response) {
+				//Save popup data for doctor profile data auto filled
+				if(this.props.is_booking_page){
+					this.props.saveIpdPopupData('popup2',formData)	
+				}
 				let gtmData = {
 					'Category': 'ConsumerApp', 'Action': 'IPD-popup-lead', 'CustomerID': GTM.getUserId() || '', 'leadid': this.props.firstLeadId || '', 'event': 'IPD-popup-lead', selectedId: '', 'hospitalId': '', 'from': 'leadForm', 'mobileNo':this.state.phone_number, 'formNo':'2'
 				}
@@ -145,7 +150,7 @@ class IpdDoctorCityPopup extends React.Component {
 					SnackBar.show({ pos: 'bottom-center', text: "Please try after some time" })
 				}, 500)
 			}
-			this.props.secondIpdFormSubmitted()
+			this.props.secondIpdFormSubmitted(formData)
 		})
 
 	}
@@ -241,10 +246,12 @@ class IpdDoctorCityPopup extends React.Component {
 							{/*<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Get upto 30% Off on Appointments</span></p>
 							<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Instant Booking Confirmation</span></p>
 							<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Dedicated Doctor for Advice</span></p>*/}
+							{/*<p className="ipd-needHelp">Your request has been submitted. To help us serve you better, please fill the additional details below:</p>*/}
 							<div className="ipd-pop-scrl">
-								<div className="ipd-inp-section" onClick={(e) => {
+								<div className="ipd-inp-section ipd-sctn-chng" onClick={(e) => {
 								e.preventDefault()
 								e.stopPropagation()}}>
+									
 									{
 										this.props.all_doctors && this.props.all_doctors.length?
 										<div className="ipd-slects-doc">
@@ -261,6 +268,7 @@ class IpdDoctorCityPopup extends React.Component {
 									}
 									<div className="nm-lst-inputcnt justify-content-between">
 										<div className="sel-ipd-input-cnt" style={{width: '48%' }}>
+											<p className="apnt-doc-dtl p-0">Preferred Date</p>
 											<img src={ASSETS_BASE_URL + "/img/calnext.svg"} />
 											<input className="slct-inpt-cntnr-fcs" onClick={this.openDateModal.bind(this)} onChange={()=>{}} value={this.state.requestedDateFormat} />
 										</div>
@@ -276,7 +284,9 @@ class IpdDoctorCityPopup extends React.Component {
 		                                        />
 		                                    </div></div> : ""
 		                                }
+
 										<div className="sel-ipd-input-cnt" style={{width: '48%'}}>
+											<p className="apnt-doc-dtl p-0">Preferred Time</p>
 											<img src={ASSETS_BASE_URL + "/img/calnext.svg"} />
 											<div className="ipd-slects-doc">
 												<select className="slct-ipn-ti" defaultValue={this.state.timeSlot} onChange={ (e)=> this.setState({'timeSlot': e.target.value}) }>
@@ -342,7 +352,8 @@ const mapDispatchToProps = (dispatch) => {
 
 	return {
 		submitSecondIPDForm: (formData, selectedLocation, cb) => dispatch(submitSecondIPDForm(formData, selectedLocation, cb)),
-		ipdPopupFired: ()=> dispatch(ipdPopupFired())
+		ipdPopupFired: ()=> dispatch(ipdPopupFired()),
+		saveIpdPopupData: (type, data) => dispatch(saveIpdPopupData(type, data))
 	}
 }
 

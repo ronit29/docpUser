@@ -72,7 +72,7 @@ class DesktopProfileHeader extends React.Component {
         if (search_back) {
             this.props.history.go(-1)
         } else {
-            this.props.history.push('/search?from=header')
+            this.props.history.push(`/search?from=header&pageType=${this.props.pageType?this.props.pageType:''}`)
         }
     }
 

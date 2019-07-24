@@ -201,7 +201,7 @@ class PrimeCareView extends React.Component {
                                                                                     value.unlimited_online_consultation?
                                                                                     <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/carechk.svg'} /> :''
                                                                                 }
-                                                                                <p>Free Unlimited Online Consultation
+                                                                                <p>Free Unlimited Online Consultation <span className="gp-spn">(General Physician)</span>
                                                                                 </p>
                                                                             </div>
                                                                             <div> 
