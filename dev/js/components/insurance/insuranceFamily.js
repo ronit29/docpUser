@@ -103,12 +103,12 @@ class InsuranceOthers extends React.Component {
 						if(!self.state.year && !self.state.mnth && !self.state.mnth){
 						    self.populateDates(self.props.member_id,true)
 						}
-						this.setState({member_type:'child'},() =>{
+						this.setState({member_type:this.props.member_type},() =>{
 							self.handleSubmit()
 						})
 					}else{
 					    self.populateDates(self.props.member_id,true)
-						this.setState({member_type:'adult',relation:'spouse',title:adult_title,gender:adult_gender,only_adult:true},() =>{
+						this.setState({member_type:this.props.member_type,relation:'spouse',title:adult_title,gender:adult_gender,only_adult:true},() =>{
 							self.handleSubmit()
 						})
 					}					
@@ -460,7 +460,7 @@ class InsuranceOthers extends React.Component {
 					<div>
 						{this.props.is_endorsement?
 							<p className="sub-form-hed">{this.props.is_child_only? `Child ${this.props.member_view_id}`:`Spouse`}</p>
-							:<p className="sub-form-hed">{this.props.is_child_only? `Child ${this.props.member_view_id - 1}`:`Spouse`}</p>
+							:<p className="sub-form-hed">{this.props.is_child_only? `Child ${this.props.member_view_id-1}`:`Spouse`}</p>
 						}
 					</div>
 					<div>

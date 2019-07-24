@@ -228,6 +228,16 @@ class ChatPanel extends React.Component {
                             break;
                         }
 
+                        case 'preventive': {
+
+
+                            let analyticData = {
+                                    'Category': 'Chat', 'Action': 'PreventiveFired', 'CustomerID': '', 'leadid': 0, 'event': 'preventive-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname
+                            }
+                            GTM.sendEvent({ data: analyticData })
+                            break;
+                        }
+
                     }
 
                     /**
@@ -489,7 +499,7 @@ class ChatPanel extends React.Component {
 
 
         //if(this.props.showHalfScreenChat && this.props.ipdFormParams) {
-        if (this.props.USER && this.props.USER.ipd_chat && this.props.USER.ipd_chat.ipdForm) {
+        if (this.props.USER && this.props.USER.ipd_chat && this.props.USER.ipd_chat.ipdForm && false) {
 
             let params = JSON.stringify(this.props.USER.ipd_chat.ipdForm)
             iframe_url += `&product=IPD&params=${params}&msg=startchat`
