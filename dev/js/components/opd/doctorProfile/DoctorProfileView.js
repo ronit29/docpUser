@@ -374,12 +374,12 @@ class DoctorProfileView extends React.Component {
                 <ProfileHeader showSearch={true} />
                 {
                     (this.props.DOCTORS[doctor_id] && parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE) || showForcedPopup ?
-                        <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={selectedClinicName} hospital_id={this.state.selectedClinic} doctor_name={this.props.DOCTORS[doctor_id].name ? this.props.DOCTORS[doctor_id].name : ''} formSource='DoctorBookingPage' sourceTag='seo_dp' saveLeadIdForUpdation={this.saveLeadIdForUpdation.bind(this)}/>
+                        <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={selectedClinicName} hospital_id={this.state.selectedClinic} doctor_name={this.props.DOCTORS[doctor_id].name ? this.props.DOCTORS[doctor_id].name : ''} formSource='DoctorBookingPage' saveLeadIdForUpdation={this.saveLeadIdForUpdation.bind(this)}/>
                         : ''
                 }
                 {
                     this.props.DOCTORS[doctor_id] && this.state.showSecondPopup && parsed.get_feedback && parsed.get_feedback == '1'?
-                    <IpdSecondPopup {...this.props} firstLeadId={this.state.firstLeadId} all_doctors={[]} all_cities={this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].all_cities?this.props.DOCTORS[doctor_id].all_cities:[]} doctorProfilePage={true} secondIpdFormSubmitted={this.secondIpdFormSubmitted.bind(this)} hospital_name={selectedClinicName} hospital_id={this.state.selectedClinic} doctor_name={this.props.DOCTORS[doctor_id].name ? this.props.DOCTORS[doctor_id].name : ''} formSource='DoctorBookingPage' sourceTag='seo_dp' />
+                    <IpdSecondPopup {...this.props} firstLeadId={this.state.firstLeadId} all_doctors={[]} all_cities={this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].all_cities?this.props.DOCTORS[doctor_id].all_cities:[]} doctorProfilePage={true} secondIpdFormSubmitted={this.secondIpdFormSubmitted.bind(this)} hospital_name={selectedClinicName} hospital_id={this.state.selectedClinic} doctor_name={this.props.DOCTORS[doctor_id].name ? this.props.DOCTORS[doctor_id].name : ''} formSource='DoctorBookingPage'/>
                     :''
                 }
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">

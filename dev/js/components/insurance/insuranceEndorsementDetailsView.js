@@ -312,24 +312,25 @@ class InsuranceEndoresmentInputView extends React.Component{
 					}
 				}
 
-				if(fields.length > 0 || empty_feilds.length > 0 || dobError.length > 0){	
-					is_disable = true
-					if(this.props.selected_plan.threshold.length>0){
-						errorMessagesObj.child_max_age= this.props.selected_plan.threshold[0].child_max_age
-						errorMessagesObj.child_min_age= this.props.selected_plan.threshold[0].child_min_age
-						errorMessagesObj.max_age= this.props.selected_plan.threshold[0].max_age
-						errorMessagesObj.min_age= this.props.selected_plan.threshold[0].min_age
-						errorMessagesObj.common_message= '*This is a mandatory field'
-						errorMessagesObj.max_character= 'Maximum character limit: 50'
-						errorMessagesObj.valid_email= '*Please enter a valid email'
-						errorMessagesObj.adult_age = `*Age should be more than ${this.props.selected_plan.threshold[0].min_age} years and less than ${this.props.selected_plan.threshold[0].max_age} years`
-						errorMessagesObj.child_age = `*Age should be more than ${this.props.selected_plan.threshold[0].child_min_age} days and less than ${this.props.selected_plan.threshold[0].child_max_age} years`
-						errorMessagesObj.sameGenderTitle = "*Both the Adults can't have same Gender and Title"
-						errorMessagesObj.shouldGenderTitle = "*Both Gender and Title can't be different"
-						errorMessagesObj.childAgeDiff = '*Difference between age of child and adult should be more than 18 years'						
-					}
-					member_ref = `member_${param.id}`
+				if(this.props.selected_plan.threshold.length>0){
+					errorMessagesObj.child_max_age= this.props.selected_plan.threshold[0].child_max_age
+					errorMessagesObj.child_min_age= this.props.selected_plan.threshold[0].child_min_age
+					errorMessagesObj.max_age= this.props.selected_plan.threshold[0].max_age
+					errorMessagesObj.min_age= this.props.selected_plan.threshold[0].min_age
+					errorMessagesObj.common_message= '*This is a mandatory field'
+					errorMessagesObj.max_character= 'Maximum character limit: 50'
+					errorMessagesObj.valid_email= '*Please enter a valid email'
+					errorMessagesObj.adult_age = `*Age should be more than ${this.props.selected_plan.threshold[0].min_age} years and less than ${this.props.selected_plan.threshold[0].max_age} years`
+					errorMessagesObj.child_age = `*Age should be more than ${this.props.selected_plan.threshold[0].child_min_age} days and less than ${this.props.selected_plan.threshold[0].child_max_age} years`
+					errorMessagesObj.sameGenderTitle = "*Both the Adults can't have same Gender and Title"
+					errorMessagesObj.shouldGenderTitle = "*Both Gender and Title can't be different"
+					errorMessagesObj.childAgeDiff = '*Difference between age of child and adult should be more than 18 years'						
 				}
+
+				// if(fields.length > 0 || empty_feilds.length > 0 || dobError.length > 0){	
+				// 	is_disable = true
+				// 	member_ref = `member_${param.id}`
+				// }
 				if(param.name != "" && param.middle_name != "" && param.last_name != "" && !param.no_lname){//name validation
 					let fullnameObj={}
 					fullname = param.name+param.middle_name+param.last_name
@@ -355,10 +356,11 @@ class InsuranceEndoresmentInputView extends React.Component{
 					fullnameObj.fName=fullname.toLowerCase()
 					fields_name.push(fullnameObj)
 				}
+
 				validatingErrors[param.id] = fields
-				validatingDobErrors[key] = dobError
+				validatingDobErrors[param.id] = dobError
 				if(param.member_type == 'adult'){
-					validatingOtherErrors[key] = empty_feilds
+					validatingOtherErrors[param.id] = empty_feilds
 				}
     		}
     	})		
@@ -384,6 +386,39 @@ class InsuranceEndoresmentInputView extends React.Component{
 				is_disable = true
 				errorMessagesObj.sameName = '*Name of the members cannot be same'
 			}
+
+			Object.keys(validatingErrors).forEach(function(key) {
+    			if(validatingErrors[key].length > 0){
+    				is_disable = true
+    				member_ref = `member_${key}`	
+    			}
+			});
+
+			Object.keys(validatingOtherErrors).forEach(function(key) {
+    			if(validatingOtherErrors[key].length > 0){
+    				is_disable = true
+    				member_ref = `member_${key}`	
+    			}
+			});
+
+			Object.keys(validatingDobErrors).forEach(function(key) {
+    			if(validatingDobErrors[key].length > 0){
+    				is_disable = true
+    				member_ref = `member_${key}`	
+    			}
+			});
+
+			
+			console.log('validateErrors')
+			console.log(validatingErrors)
+			console.log('validateOtherErrors')
+			console.log(validatingOtherErrors)
+			console.log('validatingNames')
+			console.log(invalidname)
+			console.log('validatingDobErrors')
+			console.log(validatingDobErrors)
+			console.log('member_ref')
+			console.log(member_ref)
 			// validating is user had changed anything	
 			if(this.props.endorsed_member_data.members.length == Object.keys(this.props.self_data_values).length){
 				for(var i =0;i < this.props.endorsed_member_data.members.length;i++) {

@@ -6,8 +6,13 @@ class HospitalTreatmentView extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      treatment: []
+      treatment: [],
+      fromServer: true
     }
+  }
+
+  componentDidMount(){
+    this.setState({fromServer: false})
   }
 
   toggleTreatment(id){
@@ -70,7 +75,7 @@ class HospitalTreatmentView extends React.Component {
                       }
                    </h3>
                    {
-                      this.state.treatment.indexOf(treatment.id)>-1?
+                      this.state.treatment.indexOf(treatment.id)>-1 || this.state.fromServer?
                       <p className="accordian-dtl">
                         {
                           treatment.ipd_procedures.map((ipd, k)=> {

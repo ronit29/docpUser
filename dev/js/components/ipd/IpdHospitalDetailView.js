@@ -269,7 +269,7 @@ class HospitalDetailView extends React.Component {
 						<div className="ipd-section">
 							{
 								(showPopup || showForcedPopup)?
-									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} formSource='ipdHospitalPopup' saveLeadIdForUpdation={this.saveLeadIdForUpdation.bind(this)}/>
+									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} formSource='ipdHospitalPopup' saveLeadIdForUpdation={this.saveLeadIdForUpdation.bind(this)} noToastMessage={true}/>
 									: ''
 							}
 							{
@@ -339,10 +339,10 @@ class HospitalDetailView extends React.Component {
 												{
 													this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length ?
 														this.props.ipd_hospital_detail.specialization_doctors.result.map((doctorCard, i) => {
-															return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.specialization_doctors.seo} {...this.props} />
+															return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.specialization_doctors.seo} {...this.props} noSchemaBinding={true}/>
 														})
 														: this.props.ipd_hospital_detail.doctors.result.map((doctorCard, i) => {
-															return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.doctors.seo} {...this.props} />
+															return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.doctors.seo} {...this.props} noSchemaBinding={true}/>
 														})
 												}
 											</div>
