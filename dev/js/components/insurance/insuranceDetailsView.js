@@ -58,21 +58,44 @@ class InsuranceInputView extends React.Component{
     		}
     		isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
     		if(!isDummyUser){
-	    		membersId.push({'0':loginUser})
+	    		membersId.push({'0':loginUser, type: 'self'})
 	    		var n = (props.selected_plan.adult_count + props.selected_plan.child_count) - 1;
+	    		card = [...Array(props.selected_plan.adult_count-1)].map((e, i) => {
+						membersId.push({[i+1]: i+1, type:'adult'})
+					})
+
+	    		card = [...Array(props.selected_plan.child_count)].map((e, i) => {
+	    				if(props.selected_plan.adult_count >1){
+	    					membersId.push({[i+2]: i+2, type:'child'})
+	    				}else{
+							membersId.push({[i+1]: i+1, type:'child'})
+						}
+					})
+/*
 				if(n !== 0){
 					card = [...Array(n)].map((e, i) => {
-						membersId.push({[i+1]: i+1})
+						membersId.push({[i+1]: i+1, type:''})
 					})
-				}
+				}*/
 			}else{
-				membersId.push({'0':0})
+				membersId.push({'0':0, type:'self'})
 				var n = (props.selected_plan.adult_count + props.selected_plan.child_count) - 1;
-				if(n !== 0){
-					card = [...Array(n)].map((e, i) => {
-						membersId.push({[i+1]: i+1})
+				card = [...Array(props.selected_plan.adult_count-1)].map((e, i) => {
+						membersId.push({[i+1]: i+1, type:'adult'})
 					})
-				}
+
+	    		card = [...Array(props.selected_plan.child_count)].map((e, i) => {
+	    				if(props.selected_plan.adult_count >1){
+	    					membersId.push({[i+2]: i+2, type:'child'})
+	    				}else{
+							membersId.push({[i+1]: i+1, type:'child'})
+						}
+					})
+				// if(n !== 0){
+				// 	card = [...Array(n)].map((e, i) => {
+				// 		membersId.push({[i+1]: i+1})
+				// 	})
+				// }
 			}
 			props.saveCurrentSelectedMembers(membersId)
 			this.setState({ saveMembers: true})
@@ -283,24 +306,24 @@ class InsuranceInputView extends React.Component{
 					}
 				}
 
-				if(fields.length > 0 || empty_feilds.length > 0 || dobError.length > 0){	
-					is_disable = true
-					if(this.props.selected_plan.threshold.length>0){
-						errorMessagesObj.child_max_age= this.props.selected_plan.threshold[0].child_max_age
-						errorMessagesObj.child_min_age= this.props.selected_plan.threshold[0].child_min_age
-						errorMessagesObj.max_age= this.props.selected_plan.threshold[0].max_age
-						errorMessagesObj.min_age= this.props.selected_plan.threshold[0].min_age
-						errorMessagesObj.common_message= '*This is a mandatory field'
-						errorMessagesObj.max_character= 'Maximum character limit: 50'
-						errorMessagesObj.valid_email= '*Please enter a valid email'
-						errorMessagesObj.adult_age = `*Age should be more than ${this.props.selected_plan.threshold[0].min_age} years and less than ${this.props.selected_plan.threshold[0].max_age} years`
-						errorMessagesObj.child_age = `*Age should be more than ${this.props.selected_plan.threshold[0].child_min_age} days and less than ${this.props.selected_plan.threshold[0].child_max_age} years`
-						errorMessagesObj.sameGenderTitle = "*Both the Adults can't have same Gender and Title"
-						errorMessagesObj.shouldGenderTitle = "*Both Gender and Title can't be different"
-						errorMessagesObj.childAgeDiff = '*Difference between age of child and adult should be more than 18 years'						
-					}
-					member_ref = `member_${param.id}`
+				if(this.props.selected_plan.threshold.length>0){
+					errorMessagesObj.child_max_age= this.props.selected_plan.threshold[0].child_max_age
+					errorMessagesObj.child_min_age= this.props.selected_plan.threshold[0].child_min_age
+					errorMessagesObj.max_age= this.props.selected_plan.threshold[0].max_age
+					errorMessagesObj.min_age= this.props.selected_plan.threshold[0].min_age
+					errorMessagesObj.common_message= '*This is a mandatory field'
+					errorMessagesObj.max_character= 'Maximum character limit: 50'
+					errorMessagesObj.valid_email= '*Please enter a valid email'
+					errorMessagesObj.adult_age = `*Age should be more than ${this.props.selected_plan.threshold[0].min_age} years and less than ${this.props.selected_plan.threshold[0].max_age} years`
+					errorMessagesObj.child_age = `*Age should be more than ${this.props.selected_plan.threshold[0].child_min_age} days and less than ${this.props.selected_plan.threshold[0].child_max_age} years`
+					errorMessagesObj.sameGenderTitle = "*Both the Adults can't have same Gender and Title"
+					errorMessagesObj.shouldGenderTitle = "*Both Gender and Title can't be different"
+					errorMessagesObj.childAgeDiff = '*Difference between age of child and adult should be more than 18 years'						
 				}
+				// if(fields.length > 0 || empty_feilds.length > 0 || dobError.length > 0){	
+				// 	is_disable = true
+				// 	member_ref = `member_${param.id}`
+				// }
 				if(param.name != "" && param.middle_name != "" && param.last_name != "" && !param.no_lname){//name validation
 					let fullnameObj={}
 					fullname = param.name+param.middle_name+param.last_name
@@ -326,10 +349,11 @@ class InsuranceInputView extends React.Component{
 					fullnameObj.fName=fullname.toLowerCase()
 					fields_name.push(fullnameObj)
 				}
-				validatingErrors[key] = fields
-				validatingDobErrors[key] = dobError
+				
+				validatingErrors[param.id] = fields
+				validatingDobErrors[param.id] = dobError
 				if(param.member_type == 'adult'){
-					validatingOtherErrors[key] = empty_feilds
+					validatingOtherErrors[param.id] = empty_feilds
 				}
     		}
     	})		
@@ -355,6 +379,39 @@ class InsuranceInputView extends React.Component{
 				is_disable = true
 				errorMessagesObj.sameName = '*Name of the members cannot be same'
 			}
+
+			Object.keys(validatingErrors).forEach(function(key) {
+    			if(validatingErrors[key].length > 0){
+    				is_disable = true
+    				member_ref = `member_${key}`	
+    			}
+			});
+
+			Object.keys(validatingOtherErrors).forEach(function(key) {
+    			if(validatingOtherErrors[key].length > 0){
+    				is_disable = true
+    				member_ref = `member_${key}`	
+    			}
+			});
+
+			Object.keys(validatingDobErrors).forEach(function(key) {
+    			if(validatingDobErrors[key].length > 0){
+    				is_disable = true
+    				member_ref = `member_${key}`	
+    			}
+			});
+
+			
+			console.log('validateErrors')
+			console.log(validatingErrors)
+			console.log('validateOtherErrors')
+			console.log(validatingOtherErrors)
+			console.log('validatingNames')
+			console.log(invalidname)
+			console.log('validatingDobErrors')
+			console.log(validatingDobErrors)
+			console.log('member_ref')
+			console.log(member_ref)
 		this.setState({validateErrors: validatingErrors,validateOtherErrors: validatingOtherErrors,validatingNames:invalidname,validateDobErrors:validatingDobErrors,errorMessages:errorMessagesObj})
     	if(is_disable && document.getElementById(member_ref)){    		
     		document.getElementById(member_ref).scrollIntoView();
@@ -392,55 +449,81 @@ class InsuranceInputView extends React.Component{
 		let adult
 		let userProfile
 		let selectedProfileId = parseInt(this.props.USER.defaultProfile)
+		let selectedMembersId =0
 		if(Object.keys(this.props.selected_plan).length >0){
 		
 			userProfile = Object.assign({}, this.props.USER.profiles[this.props.USER.defaultProfile])
-			
-			if(this.props.selected_plan.adult_count == 2 && this.props.currentSelectedInsuredMembersId.length>1){
-			
-				adult = <InsurOthers {...this.props} 
+
+			var adult_count_api = (this.props.selected_plan.adult_count - 1)
+			if(adult_count_api !==0 && this.props.currentSelectedInsuredMembersId.length>1){
+				selectedMembersId++
+				adult =this.props.currentSelectedInsuredMembersId.filter(x=>x.type ==='adult').map((data, i) =>{
+						return <InsurOthers {...this.props} 
 							self_gender={userProfile.gender} 
-							param_id = {'1'} 
-							member_id={this.props.currentSelectedInsuredMembersId[1]['1']} 
+							param_id = {selectedMembersId} 
+							member_id={data[selectedMembersId]}
 							checkForValidation ={this.checkForValidation.bind(this)} 
-							id={`member_${0}`} 
-							validateErrors={this.state.validateErrors['1'] || []} 
-							validateOtherErrors={this.state.validateOtherErrors['1'] || []} 
-							createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[1]:[]}
+							id={`member_${selectedMembersId}`} 
+							validateErrors={this.state.validateErrors[data[selectedMembersId]] || []} 
+							validateOtherErrors={this.state.validateOtherErrors[data[selectedMembersId]] || []} 
+							createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[i+1]:[]}
 							show_selected_profiles={this.state.show_selected_profiles} 
 							validateDobErrors={[]} 
 							errorMessages={this.state.errorMessages} 
 							validatingNames={this.state.validatingNames||[]}
 							is_endorsement = {false}
 							endorsementError={this.state.endorsementError}
+							member_type = 'adult'
 						/>
+					})
 			}
+
+
+			// if(this.props.selected_plan.adult_count == 2 && this.props.currentSelectedInsuredMembersId.length>1){
+			// 	selectedMembersId++
+			// 	adult = <InsurOthers {...this.props} 
+			// 				self_gender={userProfile.gender} 
+			// 				param_id = {'1'} 
+			// 				member_id={this.props.currentSelectedInsuredMembersId[1]['1']} 
+			// 				checkForValidation ={this.checkForValidation.bind(this)} 
+			// 				id={`member_${0}`} 
+			// 				validateErrors={this.state.validateErrors['1'] || []} 
+			// 				validateOtherErrors={this.state.validateOtherErrors['1'] || []} 
+			// 				createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[1]:[]}
+			// 				show_selected_profiles={this.state.show_selected_profiles} 
+			// 				validateDobErrors={[]} 
+			// 				errorMessages={this.state.errorMessages} 
+			// 				validatingNames={this.state.validatingNames||[]}
+			// 				is_endorsement = {false}
+			// 				endorsementError={this.state.endorsementError}
+			// 				member_type = 'adult' 
+			// 			/>
+			// }
 		
 			var n = (this.props.selected_plan.child_count);
 		
 			if(n !== 0){
-				child =this.props.currentSelectedInsuredMembersId.map((data, i) =>{
-					if(i!=0 && i!=1){
-			
+				child =this.props.currentSelectedInsuredMembersId.filter(x=>x.type ==='child').map((data, i) =>{
+					selectedMembersId++
 						return <InsurOthers {...this.props} 
 									key={i} 
-									member_id={data[i]} 
+									member_id={data[selectedMembersId]} 
 									checkForValidation ={this.checkForValidation.bind(this)} 
 									is_child_only={true} 
-									id={`member_${i+1}`} 
-									param_id = {i} 
-									member_view_id= {i} 
-									validateErrors={this.state.validateErrors[i] || []} 
+									id={`member_${selectedMembersId}`} 
+									param_id = {selectedMembersId} 
+									member_view_id= {selectedMembersId} 
+									validateErrors={this.state.validateErrors[data[selectedMembersId]] || []} 
 									validateOtherErrors={[]} 
 									createApiErrorsChild={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members:[]} 
 									show_selected_profiles={this.state.show_selected_profiles} 
-									validateDobErrors={this.state.validateDobErrors[i] || []} 
+									validateDobErrors={this.state.validateDobErrors[data[selectedMembersId]] || []} 
 									errorMessages={this.state.errorMessages} 
 									validatingNames={this.state.validatingNames||[]}
 									is_endorsement = {false}
 									endorsementError={this.state.endorsementError}
+									member_type = 'child'
 								/>
-					}
 				})
 			}
 
@@ -466,13 +549,14 @@ class InsuranceInputView extends React.Component{
 												checkForValidation ={this.checkForValidation.bind(this)} 
 												id={`member_${this.props.USER.defaultProfile}`} 
 												member_id={this.props.USER.defaultProfile} 
-												validateErrors={this.state.validateErrors['0'] || []}
-												validateOtherErrors={this.state.validateOtherErrors['0'] || []} 
+												validateErrors={this.state.validateErrors[this.props.USER.defaultProfile] || []}
+												validateOtherErrors={this.state.validateOtherErrors[this.props.USER.defaultProfile] || []} 
 												createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} 
 												errorMessages={this.state.errorMessages} 
 												is_endorsement = {false} 
 												endorsementError={this.state.endorsementError}
 												checkIsEmailVerfied = {this.checkIsEmailVerfied.bind(this)}
+												member_type='adult'
 												/>
 										</div>
 									</div>

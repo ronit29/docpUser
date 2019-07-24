@@ -142,58 +142,60 @@ class InsuranceSelf extends React.Component {
 		let newName = []
 		let oldDate
 		let tempArray
-		newName = profile.name.split(" ")
-		if (newName.length == 2) {
-			this.setState({
-				name: profile.isDummyUser ? '' : newName[0],
-				last_name: profile.isDummyUser ? '' : newName[1]
-			})
-		} else if (newName.length == 3) {
-			this.setState({
-				name: profile.isDummyUser ? '' : newName[0],
-				last_name: profile.isDummyUser ? '' : newName[2],
-				middle_name: profile.isDummyUser ? '' : newName[1]
-			})
-		} else if (newName.length > 3) {
-			tempArray = newName.slice(2, newName.length)
-			this.setState({
-				name: profile.isDummyUser ? '' : newName[0],
-				last_name: profile.isDummyUser ? '' : tempArray.join(' '),
-				middle_name: profile.isDummyUser ? '' : newName[1]
-			})
-		} else {
-			this.setState({ name: profile.isDummyUser ? '' : profile.name })
-		}
-		if (profile.isDummyUser && profile.dob) {
-			this.setState({ day: null, year: null, mnth: null })
-		} else if (Object.keys(profile).length > 0 && profile.dob) {
-			oldDate = profile.dob.split('-')
-			this.setState({ year: oldDate[0], mnth: oldDate[1], day: oldDate[2] }, () => {
-				this.populateDates()
-			})
-		} else {
-			this.populateDates()
-		}
-		this.setState({
-			disableEmail: !profile.isDummyUser && profile.email != '' ? true : false,
-			disableDob: !profile.isDummyUser && profile.dob != null ? true : false,
-			disableName: !profile.isDummyUser && profile.name != '' ? true : false,
-			gender: profile.isDummyUser ? '' : profile.gender,
-			email: profile.isDummyUser ? '' : profile.email,
-			dob: profile.isDummyUser ? '' : profile.dob,
-			id: profile.isDummyUser ? 0 : profile.id
-		}, () => {
-			if (profile.gender == 'm') {
-				this.setState({ title: 'mr.' })
-			} else if (profile.gender == 'f') {
-				if (this.props.selected_plan.adult_count == 2) {
-					this.setState({ title: 'mrs.' })
-				} else {
-					this.setState({ title: 'miss' })
-				}
+		if(Object.keys(profile).length > 0){
+			newName = profile.name.split(" ")
+			if (newName.length == 2) {
+				this.setState({
+					name: profile.isDummyUser ? '' : newName[0],
+					last_name: profile.isDummyUser ? '' : newName[1]
+				})
+			} else if (newName.length == 3) {
+				this.setState({
+					name: profile.isDummyUser ? '' : newName[0],
+					last_name: profile.isDummyUser ? '' : newName[2],
+					middle_name: profile.isDummyUser ? '' : newName[1]
+				})
+			} else if (newName.length > 3) {
+				tempArray = newName.slice(2, newName.length)
+				this.setState({
+					name: profile.isDummyUser ? '' : newName[0],
+					last_name: profile.isDummyUser ? '' : tempArray.join(' '),
+					middle_name: profile.isDummyUser ? '' : newName[1]
+				})
+			} else {
+				this.setState({ name: profile.isDummyUser ? '' : profile.name })
 			}
-			this.handleSubmit(false,false)
-		})
+			if (profile.isDummyUser && profile.dob) {
+				this.setState({ day: null, year: null, mnth: null })
+			} else if (Object.keys(profile).length > 0 && profile.dob) {
+				oldDate = profile.dob.split('-')
+				this.setState({ year: oldDate[0], mnth: oldDate[1], day: oldDate[2] }, () => {
+					this.populateDates()
+				})
+			} else {
+				this.populateDates()
+			}
+			this.setState({
+				disableEmail: !profile.isDummyUser && profile.email != '' ? true : false,
+				disableDob: !profile.isDummyUser && profile.dob != null ? true : false,
+				disableName: !profile.isDummyUser && profile.name != '' ? true : false,
+				gender: profile.isDummyUser ? '' : profile.gender,
+				email: profile.isDummyUser ? '' : profile.email,
+				dob: profile.isDummyUser ? '' : profile.dob,
+				id: profile.isDummyUser ? 0 : profile.id
+			}, () => {
+				if (profile.gender == 'm') {
+					this.setState({ title: 'mr.' })
+				} else if (profile.gender == 'f') {
+					if (this.props.selected_plan.adult_count == 2) {
+						this.setState({ title: 'mrs.' })
+					} else {
+						this.setState({ title: 'miss' })
+					}
+				}
+				this.handleSubmit(false,false)
+			})
+		}
 	}
 	handleChange(field, event) {
 		this.setState({

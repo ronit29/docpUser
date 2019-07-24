@@ -18,14 +18,22 @@ class VerifyEmail extends React.Component {
 	
 	componentWillReceiveProps(props) {
 		if(this.state.initialStage && this.props.email !=''){
-			this.setState({email:this.props.email, initialStage:false})	
+			this.setState({email:this.props.email,oldEmail:this.props.email, initialStage:false})	
 		}
+	}
+
+	componentDidMount(){
+		if(this.state.initialStage && this.props.email !=''){
+			this.setState({email:this.props.email,oldEmail:this.props.email, initialStage:false})	
+		}	
 	}
 	
 	handleEndoresmentEmail(event) {
 		let oldEmail
-		if (this.props.user_data && this.props.user_data.length > 0) {
+		if (this.props.is_endorsement && this.props.user_data && this.props.user_data.length > 0) {
 			oldEmail = this.props.user_data[0].email
+		}else{
+			oldEmail = this.state.oldEmail
 		}
 		this.setState({email:event.target.value},()=>{
 			if(oldEmail !== this.state.email){
@@ -33,12 +41,23 @@ class VerifyEmail extends React.Component {
 				validEmail = validEmail.test(this.state.email)
 				if (validEmail) {	
 					this.setState({VerifyEmails:true})
+					if(this.props.is_endorsement){
+						this.props.handleSubmit(false,true)
+					}else{
+						this.props.verifyEndorsementEmail(this.state.email,false,true)
+					}
 				}
-				this.props.handleSubmit(false,true)
+			}else{
+				this.props.verifyEndorsementEmail(this.state.email,false,false)
+				this.setState({VerifyEmails:false})
 			}
 			if(this.state.email == ''){
 				this.setState({VerifyEmails:false})
-				this.props.handleSubmit(false,true)	
+				if(this.props.is_endorsement){
+					this.props.handleSubmit(false,true)	
+				}else{
+					this.props.verifyEndorsementEmail(this.state.email,false,true)
+				}
 			}
 		})
 	}
@@ -48,8 +67,10 @@ class VerifyEmail extends React.Component {
 			this.setState({otpTimeout:false,otpValue:'' })
 		}
 		let data={}
-        if (this.props.user_data && this.props.user_data.length > 0) {
+        if (this.props.is_endorsement && this.props.user_data && this.props.user_data.length > 0) {
 			data.profile = this.props.user_data[0].profile
+		}else{
+			data.profile = this.props.member_id.id
 		}
 		let validEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		if (this.state.email != '') {			
@@ -59,7 +80,9 @@ class VerifyEmail extends React.Component {
 				this.props.sendOtpOnEmail(data, (resp) => {        
 	            	if(resp && resp.id){
 		            	this.setState({emailSuccessId:resp.id, showOtp: true, otpTimeout: false })
-		            	this.props.handleSubmit(false,true)
+		            	if(this.props.is_endorsement){
+		            		this.props.handleSubmit(false,true)
+		            	}
 		                setTimeout(() => {
 		                    this.setState({ otpTimeout: true })
 		                }, 10000)
@@ -71,6 +94,9 @@ class VerifyEmail extends React.Component {
 		        })
 			} else {
 				this.setState({VerifyEmails:false})
+				if(!this.props.is_endorsement){
+					this.props.verifyEndorsementEmail(this.state.email,false,true)
+				}
 				SnackBar.show({ pos: 'bottom-center', text: "Please Enter valid Email" });
 			}
 		}else {
@@ -85,14 +111,20 @@ class VerifyEmail extends React.Component {
 	submitOtp(){
 		let data={}
 		data.id = this.state.emailSuccessId
-		if (this.props.user_data && this.props.user_data.length > 0) {
+		if (this.props.is_endorsement && this.props.user_data && this.props.user_data.length > 0) {
 			data.profile = this.props.user_data[0].profile
+		}else{
+			data.profile = this.props.member_id.id
 		}
-		data.otp = this.state.otpValue
-		data.process_immediately = false
-		this.props.submitEmailOTP(data,(resp) =>{
-			if(resp && resp.success){
-		        this.props.verifyEndorsementEmail(this.state.email)
+		data.otp = parseInt(this.state.otpValue)
+		if(this.props.is_endorsement){
+			data.process_immediately = false
+		}else{
+			data.process_immediately = true
+		}
+		this.props.submitEmailOTP(data,(resp, error) =>{
+			if(resp){
+		        this.props.verifyEndorsementEmail(this.state.email,true,false)
 				this.setState({VerifyEmails:false,showOtp:false,otpTimeout:false,otpValue:'',emailSuccessId:''})
 				SnackBar.show({ pos: 'bottom-center', text: resp.message });
 			}else{
@@ -103,10 +135,22 @@ class VerifyEmail extends React.Component {
 	render() {
 		let self = this
 		return (
-			<div className="col-12 mrt-10">
+			<div className={`col-12 mrt-10 ${this.props.is_endorsement?'': 'ins-fmpage-input'}`} onClick={(e)=>{e.stopPropagation()
+				e.preventDefault()
+			}}>
 				<div className={this.state.showOtp?'ins-email-cont':''}>
 					<div className={`ins-form-group ${this.state.showOtp?'mb-0':''}`}>
-						<input type="text" id="statick" id={`emails_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('email') > -1 ? 'fill-error' : ''}`} required autoComplete="email" name="email" data-param='email' value={this.state.email} onChange={this.handleEndoresmentEmail.bind(this)} onBlur={this.handleEndoresmentEmail.bind(this)} />
+						<input 
+							type="text" 
+							id={`emails_${this.props.member_id.id}`} 
+							className={`form-control ins-form-control ${this.props.validateErrors && this.props.is_endorsement && this.props.validateErrors.indexOf('email') > -1 ? 'fill-error': ''} ${this.props.isEmailError?'errorColorBorder':''}`} required 
+							autoComplete="email" 
+							name="email" 
+							data-param='email' 
+							value={this.state.email} 
+							onChange={this.handleEndoresmentEmail.bind(this)} 
+							onBlur={this.handleEndoresmentEmail.bind(this)} 
+						/>
 						<label className="form-control-placeholder datePickerLabel" htmlFor="statick"><span className="labelDot"></span>Email</label>
 						<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
 						{

@@ -15,16 +15,41 @@ class ChoosePatientNewView extends React.Component {
             data: false,
             email: '',
             smsBtnType: null,
-            isEmailNotValid: false
+            isEmailNotValid: false,
+            isPopupDataFilled: false
         }
     }
 
     componentDidMount() {
         if (!this.props.patient) {
-            this.setState({ ...this.props.saved_patient_details }, () => {
-                this.profileValidation()
-            })
+
+            if(this.props.saved_patient_details && Object.keys(this.props.saved_patient_details).length){
+
+                this.setState({ ...this.props.saved_patient_details, isPopupDataFilled: false }, () => {
+                    this.profileValidation()
+                })
+
+            }
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(this.props.doctorSummaryPage && !nextProps.patient && !this.state.isPopupDataFilled && nextProps.ipdPopupData && nextProps.ipdPopupData['popup1'] && (!this.props.ipdPopupData['popup1'] || (this.props.ipdPopupData['popup1'] && nextProps.ipdPopupData['popup1'].name!=this.props.ipdPopupData['popup1'] ) ) ){
+            let popup1;
+            try{
+                let popup1 = nextProps.ipdPopupData['popup1']
+                
+                if(popup1 && Object.keys(popup1).length && popup1.doctor == this.props.selectedDoctor){
+
+                    this.setState({ name:popup1 && popup1.first_name?popup1.first_name:'', phoneNumber: popup1 && popup1.phone_number?popup1.phone_number:'' ,gender:popup1 && popup1.gender?popup1.gender:'', showVerify: true, isPopupDataFilled: true }, () => {
+                        this.profileValidation()
+                    })
+                }                    
+
+            }catch(e){
+
+            }
+        } 
     }
 
     inputHandler(e) {

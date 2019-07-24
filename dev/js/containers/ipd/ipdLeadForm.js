@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { submitIPDForm, ipdPopupFired } from '../../actions/index.js'
+import { submitIPDForm, ipdPopupFired, saveIpdPopupData } from '../../actions/index.js'
 import SnackBar from 'node-snackbar'
 import GTM from '../../helpers/gtm.js'
 const queryString = require('query-string')
@@ -106,6 +106,10 @@ class IpdLeadForm extends React.Component {
 
 		this.props.submitIPDForm(formData, this.props.selectedLocation, (error, response) => {
 			if (!error && response) {
+				//Save popup data for doctor profile data auto filled
+				if(this.props.is_booking_page){
+					this.props.saveIpdPopupData('popup1', formData)	
+				}
 				this.props.ipdPopupFired()
 				if(this.props.saveLeadIdForUpdation && typeof(this.props.saveLeadIdForUpdation)=='function'){
 					this.props.saveLeadIdForUpdation(response)
@@ -119,9 +123,13 @@ class IpdLeadForm extends React.Component {
 					GTM.sendEvent({ data: gtmData })
 				}
 				
-				setTimeout(() => {
-					SnackBar.show({ pos: 'bottom-center', text: "Your request has been submitted sucessfully" })
-				}, 500)
+				if(this.props.noToastMessage) {
+					
+				}else {
+					setTimeout(() => {
+						SnackBar.show({ pos: 'bottom-center', text: "Your request has been submitted sucessfully" })
+					}, 500)
+				}
 				this.setState({ showForm: false })
 			} else {
 				setTimeout(() => {
@@ -255,7 +263,7 @@ class IpdLeadForm extends React.Component {
 													</div>
 													<input type="text" value={this.state.phone_number} name='phone_number' placeholder="*Mobile Number" onChange={this.inputHandler.bind(this)}/>
 													<div className="slt-nw-input radio-mbl mb-10">
-														<label className="slt-label" htmlFor="male" ><sup className="requiredAst">*</sup>Gender:</label>
+														<label className="slt-label" htmlFor="male" >*Gender:</label>
 														<div className="slt-label-radio">
 															<div className="dtl-radio">
 																<label className="container-radio" onClick={() => this.setState({ gender: 'm' })}>Male
@@ -317,7 +325,8 @@ const mapDispatchToProps = (dispatch) => {
 
 	return {
 		submitIPDForm: (formData, selectedLocation, cb) => dispatch(submitIPDForm(formData, selectedLocation, cb)),
-		ipdPopupFired: () => dispatch(ipdPopupFired())
+		ipdPopupFired: () => dispatch(ipdPopupFired()),
+		saveIpdPopupData: (type, data) => dispatch(saveIpdPopupData(type, data))
 	}
 }
 
