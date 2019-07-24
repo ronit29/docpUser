@@ -306,9 +306,9 @@ export const clearInsurance = () => (dispatch) =>{
 export const submitEmailOTP = (data, callback) => (dispatch) => {
 
     API_POST(`/api/v1/user/profile-email/update`, data).then(function (response) {
-        if (callback) callback(response)
+        if (callback) callback(response, null)
     }).catch(function (error) {
-        if (callback) callback(error)
+        if (callback) callback(null, error)
     })
 }
 

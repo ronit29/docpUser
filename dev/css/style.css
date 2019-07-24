@@ -591,6 +591,9 @@ p.top-head-link.card-lab-link span {
     .profile-footer{
         margin-top: 0px;
     }
+    .ipd-section .opd-status{
+        float: unset !important;
+    }
 }
 @media screen and (max-width: 438px) {
 	.head-links {
@@ -7617,7 +7620,8 @@ p.cstm-cpn{
 }
 .ipd-section .opd-status{
     color: #0ca854;
-    display: inline-block;
+    display: block;
+    float: right;
 }
 .ipd-section .hsptl-contact li{
     display: flex;
@@ -12043,4 +12047,8 @@ font-weight: 500;
     padding: 8px 0px;
     border-radius: 4px;
     background: white;
+}
+.gp-spn{
+    color: #757575;
+    display: inline-block;
 }

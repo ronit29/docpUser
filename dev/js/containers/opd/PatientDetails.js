@@ -54,14 +54,17 @@ class PatientDetails extends React.Component {
                 props.getDoctorById(doctor_id, hospital_id, props.commonProfileSelectedProcedures)
             }
 
-            if (props.selectedSlot && props.selectedSlot.date && !props.selectedSlot.summaryPage) {
+            /*if (props.selectedSlot && props.selectedSlot.date && !props.selectedSlot.summaryPage) {
                 this.setState({ DATA_FETCH: true })
             } else {
 
                 props.getTimeSlots(doctor_id, hospital_id, (timeSlots) => {
                     this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, DATA_FETCH: true, upcoming_slots: timeSlots.upcoming_slots })
                 })
-            }
+            }*/
+            props.getTimeSlots(doctor_id, hospital_id, (timeSlots) => {
+                    this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, DATA_FETCH: true, upcoming_slots: timeSlots.upcoming_slots })
+                })
         }
     }
 
@@ -91,12 +94,13 @@ class PatientDetails extends React.Component {
 const mapStateToProps = (state) => {
 
     let DOCTORS = state.DOCTOR_PROFILES
-    const { selectedProfile, profiles, userWalletBalance, userCashbackBalance, defaultProfile, ipd_chat } = state.USER
+    const { selectedProfile, profiles, userWalletBalance, userCashbackBalance, defaultProfile, ipd_chat, is_ipd_form_submitted } = state.USER
     let { selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, payment_type, selectedDateFormat, TIMESLOT_DATA_LOADING } = state.DOCTOR_SEARCH
     const { saved_patient_details } = state.SEARCH_CRITERIA_LABS
     const { common_settings } = state.SEARCH_CRITERIA_OPD
+    const { ipdPopupData } = state.SEARCH_CRITERIA_IPD
     return {
-        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details, defaultProfile, ipd_chat, common_settings, selectedDateFormat, TIMESLOT_DATA_LOADING
+        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details, defaultProfile, ipd_chat, common_settings, selectedDateFormat, TIMESLOT_DATA_LOADING, is_ipd_form_submitted, ipdPopupData
     }
 }
 
