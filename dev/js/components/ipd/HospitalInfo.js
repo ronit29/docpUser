@@ -80,7 +80,7 @@ class HospitalInfoView extends React.Component {
             {
               hospital_data.images && hospital_data.images.length ?
                 <li>
-                  <div className="hsptl-title hs-tle hsptl-photo">Photo</div>
+                  <div className="hsptl-title hs-tle hsptl-photo">Gallery</div>
                   <div className="hsptl-img">
                     {
                       hospital_data.images.slice(0, 4).map((image, i) => {
