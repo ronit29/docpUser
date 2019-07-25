@@ -1359,7 +1359,7 @@ class PatientDetailsNew extends React.Component {
                                                                                     </div>
                                                                                     <hr />
                                                                                 </React.Fragment> 
-                                                                            :enabled_for_cod_payment && priceData.fees == 0 && priceData.is_cod_deal_price !== priceData.mrp?
+                                                                            :!is_insurance_applicable &&  enabled_for_cod_payment && priceData.fees == 0 && priceData.is_cod_deal_price !== priceData.mrp?
                                                                                 <React.Fragment>
                                                                                     <div className="payment-detail d-flex">
                                                                                         <p>Docprime Discount</p>
