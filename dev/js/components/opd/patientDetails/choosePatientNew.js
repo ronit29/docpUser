@@ -101,7 +101,9 @@ class ChoosePatientNewView extends React.Component {
                     //Create IPD lead for IPD Hospital
                     if(self.props.doctorSummaryPage && self.props.is_ipd_hospital) {
                         let formData = {
-                            phone_number: this.state.phoneNumber
+                            phone_number: this.state.phoneNumber,
+                            source: 'dropoff',
+                            is_valid: false
                         }
                         if(self.props.doctor_id){
                             formData['doctor'] = self.props.doctor_id
