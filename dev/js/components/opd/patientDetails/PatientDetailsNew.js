@@ -358,7 +358,12 @@ class PatientDetailsNew extends React.Component {
         return null
     }
 
-    proceed(datePicked, patient, addToCart, total_price, total_wallet_balance, e) {
+    proceed(datePicked, patient, addToCart, total_price, total_wallet_balance,is_selected_user_insurance_status, e) {
+        if(patient && is_selected_user_insurance_status && is_selected_user_insurance_status == 4){
+            SnackBar.show({ pos: 'bottom-center', text: "Your documents from the last claim are under verification.Please write to customercare@docprime.com for more information." });
+            window.scrollTo(0, 0)
+            return
+        }
 
         if (!datePicked) {
             this.setState({ showTimeError: true });
@@ -871,6 +876,7 @@ class PatientDetailsNew extends React.Component {
         let is_default_user_insured = false
         let is_insurance_buy_able = false
         let payment_mode_count = 0
+        let is_selected_user_insurance_status 
         let all_cities = this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].all_cities?this.props.DOCTORS[this.props.selectedDoctor].all_cities:[]
         if (doctorDetails) {
             let { name, qualifications, hospitals, enabled_for_cod } = doctorDetails
@@ -892,6 +898,7 @@ class PatientDetailsNew extends React.Component {
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
+            is_selected_user_insurance_status = this.props.profiles[this.props.selectedProfile].insurance_status
         }
 
         if (this.props.selectedSlot && this.props.selectedSlot.date) {
@@ -991,7 +998,7 @@ class PatientDetailsNew extends React.Component {
             <div className="profile-body-wrap">
                 <ProfileHeader bookingPage={true} />
                 {
-                    this.state.showConfirmationPopup ?
+                    this.state.showConfirmationPopup && is_selected_user_insurance_status != 4 ?
                         <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} />
                         : ''
                 }
@@ -1423,7 +1430,7 @@ class PatientDetailsNew extends React.Component {
                                     STORAGE.isAgent() || !is_default_user_insured ?
                                         <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                        } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance)}>
+                                        } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance,is_selected_user_insurance_status)}>
                                             {
                                                 this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
                                             }
@@ -1436,7 +1443,7 @@ class PatientDetailsNew extends React.Component {
                                 {
                                     (STORAGE.isAgent() && !(enabled_for_cod_payment && this.props.payment_type == 2)) || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                    } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance)}>{this.getBookingButtonText(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp), enabled_for_cod_payment, priceData.is_cod_deal_price)}</button>
+                                    } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance,is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp), enabled_for_cod_payment, priceData.is_cod_deal_price)}</button>
                                 }
                             </div>
                         </div>
