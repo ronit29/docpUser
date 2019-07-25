@@ -10,6 +10,7 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
+import STORAGE from '../../../helpers/storage'
 
 //import TimeSlotSelector from '../../commons/timeSlotSelector/index.js'
 
@@ -61,6 +62,15 @@ class AppointmentSlot extends React.Component {
             'Category':'ConsumerApp','Action':'OpdAppointmentDate','CustomerID':GTM.getUserId()||'','leadid':0,'event':'opd-appointment-date','appointmentTime':this.props.selectedSlot.date}
             GTM.sendEvent({ data: data })
 
+            //Create IPD Lead on Time slot selection for login user & for ipd hospital(potential + congot)
+            if(STORAGE.checkAuth() && this.props.DOCTORS && this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].is_congot && this.props.DOCTORS[this.props.selectedDoctor].potential_ipd ) {
+                let formData = {
+                    phone_number: this.props.primaryMobile,
+                    doctor: this.props.selectedDoctor,
+                    hospital: this.props.selectedClinic
+                }
+                this.props.submitIPDForm(formData, this.props.selectedLocation)
+            }
             return this.props.history.push(`/opd/doctor/${this.props.selectedDoctor}/${this.props.selectedClinic}/bookdetails`)
         }
     }

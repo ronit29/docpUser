@@ -98,6 +98,20 @@ class ChoosePatientNewView extends React.Component {
 
                 self.setState({ otpVerifySuccess: true }, () => {
                     self.props.profileDataCompleted(this.state)
+                    //Create IPD lead for IPD Hospital
+                    if(self.props.doctorSummaryPage && self.props.is_ipd_hospital) {
+                        let formData = {
+                            phone_number: this.state.phoneNumber
+                        }
+                        if(self.props.doctor_id){
+                            formData['doctor'] = self.props.doctor_id
+                        }
+                        if(self.props.hospital_id) {
+                            formData['hospital'] = self.props.hospital_id
+                        }
+                        self.props.submitIPDForm(formData, this.props.selectedLocation)    
+                    }
+                    
                     self.props.createProfile(this.state, (err, res) => {
                         //self.setState({data:true})
                         self.props.getUserProfile().then(() => {
