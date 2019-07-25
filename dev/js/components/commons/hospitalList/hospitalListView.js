@@ -27,8 +27,8 @@ class HospitalListView extends React.Component {
             <div className="profile-body-wrap">
                 <ProfileHeader {...this.props} />
                 <HelmetTags tagsData={{
-                    title: 'Hospital Index | Details, Preparation, Procedure and Normal Range',
-                    description: 'Procedures Index: Find detailed information about test preparation, procedure, normal ranges, duration and more.',
+                    title: 'List of Hospitals in India | Indian Hospitals | Best Hospitals in India',
+                    description: 'List of Hospitals in India: Get state wise list of hospitals and other required information like location, doctors list, price and facility available at the hospital.',
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
                 }} />
                 <section className="container dp-container-div">
@@ -45,7 +45,7 @@ class HospitalListView extends React.Component {
                                     <span className="breadcrumb-arrow">&gt;</span>
                                 </li>
                                 <li className="breadcrumb-list-item">
-                                    <span className="fw-500 breadcrumb-title">Hospitals</span>
+                                    <h1 className="fw-500 breadcrumb-title">Hospitals in India</h1>
                                 </li>
                             </ul>
                             <div>
