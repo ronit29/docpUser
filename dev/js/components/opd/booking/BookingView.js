@@ -185,6 +185,7 @@ class BookingView extends React.Component {
         let doctor_thumbnail = ""
         let payment_type = 1
         let mrp = 0
+        let deal_price = 0
         if (this.state.data) {
             doctor = this.state.data.doctor
             hospital = this.state.data.hospital
@@ -195,6 +196,7 @@ class BookingView extends React.Component {
             doctor_thumbnail = this.state.data.doctor_thumbnail
             payment_type = this.state.data.payment_type
             mrp = this.state.data.mrp
+            deal_price = this.state.data.deal_price
         }
 
         let summary_utm_tag = ""
@@ -293,7 +295,7 @@ class BookingView extends React.Component {
                                                 {
                                                     payment_type == 2 && status < 6 ? <div className="payAtclinic">
                                                         <h5>Pay at clinic</h5>
-                                                        <p>You have to pay <b>₹ {mrp}</b> at the time of appointment</p>
+                                                        <p>You have to pay <b>₹ {deal_price}</b> at the time of appointment</p>
 
                                                     </div> : ""
                                                 }
