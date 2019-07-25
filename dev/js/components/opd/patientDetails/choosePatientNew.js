@@ -233,13 +233,21 @@ class ChoosePatientNewView extends React.Component {
                                     </div>
                                     : ''
                             }
-                            <div className="text-right">
-                                <a href="#" onClick={(e) => {
+                            <React.Fragment>
+                            <div class="text-right">
+                                    <a href="#" onClick={(e) => {
                                     e.preventDefault()
                                     e.stopPropagation()
                                     this.props.navigateTo('patient', this.props.is_insurance_applicable)
                                 }} className="text-primary fw-700 text-sm">{this.props.patient ? "Change Patient" : "Select Patient"}</a>
+                                </div>
+                            <div class="">
+                            {this.props.show_insurance_error && this.props.insurance_error_msg?
+                                <p class="gyn-text">*You have already utilised 5 Gynaecologist/Oncologist consultations available in your OPD Insurance Plan.</p>
+                                :''
+                            }
                             </div>
+                            </React.Fragment>
                         </div>
                         : <div className="widget-content">
                             <div className="lab-visit-time d-flex jc-spaceb">
