@@ -875,6 +875,8 @@ class PatientDetailsNew extends React.Component {
         let enabled_for_prepaid_payment = false
         let is_default_user_insured = false
         let is_insurance_buy_able = false
+        let insurance_error_msg = ''
+        let show_insurance_error = false
         let payment_mode_count = 0
         let is_selected_user_insurance_status 
         let all_cities = this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].all_cities?this.props.DOCTORS[this.props.selectedDoctor].all_cities:[]
@@ -907,6 +909,11 @@ class PatientDetailsNew extends React.Component {
             priceData.is_cod_deal_price = priceData.cod_deal_price
             if (hospital && hospital.insurance) {
                 is_insurance_applicable = (parseInt(priceData.deal_price) <= hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered
+                
+                if(hospital.insurance.error_message != ''){
+                    insurance_error_msg = hospital.insurance.error_message
+                    show_insurance_error = true
+                }
             }
 
 
@@ -922,7 +929,13 @@ class PatientDetailsNew extends React.Component {
             priceData.is_cod_deal_price = hospital.cod_deal_price
             if (hospital.insurance) {
                 is_insurance_applicable = (parseInt(hospital.deal_price) <= hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered
+            
+                if(hospital.insurance.error_message != ''){
+                    insurance_error_msg = hospital.insurance.error_message
+                    show_insurance_error = true
+                }
             }
+
         }
         let treatment_Price = 0, treatment_mrp = 0
         let selectedProcedures = {}
@@ -992,7 +1005,6 @@ class PatientDetailsNew extends React.Component {
 
         let upcoming_date = this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length ? Object.keys(this.props.upcoming_slots)[0] : ''
         let dateAfter24Days = new Date().setDate(new Date().getDate() + 23)
-
         let showPopup = parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE  && !this.props.is_ipd_form_submitted
         return (
             <div className="profile-body-wrap">
@@ -1095,7 +1107,7 @@ class PatientDetailsNew extends React.Component {
                                                             doctor_leaves={this.props.doctor_leaves || []}
                                                             upcoming_slots={this.props.upcoming_slots || null}
                                                         />*/}
-                                                        <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true"/>
+                                                        <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} />
                                                         {
                                                             Object.values(selectedProcedures).length ?
                                                                 <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
