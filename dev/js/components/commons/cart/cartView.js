@@ -214,7 +214,7 @@ class CartView extends React.Component {
             is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
             is_selected_user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
         }
-        
+
 
         if (cart && cart.length) {
             cart.map((cart_item, i) => {
@@ -370,7 +370,7 @@ class CartView extends React.Component {
                                                     GTM.sendEvent({ data: data });
 
                                                 }}>Add more to cart</button>
-                                                <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" onClick={this.processCart.bind(this, total_deal_price - total_coupon_discount), is_selected_user_insurance_status}>{this.getBookingButtonText(total_wallet_balance, total_deal_price - total_coupon_discount)}</button>
+                                                <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" onClick={this.processCart.bind(this, total_deal_price - total_coupon_discount,is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_deal_price - total_coupon_discount)}</button>
                                             </div> : ""
                                         }
 
