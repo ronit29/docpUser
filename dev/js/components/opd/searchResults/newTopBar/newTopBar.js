@@ -256,10 +256,10 @@ class TopBar extends React.Component {
 
     getCriteriaString(selectedCriterias) {
         if (selectedCriterias && selectedCriterias.length) {
-            let selectedProcedureCategory = selectedCriterias.filter(x => x.type == 'procedures_category')
-            let procedures = selectedCriterias.filter(x => x.type == 'procedures')
+            let is_group_ids_exist = selectedCriterias.filter(x=>x.type=='group_ids')
+            let selectedDataView = is_group_ids_exist.length?is_group_ids_exist:selectedCriterias
 
-            return selectedCriterias.reduce((final, curr, i) => {
+            return selectedDataView.reduce((final, curr, i) => {
                 if (i != 0) {
                     final += ', '
                 }
