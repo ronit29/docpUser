@@ -36,11 +36,11 @@ class Cart extends React.Component {
 
 const mapStateToProps = (state) => {
     let {
-        cart, userWalletBalance, userCashbackBalance
+        cart, userWalletBalance, userCashbackBalance, profiles, defaultProfile
     } = state.USER
 
     return {
-        cart, userWalletBalance, userCashbackBalance
+        cart, userWalletBalance, userCashbackBalance, profiles, defaultProfile
     }
 }
 

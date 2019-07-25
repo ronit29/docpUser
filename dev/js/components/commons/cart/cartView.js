@@ -112,7 +112,14 @@ class CartView extends React.Component {
         }
     }
 
-    processCart(total_price) {
+    processCart(total_price,is_selected_user_insurance_status) {
+
+        if(is_selected_user_insurance_status && is_selected_user_insurance_status == 4){
+            SnackBar.show({ pos: 'bottom-center', text: "Your documents from the last claim are under verification.Please write to customercare@docprime.com for more information." });
+            window.scrollTo(0, 0)
+            return
+        }
+
         if(!this.state.showConfirmationPopup && total_price == 0){
             this.setState({showConfirmationPopup:true})
             return
@@ -125,7 +132,12 @@ class CartView extends React.Component {
                 this.props.history.replace(`/order/summary/${data.data.orderId}`)
             }
         }).catch((e) => {
-            let error_message = 'Error Processing cart'
+            let error_message 
+                if(e.error){
+                    error_message = e.error
+                }else{
+                    error_message = "Error Processing cart"
+                }
             if(e.message){
                 error_message = e.message
             }
@@ -209,12 +221,20 @@ class CartView extends React.Component {
         if (this.props.userWalletBalance >= 0 && this.props.userCashbackBalance >= 0) {
             total_wallet_balance = this.props.userWalletBalance + this.props.userCashbackBalance
         }
-
+        
         let invalid_items = false
         let valid_items = false
         let all_appointments_insured = true
         let is_cod_applicable = true
         let is_platform_conv_fees = 0
+        let is_default_user_insured = false
+        let is_selected_user_insurance_status
+        if (Object.keys(this.props.profiles).length > 0 && this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]) {
+            is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
+            is_selected_user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
+        }
+
+
         if (cart && cart.length) {
             cart.map((cart_item, i) => {
                 if (!cart_item.valid) {
@@ -239,7 +259,7 @@ class CartView extends React.Component {
             <div className="profile-body-wrap">
                 <ProfileHeader />
                 {
-                    this.state.showConfirmationPopup?
+                    this.state.showConfirmationPopup && is_selected_user_insurance_status !=4?
                     <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)}/>
                     :''
                 }
@@ -381,7 +401,7 @@ class CartView extends React.Component {
                                                     GTM.sendEvent({ data: data });
 
                                                 }}>Add more to cart</button>
-                                                <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" onClick={this.processCart.bind(this, total_deal_price - total_coupon_discount)}>{this.getBookingButtonText(total_wallet_balance, total_amnt)}</button>
+                                                <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" onClick={this.processCart.bind(this, total_deal_price - total_coupon_discount,is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_deal_price - total_coupon_discount)}</button>
                                             </div> : ""
                                         }
 
