@@ -243,7 +243,7 @@ class ChoosePatientNewView extends React.Component {
                                 </div>
                             <div class="">
                             {this.props.show_insurance_error && this.props.insurance_error_msg?
-                                <p class="gyn-text">*You have already utilised 5 Gynaecologist/Oncologist consultations available in your OPD Insurance Plan.</p>
+                                <p class="gyn-text">{this.props.insurance_error_msg}</p>
                                 :''
                             }
                             </div>
