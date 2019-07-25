@@ -1098,7 +1098,7 @@ class PatientDetailsNew extends React.Component {
                                                             doctor_leaves={this.props.doctor_leaves || []}
                                                             upcoming_slots={this.props.upcoming_slots || null}
                                                         />*/}
-                                                        <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true"/>
+                                                        <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} />
                                                         {
                                                             Object.values(selectedProcedures).length ?
                                                                 <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
