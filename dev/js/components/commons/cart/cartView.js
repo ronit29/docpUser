@@ -214,6 +214,7 @@ class CartView extends React.Component {
             is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
             is_selected_user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
         }
+        
 
         if (cart && cart.length) {
             cart.map((cart_item, i) => {
