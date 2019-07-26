@@ -211,12 +211,11 @@ class DoctorProfileCard extends React.Component {
                 googleRatingCount = google_rating.rating_count || ''
             }
             let is_insurance_buy_able = hospital.is_insurance_covered && !hospital.is_user_insured && deal_price <= hospital.insurance_threshold_amount
-
+            let insurance_limit_message = hospital.insurance_limit_message
             let qualificationsArray = [];
             if (qualifications && qualifications.length) {
                 qualificationsArray = qualifications.filter(x => x.qualification.length <= 6);
             }
-
             return (
                 <div className="cstm-docCard mb-3">
                     {
@@ -343,6 +342,11 @@ class DoctorProfileCard extends React.Component {
                                 </div>
                                 : ''
                         }
+                        {/*
+                            !is_insurance_buy_able && this.props.common_settings && this.props.common_settings.insurance_availability?
+                            <p> {insurance_limit_message}</p>
+                            :''
+                        */}
                     </div>
                     <div className="cstmCardFooter">
                         <div className="cstmfooterContent">

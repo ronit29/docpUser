@@ -12053,5 +12053,9 @@ font-weight: 500;
     display: inline-block;
 }
 .pr-4{
-	padding-right: 4px
+    padding-right: 4px
+}
+.gyn-text{
+	    font-size: 12px;
+    font-weight: 500;
 }

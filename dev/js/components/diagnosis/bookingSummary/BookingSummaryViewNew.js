@@ -393,7 +393,13 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    proceed(testPicked, addressPicked, datePicked, patient, addToCart, total_price, total_wallet_balance, prescriptionPicked, e) {
+    proceed(testPicked, addressPicked, datePicked, patient, addToCart, total_price, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status, e) {
+
+        if(patient && is_selected_user_insurance_status && is_selected_user_insurance_status == 4){
+            SnackBar.show({ pos: 'bottom-center', text: "Your documents from the last claim are under verification.Please write to customercare@docprime.com for more information." });
+            window.scrollTo(0, 0)
+            return
+        }
 
         if (!testPicked) {
             SnackBar.show({ pos: 'bottom-center', text: "Please select some tests." });
@@ -625,7 +631,12 @@ class BookingSummaryViewNew extends React.Component {
                     this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
                 }
             } else {
-                let message = "Could not create appointment. Try again later !"
+                let message 
+                if(err.error){
+                    message = err.error
+                }else{
+                    message = "Could not create appointment. Try again later !"
+                }
                 if (err.message) {
                     message = err.message
                 }
@@ -787,9 +798,11 @@ class BookingSummaryViewNew extends React.Component {
         let is_tests_covered_under_plan = true
         let is_selected_user_has_active_plan = false
         let is_insurance_buy_able = false
+        let is_selected_user_insurance_status 
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
+            is_selected_user_insurance_status = this.props.profiles[this.props.selectedProfile].insurance_status
 
         }
 
@@ -943,7 +956,7 @@ class BookingSummaryViewNew extends React.Component {
             <div className="profile-body-wrap">
                 <ProfileHeader bookingPage={true} />
                 {
-                    this.state.showConfirmationPopup ?
+                    this.state.showConfirmationPopup && is_selected_user_insurance_status != 4 ?
                         <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} />
                         : ''
                 }
@@ -1128,7 +1141,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                             is_plan_applicable || is_insurance_applicable ?
                                                                                 <div className="payment-summary-content">
                                                                                     <div className="payment-detail d-flex">
-                                                                                        <p className="payment-content fw-500">Subtotal</p>
+                                                                                        <p className="payment-content fw-500">MRP</p>
                                                                                         <p className="payment-content fw-500">&#8377; {total_price || 0}</p>
                                                                                     </div>
                                                                                 </div>
@@ -1155,10 +1168,10 @@ class BookingSummaryViewNew extends React.Component {
                                                                                     }
                                                                                     {
                                                                                         (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
-                                                                                            <p className="payment-content fw-500">Subtotal</p>
+                                                                                            <p className="payment-content fw-500">MRP</p>
                                                                                             <p className="payment-content fw-500">&#8377; {total_price || 0}</p>
                                                                                         </div> : <div className="payment-detail d-flex">
-                                                                                                <p className="payment-content fw-500">Subtotal</p>
+                                                                                                <p className="payment-content fw-500">MRP</p>
                                                                                                 <p className="payment-content fw-500">&#8377; {total_price || 0}</p>
                                                                                             </div>
                                                                                     }
@@ -1257,7 +1270,7 @@ class BookingSummaryViewNew extends React.Component {
                                     STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured) ?
                                         <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                        } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance, prescriptionPicked)}>
+                                        } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status)}>
                                             {
                                                 this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
                                             }
@@ -1269,7 +1282,7 @@ class BookingSummaryViewNew extends React.Component {
                                 {
                                     STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust pdd-12" id="confirm_booking" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                    } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance, prescriptionPicked)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
+                                    } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance, prescriptionPicked, is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
                                 }
                             </div>
 

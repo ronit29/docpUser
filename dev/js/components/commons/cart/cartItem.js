@@ -1,5 +1,6 @@
 import React from 'react';
 import InitialsPicture from '../../commons/initialsPicture'
+const queryString = require('query-string');
 
 class CartItem extends React.Component {
     constructor(props) {
@@ -38,6 +39,7 @@ class CartItem extends React.Component {
             deal_price: data.consultation.deal_price,
             is_available: true,
             mrp: data.consultation.mrp,
+            fees:data.consultation.fees,
             price: data.consultation.deal_price,
             title: new Date(data.data.date).getHours() >= 12 ? 'PM' : 'AM',
             value: new Date(data.data.date).getHours() + new Date(data.data.date).getMinutes() / 60
@@ -195,13 +197,14 @@ class CartItem extends React.Component {
 
     render() {
 
-        let { valid, product_id, mrp, deal_price, id } = this.props
+        let { valid, product_id, mrp, deal_price, id, is_enabled_for_cod, cod_deal_price } = this.props
         let { lab, tests, doctor, hospital, coupons, profile, date, thumbnail, procedures } = this.props.data
         let { is_home_pickup, payment_type, insurance_message, is_appointment_insured, included_in_user_plan } = this.props.actual_data
 
         if (date) {
             date = new Date(date)
         }
+        let parsed = queryString.parse(this.props.location.search)
         return (
             <div>
                 <div className="widget mrb-15 mrng-top-12 p-relative">
@@ -222,7 +225,15 @@ class CartItem extends React.Component {
                                         {
                                             mrp ? <p>₹ {deal_price} <span className="shopng-cart-price-cut">₹ {mrp}</span></p> : ""
                                         }
-                                    </div> : <div className="shopng-cart-price">
+                                    </div>
+                                    :payment_type == 2 && is_enabled_for_cod && mrp != cod_deal_price? <div className="shopng-cart-price">
+                                        {
+                                            mrp ? <p>₹ {cod_deal_price?cod_deal_price:deal_price} 
+                                                    <span className="shopng-cart-price-cut">₹ {mrp}</span>
+                                                </p> : ""
+                                        }
+                                    </div>
+                                    : <div className="shopng-cart-price">
                                             {
                                                 mrp ? <p>₹ {mrp}</p> : ""
                                             }
@@ -339,7 +350,11 @@ class CartItem extends React.Component {
 
                     <div className="shpng-card-btns">
                         <button onClick={this.removeFromCart.bind(this, id)}>Remove</button>
-                        <button onClick={this.edit.bind(this)}>Edit</button>
+                        {
+                            parsed.is_agent_booking && parsed.is_agent_booking == 'true' && is_appointment_insured?''
+                            :<button onClick={this.edit.bind(this)}>Edit</button>
+                        }
+                        {/*<button onClick={this.edit.bind(this)}>Edit</button>*/}
                     </div>
                 </div>
 
