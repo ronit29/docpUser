@@ -48,6 +48,35 @@ class AppointmentSlot extends React.Component {
         if(this.state.selectedTimeSlot){
             this.selectTimeSlot(this.state.selectedTimeSlot)    
         }
+
+
+        //Create IPD Lead on Time slot selection for login user & for ipd hospital(potential + congot)
+        if(STORAGE.checkAuth() && this.props.DOCTORS && this.props.DOCTORS[this.props.selectedDoctor]) {
+
+            //Check for ipd hospital for the selected Clinic
+            let hospital = {}
+            let hospitals = this.props.DOCTORS[this.props.selectedDoctor].hospitals
+            if (hospitals && hospitals.length) {
+                hospitals.map((hsptl) => {
+                    if (hsptl.hospital_id == this.props.selectedClinic) {
+                        hospital = hsptl
+                    }
+                })
+            }
+
+            if(hospital && hospital.is_ipd_hospital) {
+                let formData = {
+                    phone_number: this.props.primaryMobile,
+                    doctor: this.props.selectedDoctor,
+                    hospital: this.props.selectedClinic,
+                    source: 'dropoff',
+                    is_valid: false
+                }
+                this.props.submitIPDForm(formData, this.props.selectedLocation)
+            }
+        }
+
+
         // in case of reschedule go to reschedule page , else push
         if (this.state.reschedule) {
             const parsed = queryString.parse(this.props.location.search)
@@ -62,31 +91,6 @@ class AppointmentSlot extends React.Component {
             'Category':'ConsumerApp','Action':'OpdAppointmentDate','CustomerID':GTM.getUserId()||'','leadid':0,'event':'opd-appointment-date','appointmentTime':this.props.selectedSlot.date}
             GTM.sendEvent({ data: data })
 
-            //Create IPD Lead on Time slot selection for login user & for ipd hospital(potential + congot)
-            if(STORAGE.checkAuth() && this.props.DOCTORS && this.props.DOCTORS[this.props.selectedDoctor]) {
-
-                //Check for ipd hospital for the selected Clinic
-                let hospital = {}
-                let hospitals = this.props.DOCTORS[this.props.selectedDoctor].hospitals
-                if (hospitals && hospitals.length) {
-                    hospitals.map((hsptl) => {
-                        if (hsptl.hospital_id == this.props.selectedClinic) {
-                            hospital = hsptl
-                        }
-                    })
-                }
-
-                if(hospital && hospital.is_ipd_hospital) {
-                    let formData = {
-                        phone_number: this.props.primaryMobile,
-                        doctor: this.props.selectedDoctor,
-                        hospital: this.props.selectedClinic,
-                        source: 'dropoff',
-                        is_valid: false
-                    }
-                    this.props.submitIPDForm(formData, this.props.selectedLocation)
-                }
-            }
             return this.props.history.push(`/opd/doctor/${this.props.selectedDoctor}/${this.props.selectedClinic}/bookdetails`)
         }
     }
