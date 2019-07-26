@@ -63,15 +63,29 @@ class AppointmentSlot extends React.Component {
             GTM.sendEvent({ data: data })
 
             //Create IPD Lead on Time slot selection for login user & for ipd hospital(potential + congot)
-            if(STORAGE.checkAuth() && this.props.DOCTORS && this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].is_congot && this.props.DOCTORS[this.props.selectedDoctor].potential_ipd ) {
-                let formData = {
-                    phone_number: this.props.primaryMobile,
-                    doctor: this.props.selectedDoctor,
-                    hospital: this.props.selectedClinic,
-                    source: 'dropoff',
-                    is_valid: false
+            if(STORAGE.checkAuth() && this.props.DOCTORS && this.props.DOCTORS[this.props.selectedDoctor]) {
+
+                //Check for ipd hospital for the selected Clinic
+                let hospital = {}
+                let hospitals = this.props.DOCTORS[this.props.selectedDoctor].hospitals
+                if (hospitals && hospitals.length) {
+                    hospitals.map((hsptl) => {
+                        if (hsptl.hospital_id == this.props.selectedClinic) {
+                            hospital = hsptl
+                        }
+                    })
                 }
-                this.props.submitIPDForm(formData, this.props.selectedLocation)
+
+                if(hospital && hospital.is_ipd_hospital) {
+                    let formData = {
+                        phone_number: this.props.primaryMobile,
+                        doctor: this.props.selectedDoctor,
+                        hospital: this.props.selectedClinic,
+                        source: 'dropoff',
+                        is_valid: false
+                    }
+                    this.props.submitIPDForm(formData, this.props.selectedLocation)
+                }
             }
             return this.props.history.push(`/opd/doctor/${this.props.selectedDoctor}/${this.props.selectedClinic}/bookdetails`)
         }
