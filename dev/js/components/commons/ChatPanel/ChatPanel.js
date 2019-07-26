@@ -38,6 +38,11 @@ class ChatPanel extends React.Component {
     }
 
     componentDidMount() {
+        let parsedHref = ''
+        if (typeof window == "object") {
+            parsedHref = queryString.parse(window.location.search)
+        }
+
         if (this.props.onRefIpd) {
             this.props.onRefIpd(this)
         }
@@ -163,6 +168,10 @@ class ChatPanel extends React.Component {
                                 if (this.props.selectedLocation) {
                                     this.sendLocationNotification(this.props.selectedLocation)
                                 }
+                                //Send payment event ,when payment is in url
+                                if(parsedHref && parsedHref.payment) {
+                                    this.sendPaymentStatusEvent(data.data.rid)
+                                }
 
                                 this.sendUserDetails()
                                 this.setState({ selectedRoom: data.data.rid, iframeLoading: false })
@@ -256,6 +265,18 @@ class ChatPanel extends React.Component {
             }.bind(this))
         }
 
+    }
+
+    sendPaymentStatusEvent(rid){
+        let parsedHref = ''
+        if (typeof window == "object") {
+            parsedHref = queryString.parse(window.location.search)
+        }
+        let data = {
+            rid: rid,
+            payment_status: parsedHref.payment || ''
+        }
+        this.dispatchCustomEvent('payment', data)        
     }
 
     componentWillUnmount() {
