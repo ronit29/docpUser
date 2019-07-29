@@ -211,13 +211,8 @@ class HospitalDetailView extends React.Component {
 		let doctor_name = ''
 		let hospital_name = ''
 		let state = {}
-		let specialization_category = []
-		if (category.specialization_ids && category.specialization_ids.length) {
-			category.specialization_ids.map((x) => {
-				specialization_category.push({ id: x, type: 'speciality' })
-			})
-		}
-
+		let specialization_category = [{id: category.id, type:'group_ids'}]
+		
 		this.props.cloneCommonSelectedCriterias(specialization_category)
 		state = {
 			filterCriteria: {

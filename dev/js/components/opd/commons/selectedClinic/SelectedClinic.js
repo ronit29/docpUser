@@ -34,7 +34,6 @@ class SelectedClinic extends React.Component {
 
     render() {
         let { name, hospitals, thumbnail, display_name, url, id } = this.props.selectedDoctor
-        console.log(this.props.selectedDoctor)
         let hospitalName = ""
         let hospital_id = ''
         let show_clinic =0

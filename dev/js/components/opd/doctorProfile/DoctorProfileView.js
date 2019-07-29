@@ -368,6 +368,7 @@ class DoctorProfileView extends React.Component {
             isUtmTagsExist = true
         }
         let showForcedPopup = !isUtmTagsExist && landing_page && this.state.seoFriendly && doctor_id && this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].is_congot && this.state.showIpdLeadForm && this.props.DOCTORS[doctor_id].potential_ipd && !this.state.is_live
+        showForcedPopup = false
 
         return (
             <div className="profile-body-wrap">
