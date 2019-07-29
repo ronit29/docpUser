@@ -536,6 +536,10 @@ class ChatPanel extends React.Component {
             iframe_url += '&msg=startchat'
         }
 
+        if(parsedHref.payment) {
+            iframe_url += `&payment=${parsedHref.payment}`
+        }
+
         if (this.props.showHalfScreenChat && !this.props.showDesktopIpd) {
             return (
                 <div className="chat-body">
