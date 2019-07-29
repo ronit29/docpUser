@@ -488,6 +488,13 @@ const SingleChatPageFeedback = Loadable({
     loading,
 })
 
+const categoryTestResults = Loadable({
+    loader: () => import('./containers/diagnosis/categoryTestResults.js'),
+    modules: ['./containers/diagnosis/categoryTestResults.js'],
+    webpack: () => [require.resolveWeak('./containers/diagnosis/categoryTestResults.js')],
+    loading,
+})
+
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
  */
@@ -604,7 +611,8 @@ let routes = [
     { path: '/ipd-procedures', exact: true, component: IpdList, RENDER_ON_SERVER: true },
     { path: '/order/paymentSummary', exact: true, component: CodPaymentPage },
     { path: '/hospitals', exact: true, component: HospitalList, RENDER_ON_SERVER: true },
-    { path: '/Chat/Review', exact: true, component: SingleChatPageFeedback }
+    { path: '/Chat/Review', exact: true, component: SingleChatPageFeedback },
+    { path: '/categoryTestResults', exact: true, component: categoryTestResults }
 
 ]
 
