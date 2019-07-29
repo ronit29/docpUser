@@ -1,85 +1,49 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggle404, mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults, selectSearchType, selectLabTimeSLot, getOfferList, toggleOPDCriteria, selectLabAppointmentType, resetPkgCompare, loadOPDInsurance } from '../../actions/index.js'
+import { toggle404, mergeLABState, urlShortner, getLabs, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, setLabSearchId, getLabSearchIdResults, selectSearchType, selectLabTimeSLot, getOfferList, toggleOPDCriteria, selectLabAppointmentType, resetPkgCompare, loadOPDInsurance, getTestCategoryList } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/diagnosis/categoryTestResults/categoryTestResultsView.js'
 import NotFoundView from '../../components/commons/notFound'
+import Loader from '../../components/commons/Loader'
+import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 
 class categoryTestResults extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            show404: false
+        this.state = {            
+            data:null
         }
     }
 
     componentDidMount() {
-        if (this.props.show404) {
-            this.setState({ show404: true })
-            this.props.toggle404(false)
-        }
         this.props.loadOPDInsurance(this.props.selectedLocation)
-    }
-
-    static loadData(store, match, queryParams = {}) {
-        return new Promise((resolve, reject) => {
-            try {
-                let location_ms = null
-                if (match.url.includes('location=')) {
-                    location_ms = match.url.split('location=')[1]
-                    location_ms = parseInt(location_ms)
-                }
-
-                labSearchStateBuilder(null, queryParams, true, location_ms).then((state) => {
-                    store.dispatch(mergeLABState(state))
-
-                    let searchUrl = null
-                    if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
-                        searchUrl = match.url.toLowerCase()
-                    }
-                    let page = 1
-                    if (queryParams.page) {
-                        page = parseInt(queryParams.page)
-                    }
-                    return store.dispatch(getLabs(state, page, true, searchUrl, (loadMore, noResults = false) => {
-                        if (noResults) {
-                            resolve({ status: 404 })
-                        }
-                        if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
-                            getFooterData(match.url.split("/")[1])().then((footerData) => {
-                                footerData = footerData || null
-                                resolve({ footerData })
-                            }).catch((e) => {
-                                resolve({})
-                            })
-                        } else {
-                            resolve({})
-                        }
-                    }))
-                }).catch((e) => {
-                    reject()
-                })
-            } catch (e) {
-                console.error(e)
-                reject()
+        let searchUrl = null
+        if (this.props.match.url.includes('-tpcp')) {
+            searchUrl = this.props.match.url.toLowerCase()
+        }
+        let page = 1
+        this.props.getTestCategoryList(null,page,false,searchUrl,(resp)=>{
+            if(resp){
+                this.setState({data:resp})
             }
         })
     }
 
-    static contextTypes = {
-        router: () => null
-    }
-
     render() {
 
-        if (this.props.show404 || this.state.show404) {
-            return <NotFoundView {...this.props} />
+        if(this.state.data){
+            return (
+                <SearchResultsView {...this.props} labList={this.state.data} />
+            );
+        }else{
+            return (
+                <div className="profile-body-wrap">
+                <ProfileHeader showPackageStrip={true}/>
+                <Loader />
+            </div>
+                )
         }
-
-        return (
-            <SearchResultsView {...this.props} />
-        );
     }
 }
 
@@ -159,7 +123,7 @@ const mapStateToProps = (state, passedProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
-        getLabs: (state, page, from_server, searchByUrl, cb) => dispatch(getLabs(state, page, from_server, searchByUrl, cb)),
+        getTestCategoryList: (state, page, from_server, searchByUrl, cb) => dispatch(getTestCategoryList(state, page, from_server, searchByUrl, cb)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
         clearExtraTests: () => dispatch(clearExtraTests()),

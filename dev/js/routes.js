@@ -612,7 +612,8 @@ let routes = [
     { path: '/order/paymentSummary', exact: true, component: CodPaymentPage },
     { path: '/hospitals', exact: true, component: HospitalList, RENDER_ON_SERVER: true },
     { path: '/Chat/Review', exact: true, component: SingleChatPageFeedback },
-    { path: '/categoryTestResults', exact: true, component: categoryTestResults }
+    { path: '/categoryTestResults', exact: true, component: categoryTestResults },
+    { path: '/*-tpcp', exact: true, component: categoryTestResults }
 
 ]
 

@@ -522,3 +522,13 @@ export const preBooking = (selectedTime) => (dispatch) => {
 	    })
 	})
 }
+
+export const getTestCategoryList = (state = {}, page = 1, from_server = false, searchByUrl = false, callback) => (dispatch) => {
+
+	return API_GET(`/api/v1/diagnostic/lab-test-category-landing-urls?url=${searchByUrl.split('/')[1]}&page=${page}`).then(function (response) {
+        if(callback) callback(response)
+    }).catch(function (error) {
+        if(callback) callback(error)
+        throw error
+    })
+}
