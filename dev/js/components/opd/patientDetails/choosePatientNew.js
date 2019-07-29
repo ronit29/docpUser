@@ -103,7 +103,8 @@ class ChoosePatientNewView extends React.Component {
                         let formData = {
                             phone_number: this.state.phoneNumber,
                             source: 'dropoff',
-                            is_valid: false
+                            is_valid: false,
+                            first_name: this.state.name||'unknown'
                         }
                         if(self.props.doctor_id){
                             formData['doctor'] = self.props.doctor_id

@@ -64,9 +64,9 @@ const mapStateToProps = (state) => {
 
     let { commonProcedurers, selectedLocation } = state.SEARCH_CRITERIA_OPD
 
-    let { primaryMobile } = state.USER
+    let { primaryMobile, userName } = state.USER
     return {
-        DOCTORS, selectedSlot, rescheduleSlot, commonProcedurers, selectedDoctorProcedure, commonProfileSelectedProcedures, selectedDateFormat, selectedLocation, primaryMobile
+        DOCTORS, selectedSlot, rescheduleSlot, commonProcedurers, selectedDoctorProcedure, commonProfileSelectedProcedures, selectedDateFormat, selectedLocation, primaryMobile, userName
     }
 }
 

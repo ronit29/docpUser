@@ -70,7 +70,8 @@ class AppointmentSlot extends React.Component {
                     doctor: this.props.selectedDoctor,
                     hospital: this.props.selectedClinic,
                     source: 'dropoff',
-                    is_valid: false
+                    is_valid: false,
+                    first_name: this.props.userName||'unknown'
                 }
                 this.props.submitIPDForm(formData, this.props.selectedLocation)
             }
