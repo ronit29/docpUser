@@ -71,7 +71,7 @@ class TopHospitalWidgets extends React.Component {
 				                                <img style={{width:82}} className="img-fluid" src={data.logo} />
 				                            </div>
 				                            <p className="pkgtstName">
-				                                {data.name}
+				                                {data.h1_title?data.h1_title:data.name}
 				                        	</p>
 				                        </a>		
                     		})

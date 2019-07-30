@@ -358,13 +358,25 @@ class PatientDetailsNew extends React.Component {
         return null
     }
 
+    getUtmTags(){
+        const parsed = queryString.parse(this.props.location.search)
+        let utm_tags = {
+            utm_source: parsed.utm_source || '',
+            utm_medium: parsed.utm_medium || '',
+            utm_term: parsed.utm_term || '',
+            utm_campaign: parsed.utm_campaign || '',
+            referrer: document.referrer || '',
+            gclid: parsed.gclid || ''
+        }
+        return utm_tags
+    }
     proceed(datePicked, patient, addToCart, total_price, total_wallet_balance,is_selected_user_insurance_status, e) {
         if(patient && is_selected_user_insurance_status && is_selected_user_insurance_status == 4){
             SnackBar.show({ pos: 'bottom-center', text: "Your documents from the last claim are under verification.Please write to customercare@docprime.com for more information." });
             window.scrollTo(0, 0)
             return
         }
-
+        
         if (!datePicked) {
             this.setState({ showTimeError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
@@ -438,6 +450,7 @@ class PatientDetailsNew extends React.Component {
 
         let start_date = this.props.selectedSlot.date
         let start_time = this.props.selectedSlot.time.value
+        let utm_tags = this.getUtmTags()
 
         let postData = {
             doctor: this.props.selectedDoctor,
@@ -447,6 +460,7 @@ class PatientDetailsNew extends React.Component {
             payment_type: this.props.payment_type,
             use_wallet: this.state.use_wallet,
             cart_item: this.state.cart_item,
+            utm_tags: utm_tags
         }
         let profileData = { ...patient }
         if (profileData && profileData.whatsapp_optin == null) {
@@ -1107,7 +1121,7 @@ class PatientDetailsNew extends React.Component {
                                                             doctor_leaves={this.props.doctor_leaves || []}
                                                             upcoming_slots={this.props.upcoming_slots || null}
                                                         />*/}
-                                                        <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} />
+                                                        <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={ hospital && hospital.is_ipd_hospital?hospital.is_ipd_hospital:'' } doctor_id = {this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} />
                                                         {
                                                             Object.values(selectedProcedures).length ?
                                                                 <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />

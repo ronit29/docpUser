@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails, ipdChatView, checkIpdChatAgentStatus, saveAvailNowInsurance } from '../../actions/index.js'
+import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails, ipdChatView, checkIpdChatAgentStatus, saveAvailNowInsurance, submitIPDForm } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
 
@@ -97,10 +97,10 @@ const mapStateToProps = (state) => {
     const { selectedProfile, profiles, userWalletBalance, userCashbackBalance, defaultProfile, ipd_chat, is_ipd_form_submitted } = state.USER
     let { selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, payment_type, selectedDateFormat, TIMESLOT_DATA_LOADING } = state.DOCTOR_SEARCH
     const { saved_patient_details } = state.SEARCH_CRITERIA_LABS
-    const { common_settings } = state.SEARCH_CRITERIA_OPD
+    const { common_settings, selectedLocation } = state.SEARCH_CRITERIA_OPD
     const { ipdPopupData } = state.SEARCH_CRITERIA_IPD
     return {
-        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details, defaultProfile, ipd_chat, common_settings, selectedDateFormat, TIMESLOT_DATA_LOADING, is_ipd_form_submitted, ipdPopupData
+        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details, defaultProfile, ipd_chat, common_settings, selectedDateFormat, TIMESLOT_DATA_LOADING, is_ipd_form_submitted, ipdPopupData, selectedLocation
     }
 }
 
@@ -128,7 +128,8 @@ const mapDispatchToProps = (dispatch) => {
         patientDetails: (criteria) => dispatch(patientDetails(criteria)),
         ipdChatView: (data) => dispatch(ipdChatView(data)),
         checkIpdChatAgentStatus: (cb) => dispatch(checkIpdChatAgentStatus(cb)),
-        saveAvailNowInsurance:(data) => dispatch(saveAvailNowInsurance(data))
+        saveAvailNowInsurance:(data) => dispatch(saveAvailNowInsurance(data)),
+        submitIPDForm: (formData, selectedLocation, cb) => dispatch(submitIPDForm(formData, selectedLocation, cb))
     }
 }
 

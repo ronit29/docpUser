@@ -17,9 +17,9 @@ class HospitalAboutUsView extends React.Component {
 	render(){
 		let { hospital_data } = this.props
           let aboutText = ''
-          if(hospital_data.new_about && hospital_data.new_about.length>150) {
+          if(hospital_data.new_about && hospital_data.new_about.length>400) {
                if (this.state.readMore) {
-                    aboutText = hospital_data.new_about.slice(0, 150) + "..."
+                    aboutText = hospital_data.new_about.slice(0, 400) + "..."
                }else {
                     aboutText = hospital_data.new_about
                }
