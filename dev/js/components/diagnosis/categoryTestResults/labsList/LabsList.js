@@ -20,7 +20,16 @@ class LabsList extends React.Component {
         }
     }
 
-    bookNow(){
+    bookNow(test_data){
+        let test={}
+        test.id = test_data.id
+        test.name = test_data.name
+        test.type = 'test'
+        this.props.toggleDiagnosisCriteria('test', test, true)
+
+        setTimeout(() => {
+            this.props.history.push('/lab/searchresults')
+        }, 100)
 
     }
 
@@ -56,7 +65,7 @@ class LabsList extends React.Component {
                                                                     <p className="cstm-doc-price">Starting at</p>
                                                                     <p className="cst-doc-price">₹ {test_data.deal_price}
                                                                     </p>
-                                                                    <button className="cstm-book-btn" onClick={this.bookNow.bind(this)}>Book Now</button>
+                                                                    <button className="cstm-book-btn" onClick={this.bookNow.bind(this,test_data)}>Book Now</button>
                                                                  </div>
                                                                     </div>
                                                                 </div>
