@@ -45,21 +45,28 @@ class SearchResultsView extends React.Component {
         if (typeof window == 'object' && window.ON_LANDING_PAGE) {
             landing_page = true
         }
+        let count = 0
+        if(this.props.labList && this.props.labList.all_categories && this.props.labList.all_categories.length){ 
+            this.props.labList.all_categories.map((data, i) => {
+                count += parseInt(data['No._of_tests'])
+            })
+        }
+
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
                 {<HelmetTags tagsData={{
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}${page}`,
-                    // title: this.getMetaTagsData(this.props.seoData).title,
-                    // description: this.getMetaTagsData(this.props.seoData).description,
+                    title: this.props.labList?this.props.labList.title:'',
+                    description: this.props.labList?this.props.labList.meta_description:'',
                     prev: prev,
                     next: next
-                }} />}
+                }} noIndex={false}/>}
 
                 <CriteriaSearch {...this.props} checkForLoad={landing_page || this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchLabs={true}>
                     {
                         this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
-                            {<TopBar {...this.props} count = {this.props.labList.all_categories && this.props.labList.all_categories.length}/>}
+                            {<TopBar {...this.props} count = {count}/>}
 
                             {
                                 this.props.labList && this.props.labList.length ==0?
