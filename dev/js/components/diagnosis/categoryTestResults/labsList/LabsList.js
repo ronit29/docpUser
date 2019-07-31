@@ -40,7 +40,7 @@ class LabsList extends React.Component {
                     <div className="row no-gutters">
                         <div className="col-12">
                             <ul>
-                                {this.props.labList && this.props.labList.all_categories.length ? 
+                                {this.props.labList && this.props.labList.all_categories && this.props.labList.all_categories.length ? 
                                     this.props.labList.all_categories.map((data, i) => {
                                         return <li key={i} id={data.lab_test_cat_id}>{data.lab_test_cat_name}
                                                 {

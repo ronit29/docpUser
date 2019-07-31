@@ -59,7 +59,7 @@ class SearchResultsView extends React.Component {
                 <CriteriaSearch {...this.props} checkForLoad={landing_page || this.props.LOADED_LABS_SEARCH || this.state.showError} title="Search for Test and Labs." goBack={true} lab_card={!!this.state.lab_card} newChatBtn={true} searchLabs={true}>
                     {
                         this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
-                            {<TopBar {...this.props} count = {this.props.labList.all_categories.length}/>}
+                            {<TopBar {...this.props} count = {this.props.labList.all_categories && this.props.labList.all_categories.length}/>}
 
                             {
                                 this.props.labList && this.props.labList.length ==0?
