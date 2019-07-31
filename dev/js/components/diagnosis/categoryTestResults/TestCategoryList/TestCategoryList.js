@@ -47,7 +47,7 @@ class LabsList extends React.Component {
                                             {
                                                 data.lab_test_tests && data.lab_test_tests.length ?
                                                     data.lab_test_tests.map((test_data, k) => {
-                                                        return <div className="cstm-docCard mb-2" key={k} id={test_data.id}>
+                                                        return <div className="cstm-docCard mb-2" key={k} id={test_data.id} onClick={this.bookNow.bind(this, test_data)}>
                                                             <div className="cstm-docCard-content" style={{ cursor: 'pointer' }}>
                                                                 <div className="row no-gutters">
                                                                     <div className="col-7">
