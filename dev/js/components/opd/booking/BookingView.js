@@ -295,7 +295,7 @@ class BookingView extends React.Component {
                                                 {
                                                     payment_type == 2 && status < 6 ? <div className="payAtclinic">
                                                         <h5>Pay at clinic</h5>
-                                                        <p>You have to pay <b>₹ {deal_price}</b> at the time of appointment</p>
+                                                        <p>Please pay <b>₹ {deal_price}</b> at the time of appointment</p>
 
                                                     </div> : ""
                                                 }
