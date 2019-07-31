@@ -171,7 +171,7 @@ class InsuranceCertificateView extends React.Component {
 											<a style={{ fontWeight: '500', fontSize: '12px', color: '#f78631', textDecoration: 'underline', cursor: 'pointer' }} href='/insurance/network' onClick={(e) => {
 												e.preventDefault();
 												let data = {
-														'Category': 'ConsumerApp', 'Action': 'InsuranceNetwork', 'CustomerID': GTM.getUserId() || '', 'event': 'insurance-network', 'click_value': 'insurance-network'
+														'Category': 'ConsumerApp', 'Action': 'InsuranceNetworkCertificate', 'CustomerID': GTM.getUserId() || '', 'event': 'insurance-network-certificate', 'click_value': 'insurance-network-certificate'
 													}
 												GTM.sendEvent({ data: data })
 												this.props.history.push('/insurance/network')
