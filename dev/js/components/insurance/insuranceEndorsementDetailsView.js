@@ -409,16 +409,16 @@ class InsuranceEndoresmentInputView extends React.Component{
 			});
 
 			
-			// console.log('validateErrors')
-			// console.log(validatingErrors)
-			// console.log('validateOtherErrors')
-			// console.log(validatingOtherErrors)
-			// console.log('validatingNames')
-			// console.log(invalidname)
-			// console.log('validatingDobErrors')
-			// console.log(validatingDobErrors)
-			// console.log('member_ref')
-			// console.log(member_ref)
+			console.log('validateErrors')
+			console.log(validatingErrors)
+			console.log('validateOtherErrors')
+			console.log(validatingOtherErrors)
+			console.log('validatingNames')
+			console.log(invalidname)
+			console.log('validatingDobErrors')
+			console.log(validatingDobErrors)
+			console.log('member_ref')
+			console.log(member_ref)
 			// validating is user had changed anything	
 			if(this.props.endorsed_member_data.members.length == Object.keys(this.props.self_data_values).length){
 				for(var i =0;i < this.props.endorsed_member_data.members.length;i++) {
