@@ -409,16 +409,16 @@ class InsuranceEndoresmentInputView extends React.Component{
 			});
 
 			
-			console.log('validateErrors')
-			console.log(validatingErrors)
-			console.log('validateOtherErrors')
-			console.log(validatingOtherErrors)
-			console.log('validatingNames')
-			console.log(invalidname)
-			console.log('validatingDobErrors')
-			console.log(validatingDobErrors)
-			console.log('member_ref')
-			console.log(member_ref)
+			// console.log('validateErrors')
+			// console.log(validatingErrors)
+			// console.log('validateOtherErrors')
+			// console.log(validatingOtherErrors)
+			// console.log('validatingNames')
+			// console.log(invalidname)
+			// console.log('validatingDobErrors')
+			// console.log(validatingDobErrors)
+			// console.log('member_ref')
+			// console.log(member_ref)
 			// validating is user had changed anything	
 			if(this.props.endorsed_member_data.members.length == Object.keys(this.props.self_data_values).length){
 				for(var i =0;i < this.props.endorsed_member_data.members.length;i++) {
@@ -427,6 +427,17 @@ class InsuranceEndoresmentInputView extends React.Component{
 						let selectedProfile = this.props.self_data_values[id]
 						let selectedApiProfile = this.props.endorsed_member_data.members[i]
 						for(let j in  selectedApiProfile ) {							
+							if(j=='first_name') {
+								if(selectedProfile['name'] !=selectedApiProfile['first_name']){
+									is_fields_edited.push(id)
+									if(edited_fields[id]) {
+
+									}else {
+										edited_fields[id] = []
+									}
+									edited_fields[id].push(j)
+								}
+							}
 							if(j!='email') {
 								if(selectedProfile[j] != selectedApiProfile[j]) {
 									is_fields_edited.push(id)
