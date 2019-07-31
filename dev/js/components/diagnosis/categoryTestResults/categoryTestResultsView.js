@@ -48,7 +48,7 @@ class SearchResultsView extends React.Component {
         let count = 0
         if(this.props.labList && this.props.labList.all_categories && this.props.labList.all_categories.length){ 
             this.props.labList.all_categories.map((data, i) => {
-                count += parseInt(data['No._of_tests'])
+                count += parseInt(data['No_of_tests'])
             })
         }
 
