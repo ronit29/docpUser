@@ -52,12 +52,15 @@ class LabsList extends React.Component {
                                                                     <div className="col-8">
                                                                         <div className="cstm-doc-details-container labCardUiresponsive">
                                                                            <div className="cstm-doc-content-container">
-                                                                                  <a href="/city-xray-scan-clinic-pvt-ltd-palam-in-palam-new-delhi-lpp">
+                                                                                <a href="/city-xray-scan-clinic-pvt-ltd-palam-in-palam-new-delhi-lpp">
                                                                                      <h2 className="cstmDocName">
                                                                                      {test_data.name}
                                                                                      </h2>
-                                                                                  </a>
-                                                                                  <p>Available in {test_data.count} Labs</p>
+                                                                                </a>
+                                                                                {test_data.count?
+                                                                                    <p>Available in {test_data.count} Labs</p>
+                                                                                    :''
+                                                                                }
                                                                            </div>
                                                                         </div>
                                                                     </div>
