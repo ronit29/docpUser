@@ -328,6 +328,11 @@ class InsuranceStaticView extends React.Component {
 													<p>Only available on Docprime network* </p>
 													<span href='/insurance/network' onClick={(e) => {
 														e.preventDefault();
+														let data = {
+															'Category': 'ConsumerApp', 'Action': 'InsuranceNetwork', 'CustomerID': GTM.getUserId() || '', 'event': 'insurance-network', 'click_value': 'insurance-network'
+														}
+
+														GTM.sendEvent({ data: data })
 														this.props.history.push('/insurance/network')
 													}}>View network</span>
 												</div>
