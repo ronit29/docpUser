@@ -15,13 +15,13 @@ class LabsList extends React.Component {
             loading: false,
             renderBlock: false,
             page: 0,
-            is_insured: props.filterCriteria && props.filterCriteria.is_insured?props.filterCriteria.is_insured:false,
+            is_insured: props.filterCriteria && props.filterCriteria.is_insured ? props.filterCriteria.is_insured : false,
             avg_ratings: ''
         }
     }
 
-    bookNow(test_data){
-        let test={}
+    bookNow(test_data) {
+        let test = {}
         test.id = test_data.id
         test.name = test_data.name
         test.type = 'test'
@@ -40,45 +40,46 @@ class LabsList extends React.Component {
                     <div className="row no-gutters">
                         <div className="col-12">
                             <ul>
-                                {this.props.labList && this.props.labList.all_categories && this.props.labList.all_categories.length ? 
+                                {this.props.labList && this.props.labList.all_categories && this.props.labList.all_categories.length ?
                                     this.props.labList.all_categories.map((data, i) => {
-                                        return <li key={i} id={data.lab_test_cat_id}>{data.lab_test_cat_name}
-                                                {
-                                                    data.lab_test_tests && data.lab_test_tests.length?
+                                        return <li key={i} id={data.lab_test_cat_id}>
+                                            <h4 className="lab-crd-hdng">{data.lab_test_cat_name}</h4>
+                                            {
+                                                data.lab_test_tests && data.lab_test_tests.length ?
                                                     data.lab_test_tests.map((test_data, k) => {
-                                                        return <div className="cstm-docCard mb-3" key={k} id={test_data.id}>
-                                                                <div className="cstm-docCard-content" style={{cursor:'pointer'}}>
+                                                        return <div className="cstm-docCard mb-2" key={k} id={test_data.id}>
+                                                            <div className="cstm-docCard-content" style={{ cursor: 'pointer' }}>
                                                                 <div className="row no-gutters">
-                                                                    <div className="col-8">
+                                                                    <div className="col-7">
                                                                         <div className="cstm-doc-details-container labCardUiresponsive">
-                                                                           <div className="cstm-doc-content-container">
+                                                                            <div className="cstm-doc-content-container">
                                                                                 <a href="/city-xray-scan-clinic-pvt-ltd-palam-in-palam-new-delhi-lpp">
-                                                                                     <h2 className="cstmDocName">
-                                                                                     {test_data.name}
-                                                                                     </h2>
+                                                                                    <h2 className="lbcrdcstfont cstmDocName" style={{fontSize:'14px'}}> 
+                                                                                        {test_data.name}
+                                                                                    </h2>
                                                                                 </a>
-                                                                                {test_data.count?
+                                                                                {test_data.count ?
                                                                                     <p>Available in {test_data.count} Labs</p>
-                                                                                    :''
+                                                                                    : ''
                                                                                 }
-                                                                           </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                <div className="col-4">
-                                                                    <p className="cstm-doc-price">Starting at</p>
-                                                                    <p className="cst-doc-price">₹ {test_data.deal_price}
-                                                                    </p>
-                                                                    <button className="cstm-book-btn" onClick={this.bookNow.bind(this,test_data)}>Book Now</button>
-                                                                 </div>
+                                                                    <div className="col-5">
+                                                                        <p className="cstm-doc-price">Starting at</p>
+                                                                        <p className="cst-doc-price"><span className="lb-svupto">Save upto 40%</span>₹ {test_data.deal_price}
+                                                                        </p>
+                                                                        <button className="cstm-book-btn" onClick={this.bookNow.bind(this, test_data)}>Select Lab</button>
                                                                     </div>
                                                                 </div>
+                                                            </div>
                                                         </div>
                                                     })
-                                                    :''
-                                                }
+                                                    : ''
+                                            }
                                         </li>
                                     })
-                                :''}
+                                    : ''}
                             </ul>
                         </div>
                     </div>
