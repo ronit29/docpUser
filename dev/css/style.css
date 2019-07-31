@@ -12052,6 +12052,9 @@ font-weight: 500;
     color: #757575;
     display: inline-block;
 }
+.pr-4{
+    padding-right: 4px
+}
 .gyn-text{
 	    font-size: 12px;
     font-weight: 500;

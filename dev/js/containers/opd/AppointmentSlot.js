@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorById, getTimeSlots, selectOpdTimeSLot } from '../../actions/index.js'
+import { getDoctorById, getTimeSlots, selectOpdTimeSLot, submitIPDForm } from '../../actions/index.js'
 const queryString = require('query-string');
 
 import AppointmentSlotView from '../../components/opd/appointmentSlot/index.js'
@@ -62,9 +62,11 @@ const mapStateToProps = (state) => {
 
     let { selectedSlot, rescheduleSlot, selectedDoctorProcedure, commonProfileSelectedProcedures, selectedDateFormat } = state.DOCTOR_SEARCH
 
-    let { commonProcedurers } = state.SEARCH_CRITERIA_OPD
+    let { commonProcedurers, selectedLocation } = state.SEARCH_CRITERIA_OPD
+
+    let { primaryMobile, userName } = state.USER
     return {
-        DOCTORS, selectedSlot, rescheduleSlot, commonProcedurers, selectedDoctorProcedure, commonProfileSelectedProcedures, selectedDateFormat
+        DOCTORS, selectedSlot, rescheduleSlot, commonProcedurers, selectedDoctorProcedure, commonProfileSelectedProcedures, selectedDateFormat, selectedLocation, primaryMobile, userName
     }
 }
 
@@ -72,7 +74,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getDoctorById: (doctorId, clinicId, procedure_ids, category_ids) => dispatch(getDoctorById(doctorId, clinicId, procedure_ids, category_ids)),
         getTimeSlots: (doctorId, clinicId, callback) => dispatch(getTimeSlots(doctorId, clinicId, callback)),
-        selectOpdTimeSLot: (slot, reschedule, appointmentId, dateParam) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId, dateParam))
+        selectOpdTimeSLot: (slot, reschedule, appointmentId, dateParam) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId, dateParam)),
+        submitIPDForm: (formData, selectedLocation, cb) => dispatch(submitIPDForm(formData, selectedLocation, cb))
     }
 }
 

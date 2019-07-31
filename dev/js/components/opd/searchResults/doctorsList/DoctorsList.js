@@ -311,7 +311,8 @@ class DoctorsList extends React.Component {
                                                                     <div className="d-flex align-items-center justify-content-between auto-location-widget mb-3 mrt-20">
                                                                         <div className="d-flex align-items-center auto-location-text">
                                                                             <img src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} />
-                                                                            <h2 className="fw-500">Show {this.props.commonSelectedCriterias[0].name} near me</h2>
+                                                                            <p className="fw-500 pr-4">Show</p>
+                                                                            <h2 className="fw-500">{this.props.commonSelectedCriterias[0].name} near me</h2>
                                                                         </div>
                                                                         <div className="auto-location-btn fw-500" onClick={() => this.detectLocation('Sptcit')} >Detect Location</div>
                                                                     </div>

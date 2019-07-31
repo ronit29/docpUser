@@ -41,6 +41,11 @@ class HospitalDetailView extends React.Component {
 	}
 
 	componentDidMount() {
+
+		if (window) {
+            window.scrollTo(0, 0)
+        }
+                
 		let hospital_id = this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ? this.props.ipd_hospital_detail.id : this.props.match.params.hospitalId || ''
 		let gtmData = {
 			'Category': 'ConsumerApp', 'Action': 'IpdHospitalDetailPageLanded', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-detail-page-landed', selectedId: hospital_id
