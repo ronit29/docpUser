@@ -418,6 +418,34 @@ class Article extends React.Component {
                                     }
                                 </div> : ""
                             }
+                            <div className="doc-wdgt-med-container">
+                                <div className="doc-wdgt-book-doc d-none">
+                                    <img className="docClosBtn" src="https://cdn.docprime.com/cp/assets/img/icons/close.png" />
+                                    <h3 className="doc-wdgt-hdng">Book top doctors @ <span>50% OFF</span></h3>
+                                    <div className="doc-wdgt-chips">
+                                        <span>Obstetrician & Gynecologist</span>
+                                        <span>Dermatologist </span>
+                                        <span>Orthopedist </span>
+                                        <span>General Physician </span>
+                                        <span>Dentist</span>
+                                        <span className="src-spn-chps"><img className="srh-img-chps" src={ASSETS_BASE_URL + '/img/shape-srch.svg'} />Search more</span>
+                                    </div>
+                                </div>
+                                {/* third banner */}
+                                <div className="doc-wdgt-bodychk-cont">
+                                    <img className="docClosBtn" src="https://cdn.docprime.com/cp/assets/img/icons/close.png" />
+                                    <h3 className="wdgt-bodychk-heding">Book Full body checkup starting</h3>
+                                    <p className="bodychk-prc">@ <span className="bdy-pr">₹499</span> <span className="bdy-only">only</span> </p>
+                                    <div className="row">
+                                        <div className="col-7">
+                                            <p className="bdychk-dtls"><span>with</span> 60 tests <span>covering</span> heart, liver, lipid, iron, thyroid etc</p>
+                                        </div>
+                                        <div className="col-5">
+                                            <img class="bdychk-img img-fluid" src={ASSETS_BASE_URL + '/img/doc-wd.png'} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <RightBar colClass="col-lg-4" articleData={this.state.articleData} />
                     </div>

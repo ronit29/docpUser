@@ -2811,4 +2811,117 @@ font-weight: 500;
 padding: 3px 25px 5px 8px;
 }
 /* ============ appointments ============ */
+/* ============ doc-bottom-widget ============ */
+.doc-wdgt-med-container{
+	position: sticky;
+    position: -webkit-sticky;
+    bottom: 0;
+	z-index: 9;
+	margin-top: 15px;
+}
+.doc-wdgt-book-doc {
+    background: #d2e4f7;
+    width: 99%;
+    margin: auto;
+    padding: 10px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    position: relative;
+}
+img.docClosBtn {
+    cursor: pointer;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+h3.doc-wdgt-hdng {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: #073565;
+}
+h3.doc-wdgt-hdng span {
+	background: #dc2028;
+    color: white;
+    padding: 1px 4px;
+    font-size: 14px;
+    margin-left: 8px;
+    position: relative;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+h3.doc-wdgt-hdng span:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -12px;
+    width: 0;
+    height: 0;
+    border-color: transparent #dc2028 transparent transparent;
+    border-style: solid;
+    border-width: 20px 10px 0px 2px;
+}
+.doc-wdgt-chips span {
+    border: 1px solid #255180;
+    border-radius: 15px;
+    padding: 2px 8px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    color: #255180;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 12px;
+}
+span.src-spn-chps {
+    border: transparent;
+}
+img.srh-img-chps {
+    width: 13px;
+    margin-right: 5px;
+    margin-top: 2px;
+}
+.doc-wdgt-bodychk-cont {
+    background: #ffffff;
+    width: 99%;
+    margin: auto;
+    padding: 10px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    position: relative;
+    box-shadow: 0px 0px 5px 2px #00000033;
+}
+h3.wdgt-bodychk-heding {
+    font-size: 15px;
+    font-weight: 500;
+    color: black;
+    margin-bottom: 2px;
+}
+p.bodychk-prc {
+    font-size: 18px;
+    font-weight: 500;
+}
+span.bdy-pr {
+    color: #ff2563;
+}
+span.bdy-only {
+    font-size: 12px;
+    margin-top: 4px;
+    display: inline-block;
+}
+p.bdychk-dtls {
+    font-weight: 500;
+    color: rgba(23,23,23, 0.92);
+    font-size: 16px;
+    margin-top: 19px;
+}
+p.bdychk-dtls span {
+    font-weight: 400;
+}
+.bdychk-img{
+	width: 170px;
+    margin-left: auto;
+    display: block;
+}
+/* ============ doc-bottom-widget ============ */
 
