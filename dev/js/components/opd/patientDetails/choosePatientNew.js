@@ -16,7 +16,8 @@ class ChoosePatientNewView extends React.Component {
             email: '',
             smsBtnType: null,
             isEmailNotValid: false,
-            isPopupDataFilled: false
+            isPopupDataFilled: false,
+            enableOtpRequest:false
         }
     }
 
@@ -213,10 +214,18 @@ class ChoosePatientNewView extends React.Component {
                     }, 500)
                     //self.setState({ validationError: "Could not generate OTP." })
                 } else {
+                    if(viaWhatsapp){
+                        this.setState({enableOtpRequest:true})
+                    }else{
+                        this.setState({enableOtpRequest:false})
+                    }
                     self.setState({ showOtp: true, showVerify: false, smsBtnType: viaSms ? true : false })
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
                     }, 10000)
+                    setTimeout(() => {
+                        this.setState({ enableOtpRequest:false })
+                    }, 60000)
                 }
             })
         } else {
@@ -329,7 +338,9 @@ class ChoosePatientNewView extends React.Component {
                                             </div>
                                             <div className="d-flex align-items-start justify-content-between">
                                                 <span className="resend-otp-btn" onClick={() => this.verify(true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ? 'Send via Whatsapp' : 'Send via SMS'}</span>
-                                                <span className="resend-otp-btn" style={{ color: '#ec0d0d' }} onClick={() => this.verify(true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}>Resend</span>
+                                                {this.state.enableOtpRequest?''
+                                                :<span className="resend-otp-btn" style={{ color: '#ec0d0d' }} onClick={() => this.verify(true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}>Resend</span>
+                                                }
                                             </div>
                                         </div>
                                         : ''

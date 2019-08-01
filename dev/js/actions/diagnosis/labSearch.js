@@ -362,7 +362,7 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	let package_type = filterCriteriaPackages.packageType || ""
 	let test_ids = filterCriteriaPackages.test_ids || ""
 	let package_ids = filterCriteriaPackages.package_ids || ""
-	let package_category_id
+	let package_category_ids = filterCriteriaPackages.package_category_ids || ""
 	let url = `/api/v1/diagnostic/packagelist?`
 
 	if (searchByUrl) {
@@ -370,13 +370,13 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	}
 
 	if (forTaxSaver) {
-		package_category_id = parsed.package_category_ids
-		url += `long=${long || ""}&lat=${lat || ""}&package_category_ids=${package_category_id}&page=${page}`
+		// package_category_id = parsed.package_category_ids
+		url += `long=${long || ""}&lat=${lat || ""}&package_category_ids=${package_category_ids}&page=${page}`
 	}
 
 	if (!forTaxSaver) {
-
-		url += `long=${long || ""}&lat=${lat || ""}&sort_on=${sort_on}&sort_order=${sort_order}&avg_ratings=${avg_ratings}&home_visit=${home_visit}&lab_visit=${lab_visit}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}&package_ids=${package_ids}`
+		// package_category_id = parsed.package_category_ids
+		url += `long=${long || ""}&lat=${lat || ""}&sort_on=${sort_on}&sort_order=${sort_order}&avg_ratings=${avg_ratings}&home_visit=${home_visit}&lab_visit=${lab_visit}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}&package_ids=${package_ids}&package_category_ids=${package_category_ids}`
 	}
 
 	if (!!filterCriteriaPackages.lab_name) {
