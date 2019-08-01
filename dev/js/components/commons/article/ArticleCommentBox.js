@@ -26,16 +26,32 @@ class CommmentView extends React.Component{
             return
         }
 		let postData = {
-			article: this.props.articleData.id,
+			
 			comment: this.state.comment,
 			name: Object.values(this.props.profiles).length && this.props.profiles[this.props.defaultProfile]?this.props.profiles[this.props.defaultProfile].name:this.state.name,
 			email: Object.values(this.props.profiles).length && this.props.profiles[this.props.defaultProfile]?this.props.profiles[this.props.defaultProfile].email:this.state.email,
 			parent: this.props.parentCommentId 
 		}
+
+		if(this.props.articlePage) {
+			postData['article'] = this.props.articleData.id
+		}
+
+		if(this.props.hospitalPage) {
+			postData['hospital'] = this.props.hospital_id || ''
+		}
+
 		this.props.postComment(postData, (error, data)=> {
 			if(data){
 				this.setState({comment:'', name:'',email: '' })
-				this.props.getArticleData()
+				
+
+				if(this.props.articlePage){
+					this.props.getArticleData()	
+				}else {
+					this.props.loadComments()
+				}
+				
 				setTimeout(() => {
                     SnackBar.show({ pos: 'bottom-center', text: "Comment Posted Sucessfully, Awaiting moderation." })
                 }, 500)

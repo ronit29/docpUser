@@ -1,4 +1,4 @@
-import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET_IPD_SEARCH_ID, SAVE_IPD_RESULTS_WITH_SEARCHID, GET_IPD_SEARCH_ID_RESULTS, GET_IPD_HOSPITAL_DETAIL, CLEAR_IPD_SEARCH_IDS, GET_IPD_HOSPITAL_DETAIL_START, LOADED_IPD_INFO_START, START_HOSPITAL_SEARCH, SAVE_IPD_POPUP_DATA } from '../../constants/types';
+import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET_IPD_SEARCH_ID, SAVE_IPD_RESULTS_WITH_SEARCHID, GET_IPD_SEARCH_ID_RESULTS, GET_IPD_HOSPITAL_DETAIL, CLEAR_IPD_SEARCH_IDS, GET_IPD_HOSPITAL_DETAIL_START, LOADED_IPD_INFO_START, START_HOSPITAL_SEARCH, SAVE_IPD_POPUP_DATA, GET_HOSP_COMMENTS } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm'
 
@@ -297,5 +297,27 @@ export const saveIpdPopupData = (type, data) => (dispatch) => {
         type: SAVE_IPD_POPUP_DATA,
         payload: data,
         dataType: type
+    })
+}
+
+export const getHospitalComments = (hospitalId) => (dispatch) => {
+    return API_GET(`api/v1/common/comment/list?hospital=${hospitalId}`).then((response)=>{
+        dispatch({
+            type: GET_HOSP_COMMENTS,
+            payload: response
+        })
+    })
+}
+
+export const postHospitalComments = (postData, cb) => (dispatch) => {
+    return API_POST(`/api/v1/common/comment/post`, postData).then((response)=>{
+        
+        try{
+            if(response){
+                if(cb) cb(null, response)
+            }
+        }catch(e){
+            if(cb) cb(e, null)
+        }
     })
 }

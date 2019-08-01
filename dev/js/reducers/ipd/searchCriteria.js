@@ -1,4 +1,4 @@
-import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET_IPD_SEARCH_ID, SAVE_IPD_RESULTS_WITH_SEARCHID, GET_IPD_SEARCH_ID_RESULTS, SELECT_IPD_LOCATION_STATUS, GET_IPD_HOSPITAL_DETAIL, CLEAR_IPD_SEARCH_IDS, GET_IPD_HOSPITAL_DETAIL_START, LOADED_IPD_INFO_START, START_HOSPITAL_SEARCH, SAVE_IPD_POPUP_DATA } from '../../constants/types';
+import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET_IPD_SEARCH_ID, SAVE_IPD_RESULTS_WITH_SEARCHID, GET_IPD_SEARCH_ID_RESULTS, SELECT_IPD_LOCATION_STATUS, GET_IPD_HOSPITAL_DETAIL, CLEAR_IPD_SEARCH_IDS, GET_IPD_HOSPITAL_DETAIL_START, LOADED_IPD_INFO_START, START_HOSPITAL_SEARCH, SAVE_IPD_POPUP_DATA, GET_HOSP_COMMENTS } from '../../constants/types';
 
 // const moment = require('moment');
 
@@ -34,7 +34,8 @@ const defaultState = {
 	hospital_search_content: '',
 	hospital_bottom_content: '',
 	HOSPITAL_SEARCH_DATA_LOADED: false,
-	ipdPopupData: {}
+	ipdPopupData: {},
+	hospitalComments: []
 }
 
 export default function (state = defaultState, action) {
@@ -278,6 +279,14 @@ export default function (state = defaultState, action) {
 			}
 			
 			newState.ipdPopupData[action.dataType] = {...action.payload}
+			return newState
+		}
+
+		case GET_HOSP_COMMENTS: {
+			let newState = {
+				...state
+			}
+			newState.hospitalComments = action.payload
 			return newState
 		}
 

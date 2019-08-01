@@ -65,7 +65,7 @@ class Comment extends React.Component{
                                 <input type="text" onChange={this.props.handleInputComment.bind(this)} />
                                 <button className="comments-post-btns" onClick={this.props.postReply.bind(this)}>Post</button>
                             </div>
-                            :<CommentBox {...this.props} {...this.state} parentCommentId = {comment.id} getArticleData={this.props.getArticleData.bind(this)} />
+                            :<CommentBox {...this.props} {...this.state} parentCommentId = {comment.id} getArticleData={this.props.hospitalPage?()=>{}:this.props.getArticleData.bind(this)}/>
                         :''   
                     }
                     

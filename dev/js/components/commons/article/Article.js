@@ -430,7 +430,7 @@ class Article extends React.Component {
                                         <h4 className="comments-main-heading">{`User Comments (${this.state.articleData.comments.length})`}</h4>
                                         {
                                             this.state.articleData.comments.map((comment, key) => {
-                                                return <Reply key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists} />
+                                                return <Reply key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists} articlePage={true}/>
                                             })}
                                     </div>
                                     : ''
@@ -442,7 +442,7 @@ class Article extends React.Component {
                                 <div className="col-12 col-md-7 col-lg-8 center-column">
                                     <div className="widget mrb-15 mrng-top-12">
                                         <div className="widget-content">
-                                            <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} commentsExists={commentsExists} parentCommentId={this.state.replyOpenFor} />
+                                            <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} commentsExists={commentsExists} parentCommentId={this.state.replyOpenFor} articlePage={true}/>
                                         </div>
                                     </div>
                                 </div>
