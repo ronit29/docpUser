@@ -61,14 +61,14 @@ class HospitalInventoryView extends React.Component {
                                 {
                                     this.props.hospitalLocalityList && this.props.hospitalLocalityList.name ?
                                         <li className="breadcrumb-list-item">
-                                            <h1 className="fw-500 breadcrumb-title">Hospitals in {this.props.hospitalLocalityList.name}</h1>
+                                            <p className="fw-500 breadcrumb-title">{this.props.hospitalLocalityList.name}</p>
                                         </li> : ''
                                 }
                             </ul>
                             {
                                 this.props.hospitalLocalityList && this.props.hospitalLocalityList.name && this.props.hospitalLocalityList.url ?
-                                    <div style={{ cursor: 'pointer' }} onClick={() => this.props.history.push(`${this.props.hospitalLocalityList.url}`)}>
-                                        <h1 className="fw-500 sitemap-title">Hospitals in {this.props.hospitalLocalityList.name}</h1>
+                                    <div style={{ cursor: 'pointer' }} onClick={() => this.props.history.push(`/${this.props.hospitalLocalityList.url}`)}>
+                                        <h1 className="fw-500 sitemap-title">{this.props.hospitalLocalityList.name}</h1>
                                     </div> : ''
                             }
                             <div className="row sitemap-row">

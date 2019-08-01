@@ -45,11 +45,11 @@ class HospitalListView extends React.Component {
                                     <span className="breadcrumb-arrow">&gt;</span>
                                 </li>
                                 <li className="breadcrumb-list-item">
-                                    <h1 className="fw-500 breadcrumb-title">Hospitals in India</h1>
+                                    <p className="fw-500 breadcrumb-title">Hospitals in India</p>
                                 </li>
                             </ul>
                             <div>
-                                <h1 className="fw-500 sitemap-title">Hospital Index</h1>
+                                <h1 className="fw-500 sitemap-title">Hospitals in India</h1>
                             </div>
                             <div className="row sitemap-row">
                                 {

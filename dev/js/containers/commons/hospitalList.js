@@ -6,8 +6,13 @@ import { getHospitalList, getHospitalInventoryList } from '../../actions/index.j
 
 class HospitalList extends React.Component {
 
-    static loadData(store, match) {
-        return store.dispatch(getHospitalList())
+    static loadData(store, match, queryParams = {}) {
+        if (match.url === "/hospitals/inventory") {
+            return store.dispatch(getHospitalInventoryList(queryParams && queryParams.city ? queryParams.city : 'Delhi'))
+        }
+        else {
+            return store.dispatch(getHospitalList())
+        }
     }
 
     static contextTypes = {
