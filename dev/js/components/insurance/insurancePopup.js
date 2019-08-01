@@ -17,7 +17,8 @@ class InsurancePopup extends React.Component {
             error_message: '',
             isLeadTrue: false,
             smsBtnType: null,
-            selectedProfileAge:''
+            selectedProfileAge:'',
+            age:''
         }
     }
     handleChange(profileid, newProfile,selectedProfileAge, event) {
@@ -63,7 +64,21 @@ class InsurancePopup extends React.Component {
             }
         }
         let exactProfile = { ...newProfile, ...newProfileNames }
-        this.setState({profile_id: profileid, newprofile: exactProfile,selectedProfileAge:selectedProfileAge})
+        if(this.props.is_child_only && selectedProfileAge == 0){
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+
+            today = yyyy + '-' + mm + '-' + dd;
+            var startDate = Date.parse(today);
+            var endDate = Date.parse(newProfile.dob);
+            var timeDiff = startDate - endDate;
+            let daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            this.setState({profile_id: profileid, newprofile: exactProfile,selectedProfileAge:daysDiff,age:newProfile.age})
+        }else{
+            this.setState({profile_id: profileid, newprofile: exactProfile,selectedProfileAge:selectedProfileAge,age:newProfile.age})
+        }
     }
     inputHandler(e) {
         if (this.state.showOTP && e.target.name == 'phoneNumber') {
@@ -198,7 +213,7 @@ class InsurancePopup extends React.Component {
         if(this.props.selected_plan && this.props.selected_plan.threshold && this.props.selected_plan.threshold[0]){
             if(this.props.is_child_only){
                 threshold_max_age = this.props.selected_plan.threshold[0].child_max_age
-                threshold_min_age = 0
+                threshold_min_age = this.props.selected_plan.threshold[0].child_min_age
                 errorMessage = `The age of the selected member should be between ${this.props.selected_plan.threshold[0].child_min_age} days and ${this.props.selected_plan.threshold[0].child_max_age} years`
             }else{
                 threshold_max_age = this.props.selected_plan.threshold[0].max_age
@@ -206,10 +221,19 @@ class InsurancePopup extends React.Component {
                 errorMessage = `The age of the selected member should be between ${this.props.selected_plan.threshold[0].min_age} and ${this.props.selected_plan.threshold[0].max_age} years`
             }
         }
-        if(this.state.selectedProfileAge > threshold_min_age && this.state.selectedProfileAge < threshold_max_age){
-            this.props.closePopup(this.state.profile_id, this.props.member_id, this.state.newprofile)    
-        }else{
-            SnackBar.show({ pos: 'bottom-center', text: errorMessage })   
+        if(this.props.is_child_only){
+            if(this.state.selectedProfileAge > threshold_min_age && this.state.age < threshold_max_age){
+                this.props.closePopup(this.state.profile_id, this.props.member_id, this.state.newprofile)    
+            }else{
+                SnackBar.show({ pos: 'bottom-center', text: errorMessage })   
+            }
+        }
+        if(!this.props.is_child_only){
+            if(this.state.selectedProfileAge > threshold_min_age && this.state.selectedProfileAge < threshold_max_age){
+                this.props.closePopup(this.state.profile_id, this.props.member_id, this.state.newprofile)    
+            }else{
+               SnackBar.show({ pos: 'bottom-center', text: errorMessage })    
+            }
         }
         
     }
