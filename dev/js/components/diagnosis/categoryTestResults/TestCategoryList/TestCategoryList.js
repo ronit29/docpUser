@@ -67,8 +67,10 @@ class LabsList extends React.Component {
                                                                     </div>
                                                                     <div className="col-5">
                                                                         <p className="cstm-doc-price">Starting at</p>
-                                                                        <p className="cst-doc-price"><span className="lb-svupto">Save upto 40%</span>₹ {test_data.deal_price}
+                                                                        <p className="cst-doc-price">₹ {test_data.deal_price}
                                                                         </p>
+                                                                        {/*<p className="cst-doc-price"><span className="lb-svupto">Save upto 40%</span>₹ {test_data.deal_price}
+                                                                        </p>*/}
                                                                         <button className="cstm-book-btn" onClick={this.bookNow.bind(this, test_data)}>Select Lab</button>
                                                                     </div>
                                                                 </div>
