@@ -37,13 +37,15 @@ class HospitalInfoView extends React.Component {
               </div>
               : ''
           }
-          <div className="ipd-st-rating">
+
+          {/* If anyone is un-commenting the code below, please also remove the inline 'style'(paddingTop:0) tag from h1 present just below the code (class of h1 - section-heading pb-10) */}
+          {/* <div className="ipd-st-rating">
             {
               hospital_data.rating_graph && hospital_data.rating_graph.avg_rating ?
                 <RatingStars average_rating={hospital_data.rating_graph.avg_rating} rating_count={''} width="12px" height="12px" /> : ''
             }
-          </div>
-          <h1 className="section-heading pb-10">{hospital_data && hospital_data.seo && hospital_data.seo.h1_title?hospital_data.seo.h1_title:hospital_data.name_city}</h1>
+          </div> */}
+          <h1 className="section-heading pb-10" style={{ paddingTop: 0 }} >{hospital_data && hospital_data.seo && hospital_data.seo.h1_title?hospital_data.seo.h1_title:hospital_data.name_city}</h1>
           {
             hospital_data.address ?
               <div className="opd-timing opd-mapico">

@@ -219,7 +219,7 @@ class DoctorProfileCard extends React.Component {
             return (
                 <div className="cstm-docCard mb-3">
                     {
-                        new_schema && !this.props.noSchemaBinding? <script type="application/ld+json" dangerouslySetInnerHTML={{
+                        new_schema && !this.props.isHospitalPage? <script type="application/ld+json" dangerouslySetInnerHTML={{
                             __html: new_schema
                         }} /> : ""
                     }
@@ -351,8 +351,7 @@ class DoctorProfileCard extends React.Component {
                     <div className="cstmCardFooter">
                         <div className="cstmfooterContent">
                             {
-                                hospital.url && hospital.url.length ?
-
+                                hospital.url && hospital.url.length && !this.props.isHospitalPage ?
                                     <h3><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />
                                         <a href={`/${hospital.url}`} style={{ color: '#000' }} onClick={
                                             (e) => {
@@ -382,7 +381,7 @@ class DoctorProfileCard extends React.Component {
                                     </div> : ''
                             }
                             {
-                                parent_url && parent_url.length ?
+                                parent_url && parent_url.length && !this.props.isHospitalPage ?
                                     <a href={`/${parent_url}`} onClick={
                                         (e) => {
                                             e.preventDefault()

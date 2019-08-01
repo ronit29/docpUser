@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import HospitalListView from '../../components/commons/hospitalList/hospitalListView';
-import { getHospitalList } from '../../actions/index.js'
+import HospitalInventoryView from '../../components/commons/hospitalList/hospitalInventoryView';
+import { getHospitalList, getHospitalInventoryList } from '../../actions/index.js'
 
 class HospitalList extends React.Component {
 
@@ -15,7 +16,13 @@ class HospitalList extends React.Component {
 
     render() {
         return (
-            <HospitalListView {...this.props} />
+            <React.Fragment>
+                {
+                    this.props.match.url === "/hospitals/inventory" ?
+                        <HospitalInventoryView {...this.props} /> :
+                        <HospitalListView {...this.props} />
+                }
+            </React.Fragment>
         )
     }
 }
@@ -23,7 +30,9 @@ class HospitalList extends React.Component {
 const mapStateToProps = (state) => {
     const {
         hospitalIndexLoading,
-        selectedHospitalList
+        selectedHospitalList,
+        hospitalLocalityList,
+        hospitalListLoading
     } = state.SITE_MAP
 
     const {
@@ -33,14 +42,17 @@ const mapStateToProps = (state) => {
     return {
         hospitalIndexLoading,
         selectedHospitalList,
-        selectedLocation
+        selectedLocation,
+        hospitalLocalityList,
+        hospitalListLoading
     }
 }
 
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getHospitalList: (selectedLocation, page) => dispatch(getHospitalList(selectedLocation, page))
+        getHospitalList: (selectedLocation, page) => dispatch(getHospitalList(selectedLocation, page)),
+        getHospitalInventoryList: (city) => dispatch(getHospitalInventoryList(city))
     }
 }
 

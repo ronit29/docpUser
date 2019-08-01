@@ -53,29 +53,29 @@ class HospitalListView extends React.Component {
                             </div>
                             <div className="row sitemap-row">
                                 {
-                                this.props.hospitalIndexLoading?
-                                    <Loader/>
-                                    :this.props.selectedHospitalList && this.props.selectedHospitalList.length ?
-                                        this.props.selectedHospitalList.map((test, index) => {
-                                            return <div key={index} className="col-12 col-md-6 col-lg-4 tests-brdr-btm">
-                                                <div className="anchor-data-style" onClick={() => this.props.history.push(`/${test.url?test.url:`/`}`) }>
-                                                    {
-                                                        test.url ?
-                                                            <div>
-                                                                <a href={`/${test.url}`} onClick={(e) => {
-                                                                    e.preventDefault()
-                                                                }}>{test.name}</a>
-                                                                <span className="sitemap-right-arrow">
-                                                                    <img src="/assets/img/customer-icons/arrow-forward-right.svg" />
-                                                                </span>
-                                                            </div>
-                                                            :
-                                                            <span style={{ cursor: 'pointer' }} >{test.name}</span>
-                                                    }
+                                    this.props.hospitalIndexLoading ?
+                                        <Loader />
+                                        : this.props.selectedHospitalList && this.props.selectedHospitalList.length ?
+                                            this.props.selectedHospitalList.map((test, index) => {
+                                                return <div key={index} className="col-12 col-md-6 col-lg-4 tests-brdr-btm">
+                                                    <div className="anchor-data-style" onClick={() => this.props.history.push(`/hospitals/inventory?city=${test.name ? test.name : `Delhi`}`)}>
+                                                        {
+                                                            test.name ?
+                                                                <div>
+                                                                    <a href={`/hospitals/inventory?city=${test.name ? test.name : ``}`} onClick={(e) => {
+                                                                        e.preventDefault()
+                                                                    }}>{test.name}</a>
+                                                                    <span className="sitemap-right-arrow">
+                                                                        <img src="/assets/img/customer-icons/arrow-forward-right.svg" />
+                                                                    </span>
+                                                                </div>
+                                                                :
+                                                                <span style={{ cursor: 'pointer' }} >{test.name}</span>
+                                                        }
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        })
-                                        :<div className="col-12 fw-500 text-center mrt-20" style={{ fontSize: 18 }} >No record Found !!</div> 
+                                            })
+                                            : <div className="col-12 fw-500 text-center mrt-20" style={{ fontSize: 18 }} >No record Found !!</div>
                                 }
                             </div>
                         </div>

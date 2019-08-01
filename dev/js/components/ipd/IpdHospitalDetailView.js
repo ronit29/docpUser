@@ -341,10 +341,10 @@ class HospitalDetailView extends React.Component {
 												{
 													this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length ?
 														this.props.ipd_hospital_detail.specialization_doctors.result.map((doctorCard, i) => {
-															return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.specialization_doctors.seo} {...this.props} noSchemaBinding={true} />
+															return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.specialization_doctors.seo} {...this.props} isHospitalPage={true} />
 														})
 														: this.props.ipd_hospital_detail.doctors.result.map((doctorCard, i) => {
-															return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.doctors.seo} {...this.props} noSchemaBinding={true} />
+															return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.doctors.seo} {...this.props} isHospitalPage={true} />
 														})
 												}
 											</div>
