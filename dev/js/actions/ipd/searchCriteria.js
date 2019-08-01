@@ -312,12 +312,10 @@ export const getHospitalComments = (hospitalId) => (dispatch) => {
 export const postHospitalComments = (postData, cb) => (dispatch) => {
     return API_POST(`/api/v1/common/comment/post`, postData).then((response)=>{
         
-        try{
-            if(response){
-                if(cb) cb(null, response)
-            }
-        }catch(e){
-            if(cb) cb(e, null)
+        if(response){
+            if(cb) cb(null, response)
         }
+    }).catch((e)=>{
+        if(cb) cb(e, null)
     })
 }
