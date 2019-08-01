@@ -56,8 +56,11 @@ class HospitalDetailView extends React.Component {
 		var sections = {};
 		var i = 0
 
-		let headerHeight = -35
-
+		let headerHeight = 35
+		if(document.getElementsByClassName('ipd-tabs-container') && document.getElementsByClassName('ipd-tabs-container').length) {
+			headerHeight = document.getElementsByClassName('ipd-tabs-container')[0].offsetHeight
+		}
+		headerHeight = -(headerHeight)
 		Object.keys(this.refs).forEach((prp, i) => {
 
 			sections[prp] = this.refs[prp].offsetTop + headerHeight
@@ -92,9 +95,16 @@ class HospitalDetailView extends React.Component {
 			this.toggleTabs(parsed.type)
 		}
 
-		setTimeout(() => {
-			this.setState({ showForcedPopup: true })
-		}, 1000)
+		if(window.location.href.includes('type#')) {
+			let type = window.location.href.split('#')
+			if(type.length==2 && this.refs[type[1]]) {
+				this.toggleTabs(type[1])		
+			}
+		}
+ 
+		setTimeout(()=>{
+			this.setState({showForcedPopup: true })
+		},1000)
 
 	}
 
@@ -162,7 +172,11 @@ class HospitalDetailView extends React.Component {
 			GTM.sendEvent({ data: gtmData })
 
 			let headerHeight = this.refs[type].offsetTop
-			headerHeight = headerHeight - 35
+			let tabheight = 35;
+			if(document.getElementsByClassName('ipd-tabs-container') && document.getElementsByClassName('ipd-tabs-container').length) {
+				tabheight = document.getElementsByClassName('ipd-tabs-container')[0].offsetHeight
+			}
+			headerHeight = headerHeight - tabheight
 			this.setState({ toggleTabType: type })
 			window.scrollTo(0, headerHeight)
 
@@ -283,31 +297,31 @@ class HospitalDetailView extends React.Component {
 							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} showPopup={showPopup} isSeo={this.state.seoFriendly} />
 
 							<div className="ipd-tabs-container">
-								<a href={`${this.props.location && this.props.location.pathname ? `${this.props.location.pathname}?type=doctors` : ''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'doctors' ? ' ipd-tb-active' : ''}`} onClick={(e) => {
+								<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type#doctors`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'doctors' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
 									e.preventDefault()
 									this.toggleTabs('doctors')
 								}}>Doctors</a>
 								{
 									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count && false ?
-										<a href={`${this.props.location && this.props.location.pathname ? `${this.props.location.pathname}?type=bookNow` : ''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'bookNow' ? ' ipd-tb-active' : ''}`} onClick={(e) => {
+										<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type#bookNow`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'bookNow' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
 											e.preventDefault()
 											this.toggleTabs('bookNow')
 										}}>Book Now</a>
 										: ''
 								}
 
-								<a href={`${this.props.location && this.props.location.pathname ? `${this.props.location.pathname}?type=feedback` : ''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'feedback' ? ' ipd-tb-active' : ''}`} onClick={(e) => {
+								<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type#feedback`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'feedback' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
 									e.preventDefault()
 									this.toggleTabs('feedback')
 								}}>Feedback</a>
 
 								{
-									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.offers && this.props.ipd_hospital_detail.offers.length ?
-										<a href={`${this.props.location && this.props.location.pathname ? `${this.props.location.pathname}?type=offers` : ''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'offers' ? ' ipd-tb-active' : ''}`} onClick={(e) => {
-											e.preventDefault()
-											this.toggleTabs('offers')
-										}}>Offers</a>
-										: ''
+									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.offers && this.props.ipd_hospital_detail.offers.length?
+									<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type#offers`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'offers' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
+										e.preventDefault()
+										this.toggleTabs('offers')
+									}}>Offers</a>
+									:''	
 								}
 
 							</div>
@@ -438,16 +452,7 @@ class HospitalDetailView extends React.Component {
 									<IpdQuestionAnswer hospital_data={this.props.ipd_hospital_detail} />
 									: ''
 							}
-							{/* comment section starts */}
 
-							{/* {
-								<ReplyView key={} {...this.props} {...this.state} commentReplyClicked={} isUserLogin={} getArticleData={} postReply={} handleInputComment={} commentData={} commentsExists={} />
-							}
-							{
-								<CommmentView {...this.props} {...this.state} getArticleData={} commentsExists={} parentCommentId={} />
-							} */}
-
-							{/* comment section ends */}
 							{
 								this.props.ipd_chat || showPopup || (this.props.ipd_hospital_detail && !this.props.ipd_hospital_detail.is_ipd_hospital) ? ''
 									: parsed.fromProcedure ?

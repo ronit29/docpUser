@@ -427,6 +427,17 @@ class InsuranceEndoresmentInputView extends React.Component{
 						let selectedProfile = this.props.self_data_values[id]
 						let selectedApiProfile = this.props.endorsed_member_data.members[i]
 						for(let j in  selectedApiProfile ) {							
+							if(j=='first_name') {
+								if(selectedProfile['name'] !=selectedApiProfile['first_name']){
+									is_fields_edited.push(id)
+									if(edited_fields[id]) {
+
+									}else {
+										edited_fields[id] = []
+									}
+									edited_fields[id].push(j)
+								}
+							}
 							if(j!='email') {
 								if(selectedProfile[j] != selectedApiProfile[j]) {
 									is_fields_edited.push(id)
