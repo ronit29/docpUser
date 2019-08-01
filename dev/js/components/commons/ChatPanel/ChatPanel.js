@@ -540,6 +540,10 @@ class ChatPanel extends React.Component {
             iframe_url += `&payment=${parsedHref.payment}`
         }
 
+        if(parsedHref.order_id) {
+            iframe_url += `&order_id=${parsedHref.order_id}`   
+        }
+
         if (this.props.showHalfScreenChat && !this.props.showDesktopIpd) {
             return (
                 <div className="chat-body">
