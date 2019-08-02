@@ -9,7 +9,7 @@ class UserAppointmentsView extends React.Component {
         this.state = {
             showReports: false,
             appointmentReports: [],
-            show_sorted_results: ''
+            show_sorted_results: ['all']
         }
     }
 
@@ -42,8 +42,20 @@ class UserAppointmentsView extends React.Component {
         this.setState({ show_sorted_results: !this.state.show_sorted_results })
     }
 
-    selectOptions(type, value) {
-        this.setState({ [type]: parseInt(value) ? parseInt(value) : value })
+    selectOptions(value) {
+        let found = false
+        let appointments = []
+        appointments = this.state.show_sorted_results.filter((x)=>{
+            if(x==value){
+                found = true
+                return false
+            }
+            return x
+        })
+        if(!found){
+            appointments.push(value)
+        }
+        this.setState({ show_sorted_results: appointments })
     }
 
 
@@ -51,8 +63,19 @@ class UserAppointmentsView extends React.Component {
 
         let { appointments, selectedProfile } = this.props.USER
         let appointment_list = appointments[selectedProfile] || []
-        if (this.state.show_sorted_results) {
-            appointment_list = appointments[selectedProfile] && appointments[selectedProfile].length ? appointments[selectedProfile].filter(x => x.status == this.state.show_sorted_results) : []
+
+        if (this.state.show_sorted_results.indexOf('all')==-1) {
+            
+            if(appointments[selectedProfile] && appointments[selectedProfile].length){
+                appointment_list = appointments[selectedProfile].filter((x)=>{
+                    
+                    if(this.state.show_sorted_results.indexOf(x.status)>-1){
+                        return true
+                    }
+                    return false
+                })
+            }
+
         }
 
         return (
@@ -71,13 +94,13 @@ class UserAppointmentsView extends React.Component {
                 </div> */}
                 <div className="booking-filter-container">
                     <div className="bkn-chips-container">
-                        <p className="bkselect">All Appointments</p>
-                        <p value="1">Created</p>
-                        <p value="2">Booked</p>
-                        <p value="3">Rescheduled</p>
-                        <p value="5">Accepted</p>
-                        <p value="6">Cancelled</p>
-                        <p value="7">Completed</p>
+                        <p className={`${this.state.show_sorted_results.indexOf('all')>-1?'bkselect':''}`} onClick={()=>this.selectOptions('all')}>All Appointments</p>
+                        <p className={`${this.state.show_sorted_results.indexOf(1)>-1?'bkselect':''}`} onClick={()=>this.selectOptions(1)}>Created</p>
+                        <p className={`${this.state.show_sorted_results.indexOf(2)>-1?'bkselect':''}`} onClick={()=>this.selectOptions(2)}>Booked</p>
+                        <p className={`${this.state.show_sorted_results.indexOf(3)>-1?'bkselect':''}`} onClick={()=>this.selectOptions(3)}>Rescheduled</p>
+                        <p className={`${this.state.show_sorted_results.indexOf(5)>-1?'bkselect':''}`} onClick={()=>this.selectOptions(5)}>Accepted</p>
+                        <p className={`${this.state.show_sorted_results.indexOf(6)>-1?'bkselect':''}`} onClick={()=>this.selectOptions(6)}>Cancelled</p>
+                        <p className={`${this.state.show_sorted_results.indexOf(7)>-1?'bkselect':''}`} onClick={()=>this.selectOptions(7)}>Completed</p>
                     </div>
                 </div>
                 {/* <div className="tg-list-item">
