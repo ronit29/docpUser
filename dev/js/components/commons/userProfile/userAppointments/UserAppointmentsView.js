@@ -43,7 +43,7 @@ class UserAppointmentsView extends React.Component {
     }
 
     selectOptions(type, value) {
-        this.setState({[type]: parseInt(value)?parseInt(value):value})
+        this.setState({ [type]: parseInt(value) ? parseInt(value) : value })
     }
 
 
@@ -51,13 +51,13 @@ class UserAppointmentsView extends React.Component {
 
         let { appointments, selectedProfile } = this.props.USER
         let appointment_list = appointments[selectedProfile] || []
-        if(this.state.show_sorted_results){
-            appointment_list = appointments[selectedProfile] && appointments[selectedProfile].length?appointments[selectedProfile].filter(x=>x.status==this.state.show_sorted_results):[]
+        if (this.state.show_sorted_results) {
+            appointment_list = appointments[selectedProfile] && appointments[selectedProfile].length ? appointments[selectedProfile].filter(x => x.status == this.state.show_sorted_results) : []
         }
 
         return (
             <div className="widget-content pl-0 pr-0">
-                <div className="apt-sorting">
+                {/* <div className="apt-sorting">
                     <label>View by:</label>
                     <select onChange={ (e)=> this.selectOptions('show_sorted_results', e.target.value)}>
                         <option value="" selected>All Appointments</option>
@@ -68,6 +68,17 @@ class UserAppointmentsView extends React.Component {
                         <option value="6">Cancelled</option>
                         <option value="7">Completed</option>
                     </select>
+                </div> */}
+                <div className="booking-filter-container">
+                    <div className="bkn-chips-container">
+                        <p className="bkselect">All Appointments</p>
+                        <p value="1">Created</p>
+                        <p value="2">Booked</p>
+                        <p value="3">Rescheduled</p>
+                        <p value="5">Accepted</p>
+                        <p value="6">Cancelled</p>
+                        <p value="7">Completed</p>
+                    </div>
                 </div>
                 {/* <div className="tg-list-item">
                     <p>Sort by Appointment Status</p>
