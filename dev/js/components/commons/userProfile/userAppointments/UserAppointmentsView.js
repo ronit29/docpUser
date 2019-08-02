@@ -45,17 +45,22 @@ class UserAppointmentsView extends React.Component {
     selectOptions(value) {
         let found = false
         let appointments = []
-        appointments = this.state.show_sorted_results.filter((x)=>{
-            if(x==value){
-                found = true
-                return false
+
+        if(this.state.show_sorted_results.length==1 && this.state.show_sorted_results.indexOf(value)>-1) {
+            
+        }else {
+            appointments = this.state.show_sorted_results.filter((x)=>{
+                if(x==value){
+                    found = true
+                    return false
+                }
+                return x
+            })
+            if(!found){
+                appointments.push(value)
             }
-            return x
-        })
-        if(!found){
-            appointments.push(value)
+            this.setState({ show_sorted_results: appointments })
         }
-        this.setState({ show_sorted_results: appointments })
     }
 
 
