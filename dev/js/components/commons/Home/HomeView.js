@@ -17,6 +17,7 @@ const queryString = require('query-string');
 import CRITEO from '../../../helpers/criteo.js'
 import HomePageTopHospitals from './HomePageTopHospitals.js'
 import HomePageTopProcedures from './HomePageProcedureWidgets.js'
+import HomePagePackageCategory from './HomePagePackageCategory.js'
 import TopChatWidget from './HomePageChatWidget';
 import DemoWidget from './DemoWidget.js'
 
@@ -265,7 +266,11 @@ class HomeView extends React.Component {
 								<HomePageTopProcedures {...this.props} top_data={this.props.ipd_procedures} />
 								: ''
 						}
-						<DemoWidget/>
+						{
+							this.props.ipd_procedures && this.props.ipd_procedures.length ?
+								<HomePagePackageCategory {...this.props} top_data={this.props.ipd_procedures} />
+								: ''
+						}
 
 						{
 							this.props.top_hospitals && this.props.top_hospitals.length ?
@@ -328,6 +333,12 @@ class HomeView extends React.Component {
 								<HomePageTopProcedures {...this.props} top_data={this.props.ipd_procedures} />
 								: ''
 						}
+						{
+							this.props.ipd_procedures && this.props.ipd_procedures.length ?
+								<HomePagePackageCategory {...this.props} top_data={this.props.ipd_procedures} />
+								: ''
+						}
+
 						<DemoWidget {...this.props} top_data={this.props.ipd_procedures}/>
 
 						{
