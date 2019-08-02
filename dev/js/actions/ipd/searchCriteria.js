@@ -301,7 +301,7 @@ export const saveIpdPopupData = (type, data) => (dispatch) => {
 }
 
 export const getHospitalComments = (hospitalId) => (dispatch) => {
-    return API_GET(`api/v1/common/comment/list?hospital=${hospitalId}`).then((response)=>{
+    return API_GET(`api/v1/common/comment/list?type=hospital&id=${hospitalId}`).then((response)=>{
         dispatch({
             type: GET_HOSP_COMMENTS,
             payload: response
