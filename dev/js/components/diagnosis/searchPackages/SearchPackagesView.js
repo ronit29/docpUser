@@ -219,9 +219,13 @@ class SearchPackagesView extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
         let package_category_ids = parsed.package_category_ids
         if (this.props.forTaxSaver) {
-            url = `${window.location.pathname}?lat=${lat}&long=${long}&package_category_ids=${package_category_ids}&page=${page}`
+            url = `${window.location.pathname}?lat=${lat}&long=${long}&page=${page}`
         } else {
-            url = `${window.location.pathname}?lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&avg_ratings=${avg_ratings}&home_visit=${home_visit}&lab_visit=${lab_visit}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&package_ids=${package_ids}&page=${page}&package_category_ids=${package_category_ids}`
+            url = `${window.location.pathname}?lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&avg_ratings=${avg_ratings}&home_visit=${home_visit}&lab_visit=${lab_visit}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&package_ids=${package_ids}&page=${page}`
+        }
+        
+        if(parsed.package_category_ids){
+            url += `&package_category_ids=${package_category_ids}`
         }
 
         if (parsed.scrollbyid) {

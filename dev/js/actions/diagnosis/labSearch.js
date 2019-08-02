@@ -372,16 +372,20 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 
 	if (forTaxSaver) {
 		// package_category_id = parsed.package_category_ids
-		url += `long=${long || ""}&lat=${lat || ""}&package_category_ids=${package_category_ids}&page=${page}`
+		url += `long=${long || ""}&lat=${lat || ""}&page=${page}`
 	}
 
 	if (!forTaxSaver) {
 		// package_category_id = parsed.package_category_ids
-		url += `long=${long || ""}&lat=${lat || ""}&sort_on=${sort_on}&sort_order=${sort_order}&avg_ratings=${avg_ratings}&home_visit=${home_visit}&lab_visit=${lab_visit}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}&package_ids=${package_ids}&package_category_ids=${package_category_ids}`
+		url += `long=${long || ""}&lat=${lat || ""}&sort_on=${sort_on}&sort_order=${sort_order}&avg_ratings=${avg_ratings}&home_visit=${home_visit}&lab_visit=${lab_visit}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}&package_ids=${package_ids}`
 	}
 
 	if (!!filterCriteriaPackages.lab_name) {
 		url += `&name=${filterCriteria.lab_name || ""}`
+	}
+
+	if(parsed.package_category_ids){
+		url += `&package_category_ids=${package_category_ids}`
 	}
 
 	if (!!filterCriteriaPackages.network_id) {
