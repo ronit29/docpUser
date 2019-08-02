@@ -47,10 +47,10 @@ class LabsList extends React.Component {
                                             {
                                                 data.lab_test_tests && data.lab_test_tests.length ?
                                                     data.lab_test_tests.map((test_data, k) => {
-                                                        return <div className="cstm-docCard mb-2" key={k} id={test_data.id} onClick={this.bookNow.bind(this, test_data)}>
+                                                        return <div className="cstm-docCard mb-3" key={k} id={test_data.id} onClick={this.bookNow.bind(this, test_data)}>
                                                             <div className="cstm-docCard-content" style={{ cursor: 'pointer' }}>
                                                                 <div className="row no-gutters">
-                                                                    <div className="col-7">
+                                                                    <div className="col-8">
                                                                         <div className="cstm-doc-details-container labCardUiresponsive">
                                                                             <div className="cstm-doc-content-container">
                                                                                 <a href="/city-xray-scan-clinic-pvt-ltd-palam-in-palam-new-delhi-lpp">
@@ -65,7 +65,7 @@ class LabsList extends React.Component {
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div className="col-5">
+                                                                    <div className="col-4">
                                                                         <p className="cstm-doc-price">Starting at</p>
                                                                         <p className="cst-doc-price">₹ {test_data.deal_price}
                                                                         </p>
