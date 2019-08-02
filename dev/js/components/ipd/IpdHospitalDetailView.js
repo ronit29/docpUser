@@ -277,7 +277,8 @@ class HospitalDetailView extends React.Component {
             return
         }
         let postData = {
-            hospital: this.props.ipd_hospital_detail.id,
+        	type: 'hospital',
+            id: this.props.ipd_hospital_detail.id,
             comment: this.state.comment,
             name: Object.values(this.props.profiles).length && this.props.profiles[this.props.defaultProfile] ? this.props.profiles[this.props.defaultProfile].name : '',
             email: Object.values(this.props.profiles).length && this.props.profiles[this.props.defaultProfile] ? this.props.profiles[this.props.defaultProfile].email : '',

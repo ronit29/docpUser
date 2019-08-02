@@ -38,7 +38,8 @@ class CommmentView extends React.Component{
 		}
 
 		if(this.props.hospitalPage) {
-			postData['hospital'] = this.props.hospital_id || ''
+			postData['type'] = 'hospital'
+			postData['id'] = this.props.hospital_id || ''
 		}
 
 		this.props.postComment(postData, (error, data)=> {
