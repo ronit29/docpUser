@@ -38,6 +38,11 @@ class ChatPanel extends React.Component {
     }
 
     componentDidMount() {
+        let parsedHref = ''
+        if (typeof window == "object") {
+            parsedHref = queryString.parse(window.location.search)
+        }
+
         if (this.props.onRefIpd) {
             this.props.onRefIpd(this)
         }
@@ -163,6 +168,10 @@ class ChatPanel extends React.Component {
                                 if (this.props.selectedLocation) {
                                     this.sendLocationNotification(this.props.selectedLocation)
                                 }
+                                //Send payment event ,when payment is in url
+                                if(parsedHref && parsedHref.payment) {
+                                    this.sendPaymentStatusEvent(data.data.rid)
+                                }
 
                                 this.sendUserDetails()
                                 this.setState({ selectedRoom: data.data.rid, iframeLoading: false })
@@ -228,6 +237,16 @@ class ChatPanel extends React.Component {
                             break;
                         }
 
+                        case 'preventive': {
+
+
+                            let analyticData = {
+                                    'Category': 'Chat', 'Action': 'PreventiveFired', 'CustomerID': '', 'leadid': 0, 'event': 'preventive-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname
+                            }
+                            GTM.sendEvent({ data: analyticData })
+                            break;
+                        }
+
                     }
 
                     /**
@@ -246,6 +265,18 @@ class ChatPanel extends React.Component {
             }.bind(this))
         }
 
+    }
+
+    sendPaymentStatusEvent(rid){
+        let parsedHref = ''
+        if (typeof window == "object") {
+            parsedHref = queryString.parse(window.location.search)
+        }
+        let data = {
+            rid: rid,
+            payment_status: parsedHref.payment || ''
+        }
+        this.dispatchCustomEvent('payment', data)        
     }
 
     componentWillUnmount() {
@@ -489,7 +520,7 @@ class ChatPanel extends React.Component {
 
 
         //if(this.props.showHalfScreenChat && this.props.ipdFormParams) {
-        if (this.props.USER && this.props.USER.ipd_chat && this.props.USER.ipd_chat.ipdForm) {
+        if (this.props.USER && this.props.USER.ipd_chat && this.props.USER.ipd_chat.ipdForm && false) {
 
             let params = JSON.stringify(this.props.USER.ipd_chat.ipdForm)
             iframe_url += `&product=IPD&params=${params}&msg=startchat`
@@ -503,6 +534,14 @@ class ChatPanel extends React.Component {
 
         if (parsedHref.utm_source && parsedHref.utm_source.includes('Thyrocare')) {
             iframe_url += '&msg=startchat'
+        }
+
+        if(parsedHref.payment) {
+            iframe_url += `&payment=${parsedHref.payment}`
+        }
+
+        if(parsedHref.order_id) {
+            iframe_url += `&order_id=${parsedHref.order_id}`   
         }
 
         if (this.props.showHalfScreenChat && !this.props.showDesktopIpd) {

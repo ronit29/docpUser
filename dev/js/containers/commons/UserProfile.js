@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 
-import { setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests, getUserReviews, getRatingCompliments, updateAppointmentRating, OTTLogin, getCartItems, getIsCareDetails, generateInsuranceLead, preBooking,loadOPDInsurance} from '../../actions/index.js'
+import { setCorporateCoupon, editUserProfileImage, getAppointmentReports, selectPickupAddress, editUserProfile, getUserProfile, getProfileAppointments, selectProfile, getUserAddress, addUserAddress, updateUserAddress, logout, getUserPrescription, getCoupons, applyCoupons, clearExtraTests, getUserReviews, getRatingCompliments, updateAppointmentRating, OTTLogin, getCartItems, getIsCareDetails, generateInsuranceLead, preBooking,loadOPDInsurance, sendOtpOnEmail ,submitEmailOTP} from '../../actions/index.js'
 
 import STORAGE from '../../helpers/storage'
 
@@ -109,7 +109,9 @@ const mapDispatchToProps = (dispatch) => {
         generateInsuranceLead:(selectedPlan, cb) => dispatch(generateInsuranceLead(selectedPlan,cb)),
         getIsCareDetails: () => dispatch(getIsCareDetails()),
         preBooking:(slot) => dispatch(preBooking(slot)),
-        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city))
+        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city)),
+        sendOtpOnEmail:(criteria,callback)=>dispatch(sendOtpOnEmail(criteria,callback)),
+        submitEmailOTP: (data, cb) => dispatch(submitEmailOTP(data, cb)),
     }
 }
 

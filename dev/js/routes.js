@@ -604,6 +604,7 @@ let routes = [
     { path: '/ipd-procedures', exact: true, component: IpdList, RENDER_ON_SERVER: true },
     { path: '/order/paymentSummary', exact: true, component: CodPaymentPage },
     { path: '/hospitals', exact: true, component: HospitalList, RENDER_ON_SERVER: true },
+    { path: '/hospitals/inventory', exact: true, component: HospitalList, RENDER_ON_SERVER: true },
     { path: '/Chat/Review', exact: true, component: SingleChatPageFeedback }
 
 ]

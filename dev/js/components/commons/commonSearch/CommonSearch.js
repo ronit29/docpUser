@@ -28,7 +28,7 @@ class CommonSearch extends React.Component {
 
         if(this.props.hospital_id_search) {
             let data = {
-                'Category': 'ConsumerApp', 'Action': 'IpdHospitalSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-search', 'searched': '', 'searchString': this.state.searchValue, hospital_id: this.props.hospital_id_search
+                'Category': 'ConsumerApp', 'Action': 'IpdHospitalSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-search', 'searched': '', 'searchString': this.state.searchValue, hospital_id: this.props.hospital_id_search, 'page':this.props.hospital_id_search?'hospitalSearch':''
             }
             
             GTM.sendEvent({ data: data })
@@ -49,7 +49,7 @@ class CommonSearch extends React.Component {
 
     focusOut() {
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'searchInputFocusOut', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'search-string-on-blur', 'searched': '', 'searchString': this.state.searchValue, 'type': '', 'from': 'article'
+            'Category': 'ConsumerApp', 'Action': 'searchInputFocusOut', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'search-string-on-blur', 'searched': '', 'searchString': this.state.searchValue, 'type': '', 'from': 'article', 'page':this.props.hospital_id_search?'hospitalSearch':''
         }
         GTM.sendEvent({ data: data })
     }
@@ -89,7 +89,7 @@ class CommonSearch extends React.Component {
                 let filterResultsName = filterSearchResults.suggestion.map(x => x.name).join(',') || ''
                 let gtmData = {
                     'Category': 'ConsumerApp', 'Action': 'searchquery', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'search-query', 'searchString': this.state.searchValue,
-                    'searchType': '', 'results': filterResultsName, 'from':'article'
+                    'searchType': '', 'results': filterResultsName, 'from':'article', 'page':this.props.hospital_id_search?'hospitalSearch':''
                 }
                 GTM.sendEvent({ data: gtmData })
                 let filterData = filterSearchResults.suggestion
@@ -130,7 +130,7 @@ class CommonSearch extends React.Component {
             	type = 'opd'
 
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'VisitReasonSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'visit-reason-searched', 'SelectedId': criteria.id || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'VisitReasonSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'visit-reason-searched', 'SelectedId': criteria.id || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue, 'page':this.props.hospital_id_search?'hospitalSearch':''
                 }
                 GTM.sendEvent({ data: data })
 
@@ -142,7 +142,7 @@ class CommonSearch extends React.Component {
             else if (criteria.action.param.includes('hospital_name')) {
             	type = 'opd'
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'hospitalId': criteria.action.id || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
+                    'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'hospitalId': criteria.action.id || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || '', 'page':this.props.hospital_id_search?'hospitalSearch':''
                 }
                 GTM.sendEvent({ data: data })
 
@@ -157,7 +157,7 @@ class CommonSearch extends React.Component {
             } else if (criteria.action.param.includes('procedure_ids')) {
             	type = 'opd'
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value ? criteria.action.value[0] : '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value ? criteria.action.value[0] : '', 'searched': 'autosuggest', 'searchString': this.state.searchValue, 'page':this.props.hospital_id_search?'hospitalSearch':''
                 }
                 GTM.sendEvent({ data: data })
 
@@ -167,7 +167,7 @@ class CommonSearch extends React.Component {
             } else if (criteria.action.param.includes('specializations')) {
             	type = 'opd'
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value ? criteria.action.value[0] : '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value ? criteria.action.value[0] : '', 'searched': 'autosuggest', 'searchString': this.state.searchValue, 'page':this.props.hospital_id_search?'hospitalSearch':''
                 }
                 GTM.sendEvent({ data: data })
 
@@ -178,7 +178,7 @@ class CommonSearch extends React.Component {
             	type = 'opd'
 
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
+                    'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || '', 'page':this.props.hospital_id_search?'hospitalSearch':''
                 }
                 GTM.sendEvent({ data: data })
 
@@ -189,7 +189,7 @@ class CommonSearch extends React.Component {
             }else if (criteria.type == "lab") {
                 this.props.clearExtraTests()
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
+                    'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || '', 'page':this.props.hospital_id_search?'hospitalSearch':''
                 }
                 GTM.sendEvent({ data: data })
 
@@ -214,7 +214,7 @@ class CommonSearch extends React.Component {
 
             }else if (criteria.type.includes('ipd')) {
 	            let data = {
-	                'Category': 'ConsumerApp', 'Action': 'IPDNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
+	                'Category': 'ConsumerApp', 'Action': 'IPDNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || '', 'page':this.props.hospital_id_search?'hospitalSearch':''
 	            }
 	            GTM.sendEvent({ data: data })
 	            let ipdData = Object.assign({}, criteria)
@@ -300,7 +300,7 @@ class CommonSearch extends React.Component {
 
 			<div className="articleSearchWidget">
                 <div className="articleInputContainer">
-                    <input className="artc-inp" type="text" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.hospital_id_search?`Search for Doctor, Speciality`:"Search Doctors & Tests"}  onBlur={() => this.focusOut()} onFocus ={this.onFocusIn.bind(this)}/>
+                    <input className="artc-inp" type="text" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.hospital_id_search?`Search for Doctor, Speciality within Hospital`:"Search Doctors & Tests"}  onBlur={() => this.focusOut()} onFocus ={this.onFocusIn.bind(this)}/>
                     <img className="artc-img" src={ASSETS_BASE_URL + "/images/vall.png"} />
                     {
                         this.props.commonSearch?''
@@ -369,7 +369,7 @@ class CommonSearch extends React.Component {
                                             ? <li onClick={() => {
 
                                                 let data = {
-                                                    'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'selectedId': '', 'searched': '', 'searchString': this.state.searchValue || ''
+                                                    'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'selectedId': '', 'searched': '', 'searchString': this.state.searchValue || '', 'page':this.props.hospital_id_search?'hospitalSearch':''
                                                 }
                                                 GTM.sendEvent({ data: data })
 
@@ -389,7 +389,7 @@ class CommonSearch extends React.Component {
                                     	<li onClick={() => {
 
                                             let data = {
-                                                'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'selectedId': '', 'searched': '', 'searchString': this.state.searchValue || ''
+                                                'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'selectedId': '', 'searched': '', 'searchString': this.state.searchValue || '', 'page':this.props.hospital_id_search?'hospitalSearch':''
                                             }
                                             GTM.sendEvent({ data: data })
 
@@ -409,7 +409,7 @@ class CommonSearch extends React.Component {
                                         <li onClick={() => {
 
                                             let data = {
-                                                'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'hospitalId': '', 'searched': '', 'searchString': this.state.searchValue || ''
+                                                'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'hospitalId': '', 'searched': '', 'searchString': this.state.searchValue || '', 'page':this.props.hospital_id_search?'hospitalSearch':''
                                             }
                                             GTM.sendEvent({ data: data })
 

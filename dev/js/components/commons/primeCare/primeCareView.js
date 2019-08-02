@@ -201,7 +201,7 @@ class PrimeCareView extends React.Component {
                                                                                     value.unlimited_online_consultation?
                                                                                     <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/carechk.svg'} /> :''
                                                                                 }
-                                                                                <p>Free Unlimited Online Consultation
+                                                                                <p>Free Unlimited Online Consultation <span className="gp-spn">(General Physician)</span>
                                                                                 </p>
                                                                             </div>
                                                                             <div> 
@@ -220,8 +220,8 @@ class PrimeCareView extends React.Component {
                                                                                     
                                                                                         <span className="rpd-icon" onClick={self.testInfo.bind(self, feature_detail[0].test)}>
                                                                                             {feature_detail[0].test.show_details ?
-                                                                                                <img src={ASSETS_BASE_URL + '/img/icons/info.svg'} />:''} 
-                                                                                        </span> {v.count} Test/Yr. 
+                                                                                                <img style={{marginLeft:'5px'}} src={ASSETS_BASE_URL + '/img/icons/info.svg'} />:''} 
+                                                                                        </span> <span className="care-cnt">{v.count} Test/Yr.</span> 
                                                                                     </p>
                                                                                 </div>
                                                                                 :''

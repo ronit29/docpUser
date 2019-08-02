@@ -24,7 +24,7 @@ class DirectBooking extends React.Component {
                 if(callbackurl){
                     this.props.history.push('/'+callbackurl)
                 }else{
-                    this.props.history.push('/cart')
+                    this.props.history.push('/cart?is_agent_booking=true')
                 }
             }).catch(() => {
                 SnackBar.show({ pos: 'bottom-center', text: "Token Expired." });

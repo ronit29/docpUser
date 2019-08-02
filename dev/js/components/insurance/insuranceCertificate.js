@@ -170,6 +170,10 @@ class InsuranceCertificateView extends React.Component {
 										<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
 											<a style={{ fontWeight: '500', fontSize: '12px', color: '#f78631', textDecoration: 'underline', cursor: 'pointer' }} href='/insurance/network' onClick={(e) => {
 												e.preventDefault();
+												let data = {
+														'Category': 'ConsumerApp', 'Action': 'InsuranceNetworkCertificate', 'CustomerID': GTM.getUserId() || '', 'event': 'insurance-network-certificate', 'click_value': 'insurance-network-certificate'
+													}
+												GTM.sendEvent({ data: data })
 												this.props.history.push('/insurance/network')
 											}}>View Network</a>
 										</div>
@@ -269,7 +273,7 @@ class InsuranceCertificateView extends React.Component {
 								}
 							</section>
 							{
-								this.props.get_insured_profile && this.props.get_insured_profile.insurance_status == 1 ?
+								this.props.get_insured_profile && (this.props.get_insured_profile.insurance_status == 1 || this.props.get_insured_profile.insurance_status == 4 || this.props.get_insured_profile.insurance_status == 7) ?
 									<div className="sticky-btn fixed insuBtnsContainer">
 										<button className="insu-left-white-btn" onClick={this.cancelPolicy.bind(this)} style={{ color: this.props.get_insured_profile.is_cancel_allowed ? '#f78631' : '#757575' }}>Cancel Policy
 										</button>

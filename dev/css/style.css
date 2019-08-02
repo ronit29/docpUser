@@ -591,6 +591,9 @@ p.top-head-link.card-lab-link span {
     .profile-footer{
         margin-top: 0px;
     }
+    .ipd-section .opd-status{
+        float: unset !important;
+    }
 }
 @media screen and (max-width: 438px) {
 	.head-links {
@@ -7053,7 +7056,7 @@ button.padding-btn-adjust{
 	margin-bottom: 0;
 }
 .ipd-section .section-heading{
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 500;
     padding: 10px 0;
     color: #000;
@@ -7617,6 +7620,8 @@ p.cstm-cpn{
 }
 .ipd-section .opd-status{
     color: #0ca854;
+    display: block;
+    float: right;
 }
 .ipd-section .hsptl-contact li{
     display: flex;
@@ -8234,12 +8239,13 @@ font-size: 16px;
 	width: 50px;
 }
 .bg-img-box{
+    object-fit: cover;
 	height: 54px;
     width: 54px;
     background-size: cover;
-    padding: 5px;
+    /* padding: 5px; */
     border-radius: 5px;
-    margin-right: 5px;
+    /* margin-right: 5px; */
 }
 @media screen and (max-width: 991px){
 	.ipd-section .full-widget{
@@ -9029,6 +9035,9 @@ ul.careListing li {
 .careAvlP img{
 	    width: 20px;
     margin-right: 8px;
+}
+.care-cnt{
+    display: inline-block;
 }
 /* ==================== docprime care html page ==================== */
 .medic-img-slider {
@@ -11987,6 +11996,12 @@ ul.chat-radio-align .custom-radio .radio-checkmark.checkmark:after{
     -o-transition: all .5s ease-in-out;
     transition: all .5s ease-in-out;
 }
+.cpn-pymnt-txt{
+	display: block;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+}
 .mb-3.referDocimg img {
     width: 100%;
     border-radius: 4px;
@@ -12033,4 +12048,15 @@ font-weight: 500;
     padding: 8px 0px;
     border-radius: 4px;
     background: white;
+}
+.gp-spn{
+    color: #757575;
+    display: inline-block;
+}
+.pr-4{
+    padding-right: 4px
+}
+.gyn-text{
+	    font-size: 12px;
+    font-weight: 500;
 }

@@ -101,7 +101,6 @@ class DateTimePicker extends React.Component {
     		this.setState({ selectedDateSpan: dateFormat, currentTimeSlot: {} })
         	this.props.enableProceed(false, [])	
     	}
-	    
     }
 
     selectDateFromCalendar(date) {

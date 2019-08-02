@@ -20,6 +20,7 @@ class HelmetTags extends React.Component {
         let schema = (tagsData && tagsData.schema) ? tagsData.schema : null
         let ogUrl = (tagsData && tagsData.ogUrl) ? tagsData.ogUrl : null
         let ogType = (tagsData && tagsData.ogType) ? tagsData.ogType : null
+        let ogSiteName = (tagsData && tagsData.ogSiteName) ? tagsData.ogSiteName : null
         let ogTitle = (tagsData && tagsData.ogTitle) ? tagsData.ogTitle : null
         let ogDescription = (tagsData && tagsData.ogDescription) ? tagsData.ogDescription : null
         let ogImage = (tagsData && tagsData.ogImage) ? tagsData.ogImage : null
@@ -83,6 +84,10 @@ class HelmetTags extends React.Component {
                 {
                     ogType ?
                         <meta property="og:type" content={ogType} /> : ''
+                }
+                {
+                    ogSiteName ?
+                        <meta property="og:site_name" content={ogSiteName} /> : ''
                 }
                 {
                     ogTitle ?

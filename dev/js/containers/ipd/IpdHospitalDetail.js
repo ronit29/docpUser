@@ -33,7 +33,19 @@ class HospitalDetail extends React.Component {
         if (match.url.includes('-hpp') ) {
             searchUrl = match.url.toLowerCase()
         }
-		return store.dispatch(getHospitaDetails(match.params.hospitalId, null, searchUrl, query.specialization_id || ''))
+        return new Promise((resolve, reject)=>{
+        	try{
+        		return store.dispatch(getHospitaDetails(match.params.hospitalId, null, searchUrl, query.specialization_id || '', (resp)=>{
+        			if(resp && resp.status && resp.status==301){
+        				resolve({ status: 301 })
+        			}else{
+        				resolve({})
+        			}
+        		}) )
+        	}catch(e){
+        		reject()
+        	}
+        })
 	}
 
 	static contextTypes = {
@@ -120,15 +132,28 @@ class HospitalDetail extends React.Component {
 
 		let ipd_hospital_detail = this.state.hospital_id && this.props.ipd_hospital_detail_info && this.props.ipd_hospital_detail_info[this.state.hospital_id]?this.props.ipd_hospital_detail_info[this.state.hospital_id]:{}
 
+		let new_schema = ""
+		try {
+            if (ipd_hospital_detail && ipd_hospital_detail.seo && ipd_hospital_detail.seo.schema) {
+                new_schema = JSON.stringify(ipd_hospital_detail.seo.schema)
+            }
+        } catch (e) {
+            new_schema = ""
+        }
+
 		return(
 				<div className="profile-body-wrap">
-					<ProfileHeader showSearch={true} />
+					<ProfileHeader showSearch={true} pageType='HospitalDetailPage'/>
 					<HelmetTags tagsData={{
 						canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
 						title: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail : null).title,
-						description: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail : null).description,
-						schema: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail : null).schema
+						description: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail : null).description
 					}} noIndex={!this.state.is_seo} />
+					{
+                        new_schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
+                            __html: new_schema
+                        }} /> : ""
+                    }
 					<section className="container parent-section book-appointment-section breadcrumb-mrgn">
 						{
 							ipd_hospital_detail && ipd_hospital_detail.breadcrumb ?

@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { userData,selectInsuranceProfile, saveCurrentSelectedMembers, pushUserData, resetSelectedInsuranceMembers} from '../../actions/index.js'
+import { userData,selectInsuranceProfile, saveCurrentSelectedMembers, pushUserData, resetSelectedInsuranceMembers, submitEmailOTP, sendOtpOnEmail} from '../../actions/index.js'
 import InsuranceComponentView from '../../components/insurance/insuranceDetailsView.js'
 
 class InsuranceDetails extends React.Component{
@@ -34,6 +34,8 @@ const mapDispatchToProps = (dispatch) => {
         saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),
         pushUserData :(criteria,callback) => dispatch(pushUserData(criteria,callback)),
         resetSelectedInsuranceMembers: () => dispatch(resetSelectedInsuranceMembers()),
+        submitEmailOTP: (data, cb) => dispatch(submitEmailOTP(data, cb)),
+        sendOtpOnEmail:(criteria,callback)=>dispatch(sendOtpOnEmail(criteria,callback)),
         // resetSelectedInsuranceMembers: () => dispatch(resetSelectedInsuranceMembers())
     }
 }

@@ -25,6 +25,8 @@ import RatingStars from '../../commons/ratingsProfileView/RatingStars';
 import HospitalPopUp from '../../commons/ratingsProfileView/HospitalPopUp.js'
 import STORAGE from '../../../helpers/storage'
 import IpdLeadForm from '../../../containers/ipd/ipdLeadForm.js'
+import IpdSecondPopup from '../../../containers/ipd/IpdDoctorCityPopup.js'
+
 const queryString = require('query-string');
 
 class DoctorProfileView extends React.Component {
@@ -49,7 +51,9 @@ class DoctorProfileView extends React.Component {
             show_contact: '',
             isOrganic: this.props.location.search.includes('hospital_id'),
             displayHospitalRatingBlock: 0,
-            showIpdLeadForm: true
+            showIpdLeadForm: true,
+            showSecondPopup: false,
+            firstLeadId:''
         }
     }
 
@@ -259,9 +263,19 @@ class DoctorProfileView extends React.Component {
             ipdFormParams: ipdFormParams
         }
 
-        this.setState({ showIpdLeadForm: false }, () => {
+        this.setState({ showIpdLeadForm: false, showSecondPopup: true }, () => {
             // this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize:true})   
         })
+    }
+
+    saveLeadIdForUpdation(response) {
+        if(response.id){
+            this.setState({firstLeadId: response.id, showSecondPopup: true})
+        }
+    }
+
+    secondIpdFormSubmitted(){
+        this.setState({showSecondPopup: false})
     }
 
     render() {
@@ -353,15 +367,21 @@ class DoctorProfileView extends React.Component {
         if(parsed.utm_source || parsed.utm_medium || parsed.utm_term || parsed.utm_campaign){
             isUtmTagsExist = true
         }
-        let showForcedPopup = !isUtmTagsExist && landing_page && this.state.seoFriendly && doctor_id && this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].is_congot && this.state.showIpdLeadForm && this.props.DOCTORS[doctor_id].potential_ipd
+        let showForcedPopup = !isUtmTagsExist && landing_page && this.state.seoFriendly && doctor_id && this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].is_congot && this.state.showIpdLeadForm && this.props.DOCTORS[doctor_id].potential_ipd && !this.state.is_live
+        showForcedPopup = false
 
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
                 {
                     (this.props.DOCTORS[doctor_id] && parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE) || showForcedPopup ?
-                        <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={selectedClinicName} hospital_id={this.state.selectedClinic} doctor_name={this.props.DOCTORS[doctor_id].name ? this.props.DOCTORS[doctor_id].name : ''} formSource='DoctorBookingPage' sourceTag='seo_dp'/>
+                        <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={selectedClinicName} hospital_id={this.state.selectedClinic} doctor_name={this.props.DOCTORS[doctor_id].name ? this.props.DOCTORS[doctor_id].name : ''} formSource='DoctorBookingPage' saveLeadIdForUpdation={this.saveLeadIdForUpdation.bind(this)}/>
                         : ''
+                }
+                {
+                    this.props.DOCTORS[doctor_id] && this.state.showSecondPopup && parsed.get_feedback && parsed.get_feedback == '1'?
+                    <IpdSecondPopup {...this.props} firstLeadId={this.state.firstLeadId} all_doctors={[]} all_cities={this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].all_cities?this.props.DOCTORS[doctor_id].all_cities:[]} doctorProfilePage={true} secondIpdFormSubmitted={this.secondIpdFormSubmitted.bind(this)} hospital_name={selectedClinicName} hospital_id={this.state.selectedClinic} doctor_name={this.props.DOCTORS[doctor_id].name ? this.props.DOCTORS[doctor_id].name : ''} formSource='DoctorBookingPage'/>
+                    :''
                 }
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">
                     {this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].breadcrumb && this.props.DOCTORS[doctor_id].breadcrumb.length ?
