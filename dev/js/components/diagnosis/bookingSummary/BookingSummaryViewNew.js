@@ -775,6 +775,35 @@ class BookingSummaryViewNew extends React.Component {
         this.props.history.push('/insurance/insurance-plans?source=doctor-summary-view&show_button=true')
     }
 
+    testInfo(test_id, lab_id, test_url, event) {
+        let selected_test_ids = []
+        // Object.entries(this.props.currentSearchedCriterias).map(function ([key, value]) {
+        //     selected_test_ids.push(value.id)
+        // })
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var search_id = url.searchParams.get("search_id");
+        let lat = 28.644800
+        let long = 77.216721
+        if (this.props.selectedLocation !== null) {
+            lat = this.props.selectedLocation.geometry.location.lat
+            long = this.props.selectedLocation.geometry.location.lng
+
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
+        if (test_url && test_url != '') {
+            this.props.history.push('/' + test_url + '?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&lat=' + lat + '&long=' + long)
+        } else {
+            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&lat=' + lat + '&long=' + long)
+        }
+        event.stopPropagation()
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'lab-result-page'
+        }
+        GTM.sendEvent({ data: data })
+    }
+
     render() {
         let tests = []
         let tests_with_price = []
@@ -879,7 +908,15 @@ class BookingSummaryViewNew extends React.Component {
                         <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
                         </span>
                     */}
-                        <span className="test-name-item">{twp.test.name}</span>
+                        <span className="test-name-item p-0">{twp.test.name}
+                        {twp && twp.test && twp.test.show_details?
+                            <p key={i} onClick={this.testInfo.bind(this, twp.test.id, this.state.selectedLab, twp.test.url)}>
+                                <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }}> 
+                                    <img src={ASSETS_BASE_URL+ '/img/icons/Info.svg'} style={{width:'15px'}}/> 
+                                </span>
+                            </p>
+                        :''}
+                        </span>
                         {
                             is_plan_applicable ?
                                 <p className="pkg-discountCpn" style={{ display: 'inline-block', float: 'right', marginTop: '5px' }}>Docprime Care Benefit</p>
