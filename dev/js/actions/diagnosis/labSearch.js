@@ -362,7 +362,8 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	let package_type = filterCriteriaPackages.packageType || ""
 	let test_ids = filterCriteriaPackages.test_ids || ""
 	let package_ids = filterCriteriaPackages.package_ids || ""
-	let package_category_ids = filterCriteriaPackages.package_category_ids || ""
+	let package_category_ids = parsed.package_category_ids || ""
+	// let package_category_ids = filterCriteriaPackages.package_category_ids || ""
 	let url = `/api/v1/diagnostic/packagelist?`
 
 	if (searchByUrl) {

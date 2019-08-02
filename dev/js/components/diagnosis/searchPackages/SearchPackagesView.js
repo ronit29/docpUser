@@ -213,11 +213,11 @@ class SearchPackagesView extends React.Component {
         let package_type = filterCriteriaPackages.packageType || ""
         let test_ids = filterCriteriaPackages.test_ids || ""
         let package_ids = filterCriteriaPackages.package_ids || ""
-        let package_category_ids = filterCriteriaPackages.package_category_ids || ""
+        // let package_category_ids = filterCriteriaPackages.package_category_ids || ""
 
         let url
         const parsed = queryString.parse(this.props.location.search)
-        let package_category_id = parsed.package_category_ids
+        let package_category_ids = parsed.package_category_ids
         if (this.props.forTaxSaver) {
             url = `${window.location.pathname}?lat=${lat}&long=${long}&package_category_ids=${package_category_ids}&page=${page}`
         } else {
