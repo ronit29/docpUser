@@ -41,7 +41,8 @@ const defaultState = {
     last_save_searched_date: null,
     ipd_procedures: [],
     top_hospitals: [],
-    common_settings:null
+    common_settings:null,
+    package_categories:[]
 }
 
 export default function (state = defaultState, action) {

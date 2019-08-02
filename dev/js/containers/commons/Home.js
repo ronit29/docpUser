@@ -87,13 +87,14 @@ const mapStateToProps = (state, passedProps) => {
         specializations,
         ipd_procedures,
         top_hospitals,
-        common_settings
+        common_settings,
+        package_categories
     } = state.SEARCH_CRITERIA_OPD
     
     let filterCriteria_opd = state.SEARCH_CRITERIA_OPD.filterCriteria
 
     return {
-        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, upcoming_appointments, compare_packages, ipd_procedures, top_hospitals, common_settings, is_ipd_form_submitted
+        profiles, selectedProfile, newNotification, notifications, articles, healthTips, common_tests: common_tests || [], specializations: specializations || [], selectedLocation, filterCriteria_lab, filterCriteria_opd, device_info, common_package: common_package || [], initialServerData, offerList, upcoming_appointments, compare_packages, ipd_procedures, top_hospitals, common_settings, is_ipd_form_submitted, package_categories
     }
 }
 

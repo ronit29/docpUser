@@ -170,7 +170,7 @@ class HomeView extends React.Component {
 	}
 
 	render() {
-
+		
 		let topSpecializations = []
 		if (this.props.specializations && this.props.specializations.length) {
 			topSpecializations = this.getTopList(this.props.specializations)
@@ -267,8 +267,8 @@ class HomeView extends React.Component {
 								: ''
 						}
 						{
-							this.props.ipd_procedures && this.props.ipd_procedures.length ?
-								<HomePagePackageCategory {...this.props} top_data={this.props.ipd_procedures} />
+							this.props.package_categories && this.props.package_categories.length ?
+								<HomePagePackageCategory {...this.props} top_data={this.props.package_categories} />
 								: ''
 						}
 
@@ -334,8 +334,8 @@ class HomeView extends React.Component {
 								: ''
 						}
 						{
-							this.props.ipd_procedures && this.props.ipd_procedures.length ?
-								<HomePagePackageCategory {...this.props} top_data={this.props.ipd_procedures} />
+							this.props.package_categories && this.props.package_categories.length ?
+								<HomePagePackageCategory {...this.props} top_data={this.props.package_categories} />
 								: ''
 						}
 
