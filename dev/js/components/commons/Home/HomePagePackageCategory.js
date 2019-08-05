@@ -26,7 +26,7 @@ class HomePagePackageCategory extends React.Component {
     //     }
     // }
 
-    navigateTo(data, e){
+    navigateTo(PkgData, e){
         let data = {
             'Category': 'ConsumerApp', 'Action': 'HomePageCompareButton', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'compare-button-click'
         }
