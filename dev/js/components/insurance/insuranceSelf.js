@@ -338,8 +338,8 @@ class InsuranceSelf extends React.Component {
 			this.handleSubmit(false,false)
 		})
 	}
-	showAlert() {
-		SnackBar.show({ pos: 'bottom-center', text: "Please select state first" });
+	showAlert(type) {
+		SnackBar.show({ pos: 'bottom-center', text: "Please select" + type + "first" });
 	}
 
 	handleState(feild, event) {
@@ -902,7 +902,7 @@ class InsuranceSelf extends React.Component {
 								<label className="form-control-placeholder" htmlFor={`isndistrict_${this.props.member_id}`}>District</label>
 								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 							</div>
-							: <div className="ins-form-group" onClick={this.showAlert.bind(this)}>
+							: <div className="ins-form-group" onClick={this.showAlert.bind(this,' state ')}>
 								<input 
 									style={{ 'textTransform': 'capitalize', fontWeight: '100', color: 'gray' }} 
 									type="text" 
@@ -946,7 +946,7 @@ class InsuranceSelf extends React.Component {
 								<label className="form-control-placeholder" htmlFor={`isnTown_${this.props.member_id}`}>Town</label>
 								<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 							</div>
-							: <div className="ins-form-group" onClick={this.showAlert.bind(this)}>
+							: <div className="ins-form-group" onClick={this.showAlert.bind(this,' district ')}>
 								<input 
 									style={{ 'textTransform': 'capitalize', fontWeight: '100', color: 'gray' }} 
 									type="text" 
