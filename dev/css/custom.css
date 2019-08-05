@@ -2836,5 +2836,23 @@ padding: 3px 25px 5px 8px;
     background: #f78530;
 }
 /* ============ appointments ============ */
+/* ============ lab custom card ============ */
+.lab-crd-hdng{
+    font-weight: 600;
+    font-size: 15px;
+	margin: 15px 0px 10px 8px;
+}
+.lb-svupto{
+	margin-right: 5px;
+	color: #0eb558;
+    font-size: 12px;
+    margin-top: 3px;
+    display: inline-block;
+}
+h2.lbcrdcstfont.cstmDocName{
+	font-size: 14px !important;
+	font-weight: 500 !important;
+}
+/* ============ lab custom card ============ */
 
 

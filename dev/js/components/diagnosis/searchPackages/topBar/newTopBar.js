@@ -456,7 +456,7 @@ class TopBar extends React.Component {
                                     <section className="scroll-shadow-bar">
                                         <div className="top-filter-tab-container" >
                                             <div className="top-filter-tabs-select " onClick={this.props.comparePackage.bind(this)}>
-                                                <img src={!this.props.isCompared && (this.props.isCompare || this.props.compare_packages.length > 0) ? ASSETS_BASE_URL + "/images/packageCompare/compare-orange.png" : ASSETS_BASE_URL + "/images/packageCompare/compare.png"} alt="" style={{ width: 16 }} /> <span className={`${!this.props.isCompared && (this.props.isCompare || (this.props.compare_packages && this.props.compare_packages.length > 0)) ? 'comapre-active' : ''}`}>Compare</span>
+                                                <img src={!this.props.isCompared && (this.props.isCompare || this.props.compare_packages.length > 0) ? ASSETS_BASE_URL + "/images/packageCompare/compare-orange.png" : ASSETS_BASE_URL + "/images/packageCompare/compare.png"} alt="" style={{ width: 16 }} /> <span className={`${!this.props.isCompared && (this.props.isCompare || (this.props.compare_packages && this.props.compare_packages.length > 0)) ? 'comapre-active' : ''}`}>Compare Packages</span>
                                             </div>
                                             <div className="top-filter-tabs-select " onClick={this.sortFilterClicked.bind(this)}>
                                                 <div className="p-relative">
