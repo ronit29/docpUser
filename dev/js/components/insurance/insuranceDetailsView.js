@@ -211,11 +211,11 @@ class InsuranceInputView extends React.Component{
 						is_disable = true
 						fields.push('state')
 					}
-					if(param.town == ""){
+					if(param.town == "" || param.town_code == ''){
 						is_disable = true
 						fields.push('town')
 					}
-					if(param.district == ""){
+					if(param.district == "" || param.district == ''){
 						is_disable = true
 						fields.push('district')
 					}

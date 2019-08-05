@@ -276,7 +276,7 @@ class LabProfileCard extends React.Component {
                             <button className="cstm-book-btn">Book Now</button>
                         </div>
                     </div>
-                    {
+                    {/*
                         is_insurance_buy_able && this.props.common_settings && this.props.common_settings.insurance_availability?
                         <div className="ins-buyable">
                             <p>Book this Lab for ₹0 with OPD Insurance</p>
@@ -290,7 +290,7 @@ class LabProfileCard extends React.Component {
                             }}>Know more</span>
                         </div>
                         :''
-                    }
+                    */}
                 </div>
                 <div className="cstmCardFooter">
                     <div className="cstmfooterContent">
