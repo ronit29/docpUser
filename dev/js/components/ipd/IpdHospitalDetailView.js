@@ -309,12 +309,14 @@ class HospitalDetailView extends React.Component {
 										}}>Book Now</a>
 										: ''
 								}
-
-								<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type#feedback`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'feedback' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
-									e.preventDefault()
-									this.toggleTabs('feedback')
-								}}>Feedback</a>
-
+								{
+									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.rating_graph && this.props.ipd_hospital_detail.rating_graph.star_count && this.props.ipd_hospital_detail.display_rating_widget?
+										<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type#feedback`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'feedback' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
+											e.preventDefault()
+											this.toggleTabs('feedback')
+										}}>Feedback</a>
+										:''	
+								}
 								{
 									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.offers && this.props.ipd_hospital_detail.offers.length?
 									<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type#offers`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'offers' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
