@@ -316,6 +316,9 @@ class SearchTestView extends React.Component {
             }
             let breadcrumbs = this.props.searchTestInfoData[0].breadcrumb
             let author = this.props.searchTestInfoData[0].author || null
+            if(parsed.isCategory && parsed.isCategory == 'true' && document.getElementById('package-includes') && this_package_will_include && this_package_will_include.tests && this_package_will_include.tests.length > 0){
+                window.scrollTo(0,document.getElementById('package-includes').offsetTop)
+            }
             return (
                 <div>
                     <HelmetTags tagsData={{
