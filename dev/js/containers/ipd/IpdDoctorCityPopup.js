@@ -155,7 +155,13 @@ class IpdDoctorCityPopup extends React.Component {
 
 	}
 
-	closePopUpClicked() {
+	closePopUpClicked(skip=false) {
+		if(skip) {
+			let gtmData = {
+				'Category': 'ConsumerApp', 'Action': 'IPD-2popup-skip-clicked', 'CustomerID': GTM.getUserId() || '', 'event': 'IPD-2popup-skip-clicked', 'formNo':'2'
+			}
+			GTM.sendEvent({ data: gtmData })
+		}
 		this.props.secondIpdFormSubmitted()
 	}
 
@@ -324,7 +330,7 @@ class IpdDoctorCityPopup extends React.Component {
 										<p onClick={(e) => {
 											e.preventDefault()
 											e.stopPropagation()
-											this.closePopUpClicked()
+											this.closePopUpClicked(true)
 										}}>Skip</p>
 									</div>
 								</div>

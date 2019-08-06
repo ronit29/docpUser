@@ -327,7 +327,7 @@ class DoctorProfileCard extends React.Component {
                                 }
                             </div>
                         </div>
-                        {
+                        {/*
                             is_insurance_buy_able && this.props.common_settings && this.props.common_settings.insurance_availability ?
                                 <div className="ins-buyable">
                                     <p>Book this Doctor for ₹0 with OPD Insurance</p>
@@ -341,7 +341,7 @@ class DoctorProfileCard extends React.Component {
                                     }}>Know more</span>
                                 </div>
                                 : ''
-                        }
+                        */}
                         {/*
                             !is_insurance_buy_able && this.props.common_settings && this.props.common_settings.insurance_availability?
                             <p> {insurance_limit_message}</p>

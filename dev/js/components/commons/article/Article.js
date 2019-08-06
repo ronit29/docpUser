@@ -380,7 +380,7 @@ class Article extends React.Component {
                                                 return <div key={key} className="docprime-article" dangerouslySetInnerHTML={{ __html: val.content }}>
                                                 </div>
                                             } else if (val.type.includes('search_widget')) {
-                                                return <div key={key}>
+                                                return <div key={key} className="sticky-article-div">
                                                     {
                                                         val.content.lat && val.content.lng && val.content.location_name ?
                                                             <CommonSearch {...this.props} location={val.content.location_name} latitude={val.content.lat} longitude={val.content.lng} />
@@ -424,7 +424,7 @@ class Article extends React.Component {
 
                     <div className="row">
                         {
-                            this.state.articleLoaded && this.props.match.path.split('-')[1] != 'nmdp' ?
+                            this.state.articleLoaded ?
                                 this.state.articleData && this.state.articleData.comments && this.state.articleData.comments.length ?
                                     <div className="col-12 col-md-7 col-lg-8 center-column">
                                         <h4 className="comments-main-heading">{`User Comments (${this.state.articleData.comments.length})`}</h4>
@@ -438,7 +438,7 @@ class Article extends React.Component {
                         }
 
                         {
-                            this.state.articleLoaded && this.props.match.path.split('-')[1] != 'nmdp' ?
+                            this.state.articleLoaded ?
                                 <div className="col-12 col-md-7 col-lg-8 center-column">
                                     <div className="widget mrb-15 mrng-top-12">
                                         <div className="widget-content">

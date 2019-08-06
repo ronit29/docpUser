@@ -418,7 +418,16 @@ header .header-title{font-size: 16px; line-height: 50px;}
 .articleTypeloc{
 	background: #f0f0f0;
     padding: 15px 10px;
-    margin: 10px -15px;
+    margin: 10px -15px 0;
+}
+.sticky-article-div{
+	position: sticky;
+	top: 44px;
+}
+@media(min-width:992px){
+	.sticky-article-div{
+		top: 94px;
+	}
 }
 .articleInputContainer{
     position: relative;
