@@ -253,10 +253,20 @@ class IpdView extends React.Component {
 	                              </a>
 	                              {/*<a className={`nav-item nav-link ${this.state.toggleTabType=='bookNow'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'bookNow')}>Book Now
 	                              </a>*/}
-	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='hospitalTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'hospitalTab')}>Hospitals
-	                              </a>
-	                              <a className={`nav-item nav-link ${this.state.toggleTabType=='doctorTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'doctorTab')}>Doctors
-	                              </a>
+	                              {
+	                              	this.props.ipd_info && this.props.ipd_info.hospitals && this.props.ipd_info.hospitals.result && this.props.ipd_info.hospitals.result.length?
+	                              	<a className={`nav-item nav-link ${this.state.toggleTabType=='hospitalTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'hospitalTab')}>Hospitals
+	                              	</a>
+	                              	:''	
+	                              }
+	                              
+	                              {
+	                              	this.props.ipd_info && this.props.ipd_info.doctors && this.props.ipd_info.doctors.result  && this.props.ipd_info.doctors.result.length?
+	                              	<a className={`nav-item nav-link ${this.state.toggleTabType=='doctorTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'doctorTab')}>Doctors
+	                              	</a>
+	                              	:''	
+	                              }
+	                              
 	                              {
 	                              	this.props.ipd_info && this.props.ipd_info.about && this.props.ipd_info.about.offers && this.props.ipd_info.about.offers.length?
 	                              	<a className={`nav-item nav-link ${this.state.toggleTabType=='offersTab'?'active':''}`} data-toggle="tab" href="javascript:void(0);" role="tab" onClick={this.toggleTabs.bind(this,'offersTab')}>Offers
@@ -294,7 +304,7 @@ class IpdView extends React.Component {
 					<div id="doctorTab" ref="doctorTab" className="tab-pane fade nav_top_bar">
 						{
 							this.props.ipd_info && this.props.ipd_info.doctors && this.props.ipd_info.doctors.result  && this.props.ipd_info.doctors.result.length && this.props.ipd_info.about && this.props.ipd_info.about.name?
-							<h2 className="section-heading hd-mrgn-top">{`Best ${this.props.ipd_info.about.name} Doctors ${this.props.ipd_info.seo?`in ${this.props.ipd_info.seo.location}`:''} `}</h2>
+							<h2 className="section-heading hd-mrgn-top">{`Best ${this.props.ipd_info.about.name} Doctors ${this.props.ipd_info.seo && this.props.ipd_info.seo.location?`in ${this.props.ipd_info.seo.location}`:''} `}</h2>
 							:''	
 						}
 	                    {

@@ -2171,7 +2171,7 @@ p.rt-doc-nm{
     flex-grow: 0;
 }
 
-.auto-location-text>p, .auto-location-btn{
+.auto-location-text>p, .auto-location-btn, .auto-location-text>h2{
     font-size: 14px;
 }
 
@@ -2261,4 +2261,17 @@ p.rt-doc-nm{
         padding-bottom: 8px;
         border-bottom: 1px solid #e6e0e0;
     }
+}
+.opd-mapico{
+    display: flex;
+    justify-content: space-between;
+}
+.opd-mapico h2 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    flex:1;
+}
+.opd-mapico img{
+
 }

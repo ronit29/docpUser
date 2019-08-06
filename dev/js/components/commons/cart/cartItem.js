@@ -1,5 +1,6 @@
 import React from 'react';
 import InitialsPicture from '../../commons/initialsPicture'
+const queryString = require('query-string');
 
 class CartItem extends React.Component {
     constructor(props) {
@@ -38,6 +39,7 @@ class CartItem extends React.Component {
             deal_price: data.consultation.deal_price,
             is_available: true,
             mrp: data.consultation.mrp,
+            fees:data.consultation.fees,
             price: data.consultation.deal_price,
             title: new Date(data.data.date).getHours() >= 12 ? 'PM' : 'AM',
             value: new Date(data.data.date).getHours() + new Date(data.data.date).getMinutes() / 60
@@ -63,6 +65,25 @@ class CartItem extends React.Component {
 
     }
 
+    getFormattedDate(date){
+        var dd = date.getDate();
+
+        var mm = date.getMonth()+1; 
+        var yyyy = date.getFullYear();
+        if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        }
+
+        var today = yyyy+'-'+mm+'-'+dd
+        return today
+    }
+
     setOpdBooking(data) {
 
         if (data.valid) {
@@ -75,7 +96,11 @@ class CartItem extends React.Component {
                 selectedDoctor: data.actual_data.doctor,
                 selectedClinic: data.actual_data.hospital
             }
-            this.props.selectOpdTimeSLot(timeSlot, false)
+            let extraTimeParams = null
+            if(timeSlot.date) {
+                extraTimeParams = this.getFormattedDate(timeSlot.date)
+            }
+            this.props.selectOpdTimeSLot(timeSlot, false, null, extraTimeParams)
 
             if (data.actual_data.coupon_code) {
                 let coupon_id = ''
@@ -129,7 +154,11 @@ class CartItem extends React.Component {
                 date: new Date(data.data.date),
                 time: time_slot
             }
-            this.props.selectLabTimeSLot(timeSlot, false)
+            let extraTimeParams = null
+            if(timeSlot.date){
+                extraTimeParams = this.getFormattedDate(timeSlot.date)
+            }
+            this.props.selectLabTimeSLot(timeSlot, false, extraTimeParams)
             if (data.actual_data.coupon_code) {
 
                 let coupon_id = ''
@@ -168,13 +197,14 @@ class CartItem extends React.Component {
 
     render() {
 
-        let { valid, product_id, mrp, deal_price, id } = this.props
+        let { valid, product_id, mrp, deal_price, id, is_enabled_for_cod, cod_deal_price } = this.props
         let { lab, tests, doctor, hospital, coupons, profile, date, thumbnail, procedures } = this.props.data
         let { is_home_pickup, payment_type, insurance_message, is_appointment_insured, included_in_user_plan } = this.props.actual_data
 
         if (date) {
             date = new Date(date)
         }
+        let parsed = queryString.parse(this.props.location.search)
         return (
             <div>
                 <div className="widget mrb-15 mrng-top-12 p-relative">
@@ -195,7 +225,15 @@ class CartItem extends React.Component {
                                         {
                                             mrp ? <p>₹ {deal_price} <span className="shopng-cart-price-cut">₹ {mrp}</span></p> : ""
                                         }
-                                    </div> : <div className="shopng-cart-price">
+                                    </div>
+                                    :payment_type == 2 && is_enabled_for_cod && mrp != cod_deal_price? <div className="shopng-cart-price">
+                                        {
+                                            mrp ? <p>₹ {cod_deal_price?cod_deal_price:deal_price} 
+                                                    <span className="shopng-cart-price-cut">₹ {mrp}</span>
+                                                </p> : ""
+                                        }
+                                    </div>
+                                    : <div className="shopng-cart-price">
                                             {
                                                 mrp ? <p>₹ {mrp}</p> : ""
                                             }
@@ -207,7 +245,7 @@ class CartItem extends React.Component {
                                     {
                                         doctor ? <InitialsPicture name={doctor.name} has_image={!!thumbnail} className="initialsPicture-dbd cart-initialspic">
                                             <img src={thumbnail} style={{ width: '50px', height: '50px', marginTop: '8px' }} className="img-fluid img-round" />
-                                        </InitialsPicture> : <InitialsPicture name={lab.name} has_image={!!thumbnail} className="initialsPicture-xs-cart">
+                                        </InitialsPicture> : <InitialsPicture name={lab && lab.name?lab.name:''} has_image={!!thumbnail} className="initialsPicture-xs-cart">
                                                 <img style={{ height: 'auto', width: 'auto', marginTop: '15px' }} src={thumbnail} className="fltr-usr-image-lab" />
                                             </InitialsPicture>
                                     }
@@ -221,7 +259,7 @@ class CartItem extends React.Component {
                                     }
                                     <p className="clinic-name text-sm">{hospital.name}</p>
                                 </div> : <div className="dr-profile mrt-10">
-                                        <h1 className="dr-name">{lab.name}</h1>
+                                        <h1 className="dr-name">{lab && lab.name?lab.name:''}</h1>
                                     </div>
                             }
 
@@ -312,7 +350,11 @@ class CartItem extends React.Component {
 
                     <div className="shpng-card-btns">
                         <button onClick={this.removeFromCart.bind(this, id)}>Remove</button>
-                        <button onClick={this.edit.bind(this)}>Edit</button>
+                        {
+                            parsed.is_agent_booking && parsed.is_agent_booking == 'true' && is_appointment_insured?''
+                            :<button onClick={this.edit.bind(this)}>Edit</button>
+                        }
+                        {/*<button onClick={this.edit.bind(this)}>Edit</button>*/}
                     </div>
                 </div>
 

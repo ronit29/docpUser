@@ -72,7 +72,7 @@ class DesktopProfileHeader extends React.Component {
         if (search_back) {
             this.props.history.go(-1)
         } else {
-            this.props.history.push('/search?from=header')
+            this.props.history.push(`/search?from=header&pageType=${this.props.pageType?this.props.pageType:''}`)
         }
     }
 
@@ -276,6 +276,10 @@ class DesktopProfileHeader extends React.Component {
                                                 e.preventDefault();
                                                 this.props.history.push("/ipd-procedures")
                                             }}>Procedures</a></li>
+                                            <li><a href="/hospitals" onClick={(e) => {
+                                                e.preventDefault();
+                                                this.props.history.push("/hospitals")
+                                            }}>Hospitals</a></li>
                                         </ul>
                                     </div>
                                 </div>

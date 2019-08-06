@@ -22,6 +22,10 @@ import { APPEND_HEALTH_TIP } from '../../../constants/types';
 import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup.js'
 import IpdLeadForm from '../../../containers/ipd/ipdLeadForm.js'
+import PaymentForm from '../../commons/paymentForm'
+import IpdSecondPopup from '../../../containers/ipd/IpdDoctorCityPopup.js'
+const MONTHS = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+const WEEK_DAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
 
 
 class PatientDetailsNew extends React.Component {
@@ -35,7 +39,7 @@ class PatientDetailsNew extends React.Component {
         this.state = {
             selectedDoctor: doctor_id,
             selectedClinic: hospital_id,
-            paymentData: {},
+            paymentData: null,
             loading: false,
             error: "",
             openCancellation: false,
@@ -54,12 +58,21 @@ class PatientDetailsNew extends React.Component {
             showConfirmationPopup: false,
             coupon_loading: false,
             seoFriendly: this.props.match.url.includes('-dpp'),
-            showIpdLeadForm: true
+            showIpdLeadForm: true,
+            is_payment_coupon_applied: false,
+            dateTimeSelectedValue: this.props.selectedDateFormat?this.props.selectedDateFormat:'',
+            showSecondPopup: false,
+            firstLeadId:'',
+            timeErrorText:''
         }
     }
 
     toggleWalletUse(e) {
-        this.setState({ use_wallet: e.target.checked })
+        if(this.state.is_payment_coupon_applied) {
+            this.setState({ use_wallet: false })
+        } else {
+            this.setState({ use_wallet: e.target.checked })
+        }
     }
 
     toggle(which) {
@@ -121,6 +134,9 @@ class PatientDetailsNew extends React.Component {
                 this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item, (err, data) => {
                     if (!err) {
                         this.setState({ couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', is_cashback: doctorCoupons[0].is_cashback })
+                        if (doctorCoupons[0].is_payment_specific) {
+                            this.setState({use_wallet: false, is_payment_coupon_applied: true})
+                        }
                     } else {
                         this.setState({ coupon_loading: true })
                         this.getAndApplyBestCoupons(deal_price)
@@ -138,6 +154,9 @@ class PatientDetailsNew extends React.Component {
                 this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item, (err, data) => {
                     if (!err) {
                         this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '' })
+                        if (doctorCoupons[0].is_payment_specific) {
+                            this.setState({use_wallet: false, is_payment_coupon_applied: true})
+                        }
                     } else {
                         this.setState({ coupon_loading: true })
                         this.getAndApplyBestCoupons(deal_price)
@@ -166,6 +185,7 @@ class PatientDetailsNew extends React.Component {
                 this.getAndApplyBestCoupons(deal_price)
             } else {
                 this.props.resetOpdCoupons()
+                this.setState({use_wallet: true, is_payment_coupon_applied: false})
             }
         }
 
@@ -193,11 +213,16 @@ class PatientDetailsNew extends React.Component {
                         this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '' })
                         this.props.applyCoupons('1', validCoupon, validCoupon.coupon_id, this.props.selectedDoctor)
                         this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, this.props.selectedProfile, this.getProcedureIds(this.props), this.state.cart_item)
+                        if (validCoupon.is_payment_specific) {
+                            this.setState({use_wallet: false, is_payment_coupon_applied: true})
+                        }
                     } else {
                         this.props.resetOpdCoupons()
+                        this.setState({use_wallet: true, is_payment_coupon_applied: false})
                     }
                 } else {
                     this.props.resetOpdCoupons()
+                    this.setState({use_wallet: true, is_payment_coupon_applied: false})
                 }
                 this.setState({ coupon_loading: false })
             }
@@ -205,6 +230,10 @@ class PatientDetailsNew extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        //Ref to update date every time on route
+        if (nextProps.selectedDateFormat && nextProps.selectedDateFormat != this.state.dateTimeSelectedValue) {
+            this.setState({ dateTimeSelectedValue: nextProps.selectedDateFormat })
+        }
         if (!this.state.couponApplied && nextProps.DOCTORS[this.props.selectedDoctor]) {
             let hospital = {}
             let doctorDetails = nextProps.DOCTORS[this.props.selectedDoctor]
@@ -238,6 +267,9 @@ class PatientDetailsNew extends React.Component {
                     this.props.applyOpdCoupons('1', doctorCoupons[0].code, doctorCoupons[0].coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item, (err, data) => {
                         if (!err) {
                             this.setState({ is_cashback: doctorCoupons[0].is_cashback, couponCode: doctorCoupons[0].code, couponId: doctorCoupons[0].coupon_id || '', couponApplied: true })
+                            if (doctorCoupons[0].is_payment_specific) {
+                                this.setState({use_wallet: false, is_payment_coupon_applied: true})
+                            }
                         } else {
                             this.setState({ coupon_loading: true })
                             this.getAndApplyBestCoupons(deal_price)
@@ -261,6 +293,7 @@ class PatientDetailsNew extends React.Component {
 
                 if (nextProps.doctorCoupons && nextProps.doctorCoupons[this.props.selectedDoctor] && nextProps.doctorCoupons[this.props.selectedDoctor].length == 0) {
                     this.props.resetOpdCoupons()
+                    this.setState({use_wallet: true, is_payment_coupon_applied: false})
                 }
                 else {
                     //auto apply coupon if no coupon is apllied
@@ -275,18 +308,21 @@ class PatientDetailsNew extends React.Component {
                                         this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '', couponApplied: true })
                                         this.props.applyCoupons('1', validCoupon, validCoupon.coupon_id, this.props.selectedDoctor)
                                         this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item)
+                                        if (validCoupon.is_payment_specific) {
+                                            this.setState({use_wallet: false, is_payment_coupon_applied: true})
+                                        }
                                     } else {
-                                        this.setState({ couponApplied: true })
+                                        this.setState({ couponApplied: true, use_wallet: true, is_payment_coupon_applied: false })
                                         this.props.resetOpdCoupons()
                                     }
                                 } else {
-                                    this.setState({ couponApplied: true })
+                                    this.setState({ couponApplied: true, use_wallet: true, is_payment_coupon_applied: false })
                                     this.props.resetOpdCoupons()
                                 }
                             }
                         })
                     } else {
-                        this.setState({ couponApplied: true })
+                        this.setState({ couponApplied: true, use_wallet: true, is_payment_coupon_applied: false })
                         this.props.resetOpdCoupons()
                     }
                 }
@@ -322,8 +358,25 @@ class PatientDetailsNew extends React.Component {
         return null
     }
 
-    proceed(datePicked, patient, addToCart, total_price, total_wallet_balance, e) {
-
+    getUtmTags(){
+        const parsed = queryString.parse(this.props.location.search)
+        let utm_tags = {
+            utm_source: parsed.utm_source || '',
+            utm_medium: parsed.utm_medium || '',
+            utm_term: parsed.utm_term || '',
+            utm_campaign: parsed.utm_campaign || '',
+            referrer: document.referrer || '',
+            gclid: parsed.gclid || ''
+        }
+        return utm_tags
+    }
+    proceed(datePicked, patient, addToCart, total_price, total_wallet_balance,is_selected_user_insurance_status, e) {
+        if(patient && is_selected_user_insurance_status && is_selected_user_insurance_status == 4){
+            SnackBar.show({ pos: 'bottom-center', text: "Your documents from the last claim are under verification.Please write to customercare@docprime.com for more information." });
+            window.scrollTo(0, 0)
+            return
+        }
+        
         if (!datePicked) {
             this.setState({ showTimeError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
@@ -361,7 +414,7 @@ class PatientDetailsNew extends React.Component {
         if (this.props.selectedSlot && this.props.selectedSlot.date && this.props.DOCTORS[this.props.selectedDoctor]) {
             let priceData = { ...this.props.selectedSlot.time }
             let hospitals = this.props.DOCTORS[this.props.selectedDoctor].hospitals
-            let hospital = null            
+            let hospital = null
 
             if (hospitals && hospitals.length) {
                 hospitals.map((hsptl) => {
@@ -397,6 +450,7 @@ class PatientDetailsNew extends React.Component {
 
         let start_date = this.props.selectedSlot.date
         let start_time = this.props.selectedSlot.time.value
+        let utm_tags = this.getUtmTags()
 
         let postData = {
             doctor: this.props.selectedDoctor,
@@ -406,6 +460,7 @@ class PatientDetailsNew extends React.Component {
             payment_type: this.props.payment_type,
             use_wallet: this.state.use_wallet,
             cart_item: this.state.cart_item,
+            utm_tags: utm_tags
         }
         let profileData = { ...patient }
         if (profileData && profileData.whatsapp_optin == null) {
@@ -459,8 +514,8 @@ class PatientDetailsNew extends React.Component {
 
         this.props.createOPDAppointment(postData, (err, data) => {
             if (!err) {
-                this.props.removeCoupons(this.props.selectedDoctor, this.state.couponId)
                 if (data.is_agent) {
+                    this.props.removeCoupons(this.props.selectedDoctor, this.state.couponId)
                     // this.props.history.replace(this.props.location.pathname + `?order_id=${data.data.orderId}`)
                     this.setState({ order_id: data.data.orderId })
                     return
@@ -471,20 +526,42 @@ class PatientDetailsNew extends React.Component {
                         'Category': 'ConsumerApp', 'Action': 'DoctorOrderCreated', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'doctor_order_created'
                     }
                     GTM.sendEvent({ data: analyticData })
-                    this.props.history.push(`/payment/${data.data.orderId}?refs=opd`)
-
+                    // this.props.history.push(`/payment/${data.data.orderId}?refs=opd`)
+                    this.processPayment(data)
                 } else {
+                    this.props.removeCoupons(this.props.selectedDoctor, this.state.couponId)
                     // send back to appointment page
                     this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
                 }
             } else {
-                let message = "Could not create appointment. Try again later !"
+                let message 
+                if(err.error){
+                    message = err.error
+                }else{
+                    message = "Could not create appointment. Try again later !"
+                }
                 if (err.message) {
                     message = err.message
                 }
                 this.setState({ loading: false, error: message })
             }
         })
+    }
+
+    processPayment(data) {
+        if (data && data.status) {
+            this.setState({ paymentData: data.data }, () => {
+                setTimeout(()=>{
+                    if (document.getElementById('paymentForm') && Object.keys(this.state.paymentData).length > 0) {
+                        let form = document.getElementById('paymentForm')
+                        setTimeout(() => {
+                            this.props.removeCoupons(this.props.selectedDoctor, this.state.couponId)
+                        },3000)
+                        form.submit()
+                    }
+                },500)
+            })
+        }
     }
 
     navigateTo(where, e) {
@@ -567,18 +644,18 @@ class PatientDetailsNew extends React.Component {
         this.setState({ error: '' })
     }
 
-    getBookingButtonText(total_wallet_balance, price_to_pay, mrp,enabled_for_cod_payment,is_cod_deal_price) {
+    getBookingButtonText(total_wallet_balance, price_to_pay, mrp, enabled_for_cod_payment, is_cod_deal_price) {
         if (this.props.payment_type != 1) {
-            if(enabled_for_cod_payment){
-                if(is_cod_deal_price){
+            if (enabled_for_cod_payment) {
+                if (is_cod_deal_price) {
                     return `Confirm Booking (₹ ${is_cod_deal_price})`
-                }else{
+                } else {
                     return `Confirm Booking (₹ ${mrp})`
                 }
-            }else{
+            } else {
                 return `Confirm Booking (₹ ${mrp})`
             }
-            
+
         }
         let price_from_wallet = 0
         let price_from_pg = 0
@@ -636,7 +713,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     submitLeadFormGeneration(ipdFormParams) {
-        if(close) {
+        if (close) {
             let gtmData = {
                 'Category': 'ConsumerApp', 'Action': 'DoctorBookingIpdFormClosed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-booking-ipd-form-closed'
             }
@@ -646,29 +723,29 @@ class PatientDetailsNew extends React.Component {
             showChat: true,
             ipdFormParams: ipdFormParams
         }
-        
-        this.setState({ showIpdLeadForm: false }, ()=>{
 
+        this.setState({ showIpdLeadForm: false, showSecondPopup: true }, () => {
+/*
             this.props.checkIpdChatAgentStatus((response) => {
-                if(response && response.users && response.users.length) {
+                if (response && response.users && response.users.length) {
 
-                    this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize:true})
+                    this.props.ipdChatView({ showIpdChat: true, ipdForm: ipdFormParams, showMinimize: true })
                 }
-            })   
+            })*/
         })
     }
 
-    goToInsurance(selectedDoctor,selectedClinic){
+    goToInsurance(selectedDoctor, selectedClinic) {
         let Gtmdata = {
             'Category': 'ConsumerApp', 'Action': 'AvailNowLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'avail-now-lab-clicked'
         }
         GTM.sendEvent({ data: Gtmdata })
-        let data={}
+        let data = {}
         data.thumbnail = selectedDoctor.thumbnail
         data.name = selectedDoctor.display_name
         data.url = selectedDoctor.url
         data.id = selectedDoctor.id
-        data.selectedClinic= selectedClinic
+        data.selectedClinic = selectedClinic
         data.type = 'doctor'
         this.props.saveAvailNowInsurance(data)
         this.props.history.push('/insurance/insurance-plans?source=doctor-summary-view&show_button=true')
@@ -677,12 +754,126 @@ class PatientDetailsNew extends React.Component {
     selectClinic(clinic_id) {
         var href = new URL(window.location.href)
         href.searchParams.set('hospital_id', clinic_id)
-        var newUrl =href.toString() 
+        var newUrl = href.toString()
         window.history.replaceState(window.history.state, document.title, newUrl)
 
-        this.setState({ selectedClinic: clinic_id},()=>{
-            this.props.fetchData(this.props,clinic_id,false)
+        this.setState({ selectedClinic: clinic_id }, () => {
+            this.props.fetchData(this.props, clinic_id, false)
         })
+    }
+
+    selectDate(e) {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'OpdDateClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-date-clicked'
+        }
+
+        GTM.sendEvent({ data: data })
+        if (e.target.value) {
+            let slot = { time: {} }
+            let date = e.target.value
+            this.setState({ dateTimeSelectedValue: date })
+            this.props.selectOpdTimeSLot(slot, false, null, date)
+        }
+    }
+
+    getFormattedDate(date) {
+        date = new Date(date)
+        var dd = date.getDate();
+
+        var mm = date.getMonth() + 1;
+        var yyyy = date.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        var today = yyyy + '-' + mm + '-' + dd;
+        return today
+    }
+
+    setDataOnClinicChange() {
+        let slot = { time: {} }
+        this.props.selectOpdTimeSLot(slot, false)
+        this.setState({ dateTimeSelectedValue: '' })
+    }
+
+    saveLeadIdForUpdation(response) {
+        if(response.id){
+            this.setState({firstLeadId: response.id, showSecondPopup: true})
+        }
+    }
+
+    secondIpdFormSubmitted(formData){
+        this.setState({showSecondPopup: false}, ()=>{
+            if(formData){
+                try{
+                    let popup1 = formData
+                    
+                    if(popup1 && popup1.requested_date_time){
+                        let requested_date = new Date(popup1.requested_date_time)
+                        let date = this.getFormattedDate(requested_date)
+                        if (date) {
+                            this.setState({ dateTimeSelectedValue: date })
+                            let hours = formData.title=='AM'?requested_date.getHours():requested_date.getHours()+12
+                            let title = formData.title
+                            let foundTimeSlot = null
+
+                            if(this.props.timeSlots && this.props.timeSlots[date] && this.props.timeSlots[date].length) {
+                                
+                                let timeSlotData = this.props.timeSlots[date].filter(x=>x.title==title)
+                                if(timeSlotData && timeSlotData.length && timeSlotData[0].timing && timeSlotData[0].timing.length) {
+                                    timeSlotData[0].timing.map((x)=>{
+                                        if(x.value == hours){    
+                                            foundTimeSlot = x
+                                        }
+                                    })
+                                }
+
+                                
+                            }
+                            if(foundTimeSlot && Object.keys(foundTimeSlot).length){
+                                
+                            }else {
+                                this.setState({showTimeError: true, timeErrorText:'Your requested time slot is not available. Please choose a different one.' })
+                            }
+                            this.selectTime(foundTimeSlot, date)
+                        }
+                    }                    
+
+                }catch(e){
+                    console.log('Error is '+e)
+                }
+
+            }
+        })
+    }
+
+    selectTime(time, date){
+        let data = null
+        if(time) {
+
+            let timeSpan = Object.assign({}, time)
+            timeSpan.title = time.value>=12?'PM':'AM'
+            data = {
+                date: new Date(date),
+                month: MONTHS[new Date(date).getMonth()],
+                slot: '',
+                time: timeSpan
+            }
+
+            data.selectedDoctor = this.props.selectedDoctor
+            data.selectedClinic = this.state.selectedClinic
+        }else {
+            data = { time: {} }
+        }
+        let extraTimeParams = null
+        if(date) {
+            extraTimeParams = this.getFormattedDate(date)
+        }
+        this.props.selectOpdTimeSLot(data, false, null, extraTimeParams)
     }
 
     render() {
@@ -698,7 +889,11 @@ class PatientDetailsNew extends React.Component {
         let enabled_for_prepaid_payment = false
         let is_default_user_insured = false
         let is_insurance_buy_able = false
+        let insurance_error_msg = ''
+        let show_insurance_error = false
         let payment_mode_count = 0
+        let is_selected_user_insurance_status 
+        let all_cities = this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].all_cities?this.props.DOCTORS[this.props.selectedDoctor].all_cities:[]
         if (doctorDetails) {
             let { name, qualifications, hospitals, enabled_for_cod } = doctorDetails
 
@@ -719,6 +914,7 @@ class PatientDetailsNew extends React.Component {
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
+            is_selected_user_insurance_status = this.props.profiles[this.props.selectedProfile].insurance_status
         }
 
         if (this.props.selectedSlot && this.props.selectedSlot.date) {
@@ -727,22 +923,33 @@ class PatientDetailsNew extends React.Component {
             priceData.is_cod_deal_price = priceData.cod_deal_price
             if (hospital && hospital.insurance) {
                 is_insurance_applicable = (parseInt(priceData.deal_price) <= hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered
+                
+                if(hospital.insurance.error_message != ''){
+                    insurance_error_msg = hospital.insurance.error_message
+                    show_insurance_error = true
+                }
             }
 
 
             // reset time slot if doctor/hospital changes
             if (this.props.selectedSlot.selectedClinic != this.state.selectedClinic || this.props.selectedSlot.selectedDoctor != this.props.selectedDoctor) {
-                let slot = { time: {} }
-                this.props.selectOpdTimeSLot(slot, false)
+                this.setDataOnClinicChange()
             }
         } else if (hospital) {
             priceData.mrp = hospital.mrp
+            priceData.fees = hospital.fees
             priceData.deal_price = hospital.deal_price
             priceData.payable_amount = hospital.deal_price
             priceData.is_cod_deal_price = hospital.cod_deal_price
             if (hospital.insurance) {
                 is_insurance_applicable = (parseInt(hospital.deal_price) <= hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered
+            
+                if(hospital.insurance.error_message != ''){
+                    insurance_error_msg = hospital.insurance.error_message
+                    show_insurance_error = true
+                }
             }
+
         }
         let treatment_Price = 0, treatment_mrp = 0
         let selectedProcedures = {}
@@ -768,7 +975,7 @@ class PatientDetailsNew extends React.Component {
         let percent_discount = Math.max(0, (finalPrice / (parseInt(priceData.mrp) + treatment_mrp)) * 100)
         percent_discount = parseInt(100 - percent_discount)
         let docDiscount = (parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))
-        let cod_percentage_discount = (parseInt(docDiscount)/(parseInt(priceData.mrp)) * 100)
+        let cod_percentage_discount = (parseInt(docDiscount) / (parseInt(priceData.mrp)) * 100)
         is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
         if (!enabled_for_cod_payment && this.props.payment_type == 2) {
             this.props.select_opd_payment_type(1)
@@ -778,8 +985,8 @@ class PatientDetailsNew extends React.Component {
             this.props.select_opd_payment_type(1)
         }
 
-        
-        if(hospital && hospital.insurance && (parseInt(hospital.deal_price) <= hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered && !is_selected_user_insured){
+
+        if (hospital && hospital.insurance && (parseInt(hospital.deal_price) <= hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered && !is_selected_user_insured) {
             is_insurance_buy_able = true
         }
 
@@ -787,8 +994,8 @@ class PatientDetailsNew extends React.Component {
             payment_mode_count++
         if (enabled_for_cod_payment)
             payment_mode_count++
-        if (enabled_for_prepaid_payment && is_insurance_buy_able)
-            payment_mode_count++
+        // if (enabled_for_prepaid_payment && is_insurance_buy_able)
+        //     payment_mode_count++
         let clinic_mrp = priceData.mrp
         if (is_insurance_applicable && this.props.payment_type != 2) {
             finalPrice = 0
@@ -796,12 +1003,28 @@ class PatientDetailsNew extends React.Component {
             priceData.mrp = 0
         }
 
+        if(priceData.fees ==0 && !is_insurance_applicable && this.props.payment_type == 1){
+            finalPrice = parseInt(priceData.deal_price) - (this.props.disCountedOpdPrice ? this.props.disCountedOpdPrice : 0)
+        }
+
         let is_add_to_card = STORAGE.isAgent() || !is_default_user_insured
+
+        //Select Next Upcoming Date 
+
+        let { date, time } = this.props.selectedSlot
+
+        if (date) {
+            date = new Date(date).toDateString()
+        }
+
+        let upcoming_date = this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length ? Object.keys(this.props.upcoming_slots)[0] : ''
+        let dateAfter24Days = new Date().setDate(new Date().getDate() + 23)
+        let showPopup = parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE  && !this.props.is_ipd_form_submitted
         return (
             <div className="profile-body-wrap">
-                <ProfileHeader bookingPage={true}/>
+                <ProfileHeader bookingPage={true} />
                 {
-                    this.state.showConfirmationPopup ?
+                    this.state.showConfirmationPopup && is_selected_user_insurance_status != 4 ?
                         <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} />
                         : ''
                 }
@@ -813,8 +1036,13 @@ class PatientDetailsNew extends React.Component {
                                 this.props.DOCTORS[this.props.selectedDoctor] && this.props.DATA_FETCH ?
                                     <div>
                                         {
-                                            parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE?
-                                            <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={hospital && hospital.hospital_name?hospital.hospital_name:null} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:null} doctor_name={this.props.DOCTORS[this.props.selectedDoctor].display_name?this.props.DOCTORS[this.props.selectedDoctor].display_name:null} doctor_id={this.props.selectedDoctor} formSource='DoctorBookingPage'/>
+                                            showPopup?
+                                                <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={hospital && hospital.hospital_name ? hospital.hospital_name : null} hospital_id={hospital && hospital.hospital_id ? hospital.hospital_id : null} doctor_name={this.props.DOCTORS[this.props.selectedDoctor].display_name ? this.props.DOCTORS[this.props.selectedDoctor].display_name : null} doctor_id={this.props.selectedDoctor} formSource='DoctorBookingPage' saveLeadIdForUpdation={this.saveLeadIdForUpdation.bind(this)} noToastMessage={true} is_booking_page={true}/>
+                                                : ''
+                                        }
+                                        {
+                                            this.props.DOCTORS[this.props.selectedDoctor] && this.state.showSecondPopup && parsed.get_feedback && parsed.get_feedback == '1'?
+                                            <IpdSecondPopup {...this.props} firstLeadId={this.state.firstLeadId} all_doctors={[]} all_cities={all_cities} doctorProfilePage={true} secondIpdFormSubmitted={this.secondIpdFormSubmitted.bind(this)} hospital_name={hospital && hospital.hospital_name ? hospital.hospital_name : null} hospital_id={hospital && hospital.hospital_id ? hospital.hospital_id : null} doctor_name={this.props.DOCTORS[this.props.selectedDoctor].name ? this.props.DOCTORS[this.props.selectedDoctor].name : ''} formSource='DoctorBookingPage' is_booking_page={true}/>
                                             :''
                                         }
                                         <section className="dr-profile-screen booking-confirm-screen mrb-60">
@@ -828,16 +1056,72 @@ class PatientDetailsNew extends React.Component {
                                                             selectedDoctor={this.props.DOCTORS[this.props.selectedDoctor]}
                                                             selectedClinic={this.state.selectedClinic}
                                                             history={this.props.history}
-                                                            selectClinic= {this.selectClinic.bind(this)}
+                                                            selectClinic={this.selectClinic.bind(this)}
                                                         />
-                                                        <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError}
+                                                        {/* new time slot */}
+                                                        <div className={`widget mrb-15 ${this.state.showTimeError ? 'rnd-error-nm' : ''}`}>
+                                                            {
+                                                                this.props.TIMESLOT_DATA_LOADING?
+                                                                    <div className="loader-for-chat-div mt-0">
+                                                                        <div className='loader-for-chat mb-0'>
+                                                                            <span></span>
+                                                                            <span></span>
+                                                                            <span></span>
+                                                                            <span></span>
+                                                                            <span></span>
+                                                                            <span></span>
+                                                                        </div>
+                                                                        <p className="ldng-text"></p>
+                                                                    </div>
+                                                                    : ((this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length) || (this.props.selectedSlot && this.props.selectedSlot.date) || (this.props.selectedDateFormat)) ?
+                                                                        <div className="widget-content pos-relative">
+                                                                            <div className="lab-visit-time d-flex jc-spaceb mb-0">
+                                                                                <h4 className="title mb-0">
+                                                                                    <span>
+                                                                                        <img className="visit-time-icon" src={ASSETS_BASE_URL + '/img/watch-date.svg'} />
+                                                                                    </span>
+                                                                                    Select Visit Time
+                                                                    </h4>
+                                                                            </div>
+                                                                            <p className="apnt-doc-dtl">The appointment is subject to confirmation from the Doctor. </p>
+                                                                            <div className="date-slecet-cont">
+                                                                                <div className="nw-inpt-selctr">
+                                                                                    <span className="nw-pick-hdng">Date:</span>
+                                                                                    <div className="caln-input-tp">
+                                                                                        <img className="inp-nw-cal" src={ASSETS_BASE_URL + '/img/calnext.svg'} />
+                                                                                        <input type="date" name="date" onChange={this.selectDate.bind(this)} value={this.state.dateTimeSelectedValue ? this.state.dateTimeSelectedValue : upcoming_date} min={this.getFormattedDate(new Date())} max={this.getFormattedDate(new Date(dateAfter24Days))} />
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="date-slecet-cont">
+                                                                                <div className="nw-inpt-selctr">
+                                                                                    <span className="nw-pick-hdng">Time:</span>
+                                                                                    <div className="caln-input-tp" onClick={() => this.navigateTo('time')}>
+                                                                                        <img className="inp-nw-time" src={ASSETS_BASE_URL + '/img/nw-watch.svg'} />
+                                                                                        <input type="text" disabled={true} name="bday" placeholder="Select" value={time && time.text?`${time.text} ${time.value >= 12 ? 'PM' : 'AM'}` : ''} />
+                                                                                        <img className="tm-arw-sgn" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            {
+                                                                                this.state.timeErrorText?
+                                                                                <p className="apnt-doc-dtl slc-date-error">{this.state.timeErrorText}</p>
+                                                                                :''
+                                                                            }
+                                                                        </div> : <p className="no-tm-slot"><img src={ASSETS_BASE_URL + "/images/warning-icon.png"} style={{ height: '15px', width: '15px', marginRight: '8px' }} />No Time Slot Available</p>
+                                                            }
+                                                        </div>
+                                                        {/* new time slot */}
+
+
+                                                        {/*<VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError}
 
                                                             timeSlots={this.props.timeSlots}
                                                             selectTimeSlot={this.selectTimeSlot.bind(this)}
                                                             doctor_leaves={this.props.doctor_leaves || []}
                                                             upcoming_slots={this.props.upcoming_slots || null}
-                                                        />
-                                                        <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} />
+                                                        />*/}
+                                                        <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={ hospital && hospital.is_ipd_hospital?hospital.is_ipd_hospital:'' } doctor_id = {this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} />
                                                         {
                                                             Object.values(selectedProcedures).length ?
                                                                 <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
@@ -847,7 +1131,7 @@ class PatientDetailsNew extends React.Component {
 
                                                         {
                                                             ((parseInt(priceData.deal_price) + treatment_Price) != 0) ?
-                                                                <div className= {`widget cpn-blur mrb-15 cursor-pointer ${this.props.payment_type != 1?'disable_coupon':''}` } onClick={this.applyCoupons.bind(this)}>
+                                                                <div className={`widget cpn-blur mrb-15 cursor-pointer ${this.props.payment_type != 1 ? 'disable_coupon' : ''}`} onClick={this.applyCoupons.bind(this)}>
                                                                     {
                                                                         doctorCoupons.length ?
                                                                             <div className="widget-content d-flex jc-spaceb" >
@@ -860,7 +1144,7 @@ class PatientDetailsNew extends React.Component {
                                                                                         </h4>
                                                                                 </div>
                                                                                 <div className=" d-flex">
-                                                                                    <h4 className="title" style={{ color: 'green', marginRight: 13,fontSize:'12px',marginTop:'6px' }}>
+                                                                                    <h4 className="title" style={{ color: 'green', marginRight: 13, fontSize: '12px', marginTop: '6px' }}>
                                                                                         {doctorCoupons[0].code}
                                                                                     </h4>
                                                                                     <span className="visit-time-icon coupon-icon">
@@ -872,6 +1156,7 @@ class PatientDetailsNew extends React.Component {
                                                                                             }
                                                                                             GTM.sendEvent({ data: analyticData })
                                                                                             this.props.removeCoupons(this.props.selectedDoctor, doctorCoupons[0].coupon_id)
+                                                                                            this.setState({use_wallet: true, is_payment_coupon_applied: false })
                                                                                         }} src={ASSETS_BASE_URL + "/img/customer-icons/cross.svg"} />
                                                                                     </span>
                                                                                 </div>
@@ -949,25 +1234,25 @@ class PatientDetailsNew extends React.Component {
                                                                     }
 
                                                                     {
-                                                                        !is_insurance_applicable && enabled_for_cod_payment?
+                                                                        !is_insurance_applicable && enabled_for_cod_payment ?
                                                                             <hr /> : ''
                                                                     }
 
                                                                     {
-                                                                        !is_insurance_applicable && enabled_for_cod_payment?
+                                                                        !is_insurance_applicable && enabled_for_cod_payment ?
                                                                             <div className="test-report payment-detail mt-20" onClick={() => {
                                                                                 this.props.select_opd_payment_type(2)
                                                                             }}>
                                                                                 <label className="container-radio payment-type-radio">
                                                                                     <h4 className="title payment-amt-label">Pay at Clinic</h4>
                                                                                     {
-                                                                                        enabled_for_cod_payment && priceData.is_cod_deal_price?
-                                                                                        <React.Fragment>
-                                                                                        <span className="payment-mode-amt">₹{priceData.is_cod_deal_price}</span>
-                                                                                        {/* <span className="save-upto">Save {cod_percentage_discount}%
+                                                                                        enabled_for_cod_payment && priceData.is_cod_deal_price ?
+                                                                                            <React.Fragment>
+                                                                                                <span className="payment-mode-amt">₹{priceData.is_cod_deal_price}</span>
+                                                                                                {/* <span className="save-upto">Save {cod_percentage_discount}%
                                                                                         </span> */}
-                                                                                        </React.Fragment>
-                                                                                        :<span className="payment-mode-amt">₹{clinic_mrp}</span>
+                                                                                            </React.Fragment>
+                                                                                            : <span className="payment-mode-amt">₹{clinic_mrp}</span>
                                                                                     }
                                                                                     {/* <span className="light-txts d-block"> (No Coupon code and discount will be applied)</span> */}
                                                                                     <input checked={this.props.payment_type == 2} type="radio" name="payment-mode" />
@@ -1014,13 +1299,28 @@ class PatientDetailsNew extends React.Component {
                                                                     <h4 className="title mb-20">Payment Summary</h4>
                                                                     <div className="payment-summary-content">
                                                                         <div className="payment-detail d-flex">
-                                                                            <p>Subtotal</p>
+                                                                            <p>MRP</p>
                                                                             <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
                                                                         </div>
-                                                                        <div className="payment-detail d-flex">
+                                                                        {priceData.fees != 0?<div className="payment-detail d-flex">
                                                                             <p>Docprime Discount</p>
                                                                             <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
                                                                         </div>
+                                                                        :''}
+                                                                        {
+                                                                        this.props.payment_type == 1 && priceData.fees == 0?
+                                                                            <React.Fragment>
+                                                                            <div className="payment-detail d-flex">
+                                                                                <p>Docprime price</p>
+                                                                                <p>Free</p>
+                                                                            </div>
+                                                                            <div className="payment-detail d-flex">
+                                                                                <p>Platform Convenience Fee</p>
+                                                                                <p>&#8377; {parseInt(priceData.deal_price)}</p>
+                                                                            </div>
+                                                                            </React.Fragment>
+                                                                        :''
+                                                                        }
                                                                         {
                                                                             this.props.disCountedOpdPrice && !this.state.is_cashback
                                                                                 ? <div className="payment-detail d-flex">
@@ -1053,29 +1353,61 @@ class PatientDetailsNew extends React.Component {
                                                                         <h4 className="title mb-20">Payment Summary</h4>
                                                                         <div className="payment-summary-content">
                                                                             <div className="payment-detail d-flex">
-                                                                                <p>Subtotal</p>
+                                                                                <p>MRP</p>
                                                                                 {
-                                                                                    enabled_for_cod_payment && priceData.is_cod_deal_price?<p>&#8377;  {parseInt(priceData.mrp) + treatment_mrp}</p>:<p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
+                                                                                    enabled_for_cod_payment && priceData.is_cod_deal_price ? <p>&#8377;  {parseInt(priceData.mrp) + treatment_mrp}</p> : <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
                                                                                 }
                                                                             </div>
                                                                         </div>
                                                                         {
-                                                                            enabled_for_cod_payment && priceData.is_cod_deal_price?
-                                                                        <React.Fragment>
-                                                                        <div className="payment-detail d-flex">
-                                                                            <p>Docprime Discount</p>
-                                                                            <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))}</p>
-                                                                        </div>
-                                                                        <hr />
-                                                                        </React.Fragment>:''}
+                                                                            enabled_for_cod_payment && priceData.fees != 0 && priceData.is_cod_deal_price !== priceData.mrp && priceData.is_cod_deal_price?
+                                                                                <React.Fragment>
+                                                                                    <div className="payment-detail d-flex">
+                                                                                        <p>Docprime Discount</p>
+                                                                                        <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))}</p>
+                                                                                    </div>
+                                                                                    <hr />
+                                                                                </React.Fragment> 
+                                                                            :!is_insurance_applicable &&  enabled_for_cod_payment && priceData.fees == 0 && priceData.is_cod_deal_price !== priceData.mrp && priceData.is_cod_deal_price?
+                                                                                <React.Fragment>
+                                                                                    <div className="payment-detail d-flex">
+                                                                                        <p>Docprime Discount</p>
+                                                                                        <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))}</p>
+                                                                                    </div>
+                                                                                    <hr />
+                                                                                </React.Fragment> 
+                                                                            :''
+                                                                        // : this.props.payment_type == 1 && priceData.fees == 0?
+                                                                        //     <React.Fragment>
+                                                                        //         <div className="payment-detail d-flex">
+                                                                        //             <p>Docprime price</p>
+                                                                        //             <p>Free</p>
+                                                                        //         </div>
+                                                                        //         <div className="payment-detail d-flex">
+                                                                        //             <p>Platform Convenience Fee</p>
+                                                                        //             {
+                                                                        //                 enabled_for_cod_payment && priceData.is_cod_deal_price?
+                                                                        //                 <p>&#8377; {parseInt(priceData.is_cod_deal_price)}</p>
+                                                                        //                 :<p>&#8377; {parseInt(priceData.deal_price)}</p>
+                                                                        //             }
+                                                                        //         </div>
+                                                                        //     </React.Fragment>
+                                                                        //     :''
+                                                                        }
+                                                                        
                                                                         {
                                                                             is_insurance_applicable && this.props.payment_type != 2 ?
                                                                                 <div className="ins-val-bx">Covered Under Insurance</div>
                                                                                 : priceData ? <div className="test-report payment-detail mt-20">
                                                                                     <h4 className="title payment-amt-label">Amount Payable</h4>
                                                                                     {
-                                                                                        enabled_for_cod_payment && priceData.is_cod_deal_price?<h5 className="payment-amt-value">&#8377; {parseInt(priceData.is_cod_deal_price)}</h5>:
-                                                                                        <h5 className="payment-amt-value">&#8377; {parseInt(priceData.mrp) + treatment_mrp}</h5>
+                                                                                        enabled_for_cod_payment && priceData.is_cod_deal_price && priceData.fees !=0 
+                                                                                            ? <h5 className="payment-amt-value">&#8377; {parseInt(priceData.is_cod_deal_price)}</h5> 
+                                                                                            :enabled_for_cod_payment && priceData.is_cod_deal_price && priceData.fees ==0 
+                                                                                            ?<h5 className="payment-amt-value">&#8377; {parseInt(priceData.is_cod_deal_price)}</h5> 
+                                                                                            :this.props.payment_type == 1 &&  priceData.fees== 0
+                                                                                            ?<h5 className="payment-amt-value">{(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</h5>
+                                                                                            :<h5 className="payment-amt-value">&#8377; {parseInt(priceData.mrp) + treatment_mrp}</h5>
                                                                                     }
                                                                                 </div> : ""
                                                                         }
@@ -1086,16 +1418,21 @@ class PatientDetailsNew extends React.Component {
 
 
                                                         {
-                                                            !is_insurance_applicable && this.props.payment_type == 1 && total_wallet_balance && total_wallet_balance > 0 && (parseInt(priceData.mrp) + treatment_mrp) > 0 ? <div className="widget mrb-15">
-                                                                <div className="widget-content">
-                                                                    <div className="select-pt-form">
-                                                                        <div className="referral-select">
-                                                                            <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Use docprime wallet money<input type="checkbox" onChange={this.toggleWalletUse.bind(this)} checked={this.state.use_wallet} /><span className="checkmark"></span></label>
-                                                                            <span className="rfrl-avl-balance">Available <img style={{ width: '9px', marginTop: '4px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} />{total_wallet_balance}</span>
+                                                            !is_insurance_applicable && this.props.payment_type == 1 && total_wallet_balance && total_wallet_balance > 0 && (parseInt(priceData.mrp) + treatment_mrp) > 0 ?
+                                                                <div className={"widget mrb-15" + (this.state.is_payment_coupon_applied ? " disable_coupon" : "")}>
+                                                                    <div className="widget-content">
+                                                                        <div className="select-pt-form">
+                                                                            <div className="referral-select mb-0">
+                                                                                <label className="ck-bx" style={{ fontWeight: '600', fontSize: '14px' }}>Use docprime wallet money<input type="checkbox" onChange={this.toggleWalletUse.bind(this)} checked={this.state.use_wallet} /><span className="checkmark"></span></label>
+                                                                                <span className="rfrl-avl-balance">Available <img style={{ width: '6px', marginTop: '5px', marginRight:'3px' }} src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} />{total_wallet_balance}</span>
+                                                                                {
+                                                                                    this.state.is_payment_coupon_applied ?
+                                                                                    <span className="cpn-pymnt-txt">Wallet Amount can not be used because payment gateway specific coupon is applied.</span> : ''
+                                                                                }
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </div> : ""
+                                                                </div> : ""
                                                         }
                                                         <WhatsAppOptinView {...this.props} profiles={patient} toggleWhatsap={this.toggleWhatsap.bind(this)} />
 
@@ -1118,7 +1455,7 @@ class PatientDetailsNew extends React.Component {
                                     </div> : <Loader />
                             }
                             {
-                                this.state.openCancellation ? <CancelationPolicy props={this.props} toggle={this.toggle.bind(this, 'openCancellation')} is_insurance_applicable={is_insurance_applicable}/> : ""
+                                this.state.openCancellation ? <CancelationPolicy props={this.props} toggle={this.toggle.bind(this, 'openCancellation')} is_insurance_applicable={is_insurance_applicable} /> : ""
                             }
 
                             {/* {
@@ -1127,26 +1464,26 @@ class PatientDetailsNew extends React.Component {
                                 } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient)}>{this.getBookingButtonText(total_wallet_balance, finalPrice)}</button>
                             } */}
 
-                            <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat?'ipd-foot-btn-duo':''}`}>
+                            <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
 
                                 {
-                                    STORAGE.isAgent() || !is_default_user_insured?
-                                    <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
-                                        !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                    } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance)}>
-                                        {
-                                            this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
-                                        }
-                                        {this.state.cart_item ? "Update" : "Add to Cart"}
-                                    </button>
-                                    :''
+                                    STORAGE.isAgent() || !is_default_user_insured ?
+                                        <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
+                                            !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
+                                        } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance,is_selected_user_insurance_status)}>
+                                            {
+                                                this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
+                                            }
+                                            {this.state.cart_item ? "Update" : "Add to Cart"}
+                                        </button>
+                                        : ''
                                 }
-                                
+
 
                                 {
-                                    (STORAGE.isAgent() && !(enabled_for_cod_payment && this.props.payment_type==2)) || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" data-disabled={
+                                    (STORAGE.isAgent() && !(enabled_for_cod_payment && this.props.payment_type == 2)) || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                    } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance)}>{this.getBookingButtonText(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp),enabled_for_cod_payment,priceData.is_cod_deal_price)}</button>
+                                    } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance,is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp), enabled_for_cod_payment, priceData.is_cod_deal_price)}</button>
                                 }
                             </div>
                         </div>
@@ -1159,6 +1496,9 @@ class PatientDetailsNew extends React.Component {
                         <RightBar extraClass="chat-float-btn-2" type="opd" noChatButton={true} showDesktopIpd={true} />
                     </div>
                 </section>
+                {
+                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='opd' /> : ""
+                }
             </div>
         );
     }

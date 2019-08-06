@@ -27,13 +27,13 @@ const persistConfig = {
 const DOCTOR_LIST_PRESIST = {
     key: 'DOCTOR_SEARCH',
     storage: storage,
-    whitelist: ['selectedSlot', 'rescheduleSlot', 'doctorCoupons', 'selectedDoctorProcedure', 'commonProfileSelectedProcedures', 'payment_type']
+    whitelist: ['selectedSlot', 'rescheduleSlot', 'doctorCoupons', 'selectedDoctorProcedure', 'commonProfileSelectedProcedures', 'payment_type', 'selectedDateFormat']
 }
 
 const LAB_LIST_PRESIST = {
     key: 'LAB_SEARCH',
     storage: storage,
-    whitelist: ['selectedSlot', 'rescheduleSlot', 'selectedAppointmentType', 'selectedAddress', 'labCoupons', 'user_prescriptions', 'is_prescription_needed']
+    whitelist: ['selectedSlot', 'rescheduleSlot', 'selectedAppointmentType', 'selectedAddress', 'labCoupons', 'user_prescriptions', 'is_prescription_needed', 'selectedDateFormat']
 }
 
 const USER_PERSIST = {
@@ -68,7 +68,7 @@ const INSURANCE_LIST_PRESIST = {
 const IPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_IPD',
     storage: storage,
-    blacklist: ['page', 'getNewResults', 'fetchNewResults', 'locationFetched', 'HOSPITAL_DETAIL_LOADED', 'IPD_INFO_LOADED', 'ipd_hospital_detail_info']
+    blacklist: ['page', 'getNewResults', 'fetchNewResults', 'locationFetched', 'HOSPITAL_DETAIL_LOADED', 'IPD_INFO_LOADED', 'ipd_hospital_detail_info', 'ipdPopupData']
 }
 
 const allReducers = combineReducers({

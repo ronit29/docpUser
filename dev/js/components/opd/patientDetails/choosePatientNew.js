@@ -13,17 +13,44 @@ class ChoosePatientNewView extends React.Component {
             phoneNumber: '',
             gender: '',
             data: false,
-            email:'',
-            smsBtnType:null
+            email: '',
+            smsBtnType: null,
+            isEmailNotValid: false,
+            isPopupDataFilled: false,
+            enableOtpRequest:false
         }
     }
 
     componentDidMount() {
         if (!this.props.patient) {
-            this.setState({ ...this.props.saved_patient_details },()=>{
-                this.profileValidation()
-            })
+
+            if(this.props.saved_patient_details && Object.keys(this.props.saved_patient_details).length){
+
+                this.setState({ ...this.props.saved_patient_details, isPopupDataFilled: false }, () => {
+                    this.profileValidation()
+                })
+
+            }
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(this.props.doctorSummaryPage && !nextProps.patient && !this.state.isPopupDataFilled && nextProps.ipdPopupData && nextProps.ipdPopupData['popup1'] && (!this.props.ipdPopupData['popup1'] || (this.props.ipdPopupData['popup1'] && nextProps.ipdPopupData['popup1'].name!=this.props.ipdPopupData['popup1'] ) ) ){
+            let popup1;
+            try{
+                let popup1 = nextProps.ipdPopupData['popup1']
+                
+                if(popup1 && Object.keys(popup1).length && popup1.doctor == this.props.selectedDoctor){
+
+                    this.setState({ name:popup1 && popup1.first_name?popup1.first_name:'', phoneNumber: popup1 && popup1.phone_number?popup1.phone_number:'' ,gender:popup1 && popup1.gender?popup1.gender:'', showVerify: true, isPopupDataFilled: true }, () => {
+                        this.profileValidation()
+                    })
+                }                    
+
+            }catch(e){
+
+            }
+        } 
     }
 
     inputHandler(e) {
@@ -72,11 +99,28 @@ class ChoosePatientNewView extends React.Component {
 
                 self.setState({ otpVerifySuccess: true }, () => {
                     self.props.profileDataCompleted(this.state)
+                    //Create IPD lead for IPD Hospital
+                    if(self.props.doctorSummaryPage && self.props.is_ipd_hospital) {
+                        let formData = {
+                            phone_number: this.state.phoneNumber,
+                            source: 'dropoff',
+                            is_valid: false,
+                            first_name: this.state.name||'unknown'
+                        }
+                        if(self.props.doctor_id){
+                            formData['doctor'] = self.props.doctor_id
+                        }
+                        if(self.props.hospital_id) {
+                            formData['hospital'] = self.props.hospital_id
+                        }
+                        self.props.submitIPDForm(formData, this.props.selectedLocation)    
+                    }
+                    
                     self.props.createProfile(this.state, (err, res) => {
                         //self.setState({data:true})
-                        self.props.getUserProfile().then(()=>{
+                        self.props.getUserProfile().then(() => {
 
-                            if(self.props.is_lab){
+                            if (self.props.is_lab) {
                                 self.props.checkPrescription()
                                 self.props.clearTestForInsured()
                             }
@@ -96,7 +140,24 @@ class ChoosePatientNewView extends React.Component {
         this.props.profileDataCompleted(this.state)
     }
 
-    verify(resendFlag = false,viaSms,viaWhatsapp) {
+    profileEmailValidation() {
+        let data = { ...this.props.patient }
+        if (!this.state.email.match(/\S+@\S+\.\S+/)) {
+            this.setState({ isEmailNotValid: true })
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Email Id" })
+            }, 500)
+            return
+        } else {
+            data.email = this.state.email
+            this.setState({ isEmailNotValid: false })
+            this.props.editUserProfile(data, this.props.patient.id, (err, res) => {
+                this.props.getUserProfile()
+            })
+        }
+    }
+
+    verify(resendFlag = false, viaSms, viaWhatsapp) {
         let self = this
 
         if (!this.state.name.match(/^[a-zA-Z ]+$/)) {
@@ -117,47 +178,54 @@ class ChoosePatientNewView extends React.Component {
             return
         }
 
-        if(this.state.email ==''){
+        if (this.state.email == '') {
             setTimeout(() => {
                 SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
             }, 500)
-            return 
+            return
         }
 
-        if(!this.state.email.match(/\S+@\S+\.\S+/)) 
-        {
+        if (!this.state.email.match(/\S+@\S+\.\S+/)) {
             setTimeout(() => {
                 SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Email Id" })
             }, 500)
-            return 
+            return
         }
 
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
 
-            if(resendFlag){
+            if (resendFlag) {
                 let analyticData = {
-                    'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage', 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''
+                    'Category': 'ConsumerApp', 'Action': 'ResendOtp', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'resend-otp', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage', 'mode': viaSms ? 'viaSms' : viaWhatsapp ? 'viaWhatsapp' : ''
                 }
                 GTM.sendEvent({ data: analyticData })
             } else {
                 let analyticData = {
-                    'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage', 'mode':viaSms?'viaSms':viaWhatsapp?'viaWhatsapp':''
+                    'Category': 'ConsumerApp', 'Action': 'GetOtpRequest', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'get-otp-request', 'mobileNo': this.state.phoneNumber, 'pageSource': 'BookingPage', 'mode': viaSms ? 'viaSms' : viaWhatsapp ? 'viaWhatsapp' : ''
                 }
                 GTM.sendEvent({ data: analyticData })
             }
 
-            this.props.sendOTP(this.state.phoneNumber,viaSms,viaWhatsapp,'booking-login', (error) => {
+            this.props.sendOTP(this.state.phoneNumber, viaSms, viaWhatsapp, 'booking-login', (error) => {
                 if (error) {
                     setTimeout(() => {
                         SnackBar.show({ pos: 'bottom-center', text: "Could not generate OTP." })
                     }, 500)
                     //self.setState({ validationError: "Could not generate OTP." })
                 } else {
-                    self.setState({ showOtp: true, showVerify: false,smsBtnType:viaSms?true:false })
+                    if(viaWhatsapp){
+                        this.setState({enableOtpRequest:true})
+                    }else{
+                        this.setState({enableOtpRequest:false})
+                    }
+                    self.setState({ showOtp: true, showVerify: false, smsBtnType: viaSms ? true : false })
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
                     }, 10000)
+                    setTimeout(() => {
+                        this.setState({ enableOtpRequest:false })
+                    }, 60000)
                 }
             })
         } else {
@@ -175,18 +243,37 @@ class ChoosePatientNewView extends React.Component {
                     this.props.patient ?
                         <div className="widget-content">
                             <div className="lab-visit-time d-flex jc-spaceb">
-                                <h4 className="title d-flex"><span>
-                                    <img style={{ width: '20px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
-                                </span>Patient</h4>
-                                <div className="float-right  mbl-view-formatting text-right">
-                                    <h4 className="date-time title" style={{textTransform:'capitalize'}} >{this.props.patient ? this.props.patient.name : ""} </h4>
-                                    <a href="#" onClick={(e) => {
-                                        e.preventDefault()
-                                        e.stopPropagation()
-                                        this.props.navigateTo('patient',this.props.is_insurance_applicable)
-                                    }} className="text-primary fw-700 text-sm">{this.props.patient ? "Change Patient" : "Select Patient"}</a>
+                                <div className="d-flex flex-1" style={{ flexDirection: 'column', paddingRight: 15 }} >
+                                    <h4 className="title d-flex"><span>
+                                        <img style={{ width: '20px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/nw-usr.svg"} />
+                                    </span>Patient</h4>
+                                </div>
+                                <div className="mbl-view-formatting text-right">
+                                    <h4 className="date-time title" style={{ textTransform: 'capitalize' }} >{this.props.patient ? this.props.patient.name : ""} </h4>
                                 </div>
                             </div>
+                            {
+                                this.props.is_lab && !this.props.patient.email ?
+                                    <div className="mrb-20" style={{ paddingLeft: 28 }}>
+                                        <input className="slt-text-input" autoComplete="off" type="text" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileEmailValidation.bind(this)} placeholder="Enter your email" style={(this.props.isEmailNotValid || this.state.isEmailNotValid) ? { borderBottom: '1px solid red' } : {}} />
+                                    </div>
+                                    : ''
+                            }
+                            <React.Fragment>
+                            <div class="text-right">
+                                    <a href="#" onClick={(e) => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                    this.props.navigateTo('patient', this.props.is_insurance_applicable)
+                                }} className="text-primary fw-700 text-sm">{this.props.patient ? "Change Patient" : "Select Patient"}</a>
+                                </div>
+                            <div class="">
+                            {this.props.show_insurance_error && this.props.insurance_error_msg?
+                                <p class="gyn-text">{this.props.insurance_error_msg}</p>
+                                :''
+                            }
+                            </div>
+                            </React.Fragment>
                         </div>
                         : <div className="widget-content">
                             <div className="lab-visit-time d-flex jc-spaceb">
@@ -231,12 +318,12 @@ class ChoosePatientNewView extends React.Component {
                                     <input className="slt-text-input" autoComplete="off" type="number" placeholder="" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this.handleContinuePress.bind(this)} onBlur={this.profileValidation.bind(this)} />
                                 </div>
                                 <div className="input-booking-smswhts">
-                                {
+                                    {
                                         this.state.showVerify ?
                                             <React.Fragment>
-                                                <button className="input-sms-ver" onClick={()=>this.verify(false,true,false)}>
-                                                <img style={{marginRight:'5px'}} className="sms-ico" src={ASSETS_BASE_URL + '/img/smsicon.svg'} />Verify Via SMS</button>
-                                                <button className="input-sms-whts" onClick={()=>this.verify(false,false,true)}><img style={{marginRight:'5px'}} className="whtsp-ico" src={ASSETS_BASE_URL + '/img/wa-logo-gr.svg'} />Verify Via Whatsapp</button>
+                                                <button className="input-sms-ver" onClick={() => this.verify(false, true, false)}>
+                                                    <img style={{ marginRight: '5px' }} className="sms-ico" src={ASSETS_BASE_URL + '/img/smsicon.svg'} />Verify Via SMS</button>
+                                                <button className="input-sms-whts" onClick={() => this.verify(false, false, true)}><img style={{ marginRight: '5px' }} className="whtsp-ico" src={ASSETS_BASE_URL + '/img/wa-logo-gr.svg'} />Verify Via Whatsapp</button>
                                             </React.Fragment>
                                             : ''
                                     }
@@ -250,8 +337,10 @@ class ChoosePatientNewView extends React.Component {
                                                 <button className="mobile-fill-btn" onClick={this.submitOTPRequest.bind(this)}>Submit</button>
                                             </div>
                                             <div className="d-flex align-items-start justify-content-between">
-                                                <span className="resend-otp-btn" onClick={()=>this.verify(true,this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ?'Send via Whatsapp':'Send via SMS'}</span>
-                                                <span className="resend-otp-btn" style={{color:'#ec0d0d'}} onClick={()=>this.verify(true,this.state.smsBtnType?true:false,!this.state.smsBtnType?true:false)}>Resend</span>
+                                                <span className="resend-otp-btn" onClick={() => this.verify(true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ? 'Send via Whatsapp' : 'Send via SMS'}</span>
+                                                {this.state.enableOtpRequest?''
+                                                :<span className="resend-otp-btn" style={{ color: '#ec0d0d' }} onClick={() => this.verify(true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}>Resend</span>
+                                                }
                                             </div>
                                         </div>
                                         : ''

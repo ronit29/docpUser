@@ -70,11 +70,12 @@ const mapStateToProps = (state) => {
         lab_test_data,
         corporateCoupon,
         pincode,
-        saved_patient_details
+        saved_patient_details,
+        selectedLocation
     } = state.SEARCH_CRITERIA_LABS
     const { selectedProfile, profiles, address, userWalletBalance, userCashbackBalance, isUserCared, defaultProfile, ipd_chat } = state.USER
     let LABS = state.LABS
-    let { selectedSlot, selectedAppointmentType, selectedAddress, labCoupons, disCountedLabPrice, couponAutoApply, user_prescriptions, is_prescription_needed } = state.LAB_SEARCH
+    let { selectedSlot, selectedAppointmentType, selectedAddress, labCoupons, disCountedLabPrice, couponAutoApply, user_prescriptions, is_prescription_needed, selectedDateFormat } = state.LAB_SEARCH
 
     return {
         corporateCoupon,
@@ -82,13 +83,13 @@ const mapStateToProps = (state) => {
         lab_test_data,
         LABS,
         selectedProfile, profiles, selectedSlot, selectedAppointmentType, address, selectedAddress, labCoupons, disCountedLabPrice,
-        couponAutoApply, userWalletBalance, userCashbackBalance, pincode, isUserCared, defaultProfile, saved_patient_details, user_prescriptions, ipd_chat, is_prescription_needed
+        couponAutoApply, userWalletBalance, userCashbackBalance, pincode, isUserCared, defaultProfile, saved_patient_details, user_prescriptions, ipd_chat, is_prescription_needed, selectedDateFormat, selectedLocation
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
+        selectLabTimeSLot: (slot, reschedule, dateParam) => dispatch(selectLabTimeSLot(slot, reschedule, dateParam)),
         getUserProfile: () => dispatch(getUserProfile()),
         getLabById: (labId, testIds) => dispatch(getLabById(labId, testIds)),
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),

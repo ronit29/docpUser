@@ -11,6 +11,7 @@ import STORAGE from '../../../helpers/storage'
 import SnackBar from 'node-snackbar'
 import GTM from '../../../helpers/gtm';
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup.js'
+import PaymentForm from '../paymentForm'
 
 class CartView extends React.Component {
     constructor(props) {
@@ -21,7 +22,8 @@ class CartView extends React.Component {
         this.state = {
             use_wallet: true,
             error: parsed.error_message || "",
-            showConfirmationPopup:false
+            showConfirmationPopup:false,
+            paymentData: null
         }
     }
 
@@ -50,6 +52,9 @@ class CartView extends React.Component {
         let total_coupon_cashback = 0
         let coupon_breakup = {}
         let cashback_breakup = {}
+        let platformConvFees = 0
+        let total_amnt = 0
+        let dd = 0
         for (let item of cart_items) {
             if (item.valid && item.actual_data.payment_type == 1) {
                 
@@ -59,9 +64,16 @@ class CartView extends React.Component {
 
                 }else{
                     total_mrp += item.mrp
-                    total_deal_price += item.deal_price    
+                    if(item.consultation && item.consultation.fees == 0){
+                        dd = item.mrp
+                    }else{
+                        dd = item.mrp - item.deal_price
+                    }
+                    console.log('dd='+dd)
+                    total_deal_price += dd
+                    console.log(total_deal_price)
+                    // total_deal_price += item.deal_price  
                     total_home_pickup_charges += item.total_home_pickup_charges || 0
-                    
                     if (item.data.coupons && item.data.coupons.length) {
                         total_coupon_discount += item.coupon_discount
                         total_coupon_cashback += item.coupon_cashback
@@ -79,10 +91,14 @@ class CartView extends React.Component {
                             }
                         }
                     }
+                    if(item.consultation && item.consultation.fees == 0){
+                        platformConvFees += parseInt(item.deal_price)
+                    }
                 }
-                
+
             }
         }
+        total_amnt = total_mrp - total_deal_price + platformConvFees - total_coupon_discount
         return {
             total_mrp,
             total_deal_price,
@@ -90,23 +106,38 @@ class CartView extends React.Component {
             total_coupon_discount,
             total_coupon_cashback,
             coupon_breakup,
-            cashback_breakup
+            cashback_breakup,
+            platformConvFees,
+            total_amnt
         }
     }
 
-    processCart(total_price) {
+    processCart(total_price,is_selected_user_insurance_status) {
+
+        if(is_selected_user_insurance_status && is_selected_user_insurance_status == 4){
+            SnackBar.show({ pos: 'bottom-center', text: "Your documents from the last claim are under verification.Please write to customercare@docprime.com for more information." });
+            window.scrollTo(0, 0)
+            return
+        }
+
         if(!this.state.showConfirmationPopup && total_price == 0){
             this.setState({showConfirmationPopup:true})
             return
         }
         this.props.processCartItems(this.state.use_wallet).then((data) => {
             if (data.payment_required) {
-                this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
+                // this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
+                this.processPayment(data)
             } else {
                 this.props.history.replace(`/order/summary/${data.data.orderId}`)
             }
         }).catch((e) => {
-            let error_message = 'Error Processing cart'
+            let error_message 
+                if(e.error){
+                    error_message = e.error
+                }else{
+                    error_message = "Error Processing cart"
+                }
             if(e.message){
                 error_message = e.message
             }
@@ -157,6 +188,19 @@ class CartView extends React.Component {
             }
         }
     }
+    
+    processPayment(data) {
+        if (data && data.status) {
+            this.setState({ paymentData: data.data }, () => {
+                setTimeout(()=>{
+                    if (document.getElementById('paymentForm') && Object.keys(this.state.paymentData).length > 0) {
+                        let form = document.getElementById('paymentForm')
+                        form.submit()
+                    }
+                },500)
+            })
+        }
+    }
 
     render() {
 
@@ -168,18 +212,29 @@ class CartView extends React.Component {
             total_coupon_discount,
             total_coupon_cashback,
             coupon_breakup,
-            cashback_breakup
+            cashback_breakup,
+            platformConvFees,
+            total_amnt
         } = this.getPriceBreakup(cart)
 
         let total_wallet_balance = 0
         if (this.props.userWalletBalance >= 0 && this.props.userCashbackBalance >= 0) {
             total_wallet_balance = this.props.userWalletBalance + this.props.userCashbackBalance
         }
-
+        
         let invalid_items = false
         let valid_items = false
         let all_appointments_insured = true
         let is_cod_applicable = true
+        let is_platform_conv_fees = 0
+        let is_default_user_insured = false
+        let is_selected_user_insurance_status
+        if (Object.keys(this.props.profiles).length > 0 && this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]) {
+            is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
+            is_selected_user_insurance_status = this.props.profiles[this.props.defaultProfile].insurance_status
+        }
+
+
         if (cart && cart.length) {
             cart.map((cart_item, i) => {
                 if (!cart_item.valid) {
@@ -189,6 +244,9 @@ class CartView extends React.Component {
                     if(cart_item.actual_data && !cart_item.actual_data.is_appointment_insured){
                         all_appointments_insured = false
                     }
+                    if(cart_item.consultation && cart_item.consultation.fees == 0 && cart_item.actual_data.payment_type == 1){
+                        is_platform_conv_fees++
+                    }
                     //Check if COD applicable for all appointments
                     if( cart_item.actual_data && cart_item.actual_data.payment_type && cart_item.actual_data.payment_type!=2 ){
                         is_cod_applicable = false
@@ -196,14 +254,12 @@ class CartView extends React.Component {
                 }
             })
         }
-
         is_cod_applicable = is_cod_applicable && cart && cart.length && cart.filter(x => x.valid).length==1
-
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
                 {
-                    this.state.showConfirmationPopup?
+                    this.state.showConfirmationPopup && is_selected_user_insurance_status !=4?
                     <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)}/>
                     :''
                 }
@@ -256,10 +312,21 @@ class CartView extends React.Component {
                                                                             <p>Total Fees</p>
                                                                             <p>&#8377; {parseInt(total_mrp)}</p>
                                                                         </div>
-                                                                        <div className="payment-detail d-flex">
-                                                                            <p>Docprime Discount</p>
-                                                                            <p>- &#8377; {parseInt(total_mrp) - parseInt(total_deal_price)}</p>
-                                                                        </div>
+                                                                        {
+                                                                            is_platform_conv_fees>0?
+                                                                            <div className="payment-detail d-flex">
+                                                                                <p>Platform Convenience Fee</p>
+                                                                                <p>&#8377; {parseInt(platformConvFees)}</p>
+                                                                            </div>
+                                                                            :''
+                                                                        }
+                                                                        {total_deal_price !=0 && total_mrp !=total_deal_price?
+                                                                            <div className="payment-detail d-flex">
+                                                                                <p>Docprime Discount</p>
+                                                                                <p>- &#8377; {parseInt(total_deal_price)}</p>
+                                                                            </div>
+                                                                        :''}
+
                                                                         {
                                                                             total_home_pickup_charges ? <div className="payment-detail d-flex">
                                                                                 <p>Home pickup charges</p>
@@ -288,7 +355,7 @@ class CartView extends React.Component {
 
                                                                 <div className="test-report payment-detail mt-20">
                                                                     <h4 className="title payment-amt-label">Amount Payable</h4>
-                                                                    <h5 className="payment-amt-value">&#8377; {total_deal_price - total_coupon_discount}</h5>
+                                                                    <h5 className="payment-amt-value">&#8377; {total_amnt}</h5>
                                                                 </div>
 
                                                                 {
@@ -334,7 +401,7 @@ class CartView extends React.Component {
                                                     GTM.sendEvent({ data: data });
 
                                                 }}>Add more to cart</button>
-                                                <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" onClick={this.processCart.bind(this, total_deal_price - total_coupon_discount)}>{this.getBookingButtonText(total_wallet_balance, total_deal_price - total_coupon_discount)}</button>
+                                                <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" onClick={this.processCart.bind(this, total_amnt,is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_amnt)}</button>
                                             </div> : ""
                                         }
 
@@ -366,6 +433,9 @@ class CartView extends React.Component {
                         <RightBar noChatButton={true} />
                     </div>
                 </section>
+                {
+                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='lab'/> : ""
+                }
             </div >
         );
     }

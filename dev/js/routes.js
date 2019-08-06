@@ -473,10 +473,25 @@ const Payment = Loadable({
     loading,
 })
 
+const HospitalList = Loadable({
+    loader: () => import('./containers/commons/hospitalList.js'),
+    modules: ['./containers/commons/hospitalList.js'],
+    webpack: () => [require.resolveWeak('./containers/commons/hospitalList.js')],
+    loading,
+})
+
+
 const SingleChatPageFeedback = Loadable({
     loader: () => import('./containers/commons/SingleChatPageFeedback.js'),
     modules: ['./containers/commons/SingleChatPageFeedback.js'],
     webpack: () => [require.resolveWeak('./containers/commons/SingleChatPageFeedback.js')],
+    loading,
+})
+
+const categoryTestResults = Loadable({
+    loader: () => import('./containers/diagnosis/categoryTestResults.js'),
+    modules: ['./containers/diagnosis/categoryTestResults.js'],
+    webpack: () => [require.resolveWeak('./containers/diagnosis/categoryTestResults.js')],
     loading,
 })
 
@@ -595,7 +610,11 @@ let routes = [
     { path: '/*-hpcp', exact: true, component: PackageCompare },
     { path: '/ipd-procedures', exact: true, component: IpdList, RENDER_ON_SERVER: true },
     { path: '/order/paymentSummary', exact: true, component: CodPaymentPage },
-    { path: '/Chat/Review', exact: true, component: SingleChatPageFeedback }
+    { path: '/hospitals', exact: true, component: HospitalList, RENDER_ON_SERVER: true },
+    { path: '/Chat/Review', exact: true, component: SingleChatPageFeedback },
+    { path: '/categoryTestResults', exact: true, component: categoryTestResults },
+    { path: '/*-tpcp', exact: true, component: categoryTestResults },
+    { path: '/hospitals/inventory', exact: true, component: HospitalList, RENDER_ON_SERVER: true }
 
 ]
 

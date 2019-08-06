@@ -256,10 +256,10 @@ class TopBar extends React.Component {
 
     getCriteriaString(selectedCriterias) {
         if (selectedCriterias && selectedCriterias.length) {
-            let selectedProcedureCategory = selectedCriterias.filter(x => x.type == 'procedures_category')
-            let procedures = selectedCriterias.filter(x => x.type == 'procedures')
+            let is_group_ids_exist = selectedCriterias.filter(x=>x.type=='group_ids')
+            let selectedDataView = is_group_ids_exist.length?is_group_ids_exist:selectedCriterias
 
-            return selectedCriterias.reduce((final, curr, i) => {
+            return selectedDataView.reduce((final, curr, i) => {
                 if (i != 0) {
                     final += ', '
                 }
@@ -527,14 +527,13 @@ class TopBar extends React.Component {
                                     <div className="top-filter-tabs-select locationTestFilter" >
                                         <p className="newStickyfilter">
                                             {
-                                                `${this.props.count} ${ipd_ids.length ? 'Specialists' : 'Results'} for `
+                                                `${this.props.count} ${ipd_ids.length ? 'Specialists' : 'Results'} for ${this.props.hospitalData && this.props.hospitalData.name?`${criteriaStr || 'Doctor'}  in ${this.props.hospitalData.name}`:''}`
                                             }
                                             {
-                                                locationName?
-                                                <h1 className="sort-head-font-inline">{`${criteriaStr || 'Doctor'}`}
+                                                this.props.hospitalData && this.props.hospitalData.name?''
+                                                :<h1 className="sort-head-font-inline">{`${criteriaStr || 'Doctor'}`}
                                                     <span onClick={this.goToLocation.bind(this)} >{` in ${locationName}`}</span>
                                                 </h1>
-                                                :<p>{`${criteriaStr || 'Doctor'} ${this.props.hospitalData && this.props.hospitalData.name?` in ${this.props.hospitalData.name}`:''}`}</p>
                                             }
                                             {
                                                 (this.props.hospitalData && this.props.hospitalData.name) || !locationName?''

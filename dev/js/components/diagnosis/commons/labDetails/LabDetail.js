@@ -131,12 +131,21 @@ class LabDetails extends React.Component {
                                             <img src={lab_thumbnail} className="img-fluid" />
                                         </InitialsPicture>
                                     </div>
-                                    <h1 className="widget-title pb-title">{name}</h1>
-                                    <p className="location text-black">{locality} {city}
-                                        {/* <span className="ct-img ct-img-xs">
+                                    {
+                                        name && name.toLowerCase().includes('thyrocare') ?
+                                            <h1 className="widget-title pb-title">{name.split('-')[0]}</h1>
+                                            :
+                                            <h1 className="widget-title pb-title">{name}</h1>
+                                    }
+                                    {
+                                        name && name.toLowerCase().includes('thyrocare') ?
+                                            ''
+                                            :
+                                            <p className="location text-black">{locality} {city}</p>
+                                    }
+                                    {/* <span className="ct-img ct-img-xs">
                                         <img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker.svg"} className="img-fluid" />
                                     </span> */}
-                                    </p>
                                     <ul className="list time-contact">
                                         <li className="uTimingPara">
                                             <span className="fw-700 text-sm">Timing: </span>

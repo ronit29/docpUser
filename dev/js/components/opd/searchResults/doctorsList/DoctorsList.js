@@ -254,7 +254,7 @@ class DoctorsList extends React.Component {
                         <div className="container-fluid cardMainPaddingRmv">
                             {
                                 this.props.search_content && this.props.search_content != '' && parseInt(this.props.page) == 1 ?
-                                    <div className="search-result-card-collpase d-none d-md-block" style={{ borderRadius: '5px', marginTop: '5px' }}>
+                                    <div className="search-result-card-collpase d-none d-md-block mb-0" style={{ borderRadius: '5px', marginTop: '5px' }}>
                                         <div className={this.state.readMore} dangerouslySetInnerHTML={{ __html: this.props.search_content }} >
                                         </div>
 
@@ -311,14 +311,15 @@ class DoctorsList extends React.Component {
                                                                     <div className="d-flex align-items-center justify-content-between auto-location-widget mb-3 mrt-20">
                                                                         <div className="d-flex align-items-center auto-location-text">
                                                                             <img src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} />
-                                                                            <p className="fw-500">Show {this.props.commonSelectedCriterias[0].name} near me</p>
+                                                                            <p className="fw-500 pr-4">Show</p>
+                                                                            <h2 className="fw-500">{this.props.commonSelectedCriterias[0].name} near me</h2>
                                                                         </div>
                                                                         <div className="auto-location-btn fw-500" onClick={() => this.detectLocation('Sptcit')} >Detect Location</div>
                                                                     </div>
                                                                     : ''
                                                             }
                                                             {
-                                                                i == 3 && (!this.state.availability || !this.state.availability.length) ?
+                                                                i == 4 && (!this.state.availability || !this.state.availability.length) ?
                                                                     <div className="sort-sub-filter-container mb-3">
                                                                         <p>Filter by <span className="fw-700">Availability </span><span className="fw-500 sort-more-filter" onClick={this.viewMoreClicked.bind(this)}>More filters</span></p>
                                                                         <div className="srt-sb-btn-cont">
@@ -343,6 +344,10 @@ class DoctorsList extends React.Component {
                                                                     </li> : ''
                                                             }
 
+                                                            {result_list && result_list.length > 5 &&  i == 3?
+                                                                <div className="mb-3 referDocimg" onClick={()=>{this.props.history.push('/doctorsignup?member_type=1')}}>
+                                                                <img src={ASSETS_BASE_URL + "/img/refrlbnr.png"} />
+                                                            </div>:''}
                                                             {
                                                                 this.props.insurance_status != 1 && !this.state.sort_order && ((i == 6 && this.state.availability && !this.state.availability.length) || (i == 3 && this.state.availability && this.state.availability.length)) ?
                                                                     <div className="sort-sub-filter-container mb-3">

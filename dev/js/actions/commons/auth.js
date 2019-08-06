@@ -302,3 +302,23 @@ export const clearInsurance = () => (dispatch) =>{
             type: CLEAR_INSURANCE
         })
 }
+
+export const submitEmailOTP = (data, callback) => (dispatch) => {
+
+    API_POST(`/api/v1/user/profile-email/update`, data).then(function (response) {
+        if (callback) callback(response, null)
+    }).catch(function (error) {
+        if (callback) callback(null, error)
+    })
+}
+
+export const sendOtpOnEmail = (data, callback) =>(dispatch) =>{
+    API_POST(`/api/v1/user/profile-email/update/init`, data).then(function (response) {
+        SnackBar.show({ pos: 'bottom-center', text: "OTP Sent Successfuly." });    
+        if (callback) callback(response)
+    }).catch(function (error) {
+        let message = "Cannot generate OTP."
+        SnackBar.show({ pos: 'bottom-center', text: message });
+        if (callback) callback(error)
+    })
+}

@@ -38,12 +38,24 @@ class StaticPagesView extends React.Component {
         //const parsed = queryString.parse(window.location.search)
         const parsed = queryString.parse(this.props.location.search)
 
+        let pathname = ''
+        if (this.props.location && this.props.location.pathname) {
+            pathname = this.props.location.pathname
+        }
+
         return (
             <div className="profile-body-wrap">
                 {
-                    parsed.fromApp?'':<ProfileHeader />
+                    parsed.fromApp ? '' : <ProfileHeader />
                 }
-                <div className="sub-header d-none d-lg-block" />
+
+                {
+                    pathname && pathname.includes('doctorsignup') ?
+                        ''
+                        :
+                        <div className="sub-header d-none d-lg-block" />
+                }
+
 
                 {/* <div className="d-lg-none">
                     <header className="wallet-header sticky-header chat-header" style={{ height: 50 }} >
@@ -65,11 +77,11 @@ class StaticPagesView extends React.Component {
                 </div> */}
 
                 <Route exact path={'/about'} render={(props) => {
-                    return <AboutUs {...this.props} {...props} fromApp={parsed.fromApp?parsed.fromApp:false}/>
+                    return <AboutUs {...this.props} {...props} fromApp={parsed.fromApp ? parsed.fromApp : false} />
                 }} />
 
                 <Route exact path={'/contact'} render={(props) => {
-                    return <ContactUs {...this.props} {...props} fromApp={parsed.fromApp?parsed.fromApp:false} />
+                    return <ContactUs {...this.props} {...props} fromApp={parsed.fromApp ? parsed.fromApp : false} />
                 }} />
 
                 <Route exact path={'/privacy'} render={(props) => {
@@ -81,11 +93,11 @@ class StaticPagesView extends React.Component {
                 }} />
 
                 <Route exact path={'/disclaimer'} render={(props) => {
-                    return <Disclaimer {...this.props} {...props} fromApp={parsed.fromApp?parsed.fromApp:false}/>
+                    return <Disclaimer {...this.props} {...props} fromApp={parsed.fromApp ? parsed.fromApp : false} />
                 }} />
 
                 <Route exact path={'/terms'} render={(props) => {
-                    return <Terms {...this.props} {...props} fromApp={parsed.fromApp?parsed.fromApp:false} forScroll={parsed.forBookingScroll?parsed.forBookingScroll:false}/>
+                    return <Terms {...this.props} {...props} fromApp={parsed.fromApp ? parsed.fromApp : false} forScroll={parsed.forBookingScroll ? parsed.forBookingScroll : false} />
                 }} />
 
                 <Route exact path={'/careers'} render={(props) => {
@@ -97,15 +109,15 @@ class StaticPagesView extends React.Component {
                 }} />
 
                 <Route exact path={'/doctorsignup'} render={(props) => {
-                    return <Doctorsignup {...this.props} {...props} />
+                    return <Doctorsignup {...this.props} {...props} member_type={parsed.member_type?parseInt(parsed.member_type):''}/>
                 }} />
 
                 <Route exact path={'/cancelpolicy'} render={(props) => {
-                    return <CancelPolicy {...this.props} {...props} fromApp={parsed.fromApp?parsed.fromApp:false}/>
+                    return <CancelPolicy {...this.props} {...props} fromApp={parsed.fromApp ? parsed.fromApp : false} />
                 }} />
 
                 {
-                    parsed.fromApp?'':<Footer />
+                    parsed.fromApp ? '' : <Footer />
                 }
 
             </div>

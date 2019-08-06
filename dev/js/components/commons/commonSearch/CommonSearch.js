@@ -25,7 +25,16 @@ class CommonSearch extends React.Component {
 	}
 
 	componentDidMount(){
-		this.getSearchResults = debouncer(this.getSearchResults.bind(this), 200)
+
+        if(this.props.hospital_id_search) {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'IpdHospitalSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-search', 'searched': '', 'searchString': this.state.searchValue, hospital_id: this.props.hospital_id_search, 'page':this.props.hospital_id_search?'hospitalSearch':''
+            }
+            
+            GTM.sendEvent({ data: data })
+                
+        }
+        this.getSearchResults = debouncer(this.getSearchResults.bind(this), 200)
 	}
 
 	inputHandler(e) {
@@ -40,7 +49,7 @@ class CommonSearch extends React.Component {
 
     focusOut() {
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'searchInputFocusOut', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'search-string-on-blur', 'searched': '', 'searchString': this.state.searchValue, 'type': '', 'from': 'article'
+            'Category': 'ConsumerApp', 'Action': 'searchInputFocusOut', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'search-string-on-blur', 'searched': '', 'searchString': this.state.searchValue, 'type': '', 'from': 'article', 'page':this.props.hospital_id_search?'hospitalSearch':''
         }
         GTM.sendEvent({ data: data })
     }
@@ -63,15 +72,24 @@ class CommonSearch extends React.Component {
         }
 
         let location = { lat: lat, long: long }
+        let searchType = ''
+        let extraSearchParams = {}
+        if(this.props.hospital_id_search) {
+            extraSearchParams.hospital_id = this.props.hospital_id_search
+            searchType = 'opd'
+            location.lat = this.props.hospital_lat || location.lat
+            location.long = this.props.hospital_long || location.long
+        }
 
-        this.props.getElasticCriteriaResults(this.state.searchValue.trim(),'', location).then((filterSearchResults)=> {
+
+        this.props.getElasticCriteriaResults(this.state.searchValue.trim(),searchType, location, extraSearchParams).then((filterSearchResults)=> {
 
             if (filterSearchResults && filterSearchResults.suggestion) {
 
                 let filterResultsName = filterSearchResults.suggestion.map(x => x.name).join(',') || ''
                 let gtmData = {
                     'Category': 'ConsumerApp', 'Action': 'searchquery', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'search-query', 'searchString': this.state.searchValue,
-                    'searchType': '', 'results': filterResultsName, 'from':'article'
+                    'searchType': '', 'results': filterResultsName, 'from':'article', 'page':this.props.hospital_id_search?'hospitalSearch':''
                 }
                 GTM.sendEvent({ data: gtmData })
                 let filterData = filterSearchResults.suggestion
@@ -112,7 +130,7 @@ class CommonSearch extends React.Component {
             	type = 'opd'
 
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'VisitReasonSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'visit-reason-searched', 'SelectedId': criteria.id || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'VisitReasonSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'visit-reason-searched', 'SelectedId': criteria.id || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue, 'page':this.props.hospital_id_search?'hospitalSearch':''
                 }
                 GTM.sendEvent({ data: data })
 
@@ -124,7 +142,7 @@ class CommonSearch extends React.Component {
             else if (criteria.action.param.includes('hospital_name')) {
             	type = 'opd'
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'hospitalId': criteria.action.id || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
+                    'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'hospitalId': criteria.action.id || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || '', 'page':this.props.hospital_id_search?'hospitalSearch':''
                 }
                 GTM.sendEvent({ data: data })
 
@@ -139,7 +157,7 @@ class CommonSearch extends React.Component {
             } else if (criteria.action.param.includes('procedure_ids')) {
             	type = 'opd'
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value ? criteria.action.value[0] : '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'CommonProceduresSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-procedures-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value ? criteria.action.value[0] : '', 'searched': 'autosuggest', 'searchString': this.state.searchValue, 'page':this.props.hospital_id_search?'hospitalSearch':''
                 }
                 GTM.sendEvent({ data: data })
 
@@ -149,7 +167,7 @@ class CommonSearch extends React.Component {
             } else if (criteria.action.param.includes('specializations')) {
             	type = 'opd'
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value ? criteria.action.value[0] : '', 'searched': 'autosuggest', 'searchString': this.state.searchValue
+                    'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-selected', 'selected': criteria.name || '', 'selectedId': criteria.action.value ? criteria.action.value[0] : '', 'searched': 'autosuggest', 'searchString': this.state.searchValue, 'page':this.props.hospital_id_search?'hospitalSearch':''
                 }
                 GTM.sendEvent({ data: data })
 
@@ -160,7 +178,7 @@ class CommonSearch extends React.Component {
             	type = 'opd'
 
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
+                    'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || '', 'page':this.props.hospital_id_search?'hospitalSearch':''
                 }
                 GTM.sendEvent({ data: data })
 
@@ -171,7 +189,7 @@ class CommonSearch extends React.Component {
             }else if (criteria.type == "lab") {
                 this.props.clearExtraTests()
                 let data = {
-                    'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
+                    'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || '', 'page':this.props.hospital_id_search?'hospitalSearch':''
                 }
                 GTM.sendEvent({ data: data })
 
@@ -196,7 +214,7 @@ class CommonSearch extends React.Component {
 
             }else if (criteria.type.includes('ipd')) {
 	            let data = {
-	                'Category': 'ConsumerApp', 'Action': 'IPDNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || ''
+	                'Category': 'ConsumerApp', 'Action': 'IPDNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-name-searched', 'selectedId': criteria.action.value[0] || '', 'searched': 'autosuggest', 'searchString': this.state.searchValue || '', 'page':this.props.hospital_id_search?'hospitalSearch':''
 	            }
 	            GTM.sendEvent({ data: data })
 	            let ipdData = Object.assign({}, criteria)
@@ -213,7 +231,7 @@ class CommonSearch extends React.Component {
             if(type=='opd'){
             	this.props.cloneCommonSelectedCriterias(criteria)
     	        this.setState({ searchValue: "" })
-	            this.searchProceedOPD()
+	            this.searchProceedOPD('', '', this.props.hospital_id_search||'')
 
             }
         }
@@ -268,6 +286,12 @@ class CommonSearch extends React.Component {
         this.props.history.push('/lab/searchresults')
     }
 
+    onFocusIn() {
+        if(this.props.getInputFocus){
+            this.props.getInputFocus()
+        }
+    }
+
     render(){
 
     	return(
@@ -276,7 +300,7 @@ class CommonSearch extends React.Component {
 
 			<div className="articleSearchWidget">
                 <div className="articleInputContainer">
-                    <input className="artc-inp" type="text" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder="Search Doctors & Tests"  onBlur={() => this.focusOut()} />
+                    <input className="artc-inp" type="text" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.hospital_id_search?`Search for Doctor, Speciality within Hospital`:"Search Doctors & Tests"}  onBlur={() => this.focusOut()} onFocus ={this.onFocusIn.bind(this)}/>
                     <img className="artc-img" src={ASSETS_BASE_URL + "/images/vall.png"} />
                     {
                         this.props.commonSearch?''
@@ -299,7 +323,7 @@ class CommonSearch extends React.Component {
                                             return <li key={j} onClick={this.addCriteria.bind(this, cat)}>
                                                 <div className="serach-rslt-with-img">
                                                     {
-                                                        cat.type.includes('doctor') ?
+                                                        cat.type && cat.type.includes('doctor') ?
                                                             <InitialsPicture name={cat.name} has_image={!!cat.image_path} className="elasticInitalPic initialsPicture-ds fltr-initialPicture-ds">
                                                                 <span className="srch-rslt-wd-span usr-srch-img">
                                                                     <img style={{ width: '35px', height: '35px', borderRadius: '50%' }} className="" src={`https://cdn.docprime.com/media/${cat.image_path}`} alt={cat.name} title={cat.name} />
@@ -315,13 +339,13 @@ class CommonSearch extends React.Component {
                                                     <p style={{ padding: '0 50px 0 0' }} >
                                                         {cat.name}
                                                         {
-                                                            cat.type.includes('ipd')
+                                                            cat.type && cat.type.includes('ipd')
                                                                 ? <span className="search-span-sub">IPD Procedures</span>
                                                                 : cat.is_package && cat.is_package.length && cat.is_package[0] ?
                                                                     <span className="search-span-sub">Health Package {cat.number_of_tests && cat.number_of_tests.length && cat.number_of_tests[0] ? ` | ${cat.number_of_tests[0]} Test Included` : ''}</span>
-                                                                    : cat.type.includes("hospital")
+                                                                    : cat.type && cat.type.includes("hospital")
                                                                         ? <span className="search-span-sub">{cat.locality && Array.isArray(cat.locality) ? cat.locality.join(', ') : cat.visible_name}</span>
-                                                                        : <span className="search-span-sub">{cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name) ? cat.primary_name.slice(0, 2).join(', ') : cat.visible_name}</span>
+                                                                        : <span className="search-span-sub">{cat.type && cat.type.includes('doctor') && cat.primary_name && Array.isArray(cat.primary_name) ? cat.primary_name.slice(0, 2).join(', ') : cat.visible_name}</span>
                                                         }
                                                     </p>
                                                 </div>
@@ -332,7 +356,7 @@ class CommonSearch extends React.Component {
                                                         </div> : ''
                                                 }
                                                 {
-                                                    cat.name.includes('Aarogyam C') ?
+                                                    cat.name && cat.name.includes('Aarogyam C') ?
                                                         <div className="popular-txt">
                                                             <span className="fw-500">Popular</span>
                                                         </div> : ''
@@ -345,11 +369,11 @@ class CommonSearch extends React.Component {
                                             ? <li onClick={() => {
 
                                                 let data = {
-                                                    'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'selectedId': '', 'searched': '', 'searchString': this.state.searchValue || ''
+                                                    'Category': 'ConsumerApp', 'Action': 'DoctorNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-name-searched', 'selectedId': '', 'searched': '', 'searchString': this.state.searchValue || '', 'page':this.props.hospital_id_search?'hospitalSearch':''
                                                 }
                                                 GTM.sendEvent({ data: data })
 
-                                                this.searchProceedOPD(this.state.searchValue, "")
+                                                this.searchProceedOPD(this.state.searchValue, "", this.props.hospital_id_search||'')
                                             }}>
                                                 <div className="serach-rslt-with-img">
                                                     <span className="srch-rslt-wd-span text-center srch-img">
@@ -361,11 +385,11 @@ class CommonSearch extends React.Component {
                                             : ''
                                     }
                                     {
-                                    	this.state.searchValue.length > 2 ?
+                                    	this.state.searchValue.length > 2  && !this.props.hospital_id_search?
                                     	<li onClick={() => {
 
                                             let data = {
-                                                'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'selectedId': '', 'searched': '', 'searchString': this.state.searchValue || ''
+                                                'Category': 'ConsumerApp', 'Action': 'LabNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-name-searched', 'selectedId': '', 'searched': '', 'searchString': this.state.searchValue || '', 'page':this.props.hospital_id_search?'hospitalSearch':''
                                             }
                                             GTM.sendEvent({ data: data })
 
@@ -385,11 +409,11 @@ class CommonSearch extends React.Component {
                                         <li onClick={() => {
 
                                             let data = {
-                                                'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'hospitalId': '', 'searched': '', 'searchString': this.state.searchValue || ''
+                                                'Category': 'ConsumerApp', 'Action': 'HospitalNameSearched', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'hospital-name-searched', 'hospitalId': '', 'searched': '', 'searchString': this.state.searchValue || '', 'page':this.props.hospital_id_search?'hospitalSearch':''
                                             }
                                             GTM.sendEvent({ data: data })
 
-                                            this.searchProceedOPD("", this.state.searchValue)
+                                            this.searchProceedOPD("", this.state.searchValue, this.props.hospital_id_search || '')
                                         }}>
                                             <div className="serach-rslt-with-img">
                                                 <span className="srch-rslt-wd-span text-center srch-img">

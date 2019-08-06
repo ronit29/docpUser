@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails, ipdChatView, checkIpdChatAgentStatus, saveAvailNowInsurance } from '../../actions/index.js'
+import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails, ipdChatView, checkIpdChatAgentStatus, saveAvailNowInsurance, submitIPDForm } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
 
@@ -31,13 +31,12 @@ class PatientDetails extends React.Component {
 
     fetchData(props,clinic_id,callDoctorById) {
         const parsed = queryString.parse(props.location.search)
-
         let doctor_id = props.selectedDoctor || props.match.params.id || parsed.doctor_id
         let hospital_id
         if(clinic_id){
             hospital_id = clinic_id
         }else{
-            hospital_id = props.selectedClinic || props.match.params.clinicId || parsed.hospital_id
+            hospital_id = parsed.hospital_id || props.match.params.clinicId
         }
 
         if (window) {
@@ -55,14 +54,17 @@ class PatientDetails extends React.Component {
                 props.getDoctorById(doctor_id, hospital_id, props.commonProfileSelectedProcedures)
             }
 
-            if (props.selectedSlot && props.selectedSlot.date && !props.selectedSlot.summaryPage) {
+            /*if (props.selectedSlot && props.selectedSlot.date && !props.selectedSlot.summaryPage) {
                 this.setState({ DATA_FETCH: true })
             } else {
 
                 props.getTimeSlots(doctor_id, hospital_id, (timeSlots) => {
                     this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, DATA_FETCH: true, upcoming_slots: timeSlots.upcoming_slots })
                 })
-            }
+            }*/
+            props.getTimeSlots(doctor_id, hospital_id, (timeSlots) => {
+                    this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, DATA_FETCH: true, upcoming_slots: timeSlots.upcoming_slots })
+                })
         }
     }
 
@@ -81,7 +83,7 @@ class PatientDetails extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
 
         let doctor_id = this.props.selectedDoctor || this.props.match.params.id || parsed.doctor_id
-        let hospital_id = this.props.selectedClinic || this.props.match.params.clinicId || parsed.hospital_id
+        let hospital_id = parsed.hospital_id || this.props.match.params.clinicId 
 
         return (
             <PatientDetailsView {...this.props} {...this.state} selectedDoctor={doctor_id} selectedClinic={hospital_id} fetchData={this.fetchData.bind(this)}/>
@@ -92,18 +94,19 @@ class PatientDetails extends React.Component {
 const mapStateToProps = (state) => {
 
     let DOCTORS = state.DOCTOR_PROFILES
-    const { selectedProfile, profiles, userWalletBalance, userCashbackBalance, defaultProfile, ipd_chat } = state.USER
-    let { selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, payment_type } = state.DOCTOR_SEARCH
+    const { selectedProfile, profiles, userWalletBalance, userCashbackBalance, defaultProfile, ipd_chat, is_ipd_form_submitted } = state.USER
+    let { selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, payment_type, selectedDateFormat, TIMESLOT_DATA_LOADING } = state.DOCTOR_SEARCH
     const { saved_patient_details } = state.SEARCH_CRITERIA_LABS
-    const { common_settings } = state.SEARCH_CRITERIA_OPD
+    const { common_settings, selectedLocation } = state.SEARCH_CRITERIA_OPD
+    const { ipdPopupData } = state.SEARCH_CRITERIA_IPD
     return {
-        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details, defaultProfile, ipd_chat, common_settings
+        selectedProfile, profiles, DOCTORS, selectedSlot, doctorCoupons, disCountedOpdPrice, couponAutoApply, selectedDoctorProcedure, commonProfileSelectedProcedures, userWalletBalance, userCashbackBalance, payment_type, saved_patient_details, defaultProfile, ipd_chat, common_settings, selectedDateFormat, TIMESLOT_DATA_LOADING, is_ipd_form_submitted, ipdPopupData, selectedLocation
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
+        selectOpdTimeSLot: (slot, reschedule, appointmentId, extraDateParams) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId, extraDateParams)),
         getUserProfile: () => dispatch(getUserProfile()),
         getDoctorById: (doctorId, hospitalId, procedure_ids) => dispatch(getDoctorById(doctorId, hospitalId, procedure_ids)),
         createOPDAppointment: (postData, callback) => dispatch(createOPDAppointment(postData, callback)),
@@ -125,7 +128,8 @@ const mapDispatchToProps = (dispatch) => {
         patientDetails: (criteria) => dispatch(patientDetails(criteria)),
         ipdChatView: (data) => dispatch(ipdChatView(data)),
         checkIpdChatAgentStatus: (cb) => dispatch(checkIpdChatAgentStatus(cb)),
-        saveAvailNowInsurance:(data) => dispatch(saveAvailNowInsurance(data))
+        saveAvailNowInsurance:(data) => dispatch(saveAvailNowInsurance(data)),
+        submitIPDForm: (formData, selectedLocation, cb) => dispatch(submitIPDForm(formData, selectedLocation, cb))
     }
 }
 

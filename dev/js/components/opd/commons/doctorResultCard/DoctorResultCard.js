@@ -211,16 +211,15 @@ class DoctorProfileCard extends React.Component {
                 googleRatingCount = google_rating.rating_count || ''
             }
             let is_insurance_buy_able = hospital.is_insurance_covered && !hospital.is_user_insured && deal_price <= hospital.insurance_threshold_amount
-
+            let insurance_limit_message = hospital.insurance_limit_message
             let qualificationsArray = [];
             if (qualifications && qualifications.length) {
                 qualificationsArray = qualifications.filter(x => x.qualification.length <= 6);
             }
-
             return (
                 <div className="cstm-docCard mb-3">
                     {
-                        new_schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
+                        new_schema && !this.props.isHospitalPage ? <script type="application/ld+json" dangerouslySetInnerHTML={{
                             __html: new_schema
                         }} /> : ""
                     }
@@ -249,6 +248,19 @@ class DoctorProfileCard extends React.Component {
                                     <div className="cstm-doc-content-container">
                                         <h3>{this.getQualificationStr(general_specialization || [])}</h3>
                                         {
+                                            qualifications && qualifications.length && qualificationsArray.length ?
+                                                <h3>
+                                                    {
+                                                        qualificationsArray.map((qualification, index) => {
+                                                            if (index < 3) {
+                                                                return <span key={index}>{qualification.qualification} {(index < qualificationsArray.length - 1) && (index != 2) ? '| ' : ''}</span>
+                                                            }
+                                                            else return ''
+                                                        })
+                                                    }
+                                                </h3> : ''
+                                        }
+                                        {
                                             experience_years ?
                                                 <h3 style={{ marginBottom: 5 }}>{experience_years} Years Experience</h3> : ''
                                         }
@@ -263,20 +275,6 @@ class DoctorProfileCard extends React.Component {
                                                         {time}
                                                     </p>
                                                 }) : ''
-                                        }
-                                        {
-                                            qualifications && qualifications.length && qualificationsArray.length ?
-                                                <p style={{ marginTop: 5 }}>
-                                                    <img className="cstmTimeImg" style={{ width: 15 }} src={ASSETS_BASE_URL + '/img/customer-icons/Education-01.svg'} />
-                                                    {
-                                                        qualificationsArray.map((qualification, index) => {
-                                                            if (index < 3) {
-                                                                return <span key={index}>{qualification.qualification} {(index < qualificationsArray.length - 1) && (index != 2) ? '| ' : ''}</span>
-                                                            }
-                                                            else return ''
-                                                        })
-                                                    }
-                                                </p> : ''
                                         }
                                     </div>
                                 </div>
@@ -329,7 +327,7 @@ class DoctorProfileCard extends React.Component {
                                 }
                             </div>
                         </div>
-                        {
+                        {/*
                             is_insurance_buy_able && this.props.common_settings && this.props.common_settings.insurance_availability ?
                                 <div className="ins-buyable">
                                     <p>Book this Doctor for ₹0 with OPD Insurance</p>
@@ -343,13 +341,17 @@ class DoctorProfileCard extends React.Component {
                                     }}>Know more</span>
                                 </div>
                                 : ''
-                        }
+                        */}
+                        {/*
+                            !is_insurance_buy_able && this.props.common_settings && this.props.common_settings.insurance_availability?
+                            <p> {insurance_limit_message}</p>
+                            :''
+                        */}
                     </div>
                     <div className="cstmCardFooter">
                         <div className="cstmfooterContent">
                             {
-                                hospital.url && hospital.url.length ?
-
+                                hospital.url && hospital.url.length && !this.props.isHospitalPage ?
                                     <h3><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />
                                         <a href={`/${hospital.url}`} style={{ color: '#000' }} onClick={
                                             (e) => {
@@ -364,12 +366,19 @@ class DoctorProfileCard extends React.Component {
                                                 <span> &amp; {hospital_count - 1} More </span> : ''
                                         }
                                     </h3>
-                                    : <h3><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />{hospital.hospital_name}
-                                        {
-                                            hospital_count > 1 ?
-                                                <span> &amp; {hospital_count - 1} More </span> : ''
-                                        }
-                                    </h3>
+                                    : this.props.isHospitalPage ?
+                                        <p><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />{hospital.hospital_name}
+                                            {
+                                                hospital_count > 1 ?
+                                                    <span> &amp; {hospital_count - 1} More </span> : ''
+                                            }
+                                        </p>
+                                        : <h3><img style={{ width: '16px' }} src={ASSETS_BASE_URL + "/img/cstmhome.svg"} />{hospital.hospital_name}
+                                            {
+                                                hospital_count > 1 ?
+                                                    <span> &amp; {hospital_count - 1} More </span> : ''
+                                            }
+                                        </h3>
                             }
                             {
                                 google_rating && !average_rating ?
@@ -379,7 +388,7 @@ class DoctorProfileCard extends React.Component {
                                     </div> : ''
                             }
                             {
-                                parent_url && parent_url.length ?
+                                parent_url && parent_url.length && !this.props.isHospitalPage ?
                                     <a href={`/${parent_url}`} onClick={
                                         (e) => {
                                             e.preventDefault()

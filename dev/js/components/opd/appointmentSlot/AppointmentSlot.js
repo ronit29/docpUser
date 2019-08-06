@@ -10,6 +10,7 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
+import STORAGE from '../../../helpers/storage'
 
 //import TimeSlotSelector from '../../commons/timeSlotSelector/index.js'
 
@@ -47,6 +48,36 @@ class AppointmentSlot extends React.Component {
         if(this.state.selectedTimeSlot){
             this.selectTimeSlot(this.state.selectedTimeSlot)    
         }
+
+
+        //Create IPD Lead on Time slot selection for login user & for ipd hospital(potential + congot)
+        if(STORAGE.checkAuth() && this.props.DOCTORS && this.props.DOCTORS[this.props.selectedDoctor]) {
+
+            //Check for ipd hospital for the selected Clinic
+            let hospital = {}
+            let hospitals = this.props.DOCTORS[this.props.selectedDoctor].hospitals
+            if (hospitals && hospitals.length) {
+                hospitals.map((hsptl) => {
+                    if (hsptl.hospital_id == this.props.selectedClinic) {
+                        hospital = hsptl
+                    }
+                })
+            }
+
+            if(hospital && hospital.is_ipd_hospital) {
+                let formData = {
+                    phone_number: this.props.primaryMobile,
+                    doctor: this.props.selectedDoctor,
+                    hospital: this.props.selectedClinic,
+                    source: 'dropoff',
+                    is_valid: false,
+                    first_name: this.props.userName||'unknown'
+                }
+                this.props.submitIPDForm(formData, this.props.selectedLocation)
+            }
+        }
+
+
         // in case of reschedule go to reschedule page , else push
         if (this.state.reschedule) {
             const parsed = queryString.parse(this.props.location.search)
@@ -69,7 +100,31 @@ class AppointmentSlot extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
         slot.selectedDoctor = this.props.selectedDoctor
         slot.selectedClinic = this.props.selectedClinic
-        this.props.selectOpdTimeSLot(slot, this.state.reschedule, parsed.reschedule)
+        let extraTimeParams = null
+        if(this.state.selectedTimeSlot && this.state.selectedTimeSlot.date) {
+            extraTimeParams = this.getFormattedDate(this.state.selectedTimeSlot.date)
+        }
+        this.props.selectOpdTimeSLot(slot, this.state.reschedule, parsed.reschedule, extraTimeParams)
+    }
+
+    getFormattedDate(date) {
+
+        var dd = date.getDate();
+
+        var mm = date.getMonth()+1; 
+        var yyyy = date.getFullYear();
+        if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        }
+
+        var today = yyyy+'-'+mm+'-'+dd;
+        return today
     }
 
     componentDidMount() {

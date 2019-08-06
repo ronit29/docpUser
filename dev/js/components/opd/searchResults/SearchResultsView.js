@@ -262,6 +262,8 @@ class SearchResultsView extends React.Component {
 
         let ipd_ids = commonSelectedCriterias.filter(x => x.type == 'ipd').map(x => x.id)
 
+        let group_ids = commonSelectedCriterias.filter(x => x.type == 'group_ids').map(x => x.id)
+
         let lat = 28.644800
         let long = 77.216721
         let place_id = ""
@@ -340,7 +342,7 @@ class SearchResultsView extends React.Component {
 
         if (is_filter_applied || !this.state.seoFriendly) {
 
-            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}&sits_at_hospital=${sits_at_hospital}&sits_at_clinic=${sits_at_clinic}`
+            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}&sits_at_hospital=${sits_at_hospital}&sits_at_clinic=${sits_at_clinic}&group_ids=${group_ids}`
 
             is_params_exist = true
 
@@ -401,29 +403,67 @@ class SearchResultsView extends React.Component {
     }
 
     getMetaTagsData(seoData) {
-        let title = "Doctor Search"
-        if (this.state.seoFriendly) {
-            title = ""
-        }
+        let title = ''
         let description = ""
+        if (this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) {
+            title = `${this.props.commonSelectedCriterias[0].name} : Book Best ${this.props.commonSelectedCriterias[0].name} Doctors Near You`
+            description = `${this.props.commonSelectedCriterias[0].name}: Book appointment with the best ${this.props.commonSelectedCriterias[0].name} from top hospitals and clinics near you at discounted price. Check doctor reviews and more.`
+        }
         let schema = {}
         if (seoData) {
-            title = seoData.title || ""
-            description = seoData.description || ""
-            schema = seoData.schema
+            title = seoData.title || title
+            description = seoData.description || description
+            schema = seoData.schema || schema
         }
         if (parseInt(this.props.page) != 1) {
-            title = 'Page  ' + this.props.page + ' - ' + title
+            title = 'Page ' + this.props.page + ' - ' + title
         }
         return { title, description, schema }
     }
 
-    resetQuickFilters(){
-        this.setState({quickFilter: {}})
+    resetQuickFilters() {
+        this.setState({ quickFilter: {} })
     }
 
     applyQuickFilter(filter) {
-        this.setState({quickFilter: filter})
+        this.setState({ quickFilter: filter })
+    }
+
+    isFilterApplied(filterCriteria) {
+        //Check if any filter applied 
+        let is_filter_applied = false
+        if (filterCriteria) {
+            let sort_on = filterCriteria.sort_on || ""
+            let sort_order = filterCriteria.sort_order || ""
+            let availability = filterCriteria.availability || []
+            let avg_ratings = filterCriteria.avg_ratings || []
+            let gender = filterCriteria.gender || ''
+            let sits_at_hospital = filterCriteria.sits_at_hospital
+            let sits_at_clinic = filterCriteria.sits_at_clinic
+
+
+            let hospital_name = filterCriteria.hospital_name || ""
+            let doctor_name = filterCriteria.doctor_name || ""
+            let hospital_id = filterCriteria.hospital_id || ""
+            let is_insured = filterCriteria.is_insured || false
+
+            if (sort_on) {
+                is_filter_applied = true
+            }
+            if (availability && availability.length) {
+                is_filter_applied = true
+            }
+
+            if (avg_ratings && avg_ratings.length) {
+                is_filter_applied = true
+            }
+
+            if (gender) {
+                is_filter_applied = true
+            }
+        }
+
+        return is_filter_applied
     }
 
     render() {
@@ -467,7 +507,11 @@ class SearchResultsView extends React.Component {
                     schema: this.getMetaTagsData(this.props.seoData).schema,
                     seoFriendly: this.state.seoFriendly,
                     prev: prev,
-                    next: next
+                    next: next,
+                    ogType: 'Website',
+                    ogSiteName: 'Docprime',
+                    ogTitle: this.getMetaTagsData(this.props.seoData).title,
+                    ogDescription: this.getMetaTagsData(this.props.seoData).description
                 }} />
 
                 <CriteriaSearch {...this.props} checkForLoad={landing_page || this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card} newChatBtn={true} searchDoctors={true}>
@@ -484,8 +528,19 @@ class SearchResultsView extends React.Component {
                                     <div className="pkg-card-container mt-20 mb-3">
                                         <div className="pkg-no-result">
                                             <p className="pkg-n-rslt">No result found!</p>
-                                            <img className="n-rslt-img" src={ASSETS_BASE_URL + '/img/no-result.png'} />
-                                            <p className="pkg-ty-agn cursor-pntr" onClick={this.applyQuickFilter.bind(this, {viewMore: true})}>Try again with fewer filters</p>
+                                            {
+                                                this.isFilterApplied(this.props.filterCriteria)?
+                                                <React.Fragment>
+                                                    <img className="n-rslt-img" src={ASSETS_BASE_URL + '/img/no-result.png'} />
+                                                    <p className="pkg-ty-agn cursor-pntr" onClick={this.applyQuickFilter.bind(this, {viewMore: true})}>Try again with fewer filters</p>
+                                                </React.Fragment>
+                                                :
+                                                <React.Fragment>
+                                                    <img style={{width:'130px'}} className="n-rslt-img" src={ASSETS_BASE_URL + '/img/vct-no.png'} />
+                                                    <p className="pkg-ty-agn text-dark text-center">Can’t find your doctor here?<br></br>Help us to list your doctor</p>
+                                                    <button className="referDoctorbtn" onClick={()=>{this.props.history.push('/doctorsignup?member_type=1')}}>Refer your Doctor</button>
+                                                </React.Fragment>
+                                            }
                                         </div>
                                     </div>
                                 </div>

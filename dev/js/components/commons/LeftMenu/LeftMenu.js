@@ -87,7 +87,7 @@ class LeftMenu extends React.Component {
                         e.preventDefault()
                         this.props.toggleLeftMenu()
                         this.props.history.push('/insurance/insurance-plans?source=mobile-leftmenu-insurance-clicked')
-                      }} href="#"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} alt="" className="" />OPD Insurance<span className={user_ins_status == 1 || user_ins_status == 5 ? 'float-right memAct' : 'float-right memNew'}>{user_ins_status == 1 || user_ins_status == 5 ? 'Active' : 'New'}</span></a></li>
+                      }} href="#"><img src={ASSETS_BASE_URL + "/img/customer-icons/ins.png"} alt="" className="" />OPD Insurance<span className={user_ins_status == 1 || user_ins_status == 5 || user_ins_status == 4 || user_ins_status == 7 ? 'float-right memAct' : 'float-right memNew'}>{user_ins_status == 1 || user_ins_status == 5 || user_ins_status == 4 || user_ins_status == 7? 'Active' : 'New'}</span></a></li>
                       : ''
                   }
                   <li><a onClick={this.isDocCare.bind(this)}><img src={ASSETS_BASE_URL + "/img/primecae.png"} alt="" className="" />Docprime Care
@@ -196,11 +196,16 @@ class LeftMenu extends React.Component {
                         this.props.toggleLeftMenu()
                         this.props.history.push("/tests")
                       }} href="#">Tests</a></li>
-                      <li ><a onClick={(e) => {
+                      <li ><a className="pad-B0" onClick={(e) => {
                         e.preventDefault();
                         this.props.toggleLeftMenu()
                         this.props.history.push("/ipd-procedures")
                       }} href="#">Procedures</a></li>
+                      <li ><a onClick={(e) => {
+                        e.preventDefault();
+                        this.props.toggleLeftMenu()
+                        this.props.history.push("/hospitals")
+                      }} href="#">Hospitals</a></li>
                       </div>
                       : ''
                   }

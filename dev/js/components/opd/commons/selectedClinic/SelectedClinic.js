@@ -37,10 +37,12 @@ class SelectedClinic extends React.Component {
         let hospitalName = ""
         let hospital_id = ''
         let show_clinic =0
+        let address
         if (hospitals && hospitals.length) {
             hospitals.map((hospital, i) => {
                 if ((hospital.hospital_id || hospital.id) == this.props.selectedClinic) {
                     hospitalName = hospital.hospital_name || hospital.name
+                    address = hospital.address
                     if (i == 0) {
                         hospital_id = hospital.hospital_id
                     }
@@ -65,9 +67,10 @@ class SelectedClinic extends React.Component {
                     </div>
                     <div className="dr-profile">
                         <h1 className="dr-name">{display_name}<span className="nwDocViewPrf" onClick={() => this.profileClick(id, url, hospital_id)}>(View Profile)</span></h1>
-                        <span className="clinic-name text-sm">{hospitalName}</span>
+                        {/*<span className="clinic-name text-sm">{hospitalName}</span>*/}
+                        <span className="clinic-name text-xs"> {address}</span>
                     {hospitals && hospitals.length > 1 && show_clinic >0?        
-                        <span className={`${!this.state.showMoreClinic?'nw-clinicMore':'nw-clinicMore arrow-rev'}`} onClick={this.toggleMoreClinic.bind(this,!this.state.showMoreClinic)}>+ {hospitals.length-1} more Clinics <img src={ASSETS_BASE_URL + '/img/right-sc.svg'} /></span>
+                        <span className={`nw-clinicMore mt-0 ${!this.state.showMoreClinic?'':'arrow-rev'}`} onClick={this.toggleMoreClinic.bind(this,!this.state.showMoreClinic)}>+ {hospitals.length-1} more Clinics <img src={ASSETS_BASE_URL + '/img/right-sc.svg'} /></span>
                     :''}
                     </div>
                 </div>

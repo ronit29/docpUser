@@ -54,6 +54,7 @@ class CriteriaElasticSearchView extends React.Component {
                 document.getElementById('search_results_view').scrollIntoView()
             })
         }
+        this.selectSearchType(this.props.type)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -78,6 +79,17 @@ class CriteriaElasticSearchView extends React.Component {
             this.setState({ searchResults: [] })
             this.props.toggleFixedMobileFooter(true)
         }
+    }
+
+    selectSearchType(type){
+        if (this.textInput) {
+            this.textInput.focus()
+        }
+        if (this.textInput_desktop) {
+            this.textInput_desktop.focus()
+        }
+        
+        this.props.changeSelection(type,'')
     }
 
     getSearchResults() {
@@ -364,13 +376,13 @@ class CriteriaElasticSearchView extends React.Component {
                                                     <div className="srch-radio-btns ipd-srch-radio-btn" id="search_results_view">
                                                         <div className="dtl-radio">
                                                             <label className="container-radio">Doctor
-                                                            <input type="radio" onChange={this.props.changeSelection.bind(this, 'opd', '')} checked={this.props.selected == 'opd'} name="radio" />
+                                                            <input type="radio" onChange={this.selectSearchType.bind(this, 'opd')} checked={this.props.selected == 'opd'} name="radio" />
                                                                 <span className="doc-checkmark"></span>
                                                             </label>
                                                         </div>
                                                         <div className="dtl-radio">
                                                             <label className="container-radio">Lab Test
-                                                            <input type="radio" onChange={this.props.changeSelection.bind(this, 'lab', '')} checked={this.props.selected == 'lab'} name="radio" />
+                                                            <input type="radio" onChange={this.selectSearchType.bind(this, 'lab')} checked={this.props.selected == 'lab'} name="radio" />
                                                                 <span className="doc-checkmark"></span>
                                                             </label>
                                                         </div>
@@ -382,7 +394,7 @@ class CriteriaElasticSearchView extends React.Component {
                                             </div>*/}
                                                         <div className="dtl-radio">
                                                             <label className="container-radio">Surgery
-                                                            <input type="radio" onChange={this.props.changeSelection.bind(this, 'ipd', '')} checked={this.props.selected == 'ipd'} name="radio" />
+                                                            <input type="radio" onChange={this.selectSearchType.bind(this, 'ipd')} checked={this.props.selected == 'ipd'} name="radio" />
                                                                 <span className="doc-checkmark"></span>
                                                             </label>
                                                         </div>
@@ -392,12 +404,14 @@ class CriteriaElasticSearchView extends React.Component {
                                                             if (this.props.goBack) {
                                                                 this.props.history.go(-1)
                                                             }
-                                                        }} onBlur={() => this.focusOut()} />
+                                                        }} onBlur={() => this.focusOut()} 
+                                                        ref={(input) => {this.textInput = input }}/>
                                                         <input type="text" autoComplete="off" className="d-none d-lg-block new-srch-doc-lab" id="search_bar_desktop" onChange={this.inputHandler.bind(this)} value={this.state.searchValue} placeholder={this.props.title} onClick={() => {
                                                             if (this.props.goBack) {
                                                                 this.props.history.go(-1)
                                                             }
-                                                        }} onBlur={() => this.focusOut()} />
+                                                        }} onBlur={() => this.focusOut()} 
+                                                        />
                                                         <img style={{ width: '15px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
                                                     </div>
                                                 </div>
