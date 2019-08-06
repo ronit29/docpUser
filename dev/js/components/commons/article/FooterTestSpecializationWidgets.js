@@ -3,6 +3,14 @@ import GTM from '../../../helpers/gtm'
 
 class FooterWidgetView extends React.Component {
 
+	componentDidMount(){
+		let data = {
+			'Category': 'ConsumerApp', 'Action': 'FooterWidgetDisplayed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'footer-widget-displayed', type:this.props.footerWidget && this.props.footerWidget.widget_type?this.props.footerWidget.widget_type:''
+		}
+		GTM.sendEvent({ data: data })
+
+	}
+
 	selectDoctorSpecialization(data) {
 		let criteria = {}
 		criteria.id = data[1] || ''
@@ -23,7 +31,7 @@ class FooterWidgetView extends React.Component {
 		}
 
 		let gtmData = {
-			'Category': 'ConsumerApp', 'Action': 'CommonSpecializationsSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'common-specializations-selected', 'selected': criteria.name || '', 'selectedId': criteria.id || '', 'searched': '', 'searchString': '', 'from': 'footerWidget'
+			'Category': 'ConsumerApp', 'Action': 'FooterSpecializationsSelected', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'footer-specializations-selected', 'selected': criteria.name || '', 'selectedId': criteria.id || '', 'searched': '', 'searchString': '', 'from': 'footerWidget'
 		}
 		GTM.sendEvent({ data: gtmData })
 
@@ -67,7 +75,7 @@ class FooterWidgetView extends React.Component {
 		let selectedTestIds = this.props.LAB_STATE.selectedCriterias.map(test => test.id)
 		let selectedTestsName = this.props.LAB_STATE.selectedCriterias.map(test => test.name)
 		let data = {
-			'Category': 'ConsumerApp', 'Action': 'ShowLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-lab-clicked', 'SelectedTestIds': selectedTestIds.join(',') || '', 'SelectedTestName': selectedTestsName.join(','), 'TestCount': selectedTestIds.length || 0, 'from': 'footerWidget'
+			'Category': 'ConsumerApp', 'Action': 'FooterTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'footer-lab-clicked', 'SelectedTestIds': selectedTestIds.join(',') || '', 'SelectedTestName': selectedTestsName.join(','), 'TestCount': selectedTestIds.length || 0, 'from': 'footerWidget'
 		}
 		GTM.sendEvent({ data: data })
 

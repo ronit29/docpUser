@@ -425,8 +425,10 @@ this.getArticleData()
                                 </div> : ""
                             }
                             {
-                                this.state.hideFooterWidget?''
-                                :<FooterTestSpecializationWidgets {...this.props} footerWidget={this.state.articleData && this.state.articleData.footer_widget?this.state.articleData.footer_widget:null} handleClose={this.handleClose.bind(this)}/>
+                                this.state.articleData && this.state.articleData.footer_widget?
+                                    this.state.hideFooterWidget?''
+                                    :<FooterTestSpecializationWidgets {...this.props} footerWidget={this.state.articleData.footer_widget} handleClose={this.handleClose.bind(this)}/>
+                                :''
                             }
                             
                         </div>
