@@ -503,10 +503,10 @@ class HospitalDetailView extends React.Component {
 							}
 
 
-		                    <div className="row">
+		                    <div className="ipd-wdg-pdng">
 		                        {
 	                                this.props.hospitalComments && this.props.hospitalComments.length?
-	                                    <div className="col-12 col-md-7 col-lg-8 center-column">
+	                                    <div className="">
 	                                        <h4 className="comments-main-heading">{`User Comments (${this.props.hospitalComments.length})`}</h4>
 	                                        {
 	                                            this.props.hospitalComments.map((comment, key) => {
@@ -519,8 +519,8 @@ class HospitalDetailView extends React.Component {
 	                                    : ''
 		                        }
 
-                                <div className="col-12 col-md-7 col-lg-8 center-column">
-                                    <div className="widget mrb-15 mrng-top-12">
+                                <div className="">
+                                    <div className="widget mrb-15 mrng-top-12 p-0">
                                         <div className="widget-content">
                                             <CommentBox {...this.props} {...this.state}  parentCommentId={this.state.replyOpenFor} hospitalPage={true} parentCommentId='' hospital_id={this.props.ipd_hospital_detail.id} loadComments={this.loadComments.bind(this)} postComment={this.props.postHospitalComments}/>
                                         </div>
