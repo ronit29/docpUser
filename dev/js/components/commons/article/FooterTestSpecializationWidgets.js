@@ -97,7 +97,7 @@ class FooterWidgetView extends React.Component {
 							{
 								footerWidget.widget_type == 'LabTest' ?
 									<div className="doc-wdgt-book-doc">
-										<img className="docClosBtn" src="https://cdn.docprime.com/cp/assets/img/icons/close.png" />
+										<img className="docClosBtn" src="https://cdn.docprime.com/cp/assets/img/icons/close.png" onClick={()=>this.props.handleClose()}/>
 										<h3 className="doc-wdgt-hdng">{`${footerWidget.title} @`}<span>{footerWidget.discount}</span></h3>
 										<div className="doc-wdgt-chips">
 											{
@@ -114,7 +114,7 @@ class FooterWidgetView extends React.Component {
 							{
 								footerWidget.widget_type == 'DoctorAppointment' ?
 									<div className="doc-wdgt-book-doc">
-										<img className="docClosBtn" src="https://cdn.docprime.com/cp/assets/img/icons/close.png" />
+										<img className="docClosBtn" src="https://cdn.docprime.com/cp/assets/img/icons/close.png" onClick={()=>this.props.handleClose()}/>
 										<h3 className="doc-wdgt-hdng">{`${footerWidget.title} @`}<span>{footerWidget.discount}</span></h3>
 										<div className="doc-wdgt-chips">
 											{
@@ -132,12 +132,12 @@ class FooterWidgetView extends React.Component {
 							{
 								footerWidget.widget_type == 'HealthPackage' ?
 									<div className="doc-wdgt-bodychk-cont">
-										<img className="docClosBtn" src="https://cdn.docprime.com/cp/assets/img/icons/close.png" />
+										<img className="docClosBtn" src="https://cdn.docprime.com/cp/assets/img/icons/close.png" onClick={()=>this.props.handleClose()}/>
 
 										<div className="row">
 											<div className="col-7">
 												<h3 className="wdgt-bodychk-heding">{footerWidget.title_first}</h3>
-												<p className="bodychk-prc">@ <span className="bdy-pr">₹499</span> <span className="bdy-only">only</span> </p>
+												<p className="bodychk-prc">@ <span className="bdy-pr">{footerWidget.price}</span> <span className="bdy-only">only</span> </p>
 												<p className="bdychk-dtls">{footerWidget.title_last}</p>
 											</div>
 											<div className="col-5">

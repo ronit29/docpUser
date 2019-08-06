@@ -48,7 +48,8 @@ class Article extends React.Component {
             articleLoaded: articleLoaded,
             searchCities: [],
             searchWidget: '',
-            specialization_id: ''
+            specialization_id: '',
+            hideFooterWidget: false
         }
     }
 
@@ -217,6 +218,10 @@ this.getArticleData()
             }
 
         })
+    }
+
+    handleClose(){
+        this.setState({hideFooterWidget: true})
     }
 
     render() {
@@ -419,7 +424,11 @@ this.getArticleData()
                                     }
                                 </div> : ""
                             }
-                            <FooterTestSpecializationWidgets {...this.props} footerWidget={this.state.articleData && this.state.articleData.footer_widget?this.state.articleData.footer_widget:null}/>
+                            {
+                                this.state.hideFooterWidget?''
+                                :<FooterTestSpecializationWidgets {...this.props} footerWidget={this.state.articleData && this.state.articleData.footer_widget?this.state.articleData.footer_widget:null} handleClose={this.handleClose.bind(this)}/>
+                            }
+                            
                         </div>
                         <RightBar colClass="col-lg-4" articleData={this.state.articleData} />
                     </div>
