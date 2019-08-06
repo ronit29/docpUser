@@ -49,16 +49,28 @@ class UserAppointmentsView extends React.Component {
         if(this.state.show_sorted_results.length==1 && this.state.show_sorted_results.indexOf(value)>-1) {
             
         }else {
-            appointments = this.state.show_sorted_results.filter((x)=>{
-                if(x==value){
-                    found = true
-                    return false
-                }
-                return x
-            })
-            if(!found){
-                appointments.push(value)
+            let isAllExist = this.state.show_sorted_results.indexOf('all')
+            if(isAllExist==-1 && value=='all'){
+                appointments = ['all']
+            }else {
+                appointments = this.state.show_sorted_results.filter((x)=>{
+                    if(isAllExist >-1 && value!='all'){
+                        return false
+                    }
+                    if(x==value){
+                        found = true
+                        return false
+                    }
+                    if(value=='all'){
+                        return false
+                    }
+                    return x
+                })
+                if(!found){
+                    appointments.push(value)
+                }    
             }
+            
             this.setState({ show_sorted_results: appointments })
         }
     }
