@@ -2829,4 +2829,26 @@ h2.lbcrdcstfont.cstmDocName{
 	font-weight: 500 !important;
 }
 /* ============ lab custom card ============ */
+/* ============ doc chips scroll ============ */
+.doc-sld-container {
+    overflow: auto;
+    padding: 0 10px;
+    margin-top: 10px;
+}
+.sm-chips-container {
+    white-space: nowrap;
+}
+.sm-chips-container span {
+    border: 1px solid #000000;
+    background: white;
+    color: #000000;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: 500;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+/* ============ doc chips scroll ============ */
 

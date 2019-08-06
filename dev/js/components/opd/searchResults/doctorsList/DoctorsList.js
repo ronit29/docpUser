@@ -210,18 +210,18 @@ class DoctorsList extends React.Component {
         }
     }
 
-    SimilarSpecialization(flag){
-        let dataLength = parseInt(this.props.similar_specializations.length/2)
+    SimilarSpecialization(flag) {
+        let dataLength = parseInt(this.props.similar_specializations.length / 2)
         let count = 0
-        if(!flag){
+        if (!flag) {
             count = dataLength;
             dataLength = this.props.similar_specializations.length
         }
         let dataModel = []
-        for(let i = count; i<dataLength;i++) {
-            dataModel.push(<p id={this.props.similar_specializations[i].specialization_id}>
-                    {this.props.similar_specializations[i].specialization_name}
-                </p>)
+        for (let i = count; i < dataLength; i++) {
+            dataModel.push(<span id={this.props.similar_specializations[i].specialization_id}>
+                {this.props.similar_specializations[i].specialization_name}
+            </span>)
         }
         return dataModel
     }
@@ -360,10 +360,10 @@ class DoctorsList extends React.Component {
                                                                     </li> : ''
                                                             }
 
-                                                            {result_list && result_list.length > 5 &&  i == 3?
-                                                                <div className="mb-3 referDocimg" onClick={()=>{this.props.history.push('/doctorsignup?member_type=1')}}>
-                                                                <img src={ASSETS_BASE_URL + "/img/refrlbnr.png"} />
-                                                            </div>:''}
+                                                            {result_list && result_list.length > 5 && i == 3 ?
+                                                                <div className="mb-3 referDocimg" onClick={() => { this.props.history.push('/doctorsignup?member_type=1') }}>
+                                                                    <img src={ASSETS_BASE_URL + "/img/refrlbnr.png"} />
+                                                                </div> : ''}
                                                             {
                                                                 this.props.insurance_status != 1 && !this.state.sort_order && ((i == 6 && this.state.availability && !this.state.availability.length) || (i == 3 && this.state.availability && this.state.availability.length)) ?
                                                                     <div className="sort-sub-filter-container mb-3">
@@ -382,16 +382,19 @@ class DoctorsList extends React.Component {
                                                                         <BannerCarousel {...this.props} sliderLocation="doctor_search_page" />
                                                                     </div> : ''
                                                             }
-                                                            {this.props.similar_specializations && this.props.similar_specializations.length && !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && i==8 ?
-                                                                <div className="rishab">
-                                                                    <div id="one">
-                                                                        {this.SimilarSpecialization(true)}
-                                                                    </div>
-                                                                    <div id="two">
-                                                                        {this.SimilarSpecialization(false)}
+                                                            {this.props.similar_specializations && this.props.similar_specializations.length && !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && i == 8 ?
+                                                                <div className="sort-sub-filter-container mb-3 pb-0">
+                                                                    <p>Looking for other related  <span className="fw-700">Availability </span><span className="fw-500 sort-more-filter">View all</span></p>
+                                                                    <div className="doc-sld-container">
+                                                                        <div className="sm-chips-container">
+                                                                            {this.SimilarSpecialization(true)}
+                                                                        </div>
+                                                                        <div className="sm-chips-container">
+                                                                            {this.SimilarSpecialization(false)}
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                :''
+                                                                : ''
                                                             }
 
                                                             <li>
