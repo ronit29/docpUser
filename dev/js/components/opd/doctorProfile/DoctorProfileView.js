@@ -280,9 +280,6 @@ class DoctorProfileView extends React.Component {
 
     render() {
 
-        console.log('sadhksjadhkj')
-        console.log(this.props)
-
         let doctor_id = this.props.selectedDoctor
         if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
             doctor_id = this.props.initialServerData.doctor_id
