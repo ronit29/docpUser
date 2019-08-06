@@ -80,11 +80,11 @@ class HospitalDetail extends React.Component {
         }
         let hospitalId = searchUrl?'':this.props.match.params.hospitalId
         //if(!this.state.hospital_id || !this.props.ipd_hospital_detail_info || !this.props.ipd_hospital_detail_info[this.state.hospital_id]) {
-        	this.props.getHospitalComments(hospitalId)
         	this.props.getHospitaDetails(hospitalId, this.props.selectedLocation, searchUrl, specialization_id, (resp) => {
         		if(resp && resp.status && resp.status==301){
         			this.props.history.push(`/${resp.url}`)
         		}else if(resp && resp.id) {
+        			this.props.getHospitalComments(resp.id)
         			this.setState({hospital_id: resp.id})
         		}
         	})	
@@ -106,11 +106,12 @@ class HospitalDetail extends React.Component {
 	        }
 
 	       // if(!this.state.hospital_id || !nextProps.ipd_hospital_detail_info || !nextProps.ipd_hospital_detail_info[this.state.hospital_id]) {
-	       		this.props.getHospitalComments(this.props.match.params.hospitalId)
+	       		
 	        	this.props.getHospitaDetails(this.props.match.params.hospitalId, nextProps.selectedLocation, searchUrl, specialization_id, (resp) => {
 	        		if(resp && resp.status && resp.status==301){
 	        			this.props.history.push(`/${resp.url}`)
 	        		}else if(resp && resp.id) {
+	        			this.props.getHospitalComments(resp.id)		
 	        			this.setState({hospital_id: resp.id})
 	        		}
 	        	})
