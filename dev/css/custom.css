@@ -2832,7 +2832,8 @@ img.docClosBtn {
     cursor: pointer;
     position: absolute;
     right: 5px;
-    top: 5px;
+	top: 5px;
+	z-index: 9;
 }
 h3.doc-wdgt-hdng {
     font-size: 15px;
@@ -2845,7 +2846,7 @@ h3.doc-wdgt-hdng span {
     color: white;
     padding: 1px 4px;
     font-size: 14px;
-    margin-left: 8px;
+    margin-left: 10px;
     position: relative;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -2874,7 +2875,7 @@ h3.doc-wdgt-hdng span:before{
     font-size: 12px;
 }
 span.src-spn-chps {
-    border: transparent;
+    border: 1px solid transparent;
 }
 img.srh-img-chps {
     width: 13px;
