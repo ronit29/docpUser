@@ -2876,7 +2876,9 @@ h3.doc-wdgt-hdng span:before{
 }
 span.src-spn-chps {
 	border: 1px solid transparent;
-	font-size: 13px;
+    font-size: 13px;
+    display: block;
+    text-align: right;
 }
 img.srh-img-chps {
     width: 13px;

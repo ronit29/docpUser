@@ -121,7 +121,7 @@ class FooterWidgetView extends React.Component {
 													return <span key={key} onClick={this.selectTest.bind(this, data)}>{data[0]}</span>
 												})
 											}
-											<span className="src-spn-chps" onClick={this.openSearchMore.bind(this)}><img className="srh-img-chps" src={ASSETS_BASE_URL + '/img/shape-srch.svg'} />Search more</span>
+											<span className="src-spn-chps" onClick={this.openSearchMore.bind(this)}><img className="srh-img-chps" src={ASSETS_BASE_URL + '/img/shape-srch1.svg'} />Search more</span>
 										</div>
 									</div>
 									: ''
@@ -138,7 +138,7 @@ class FooterWidgetView extends React.Component {
 													return <span key={key} onClick={this.selectDoctorSpecialization.bind(this, data)}>{data[0]}</span>
 												})
 											}
-											<span className="src-spn-chps" onClick={this.openSearchMore.bind(this)}><img className="srh-img-chps" src={ASSETS_BASE_URL + '/img/shape-srch.svg'} />Search more</span>
+											<span className="src-spn-chps" onClick={this.openSearchMore.bind(this)}><img className="srh-img-chps" src={ASSETS_BASE_URL + '/img/shape-srch1.svg'} />Search more</span>
 										</div>
 									</div>
 									: ''
