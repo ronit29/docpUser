@@ -536,7 +536,7 @@ class SearchResultsView extends React.Component {
         let data=(<div className="sort-sub-filter-container mb-3 pb-0">
             <p>Looking for other related  
                 <span className="fw-700">specializations </span>
-                <span className="fw-500 sort-more-filter" onClick={this.searchDoctorSpecialization.bind(this,this.props.similar_specializations,true)}>View all</span>
+                <span className="fw-500 sort-more-filter" onClick={this.searchDoctorSpecialization.bind(this,this.props.similar_specializations,true)}>Search all</span>
             </p>
             <div className="doc-sld-container">
                 <div className="sm-chips-container">
