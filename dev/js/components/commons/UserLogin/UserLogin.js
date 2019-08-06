@@ -20,7 +20,8 @@ class UserLoginView extends React.Component {
             otpTimeout: false,
             referralCode: parsed.referral || null,
             referralName: null,
-            smsBtnType: null
+            smsBtnType: null,
+            enableOtpRequest:false
         }
     }
 
@@ -63,10 +64,18 @@ class UserLoginView extends React.Component {
                 if (error) {
                     // this.setState({ validationError: "Could not generate OTP." })
                 } else {
+                    if(viaWhatsapp){
+                        this.setState({enableOtpRequest:true})
+                    }else{
+                        this.setState({enableOtpRequest:false})
+                    }
                     this.setState({ showOTP: true, otpTimeout: true, smsBtnType: viaSms ? true : false })
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
                     }, 10000)
+                    setTimeout(() => {
+                        this.setState({ enableOtpRequest:false })
+                    }, 60000)
                 }
             })
         } else {
@@ -194,8 +203,9 @@ class UserLoginView extends React.Component {
                                                         <div className="d-flex align-items-start justify-content-between">
                                                             <a className="resendOtp" onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? false : true, !this.state.smsBtnType ? false : true)}>{this.state.smsBtnType ?'Send via Whatsapp':'Send via SMS'}
                                                             </a>
-                                                            <a className="resendOtp" style={{color:'#ec0d0d'}} onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}>Resend
-                                                            </a>
+                                                            {this.state.enableOtpRequest?''
+                                                            :<a className="resendOtp" style={{color:'#ec0d0d'}} onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, true, this.state.smsBtnType ? true : false, !this.state.smsBtnType ? true : false)}>Resend
+                                                            </a>}
                                                         </div>
                                                     }
                                                 </div> : ""

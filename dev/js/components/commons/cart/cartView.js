@@ -401,7 +401,7 @@ class CartView extends React.Component {
                                                     GTM.sendEvent({ data: data });
 
                                                 }}>Add more to cart</button>
-                                                <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" onClick={this.processCart.bind(this, total_deal_price - total_coupon_discount,is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_deal_price - total_coupon_discount)}</button>
+                                                <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" onClick={this.processCart.bind(this, total_amnt,is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_amnt)}</button>
                                             </div> : ""
                                         }
 

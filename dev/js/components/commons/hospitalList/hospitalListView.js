@@ -27,8 +27,8 @@ class HospitalListView extends React.Component {
             <div className="profile-body-wrap">
                 <ProfileHeader {...this.props} />
                 <HelmetTags tagsData={{
-                    title: 'Hospital Index | Details, Preparation, Procedure and Normal Range',
-                    description: 'Procedures Index: Find detailed information about test preparation, procedure, normal ranges, duration and more.',
+                    title: 'List of Hospitals in India | Indian Hospitals | Best Hospitals in India',
+                    description: 'List of Hospitals in India: Get state wise list of hospitals and other required information like location, doctors list, price and facility available at the hospital.',
                     canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
                 }} />
                 <section className="container dp-container-div">
@@ -45,37 +45,37 @@ class HospitalListView extends React.Component {
                                     <span className="breadcrumb-arrow">&gt;</span>
                                 </li>
                                 <li className="breadcrumb-list-item">
-                                    <span className="fw-500 breadcrumb-title">Hospitals</span>
+                                    <p className="fw-500 breadcrumb-title">Hospitals in India</p>
                                 </li>
                             </ul>
                             <div>
-                                <h1 className="fw-500 sitemap-title">Hospital Index</h1>
+                                <h1 className="fw-500 sitemap-title">Hospitals in India</h1>
                             </div>
                             <div className="row sitemap-row">
                                 {
-                                this.props.hospitalIndexLoading?
-                                    <Loader/>
-                                    :this.props.selectedHospitalList && this.props.selectedHospitalList.length ?
-                                        this.props.selectedHospitalList.map((test, index) => {
-                                            return <div key={index} className="col-12 col-md-6 col-lg-4 tests-brdr-btm">
-                                                <div className="anchor-data-style" onClick={() => this.props.history.push(`/${test.url?test.url:`/`}`) }>
-                                                    {
-                                                        test.url ?
-                                                            <div>
-                                                                <a href={`/${test.url}`} onClick={(e) => {
-                                                                    e.preventDefault()
-                                                                }}>{test.name}</a>
-                                                                <span className="sitemap-right-arrow">
-                                                                    <img src="/assets/img/customer-icons/arrow-forward-right.svg" />
-                                                                </span>
-                                                            </div>
-                                                            :
-                                                            <span style={{ cursor: 'pointer' }} >{test.name}</span>
-                                                    }
+                                    this.props.hospitalIndexLoading ?
+                                        <Loader />
+                                        : this.props.selectedHospitalList && this.props.selectedHospitalList.length ?
+                                            this.props.selectedHospitalList.map((test, index) => {
+                                                return <div key={index} className="col-12 col-md-6 col-lg-4 tests-brdr-btm">
+                                                    <div className="anchor-data-style" onClick={() => this.props.history.push(`/hospitals/inventory?city=${test.name ? test.name : `Delhi`}`)}>
+                                                        {
+                                                            test.name ?
+                                                                <div>
+                                                                    <a href={`/hospitals/inventory?city=${test.name ? test.name : ``}`} onClick={(e) => {
+                                                                        e.preventDefault()
+                                                                    }}>{test.name}</a>
+                                                                    <span className="sitemap-right-arrow">
+                                                                        <img src="/assets/img/customer-icons/arrow-forward-right.svg" />
+                                                                    </span>
+                                                                </div>
+                                                                :
+                                                                <span style={{ cursor: 'pointer' }} >{test.name}</span>
+                                                        }
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        })
-                                        :<div className="col-12 fw-500 text-center mrt-20" style={{ fontSize: 18 }} >No record Found !!</div> 
+                                            })
+                                            : <div className="col-12 fw-500 text-center mrt-20" style={{ fontSize: 18 }} >No record Found !!</div>
                                 }
                             </div>
                         </div>
