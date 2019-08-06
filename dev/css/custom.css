@@ -2875,7 +2875,8 @@ h3.doc-wdgt-hdng span:before{
     font-size: 12px;
 }
 span.src-spn-chps {
-    border: 1px solid transparent;
+	border: 1px solid transparent;
+	font-size: 13px;
 }
 img.srh-img-chps {
     width: 13px;
@@ -2913,8 +2914,7 @@ span.bdy-only {
 p.bdychk-dtls {
     font-weight: 500;
     color: rgba(23,23,23, 0.92);
-    font-size: 16px;
-    margin-top: 19px;
+    font-size: 14px;
 }
 p.bdychk-dtls span {
     font-weight: 400;

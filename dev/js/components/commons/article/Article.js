@@ -57,7 +57,6 @@ class Article extends React.Component {
         if (!this.state.articleData) {
             this.getArticleData()
         }
-this.getArticleData()
         if (window) {
             window.scrollTo(0, 0)
         }

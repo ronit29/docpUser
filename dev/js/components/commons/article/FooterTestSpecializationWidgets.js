@@ -99,7 +99,7 @@ class FooterWidgetView extends React.Component {
 			'Category': 'ConsumerApp', 'Action': 'ShowPackageClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-package-clicked', 'from': 'footerWidget'
 		}
 		GTM.sendEvent({ data: data })
-		this.props.history.push('/full-body-checkup-health-packages')
+		this.props.history.push('/thyrocare-aarogyam-packages')
 	}
 
 	render() {
@@ -156,7 +156,7 @@ class FooterWidgetView extends React.Component {
 												<p className="bodychk-prc">@ <span className="bdy-pr">{footerWidget.price}</span> <span className="bdy-only">only</span> </p>
 												<p className="bdychk-dtls">{footerWidget.title_last}</p>
 											</div>
-											<div className="col-5">
+											<div className="col-5 d-flex align-item-center">
 												<img className="bdychk-img img-fluid" src={ASSETS_BASE_URL + '/img/doc-wd.png'} />
 											</div>
 										</div>
