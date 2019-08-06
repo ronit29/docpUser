@@ -2849,6 +2849,7 @@ h2.lbcrdcstfont.cstmDocName{
     display: inline-block;
     margin-bottom: 10px;
     font-size: 12px;
+    cursor: pointer;
 }
 /* ============ doc chips scroll ============ */
 
