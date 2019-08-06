@@ -86,6 +86,14 @@ class FooterWidgetView extends React.Component {
 		this.props.history.push('/search')
 	}
 
+	goToPackage(){
+		let data = {
+			'Category': 'ConsumerApp', 'Action': 'ShowPackageClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-package-clicked', 'from': 'footerWidget'
+		}
+		GTM.sendEvent({ data: data })
+		this.props.history.push('/full-body-checkup-health-packages')
+	}
+
 	render() {
 
 		let { footerWidget } = this.props
@@ -134,7 +142,7 @@ class FooterWidgetView extends React.Component {
 									<div className="doc-wdgt-bodychk-cont">
 										<img className="docClosBtn" src="https://cdn.docprime.com/cp/assets/img/icons/close.png" onClick={()=>this.props.handleClose()}/>
 
-										<div className="row">
+										<div className="row cursor-pntr" onClick={this.goToPackage.bind(this)}>
 											<div className="col-7">
 												<h3 className="wdgt-bodychk-heding">{footerWidget.title_first}</h3>
 												<p className="bodychk-prc">@ <span className="bdy-pr">{footerWidget.price}</span> <span className="bdy-only">only</span> </p>
