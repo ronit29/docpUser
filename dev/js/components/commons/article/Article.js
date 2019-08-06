@@ -17,6 +17,7 @@ import ArticleAuthor from '../articleAuthor/articleAuthor';
 import LocationElements from '../../../containers/commons/locationElements'
 import CommonSearch from '../../../containers/commons/CommonSearch.js'
 import FixedMobileFooter from '../Home/FixedMobileFooter'
+import FooterTestSpecializationWidgets from './FooterTestSpecializationWidgets.js'
 
 // import RelatedArticles from './RelatedArticles'
 
@@ -47,7 +48,8 @@ class Article extends React.Component {
             articleLoaded: articleLoaded,
             searchCities: [],
             searchWidget: '',
-            specialization_id: ''
+            specialization_id: '',
+            hideFooterWidget: false
         }
     }
 
@@ -55,7 +57,6 @@ class Article extends React.Component {
         if (!this.state.articleData) {
             this.getArticleData()
         }
-
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -216,6 +217,10 @@ class Article extends React.Component {
             }
 
         })
+    }
+
+    handleClose(){
+        this.setState({hideFooterWidget: true})
     }
 
     render() {
@@ -418,6 +423,13 @@ class Article extends React.Component {
                                     }
                                 </div> : ""
                             }
+                            {
+                                this.state.articleData && this.state.articleData.footer_widget?
+                                    this.state.hideFooterWidget?''
+                                    :<FooterTestSpecializationWidgets {...this.props} footerWidget={this.state.articleData.footer_widget} handleClose={this.handleClose.bind(this)}/>
+                                :''
+                            }
+                            
                         </div>
                         <RightBar colClass="col-lg-4" articleData={this.state.articleData} />
                     </div>
@@ -449,8 +461,8 @@ class Article extends React.Component {
                                 : ''
                         }
                     </div>
-
-                    <FixedMobileFooter {...this.props} />
+{/*
+                    <FixedMobileFooter {...this.props} />*/}
                 </section>
                 <Footer />
             </div>
