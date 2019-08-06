@@ -210,8 +210,23 @@ class DoctorsList extends React.Component {
         }
     }
 
-    SimilarSpecialization(flag) {
-        let dataLength = parseInt(this.props.similar_specializations.length / 2)
+    searchDoctorSpecialization(speciality) {
+        let specialityData={}
+            specialityData.type = 'speciality'
+            specialityData.name = speciality.specialization_name
+            specialityData.id = speciality.specialization_id
+            this.props.toggleOPDCriteria('speciality', specialityData, true)
+            setTimeout(() => {
+                this.props.history.push('/opd/searchresults')
+            }, 100)
+        // let data = {
+        //     'Category': 'ConsumerApp', 'Action': 'SelectedDoctorSpecializations', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'selected-doctor-specializations', 'selected': speciality.name || '', 'selectedId': speciality.id || ''
+        // }
+        // GTM.sendEvent({ data: data })
+    }
+
+    SimilarSpecialization(flag){
+        let dataLength = parseInt(this.props.similar_specializations.length/2)
         let count = 0
         if (!flag) {
             count = dataLength;
@@ -219,7 +234,7 @@ class DoctorsList extends React.Component {
         }
         let dataModel = []
         for (let i = count; i < dataLength; i++) {
-            dataModel.push(<span id={this.props.similar_specializations[i].specialization_id}>
+            dataModel.push(<span id={this.props.similar_specializations[i].specialization_id} onClick={this.searchDoctorSpecialization.bind(this,this.props.similar_specializations[i])}>
                 {this.props.similar_specializations[i].specialization_name}
             </span>)
         }
@@ -382,7 +397,7 @@ class DoctorsList extends React.Component {
                                                                         <BannerCarousel {...this.props} sliderLocation="doctor_search_page" />
                                                                     </div> : ''
                                                             }
-                                                            {this.props.similar_specializations && this.props.similar_specializations.length && !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && i == 8 ?
+                                                            {this.props.similar_specializations && this.props.similar_specializations.length && !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && i == 7 ?
                                                                 <div className="sort-sub-filter-container mb-3 pb-0">
                                                                     <p>Looking for other related  <span className="fw-700">Availability </span><span className="fw-500 sort-more-filter">View all</span></p>
                                                                     <div className="doc-sld-container">
