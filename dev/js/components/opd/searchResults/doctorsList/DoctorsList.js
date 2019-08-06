@@ -210,6 +210,21 @@ class DoctorsList extends React.Component {
         }
     }
 
+    searchDoctorSpecialization(speciality) {
+        let specialityData={}
+            specialityData.type = 'speciality'
+            specialityData.name = speciality.specialization_name
+            specialityData.id = speciality.specialization_id
+            this.props.toggleOPDCriteria('speciality', specialityData, true)
+            setTimeout(() => {
+                this.props.history.push('/opd/searchresults')
+            }, 100)
+        // let data = {
+        //     'Category': 'ConsumerApp', 'Action': 'SelectedDoctorSpecializations', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'selected-doctor-specializations', 'selected': speciality.name || '', 'selectedId': speciality.id || ''
+        // }
+        // GTM.sendEvent({ data: data })
+    }
+
     SimilarSpecialization(flag){
         let dataLength = parseInt(this.props.similar_specializations.length/2)
         let count = 0
@@ -219,9 +234,8 @@ class DoctorsList extends React.Component {
         }
         let dataModel = []
         for(let i = count; i<dataLength;i++) {
-            dataModel.push(<p id={this.props.similar_specializations[i].specialization_id}>
-                    {this.props.similar_specializations[i].specialization_name}
-                </p>)
+            dataModel.push(<p onClick={this.searchDoctorSpecialization.bind(this,this.props.similar_specializations[i])}>
+                    {this.props.similar_specializations[i].specialization_name}</p>)
         }
         return dataModel
     }
@@ -382,7 +396,19 @@ class DoctorsList extends React.Component {
                                                                         <BannerCarousel {...this.props} sliderLocation="doctor_search_page" />
                                                                     </div> : ''
                                                             }
-                                                            {this.props.similar_specializations && this.props.similar_specializations.length && !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && i==8 ?
+                                                            {this.props.similar_specializations && this.props.similar_specializations.length && !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && i==7 ?
+                                                                <div className="rishab">
+                                                                    <div id="one">
+                                                                        {this.SimilarSpecialization(true)}
+                                                                    </div>
+                                                                    <div id="two">
+                                                                        {this.SimilarSpecialization(false)}
+                                                                    </div>
+                                                                </div>
+                                                                :''
+                                                            }
+
+                                                            {this.props.similar_specializations && this.props.similar_specializations.length && this.state.sort_order && (this.state.availability || this.state.availability.length) && i==5 ?
                                                                 <div className="rishab">
                                                                     <div id="one">
                                                                         {this.SimilarSpecialization(true)}
