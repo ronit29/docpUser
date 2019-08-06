@@ -210,6 +210,22 @@ class DoctorsList extends React.Component {
         }
     }
 
+    SimilarSpecialization(flag){
+        let dataLength = parseInt(this.props.similar_specializations.length/2)
+        let count = 0
+        if(!flag){
+            count = dataLength;
+            dataLength = this.props.similar_specializations.length
+        }
+        let dataModel = []
+        for(let i = count; i<dataLength;i++) {
+            dataModel.push(<p id={this.props.similar_specializations[i].specialization_id}>
+                    {this.props.similar_specializations[i].specialization_name}
+                </p>)
+        }
+        return dataModel
+    }
+
     render() {
 
         let detectFlag = true
@@ -365,6 +381,17 @@ class DoctorsList extends React.Component {
                                                                     <div className="col-12">
                                                                         <BannerCarousel {...this.props} sliderLocation="doctor_search_page" />
                                                                     </div> : ''
+                                                            }
+                                                            {this.props.similar_specializations && this.props.similar_specializations.length && !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && i==8 ?
+                                                                <div className="rishab">
+                                                                    <div id="one">
+                                                                        {this.SimilarSpecialization(true)}
+                                                                    </div>
+                                                                    <div id="two">
+                                                                        {this.SimilarSpecialization(false)}
+                                                                    </div>
+                                                                </div>
+                                                                :''
                                                             }
 
                                                             <li>
