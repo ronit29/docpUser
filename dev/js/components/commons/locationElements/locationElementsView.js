@@ -66,7 +66,7 @@ class LocationElementsView extends React.Component {
         // }
     }
 
-    onfocus() {
+    onfocus(e) {
         if (!this.props.isTopbar) {
             let search_val = ""
 
@@ -77,6 +77,10 @@ class LocationElementsView extends React.Component {
                 this.props.getCityListLayout()
                 this.setState({ location_object: null, search: '' })
             }
+        }
+        if (e.target.getAttribute('id') === 'doc-input-field') {
+            var top = document.getElementsByClassName('articleTypeloc')[0];
+            window.scroll(0, top.offsetParent.offsetTop);
         }
     }
 
@@ -203,12 +207,12 @@ class LocationElementsView extends React.Component {
         }
     }
 
-    clearSearch(){
+    clearSearch() {
         let gtmData = {
             'Category': 'ConsumerApp', 'Action': 'ClearLocationSearchText', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'clear-location-search-text', 'searchString': this.state.search
         }
         GTM.sendEvent({ data: gtmData })
-        this.setState({search:''})
+        this.setState({ search: '' })
         this.props.getCityListLayout()
     }
 
@@ -218,11 +222,11 @@ class LocationElementsView extends React.Component {
                 <input className="new-srch-inp" autoComplete="off" placeholder="Search Location" value={this.state.search} onChange={this.inputHandler.bind(this)} id="doc-input-field" onBlur={this.onblur.bind(this)} onFocus={this.onfocus.bind(this)} />
                 <img className="srch-inp-img" src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />
                 {
-                    this.state.search?
-                    <span className="cursor-pntr search-close-icon" onClick={this.clearSearch.bind(this)}><img src={ASSETS_BASE_URL + '/img/sl-close.svg'}/></span>
-                    :''    
+                    this.state.search ?
+                        <span className="cursor-pntr search-close-icon" onClick={this.clearSearch.bind(this)}><img src={ASSETS_BASE_URL + '/img/sl-close.svg'} /></span>
+                        : ''
                 }
-                
+
                 <button className="srch-inp-btn-img" onClick={this.detectLocation.bind(this)}>Auto Detect <img src={ASSETS_BASE_URL + "/img/loc-track.svg"} /></button>
             </div>
         }

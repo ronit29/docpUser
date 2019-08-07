@@ -99,12 +99,30 @@ class LabProfileCard extends React.Component {
     }
 
 
-    testInfo(test_id) {
-        let lab_id = this.props.details.lab.id
-        // let selected_test_ids = this.props.lab_test_data[this.props.selectedLab] || []
-        // selected_test_ids = selected_test_ids.map(x => x.id)
-        let selected_test_ids = test_id
-        this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&lab_id=' + lab_id + '&from=searchbooknow')
+    testInfo(test_id, lab_id, test_url,isCategory,event) {
+        let selected_test_ids = []
+        Object.entries(this.props.currentSearchedCriterias).map(function ([key, value]) {
+            selected_test_ids.push(value.id)
+        })
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var search_id = url.searchParams.get("search_id");
+        let lat = 28.644800
+        let long = 77.216721
+        if (this.props.selectedLocation !== null) {
+            lat = this.props.selectedLocation.geometry.location.lat
+            long = this.props.selectedLocation.geometry.location.lng
+
+            if (typeof lat === 'function') lat = lat()
+            if (typeof long === 'function') long = long()
+        }
+        if (test_url && test_url != '') {
+            this.props.history.push('/' + test_url + '?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&lat=' + lat + '&long=' + long + '&isCategory='+ isCategory)
+        } else {
+            this.props.history.push('/search/testinfo?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&search_id=' + search_id + '&lab_id=' + lab_id + '&lat=' + lat + '&long=' + long+ '&isCategory='+ isCategory)
+        }
+        event.preventDefault()
+        event.stopPropagation()
         let data = {
             'Category': 'ConsumerApp', 'Action': 'testInfoClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'test-info-click', 'pageSource': 'lab-test-page'
         }
@@ -219,18 +237,12 @@ class LabProfileCard extends React.Component {
                                         :''}
                                     </div>
                                 </div>
-                                <a href={`/${this.props.details.url || ''}`} onClick={(e) => {
-                                    e.preventDefault()
-                                    e.stopPropagation()
-                                    this.props.history.push(`/${this.props.details.url || ''}`)
-                                }}>
+                                <a href={`/${this.props.details.url || ''}`} onClick={this.testInfo.bind(this,id,this.props.details.lab.id, this.props.details.url?this.props.details.url:'',false)}>
                                     <h2 className="pkg-labDoc-Name">{name} {show_details ?
-                                        <span style={{ 'marginLeft': '5px', marginTop: '2px', display: 'inline-block', cursor: 'pointer' }} onClick={(e) => {
-                                            e.preventDefault()
-                                            e.stopPropagation()
-                                            // this.testInfo(id)
-                                            this.props.history.push(`/${this.props.details.url || ''}`)
-                                        }}>
+                                        <span style={{ 'marginLeft': '5px', marginTop: '2px', display: 'inline-block', cursor: 'pointer' }} onClick={
+                                            this.testInfo.bind(this,id,this.props.details.lab.id, this.props.details.url?this.props.details.url : '',false)
+                                            // this.props.history.push(`/${this.props.details.url || ''}`)
+                                        }>
                                             <img src="https://cdn.docprime.com/cp/assets/img/icons/Info.svg" style={{ width: '15px' }} />
                                         </span> : ''}
                                     </h2>
@@ -290,7 +302,7 @@ class LabProfileCard extends React.Component {
                             <ul>
                                 {
                                     category_details.map((category_detail, k) => {
-                                        return <li className="pkgIncludeList" key={k} id={k} onClick={this.bookNowClicked.bind(this, this.props.details.lab.id, this.props.details.lab.url, id, name)}>
+                                        return <li className="pkgIncludeList" key={k} id={k} style={{cursor:'pointer'}} onClick={this.testInfo.bind(this,id,this.props.details.lab.id, this.props.details.url?this.props.details.url : '',true)}>
                                             {category_detail.icon ?
                                                 <img style={{ width: '20px', marginRight: '5px' }} src={category_detail.icon} />
                                                 : ''}

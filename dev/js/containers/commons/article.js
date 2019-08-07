@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchArticle, getSpecialityFooterData, postComment, getOfferList, toggleOPDCriteria, toggleDiagnosisCriteria, cloneCommonSelectedCriterias, selectSearchType } from '../../actions/index.js'
+import { fetchArticle, getSpecialityFooterData, postComment, getOfferList, toggleOPDCriteria, toggleDiagnosisCriteria, cloneCommonSelectedCriterias, selectSearchType, mergeLABState, mergeOPDState } from '../../actions/index.js'
 
 import ArticleView from '../../components/commons/article'
 
@@ -63,9 +63,41 @@ const mapStateToProps = (state, passedProps) => {
     let {
         selectedLocation
     } = state.SEARCH_CRITERIA_OPD
+
+    let OPD_STATE = (()=> {
+
+        const {
+        selectedLocation,
+        filterCriteria
+
+        } = state.SEARCH_CRITERIA_OPD
+
+    return {
+        selectedLocation,
+        filterCriteria
+        }
+
+    })()
+
+    let LAB_STATE = (()=>{
+
+        const {
+        selectedLocation,
+        filterCriteria,
+        selectedCriterias
+
+        } = state.SEARCH_CRITERIA_LABS
+
+    return {
+        selectedLocation,
+        filterCriteria,
+        selectedCriterias
+        }
+
+    })()
     return {
         initialServerData,
-        profiles, defaultProfile, offerList, selectedLocation, articleData
+        profiles, defaultProfile, offerList, selectedLocation, articleData, OPD_STATE, LAB_STATE
     }
 }
 
@@ -78,7 +110,9 @@ const mapDispatchToProps = (dispatch) => {
         toggleOPDCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleOPDCriteria(type, criteria, forceAdd, filter)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filter)),
         cloneCommonSelectedCriterias: (selectedCriterias) => dispatch(cloneCommonSelectedCriterias(selectedCriterias)),
-        selectSearchType: (type) => dispatch(selectSearchType(type))
+        selectSearchType: (type) => dispatch(selectSearchType(type)),
+        mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
+        mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults))
     }
 }
 
