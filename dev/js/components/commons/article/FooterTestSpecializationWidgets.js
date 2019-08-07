@@ -168,18 +168,18 @@ class FooterWidgetView extends React.Component {
 									<div className="doc-wdgt-bodychk-cont">
 										<img className="docClosBtn" src="https://cdn.docprime.com/cp/assets/img/icons/close.png" onClick={() => this.props.handleClose()} />
 										<div className="doc-bdy-chk-hdng">
-											<h4><span>Deal of the Day</span>Book Full Body Checkup</h4>
+											<h4>{footerWidget.title_first}</h4>
 										</div>
 										<div className="row cursor-pntr no-gutters" onClick={this.goToPackage.bind(this)}>
 											<div className="col-8">
 												<div className="doc-wdgt-prck">
-													<span className="doc-wd-cut">₹799</span>
-													<span className="doc-wd-nw">₹549</span>
+													{/*<span className="doc-wd-cut">₹799</span>*/}
+													<span className="doc-wd-nw">{footerWidget.price}</span>
 												</div>
-												<p className="dc-wd-tst">
+												{/*<p className="dc-wd-tst">
 													60 tests
-													</p>
-												<p className="dc-wd-tst-nm">Heart, Liver, Lipid, Iron, Thyroid & more</p>
+													</p>*/}
+												<p className="dc-wd-tst-nm">{footerWidget.title_last}</p>
 											</div>
 											<div className="col-4 d-flex align-item-center justyfy-center">
 												<button className="dc-wd-bdy-btn">Know More</button>
