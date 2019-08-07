@@ -2730,7 +2730,36 @@ padding-right: 15px;
 	outline: none;
 }
 .ipd-slects-doc{
-    margin-bottom: 10px;
+	margin-bottom: 10px;
+	position: relative;
+}
+.doc-srch-fltr {
+    max-height: 190px;
+    z-index: 3;
+    overflow: auto;
+    width: 100%;
+    background: white;
+    position: absolute;
+    text-align: left;
+    top: 32px;
+    border-top: 1px solid transparent;
+    border: 1px solid #e5e5e5;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.doc-srch-fltr p {
+    border-bottom: 1px solid #e5e5e5;
+    padding: 6px;
+    margin-bottom: 0px;
+    font-weight: 500;
+	font-size: 13px;
+}
+.doc-srch-fltr p:hover {
+	background-image: linear-gradient(to left,#f78631,#ff6d00);
+	color: white;
+}
+.doc-srch-fltr p:last-child{
+	border-bottom: 1px solid transparent;
 }
 .ipd-slects-doc select{
 	width: 100%;

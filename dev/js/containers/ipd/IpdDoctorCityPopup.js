@@ -305,7 +305,7 @@ class IpdDoctorCityPopup extends React.Component {
 												this.state.showDoctorSearchPopup?
 												this.state.filtered_doctor_list && this.state.filtered_doctor_list.length?
 													this.state.filtered_doctor_list.map((data, key)=>{
-														return <p className="cursor-pntr p-10" key={key} id={data.id} onClick={(e)=>{
+														return <p className="cursor-pntr" key={key} id={data.id} onClick={(e)=>{
 															e.preventDefault();
 															e.stopPropagation();
 															this.clickDoctorList(data.name)} }>
