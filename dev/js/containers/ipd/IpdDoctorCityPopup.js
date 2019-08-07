@@ -251,7 +251,10 @@ class IpdDoctorCityPopup extends React.Component {
     }
 
     onFocusOut(){
-    	//this.setState({ search_doctor: this.state.selectedDoctor, showDoctorSearchPopup: false })
+    	setTimeout(()=>{
+    		this.setState({ search_doctor: this.state.selectedDoctor, showDoctorSearchPopup: false })	
+    	},100)
+    	
     }
 
 	render() {
@@ -300,21 +303,25 @@ class IpdDoctorCityPopup extends React.Component {
 												}
 											</select>*/}
 											<input type="text" placeholder='Search Doctors' onChange={this.handleInut.bind(this, 'search_doctor')} onFocus = {this.onFocusIn.bind(this)} onBlur={this.onFocusOut.bind(this)} value={this.state.search_doctor}/>
-											<div className="doc-srch-fltr" onClick={(e)=>e.preventDefault()}>
 											{
 												this.state.showDoctorSearchPopup?
-												this.state.filtered_doctor_list && this.state.filtered_doctor_list.length?
-													this.state.filtered_doctor_list.map((data, key)=>{
-														return <p className="cursor-pntr" key={key} id={data.id} onClick={(e)=>{
-															e.preventDefault();
-															e.stopPropagation();
-															this.clickDoctorList(data.name)} }>
-															{data.name}</p>
-													})
-													:<p>No result found</p>
+												<div className="doc-srch-fltr" onClick={(e)=>e.preventDefault()}>
+												{
+													
+													this.state.filtered_doctor_list && this.state.filtered_doctor_list.length?
+														this.state.filtered_doctor_list.map((data, key)=>{
+															return <p className="cursor-pntr" key={key} id={data.id} onClick={(e)=>{
+																e.preventDefault();
+																e.stopPropagation();
+																this.clickDoctorList(data.name)} }>
+																{data.name}</p>
+														})
+														:<p>No result found</p>
+												}
+												</div>
 												:''
 											}
-											</div>
+											
 										</div>:''
 									}
 									<div className="nm-lst-inputcnt justify-content-between">
