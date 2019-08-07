@@ -35,8 +35,8 @@ class TopBar extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ ...props.filterCriteria ,quickFilter: props.quickFilter||{} }, ()=> {
-            if( this.state.quickFilter && this.state.quickFilter.viewMore )  {
+        this.setState({ ...props.filterCriteria, quickFilter: props.quickFilter || {} }, () => {
+            if (this.state.quickFilter && this.state.quickFilter.viewMore) {
                 this.sortFilterClicked()
             }
         })
@@ -79,23 +79,23 @@ class TopBar extends React.Component {
             hospital_id: this.state.hospital_id
         }
         let data = {
-            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on||'', 'rating': this.state.avg_ratings
+            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on || '', 'rating': this.state.avg_ratings
         }
         GTM.sendEvent({ data: data })
 
         let ifAnyFilterApplied = this.isDataFiltered({}, true)
-        if(ifAnyFilterApplied) {
-            this.props.applyFilters(filterState)    
+        if (ifAnyFilterApplied) {
+            this.props.applyFilters(filterState)
         }
-        
+
         this.setState({ dropdown_visible: false })
     }
 
-    handleClose(reset=false, e) {
+    handleClose(reset = false, e) {
 
-        if(reset) {
+        if (reset) {
             let data = {
-                'Category': 'ConsumerApp', 'Action': 'ResetOpdFilter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'reset-opd-filter', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on||'', 'rating': this.state.avg_ratings
+                'Category': 'ConsumerApp', 'Action': 'ResetOpdFilter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'reset-opd-filter', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on || '', 'rating': this.state.avg_ratings
             }
             GTM.sendEvent({ data: data })
             let resetFilters = {
@@ -107,16 +107,16 @@ class TopBar extends React.Component {
                 sits_at_clinic: false,
                 sits_at_hospital: false,
                 specialization: [],
-                
+
             }
             this.setState({
-              ...resetFilters,
-              quickFilter: {}
+                ...resetFilters,
+                quickFilter: {}
             })
 
-        } else{
+        } else {
             let data = {
-                'Category': 'ConsumerApp', 'Action': 'CloseOpdFilter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'close-opd-filter', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on||'', 'rating': this.state.avg_ratings
+                'Category': 'ConsumerApp', 'Action': 'CloseOpdFilter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'close-opd-filter', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on || '', 'rating': this.state.avg_ratings
             }
             GTM.sendEvent({ data: data })
             this.setState({
@@ -133,46 +133,46 @@ class TopBar extends React.Component {
         if (isArray) {
             let selectedVal = [].concat(this.state[type]) || []
             let found = false
-            value = selectedVal.filter((data)=> {
-                if(data==val){
+            value = selectedVal.filter((data) => {
+                if (data == val) {
                     found = true
                     return false
                 }
                 return true
             })
-            if(!found){
-                value.push(val)    
+            if (!found) {
+                value.push(val)
             }
         }
-        if(type.includes('sort_on') ) {
+        if (type.includes('sort_on')) {
 
-            if(val.includes('price_asc') || val.includes('price_desc') ){
+            if (val.includes('price_asc') || val.includes('price_desc')) {
 
-                if(this.state[type]=='fees' && ( (this.state['sort_order']=='asc' && val.includes('price_asc') ) || (this.state['sort_order']=='desc' && val.includes('price_desc') ) ) ){
-                    this.setState({sort_on: null, sort_order: null})
-                }else{
-                    this.setState({sort_on: 'fees', sort_order: val.includes('price_asc')?'asc':'desc'})
+                if (this.state[type] == 'fees' && ((this.state['sort_order'] == 'asc' && val.includes('price_asc')) || (this.state['sort_order'] == 'desc' && val.includes('price_desc')))) {
+                    this.setState({ sort_on: null, sort_order: null })
+                } else {
+                    this.setState({ sort_on: 'fees', sort_order: val.includes('price_asc') ? 'asc' : 'desc' })
                 }
-                
-            }else {
-                this.setState({ sort_on: this.state[type]==value?null:value, sort_order: null })    
+
+            } else {
+                this.setState({ sort_on: this.state[type] == value ? null : value, sort_order: null })
             }
-        }else if(type.includes('sits_at_clinic') || type.includes('sits_at_hospital')){
+        } else if (type.includes('sits_at_clinic') || type.includes('sits_at_hospital')) {
 
-                if(this.state[type]) {
-                    this.setState({[type]: !this.state[type]})
-                }else {
-                    this.setState({'sits_at_clinic': type.includes('sits_at_clinic')?value:!value, 'sits_at_hospital': type.includes('sits_at_hospital')?value:!value})
-                }
-        }else{
-            this.setState({ [type]: this.state[type]==value?'':value })
+            if (this.state[type]) {
+                this.setState({ [type]: !this.state[type] })
+            } else {
+                this.setState({ 'sits_at_clinic': type.includes('sits_at_clinic') ? value : !value, 'sits_at_hospital': type.includes('sits_at_hospital') ? value : !value })
+            }
+        } else {
+            this.setState({ [type]: this.state[type] == value ? '' : value })
         }
-        
+
     }
 
     sortFilterClicked() {
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'OpdSortFilterClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-sort-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on||'', 'rating': this.state.avg_ratings
+            'Category': 'ConsumerApp', 'Action': 'OpdSortFilterClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-sort-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on || '', 'rating': this.state.avg_ratings
         }
         GTM.sendEvent({ data: data })
 
@@ -189,7 +189,7 @@ class TopBar extends React.Component {
         this.setState({ dropdown_visible: true, previous_filters: currentFilters })
     }
 
-    isDataFiltered(filterData = {}, checkIfAnyFilterAppliled= false) {
+    isDataFiltered(filterData = {}, checkIfAnyFilterAppliled = false) {
 
         if (checkIfAnyFilterAppliled) {
 
@@ -198,22 +198,22 @@ class TopBar extends React.Component {
                 for (let filter in this.state.previous_filters) {
 
                     if (filter.includes('availability') || filter.includes('specialization')) {
-                        
+
                         if (this.state.previous_filters[filter] && this.state[filter].length != this.state.previous_filters[filter].length) {
-                            
+
                             filterCount++
                             break;
-                        }else {
+                        } else {
 
-                            for(let arrFliter=0;arrFliter<this.state[filter].length; arrFliter++) {
-                                if(this.state.previous_filters[filter].indexOf(this.state[filter][arrFliter])==-1){
+                            for (let arrFliter = 0; arrFliter < this.state[filter].length; arrFliter++) {
+                                if (this.state.previous_filters[filter].indexOf(this.state[filter][arrFliter]) == -1) {
                                     filterCount++
                                     break;
                                 }
                             }
                         }
 
-                    } else if(this.state[filter] != this.state.previous_filters[filter]){
+                    } else if (this.state[filter] != this.state.previous_filters[filter]) {
                         filterCount++
                         break;
                     }
@@ -235,14 +235,14 @@ class TopBar extends React.Component {
         try {
             let filterCount = 0
             for (let filter in filterData) {
-                
-                if(filter.includes('hospital_type')){
-                    if(this.state['sits_at_clinic'] || this.state['sits_at_hospital']){
+
+                if (filter.includes('hospital_type')) {
+                    if (this.state['sits_at_clinic'] || this.state['sits_at_hospital']) {
                         filterCount++
                     }
-                } else if(filter.includes('availability')){
-                    if(this.state[filter].length) {
-                        filterCount++    
+                } else if (filter.includes('availability')) {
+                    if (this.state[filter].length) {
+                        filterCount++
                     }
                 } else if (filterData[filter] != this.state[filter]) {
                     filterCount++
@@ -256,8 +256,8 @@ class TopBar extends React.Component {
 
     getCriteriaString(selectedCriterias) {
         if (selectedCriterias && selectedCriterias.length) {
-            let is_group_ids_exist = selectedCriterias.filter(x=>x.type=='group_ids')
-            let selectedDataView = is_group_ids_exist.length?is_group_ids_exist:selectedCriterias
+            let is_group_ids_exist = selectedCriterias.filter(x => x.type == 'group_ids')
+            let selectedDataView = is_group_ids_exist.length ? is_group_ids_exist : selectedCriterias
 
             return selectedDataView.reduce((final, curr, i) => {
                 if (i != 0) {
@@ -367,119 +367,172 @@ class TopBar extends React.Component {
                                 <div className="pop-top-heading">
                                     Sort/Filter
                             </div>
-                                <div className="sorting-main-container">
-                                    <div className="sort-lft-cont">
-                                        <h5 className="sort-headings">Sort by</h5>
-                                        <div className="sort-slider-scroll">
-                                            <div className={`sort-cards-list ${this.state.sort_on==''?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', '', false)}>
-                                                <div className="srt-lst-img">
-                                                    {
-                                                        this.state.sort_on==''?
-                                                        <img src={ASSETS_BASE_URL + "/img/popupicon/rv-relevence.svg"} style={{ width: 18 }} />
-                                                        :<img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
-                                                    }
-                                                </div>
-                                                <p>Relevance</p>
-                                            </div>
-                                            {
-                                                this.props.is_login_user_insured && this.props.insurance_status == 1?''
-                                                :<div className={`sort-cards-list ${this.state.sort_on=='fees' && this.state.sort_order=='asc'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'price_asc', false)}>
+                                <div className="multy-select-fltr-container">
+                                    <div className="sorting-main-container">
+                                        <div className="sort-lft-cont">
+                                            <h5 className="sort-headings">Sort by</h5>
+                                            <div className="sort-slider-scroll">
+                                                <div className={`sort-cards-list ${this.state.sort_on == '' ? 'chitActive' : ''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', '', false)}>
                                                     <div className="srt-lst-img">
                                                         {
-                                                            this.state.sort_on=='fees' && this.state.sort_order=='asc'?
-                                                            <img src={ASSETS_BASE_URL + "/img/popupicon/rv-pricesort.svg"} style={{ width: 18 }} />
-                                                            :<img src={ASSETS_BASE_URL + "/img/popupicon/pricesort.svg"} style={{ width: 18 }} />
+                                                            this.state.sort_on == '' ?
+                                                                <img src={ASSETS_BASE_URL + "/img/popupicon/rv-relevence.svg"} style={{ width: 18 }} />
+                                                                : <img src={ASSETS_BASE_URL + "/img/revel.svg"} style={{ width: 18 }} />
                                                         }
-                                                        
                                                     </div>
-                                                    <p>Price Low to High</p>
-                                                </div>    
-                                            }
+                                                    <p>Relevance</p>
+                                                </div>
+                                                {
+                                                    this.props.is_login_user_insured && this.props.insurance_status == 1 ? ''
+                                                        : <div className={`sort-cards-list ${this.state.sort_on == 'fees' && this.state.sort_order == 'asc' ? 'chitActive' : ''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'price_asc', false)}>
+                                                            <div className="srt-lst-img">
+                                                                {
+                                                                    this.state.sort_on == 'fees' && this.state.sort_order == 'asc' ?
+                                                                        <img src={ASSETS_BASE_URL + "/img/popupicon/rv-pricesort.svg"} style={{ width: 18 }} />
+                                                                        : <img src={ASSETS_BASE_URL + "/img/popupicon/pricesort.svg"} style={{ width: 18 }} />
+                                                                }
 
-                                            {
-                                                this.props.is_login_user_insured && this.props.insurance_status == 1?''
-                                                :<div className={`sort-cards-list ${this.state.sort_on=='fees' && this.state.sort_order=='desc'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'price_desc', false)}>
+                                                            </div>
+                                                            <p>Price Low to High</p>
+                                                        </div>
+                                                }
+
+                                                {
+                                                    this.props.is_login_user_insured && this.props.insurance_status == 1 ? ''
+                                                        : <div className={`sort-cards-list ${this.state.sort_on == 'fees' && this.state.sort_order == 'desc' ? 'chitActive' : ''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'price_desc', false)}>
+                                                            <div className="srt-lst-img">
+                                                                {
+                                                                    this.state.sort_on == 'fees' && this.state.sort_order == 'desc' ?
+                                                                        <img src={ASSETS_BASE_URL + "/img/popupicon/rv-priceup.svg"} style={{ width: 18 }} />
+                                                                        : <img src={ASSETS_BASE_URL + "/img/popupicon/priceup.svg"} style={{ width: 18 }} />
+                                                                }
+                                                            </div>
+                                                            <p>Price High to Low</p>
+                                                        </div>
+                                                }
+
+                                                <div className={`sort-cards-list ${this.state.sort_on == 'distance' ? 'chitActive' : ''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'distance', false)}>
                                                     <div className="srt-lst-img">
                                                         {
-                                                            this.state.sort_on=='fees' && this.state.sort_order=='desc'?
-                                                            <img src={ASSETS_BASE_URL + "/img/popupicon/rv-priceup.svg"} style={{ width: 18 }} />
-                                                            :<img src={ASSETS_BASE_URL + "/img/popupicon/priceup.svg"} style={{ width: 18 }} />
+                                                            this.state.sort_on == 'distance' ?
+                                                                <img src={ASSETS_BASE_URL + "/img/popupicon/rv-locations.svg"} style={{ width: 14 }} />
+                                                                : <img src={ASSETS_BASE_URL + "/img/popupicon/locations.svg"} style={{ width: 14 }} />
                                                         }
                                                     </div>
-                                                    <p>Price High to Low</p>
+                                                    <p>Distance</p>
                                                 </div>
-                                            }
-                                            
-                                            <div className={`sort-cards-list ${this.state.sort_on=='distance'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'distance', false)}>
-                                                <div className="srt-lst-img">
-                                                    {
-                                                        this.state.sort_on=='distance'?
-                                                        <img src={ASSETS_BASE_URL + "/img/popupicon/rv-locations.svg"} style={{ width: 14 }} />
-                                                        :<img src={ASSETS_BASE_URL + "/img/popupicon/locations.svg"} style={{ width: 14 }} />
-                                                    }
+                                                <div className={`sort-cards-list ${this.state.sort_on == 'experience' ? 'chitActive' : ''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'experience', false)}>
+                                                    <div className="srt-lst-img">
+                                                        {
+                                                            this.state.sort_on == 'experience' ?
+                                                                <img src={ASSETS_BASE_URL + "/img/popupicon/rv-expr.svg"} style={{ width: 18 }} />
+                                                                : <img src={ASSETS_BASE_URL + "/img/popupicon/expr.svg"} style={{ width: 18 }} />
+                                                        }
+                                                    </div>
+                                                    <p>Experience</p>
                                                 </div>
-                                                <p>Distance</p>
-                                            </div>
-                                            <div className={`sort-cards-list ${this.state.sort_on=='experience'?'chitActive':''}`} onClick={this.toggleAllFilters.bind(this, 'sort_on', 'experience', false)}>
-                                                <div className="srt-lst-img">
-                                                    {
-                                                        this.state.sort_on=='experience'?
-                                                        <img src={ASSETS_BASE_URL + "/img/popupicon/rv-expr.svg"} style={{ width: 18 }} />
-                                                        :<img src={ASSETS_BASE_URL + "/img/popupicon/expr.svg"} style={{ width: 18 }} />
-                                                    }
-                                                </div>
-                                                <p>Experience</p>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="sorting-btns-cont">
-                                        <h5 className="sort-headings">Ratings</h5>
-                                        <div className="sortbtncard">
-                                            <button className={`sortBtns ${this.state.avg_ratings =='3'? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '3', false)}>
-                                                
-                                                {
-                                                    this.state.avg_ratings=='3' ?
-                                                    <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
-                                                    :<img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />
-                                                }
-                                                   3.0 +</button>
-                                            <button className={`sortBtns ${this.state.avg_ratings =='4'? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4', false)}>
-                                                {
-                                                    this.state.avg_ratings=='4'?
-                                                    <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
-                                                    :<img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} /> 
-                                                }
-                                               4.0 +</button>
-                                            <button className={`sortBtns ${this.state.avg_ratings =='4.5'? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4.5', false)}>
+                                        <div className="sorting-btns-cont">
+                                            <h5 className="sort-headings">Ratings</h5>
+                                            <div className="sortbtncard">
+                                                <button className={`sortBtns ${this.state.avg_ratings == '3' ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '3', false)}>
 
-                                                {
-                                                    this.state.avg_ratings =='4.5'?
-                                                    <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
-                                                    :<img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />
-                                                }
-                                                   4.5 +</button>
+                                                    {
+                                                        this.state.avg_ratings == '3' ?
+                                                            <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
+                                                            : <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />
+                                                    }
+                                                    3.0 +</button>
+                                                <button className={`sortBtns ${this.state.avg_ratings == '4' ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4', false)}>
+                                                    {
+                                                        this.state.avg_ratings == '4' ?
+                                                            <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
+                                                            : <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />
+                                                    }
+                                                    4.0 +</button>
+                                                <button className={`sortBtns ${this.state.avg_ratings == '4.5' ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'avg_ratings', '4.5', false)}>
+
+                                                    {
+                                                        this.state.avg_ratings == '4.5' ?
+                                                            <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/popupicon/rv-btn-star.svg"} />
+                                                            : <img className="srt-star-img" src={ASSETS_BASE_URL + "/img/customer-icons/selected-star.svg"} />
+                                                    }
+                                                    4.5 +</button>
+                                            </div>
+                                        </div>
+                                        <div className="sorting-btns-cont">
+                                            <h5 className="sort-headings">Availability</h5>
+                                            <div className="sortbtncard">
+                                                <button className={`sortBtns ${this.state.availability && this.state.availability.length && this.state.availability.indexOf('1') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'availability', '1', true)}>Today</button>
+                                                <button className={`sortBtns ${this.state.availability && this.state.availability.length && this.state.availability.indexOf('2') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'availability', '2', true)}>Tomorrow</button>
+                                                <button className={`sortBtns ${this.state.availability && this.state.availability.length && this.state.availability.indexOf('3') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'availability', '3', true)}>Next 3 Days</button>
+                                            </div>
+                                        </div>
+                                        <div className="sorting-btns-cont">
+                                            <h5 className="sort-headings">Gender</h5>
+                                            <div className="sortbtncard justyfy-twoBtns">
+                                                <button className={`sortBtns ${this.state.gender == 'm' ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'gender', 'm', false)}>Male</button>
+                                                <button className={`sortBtns ${this.state.gender == 'f' ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'gender', 'f', false)}>Female</button>
+                                            </div>
+                                        </div>
+                                        <div className="sorting-btns-cont">
+                                            <h5 className="sort-headings">Hospital Type</h5>
+                                            <div className="sortbtncard justyfy-twoBtns">
+                                                <button className={`sortBtns ${this.state.sits_at_clinic ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'sits_at_clinic', !this.state.sits_at_clinic, false)}>Clinic</button>
+                                                <button className={`sortBtns ${this.state.sits_at_hospital ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'sits_at_hospital', !this.state.sits_at_hospital, false)}>Hospital</button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="sorting-btns-cont">
-                                        <h5 className="sort-headings">Availability</h5>
-                                        <div className="sortbtncard">
-                                            <button className={`sortBtns ${this.state.availability && this.state.availability.length && this.state.availability.indexOf('1') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'availability', '1', true)}>Today</button>
-                                            <button className={`sortBtns ${this.state.availability && this.state.availability.length && this.state.availability.indexOf('2') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'availability', '2', true)}>Tomorrow</button>
-                                            <button className={`sortBtns ${this.state.availability && this.state.availability.length && this.state.availability.indexOf('3') > -1 ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'availability', '3', true)}>Next 3 Days</button>
+                                    {/* new filter checkbox design */}
+                                    <div className="sort-chk-filter-container">
+                                        <div className="sort-hsptl-container">
+                                            <h3 className="srt-cli-headings">Hospital <span>+25 more</span></h3>
+                                            <div className="srt-slct-list-container">
+                                                <div className="srt-inp-csl">
+                                                    <input type="text" placeholder="Search Hospital" />
+                                                     <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" />
+                                                </div>
+                                                <ul className="chklist-sort-fliter">
+                                                    <li>
+                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}
+                                                        >Medanta, The Medicity Hospital (12)<input type="checkbox" checked /><span className="checkmark"></span></label>
+                                                    </li>
+                                                    <li>
+                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}
+                                                        >The Medicity Hospital (12)<input type="checkbox" checked /><span className="checkmark"></span></label>
+                                                    </li>
+                                                    <li>
+                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}
+                                                        >test, The Medicity  (12)<input type="checkbox" checked /><span className="checkmark"></span></label>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="sorting-btns-cont">
-                                        <h5 className="sort-headings">Gender</h5>
-                                        <div className="sortbtncard justyfy-twoBtns">
-                                            <button className={`sortBtns ${this.state.gender == 'm' ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'gender', 'm', false)}>Male</button>
-                                            <button className={`sortBtns ${this.state.gender == 'f' ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'gender', 'f', false)}>Female</button>
-                                        </div>
-                                    </div>
-                                    <div className="sorting-btns-cont">
-                                        <h5 className="sort-headings">Hospital Type</h5>
-                                        <div className="sortbtncard justyfy-twoBtns">
-                                            <button className={`sortBtns ${this.state.sits_at_clinic ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'sits_at_clinic', !this.state.sits_at_clinic, false)}>Clinic</button>
-                                            <button className={`sortBtns ${this.state.sits_at_hospital ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'sits_at_hospital', !this.state.sits_at_hospital, false)}>Hospital</button>
+                                    <div className="sort-chk-filter-container">
+                                        <div className="sort-hsptl-container">
+                                            <h3 className="srt-cli-headings">Specialization <span>+25 more</span></h3>
+                                            <div className="srt-slct-list-container">
+                                                <div className="srt-inp-csl">
+                                                    <input type="text" placeholder="Search Hospital" />
+                                                     <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" />
+                                                </div>
+                                                <ul className="chklist-sort-fliter">
+                                                    <li>
+                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}
+                                                        >Medanta, The Medicity Hospital (12)<input type="checkbox" checked /><span className="checkmark"></span></label>
+                                                    </li>
+                                                    <li>
+                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}
+                                                        >The Medicity Hospital (12)<input type="checkbox" checked /><span className="checkmark"></span></label>
+                                                    </li>
+                                                    <li>
+                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}
+                                                        >test, The Medicity  (12)<input type="checkbox" checked /><span className="checkmark"></span></label>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -527,17 +580,17 @@ class TopBar extends React.Component {
                                     <div className="top-filter-tabs-select locationTestFilter" >
                                         <p className="newStickyfilter">
                                             {
-                                                `${this.props.count} ${ipd_ids.length ? 'Specialists' : 'Results'} for ${this.props.hospitalData && this.props.hospitalData.name?`${criteriaStr || 'Doctor'}  in ${this.props.hospitalData.name}`:''}`
+                                                `${this.props.count} ${ipd_ids.length ? 'Specialists' : 'Results'} for ${this.props.hospitalData && this.props.hospitalData.name ? `${criteriaStr || 'Doctor'}  in ${this.props.hospitalData.name}` : ''}`
                                             }
                                             {
-                                                this.props.hospitalData && this.props.hospitalData.name?''
-                                                :<h1 className="sort-head-font-inline">{`${criteriaStr || 'Doctor'}`}
-                                                    <span onClick={this.goToLocation.bind(this)} >{` in ${locationName}`}</span>
-                                                </h1>
+                                                this.props.hospitalData && this.props.hospitalData.name ? ''
+                                                    : <h1 className="sort-head-font-inline">{`${criteriaStr || 'Doctor'}`}
+                                                        <span onClick={this.goToLocation.bind(this)} >{` in ${locationName}`}</span>
+                                                    </h1>
                                             }
                                             {
-                                                (this.props.hospitalData && this.props.hospitalData.name) || !locationName?''
-                                                    :<span onClick={this.goToLocation.bind(this)} ><img style={{ width: '11px', height: '15px', marginLeft: '7px' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
+                                                (this.props.hospitalData && this.props.hospitalData.name) || !locationName ? ''
+                                                    : <span onClick={this.goToLocation.bind(this)} ><img style={{ width: '11px', height: '15px', marginLeft: '7px' }} src={ASSETS_BASE_URL + "/img/customer-icons/edit.svg"} />
                                                     </span>
                                             }
                                         </p>
