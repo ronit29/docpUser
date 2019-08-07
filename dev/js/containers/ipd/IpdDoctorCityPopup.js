@@ -257,7 +257,7 @@ class IpdDoctorCityPopup extends React.Component {
     onFocusOut(){
     	setTimeout(()=>{
     		this.setState({ search_doctor: this.state.selectedDoctor, showDoctorSearchPopup: false })	
-    	},100)
+    	},500)
     	
     }
 
