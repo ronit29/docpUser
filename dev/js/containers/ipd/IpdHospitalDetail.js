@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getHospitaDetails , selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, toggleIPDCriteria, mergeOPDState, ipdChatView, checkIpdChatAgentStatus } from '../../actions/index.js'
+import { getHospitaDetails , selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, toggleIPDCriteria, mergeOPDState, ipdChatView, checkIpdChatAgentStatus, getHospitalComments, postHospitalComments } from '../../actions/index.js'
 
 import IpdHospitalDetailView from '../../components/ipd/IpdHospitalDetailView.js'
 const queryString = require('query-string')
@@ -35,7 +35,11 @@ class HospitalDetail extends React.Component {
         }
         return new Promise((resolve, reject)=>{
         	try{
+        		
         		return store.dispatch(getHospitaDetails(match.params.hospitalId, null, searchUrl, query.specialization_id || '', (resp)=>{
+        			if(resp && resp.id){
+        				store.dispatch(getHospitalComments(resp.id))
+        			}
         			if(resp && resp.status && resp.status==301){
         				resolve({ status: 301 })
         			}else{
@@ -80,6 +84,7 @@ class HospitalDetail extends React.Component {
         		if(resp && resp.status && resp.status==301){
         			this.props.history.push(`/${resp.url}`)
         		}else if(resp && resp.id) {
+        			this.props.getHospitalComments(resp.id)
         			this.setState({hospital_id: resp.id})
         		}
         	})	
@@ -101,10 +106,12 @@ class HospitalDetail extends React.Component {
 	        }
 
 	       // if(!this.state.hospital_id || !nextProps.ipd_hospital_detail_info || !nextProps.ipd_hospital_detail_info[this.state.hospital_id]) {
+	       		
 	        	this.props.getHospitaDetails(this.props.match.params.hospitalId, nextProps.selectedLocation, searchUrl, specialization_id, (resp) => {
 	        		if(resp && resp.status && resp.status==301){
 	        			this.props.history.push(`/${resp.url}`)
 	        		}else if(resp && resp.id) {
+	        			this.props.getHospitalComments(resp.id)		
 	        			this.setState({hospital_id: resp.id})
 	        		}
 	        	})
@@ -182,7 +189,9 @@ const mapStateToProps = (state) => {
 	
 	const {
 		ipd_chat,
-		is_ipd_form_submitted
+		is_ipd_form_submitted,
+		profiles,
+		defaultProfile
 	} = state.USER
 
 	const {
@@ -196,7 +205,8 @@ const mapStateToProps = (state) => {
 		HOSPITAL_DETAIL_LOADED,
 		commonSelectedCriterias,
 		locationFetched,
-		selectedCriterias
+		selectedCriterias,
+		hospitalComments
 	} = state.SEARCH_CRITERIA_IPD
 
 	return {
@@ -209,7 +219,10 @@ const mapStateToProps = (state) => {
         selectedCriterias,
         filterCriteria,
         ipd_chat,
-        is_ipd_form_submitted
+        is_ipd_form_submitted,
+        hospitalComments,
+        profiles,
+        defaultProfile
 	}
 }
 
@@ -223,7 +236,9 @@ const mapDisptachToProps = (dispatch) => {
 		toggleIPDCriteria: (criteria, forceAdd) => dispatch(toggleIPDCriteria(criteria, forceAdd)),
 		mergeOPDState: (state) => dispatch(mergeOPDState(state)),
 		ipdChatView: (data) => dispatch(ipdChatView(data)),
-		checkIpdChatAgentStatus: (cb) => dispatch(checkIpdChatAgentStatus(cb))
+		checkIpdChatAgentStatus: (cb) => dispatch(checkIpdChatAgentStatus(cb)),
+		getHospitalComments: (hospitalId) => dispatch(getHospitalComments(hospitalId)),
+		postHospitalComments: (postData, cb)=> dispatch(postHospitalComments(postData, cb))
 	}
 }
 export default connect(mapStateToProps, mapDisptachToProps)(HospitalDetail)
