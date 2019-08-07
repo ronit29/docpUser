@@ -374,7 +374,7 @@ class DoctorsList extends React.Component {
                                                             </li>
 
                                                             {this.props.similar_specializations && this.props.similar_specializations.length && 
-                                                                !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && (i == 7 || this.props.count < 8)  ?
+                                                                !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && (i == 7 || this.props.count-1 == i)  ?
                                                                     this.props.SimilarSpecializationData()
                                                                 : ''
                                                             }

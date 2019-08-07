@@ -535,7 +535,7 @@ class SearchResultsView extends React.Component {
     SimilarSpecializationData(){
         let data=(<div className="sort-sub-filter-container mb-3 pb-0">
             <p>Looking for other related   
-                <span className="fw-700"> specializations </span>
+                <span className="fw-700"> specializations? </span>
                 <span className="fw-500 sort-more-filter" onClick={this.searchDoctorSpecialization.bind(this,this.props.similar_specializations,true)}>Search all</span>
             </p>
             <div className="doc-sld-container">
@@ -606,12 +606,9 @@ class SearchResultsView extends React.Component {
                             {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                                 <img src={ASSETS_BASE_URL + "/img/banners/banner_doc.png"} className="banner-img" />
                             </div> */}
-                            {this.props.similar_specializations && this.props.similar_specializations.length && !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && this.props.count ==0 ?
-                                    this.SimilarSpecializationData()
-                                : ''
-                            }
                             {
                                 (this.state.clinic_card && this.props.hospitalList && this.props.hospitalList.length==0) || this.props.doctorList && this.props.doctorList.length ==0?
+                                <React.Fragment>
                                 <div className="container-fluid cardMainPaddingRmv">
                                     <div className="pkg-card-container mt-20 mb-3">
                                         <div className="pkg-no-result">
@@ -632,6 +629,11 @@ class SearchResultsView extends React.Component {
                                         </div>
                                     </div>
                                 </div>
+                                {this.props.similar_specializations && this.props.similar_specializations.length && !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && this.props.count ==0 ?
+                                    this.SimilarSpecializationData()
+                                : ''
+                                }
+                                </React.Fragment>
                                 :<React.Fragment>
                                     <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)}  getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} detectLocationClick={() => this.detectLocationClick()}  applyQuickFilter={this.applyQuickFilter.bind(this)} SimilarSpecializationData={this.SimilarSpecializationData.bind(this)}/>
 
