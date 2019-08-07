@@ -29,7 +29,9 @@ class TopBar extends React.Component {
             shortURL: "",
             showLocationPopup: false,
             overlayVisible: false,
-            quickFilter: {}
+            quickFilter: {},
+            SpecialityFilter:[],
+            HospFilter:[]
             //showPopupContainer: true
         }
     }
@@ -175,7 +177,20 @@ class TopBar extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'OpdSortFilterClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-sort-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on||'', 'rating': this.state.avg_ratings
         }
         GTM.sendEvent({ data: data })
+        let searchUrl = null
+        let page = this.props.page
+        let state = this.props
+        this.props.getDoctorHospitalFilters(state, page, false, searchUrl, (...resp) => {
+            if(resp.result){
+                this.setState({HospFilter:resp.result})
+            }
+        })
 
+        this.props.getDoctorHospitalSpeciality(state, page, false, searchUrl, (...resp) => {
+            if(resp.result){
+                this.setState({SpecialityFilter:resp.result})
+            }
+        })
         let currentFilters = {
             sort_on: this.state.sort_on,
             sort_order: this.state.sort_order,
