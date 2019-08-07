@@ -595,8 +595,7 @@ export const select_opd_payment_type = (type = 1) => (dispatch) => {
 	return newUrl
 }
 export const getDoctorHospitalFilters = (state = {}, page = 1, from_server = false, searchByUrl = false, cb, clinic_card = false) => (dispatch) => {
-	let newUrl = `/api/v1/doctor/hospital/filter?`
-	let url = newUrl + getDoctorFiltersParams(state, page, from_server, searchByUrl, clinic_card,true)	
+	let url = getDoctorFiltersParams(state, page, from_server, searchByUrl, clinic_card,true)	
 	return API_GET(url).then(function (response) {
 		if(cb) cb(response)
 	}).catch(function (error) {
@@ -606,8 +605,7 @@ export const getDoctorHospitalFilters = (state = {}, page = 1, from_server = fal
 }
 
 export const getDoctorHospitalSpeciality = (state = {}, page = 1, from_server = false, searchByUrl = false, cb, clinic_card = false) => (dispatch) => {
-	let newUrl = `/api/v1/doctor/speciality/filter?`
-	let url = newUrl + getDoctorFiltersParams(state, page, from_server, searchByUrl, clinic_card,false)	
+	let url = getDoctorFiltersParams(state, page, from_server, searchByUrl, clinic_card,false)	
 	return API_GET(url).then(function (response) {
 		if(cb) cb(response)
 

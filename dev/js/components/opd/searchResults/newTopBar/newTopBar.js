@@ -31,7 +31,8 @@ class TopBar extends React.Component {
             overlayVisible: false,
             quickFilter: {},
             SpecialityFilter:[],
-            HospFilter:[]
+            HospFilter:[],
+            selectedSpecializationId:[]
             //showPopupContainer: true
         }
     }
@@ -181,14 +182,14 @@ class TopBar extends React.Component {
         let page = this.props.page
         let state = this.props
         this.props.getDoctorHospitalFilters(state, page, false, searchUrl, (...resp) => {
-            if(resp.result){
-                this.setState({HospFilter:resp.result})
+            if(resp && resp[0].result){
+                this.setState({HospFilter:resp[0].result})
             }
         })
 
         this.props.getDoctorHospitalSpeciality(state, page, false, searchUrl, (...resp) => {
-            if(resp.result){
-                this.setState({SpecialityFilter:resp.result})
+            if(resp && resp[0].result){
+                this.setState({SpecialityFilter:resp[0].result})
             }
         })
         let currentFilters = {
@@ -354,9 +355,24 @@ class TopBar extends React.Component {
             this.props.applyFilters(filterState)
         })
     }
+    toggleSpecialization(field){
+        let tabs = [].concat(this.state.selectedSpecializationId)
+        let found = false
+        tabs = tabs.filter((x) => {
+            if (x == field) {
+                found = true
+                return false
+            }
+            return true
+        })
+        if (!found) {
+            tabs.push(field)
+        }
 
+        this.setState({selectedSpecializationId:specData})
+    }
     render() {
-
+        console.log(this.state.selectedSpecializationId)
         let ipd_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'ipd').map(x => x.id)
         let criteriaStr = this.getCriteriaString(this.props.commonSelectedCriterias)
 
@@ -491,65 +507,64 @@ class TopBar extends React.Component {
                                                 <button className={`sortBtns ${this.state.gender == 'f' ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'gender', 'f', false)}>Female</button>
                                             </div>
                                         </div>
-                                        <div className="sorting-btns-cont">
+                                        {/*<div className="sorting-btns-cont">
                                             <h5 className="sort-headings">Hospital Type</h5>
                                             <div className="sortbtncard justyfy-twoBtns">
                                                 <button className={`sortBtns ${this.state.sits_at_clinic ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'sits_at_clinic', !this.state.sits_at_clinic, false)}>Clinic</button>
                                                 <button className={`sortBtns ${this.state.sits_at_hospital ? 'srtBtnAct' : ''}`} onClick={this.toggleAllFilters.bind(this, 'sits_at_hospital', !this.state.sits_at_hospital, false)}>Hospital</button>
                                             </div>
-                                        </div>
+                                        </div>*/}
                                     </div>
                                     {/* new filter checkbox design */}
-                                    <div className="sort-chk-filter-container">
-                                        <div className="sort-hsptl-container">
-                                            <h3 className="srt-cli-headings">Hospital <span>+25 more</span></h3>
-                                            <div className="srt-slct-list-container">
-                                                <div className="srt-inp-csl">
-                                                    <input type="text" placeholder="Search Hospital" />
-                                                     <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" />
+                                    {
+                                        this.state.HospFilter && this.state.HospFilter.length > 0?
+                                        <div className="sort-chk-filter-container">
+                                            <div className="sort-hsptl-container">
+                                                <h3 className="srt-cli-headings">Hospital <span>+25 more</span></h3>
+                                                <div className="srt-slct-list-container">
+                                                    <div className="srt-inp-csl">
+                                                        <input type="text" placeholder="Search Hospital" />
+                                                         <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" />
+                                                    </div>
+                                                    <ul className="chklist-sort-fliter">
+                                                        {
+                                                            this.state.HospFilter.map((data,key) =>{
+                                                                // console.log(data)
+                                                            })
+                                                        }
+                                                        <li>
+                                                            <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}
+                                                            >Medanta, The Medicity Hospital (12)<input type="checkbox" checked /><span className="checkmark"></span></label>
+                                                        </li>
+                                                    </ul>
                                                 </div>
-                                                <ul className="chklist-sort-fliter">
-                                                    <li>
-                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}
-                                                        >Medanta, The Medicity Hospital (12)<input type="checkbox" checked /><span className="checkmark"></span></label>
-                                                    </li>
-                                                    <li>
-                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}
-                                                        >The Medicity Hospital (12)<input type="checkbox" checked /><span className="checkmark"></span></label>
-                                                    </li>
-                                                    <li>
-                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}
-                                                        >test, The Medicity  (12)<input type="checkbox" checked /><span className="checkmark"></span></label>
-                                                    </li>
-                                                </ul>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="sort-chk-filter-container">
-                                        <div className="sort-hsptl-container">
-                                            <h3 className="srt-cli-headings">Specialization <span>+25 more</span></h3>
-                                            <div className="srt-slct-list-container">
-                                                <div className="srt-inp-csl">
-                                                    <input type="text" placeholder="Search Hospital" />
-                                                     <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" />
+                                        :''
+                                    }
+                                    {this.state.SpecialityFilter && this.state.SpecialityFilter.length >0?
+                                        <div className="sort-chk-filter-container">
+                                            <div className="sort-hsptl-container">
+                                                <h3 className="srt-cli-headings">Specialization <span>+25 more</span></h3>
+                                                <div className="srt-slct-list-container">
+                                                    <div className="srt-inp-csl">
+                                                        <input type="text" placeholder="Search Hospital" />
+                                                         <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" />
+                                                    </div>
+                                                    <ul className="chklist-sort-fliter">
+                                                        {
+                                                            this.state.SpecialityFilter.map((data,key) =>{
+                                                                return <li key={key} onClick={this.toggleSpecialization.bind(this,data.id)}>
+                                                                    <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedSpecializationId.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
+                                                                </li>
+                                                            })
+                                                        }
+                                                    </ul>
                                                 </div>
-                                                <ul className="chklist-sort-fliter">
-                                                    <li>
-                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}
-                                                        >Medanta, The Medicity Hospital (12)<input type="checkbox" checked /><span className="checkmark"></span></label>
-                                                    </li>
-                                                    <li>
-                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}
-                                                        >The Medicity Hospital (12)<input type="checkbox" checked /><span className="checkmark"></span></label>
-                                                    </li>
-                                                    <li>
-                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}
-                                                        >test, The Medicity  (12)<input type="checkbox" checked /><span className="checkmark"></span></label>
-                                                    </li>
-                                                </ul>
                                             </div>
                                         </div>
-                                    </div>
+                                        :''
+                                    }
                                 </div>
                                 <div className="pop-foot-btns-cont">
                                     <button className="add-shpng-cart-btn" onClick={this.handleClose.bind(this, true)}>Reset</button>
