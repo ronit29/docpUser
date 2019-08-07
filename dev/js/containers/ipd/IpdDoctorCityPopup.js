@@ -227,19 +227,23 @@ class IpdDoctorCityPopup extends React.Component {
     }
 
     handleInut(type, event) {
-    	let search_string = event.target.value.toLowerCase()
-    	let filtered_doctor_list = []
-    	this.props.all_doctors.map((doctor)=>{
-    		let doctor_name = doctor.name.toLowerCase()
-    		if(doctor_name.includes(search_string)){
-    			let index = doctor_name.indexOf(search_string)
-    			filtered_doctor_list.push({id: doctor.id, name: doctor.name, rank: index})
-    		}
-    	})
-    	filtered_doctor_list = filtered_doctor_list.sort((x,y)=>{
-    		return x.rank-y.rank
-    	})
-    	this.setState({[type]: event.target.value, filtered_doctor_list: filtered_doctor_list})
+    	try{
+	    	let search_string = event.target.value.toLowerCase()
+	    	let filtered_doctor_list = []
+	    	this.props.all_doctors.map((doctor)=>{
+	    		let doctor_name = (doctor.name).toLowerCase()
+	    		if(doctor_name.includes(search_string)){
+	    			let index = doctor_name.indexOf(search_string)
+	    			filtered_doctor_list.push({id: doctor.id, name: doctor.name, rank: index})
+	    		}
+	    	})
+	    	filtered_doctor_list = filtered_doctor_list.sort((x,y)=>{
+	    		return x.rank-y.rank
+	    	})
+	    	this.setState({[type]: event.target.value, filtered_doctor_list: filtered_doctor_list})
+	    }catch(e) {
+
+	    }
     }
 
     clickDoctorList(value) {
