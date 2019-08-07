@@ -819,9 +819,12 @@ class PatientDetailsNew extends React.Component {
                             this.setState({ dateTimeSelectedValue: date })
                             /*let hours = formData.title=='AM'?requested_date.getHours():requested_date.getHours()+12*/
                             let hours = parseInt(requested_date.getHours())
+
                             let title = formData.title
                             let foundTimeSlot = null
-
+                            if(title == 'PM' && hours!=12) {
+                                hours = hours+12
+                            }
                             if(this.props.timeSlots && this.props.timeSlots[date] && this.props.timeSlots[date].length) {
                                 
                                 let timeSlotData = this.props.timeSlots[date].filter(x=>x.title==title)
