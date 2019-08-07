@@ -3,9 +3,9 @@ import GTM from '../../../helpers/gtm'
 
 class FooterWidgetView extends React.Component {
 
-	componentDidMount(){
+	componentDidMount() {
 		let data = {
-			'Category': 'ConsumerApp', 'Action': 'FooterWidgetDisplayed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'footer-widget-displayed', type:this.props.footerWidget && this.props.footerWidget.widget_type?this.props.footerWidget.widget_type:''
+			'Category': 'ConsumerApp', 'Action': 'FooterWidgetDisplayed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'footer-widget-displayed', type: this.props.footerWidget && this.props.footerWidget.widget_type ? this.props.footerWidget.widget_type : ''
 		}
 		GTM.sendEvent({ data: data })
 
@@ -94,7 +94,7 @@ class FooterWidgetView extends React.Component {
 		this.props.history.push('/search')
 	}
 
-	goToPackage(){
+	goToPackage() {
 		let data = {
 			'Category': 'ConsumerApp', 'Action': 'ShowPackageClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-package-clicked', 'from': 'footerWidget'
 		}
@@ -113,7 +113,7 @@ class FooterWidgetView extends React.Component {
 							{
 								footerWidget.widget_type == 'LabTest' ?
 									<div className="doc-wdgt-book-doc">
-										<img className="docClosBtn" src="https://cdn.docprime.com/cp/assets/img/icons/close.png" onClick={()=>this.props.handleClose()}/>
+										<img className="docClosBtn" src="https://cdn.docprime.com/cp/assets/img/icons/close.png" onClick={() => this.props.handleClose()} />
 										<h3 className="doc-wdgt-hdng">{`${footerWidget.title} @`}<span>{footerWidget.discount}</span></h3>
 										<div className="doc-wdgt-chips">
 											{
@@ -130,7 +130,7 @@ class FooterWidgetView extends React.Component {
 							{
 								footerWidget.widget_type == 'DoctorAppointment' ?
 									<div className="doc-wdgt-book-doc">
-										<img className="docClosBtn" src="https://cdn.docprime.com/cp/assets/img/icons/close.png" onClick={()=>this.props.handleClose()}/>
+										<img className="docClosBtn" src="https://cdn.docprime.com/cp/assets/img/icons/close.png" onClick={() => this.props.handleClose()} />
 										<h3 className="doc-wdgt-hdng">{`${footerWidget.title} @`}<span>{footerWidget.discount}</span></h3>
 										<div className="doc-wdgt-chips">
 											{
@@ -145,7 +145,7 @@ class FooterWidgetView extends React.Component {
 							}
 
 							{/* third banner */}
-							{
+							{/* {
 								footerWidget.widget_type == 'HealthPackage' ?
 									<div className="doc-wdgt-bodychk-cont">
 										<img className="docClosBtn" src="https://cdn.docprime.com/cp/assets/img/icons/close.png" onClick={()=>this.props.handleClose()}/>
@@ -158,6 +158,31 @@ class FooterWidgetView extends React.Component {
 											</div>
 											<div className="col-5 d-flex align-item-center">
 												<img className="bdychk-img img-fluid" src={ASSETS_BASE_URL + '/img/doc-wd.png'} />
+											</div>
+										</div>
+									</div>
+									: ''
+							} */}
+							{
+								footerWidget.widget_type == 'HealthPackage' ?
+									<div className="doc-wdgt-bodychk-cont">
+										<img className="docClosBtn" src="https://cdn.docprime.com/cp/assets/img/icons/close.png" onClick={() => this.props.handleClose()} />
+										<div className="doc-bdy-chk-hdng">
+											<h4><span>Deal of the Day</span>Book Full Body Checkup</h4>
+										</div>
+										<div className="row cursor-pntr no-gutters" onClick={this.goToPackage.bind(this)}>
+											<div className="col-8">
+												<div className="doc-wdgt-prck">
+													<span className="doc-wd-cut">₹799</span>
+													<span className="doc-wd-nw">₹549</span>
+												</div>
+												<p className="dc-wd-tst">
+													60 tests
+													</p>
+												<p className="dc-wd-tst-nm">Heart, Liver, Lipid, Iron, Thyroid & more</p>
+											</div>
+											<div className="col-4 d-flex align-item-center justyfy-center">
+												<button className="dc-wd-bdy-btn">Know More</button>
 											</div>
 										</div>
 									</div>
