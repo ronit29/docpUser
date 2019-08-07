@@ -12060,3 +12060,11 @@ font-weight: 500;
 	    font-size: 12px;
     font-weight: 500;
 }
+.doc-srch-fltr{
+	height: 60px;
+    overflow: auto;
+    z-index: 3;
+    width: 353px;
+    background: white;
+    text-align: center;
+}
