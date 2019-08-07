@@ -628,11 +628,12 @@ class SearchResultsView extends React.Component {
                                             }
                                         </div>
                                     </div>
-                                </div>
-                                {this.props.similar_specializations && this.props.similar_specializations.length && !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && this.props.count ==0 ?
+                                    {this.props.similar_specializations && this.props.similar_specializations.length && !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && this.props.count ==0 ?
                                     this.SimilarSpecializationData()
                                 : ''
                                 }
+                                </div>
+                                
                                 </React.Fragment>
                                 :<React.Fragment>
                                     <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)}  getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} detectLocationClick={() => this.detectLocationClick()}  applyQuickFilter={this.applyQuickFilter.bind(this)} SimilarSpecializationData={this.SimilarSpecializationData.bind(this)}/>
