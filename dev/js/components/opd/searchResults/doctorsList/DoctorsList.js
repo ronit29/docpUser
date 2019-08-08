@@ -345,9 +345,16 @@ class DoctorsList extends React.Component {
                                                             }
 
                                                             {result_list && result_list.length > 5 &&  i == 3?
-                                                                <div className="mb-3 referDocimg" onClick={()=>{this.props.history.push('/doctorsignup?member_type=1')}}>
+                                                                <div className="mb-3 referDocimg" onClick={(e)=>{
+                                                                    e.preventDefault();
+                                                                    let data = {
+                                                                            'Category': 'ConsumerApp', 'Action': 'ReferDoctorList', 'CustomerID': GTM.getUserId() || '', 'event': 'refer-doctor-list'
+                                                                        }
+                                                                    GTM.sendEvent({ data: data })
+                                                                    this.props.history.push('/doctorsignup?member_type=1')}}>
                                                                 <img src={ASSETS_BASE_URL + "/img/refrlbnr.png"} />
                                                             </div>:''}
+                                                            
                                                             {
                                                                 this.props.insurance_status != 1 && !this.state.sort_order && ((i == 6 && this.state.availability && !this.state.availability.length) || (i == 3 && this.state.availability && this.state.availability.length)) ?
                                                                     <div className="sort-sub-filter-container mb-3">

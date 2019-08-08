@@ -331,6 +331,12 @@ class HospitalDetailView extends React.Component {
 		let isUserLogin = Object.values(this.props.profiles).length || STORAGE.checkAuth()
         let commentsExists = this.props.hospitalComments && this.props.hospitalComments.length ? this.props.hospitalComments.length : null
 
+        let specialization_data = []
+        if(this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.specializations){
+
+        	specialization_data = this.props.ipd_hospital_detail.specialization_doctors.specializations
+        }
+
 		return (
 			<React.Fragment>
 				{
@@ -338,7 +344,7 @@ class HospitalDetailView extends React.Component {
 						<div className="ipd-section">
 							{
 								(showPopup || showForcedPopup) ?
-									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} formSource='ipdHospitalPopup' saveLeadIdForUpdation={this.saveLeadIdForUpdation.bind(this)} noToastMessage={true} />
+									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} formSource='ipdHospitalPopup' saveLeadIdForUpdation={this.saveLeadIdForUpdation.bind(this)} noToastMessage={true} specialization_data={specialization_data}/>
 									: ''
 							}
 							{
@@ -502,6 +508,11 @@ class HospitalDetailView extends React.Component {
 									: ''
 							}
 
+							{
+								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.question_answers && this.props.ipd_hospital_detail.question_answers.length ?
+									<IpdQuestionAnswer hospital_data={this.props.ipd_hospital_detail} />
+									: ''
+							}
 
 		                    <div className="ipd-wdg-pdng">
 		                        {
@@ -528,12 +539,6 @@ class HospitalDetailView extends React.Component {
                                 </div>
 		                            
 		                    </div>
-
-							{
-								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.question_answers && this.props.ipd_hospital_detail.question_answers.length ?
-									<IpdQuestionAnswer hospital_data={this.props.ipd_hospital_detail} />
-									: ''
-							}
 
 							{
 								this.props.ipd_chat || showPopup || (this.props.ipd_hospital_detail && !this.props.ipd_hospital_detail.is_ipd_hospital) ? ''
