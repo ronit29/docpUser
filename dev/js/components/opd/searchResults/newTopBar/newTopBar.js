@@ -673,7 +673,9 @@ class TopBar extends React.Component {
                                                 <div className="srt-slct-list-container">
                                                     <div className="srt-inp-csl">
                                                         <input type="text" placeholder="Search Hospital" onChange={this.handleChangeHosp.bind(this)} name="Hname" onFocus={this.handleChangeFocus.bind(this,true)}/>
-                                                         <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" onClick={this.handleCloseExtraFilter.bind(this)}/>
+                                                        {!this.state.hideOtherFilters?'':
+                                                            <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" onClick={this.handleCloseExtraFilter.bind(this)}/>
+                                                        }
                                                     </div>
                                                         <ul className="chklist-sort-fliter">
                                                             {this.HospFilterData()}
@@ -693,7 +695,9 @@ class TopBar extends React.Component {
                                                 <div className="srt-slct-list-container">
                                                     <div className="srt-inp-csl">
                                                         <input type="text" placeholder="Search Hospital"  onChange={this.handleChangeSpec.bind(this)} name="Sname" onFocus={this.handleChangeFocus.bind(this,false)}/>
-                                                         <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" onClick={this.handleCloseExtraFilter.bind(this)}/>
+                                                        {!this.state.hideOtherFilters?'':
+                                                            <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" onClick={this.handleCloseExtraFilter.bind(this)}/>
+                                                        }
                                                     </div>
                                                     <ul className="chklist-sort-fliter">
                                                         {this.SpecFilterData()}
