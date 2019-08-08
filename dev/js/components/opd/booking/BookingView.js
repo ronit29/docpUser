@@ -174,6 +174,14 @@ class BookingView extends React.Component {
         this.setState({ showPopup: false })
     }
 
+    goToBookingPage(){
+        let analyticData = {
+            'Category': 'ConsumerApp', 'Action': 'RebookDoctorAppointmentClicked', 'CustomerID': GTM.getUserId(), 'leadid': '', 'event': 'rebook-doctor-appointment-clicked'
+        }
+        GTM.sendEvent({ data: analyticData })
+        this.props.history.push(`/opd/doctor/${this.state.data.doctor.id}/${this.state.data.hospital.id}/bookdetails`)
+    }
+
     render() {
 
         let doctor = {}
@@ -313,7 +321,7 @@ class BookingView extends React.Component {
                                                     </div>
                                                 </div>
                                                 <div className="widget mrb-10">
-                                                    <div className="widget-content bokng-card pb-details pb-location">
+                                                    <div className="widget-content bokng-card pb-location">
                                                         <h4 className="wc-title text-md fw-700 card-nm-ovrlpng">{doctor.display_name}</h4>
                                                         <InitialsPicture name={doctor.name} has_image={!!doctor_thumbnail} className="initialsPicture-dbd" onClick={this.navigateTo.bind(this, `/opd/doctor/${doctor.id}`)}>
                                                             <img src={doctor_thumbnail} style={{ width: 50 }} className="img-fluid add-map img-round crd-doc-img" />
@@ -324,7 +332,7 @@ class BookingView extends React.Component {
                                                             <p className="add-info fw-500">{this.getQualificationStr(doctor.general_specialization || [])}</p>
                                                         </div>
                                                     </div>
-                                                    <div className="widget-content pb-details pb-location">
+                                                    <div className="widget-content  pb-location">
                                                         <h4 className="wc-title text-md fw-700 card-nm-ovrlpng">{hospital.name}</h4>
                                                         <div className="address-details">
                                                             {/*<img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid add-map" />*/}      
@@ -334,6 +342,7 @@ class BookingView extends React.Component {
                                                             <a href={`https://www.google.com/maps/search/?api=1&query=${hospital.lat},${hospital.long}`} target="_blank" className="link-text text-md fw-700">View in Google Map</a>
                                                         </div>*/}
                                                     </div>
+                                                    <button onClick={this.goToBookingPage.bind(this)}>Rebook Appointment</button>
                                                     {
                                                         this.state.data && this.state.data.procedures && this.state.data.procedures.length ?
                                                             <div className="widget-content pb-details pb-location">
