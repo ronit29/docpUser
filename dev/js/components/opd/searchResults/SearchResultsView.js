@@ -468,7 +468,9 @@ class SearchResultsView extends React.Component {
     }
 
     searchDoctorSpecialization(speciality,isViewAll) {
-
+        if (window) {
+            window.scrollTo(0, 0)
+        }
         let specialityData={}
         let ViewAllData=[]
         if(isViewAll){
