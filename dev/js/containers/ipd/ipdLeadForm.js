@@ -160,8 +160,21 @@ class IpdLeadForm extends React.Component {
         this.setState({ whatsapp_optin: !this.state.whatsapp_optin })
     }
 
+    getSpecializationNames(specializationData){
+    	try{
+    		return specializationData.map(x=>x.name).join(',')
+    	}catch(e) {
+    		
+    	}
+    }	
+
 	render() {
 		const parsed = queryString.parse(this.props.location.search)
+		let specialization_name = null
+		if(this.props.specialization_data && this.props.specialization_data.length) {
+			specialization_name = this.getSpecializationNames(this.props.specialization_data)||''	
+		}
+		
 
 		return (
 			<div className="search-el-popup-overlay cancel-overlay-zindex" onClick={(e) => {
@@ -188,7 +201,9 @@ class IpdLeadForm extends React.Component {
 											</span>*/
 									}
 									{
-										this.props.doctor_name?
+										specialization_name?
+										<p className="ipd-needHelp">{`Need an appointment with ${specialization_name} ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
+										:this.props.doctor_name?
 										<p className="ipd-needHelp">{`Need to book an appointment with ${this.props.doctor_name} ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
 										:this.props.hospital_name?
 										<p className="ipd-needHelp">{`Need help with an appointment ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
