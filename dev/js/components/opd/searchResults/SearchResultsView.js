@@ -4,13 +4,13 @@ import DoctorsList from '../searchResults/doctorsList/index.js'
 import CriteriaSearch from '../../commons/criteriaSearch'
 import TopBar from './newTopBar'
 import CONFIG from '../../../config'
+import GTM from '../../../helpers/gtm'
 import HelmetTags from '../../commons/HelmetTags'
 import NAVIGATE from '../../../helpers/navigate'
 import Footer from '../../commons/Home/footer'
 import ResultCount from './topBar/result_count.js'
 const queryString = require('query-string');
 import SCROLL from '../../../helpers/scrollHelper.js'
-import GTM from '../../../helpers/gtm'
 
 class SearchResultsView extends React.Component {
     constructor(props) {
@@ -467,6 +467,99 @@ class SearchResultsView extends React.Component {
         return is_filter_applied
     }
 
+    searchDoctorSpecialization(speciality,isViewAll) {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+        let specialityData={}
+        let ViewAllData=[]
+        if(isViewAll){
+            console.log(speciality)
+            speciality.map((spec, i) => {
+                ViewAllData.push({id:spec.specialization_id,type:'speciality'})
+            })
+        
+            let state = {}
+            let hospital_id =''
+            let doctor_name = ''
+            let hospital_name = ''
+            if (ViewAllData.length) {
+                this.props.cloneCommonSelectedCriterias(ViewAllData)
+            }
+
+            state = {
+                filterCriteria: {
+                    ...this.props.filterCriteria,
+                    hospital_id, doctor_name, hospital_name
+                },
+                nextFilterCriteria: {
+                    ...this.props.filterCriteria,
+                    hospital_id, doctor_name, hospital_name
+                }
+            }
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'SimilarSpecializationsViewAll', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'similar-specializations-viewall'
+            }
+            GTM.sendEvent({ data: data })
+            this.props.mergeOPDState(state)
+            this.props.history.push(`/opd/searchresults`)
+        }else{
+            specialityData.type = 'speciality'
+            specialityData.name = speciality.specialization_name
+            specialityData.id = speciality.specialization_id
+            this.props.toggleOPDCriteria('speciality', specialityData, true)
+            setTimeout(() => {
+                this.props.history.push('/opd/searchresults')
+            }, 100)
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'SimilarSpecializations', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'similar-specializations'
+            }
+            GTM.sendEvent({ data: data })
+        }
+    }
+
+    SimilarSpecialization(flag){/*
+        let dataLength = parseInt(this.props.similar_specializations.length/2)
+        let count = 0
+        if (!flag) {
+            count = dataLength;
+            dataLength = 
+        }*/
+        let dataModel = []
+        for (let i = 0; i < this.props.similar_specializations.length; i++) {
+            if(flag && i%2==0) {
+                dataModel.push(<span id={this.props.similar_specializations[i].specialization_id} onClick={this.searchDoctorSpecialization.bind(this,this.props.similar_specializations[i],false)}>
+                    {this.props.similar_specializations[i].specialization_name}
+                </span>)    
+            }
+            if(!flag && i%2!=0) {
+                dataModel.push(<span id={this.props.similar_specializations[i].specialization_id} onClick={this.searchDoctorSpecialization.bind(this,this.props.similar_specializations[i],false)}>
+                {this.props.similar_specializations[i].specialization_name}
+            </span>)
+            }
+            
+        }
+        return dataModel
+    }
+
+    SimilarSpecializationData(){
+        let data=(<div className="sort-sub-filter-container mb-3 pb-0">
+            <p>Looking for other related   
+                <span className="fw-700"> specializations? </span>
+                <span className="fw-500 sort-more-filter" onClick={this.searchDoctorSpecialization.bind(this,this.props.similar_specializations,true)}>Search all</span>
+            </p>
+            <div className="doc-sld-container">
+                <div className="sm-chips-container">
+                    {this.SimilarSpecialization(true)}
+                </div>
+                <div className="sm-chips-container">
+                    {this.SimilarSpecialization(false)}
+                </div>
+            </div>
+        </div>)
+        return data
+    }
+
     render() {
         let show_pagination = this.props.doctorList && this.props.doctorList.length > 0
         let url = `${CONFIG.API_BASE_URL}${this.props.location.pathname}`
@@ -525,6 +618,7 @@ class SearchResultsView extends React.Component {
                             </div> */}
                             {
                                 (this.state.clinic_card && this.props.hospitalList && this.props.hospitalList.length==0) || this.props.doctorList && this.props.doctorList.length ==0?
+                                <React.Fragment>
                                 <div className="container-fluid cardMainPaddingRmv">
                                     <div className="pkg-card-container mt-20 mb-3">
                                         <div className="pkg-no-result">
@@ -550,9 +644,15 @@ class SearchResultsView extends React.Component {
                                             }
                                         </div>
                                     </div>
+                                    {this.props.similar_specializations && this.props.similar_specializations.length && !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && this.props.count ==0 ?
+                                    this.SimilarSpecializationData()
+                                : ''
+                                }
                                 </div>
+                                
+                                </React.Fragment>
                                 :<React.Fragment>
-                                    <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)}  getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} detectLocationClick={() => this.detectLocationClick()}  applyQuickFilter={this.applyQuickFilter.bind(this)} />
+                                    <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)}  getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} detectLocationClick={() => this.detectLocationClick()}  applyQuickFilter={this.applyQuickFilter.bind(this)} SimilarSpecializationData={this.SimilarSpecializationData.bind(this)}/>
 
                                     {
                                         this.state.seoFriendly && show_pagination ? <div className="art-pagination-div">

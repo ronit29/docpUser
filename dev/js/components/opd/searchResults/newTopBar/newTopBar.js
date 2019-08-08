@@ -757,10 +757,13 @@ class TopBar extends React.Component {
                                                 `${this.props.count} ${ipd_ids.length ? 'Specialists' : 'Results'} for ${this.props.hospitalData && this.props.hospitalData.name ? `${criteriaStr || 'Doctor'}  in ${this.props.hospitalData.name}` : ''}`
                                             }
                                             {
-                                                this.props.hospitalData && this.props.hospitalData.name ? ''
-                                                    : <h1 className="sort-head-font-inline">{`${criteriaStr || 'Doctor'}`}
-                                                        <span onClick={this.goToLocation.bind(this)} >{` in ${locationName}`}</span>
-                                                    </h1>
+                                                this.props.hospitalData && this.props.hospitalData.name?''
+                                                :<h1 className="sort-head-font-inline">
+                                                    <span className={`${this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length > 3?'srch-truncate':''}`}>
+                                                        {`${criteriaStr || 'Doctor'}`}
+                                                    </span>
+                                                    <span onClick={this.goToLocation.bind(this)} >{` in ${locationName}`}</span>
+                                                </h1>
                                             }
                                             {
                                                 (this.props.hospitalData && this.props.hospitalData.name) || !locationName ? ''

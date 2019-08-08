@@ -380,6 +380,27 @@ class DoctorsList extends React.Component {
                                                                 }
                                                             </li>
 
+                                                            {this.props.similar_specializations && this.props.similar_specializations.length && 
+                                                                !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && (i == 7 || this.props.count-1 == i)  ?
+                                                                    this.props.SimilarSpecializationData()
+                                                                : ''
+                                                            }
+
+                                                            {this.props.similar_specializations && this.props.similar_specializations.length && this.state.sort_order && (this.state.availability || this.state.availability.length) && this.props.count < 8 && i== (this.props.count-1) ?
+                                                                    this.props.SimilarSpecializationData()
+                                                                : ''
+                                                            }
+
+                                                            {this.props.similar_specializations && this.props.similar_specializations.length && this.state.sort_order && (this.state.availability || this.state.availability.length) && this.props.count < 8 && i == 3 ?
+                                                                    this.props.SimilarSpecializationData()
+                                                                : ''
+                                                            }
+
+                                                            {this.props.similar_specializations && this.props.similar_specializations.length && this.state.sort_order && (this.state.availability || this.state.availability.length) && i== 3 ?
+                                                                    this.props.SimilarSpecializationData()
+                                                                : ''
+                                                            }
+
                                                             {
                                                                 !!!card_ID && i == result_list.length - 1 && this.props.seoFriendly && this.props.match.url.includes('-sptlitcit') && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length ?
                                                                     <li key={i}>

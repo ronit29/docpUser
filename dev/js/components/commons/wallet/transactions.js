@@ -19,7 +19,8 @@ const PRODUCT = {
     1: 'Doctor',
     2: 'Lab',
     3: 'Insurance',
-    4: 'Plan'
+    4: 'Plan',
+    5: 'Chat'
 }
 
 const SOURCE_FROM = {
@@ -37,7 +38,8 @@ const ENTITY = {
     1: 'Appointment',
     2: 'Appointment',
     3: '',
-    4: ''
+    4: '',
+    5: 'Consultation'
 }
 
 class Transactions extends React.Component {
@@ -94,7 +96,7 @@ class Transactions extends React.Component {
                 return "Refund for rescheduled appointment"
             }
             case 5: {
-                return `Cashback Received for ${PRODUCT[product_id]} Appointment`
+                return `Cashback Received for ${PRODUCT[product_id]} ${ENTITY[product_id]}`
             }
             case 6: {
                 return `Referral Bonus`
@@ -129,7 +131,10 @@ class Transactions extends React.Component {
                         <div className="csh-booking-id-content">
                             <p>{this.getTxMessage(this.props.data)}</p>
                             {
-                                reference_id ? <span style={{cursor:'pointer'}} onClick={this.openAppointment.bind(this, product_id, reference_id)}>Booking ID : {reference_id}</span> : ""
+                                reference_id ?
+                                    product_id == 5 ? <span>Booking ID : {reference_id}</span>
+                                    : <span style={{cursor:'pointer'}} onClick={this.openAppointment.bind(this, product_id, reference_id)}>Booking ID : {reference_id}</span>
+                                : ""
                             }
                         </div>
                     </div>

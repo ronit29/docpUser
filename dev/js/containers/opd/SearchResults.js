@@ -121,7 +121,7 @@ const mapStateToProps = (state, passedProps) => {
     let DOCTORS = state.DOCTORS
     let HOSPITALS = state.HOSPITALS
 
-    let { hospitalList, doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page, ratings, reviews, ratings_title, bottom_content, breadcrumb, seoData, show404, canonical_url, hospitalData } = state.DOCTOR_SEARCH
+    let { hospitalList, doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page, ratings, reviews, ratings_title, bottom_content, breadcrumb, seoData, show404, canonical_url, hospitalData, similar_specializations } = state.DOCTOR_SEARCH
 
     const {
         offerList,
@@ -163,7 +163,8 @@ const mapStateToProps = (state, passedProps) => {
         compare_packages,
         device_info,
         common_settings,
-        hospitalData
+        hospitalData,
+        similar_specializations
     }
 }
 
