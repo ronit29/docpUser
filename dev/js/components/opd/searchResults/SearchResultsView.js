@@ -10,6 +10,7 @@ import Footer from '../../commons/Home/footer'
 import ResultCount from './topBar/result_count.js'
 const queryString = require('query-string');
 import SCROLL from '../../../helpers/scrollHelper.js'
+import GTM from '../../../helpers/gtm'
 
 class SearchResultsView extends React.Component {
     constructor(props) {
@@ -538,7 +539,13 @@ class SearchResultsView extends React.Component {
                                                 <React.Fragment>
                                                     <img style={{width:'130px'}} className="n-rslt-img" src={ASSETS_BASE_URL + '/img/vct-no.png'} />
                                                     <p className="pkg-ty-agn text-dark text-center">Can’t find your doctor here?<br></br>Help us to list your doctor</p>
-                                                    <button className="referDoctorbtn" onClick={()=>{this.props.history.push('/doctorsignup?member_type=1')}}>Refer your Doctor</button>
+                                                    <button className="referDoctorbtn" onClick={(e)=>{
+                                                        e.preventDefault();
+                                                        let data = {
+                                                                'Category': 'ConsumerApp', 'Action': 'ReferDoctorListNoresult', 'CustomerID': GTM.getUserId() || '', 'event': 'refer-doctor-list-noresult'
+                                                            }
+                                                        GTM.sendEvent({ data: data })
+                                                        this.props.history.push('/doctorsignup?member_type=1')}}>Refer your Doctor</button>
                                                 </React.Fragment>
                                             }
                                         </div>

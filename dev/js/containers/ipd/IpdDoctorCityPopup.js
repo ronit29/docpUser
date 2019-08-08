@@ -21,8 +21,16 @@ class IpdDoctorCityPopup extends React.Component {
 			timeSlot: '',
 			dateModal: false,
 			requestedDateFormat: this.getFormattedDate(new Date()),
-			requested_date_format: new Date()
+			requested_date_format: new Date(),
+			search_doctor: '',
+			filtered_doctor_list: [],
+			showDoctorSearchPopup:false
 		}
+	}
+
+	componentDidCatch(error, info) {
+		console.log('error is ',error)
+		console.log('info is ', info)
 	}
 
 	submitClicked(){
@@ -155,13 +163,14 @@ class IpdDoctorCityPopup extends React.Component {
 
 	}
 
-	closePopUpClicked() {
+	closePopUpClicked(skip=false) {
+		if(skip) {
+			let gtmData = {
+				'Category': 'ConsumerApp', 'Action': 'IPD-2popup-skip-clicked', 'CustomerID': GTM.getUserId() || '', 'event': 'IPD-2popup-skip-clicked', 'formNo':'2'
+			}
+			GTM.sendEvent({ data: gtmData })
+		}
 		this.props.secondIpdFormSubmitted()
-	}
-
-	redirectToChat() {
-		/*let params = JSON.stringify(this.state)
-		this.props.history.push(`/mobileviewchat?product=IPD&params=${params}&source=${this.props.hospital_id}`)*/
 	}
 
 	isDateSelected(){
@@ -217,8 +226,45 @@ class IpdDoctorCityPopup extends React.Component {
     	return `${day>=10?day:`0${day}`}-${month>=10?month:`0${month}-${date.getFullYear()}`}`
     }
 
+    handleInut(type, event) {
+    	try{
+	    	let search_string = event.target.value.toLowerCase()
+	    	let filtered_doctor_list = []
+	    	this.props.all_doctors.map((doctor)=>{
+	    		let doctor_name = (doctor.name).toLowerCase()
+	    		if(doctor_name.includes(search_string)){
+	    			let index = doctor_name.indexOf(search_string)
+	    			filtered_doctor_list.push({id: doctor.id, name: doctor.name, rank: index})
+	    		}
+	    	})
+	    	filtered_doctor_list = filtered_doctor_list.sort((x,y)=>{
+	    		return x.rank-y.rank
+	    	})
+	    	this.setState({[type]: event.target.value, filtered_doctor_list: filtered_doctor_list})
+	    }catch(e) {
+
+	    }
+    }
+
+    clickDoctorList(value) {
+    	this.setState({'selectedDoctor': value, filtered_doctor_list:[], search_doctor: value, showDoctorSearchPopup: false}) 
+    }
+
+    onFocusIn(){
+    	this.setState({ filtered_doctor_list: this.props.all_doctors, search_doctor:'', showDoctorSearchPopup: true })
+    }
+
+    onFocusOut(){
+    	setTimeout(()=>{
+    		this.setState({ search_doctor: this.state.selectedDoctor, showDoctorSearchPopup: false })	
+    	},500)
+    	
+    }
+
 	render() {
 		const parsed = queryString.parse(this.props.location.search)
+
+		let filtered_doctor = this.state.filtered_doctor_list
 
 		return (
 			<div className="search-el-popup-overlay cancel-overlay-zindex" onClick={(e) => {
@@ -243,10 +289,6 @@ class IpdDoctorCityPopup extends React.Component {
 								<p className="ipd-needHelp">{`Need help with an appointment ${this.props.hospital_name?`at ${this.props.hospital_name}?`:''}`}</p>
 								:''
 							}
-							{/*<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Get upto 30% Off on Appointments</span></p>
-							<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Instant Booking Confirmation</span></p>
-							<p className="srch-el-ipd-cont ipd-pop-tick-text"><img className="ipd-pop-tick" src={ASSETS_BASE_URL + '/images/tick.png'} /> <span>Dedicated Doctor for Advice</span></p>*/}
-							{/*<p className="ipd-needHelp">Your request has been submitted. To help us serve you better, please fill the additional details below:</p>*/}
 							<div className="ipd-pop-scrl">
 								<div className="ipd-inp-section ipd-sctn-chng" onClick={(e) => {
 								e.preventDefault()
@@ -255,7 +297,7 @@ class IpdDoctorCityPopup extends React.Component {
 									{
 										this.props.all_doctors && this.props.all_doctors.length?
 										<div className="ipd-slects-doc">
-											<select defaultValue={this.state.selectedDoctor} onChange={ (e)=> this.setState({'selectedDoctor': e.target.value}) }>
+											{/*<select defaultValue={this.state.selectedDoctor} onChange={ (e)=> this.setState({'selectedDoctor': e.target.value}) }>
 												<option defaultValue="">*Select Doctor</option>
 												{
 													this.props.all_doctors.map((doctor, key)=>{
@@ -263,7 +305,27 @@ class IpdDoctorCityPopup extends React.Component {
 														return <option key={key} id={doctor.id} defaultValue="">{doctor.name}</option>
 													})
 												}
-											</select>
+											</select>*/}
+											<input type="text" placeholder='Search Doctors' onChange={this.handleInut.bind(this, 'search_doctor')} onFocus = {this.onFocusIn.bind(this)} onBlur={this.onFocusOut.bind(this)} value={this.state.search_doctor}/>
+											{
+												this.state.showDoctorSearchPopup?
+												<div className="doc-srch-fltr" onClick={(e)=>e.preventDefault()}>
+												{
+													
+													this.state.filtered_doctor_list && this.state.filtered_doctor_list.length?
+														this.state.filtered_doctor_list.map((data, key)=>{
+															return <p className="cursor-pntr" key={key} id={data.id} onClick={(e)=>{
+																e.preventDefault();
+																e.stopPropagation();
+																this.clickDoctorList(data.name)} }>
+																{data.name}</p>
+														})
+														:<p>No result found</p>
+												}
+												</div>
+												:''
+											}
+											
 										</div>:''
 									}
 									<div className="nm-lst-inputcnt justify-content-between">
@@ -324,7 +386,7 @@ class IpdDoctorCityPopup extends React.Component {
 										<p onClick={(e) => {
 											e.preventDefault()
 											e.stopPropagation()
-											this.closePopUpClicked()
+											this.closePopUpClicked(true)
 										}}>Skip</p>
 									</div>
 								</div>
