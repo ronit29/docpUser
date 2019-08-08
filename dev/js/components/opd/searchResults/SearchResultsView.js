@@ -516,18 +516,26 @@ class SearchResultsView extends React.Component {
         }
     }
 
-    SimilarSpecialization(flag){
+    SimilarSpecialization(flag){/*
         let dataLength = parseInt(this.props.similar_specializations.length/2)
         let count = 0
         if (!flag) {
             count = dataLength;
-            dataLength = this.props.similar_specializations.length
-        }
+            dataLength = 
+        }*/
         let dataModel = []
-        for (let i = count; i < dataLength; i++) {
-            dataModel.push(<span id={this.props.similar_specializations[i].specialization_id} onClick={this.searchDoctorSpecialization.bind(this,this.props.similar_specializations[i],false)}>
+        for (let i = 0; i < this.props.similar_specializations.length; i++) {
+            if(flag && i%2==0) {
+                dataModel.push(<span id={this.props.similar_specializations[i].specialization_id} onClick={this.searchDoctorSpecialization.bind(this,this.props.similar_specializations[i],false)}>
+                    {this.props.similar_specializations[i].specialization_name}
+                </span>)    
+            }
+            if(!flag && i%2!=0) {
+                dataModel.push(<span id={this.props.similar_specializations[i].specialization_id} onClick={this.searchDoctorSpecialization.bind(this,this.props.similar_specializations[i],false)}>
                 {this.props.similar_specializations[i].specialization_name}
             </span>)
+            }
+            
         }
         return dataModel
     }
