@@ -395,7 +395,7 @@ class TopBar extends React.Component {
         let search_string = event.target.value.toLowerCase()
             let filtered_hosp_list = []
             this.state.HospFilter.map((Hosp)=>{
-                let hosp_name = (hosp.name).toLowerCase()
+                let hosp_name = (Hosp.name).toLowerCase()
                 if(hosp_name.includes(search_string)){
                     let index = hosp_name.indexOf(search_string)
                     filtered_hosp_list.push({id: Hosp.id, name: Hosp.name, rank: index})
@@ -458,9 +458,12 @@ class TopBar extends React.Component {
                             <div className="cancel-overlay cancel-overlay-zindex" onClick={this.handleClose.bind(this, false)}>
                             </div>
                             <div className="widget cancel-appointment-div cancel-popup overflow-hidden pb-0">
-                                <div className="cross-btn" onClick={this.handleClose.bind(this, false)}>
-                                    <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" />
-                                </div>
+                                {
+                                    this.state.hideOtherFilters?'':
+                                    <div className="cross-btn" onClick={this.handleClose.bind(this, false)}>
+                                        <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" />
+                                    </div>
+                                }
                                 <div className="pop-top-heading">
                                     Sort/Filter
                             </div>
@@ -586,27 +589,45 @@ class TopBar extends React.Component {
                                         this.state.HospFilter && this.state.HospFilter.length > 0?
                                         <div className={`sort-chk-filter-container ${this.state.hideHospFilter?'d-none':''}`}>
                                             <div className="sort-hsptl-container">
-                                                <h3 className="srt-cli-headings">Hospital <span>+{this.state.HospFilter.length - 3} more</span></h3>
+                                                <h3 className="srt-cli-headings">Hospital 
+                                                    <span onClick={this.handleChangeFocus.bind(this,true)}>{this.state.hideOtherFilters?'':`+${this.state.HospFilter.length - 3} more`}
+                                                    </span>
+                                                </h3>
                                                 <div className="srt-slct-list-container">
                                                     <div className="srt-inp-csl">
                                                         <input type="text" placeholder="Search Hospital" onChange={this.handleChangeHosp.bind(this)} name="Hname" onFocus={this.handleChangeFocus.bind(this,true)}/>
                                                          <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" onClick={this.handleCloseExtraFilter.bind(this)}/>
                                                     </div>
-                                                    <ul className="chklist-sort-fliter">
-                                                        {   this.state.hideOtherFilters
-                                                            ?this.state.HospFilterOnFoucsData.map((data,key) =>{
-                                                               return <li key={key} onChange={this.toggleHospital.bind(this,data.id)}>
-                                                                    <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
-                                                                </li>
-                                                            })
-                                                            :
-                                                            this.state.HospFilter.map((data,key) =>{
-                                                               return key <=4?<li key={key} onChange={this.toggleHospital.bind(this,data.id)}>
-                                                                    <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
-                                                                </li>: ''
-                                                            })
-                                                        }
-                                                    </ul>
+                                                    {
+                                                        this.state.selectedHospitalIds.length >0 && !this.state.hideOtherFilters?
+                                                        <ul className="chklist-sort-fliter">
+                                                            {   this.state.HospFilter.map((data,key) =>{
+                                                                    return this.state.selectedHospitalIds.indexOf(data.id)> -1?<li key={key} onChange={this.toggleHospital.bind(this,data.id)}>
+                                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
+                                                                    </li>:
+                                                                    this.state.selectedHospitalIds.indexOf(data.id) == -1 && this.state.selectedHospitalIds.length <=5?
+                                                                    <li key={key} onChange={this.toggleHospital.bind(this,data.id)}>
+                                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
+                                                                    </li>:''
+                                                                }) 
+                                                            }
+                                                        </ul>
+                                                        :<ul className="chklist-sort-fliter">
+                                                            {   this.state.hideOtherFilters 
+                                                                ?this.state.HospFilterOnFoucsData.map((data,key) =>{
+                                                                   return <li key={key} onChange={this.toggleHospital.bind(this,data.id)}>
+                                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
+                                                                    </li>
+                                                                })
+                                                                :
+                                                                this.state.HospFilter.map((data,key) =>{
+                                                                   return key <=4?<li key={key} onChange={this.toggleHospital.bind(this,data.id)}>
+                                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
+                                                                    </li>: ''
+                                                                })
+                                                            }
+                                                        </ul>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -615,7 +636,10 @@ class TopBar extends React.Component {
                                     {this.state.SpecialityFilter && this.state.SpecialityFilter.length >0?
                                         <div className={`sort-chk-filter-container ${this.state.hideSpecFilter?'d-none':''}`}>
                                             <div className="sort-hsptl-container">
-                                                <h3 className="srt-cli-headings">Specialization <span>+{this.state.SpecialityFilter.length - 3} more</span></h3>
+                                                <h3 className="srt-cli-headings">Specialization 
+                                                    <span onClick={this.handleChangeFocus.bind(this,false)}>{this.state.hideOtherFilters?'':`+${this.state.SpecialityFilter.length - 3} more`}
+                                                    </span>
+                                                </h3>
                                                 <div className="srt-slct-list-container">
                                                     <div className="srt-inp-csl">
                                                         <input type="text" placeholder="Search Hospital"  onChange={this.handleChangeSpec.bind(this)} name="Sname" onFocus={this.handleChangeFocus.bind(this,false)}/>
