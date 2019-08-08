@@ -32,7 +32,11 @@ class TopBar extends React.Component {
             quickFilter: {},
             SpecialityFilter:[],
             HospFilter:[],
-            selectedSpecializationId:[]
+            selectedSpecializationIds:[],
+            selectedHospitalIds:[],
+            hideOtherFilters:false,
+            hideHospFilter:false,
+            hideSpecFilter:false
             //showPopupContainer: true
         }
     }
@@ -123,7 +127,7 @@ class TopBar extends React.Component {
             }
             GTM.sendEvent({ data: data })
             this.setState({
-                dropdown_visible: false,
+                dropdown_visible: false,hideOtherFilters:false,hideHospFilter:false,hideSpecFilter:false,
                 ...this.state.previous_filters,
                 quickFilter: {}
             })
@@ -355,24 +359,78 @@ class TopBar extends React.Component {
             this.props.applyFilters(filterState)
         })
     }
-    toggleSpecialization(field){
-        let tabs = [].concat(this.state.selectedSpecializationId)
+
+    toggleSpecialization(spec_id){
+        let test_ids = [].concat(this.state.selectedSpecializationIds)
+        let self = this
         let found = false
-        tabs = tabs.filter((x) => {
-            if (x == field) {
+        test_ids = test_ids.filter((x) => {
+            if (x == spec_id) {
                 found = true
                 return false
             }
             return true
         })
         if (!found) {
-            tabs.push(field)
+            test_ids.push(spec_id)
         }
+        
+        self.setState({ selectedSpecializationIds: test_ids })
+    }
+    handleChangeFocus(type){
+        if(type){
+            this.setState({hideOtherFilters:true,hideSpecFilter:true})
+        }else{
+            this.setState({hideOtherFilters:true,hideHospFilter:true})
+        }
+    }
 
-        this.setState({selectedSpecializationId:specData})
+    handleCloseExtraFilter(type){
+        this.setState({hideOtherFilters:false,hideSpecFilter:false,hideHospFilter:false})
+    }
+
+    handleChangeHosp(e){
+        
+        let search_term = e.target.value
+        // let arr;
+        // // console.log(this.state.HospFilter)
+        // // arr = this.state.HospFilter.filter(x=>x.name !=search_term)
+        // // console.log(arr)
+
+        
+        // this.state.HospFilter.map((data,key) =>{
+            
+        //     arr = data.filter(e =>e.toLowerCase().includes(search_term.toLowerCase()));
+
+        // })
+        // console.log(arr)
+            // arr = arr.filter(e => e == search_term); // will return ['A', 'C']
+    }
+    handleChangeSpec(e){
+        
+        let search_term = e.target.value
+    }
+    toggleHospital(hosp_id){
+        let test_ids = [].concat(this.state.selectedHospitalIds)
+        let self = this
+        let found = false
+        test_ids = test_ids.filter((x) => {
+            if (x == hosp_id) {
+                found = true
+                return false
+            }
+            return true
+        })
+        if (!found) {
+            test_ids.push(hosp_id)
+        }
+        
+        self.setState({ selectedHospitalIds: test_ids })
     }
     render() {
-        console.log(this.state.selectedSpecializationId)
+        console.log(this.state.hideHospFilter)
+        console.log(this.state.hideOtherFilters)
+        console.log(this.state.hideSpecFilter)
         let ipd_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'ipd').map(x => x.id)
         let criteriaStr = this.getCriteriaString(this.props.commonSelectedCriterias)
 
@@ -399,7 +457,7 @@ class TopBar extends React.Component {
                                     Sort/Filter
                             </div>
                                 <div className="multy-select-fltr-container">
-                                    <div className="sorting-main-container">
+                                    <div className= {`sorting-main-container ${this.state.hideOtherFilters?'d-none':''}`} >
                                         <div className="sort-lft-cont">
                                             <h5 className="sort-headings">Sort by</h5>
                                             <div className="sort-slider-scroll">
@@ -518,24 +576,22 @@ class TopBar extends React.Component {
                                     {/* new filter checkbox design */}
                                     {
                                         this.state.HospFilter && this.state.HospFilter.length > 0?
-                                        <div className="sort-chk-filter-container">
+                                        <div className={`sort-chk-filter-container ${this.state.hideHospFilter?'d-none':''}`}>
                                             <div className="sort-hsptl-container">
-                                                <h3 className="srt-cli-headings">Hospital <span>+25 more</span></h3>
+                                                <h3 className="srt-cli-headings">Hospital <span>+{this.state.HospFilter.length - 3} more</span></h3>
                                                 <div className="srt-slct-list-container">
                                                     <div className="srt-inp-csl">
-                                                        <input type="text" placeholder="Search Hospital" />
-                                                         <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" />
+                                                        <input type="text" placeholder="Search Hospital" onChange={this.handleChangeHosp.bind(this)} name="Hname" onFocus={this.handleChangeFocus.bind(this,true)}/>
+                                                         <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" onClick={this.handleCloseExtraFilter.bind(this)}/>
                                                     </div>
                                                     <ul className="chklist-sort-fliter">
                                                         {
                                                             this.state.HospFilter.map((data,key) =>{
-                                                                // console.log(data)
+                                                               return <li key={key} onChange={this.toggleHospital.bind(this,data.id)}>
+                                                                    <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
+                                                                </li> 
                                                             })
                                                         }
-                                                        <li>
-                                                            <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}
-                                                            >Medanta, The Medicity Hospital (12)<input type="checkbox" checked /><span className="checkmark"></span></label>
-                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -543,19 +599,19 @@ class TopBar extends React.Component {
                                         :''
                                     }
                                     {this.state.SpecialityFilter && this.state.SpecialityFilter.length >0?
-                                        <div className="sort-chk-filter-container">
+                                        <div className={`sort-chk-filter-container ${this.state.hideSpecFilter?'d-none':''}`}>
                                             <div className="sort-hsptl-container">
-                                                <h3 className="srt-cli-headings">Specialization <span>+25 more</span></h3>
+                                                <h3 className="srt-cli-headings">Specialization <span>+{this.state.SpecialityFilter.length - 3} more</span></h3>
                                                 <div className="srt-slct-list-container">
                                                     <div className="srt-inp-csl">
-                                                        <input type="text" placeholder="Search Hospital" />
-                                                         <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" />
+                                                        <input type="text" placeholder="Search Hospital"  onChange={this.handleChangeSpec.bind(this)} name="Sname" onFocus={this.handleChangeFocus.bind(this,false)}/>
+                                                         <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" onClick={this.handleCloseExtraFilter.bind(this)}/>
                                                     </div>
                                                     <ul className="chklist-sort-fliter">
                                                         {
                                                             this.state.SpecialityFilter.map((data,key) =>{
-                                                                return <li key={key} onClick={this.toggleSpecialization.bind(this,data.id)}>
-                                                                    <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedSpecializationId.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
+                                                                return <li key={key} onChange={this.toggleSpecialization.bind(this,data.id)}>
+                                                                    <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedSpecializationIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
                                                                 </li>
                                                             })
                                                         }
@@ -566,7 +622,7 @@ class TopBar extends React.Component {
                                         :''
                                     }
                                 </div>
-                                <div className="pop-foot-btns-cont">
+                                <div className={`pop-foot-btns-cont ${this.state.hideOtherFilters?'d-none':''}`}>
                                     <button className="add-shpng-cart-btn" onClick={this.handleClose.bind(this, true)}>Reset</button>
                                     <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.applyFilters.bind(this)}>Apply Filter</button>
                                 </div>
