@@ -406,6 +406,7 @@ class TopBar extends React.Component {
             })
             this.setState({HospFilterOnFoucsData:filtered_hosp_list})
     }
+
     handleChangeSpec(event){
         let search_string = event.target.value.toLowerCase()
             let filtered_spec_list = []
@@ -421,6 +422,7 @@ class TopBar extends React.Component {
             })
             this.setState({SpecialityFilterOnFocusData:filtered_spec_list})
     }
+
     toggleHospital(hosp_id){
         let test_ids = [].concat(this.state.selectedHospitalIds)
         let self = this
@@ -438,6 +440,81 @@ class TopBar extends React.Component {
         
         self.setState({ selectedHospitalIds: test_ids })
     }
+
+    HospFilterData(){
+        let liData=[]
+        if(this.state.selectedHospitalIds.length >0 && !this.state.hideOtherFilters){
+            this.state.HospFilter.map((data,key) =>{
+                if(this.state.selectedHospitalIds.indexOf(data.id)> -1 && liData.length < 5){
+                    liData.push(<li key={key} onChange={this.toggleHospital.bind(this,data.id)}>
+                    <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
+                    </li>)
+                }
+            })
+            this.state.HospFilter.map((data,key) =>{
+                if(this.state.selectedHospitalIds.indexOf(data.id)== -1 && liData.length < 5){
+                    liData.push(<li key={key} onChange={this.toggleHospital.bind(this,data.id)}>
+                    <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
+                    </li>)
+                }
+            })
+        }else{
+            if(this.state.hideOtherFilters){
+                this.state.HospFilterOnFoucsData.map((data,key) =>{
+                    liData.push(<li key={key} onChange={this.toggleHospital.bind(this,data.id)}>
+                    <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
+                    </li>)
+                })
+            }else{
+                this.state.HospFilter.map((data,key) =>{
+                    if(this.state.selectedHospitalIds.length ==0 && key <=4){
+                        liData.push(<li key={key} onChange={this.toggleHospital.bind(this,data.id)}>
+                            <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
+                        </li>)
+                    }
+                })
+            }
+        }
+        return liData
+    }
+
+    SpecFilterData(){
+        let liData=[]
+        if(this.state.selectedSpecializationIds.length >0 && !this.state.hideOtherFilters){
+            this.state.SpecialityFilter.map((data,key) =>{
+                if(this.state.selectedSpecializationIds.indexOf(data.id)> -1 && liData.length < 5){
+                    liData.push(<li key={key} onChange={this.toggleSpecialization.bind(this,data.id)}>
+                    <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedSpecializationIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
+                    </li>)
+                }
+            })
+            this.state.SpecialityFilter.map((data,key) =>{
+                if(this.state.selectedSpecializationIds.indexOf(data.id)== -1 && liData.length < 5){
+                    liData.push(<li key={key} onChange={this.toggleSpecialization.bind(this,data.id)}>
+                    <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedSpecializationIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
+                    </li>)
+                }
+            })
+        }else{
+            if(this.state.hideOtherFilters){
+               this.state.SpecialityFilterOnFocusData.map((data,key) =>{
+                    liData.push(<li key={key} onChange={this.toggleSpecialization.bind(this,data.id)}>
+                    <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedSpecializationIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
+                    </li>)
+                }) 
+            }else{
+                this.state.SpecialityFilter.map((data,key) =>{
+                    if(this.state.selectedSpecializationIds.length ==0 && key <=4){
+                        liData.push(<li key={key} onChange={this.toggleSpecialization.bind(this,data.id)}>
+                            <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedSpecializationIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
+                        </li>)
+                    }
+                })
+            }
+        }
+        return liData
+    }
+
     render() {
         let ipd_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'ipd').map(x => x.id)
         let criteriaStr = this.getCriteriaString(this.props.commonSelectedCriterias)
@@ -598,36 +675,9 @@ class TopBar extends React.Component {
                                                         <input type="text" placeholder="Search Hospital" onChange={this.handleChangeHosp.bind(this)} name="Hname" onFocus={this.handleChangeFocus.bind(this,true)}/>
                                                          <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" onClick={this.handleCloseExtraFilter.bind(this)}/>
                                                     </div>
-                                                    {
-                                                        this.state.selectedHospitalIds.length >0 && !this.state.hideOtherFilters?
                                                         <ul className="chklist-sort-fliter">
-                                                            {   this.state.HospFilter.map((data,key) =>{
-                                                                    return this.state.selectedHospitalIds.indexOf(data.id)> -1?<li key={key} onChange={this.toggleHospital.bind(this,data.id)}>
-                                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
-                                                                    </li>:
-                                                                    this.state.selectedHospitalIds.indexOf(data.id) == -1 && key == this.state.selectedHospitalIds.length ?
-                                                                    <li key={key} onChange={this.toggleHospital.bind(this,data.id)}>
-                                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
-                                                                    </li>:''
-                                                                }) 
-                                                            }
+                                                            {this.HospFilterData()}
                                                         </ul>
-                                                        :<ul className="chklist-sort-fliter">
-                                                            {   this.state.hideOtherFilters 
-                                                                ?this.state.HospFilterOnFoucsData.map((data,key) =>{
-                                                                   return <li key={key} onChange={this.toggleHospital.bind(this,data.id)}>
-                                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
-                                                                    </li>
-                                                                })
-                                                                :
-                                                                this.state.HospFilter.map((data,key) =>{
-                                                                   return key <=4?<li key={key} onChange={this.toggleHospital.bind(this,data.id)}>
-                                                                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
-                                                                    </li>: ''
-                                                                })
-                                                            }
-                                                        </ul>
-                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -646,18 +696,7 @@ class TopBar extends React.Component {
                                                          <img src={ASSETS_BASE_URL + "/img/icons/close.png"} alt="close" onClick={this.handleCloseExtraFilter.bind(this)}/>
                                                     </div>
                                                     <ul className="chklist-sort-fliter">
-                                                        {this.state.hideOtherFilters?
-                                                            this.state.SpecialityFilterOnFocusData.map((data,key) =>{
-                                                                return <li key={key} onChange={this.toggleSpecialization.bind(this,data.id)}>
-                                                                    <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedSpecializationIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
-                                                                </li>
-                                                            })
-                                                            :this.state.SpecialityFilter.map((data,key) =>{
-                                                                return key <=4? <li key={key} onChange={this.toggleSpecialization.bind(this,data.id)}>
-                                                                    <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedSpecializationIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
-                                                                </li>:''
-                                                            })
-                                                        }
+                                                        {this.SpecFilterData()}
                                                     </ul>
                                                 </div>
                                             </div>
