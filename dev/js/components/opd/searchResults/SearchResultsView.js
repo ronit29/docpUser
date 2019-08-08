@@ -11,7 +11,6 @@ import Footer from '../../commons/Home/footer'
 import ResultCount from './topBar/result_count.js'
 const queryString = require('query-string');
 import SCROLL from '../../../helpers/scrollHelper.js'
-import GTM from '../../../helpers/gtm'
 
 class SearchResultsView extends React.Component {
     constructor(props) {
