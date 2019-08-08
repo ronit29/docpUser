@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions, editUserProfile, savePincode, clearExtraTests, selectSearchType, patientDetails, uploadPrescription, savePrescription, removePrescription, clearPrescriptions, preBooking, saveAvailNowInsurance } from '../../actions/index.js'
+import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions, editUserProfile, savePincode, clearExtraTests, selectSearchType, patientDetails, uploadPrescription, savePrescription, removePrescription, clearPrescriptions, preBooking, saveAvailNowInsurance, unSetCommonUtmTags, sendSPOAgentBooking } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/index.js'
@@ -73,7 +73,7 @@ const mapStateToProps = (state) => {
         saved_patient_details,
         selectedLocation
     } = state.SEARCH_CRITERIA_LABS
-    const { selectedProfile, profiles, address, userWalletBalance, userCashbackBalance, isUserCared, defaultProfile, ipd_chat } = state.USER
+    const { selectedProfile, profiles, address, userWalletBalance, userCashbackBalance, isUserCared, defaultProfile, ipd_chat, common_utm_tags } = state.USER
     let LABS = state.LABS
     let { selectedSlot, selectedAppointmentType, selectedAddress, labCoupons, disCountedLabPrice, couponAutoApply, user_prescriptions, is_prescription_needed, selectedDateFormat } = state.LAB_SEARCH
 
@@ -83,7 +83,7 @@ const mapStateToProps = (state) => {
         lab_test_data,
         LABS,
         selectedProfile, profiles, selectedSlot, selectedAppointmentType, address, selectedAddress, labCoupons, disCountedLabPrice,
-        couponAutoApply, userWalletBalance, userCashbackBalance, pincode, isUserCared, defaultProfile, saved_patient_details, user_prescriptions, ipd_chat, is_prescription_needed, selectedDateFormat, selectedLocation
+        couponAutoApply, userWalletBalance, userCashbackBalance, pincode, isUserCared, defaultProfile, saved_patient_details, user_prescriptions, ipd_chat, is_prescription_needed, selectedDateFormat, selectedLocation, common_utm_tags
     }
 }
 
@@ -119,7 +119,9 @@ const mapDispatchToProps = (dispatch) => {
         removePrescription:(criteria)=>dispatch(removePrescription(criteria)),
         clearPrescriptions:()=>dispatch(clearPrescriptions()),
         preBooking:(slot) => dispatch(preBooking(slot)),
-        saveAvailNowInsurance:(data) => dispatch(saveAvailNowInsurance(data))
+        saveAvailNowInsurance:(data) => dispatch(saveAvailNowInsurance(data)),
+        unSetCommonUtmTags: (type, tag)=> dispatch(unSetCommonUtmTags(type, tag)),
+        sendSPOAgentBooking: (postData, cb) => dispatch(sendSPOAgentBooking(postData, cb))
     }
 }
 

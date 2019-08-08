@@ -79,8 +79,17 @@ class SearchPackagesView extends React.Component {
         } else if (state.page) {
             page = state.page
         }
-
-        this.props.getPackages(state, page, false, null, (...args) => {
+        let extraParams = {}
+        const parsed = queryString.parse(this.props.location.search)
+        if(parsed.UtmSource && parsed.UtmSource=='OfflineAffiliate'){
+            extraParams = {
+                UtmSource: parsed.UtmSource||'',
+                UtmTerm: parsed.UtmTerm||'',
+                UtmMedium: parsed.UtmMedium||'',
+                UtmCampaign: parsed.UtmCampaign||''
+            }
+        }
+        this.props.getPackages(state, page, false, null, extraParams, (...args) => {
             // this.setState({ seoData: args[1] })
             if (cb) {
                 cb(...args)
@@ -239,6 +248,18 @@ class SearchPackagesView extends React.Component {
             url += '&isComparable=true'
         }
 
+        if(parsed.UtmSource){
+            url += `&UtmSource=${parsed.UtmSource}`
+        }
+        if(parsed.UtmTerm){
+            url+= `&UtmTerm=${parsed.UtmTerm}`
+        }
+        if(parsed.UtmMedium){
+            url+= `&UtmMedium=${parsed.UtmMedium}`
+        }
+        if(parsed.UtmCampaign){
+            url+= `&UtmCampaign=${parsed.UtmCampaign}`
+        }
         return url
     }
 

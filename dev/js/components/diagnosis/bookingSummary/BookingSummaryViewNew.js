@@ -56,7 +56,8 @@ class BookingSummaryViewNew extends React.Component {
             coupon_loading: false,
             seoFriendly: this.props.match.url.includes('-lpp'),
             isEmailNotValid:false,
-            is_payment_coupon_applied: false
+            is_payment_coupon_applied: false,
+            is_spo_appointment: false
         }
     }
 
@@ -99,6 +100,21 @@ class BookingSummaryViewNew extends React.Component {
             var scrollPosition = elementTop - elementHeight;
             this.setState({ scrollPosition: scrollPosition });
         }*/
+        //Clear Utm tags for SPO, when 
+        let currentTime = new Date().getTime()
+        if(sessionStorage && sessionStorage.getItem('sessionIdVal') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='spo').length) {
+
+            let spo_tags = this.props.common_utm_tags.filter(x=>x.type=='spo')[0]
+            if(spo_tags.time){
+                let time_offset = (currentTime - spo_tags.time)/60000
+                //Clear SPO utm tags after 15minutes
+                if(time_offset>900) {
+                    this.props.unSetCommonUtmTags('spo')
+                }else {
+                    this.setState({is_spo_appointment: true})
+                }
+            }
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -541,6 +557,17 @@ class BookingSummaryViewNew extends React.Component {
             cart_item: this.state.cart_item,
             prescription_list: prescriptionIds
         }
+        //Check SPO UTM Tags
+        if(sessionStorage && sessionStorage.getItem('sessionIdVal') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='spo').length) {
+
+            let spo_tags = this.props.common_utm_tags.filter(x=>x.type=='spo')[0]
+            if(spo_tags.utm_tags){
+                
+                postData['utm_spo_tags'] = spo_tags.utm_tags
+            }
+        }
+
+
         let profileData = { ...patient }
         if (profileData && profileData.whatsapp_optin == null) {
             profileData['whatsapp_optin'] = this.state.whatsapp_optin
@@ -575,7 +602,11 @@ class BookingSummaryViewNew extends React.Component {
                     this.props.clearExtraTests()
                 }
 
-                this.props.history.push('/cart')
+                if(this.state.is_spo_appointment) {
+                    this.sendAgentBookingURL()
+                }else {
+                    this.props.history.push('/cart')
+                }
             }).catch((err) => {
                 let message = "Error adding to cart!"
                 if (err.message) {
@@ -606,6 +637,12 @@ class BookingSummaryViewNew extends React.Component {
         GTM.sendEvent({ data: analyticData })
         this.props.createLABAppointment(postData, (err, data) => {
             if (!err) {
+
+                //Clear SPO UTM Tags after appointments creation
+                if(this.state.is_spo_appointment){
+                    this.props.unSetCommonUtmTags('spo')
+                }
+                
                 if (this.props.user_prescriptions && this.props.user_prescriptions.length > 0) {
                     this.props.removeLabCoupons(this.props.selectedLab, this.state.couponId)
                     this.props.clearPrescriptions()
@@ -662,10 +699,20 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     sendAgentBookingURL() {
-        this.props.sendAgentBookingURL(this.state.order_id, 'sms', (err, res) => {
+        let postData = {}
+        if(sessionStorage && sessionStorage.getItem('sessionIdVal') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='spo').length) {
+
+            let spo_tags = this.props.common_utm_tags.filter(x=>x.type=='spo')[0]
+            if(spo_tags.utm_tags){
+                postData = spo_tags.utm_tags
+            }
+        }
+        
+        this.props.sendSPOAgentBooking(postData, (err, res) => {
             if (err) {
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
             } else {
+                this.props.unSetCommonUtmTags('spo')
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SENT SUCCESSFULY" })
             }
         })
@@ -1304,14 +1351,14 @@ class BookingSummaryViewNew extends React.Component {
 
                             <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
                                 {
-                                    STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured) ?
+                                    STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured)  ?
                                         <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                         } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status)}>
                                             {
                                                 this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
                                             }
-                                            {this.state.cart_item ? "Update" : "Add to Cart"}
+                                            {this.state.is_spo_appointment?'Send SMS':this.state.cart_item ? "Update" : "Add to Cart"}
                                         </button>
                                         : ''
                                 }

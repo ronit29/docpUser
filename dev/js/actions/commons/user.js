@@ -718,3 +718,11 @@ export const ipdPopupFired = () => (dispatch) => {
 		type: IPD_POPUP_FIRED
 	})
 }
+
+export const sendSPOAgentBooking = (postData, cb) => (dispatch) => {
+	return API_POST(`/api/v1/user/send_cart_url`, postData).then((data)=> {
+		if(cb)cb(null, data)
+	}).catch((e)=>{
+ 		if(cb)cb(e, null)
+	})
+}
