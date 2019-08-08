@@ -44,7 +44,7 @@ class TopBar extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ ...props.filterCriteria, quickFilter: props.quickFilter || {} }, () => {
+        this.setState({ ...props.filterCriteria, selectedHospitalIds:props.filterCriteria.hospital_id, quickFilter: props.quickFilter || {} }, () => {
             if (this.state.quickFilter && this.state.quickFilter.viewMore) {
                 this.sortFilterClicked()
             }
@@ -64,7 +64,7 @@ class TopBar extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ ...this.props.filterCriteria })
+        this.setState({ ...this.props.filterCriteria, selectedHospitalIds:this.props.filterCriteria.hospital_id })
         // this.shortenUrl()
         if ((this.props.seoData && this.props.seoData.location) || this.props.seoFriendly) {
             this.setState({ showLocationPopup: false })
@@ -85,7 +85,7 @@ class TopBar extends React.Component {
             sits_at_clinic: this.state.sits_at_clinic,
             sits_at_hospital: this.state.sits_at_hospital,
             is_insured: this.state.is_insured,
-            hospital_id: this.state.hospital_id
+            hospital_id: this.state.selectedHospitalIds
         }
         let data = {
             'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on || '', 'rating': this.state.avg_ratings
@@ -206,7 +206,8 @@ class TopBar extends React.Component {
             gender: this.state.gender,
             sits_at_clinic: this.state.sits_at_clinic,
             sits_at_hospital: this.state.sits_at_hospital,
-            specialization: []
+            specialization: [],
+            selectedHospitalIds:[].concat(this.state.selectedHospitalIds)
         }
         this.setState({ dropdown_visible: true, previous_filters: currentFilters })
     }
@@ -219,7 +220,7 @@ class TopBar extends React.Component {
                 let filterCount = 0
                 for (let filter in this.state.previous_filters) {
 
-                    if (filter.includes('availability') || filter.includes('specialization')) {
+                    if (filter.includes('availability') || filter.includes('specialization') || filter.includes('selectedHospitalIds') ) {
 
                         if (this.state.previous_filters[filter] && this.state[filter].length != this.state.previous_filters[filter].length) {
 
@@ -262,7 +263,7 @@ class TopBar extends React.Component {
                     if (this.state['sits_at_clinic'] || this.state['sits_at_hospital']) {
                         filterCount++
                     }
-                } else if (filter.includes('availability')) {
+                } else if (filter.includes('availability') || filter.includes('selectedHospitalIds')) {
                     if (this.state[filter].length) {
                         filterCount++
                     }
@@ -348,7 +349,7 @@ class TopBar extends React.Component {
 
             let filterState = {
                 is_insured: this.state.is_insured,
-                hospital_id: this.state.hospital_id,
+                hospital_id: this.state.selectedHospitalIds,
                 sort_order: this.state.sort_order,
                 sort_on: this.state.sort_on,
                 avg_ratings: this.state.avg_ratings,
@@ -516,6 +517,7 @@ class TopBar extends React.Component {
     }
 
     render() {
+        console.log(this.state.selectedHospitalIds)
         let ipd_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'ipd').map(x => x.id)
         let criteriaStr = this.getCriteriaString(this.props.commonSelectedCriterias)
 
