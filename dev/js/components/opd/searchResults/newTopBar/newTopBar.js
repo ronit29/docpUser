@@ -605,7 +605,7 @@ class TopBar extends React.Component {
                                                                     return this.state.selectedHospitalIds.indexOf(data.id)> -1?<li key={key} onChange={this.toggleHospital.bind(this,data.id)}>
                                                                         <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
                                                                     </li>:
-                                                                    this.state.selectedHospitalIds.indexOf(data.id) == -1 && this.state.selectedHospitalIds.length <=5?
+                                                                    this.state.selectedHospitalIds.indexOf(data.id) == -1 && key == this.state.selectedHospitalIds.length ?
                                                                     <li key={key} onChange={this.toggleHospital.bind(this,data.id)}>
                                                                         <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id)> -1?true:false} /><span className="checkmark"></span></label>
                                                                     </li>:''
