@@ -44,7 +44,7 @@ class TopBar extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ ...props.filterCriteria, selectedHospitalIds:props.filterCriteria.hospital_id, quickFilter: props.quickFilter || {} }, () => {
+        this.setState({ ...props.filterCriteria, selectedHospitalIds:props.filterCriteria.hospital_id?props.filterCriteria.hospital_id:[], quickFilter: props.quickFilter || {} }, () => {
             if (this.state.quickFilter && this.state.quickFilter.viewMore) {
                 this.sortFilterClicked()
             }
@@ -64,7 +64,7 @@ class TopBar extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ ...this.props.filterCriteria, selectedHospitalIds:this.props.filterCriteria.hospital_id })
+        this.setState({ ...this.props.filterCriteria, selectedHospitalIds:this.props.filterCriteria.hospital_id?this.props.filterCriteria.hospital_id:[] })
         // this.shortenUrl()
         if ((this.props.seoData && this.props.seoData.location) || this.props.seoFriendly) {
             this.setState({ showLocationPopup: false })
@@ -74,7 +74,33 @@ class TopBar extends React.Component {
             }
         }
     }
+    applySpecialityFilter(){
+        let ViewAllData = []
+        this.state.selectedSpecializationIds.map((spec, i) => {
+            ViewAllData.push({id:spec,type:'speciality'})
+        })
+        
+        let state = {}
+        let hospital_id =[].concat(this.state.selectedHospitalIds)
+        let doctor_name = ''
+        let hospital_name = ''
+        if (ViewAllData.length) {
+            this.setState({specialization:ViewAllData})
+            this.props.cloneCommonSelectedCriterias(ViewAllData)
+        }
 
+        state = {
+            filterCriteria: {
+                ...this.props.filterCriteria,
+                hospital_id, doctor_name, hospital_name
+            },
+            nextFilterCriteria: {
+                ...this.props.filterCriteria,
+                hospital_id, doctor_name, hospital_name
+            }
+        }
+        this.props.mergeOPDState(state)
+    }
     applyFilters() {
         let filterState = {
             sort_on: this.state.sort_on,
@@ -87,6 +113,8 @@ class TopBar extends React.Component {
             is_insured: this.state.is_insured,
             hospital_id: this.state.selectedHospitalIds
         }
+        this.applySpecialityFilter()
+        filterState.specialization=[].concat(this.state.specialization)
         let data = {
             'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on || '', 'rating': this.state.avg_ratings
         }
@@ -206,8 +234,8 @@ class TopBar extends React.Component {
             gender: this.state.gender,
             sits_at_clinic: this.state.sits_at_clinic,
             sits_at_hospital: this.state.sits_at_hospital,
-            specialization: [],
-            selectedHospitalIds:[].concat(this.state.selectedHospitalIds)
+            specialization: [].concat(this.state.specialization),
+            selectedHospitalIds:[].concat(this.state.selectedHospitalIds),
         }
         this.setState({ dropdown_visible: true, previous_filters: currentFilters })
     }
@@ -444,7 +472,8 @@ class TopBar extends React.Component {
 
     HospFilterData(){
         let liData=[]
-        if(this.state.selectedHospitalIds.length >0 && !this.state.hideOtherFilters){
+        let self=this
+        if(self.state.selectedHospitalIds && self.state.selectedHospitalIds.length >0 && !self.state.hideOtherFilters){
             this.state.HospFilter.map((data,key) =>{
                 if(this.state.selectedHospitalIds.indexOf(data.id)> -1 && liData.length < 5){
                     liData.push(<li key={key} onChange={this.toggleHospital.bind(this,data.id)}>

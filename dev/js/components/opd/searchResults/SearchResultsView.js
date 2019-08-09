@@ -474,7 +474,6 @@ class SearchResultsView extends React.Component {
         let specialityData={}
         let ViewAllData=[]
         if(isViewAll){
-            console.log(speciality)
             speciality.map((spec, i) => {
                 ViewAllData.push({id:spec.specialization_id,type:'speciality'})
             })
