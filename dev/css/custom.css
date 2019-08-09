@@ -3084,7 +3084,7 @@ h2.lbcrdcstfont.cstmDocName{
 /* ============ opd filter ============ */
 .multy-select-fltr-container {
     overflow: auto;
-    height: 75vh;
+    height: 70vh;
 }
 .sort-chk-filter-container {
     border-top: 1px solid #e6e6e6;
@@ -3133,6 +3133,15 @@ ul.chklist-sort-fliter label.ck-bx {
 ul.chklist-sort-fliter label.ck-bx span.checkmark {
     right: 0;
     left: unset;
+}
+span.pp-arw img {
+    position: relative;
+    width: 20px;
+}
+span.pp-done {
+    color: #f78631;
+    font-weight: 500;
+    font-size: 13px;
 }
 /* ============ opd filter ============ */
 
