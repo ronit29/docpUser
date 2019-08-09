@@ -325,7 +325,11 @@ class DoctorProfileCard extends React.Component {
                                         :
                                         <button className="cstm-view-btn" onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')}>View Contact</button>
                                 }
+
                             </div>
+                        </div>
+                        <div className="text-right">
+                            <p className="pay_clnc"><img src={ASSETS_BASE_URL + "/img/payclnc.svg"} />Pay at clinic available</p>
                         </div>
                         {/*
                             is_insurance_buy_able && this.props.common_settings && this.props.common_settings.insurance_availability ?
