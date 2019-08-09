@@ -568,7 +568,7 @@ export const removeFromCart = (id) => (dispatch) => {
 	})
 }
 
-export const processCartItems = (use_wallet = true) => (dispatch) => {
+export const processCartItems = (use_wallet = true, extraParams={}) => (dispatch) => {
 	let postData = {}
 	postData['visitor_info'] = GTM.getVisitorInfo()
 	use_wallet = use_wallet ? 1 : 0

@@ -124,7 +124,25 @@ class CartView extends React.Component {
             this.setState({showConfirmationPopup:true})
             return
         }
-        this.props.processCartItems(this.state.use_wallet).then((data) => {
+        //Add SPO Utm Tags to the cart API
+        let currentTime = new Date().getTime()
+        let extraParams = {}
+        if(sessionStorage && sessionStorage.getItem('sessionIdVal') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='spo').length) {
+
+            let spo_tags = this.props.common_utm_tags.filter(x=>x.type=='spo')[0]
+            let sessionVal = parseInt(sessionStorage.getItem('sessionIdVal'))
+            if(spo_tags.utm_tags && spo_tags.time && sessionVal == parseInt(spo_tags.currentSessionId)){
+                let time_offset = (currentTime - spo_tags.time)/60000
+                //Clear SPO utm tags after 15minutes
+                if(time_offset>900) {
+                    this.props.unSetCommonUtmTags('spo')
+                }else {
+                    extraParams = spo_tags.utm_tags
+                }
+            }
+        }
+
+        this.props.processCartItems(this.state.use_wallet, extraParams).then((data) => {
             if (data.payment_required) {
                 // this.props.history.push(`/payment/${data.data.orderId}?refs=lab`)
                 this.processPayment(data)

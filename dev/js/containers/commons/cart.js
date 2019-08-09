@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { select_opd_payment_type, sendAgentBookingURL, getUserProfile, getCartItems, removeFromCart, processCartItems, selectProfile, selectLabTimeSLot, selectOpdTimeSLot, saveProfileProcedures, clearAllTests, applyCoupons, toggleDiagnosisCriteria, fetchTransactions, selectLabAppointmentType, savePincode } from '../../actions/index.js'
+import { select_opd_payment_type, sendAgentBookingURL, getUserProfile, getCartItems, removeFromCart, processCartItems, selectProfile, selectLabTimeSLot, selectOpdTimeSLot, saveProfileProcedures, clearAllTests, applyCoupons, toggleDiagnosisCriteria, fetchTransactions, selectLabAppointmentType, savePincode, setCommonUtmTags, unSetCommonUtmTags } from '../../actions/index.js'
 
 import CartView from '../../components/commons/cart'
 import STORAGE from '../../helpers/storage'
+const queryString = require('query-string')
 
 class Cart extends React.Component {
     constructor(props) {
@@ -24,6 +25,29 @@ class Cart extends React.Component {
             this.props.getCartItems()
             this.props.fetchTransactions()
         }
+        //Add UTM tags for building url
+        try{
+            const parsed = queryString.parse(this.props.location.search)
+            if(parsed.UtmSource && parsed.UtmSource=='OfflineAffiliate'){
+                let sessionId = Math.floor(Math.random() * 103)*21 + 1050
+                if(sessionStorage) {
+                    sessionStorage.setItem('sessionIdVal',sessionId)   
+                }
+                let spo_tags = {
+                    utm_tags: {
+                        UtmSource: parsed.UtmSource||'',
+                        UtmTerm: parsed.UtmTerm||'',
+                        UtmMedium: parsed.UtmMedium||'',
+                        UtmCampaign: parsed.UtmCampaign||''
+                    },
+                    time: new Date().getTime(),
+                    currentSessionId: sessionId
+                }
+                this.props.setCommonUtmTags('spo', spo_tags)
+            }
+        }catch(e) {
+
+        }
     }
 
     render() {
@@ -36,11 +60,13 @@ class Cart extends React.Component {
 
 const mapStateToProps = (state) => {
     let {
-        cart, userWalletBalance, userCashbackBalance, profiles, defaultProfile
+        cart, userWalletBalance, userCashbackBalance, profiles, defaultProfile,
+        common_utm_tags
     } = state.USER
 
     return {
-        cart, userWalletBalance, userCashbackBalance, profiles, defaultProfile
+        cart, userWalletBalance, userCashbackBalance, profiles, defaultProfile,
+        common_utm_tags
     }
 }
 
@@ -49,7 +75,7 @@ const mapDispatchToProps = (dispatch) => {
         getUserProfile: () => dispatch(getUserProfile()),
         getCartItems: () => dispatch(getCartItems()),
         removeFromCart: (id) => dispatch(removeFromCart(id)),
-        processCartItems: (use_wallet) => dispatch(processCartItems(use_wallet)),
+        processCartItems: (use_wallet, extraParams) => dispatch(processCartItems(use_wallet, extraParams)),
         selectProfile: (id) => dispatch(selectProfile(id)),
         selectOpdTimeSLot: (slot, reschedule, appointmentId, dateParam) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId, dateParam)),
         selectLabTimeSLot: (slot, reschedule, dateParam) => dispatch(selectLabTimeSLot(slot, reschedule, dateParam)),
@@ -61,7 +87,9 @@ const mapDispatchToProps = (dispatch) => {
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
         sendAgentBookingURL: (orderId, type, purchase_type,cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type, cb)),
         select_opd_payment_type: (type) => dispatch(select_opd_payment_type(type)),
-        savePincode: (pincode) => dispatch(savePincode(pincode))
+        savePincode: (pincode) => dispatch(savePincode(pincode)),
+        setCommonUtmTags: (type, tag) => dispatch(setCommonUtmTags(type, tag)),
+        unSetCommonUtmTags: (type, tag)=> dispatch(unSetCommonUtmTags(type, tag))
     }
 }
 
