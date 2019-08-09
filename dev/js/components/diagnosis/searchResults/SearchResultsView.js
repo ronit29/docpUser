@@ -8,6 +8,7 @@ import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import Footer from '../../commons/Home/footer'
 import ResultCount from './topBar/result_count.js'
+import GTM from '../../../helpers/gtm'
 const queryString = require('query-string');
 
 class SearchResultsView extends React.Component {
@@ -455,7 +456,13 @@ class SearchResultsView extends React.Component {
                                             : <React.Fragment>
                                                 <img style={{width:'130px'}} className="n-rslt-img" src={ASSETS_BASE_URL + '/img/vct-no.png'} />
                                                 <p className="pkg-ty-agn text-dark text-center">Can’t find your lab here?<br></br>Help us to list your lab</p>
-                                                <button className="referDoctorbtn" onClick={()=>{this.props.history.push('/doctorsignup?member_type=2')}}>Refer your Lab</button>
+                                                <button className="referDoctorbtn" onClick={(e)=>{
+                                                        e.preventDefault();
+                                                        let data = {
+                                                                'Category': 'ConsumerApp', 'Action': 'ReferLabListNoresult', 'CustomerID': GTM.getUserId() || '', 'event': 'refer-lab-list-noresult'
+                                                            }
+                                                        GTM.sendEvent({ data: data })
+                                                    this.props.history.push('/doctorsignup?member_type=2')}}>Refer your Lab</button>
                                                 </React.Fragment>
                                         }
                                         </div>
