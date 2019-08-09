@@ -703,13 +703,15 @@ class TopBar extends React.Component {
                                                     :''}
                                                 </h3>
                                                 <div className="srt-slct-list-container">
+                                                    {this.state.HospFilter.length>5?
                                                     <div className="srt-inp-csl">
                                                         <input type="text" placeholder="Search Hospital" onChange={this.handleChangeHosp.bind(this)} name="Hname" onFocus={this.handleChangeFocus.bind(this,true)}/>
-                                                        {!this.state.hideOtherFilters?'':
+                                                        {/*!this.state.hideOtherFilters?'':
                                                             <button onClick={this.handleCloseExtraFilter.bind(this)}>Done
                                                             </button>
-                                                        }
+                                                        */}
                                                     </div>
+                                                    :''}
                                                         <ul className="chklist-sort-fliter">
                                                             {this.HospFilterData()}
                                                         </ul>
@@ -728,13 +730,15 @@ class TopBar extends React.Component {
                                                     :''}
                                                 </h3>
                                                 <div className="srt-slct-list-container">
+                                                    {this.state.SpecialityFilter.length > 5?
                                                     <div className="srt-inp-csl">
                                                         <input type="text" placeholder="Search Hospital"  onChange={this.handleChangeSpec.bind(this)} name="Sname" onFocus={this.handleChangeFocus.bind(this,false)}/>
-                                                        {!this.state.hideOtherFilters?'':
+                                                        {/*!this.state.hideOtherFilters?'':
                                                             <button onClick={this.handleCloseExtraFilter.bind(this)}>Done
                                                             </button>
-                                                        }
+                                                        */}
                                                     </div>
+                                                    :''}
                                                     <ul className="chklist-sort-fliter">
                                                         {this.SpecFilterData()}
                                                     </ul>
@@ -744,10 +748,16 @@ class TopBar extends React.Component {
                                         :''
                                     }
                                 </div>
-                                <div className={`pop-foot-btns-cont ${this.state.hideOtherFilters?'d-none':''}`}>
-                                    <button className="add-shpng-cart-btn" onClick={this.handleClose.bind(this, true)}>Reset</button>
-                                    <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.applyFilters.bind(this)}>Apply Filter</button>
-                                </div>
+                                {
+                                    this.state.hideOtherFilters?
+                                    <div className="pop-foot-btns-cont">
+                                        <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.handleCloseExtraFilter.bind(this)}>Done</button>
+                                    </div>
+                                    :<div className="pop-foot-btns-cont">
+                                        <button className="add-shpng-cart-btn" onClick={this.handleClose.bind(this, true)}>Reset</button>
+                                        <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.applyFilters.bind(this)}>Apply Filter</button>
+                                    </div>
+                                }
                             </div>
                         </div> : ""
                 }
