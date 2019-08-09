@@ -546,7 +546,6 @@ class TopBar extends React.Component {
     }
 
     render() {
-        console.log(this.state.selectedHospitalIds)
         let ipd_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'ipd').map(x => x.id)
         let criteriaStr = this.getCriteriaString(this.props.commonSelectedCriterias)
 
@@ -698,8 +697,10 @@ class TopBar extends React.Component {
                                         <div className={`sort-chk-filter-container ${this.state.hideHospFilter?'d-none':''}`}>
                                             <div className="sort-hsptl-container">
                                                 <h3 className="srt-cli-headings">Hospital 
-                                                    <span onClick={this.handleChangeFocus.bind(this,true)}>{this.state.hideOtherFilters?'':`+${this.state.HospFilter.length - 3} more`}
-                                                    </span>
+                                                    {this.state.HospFilter.length>5?
+                                                        <span onClick={this.handleChangeFocus.bind(this,true)}>{this.state.hideOtherFilters?'':`+${this.state.HospFilter.length - 5} more`}
+                                                        </span>
+                                                    :''}
                                                 </h3>
                                                 <div className="srt-slct-list-container">
                                                     <div className="srt-inp-csl">
@@ -720,8 +721,10 @@ class TopBar extends React.Component {
                                         <div className={`sort-chk-filter-container ${this.state.hideSpecFilter?'d-none':''}`}>
                                             <div className="sort-hsptl-container">
                                                 <h3 className="srt-cli-headings">Specialization 
-                                                    <span onClick={this.handleChangeFocus.bind(this,false)}>{this.state.hideOtherFilters?'':`+${this.state.SpecialityFilter.length - 3} more`}
-                                                    </span>
+                                                    {this.state.SpecialityFilter.length > 5?
+                                                        <span onClick={this.handleChangeFocus.bind(this,false)}>{this.state.hideOtherFilters?'':`+${this.state.SpecialityFilter.length - 5} more`}
+                                                        </span>
+                                                    :''}
                                                 </h3>
                                                 <div className="srt-slct-list-container">
                                                     <div className="srt-inp-csl">
