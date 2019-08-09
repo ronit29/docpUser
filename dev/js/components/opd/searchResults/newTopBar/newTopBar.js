@@ -572,8 +572,17 @@ class TopBar extends React.Component {
                                     </div>
                                 }
                                 <div className="pop-top-heading">
-                                    Sort/Filter
-                            </div>
+                                    {
+                                        this.state.hideOtherFilters?
+                                        <React.Fragment>
+                                        <span className="v-btn-primary book-btn-mrgn-adjust" onClick={this.handleCloseExtraFilter.bind(this)}>Arrow</span>
+                                        <span>Sort/Filter</span>
+                                        <span className="v-btn-primary book-btn-mrgn-adjust" onClick={this.handleCloseExtraFilter.bind(this)}>Done</span>
+                                        </React.Fragment>
+
+                                        :<span>Sort/Filter</span>
+                                    }
+                                </div>
                                 <div className="multy-select-fltr-container">
                                     <div className= {`sorting-main-container ${this.state.hideOtherFilters?'d-none':''}`} >
                                         <div className="sort-lft-cont">
@@ -750,9 +759,7 @@ class TopBar extends React.Component {
                                 </div>
                                 {
                                     this.state.hideOtherFilters?
-                                    <div className="pop-foot-btns-cont">
-                                        <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.handleCloseExtraFilter.bind(this)}>Done</button>
-                                    </div>
+                                    ''
                                     :<div className="pop-foot-btns-cont">
                                         <button className="add-shpng-cart-btn" onClick={this.handleClose.bind(this, true)}>Reset</button>
                                         <button className="v-btn-primary book-btn-mrgn-adjust" onClick={this.applyFilters.bind(this)}>Apply Filter</button>
@@ -855,6 +862,8 @@ class TopBar extends React.Component {
                                             }
                                         </div>
                                         <span>Sort/Filter</span>
+                                        <div className="pop-foot-btns-cont">
+                                    </div>
                                     </div>
                                 </div>
                             </section>
