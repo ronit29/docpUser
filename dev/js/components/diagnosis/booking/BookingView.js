@@ -173,14 +173,6 @@ class BookingView extends React.Component {
         this.props.history.push(where)
     }
 
-    goToBookingPage(){
-        let analyticData = {
-            'Category': 'ConsumerApp', 'Action': 'RebookLabAppointmentClicked', 'CustomerID': GTM.getUserId(), 'leadid': '', 'event': 'rebook-lab-appointment-clicked'
-        }
-        GTM.sendEvent({ data: analyticData })
-        this.props.history.push(`/lab/${this.state.data.lab.id}/book`)
-    }
-
     render() {
         let profile = {}
         let lab_test = []
@@ -326,7 +318,6 @@ class BookingView extends React.Component {
                                                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} style={{ width: '100%' }} />
                                                                 </a>
                                                             </div>*/}
-                                                            <button onClick={this.goToBookingPage.bind(this)}>Rebook Appointment</button>
                                                         </div>
                                                     </div>
                                                     {

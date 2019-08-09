@@ -28,7 +28,8 @@ const defaultState = {
     canonical_url: null,
     hospitalData: null,
     selectedDateFormat: null,
-    TIMESLOT_DATA_LOADING: false
+    TIMESLOT_DATA_LOADING: false,
+    similar_specializations:null
 }
 
 export default function (state = defaultState, action) {
@@ -87,7 +88,7 @@ export default function (state = defaultState, action) {
             newState.show404 = action.payload.show404 || false
             newState.canonical_url = action.payload.canonical_url||null
             newState.hospitalData = action.payload.hospital || null
-
+            newState.similar_specializations = action.payload.similar_specializations || null
             return newState
         }
 
