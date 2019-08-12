@@ -223,7 +223,7 @@ class ChatPanel extends React.Component {
                                     'Category': 'Chat', 'Action': 'BannerTransferFired', 'CustomerID': '', 'leadid': 0, 'event': 'banner-transfer-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname
                                 }
                                 GTM.sendEvent({ data: analyticData })
-                            }} else if (data.type == 'salesBanner') {
+                            } else if (data.type == 'salesBanner') {
                                 let analyticData = {
                                     'Category': 'Chat', 'Action': 'BannerSalesFired', 'CustomerID': '', 'leadid': 0, 'event': 'banner-sales-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname
                                 }
