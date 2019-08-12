@@ -49,6 +49,13 @@ class TopBar extends React.Component {
                 this.sortFilterClicked()
             }
         })
+        let allReadySelectedSpecializationId = []
+        if(props.commonSelectedCriterias && props.commonSelectedCriterias.length > 0){
+            props.commonSelectedCriterias.map((spec_id, k) =>{
+                allReadySelectedSpecializationId.push(spec_id.id)
+            })
+            this.setState({selectedSpecializationIds:allReadySelectedSpecializationId})
+        }
         if (props.locationType && !props.locationType.includes("geo")) {
             this.setState({ showLocationPopup: false })
         } else {
@@ -546,6 +553,8 @@ class TopBar extends React.Component {
     }
 
     render() {
+        // console.log(this.state.selectedSpecializationIds)
+        // console.log(this.state.specialization)
         let ipd_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'ipd').map(x => x.id)
         let criteriaStr = this.getCriteriaString(this.props.commonSelectedCriterias)
 
@@ -741,7 +750,7 @@ class TopBar extends React.Component {
                                                 <div className="srt-slct-list-container">
                                                     {this.state.SpecialityFilter.length > 5 ?
                                                         <div className="srt-inp-csl">
-                                                            <input type="text" placeholder="Search Hospital" onChange={this.handleChangeSpec.bind(this)} name="Sname" onFocus={this.handleChangeFocus.bind(this, false)} />
+                                                            <input type="text" placeholder="Search Specialization" onChange={this.handleChangeSpec.bind(this)} name="Sname" onFocus={this.handleChangeFocus.bind(this, false)} />
                                                             {/*!this.state.hideOtherFilters?'':
                                                             <button onClick={this.handleCloseExtraFilter.bind(this)}>Done
                                                             </button>
