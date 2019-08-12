@@ -123,7 +123,7 @@ class TopBar extends React.Component {
         this.applySpecialityFilter()
         filterState.specialization = [].concat(this.state.specialization)
         let data = {
-            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on || '', 'rating': this.state.avg_ratings
+            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on || '', 'rating': this.state.avg_ratings, hospital_id: this.state.selectedHospitalIds || '', specialization_id: this.state.selectedSpecializationIds || ''
         }
         GTM.sendEvent({ data: data })
 
@@ -243,6 +243,7 @@ class TopBar extends React.Component {
             sits_at_hospital: this.state.sits_at_hospital,
             specialization: [].concat(this.state.specialization),
             selectedHospitalIds: [].concat(this.state.selectedHospitalIds),
+            selectedSpecializationIds: [].concat(this.state.selectedSpecializationIds)
         }
         this.setState({ dropdown_visible: true, previous_filters: currentFilters })
     }
@@ -287,7 +288,9 @@ class TopBar extends React.Component {
                 avg_ratings: '',
                 availability: [],
                 gender: '',
-                hospital_type: ''
+                hospital_type: '',
+                selectedHospitalIds:'',
+                selectedSpecializationIds:[]
             }
         }
         try {
@@ -298,8 +301,12 @@ class TopBar extends React.Component {
                     if (this.state['sits_at_clinic'] || this.state['sits_at_hospital']) {
                         filterCount++
                     }
-                } else if (filter.includes('availability') || filter.includes('selectedHospitalIds')) {
+                } else if (filter.includes('availability') || filter.includes('selectedSpecializationIds')) {
                     if (this.state[filter].length) {
+                        filterCount++
+                    }
+                } else if (filter.includes('selectedHospitalIds')) {
+                    if(this.state['selectedHospitalIds'] !='' || this.state['selectedHospitalIds'].length){
                         filterCount++
                     }
                 } else if (filterData[filter] != this.state[filter]) {
