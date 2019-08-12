@@ -49,7 +49,7 @@ class Article extends React.Component {
             searchCities: [],
             searchWidget: '',
             specialization_id: '',
-            hideFooterWidget: false
+            hideFooterWidget: true
         }
     }
 
@@ -74,6 +74,7 @@ class Article extends React.Component {
 
             this.props.getOfferList(lat, long);
         }
+        this.setState({hideFooterWidget: false})
 
     }
 
