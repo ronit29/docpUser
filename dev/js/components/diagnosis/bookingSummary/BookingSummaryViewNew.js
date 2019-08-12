@@ -1083,15 +1083,14 @@ class BookingSummaryViewNew extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                        <div className="">
-                                                            {this.getSelectors(is_insurance_applicable)}
-                                                        </div>
                                                         {
                                                             is_insurance_applicable && prescriptionPicked ?
                                                                 <UploadPrescription {...this.props} />
                                                                 : ''
                                                         }
+                                                        <div className="">
+                                                            {this.getSelectors(is_insurance_applicable)}
+                                                        </div>
                                                         {
                                                             amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable ?
                                                                 <div className="widget mrb-15" onClick={this.applyCoupons.bind(this)}>
