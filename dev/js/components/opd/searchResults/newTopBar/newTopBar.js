@@ -38,7 +38,8 @@ class TopBar extends React.Component {
             SpecialityFilterOnFocusData: [],
             selectedSpecializationIds: [],
             hideSpecFilter: false,
-            hideOtherFilters: false
+            hideOtherFilters: false,
+            filterSearchString:''
             //showPopupContainer: true
         }
     }
@@ -431,11 +432,12 @@ class TopBar extends React.Component {
     }
 
     handleCloseExtraFilter(type) {
-        this.setState({ hideOtherFilters: false, hideSpecFilter: false, hideHospFilter: false })
+        this.setState({ hideOtherFilters: false, hideSpecFilter: false, hideHospFilter: false, filterSearchString:'' })
     }
 
     handleChangeHosp(event) {
         let search_string = event.target.value.toLowerCase()
+        this.setState({filterSearchString:event.target.value})
         let filtered_hosp_list = []
         this.state.HospFilter.map((Hosp) => {
             let hosp_name = (Hosp.name).toLowerCase()
@@ -730,7 +732,7 @@ class TopBar extends React.Component {
                                                     <div className="srt-slct-list-container">
                                                         {this.state.HospFilter.length > 5 ?
                                                             <div className="srt-inp-csl">
-                                                                <input type="text" placeholder="Search Hospital" onChange={this.handleChangeHosp.bind(this)} name="Hname" onFocus={this.handleChangeFocus.bind(this, true)} />
+                                                                <input type="text" placeholder="Search Hospital" onChange={this.handleChangeHosp.bind(this)} name="Hname" onFocus={this.handleChangeFocus.bind(this, true)} value={this.state.filterSearchString} />
                                                                 {/*!this.state.hideOtherFilters?'':
                                                             <button onClick={this.handleCloseExtraFilter.bind(this)}>Done
                                                             </button>
@@ -757,7 +759,7 @@ class TopBar extends React.Component {
                                                 <div className="srt-slct-list-container">
                                                     {this.state.SpecialityFilter.length > 5 ?
                                                         <div className="srt-inp-csl">
-                                                            <input type="text" placeholder="Search Specialization" onChange={this.handleChangeSpec.bind(this)} name="Sname" onFocus={this.handleChangeFocus.bind(this, false)} />
+                                                            <input type="text" placeholder="Search Specialization" onChange={this.handleChangeSpec.bind(this)} name="Sname" onFocus={this.handleChangeFocus.bind(this, false)} value={this.state.filterSearchString} />
                                                             {/*!this.state.hideOtherFilters?'':
                                                             <button onClick={this.handleCloseExtraFilter.bind(this)}>Done
                                                             </button>

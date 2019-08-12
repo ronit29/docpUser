@@ -3142,6 +3142,7 @@ span.pp-done {
     color: #f78631;
     font-weight: 500;
     font-size: 13px;
+    cursor:pointer;
 }
 /* ============ opd filter ============ */
 
