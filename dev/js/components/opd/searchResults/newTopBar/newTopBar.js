@@ -454,6 +454,7 @@ class TopBar extends React.Component {
 
     handleChangeSpec(event) {
         let search_string = event.target.value.toLowerCase()
+        this.setState({filterSearchString:event.target.value})
         let filtered_spec_list = []
         this.state.SpecialityFilter.map((Spec) => {
             let spec_name = (Spec.name).toLowerCase()
