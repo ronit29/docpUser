@@ -1308,7 +1308,7 @@ class PatientDetailsNew extends React.Component {
                                                                         </div>
                                                                         {priceData.fees != 0?<div className="payment-detail d-flex">
                                                                             <p style={{color:'green'}}>Docprime Discount</p>
-                                                                            <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
+                                                                            <p style={{color:'green'}}>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
                                                                         </div>
                                                                         :''}
                                                                         {
@@ -1368,7 +1368,7 @@ class PatientDetailsNew extends React.Component {
                                                                                 <React.Fragment>
                                                                                     <div className="payment-detail d-flex">
                                                                                         <p style={{color:'green'}}>Docprime Discount</p>
-                                                                                        <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))}</p>
+                                                                                        <p style={{color:'green'}}>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))}</p>
                                                                                     </div>
                                                                                     <hr />
                                                                                 </React.Fragment> 
@@ -1376,7 +1376,7 @@ class PatientDetailsNew extends React.Component {
                                                                                 <React.Fragment>
                                                                                     <div className="payment-detail d-flex">
                                                                                         <p style={{color:'green'}}>Docprime Discount</p>
-                                                                                        <p>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))}</p>
+                                                                                        <p style={{color:'green'}}>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))}</p>
                                                                                     </div>
                                                                                     <hr />
                                                                                 </React.Fragment> 

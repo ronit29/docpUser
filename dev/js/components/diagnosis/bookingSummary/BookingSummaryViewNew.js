@@ -1190,9 +1190,9 @@ class BookingSummaryViewNew extends React.Component {
                                                                                             <p className="payment-content fw-500">&#8377; {labDetail.home_pickup_charges || 0}</p>
                                                                                         </div> : ""
                                                                                     }
-                                                                                    <div className="payment-detail d-flex" style={{color:'green'}}>
-                                                                                        <p>Docprime Discount</p>
-                                                                                        <p>- &#8377; {finalMrp - finalPrice}</p>
+                                                                                    <div className="payment-detail d-flex">
+                                                                                        <p style={{color:'green'}}>Docprime Discount</p>
+                                                                                        <p style={{color:'green'}}>- &#8377; {finalMrp - finalPrice}</p>
                                                                                     </div>
                                                                                     {
                                                                                         this.props.disCountedLabPrice && !this.state.is_cashback
