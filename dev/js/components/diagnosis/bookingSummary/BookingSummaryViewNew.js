@@ -910,11 +910,9 @@ class BookingSummaryViewNew extends React.Component {
                     */}
                         <span className="test-name-item p-0">{twp.test.name}
                         {twp && twp.test && twp.test.show_details?
-                            <p key={i} onClick={this.testInfo.bind(this, twp.test.id, this.state.selectedLab, twp.test.url)}>
-                                <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }}> 
+                                <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} key={i} onClick={this.testInfo.bind(this, twp.test.id, this.state.selectedLab, twp.test.url)}> 
                                     <img src={ASSETS_BASE_URL+ '/img/icons/Info.svg'} style={{width:'15px'}}/> 
                                 </span>
-                            </p>
                         :''}
                         </span>
                         {
