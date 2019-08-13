@@ -40,7 +40,8 @@ class TopBar extends React.Component {
             hideSpecFilter: false,
             hideOtherFilters: false,
             filterSearchString:'',
-            specialization_filter_ids:[]
+            specialization_filter_ids:[],
+            defaultSpecializationIds:[]
             //showPopupContainer: true
         }
     }
@@ -51,13 +52,13 @@ class TopBar extends React.Component {
                 this.sortFilterClicked()
             }
         })
-        // let allReadySelectedSpecializationId = []
-        // if(props.commonSelectedCriterias && props.commonSelectedCriterias.length > 0){
-        //     props.commonSelectedCriterias.map((spec_id, k) =>{
-        //         allReadySelectedSpecializationId.push(spec_id.id)
-        //     })
-        //     this.setState({selectedSpecializationIds:allReadySelectedSpecializationId})
-        // }
+        let allReadySelectedSpecializationId = []
+        if(props.commonSelectedCriterias && props.commonSelectedCriterias.length > 0){
+            props.commonSelectedCriterias.map((spec_id, k) =>{
+                allReadySelectedSpecializationId.push(spec_id.id)
+            })
+            this.setState({defaultSpecializationIds:allReadySelectedSpecializationId})
+        }
         if (props.locationType && !props.locationType.includes("geo")) {
             this.setState({ showLocationPopup: false })
         } else {
@@ -125,6 +126,8 @@ class TopBar extends React.Component {
                 sits_at_clinic: false,
                 sits_at_hospital: false,
                 specialization: [],
+                selectedHospitalIds:[],
+                specialization_filter_ids:[]
 
             }
             this.setState({
@@ -391,7 +394,11 @@ class TopBar extends React.Component {
             return true
         })
         if (!found) {
-            test_ids.push(spec_id)
+            if(test_ids.length != 5){
+                test_ids.push(spec_id)
+            }else{
+                SnackBar.show({ pos: 'bottom-center', text: "Max 5 specialization can be selected" });
+            }
         }
 
         self.setState({ specialization_filter_ids: test_ids })
@@ -454,8 +461,13 @@ class TopBar extends React.Component {
             return true
         })
         if (!found) {
-            test_ids.push(hosp_id)
+            if(test_ids.length != 5){
+                test_ids.push(hosp_id)
+            }else{
+                SnackBar.show({ pos: 'bottom-center', text: "Max 5 hospital can be selected" });
+            }
         }
+
 
         self.setState({ selectedHospitalIds: test_ids })
     }
@@ -467,14 +479,20 @@ class TopBar extends React.Component {
             this.state.HospFilter.map((data, key) => {
                 if (this.state.selectedHospitalIds.indexOf(data.id) > -1 && liData.length < 5) {
                     liData.push(<li key={key} onChange={this.toggleHospital.bind(this, data.id)}>
-                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id) > -1 ? true : false} /><span className="checkmark"></span></label>
+                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}
+                            <input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id) > -1 ? true : false} />
+                            <span className="checkmark"></span>
+                        </label>
                     </li>)
                 }
             })
             this.state.HospFilter.map((data, key) => {
                 if (this.state.selectedHospitalIds.indexOf(data.id) == -1 && liData.length < 5) {
                     liData.push(<li key={key} onChange={this.toggleHospital.bind(this, data.id)}>
-                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id) > -1 ? true : false} /><span className="checkmark"></span></label>
+                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}
+                            <input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id) > -1 ? true : false} />
+                            <span className="checkmark"></span>
+                        </label>
                     </li>)
                 }
             })
@@ -482,14 +500,20 @@ class TopBar extends React.Component {
             if (this.state.hideOtherFilters) {
                 this.state.HospFilterOnFoucsData.map((data, key) => {
                     liData.push(<li key={key} onChange={this.toggleHospital.bind(this, data.id)}>
-                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id) > -1 ? true : false} /><span className="checkmark"></span></label>
+                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}
+                            <input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id) > -1 ? true : false} />
+                            <span className="checkmark"></span>
+                        </label>
                     </li>)
                 })
             } else {
                 this.state.HospFilter.map((data, key) => {
                     if (this.state.selectedHospitalIds.length == 0 && key <= 4) {
                         liData.push(<li key={key} onChange={this.toggleHospital.bind(this, data.id)}>
-                            <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id) > -1 ? true : false} /><span className="checkmark"></span></label>
+                            <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}
+                                <input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id) > -1 ? true : false} />
+                                <span className="checkmark"></span>
+                            </label>
                         </li>)
                     }
                 })
@@ -504,14 +528,27 @@ class TopBar extends React.Component {
             this.state.SpecialityFilter.map((data, key) => {
                 if (this.state.specialization_filter_ids.indexOf(data.id) > -1 && liData.length < 5) {
                     liData.push(<li key={key} onChange={this.toggleSpecialization.bind(this, data.id)}>
-                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.specialization_filter_ids.indexOf(data.id) > -1 ? true : false} /><span className="checkmark"></span></label>
+                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}
+                            <input type="checkbox" 
+                                checked={(this.state.specialization_filter_ids.indexOf(data.id) > -1 || this.state.defaultSpecializationIds.indexOf(data.id) > -1) ? true : false} 
+                                disabled={this.state.defaultSpecializationIds.indexOf(data.id)>-1 ? true:false} 
+                            />
+                            <span className="checkmark"></span>
+                        </label>
                     </li>)
                 }
             })
             this.state.SpecialityFilter.map((data, key) => {
                 if (this.state.specialization_filter_ids.indexOf(data.id) == -1 && liData.length < 5) {
                     liData.push(<li key={key} onChange={this.toggleSpecialization.bind(this, data.id)}>
-                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.specialization_filter_ids.indexOf(data.id) > -1 ? true : false} /><span className="checkmark"></span></label>
+                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}
+                            <input type="checkbox" 
+                                checked={(this.state.specialization_filter_ids.indexOf(data.id) > -1 || this.state.defaultSpecializationIds.indexOf(data.id) > -1) ? true : false}
+                                disabled={this.state.defaultSpecializationIds.indexOf(data.id)>-1 ? true:false} 
+                                
+                            />
+                            <span className="checkmark"></span>
+                        </label>
                     </li>)
                 }
             })
@@ -519,14 +556,27 @@ class TopBar extends React.Component {
             if (this.state.hideOtherFilters) {
                 this.state.SpecialityFilterOnFocusData.map((data, key) => {
                     liData.push(<li key={key} onChange={this.toggleSpecialization.bind(this, data.id)}>
-                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.specialization_filter_ids.indexOf(data.id) > -1 ? true : false} /><span className="checkmark"></span></label>
+                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}
+                            <input type="checkbox" 
+                                checked={(this.state.specialization_filter_ids.indexOf(data.id) > -1 || this.state.defaultSpecializationIds.indexOf(data.id) > -1) ? true : false} 
+                                disabled={this.state.defaultSpecializationIds.indexOf(data.id)>-1 ? true:false} 
+                                
+                            />
+                            <span className="checkmark"></span>
+                        </label>
                     </li>)
                 })
             } else {
                 this.state.SpecialityFilter.map((data, key) => {
                     if (this.state.specialization_filter_ids.length == 0 && key <= 4) {
                         liData.push(<li key={key} onChange={this.toggleSpecialization.bind(this, data.id)}>
-                            <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.specialization_filter_ids.indexOf(data.id) > -1 ? true : false} /><span className="checkmark"></span></label>
+                            <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}
+                                <input type="checkbox" 
+                                    checked={(this.state.specialization_filter_ids.indexOf(data.id) > -1 || this.state.defaultSpecializationIds.indexOf(data.id) > -1) ? true : false}
+                                    disabled={this.state.defaultSpecializationIds.indexOf(data.id)>-1 ? true:false} 
+                                />
+                                <span className="checkmark"></span>
+                            </label>
                         </li>)
                     }
                 })
