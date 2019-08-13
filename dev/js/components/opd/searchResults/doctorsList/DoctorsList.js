@@ -287,6 +287,53 @@ class DoctorsList extends React.Component {
                                         initialLoad={false}
                                     >
                                         <ul>
+                                            <div className="clinic-card mb-3">
+                                                <div className="clnc-content">
+                                                    <div className="row no-gutters">
+                                                        <div className="col-8">
+                                                            <h2 className="cstmDocName">Minute Clinic Gurgaon</h2>
+                                                            <div className="cstm-doc-details-container">
+                                                                <div className="cstm-doc-img-container">
+                                                                    <div>
+                                                                        <img style={{width:'80px'}} className="clnc-stc-img" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="cstm-doc-content-container">
+                                                                    <h3>50 Doctors</h3>
+                                                                    <h3 style={{ marginBottom: "5px;" }}>OPD Timings :</h3>
+                                                                    <p><img className="cstmTimeImg" src={ASSETS_BASE_URL + "/img/watch-date.svg"} /> 8:00 AM to 12:00 PM   </p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="cstm-doc-rtng">
+                                                                <img src="https://cdn.docprime.com/cp/assets/img/customer-icons/rating-star-filled.svg" className="img-cstm-docrating" style={{ width: '12px', height: '12px', marginRight: '2px' }} />
+                                                                <img src="https://cdn.docprime.com/cp/assets/img/customer-icons/rating-star-filled.svg" className="img-cstm-docrating" style={{ width: '12px', height: '12px', marginRight: '2px' }} />
+                                                                <img src="https://cdn.docprime.com/cp/assets/img/customer-icons/rating-star-filled.svg" className="img-cstm-docrating" style={{ width: '12px', height: '12px', marginRight: '2px' }} />
+                                                                <img src="https://cdn.docprime.com/cp/assets/img/customer-icons/rating-star-filled.svg" className="img-cstm-docrating" style={{ width: '12px', height: '12px', marginRight: '2px' }} />
+                                                                <img src="https://cdn.docprime.com/cp/assets/img/customer-icons/rating-star-filled.svg" className="img-cstm-docrating" style={{ width: '12px', height: '12px', marginRight: '2px' }} />
+                                                                <span>(1)</span>
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-4 text-right">
+                                                            <p className="clnc-spnsr">SPONSORED</p>
+                                                            <p className="cstm-cpn">Upto 30% Off </p>
+                                                            <button className="cstm-book-btn clnc-btn">Book Appointment</button>
+                                                        </div>
+                                                    </div>
+                                                    <div className="clnc-chps-cont">
+                                                        <div className="clnc-chps">
+                                                            <span>Common Skin Treatment</span>
+                                                            <span>Laser Hair Removal Treatment</span>
+                                                            <span>Scar Treatment</span>
+                                                            <span>Viva Skin Rejuvenation</span>
+                                                            <span>Dermaroller</span>
+                                                        </div>
+                                                        <div className="clnc-all-srvc">
+                                                            <p>All 22 Services</p>
+                                                        </div>  
+                                                    </div>
+                                                    <p className="cln-loc-par"><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />5818, Near Super Mart I, Aster Avenue DLF Phase IV, Gurgaon</p>
+                                                </div>
+                                            </div>
                                             {
                                                 result_list.map((cardId, i) => {
                                                     if (result_data[cardId]) {
@@ -344,17 +391,18 @@ class DoctorsList extends React.Component {
                                                                     </li> : ''
                                                             }
 
-                                                            {result_list && result_list.length > 5 &&  i == 3?
-                                                                <div className="mb-3 referDocimg" onClick={(e)=>{
+                                                            {result_list && result_list.length > 5 && i == 3 ?
+                                                                <div className="mb-3 referDocimg" onClick={(e) => {
                                                                     e.preventDefault();
                                                                     let data = {
-                                                                            'Category': 'ConsumerApp', 'Action': 'ReferDoctorList', 'CustomerID': GTM.getUserId() || '', 'event': 'refer-doctor-list'
-                                                                        }
+                                                                        'Category': 'ConsumerApp', 'Action': 'ReferDoctorList', 'CustomerID': GTM.getUserId() || '', 'event': 'refer-doctor-list'
+                                                                    }
                                                                     GTM.sendEvent({ data: data })
-                                                                    this.props.history.push('/doctorsignup?member_type=1')}}>
-                                                                <img src={ASSETS_BASE_URL + "/img/refrlbnr.png"} />
-                                                            </div>:''}
-                                                            
+                                                                    this.props.history.push('/doctorsignup?member_type=1')
+                                                                }}>
+                                                                    <img src={ASSETS_BASE_URL + "/img/refrlbnr.png"} />
+                                                                </div> : ''}
+
                                                             {
                                                                 this.props.insurance_status != 1 && !this.state.sort_order && ((i == 6 && this.state.availability && !this.state.availability.length) || (i == 3 && this.state.availability && this.state.availability.length)) ?
                                                                     <div className="sort-sub-filter-container mb-3">
@@ -380,24 +428,24 @@ class DoctorsList extends React.Component {
                                                                 }
                                                             </li>
 
-                                                            {this.props.similar_specializations && this.props.similar_specializations.length && 
-                                                                !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && (i == 7 || this.props.count-1 == i)  ?
-                                                                    this.props.SimilarSpecializationData()
+                                                            {this.props.similar_specializations && this.props.similar_specializations.length &&
+                                                                !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && (i == 7 || this.props.count - 1 == i) ?
+                                                                this.props.SimilarSpecializationData()
                                                                 : ''
                                                             }
 
-                                                            {this.props.similar_specializations && this.props.similar_specializations.length && this.state.sort_order && (this.state.availability || this.state.availability.length) && this.props.count < 8 && i== (this.props.count-1) ?
-                                                                    this.props.SimilarSpecializationData()
+                                                            {this.props.similar_specializations && this.props.similar_specializations.length && this.state.sort_order && (this.state.availability || this.state.availability.length) && this.props.count < 8 && i == (this.props.count - 1) ?
+                                                                this.props.SimilarSpecializationData()
                                                                 : ''
                                                             }
 
                                                             {this.props.similar_specializations && this.props.similar_specializations.length && this.state.sort_order && (this.state.availability || this.state.availability.length) && this.props.count < 8 && i == 3 ?
-                                                                    this.props.SimilarSpecializationData()
+                                                                this.props.SimilarSpecializationData()
                                                                 : ''
                                                             }
 
-                                                            {this.props.similar_specializations && this.props.similar_specializations.length && this.state.sort_order && (this.state.availability || this.state.availability.length) && i== 3 ?
-                                                                    this.props.SimilarSpecializationData()
+                                                            {this.props.similar_specializations && this.props.similar_specializations.length && this.state.sort_order && (this.state.availability || this.state.availability.length) && i == 3 ?
+                                                                this.props.SimilarSpecializationData()
                                                                 : ''
                                                             }
 
