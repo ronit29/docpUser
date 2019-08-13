@@ -1083,15 +1083,14 @@ class BookingSummaryViewNew extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                        <div className="">
-                                                            {this.getSelectors(is_insurance_applicable)}
-                                                        </div>
                                                         {
                                                             is_insurance_applicable && prescriptionPicked ?
                                                                 <UploadPrescription {...this.props} />
                                                                 : ''
                                                         }
+                                                        <div className="">
+                                                            {this.getSelectors(is_insurance_applicable)}
+                                                        </div>
                                                         {
                                                             amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable ?
                                                                 <div className="widget mrb-15" onClick={this.applyCoupons.bind(this)}>
@@ -1192,8 +1191,8 @@ class BookingSummaryViewNew extends React.Component {
                                                                                         </div> : ""
                                                                                     }
                                                                                     <div className="payment-detail d-flex">
-                                                                                        <p>Docprime Discount</p>
-                                                                                        <p>- &#8377; {finalMrp - finalPrice}</p>
+                                                                                        <p style={{color:'green'}}>Docprime Discount</p>
+                                                                                        <p style={{color:'green'}}>- &#8377; {finalMrp - finalPrice}</p>
                                                                                     </div>
                                                                                     {
                                                                                         this.props.disCountedLabPrice && !this.state.is_cashback
