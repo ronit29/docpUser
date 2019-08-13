@@ -39,7 +39,8 @@ class TopBar extends React.Component {
             selectedSpecializationIds: [],
             hideSpecFilter: false,
             hideOtherFilters: false,
-            filterSearchString:''
+            filterSearchString:'',
+            specialization_filter_ids:[]
             //showPopupContainer: true
         }
     }
@@ -50,13 +51,13 @@ class TopBar extends React.Component {
                 this.sortFilterClicked()
             }
         })
-        let allReadySelectedSpecializationId = []
-        if(props.commonSelectedCriterias && props.commonSelectedCriterias.length > 0){
-            props.commonSelectedCriterias.map((spec_id, k) =>{
-                allReadySelectedSpecializationId.push(spec_id.id)
-            })
-            this.setState({selectedSpecializationIds:allReadySelectedSpecializationId})
-        }
+        // let allReadySelectedSpecializationId = []
+        // if(props.commonSelectedCriterias && props.commonSelectedCriterias.length > 0){
+        //     props.commonSelectedCriterias.map((spec_id, k) =>{
+        //         allReadySelectedSpecializationId.push(spec_id.id)
+        //     })
+        //     this.setState({selectedSpecializationIds:allReadySelectedSpecializationId})
+        // }
         if (props.locationType && !props.locationType.includes("geo")) {
             this.setState({ showLocationPopup: false })
         } else {
@@ -82,33 +83,6 @@ class TopBar extends React.Component {
             }
         }
     }
-    applySpecialityFilter() {
-        let ViewAllData = []
-        this.state.selectedSpecializationIds.map((spec, i) => {
-            ViewAllData.push({ id: spec, type: 'speciality' })
-        })
-
-        let state = {}
-        let hospital_id = [].concat(this.state.selectedHospitalIds)
-        let doctor_name = ''
-        let hospital_name = ''
-        if (ViewAllData.length) {
-            this.setState({ specialization: ViewAllData })
-            this.props.cloneCommonSelectedCriterias(ViewAllData)
-        }
-
-        state = {
-            filterCriteria: {
-                ...this.props.filterCriteria,
-                hospital_id, doctor_name, hospital_name
-            },
-            nextFilterCriteria: {
-                ...this.props.filterCriteria,
-                hospital_id, doctor_name, hospital_name
-            }
-        }
-        this.props.mergeOPDState(state)
-    }
     applyFilters() {
         let filterState = {
             sort_on: this.state.sort_on,
@@ -119,12 +93,11 @@ class TopBar extends React.Component {
             sits_at_clinic: this.state.sits_at_clinic,
             sits_at_hospital: this.state.sits_at_hospital,
             is_insured: this.state.is_insured,
-            hospital_id: this.state.selectedHospitalIds
+            hospital_id: this.state.selectedHospitalIds,
+            specialization_filter_ids:this.state.specialization_filter_ids
         }
-        this.applySpecialityFilter()
-        filterState.specialization = [].concat(this.state.specialization)
         let data = {
-            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on || '', 'rating': this.state.avg_ratings, hospital_id: this.state.selectedHospitalIds || '', specialization_id: this.state.selectedSpecializationIds || ''
+            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on || '', 'rating': this.state.avg_ratings, hospital_id: this.state.selectedHospitalIds || '', specialization_id: this.state.specialization_filter_ids || ''
         }
         GTM.sendEvent({ data: data })
 
@@ -244,7 +217,7 @@ class TopBar extends React.Component {
             sits_at_hospital: this.state.sits_at_hospital,
             specialization: [].concat(this.state.specialization),
             selectedHospitalIds: [].concat(this.state.selectedHospitalIds),
-            selectedSpecializationIds: [].concat(this.state.selectedSpecializationIds)
+            specialization_filter_ids: [].concat(this.state.specialization_filter_ids)
         }
         this.setState({ dropdown_visible: true, previous_filters: currentFilters })
     }
@@ -291,7 +264,7 @@ class TopBar extends React.Component {
                 gender: '',
                 hospital_type: '',
                 selectedHospitalIds:'',
-                selectedSpecializationIds:[]
+                specialization_filter_ids:[]
             }
         }
         try {
@@ -302,7 +275,7 @@ class TopBar extends React.Component {
                     if (this.state['sits_at_clinic'] || this.state['sits_at_hospital']) {
                         filterCount++
                     }
-                } else if (filter.includes('availability') || filter.includes('selectedSpecializationIds')) {
+                } else if (filter.includes('availability') || filter.includes('specialization_filter_ids')) {
                     if (this.state[filter].length) {
                         filterCount++
                     }
@@ -407,7 +380,7 @@ class TopBar extends React.Component {
     }
 
     toggleSpecialization(spec_id) {
-        let test_ids = [].concat(this.state.selectedSpecializationIds)
+        let test_ids = [].concat(this.state.specialization_filter_ids)
         let self = this
         let found = false
         test_ids = test_ids.filter((x) => {
@@ -421,7 +394,7 @@ class TopBar extends React.Component {
             test_ids.push(spec_id)
         }
 
-        self.setState({ selectedSpecializationIds: test_ids })
+        self.setState({ specialization_filter_ids: test_ids })
     }
     handleChangeFocus(type) {
         if (type) {
@@ -527,18 +500,18 @@ class TopBar extends React.Component {
 
     SpecFilterData() {
         let liData = []
-        if (this.state.selectedSpecializationIds.length > 0 && !this.state.hideOtherFilters) {
+        if (this.state.specialization_filter_ids.length > 0 && !this.state.hideOtherFilters) {
             this.state.SpecialityFilter.map((data, key) => {
-                if (this.state.selectedSpecializationIds.indexOf(data.id) > -1 && liData.length < 5) {
+                if (this.state.specialization_filter_ids.indexOf(data.id) > -1 && liData.length < 5) {
                     liData.push(<li key={key} onChange={this.toggleSpecialization.bind(this, data.id)}>
-                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedSpecializationIds.indexOf(data.id) > -1 ? true : false} /><span className="checkmark"></span></label>
+                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.specialization_filter_ids.indexOf(data.id) > -1 ? true : false} /><span className="checkmark"></span></label>
                     </li>)
                 }
             })
             this.state.SpecialityFilter.map((data, key) => {
-                if (this.state.selectedSpecializationIds.indexOf(data.id) == -1 && liData.length < 5) {
+                if (this.state.specialization_filter_ids.indexOf(data.id) == -1 && liData.length < 5) {
                     liData.push(<li key={key} onChange={this.toggleSpecialization.bind(this, data.id)}>
-                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedSpecializationIds.indexOf(data.id) > -1 ? true : false} /><span className="checkmark"></span></label>
+                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.specialization_filter_ids.indexOf(data.id) > -1 ? true : false} /><span className="checkmark"></span></label>
                     </li>)
                 }
             })
@@ -546,14 +519,14 @@ class TopBar extends React.Component {
             if (this.state.hideOtherFilters) {
                 this.state.SpecialityFilterOnFocusData.map((data, key) => {
                     liData.push(<li key={key} onChange={this.toggleSpecialization.bind(this, data.id)}>
-                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedSpecializationIds.indexOf(data.id) > -1 ? true : false} /><span className="checkmark"></span></label>
+                        <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.specialization_filter_ids.indexOf(data.id) > -1 ? true : false} /><span className="checkmark"></span></label>
                     </li>)
                 })
             } else {
                 this.state.SpecialityFilter.map((data, key) => {
-                    if (this.state.selectedSpecializationIds.length == 0 && key <= 4) {
+                    if (this.state.specialization_filter_ids.length == 0 && key <= 4) {
                         liData.push(<li key={key} onChange={this.toggleSpecialization.bind(this, data.id)}>
-                            <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.selectedSpecializationIds.indexOf(data.id) > -1 ? true : false} /><span className="checkmark"></span></label>
+                            <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}<input type="checkbox" checked={this.state.specialization_filter_ids.indexOf(data.id) > -1 ? true : false} /><span className="checkmark"></span></label>
                         </li>)
                     }
                 })
@@ -563,7 +536,7 @@ class TopBar extends React.Component {
     }
 
     render() {
-        // console.log(this.state.selectedSpecializationIds)
+        // console.log(this.state.specialization_filter_ids)
         // console.log(this.state.specialization)
         let ipd_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'ipd').map(x => x.id)
         let criteriaStr = this.getCriteriaString(this.props.commonSelectedCriterias)
