@@ -98,7 +98,7 @@ class TopBar extends React.Component {
             specialization_filter_ids:this.state.specialization_filter_ids
         }
         let data = {
-            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on || '', 'rating': this.state.avg_ratings, hospital_id: this.state.selectedHospitalIds || '', specialization_id: this.state.specialization_filter_ids || '',specializations:this.state.defaultSpecializationIds || ''
+            'Category': 'FilterClick', 'Action': 'Clicked on Filter', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-filter-clicked', 'url': window.location.pathname, 'availability': this.state.availability, 'sits_at_clinic': this.state.sits_at_clinic, 'sits_at_hospital': this.state.sits_at_hospital, 'gender': this.state.gender, 'sort_order': this.state.sort_order || '', 'sort_on': this.state.sort_on || '', 'rating': this.state.avg_ratings, hospital_id: this.state.selectedHospitalIds || '', specialization_filter_id: this.state.specialization_filter_ids || '', specializations: this.state.defaultSpecializationIds || ''
         }
         GTM.sendEvent({ data: data })
 
@@ -904,8 +904,8 @@ class TopBar extends React.Component {
                                             }
                                         </div>
                                         <span>Sort/Filter</span>
-                                        <div className="pop-foot-btns-cont">
-                                        </div>
+                                        {/*<div className="pop-foot-btns-cont">
+                                        </div>*/}
                                     </div>
                                 </div>
                             </section>
