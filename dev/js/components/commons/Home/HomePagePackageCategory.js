@@ -45,7 +45,7 @@ class HomePagePackageCategory extends React.Component {
 		return(
 		     <div className="pakg-slider-container mt-10 mb-10">
                 <div className="pkgSliderHeading">
-                    <h5>Health Package Categories test</h5>
+                    <h5>Health Package Categories</h5>
                     {<span>View All</span>}
                 </div>
                 <div className="pkgSliderContainer" id="top_pkgCat">
