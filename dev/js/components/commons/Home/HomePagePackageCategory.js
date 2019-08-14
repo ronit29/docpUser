@@ -3,49 +3,15 @@ import GTM from '../../../helpers/gtm.js'
 
 class HomePagePackageCategory extends React.Component {
 
-    // navigateTo(data, e) {
-    //     e.preventDefault()
-    //     e.stopPropagation()
-    //     let selectedCriteria = {
-    //         type: 'ipd',
-    //         id: data.id,
-    //         name: data.name
-    //     }
-        
-    //     let gtmData = {
-    //         'Category': 'ConsumerApp', 'Action': 'HomeWidgetProcedureClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-widget-procedure-clicked', 'selected': data.name || '', 'selectedId': data.id || ''
-    //     }
-    //     GTM.sendEvent({ data: gtmData })
-
-    //     this.props.toggleIPDCriteria(selectedCriteria, true)
-        
-    //     if(data.url){
-    //         this.props.history.push(`/${data.url}?showPopup=true`)
-    //     }else{
-    //         this.props.history.push(`/ipdInfo?ipd_id=${data.id}&showPopup=true`)
-    //     }
-    // }
-
     navigateTo(PkgData, e){
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'HomePageCompareButton', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'compare-button-click'
+            'Category': 'ConsumerApp', 'Action': 'HomePageComparePackageClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-page-compare-package-clicked', 'package_id': PkgData
         }
         GTM.sendEvent({ data: data })
 
         let packages={}
         let selectedPkgCompareIds=[]
-        packages.id=this.props.packagesList.result[0].id
-        packages.lab_id=this.props.packagesList.result[0].lab.id
-        packages.img=this.props.packagesList.result[0].lab.lab_thumbnail
-        packages.name=this.props.packagesList.result[0].name
-        this.props.togglecompareCriteria(packages)
-        if(this.props.compare_packages && this.props.compare_packages.length >0){
-              this.props.compare_packages.map((packages, i) => {
-                  selectedPkgCompareIds.push(packages.id+'-'+packages.lab_id)
-              })
-        }
-        selectedPkgCompareIds.push(this.props.packagesList.result[0].id+'-'+this.props.packagesList.result[0].lab.id)
-        this.props.history.push('/package/compare?package_ids='+selectedPkgCompareIds)
+        this.props.history.push('/package/compare?category_ids='+PkgData.id)
     }
 
     scroll(type) {

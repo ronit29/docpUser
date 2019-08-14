@@ -30,6 +30,7 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
         let data = []
         let package_ids
         let package_url = ''
+        let category_ids =  null
         if(parsed.package_ids){
           package_ids = parsed.package_ids.split(',')  
         }
@@ -37,15 +38,18 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
           package_url = this.props.location.pathname.split('/')
           package_url = package_url[1]
         }
+        if(parsed.category_ids){
+          category_ids = parsed.category_ids
+        }
         let ids = ''
-        if(package_ids || package_url){
+        if(package_ids || package_url || category_ids){
           if(package_ids && package_ids.length > 0 && package_ids !=""){
             Object.entries(package_ids).map(function ([key, pkg]) {
               ids = pkg.split('-')
               data.push({package_id:ids[0], lab_id: ids[1]})
             })
           }
-          this.props.getCompareList(data,this.props.selectedLocation,package_url,(resp)=>{
+          this.props.getCompareList(data,this.props.selectedLocation,package_url,category_ids,(resp)=>{
             if(resp){
               let test = {}
                 resp.packages.map((pkg,i) =>{
@@ -95,7 +99,7 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
 
     const mapDispatchToProps = (dispatch) => {
         return {
-            getCompareList:(selectedIds,selectedLocation,searchByUrl,cb) => dispatch(getCompareList(selectedIds,selectedLocation,searchByUrl,cb)),
+            getCompareList:(selectedIds,selectedLocation,searchByUrl,cat_id,cb) => dispatch(getCompareList(selectedIds,selectedLocation,searchByUrl,cat_id,cb)),
             togglecompareCriteria: (criteria,reset) => dispatch(togglecompareCriteria(criteria,reset)),
             setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage)),
             selectSearchType: (type) => dispatch(selectSearchType(type)),
