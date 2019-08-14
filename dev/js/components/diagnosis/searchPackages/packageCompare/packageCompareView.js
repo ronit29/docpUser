@@ -300,7 +300,7 @@ const queryString = require('query-string');
                             </label>
                           </div>
                           {
-                            this.props.data.packages && this.props.data.packages.length != 1 && this.props.data.packages.length <5?
+                            this.props.data.packages && this.props.data.packages.length != 1 && this.props.data.packages.length <5 && !this.props.is_category?
                           <div className="" style={{cursor:'pointer'}}>
                             <a onClick={this.addMore.bind(this)} className="add-more-packages"> + Add More </a>
                           </div>
@@ -341,7 +341,7 @@ const queryString = require('query-string');
                             :''
                           }
                           {
-                            this.props.data.packages && this.props.data.packages.length == 1?
+                            this.props.data.packages && this.props.data.packages.length == 1 && !this.props.is_category?
                                 <li onClick={this.addMore.bind(this)} style={{cursor:'pointer',paddingTop:30, paddingBottom:30}}>
                                       <div className="addnewpkg"><span className="add-plus">+</span></div>
                                       <p className="addnewpkg-txt">Add one more <br />to compare</p>
