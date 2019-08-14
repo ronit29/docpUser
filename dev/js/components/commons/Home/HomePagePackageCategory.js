@@ -11,7 +11,7 @@ class HomePagePackageCategory extends React.Component {
 
         let packages={}
         let selectedPkgCompareIds=[]
-        this.props.history.push('/package/compare?category_ids='+PkgData.id)
+        this.props.history.push('/package/compare?category_ids='+ PkgData.id)
     }
 
     scroll(type) {

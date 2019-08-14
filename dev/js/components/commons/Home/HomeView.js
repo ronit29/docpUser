@@ -339,7 +339,6 @@ class HomeView extends React.Component {
 								: ''
 						}
 
-						<DemoWidget {...this.props} top_data={this.props.ipd_procedures}/>
 
 						{
 							this.props.common_package && this.props.common_package.length ?

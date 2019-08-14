@@ -18,7 +18,8 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
       super(props)
         this.state={
           showCompare:false,
-          data:null
+          data:null,
+          is_category:false
         }
       }
       componentDidMount(){
@@ -40,6 +41,7 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
         }
         if(parsed.category_ids){
           category_ids = parsed.category_ids
+          this.setState({is_category:true})
         }
         let ids = ''
         if(package_ids || package_url || category_ids){
@@ -70,7 +72,7 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
       }  
       render() {
         if(this.state.showCompare){
-        return ( <PackageCompareView {...this.props} data={this.state.data} showCompare={this.state.showCompare}/>  
+        return ( <PackageCompareView {...this.props} data={this.state.data} showCompare={this.state.showCompare} is_category={this.state.is_category}/>  
           )
         }else{
           return( <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
