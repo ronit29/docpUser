@@ -307,7 +307,7 @@ const queryString = require('query-string');
                           :''}
                           {
                             this.props.is_category?
-                              <span className="view-more" onClick={this.viewAllCat.bind(this)}> view All</span>
+                              <span className="view-more" onClick={this.viewAllCat.bind(this)} style={{color: '#f78631',cursor: 'pointer'}}> view All</span>
                               :'' 
                           }
                         </div>
