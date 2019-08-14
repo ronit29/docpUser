@@ -292,13 +292,16 @@ const queryString = require('query-string');
                         : ''}
                       <div className="sticky-multiple-pkgs">
                         <div className="multi-pkg-cmpre ease-hide" id="showDiff">
-                          <div className="tgle-btn">
-                            <label className="switch">
-                              <span className="tgle-btn-txt"> Show Difference</span>
-                              <input type="checkbox" checked={this.state.isDiffChecked} onClick={this.toggleShowDiff.bind(this)} />
-                              <span className="slider round"></span>
-                            </label>
-                          </div>
+                          {
+                            this.props.data.packages && this.props.data.packages.length > 1?
+                            <div className="tgle-btn">
+                              <label className="switch">
+                                <span className="tgle-btn-txt"> Show Difference</span>
+                                <input type="checkbox" checked={this.state.isDiffChecked} onClick={this.toggleShowDiff.bind(this)} />
+                                <span className="slider round"></span>
+                              </label>
+                            </div>
+                          :''}
                           {
                             this.props.data.packages && this.props.data.packages.length != 1 && this.props.data.packages.length <5 && !this.props.is_category?
                           <div className="" style={{cursor:'pointer'}}>
