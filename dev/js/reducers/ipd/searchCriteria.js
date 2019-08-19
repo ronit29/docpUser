@@ -4,7 +4,8 @@ import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET
 
 const DEFAULT_HOSPITAL_FILTER_STATE = {
 	distance: [0, 20],
-	provider_ids: []
+	provider_ids: [],
+	network_id:''
 }
 
 const defaultState = {

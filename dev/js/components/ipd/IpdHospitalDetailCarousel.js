@@ -4,7 +4,18 @@ import GTM from '../../helpers/gtm.js'
 class IpdHospitalCarousel extends React.Component {
 
     viewMoreHospital() {
-
+        let filterCriteria = {
+            distance: [0, 20],
+            provider_ids: [],
+            network_id:this.props.hospital_data.network_id || ''
+        }
+        this.props.mergeIpdCriteria({
+            filterCriteria: filterCriteria,
+            nextFilterCriteria: filterCriteria,
+            commonSelectedCriterias: this.props.commonSelectedCriterias,
+            nextSelectedCriterias: this.props.commonSelectedCriterias
+        })
+        this.props.history.push(`/ipd/searchHospitals`)
     }
 
     navigateTo(data, e) {
@@ -39,10 +50,10 @@ class IpdHospitalCarousel extends React.Component {
                     <div className="d-inline-flex">
                         {
                             hospital_data.other_network_hospitals.map((hospital, key)=>{
-                                return <div className="ipd-carousel-card" onClick={this.navigateTo.bind(this, hospital)}>
+                                return <div key={key} className="ipd-carousel-card" onClick={this.navigateTo.bind(this, hospital)}>
                                             <div className="ipd-crsl-img-cont">
                                                 <div className="ipd-crsl-img">
-                                                    <img src='https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg' />
+                                                    <img src={hospital.icon||''} />
                                                 </div>
                                                 <p>{hospital.name}</p>
                                             </div>

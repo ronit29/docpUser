@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getHospitaDetails , selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, toggleIPDCriteria, mergeOPDState, ipdChatView, checkIpdChatAgentStatus, getHospitalComments, postHospitalComments } from '../../actions/index.js'
+import { getHospitaDetails , selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, toggleIPDCriteria, mergeOPDState, ipdChatView, checkIpdChatAgentStatus, getHospitalComments, postHospitalComments, mergeIpdCriteria } from '../../actions/index.js'
 
 import IpdHospitalDetailView from '../../components/ipd/IpdHospitalDetailView.js'
 const queryString = require('query-string')
@@ -238,7 +238,8 @@ const mapDisptachToProps = (dispatch) => {
 		ipdChatView: (data) => dispatch(ipdChatView(data)),
 		checkIpdChatAgentStatus: (cb) => dispatch(checkIpdChatAgentStatus(cb)),
 		getHospitalComments: (hospitalId) => dispatch(getHospitalComments(hospitalId)),
-		postHospitalComments: (postData, cb)=> dispatch(postHospitalComments(postData, cb))
+		postHospitalComments: (postData, cb)=> dispatch(postHospitalComments(postData, cb)),
+		mergeIpdCriteria: (filterCriteria)=> dispatch(mergeIpdCriteria(filterCriteria))
 	}
 }
 export default connect(mapStateToProps, mapDisptachToProps)(HospitalDetail)
