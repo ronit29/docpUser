@@ -66,7 +66,7 @@ class DoctorProfileCard extends React.Component {
 
         if(this.props.isNonBookablePopup){
             let nonBookableDocData = {
-                'Category': 'ConsumerApp', 'Action': 'NonBookabePopupClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'non-bookabe-popup-clicked', 'selectedId': id
+                'Category': 'ConsumerApp', 'Action': 'NonBookableBookNowPopupClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'non-bookable-book-now-popup-clicked', 'selectedId': id
             }
             GTM.sendEvent({ data: nonBookableDocData })
         }
