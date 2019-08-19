@@ -353,7 +353,7 @@ class InsurancePopup extends React.Component {
                                         <div className="two">
                                             <div className="widget-header text-center mv-header">
                                                 {/*<h3 className="sign-coupon fw-700">Please login to continue</h3>*/}
-                                                <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Enter your access code we’ve sent to your mobile number</h4>
+                                                <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Enter the OTP we’ve sent to your mobile number</h4>
                                                 {/*
                                                     this.props.identifyUserClick == 'userClick' ?
                                                     <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Sounds too good to be true !! But it is ! Only docprime members get to access</h4>

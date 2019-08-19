@@ -3089,4 +3089,68 @@ h2.lbcrdcstfont.cstmDocName{
 	width: 45px;
 }
 /* ============ ipd-comment ============ */
+/* ============ opd filter ============ */
+.multy-select-fltr-container {
+    overflow: auto;
+    height: 70vh;
+}
+.sort-chk-filter-container {
+    border-top: 1px solid #e6e6e6;
+    margin-bottom: 20px;
+}
+h3.srt-cli-headings {
+    margin: 10px 0px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 500;
+}
+h3.srt-cli-headings span {
+    color: #f1863b;
+    cursor: pointer;
+}
+.srt-inp-csl img {
+	margin-left: 5px;
+	cursor: pointer;
+}
+.srt-inp-csl {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+.srt-inp-csl input {
+	background: #ededed;
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #e4e2e2;
+    outline: none;
+}
+ul.chklist-sort-fliter li {
+    border-bottom: 1px solid #e6e6e6;
+    padding: 8px 0;
+}
+ul.chklist-sort-fliter li:last-child {
+    border: none;
+}
+ul.chklist-sort-fliter label.ck-bx {
+    padding-left: 0;
+    padding-right: 35px;
+}
+ul.chklist-sort-fliter label.ck-bx span.checkmark {
+    right: 0;
+    left: unset;
+}
+span.pp-arw img {
+    position: relative;
+    width: 20px;
+}
+span.pp-done {
+    color: #f78631;
+    font-weight: 500;
+    font-size: 13px;
+    cursor:pointer;
+}
+/* ============ opd filter ============ */
 
