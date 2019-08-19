@@ -54,7 +54,8 @@ class DoctorProfileView extends React.Component {
             displayHospitalRatingBlock: 0,
             showIpdLeadForm: true,
             showSecondPopup: false,
-            firstLeadId: ''
+            firstLeadId: '',
+            closeNonBookable:false
         }
     }
 
@@ -279,6 +280,14 @@ class DoctorProfileView extends React.Component {
         this.setState({ showSecondPopup: false })
     }
 
+    closeNonBookableDocPopup(){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'NonBookableDoctorCrossClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'Non-Bookable-Doctor-cross-clicked'
+            }
+            GTM.sendEvent({ data: data })
+        this.setState({closeNonBookable:true})
+    }
+
     render() {
 
         let doctor_id = this.props.selectedDoctor
@@ -385,8 +394,8 @@ class DoctorProfileView extends React.Component {
                         : ''
                 }
                 {
-                    nearbyDoctors && Object.keys(nearbyDoctors).length ?
-                        <NonBookableDoctor navigateToDoctor={this.navigateToDoctor.bind(this)}/>
+                    nearbyDoctors && Object.keys(nearbyDoctors).length && !this.state.closeNonBookable ?
+                        <NonBookableDoctor {...this.props} closeNonBookableDocPopup={this.closeNonBookableDocPopup.bind(this)} nearbyDoctors={nearbyDoctors} navigateToDoctor={this.navigateToDoctor.bind(this)} details={this.props.DOCTORS[doctor_id]}/>
                     :''
                 }
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">

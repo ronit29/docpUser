@@ -932,7 +932,7 @@ span.rate-pop-back img{
 @media(max-width: 767px){
 	.downloadBtn{
 		position: fixed;
-			z-index: 999;
+			z-index: 99;
 			left: 0;
 			right: 0;
 			margin: auto;
