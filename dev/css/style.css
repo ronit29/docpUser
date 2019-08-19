@@ -12068,19 +12068,3 @@ font-weight: 500;
     max-width: 96px;
     display: inline-block;
 }
-p.pay_clnc {
-    align-items: center;
-    font-size: 12px;
-    border: 1px dashed #3379ee;
-    color: #3379ee;
-    font-weight: 500;
-    border-radius: 5px;
-    padding: 2px 4px;
-    display: inline-flex;
-    margin-top: 8px;
-}
-p.pay_clnc img {
-    width: 15px;
-    height: 16px;
-    margin-right: 3px;
-}
