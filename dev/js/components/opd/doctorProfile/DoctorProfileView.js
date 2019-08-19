@@ -384,7 +384,11 @@ class DoctorProfileView extends React.Component {
                         <IpdSecondPopup {...this.props} firstLeadId={this.state.firstLeadId} all_doctors={[]} all_cities={this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].all_cities ? this.props.DOCTORS[doctor_id].all_cities : []} doctorProfilePage={true} secondIpdFormSubmitted={this.secondIpdFormSubmitted.bind(this)} hospital_name={selectedClinicName} hospital_id={this.state.selectedClinic} doctor_name={this.props.DOCTORS[doctor_id].name ? this.props.DOCTORS[doctor_id].name : ''} formSource='DoctorBookingPage' />
                         : ''
                 }
-                <NonBookableDoctor />
+                {
+                    nearbyDoctors && Object.keys(nearbyDoctors).length ?
+                        <NonBookableDoctor navigateToDoctor={this.navigateToDoctor.bind(this)}/>
+                    :''
+                }
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">
                     {this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].breadcrumb && this.props.DOCTORS[doctor_id].breadcrumb.length ?
                         <section className="col-12 mrng-top-12 d-none d-md-block">
