@@ -151,7 +151,9 @@ class SearchPackagesView extends React.Component {
                 this.props.togglecompareCriteria(packages)
                 if(this.props.compare_packages && this.props.compare_packages.length >0){
                       this.props.compare_packages.map((packages, i) => {
+                        if(packages.id != this.props.packagesList.result[0].id && packages.lab_id != this.props.packagesList.result[0].lab.id){ 
                           selectedPkgCompareIds.push(packages.id+'-'+packages.lab_id)
+                        }
                       })
                 }
                 selectedPkgCompareIds.push(this.props.packagesList.result[0].id+'-'+this.props.packagesList.result[0].lab.id)
