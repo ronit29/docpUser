@@ -3145,4 +3145,39 @@ span.pp-done {
     cursor:pointer;
 }
 /* ============ opd filter ============ */
+/* ============ non-bookable docter ============ */
+.non-bok-hdng-container {
+    text-align: center;
+    padding: 12px;
+    border-bottom: 1px solid #f8f5f5;
+}
+p.non-bok-heading {
+    font-size: 15px;
+    font-weight: 600;
+}
+p.non-bok-subhdng {
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 5px;
+}
+p.viw-all-non-bok {
+    padding: 0 0 14px 0;
+    text-align: center;
+    color: #f78530;
+    font-weight: 500;
+    cursor: pointer;
+}
+.non-book-cls-btn{
+	position: absolute;
+    right: 3px;
+    top: 3px;
+    cursor: pointer;
+}
+
+@media (max-width: 767px){
+div.search-el-popup.non-book-pop{
+	width: 98% !important;
+}
+}
+/* ============ non-bookable docter ============ */
 
