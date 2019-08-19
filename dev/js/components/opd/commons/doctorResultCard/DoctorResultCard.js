@@ -60,10 +60,16 @@ class DoctorProfileCard extends React.Component {
         this.props.selectOpdTimeSLot(slot, false)
 
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'OpdSearchBookNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-book-now-clicked', 'selectedId': id
+            'Category': 'ConsumerApp', 'Action': 'OpdSearchBookNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-book-now-clicked', 'selectedId': id, 'isNonBookablePopup': this.props.isNonBookablePopup?this.props.isNonBookablePopup:false
         }
         GTM.sendEvent({ data: data })
 
+        if(this.props.isNonBookablePopup){
+            let nonBookableDocData = {
+                'Category': 'ConsumerApp', 'Action': 'NonBookabePopupClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'non-bookabe-popup-clicked', 'selectedId': id
+            }
+            GTM.sendEvent({ data: nonBookableDocData })
+        }
         let { procedure_ids } = this.trackingEventsBookNow(id)
         this.props.saveProfileProcedures('', '', procedure_ids, true)
         if (url) {

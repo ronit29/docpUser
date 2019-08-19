@@ -44,7 +44,7 @@ class NonBookableDoctor extends React.Component {
 							{this.props.nearbyDoctors.result && this.props.nearbyDoctors.result.length ?
                                 this.props.nearbyDoctors.result.map((doctor, id) => {
                                 	if(id <=1){
-                                	return <DoctorResultCard {...this.props} details={doctor} key={id} rank={id} />
+                                	return <DoctorResultCard {...this.props} details={doctor} key={id} rank={id} isNonBookablePopup={true}/>
 									}
                                 })
 							:''}
