@@ -49,7 +49,9 @@ class NonBookableDoctor extends React.Component {
                                 })
 							:''}
 						</div>
-						<p className="viw-all-non-bok" onClick={this.ViewAll.bind(this)}>View All Top General Physicians Near You</p>
+						{this.props.details.doctors && this.props.details.doctors.specializations?
+							<p className="viw-all-non-bok" onClick={this.ViewAll.bind(this)}>View All Top {this.props.details.doctors.specializations[0].name} Near You</p>
+						:''}
 					</div>
 
 				</div>
