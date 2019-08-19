@@ -355,6 +355,13 @@ class HospitalDetailView extends React.Component {
 
 							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} showPopup={showPopup} isSeo={this.state.seoFriendly} />
 
+							
+							{
+								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.other_network_hospitals && this.props.ipd_hospital_detail.other_network_hospitals.length?
+								<IpdCarousel {...this.props} hospital_data ={this.props.ipd_hospital_detail}/>
+								:''
+							}
+
 							<div className="ipd-tabs-container">
 								<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type#doctors`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'doctors' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
 									e.preventDefault()
@@ -412,7 +419,7 @@ class HospitalDetailView extends React.Component {
 									this.props.ipd_hospital_detail && ((this.props.ipd_hospital_detail.doctors && this.props.ipd_hospital_detail.doctors.result.length) || (this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length)) ?
 										<div>
 											<div>
-												<div className="card-head"><h2 className="dsply-ipd-hdng">{`${this.props.ipd_hospital_detail.name_city ? this.props.ipd_hospital_detail.name_city : ''} Doctors List`}</h2></div>
+												<div className="card-head"><h2 className="dsply-ipd-hdng">{`${this.props.ipd_hospital_detail.seo_title?this.props.ipd_hospital_detail.seo_title:this.props.ipd_hospital_detail.name_city ? this.props.ipd_hospital_detail.name_city : ''} Doctors List`}</h2></div>
 												{
 													this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length ?
 														this.props.ipd_hospital_detail.specialization_doctors.result.map((doctorCard, i) => {
@@ -488,12 +495,12 @@ class HospitalDetailView extends React.Component {
 									: ''
 							}
 
-							{
+							{/*
 								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.other_network_hospitals && this.props.ipd_hospital_detail.other_network_hospitals.length ?
 									<HospitalLocations hospital_data={this.props.ipd_hospital_detail} />
 
 									: ''
-							}
+							*/}
 
 							{/* {
 								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.images && this.props.ipd_hospital_detail.images.length ?
