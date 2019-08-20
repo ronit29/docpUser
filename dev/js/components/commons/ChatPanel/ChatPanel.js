@@ -228,6 +228,11 @@ class ChatPanel extends React.Component {
                                     'Category': 'Chat', 'Action': 'PreventiveFired', 'CustomerID': '', 'leadid': 0, 'event': 'preventive-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname
                                 }
                                 GTM.sendEvent({ data: analyticData })
+                            } else if (data.type == 'salesBanner') {
+                                let analyticData = {
+                                    'Category': 'Chat', 'Action': 'BannerSalesFired', 'CustomerID': '', 'leadid': 0, 'event': 'banner-sales-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname
+                                }
+                                GTM.sendEvent({ data: analyticData })
                             }
                             break;
                         }

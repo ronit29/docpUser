@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggle404, getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures, resetProcedureURl, setSearchId, getSearchIdResults, selectSearchType, setNextSearchCriteria, getOfferList, toggleDiagnosisCriteria, selectOpdTimeSLot, saveProfileProcedures, resetPkgCompare, selectLocation, cloneCommonSelectedCriterias,loadOPDInsurance } from '../../actions/index.js'
+import { toggle404, getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures, resetProcedureURl, setSearchId, getSearchIdResults, selectSearchType, setNextSearchCriteria, getOfferList, toggleDiagnosisCriteria, selectOpdTimeSLot, saveProfileProcedures, resetPkgCompare, selectLocation, cloneCommonSelectedCriterias,loadOPDInsurance, getDoctorHospitalFilters, getDoctorHospitalSpeciality } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder, mergeSelectedCriterias } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/opd/searchResults/index.js'
 import NotFoundView from '../../components/commons/notFound'
@@ -121,7 +121,7 @@ const mapStateToProps = (state, passedProps) => {
     let DOCTORS = state.DOCTORS
     let HOSPITALS = state.HOSPITALS
 
-    let { hospitalList, doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page, ratings, reviews, ratings_title, bottom_content, breadcrumb, seoData, show404, canonical_url, hospitalData } = state.DOCTOR_SEARCH
+    let { hospitalList, doctorList, LOADED_DOCTOR_SEARCH, count, SET_FROM_SERVER, search_content, curr_page, ratings, reviews, ratings_title, bottom_content, breadcrumb, seoData, show404, canonical_url, hospitalData, similar_specializations } = state.DOCTOR_SEARCH
 
     const {
         offerList,
@@ -163,7 +163,8 @@ const mapStateToProps = (state, passedProps) => {
         compare_packages,
         device_info,
         common_settings,
-        hospitalData
+        hospitalData,
+        similar_specializations
     }
 }
 
@@ -191,7 +192,9 @@ const mapDispatchToProps = (dispatch) => {
         resetPkgCompare:() => dispatch(resetPkgCompare()),
         selectLocation: (location, type) => dispatch(selectLocation(location, type)),
         cloneCommonSelectedCriterias: (selectedCriterias) => dispatch(cloneCommonSelectedCriterias(selectedCriterias)),
-        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city))
+        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city)),
+        getDoctorHospitalFilters: (state, page, from_server, searchByUrl, cb, clinic_card) => dispatch(getDoctorHospitalFilters(state, page, from_server, searchByUrl, cb, clinic_card)),
+        getDoctorHospitalSpeciality: (state, page, from_server, searchByUrl, cb, clinic_card) => dispatch(getDoctorHospitalSpeciality(state, page, from_server, searchByUrl, cb, clinic_card))
     }
 }
 
