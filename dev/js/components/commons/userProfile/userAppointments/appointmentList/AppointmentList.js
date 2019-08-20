@@ -101,17 +101,17 @@ class AppointmentList extends React.Component {
                     </InitialsPicture>
                 </span>
                 <div className="consultant-details" style={{ cursor: 'pointer' }} onClick={this.openAppointment.bind(this, type, id)}>
-                    <h4 className="title app-title" style={{ marginBottom: 8 }} >{display_name || lab_name}</h4>
+                    <h4 className="title app-title" style={{ marginBottom: 0 }} >{display_name || lab_name}</h4>
                     <ul className="list">
                         {
                          lab_name || hospital_name?
-                            <li style={{ marginBottom: 5 }} ><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/icons/calendar.svg"} className="img-fluid" /></span>{lab_name|| hospital_name} </li>
+                            <li style={{ marginBottom: 5 }} className="apnt-hsp-name" >{lab_name|| hospital_name} </li>
                             :''    
                         }
                         
-                        <li style={{ marginBottom: 5 }} ><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/icons/calendar.svg"} className="img-fluid" /></span>{date.toDateString()} </li>
-                        <li style={{ marginBottom: 5 }} ><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/customer-icons/clock.svg"} className="img-fluid" /></span>{this.getTime(time_slot_start)}</li>
-                        <li style={{ marginBottom: 5 }} ><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/icons/user.svg"} className="img-fluid" style={{ width: 14, marginTop: -4 }} /></span>{patient_name}</li>
+                        <li style={{ marginBottom: 5 }} ><span className="ct-img ct-img-xs text-right"><img style={{width:'15px'}} src={ASSETS_BASE_URL + "/img/new-cal.svg"} className="img-fluid" /></span>{date.toDateString()} | <span className="ct-img ct-img-xs text-right"><img style={{width:'15px'}} src={ASSETS_BASE_URL + "/img/watch-date.svg"} className="img-fluid" /></span>{this.getTime(time_slot_start)}</li>
+                        {/* <li style={{ marginBottom: 5 }} ></li> */}
+                        <li style={{ marginBottom: 5 }} ><span className="ct-img ct-img-xs text-right"><img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} className="img-fluid" style={{ width: 15, marginTop: -4 }} /></span>{patient_name}</li>
                     </ul>
                     {/* <div className="view-chat text-right">
                             {
