@@ -14,7 +14,8 @@ const DEFAULT_FILTER_STATE = {
     doctor_name: "",
     hospital_name: "",
     hospital_id: "",
-    is_insured: false
+    is_insured: false,
+    specialization_filter_ids:[]
 }
 
 const defaultState = {

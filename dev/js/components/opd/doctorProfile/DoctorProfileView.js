@@ -26,6 +26,7 @@ import HospitalPopUp from '../../commons/ratingsProfileView/HospitalPopUp.js'
 import STORAGE from '../../../helpers/storage'
 import IpdLeadForm from '../../../containers/ipd/ipdLeadForm.js'
 import IpdSecondPopup from '../../../containers/ipd/IpdDoctorCityPopup.js'
+import NonBookableDoctor from './nonBookableDoctor.js'
 
 const queryString = require('query-string');
 
@@ -53,7 +54,8 @@ class DoctorProfileView extends React.Component {
             displayHospitalRatingBlock: 0,
             showIpdLeadForm: true,
             showSecondPopup: false,
-            firstLeadId: ''
+            firstLeadId: '',
+            closeNonBookable:false
         }
     }
 
@@ -278,6 +280,14 @@ class DoctorProfileView extends React.Component {
         this.setState({ showSecondPopup: false })
     }
 
+    closeNonBookableDocPopup(){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'NonBookableDoctorCrossClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'Non-Bookable-Doctor-cross-clicked'
+            }
+            GTM.sendEvent({ data: data })
+        this.setState({closeNonBookable:true})
+    }
+
     render() {
 
         let doctor_id = this.props.selectedDoctor
@@ -382,6 +392,11 @@ class DoctorProfileView extends React.Component {
                     this.props.DOCTORS[doctor_id] && this.state.showSecondPopup && parsed.get_feedback && parsed.get_feedback == '1' ?
                         <IpdSecondPopup {...this.props} firstLeadId={this.state.firstLeadId} all_doctors={[]} all_cities={this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].all_cities ? this.props.DOCTORS[doctor_id].all_cities : []} doctorProfilePage={true} secondIpdFormSubmitted={this.secondIpdFormSubmitted.bind(this)} hospital_name={selectedClinicName} hospital_id={this.state.selectedClinic} doctor_name={this.props.DOCTORS[doctor_id].name ? this.props.DOCTORS[doctor_id].name : ''} formSource='DoctorBookingPage' />
                         : ''
+                }
+                {
+                    nearbyDoctors && Object.keys(nearbyDoctors).length && !this.state.closeNonBookable ?
+                        <NonBookableDoctor {...this.props} closeNonBookableDocPopup={this.closeNonBookableDocPopup.bind(this)} nearbyDoctors={nearbyDoctors} navigateToDoctor={this.navigateToDoctor.bind(this)} details={this.props.DOCTORS[doctor_id]}/>
+                    :''
                 }
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">
                     {this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].breadcrumb && this.props.DOCTORS[doctor_id].breadcrumb.length ?

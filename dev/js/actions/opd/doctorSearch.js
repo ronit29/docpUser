@@ -64,7 +64,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	let avg_ratings = filterCriteria.avg_ratings || []
 	let gender = filterCriteria.gender || ''
 	let is_insured = filterCriteria.is_insured || false
-
+	let specialization_filter_ids = filterCriteria.specialization_filter_ids || []
 	// do not check specialization_ids if doctor_name || hospital_name search
 	if (!!filterCriteria.doctor_name || !!filterCriteria.hospital_name) {
 		specializations_ids = ""
@@ -85,7 +85,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 		url = `/api/v1/doctor/doctorsearchbyhospital?`
 	}
 
-	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&avg_ratings=${avg_ratings}&gender=${gender}&page=${page}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&ipd_procedure_ids=${ipd_ids || ""}&city=${locality}&locality=${sub_locality}&is_insurance=${is_insured?true:false}&group_ids=${group_ids}`
+	url += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&avg_ratings=${avg_ratings}&gender=${gender}&page=${page}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&ipd_procedure_ids=${ipd_ids || ""}&city=${locality}&locality=${sub_locality}&is_insurance=${is_insured?true:false}&group_ids=${group_ids}&specialization_filter_ids=${specialization_filter_ids}`
 
 	if (!!filterCriteria.doctor_name) {
 		url += `&doctor_name=${filterCriteria.doctor_name || ""}`
@@ -519,5 +519,99 @@ export const select_opd_payment_type = (type = 1) => (dispatch) => {
 	dispatch({
 		type: SELECT_OPD_PAYMENT_TYPE,
 		payload: type
+	})
+}
+	function getDoctorFiltersParams(state,page, from_server, searchByUrl, clinic_card,isHospitalFilter ){
+	let { selectedLocation, commonSelectedCriterias, filterCriteria, locationType } = state
+	let specializations_ids = commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
+	let condition_ids = commonSelectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
+	let procedures_ids = commonSelectedCriterias.filter(x => x.type == 'procedures').map(x => x.id)
+	let category_ids = commonSelectedCriterias.filter(x => x.type == 'procedures_category').map(x => x.id)
+	let ipd_ids = commonSelectedCriterias.filter(x => x.type == 'ipd').map(x => x.id)
+
+	let group_ids = commonSelectedCriterias.filter(x => x.type == 'group_ids').map(x => x.id)
+
+	let sits_at = []
+	if(filterCriteria.sits_at_clinic) sits_at.push('Clinic');
+	if(filterCriteria.sits_at_hospital) sits_at.push('Hospital');
+	if(sits_at.length == 0) sits_at = [''];
+	sits_at = sits_at.join(',')
+
+	let lat = 28.644800
+	let long = 77.216721
+	let place_id = ""
+	let locality = ""
+	let sub_locality = ""
+
+	if (selectedLocation) {
+		lat = selectedLocation.geometry.location.lat
+		long = selectedLocation.geometry.location.lng
+		place_id = selectedLocation.place_id || ""
+		if (typeof lat === 'function') lat = lat()
+		if (typeof long === 'function') long = long()
+		locality = selectedLocation.locality || ""
+		sub_locality = selectedLocation.sub_locality || ""
+	}else{
+		locality = "Delhi"
+	}
+
+	let sort_on = filterCriteria.sort_on || ""
+	let sort_order = filterCriteria.sort_order || ""
+	let availability = filterCriteria.availability || []
+	let avg_ratings = filterCriteria.avg_ratings || []
+	let gender = filterCriteria.gender || ''
+	let is_insured = filterCriteria.is_insured || false
+
+	// do not check specialization_ids if doctor_name || hospital_name search
+	if (!!filterCriteria.doctor_name || !!filterCriteria.hospital_name) {
+		specializations_ids = ""
+		condition_ids = ""
+		procedures_ids = ""
+		category_ids = "",
+			ipd_ids = "",
+			group_ids=''
+	}
+
+	let newUrl
+	if(isHospitalFilter){
+	newUrl =  `/api/v1/doctor/hospital/filter?`
+	}else{
+	newUrl = `/api/v1/doctor/speciality/filter?`
+	}
+
+	newUrl += `specialization_ids=${specializations_ids || ""}&condition_ids=${condition_ids || ""}&sits_at=${sits_at}&latitude=${lat || ""}&longitude=${long || ""}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&avg_ratings=${avg_ratings}&gender=${gender}&page=${page}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&ipd_procedure_ids=${ipd_ids || ""}&city=${locality}&locality=${sub_locality}&is_insurance=${is_insured?true:false}&group_ids=${group_ids}`
+
+	if (!!filterCriteria.doctor_name) {
+		newUrl += `&doctor_name=${filterCriteria.doctor_name || ""}`
+	}
+
+	if (!!filterCriteria.hospital_name) {
+		newUrl += `&hospital_name=${filterCriteria.hospital_name || ""}`
+	}
+
+	if (!!filterCriteria.hospital_id) {
+		newUrl += `&hospital_id=${filterCriteria.hospital_id || ''}`
+	}
+	return newUrl
+}
+export const getDoctorHospitalFilters = (state = {}, page = 1, from_server = false, searchByUrl = false, cb, clinic_card = false) => (dispatch) => {
+	let url = getDoctorFiltersParams(state, page, from_server, searchByUrl, clinic_card,true)	
+	return API_GET(url).then(function (response) {
+		if(cb) cb(response)
+	}).catch(function (error) {
+		if(cb) cb(error)
+		throw error
+	})
+}
+
+export const getDoctorHospitalSpeciality = (state = {}, page = 1, from_server = false, searchByUrl = false, cb, clinic_card = false) => (dispatch) => {
+	let url = getDoctorFiltersParams(state, page, from_server, searchByUrl, clinic_card,false)	
+	return API_GET(url).then(function (response) {
+		if(cb) cb(response)
+
+	}).catch(function (error) {
+		if(cb) cb(error)
+		throw error
+
 	})
 }
