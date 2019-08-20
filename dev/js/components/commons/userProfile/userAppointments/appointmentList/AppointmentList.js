@@ -88,7 +88,7 @@ class AppointmentList extends React.Component {
 
     render() {
 
-        let { doctor_name, display_name, time_slot_end, time_slot_start, status, type, id, lab_name, doctor_thumbnail, lab_thumbnail, patient_name, invoices } = this.props.data
+        let { doctor_name, display_name, time_slot_end, time_slot_start, status, type, id, lab_name, doctor_thumbnail, lab_thumbnail, patient_name, invoices, hospital_name } = this.props.data
 
         let date = new Date(time_slot_start)
 
@@ -103,6 +103,12 @@ class AppointmentList extends React.Component {
                 <div className="consultant-details" style={{ cursor: 'pointer' }} onClick={this.openAppointment.bind(this, type, id)}>
                     <h4 className="title app-title" style={{ marginBottom: 8 }} >{display_name || lab_name}</h4>
                     <ul className="list">
+                        {
+                         lab_name || hospital_name?
+                            <li style={{ marginBottom: 5 }} ><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/icons/calendar.svg"} className="img-fluid" /></span>{lab_name|| hospital_name} </li>
+                            :''    
+                        }
+                        
                         <li style={{ marginBottom: 5 }} ><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/icons/calendar.svg"} className="img-fluid" /></span>{date.toDateString()} </li>
                         <li style={{ marginBottom: 5 }} ><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/customer-icons/clock.svg"} className="img-fluid" /></span>{this.getTime(time_slot_start)}</li>
                         <li style={{ marginBottom: 5 }} ><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/icons/user.svg"} className="img-fluid" style={{ width: 14, marginTop: -4 }} /></span>{patient_name}</li>
