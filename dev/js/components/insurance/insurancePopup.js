@@ -65,7 +65,7 @@ class InsurancePopup extends React.Component {
             }
         }
         let exactProfile = { ...newProfile, ...newProfileNames }
-        if(this.props.is_child_only && selectedProfileAge == 0){
+        if(this.props.is_child_only){
             var today = new Date();
             var dd = String(today.getDate()).padStart(2, '0');
             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
