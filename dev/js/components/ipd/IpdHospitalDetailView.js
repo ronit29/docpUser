@@ -20,8 +20,10 @@ import CommonSearch from '../../containers/commons/CommonSearch.js'
 import IpdCarousel from './IpdHospitalDetailCarousel.js'
 import IpdQuestionAnswer from './ipdQuestionAnswer.js'
 import IpdSecondPopup from '../../containers/ipd/IpdDoctorCityPopup.js'
-import ReplyView from '../commons/article/Reply';
-import CommmentView from '../commons/article/ArticleCommentBox';
+import CommentBox from '../commons/article/ArticleCommentBox.js'
+import Reply from '../commons/article/Reply.js'
+import STORAGE from '../../helpers/storage';
+import SnackBar from 'node-snackbar'
 
 //View all rating for hospital ,content_type = 3
 
@@ -36,7 +38,9 @@ class HospitalDetailView extends React.Component {
 			ipdFormParams: {},
 			showForcedPopup: false,
 			showSecondPopup: false,
-			firstLeadId: ''
+			firstLeadId:'',
+			replyOpenFor: '',
+			comment:''
 		}
 	}
 
@@ -264,6 +268,50 @@ class HospitalDetailView extends React.Component {
 		this.setState({ showSecondPopup: false })
 	}
 
+	postReply(e) {
+        e.preventDefault()
+        if (!this.state.comment) {
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Please write valid comment" })
+            }, 500)
+            return
+        }
+        let postData = {
+        	type: 'hospital',
+            id: this.props.ipd_hospital_detail.id,
+            comment: this.state.comment,
+            name: Object.values(this.props.profiles).length && this.props.profiles[this.props.defaultProfile] ? this.props.profiles[this.props.defaultProfile].name : '',
+            email: Object.values(this.props.profiles).length && this.props.profiles[this.props.defaultProfile] ? this.props.profiles[this.props.defaultProfile].email : '',
+            parent: this.state.replyOpenFor
+        }
+        this.props.postHospitalComments(postData, (error, data) => {
+            if (data) {
+                this.setState({ comment: '', replyOpenFor: '' })
+                this.loadComments()
+                setTimeout(() => {
+                    SnackBar.show({ pos: 'bottom-center', text: "Comment Posted Sucessfully, Awaiting moderation" })
+                }, 500)
+            } else {
+                setTimeout(() => {
+                    SnackBar.show({ pos: 'bottom-center', text: "Could not post your comment, Try again!" })
+                }, 500)
+            }
+        })
+        return
+    }
+
+	loadComments(){
+		this.props.getHospitalComments(this.props.ipd_hospital_detail.id)
+	}
+
+	commentReplyClicked(id) {
+        this.setState({ replyOpenFor: id })
+    }
+
+    handleInputComment(e) {
+        this.setState({ comment: e.target.value })
+    }
+
 	render() {
 
 		const parsed = queryString.parse(this.props.location.search)
@@ -277,7 +325,18 @@ class HospitalDetailView extends React.Component {
 			landing_page = true
 		}
 
-		let showForcedPopup = this.state.showLeadForm && landing_page && this.state.seoFriendly && this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.is_ipd_hospital && this.state.showForcedPopup
+		let showForcedPopup= this.state.showLeadForm && landing_page && this.state.seoFriendly && this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.is_ipd_hospital && this.state.showForcedPopup
+
+
+		let isUserLogin = Object.values(this.props.profiles).length || STORAGE.checkAuth()
+        let commentsExists = this.props.hospitalComments && this.props.hospitalComments.length ? this.props.hospitalComments.length : null
+
+        let specialization_data = []
+        if(this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.specializations){
+
+        	specialization_data = this.props.ipd_hospital_detail.specialization_doctors.specializations
+        }
+
 		return (
 			<React.Fragment>
 				{
@@ -285,7 +344,7 @@ class HospitalDetailView extends React.Component {
 						<div className="ipd-section">
 							{
 								(showPopup || showForcedPopup) ?
-									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} formSource='ipdHospitalPopup' saveLeadIdForUpdation={this.saveLeadIdForUpdation.bind(this)} noToastMessage={true} />
+									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} formSource='ipdHospitalPopup' saveLeadIdForUpdation={this.saveLeadIdForUpdation.bind(this)} noToastMessage={true} specialization_data={specialization_data}/>
 									: ''
 							}
 							{
@@ -454,6 +513,32 @@ class HospitalDetailView extends React.Component {
 									<IpdQuestionAnswer hospital_data={this.props.ipd_hospital_detail} />
 									: ''
 							}
+
+		                    <div className="ipd-wdg-pdng">
+		                        {
+	                                this.props.hospitalComments && this.props.hospitalComments.length?
+	                                    <div className="">
+	                                        <h4 className="comments-main-heading">{`User Comments (${this.props.hospitalComments.length})`}</h4>
+	                                        {
+	                                            this.props.hospitalComments.map((comment, key) => {
+	                                                return <Reply key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} 
+	                                                	loadComments={this.loadComments.bind(this)} postComment={this.props.postHospitalComments}
+
+	                                                 postReply={this.postReply.bind(this)} handleInputComment={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists} hospitalPage={true} hospital_id={this.props.ipd_hospital_detail.id}/>
+	                                            })}
+	                                    </div>
+	                                    : ''
+		                        }
+
+                                <div className="">
+                                    <div className="widget mrb-15 mrng-top-12 p-0">
+                                        <div className="widget-content">
+                                            <CommentBox {...this.props} {...this.state}  parentCommentId={this.state.replyOpenFor} hospitalPage={true} parentCommentId='' hospital_id={this.props.ipd_hospital_detail.id} loadComments={this.loadComments.bind(this)} postComment={this.props.postHospitalComments}/>
+                                        </div>
+                                    </div>
+                                </div>
+		                            
+		                    </div>
 
 							{
 								this.props.ipd_chat || showPopup || (this.props.ipd_hospital_detail && !this.props.ipd_hospital_detail.is_ipd_hospital) ? ''

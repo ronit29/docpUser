@@ -922,11 +922,9 @@ class BookingSummaryViewNew extends React.Component {
                     */}
                         <span className="test-name-item p-0">{twp.test.name}
                         {twp && twp.test && twp.test.show_details?
-                            <p key={i} onClick={this.testInfo.bind(this, twp.test.id, this.state.selectedLab, twp.test.url)}>
-                                <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }}> 
+                                <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} key={i} onClick={this.testInfo.bind(this, twp.test.id, this.state.selectedLab, twp.test.url)}> 
                                     <img src={ASSETS_BASE_URL+ '/img/icons/Info.svg'} style={{width:'15px'}}/> 
                                 </span>
-                            </p>
                         :''}
                         </span>
                         {
@@ -1095,15 +1093,14 @@ class BookingSummaryViewNew extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                        <div className="">
-                                                            {this.getSelectors(is_insurance_applicable)}
-                                                        </div>
                                                         {
                                                             is_insurance_applicable && prescriptionPicked ?
                                                                 <UploadPrescription {...this.props} />
                                                                 : ''
                                                         }
+                                                        <div className="">
+                                                            {this.getSelectors(is_insurance_applicable)}
+                                                        </div>
                                                         {
                                                             amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable ?
                                                                 <div className="widget mrb-15" onClick={this.applyCoupons.bind(this)}>
@@ -1204,8 +1201,8 @@ class BookingSummaryViewNew extends React.Component {
                                                                                         </div> : ""
                                                                                     }
                                                                                     <div className="payment-detail d-flex">
-                                                                                        <p>Docprime Discount</p>
-                                                                                        <p>- &#8377; {finalMrp - finalPrice}</p>
+                                                                                        <p style={{color:'green'}}>Docprime Discount</p>
+                                                                                        <p style={{color:'green'}}>- &#8377; {finalMrp - finalPrice}</p>
                                                                                     </div>
                                                                                     {
                                                                                         this.props.disCountedLabPrice && !this.state.is_cashback
@@ -1316,8 +1313,8 @@ class BookingSummaryViewNew extends React.Component {
 
                             <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
                                 {
-                                    STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured) ?
-                                        <button disabled={this.state.pay_btn_loading} className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn") + (this.state.pay_btn_loading ? " disable-all" : "")} data-disabled={
+                                    STORAGE.isAgent() || (!is_corporate && !is_default_user_insured) ?
+                                    <button disabled={this.state.pay_btn_loading} className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn") + (this.state.pay_btn_loading ? " disable-all" : "")} data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                         } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status)}>
                                             {

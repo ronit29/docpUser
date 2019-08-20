@@ -17,6 +17,7 @@ import ArticleAuthor from '../articleAuthor/articleAuthor';
 import LocationElements from '../../../containers/commons/locationElements'
 import CommonSearch from '../../../containers/commons/CommonSearch.js'
 import FixedMobileFooter from '../Home/FixedMobileFooter'
+import FooterTestSpecializationWidgets from './FooterTestSpecializationWidgets.js'
 
 // import RelatedArticles from './RelatedArticles'
 
@@ -47,7 +48,8 @@ class Article extends React.Component {
             articleLoaded: articleLoaded,
             searchCities: [],
             searchWidget: '',
-            specialization_id: ''
+            specialization_id: '',
+            hideFooterWidget: true
         }
     }
 
@@ -55,7 +57,6 @@ class Article extends React.Component {
         if (!this.state.articleData) {
             this.getArticleData()
         }
-
         if (window) {
             window.scrollTo(0, 0)
         }
@@ -73,6 +74,7 @@ class Article extends React.Component {
 
             this.props.getOfferList(lat, long);
         }
+        this.setState({hideFooterWidget: false})
 
     }
 
@@ -216,6 +218,10 @@ class Article extends React.Component {
             }
 
         })
+    }
+
+    handleClose(){
+        this.setState({hideFooterWidget: true})
     }
 
     render() {
@@ -418,6 +424,13 @@ class Article extends React.Component {
                                     }
                                 </div> : ""
                             }
+                            {
+                                this.state.articleData && this.state.articleData.footer_widget?
+                                    this.state.hideFooterWidget?''
+                                    :<FooterTestSpecializationWidgets {...this.props} footerWidget={this.state.articleData.footer_widget} handleClose={this.handleClose.bind(this)}/>
+                                :''
+                            }
+                            
                         </div>
                         <RightBar colClass="col-lg-4" articleData={this.state.articleData} />
                     </div>
@@ -430,7 +443,7 @@ class Article extends React.Component {
                                         <h4 className="comments-main-heading">{`User Comments (${this.state.articleData.comments.length})`}</h4>
                                         {
                                             this.state.articleData.comments.map((comment, key) => {
-                                                return <Reply key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists} />
+                                                return <Reply key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists} articlePage={true}/>
                                             })}
                                     </div>
                                     : ''
@@ -442,15 +455,15 @@ class Article extends React.Component {
                                 <div className="col-12 col-md-7 col-lg-8 center-column">
                                     <div className="widget mrb-15 mrng-top-12">
                                         <div className="widget-content">
-                                            <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} commentsExists={commentsExists} parentCommentId={this.state.replyOpenFor} />
+                                            <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} commentsExists={commentsExists} parentCommentId={this.state.replyOpenFor} articlePage={true}/>
                                         </div>
                                     </div>
                                 </div>
                                 : ''
                         }
                     </div>
-
-                    <FixedMobileFooter {...this.props} />
+{/*
+                    <FixedMobileFooter {...this.props} />*/}
                 </section>
                 <Footer />
             </div>

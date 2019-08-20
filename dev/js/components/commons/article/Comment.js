@@ -37,7 +37,7 @@ class Comment extends React.Component{
                     <div className="dr-qucik-info doc-gold-">
                         <div className="fltr-crd-img text-center">
                             <div>
-                                <InitialsPicture  name={comment.author?comment.author.name:comment.user_name} has_image={comment.author?comment.author.profile_img:comment.profile_img} className="initialsPicture-ds fltr-initialPicture-ds"><img style={{ width: '40px' }} className="img-fluid img-round" src={comment.author?comment.author.profile_img:comment.profile_img} alt={comment.author?comment.author.name:comment.user_name} title={comment.author?comment.author.name:comment.user_name} /></InitialsPicture>
+                                <InitialsPicture  name={comment.author?comment.author.name:comment.user_name} has_image={comment.author && comment.author.profile_img?comment.author.profile_img:comment.profile_img} className="initialsPicture-ds fltr-initialPicture-ds"><img style={{ width: '40px' }} className="img-fluid img-round" src={comment.author && comment.author.profile_img?comment.author.profile_img:comment.profile_img} alt={comment.author?comment.author.name:comment.user_name} title={comment.author?comment.author.name:comment.user_name} /></InitialsPicture>
                             </div>
                         </div>
                         <div className="dr-profile">
@@ -65,7 +65,7 @@ class Comment extends React.Component{
                                 <input type="text" onChange={this.props.handleInputComment.bind(this)} />
                                 <button className="comments-post-btns" onClick={this.props.postReply.bind(this)}>Post</button>
                             </div>
-                            :<CommentBox {...this.props} {...this.state} parentCommentId = {comment.id} getArticleData={this.props.getArticleData.bind(this)} />
+                            :<CommentBox {...this.props} {...this.state} parentCommentId = {comment.id} getArticleData={this.props.hospitalPage?()=>{}:this.props.getArticleData.bind(this)}/>
                         :''   
                     }
                     

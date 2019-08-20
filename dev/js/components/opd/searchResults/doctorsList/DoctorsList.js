@@ -345,9 +345,16 @@ class DoctorsList extends React.Component {
                                                             }
 
                                                             {result_list && result_list.length > 5 &&  i == 3?
-                                                                <div className="mb-3 referDocimg" onClick={()=>{this.props.history.push('/doctorsignup?member_type=1')}}>
+                                                                <div className="mb-3 referDocimg" onClick={(e)=>{
+                                                                    e.preventDefault();
+                                                                    let data = {
+                                                                            'Category': 'ConsumerApp', 'Action': 'ReferDoctorList', 'CustomerID': GTM.getUserId() || '', 'event': 'refer-doctor-list'
+                                                                        }
+                                                                    GTM.sendEvent({ data: data })
+                                                                    this.props.history.push('/doctorsignup?member_type=1')}}>
                                                                 <img src={ASSETS_BASE_URL + "/img/refrlbnr.png"} />
                                                             </div>:''}
+                                                            
                                                             {
                                                                 this.props.insurance_status != 1 && !this.state.sort_order && ((i == 6 && this.state.availability && !this.state.availability.length) || (i == 3 && this.state.availability && this.state.availability.length)) ?
                                                                     <div className="sort-sub-filter-container mb-3">
@@ -372,6 +379,27 @@ class DoctorsList extends React.Component {
                                                                     this.props.clinic_card ? <ClinicResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} /> : <DoctorResultCard {...this.props} details={result_data[cardId]} key={i} rank={i} />
                                                                 }
                                                             </li>
+
+                                                            {this.props.similar_specializations && this.props.similar_specializations.length && 
+                                                                !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && (i == 7 || this.props.count-1 == i)  ?
+                                                                    this.props.SimilarSpecializationData()
+                                                                : ''
+                                                            }
+
+                                                            {this.props.similar_specializations && this.props.similar_specializations.length && this.state.sort_order && (this.state.availability || this.state.availability.length) && this.props.count < 8 && i== (this.props.count-1) ?
+                                                                    this.props.SimilarSpecializationData()
+                                                                : ''
+                                                            }
+
+                                                            {this.props.similar_specializations && this.props.similar_specializations.length && this.state.sort_order && (this.state.availability || this.state.availability.length) && this.props.count < 8 && i == 3 ?
+                                                                    this.props.SimilarSpecializationData()
+                                                                : ''
+                                                            }
+
+                                                            {this.props.similar_specializations && this.props.similar_specializations.length && this.state.sort_order && (this.state.availability || this.state.availability.length) && i== 3 ?
+                                                                    this.props.SimilarSpecializationData()
+                                                                : ''
+                                                            }
 
                                                             {
                                                                 !!!card_ID && i == result_list.length - 1 && this.props.seoFriendly && this.props.match.url.includes('-sptlitcit') && this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length ?
