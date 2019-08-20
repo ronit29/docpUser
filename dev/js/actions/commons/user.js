@@ -571,7 +571,7 @@ export const removeFromCart = (id) => (dispatch) => {
 export const processCartItems = (use_wallet = true, extraParams={}) => (dispatch) => {
 	let postData = {}
 	postData['visitor_info'] = GTM.getVisitorInfo()
-	postData['spo_tags'] = extraParams
+	postData['utm_spo_tags'] = extraParams
 	use_wallet = use_wallet ? 1 : 0
 	return API_POST(`/api/v1/cart/process?use_wallet=${use_wallet}`, postData)
 }

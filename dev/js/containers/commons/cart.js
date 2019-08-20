@@ -25,29 +25,6 @@ class Cart extends React.Component {
             this.props.getCartItems()
             this.props.fetchTransactions()
         }
-        //Add UTM tags for building url
-        try{
-            const parsed = queryString.parse(this.props.location.search)
-            if(parsed.UtmSource && parsed.UtmSource=='OfflineAffiliate'){
-                let sessionId = Math.floor(Math.random() * 103)*21 + 1050
-                if(sessionStorage) {
-                    sessionStorage.setItem('sessionIdVal',sessionId)   
-                }
-                let spo_tags = {
-                    utm_tags: {
-                        UtmSource: parsed.UtmSource||'',
-                        UtmTerm: parsed.UtmTerm||'',
-                        UtmMedium: parsed.UtmMedium||'',
-                        UtmCampaign: parsed.UtmCampaign||''
-                    },
-                    time: new Date().getTime(),
-                    currentSessionId: sessionId
-                }
-                this.props.setCommonUtmTags('spo', spo_tags)
-            }
-        }catch(e) {
-
-        }
     }
 
     render() {
