@@ -49,7 +49,7 @@ class IpdHospitalCarousel extends React.Component {
                 <div className="ipd-carousel-slider">
                     <div className="d-inline-flex">
                         {
-                            hospital_data.other_network_hospitals.map((hospital, key)=>{
+                            hospital_data.other_network_hospitals.slice(0,10).map((hospital, key)=>{
                                 return <div key={key} className="ipd-carousel-card" onClick={this.navigateTo.bind(this, hospital)}>
                                             <div className="ipd-crsl-img-cont">
                                                 <div className="ipd-crsl-img">
