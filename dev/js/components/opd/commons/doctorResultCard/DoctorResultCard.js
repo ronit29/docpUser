@@ -331,6 +331,7 @@ class DoctorProfileCard extends React.Component {
                                         :
                                         <button className="cstm-view-btn" onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')}>View Contact</button>
                                 }
+
                             </div>
                         </div>
                         {/*
