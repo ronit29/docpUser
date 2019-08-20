@@ -42,8 +42,8 @@ class IpdHospitalCarousel extends React.Component {
 
         return (
             <div className="ipd-carousel-container">
-                <h3 className="othr-cntr">Other Centers
-                    <span onClick={this.viewMoreHospital.bind(this)}>View all</span>
+                <h3 className="othr-cntr">{`${hospital_data.name_city} Other Centers`}
+                    <span className ="cursor-pntr" onClick={this.viewMoreHospital.bind(this)}>View all</span>
                 </h3>
 
                 <div className="ipd-carousel-slider">

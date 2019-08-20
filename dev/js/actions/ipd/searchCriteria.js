@@ -123,7 +123,7 @@ export const getIpdHospitals = (state, page=1, fromServer, searchByUrl, cb) => (
         url = `/api/v1/doctor/hospitals?`
     }
 
-    url+= `long=${long}&lat=${lat}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&page=${page}&network_id=${network_id}`
+    url+= `long=${long}&lat=${lat}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&page=${page}&network=${network_id}`
 
     if(parseInt(page)==1) {
         dispatch({
