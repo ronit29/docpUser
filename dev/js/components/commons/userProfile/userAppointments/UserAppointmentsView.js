@@ -48,7 +48,7 @@ class UserAppointmentsView extends React.Component {
         if(value == 'all') {
             appointments.push('all')
         }else if(value == 'upcoming') {
-            appointments = [2,3,5]
+            appointments = [2,3,4,5]
         }else {
             appointments.push(value)
         }
@@ -127,7 +127,7 @@ class UserAppointmentsView extends React.Component {
                 <div className="booking-filter-container">
                     <div className="bkn-chips-container">
                         <p className={`${this.state.show_sorted_results.indexOf('all')>-1?'bkselect':''}`} onClick={()=>this.selectOptions('all', 'all')}>All</p>
-                        <p className={`${this.state.show_sorted_results.indexOf(2)>-1 || this.state.show_sorted_results.indexOf(3)>-1 || this.state.show_sorted_results.indexOf(5)>-1?'bkselect':''}`} onClick={()=>this.selectOptions('upcoming', 'upcoming')}>Upcoming</p>
+                        <p className={`${this.state.show_sorted_results.indexOf(2)>-1 || this.state.show_sorted_results.indexOf(3)>-1 || this.state.show_sorted_results.indexOf(4)>-1 || this.state.show_sorted_results.indexOf(5)>-1?'bkselect':''}`} onClick={()=>this.selectOptions('upcoming', 'upcoming')}>Upcoming</p>
                         <p className={`${this.state.show_sorted_results.indexOf(7)>-1?'bkselect':''}`} onClick={()=>this.selectOptions(7, 'Completed')}>Completed</p>
                         <p className={`${this.state.show_sorted_results.indexOf(6)>-1?'bkselect':''}`} onClick={()=>this.selectOptions(6, 'Cancelled')}>Cancelled</p>
                     </div>
