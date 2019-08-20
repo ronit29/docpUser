@@ -341,7 +341,12 @@ class BookingView extends React.Component {
                                                         {/*<div className="pb-view text-left">
                                                             <a href={`https://www.google.com/maps/search/?api=1&query=${hospital.lat},${hospital.long}`} target="_blank" className="link-text text-md fw-700">View in Google Map</a>
                                                         </div>*/}
-                                                    <button className="rebook-btn" onClick={this.goToBookingPage.bind(this)}>Rebook Appointment</button>
+                                                        {
+                                                            status == 6 || status ==7?
+                                                            <button className="rebook-btn" onClick={this.goToBookingPage.bind(this)}>Rebook Appointment</button>
+                                                            :''        
+                                                        }
+                                                    
                                                     </div>
                                                     {
                                                         this.state.data && this.state.data.procedures && this.state.data.procedures.length ?

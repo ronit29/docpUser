@@ -326,7 +326,12 @@ class BookingView extends React.Component {
                                                                     <img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} style={{ width: '100%' }} />
                                                                 </a>
                                                             </div>*/}
-                                                            <button className="rebook-btn" onClick={this.goToBookingPage.bind(this)}>Rebook Appointment</button>
+                                                            {
+                                                                status ==6 || status ==7?
+                                                                <button className="rebook-btn" onClick={this.goToBookingPage.bind(this)}>Rebook Appointment</button>
+                                                                :''    
+                                                            }
+                                                            
                                                         </div>
                                                     </div>
                                                     {
