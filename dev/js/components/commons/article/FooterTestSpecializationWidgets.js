@@ -3,6 +3,16 @@ import GTM from '../../../helpers/gtm'
 
 class FooterWidgetView extends React.Component {
 
+	constructor(props) {
+		super(props)
+		this.state = {
+			name: '',
+			phone_number:'',
+			show_form:false,
+			leadType:'',
+			clickedData:null
+		}
+	}
 	componentDidMount() {
 		let data = {
 			'Category': 'ConsumerApp', 'Action': 'FooterWidgetDisplayed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'footer-widget-displayed', type: this.props.footerWidget && this.props.footerWidget.widget_type ? this.props.footerWidget.widget_type : ''
@@ -12,6 +22,10 @@ class FooterWidgetView extends React.Component {
 	}
 
 	selectDoctorSpecialization(data) {
+		if(!this.state.show_form){
+			this.setState({show_form:true, leadType:1,clickedData:data})
+			return
+		}
 		let criteria = {}
 		criteria.id = data[1] || ''
 		criteria.name = data[0] || ''
@@ -45,6 +59,10 @@ class FooterWidgetView extends React.Component {
 	}
 
 	selectTest(data) {
+		if(!this.state.show_form){
+			this.setState({show_form:true, leadType:2,clickedData:data})
+			return
+		}
 		let criteria = {}
 		criteria.id = data[1] || ''
 		criteria.name = data[0] || ''
@@ -86,6 +104,10 @@ class FooterWidgetView extends React.Component {
 	}
 
 	openSearchMore() {
+		if(!this.state.show_form){
+			this.setState({show_form:true, leadType:3})
+			return
+		}
 		let which = 'opd'
 		if (this.props.footerWidget && this.props.footerWidget.widget_type == 'LabTest') {
 			which = 'lab'
@@ -95,13 +117,57 @@ class FooterWidgetView extends React.Component {
 	}
 
 	goToPackage() {
+		if(!this.state.show_form){
+			this.setState({show_form:true, leadType:4})
+			return
+		}
 		let data = {
 			'Category': 'ConsumerApp', 'Action': 'ShowPackageClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-package-clicked', 'from': 'footerWidget'
 		}
 		GTM.sendEvent({ data: data })
-		this.props.history.push('/thyrocare-aarogyam-packages')
+		this.props.setPackageId(12227, true)
+		setTimeout(() => {
+			this.props.history.push('/searchpackages')
+		}, 100)
+		// this.props.history.push('/thyrocare-aarogyam-packages')
 	}
 
+	closeLeadForm(isProceed){
+		let proceed = false
+		if(isProceed){
+			if(this.state.name == ''){
+				return	
+			}
+			if(this.state.phone_number == ''){
+				return	
+			}
+			if(this.state.name !='' && this.state.phone_number !=''){
+				let data={}
+				data.name = this.state.name
+				data.phone_number = this.state.phone_number
+				proceed = true
+			}
+		}else{
+			proceed = true
+		}
+		if(proceed){
+			if(this.state.leadType == 1){
+				this.selectDoctorSpecialization(this.state.clickedData)
+			}else if(this.state.leadType == 2){
+				this.selectTest(this.state.clickedData)
+			}else if(this.state.leadType == 3){
+				this.openSearchMore()
+			}else if(this.state.leadType == 4){
+				this.goToPackage()
+			}
+		}
+	}
+
+	handleChange(event){
+		this.setState({
+			[event.target.getAttribute('data-param')]: event.target.value
+		})		
+	}
 	render() {
 
 		let { footerWidget } = this.props
@@ -191,6 +257,28 @@ class FooterWidgetView extends React.Component {
 						</div>
 						: ''
 				}
+
+				{this.state.show_form?<div className="search-el-popup-overlay cancel-overlay-zindex">
+					   <div className="search-el-popup ipd-pop-width">
+					      <div className="widget p-12">
+					         <div className="p-relative">
+					            <p className="ipd-needHelp">Talk to medical expert and get help with your booking</p>
+					            <div className="ipd-pop-scrl">
+					               <div className="ipd-inp-section">
+					                  <div className="nm-lst-inputcnt">
+					                  	<input type="text" value="" name="name" placeholder="*Name" onChange={this.handleChange.bind(this)} data-param='name' value={this.state.name}/>
+					                  </div>
+					                  <input type="number" value="" name="phone_number" placeholder="*Mobile Number" onChange={this.handleChange.bind(this)} data-param="phone_number" value={this.state.phone_number}/>
+					                  <div className="skip-btn-sgn">
+					                     <button className="ipd-inp-sbmt" onClick={this.closeLeadForm.bind(this,true)}>Submit</button>
+					                     <p onClick={this.closeLeadForm.bind(this,false)}>Skip</p>
+					                  </div>
+					               </div>
+					            </div>
+					         </div>
+					      </div>
+					   </div>
+				</div>:""}
 			</React.Fragment>
 		)
 	}
