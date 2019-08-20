@@ -3170,5 +3170,11 @@ span.pp-done {
     cursor:pointer;
 }
 /* ============ opd filter ============ */
+/* ============ appointment card ============ */
+.apnt-hsp-name{
+	color: #757575;
+    font-size: 13px;
+}
+/* ============ appointment card ============ */
 
 
