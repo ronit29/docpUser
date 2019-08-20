@@ -2,6 +2,7 @@ import React from 'react';
 
 import AppointmentList from './appointmentList/index.js'
 import Loader from '../../Loader'
+import GTM from '../../../../helpers/gtm'
 
 class UserAppointmentsView extends React.Component {
     constructor(props) {
@@ -42,8 +43,22 @@ class UserAppointmentsView extends React.Component {
         this.setState({ show_sorted_results: !this.state.show_sorted_results })
     }
 
-    selectOptions(value) {
-        let found = false
+    selectOptions(value, type) {
+        let appointments = []
+        if(value == 'all') {
+            appointments.push('all')
+        }else if(value == 'upcoming') {
+            appointments = [2,3,5]
+        }else {
+            appointments.push(value)
+        }
+        let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'AppointmentChipsSelected', 'CustomerID': GTM.getUserId() || '', 'event': 'appointment-chips-selected', 'type': type
+        }
+        GTM.sendEvent({ data: gtmData })
+        this.setState({ show_sorted_results: appointments })
+
+        /*let found = false
         let appointments = []
 
         if(this.state.show_sorted_results.length==1 && this.state.show_sorted_results.indexOf(value)>-1) {
@@ -72,7 +87,7 @@ class UserAppointmentsView extends React.Component {
             }
             
             this.setState({ show_sorted_results: appointments })
-        }
+        }*/
     }
 
 
@@ -111,13 +126,10 @@ class UserAppointmentsView extends React.Component {
                 </div> */}
                 <div className="booking-filter-container">
                     <div className="bkn-chips-container">
-                        <p className={`${this.state.show_sorted_results.indexOf('all')>-1?'bkselect':''}`} onClick={()=>this.selectOptions('all')}>All Appointments</p>
-                        <p className={`${this.state.show_sorted_results.indexOf(1)>-1?'bkselect':''}`} onClick={()=>this.selectOptions(1)}>Created</p>
-                        <p className={`${this.state.show_sorted_results.indexOf(2)>-1?'bkselect':''}`} onClick={()=>this.selectOptions(2)}>Booked</p>
-                        <p className={`${this.state.show_sorted_results.indexOf(3)>-1?'bkselect':''}`} onClick={()=>this.selectOptions(3)}>Rescheduled</p>
-                        <p className={`${this.state.show_sorted_results.indexOf(5)>-1?'bkselect':''}`} onClick={()=>this.selectOptions(5)}>Accepted</p>
-                        <p className={`${this.state.show_sorted_results.indexOf(6)>-1?'bkselect':''}`} onClick={()=>this.selectOptions(6)}>Cancelled</p>
-                        <p className={`${this.state.show_sorted_results.indexOf(7)>-1?'bkselect':''}`} onClick={()=>this.selectOptions(7)}>Completed</p>
+                        <p className={`${this.state.show_sorted_results.indexOf('all')>-1?'bkselect':''}`} onClick={()=>this.selectOptions('all', 'all')}>All</p>
+                        <p className={`${this.state.show_sorted_results.indexOf(2)>-1 || this.state.show_sorted_results.indexOf(3)>-1 || this.state.show_sorted_results.indexOf(5)>-1?'bkselect':''}`} onClick={()=>this.selectOptions('upcoming', 'upcoming')}>Upcoming</p>
+                        <p className={`${this.state.show_sorted_results.indexOf(7)>-1?'bkselect':''}`} onClick={()=>this.selectOptions(7, 'Completed')}>Completed</p>
+                        <p className={`${this.state.show_sorted_results.indexOf(6)>-1?'bkselect':''}`} onClick={()=>this.selectOptions(6, 'Cancelled')}>Cancelled</p>
                     </div>
                 </div>
                 {/* <div className="tg-list-item">
