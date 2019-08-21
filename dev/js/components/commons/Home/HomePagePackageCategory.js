@@ -39,6 +39,13 @@ class HomePagePackageCategory extends React.Component {
             document.getElementById('leftArrow_pkgCat').classList.remove("d-none")
         }
     }
+    ViewAll(){
+        let package_category_ids=[]
+       this.props.top_data.map((data, i) => {
+            package_category_ids.push(data.id)
+       })
+       this.props.history.push('/searchpackages?package_category_ids='+ package_category_ids)
+    }
 	
 	render(){
 
@@ -46,7 +53,7 @@ class HomePagePackageCategory extends React.Component {
 		     <div className="pakg-slider-container mt-10 mb-10">
                 <div className="pkgSliderHeading">
                     <h5>Health Package Categories</h5>
-                    {<span>View All</span>}
+                    <span onClick={this.ViewAll.bind(this)}>View All</span>
                 </div>
                 <div className="pkgSliderContainer" id="top_pkgCat">
                     <div className='pkgCardsList d-inline-flex sub-wd-cards top_pkgCat'>
