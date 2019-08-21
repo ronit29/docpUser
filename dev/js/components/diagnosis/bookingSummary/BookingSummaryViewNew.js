@@ -426,7 +426,7 @@ class BookingSummaryViewNew extends React.Component {
             SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
             return 
         }
-        if(patient && patient.dob){
+        if(patient && !patient.dob){
             this.setState({isDobNotValid:true})
             SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Date of Birth" })
             return 

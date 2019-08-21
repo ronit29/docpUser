@@ -317,7 +317,7 @@ class ChoosePatientNewView extends React.Component {
                                     : ''*/
                             }
                             {   
-                                this.props.is_lab && this.props.patient.dob?
+                                this.props.is_lab && !this.props.patient.dob?
                                     <React.Fragment>
                                         {this.props.patient.dob ?
                                             <div className="dob-summary-container">
