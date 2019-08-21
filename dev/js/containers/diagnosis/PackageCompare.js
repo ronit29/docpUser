@@ -62,7 +62,9 @@ import PackageCompareView from '../../components/diagnosis/searchPackages/packag
                   test.img = pkg.lab.thumbnail
                   resetCompareData.push(test)
                 })
-              this.props.togglecompareCriteria(resetCompareData,true)
+              if(!category_ids){
+                this.props.togglecompareCriteria(resetCompareData,true)
+              }
               this.setState({'showCompare':true,'data':resp})
             }
           })
