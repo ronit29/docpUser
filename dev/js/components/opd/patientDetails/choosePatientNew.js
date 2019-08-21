@@ -1,7 +1,8 @@
 import React from 'react';
 import SnackBar from 'node-snackbar'
 import GTM from '../../../helpers/gtm.js'
-
+import Calendar from 'rc-calendar';
+const moment = require('moment');
 
 class ChoosePatientNewView extends React.Component {
     constructor(props) {
@@ -17,7 +18,10 @@ class ChoosePatientNewView extends React.Component {
             smsBtnType: null,
             isEmailNotValid: false,
             isPopupDataFilled: false,
-            enableOtpRequest:false
+            enableOtpRequest:false,
+            dob:null,
+            formattedDate:'', 
+            dateModal: false
         }
     }
 
@@ -157,6 +161,51 @@ class ChoosePatientNewView extends React.Component {
         }
     }
 
+    profileDobValidation(e){
+        let data = { ...this.props.patient }
+        this.setState({ [e.target.name]: e.target.value },()=>{
+            data.dob = this.state.dob    
+            this.props.editUserProfile(data, this.props.patient.id, (err, res) => {
+                this.props.getUserProfile()
+            })
+        })
+    }
+
+    selectDateFromCalendar(date) {
+        let data = { ...this.props.patient }
+        if (date) {
+            date = date.toDate()
+            let formattedDate = this.getFormattedDate(date)
+            date = new Date(date).toISOString().split('T')[0]
+            this.setState({ dob: date, formattedDate:formattedDate, dateModal: false},()=>{
+                data.dob = this.state.dob    
+                this.props.editUserProfile(data, this.props.patient.id, (err, res) => {
+                    this.props.getUserProfile()
+                })
+            })
+        } else {
+            this.setState({ dateModal: false })
+        }
+    }
+
+    getFormattedDate(date){
+        var dd = date.getDate();
+        var mm = date.getMonth()+1; 
+        var yyyy = date.getFullYear();
+        if(dd<10){
+            dd='0'+dd;
+        }
+        if(mm<10){
+            mm='0'+mm;
+        }
+        var today = dd+'-'+mm+'-'+yyyy;
+        return today
+    }
+
+    openCalendar(){
+        this.setState({dateModal:true})
+    }
+
     verify(resendFlag = false, viaSms, viaWhatsapp) {
         let self = this
 
@@ -237,6 +286,7 @@ class ChoosePatientNewView extends React.Component {
 
     }
     render() {
+        console.log(this.state.dob)
         return (
             <div className={`widget mrb-15 ${this.props.profileError ? 'rnd-error-nm' : ''}`}>
                 {
@@ -259,6 +309,42 @@ class ChoosePatientNewView extends React.Component {
                                     </div>
                                     : ''
                             }
+                            {
+                                /*this.props.is_lab && this.props.patient.dob ?
+                                    <div className="mrb-20" style={{ paddingLeft: 28 }}>
+                                        <input className="slt-text-input" autoComplete="off" type="date" name="dob" value={this.state.dob} onChange={this.profileDobValidation.bind(this)} placeholder="Date of Birth" style={this.props.isDobNotValid ? { borderBottom: '1px solid red' } : {}} />
+                                    </div>
+                                    : ''*/
+                            }
+                            {   
+                                this.props.is_lab && this.props.patient.dob?
+                                    <React.Fragment>
+                                        {this.props.patient.dob ?
+                                            <div className="labelWrap">
+                                                <input id="dob" name="dob" type="text" value={this.state.formattedDate} onClick={this.openCalendar.bind(this)} required ref="dob" />
+                                                 <label htmlFor="dob">Date of Birth</label>
+                                             </div>
+                                        :''} 
+
+                                        {this.state.dateModal ? 
+                                            <div className="calendar-overlay">
+                                                <div className="date-picker-modal">
+                                                    <Calendar
+                                                        showWeekNumber={false}
+                                                        defaultValue={moment(new Date())}
+                                                        disabledDate={(date) => {
+                                                            return date.diff(moment((new Date)), 'days') > -1
+                                                        }}
+                                                        showToday
+                                                        onSelect={this.selectDateFromCalendar.bind(this)}
+                                                    />
+                                                </div>
+                                            </div>
+                                        :''}
+                                        </React.Fragment> 
+                                : ""
+                            }
+                             
                             <React.Fragment>
                             <div class="text-right">
                                     <a href="#" onClick={(e) => {
