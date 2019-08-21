@@ -303,7 +303,7 @@ class ChoosePatientNewView extends React.Component {
                                 </div>
                             </div>
                             {
-                                this.props.is_lab && !this.props.patient.email ?
+                                this.props.is_lab && this.props.patient.email ?
                                     <div className="mrb-20" style={{ paddingLeft: 28 }}>
                                         <input className="slt-text-input" autoComplete="off" type="text" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileEmailValidation.bind(this)} placeholder="Enter your email" style={(this.props.isEmailNotValid || this.state.isEmailNotValid) ? { borderBottom: '1px solid red' } : {}} />
                                     </div>
@@ -320,7 +320,7 @@ class ChoosePatientNewView extends React.Component {
                                 this.props.is_lab && this.props.patient.dob?
                                     <React.Fragment>
                                         {this.props.patient.dob ?
-                                            <div className="labelWrap">
+                                            <div className="dob-summary-container">
                                                 <input id="dob" name="dob" type="text" value={this.state.formattedDate} onClick={this.openCalendar.bind(this)} required ref="dob" />
                                                  <label htmlFor="dob">Date of Birth</label>
                                              </div>
