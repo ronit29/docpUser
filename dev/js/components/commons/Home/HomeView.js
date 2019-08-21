@@ -17,7 +17,9 @@ const queryString = require('query-string');
 import CRITEO from '../../../helpers/criteo.js'
 import HomePageTopHospitals from './HomePageTopHospitals.js'
 import HomePageTopProcedures from './HomePageProcedureWidgets.js'
+import HomePagePackageCategory from './HomePagePackageCategory.js'
 import TopChatWidget from './HomePageChatWidget';
+import DemoWidget from './DemoWidget.js'
 
 const GENDER = {
 	"m": "Male",
@@ -168,7 +170,7 @@ class HomeView extends React.Component {
 	}
 
 	render() {
-
+		
 		let topSpecializations = []
 		if (this.props.specializations && this.props.specializations.length) {
 			topSpecializations = this.getTopList(this.props.specializations)
@@ -264,6 +266,11 @@ class HomeView extends React.Component {
 								<HomePageTopProcedures {...this.props} top_data={this.props.ipd_procedures} />
 								: ''
 						}
+						{
+							this.props.package_categories && this.props.package_categories.length ?
+								<HomePagePackageCategory {...this.props} top_data={this.props.package_categories} />
+								: ''
+						}
 
 						{
 							this.props.top_hospitals && this.props.top_hospitals.length ?
@@ -326,6 +333,12 @@ class HomeView extends React.Component {
 								<HomePageTopProcedures {...this.props} top_data={this.props.ipd_procedures} />
 								: ''
 						}
+						{
+							this.props.package_categories && this.props.package_categories.length ?
+								<HomePagePackageCategory {...this.props} top_data={this.props.package_categories} />
+								: ''
+						}
+
 
 						{
 							this.props.common_package && this.props.common_package.length ?
