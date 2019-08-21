@@ -139,7 +139,7 @@ class DateTimePicker extends React.Component {
 
             }
             this.setState({ selectedDateSpan: dateFormat, currentTimeSlot: {} })
-        	this.props.enableProceed(false, [])	
+        	this.props.enableProceed(false, [], this.props.type)	
     	}else {
             
         }
@@ -176,9 +176,11 @@ class DateTimePicker extends React.Component {
                 date: self.state.selectedDateSpan,
                 month: MONTHS[new Date(self.state.selectedDateSpan).getMonth()],
                 slot: '',
-                time: self.state.currentTimeSlot
+                time: self.state.currentTimeSlot,
+                type: this.props.type||'',
+                test_id: this.props.test_id || ''
             }
-            self.props.enableProceed(false, data)
+            self.props.enableProceed(false, data, this.props.type)
         })
     }
 
@@ -269,8 +271,7 @@ class DateTimePicker extends React.Component {
                     	<div className="select-time-slot-container">
 				            <div className="slect-date-img-content mb-0">
                                 {
-                                    this.props.timeSlots && this.props.timeSlots[selectedFormattedDate]
-                                    ?this.props.timeSlots[selectedFormattedDate].length
+                                    this.props.timeSlots && this.props.timeSlots[selectedFormattedDate] && this.props.timeSlots[selectedFormattedDate].length
                                         ?<div className="date-text-img">
                                             <img src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
                                             <p>Select Time Slot</p>
@@ -278,7 +279,6 @@ class DateTimePicker extends React.Component {
                                         :<div className="select-time-slot-container">
                                             <p style={{ textAlign: 'center' }}>Not available on this day.</p>
                                         </div>
-                                    :<Loader/>
                                 }
 				                
 				            </div>

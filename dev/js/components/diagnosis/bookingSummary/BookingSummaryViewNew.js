@@ -269,21 +269,24 @@ class BookingSummaryViewNew extends React.Component {
     navigateTo(where, is_insurance_applicable, e) {
         switch (where) {
             case "time": {
+                //Get Test ids of all selected Tests
+                let test_ids = this.props.LABS[this.props.selectedLab].tests.map(x=>x.test_id)
+
                 if (this.state.pincode || (this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].lab && !this.props.LABS[this.props.selectedLab].lab.is_thyrocare)) {
 
                     if (this.props.LABS[this.props.selectedLab].lab.is_thyrocare) {
                         if (this.state.seoFriendly) {
-                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true&action_page=timings&is_insurance=${is_insurance_applicable}`
+                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true&action_page=timings&is_insurance=${is_insurance_applicable}&test_ids=${test_ids}`
                             this.props.history.push(url)
                         } else {
-                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true&is_insurance=${is_insurance_applicable}`)
+                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true&is_insurance=${is_insurance_applicable}&test_ids=${test_ids}`)
                         }
                     } else {
                         if (this.state.seoFriendly) {
-                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false&action_page=timings&is_insurance=${is_insurance_applicable}`
+                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false&action_page=timings&is_insurance=${is_insurance_applicable}&test_ids=${test_ids}`
                             this.props.history.push(url)
                         } else {
-                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false&is_insurance=${is_insurance_applicable}`)
+                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false&is_insurance=${is_insurance_applicable}&test_ids=${test_ids}`)
                         }
                     }
 
