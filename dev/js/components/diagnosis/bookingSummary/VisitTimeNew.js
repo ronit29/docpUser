@@ -61,17 +61,11 @@ class VisitTimeNew extends React.Component {
 
     render() {
 
-        let { date, time } = this.props.selectedSlot
-
-        if (date) {
-            date = new Date(date).toDateString()
-        }
-
         let is_thyrocare = this.is_thyrocare_lab(this.props)
 
         return (
             <div className={`widget mrb-15 ${this.props.timeError?'rnd-error-nm':''}`}>
-                {/*<div className="widget-content pos-relative">
+                <div className="widget-content pos-relative">
                     {
                         this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].lab && this.props.LABS[this.props.selectedLab].lab.is_thyrocare?
                             this.props.pincode?
@@ -90,7 +84,37 @@ class VisitTimeNew extends React.Component {
                             <img style={{ width: '18px', marginRight: '8px' }} src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
                         </span>Visit Time</h4>
 
-                        <div className="float-right  mbl-view-formatting text-right">
+                        {
+                            this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot && this.props.LABS[this.props.selectedLab]?
+                            <div className="float-right  mbl-view-formatting text-right">
+                                {
+                                    this.props.LABS[this.props.selectedLab].tests.map((test, key)=>{
+                                        return <React.Fragment key={key}>
+                                            <p>{test.test.name}</p>
+                                            {
+                                                this.props.selectedSlot.selectedTestsTimeSlot[test.test_id]?
+                                                <h4 className="date-time mr-10 title">{new Date(this.props.selectedSlot.selectedTestsTimeSlot[test.test_id].date).toDateString() || ""} {this.props.selectedSlot.selectedTestsTimeSlot[test.test_id].time.text ? "|" : ""} {this.props.selectedSlot.selectedTestsTimeSlot[test.test_id].time.text} {this.props.selectedSlot.selectedTestsTimeSlot[test.test_id].time.text?(this.props.selectedSlot.selectedTestsTimeSlot[test.test_id].time.value>=12?'PM':'AM'):''}</h4>
+                                                :''    
+                                            }
+                                            
+                                            </React.Fragment>        
+                                    })
+                                }
+                                
+                                <a href="" onClick={(e) => {
+                                e.preventDefault()
+                                e.stopPropagation()
+                                this.props.navigateTo('time',this.props.is_insurance_applicable)
+                            }} className="text-primary fw-700 text-sm">{this.props.selectedSlot['pathology'].time.text ? "Change" : "Select"} Time</a>
+                            
+                            </div>
+                            :<a href="" onClick={(e) => {
+                                e.preventDefault()
+                                e.stopPropagation()
+                                this.props.navigateTo('time',this.props.is_insurance_applicable)
+                            }} className="text-primary fw-700 text-sm">{this.props.selectedSlot['pathology'].time.text ? "Change" : "Select"} Time</a>
+                        }
+                        {/*<div className="float-right  mbl-view-formatting text-right">
                             <h4 className="date-time mr-10 title">{date || ""} {time.text ? "|" : ""} {time.text} {time.text?(time.value>=12?'PM':'AM'):''}</h4>
                             <a href="" onClick={(e) => {
                             e.preventDefault()
@@ -98,11 +122,11 @@ class VisitTimeNew extends React.Component {
                             this.props.navigateTo('time',this.props.is_insurance_applicable)
                         }} className="text-primary fw-700 text-sm">{time.text ? "Change" : "Select"} Time</a>
                         
-                        </div>
+                        </div>*/}
                     </div>
                     <p className="appmnt-avl">The appointment is subject to confirmation from the Lab. </p>
-                </div>*/}
-                <div className="widget-content pos-relative">
+                </div>
+                {/*<div className="widget-content pos-relative">
                     {
                         is_thyrocare?
                             this.props.pincode?
@@ -144,7 +168,7 @@ class VisitTimeNew extends React.Component {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>*/}
             </div>
         );
     }

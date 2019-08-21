@@ -82,7 +82,23 @@ class AppointmentSlot extends React.Component {
         if(this.state.selectedTimeSlot && this.state.selectedTimeSlot.date) {
             extraTimeParams = this.getFormattedDate(this.state.selectedTimeSlot.date)
         }
-        this.props.selectLabTimeSLot(slot, this.state.reschedule, extraTimeParams)
+        let selectedTestsSlot = {...slot}
+        let tests = {}
+        if(this.state.timeSlotsData['all'] && this.state.timeSlotsData['all'].tests && false) {
+            this.state.timeSlotsData['all'].tests.map((test)=>{
+                tests[test.id]= {...selectedTestsSlot['all'], test_id:test.id, test_name: test.name}
+            })
+        }
+        if(this.state.timeSlotsData['pathology'] && this.state.timeSlotsData['pathology'].tests) {
+            this.state.timeSlotsData['pathology'].tests.map((test)=>{
+                tests[test.id] = {...selectedTestsSlot['pathology'], test_id:test.id, test_name: test.name}
+            })
+        }
+        if(selectedTestsSlot['radiology']) {
+            tests = {...tests, ...selectedTestsSlot['radiology']}
+        }
+        selectedTestsSlot['selectedTestsTimeSlot'] = tests
+        this.props.selectLabTimeSLot(selectedTestsSlot, this.state.reschedule, extraTimeParams)
     }
 
     componentDidMount() {
@@ -204,7 +220,7 @@ class AppointmentSlot extends React.Component {
             let totalPathologyTests = 0
             if(this.state.timeSlotsData.pathology) {
                 if(selectedSlot['pathology']){
-                    totalPathologyTests=this.state.timeSlotsData.pathology.tests_name.split(',').length||0
+                    totalPathologyTests=this.state.timeSlotsData.pathology.tests.length||0
                     isAllTimeSelected = true
                 }
             }

@@ -314,7 +314,7 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    getSelectors(is_insurance_applicable) {
+    getSelectors(is_insurance_applicable, center_visit_enabled, is_home_collection_enabled) {
         let patient = null
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
@@ -323,14 +323,14 @@ class BookingSummaryViewNew extends React.Component {
         switch (this.props.selectedAppointmentType) {
             case "lab": {
                 return <div>
-                    <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable={is_insurance_applicable} />
+                    <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable={is_insurance_applicable} center_visit_enabled={center_visit_enabled} is_home_collection_enabled={is_home_collection_enabled}/>
                     <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} is_insurance_applicable={is_insurance_applicable} checkPrescription={this.checkPrescription.bind(this)} isEmailNotValid={this.state.isEmailNotValid}/>
                 </div>
             }
 
             case "home": {
                 return <div>
-                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable={is_insurance_applicable} />
+                    <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable={is_insurance_applicable} center_visit_enabled={center_visit_enabled} is_home_collection_enabled={is_home_collection_enabled}/>
                     <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} is_insurance_applicable={is_insurance_applicable} checkPrescription={this.checkPrescription.bind(this)} isEmailNotValid={this.state.isEmailNotValid} />
                     {
                         patient ?
@@ -1090,7 +1090,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                 : ''
                                                         }
                                                         <div className="">
-                                                            {this.getSelectors(is_insurance_applicable)}
+                                                            {this.getSelectors(is_insurance_applicable, center_visit_enabled, is_home_collection_enabled)}
                                                         </div>
                                                         {
                                                             amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable ?

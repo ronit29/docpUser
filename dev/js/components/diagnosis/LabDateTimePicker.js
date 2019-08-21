@@ -178,7 +178,8 @@ class DateTimePicker extends React.Component {
                 slot: '',
                 time: self.state.currentTimeSlot,
                 type: this.props.type||'',
-                test_id: this.props.test_id || ''
+                test_id: this.props.test_id || '',
+                test_name: this.props.test_name
             }
             self.props.enableProceed(false, data, this.props.type)
         })
