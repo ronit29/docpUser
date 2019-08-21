@@ -109,7 +109,8 @@ class BookingSummaryViewNew extends React.Component {
             if(spo_tags.time && sessionVal == parseInt(spo_tags.currentSessionId)){
                 let time_offset = (currentTime - spo_tags.time)/60000
                 //Clear SPO utm tags after 15minutes
-                if(time_offset>900) {
+                //900
+                if(time_offset>180) {
                     this.props.unSetCommonUtmTags('spo')
                 }else {
                     this.setState({is_spo_appointment: true})
@@ -540,8 +541,12 @@ class BookingSummaryViewNew extends React.Component {
             this.setState({ showConfirmationPopup: true })
             return
         }
-
-        this.setState({ loading: true, error: "" })
+        if(this.state.is_spo_appointment) {
+            this.setState({ error: "" })
+        }else {
+            this.setState({ loading: true, error: "" })
+        }
+        
 
         let start_date = this.props.selectedSlot.date
         let start_time = this.props.selectedSlot.time.value
@@ -599,7 +604,7 @@ class BookingSummaryViewNew extends React.Component {
 
             GTM.sendEvent({ data: data })
             this.props.addToCart(2, postData).then((res) => {
-                if (!this.state.cart_item) {
+                if (!this.state.cart_item && !this.state.is_spo_appointment) {
                     this.props.clearExtraTests()
                 }
 

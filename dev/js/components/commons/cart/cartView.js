@@ -134,7 +134,8 @@ class CartView extends React.Component {
             if(spo_tags.utm_tags && spo_tags.time && sessionVal == parseInt(spo_tags.currentSessionId)){
                 let time_offset = (currentTime - spo_tags.time)/60000
                 //Clear SPO utm tags after 15minutes
-                if(time_offset>900) {
+                //900
+                if(time_offset>180) {
                     this.props.unSetCommonUtmTags('spo')
                 }else {
                     extraParams = spo_tags.utm_tags
