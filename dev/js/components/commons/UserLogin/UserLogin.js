@@ -191,7 +191,7 @@ class UserLoginView extends React.Component {
                                         </div>
                                         <div className="form-group mobile-field sup-input-pdng">
                                             <div className="adon-group enter-mobile-number">
-                                                <input type="number" className="fc-input text-center" placeholder="10 digit mobile number" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this._handleContinuePress.bind(this)} />
+                                                <input type="number" className="fc-input text-center" placeholder="10 digit mobile number" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this._handleContinuePress.bind(this)} autoComplete="off" />
                                             </div>
 
                                             {
