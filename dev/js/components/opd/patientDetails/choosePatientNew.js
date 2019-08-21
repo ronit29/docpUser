@@ -286,7 +286,6 @@ class ChoosePatientNewView extends React.Component {
 
     }
     render() {
-        console.log(this.state.dob)
         return (
             <div className={`widget mrb-15 ${this.props.profileError ? 'rnd-error-nm' : ''}`}>
                 {
@@ -319,7 +318,7 @@ class ChoosePatientNewView extends React.Component {
                             {   
                                 this.props.is_lab && !this.props.patient.dob?
                                     <React.Fragment>
-                                        {this.props.patient.dob ?
+                                        {!this.props.patient.dob ?
                                             <div className="dob-summary-container">
                                                 <input id="dob" name="dob" type="text" value={this.state.formattedDate} onClick={this.openCalendar.bind(this)} required ref="dob" style={this.props.isDobNotValid ? { borderBottom: '1px solid red' } : {}} />
                                                  <label htmlFor="dob">Date of Birth</label>
