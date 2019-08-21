@@ -2857,6 +2857,31 @@ outline: none;
 font-weight: 500;
 padding: 3px 25px 5px 8px;
 }
+.booking-filter-container{
+	margin: 0 -15px;
+    padding: 0 15px;
+    overflow: auto;
+}
+.bkn-chips-container{
+	white-space: nowrap;
+}
+.bkn-chips-container p {
+    display: inline-block;
+    border: 1px solid #f78530;
+    color: #ff6e02;
+    background: white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 13px;
+    cursor: pointer;
+}
+.bkn-chips-container p.bkselect {
+    color: white;
+    background: #f78530;
+}
 /* ============ appointments ============ */
 /* ============ doc-bottom-widget ============ */
 .doc-wdgt-med-container{
@@ -3186,4 +3211,11 @@ div.search-el-popup.non-book-pop{
 }
 }
 /* ============ non-bookable docter ============ */
+/* ============ appointment card ============ */
+.apnt-hsp-name{
+	color: #757575;
+    font-size: 13px;
+}
+/* ============ appointment card ============ */
+
 
