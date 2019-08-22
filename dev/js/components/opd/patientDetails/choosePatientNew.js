@@ -157,23 +157,27 @@ class ChoosePatientNewView extends React.Component {
 
     profileDobValidation(e){
         let data = { ...this.props.patient }
-        if(this.state.dob && this.state.email){
-            this.setState({ isEmailNotValid: false, isDobNotValid:false })
-            data.dob = this.state.dob
-            data.email = this.state.email
-            this.props.editUserProfile(data, this.props.patient.id, (err, res) => {
-                this.props.getUserProfile()
-                this.setState({ dob: null, email:null })
+        if(data){
+            this.setState({email:data.email?data.email:this.state.email,dob:data.dob?data.dob:this.state.dob},() => {
+                if(this.state.dob && this.state.email){
+                    this.setState({ isEmailNotValid: false, isDobNotValid:false })
+                    data.dob = this.state.dob
+                    data.email = this.state.email
+                    this.props.editUserProfile(data, this.props.patient.id, (err, res) => {
+                        this.props.getUserProfile()
+                        this.setState({ dob: null, email:null })
+                    })
+                }else{
+                    if(!this.state.email && !data.email){
+                        this.setState({ isEmailNotValid: true })
+                        SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Email Id" })
+                    }
+                    if(!this.state.dob && !data.dob){
+                        this.setState({isDobNotValid:true})
+                        SnackBar.show({ pos: 'bottom-center', text: "Please Enter Date of Birth" })
+                    }
+                }
             })
-        }else{
-            if(!this.state.email){
-                this.setState({ isEmailNotValid: true })
-                SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Email Id" })
-            }
-            if(!this.state.dob){
-                this.setState({isDobNotValid:true})
-                SnackBar.show({ pos: 'bottom-center', text: "Please Enter Date of Birth" })
-            }
         }
     }
 
