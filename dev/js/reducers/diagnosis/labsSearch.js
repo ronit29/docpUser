@@ -7,7 +7,10 @@ const defaultState = {
     LOADED_LABS_SEARCH: false,
     selectedSlot: { time: {} },
     rescheduleSlot: { time: {} },
-    selectedAppointmentType: 'home',
+    selectedAppointmentType: {
+        r_pickup: 'home',
+        p_pickup: 'lab' 
+    },
     selectedAddress: null,
     SET_FROM_SERVER: false,
     labCoupons: {},
@@ -89,7 +92,7 @@ export default function (state = defaultState, action) {
 
         case SELECR_APPOINTMENT_TYPE_LAB: {
             let newState = { ...state }
-            newState.selectedAppointmentType = action.payload
+            newState.selectedAppointmentType = {...action.payload}
             return newState
         }
 

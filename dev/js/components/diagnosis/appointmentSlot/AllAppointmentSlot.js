@@ -150,8 +150,8 @@ class AppointmentSlot extends React.Component {
         }
         let extraParams = {
             test_ids: parsed.test_ids||'',
-            p_pickup:1,
-            r_pickup:1
+            p_pickup:parsed.p_pickup && parsed.p_pickup=="home"?1:0,
+            r_pickup:parsed.r_pickup && parsed.r_pickup=="home"?1:0
         }
         this.props.getLabTimeSlots(selectedLab, this.state.pickupType, pincode||'', date, extraParams, (data) => {
             this.setState({ timeSlotsData: data})
@@ -282,13 +282,33 @@ class AppointmentSlot extends React.Component {
                                     </div>
                                 </div>
                             </header> */}
-                            <div className="test-lab-radio widget-content test-report lab-appointment-div row">
-
-                                <ul className="inline-list booking-type search-list-radio">
-                                    <li><input type="radio" id="all" name="radio-group" onChange={()=>this.handleToggleType('all')} checked={this.state.selectedAppointmentType == 'all'} /> <label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="all">Book all tests together</label></li>
-                                    <li><input type="radio" id="seperately" name="radio-group" onChange={()=>this.handleToggleType('seperately')} checked={this.state.selectedAppointmentType == 'seperately'} /> <label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="seperately">Book seperately</label></li>
-                                </ul>
+                            <div className="new-time-slot-outer">
+                                <div className="top-sticky-radio-btn">
+                                    <div className="ins-form-radio">
+                                        <div className="dtl-radio">
+                                            <label className="container-radio">Book all tests together
+                                                <input type="radio" onChange={()=>this.handleToggleType('all')} checked={this.state.selectedAppointmentType == 'all'} name="type" value='m' />
+                                                <span className="doc-checkmark"></span>
+                                            </label>
+                                        </div>
+                                        <div className="dtl-radio">
+                                            <label className="container-radio">Book separately
+                                                <input type="radio" onChange={()=>this.handleToggleType('seperately')} checked={this.state.selectedAppointmentType == 'seperately'} name="type" value='f' />
+                                                <span className="doc-checkmark"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                {
+                                    false?
+                                    <div className="time-slot-wrng-cont">
+                                        <img src={ASSETS_BASE_URL + "/img/tm-wrng.png"} />
+                                        <p>Both test can’t be book for the same time. You can <span>Book Separately</span></p>
+                                    </div>
+                                    :''
+                                }
                             </div>
+
                             {
                                 this.props.LABS[this.props.selectedLab] && this.state.timeSlotsData?
                                     <section className="dr-profile-screen">
@@ -310,6 +330,7 @@ class AppointmentSlot extends React.Component {
                                                                 getTimeSlots= {this.getTimeSlots.bind(this)}
                                                                 upcoming_slots= {timeSlots.upcoming_slots}
                                                                 is_thyrocare = {timeSlots.is_thyrocare}
+                                                                nameHeading={timeSlots.tests.map(x=>x.name).join(',')}
                                                             />
                                                         : ''
                                                     }
@@ -327,6 +348,7 @@ class AppointmentSlot extends React.Component {
                                                                 getTimeSlots= {this.getTimeSlots.bind(this)}
                                                                 upcoming_slots= {timeSlots.upcoming_slots}
                                                                 is_thyrocare = {timeSlots.is_thyrocare}
+                                                                nameHeading={timeSlots.tests.map(x=>x.name).join(',')}
                                                             />
                                                         : ''
                                                     }
@@ -349,6 +371,7 @@ class AppointmentSlot extends React.Component {
                                                                         is_thyrocare = {tests.timings.is_thyrocare}
                                                                         test_name = {tests.name}
                                                                         test_id ={tests.tests_id}
+                                                                        nameHeading={tests.name}
                                                                     />
                                                         }):''
                                                     }

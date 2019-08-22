@@ -183,10 +183,10 @@ export const getLabByUrl = (lab_url, testIds = [], cb) => (dispatch) => {
 
 export const getLabTimeSlots = (labId, pickup, pincode, date, extraParams, callback) => (dispatch) => {
 	let url = `/api/v1/diagnostic/labtiming_v3?lab=${labId}&pickup=${pickup}&pincode=${pincode}&date=${date}`
-	if(extraParams.test_ids) {
-		url+=`&test_ids=${extraParams.test_ids}`
+	if(extraParams){
+		url+= `&test_ids=${extraParams.test_ids||''}&r_pickup=${extraParams.r_pickup||0}&p_pickup=${extraParams.p_pickup||0}`	
 	}
-	url+=`&p_pickup=1&r_pickup=1&lab=1533`
+	
 	return API_GET(url).then(function (response) {
 		callback(response)
 	}).catch(function (error) {

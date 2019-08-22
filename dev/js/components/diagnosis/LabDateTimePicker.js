@@ -217,6 +217,7 @@ class DateTimePicker extends React.Component {
 
 		return(
 			<div className="widget mrng-top-12">
+                <h4 className="tm-slt-hddng">{this.props.nameHeading}</h4>
                 <div className="time-slot-container">
                     <div className="vertical-date-select-container">
                         <div className="slect-date-heading">
