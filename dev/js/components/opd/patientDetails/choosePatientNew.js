@@ -163,11 +163,9 @@ class ChoosePatientNewView extends React.Component {
 
     profileDobValidation(e){
         let data = { ...this.props.patient }
-        this.setState({ [e.target.name]: e.target.value },()=>{
-            data.dob = this.state.dob    
-            this.props.editUserProfile(data, this.props.patient.id, (err, res) => {
-                this.props.getUserProfile()
-            })
+        data.dob = this.state.dob    
+        this.props.editUserProfile(data, this.props.patient.id, (err, res) => {
+            this.props.getUserProfile()
         })
     }
 
@@ -177,12 +175,13 @@ class ChoosePatientNewView extends React.Component {
             date = date.toDate()
             let formattedDate = this.getFormattedDate(date)
             date = new Date(date).toISOString().split('T')[0]
-            this.setState({ dob: date, formattedDate:formattedDate, dateModal: false},()=>{
+            /*this.setState({ dob: date, formattedDate:formattedDate, dateModal: false},()=>{
                 data.dob = this.state.dob    
                 this.props.editUserProfile(data, this.props.patient.id, (err, res) => {
                     this.props.getUserProfile()
                 })
-            })
+            })*/
+            this.setState({ dob: date, formattedDate:formattedDate, dateModal: false})
         } else {
             this.setState({ dateModal: false })
         }
@@ -316,12 +315,20 @@ class ChoosePatientNewView extends React.Component {
                                     : ''*/
                             }
                             {   
-                                this.props.is_lab && !this.props.patient.dob?
+                                this.props.is_lab && this.props.patient.dob?
                                     <React.Fragment>
-                                        {!this.props.patient.dob ?
+                                        {this.props.patient.dob ?
                                             <div className="dob-summary-container">
-                                                <input id="dob" name="dob" type="text" value={this.state.formattedDate} onClick={this.openCalendar.bind(this)} required ref="dob" style={this.props.isDobNotValid ? { borderBottom: '1px solid red' } : {}} />
-                                                 <label htmlFor="dob">Date of Birth</label>
+                                                <input id="dob" 
+                                                    name="dob" 
+                                                    type="text" 
+                                                    value={this.state.formattedDate} 
+                                                    onClick={this.openCalendar.bind(this)} required 
+                                                    style={this.props.isDobNotValid ? { borderBottom: '1px solid red' } : {}} 
+                                                    autoComplete="off"
+                                                />
+                                                {!this.state.dob?<label htmlFor="dob">Date of Birth</label>:''}
+                                                 {this.state.dob?<span onClick={this.profileDobValidation.bind(this)}>Update</span>:''}
                                              </div>
                                         :''} 
 
