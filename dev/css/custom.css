@@ -2497,7 +2497,7 @@ p.clnc-name{
 .inp-nw-cal{
 	width: 16px;
     position: absolute;
-    top: 3px;
+    top: 1px;
 }
 .inp-nw-time{
 	width: 16px;
@@ -3217,5 +3217,38 @@ div.search-el-popup.non-book-pop{
     font-size: 13px;
 }
 /* ============ appointment card ============ */
+/* ============ booking summary dob ============ */
+.dob-summary-container {
+    padding-left: 28px;
+    position: relative;
+    margin-bottom: 10px;
+}
+.dob-summary-container input {
+    width: 100%;
+    border-bottom: 2px solid rgba(0, 0, 0, .13);
+    outline: none;
+    border-top: transparent;
+    border-right: transparent;
+    border-left: transparent;
+    font-weight: 500;
+    padding: 4px;
+}
+.dob-summary-container label {
+    position: absolute;
+    left: 31px;
+    color: #7f7f7f;
+    font-weight: 500;
+    font-size: 14px;
+    top: 3px;
+}
+.dob-update-spn{
+	position: absolute;
+    right: 0;
+    color: #f1863b;
+    font-weight: 500;
+    font-size: 13px;
+    cursor: pointer;
+}
+/* ============ booking summary dob ============ */
 
 
