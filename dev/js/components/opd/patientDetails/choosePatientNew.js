@@ -315,9 +315,9 @@ class ChoosePatientNewView extends React.Component {
                                     : ''*/
                             }
                             {   
-                                this.props.is_lab && this.props.patient.dob?
+                                this.props.is_lab && !this.props.patient.dob?
                                     <React.Fragment>
-                                        {this.props.patient.dob ?
+                                        {!this.props.patient.dob ?
                                             <div className="dob-summary-container">
                                                 <input id="dob" 
                                                     name="dob" 
@@ -328,7 +328,7 @@ class ChoosePatientNewView extends React.Component {
                                                     autoComplete="off"
                                                 />
                                                 {!this.state.dob?<label htmlFor="dob">Date of Birth</label>:''}
-                                                 {this.state.dob?<span onClick={this.profileDobValidation.bind(this)}>Update</span>:''}
+                                                 {this.state.dob?<span className="dob-update-spn" onClick={this.profileDobValidation.bind(this)}>Update</span>:''}
                                              </div>
                                         :''} 
 
