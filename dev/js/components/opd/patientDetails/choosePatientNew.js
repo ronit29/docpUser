@@ -21,7 +21,8 @@ class ChoosePatientNewView extends React.Component {
             enableOtpRequest:false,
             dob:null,
             formattedDate:'', 
-            dateModal: false
+            dateModal: false,
+            isDobNotValid:false
         }
     }
 
@@ -145,28 +146,35 @@ class ChoosePatientNewView extends React.Component {
     }
 
     profileEmailValidation() {
-        let data = { ...this.props.patient }
         if (!this.state.email.match(/\S+@\S+\.\S+/)) {
             this.setState({ isEmailNotValid: true })
             setTimeout(() => {
                 SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Email Id" })
             }, 500)
             return
-        } else {
-            data.email = this.state.email
-            this.setState({ isEmailNotValid: false })
-            this.props.editUserProfile(data, this.props.patient.id, (err, res) => {
-                this.props.getUserProfile()
-            })
         }
     }
 
     profileDobValidation(e){
         let data = { ...this.props.patient }
-        data.dob = this.state.dob    
-        this.props.editUserProfile(data, this.props.patient.id, (err, res) => {
-            this.props.getUserProfile()
-        })
+        if(this.state.dob && this.state.email){
+            this.setState({ isEmailNotValid: false, isDobNotValid:false })
+            data.dob = this.state.dob
+            data.email = this.state.email
+            this.props.editUserProfile(data, this.props.patient.id, (err, res) => {
+                this.props.getUserProfile()
+                this.setState({ dob: null, email:null })
+            })
+        }else{
+            if(!this.state.email){
+                this.setState({ isEmailNotValid: true })
+                SnackBar.show({ pos: 'bottom-center', text: "Please Enter Valid Email Id" })
+            }
+            if(!this.state.dob){
+                this.setState({isDobNotValid:true})
+                SnackBar.show({ pos: 'bottom-center', text: "Please Enter Date of Birth" })
+            }
+        }
     }
 
     selectDateFromCalendar(date) {
@@ -324,11 +332,10 @@ class ChoosePatientNewView extends React.Component {
                                                     type="text" 
                                                     value={this.state.formattedDate} 
                                                     onClick={this.openCalendar.bind(this)} required 
-                                                    style={this.props.isDobNotValid ? { borderBottom: '1px solid red' } : {}} 
+                                                    style={(this.props.isDobNotValid || this.state.isDobNotValid) ? { borderBottom: '1px solid red' } : {}} 
                                                     autoComplete="off"
                                                 />
                                                 {!this.state.dob?<label htmlFor="dob">Date of Birth</label>:''}
-                                                 {this.state.dob?<span className="dob-update-spn" onClick={this.profileDobValidation.bind(this)}>Update</span>:''}
                                              </div>
                                         :''} 
 
@@ -352,13 +359,18 @@ class ChoosePatientNewView extends React.Component {
                             }
                              
                             <React.Fragment>
-                            <div class="text-right">
+                            {this.state.dob || this.state.email?
+                                <div class="text-right">
+                                   <a href="#" className="text-primary fw-700 text-sm" onClick={this.profileDobValidation.bind(this)}>Update</a>
+                                </div>
+                                :<div class="text-right">
                                     <a href="#" onClick={(e) => {
                                     e.preventDefault()
                                     e.stopPropagation()
                                     this.props.navigateTo('patient', this.props.is_insurance_applicable)
                                 }} className="text-primary fw-700 text-sm">{this.props.patient ? "Change Patient" : "Select Patient"}</a>
-                                </div>
+                            </div>
+                            }
                             <div class="">
                             {this.props.show_insurance_error && this.props.insurance_error_msg?
                                 <p class="gyn-text">{this.props.insurance_error_msg}</p>
