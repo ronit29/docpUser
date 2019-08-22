@@ -18,6 +18,7 @@ import LocationElements from '../../../containers/commons/locationElements'
 import CommonSearch from '../../../containers/commons/CommonSearch.js'
 import FixedMobileFooter from '../Home/FixedMobileFooter'
 import FooterTestSpecializationWidgets from './FooterTestSpecializationWidgets.js'
+import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup';
 
 // import RelatedArticles from './RelatedArticles'
 
@@ -49,7 +50,9 @@ class Article extends React.Component {
             searchCities: [],
             searchWidget: '',
             specialization_id: '',
-            hideFooterWidget: true
+            hideFooterWidget: true,
+            showPopup: false,
+            medBtnTop: ''
         }
     }
 
@@ -74,8 +77,30 @@ class Article extends React.Component {
 
             this.props.getOfferList(lat, long);
         }
-        this.setState({hideFooterWidget: false})
+        this.setState({ hideFooterWidget: false })
 
+        if (window && this.props.match.path.split('-')[1] === 'mddp') {
+            window.addEventListener('scroll', this.scrollHandler)
+        }
+    }
+
+    scrollHandler() {
+        let elem = document.getElementById('medicine-btn')
+        let elemContainer = document.getElementById('medicine-btn-div')
+        if (window && (elemContainer.offsetTop == window.scrollY)) {
+            elem.style.background = '#3b827d'
+            elem.style.borderRadius = '0px'
+            elemContainer.style.padding = '0px'
+        }
+        else {
+            elem.style.background = '#f78631'
+            elem.style.borderRadius = '5px'
+            elemContainer.style.padding = '0px 15px'
+        }
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.scrollHandler);
     }
 
     getArticleData() {
@@ -220,8 +245,24 @@ class Article extends React.Component {
         })
     }
 
-    handleClose(){
-        this.setState({hideFooterWidget: true})
+    handleClose() {
+        this.setState({ hideFooterWidget: true })
+    }
+
+    buyMedicineClick() {
+        this.setState({ showPopup: true })
+    }
+
+    continueClick() {
+        this.setState({ showPopup: false })
+        if (typeof navigator === 'object') {
+            if (/mobile/i.test(navigator.userAgent)) {
+
+            }
+            else {
+                window.open('https://pharmeasy.in/online-medicine-order?utm_source=aff-docprime&utm_medium=cps', '_blank')
+            }
+        }
     }
 
     render() {
@@ -238,9 +279,15 @@ class Article extends React.Component {
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
                 <ProfileHeader />
                 <section className="container article-container">
+                    {/* change the condition to show the popup */}
+                    {
+                        this.state.showPopup ?
+                            <BookingConfirmationPopup continueClick={() => this.continueClick()} articlePage={true} /> : ''
+                    }
                     <div className="row main-row parent-section-row">
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-8 center-column">
+                            <iframe src="https://pharmeasy.in/online-medicine-order?utm_source=aff-docprime&utm_medium=cps"></iframe>
                             {
                                 this.state.articleData ? <div className="container-fluid article-column">
 
@@ -366,6 +413,13 @@ class Article extends React.Component {
                                     }
 
                                     {
+                                        this.props.match.path.split('-')[1] === 'mddp' ?
+                                            <div className="buy-med-btn" id="medicine-btn-div">
+                                                <button className="v-btn v-btn-primary btn-lg text-sm mrb-20" id="medicine-btn" onClick={() => this.buyMedicineClick()}>Buy this medicine</button>
+                                            </div> : ''
+                                    }
+
+                                    {
                                         this.state.articleData && this.state.articleData.author ?
                                             <ArticleAuthor
                                                 name={this.state.articleData.author.name}
@@ -425,12 +479,12 @@ class Article extends React.Component {
                                 </div> : ""
                             }
                             {
-                                this.state.articleData && this.state.articleData.footer_widget?
-                                    this.state.hideFooterWidget?''
-                                    :<FooterTestSpecializationWidgets {...this.props} footerWidget={this.state.articleData.footer_widget} handleClose={this.handleClose.bind(this)}/>
-                                :''
+                                this.state.articleData && this.state.articleData.footer_widget ?
+                                    this.state.hideFooterWidget ? ''
+                                        : <FooterTestSpecializationWidgets {...this.props} footerWidget={this.state.articleData.footer_widget} handleClose={this.handleClose.bind(this)} />
+                                    : ''
                             }
-                            
+
                         </div>
                         <RightBar colClass="col-lg-4" articleData={this.state.articleData} />
                     </div>
@@ -443,7 +497,7 @@ class Article extends React.Component {
                                         <h4 className="comments-main-heading">{`User Comments (${this.state.articleData.comments.length})`}</h4>
                                         {
                                             this.state.articleData.comments.map((comment, key) => {
-                                                return <Reply key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists} articlePage={true}/>
+                                                return <Reply key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists} articlePage={true} />
                                             })}
                                     </div>
                                     : ''
@@ -455,14 +509,14 @@ class Article extends React.Component {
                                 <div className="col-12 col-md-7 col-lg-8 center-column">
                                     <div className="widget mrb-15 mrng-top-12">
                                         <div className="widget-content">
-                                            <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} commentsExists={commentsExists} parentCommentId={this.state.replyOpenFor} articlePage={true}/>
+                                            <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} commentsExists={commentsExists} parentCommentId={this.state.replyOpenFor} articlePage={true} />
                                         </div>
                                     </div>
                                 </div>
                                 : ''
                         }
                     </div>
-{/*
+                    {/*
                     <FixedMobileFooter {...this.props} />*/}
                 </section>
                 <Footer />

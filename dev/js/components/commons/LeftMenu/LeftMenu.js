@@ -113,6 +113,14 @@ class LeftMenu extends React.Component {
                     {/*<span className="wallet-amnt"><img src="/assets/images/rupees-icon.png" />212</span>*/}
                   </li>
 
+                  <li><a onClick={(e) => {
+                    e.preventDefault()
+                    this.props.toggleLeftMenu()
+                    // open popup
+                  }} href="#"><img src="https://cdn.docprime.com/cp/assets/img/customer-icons/medicine-order.png" alt="" className="" />My Medicine Order</a>
+                    {/*<span className="wallet-amnt"><img src="/assets/images/rupees-icon.png" />212</span>*/}
+                  </li>
+
                   <li ><a onClick={(e) => {
                     e.preventDefault()
                     this.props.toggleLeftMenu()
