@@ -246,17 +246,15 @@ class AppointmentSlot extends React.Component {
             if(this.state.selectedAppointmentType=='all' && this.state.timeSlotsData.all) {
                 timeSlots = this.state.timeSlotsData.all
                 type = 'all'
-                selectedSlot = this.props.selectedSlot && this.props.selectedSlot['all']?this.props.selectedSlot['all']:this.state.selectedTimeSlot && this.state.selectedTimeSlot['all']?this.state.selectedTimeSlot['all']:null
+                selectedSlot = this.state.selectedTimeSlot && this.state.selectedTimeSlot['all']?this.state.selectedTimeSlot['all']:null
             }else if(this.state.selectedAppointmentType=='seperately' && this.state.timeSlotsData.pathology) {
                 timeSlots = this.state.timeSlotsData.pathology
                 type='pathology'
-                selectedSlot = this.props.selectedSlot && this.props.selectedSlot['pathology']?this.props.selectedSlot['pathology']:this.state.selectedTimeSlot && this.state.selectedTimeSlot['pathology']?this.state.selectedTimeSlot['pathology']:null
+                selectedSlot = this.state.selectedTimeSlot && this.state.selectedTimeSlot['pathology']?this.state.selectedTimeSlot['pathology']:null
             }
         }
 
-        if(this.props.selectedSlot && this.props.selectedSlot['radiology']){
-            radiologyTimeSlot = this.props.selectedSlot['radiology']
-        }else if(this.state.selectedTimeSlot && this.state.selectedTimeSlot['radiology']){
+        if(this.state.selectedTimeSlot && this.state.selectedTimeSlot['radiology']){
             radiologyTimeSlot = this.state.selectedTimeSlot['radiology']
         }
         return (
@@ -342,7 +340,7 @@ class AppointmentSlot extends React.Component {
                                                                         {...this.props}
                                                                         timeSlots={tests.timings.timeslots}
                                                                         selectTimeSlot={this.selectTimeSlot.bind(this)}
-                                                                        selectedSlot={radiologyTimeSlot && radiologyTimeSlot[key+1]?radiologyTimeSlot[key+1]:null}
+                                                                        selectedSlot={radiologyTimeSlot && radiologyTimeSlot[tests.tests_id]?radiologyTimeSlot[tests.tests_id]:null}
                                                                         type='radiology'
                                                                         enableProceed = {this.enableProceed.bind(this)}
                                                                         getFormattedDate={this.getFormattedDate.bind(this)}
@@ -350,7 +348,7 @@ class AppointmentSlot extends React.Component {
                                                                         upcoming_slots= {tests.timings.upcoming_slots}
                                                                         is_thyrocare = {tests.timings.is_thyrocare}
                                                                         test_name = {tests.name}
-                                                                        test_id ={key+1}
+                                                                        test_id ={tests.tests_id}
                                                                     />
                                                         }):''
                                                     }

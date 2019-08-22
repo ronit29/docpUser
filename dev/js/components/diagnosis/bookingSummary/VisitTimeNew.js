@@ -105,14 +105,14 @@ class VisitTimeNew extends React.Component {
                                 e.preventDefault()
                                 e.stopPropagation()
                                 this.props.navigateTo('time',this.props.is_insurance_applicable)
-                            }} className="text-primary fw-700 text-sm">{this.props.selectedSlot['pathology'].time.text ? "Change" : "Select"} Time</a>
+                            }} className="text-primary fw-700 text-sm">Select Time</a>
                             
                             </div>
                             :<a href="" onClick={(e) => {
                                 e.preventDefault()
                                 e.stopPropagation()
                                 this.props.navigateTo('time',this.props.is_insurance_applicable)
-                            }} className="text-primary fw-700 text-sm">{this.props.selectedSlot['pathology'].time.text ? "Change" : "Select"} Time</a>
+                            }} className="text-primary fw-700 text-sm">Select Time</a>
                         }
                         {/*<div className="float-right  mbl-view-formatting text-right">
                             <h4 className="date-time mr-10 title">{date || ""} {time.text ? "|" : ""} {time.text} {time.text?(time.value>=12?'PM':'AM'):''}</h4>

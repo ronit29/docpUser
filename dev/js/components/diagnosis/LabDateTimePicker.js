@@ -14,7 +14,7 @@ class DateTimePicker extends React.Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			selectedDateSpan: props.selectedSlot && props.selectedSlot.date?new Date(props.selectedSlot.date):props.selectedDateFormat?new Date(props.selectedDateFormat):new Date(),
+			selectedDateSpan: props.selectedSlot && props.selectedSlot.date?new Date(props.selectedSlot.date):new Date(),
 			currentTimeSlot: props.selectedSlot && props.selectedSlot.time ? props.selectedSlot.time : {},
 			dateModal: false,
 			daySeries:[]
@@ -34,12 +34,14 @@ class DateTimePicker extends React.Component {
             let getUpcomingDate= false
             let upcoming_time = null
 
-            if(this.props.selectedDateFormat) {
+/*            if(this.props.selectedDateFormat) {
                 upcoming_time = this.props.selectedDateFormat
             
             }else{
-                upcoming_time = this.getFormattedDate(new Date())
-            }/*else if(this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length){
+                
+            }*/
+            upcoming_time = this.getFormattedDate(new Date())
+            /*else if(this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length){
                 upcoming_time = Object.keys(this.props.upcoming_slots)[0]
             }*/
 
