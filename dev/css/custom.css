@@ -932,7 +932,7 @@ span.rate-pop-back img{
 @media(max-width: 767px){
 	.downloadBtn{
 		position: fixed;
-			z-index: 999;
+			z-index: 99;
 			left: 0;
 			right: 0;
 			margin: auto;
@@ -2684,6 +2684,12 @@ padding-right: 15px;
 }
 
 /* ============ doc lab sign up ============ */
+/* ============ health pkg card ============ */
+.sub-wd-cards a.pkgcustCards.health-pkg-card-width{
+	min-width: 115px;
+    max-width: 115px;
+}
+/* ============ health pkg card ============ */
 /* ============ ipdnewpopup ============ */
 .nm-lst-inputcnt{
 	display: flex;
@@ -2850,6 +2856,31 @@ color: #000000;
 outline: none;
 font-weight: 500;
 padding: 3px 25px 5px 8px;
+}
+.booking-filter-container{
+	margin: 0 -15px;
+    padding: 0 15px;
+    overflow: auto;
+}
+.bkn-chips-container{
+	white-space: nowrap;
+}
+.bkn-chips-container p {
+    display: inline-block;
+    border: 1px solid #f78530;
+    color: #ff6e02;
+    background: white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 13px;
+    cursor: pointer;
+}
+.bkn-chips-container p.bkselect {
+    color: white;
+    background: #f78530;
 }
 /* ============ appointments ============ */
 /* ============ doc-bottom-widget ============ */
@@ -3081,6 +3112,112 @@ h2.lbcrdcstfont.cstmDocName{
 	width: 45px;
 }
 /* ============ ipd-comment ============ */
+/* ============ opd filter ============ */
+.multy-select-fltr-container {
+    overflow: auto;
+    height: 70vh;
+}
+.sort-chk-filter-container {
+    border-top: 1px solid #e6e6e6;
+    margin-bottom: 20px;
+}
+h3.srt-cli-headings {
+    margin: 10px 0px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 500;
+}
+h3.srt-cli-headings span {
+    color: #f1863b;
+    cursor: pointer;
+}
+.srt-inp-csl img {
+	margin-left: 5px;
+	cursor: pointer;
+}
+.srt-inp-csl {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+.srt-inp-csl input {
+	background: #ededed;
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #e4e2e2;
+    outline: none;
+}
+ul.chklist-sort-fliter li {
+    border-bottom: 1px solid #e6e6e6;
+    padding: 8px 0;
+}
+ul.chklist-sort-fliter li:last-child {
+    border: none;
+}
+ul.chklist-sort-fliter label.ck-bx {
+    padding-left: 0;
+    padding-right: 35px;
+}
+ul.chklist-sort-fliter label.ck-bx span.checkmark {
+    right: 0;
+    left: unset;
+}
+span.pp-arw img {
+    position: relative;
+    width: 20px;
+}
+span.pp-done {
+    color: #f78631;
+    font-weight: 500;
+    font-size: 13px;
+    cursor:pointer;
+}
+/* ============ opd filter ============ */
+/* ============ non-bookable docter ============ */
+.non-bok-hdng-container {
+    text-align: center;
+    padding: 12px;
+    border-bottom: 1px solid #f8f5f5;
+}
+p.non-bok-heading {
+    font-size: 15px;
+    font-weight: 600;
+}
+p.non-bok-subhdng {
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 5px;
+}
+p.viw-all-non-bok {
+    padding: 0 0 14px 0;
+    text-align: center;
+    color: #f78530;
+    font-weight: 500;
+    cursor: pointer;
+}
+.non-book-cls-btn{
+	position: absolute;
+    right: 3px;
+    top: 3px;
+    cursor: pointer;
+}
+
+@media (max-width: 767px){
+div.search-el-popup.non-book-pop{
+	width: 98% !important;
+}
+}
+/* ============ non-bookable docter ============ */
+/* ============ appointment card ============ */
+.apnt-hsp-name{
+	color: #757575;
+    font-size: 13px;
+}
+/* ============ appointment card ============ */
+
 
 .buy-med-btn{
 	display: block;

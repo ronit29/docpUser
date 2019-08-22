@@ -126,7 +126,10 @@ const queryString = require('query-string');
       packages.img=pckImg
       packages.name=pckName
       let newUrl = queryString.parse(this.props.location.search)
-      let package_ids = newUrl.package_ids.split(',')
+      let package_ids = []
+      if(newUrl.package_ids){
+          package_ids = newUrl.package_ids.split(',')
+      }
       let ids = ''
       let data = []
       if(package_ids.length > 0){
@@ -241,6 +244,13 @@ const queryString = require('query-string');
         this.setState({ readMore: 'search-details-data-less' })
     }
 
+    viewAllCat(){
+      let parsed = queryString.parse(this.props.location.search)
+      if(parsed.category_ids){
+        this.props.history.push('/searchpackages?package_category_ids='+ parsed.category_ids)
+      }
+    }
+
     render() {
       let self=this
       let availableTest= []
@@ -282,19 +292,27 @@ const queryString = require('query-string');
                         : ''}
                       <div className="sticky-multiple-pkgs">
                         <div className="multi-pkg-cmpre ease-hide" id="showDiff">
-                          <div className="tgle-btn">
-                            <label className="switch">
-                              <span className="tgle-btn-txt"> Show Difference</span>
-                              <input type="checkbox" checked={this.state.isDiffChecked} onClick={this.toggleShowDiff.bind(this)} />
-                              <span className="slider round"></span>
-                            </label>
-                          </div>
                           {
-                            this.props.data.packages && this.props.data.packages.length != 1 && this.props.data.packages.length <5?
+                            this.props.data.packages && this.props.data.packages.length > 1?
+                            <div className="tgle-btn">
+                              <label className="switch">
+                                <span className="tgle-btn-txt"> Show Difference</span>
+                                <input type="checkbox" checked={this.state.isDiffChecked} onClick={this.toggleShowDiff.bind(this)} />
+                                <span className="slider round"></span>
+                              </label>
+                            </div>
+                          :''}
+                          {
+                            this.props.data.packages && this.props.data.packages.length != 1 && this.props.data.packages.length <5 && !this.props.is_category?
                           <div className="" style={{cursor:'pointer'}}>
                             <a onClick={this.addMore.bind(this)} className="add-more-packages"> + Add More </a>
                           </div>
                           :''}
+                          {
+                            this.props.is_category?
+                              <span className="view-more" onClick={this.viewAllCat.bind(this)} style={{color: '#f78631',cursor: 'pointer'}}> View All</span>
+                              :'' 
+                          }
                         </div>
                         <div className={"multiple-pkgs"+ (this.props.data.packages.length <= 2?' pkbclsTwo':this.props.data.packages.length <= 3?' pkbclsThree':this.props.data.packages.length <= 4?' pkbclsFour':'')}>
                           <ul className="pkgCls pkbcls">  
@@ -302,7 +320,8 @@ const queryString = require('query-string');
                             this.props.data.packages?
                               this.props.data.packages.map((packages, i) => {
                                 return <li key={i} id={'pkg_'+packages.id}>
-                                     <img src={ASSETS_BASE_URL + "/images/packageCompare/red-cut.png"} alt="" className="end-div" onClick={this.toggleComparePackages.bind(this,packages.id,packages.lab.id,packages.lab.thumbnail,packages.lab.name)}/>
+                                     {this.props.is_category?'':
+                                      <img src={ASSETS_BASE_URL + "/images/packageCompare/red-cut.png"} alt="" className="end-div" onClick={this.toggleComparePackages.bind(this,packages.id,packages.lab.id,packages.lab.thumbnail,packages.lab.name)}/>}
                                     
                                       <div className="pkg-hd">{packages.name} {packages.total_parameters_count>0?
                                         `(${packages.total_parameters_count} tests)`:''} </div>
@@ -325,7 +344,7 @@ const queryString = require('query-string');
                             :''
                           }
                           {
-                            this.props.data.packages && this.props.data.packages.length == 1?
+                            this.props.data.packages && this.props.data.packages.length == 1 && !this.props.is_category?
                                 <li onClick={this.addMore.bind(this)} style={{cursor:'pointer',paddingTop:30, paddingBottom:30}}>
                                       <div className="addnewpkg"><span className="add-plus">+</span></div>
                                       <p className="addnewpkg-txt">Add one more <br />to compare</p>

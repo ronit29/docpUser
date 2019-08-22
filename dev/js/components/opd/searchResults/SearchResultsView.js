@@ -307,7 +307,7 @@ class SearchResultsView extends React.Component {
         let doctor_name = filterCriteria.doctor_name || ""
         let hospital_id = filterCriteria.hospital_id || ""
         let is_insured = filterCriteria.is_insured || false
-
+        let specialization_filter_ids = filterCriteria.specialization_filter_ids || []
 
 
         let url = ''
@@ -339,11 +339,15 @@ class SearchResultsView extends React.Component {
             is_filter_applied = true
         }
 
+        if(specialization_filter_ids){
+            is_filter_applied = true
+        }
+
         let is_params_exist = false
 
         if (is_filter_applied || !this.state.seoFriendly) {
 
-            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}&sits_at_hospital=${sits_at_hospital}&sits_at_clinic=${sits_at_clinic}&group_ids=${group_ids}`
+            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}&sits_at_hospital=${sits_at_hospital}&sits_at_clinic=${sits_at_clinic}&group_ids=${group_ids}&specialization_filter_ids=${specialization_filter_ids}`
 
             is_params_exist = true
 
@@ -474,7 +478,6 @@ class SearchResultsView extends React.Component {
         let specialityData={}
         let ViewAllData=[]
         if(isViewAll){
-            console.log(speciality)
             speciality.map((spec, i) => {
                 ViewAllData.push({id:spec.specialization_id,type:'speciality'})
             })

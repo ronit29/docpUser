@@ -60,10 +60,16 @@ class DoctorProfileCard extends React.Component {
         this.props.selectOpdTimeSLot(slot, false)
 
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'OpdSearchBookNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-book-now-clicked', 'selectedId': id
+            'Category': 'ConsumerApp', 'Action': 'OpdSearchBookNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-book-now-clicked', 'selectedId': id, 'isNonBookablePopup': this.props.isNonBookablePopup?this.props.isNonBookablePopup:false
         }
         GTM.sendEvent({ data: data })
 
+        if(this.props.isNonBookablePopup){
+            let nonBookableDocData = {
+                'Category': 'ConsumerApp', 'Action': 'NonBookableBookNowPopupClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'non-bookable-book-now-popup-clicked', 'selectedId': id
+            }
+            GTM.sendEvent({ data: nonBookableDocData })
+        }
         let { procedure_ids } = this.trackingEventsBookNow(id)
         this.props.saveProfileProcedures('', '', procedure_ids, true)
         if (url) {
@@ -325,6 +331,7 @@ class DoctorProfileCard extends React.Component {
                                         :
                                         <button className="cstm-view-btn" onClick={this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')}>View Contact</button>
                                 }
+
                             </div>
                         </div>
                         {/*

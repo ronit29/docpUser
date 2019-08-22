@@ -99,7 +99,11 @@ class FooterWidgetView extends React.Component {
 			'Category': 'ConsumerApp', 'Action': 'ShowPackageClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-package-clicked', 'from': 'footerWidget'
 		}
 		GTM.sendEvent({ data: data })
-		this.props.history.push('/thyrocare-aarogyam-packages')
+		this.props.setPackageId(12227, true)
+		setTimeout(() => {
+			this.props.history.push('/searchpackages')
+		}, 100)
+		// this.props.history.push('/thyrocare-aarogyam-packages')
 	}
 
 	render() {

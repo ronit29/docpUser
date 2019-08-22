@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, mergeOPDState, toggleProfileProcedures, saveProfileProcedures, getDoctorNo, toggleOPDCriteria, getAllRatings, getDownloadAppBannerList, ipdChatView } from '../../actions/index.js'
+import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, mergeOPDState, toggleProfileProcedures, saveProfileProcedures, getDoctorNo, toggleOPDCriteria, getAllRatings, getDownloadAppBannerList, ipdChatView} from '../../actions/index.js'
 
 import DoctorProfileView from '../../components/opd/doctorProfile/index.js'
 const queryString = require('query-string');
@@ -134,7 +134,8 @@ const mapStateToProps = (state, passedProps) => {
         selectedLocation,
         fetchNewResults,
         commonProcedurers,
-        filterCriteria
+        filterCriteria,
+        commonSelectedCriterias
     } = state.SEARCH_CRITERIA_OPD
 
     const {
@@ -143,7 +144,7 @@ const mapStateToProps = (state, passedProps) => {
     } = state.DOCTOR_SEARCH
 
     return {
-        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, selectedLocation, fetchNewResults, commonProcedurers, selectedDoctorProcedure, profileCommonProcedures, primaryMobile, filterCriteria, app_download_list, device_info, ipd_chat
+        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, selectedLocation, fetchNewResults, commonProcedurers, selectedDoctorProcedure, profileCommonProcedures, primaryMobile, filterCriteria, app_download_list, device_info, ipd_chat, commonSelectedCriterias
     }
 }
 
