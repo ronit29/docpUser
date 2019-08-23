@@ -491,7 +491,7 @@ class PatientDetailsNew extends React.Component {
 
             GTM.sendEvent({ data: data })
             this.props.addToCart(1, postData).then((res) => {
-                if(this.state.isMatrix){
+                if(STORAGE.isAgent() && this.state.isMatrix){
                     this.props.history.push('/cart?is_matrix=true')
                 }else{
                     this.props.history.push('/cart')
@@ -1476,7 +1476,7 @@ class PatientDetailsNew extends React.Component {
                             <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
 
                                 {
-                                    STORAGE.isAgent() || !is_default_user_insured || this.state.isMatrix?
+                                    STORAGE.isAgent() || !is_default_user_insured || (STORAGE.isAgent() && this.state.isMatrix)?
                                         <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                         } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance,is_selected_user_insurance_status)}>
@@ -1490,7 +1490,7 @@ class PatientDetailsNew extends React.Component {
 
 
                                 {
-                                    (STORAGE.isAgent() || this.state.isMatrix && !(enabled_for_cod_payment && this.props.payment_type == 2)) || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" data-disabled={
+                                    (STORAGE.isAgent() || (STORAGE.isAgent() && this.state.isMatrix) && !(enabled_for_cod_payment && this.props.payment_type == 2)) || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust" id="confirm_booking" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                     } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance,is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp), enabled_for_cod_payment, priceData.is_cod_deal_price)}</button>
                                 }
