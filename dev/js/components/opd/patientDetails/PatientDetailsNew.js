@@ -185,11 +185,13 @@ class PatientDetailsNew extends React.Component {
             //auto apply coupon if no coupon is apllied
             // if (this.props.selectedDoctor && deal_price && this.props.couponAutoApply) {
             if (this.props.selectedDoctor && deal_price) {
+                this.setState({'pay_btn_loading': true})
                 this.getAndApplyBestCoupons(deal_price)
             } else {
                 this.props.resetOpdCoupons()
                 this.setState({use_wallet: true, is_payment_coupon_applied: false})
             }
+            this.setState({'pay_btn_loading': false})
         }
 
 
@@ -225,11 +227,11 @@ class PatientDetailsNew extends React.Component {
                         }
                     } else {
                         this.props.resetOpdCoupons()
-                        this.setState({use_wallet: true, is_payment_coupon_applied: false})
+                        this.setState({use_wallet: true, is_payment_coupon_applied: false,'pay_btn_loading': false})
                     }
                 } else {
                     this.props.resetOpdCoupons()
-                    this.setState({use_wallet: true, is_payment_coupon_applied: false})
+                    this.setState({use_wallet: true, is_payment_coupon_applied: false, 'pay_btn_loading': false})
                 }
                 this.setState({ coupon_loading: false })
             }
@@ -281,6 +283,7 @@ class PatientDetailsNew extends React.Component {
                             this.setState({ coupon_loading: true })
                             this.getAndApplyBestCoupons(deal_price)
                         }
+                        this.setState({'pay_btn_loading': false})
                     })
                 }
             } else {
@@ -300,7 +303,7 @@ class PatientDetailsNew extends React.Component {
 
                 if (nextProps.doctorCoupons && nextProps.doctorCoupons[this.props.selectedDoctor] && nextProps.doctorCoupons[this.props.selectedDoctor].length == 0) {
                     this.props.resetOpdCoupons()
-                    this.setState({use_wallet: true, is_payment_coupon_applied: false})
+                    this.setState({use_wallet: true, is_payment_coupon_applied: false, 'pay_btn_loading': false})
                 }
                 else {
                     //auto apply coupon if no coupon is apllied
@@ -312,18 +315,22 @@ class PatientDetailsNew extends React.Component {
                                 if (coupons) {
                                     let validCoupon = this.getValidCoupon(coupons)
                                     if (validCoupon) {
-                                        this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '', couponApplied: true })
-                                        this.props.applyCoupons('1', validCoupon, validCoupon.coupon_id, this.props.selectedDoctor)
-                                        this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item)
+                                        this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '', couponApplied: true, 'pay_btn_loading': true })
+                                        this.props.applyCoupons('1', validCoupon, validCoupon.coupon_id, this.props.selectedDoctor,(success)=>{
+                                            this.setState({'pay_btn_loading': false})
+                                        })
+                                        this.props.applyOpdCoupons('1', validCoupon.code, validCoupon.coupon_id, this.props.selectedDoctor, deal_price, this.state.selectedClinic, nextProps.selectedProfile, this.getProcedureIds(nextProps), this.state.cart_item,(err, data)=>{
+                                            this.setState({'pay_btn_loading': false})
+                                        })
                                         if (validCoupon.is_payment_specific) {
                                             this.setState({use_wallet: false, is_payment_coupon_applied: true})
                                         }
                                     } else {
-                                        this.setState({ couponApplied: true, use_wallet: true, is_payment_coupon_applied: false })
+                                        this.setState({ couponApplied: true, use_wallet: true, is_payment_coupon_applied: false, 'pay_btn_loading': false })
                                         this.props.resetOpdCoupons()
                                     }
                                 } else {
-                                    this.setState({ couponApplied: true, use_wallet: true, is_payment_coupon_applied: false })
+                                    this.setState({ couponApplied: true, use_wallet: true, is_payment_coupon_applied: false, 'pay_btn_loading': false })
                                     this.props.resetOpdCoupons()
                                 }
                             }

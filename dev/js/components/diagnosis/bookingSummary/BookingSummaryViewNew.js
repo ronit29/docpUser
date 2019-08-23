@@ -110,10 +110,10 @@ class BookingSummaryViewNew extends React.Component {
 
         if (nextProps.LABS[this.props.selectedLab] && nextProps.LABS[this.props.selectedLab].tests && nextProps.LABS[this.props.selectedLab].tests.length == 0) {
             this.props.resetLabCoupons()
+            this.setState({'pay_btn_loading': false})
             return
         }
         if (nextProps.LABS[this.props.selectedLab] && nextProps.LABS[this.props.selectedLab].tests && nextProps.LABS[this.props.selectedLab].tests.length) {
-
             // bases cases
             if (this.props.LABS[this.props.selectedLab] && nextProps.LABS[this.props.selectedLab].tests == this.props.LABS[this.props.selectedLab].tests && nextProps.selectedAppointmentType == this.props.selectedAppointmentType) {
                 return
@@ -130,7 +130,7 @@ class BookingSummaryViewNew extends React.Component {
 
                 if (!corporate) {
                     this.props.resetLabCoupons()
-                    this.setState({ couponCode: "", couponId: '', is_cashback: false, use_wallet: true, is_payment_coupon_applied: false })
+                    this.setState({ couponCode: "", couponId: '', is_cashback: false, use_wallet: true, is_payment_coupon_applied: false,'pay_btn_loading': false })
                     if (nextProps.labCoupons[this.props.selectedLab]) {
                         this.props.removeLabCoupons(this.props.selectedLab, nextProps.corporateCoupon.coupon_id)
                     }
@@ -184,6 +184,7 @@ class BookingSummaryViewNew extends React.Component {
             // if no coupon is applied
             if (!nextProps.labCoupons[this.props.selectedLab]) {
                 this.getAndApplyBestCoupons(nextProps)
+                this.setState({'pay_btn_loading': false})
             }
 
             if (nextProps.labCoupons[this.props.selectedLab] && nextProps.labCoupons[this.props.selectedLab].length == 0) {
@@ -226,11 +227,11 @@ class BookingSummaryViewNew extends React.Component {
                             }
                         } else {
                             this.props.resetLabCoupons()
-                            this.setState({ couponCode: "", couponId: '', is_cashback: false, use_wallet: true, is_payment_coupon_applied: false })
+                            this.setState({ couponCode: "", couponId: '', is_cashback: false, use_wallet: true, is_payment_coupon_applied: false,'pay_btn_loading': false })
                         }
                     } else {
                         this.props.resetLabCoupons()
-                        this.setState({ couponCode: "", couponId: '', is_cashback: false, use_wallet: true, is_payment_coupon_applied: false })
+                        this.setState({ couponCode: "", couponId: '', is_cashback: false, use_wallet: true, is_payment_coupon_applied: false,'pay_btn_loading': false })
                     }
                     this.setState({ coupon_loading: false })
                 }
