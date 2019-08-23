@@ -55,7 +55,7 @@ class DoctorProfileView extends React.Component {
             showIpdLeadForm: true,
             showSecondPopup: false,
             firstLeadId: '',
-            closeNonBookable:false
+            closeNonBookable: false
         }
     }
 
@@ -217,7 +217,12 @@ class DoctorProfileView extends React.Component {
 
     navigateToDoctor(doctor, e) {
         e.preventDefault();
-        this.props.history.push(`/${doctor.url}`);
+        if (doctor.url) {
+            this.props.history.push(`/${doctor.url}`);
+        }
+        else {
+            this.props.history.push(`/opd/doctor/${doctor.id}`);
+        }
 
         let data = {
             'Category': 'ConsumerApp', 'Action': 'recommendedDoctorClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'recommended-doctor-click', 'DoctorID': doctor.doctor_id
@@ -280,12 +285,12 @@ class DoctorProfileView extends React.Component {
         this.setState({ showSecondPopup: false })
     }
 
-    closeNonBookableDocPopup(){
+    closeNonBookableDocPopup() {
         let data = {
             'Category': 'ConsumerApp', 'Action': 'NonBookableDoctorCrossClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'Non-Bookable-Doctor-cross-clicked'
-            }
-            GTM.sendEvent({ data: data })
-        this.setState({closeNonBookable:true})
+        }
+        GTM.sendEvent({ data: data })
+        this.setState({ closeNonBookable: true })
     }
 
     render() {
@@ -395,8 +400,8 @@ class DoctorProfileView extends React.Component {
                 }
                 {
                     nearbyDoctors && Object.keys(nearbyDoctors).length && !this.state.closeNonBookable ?
-                        <NonBookableDoctor {...this.props} closeNonBookableDocPopup={this.closeNonBookableDocPopup.bind(this)} nearbyDoctors={nearbyDoctors} navigateToDoctor={this.navigateToDoctor.bind(this)} details={this.props.DOCTORS[doctor_id]}/>
-                    :''
+                        <NonBookableDoctor {...this.props} closeNonBookableDocPopup={this.closeNonBookableDocPopup.bind(this)} nearbyDoctors={nearbyDoctors} navigateToDoctor={this.navigateToDoctor.bind(this)} details={this.props.DOCTORS[doctor_id]} />
+                        : ''
                 }
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">
                     {this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].breadcrumb && this.props.DOCTORS[doctor_id].breadcrumb.length ?

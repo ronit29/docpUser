@@ -113,7 +113,7 @@ const mapDispatchToProps = (dispatch) => {
         selectSearchType: (type) => dispatch(selectSearchType(type)),
         mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
         mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
-        setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage)),
+        setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage))
     }
 }
 
