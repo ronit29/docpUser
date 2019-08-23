@@ -468,7 +468,7 @@ export const getUserPrescription = (mobile) => (dispatch) => {
 	})
 }
 
-export const applyCoupons = (productId = '', couponData, couponId, hospitalId) => (dispatch) => {
+export const applyCoupons = (productId = '', couponData, couponId, hospitalId, callback) => (dispatch) => {
 
 	couponData.couponApplied = true
 
@@ -484,6 +484,9 @@ export const applyCoupons = (productId = '', couponData, couponId, hospitalId) =
 			payload: couponData,
 			labId: hospitalId
 		})
+	}
+	if (callback) {
+		callback(true)
 	}
 
 }

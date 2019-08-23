@@ -11989,6 +11989,11 @@ ul.chat-radio-align .custom-radio .radio-checkmark.checkmark:after{
     opacity: .6;
     cursor: no-drop;
 }
+.disable-all{
+	pointer-events: none;
+    filter: grayscale(1);
+    cursor: no-drop;
+}
 .cpn-blur{
     transition: all;
     -webkit-transition: all .5s ease-in-out;
