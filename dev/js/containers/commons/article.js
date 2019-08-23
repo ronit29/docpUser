@@ -57,7 +57,7 @@ const mapStateToProps = (state, passedProps) => {
         initialServerData = staticContext.data
     }
     let {
-        profiles, defaultProfile, offerList, articleData
+        profiles, defaultProfile, offerList, articleData, user_cities
     } = state.USER
 
     let {
@@ -97,7 +97,7 @@ const mapStateToProps = (state, passedProps) => {
     })()
     return {
         initialServerData,
-        profiles, defaultProfile, offerList, selectedLocation, articleData, OPD_STATE, LAB_STATE
+        profiles, defaultProfile, offerList, selectedLocation, articleData, OPD_STATE, LAB_STATE, user_cities
     }
 }
 

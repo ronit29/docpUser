@@ -1,5 +1,6 @@
 import React from 'react'
 import GTM from '../../../helpers/gtm'
+import CitiesData from '../../../containers/commons/citiesData.js'
 
 class FooterWidgetView extends React.Component {
 
@@ -169,10 +170,11 @@ class FooterWidgetView extends React.Component {
 		})		
 	}
 	render() {
-
+		console.log(this.props.user_cities)
 		let { footerWidget } = this.props
 		return (
 			<React.Fragment>
+				<CitiesData />  {/*for cities data*/}
 				{
 					footerWidget && footerWidget.widget_type ?
 						<div className="doc-wdgt-med-container">
