@@ -23,7 +23,8 @@ class CartView extends React.Component {
             use_wallet: true,
             error: parsed.error_message || "",
             showConfirmationPopup:false,
-            paymentData: null
+            paymentData: null,
+            isMatrix:parsed.is_matrix
         }
     }
 
@@ -406,7 +407,7 @@ class CartView extends React.Component {
                                         }
 
                                         {
-                                            STORAGE.isAgent() && !is_cod_applicable ? <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
+                                            (STORAGE.isAgent() || this.state.isMatrix) && !is_cod_applicable ? <div className="fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container">
                                                 <button className="add-shpng-cart-btn" onClick={this.sendAgentBookingURL.bind(this)}>Send SMS EMAIL</button>
                                             </div> : ""
                                         }
