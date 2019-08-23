@@ -12073,3 +12073,12 @@ font-weight: 500;
     max-width: 96px;
     display: inline-block;
 }
+.rebook-btn{
+    border: 1px solid #f78431;
+    color: #f78431;
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 6px 10px;
+    font-weight: 500;
+    background: white;
+}
