@@ -188,6 +188,7 @@ class BookingSummaryViewNew extends React.Component {
             }
 
             if (nextProps.labCoupons[this.props.selectedLab] && nextProps.labCoupons[this.props.selectedLab].length == 0) {
+                this.setState({'pay_btn_loading': false})
                 this.props.resetLabCoupons()
             }
         }
