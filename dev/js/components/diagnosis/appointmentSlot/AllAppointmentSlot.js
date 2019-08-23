@@ -25,7 +25,7 @@ class AppointmentSlot extends React.Component {
             pickupType: this.props.location.search.includes('type=lab') ? 0 : 1,
             enableProceed: false,
             selectedTimeSlot: this.props.selectedSlot||{},
-            selectedAppointmentType:'all',
+            selectedAppointmentType:parsed.selectedType && parsed.selectedType=='seperately'?'seperately':'all',
             timeSlotsData:null
         }
     }
@@ -84,21 +84,37 @@ class AppointmentSlot extends React.Component {
         }
         let selectedTestsSlot = {...slot}
         let tests = {}
-        if(this.state.timeSlotsData['all'] && this.state.timeSlotsData['all'].tests && false) {
-            this.state.timeSlotsData['all'].tests.map((test)=>{
-                tests[test.id]= {...selectedTestsSlot['all'], test_id:test.id, test_name: test.name}
-            })
+        const parsed = queryString.parse(this.props.location.search)
+        let finalSelectedSlot = {}
+        if(this.state.selectedAppointmentType=='all') {
+            if(this.state.timeSlotsData['all'] && this.state.timeSlotsData['all'].tests) {
+                let is_home_pickup = false
+                if(parsed.p_pickup && parsed.p_pickup=="home"){
+                    is_home_pickup = true
+                }
+                if(parsed.r_pickup && parsed.r_pickup=="home"){
+                    is_home_pickup = true
+                }
+                this.state.timeSlotsData['all'].tests.map((test)=>{
+                    tests[test.id]= {...selectedTestsSlot['all'], test_id:test.id, test_name: test.name, is_home_pickup: is_home_pickup }
+                })
+                finalSelectedSlot['all'] = selectedTestsSlot['all']
+            }
+        }else {
+            if(this.state.timeSlotsData['pathology'] && this.state.timeSlotsData['pathology'].tests) {
+                this.state.timeSlotsData['pathology'].tests.map((test)=>{
+                    tests[test.id] = {...selectedTestsSlot['pathology'], test_id:test.id, test_name: test.name, is_home_pickup: parsed.p_pickup && parsed.p_pickup=="home"?true:false}
+                })
+                finalSelectedSlot['pathology'] = selectedTestsSlot['pathology']
+            }
+            if(selectedTestsSlot['radiology'] && this.state.timeSlotsData['radiology'] && this.state.timeSlotsData['radiology'].tests && this.state.timeSlotsData['radiology'].tests.length) {
+                tests = {...tests, ...selectedTestsSlot['radiology'] }
+                finalSelectedSlot['radiology'] = selectedTestsSlot['radiology']
+            }    
         }
-        if(this.state.timeSlotsData['pathology'] && this.state.timeSlotsData['pathology'].tests) {
-            this.state.timeSlotsData['pathology'].tests.map((test)=>{
-                tests[test.id] = {...selectedTestsSlot['pathology'], test_id:test.id, test_name: test.name}
-            })
-        }
-        if(selectedTestsSlot['radiology']) {
-            tests = {...tests, ...selectedTestsSlot['radiology']}
-        }
-        selectedTestsSlot['selectedTestsTimeSlot'] = tests
-        this.props.selectLabTimeSLot(selectedTestsSlot, this.state.reschedule, extraTimeParams)
+        
+        finalSelectedSlot['selectedTestsTimeSlot'] = tests
+        this.props.selectLabTimeSLot(finalSelectedSlot, this.state.reschedule, extraTimeParams)
     }
 
     componentDidMount() {
@@ -178,6 +194,7 @@ class AppointmentSlot extends React.Component {
     }
 
     enableProceed(enable, slot={}){
+        const parsed = queryString.parse(this.props.location.search)
         let isAllTimeSelected = false
         if(this.state.timeSlotsData) {
             isAllTimeSelected = this.getTimeSlotStatus(this.state.selectedTimeSlot)
@@ -191,10 +208,9 @@ class AppointmentSlot extends React.Component {
                     slotData[slot.type]= slot
                 }else if(slot.type=='radiology') {
                     slotData[slot.type]= slotData[slot.type]?{...slotData[slot.type]}:{}
-                    slotData[slot.type][slot.test_id] = slot
+                    slotData[slot.type][slot.test_id] = {...slot, is_home_pickup:parsed.r_pickup && parsed.r_pickup=="home"?true:false}
                 }
                 isAllTimeSelected = this.getTimeSlotStatus(slotData)
-                console.log(slotData)
                 this.setState({enableProceed: isAllTimeSelected, selectedTimeSlot: slotData})
             }else{
                 this.setState({enableProceed: false})
@@ -217,17 +233,22 @@ class AppointmentSlot extends React.Component {
         }else if(this.state.selectedAppointmentType=='seperately'){
             const parsed = queryString.parse(this.props.location.search)
             let totalTests = parsed.test_ids?parsed.test_ids.split(','):[]
-            let totalPathologyTests = 0
-            if(this.state.timeSlotsData.pathology) {
-                if(selectedSlot['pathology']){
-                    totalPathologyTests=this.state.timeSlotsData.pathology.tests.length||0
-                    isAllTimeSelected = true
-                }
+            let totalSelectedTests = 0
+            if(this.state.timeSlotsData.pathology && selectedSlot['pathology']) {
+                totalSelectedTests=this.state.timeSlotsData.pathology.tests.length||0
+                isAllTimeSelected = true
             }
             
             if(this.state.timeSlotsData.radiology && this.state.timeSlotsData.radiology.tests && this.state.timeSlotsData.radiology.tests.length) {
 
-                if(selectedSlot['radiology'] && (Object.keys(selectedSlot['radiology']).length+totalPathologyTests)==totalTests.length){
+                this.state.timeSlotsData.radiology.tests.map((test)=>{
+                    if(slotData['radiology'] && slotData['radiology'][test.tests_id]){
+                        totalSelectedTests++
+                    }else{
+
+                    }
+                })
+                if(totalSelectedTests==totalTests.length){
                     isAllTimeSelected = true
                 }else {
                     isAllTimeSelected = false
@@ -299,14 +320,15 @@ class AppointmentSlot extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                {
-                                    false?
+                                {/*
+                                    type=='all'?
+
                                     <div className="time-slot-wrng-cont">
                                         <img src={ASSETS_BASE_URL + "/img/tm-wrng.png"} />
                                         <p>Both test can’t be book for the same time. You can <span>Book Separately</span></p>
                                     </div>
                                     :''
-                                }
+                                */}
                             </div>
 
                             {
@@ -331,6 +353,8 @@ class AppointmentSlot extends React.Component {
                                                                 upcoming_slots= {timeSlots.upcoming_slots}
                                                                 is_thyrocare = {timeSlots.is_thyrocare}
                                                                 nameHeading={timeSlots.tests.map(x=>x.name).join(',')}
+                                                                toggle = {this.handleToggleType.bind(this)}
+                                                                test_id= {timeSlots.tests && timeSlots.tests.length?timeSlots.tests[0].id:''}
                                                             />
                                                         : ''
                                                     }
@@ -349,6 +373,8 @@ class AppointmentSlot extends React.Component {
                                                                 upcoming_slots= {timeSlots.upcoming_slots}
                                                                 is_thyrocare = {timeSlots.is_thyrocare}
                                                                 nameHeading={timeSlots.tests.map(x=>x.name).join(',')}
+                                                                toggle = {this.handleToggleType.bind(this)}
+                                                                test_id= {timeSlots.tests && timeSlots.tests.length?timeSlots.tests[0].id:''}
                                                             />
                                                         : ''
                                                     }
@@ -372,6 +398,7 @@ class AppointmentSlot extends React.Component {
                                                                         test_name = {tests.name}
                                                                         test_id ={tests.tests_id}
                                                                         nameHeading={tests.name}
+                                                                        toggle = {this.handleToggleType.bind(this)}
                                                                     />
                                                         }):''
                                                     }

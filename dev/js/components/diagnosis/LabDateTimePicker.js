@@ -8,6 +8,7 @@ const MONTHS = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sep
 const queryString = require('query-string');
 import STORAGE from '../../helpers/storage'
 import Loader from '../commons/Loader'
+import GTM from '../../helpers/gtm.js'
 
 class DateTimePicker extends React.Component {
 
@@ -206,6 +207,15 @@ class DateTimePicker extends React.Component {
         return today
     }
 
+    toggleOptions(isAvailable = false){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'BookSeperatelyClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'book-seperately-clicked', 'isAvailable': isAvailable
+        }
+
+        GTM.sendEvent({ data: data })
+        this.props.toggle('seperately')
+    }
+
 	render(){
 
         let upperDisableDateLimit = this.props.is_thyrocare?7:30
@@ -216,6 +226,20 @@ class DateTimePicker extends React.Component {
         let selectedFormattedDate = this.getFormattedDate(this.state.selectedDateSpan)
 
 		return(
+            <React.Fragment>
+            {
+                this.props.type=='all'?
+                    this.state.daySeries.length && this.props.timeSlots && this.props.timeSlots[selectedFormattedDate] && this.props.timeSlots[selectedFormattedDate].length?
+                    <div className="time-slot-wrng-cont">
+                        <img src={ASSETS_BASE_URL + "/img/tm-wrng.png"} />
+                        <p>Showing common time slots where all tests are available.For more options you can <span className="cursor-pntr" onClick={()=>this.toggleOptions(true)}>Book Separately</span></p>
+                    </div>
+                    :<div className="time-slot-wrng-cont">
+                        <img src={ASSETS_BASE_URL + "/img/tm-wrng.png"} />
+                        <p>Both test can’t be book for the same time. You can <span className="cursor-pntr" onClick={()=>this.toggleOptions()}>Book Separately</span></p>
+                    </div>
+                :''
+            }
 			<div className="widget mrng-top-12">
                 <h4 className="tm-slt-hddng">{this.props.nameHeading}</h4>
                 <div className="time-slot-container">
@@ -321,6 +345,7 @@ class DateTimePicker extends React.Component {
                     }
                 </div>
             </div>
+            </React.Fragment>
 			)
 	}
 }

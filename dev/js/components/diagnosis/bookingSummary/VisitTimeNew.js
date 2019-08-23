@@ -94,7 +94,7 @@ class VisitTimeNew extends React.Component {
                                             {
                                                 this.props.selectedSlot.selectedTestsTimeSlot[test.test_id]?
                                                 <h4 className="date-time mr-10 title">{new Date(this.props.selectedSlot.selectedTestsTimeSlot[test.test_id].date).toDateString() || ""} {this.props.selectedSlot.selectedTestsTimeSlot[test.test_id].time.text ? "|" : ""} {this.props.selectedSlot.selectedTestsTimeSlot[test.test_id].time.text} {this.props.selectedSlot.selectedTestsTimeSlot[test.test_id].time.text?(this.props.selectedSlot.selectedTestsTimeSlot[test.test_id].time.value>=12?'PM':'AM'):''}</h4>
-                                                :''    
+                                                :<p onClick={()=>this.props.navigateTo('time',this.props.is_insurance_applicable, true)}>Select Time</p>    
                                             }
                                             
                                             </React.Fragment>        

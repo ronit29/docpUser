@@ -120,6 +120,39 @@ class BookingSummaryViewNew extends React.Component {
                 
             }
 
+            //If after selecting time, user add more tests then for pathology test we have to force add the pathology timings 
+            if(nextProps.selectedSlot && nextProps.selectedSlot.selectedTestsTimeSlot &&  Object.keys(nextProps.selectedSlot.selectedTestsTimeSlot).length &&  nextProps.LABS[this.props.selectedLab].tests.length ){
+
+                    let commonTestId = nextProps.selectedSlot['pathology']?nextProps.selectedSlot['pathology'].test_id:nextProps.selectedSlot['all']?nextProps.selectedSlot['all'].test_id:null
+
+                    let newTests = []
+                    nextProps.LABS[this.props.selectedLab].tests.map((test)=>{
+
+                        if(test.is_pathology) {
+                            if(nextProps.selectedSlot.selectedTestsTimeSlot[test.test_id]) {
+
+                            }else if(test.is_pathology){
+                                newTests.push(test)
+                            }    
+                        }
+                        
+                    })
+
+                if(commonTestId && newTests.length) {
+                    
+                    let finalSelectedSlot = {...nextProps.selectedSlot}
+                    let testsObj = {...finalSelectedSlot.selectedTestsTimeSlot}
+                    if(newTests.length) {
+                        newTests.map((x)=>{
+                            testsObj[x.test.id] = {...testsObj[commonTestId], test_id: x.test.id, test_name:x.test.name}
+                        })
+                        finalSelectedSlot['selectedTestsTimeSlot'] = testsObj
+                        this.props.selectLabTimeSLot(finalSelectedSlot)
+                    }
+
+                }
+            }
+
             // remove corporate coupon if tests are not valid
             if (nextProps.corporateCoupon) {
                 let corporate = true
@@ -269,7 +302,7 @@ class BookingSummaryViewNew extends React.Component {
         this.setState({ showTimeError: false, showAddressError: false });
     }
 
-    navigateTo(where, is_insurance_applicable, e) {
+    navigateTo(where, is_insurance_applicable, selectTimeError=false) {
         switch (where) {
             case "time": {
                 //Get Test ids of all selected Tests
@@ -281,17 +314,17 @@ class BookingSummaryViewNew extends React.Component {
                     let p_pickup = this.props.selectedAppointmentType.p_pickup
                     if (this.props.LABS[this.props.selectedLab].lab.is_thyrocare) {
                         if (this.state.seoFriendly) {
-                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=lab&goback=true&is_thyrocare=true&action_page=timings&is_insurance=${is_insurance_applicable}&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}`
+                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=lab&goback=true&is_thyrocare=true&action_page=timings&is_insurance=${is_insurance_applicable}&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}&selectedType=${selectTimeError?'seperately':'all'}`
                             this.props.history.push(url)
                         } else {
-                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=lab&goback=true&is_thyrocare=true&is_insurance=${is_insurance_applicable}&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}`)
+                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=lab&goback=true&is_thyrocare=true&is_insurance=${is_insurance_applicable}&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}&selectedType=${selectTimeError?'seperately':'all'}`)
                         }
                     } else {
                         if (this.state.seoFriendly) {
-                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=lab&goback=true&is_thyrocare=false&action_page=timings&is_insurance=${is_insurance_applicable}&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}`
+                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=lab&goback=true&is_thyrocare=false&action_page=timings&is_insurance=${is_insurance_applicable}&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}&selectedType=${selectTimeError?'seperately':'all'}`
                             this.props.history.push(url)
                         } else {
-                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=lab&goback=true&is_thyrocare=false&is_insurance=${is_insurance_applicable}&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}`)
+                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=lab&goback=true&is_thyrocare=false&is_insurance=${is_insurance_applicable}&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}&selectedType=${selectTimeError?'seperately':'all'}`)
                         }
                     }
 
@@ -425,6 +458,21 @@ class BookingSummaryViewNew extends React.Component {
             return
         }
 
+        if(this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot){
+            let found = false
+            this.props.LABS[this.props.selectedLab].tests.map((test)=>{
+                if(this.props.selectedSlot.selectedTestsTimeSlot[test.test_id]){
+
+                }else{
+                    found = true
+                }
+            })
+            if(found) {
+                SnackBar.show({ pos: 'bottom-center', text: "Please select timings of all Tests." });
+                return
+            }
+        }
+
         if (!datePicked) {
             this.setState({ showTimeError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
@@ -545,25 +593,41 @@ class BookingSummaryViewNew extends React.Component {
 
         this.setState({ loading: true, error: "" })
 
-        let start_date = this.props.selectedSlot.date
+       /* let start_date = this.props.selectedSlot.date
         let start_time = this.props.selectedSlot.time.value
-        let testIds = this.props.lab_test_data[this.props.selectedLab] || []
+       */ let testIds = this.props.lab_test_data[this.props.selectedLab] || []
         testIds = testIds.map(x => x.id)
 
         let postData = {
             lab: this.props.selectedLab,
             test_ids: testIds,
             profile: this.props.selectedProfile,
-            start_date, start_time, address: this.props.selectedAddress,
+            address: this.props.selectedAddress,
             payment_type: 1, // TODO : Select payment type
             use_wallet: this.state.use_wallet,
             cart_item: this.state.cart_item,
             prescription_list: prescriptionIds,
-            has_radiology_timings: true
+            multi_timings_enabled: true
         }
-        if(this.props.selectedSlot){
+        if(this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot){
+            let tests = []
 
-        }
+            this.props.LABS[this.props.selectedLab].tests.map((twp)=>{
+
+                if(this.props.selectedSlot.selectedTestsTimeSlot[twp.test_id]){
+                    let test = this.props.selectedSlot.selectedTestsTimeSlot[twp.test_id]
+                    let type = 3
+                    if(test.type=="radiology"){
+                        type = 1
+                    }else if(test.type == "pathology"){
+                        type = 2
+                    }
+
+                    tests.push({test: test.test_id,type:type, start_date: test.date, start_time: test.time.value, is_home_pickup: test.is_home_pickup })   
+                }
+            })
+            postData['test_timings'] = tests
+            }
         let profileData = { ...patient }
         if (profileData && profileData.whatsapp_optin == null) {
             profileData['whatsapp_optin'] = this.state.whatsapp_optin
@@ -827,6 +891,15 @@ class BookingSummaryViewNew extends React.Component {
         GTM.sendEvent({ data: data })
     }
 
+    removeTest(twp) {
+        let test = Object.assign({}, twp.test)
+        test.extra_test = true
+        test.lab_id = this.props.selectedLab
+        test.removeTest = true
+        test.selectedLabTests = this.props.LABS[this.props.selectedLab]
+        this.props.toggleDiagnosisCriteria('test', test)
+    }
+
     render() {
         let tests = []
         let tests_with_price = []
@@ -983,6 +1056,7 @@ class BookingSummaryViewNew extends React.Component {
                                 <p className="pkg-discountCpn" style={{ display: 'inline-block', float: 'right', marginTop: '5px' }}>Docprime Care Benefit</p>
                                 : ''
                         }
+                        <span onClick={()=>this.removeTest(twp)}>Remove</span>
                     </p>)
                 }
 
@@ -1057,6 +1131,16 @@ class BookingSummaryViewNew extends React.Component {
         if(!r_pickup_home && !r_pickup_center) {
             r_pickup = null
         }
+
+        if(!this.props.selectedAppointmentType.r_pickup && (r_pickup_home || r_pickup_center)){
+            reset = true
+            r_pickup = r_pickup_home?'home':r_pickup_center?'lab':''
+        }
+
+        if(!this.props.selectedAppointmentType.p_pickup && (p_pickup_home || p_pickup_center)){
+            reset = true
+            p_pickup = p_pickup_home?'home':p_pickup_center?'lab':''
+        }
         
 
         if(reset){
@@ -1110,6 +1194,8 @@ class BookingSummaryViewNew extends React.Component {
         }
 
         let is_add_to_card = STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured)
+        let total_test_count = pathology_tests.length + radiology_tests.length
+        let is_time_selected_for_all_tests = this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot?Object.keys(this.props.selectedSlot.selectedTestsTimeSlot).length:0
         return (
 
             <div className="profile-body-wrap">
@@ -1452,7 +1538,7 @@ class BookingSummaryViewNew extends React.Component {
                                     STORAGE.isAgent() || (!is_corporate && !is_default_user_insured) ?
                                         <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                        } onClick={this.proceed.bind(this, tests.length, address_picked, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status)}>
+                                        } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, true, total_price, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status)}>
                                             {
                                                 this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
                                             }
@@ -1464,7 +1550,7 @@ class BookingSummaryViewNew extends React.Component {
                                 {
                                     STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust pdd-12" id="confirm_booking" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                    } onClick={this.proceed.bind(this, tests.length, address_picked, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance, prescriptionPicked, is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
+                                    } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, false, total_price, total_wallet_balance, prescriptionPicked, is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
                                 }
                             </div>
 

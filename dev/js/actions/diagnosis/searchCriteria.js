@@ -1,4 +1,4 @@
-import { MERGE_SEARCH_STATE_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SEARCH_TEST_INFO, SAVE_PINCODE, TOGGLE_COMPARE_PACKAGE, RESET_COMPARE_STATE, SAVE_PATIENT_DETAILS } from '../../constants/types';
+import { MERGE_SEARCH_STATE_LAB, CLEAR_ALL_TESTS, CLEAR_EXTRA_TESTS, APPEND_FILTERS_DIAGNOSIS, TOGGLE_CONDITIONS, TOGGLE_SPECIALITIES, SELECT_LOCATION, MERGE_SEARCH_STATE, TOGGLE_CRITERIA, TOGGLE_TESTS, TOGGLE_DIAGNOSIS_CRITERIA, LOAD_SEARCH_CRITERIA_LAB, ADD_LAB_PROFILE_TESTS, SET_CORPORATE_COUPON, SEARCH_TEST_INFO, SAVE_PINCODE, TOGGLE_COMPARE_PACKAGE, RESET_COMPARE_STATE, SAVE_PATIENT_DETAILS, APPEND_LABS } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 
 export const loadLabCommonCriterias = () => (dispatch) => {
@@ -25,6 +25,17 @@ export const toggleDiagnosisCriteria = (type, criteria, forceAdd = false) => (di
             type, criteria, forceAdd
         }
     })
+
+    if(criteria && criteria.removeTest && criteria.selectedLabTests){
+        dispatch({
+            type: APPEND_LABS,
+            payload: {
+                removeTests: true,
+                labTest:criteria.selectedLabTests,
+                test_id: criteria.id
+            }
+        })
+    }
 
 }
 
