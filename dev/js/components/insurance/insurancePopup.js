@@ -138,7 +138,7 @@ class InsurancePopup extends React.Component {
             this.setState({ validationError: "Please enter OTP" })
             return
         }
-        if(this.state.otp.length < 6){
+        if(this.state.otp.length < 6 || this.state.otp.length > 6){
             this.setState({ validationError: "Please enter valid OTP" })
             return   
         }
@@ -149,41 +149,43 @@ class InsurancePopup extends React.Component {
                 if (exists.code == 'invalid') {
                     this.setState({ error_message: exists.message })
                 } else {
-                    let data = {
-                        'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupOptVerified', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-opt-verified'
-                    }
-                    GTM.sendEvent({ data: data })
-                    if (Object.keys(self.props.selected_plan).length > 0) {
-                        self.props.generateInsuranceLead(self.props.selected_plan ? self.props.selected_plan.id : '', this.state.phoneNumber, lead_data, this.props.selectedLocation)
-                    }
-                    this.props.getInsurance(false, (resp) => {
-                        if (!resp.certificate) {
-                            if (this.props.isLead == 'proceed') {
-                                if (exists.user_exists) {
-                                    // if (this.props.identifyUserClick == 'userClick') {
-                                    //     this.props.history.push('/insurance/insurance-user-details')
-                                    // } else {
-                                    //     this.props.closeLeadPopup()
-                                    // }
-                                    this.props.closeLeadPopup()
-                                    this.props.history.push('/insurance/insurance-plan-view')
-                                } else {
-                                    // if (this.props.identifyUserClick == 'userClick') {
-                                    //     this.props.history.push('/insurance/insurance-user-details')
-                                    // } else {
-                                    //     this.props.closeLeadPopup()
-                                    // }
-                                    this.props.closeLeadPopup()
-                                    this.props.history.push('/insurance/insurance-plan-view')
-                                }
-                            } else {
-                                self.setState({ isLeadTrue: true })
-                                // if(document.getElementById('terms_condition')){
-                                //     document.getElementById('terms_condition').click()
-                                // }
-                            }
+                    if (exists.token) {
+                        let data = {
+                            'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupOptVerified', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-opt-verified'
                         }
-                    })
+                        GTM.sendEvent({ data: data })
+                        if (Object.keys(self.props.selected_plan).length > 0) {
+                            self.props.generateInsuranceLead(self.props.selected_plan ? self.props.selected_plan.id : '', this.state.phoneNumber, lead_data, this.props.selectedLocation)
+                        }
+                        this.props.getInsurance(false, (resp) => {
+                            if (!resp.certificate) {
+                                if (this.props.isLead == 'proceed') {
+                                    if (exists.user_exists) {
+                                        // if (this.props.identifyUserClick == 'userClick') {
+                                        //     this.props.history.push('/insurance/insurance-user-details')
+                                        // } else {
+                                        //     this.props.closeLeadPopup()
+                                        // }
+                                        this.props.closeLeadPopup()
+                                        this.props.history.push('/insurance/insurance-plan-view')
+                                    } else {
+                                        // if (this.props.identifyUserClick == 'userClick') {
+                                        //     this.props.history.push('/insurance/insurance-user-details')
+                                        // } else {
+                                        //     this.props.closeLeadPopup()
+                                        // }
+                                        this.props.closeLeadPopup()
+                                        this.props.history.push('/insurance/insurance-plan-view')
+                                    }
+                                } else {
+                                    self.setState({ isLeadTrue: true })
+                                    // if(document.getElementById('terms_condition')){
+                                    //     document.getElementById('terms_condition').click()
+                                    // }
+                                }
+                            }
+                        })
+                    }
                 }
 
             })
