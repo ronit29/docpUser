@@ -22,7 +22,8 @@ class ChoosePatientNewView extends React.Component {
             dob:null,
             formattedDate:'', 
             dateModal: false,
-            isDobNotValid:false
+            isDobNotValid:false,
+            isNewPatient:false
         }
     }
 
@@ -193,7 +194,11 @@ class ChoosePatientNewView extends React.Component {
                     this.props.getUserProfile()
                 })
             })*/
-            this.setState({ dob: date, formattedDate:formattedDate, dateModal: false})
+            this.setState({ dob: date, formattedDate:formattedDate, dateModal: false},()=>{
+                if(this.state.isNewPatient){
+                    this.profileValidation()
+                }
+            })
         } else {
             this.setState({ dateModal: false })
         }
@@ -213,8 +218,8 @@ class ChoosePatientNewView extends React.Component {
         return today
     }
 
-    openCalendar(){
-        this.setState({dateModal:true})
+    openCalendar(isNewPatient){
+        this.setState({dateModal:true,isNewPatient:isNewPatient})
     }
 
     verify(resendFlag = false, viaSms, viaWhatsapp) {
@@ -335,7 +340,7 @@ class ChoosePatientNewView extends React.Component {
                                                     name="dob" 
                                                     type="text" 
                                                     value={this.state.formattedDate} 
-                                                    onClick={this.openCalendar.bind(this)} required 
+                                                    onClick={this.openCalendar.bind(this,false)} required 
                                                     style={(this.props.isDobNotValid || this.state.isDobNotValid) ? { borderBottom: '1px solid red' } : {}} 
                                                     autoComplete="off"
                                                 />
@@ -417,6 +422,25 @@ class ChoosePatientNewView extends React.Component {
                                         </div>
                                     </div>
                                 </div>
+                                <div className="slt-nw-input">
+                                    <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Dob:</label>
+                                    <input className="slt-text-input" autoComplete="off" type="text" name="dob" value={this.state.dob} onClick={this.openCalendar.bind(this,true)}  placeholder="" />
+                                </div>
+                                {this.state.dateModal ? 
+                                    <div className="calendar-overlay">
+                                        <div className="date-picker-modal">
+                                            <Calendar
+                                                showWeekNumber={false}
+                                                defaultValue={moment(new Date())}
+                                                disabledDate={(date) => {
+                                                    return date.diff(moment((new Date)), 'days') > -1
+                                                }}
+                                                showToday
+                                                onSelect={this.selectDateFromCalendar.bind(this)}
+                                            />
+                                        </div>
+                                    </div>
+                                :''}
                                 <div className="slt-nw-input">
                                     <label className="slt-label" htmlFor="male"><sup className="requiredAst">*</sup>Email:</label>
                                     <input className="slt-text-input" autoComplete="off" type="text" name="email" value={this.state.email} onChange={this.inputHandler.bind(this)} onBlur={this.profileValidation.bind(this)} placeholder="" />
