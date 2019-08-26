@@ -12082,3 +12082,13 @@ font-weight: 500;
     font-weight: 500;
     background: white;
 }
+
+.docprime-article ul li {
+    list-style: disc;
+}
+.custom-li-style ul li {
+    list-style: disc;
+}
+.acrd-sub-content ul li{
+    list-style: disc;
+}
