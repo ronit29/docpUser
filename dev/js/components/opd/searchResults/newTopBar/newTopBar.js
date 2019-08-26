@@ -476,42 +476,42 @@ class TopBar extends React.Component {
         let liData = []
         let self = this
         if (self.state.selectedHospitalIds && self.state.selectedHospitalIds.length > 0 && !self.state.hideOtherFilters) {
-            this.state.HospFilter.map((data, key) => {
-                if (this.state.selectedHospitalIds.indexOf(data.id) > -1 && liData.length < 5) {
-                    liData.push(<li key={key} onChange={this.toggleHospital.bind(this, data.id)}>
+            self.state.HospFilter.map((data, key) => {
+                if (self.state.selectedHospitalIds.indexOf(data.id) > -1 && liData.length < 5) {
+                    liData.push(<li key={key} onChange={self.toggleHospital.bind(self, data.id)}>
                         <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}
-                            <input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id) > -1 ? true : false} />
+                            <input type="checkbox" checked={self.state.selectedHospitalIds.indexOf(data.id) > -1 ? true : false} />
                             <span className="checkmark"></span>
                         </label>
                     </li>)
                 }
             })
-            this.state.HospFilter.map((data, key) => {
-                if (this.state.selectedHospitalIds.indexOf(data.id) == -1 && liData.length < 5) {
-                    liData.push(<li key={key} onChange={this.toggleHospital.bind(this, data.id)}>
+            self.state.HospFilter.map((data, key) => {
+                if (self.state.selectedHospitalIds.indexOf(data.id) == -1 && liData.length < 5) {
+                    liData.push(<li key={key} onChange={self.toggleHospital.bind(self, data.id)}>
                         <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}
-                            <input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id) > -1 ? true : false} />
+                            <input type="checkbox" checked={self.state.selectedHospitalIds.indexOf(data.id) > -1 ? true : false} />
                             <span className="checkmark"></span>
                         </label>
                     </li>)
                 }
             })
         } else {
-            if (this.state.hideOtherFilters) {
-                this.state.HospFilterOnFoucsData.map((data, key) => {
-                    liData.push(<li key={key} onChange={this.toggleHospital.bind(this, data.id)}>
+            if (self.state.hideOtherFilters) {
+                self.state.HospFilterOnFoucsData.map((data, key) => {
+                    liData.push(<li key={key} onChange={self.toggleHospital.bind(self, data.id)}>
                         <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}
-                            <input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id) > -1 ? true : false} />
+                            <input type="checkbox" checked={self.state.selectedHospitalIds.indexOf(data.id) > -1 ? true : false} />
                             <span className="checkmark"></span>
                         </label>
                     </li>)
                 })
             } else {
-                this.state.HospFilter.map((data, key) => {
-                    if (this.state.selectedHospitalIds.length == 0 && key <= 4) {
-                        liData.push(<li key={key} onChange={this.toggleHospital.bind(this, data.id)}>
+                self.state.HospFilter.map((data, key) => {
+                    if (self.state.selectedHospitalIds.length == 0 && key <= 4) {
+                        liData.push(<li key={key} onChange={self.toggleHospital.bind(self, data.id)}>
                             <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}
-                                <input type="checkbox" checked={this.state.selectedHospitalIds.indexOf(data.id) > -1 ? true : false} />
+                                <input type="checkbox" checked={self.state.selectedHospitalIds.indexOf(data.id) > -1 ? true : false} />
                                 <span className="checkmark"></span>
                             </label>
                         </li>)
@@ -524,27 +524,28 @@ class TopBar extends React.Component {
 
     SpecFilterData() {
         let liData = []
-        if (this.state.specialization_filter_ids.length > 0 && !this.state.hideOtherFilters) {
-            this.state.SpecialityFilter.map((data, key) => {
-                if (this.state.specialization_filter_ids.indexOf(data.id) > -1 && liData.length < 5) {
-                    liData.push(<li key={key} onChange={this.toggleSpecialization.bind(this, data.id)}>
+        let self = this
+        if (self.state.specialization_filter_ids.length > 0 && !self.state.hideOtherFilters) {
+            self.state.SpecialityFilter.map((data, key) => {
+                if (self.state.specialization_filter_ids.indexOf(data.id) > -1 && liData.length < 5) {
+                    liData.push(<li key={key} onChange={self.toggleSpecialization.bind(self, data.id)}>
                         <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}
                             <input type="checkbox" 
-                                checked={(this.state.specialization_filter_ids.indexOf(data.id) > -1 || this.state.defaultSpecializationIds.indexOf(data.id) > -1) ? true : false} 
-                                disabled={this.state.defaultSpecializationIds.indexOf(data.id)>-1 ? true:false} 
+                                checked={(self.state.specialization_filter_ids.indexOf(data.id) > -1 || self.state.defaultSpecializationIds.indexOf(data.id) > -1) ? true : false} 
+                                disabled={self.state.defaultSpecializationIds.indexOf(data.id)>-1 ? true:false} 
                             />
                             <span className="checkmark"></span>
                         </label>
                     </li>)
                 }
             })
-            this.state.SpecialityFilter.map((data, key) => {
-                if (this.state.specialization_filter_ids.indexOf(data.id) == -1 && liData.length < 5) {
-                    liData.push(<li key={key} onChange={this.toggleSpecialization.bind(this, data.id)}>
+            self.state.SpecialityFilter.map((data, key) => {
+                if (self.state.specialization_filter_ids.indexOf(data.id) == -1 && liData.length < 5) {
+                    liData.push(<li key={key} onChange={self.toggleSpecialization.bind(self, data.id)}>
                         <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}
                             <input type="checkbox" 
-                                checked={(this.state.specialization_filter_ids.indexOf(data.id) > -1 || this.state.defaultSpecializationIds.indexOf(data.id) > -1) ? true : false}
-                                disabled={this.state.defaultSpecializationIds.indexOf(data.id)>-1 ? true:false} 
+                                checked={(self.state.specialization_filter_ids.indexOf(data.id) > -1 || self.state.defaultSpecializationIds.indexOf(data.id) > -1) ? true : false}
+                                disabled={self.state.defaultSpecializationIds.indexOf(data.id)>-1 ? true:false} 
                                 
                             />
                             <span className="checkmark"></span>
@@ -553,13 +554,13 @@ class TopBar extends React.Component {
                 }
             })
         } else {
-            if (this.state.hideOtherFilters) {
-                this.state.SpecialityFilterOnFocusData.map((data, key) => {
-                    liData.push(<li key={key} onChange={this.toggleSpecialization.bind(this, data.id)}>
+            if (self.state.hideOtherFilters) {
+                self.state.SpecialityFilterOnFocusData.map((data, key) => {
+                    liData.push(<li key={key} onChange={self.toggleSpecialization.bind(self, data.id)}>
                         <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}
                             <input type="checkbox" 
-                                checked={(this.state.specialization_filter_ids.indexOf(data.id) > -1 || this.state.defaultSpecializationIds.indexOf(data.id) > -1) ? true : false} 
-                                disabled={this.state.defaultSpecializationIds.indexOf(data.id)>-1 ? true:false} 
+                                checked={(self.state.specialization_filter_ids.indexOf(data.id) > -1 || self.state.defaultSpecializationIds.indexOf(data.id) > -1) ? true : false} 
+                                disabled={self.state.defaultSpecializationIds.indexOf(data.id)>-1 ? true:false} 
                                 
                             />
                             <span className="checkmark"></span>
@@ -567,13 +568,13 @@ class TopBar extends React.Component {
                     </li>)
                 })
             } else {
-                this.state.SpecialityFilter.map((data, key) => {
-                    if (this.state.specialization_filter_ids.length == 0 && key <= 4) {
-                        liData.push(<li key={key} onChange={this.toggleSpecialization.bind(this, data.id)}>
+                self.state.SpecialityFilter.map((data, key) => {
+                    if (self.state.specialization_filter_ids.length == 0 && key <= 4) {
+                        liData.push(<li key={key} onChange={self.toggleSpecialization.bind(self, data.id)}>
                             <label className="ck-bx" style={{ fontWeight: '500', fontSize: '13px' }}>{data.name}
                                 <input type="checkbox" 
-                                    checked={(this.state.specialization_filter_ids.indexOf(data.id) > -1 || this.state.defaultSpecializationIds.indexOf(data.id) > -1) ? true : false}
-                                    disabled={this.state.defaultSpecializationIds.indexOf(data.id)>-1 ? true:false} 
+                                    checked={(self.state.specialization_filter_ids.indexOf(data.id) > -1 || self.state.defaultSpecializationIds.indexOf(data.id) > -1) ? true : false}
+                                    disabled={self.state.defaultSpecializationIds.indexOf(data.id)>-1 ? true:false} 
                                 />
                                 <span className="checkmark"></span>
                             </label>
