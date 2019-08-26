@@ -287,7 +287,7 @@ class Article extends React.Component {
                     <div className="row main-row parent-section-row">
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-8 center-column">
-                            <iframe src="https://beta.pharmeasy.in/online-medicine-order?utm_source=aff-docprime&utm_medium=cps"></iframe>
+                            <iframe src="https://beta.pharmeasy.in/online-medicine-order?utm_source=aff-docprime&utm_medium=cps" style={{height:'100vh',width:'100%'}}></iframe>
                             {
                                 this.state.articleData ? <div className="container-fluid article-column">
 
