@@ -139,7 +139,7 @@ class InsurancePopup extends React.Component {
             return
         }
         if(this.state.otp.length < 6){
-            this.setState({ validationError: "Please enter 6 digits" })
+            this.setState({ validationError: "Please enter valid OTP" })
             return   
         }
         let lead_data = parsed
