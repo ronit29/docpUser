@@ -56,7 +56,9 @@ class BookingSummaryViewNew extends React.Component {
             coupon_loading: false,
             seoFriendly: this.props.match.url.includes('-lpp'),
             isEmailNotValid:false,
-            is_payment_coupon_applied: false
+            is_payment_coupon_applied: false,
+            pay_btn_loading: true,
+            isDobNotValid:false
         }
     }
 
@@ -108,10 +110,10 @@ class BookingSummaryViewNew extends React.Component {
 
         if (nextProps.LABS[this.props.selectedLab] && nextProps.LABS[this.props.selectedLab].tests && nextProps.LABS[this.props.selectedLab].tests.length == 0) {
             this.props.resetLabCoupons()
+            this.setState({'pay_btn_loading': false})
             return
         }
         if (nextProps.LABS[this.props.selectedLab] && nextProps.LABS[this.props.selectedLab].tests && nextProps.LABS[this.props.selectedLab].tests.length) {
-
             // bases cases
             if (this.props.LABS[this.props.selectedLab] && nextProps.LABS[this.props.selectedLab].tests == this.props.LABS[this.props.selectedLab].tests && nextProps.selectedAppointmentType == this.props.selectedAppointmentType) {
                 return
@@ -128,7 +130,7 @@ class BookingSummaryViewNew extends React.Component {
 
                 if (!corporate) {
                     this.props.resetLabCoupons()
-                    this.setState({ couponCode: "", couponId: '', is_cashback: false, use_wallet: true, is_payment_coupon_applied: false })
+                    this.setState({ couponCode: "", couponId: '', is_cashback: false, use_wallet: true, is_payment_coupon_applied: false,'pay_btn_loading': false })
                     if (nextProps.labCoupons[this.props.selectedLab]) {
                         this.props.removeLabCoupons(this.props.selectedLab, nextProps.corporateCoupon.coupon_id)
                     }
@@ -143,9 +145,12 @@ class BookingSummaryViewNew extends React.Component {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupon = nextProps.corporateCoupon
-                    this.setState({ is_cashback: labCoupon.is_cashback, couponCode: labCoupon.code, couponId: labCoupon.coupon_id || '' })
-                    this.props.applyCoupons('2', labCoupon, labCoupon.coupon_id, this.props.selectedLab)
-                    this.props.applyLabCoupons('2', labCoupon.code, labCoupon.coupon_id, this.props.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item)
+                    this.setState({ is_cashback: labCoupon.is_cashback, couponCode: labCoupon.code, couponId: labCoupon.coupon_id || '', pay_btn_loading: true })
+                    this.props.applyCoupons('2', labCoupon, labCoupon.coupon_id, this.props.selectedLab, (success) => {
+                    })
+                    this.props.applyLabCoupons('2', labCoupon.code, labCoupon.coupon_id, this.props.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item, (err, data) => {
+                        this.setState({'pay_btn_loading': false})
+                    })
                     if (labCoupon.is_payment_specific) {
                         this.setState({use_wallet: false, is_payment_coupon_applied: true})
                     }
@@ -159,6 +164,7 @@ class BookingSummaryViewNew extends React.Component {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupons = nextProps.labCoupons[this.props.selectedLab]
+                    this.setState({'pay_btn_loading': true})
                     this.props.applyLabCoupons('2', labCoupons[0].code, labCoupons[0].coupon_id, this.props.selectedLab, finalPrice, test_ids, nextProps.selectedProfile, this.state.cart_item, (err, data) => {
                         if (!err) {
                             this.setState({ is_cashback: labCoupons[0].is_cashback, couponCode: labCoupons[0].code, couponId: labCoupons[0].coupon_id || '' })
@@ -169,6 +175,7 @@ class BookingSummaryViewNew extends React.Component {
                             this.setState({ coupon_loading: true })
                             this.getAndApplyBestCoupons(nextProps)
                         }
+                        this.setState({'pay_btn_loading': false})
                     })
                 }
                 return
@@ -177,9 +184,11 @@ class BookingSummaryViewNew extends React.Component {
             // if no coupon is applied
             if (!nextProps.labCoupons[this.props.selectedLab]) {
                 this.getAndApplyBestCoupons(nextProps)
+                this.setState({'pay_btn_loading': false})
             }
 
             if (nextProps.labCoupons[this.props.selectedLab] && nextProps.labCoupons[this.props.selectedLab].length == 0) {
+                this.setState({'pay_btn_loading': false})
                 this.props.resetLabCoupons()
             }
         }
@@ -206,19 +215,24 @@ class BookingSummaryViewNew extends React.Component {
                     if (coupons) {
                         let validCoupon = this.getValidCoupon(coupons)
                         if (validCoupon) {
-                            this.props.applyCoupons('2', validCoupon, validCoupon.coupon_id, this.props.selectedLab)
-                            this.props.applyLabCoupons('2', validCoupon.code, validCoupon.coupon_id, this.props.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item)
+                            this.setState({'pay_btn_loading': true})
+                            this.props.applyCoupons('2', validCoupon, validCoupon.coupon_id, this.props.selectedLab, (success) => {
+                                this.setState({'pay_btn_loading': false})
+                            })
+                            this.props.applyLabCoupons('2', validCoupon.code, validCoupon.coupon_id, this.props.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item, (err, data) => {
+                                this.setState({'pay_btn_loading': false})
+                            })
                             this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '' })
                             if (validCoupon.is_payment_specific) {
                                 this.setState({use_wallet: false, is_payment_coupon_applied: true})
                             }
                         } else {
                             this.props.resetLabCoupons()
-                            this.setState({ couponCode: "", couponId: '', is_cashback: false, use_wallet: true, is_payment_coupon_applied: false })
+                            this.setState({ couponCode: "", couponId: '', is_cashback: false, use_wallet: true, is_payment_coupon_applied: false,'pay_btn_loading': false })
                         }
                     } else {
                         this.props.resetLabCoupons()
-                        this.setState({ couponCode: "", couponId: '', is_cashback: false, use_wallet: true, is_payment_coupon_applied: false })
+                        this.setState({ couponCode: "", couponId: '', is_cashback: false, use_wallet: true, is_payment_coupon_applied: false,'pay_btn_loading': false })
                     }
                     this.setState({ coupon_loading: false })
                 }
@@ -321,14 +335,14 @@ class BookingSummaryViewNew extends React.Component {
             case "lab": {
                 return <div>
                     <VisitTimeNew type="lab" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable={is_insurance_applicable} />
-                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} is_insurance_applicable={is_insurance_applicable} checkPrescription={this.checkPrescription.bind(this)} isEmailNotValid={this.state.isEmailNotValid}/>
+                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} is_insurance_applicable={is_insurance_applicable} checkPrescription={this.checkPrescription.bind(this)} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid}/>
                 </div>
             }
 
             case "home": {
                 return <div>
                     <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable={is_insurance_applicable} />
-                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} is_insurance_applicable={is_insurance_applicable} checkPrescription={this.checkPrescription.bind(this)} isEmailNotValid={this.state.isEmailNotValid} />
+                    <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} is_insurance_applicable={is_insurance_applicable} checkPrescription={this.checkPrescription.bind(this)} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid}/>
                     {
                         patient ?
                             <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
@@ -423,6 +437,11 @@ class BookingSummaryViewNew extends React.Component {
         if(patient && !patient.email){
             this.setState({isEmailNotValid:true})
             SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
+            return 
+        }
+        if(patient && !patient.dob){
+            this.setState({isDobNotValid:true})
+            SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Date of Birth" })
             return 
         }
         if (!addressPicked) {
@@ -685,6 +704,7 @@ class BookingSummaryViewNew extends React.Component {
 
             let { finalPrice } = this.getLabPriceData(this.props)
 
+            this.setState({pay_btn_loading: true})
             this.props.history.push(`/coupon/lab/${this.props.selectedLab}/coupons?test_ids=${test_ids}&deal_price=${finalPrice}&cart_item=${this.state.cart_item || ""}`)
         }
     }
@@ -910,11 +930,9 @@ class BookingSummaryViewNew extends React.Component {
                     */}
                         <span className="test-name-item p-0">{twp.test.name}
                         {twp && twp.test && twp.test.show_details?
-                            <p key={i} onClick={this.testInfo.bind(this, twp.test.id, this.state.selectedLab, twp.test.url)}>
-                                <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }}> 
+                                <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} key={i} onClick={this.testInfo.bind(this, twp.test.id, this.state.selectedLab, twp.test.url)}> 
                                     <img src={ASSETS_BASE_URL+ '/img/icons/Info.svg'} style={{width:'15px'}}/> 
                                 </span>
-                            </p>
                         :''}
                         </span>
                         {
@@ -1303,8 +1321,8 @@ class BookingSummaryViewNew extends React.Component {
 
                             <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
                                 {
-                                    STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured) ?
-                                        <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
+                                    STORAGE.isAgent() || (!is_corporate && !is_default_user_insured) ?
+                                    <button disabled={this.state.pay_btn_loading} className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn") + (this.state.pay_btn_loading ? " disable-all" : "")} data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                         } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status)}>
                                             {
@@ -1316,7 +1334,7 @@ class BookingSummaryViewNew extends React.Component {
                                 }
 
                                 {
-                                    STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust pdd-12" id="confirm_booking" data-disabled={
+                                    STORAGE.isAgent() || this.state.cart_item ? "" : <button disabled={this.state.pay_btn_loading} className={`v-btn-primary book-btn-mrgn-adjust pdd-12 ${this.state.pay_btn_loading ? " disable-all" : ""}`}  id="confirm_booking" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                     } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance, prescriptionPicked, is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
                                 }
