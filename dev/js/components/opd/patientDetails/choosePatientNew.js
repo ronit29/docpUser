@@ -131,7 +131,7 @@ class ChoosePatientNewView extends React.Component {
                                 self.props.clearTestForInsured()
                             }
                         })
-
+                        self.setState({dob:null,email:null})
                     })
                 })
             } else {
