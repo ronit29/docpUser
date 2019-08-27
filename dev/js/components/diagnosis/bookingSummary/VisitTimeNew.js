@@ -94,21 +94,25 @@ class VisitTimeNew extends React.Component {
                     {
                         this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot && this.props.LABS[this.props.selectedLab] ?
                             <div className="vst-time-cont">
-                                <div className="vst-content-bl">
+                                <React.Fragment>
                                     {
                                         this.props.LABS[this.props.selectedLab].tests.map((test, key) => {
-                                            return <React.Fragment key={key}>
+                                            return <div className="vst-content-bl" key={key}>
                                                 <p className="vst-tst-name">{test.test.name}</p>
                                                 {
                                                     this.props.selectedSlot.selectedTestsTimeSlot[test.test_id] ?
                                                         <p className="rdo-time-vst">{new Date(this.props.selectedSlot.selectedTestsTimeSlot[test.test_id].date).toDateString() || ""} {this.props.selectedSlot.selectedTestsTimeSlot[test.test_id].time.text ? "|" : ""} {this.props.selectedSlot.selectedTestsTimeSlot[test.test_id].time.text} {this.props.selectedSlot.selectedTestsTimeSlot[test.test_id].time.text ? (this.props.selectedSlot.selectedTestsTimeSlot[test.test_id].time.value >= 12 ? 'PM' : 'AM') : ''}</p>
-                                                        : <p onClick={() => this.props.navigateTo('time', this.props.is_insurance_applicable, true)}>Select Time</p>
-                                                }
+                                                        : <a href="" onClick={(e) => {
+                                                            e.preventDefault()
+                                                            e.stopPropagation()
+                                                            this.props.navigateTo('time', this.props.is_insurance_applicable, true)
+                                                        }} className="text-primary fw-700 text-sm">Select Time</a>
+                                                                            }
 
-                                            </React.Fragment>
+                                            </div>
                                         })
                                     }
-                                </div>
+                                </React.Fragment>
 
                                 <a href="" onClick={(e) => {
                                     e.preventDefault()

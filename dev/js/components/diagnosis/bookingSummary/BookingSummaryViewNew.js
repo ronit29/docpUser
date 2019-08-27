@@ -1003,7 +1003,7 @@ class BookingSummaryViewNew extends React.Component {
                     if (!twp.is_home_collection_enabled) {
                         r_pickup_home = false
                     }
-                    radiology_tests.push(<p key={i} className="test-list test-list-label clearfix new-lab-test-list">
+                    radiology_tests.push(<p key={i} className="test-list test-list-label new-lab-test-list rdo-rmv-btn">
                         {/*
                         is_corporate || is_insurance_applicable || is_plan_applicable ?
                         <span className="float-right fw-700">₹ 0 </span>
@@ -1026,6 +1026,7 @@ class BookingSummaryViewNew extends React.Component {
                                 <p className="pkg-discountCpn" style={{ display: 'inline-block', float: 'right', marginTop: '5px' }}>Docprime Care Benefit</p>
                                 : ''
                         }
+                        <span className="rdo-rmv-spn" onClick={()=>this.removeTest(twp)}>Remove</span>
                     </p>)
                 }else if(twp.is_pathology){
                     p_pickup_center = true
@@ -1272,6 +1273,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                     </div>
                                                                 </div>
                                                                 {radiology_tests}
+                                                                {(r_pickup_center || r_pickup_home) && 
                                                                 <div>
                                                                     <div className="">
                                                                         <div className="test-lab-radio widget-content test-report lab-appointment-div row">
@@ -1290,11 +1292,13 @@ class BookingSummaryViewNew extends React.Component {
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                }
 
                                                                 {//Pathology Tests}
                                                                 }
-                                                                <p className="rdo-pth-tst">Pathology Tests</p>
+                                                                
                                                                 {pathology_tests}
+                                                                {(p_pickup_center || p_pickup_home) && 
                                                                 <div>
                                                                     <div className="">
                                                                         <div className="test-lab-radio widget-content test-report lab-appointment-div row">
@@ -1313,6 +1317,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                }
                                                             </div>
                                                         </div>
                                                         {
