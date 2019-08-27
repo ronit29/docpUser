@@ -611,9 +611,9 @@ class BookingSummaryViewNew extends React.Component {
         }
         if(this.props.selectedSlot){
             if(this.props.selectedSlot['all']) {
-                postData['selectedType'] = 'all'
+                postData['selected_timings_type'] = 'common'
             }else{
-                postData['selectedType'] = 'seperately'
+                postData['selected_timings_type'] = 'separate'
             }
         }
         if(this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot){
@@ -1161,7 +1161,7 @@ class BookingSummaryViewNew extends React.Component {
             })
         }
 
-        is_home_collection_enabled = r_pickup_home && p_pickup_home
+        is_home_collection_enabled = r_pickup_home || p_pickup_home
 
         // check if the picked address is correct or not
         if (this.props.selectedAppointmentType && (this.props.selectedAppointmentType.r_pickup=='home' || this.props.selectedAppointmentType.p_pickup=='home') ) {

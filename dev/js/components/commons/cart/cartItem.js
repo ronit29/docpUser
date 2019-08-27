@@ -71,16 +71,18 @@ class CartItem extends React.Component {
             let timeSelected = {}
             let pathology_timing = {}
             let radiology_timing = {}
+            let common_timing = {}
             let finalTests = {}
             let r_pickup = 'home'
             let p_pickup = 'home'
             data.data.tests.map((test)=>{
 
-                if(test.type==2) {
-                    if(timeSelected['pathology']){
-                        finalTests[test.test_id] = {...timeSelected['pathology'], test_id:test.test_id, test_name: '', is_home_pickup: test.is_home_pickup}
+                if(data.data.selected_timings_type=='common'){
+
+                    if(timeSelected['all']){
+                        finalTests[test.test_id] = {...timeSelected['all'], test_id:test.test_id, test_name: '', is_home_pickup: test.is_home_pickup}
                     }else{
-                        pathology_timing = {
+                        common_timing = {
                             text: new Date(test.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0],
                             deal_price: test.deal_price,
                             is_available: true,
@@ -90,46 +92,77 @@ class CartItem extends React.Component {
                             value:new Date(test.date).getHours() + new Date(test.date).getMinutes() / 60
                         }
                         p_pickup = test.is_home_pickup?'home':'lab'
-                        timeSelected['pathology'] = {
+                        r_pickup = test.is_home_pickup?'home':'lab'
+                        timeSelected['all'] = {
                             date:new Date(test.date),
-                            time: pathology_timing,
-                            type:'pathology',
+                            time: common_timing,
+                            type:'all',
                             test_id: test.test_id
                         }
-                        finalTests[test.test_id] = {...timeSelected['pathology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
+                        finalTests[test.test_id] = {...timeSelected['all'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
                         //timeSelected['selectedTestsTimeSlot'] = timeSelected['selectedTestsTimeSlot']?{...timeSelected['selectedTestsTimeSlot']}:{}
 
                     }
-                    
-                }
 
-                if(test.type==1) {
-                    if(timeSelected['radiology']){
-                        finalTests[test.test_id] = {...timeSelected['radiology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
-                        timeSelected['radiology'][test.test_id] = {...timeSelected['radiology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
-                    }else{
-                        radiology_timing = {
-                            text: new Date(test.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0],
-                            deal_price: test.deal_price,
-                            is_available: true,
-                            mrp: test.mrp,
-                            price: test.deal_price,
-                            title:new Date(test.date).getHours() >= 12 ? 'PM' : 'AM',
-                            value:new Date(test.date).getHours() + new Date(test.date).getMinutes() / 60
+
+                }else {
+
+
+                    if(test.type==2) {
+                        if(timeSelected['pathology']){
+                            finalTests[test.test_id] = {...timeSelected['pathology'], test_id:test.test_id, test_name: '', is_home_pickup: test.is_home_pickup}
+                        }else{
+                            pathology_timing = {
+                                text: new Date(test.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0],
+                                deal_price: test.deal_price,
+                                is_available: true,
+                                mrp: test.mrp,
+                                price: test.deal_price,
+                                title:new Date(test.date).getHours() >= 12 ? 'PM' : 'AM',
+                                value:new Date(test.date).getHours() + new Date(test.date).getMinutes() / 60
+                            }
+                            p_pickup = test.is_home_pickup?'home':'lab'
+                            timeSelected['pathology'] = {
+                                date:new Date(test.date),
+                                time: pathology_timing,
+                                type:'pathology',
+                                test_id: test.test_id
+                            }
+                            finalTests[test.test_id] = {...timeSelected['pathology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
+                            //timeSelected['selectedTestsTimeSlot'] = timeSelected['selectedTestsTimeSlot']?{...timeSelected['selectedTestsTimeSlot']}:{}
+
                         }
-                        r_pickup = test.is_home_pickup?'home':'lab'
-                        timeSelected['radiology'] = {
-                            date:new Date(test.date),
-                            time: radiology_timing,
-                            type:'radiology',
-                            test_id: test.test_id
-                        }
-                        timeSelected['radiology'][test.test_id] = {...timeSelected['radiology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
-
-                        finalTests[test.test_id] = {...timeSelected['radiology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
-
+                        
                     }
-                    
+
+                    if(test.type==1) {
+                        if(timeSelected['radiology']){
+                            finalTests[test.test_id] = {...timeSelected['radiology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
+                            timeSelected['radiology'][test.test_id] = {...timeSelected['radiology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
+                        }else{
+                            radiology_timing = {
+                                text: new Date(test.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0],
+                                deal_price: test.deal_price,
+                                is_available: true,
+                                mrp: test.mrp,
+                                price: test.deal_price,
+                                title:new Date(test.date).getHours() >= 12 ? 'PM' : 'AM',
+                                value:new Date(test.date).getHours() + new Date(test.date).getMinutes() / 60
+                            }
+                            r_pickup = test.is_home_pickup?'home':'lab'
+                            timeSelected['radiology'] = {
+                                date:new Date(test.date),
+                                time: radiology_timing,
+                                type:'radiology',
+                                test_id: test.test_id
+                            }
+                            timeSelected['radiology'][test.test_id] = {...timeSelected['radiology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
+
+                            finalTests[test.test_id] = {...timeSelected['radiology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
+
+                        }
+                        
+                    }
                 }
             })
             let selectedType = {
