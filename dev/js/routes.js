@@ -495,6 +495,13 @@ const categoryTestResults = Loadable({
     loading,
 })
 
+const LensFit = Loadable({
+    loader: () => import('./containers/commons/lensFit'),
+    modules: ['./containers/commons/lensFit'],
+    webpack: () => [require.resolveWeak('./containers/commons/lensFit')],
+    loading,
+})
+
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
  */
@@ -614,7 +621,8 @@ let routes = [
     { path: '/Chat/Review', exact: true, component: SingleChatPageFeedback },
     { path: '/categoryTestResults', exact: true, component: categoryTestResults },
     { path: '/*-tpcp', exact: true, component: categoryTestResults },
-    { path: '/hospitals/inventory', exact: true, component: HospitalList, RENDER_ON_SERVER: true }
+    { path: '/hospitals/inventory', exact: true, component: HospitalList, RENDER_ON_SERVER: true },
+    { path: '/lensfit', exact:true, component:LensFit,RENDER_ON_SERVER:true }
 
 ]
 
