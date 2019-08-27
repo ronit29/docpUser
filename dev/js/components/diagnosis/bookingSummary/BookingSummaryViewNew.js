@@ -609,6 +609,13 @@ class BookingSummaryViewNew extends React.Component {
             prescription_list: prescriptionIds,
             multi_timings_enabled: true
         }
+        if(this.props.selectedSlot){
+            if(this.props.selectedSlot['all']) {
+                postData['selectedType'] = 'all'
+            }else{
+                postData['selectedType'] = 'seperately'
+            }
+        }
         if(this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot){
             let tests = []
 
@@ -1542,7 +1549,7 @@ class BookingSummaryViewNew extends React.Component {
                                 {
                                     STORAGE.isAgent() || (!is_corporate && !is_default_user_insured) ?
                                         <button className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn")} data-disabled={
-                                            !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
+                                            !(patient && this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot) || this.state.loading
                                         } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, true, total_price, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status)}>
                                             {
                                                 this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
@@ -1554,7 +1561,7 @@ class BookingSummaryViewNew extends React.Component {
 
                                 {
                                     STORAGE.isAgent() || this.state.cart_item ? "" : <button className="v-btn-primary book-btn-mrgn-adjust pdd-12" id="confirm_booking" data-disabled={
-                                        !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
+                                        !(patient && this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot) || this.state.loading
                                     } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, false, total_price, total_wallet_balance, prescriptionPicked, is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
                                 }
                             </div>

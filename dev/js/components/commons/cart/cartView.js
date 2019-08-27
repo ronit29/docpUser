@@ -338,7 +338,7 @@ class CartView extends React.Component {
                                                                             total_coupon_discount ? <div>
                                                                                 {
                                                                                     Object.keys(coupon_breakup).map((cp, j) => {
-                                                                                        return <div className="payment-detail d-flex">
+                                                                                        return <div className="payment-detail d-flex" key={j}>
                                                                                             <p style={{ color: 'green' }}>Coupon Discount ({cp})</p>
                                                                                             <p style={{ color: 'green' }}>-&#8377; {coupon_breakup[cp]}</p>
                                                                                         </div>
@@ -362,7 +362,7 @@ class CartView extends React.Component {
                                                                     total_coupon_cashback ? <div className="csh-back-applied-container">
                                                                         {
                                                                             Object.keys(cashback_breakup).map((key, i) => {
-                                                                                return <p className="csh-mny-applied">+ &#8377; {cashback_breakup[key]} Cashback Applied ({key})</p>
+                                                                                return <p key={i} className="csh-mny-applied">+ &#8377; {cashback_breakup[key]} Cashback Applied ({key})</p>
                                                                             })
                                                                         }
                                                                         <p className="csh-mny-applied-content">Cashback will be added to your docprime wallet balance on appointment completion</p>

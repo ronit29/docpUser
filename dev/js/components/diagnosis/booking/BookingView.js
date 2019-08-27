@@ -42,10 +42,20 @@ class BookingView extends React.Component {
 
         let appointmentId = this.props.match.params.refId
 
-        if (this.props.rescheduleSlot && this.props.rescheduleSlot.date) {
-            let start_date = this.props.rescheduleSlot.date
-            let start_time = this.props.rescheduleSlot.time.value
-            let appointmentData = { id: this.props.match.params.refId, start_date, start_time, status: 4 }
+        if (this.props.rescheduleSlot && this.props.rescheduleSlot.selectedTestsTimeSlot) {
+            let tests = []
+            Object.values(this.props.rescheduleSlot.selectedTestsTimeSlot).map((twp)=>{
+
+                    let type = 3
+                    if(twp.type=="radiology"){
+                        type = 1
+                    }else if(twp.type == "pathology"){
+                        type = 2
+                    }
+
+                    tests.push({test: twp.test_id,type:type, start_date: twp.date, start_time: twp.time.value, is_home_pickup: twp.is_home_pickup })
+            })
+            let appointmentData = { id: this.props.match.params.refId, status: 4, multi_timings_enabled: true,test_timings :tests }
 
             this.props.updateLabAppointment(appointmentData, (err, data) => {
                 if (data) {
@@ -159,10 +169,19 @@ class BookingView extends React.Component {
     goToSlotSelector(e) {
         e.preventDefault()
         e.stopPropagation()
+        let test_ids = []
+        let p_pickup = 'home'
+        let r_pickup = 'lab'
+        if(this.state.data.lab_test){
+            this.state.data.lab_test.map((test)=>{
+                test_ids.push(test.test_id)
+            })
+        }
+        this.props.selectLabTimeSLot({ time: {} }, true)
         if (this.state.data.lab && this.state.data.lab.is_thyrocare) {
-            this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true?type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=true`)
+            this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true&type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=true&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}&selectedType=${false?'seperately':'all'}`)
         } else {
-            this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true?type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=false`)
+            this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true&type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=false&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}&selectedType=${false?'seperately':'all'}`)
         }
 
     }
