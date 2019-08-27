@@ -1033,7 +1033,7 @@ class BookingSummaryViewNew extends React.Component {
                         p_pickup_home = false
                     }
                     pathology_tests.push(
-                    <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
+                    <p key={i} className="test-list test-list-label rdo-rmv-btn new-lab-test-list">
                         {/*
                         is_corporate || is_insurance_applicable || is_plan_applicable ?
                         <span className="float-right fw-700">₹ 0 </span>
@@ -1056,7 +1056,7 @@ class BookingSummaryViewNew extends React.Component {
                                 <p className="pkg-discountCpn" style={{ display: 'inline-block', float: 'right', marginTop: '5px' }}>Docprime Care Benefit</p>
                                 : ''
                         }
-                        <span onClick={()=>this.removeTest(twp)}>Remove</span>
+                        <span className="rdo-rmv-spn" onClick={()=>this.removeTest(twp)}>Remove</span>
                     </p>)
                 }
 
@@ -1293,7 +1293,7 @@ class BookingSummaryViewNew extends React.Component {
 
                                                                 {//Pathology Tests}
                                                                 }
-                                                                <p>Pathology Tests</p>
+                                                                <p className="rdo-pth-tst">Pathology Tests</p>
                                                                 {pathology_tests}
                                                                 <div>
                                                                     <div className="">

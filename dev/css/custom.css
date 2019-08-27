@@ -3213,7 +3213,7 @@ div.search-el-popup.non-book-pop{
 /* ============ appointment card ============ */
 /* ============ radiology-timeslot ============ */
 .top-sticky-radio-btn {
-    margin: 0 -15px;
+    margin: 0;
     padding: 10px 15px;
     background: white;
     box-shadow: 0 1px 1px #dedede;
@@ -3251,6 +3251,45 @@ div.search-el-popup.non-book-pop{
 .time-slot-wrng-cont span {
     color: #f78631;
     display: inline-block;
+}
+.rdo-rmv-spn{
+    padding-left: 8px;
+	color: #ed1515;
+	cursor: pointer;
+}
+.rdo-rmv-btn{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+.rdo-pth-tst{
+	font-weight: 500;
+    margin-bottom: 5px;
+}
+.new-time-slot-outer{
+	top: 94px;
+	z-index: 11;
+	position: sticky;
+}
+.vst-time-cont{
+	margin-bottom: 15px;
+}
+.vst-content-bl{
+display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.vst-tst-name{
+	font-weight: 500;
+}
+.rdo-time-vst{
+	font-weight: 600;
+}
+@media(max-width: 993px){
+	.new-time-slot-outer{
+		top: 44px;
+	}
 }
 /* ============ radiology-timeslot ============ */
 
