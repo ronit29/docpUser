@@ -22,6 +22,7 @@ import PincodeErrorPopup from './PincodeErrorPopup.js'
 import BookingConfirmationPopup from './BookingConfirmationPopup.js'
 import UploadPrescription from './uploadPrescription.js'
 import PaymentForm from '../../commons/paymentForm'
+import LensfitPopup from './lensfitPopup.js'
 
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
@@ -565,7 +566,7 @@ class BookingSummaryViewNew extends React.Component {
             profileData['whatsapp_optin'] = this.state.whatsapp_optin
             this.props.editUserProfile(profileData, profileData.id)
         }
-        if (this.props.disCountedLabPrice && !is_plan_applicable && !is_insurance_applicable) {
+        if (this.props.disCountedLabPrice >= 0 && !is_plan_applicable && !is_insurance_applicable) {
             postData['coupon_code'] = this.state.couponCode ? [this.state.couponCode] : []
         }
 
@@ -848,6 +849,7 @@ class BookingSummaryViewNew extends React.Component {
         let is_selected_user_has_active_plan = false
         let is_insurance_buy_able = false
         let is_selected_user_insurance_status 
+        let show_lensfit = true
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
@@ -874,18 +876,22 @@ class BookingSummaryViewNew extends React.Component {
             is_tests_covered_under_insurance = true
 
             this.props.LABS[this.props.selectedLab].tests.map((test, i) => {
-
                 if (test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount >= parseInt(test.deal_price)) {
 
                 } else {
                     is_tests_covered_under_insurance = false
-
                 }
 
                 if (test.included_in_user_plan) {
 
                 } else {
                     is_tests_covered_under_plan = false
+                }
+
+                if(test.is_lensfit_offer_applicable){
+
+                }else{
+                   show_lensfit = false
                 }
             })
 
@@ -1014,6 +1020,11 @@ class BookingSummaryViewNew extends React.Component {
                     this.state.showConfirmationPopup && is_selected_user_insurance_status != 4 ?
                         <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} />
                         : ''
+                }
+                {
+                    show_lensfit && !is_plan_applicable && !is_insurance_applicable?
+                        <LensfitPopup {...this.props}/>
+                    :''
                 }
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
