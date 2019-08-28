@@ -1024,6 +1024,7 @@ class PatientDetailsNew extends React.Component {
         let upcoming_date = this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length ? Object.keys(this.props.upcoming_slots)[0] : ''
         let dateAfter24Days = new Date().setDate(new Date().getDate() + 23)
         let showPopup = parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE  && !this.props.is_ipd_form_submitted
+        let is_time_selected = (this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length) || (this.props.selectedSlot && this.props.selectedSlot.date) || (this.props.selectedDateFormat)
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader bookingPage={true} />
@@ -1077,7 +1078,7 @@ class PatientDetailsNew extends React.Component {
                                                                         </div>
                                                                         <p className="ldng-text"></p>
                                                                     </div>
-                                                                    : ((this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length) || (this.props.selectedSlot && this.props.selectedSlot.date) || (this.props.selectedDateFormat)) ?
+                                                                    : is_time_selected || this.props.is_integrated?
                                                                         <div className="widget-content pos-relative">
                                                                             <div className="lab-visit-time d-flex jc-spaceb mb-0">
                                                                                 <h4 className="title mb-0">
@@ -1085,28 +1086,40 @@ class PatientDetailsNew extends React.Component {
                                                                                         <img className="visit-time-icon" src={ASSETS_BASE_URL + '/img/watch-date.svg'} />
                                                                                     </span>
                                                                                     Select Visit Time
-                                                                    </h4>
+                                                                                </h4>
+                                                                                {
+                                                                                    !is_time_selected && this.props.is_integrated && <a href="" onClick={(e) => {
+                                                                                            e.preventDefault()
+                                                                                            e.stopPropagation()
+                                                                                            this.navigateTo('time')
+                                                                                        }} className="text-primary fw-700 text-sm">Select Time</a>
+                                                                                }
                                                                             </div>
                                                                             <p className="apnt-doc-dtl">The appointment is subject to confirmation from the Doctor. </p>
-                                                                            <div className="date-slecet-cont">
-                                                                                <div className="nw-inpt-selctr">
-                                                                                    <span className="nw-pick-hdng">Date:</span>
-                                                                                    <div className="caln-input-tp">
-                                                                                        <img className="inp-nw-cal" src={ASSETS_BASE_URL + '/img/calnext.svg'} />
-                                                                                        <input type="date" name="date" onChange={this.selectDate.bind(this)} value={this.state.dateTimeSelectedValue ? this.state.dateTimeSelectedValue : upcoming_date} min={this.getFormattedDate(new Date())} max={this.getFormattedDate(new Date(dateAfter24Days))} />
+                                                                            {
+                                                                                is_time_selected && 
+                                                                                <React.Fragment>
+                                                                                    <div className="date-slecet-cont">
+                                                                                        <div className="nw-inpt-selctr">
+                                                                                            <span className="nw-pick-hdng">Date:</span>
+                                                                                            <div className="caln-input-tp">
+                                                                                                <img className="inp-nw-cal" src={ASSETS_BASE_URL + '/img/calnext.svg'} />
+                                                                                                <input type="date" name="date" onChange={this.selectDate.bind(this)} value={this.state.dateTimeSelectedValue ? this.state.dateTimeSelectedValue : upcoming_date} min={this.getFormattedDate(new Date())} max={this.getFormattedDate(new Date(dateAfter24Days))} />
+                                                                                            </div>
+                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div className="date-slecet-cont">
-                                                                                <div className="nw-inpt-selctr">
-                                                                                    <span className="nw-pick-hdng">Time:</span>
-                                                                                    <div className="caln-input-tp" onClick={() => this.navigateTo('time')}>
-                                                                                        <img className="inp-nw-time" src={ASSETS_BASE_URL + '/img/nw-watch.svg'} />
-                                                                                        <input type="text" disabled={true} name="bday" placeholder="Select" value={time && time.text?`${time.text} ${time.value >= 12 ? 'PM' : 'AM'}` : ''} />
-                                                                                        <img className="tm-arw-sgn" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
+                                                                                    <div className="date-slecet-cont">
+                                                                                        <div className="nw-inpt-selctr">
+                                                                                            <span className="nw-pick-hdng">Time:</span>
+                                                                                            <div className="caln-input-tp" onClick={() => this.navigateTo('time')}>
+                                                                                                <img className="inp-nw-time" src={ASSETS_BASE_URL + '/img/nw-watch.svg'} />
+                                                                                                <input type="text" disabled={true} name="bday" placeholder="Select" value={time && time.text?`${time.text} ${time.value >= 12 ? 'PM' : 'AM'}` : ''} />
+                                                                                                <img className="tm-arw-sgn" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
+                                                                                            </div>
+                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
-                                                                            </div>
+                                                                                </React.Fragment>
+                                                                            }
                                                                             {
                                                                                 this.state.timeErrorText?
                                                                                 <p className="apnt-doc-dtl slc-date-error">{this.state.timeErrorText}</p>

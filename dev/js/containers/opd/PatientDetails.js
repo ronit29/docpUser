@@ -14,7 +14,8 @@ class PatientDetails extends React.Component {
             timeSlots: null,
             doctor_leaves: [],
             DATA_FETCH: false,
-            upcoming_slots: null
+            upcoming_slots: null,
+            is_integrated: false
         }
     }
 
@@ -72,7 +73,7 @@ class PatientDetails extends React.Component {
                 selectedDate: selectedDate
             }
             props.getTimeSlots(doctor_id, hospital_id, extraParams, (timeSlots) => {
-                    this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, DATA_FETCH: true, upcoming_slots: timeSlots.upcoming_slots })
+                    this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, DATA_FETCH: true, upcoming_slots: timeSlots.upcoming_slots, is_integrated: timeSlots.is_integrated||false })
                 })
         }
     }
