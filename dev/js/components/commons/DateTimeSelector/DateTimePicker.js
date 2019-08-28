@@ -97,7 +97,14 @@ class DateTimePicker extends React.Component {
     }
 
     selectDate(dateFormat) {
+        let formattedDate = this.getFormattedDate(dateFormat)
     	if(new Date(this.state.selectedDateSpan).toDateString() != new Date(dateFormat).toDateString()){
+            if(this.props.timeSlots && this.props.timeSlots[formattedDate]){
+
+            } else{
+                this.props.getOpdTimeSlot(formattedDate)
+
+            }
     		this.setState({ selectedDateSpan: dateFormat, currentTimeSlot: {} })
         	this.props.enableProceed(false, [])	
     	}

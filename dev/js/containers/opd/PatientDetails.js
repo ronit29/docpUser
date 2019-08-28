@@ -62,7 +62,16 @@ class PatientDetails extends React.Component {
                     this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, DATA_FETCH: true, upcoming_slots: timeSlots.upcoming_slots })
                 })
             }*/
-            props.getTimeSlots(doctor_id, hospital_id, (timeSlots) => {
+            let selectedDate = new Date()
+            if(this.props.selectedDateFormat) {
+               selectedDate = this.props.selectedDateFormat
+            }else{
+                selectedDate = this.getFormattedDate(selectedDate)
+            }
+            let extraParams = {
+                selectedDate: selectedDate
+            }
+            props.getTimeSlots(doctor_id, hospital_id, extraParams, (timeSlots) => {
                     this.setState({ timeSlots: timeSlots.timeslots, doctor_leaves: timeSlots.doctor_leaves, DATA_FETCH: true, upcoming_slots: timeSlots.upcoming_slots })
                 })
         }
@@ -76,6 +85,25 @@ class PatientDetails extends React.Component {
 
     componentDidMount() {
         this.fetchData(this.props,null,true)
+    }
+
+    getFormattedDate(date){
+        var dd = date.getDate();
+
+        var mm = date.getMonth()+1; 
+        var yyyy = date.getFullYear();
+        if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        }
+
+        var today = yyyy+'-'+mm+'-'+dd
+        return today
     }
 
     render() {
@@ -123,7 +151,7 @@ const mapDispatchToProps = (dispatch) => {
         addToCart: (product_id, data) => dispatch(addToCart(product_id, data)),
         getCartItems: () => dispatch(getCartItems()),
         select_opd_payment_type: (type) => dispatch(select_opd_payment_type(type)),
-        getTimeSlots: (doctorId, clinicId, callback) => dispatch(getTimeSlots(doctorId, clinicId, callback)),
+        getTimeSlots: (doctorId, clinicId, extraParams,  callback) => dispatch(getTimeSlots(doctorId, clinicId, extraParams, callback)),
         editUserProfile: (profileData, profileId, cb) => dispatch(editUserProfile(profileData, profileId, cb)),
         patientDetails: (criteria) => dispatch(patientDetails(criteria)),
         ipdChatView: (data) => dispatch(ipdChatView(data)),
