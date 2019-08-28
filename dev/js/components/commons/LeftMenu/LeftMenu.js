@@ -49,6 +49,10 @@ class LeftMenu extends React.Component {
     }
 }
 
+hidePopup() {
+  this.setState({ showPopup: false })
+}
+
   render() {
     let user = null
     let thumbnail = null
@@ -74,7 +78,7 @@ class LeftMenu extends React.Component {
         <div className="row">
         {
           this.state.showPopup?
-          <BookingConfirmationPopup continueClick={() => this.continueClick()} articlePage={true}/>:''
+          <BookingConfirmationPopup continueClick={() => this.continueClick()} iFramePopup={true} hidePopup={() => this.hidePopup()}/>:''
         }
         {
           this.state.showIframe ?

@@ -273,6 +273,10 @@ class Article extends React.Component {
         }
     }
 
+    hidePopup() {
+        this.setState({ showPopup: false })
+    }
+
     render() {
 
         let isUserLogin = Object.values(this.props.profiles).length || STORAGE.checkAuth()
@@ -294,7 +298,7 @@ class Article extends React.Component {
                             <section className="container article-container">
                                 {
                                     this.state.showPopup ?
-                                        <BookingConfirmationPopup continueClick={() => this.continueClick()} articlePage={true} /> : ''
+                                        <BookingConfirmationPopup continueClick={() => this.continueClick()} iFramePopup={true} hidePopup={() => this.hidePopup()} /> : ''
                                 }
                                 <div className="row main-row parent-section-row">
                                     <LeftBar />

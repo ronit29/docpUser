@@ -15,8 +15,11 @@ class BookingConfirmationPopup extends React.Component {
 					<div className="widget">
 						<div className="widget-content padiing-srch-el">
 							{
-								this.props.articlePage ?
+								this.props.iFramePopup ?
 									<React.Fragment>
+										<div className="close-popup-btn" onClick={() => this.props.hidePopup()}>
+											<img src={ASSETS_BASE_URL + "/img/icons/close.png"} className="img-fluid" />
+										</div>
 										<p className="srch-el-conent fw-700">Information</p>
 										<p className="mrt-20 text-center fw-500">By continuing, you will exit Docprime and enter Pharmeasy website.</p>
 										<div className="search-el-btn-container" style={{ paddingBottom: 0 }}>

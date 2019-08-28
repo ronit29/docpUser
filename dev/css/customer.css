@@ -2281,3 +2281,12 @@ p.rt-doc-nm{
     height: calc(100vh - 44px);
     margin-top: 44px;
 }
+
+.close-popup-btn{
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}

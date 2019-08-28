@@ -3824,7 +3824,8 @@ padding-top: 0px !important;
 	border:none;
 }
 .widget-content.padiing-srch-el{
-	padding:15px 0px 10px 0px;
+    padding:15px 0px 10px 0px;
+    position: relative;
 }
 .src-el-btn-border{
 	width: 1px;
