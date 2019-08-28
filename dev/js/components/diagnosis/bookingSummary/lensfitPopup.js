@@ -26,13 +26,14 @@ class BookingConfirmationPopup extends React.Component {
 							<p className="lns-know">Know more</p>
 						</div>
 						<div className="lnsfit-btn-container">
-							<button>I Don’t want</button>
-							<button>Apply Lensfit</button>
+							<button onClick={this.props.closeLensFitPopup.bind(this)}>I Don’t want</button>
+							<button onClick={this.props.applyLensFitCoupons.bind(this,this.props.lensfit_coupons)}>Apply Lensfit</button>
 						</div>
 					</div>
 
 				</div>
 			</div>)
+	
 	}
 }
 

@@ -59,7 +59,8 @@ class BookingSummaryViewNew extends React.Component {
             isEmailNotValid:false,
             is_payment_coupon_applied: false,
             pay_btn_loading: true,
-            isDobNotValid:false
+            isDobNotValid:false,
+            show_lensfit_popup:true
         }
     }
 
@@ -174,7 +175,7 @@ class BookingSummaryViewNew extends React.Component {
                             }
                         } else {
                             this.setState({ coupon_loading: true })
-                            this.getAndApplyBestCoupons(nextProps)
+                            this.getAndApplyBestCoupons(nextProps,false)
                         }
                         this.setState({'pay_btn_loading': false})
                     })
@@ -184,7 +185,7 @@ class BookingSummaryViewNew extends React.Component {
 
             // if no coupon is applied
             if (!nextProps.labCoupons[this.props.selectedLab]) {
-                this.getAndApplyBestCoupons(nextProps)
+                this.getAndApplyBestCoupons(nextProps,false)
                 this.setState({'pay_btn_loading': false})
             }
 
@@ -206,15 +207,24 @@ class BookingSummaryViewNew extends React.Component {
         return validCoupon
     }
 
-    getAndApplyBestCoupons(nextProps) {
+    getAndApplyBestCoupons(nextProps,isLensfit) {
+        
         // if (nextProps.couponAutoApply) {
             let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
-
+            let validCoupon
             this.props.getCoupons({
                 productId: 2, deal_price: finalPrice, lab_id: this.props.selectedLab, test_ids: test_ids, profile_id: nextProps.selectedProfile, cart_item: this.state.cart_item,
                 cb: (coupons) => {
                     if (coupons) {
-                        let validCoupon = this.getValidCoupon(coupons)
+                        if(isLensfit){
+                            let lensFitProps = {...nextProps}
+                            delete lensFitProps.finalPrice
+                            delete lensFitProps.test_ids
+                            delete lensFitProps.LABS
+                            validCoupon= lensFitProps
+                        }else{
+                            validCoupon= this.getValidCoupon(coupons)
+                        }
                         if (validCoupon) {
                             this.setState({'pay_btn_loading': true})
                             this.props.applyCoupons('2', validCoupon, validCoupon.coupon_id, this.props.selectedLab, (success) => {
@@ -223,15 +233,24 @@ class BookingSummaryViewNew extends React.Component {
                             this.props.applyLabCoupons('2', validCoupon.code, validCoupon.coupon_id, this.props.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item, (err, data) => {
                                 this.setState({'pay_btn_loading': false})
                             })
+                            if(isLensfit){
+                                this.setState({show_lensfit_popup:false})
+                            }
                             this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '' })
                             if (validCoupon.is_payment_specific) {
                                 this.setState({use_wallet: false, is_payment_coupon_applied: true})
                             }
                         } else {
+                            if(isLensfit){
+                                this.setState({show_lensfit_popup:false})
+                            }
                             this.props.resetLabCoupons()
                             this.setState({ couponCode: "", couponId: '', is_cashback: false, use_wallet: true, is_payment_coupon_applied: false,'pay_btn_loading': false })
                         }
                     } else {
+                        if(isLensfit){
+                            this.setState({show_lensfit_popup:false})
+                        }
                         this.props.resetLabCoupons()
                         this.setState({ couponCode: "", couponId: '', is_cashback: false, use_wallet: true, is_payment_coupon_applied: false,'pay_btn_loading': false })
                     }
@@ -825,6 +844,18 @@ class BookingSummaryViewNew extends React.Component {
         GTM.sendEvent({ data: data })
     }
 
+    applyLensFitCoupons(coupon){
+        let { finalPrice, test_ids } = this.getLabPriceData(this.props)
+        coupon.finalPrice = finalPrice
+        coupon.test_ids = test_ids
+        coupon.LABS = this.props.LABS
+        this.getAndApplyBestCoupons(coupon,true)
+    }
+
+    closeLensFitPopup(){
+        this.setState({show_lensfit_popup:false})
+    }
+    
     render() {
         let tests = []
         let tests_with_price = []
@@ -849,7 +880,8 @@ class BookingSummaryViewNew extends React.Component {
         let is_selected_user_has_active_plan = false
         let is_insurance_buy_able = false
         let is_selected_user_insurance_status 
-        let show_lensfit = true
+        let show_lensfit = false
+        let lensfit_coupons = null 
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
@@ -888,10 +920,10 @@ class BookingSummaryViewNew extends React.Component {
                     is_tests_covered_under_plan = false
                 }
 
-                if(test.is_lensfit_offer_applicable){
-
+                if(test.lensfit_offer && Object.keys(test.lensfit_offer).length > 0){
+                    show_lensfit = test.lensfit_offer.applicable
+                    lensfit_coupons = test.lensfit_offer.coupon
                 }else{
-                   show_lensfit = false
                 }
             })
 
@@ -1022,8 +1054,8 @@ class BookingSummaryViewNew extends React.Component {
                         : ''
                 }
                 {
-                    show_lensfit && !is_plan_applicable && !is_insurance_applicable?
-                        <LensfitPopup {...this.props}/>
+                    this.state.show_lensfit_popup && show_lensfit && !is_plan_applicable && !is_insurance_applicable?
+                        <LensfitPopup {...this.props} lensfit_coupons ={lensfit_coupons} applyLensFitCoupons = {this.applyLensFitCoupons.bind(this)} closeLensFitPopup={this.closeLensFitPopup.bind(this)}/>
                     :''
                 }
                 <section className="container container-top-margin">
