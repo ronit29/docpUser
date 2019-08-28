@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchArticle, getSpecialityFooterData, postComment, getOfferList, toggleOPDCriteria, toggleDiagnosisCriteria, cloneCommonSelectedCriterias, selectSearchType, mergeLABState, mergeOPDState ,setPackageId} from '../../actions/index.js'
+import { fetchArticle, getSpecialityFooterData, postComment, getOfferList, toggleOPDCriteria, toggleDiagnosisCriteria, cloneCommonSelectedCriterias, selectSearchType, mergeLABState, mergeOPDState ,setPackageId, submitMedicineLead,citiesData} from '../../actions/index.js'
 
 import ArticleView from '../../components/commons/article'
 
@@ -32,7 +32,9 @@ class Article extends React.Component {
     }
 
     componentDidMount() {
-
+        if(this.props.user_cities && this.props.user_cities.length == 0){
+            this.props.citiesData()
+        }
     }
 
     static contextTypes = {
@@ -113,7 +115,9 @@ const mapDispatchToProps = (dispatch) => {
         selectSearchType: (type) => dispatch(selectSearchType(type)),
         mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
         mergeOPDState: (state, fetchNewResults) => dispatch(mergeOPDState(state, fetchNewResults)),
-        setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage))
+        setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage)),
+        submitMedicineLead: (data,callback) => dispatch(submitMedicineLead(data,callback)),
+        citiesData: () => dispatch(citiesData())
     }
 }
 

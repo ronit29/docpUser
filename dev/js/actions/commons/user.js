@@ -722,9 +722,11 @@ export const ipdPopupFired = () => (dispatch) => {
 	})
 }
 
-export const citiesData = (data) => (dispatch) => {
-	dispatch({
-		type: USER_CITIES,
-		payload:data
-	})
+export const citiesData = () => (dispatch) => {
+    return API_GET('/api/v1/diagnostic/allmatrixcities').then(function (response) {
+        dispatch({
+            type: USER_CITIES,
+            payload:response
+        })
+    })
 }
