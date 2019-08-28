@@ -189,7 +189,9 @@ class PrimeCareView extends React.Component {
                                                                             <img className="care-prd-icon" src={value.icon} />
                                                                         </div>
                                                                         <div className="col-8">
-                                                                            <p className="care-price-cd">₹ { parseInt(value.deal_price)}/Yr<span>₹ {parseInt(value.mrp)}/Yr</span></p>
+                                                                            <p className="care-price-cd">₹ { parseInt(value.deal_price)}/Yr
+                                                                                {/*<span>₹ {parseInt(value.mrp)}/Yr</span>*/}
+                                                                            </p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
