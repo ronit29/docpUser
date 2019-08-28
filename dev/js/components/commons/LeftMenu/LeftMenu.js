@@ -78,7 +78,7 @@ class LeftMenu extends React.Component {
         }
         {
           this.state.showIframe ?
-            <iframe src={this.state.clickedOn==='newOrder'?`https://pharmeasy.in/healthcare?utm_source=aff-docprime&utm_medium=cps&utm_campaign=leftmenu`:`https://pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders`} className="pharmeasy-iframe"></iframe>:''
+            <iframe src={this.state.clickedOn==='newOrder'?`https://beta.pharmeasy.in/healthcare?utm_source=aff-docprime&utm_medium=cps&utm_campaign=leftmenu`:`https://beta.pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders`} className="pharmeasy-iframe"></iframe>:''
         }
           <div className={`col-xs-12 col-d-width ${this.props.toggleHamburger ? 'col-d-width-ease' : ''}`}>
           <div className="left-menu">
