@@ -191,6 +191,10 @@ class FooterWidgetView extends React.Component {
 				})
 			}
 		}else{
+			let data = {
+			'Category': 'ConsumerApp', 'Action': 'SkipMedLeadClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'skip-med-lead-click', 'from': 'footerWidget'
+			}
+			GTM.sendEvent({ data: data })
 			if(this.state.leadType == 1){
 				this.selectDoctorSpecialization(this.state.clickedData)
 			}else if(this.state.leadType == 2){
