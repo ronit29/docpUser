@@ -2328,3 +2328,9 @@ ul.order-med-list a:hover {
 	background: #e0e0e0;
 	font-weight: 400;
 }
+
+.buy-med-tagline{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
