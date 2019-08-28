@@ -172,16 +172,18 @@ class BookingView extends React.Component {
         let test_ids = []
         let p_pickup = 'home'
         let r_pickup = 'lab'
+        //if(this.state.selected_timings_type){}
         if(this.state.data.lab_test){
             this.state.data.lab_test.map((test)=>{
                 test_ids.push(test.test_id)
             })
         }
         this.props.selectLabTimeSLot({ time: {} }, true)
+        let selected_timings_type = this.state.data && this.state.data.selected_timings_type=='separate'?'seperately':'all'
         if (this.state.data.lab && this.state.data.lab.is_thyrocare) {
-            this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true&type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=true&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}&selectedType=${false?'seperately':'all'}`)
+            this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true&type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=true&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}&selectedType=${selected_timings_type}`)
         } else {
-            this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true&type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=false&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}&selectedType=${false?'seperately':'all'}`)
+            this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true&type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=false&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}&selectedType=${selected_timings_type}`)
         }
 
     }
@@ -384,12 +386,21 @@ class BookingView extends React.Component {
                                                                 <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/clock.svg"} className="visit-time-icon" /></span>Visit Time
 
                                                                     {
-                                                                        (!is_thyrocare) && (actions.indexOf(4) > -1) && (new Date(date).getTime() > new Date().getTime()) ?
+                                                                        (!is_thyrocare) && (actions.indexOf(4) > -1)/* && (new Date(date).getTime() > new Date().getTime()) */?
                                                                             <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""
                                                                     }
 
                                                                 </h4>
-                                                                <p className="date-time test-list fw-500">{date.toDateString()} | {date.toLocaleTimeString()}</p>
+                                                                {/*<p className="date-time test-list fw-500">{date.toDateString()} | {date.toLocaleTimeString()}</p>
+                                                                */}
+                                                                {
+                                                                    this.state.data.lab_test && this.state.data.lab_test.map((test, key)=>
+                                                                        <div className="vst-content-bl" key={key}>
+                                                                            <p className="vst-tst-name">{test.test.name}</p>
+                                                                            <p className="rdo-time-vst">{new Date(test.time_slot_start).toDateString()} | {new Date(test.time_slot_start).toLocaleTimeString()}</p>
+                                                                        </div>
+                                                                    )
+                                                                }
                                                             </div>
                                                         </div>
                                                     </div>

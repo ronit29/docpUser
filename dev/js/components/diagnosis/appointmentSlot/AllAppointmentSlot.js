@@ -259,16 +259,17 @@ class AppointmentSlot extends React.Component {
     }
 
     render() {
+        const parsed = queryString.parse(this.props.location.search)
         let timeSlots = null
         let selectedSlot = null
         let type = ''
         let radiologyTimeSlot = null
         if(this.state.timeSlotsData) {
-            if(this.state.selectedAppointmentType=='all' && this.state.timeSlotsData.all) {
+            if(this.state.selectedAppointmentType=='all' && this.state.timeSlotsData.all && this.state.timeSlotsData.all.tests && this.state.timeSlotsData.all.tests.length) {
                 timeSlots = this.state.timeSlotsData.all
                 type = 'all'
                 selectedSlot = this.state.selectedTimeSlot && this.state.selectedTimeSlot['all']?this.state.selectedTimeSlot['all']:null
-            }else if(this.state.selectedAppointmentType=='seperately' && this.state.timeSlotsData.pathology) {
+            }else if(this.state.selectedAppointmentType=='seperately' && this.state.timeSlotsData.pathology && this.state.timeSlotsData.pathology.tests && this.state.timeSlotsData.pathology.tests.length) {
                 timeSlots = this.state.timeSlotsData.pathology
                 type='pathology'
                 selectedSlot = this.state.selectedTimeSlot && this.state.selectedTimeSlot['pathology']?this.state.selectedTimeSlot['pathology']:null
@@ -278,6 +279,7 @@ class AppointmentSlot extends React.Component {
         if(this.state.selectedTimeSlot && this.state.selectedTimeSlot['radiology']){
             radiologyTimeSlot = this.state.selectedTimeSlot['radiology']
         }
+        let test_count = parsed.test_ids?parsed.test_ids.split(',').length:0
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -304,22 +306,26 @@ class AppointmentSlot extends React.Component {
                                 </div>
                             </header> */}
                             <div className="new-time-slot-outer">
-                                <div className="top-sticky-radio-btn">
-                                    <div className="ins-form-radio">
-                                        <div className="dtl-radio">
-                                            <label className="container-radio">Book all tests together
-                                                <input type="radio" onChange={()=>this.handleToggleType('all')} checked={this.state.selectedAppointmentType == 'all'} name="type" value='m' />
-                                                <span className="doc-checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <div className="dtl-radio">
-                                            <label className="container-radio">Book separately
-                                                <input type="radio" onChange={()=>this.handleToggleType('seperately')} checked={this.state.selectedAppointmentType == 'seperately'} name="type" value='f' />
-                                                <span className="doc-checkmark"></span>
-                                            </label>
+                                {
+                                    test_count>1 &&
+                                    <div className="top-sticky-radio-btn">
+                                        <div className="ins-form-radio">
+                                            <div className="dtl-radio">
+                                                <label className="container-radio">Book all tests together
+                                                    <input type="radio" onChange={()=>this.handleToggleType('all')} checked={this.state.selectedAppointmentType == 'all'} name="type" value='m' />
+                                                    <span className="doc-checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div className="dtl-radio">
+                                                <label className="container-radio">Book separately
+                                                    <input type="radio" onChange={()=>this.handleToggleType('seperately')} checked={this.state.selectedAppointmentType == 'seperately'} name="type" value='f' />
+                                                    <span className="doc-checkmark"></span>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+
+                                }
                                 {/*
                                     type=='all'?
 
@@ -355,6 +361,7 @@ class AppointmentSlot extends React.Component {
                                                                 nameHeading={timeSlots.tests.map(x=>x.name).join(',')}
                                                                 toggle = {this.handleToggleType.bind(this)}
                                                                 test_id= {timeSlots.tests && timeSlots.tests.length?timeSlots.tests[0].id:''}
+                                                                test_count={test_count}
                                                             />
                                                         : ''
                                                     }
@@ -375,6 +382,7 @@ class AppointmentSlot extends React.Component {
                                                                 nameHeading={timeSlots.tests.map(x=>x.name).join(',')}
                                                                 toggle = {this.handleToggleType.bind(this)}
                                                                 test_id= {timeSlots.tests && timeSlots.tests.length?timeSlots.tests[0].id:''}
+                                                                test_count={test_count}
                                                             />
                                                         : ''
                                                     }
@@ -399,6 +407,7 @@ class AppointmentSlot extends React.Component {
                                                                         test_id ={tests.tests_id}
                                                                         nameHeading={tests.name}
                                                                         toggle = {this.handleToggleType.bind(this)}
+                                                                        test_count={test_count}
                                                                     />
                                                         }):''
                                                     }

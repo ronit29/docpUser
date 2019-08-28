@@ -90,6 +90,13 @@ class VisitTimeNew extends React.Component {
                         }} className="text-primary fw-700 text-sm">{time.text ? "Change" : "Select"} Time</a>
                         
                         </div>*/}
+                        {
+                            !(this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot && this.props.LABS[this.props.selectedLab]) && <a href="" onClick={(e) => {
+                                e.preventDefault()
+                                e.stopPropagation()
+                                this.props.navigateTo('time', this.props.is_insurance_applicable)
+                            }} className="text-primary fw-700 text-sm">Select Time</a>
+                        }
                     </div>
                     {
                         this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot && this.props.LABS[this.props.selectedLab] ?
@@ -118,14 +125,10 @@ class VisitTimeNew extends React.Component {
                                     e.preventDefault()
                                     e.stopPropagation()
                                     this.props.navigateTo('time', this.props.is_insurance_applicable)
-                                }} className="text-primary text-primary d-block fw-700 text-sm text-right fw-700 text-sm">Select Time</a>
+                                }} className="text-primary text-primary d-block fw-700 text-sm text-right fw-700 text-sm">Change Time</a>
 
                             </div>
-                            : <a href="" onClick={(e) => {
-                                e.preventDefault()
-                                e.stopPropagation()
-                                this.props.navigateTo('time', this.props.is_insurance_applicable)
-                            }} className="text-primary fw-700 text-sm">Select Time</a>
+                            : ''
                     }
                     <p className="appmnt-avl">The appointment is subject to confirmation from the Lab. </p>
                 </div>

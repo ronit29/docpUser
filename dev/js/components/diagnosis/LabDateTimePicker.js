@@ -228,7 +228,7 @@ class DateTimePicker extends React.Component {
 		return(
             <React.Fragment>
             {
-                this.props.type=='all'?
+                this.props.type=='all' && this.props.test_count>1?
                     this.state.daySeries.length && this.props.timeSlots && this.props.timeSlots[selectedFormattedDate] && this.props.timeSlots[selectedFormattedDate].length?
                     <div className="time-slot-wrng-cont">
                         <img src={ASSETS_BASE_URL + "/img/tm-wrng.png"} />
