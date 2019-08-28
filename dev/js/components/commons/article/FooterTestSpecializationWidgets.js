@@ -230,11 +230,13 @@ class FooterWidgetView extends React.Component {
     }
 
     onFocusIn(){
-    	this.setState({  search_city:'', showCitySearchPopup: true })
+    	this.setState({ search_city:'', showCitySearchPopup: true })
     }
 
     onFocusOut(){
-    		this.setState({ search_city: this.state.selectedDoctor, showCitySearchPopup: false })
+    	setTimeout(()=>{
+    		this.setState({ search_city: this.state.selectedDoctor, showCitySearchPopup: false })	
+    	},500)
     	
     }
 
@@ -358,7 +360,7 @@ class FooterWidgetView extends React.Component {
 																this.clickDoctorList(data.name,data.id)} }>
 																{data.name}</p>
 														})
-														: this.state.search_city != '' ?<p>No result found</p>:''
+														:this.state.search_city != '' ?<p>No result found</p>:''
 												}
 												</div>
 												:''
