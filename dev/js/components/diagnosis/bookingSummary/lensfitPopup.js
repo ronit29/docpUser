@@ -27,7 +27,7 @@ class BookingConfirmationPopup extends React.Component {
 						</div>
 						<div className="lnsfit-btn-container">
 							<button onClick={this.props.closeLensFitPopup.bind(this)}>I Don’t want</button>
-							<button onClick={this.props.applyLensFitCoupons.bind(this,this.props.lensfit_coupons)}>Apply Lensfit</button>
+							<button onClick={this.props.applyLensFitCoupons.bind(this,this.props.isOPD?this.props.deal_price:0,this.props.lensfit_coupons)}>Apply Lensfit</button>
 						</div>
 					</div>
 

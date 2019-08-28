@@ -844,7 +844,7 @@ class BookingSummaryViewNew extends React.Component {
         GTM.sendEvent({ data: data })
     }
 
-    applyLensFitCoupons(coupon){
+    applyLensFitCoupons(deal_price,coupon){
         let { finalPrice, test_ids } = this.getLabPriceData(this.props)
         coupon.finalPrice = finalPrice
         coupon.test_ids = test_ids
@@ -880,7 +880,7 @@ class BookingSummaryViewNew extends React.Component {
         let is_selected_user_has_active_plan = false
         let is_insurance_buy_able = false
         let is_selected_user_insurance_status 
-        let show_lensfit = false
+        let show_lensfit = true
         let lensfit_coupons = null 
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
@@ -920,14 +920,21 @@ class BookingSummaryViewNew extends React.Component {
                     is_tests_covered_under_plan = false
                 }
 
-                if(test.lensfit_offer && Object.keys(test.lensfit_offer).length > 0){
-                    show_lensfit = test.lensfit_offer.applicable
-                    lensfit_coupons = test.lensfit_offer.coupon
+                if(test.lensfit_offer){
+                    if(!test.lensfit_offer.applicable){
+                        show_lensfit = false
+                    }else{
+                        lensfit_coupons = test.lensfit_offer.coupon
+                    }
+                    
+                    
                 }else{
+
                 }
             })
 
         }
+        show_lensfit = show_lensfit && this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length
         is_insurance_applicable = is_tests_covered_under_insurance && is_selected_user_insured
         
         if(is_tests_covered_under_insurance && !is_selected_user_insured){
@@ -1054,7 +1061,7 @@ class BookingSummaryViewNew extends React.Component {
                         : ''
                 }
                 {
-                    this.state.show_lensfit_popup && show_lensfit && !is_plan_applicable && !is_insurance_applicable?
+                    (this.state.show_lensfit_popup && show_lensfit && !is_plan_applicable && !is_insurance_applicable && ((this.state.couponId && this.state.couponId !=lensfit_coupons.coupon_id) || (!this.state.couponId) ) )?
                         <LensfitPopup {...this.props} lensfit_coupons ={lensfit_coupons} applyLensFitCoupons = {this.applyLensFitCoupons.bind(this)} closeLensFitPopup={this.closeLensFitPopup.bind(this)}/>
                     :''
                 }
