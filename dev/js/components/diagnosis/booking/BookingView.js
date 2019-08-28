@@ -397,7 +397,10 @@ class BookingView extends React.Component {
                                                                     this.state.data.lab_test && this.state.data.lab_test.map((test, key)=>
                                                                         <div className="vst-content-bl" key={key}>
                                                                             <p className="vst-tst-name">{test.test.name}</p>
-                                                                            <p className="rdo-time-vst">{new Date(test.time_slot_start).toDateString()} | {new Date(test.time_slot_start).toLocaleTimeString()}</p>
+                                                                            {
+                                                                                test.time_slot_start && <p className="rdo-time-vst">{new Date(test.time_slot_start).toDateString()} | {new Date(test.time_slot_start).toLocaleTimeString()}</p>
+                                                                            }
+                                                                            
                                                                         </div>
                                                                     )
                                                                 }
