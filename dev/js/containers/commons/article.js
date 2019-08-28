@@ -32,9 +32,7 @@ class Article extends React.Component {
     }
 
     componentDidMount() {
-        if(this.props.user_cities && this.props.user_cities.length == 0){
             this.props.citiesData()
-        }
     }
 
     static contextTypes = {

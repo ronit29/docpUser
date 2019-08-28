@@ -159,6 +159,7 @@ class FooterWidgetView extends React.Component {
 			}
 			if(this.state.phone_number.length < 10 || this.state.phone_number.length > 10){
 				SnackBar.show({ pos: 'bottom-center', text: "Please enter valid number" })
+				return
 			}
 			if(this.state.name !='' && this.state.phone_number !='' && this.state.city_id && this.state.city_name !=''){
 				data.name = this.state.name
@@ -229,13 +230,11 @@ class FooterWidgetView extends React.Component {
     }
 
     onFocusIn(){
-    	this.setState({ filtered_city_list: this.props.user_cities, search_city:'', showCitySearchPopup: true })
+    	this.setState({  search_city:'', showCitySearchPopup: true })
     }
 
     onFocusOut(){
-    	setTimeout(()=>{
-    		this.setState({ search_city: this.state.selectedDoctor, showCitySearchPopup: false })	
-    	},500)
+    		this.setState({ search_city: this.state.selectedDoctor, showCitySearchPopup: false })
     	
     }
 
@@ -359,7 +358,7 @@ class FooterWidgetView extends React.Component {
 																this.clickDoctorList(data.name,data.id)} }>
 																{data.name}</p>
 														})
-														:<p>No result found</p>
+														: this.state.search_city != '' ?<p>No result found</p>:''
 												}
 												</div>
 												:''
