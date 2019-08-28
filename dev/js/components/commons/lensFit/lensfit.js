@@ -25,7 +25,7 @@ class Lensfit extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            
+
         }
     }
 
@@ -41,10 +41,30 @@ class Lensfit extends React.Component {
                     <div className="row main-row parent-section-row">
                         <LeftBar />
                         <div className="col-12 col-md-7 col-lg-8 center-column">
-                            <div className="container-fluid article-column">
+                            <div className="container-fluid article-column mb-3">
+                                <img src="" />
+                                <h1 className="lansfit-tp-hdng">
+                                    “FREE PAIR OF EYE GLASSES <br></br>
+                                    (Frame + Lens)<br></br>
+                                    OR SUNGLASSES”
+                                </h1>
+
+                            </div>
+                            <div className="container-fluid article-column mb-3 lns-lst-cont">
+                                <p className="lns-avl-ofr">How to avail the offer: </p>
+                                <div className="lsn-stps-container">
+                                    <p className="lns-steps-para"><span>Step 1.</span> Once the appointment is completed, user will get lensfit unique code through message and email </p>
+                                    <p className="lns-steps-para"><span>Step 2.</span> Step 2.   visit  <a src="https://www.lensfit.com/collections/docprime ">https://www.lensfit.com/collections/docprime </a>to redeem the offer. All products on this link will be 100% OFF</p>
+                                </div>
+                                <div className="lns-offr-apl-cont">
+                                    <p>*Offer only applicable on completed OPD and lab bookings</p>
+                                    <p>*Coupon is not transferable or redeemable for cash</p>
+                                    <p>*Coupon code is valid till 31st December 2019 and can be used only once</p>
+                                    <p>*Delivery and Processing charge of ₹299 + GST</p>
+                                </div>
                             </div>
                         </div>
-                        <RightBar colClass="col-lg-4"/>
+                        <RightBar colClass="col-lg-4" />
                     </div>
                 </section>
                 <Footer />
