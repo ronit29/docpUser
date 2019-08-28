@@ -86,17 +86,19 @@ class Article extends React.Component {
     }
 
     scrollHandler() {
-        let elem = document.getElementById('medicine-btn')
-        let elemContainer = document.getElementById('medicine-btn-div')
-        if (window && (elemContainer.offsetTop == window.scrollY)) {
-            elem.style.background = '#3b827d'
-            elem.style.borderRadius = '0px'
-            elemContainer.style.padding = '0px'
-        }
-        else {
-            elem.style.background = '#f78631'
-            elem.style.borderRadius = '5px'
-            elemContainer.style.padding = '0px 15px'
+        if (document) {
+            let elem = document.getElementById('medicine-btn')
+            let elemContainer = document.getElementById('medicine-btn-div')
+            if (window && (elemContainer.offsetTop == window.scrollY)) {
+                elem.style.background = '#3b827d'
+                elem.style.borderRadius = '0px'
+                elemContainer.style.padding = '0px'
+            }
+            else {
+                elem.style.background = '#f78631'
+                elem.style.borderRadius = '5px'
+                elemContainer.style.padding = '0px 15px'
+            }
         }
     }
 
