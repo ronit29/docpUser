@@ -34,7 +34,7 @@ class ReplyView extends React.Component{
                             </div>
                         </div>
                         <div className="dr-profile">
-                            <p className={`dr-name ${this.props.commentData.author?'comments-rply':''}`} onClick={(e) => this.authorClick(this.props.commentData)}>{this.props.commentData.author?this.props.commentData.author.name:this.props.commentData.user_name}</p>
+                            <p className={`dr-name ${this.props.commentData.author && !this.props.notArticle?'comments-rply':''}`} onClick={(e) => this.props.notArticle?{}:this.authorClick(this.props.commentData)}>{this.props.commentData.author?this.props.commentData.author.name:this.props.commentData.user_name}</p>
                             <p className="add-details">{this.props.commentData.submit_date?new Date(this.props.commentData.submit_date).toDateString():""}</p>
                         </div>
                     </div>
