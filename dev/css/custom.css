@@ -3265,3 +3265,9 @@ div.search-el-popup.non-book-pop{
 	width: 100%;
 	padding: 12px 14px;
 }
+
+@media(min-width: 992px){
+	.buy-med-btn{
+		top: 94px;
+	}
+}

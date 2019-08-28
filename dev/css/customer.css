@@ -2275,3 +2275,9 @@ p.rt-doc-nm{
 .opd-mapico img{
 
 }
+
+.pharmeasy-iframe{
+    width: 100%;
+    height: calc(100vh - 44px);
+    margin-top: 44px;
+}

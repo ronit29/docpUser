@@ -10,7 +10,8 @@ class LeftMenu extends React.Component {
     super(props)
     this.state = {
       toggleProfile: false,
-      toggleArticles: false
+      toggleArticles: false,
+      toggleMedicine: false
     }
   }
 
@@ -113,13 +114,35 @@ class LeftMenu extends React.Component {
                     {/*<span className="wallet-amnt"><img src="/assets/images/rupees-icon.png" />212</span>*/}
                   </li>
 
-                  <li><a onClick={(e) => {
-                    e.preventDefault()
-                    this.props.toggleLeftMenu()
-                    // open popup
-                  }} href="#"><img src="https://cdn.docprime.com/cp/assets/img/customer-icons/medicine-order.png" alt="" className="" />My Medicine Order</a>
-                    {/*<span className="wallet-amnt"><img src="/assets/images/rupees-icon.png" />212</span>*/}
-                  </li>
+                  <ul className="drop-list-menu list_2">
+                    <li style={{paddingTop:0}}><a onClick={(e) => {
+                      e.preventDefault()
+                      this.setState({ toggleMedicine: !this.state.toggleMedicine })
+                    }} href="#" className=""><img src={ASSETS_BASE_URL + "/img/customer-icons/medicine-order.png"} alt="" className="pad-B0" />Order Medicines
+                                    {
+                        this.state.toggleMedicine ?
+                          <img className="up-down-arw" src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="docprime" />
+                          : <img className="up-down-arw" src={ASSETS_BASE_URL + "/images/down-arrow.png"} alt="docprime" />
+                      }
+                    </a></li>
+                    {
+                      this.state.toggleMedicine ?
+                        <div className="profile-list">
+                          <li style={{paddingTop:0}}><a onClick={(e) => {
+                            e.preventDefault()
+                            this.props.toggleLeftMenu()
+                            this.props.history.push('/user/family')
+                          }} href="#" className="pad-B0 my-fm">New Orders</a></li>
+
+                          <li><a onClick={(e) => {
+                            e.preventDefault()
+                            this.props.toggleLeftMenu()
+                            this.props.history.push('/user/address')
+                          }} href="#">Previous Orders</a></li>
+                        </div>
+                        : ''
+                    }
+                  </ul>
 
                   <li ><a onClick={(e) => {
                     e.preventDefault()
