@@ -165,17 +165,31 @@ class FooterWidgetView extends React.Component {
 				data.phone_number = this.state.phone_number
 				data.city_id = this.state.city_id
 				data.city_name = this.state.city_name
-				data.lead_source = 'medicine-page'
+				if(this.state.leadType  == 1){
+					data.lead_source = 'med_doc'
+				}else if(this.state.leadType  == 2){
+					data.lead_source = 'med_test'
+				}else if(this.state.leadType  == 3){
+					data.lead_source = 'med_searchmore'
+				}else if(this.state.leadType  == 5){
+					data.lead_source = 'med_package'
+				}
+				
 				this.props.submitMedicineLead(data,(resp)=>{
 					if(resp){
-						proceed = true
+						if(this.state.leadType == 1){
+							this.selectDoctorSpecialization(this.state.clickedData)
+						}else if(this.state.leadType == 2){
+							this.selectTest(this.state.clickedData)
+						}else if(this.state.leadType == 3){
+							this.openSearchMore()
+						}else if(this.state.leadType == 4){
+							this.goToPackage()
+						}
 					}
 				})
 			}
 		}else{
-			proceed = true
-		}
-		if(proceed){
 			if(this.state.leadType == 1){
 				this.selectDoctorSpecialization(this.state.clickedData)
 			}else if(this.state.leadType == 2){
