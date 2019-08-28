@@ -3253,5 +3253,40 @@ div.search-el-popup.non-book-pop{
 /* ============ lansfit ============ */
 
 /* ============ lansfit ============ */
+/* ============ docprim Vip ============ */
+.vipHeaderBar{
+	background-image: url('/assets/img/rectangle.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-font-smoothing: antialiased;
+}
+.vipBackIco {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+.vipBackIco img {
+    width: 20px;
+    cursor: pointer;
+}
+.vip-logo-cont {
+    text-align: center;
+    padding: 20px;
+}
+.vip-logo-cont h1 {
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 8px 0px;
+}
+.vip-logo-cont p {
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+}
+/* ============ docprim Vip ============ */
 
 
