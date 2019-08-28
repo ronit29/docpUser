@@ -3381,7 +3381,8 @@ p.lns-know {
     margin-top: 5px;
     color: #f78631;
     font-weight: 500;
-    font-size: 13px;
+	font-size: 13px;
+	background:white;
 }
 /* ============ lansfit ============ */
 
