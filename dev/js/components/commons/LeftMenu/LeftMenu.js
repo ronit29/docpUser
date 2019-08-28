@@ -14,7 +14,6 @@ class LeftMenu extends React.Component {
       toggleArticles: false,
       toggleMedicine: false,
       showPopup:false,
-      showIframe: false,
       clickedOn:''
     }
   }
@@ -36,7 +35,7 @@ class LeftMenu extends React.Component {
     this.setState({ showPopup: false })
     if (typeof navigator === 'object') {
         if (/mobile/i.test(navigator.userAgent)) {
-            this.setState({ showIframe: true });
+            this.props.iFrameState(true, this.state.clickedOn);
         }
         else {
             if(this.state.clickedOn === 'newOrder'){
@@ -79,10 +78,6 @@ hidePopup() {
         {
           this.state.showPopup?
           <BookingConfirmationPopup continueClick={() => this.continueClick()} iFramePopup={true} hidePopup={() => this.hidePopup()}/>:''
-        }
-        {
-          this.state.showIframe ?
-            <iframe src={this.state.clickedOn==='newOrder'?`https://beta.pharmeasy.in/healthcare?utm_source=aff-docprime&utm_medium=cps&utm_campaign=leftmenu`:`https://beta.pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders`} className="pharmeasy-iframe"></iframe>:''
         }
           <div className={`col-xs-12 col-d-width ${this.props.toggleHamburger ? 'col-d-width-ease' : ''}`}>
           <div className="left-menu">
