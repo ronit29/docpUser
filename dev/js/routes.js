@@ -502,6 +502,13 @@ const LensFit = Loadable({
     loading,
 })
 
+const VipClub = Loadable({
+    loader: () => import('./containers/commons/VipClub'),
+    modules: ['./containers/commons/VipClub'],
+    webpack: () => [require.resolveWeak('./containers/commons/VipClub')],
+    loading,
+})
+
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
  */
@@ -622,7 +629,8 @@ let routes = [
     { path: '/categoryTestResults', exact: true, component: categoryTestResults },
     { path: '/*-tpcp', exact: true, component: categoryTestResults },
     { path: '/hospitals/inventory', exact: true, component: HospitalList, RENDER_ON_SERVER: true },
-    { path: '/lensfit', exact:true, component:LensFit,RENDER_ON_SERVER:true }
+    { path: '/vip-club', exact:true, component:VipClub,RENDER_ON_SERVER:true },
+    { path: '/lensfit', exact:true, component:VipClub,RENDER_ON_SERVER:true }
 
 ]
 
