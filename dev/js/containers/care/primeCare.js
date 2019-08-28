@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {getCareDetails, setPackageId, sendOTP, submitOTP, resetAuth, getIsCareDetails } from '../../actions/index.js'
+import {getCareDetails, setPackageId, sendOTP, submitOTP, resetAuth, getIsCareDetails, selectSearchType } from '../../actions/index.js'
 
 import STORAGE from '../../helpers/storage'
 
@@ -70,6 +70,7 @@ const mapDispatchToProps = (dispatch) => {
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
         resetAuth: () => dispatch(resetAuth()),
         getIsCareDetails: (cb) => dispatch(getIsCareDetails(cb)),
+        selectSearchType: (type) => dispatch(selectSearchType(type)),
     }
 }
 

@@ -67,13 +67,30 @@ class PrimeCareView extends React.Component {
         // this.setState({infoData:data,showInfo:true})
     }
 
+    navigateTo(where, type, data, e) {
+        if (e) {
+            e.preventDefault()
+            e.stopPropagation()
+        }
+        if (type) {
+            this.props.selectSearchType(type)
+        }
+        if (where == '/chat') {
+            this.props.history.push(where, data)
+        } else {
+            this.props.history.push(where)
+        }
+    }
+
     render() {
         if (this.props.data && Object.keys(this.props.data).length > 0) {
             let self = this
             return (
-                <div className="profile-body-wrap">
-                    {/* <ProfileHeader /> */}
-                    <div className="careHeaderBar">
+                <React.Fragment>
+                    <ProfileHeader homePage={true} showSearch={true} />
+                                        <div className="profile-body-wrap care-new-backgroud">
+                        {/* <ProfileHeader /> */}
+                        {/* <div className="careHeaderBar">
                         <div className="container">
                             <div className="care-logo-container">
                                 <div>
@@ -88,16 +105,16 @@ class PrimeCareView extends React.Component {
                         <div className="container">
                             <div className="careTextContSc">
                                 <img className="caresubTxt" src={ASSETS_BASE_URL + "/img/careText.png"} />
-                                {/* <img className="caresubsmile" src={ASSETS_BASE_URL + "/img/dpsmile.png"} /> */}
                             </div>
                         </div>
-                    </div>
-                    <section className="container container-top-margin" style={{ marginTop: '120px' }}>
-                        <div className="row main-row parent-section-row">
-                            <LeftBar />
-                            <div className="col-12 center-column">
-                                <div className="container-fluid">
-                                    {/*<div className="careMainContainer mrb-15">
+                    </div> */}
+
+                        <section className="chat-main-container" style={{ marginTop: '' }}>
+                            <div className="row main-row parent-section-row">
+                                <LeftBar />
+                                <div className="col-12 center-column">
+                                    <div className="container-fluid">
+                                        {/*<div className="careMainContainer mrb-15">
                                         <div className="row no-gutters">
                                             {
                                                 this.props.data && this.props.data.plans && this.props.data.plans.length > 0 ?
@@ -176,12 +193,12 @@ class PrimeCareView extends React.Component {
                                         }
                                     </div>
                                     */}
-                                    {
-                                     this.props.data && this.props.data.plans && this.props.data.plans.length > 0 ?
-                                        <div className="care-new-container">
-                                            <h1 className="care-nw-heading">Choose a plan that’s right for your loved ones.</h1>
-                                            {Object.entries(this.props.data.plans).map(function ([key, value]) {
-                                                return <div className="widget mrb-15" key={key}>
+                                        {/* {
+                                            this.props.data && this.props.data.plans && this.props.data.plans.length > 0 ?
+                                                <div className="care-new-container">
+                                                    <h1 className="care-nw-heading">Choose a plan that’s right for your loved ones.</h1>
+                                                    {Object.entries(this.props.data.plans).map(function ([key, value]) {
+                                                        return <div className="widget mrb-15" key={key}>
                                                             <div className="widget-content">
                                                                 <div className="care-card-catg">
                                                                     <div className="row no-gutters d-flex align-items-center">
@@ -189,8 +206,8 @@ class PrimeCareView extends React.Component {
                                                                             <img className="care-prd-icon" src={value.icon} />
                                                                         </div>
                                                                         <div className="col-8">
-                                                                            <p className="care-price-cd">₹ { parseInt(value.deal_price)}/Yr
-                                                                                {/*<span>₹ {parseInt(value.mrp)}/Yr</span>*/}
+                                                                            <p className="care-price-cd">₹ {parseInt(value.deal_price)}/Yr
+                                                                                <span>₹ {parseInt(value.mrp)}/Yr</span>
                                                                             </p>
                                                                         </div>
                                                                     </div>
@@ -200,34 +217,34 @@ class PrimeCareView extends React.Component {
                                                                         <div className="care-dtls-list">
                                                                             <div>
                                                                                 {
-                                                                                    value.unlimited_online_consultation?
-                                                                                    <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/carechk.svg'} /> :''
+                                                                                    value.unlimited_online_consultation ?
+                                                                                        <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/carechk.svg'} /> : ''
                                                                                 }
                                                                                 <p>Free Unlimited Online Consultation <span className="gp-spn">(General Physician)</span>
                                                                                 </p>
                                                                             </div>
-                                                                            <div> 
-                                                                                {value.priority_queue?
-                                                                                  <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/carechk.svg'} />
-                                                                                  :''  
+                                                                            <div>
+                                                                                {value.priority_queue ?
+                                                                                    <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/carechk.svg'} />
+                                                                                    : ''
                                                                                 }
                                                                                 <p>Priority Queue</p>
                                                                             </div>
-                                                                            {Object.entries(value.features).map(function ([k, v]){
+                                                                            {Object.entries(value.features).map(function ([k, v]) {
                                                                                 let feature_detail = self.props.data.feature_details.filter(x => x.id == v.id)
-                                                                                return v.count?
-                                                                                <div key={k}> 
-                                                                                    <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/carechk.svg'} /> 
-                                                                                    <p>{feature_detail[0].name} each 
-                                                                                    
+                                                                                return v.count ?
+                                                                                    <div key={k}>
+                                                                                        <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/carechk.svg'} />
+                                                                                        <p>{feature_detail[0].name} each
+
                                                                                         <span className="rpd-icon" onClick={self.testInfo.bind(self, feature_detail[0].test)}>
-                                                                                            {feature_detail[0].test.show_details ?
-                                                                                                <img style={{marginLeft:'5px'}} src={ASSETS_BASE_URL + '/img/icons/info.svg'} />:''} 
-                                                                                        </span> <span className="care-cnt">{v.count} Test/Yr.</span> 
-                                                                                    </p>
-                                                                                </div>
-                                                                                :''
-                                                                                })
+                                                                                                {feature_detail[0].test.show_details ?
+                                                                                                    <img style={{ marginLeft: '5px' }} src={ASSETS_BASE_URL + '/img/icons/info.svg'} /> : ''}
+                                                                                            </span> <span className="care-cnt">{v.count} Test/Yr.</span>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    : ''
+                                                                            })
                                                                             }
 
                                                                         </div>
@@ -241,47 +258,130 @@ class PrimeCareView extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                })}
-                                                
-                                            </div>
-                                    :''}
+                                                    })}
+
+                                                </div>
+                                                : ''} */}
+                                        <div className="care-new-main-contianer">
+                                            {
+                                                this.props.data && this.props.data.plans && this.props.data.plans.length > 0 ?
+                                                    <div className="care-new-container">
+                                                        <p className="care-intro">Introducing</p>
+                                                        <img className="nw-careLogo" src={ASSETS_BASE_URL + "/img/logo-care-white.png"} />
+                                                        <img className="nw-care-subheading" src={ASSETS_BASE_URL + "/img/CARE-sb.png"} />
+                                                        {Object.entries(this.props.data.plans).map(function ([key, value]) {
+                                                            return <div className="nw-care-content" key={key}>
+                                                                <div className="">
+
+                                                                    <div className="row no-gutters">
+                                                                        <div className="col-12">
+                                                                            <div className="care-dtls-list nw-care-paragraph">
+                                                                                <div>
+                                                                                    {
+                                                                                        value.unlimited_online_consultation ?
+                                                                                            <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/nw-chk.png'} /> : ''
+                                                                                    }
+                                                                                    <p>Free Unlimited Online Consultation <span className="gp-spn">(General Physician)</span>
+                                                                                    </p>
+                                                                                </div>
+                                                                                <div>
+                                                                                    {value.priority_queue ?
+                                                                                        <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/nw-chk.png'} />
+                                                                                        : ''
+                                                                                    }
+                                                                                    <p>Priority Queue</p>
+                                                                                </div>
+                                                                                {Object.entries(value.features).map(function ([k, v]) {
+                                                                                    let feature_detail = self.props.data.feature_details.filter(x => x.id == v.id)
+                                                                                    return v.count ?
+                                                                                        <div key={k}>
+                                                                                            <img className="care-prd-icon" src={ASSETS_BASE_URL + '/img/nw-chk.png'} />
+                                                                                            <p>{feature_detail[0].name} each
+
+                                                                                        <span className="rpd-icon" onClick={self.testInfo.bind(self, feature_detail[0].test)}>
+                                                                                                    {feature_detail[0].test.show_details ?
+                                                                                                        <img style={{ marginLeft: '5px' }} src={ASSETS_BASE_URL + '/img/icons/info.svg'} /> : ''}
+                                                                                                </span> <span className="care-cnt">{v.count} Test/Yr.</span>
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        : ''
+                                                                                })
+                                                                                }
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div className="new-care-btn">
+                                                                        <button onClick={self.buyNow.bind(self, value.id)}>Buy Now</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        })}
+
+                                                    </div>
+                                                    : ''}
+                                        </div>
+                                    </div>
                                 </div>
+                                {/*<RightBar className="col-md-5 mb-3" />*/}
                             </div>
-                            {/*<RightBar className="col-md-5 mb-3" />*/}
-                        </div>
-                    </section>
-                    {this.state.showInfo ?
-                        <InfoPopup infoData={this.state.infoData} closeInfo={this.closeInfo.bind(this)} />
-                        : ''}
-                    {
-                        this.state.showLoginPopup ?
-                            <CareLoginPopup {...this.props} hideLoginPopup={this.hideLoginPopup.bind(this)} selectedPlanId={this.state.selectedPlanId} />
-                            : ''
-                    }
-                </div>
+                        </section>
+                        {this.state.showInfo ?
+                            <InfoPopup infoData={this.state.infoData} closeInfo={this.closeInfo.bind(this)} />
+                            : ''}
+                        {
+                            this.state.showLoginPopup ?
+                                <CareLoginPopup {...this.props} hideLoginPopup={this.hideLoginPopup.bind(this)} selectedPlanId={this.state.selectedPlanId} />
+                                : ''
+                        }
+                    </div>
+                </React.Fragment>
             )
         } else {
             return (
-                <div className="profile-body-wrap">
-                    <div className="careHeaderBar">
+                <React.Fragment>
+                    <ProfileHeader homePage={true} showSearch={true} />
+                    <div className="headerSubLinkContainer">
                         <div className="container">
-                            <div className="care-logo-container">
-                                <img className="careBackIco" src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} onClick={() => this.props.history.push('/')} />
-                                <img className="careLogiImg" src={ASSETS_BASE_URL + "/img/logo-care-white.png"} />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="careSubHeader">
-                        <img className="careSubImg" src={ASSETS_BASE_URL + "/img/shape.png"} />
-                        <div className="container">
-                            <div className="careTextContSc">
-                                <img className="caresubTxt" src={ASSETS_BASE_URL + "/img/careText.png"} />
-                                <img className="caresubsmile" src={ASSETS_BASE_URL + "/img/dpsmile.png"} />
+                            <div className="head_text_container">
+                                {this.props.common_settings && this.props.common_settings.insurance_availability ?
+                                    <a href="/insurance/insurance-plans" onClick={(e) => {
+                                        let data = {
+                                            'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-navbar-insurance-clicked'
+                                        }
+                                        GTM.sendEvent({ data: data })
+                                        e.preventDefault();
+                                        this.navigateTo("/insurance/insurance-plans?source=desktop-navbar-insurance-clicked")
+                                    }}>OPD Insurance
+                                    <span className="opdNewHeaderOfr">New</span>
+                                    </a>
+                                    : ''}
+                                <a href="/search" onClick={(e) => {
+                                    e.preventDefault();
+                                    this.navigateTo("/search", 'opd')
+                                }}>Find a Doctor</a>
+                                <a href="/search" onClick={(e) => {
+                                    e.preventDefault();
+                                    this.navigateTo("/search", 'lab')
+                                }}>Lab Tests</a>
+                                <a href="/full-body-checkup-health-packages" onClick={(e) => {
+                                    e.preventDefault();
+                                    this.navigateTo('/full-body-checkup-health-packages')
+                                }}>Health Packages</a>
+                                <a href="/online-consultation" onClick={(e) => {
+                                    e.preventDefault();
+                                    this.navigateTo('/online-consultation')
+                                }}>Online Doctor Consultation</a>
+                                {/* <p onClick={(e) => {
+                                    e.preventDefault();
+                                    this.navigateTo('/contact')
+                                }}>Contact us</p> */}
                             </div>
                         </div>
                     </div>
                     <Loader />
-                </div>
+                </React.Fragment>
             )
         }
 
