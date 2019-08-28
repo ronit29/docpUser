@@ -261,7 +261,12 @@ class Article extends React.Component {
                 this.setState({ showIframe: true });
             }
             else {
-                window.open('https://pharmeasy.in/online-medicine-order?utm_source=aff-docprime&utm_medium=cps', '_blank')
+                if (this.state.articleData && this.state.articleData.pharmeasy_url) {
+                    window.open(this.state.articleData.pharmeasy_url, '_blank')
+                }
+                else {
+                    window.open('https://beta.pharmeasy.in/online-medicine-order?utm_source=aff-docprime&utm_medium=cps', '_blank')
+                }
             }
         }
     }
@@ -280,8 +285,8 @@ class Article extends React.Component {
             <div className="profile-body-wrap" style={this.state.showIframe ? {} : { paddingBottom: 54 }}>
                 <ProfileHeader />
                 {
-                    this.state.showIframe ?
-                        <iframe src="https://beta.pharmeasy.in/online-medicine-order?utm_source=aff-docprime&utm_medium=cps" className="pharmeasy-iframe"></iframe>
+                    this.state.articleData && this.state.showIframe ?
+                        <iframe src={this.state.articleData.pharmeasy_url ? this.state.articleData.pharmeasy_url : 'https://beta.pharmeasy.in/online-medicine-order?utm_source=aff-docprime&utm_medium=cps'} className="pharmeasy-iframe"></iframe>
                         :
                         <React.Fragment>
                             <section className="container article-container">

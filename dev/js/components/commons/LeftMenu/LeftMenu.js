@@ -3,6 +3,7 @@ import InitialsPicture from '../initialsPicture'
 import STORAGE from '../../../helpers/storage';
 import CONFIG from '../../../config'
 import GTM from '../../../helpers/gtm.js'
+import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup';
 
 class LeftMenu extends React.Component {
 
@@ -11,7 +12,10 @@ class LeftMenu extends React.Component {
     this.state = {
       toggleProfile: false,
       toggleArticles: false,
-      toggleMedicine: false
+      toggleMedicine: false,
+      showPopup:false,
+      showIframe: false,
+      clickedOn:''
     }
   }
 
@@ -23,6 +27,27 @@ class LeftMenu extends React.Component {
       this.props.history.push('/prime/plans')
     }
   }
+
+  orderMedicineClick(source){
+    this.setState({showPopup:true, clickedOn: source})
+  }
+
+  continueClick() {
+    this.setState({ showPopup: false })
+    if (typeof navigator === 'object') {
+        if (/mobile/i.test(navigator.userAgent)) {
+            this.setState({ showIframe: true });
+        }
+        else {
+            if(this.state.clickedOn === 'newOrder'){
+              window.open('https://pharmeasy.in/healthcare?utm_source=aff-docprime&utm_medium=cps&utm_campaign=leftmenu', '_blank')
+            }
+            else{
+              window.open('https://pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders', '_blank')
+            }
+        }
+    }
+}
 
   render() {
     let user = null
@@ -47,6 +72,14 @@ class LeftMenu extends React.Component {
 
       <section>
         <div className="row">
+        {
+          this.state.showPopup?
+          <BookingConfirmationPopup continueClick={() => this.continueClick()} articlePage={true}/>:''
+        }
+        {
+          this.state.showIframe ?
+            <iframe src={this.state.clickedOn==='newOrder'?`https://pharmeasy.in/healthcare?utm_source=aff-docprime&utm_medium=cps&utm_campaign=leftmenu`:`https://pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders`} className="pharmeasy-iframe"></iframe>:''
+        }
           <div className={`col-xs-12 col-d-width ${this.props.toggleHamburger ? 'col-d-width-ease' : ''}`}>
           <div className="left-menu">
             {
@@ -131,13 +164,13 @@ class LeftMenu extends React.Component {
                           <li style={{paddingTop:0}}><a onClick={(e) => {
                             e.preventDefault()
                             this.props.toggleLeftMenu()
-                            this.props.history.push('/user/family')
+                            this.orderMedicineClick('newOrder')
                           }} href="#" className="pad-B0 my-fm">New Orders</a></li>
 
                           <li><a onClick={(e) => {
                             e.preventDefault()
                             this.props.toggleLeftMenu()
-                            this.props.history.push('/user/address')
+                            this.orderMedicineClick('prevOrder')
                           }} href="#">Previous Orders</a></li>
                         </div>
                         : ''
