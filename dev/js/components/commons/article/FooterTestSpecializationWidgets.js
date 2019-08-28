@@ -177,7 +177,7 @@ class FooterWidgetView extends React.Component {
 				}
 				
 				this.props.submitMedicineLead(data,(resp)=>{
-					if(resp){
+					if(resp || resp == ''){
 						if(this.state.leadType == 1){
 							this.selectDoctorSpecialization(this.state.clickedData)
 						}else if(this.state.leadType == 2){
