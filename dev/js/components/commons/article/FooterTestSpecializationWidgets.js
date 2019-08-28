@@ -1,5 +1,6 @@
 import React from 'react'
 import GTM from '../../../helpers/gtm'
+import SnackBar from 'node-snackbar'
 
 class FooterWidgetView extends React.Component {
 
@@ -142,16 +143,22 @@ class FooterWidgetView extends React.Component {
 		let data={}
 		if(isProceed){
 			if(this.state.name == ''){
+				SnackBar.show({ pos: 'bottom-center', text: "Please enter name" })
 				return	
 			}
 			if(this.state.phone_number == ''){
+				SnackBar.show({ pos: 'bottom-center', text: "Please enter phone number" })
 				return	
 			}
 			if(!this.state.city_id){
 				return	
 			}
 			if(this.state.city_name == ''){
+				SnackBar.show({ pos: 'bottom-center', text: "Please select city" })
 				return	
+			}
+			if(this.state.phone_number.length < 10 || this.state.phone_number.length > 10){
+				SnackBar.show({ pos: 'bottom-center', text: "Please enter valid number" })
 			}
 			if(this.state.name !='' && this.state.phone_number !='' && this.state.city_id && this.state.city_name !=''){
 				data.name = this.state.name
@@ -320,10 +327,11 @@ class FooterWidgetView extends React.Component {
 					            <div className="ipd-pop-scrl">
 					               <div className="ipd-inp-section">
 					                  <div className="nm-lst-inputcnt">
-					                  	<input type="text" value="" name="name" placeholder="*Name" onChange={this.handleChange.bind(this)} data-param='name' value={this.state.name}/>
+					                  	<input type="text" value="" name="name" placeholder="*Name" autoComplete={null} onChange={this.handleChange.bind(this)} data-param='name' value={this.state.name}/>
 					                  </div>
-					                  <input type="number" value="" name="phone_number" placeholder="*Mobile Number" onChange={this.handleChange.bind(this)} data-param="phone_number" value={this.state.phone_number}/>
-					                  <input type="text" placeholder='Search City' onChange={this.handleInut.bind(this, 'search_city')} onFocus = {this.onFocusIn.bind(this)} onBlur={this.onFocusOut.bind(this)} value={this.state.search_city}/>
+					                  <input type="number" value="" name="phone_number" autoComplete="none" placeholder="*Mobile Number" onChange={this.handleChange.bind(this)} data-param="phone_number" value={this.state.phone_number}/>
+					                  <div className="ipd-slects-doc">
+									  <input type="text" autoComplete="none" placeholder='Search City' onChange={this.handleInut.bind(this, 'search_city')} onFocus = {this.onFocusIn.bind(this)} onBlur={this.onFocusOut.bind(this)} value={this.state.search_city}/>
 											{
 												this.state.showCitySearchPopup?
 												<div className="doc-srch-fltr" onClick={(e)=>e.preventDefault()}>
@@ -342,6 +350,7 @@ class FooterWidgetView extends React.Component {
 												</div>
 												:''
 											}
+									  </div>
 					                  <div className="skip-btn-sgn">
 					                     <button className="ipd-inp-sbmt" onClick={this.closeLeadForm.bind(this,true)}>Submit</button>
 					                     <p onClick={this.closeLeadForm.bind(this,false)}>Skip</p>
