@@ -172,7 +172,7 @@ class FooterWidgetView extends React.Component {
 					data.lead_source = 'med_test'
 				}else if(this.state.leadType  == 3){
 					data.lead_source = 'med_searchmore'
-				}else if(this.state.leadType  == 5){
+				}else if(this.state.leadType  == 4){
 					data.lead_source = 'med_package'
 				}
 				
