@@ -307,7 +307,7 @@ class AppointmentSlot extends React.Component {
                             </header> */}
                             <div className="new-time-slot-outer">
                                 {
-                                    test_count>1 &&
+                                    test_count>1 && !parsed.reschedule=='true' &&
                                     <div className="top-sticky-radio-btn">
                                         <div className="ins-form-radio">
                                             <div className="dtl-radio">
@@ -362,6 +362,7 @@ class AppointmentSlot extends React.Component {
                                                                 toggle = {this.handleToggleType.bind(this)}
                                                                 test_id= {timeSlots.tests && timeSlots.tests.length?timeSlots.tests[0].id:''}
                                                                 test_count={test_count}
+                                                                reschedule = {this.state.reschedule}
                                                             />
                                                         : ''
                                                     }
@@ -383,6 +384,7 @@ class AppointmentSlot extends React.Component {
                                                                 toggle = {this.handleToggleType.bind(this)}
                                                                 test_id= {timeSlots.tests && timeSlots.tests.length?timeSlots.tests[0].id:''}
                                                                 test_count={test_count}
+                                                                reschedule = {this.state.reschedule}
                                                             />
                                                         : ''
                                                     }
@@ -408,6 +410,7 @@ class AppointmentSlot extends React.Component {
                                                                         nameHeading={tests.name}
                                                                         toggle = {this.handleToggleType.bind(this)}
                                                                         test_count={test_count}
+                                                                        reschedule = {this.state.reschedule}
                                                                     />
                                                         }):''
                                                     }

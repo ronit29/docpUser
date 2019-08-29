@@ -42,8 +42,8 @@ class BookingView extends React.Component {
 
         let appointmentId = this.props.match.params.refId
 
-        if (this.props.rescheduleSlot && this.props.rescheduleSlot.selectedTestsTimeSlot) {
-            let tests = []
+        if (this.props.rescheduleSlot && this.props.rescheduleSlot.selectedTestsTimeSlot && Object.values(this.props.rescheduleSlot.selectedTestsTimeSlot).length) {
+            /*let tests = []
             Object.values(this.props.rescheduleSlot.selectedTestsTimeSlot).map((twp)=>{
 
                     let type = 3
@@ -54,8 +54,12 @@ class BookingView extends React.Component {
                     }
 
                     tests.push({test: twp.test_id,type:type, start_date: twp.date, start_time: twp.time.value, is_home_pickup: twp.is_home_pickup })
-            })
-            let appointmentData = { id: this.props.match.params.refId, status: 4, multi_timings_enabled: true,test_timings :tests }
+            })*/
+            let selectedTime = Object.values(this.props.rescheduleSlot.selectedTestsTimeSlot)[0]
+            let start_date = selectedTime.date
+            let start_time = selectedTime.time.value
+            let appointmentData = { id: this.props.match.params.refId, status: 4, start_date, start_time }
+            //multi_timings_enabled: true,
 
             this.props.updateLabAppointment(appointmentData, (err, data) => {
                 if (data) {
@@ -181,9 +185,9 @@ class BookingView extends React.Component {
         this.props.selectLabTimeSLot({ time: {} }, true)
         let selected_timings_type = this.state.data && this.state.data.selected_timings_type=='separate'?'seperately':'all'
         if (this.state.data.lab && this.state.data.lab.is_thyrocare) {
-            this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true&type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=true&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}&selectedType=${selected_timings_type}`)
+            this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true&type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=true&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}`)
         } else {
-            this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true&type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=false&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}&selectedType=${selected_timings_type}`)
+            this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true&type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=false&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}`)
         }
 
     }
@@ -233,6 +237,8 @@ class BookingView extends React.Component {
                 summar_utm_tag = <img src={src} width="1" height="1" border="0" />
             }
         }
+
+
 
         return (
             <div className="profile-body-wrap">
@@ -398,7 +404,7 @@ class BookingView extends React.Component {
                                                                         <div className="vst-content-bl" key={key}>
                                                                             <p className="vst-tst-name">{test.test.name}</p>
                                                                             {
-                                                                                test.time_slot_start && <p className="rdo-time-vst">{new Date(test.time_slot_start).toDateString()} | {new Date(test.time_slot_start).toLocaleTimeString()}</p>
+                                                                                date && <p className="rdo-time-vst">{new Date(date).toDateString()} | {new Date(date).toLocaleTimeString()}</p>
                                                                             }
                                                                             
                                                                         </div>
