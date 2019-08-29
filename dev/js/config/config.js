@@ -26,7 +26,10 @@ const PROD_CONFIG = {
     SEARCH_ELASTIC_VIEW: true,
     ENABLE_INSURANCE: true,
     GOOGLE_SERVICE_URL: 'https://docprime.com/ls',
-    CHAT_API_UTILITY_API:'https://chatapi.docprime.com'
+    CHAT_API_UTILITY_API: 'https://chatapi.docprime.com',
+    PHARMEASY_IFRAME_URL: 'https://pharmeasy.in/online-medicine-order?utm_source=aff-docprime&utm_medium=cps',
+    PHARMEASY_NEW_ORDER_IFRAME_URL: 'https://pharmeasy.in/healthcare?utm_source=aff-docprime&utm_medium=cps&utm_campaign=leftmenu',
+    PHARMEASY_PREV_ORDER_IFRAME_URL: 'https://pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders'
 }
 
 const STAGING_CONFIG = {
@@ -45,7 +48,10 @@ const STAGING_CONFIG = {
     SEARCH_ELASTIC_VIEW: true,
     ENABLE_INSURANCE: true,
     GOOGLE_SERVICE_URL: 'https://docprime.com/ls',
-    CHAT_API_UTILITY_API:'https://chatapi.docprime.com'
+    CHAT_API_UTILITY_API: 'https://chatapi.docprime.com',
+    PHARMEASY_IFRAME_URL: 'https://beta.pharmeasy.in/online-medicine-order?utm_source=aff-docprime&utm_medium=cps',
+    PHARMEASY_NEW_ORDER_IFRAME_URL: 'https://beta.pharmeasy.in/healthcare?utm_source=aff-docprime&utm_medium=cps&utm_campaign=leftmenu',
+    PHARMEASY_PREV_ORDER_IFRAME_URL: 'https://beta.pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders'
 }
 
 const DEV_CONFIG = {
@@ -65,7 +71,10 @@ const DEV_CONFIG = {
     SEARCH_ELASTIC_VIEW: true,
     ENABLE_INSURANCE: true,
     GOOGLE_SERVICE_URL: 'https://docprime.com/ls',
-    CHAT_API_UTILITY_API:'http://chatapi.docprime.com'
+    CHAT_API_UTILITY_API: 'http://chatapi.docprime.com',
+    PHARMEASY_IFRAME_URL: 'https://beta.pharmeasy.in/online-medicine-order?utm_source=aff-docprime&utm_medium=cps',
+    PHARMEASY_NEW_ORDER_IFRAME_URL: 'https://beta.pharmeasy.in/healthcare?utm_source=aff-docprime&utm_medium=cps&utm_campaign=leftmenu',
+    PHARMEASY_PREV_ORDER_IFRAME_URL: 'https://beta.pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders'
 }
 
 let CONFIG = { ...BASE_CONFIG, ...DEV_CONFIG }
