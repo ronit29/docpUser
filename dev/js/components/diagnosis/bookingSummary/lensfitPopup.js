@@ -23,7 +23,11 @@ class BookingConfirmationPopup extends React.Component {
 						<div className="lnst-fit-sub-pop">
 							<p className="lns-para-mn">“FREE PAIR OF EYE GLASSES <br/>(Frame + Lens) or Sunglasses</p>
 							<p className="lnsft-cpn">Use Coupon: LENSFIT</p>
-							<p className="lns-know">Know more</p>
+							<p className="lns-know" onClick={(e) => {
+								e.preventDefault()
+								e.stopPropagation()
+								this.props.history.push('/lensfit-tnc')
+								}}>Know more</p>
 						</div>
 						<div className="lnsfit-btn-container">
 							<button onClick={this.props.closeLensFitPopup.bind(this)}>I Don’t want</button>

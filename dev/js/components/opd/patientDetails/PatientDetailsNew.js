@@ -68,7 +68,9 @@ class PatientDetailsNew extends React.Component {
             timeErrorText:'',
             pay_btn_loading: true,
             isMatrix:parsed.is_matrix,
-            show_lensfit_popup:true
+            show_lensfit_popup:false,
+            lensfit_coupons:null,
+            lensfit_decline:false
         }
     }
 
@@ -442,7 +444,6 @@ class PatientDetailsNew extends React.Component {
 
         let is_insurance_applicable = false
         let is_selected_user_insured = false
-
         if (this.props.selectedSlot && this.props.selectedSlot.date && this.props.DOCTORS[this.props.selectedDoctor]) {
             let priceData = { ...this.props.selectedSlot.time }
             let hospitals = this.props.DOCTORS[this.props.selectedDoctor].hospitals
@@ -469,7 +470,13 @@ class PatientDetailsNew extends React.Component {
         is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
 
         // React guarantees that setState inside interactive events (such as click) is flushed at browser event boundary
+        let show_lensfit=this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].lensfit_offer?this.props.DOCTORS[this.props.selectedDoctor].lensfit_offer.applicable:false
+        let lensfit_coupons =this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].lensfit_offer?this.props.DOCTORS[this.props.selectedDoctor].lensfit_offer.coupon:{}
 
+        if(!this.state.show_lensfit_popup && show_lensfit && !is_insurance_applicable && lensfit_coupons && Object.keys(lensfit_coupons).length > 0 && this.state.couponId !=lensfit_coupons.coupon_id){
+                this.setState({show_lensfit_popup:true, lensfit_coupons:lensfit_coupons})
+            return
+        }
         if (!this.state.showConfirmationPopup && !addToCart && (total_price == 0 || (is_insurance_applicable && this.props.payment_type == 1) || (this.state.use_wallet && total_wallet_balance > 0))) {
             this.setState({ showConfirmationPopup: true })
             return
@@ -922,7 +929,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     closeLensFitPopup(){
-        this.setState({show_lensfit_popup:false})
+        this.setState({show_lensfit_popup:false,lensfit_decline:true})
     }
 
     render() {
@@ -943,8 +950,6 @@ class PatientDetailsNew extends React.Component {
         let payment_mode_count = 0
         let is_selected_user_insurance_status 
         let all_cities = this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].all_cities?this.props.DOCTORS[this.props.selectedDoctor].all_cities:[]
-        let show_lensfit=this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].lensfit_offer?this.props.DOCTORS[this.props.selectedDoctor].lensfit_offer.applicable:false
-        let lensfit_coupons =this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].lensfit_offer?this.props.DOCTORS[this.props.selectedDoctor].lensfit_offer.coupon:{}
         if (doctorDetails) {
             let { name, qualifications, hospitals, enabled_for_cod } = doctorDetails
 
@@ -1080,8 +1085,8 @@ class PatientDetailsNew extends React.Component {
                         : ''
                 }
                 {
-                    this.state.show_lensfit_popup && show_lensfit && !is_insurance_applicable?
-                        <LensfitPopup {...this.props} lensfit_coupons ={lensfit_coupons} applyLensFitCoupons = {this.applyLensFitCoupons.bind(this)} closeLensFitPopup={this.closeLensFitPopup.bind(this)} deal_price={priceData.deal_price} isOPD={true}/>
+                    this.state.show_lensfit_popup?
+                        <LensfitPopup {...this.props} lensfit_coupons ={this.state.lensfit_coupons} applyLensFitCoupons = {this.applyLensFitCoupons.bind(this)} closeLensFitPopup={this.closeLensFitPopup.bind(this)} deal_price={priceData.deal_price} isOPD={true}/>
                     :''
                 }
                 <section className="container container-top-margin">

@@ -46,21 +46,21 @@ class Lensfit extends React.Component {
                                 <h1 className="lansfit-tp-hdng">
                                     “FREE PAIR OF EYE GLASSES <br></br>
                                     (Frame + Lens)<br></br>
-                                    OR SUNGLASSES”
+                                    OR SUNGLASSES worth ₹720 ”
                                 </h1>
 
                             </div>
                             <div className="container-fluid article-column mb-3 lns-lst-cont">
                                 <p className="lns-avl-ofr">How to avail the offer: </p>
                                 <div className="lsn-stps-container">
-                                    <div className="lns-steps-para"><span>Step 1.</span> <p>Once the appointment is completed, user will get lensfit unique code through message and email</p> </div>
-                                    <div className="lns-steps-para"><span>Step 2.</span> <p>Step 2.   visit  <a src="https://www.lensfit.com/collections/docprime ">https://www.lensfit.com/collections/docprime </a>to redeem the offer. All products on this link will be 100% OFF</p></div>
+                                    <div className="lns-steps-para"><span>Step 1.</span> <p>Once the appointment is completed, you will get lensfit unique code through message and email</p> </div>
+                                    <div className="lns-steps-para"><span>Step 2.</span> <p>visit  <a src="https://www.lensfit.com/collections/docprime ">https://www.lensfit.com/collections/docprime </a>to redeem the offer. All products on this link will be 100% OFF with delivery charge of ₹299 + GST </p></div>
                                 </div>
                                 <div className="lns-offr-apl-cont">
                                     <p>*Offer only applicable on completed OPD and lab bookings</p>
                                     <p>*Coupon is not transferable or redeemable for cash</p>
                                     <p>*Coupon code is valid till 31st December 2019 and can be used only once</p>
-                                    <p>*Delivery and Processing charge of ₹299 + GST</p>
+                                    {/*<p>*Delivery charge of ₹299 + GST</p>*/}
                                 </div>
                             </div>
                         </div>

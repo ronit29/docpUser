@@ -628,7 +628,7 @@ let routes = [
     { path: '/categoryTestResults', exact: true, component: categoryTestResults },
     { path: '/*-tpcp', exact: true, component: categoryTestResults },
     { path: '/hospitals/inventory', exact: true, component: HospitalList, RENDER_ON_SERVER: true },
-    { path: '/lensfit', exact:true, component:LensFit,RENDER_ON_SERVER:true },
+    { path: '/lensfit-tnc', exact:true, component:LensFit,RENDER_ON_SERVER:true },
     { path: '/cancel-policy-app',exact:true, component: CancelPolicyApp}
 
 ]

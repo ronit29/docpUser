@@ -60,7 +60,9 @@ class BookingSummaryViewNew extends React.Component {
             is_payment_coupon_applied: false,
             pay_btn_loading: true,
             isDobNotValid:false,
-            show_lensfit_popup:true
+            show_lensfit_popup:false,
+            lensfit_coupons:null,
+            lensfit_decline:false
         }
     }
 
@@ -515,6 +517,8 @@ class BookingSummaryViewNew extends React.Component {
         let is_plan_applicable = false
         let is_tests_covered_under_plan = true
         let is_selected_user_has_active_plan = false
+        let show_lensfit = true
+        let lensfit_coupons= null
 
         if (this.props.isUserCared && this.props.isUserCared.has_active_plan) {
             is_selected_user_has_active_plan = this.props.isUserCared.has_active_plan
@@ -539,14 +543,29 @@ class BookingSummaryViewNew extends React.Component {
                 } else {
                     is_tests_covered_under_plan = false
                 }
+                if(test.lensfit_offer){
+                    if(!test.lensfit_offer.applicable){
+                        show_lensfit = false
+                    }else{
+                        lensfit_coupons = test.lensfit_offer.coupon
+                    }  
+                    
+                }else{
+
+                }
             })
 
         }
-
-
         is_insurance_applicable = is_tests_covered_under_insurance && is_selected_user_insured
 
         is_plan_applicable = is_tests_covered_under_plan && is_selected_user_has_active_plan
+        
+        show_lensfit = show_lensfit && this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length
+
+        if(!this.state.show_lensfit_popup && !this.state.lensfit_decline && show_lensfit && !is_plan_applicable && !is_insurance_applicable && lensfit_coupons && Object.keys(lensfit_coupons).length > 0 && this.state.couponId !=lensfit_coupons.coupon_id){
+            this.setState({show_lensfit_popup:true, lensfit_coupons:lensfit_coupons})
+            return
+        }
         let prescriptionIds = []
         if (prescriptionPicked && is_insurance_applicable) {
             if (this.props.user_prescriptions && this.props.user_prescriptions.length == 0) {
@@ -853,7 +872,7 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     closeLensFitPopup(){
-        this.setState({show_lensfit_popup:false})
+        this.setState({show_lensfit_popup:false,lensfit_decline:true})
     }
     
     render() {
@@ -879,9 +898,7 @@ class BookingSummaryViewNew extends React.Component {
         let is_tests_covered_under_plan = true
         let is_selected_user_has_active_plan = false
         let is_insurance_buy_able = false
-        let is_selected_user_insurance_status 
-        let show_lensfit = true
-        let lensfit_coupons = null 
+        let is_selected_user_insurance_status
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
@@ -919,22 +936,9 @@ class BookingSummaryViewNew extends React.Component {
                 } else {
                     is_tests_covered_under_plan = false
                 }
-
-                if(test.lensfit_offer){
-                    if(!test.lensfit_offer.applicable){
-                        show_lensfit = false
-                    }else{
-                        lensfit_coupons = test.lensfit_offer.coupon
-                    }
-                    
-                    
-                }else{
-
-                }
             })
 
         }
-        show_lensfit = show_lensfit && this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length
         is_insurance_applicable = is_tests_covered_under_insurance && is_selected_user_insured
         
         if(is_tests_covered_under_insurance && !is_selected_user_insured){
@@ -1061,8 +1065,8 @@ class BookingSummaryViewNew extends React.Component {
                         : ''
                 }
                 {
-                    (this.state.show_lensfit_popup && show_lensfit && !is_plan_applicable && !is_insurance_applicable && ((this.state.couponId && this.state.couponId !=lensfit_coupons.coupon_id) || (!this.state.couponId) ) )?
-                        <LensfitPopup {...this.props} lensfit_coupons ={lensfit_coupons} applyLensFitCoupons = {this.applyLensFitCoupons.bind(this)} closeLensFitPopup={this.closeLensFitPopup.bind(this)}/>
+                    this.state.show_lensfit_popup?
+                        <LensfitPopup {...this.props} lensfit_coupons ={this.state.lensfit_coupons} applyLensFitCoupons = {this.applyLensFitCoupons.bind(this)} closeLensFitPopup={this.closeLensFitPopup.bind(this)}/>
                     :''
                 }
                 <section className="container container-top-margin">
