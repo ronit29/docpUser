@@ -56,6 +56,12 @@ const Cart = Loadable({
     webpack: () => [require.resolveWeak('./containers/commons/cart')],
     loading,
 })
+const OrderMedicine = Loadable({
+    loader: () => import('./components/commons/OrderMedicine/orderMedicine.js'),
+    modules: ['./components/commons/OrderMedicine/orderMedicine.js'],
+    webpack: () => [require.resolveWeak('./components/commons/OrderMedicine/orderMedicine.js')],
+    loading,
+})
 const OrderSummary = Loadable({
     loader: () => import('./containers/commons/OrderSummary'),
     modules: ['./containers/commons/OrderSummary'],
@@ -526,6 +532,7 @@ let routes = [
     { path: '/search', exact: true, component: Search },
     { path: '/offers', exact: true, component: Offers },
     { path: '/cart', exact: true, component: Cart },
+    { path: '/order-medicine', exact: true, component: OrderMedicine },
 
     { path: '/opd/searchresults', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
     { path: '/opd/searchresults/location=*', exact: true, component: SearchResults, RENDER_ON_SERVER: true },
