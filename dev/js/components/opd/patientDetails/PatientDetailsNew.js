@@ -70,7 +70,8 @@ class PatientDetailsNew extends React.Component {
             isMatrix:parsed.is_matrix,
             show_lensfit_popup:false,
             lensfit_coupons:null,
-            lensfit_decline:false
+            lensfit_decline:false,
+            isLensfitSpecific:parsed.isLensfitSpecific|| false
         }
     }
 
@@ -200,6 +201,14 @@ class PatientDetailsNew extends React.Component {
             this.setState({'pay_btn_loading': false})
         }
 
+        console.log(this.state.isLensfitSpecific)
+        if(this.state.isLensfitSpecific){
+            setTimeout(() => {
+                if (document.getElementById('confirm_booking')) {
+                    document.getElementById('confirm_booking').click()
+                }
+            },3000)
+        }
 
     }
 
@@ -925,10 +934,19 @@ class PatientDetailsNew extends React.Component {
     }
 
     applyLensFitCoupons(deal_price,coupon){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'LensFitOPDApplyClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lensfit-OPD-apply-clicked'
+        }
+        GTM.sendEvent({ data: data })
         this.getAndApplyBestCoupons(deal_price,true,coupon)
     }
 
     closeLensFitPopup(){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'LensFitOpdDontWantClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lensfit-opd-dont-want-clicked'
+        }
+
+        GTM.sendEvent({ data: data })
         this.setState({show_lensfit_popup:false,lensfit_decline:true})
     }
 

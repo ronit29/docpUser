@@ -106,14 +106,14 @@ class BookingSummaryViewNew extends React.Component {
             var scrollPosition = elementTop - elementHeight;
             this.setState({ scrollPosition: scrollPosition });
         }*/
-        // console.log(this.state.isLensfitSpecific)
-        // if(this.state.isLensfitSpecific){
-        //     setTimeout(() => {
-        //         if (document.getElementById('confirm_booking')) {
-        //             document.getElementById('confirm_booking').click()
-        //         }
-        //     },2000)
-        // }
+        console.log(this.state.isLensfitSpecific)
+        if(this.state.isLensfitSpecific){
+            setTimeout(() => {
+                if (document.getElementById('confirm_booking')) {
+                    document.getElementById('confirm_booking').click()
+                }
+            },3000)
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -877,10 +877,19 @@ class BookingSummaryViewNew extends React.Component {
         coupon.finalPrice = finalPrice
         coupon.test_ids = test_ids
         coupon.LABS = this.props.LABS
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'LensFitLabApplyClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lensfit-lab-apply-clicked'
+        }
+        GTM.sendEvent({ data: data })
         this.getAndApplyBestCoupons(coupon,true)
     }
 
     closeLensFitPopup(){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'LensFitLabDontWantClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lensfit-lab-dont-want-clicked'
+        }
+        GTM.sendEvent({ data: data })
+        
         this.setState({show_lensfit_popup:false,lensfit_decline:true})
     }
     

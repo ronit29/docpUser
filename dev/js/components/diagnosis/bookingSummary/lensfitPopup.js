@@ -1,4 +1,5 @@
 import React from 'react'
+import GTM from '../../../helpers/gtm.js'
 
 class BookingConfirmationPopup extends React.Component {
 	constructor(props) {
@@ -29,6 +30,11 @@ class BookingConfirmationPopup extends React.Component {
 							<p className="lns-know" onClick={(e) => {
 								e.preventDefault()
 								e.stopPropagation()
+								let data = {
+					                'Category': 'ConsumerApp', 'Action': 'LensFitKnowMore', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lensfit-knowmore-clicked'
+					            }
+
+					            GTM.sendEvent({ data: data })
 								this.props.history.push('/lensfit-tnc?callbackurl='+callBackUrl+'&isLensfitSpecific=true')
 								}}>Know more</p>
 						</div>
