@@ -65,7 +65,9 @@ class PatientDetailsNew extends React.Component {
             firstLeadId:'',
             timeErrorText:'',
             pay_btn_loading: true,
-            isMatrix:parsed.is_matrix
+            isMatrix:parsed.is_matrix,
+            isEmailNotValid: false,
+            isDobNotValid: false
         }
     }
 
@@ -411,6 +413,17 @@ class PatientDetailsNew extends React.Component {
                 window.scrollTo(0, 0)
                 return
             }
+        }
+
+        if(patient && !patient.email && this.props.is_integrated){
+            this.setState({isEmailNotValid:true})
+            SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Email Id" })
+            return 
+        }
+        if(patient && !patient.dob && this.props.is_integrated){
+            this.setState({isDobNotValid:true})
+            SnackBar.show({ pos: 'bottom-center', text: "Please Enter Your Date of Birth" })
+            return 
         }
 
         if (!this.state.profileDataFilled) {
@@ -1158,7 +1171,7 @@ class PatientDetailsNew extends React.Component {
                                                             doctor_leaves={this.props.doctor_leaves || []}
                                                             upcoming_slots={this.props.upcoming_slots || null}
                                                         />*/}
-                                                        <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={ hospital && hospital.is_ipd_hospital?hospital.is_ipd_hospital:'' } doctor_id = {this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} />
+                                                        <ChoosePatientNewView patient={patient} navigateTo={this.navigateTo.bind(this)} {...this.props} profileDataCompleted={this.profileDataCompleted.bind(this)} profileError={this.state.profileError} doctorSummaryPage="true" is_ipd_hospital={ hospital && hospital.is_ipd_hospital?hospital.is_ipd_hospital:'' } doctor_id = {this.props.selectedDoctor} hospital_id={hospital && hospital.hospital_id?hospital.hospital_id:''} show_insurance_error={show_insurance_error} insurance_error_msg={insurance_error_msg} isEmailNotValid={this.state.isEmailNotValid} isDobNotValid={this.state.isDobNotValid} is_opd={true}/>
                                                         {
                                                             Object.values(selectedProcedures).length ?
                                                                 <ProcedureView selectedProcedures={selectedProcedures} priceData={priceData} />
