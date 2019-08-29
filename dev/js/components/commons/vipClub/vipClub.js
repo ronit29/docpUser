@@ -29,40 +29,31 @@ class VipClub extends React.Component {
     render() {
 
         return (
-            
+
 
             <div className="profile-body-wrap">
-                    {/* <ProfileHeader /> */}
-                    <div className="careHeaderBar">
-                        <div className="container">
-                            <div className="care-logo-container">
-                                <div>
-                                <img className="careBackIco" src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} onClick={() => this.props.history.push('/')} />
-                                </div>
-                                <img className="careLogiImg" src={ASSETS_BASE_URL + "/img/logo-care-white.png"} />
-                            </div>
-                        </div>
+                {/* <ProfileHeader /> */}
+                <div className="vipHeaderBar">
+                    <div className="vipBackIco">
+                        <img src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} />
                     </div>
-                    <div className="careSubHeader">
-                        <img className="careSubImg" src={ASSETS_BASE_URL + "/img/shape.png"} />
-                        <div className="container">
-                            <div className="careTextContSc">
-                                <img className="caresubTxt" src={ASSETS_BASE_URL + "/img/careText.png"} />
-                                {/* <img className="caresubsmile" src={ASSETS_BASE_URL + "/img/dpsmile.png"} /> */}
-                            </div>
-                        </div>
+                    <div className="vip-logo-cont">
+                        <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/logo-care-white.png"} />
+                        <h1>in Just ₹5,000 ₹4,000  </h1>
+                        <p>1 year upto 4 members</p>
                     </div>
-                    <section className="container container-top-margin" style={{ marginTop: '120px' }}>
-                        <div className="row main-row parent-section-row">
-                            <LeftBar />
-                            <div className="col-12 center-column">
-                                <div className="container-fluid">
-                                    <div className="care-new-container">
-                                    </div>
+                </div>
+                <section className="container container-top-margin" style={{ marginTop: '' }}>
+                    <div className="row main-row parent-section-row">
+                        <LeftBar />
+                        <div className="col-12 center-column">
+                            <div className="container-fluid">
+                                <div className="care-new-container">
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </div>
+                </section>
             </div>
         );
     }
