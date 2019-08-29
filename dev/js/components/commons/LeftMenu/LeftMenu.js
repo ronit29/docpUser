@@ -107,6 +107,10 @@ class LeftMenu extends React.Component {
 
                   <li><a onClick={(e) => {
                       e.preventDefault()
+                      let data = {
+                        'Category': 'ConsumerApp', 'Action': 'LeftMenuOrderMedicineClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'leftmenu-order-medicine-clicked'
+                      }
+                      GTM.sendEvent({ data: data })
                       this.props.toggleLeftMenu()
                       this.props.history.push('/order-medicine')
                     }} href="#" className=""><img src={ASSETS_BASE_URL + "/img/customer-icons/medicine-order.png"} alt="" className="pad-B0" />Order Medicines</a>

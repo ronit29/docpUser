@@ -3264,6 +3264,7 @@ div.search-el-popup.non-book-pop{
 #medicine-btn{
 	width: 100%;
 	padding: 12px 14px;
+	white-space: normal;
 }
 
 @media(min-width: 992px){

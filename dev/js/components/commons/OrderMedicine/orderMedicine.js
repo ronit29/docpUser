@@ -3,6 +3,7 @@ import DesktopProfileHeader from '../DesktopProfileHeader';
 import Footer from '../Home/footer'
 import RightBar from '../RightBar';
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup';
+import GTM from '../../../helpers/gtm';
 
 class OrderMedicine extends React.Component {
     constructor(props) {
@@ -16,10 +17,36 @@ class OrderMedicine extends React.Component {
 
     orderMedicineClick(source) {
         this.setState({ showPopup: true, clickedOn: source })
+        if (source === 'newOrder') {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'OrderPageNewOrderClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'order-page-new-order-click'
+            }
+            GTM.sendEvent({ data: data })
+        }
+        else if (source === 'prevOrder') {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'OrderPagePreviousOrderClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'orde-page-previous-order-click'
+            }
+            GTM.sendEvent({ data: data })
+        }
     }
 
     continueClick() {
         this.setState({ showPopup: false })
+
+        if (this.state.clickedOn === 'newOrder') {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'OrderPageContinueClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'order-page-continue-click'
+            }
+            GTM.sendEvent({ data: data })
+        }
+        else if (this.state.clickedOn === 'prevOrder') {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'OrderPagePreviousOrderClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'order-page-previous-order-click'
+            }
+            GTM.sendEvent({ data: data })
+        }
+
         if (typeof navigator === 'object') {
             if (/mobile/i.test(navigator.userAgent)) {
                 this.setState({ showIframe: true });

@@ -254,10 +254,18 @@ class Article extends React.Component {
 
     buyMedicineClick() {
         this.setState({ showPopup: true })
+        let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'BuyMedicineBtnClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'buy-medicine-btn-click'
+        }
+        GTM.sendEvent({ data: gtmData })
     }
 
     continueClick() {
         this.setState({ showPopup: false })
+        let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'MedicinePageContinueClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'medicine-page-continue-click'
+        }
+        GTM.sendEvent({ data: gtmData })
         if (typeof navigator === 'object') {
             if (/mobile/i.test(navigator.userAgent)) {
                 this.setState({ showIframe: true });
@@ -428,10 +436,10 @@ class Article extends React.Component {
                                                 }
 
                                                 {
-                                                    this.props.match.path.split('-')[1] === 'mddp' ?
+                                                    this.state.articleData && this.state.articleData.title && this.props.match.path.split('-')[1] === 'mddp' ?
                                                         <React.Fragment>
                                                             <div className="buy-med-btn" id="medicine-btn-div">
-                                                                <button className="v-btn v-btn-primary btn-lg text-sm" id="medicine-btn" onClick={() => this.buyMedicineClick()}>Buy this medicine at Flat 20% Off</button>
+                                                                <button className="v-btn v-btn-primary btn-lg text-sm" id="medicine-btn" onClick={() => this.buyMedicineClick()}>Buy {this.state.articleData.title.split('|')[0]} at Flat 20% Off</button>
                                                             </div>
                                                             <div className="buy-med-tagline mrb-20">
                                                                 <p className="fw-500" style={{ marginRight: 3, fontSize: 12 }}>Powered by : </p>

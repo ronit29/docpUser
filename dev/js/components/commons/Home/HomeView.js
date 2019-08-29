@@ -174,6 +174,18 @@ class HomeView extends React.Component {
 
 	orderMedClick(source) {
 		this.setState({ showPopup: true, clickedOn: source })
+		if (source === 'newOrder') {
+			let data = {
+				'Category': 'ConsumerApp', 'Action': 'DesktopNewOrderClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-new-order-click'
+			}
+			GTM.sendEvent({ data: data })
+		}
+		else if (source === 'prevOrder') {
+			let data = {
+				'Category': 'ConsumerApp', 'Action': 'DesktopPreviousOrderClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-previous-order-click'
+			}
+			GTM.sendEvent({ data: data })
+		}
 	}
 
 	continueClick() {
