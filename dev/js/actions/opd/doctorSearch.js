@@ -244,6 +244,41 @@ export const getDoctorById = (doctorId, hospitalId = "", procedure_ids = "", cat
 			commonProcedurers: procedure_ids
 		})
 
+		if(response.cod_prepaid && false && response.cod_prepaid.date && extraParams && extraParams.appointmentId){
+
+			let selectedDate = response.cod_prepaid.date
+			let time_slot = {
+	            text: new Date(selectedDate).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0],
+	            deal_price: deal_price,
+	            is_available: true,
+	            mrp: mrp,
+	            fees: fees,
+	            price: deal_price,
+	            title: new Date(selectedDate).getHours() >= 12 ? 'PM' : 'AM',
+	            value: new Date(selectedDate).getHours() + new Date(selectedDate).getMinutes() / 60
+	        }
+			let slot = {
+				date: selectedDate,
+				slot: '',
+                time: time_slot,
+                selectedDoctor: doctorId,
+                selectedClinic: hospitalId
+			}
+			let extraTimeParams = null
+            if(slot.date) {
+                extraTimeParams = ''//this.getFormattedDate(timeSlot.date)
+            }
+			dispatch({
+				type: SELECT_OPD_TIME_SLOT,
+				payload: {
+					reschedule: false,
+					slot: slot,
+					appointmentId: null,
+					extraTimeParams
+				}
+			})
+		}
+
 	}).catch(function (error) {
 
 	})
