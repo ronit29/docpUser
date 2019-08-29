@@ -1,4 +1,4 @@
-import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_COMMON_PROCEDURES, APPEND_DOCTORS_PROFILE, SAVE_PROFILE_PROCEDURES, APPEND_HOSPITALS, HOSPITAL_SEARCH, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS, SAVE_RESULTS_WITH_SEARCHID, MERGE_URL_STATE, SET_URL_PAGE, SET_NEXT_SEARCH_CRITERIA, TOGGLE_404, CLEAR_OPD_SEARCH_ID, SELECT_OPD_PAYMENT_TYPE, START_FETCHING_OPD_TIME, END_FETCHING_OPD_TIME } from '../../constants/types';
+import { SET_FETCH_RESULTS_OPD, SET_SERVER_RENDER_OPD, SELECT_LOCATION_OPD, SELECT_LOCATION_DIAGNOSIS, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH_START, APPEND_DOCTORS, DOCTOR_SEARCH, MERGE_SEARCH_STATE_OPD, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_COMMON_PROCEDURES, APPEND_DOCTORS_PROFILE, SAVE_PROFILE_PROCEDURES, APPEND_HOSPITALS, HOSPITAL_SEARCH, SET_SEARCH_ID, GET_SEARCH_ID_RESULTS, SAVE_RESULTS_WITH_SEARCHID, MERGE_URL_STATE, SET_URL_PAGE, SET_NEXT_SEARCH_CRITERIA, TOGGLE_404, CLEAR_OPD_SEARCH_ID, SELECT_OPD_PAYMENT_TYPE, START_FETCHING_OPD_TIME, END_FETCHING_OPD_TIME, SELECT_USER_PROFILE } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _getNameFromLocation } from '../../helpers/mapHelpers.js'
@@ -227,8 +227,8 @@ export const getDoctorById = (doctorId, hospitalId = "", procedure_ids = "", cat
 	category_ids = ''
 	let url = `/api/v1/doctor/profileuserview/${doctorId}?hospital_id=${hospitalId || ""}&procedure_ids=${procedure_ids || ""}&procedure_category_ids=${category_ids || ""}`
 
-	if(extraParams && extraParams.appointmentId){
-		url+=`&appointment_id=${extraParams.appointmentId}`
+	if(extraParams && extraParams.appointment_id){
+		url+=`&appointment_id=${extraParams.appointment_id}&cod_to_prepaid=true`
 	}
 	return API_GET(url).then(function (response) {
 
@@ -244,9 +244,10 @@ export const getDoctorById = (doctorId, hospitalId = "", procedure_ids = "", cat
 			commonProcedurers: procedure_ids
 		})
 
-		if(response.cod_prepaid && false && response.cod_prepaid.date && extraParams && extraParams.appointmentId){
+		if(response.cod_to_prepaid && response.cod_to_prepaid.time_slot_start && extraParams && extraParams.appointment_id){
 
-			let selectedDate = response.cod_prepaid.date
+			let selectedDate = response.cod_to_prepaid.time_slot_start
+			let { mrp, fees, deal_price, user_id, formatted_date } = response.cod_to_prepaid
 			let time_slot = {
 	            text: new Date(selectedDate).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0],
 	            deal_price: deal_price,
@@ -266,8 +267,12 @@ export const getDoctorById = (doctorId, hospitalId = "", procedure_ids = "", cat
 			}
 			let extraTimeParams = null
             if(slot.date) {
-                extraTimeParams = ''//this.getFormattedDate(timeSlot.date)
+                extraTimeParams = formatted_date
             }
+            dispatch({
+            	type: SELECT_USER_PROFILE,
+            	payload: user_id
+            })
 			dispatch({
 				type: SELECT_OPD_TIME_SLOT,
 				payload: {

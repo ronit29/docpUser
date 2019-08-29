@@ -53,9 +53,9 @@ class PatientDetails extends React.Component {
             if(callDoctorById){
                 let extraParams={}
                 if(parsed.appointment_id){
-                    extraParams['appointmentId'] = parsed.appointment_id
+                    extraParams['appointment_id'] = parsed.appointment_id
                 }
-                props.getDoctorById(doctor_id, hospital_id, props.commonProfileSelectedProcedures, extraParams)
+                props.getDoctorById(doctor_id, hospital_id, props.commonProfileSelectedProcedures, '', extraParams)
             }
 
             /*if (props.selectedSlot && props.selectedSlot.date && !props.selectedSlot.summaryPage) {
@@ -112,7 +112,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         selectOpdTimeSLot: (slot, reschedule, appointmentId, extraDateParams) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId, extraDateParams)),
         getUserProfile: () => dispatch(getUserProfile()),
-        getDoctorById: (doctorId, hospitalId, procedure_ids, extraParams) => dispatch(getDoctorById(doctorId, hospitalId, procedure_ids, extraParams)),
+        getDoctorById: (doctorId, hospitalId, procedure_ids,category_ids, extraParams) => dispatch(getDoctorById(doctorId, hospitalId, procedure_ids, category_ids, extraParams)),
         createOPDAppointment: (postData, callback) => dispatch(createOPDAppointment(postData, callback)),
         sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
         removeCoupons: (hospitalId, couponId) => dispatch(removeCoupons(hospitalId, couponId)),

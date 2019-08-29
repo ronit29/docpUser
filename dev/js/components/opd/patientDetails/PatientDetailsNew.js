@@ -91,13 +91,10 @@ class PatientDetailsNew extends React.Component {
             window.scrollTo(0, 0)
         }
         const parsed = queryString.parse(this.props.location.search)
-        if (parsed.token && false) {
+        if (parsed.token && parsed.appointment_id) {
             this.props.agentLogin(parsed.token, () => {
                 this.props.select_opd_payment_type(1)
             })
-        }
-        if(parsed.appointment_id){
-            this.props.select_opd_payment_type(1)
         }
 
         if (this.props.location.search.includes("error_code")) {
@@ -395,6 +392,7 @@ class PatientDetailsNew extends React.Component {
         return utm_tags
     }
     proceed(datePicked, patient, addToCart, total_price, total_wallet_balance,is_selected_user_insurance_status, e) {
+        const parsed = queryString.parse(this.props.location.search)
         if(patient && is_selected_user_insurance_status && is_selected_user_insurance_status == 4){
             SnackBar.show({ pos: 'bottom-center', text: "Your documents from the last claim are under verification.Please write to customercare@docprime.com for more information." });
             window.scrollTo(0, 0)
@@ -485,6 +483,9 @@ class PatientDetailsNew extends React.Component {
             use_wallet: this.state.use_wallet,
             cart_item: this.state.cart_item,
             utm_tags: utm_tags
+        }
+        if(parsed && parsed.appointment_id && parsed.cod_to_prepaid=='true') {
+            postData['appointment_id'] = parsed.appointment_id
         }
         let profileData = { ...patient }
         if (profileData && profileData.whatsapp_optin == null) {
@@ -1272,7 +1273,7 @@ class PatientDetailsNew extends React.Component {
                                                                     }
 
                                                                     {
-                                                                        !is_insurance_applicable && enabled_for_cod_payment && !parsed.appointment_id?
+                                                                        !is_insurance_applicable && enabled_for_cod_payment && !(parsed.appointment_id && parsed.cod_to_prepaid=='true')?
                                                                             <div className="test-report payment-detail mt-20" onClick={() => {
                                                                                 this.props.select_opd_payment_type(2)
                                                                             }}>
@@ -1500,7 +1501,7 @@ class PatientDetailsNew extends React.Component {
                             <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
 
                                 {
-                                    STORAGE.isAgent() || !is_default_user_insured || this.state.isMatrix?
+                                    (STORAGE.isAgent() || !is_default_user_insured || this.state.isMatrix) && !(parsed.appointment_id && parsed.cod_to_prepaid=='true')?
                                         <button disabled={this.state.pay_btn_loading} className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn") + (this.state.pay_btn_loading ? " disable-all" : "")} data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
                                         } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance,is_selected_user_insurance_status)}>
