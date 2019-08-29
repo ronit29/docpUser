@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails, ipdChatView, checkIpdChatAgentStatus, saveAvailNowInsurance, submitIPDForm } from '../../actions/index.js'
+import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails, ipdChatView, checkIpdChatAgentStatus, saveAvailNowInsurance, submitIPDForm, agentLogin } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
 
@@ -51,8 +51,9 @@ class PatientDetails extends React.Component {
 
         if (doctor_id) {
             if(callDoctorById){
-                let extraParams={
-                    appointmentId: parsed.appointment_id||'3412'
+                let extraParams={}
+                if(parsed.appointment_id){
+                    extraParams['appointmentId'] = parsed.appointment_id
                 }
                 props.getDoctorById(doctor_id, hospital_id, props.commonProfileSelectedProcedures, extraParams)
             }
@@ -132,7 +133,8 @@ const mapDispatchToProps = (dispatch) => {
         ipdChatView: (data) => dispatch(ipdChatView(data)),
         checkIpdChatAgentStatus: (cb) => dispatch(checkIpdChatAgentStatus(cb)),
         saveAvailNowInsurance:(data) => dispatch(saveAvailNowInsurance(data)),
-        submitIPDForm: (formData, selectedLocation, cb) => dispatch(submitIPDForm(formData, selectedLocation, cb))
+        submitIPDForm: (formData, selectedLocation, cb) => dispatch(submitIPDForm(formData, selectedLocation, cb)),
+        agentLogin: (token, cb) => dispatch(agentLogin(token, cb))
     }
 }
 

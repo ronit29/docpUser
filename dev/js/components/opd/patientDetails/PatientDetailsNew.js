@@ -90,6 +90,15 @@ class PatientDetailsNew extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
+        const parsed = queryString.parse(this.props.location.search)
+        if (parsed.token && false) {
+            this.props.agentLogin(parsed.token, () => {
+                this.props.select_opd_payment_type(1)
+            })
+        }
+        if(parsed.appointment_id){
+            this.props.select_opd_payment_type(1)
+        }
 
         if (this.props.location.search.includes("error_code")) {
             setTimeout(() => {
@@ -1237,7 +1246,7 @@ class PatientDetailsNew extends React.Component {
                                                                 <div className="widget-content">
                                                                     <h4 className="title mb-20">Payment Mode</h4>
                                                                     {
-                                                                        enabled_for_prepaid_payment ?
+                                                                        enabled_for_prepaid_payment?
                                                                             <div className="payment-summary-content" onClick={() => {
                                                                                 this.props.select_opd_payment_type(1)
                                                                             }}>
@@ -1263,7 +1272,7 @@ class PatientDetailsNew extends React.Component {
                                                                     }
 
                                                                     {
-                                                                        !is_insurance_applicable && enabled_for_cod_payment ?
+                                                                        !is_insurance_applicable && enabled_for_cod_payment && !parsed.appointment_id?
                                                                             <div className="test-report payment-detail mt-20" onClick={() => {
                                                                                 this.props.select_opd_payment_type(2)
                                                                             }}>
