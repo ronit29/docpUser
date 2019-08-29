@@ -431,7 +431,7 @@ class Article extends React.Component {
                                                     this.props.match.path.split('-')[1] === 'mddp' ?
                                                         <React.Fragment>
                                                             <div className="buy-med-btn" id="medicine-btn-div">
-                                                                <button className="v-btn v-btn-primary btn-lg text-sm" id="medicine-btn" onClick={() => this.buyMedicineClick()}>Buy this medicine</button>
+                                                                <button className="v-btn v-btn-primary btn-lg text-sm" id="medicine-btn" onClick={() => this.buyMedicineClick()}>Buy this medicine at Flat 20% Off</button>
                                                             </div>
                                                             <div className="buy-med-tagline mrb-20">
                                                                 <p className="fw-500" style={{ marginRight: 3, fontSize: 12 }}>Powered by : </p>
