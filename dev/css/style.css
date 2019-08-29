@@ -9169,7 +9169,7 @@ border-radius: 4px;
 	padding:0;
 }
 .pkgComapre{
-	margin-top: 100px;
+	margin-top: 94px;
 }
 
 .pkgComapre .top-filter-tabs-select img{
@@ -9848,7 +9848,7 @@ ul,li{
 	position: -webkit-sticky;
 	left: 0;
 	right: 0;
-	top: 107px;
+	top: 94px;
 	z-index: 99;
 }
 .hide-all{
@@ -11989,6 +11989,11 @@ ul.chat-radio-align .custom-radio .radio-checkmark.checkmark:after{
     opacity: .6;
     cursor: no-drop;
 }
+.disable-all{
+	pointer-events: none;
+    filter: grayscale(1);
+    cursor: no-drop;
+}
 .cpn-blur{
     transition: all;
     -webkit-transition: all .5s ease-in-out;
@@ -12076,4 +12081,14 @@ font-weight: 500;
     padding: 6px 10px;
     font-weight: 500;
     background: white;
+}
+
+.docprime-article ul li {
+    list-style: disc;
+}
+.custom-li-style ul li {
+    list-style: disc;
+}
+.acrd-sub-content ul li{
+    list-style: disc;
 }

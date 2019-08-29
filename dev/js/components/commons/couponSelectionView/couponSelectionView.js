@@ -97,7 +97,8 @@ class CouponSelectionView extends React.Component {
     toggleButtons(coupon, e) {
         if (coupon.valid) {
             this.setState({ coupon: coupon.coupon_id, couponName: coupon.code, errorMsg: '' })
-            this.props.applyCoupons(this.state.appointmentType, coupon, coupon.coupon_id, this.state.id)
+            this.props.applyCoupons(this.state.appointmentType, coupon, coupon.coupon_id, this.state.id, (success) => {
+            })
             this.props.history.go(-1)
         } else {
             // open popup

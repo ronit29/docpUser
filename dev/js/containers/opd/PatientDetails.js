@@ -116,7 +116,7 @@ const mapDispatchToProps = (dispatch) => {
         sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
         removeCoupons: (hospitalId, couponId) => dispatch(removeCoupons(hospitalId, couponId)),
         applyOpdCoupons: (productId, couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id, procedures_ids, cart_item, callback) => dispatch(applyOpdCoupons(productId, couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id, procedures_ids, cart_item, callback)),
-        applyCoupons: (productId, couponData, couponId, hospitalId) => dispatch(applyCoupons(productId, couponData, couponId, hospitalId)),
+        applyCoupons: (productId, couponData, couponId, hospitalId,callback) => dispatch(applyCoupons(productId, couponData, couponId, hospitalId,callback)),
         resetOpdCoupons: () => dispatch(resetOpdCoupons()),
         getCoupons: (data) => dispatch(getCoupons(data)),
         createProfile: (postData, cb) => dispatch(createProfile(postData, cb)),

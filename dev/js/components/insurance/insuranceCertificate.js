@@ -3,6 +3,7 @@ import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import ChatPanel from '../../components/commons/ChatPanel'
 import Loader from '../commons/Loader'
 import SnackBar from 'node-snackbar'
+import GTM from '../../helpers/gtm.js'
 import InitialsPicture from '../commons/initialsPicture'
 const queryString = require('query-string');
 
