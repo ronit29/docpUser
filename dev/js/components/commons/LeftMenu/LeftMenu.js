@@ -106,18 +106,18 @@ class LeftMenu extends React.Component {
                   }} href="#"><img src={ASSETS_BASE_URL + "/images/my-appointment.png"} alt="" className="" />My Appointments</a></li>
 
                   <li><a onClick={(e) => {
+                      e.preventDefault()
+                      this.props.toggleLeftMenu()
+                      this.props.history.push('/order-medicine')
+                    }} href="#" className=""><img src={ASSETS_BASE_URL + "/img/customer-icons/medicine-order.png"} alt="" className="pad-B0" />Order Medicines</a>
+                  </li>
+
+                  <li><a onClick={(e) => {
                     e.preventDefault()
                     this.props.toggleLeftMenu()
                     this.props.history.push('/wallet')
                   }} href="#"><img src="https://cdn.docprime.com/cp/assets/img/customer-icons/rp-ico.png" alt="" className="" />My Wallet</a>
                     {/*<span className="wallet-amnt"><img src="/assets/images/rupees-icon.png" />212</span>*/}
-                  </li>
-
-                  <li><a onClick={(e) => {
-                      e.preventDefault()
-                      this.props.toggleLeftMenu()
-                      this.props.history.push('/order-medicine')
-                    }} href="#" className=""><img src={ASSETS_BASE_URL + "/img/customer-icons/medicine-order.png"} alt="" className="pad-B0" />Order Medicines</a>
                   </li>
 
                   <li ><a onClick={(e) => {
