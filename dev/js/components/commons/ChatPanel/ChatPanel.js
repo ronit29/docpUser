@@ -358,12 +358,12 @@ class ChatPanel extends React.Component {
         let event = new Event(eventName)
         let iframe = this.refs.chat_frame
 
-        if (iframe) {
+        if (iframe && iframe.contentWindow) {
             iframe.dispatchEvent(event)
             iframe.contentWindow.postMessage({ 'event': eventName, data }, '*')
         }
         let iframe1 = this.refs.chat_frame1
-        if (iframe1) {
+        if (iframe1 && iframe1.contentWindow) {
             iframe1.dispatchEvent(event)
             iframe1.contentWindow.postMessage({ 'event': eventName, data }, '*')
         }
