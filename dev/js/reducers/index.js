@@ -17,6 +17,7 @@ import LAB_SEARCH_DATA from './diagnosis/labSearchData.js'
 import ELASTIC_SEARCH from './commons/elasticSearch.js'
 import INSURANCE from './insurance/insuranceCriteria.js'
 import SEARCH_CRITERIA_IPD from './ipd/searchCriteria.js'
+import VIP_CLUB_CRITERIA from './vipClub/vipClubCriteria.js'
 
 const persistConfig = {
     key: 'root',
@@ -64,6 +65,11 @@ const INSURANCE_LIST_PRESIST = {
     key: 'INSURANCE',
     storage: storage,
     whitelist: ['insurnaceData','self_data_values','selected_plan','currentSelectedInsuredMembersId','create_payment_resp', 'members_proofs', 'insurer_bank_details','avail_now_data','cancel_reason']
+}
+const VIP_CLUB_CRITERIA_PRESIST ={
+    key: 'VIPCLUB',
+    storage: storage,
+    whitelist: []
 }
 const IPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_IPD',

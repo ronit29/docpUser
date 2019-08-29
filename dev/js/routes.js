@@ -515,6 +515,13 @@ const CancelPolicyApp = Loadable({
     webpack: () => [require.resolveWeak('./containers/commons/cancelPolicyApp.js')],
     loading,
 })
+
+const VipClubView= Loadable({
+    loader: () => import('./containers/vipClub/VipClub'),
+    modules: ['./containers/vipClub/VipClub'],
+    webpack: () => [require.resolveWeak('./containers/vipClub/VipClub')],
+    loading,
+})
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
  */
@@ -637,7 +644,8 @@ let routes = [
     { path: '/hospitals/inventory', exact: true, component: HospitalList, RENDER_ON_SERVER: true },
     { path: '/vip-club', exact:true, component:VipClub,RENDER_ON_SERVER:true },
     { path: '/lensfit', exact:true, component:VipClub,RENDER_ON_SERVER:true },
-    { path: '/cancel-policy-app',exact:true, component: CancelPolicyApp}
+    { path: '/cancel-policy-app',exact:true, component: CancelPolicyApp},
+    { path: '/vip-club-details',exact:true, component: VipClubView},
 
 ]
 

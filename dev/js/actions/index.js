@@ -10,6 +10,7 @@ import * as ADS_BOOKING from './commons/adsBooking.js'
 import * as INSURANCE_ACTIONS from './insurance/insuranceCriteria.js'
 import * as CARE_DETAILS from './commons/primeCare.js'
 import * as SEARCH_CRITERIA_IPD from './ipd/searchCriteria.js'
+import * as VIP_CLUB_CRITERIA from './vipClub/vipClubCriteria.js'
 
 module.exports = Object.assign({},
     SEARCH_CRITERIA_OPD,
