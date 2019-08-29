@@ -9,6 +9,9 @@ class BookingConfirmationPopup extends React.Component {
 	}
 
 	render() {
+		let pathName = this.props.location.pathname
+		let searchParam = this.props.location.search
+		let callBackUrl = pathName + searchParam
 		return (
 			<div className="search-el-popup-overlay" >
 				<div className="search-el-popup">
@@ -26,12 +29,12 @@ class BookingConfirmationPopup extends React.Component {
 							<p className="lns-know" onClick={(e) => {
 								e.preventDefault()
 								e.stopPropagation()
-								this.props.history.push('/lensfit-tnc')
+								this.props.history.push('/lensfit-tnc?callbackurl='+callBackUrl+'&isLensfitSpecific=true')
 								}}>Know more</p>
 						</div>
 						<div className="lnsfit-btn-container">
 							<button onClick={this.props.closeLensFitPopup.bind(this)}>I Don’t want</button>
-							<button onClick={this.props.applyLensFitCoupons.bind(this,this.props.isOPD?this.props.deal_price:0,this.props.lensfit_coupons)}>Apply Lensfit</button>
+							<button onClick={this.props.applyLensFitCoupons.bind(this,this.props.isOPD?this.props.deal_price:0,this.props.lensfit_coupons)}>Apply LENSFIT</button>
 						</div>
 					</div>
 

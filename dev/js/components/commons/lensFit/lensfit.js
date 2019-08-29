@@ -17,6 +17,7 @@ import ArticleAuthor from '../articleAuthor/articleAuthor';
 import LocationElements from '../../../containers/commons/locationElements'
 import CommonSearch from '../../../containers/commons/CommonSearch.js'
 import FixedMobileFooter from '../Home/FixedMobileFooter'
+const queryString = require('query-string');
 // import FooterTestSpecializationWidgets from './FooterTestSpecializationWidgets.js'
 
 // import RelatedArticles from './RelatedArticles'
@@ -33,6 +34,22 @@ class Lensfit extends React.Component {
     }
 
     render() {
+        const parsed = queryString.parse(this.props.location.search)
+        let backUrl
+            if(parsed && parsed.callbackurl){
+                backUrl = parsed.callbackurl
+                if(parsed.hospital_id){
+                    backUrl += '&hospital_id='+parsed.hospital_id
+                }
+                if (window.location.href.includes('lpp/booking')) {
+                    backUrl += '&isLensfitSpecific=true'
+                }
+                if (window.location.href.includes('bookdetails') || window.location.href.includes('book')) {
+                    backUrl += '?isLensfitSpecific=true'
+                }else{
+                    backUrl += '&isLensfitSpecific=true'
+                }
+            }
 
         return (
             <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
@@ -67,7 +84,12 @@ class Lensfit extends React.Component {
                         <RightBar colClass="col-lg-4" />
                     </div>
                 </section>
-                <button className="lenfit-backbtn">Back</button>
+                <button className="lenfit-backbtn" onClick={(e) => {
+                                e.preventDefault()
+                                e.stopPropagation()
+                                this.props.history.push(backUrl)
+                                }}>
+                Back</button>
             </div>
         );
     }

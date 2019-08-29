@@ -62,7 +62,8 @@ class BookingSummaryViewNew extends React.Component {
             isDobNotValid:false,
             show_lensfit_popup:false,
             lensfit_coupons:null,
-            lensfit_decline:false
+            lensfit_decline:false,
+            isLensfitSpecific:parsed.isLensfitSpecific|| false
         }
     }
 
@@ -105,6 +106,14 @@ class BookingSummaryViewNew extends React.Component {
             var scrollPosition = elementTop - elementHeight;
             this.setState({ scrollPosition: scrollPosition });
         }*/
+        // console.log(this.state.isLensfitSpecific)
+        // if(this.state.isLensfitSpecific){
+        //     setTimeout(() => {
+        //         if (document.getElementById('confirm_booking')) {
+        //             document.getElementById('confirm_booking').click()
+        //         }
+        //     },2000)
+        // }
     }
 
     componentWillReceiveProps(nextProps) {
