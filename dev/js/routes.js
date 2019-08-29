@@ -509,6 +509,12 @@ const VipClub = Loadable({
     loading,
 })
 
+const CancelPolicyApp = Loadable({
+    loader: () => import('./containers/commons/cancelPolicyApp.js'),
+    modules: ['./containers/commons/cancelPolicyApp.js'],
+    webpack: () => [require.resolveWeak('./containers/commons/cancelPolicyApp.js')],
+    loading,
+})
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
  */
@@ -630,7 +636,8 @@ let routes = [
     { path: '/*-tpcp', exact: true, component: categoryTestResults },
     { path: '/hospitals/inventory', exact: true, component: HospitalList, RENDER_ON_SERVER: true },
     { path: '/vip-club', exact:true, component:VipClub,RENDER_ON_SERVER:true },
-    { path: '/lensfit', exact:true, component:VipClub,RENDER_ON_SERVER:true }
+    { path: '/lensfit', exact:true, component:VipClub,RENDER_ON_SERVER:true },
+    { path: '/cancel-policy-app',exact:true, component: CancelPolicyApp}
 
 ]
 
@@ -646,7 +653,7 @@ if (CONFIG.ENABLE_INSURANCE) {
         { path: '/insurance/certificate', exact: true, component: InsuranceCertificate, RENDER_ON_SERVER: true },
         { path: '/insurance/cancelpolicy', exact: true, component: InsuranceCancellation, RENDER_ON_SERVER: true },
         { path: '/insurance/canceldetails', exact: true, component: InsuranceBankDetails, RENDER_ON_SERVER: true },
-        { path: '/insurance/network', exact: true, component: InsuranceNetwork, RENDER_ON_SERVER: true }
+        { path: '/insurance/network', exact: true, component: InsuranceNetwork, RENDER_ON_SERVER: true },
     ])
 }
 
