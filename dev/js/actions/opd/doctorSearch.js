@@ -222,10 +222,15 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	})
 }
 
-export const getDoctorById = (doctorId, hospitalId = "", procedure_ids = "", category_ids = "") => (dispatch) => {
+export const getDoctorById = (doctorId, hospitalId = "", procedure_ids = "", category_ids = "", extraParams={}) => (dispatch) => {
 	procedure_ids = ''
 	category_ids = ''
-	return API_GET(`/api/v1/doctor/profileuserview/${doctorId}?hospital_id=${hospitalId || ""}&procedure_ids=${procedure_ids || ""}&procedure_category_ids=${category_ids || ""}`).then(function (response) {
+	let url = `/api/v1/doctor/profileuserview/${doctorId}?hospital_id=${hospitalId || ""}&procedure_ids=${procedure_ids || ""}&procedure_category_ids=${category_ids || ""}`
+
+	if(extraParams && extraParams.appointmentId){
+		url+=`&appointment_id=${extraParams.appointmentId}`
+	}
+	return API_GET(url).then(function (response) {
 
 		dispatch({
 			type: APPEND_DOCTORS_PROFILE,
