@@ -11,9 +11,7 @@ class DesktopProfileHeader extends React.Component {
             headerButtonsState: false,
             medicinePopup: false,
             toggleHamburger: this.props.toggleLeftMenu || false,
-            showLeftMenu: false,
-            showIframe: false,
-            clickedOn: ''
+            showLeftMenu: false
         }
     }
 
@@ -97,15 +95,6 @@ class DesktopProfileHeader extends React.Component {
         }
     }
 
-    isIFrameOpen(bool, source) {
-        if (bool) {
-            this.setState({ showIframe: true, clickedOn: source })
-        }
-        else {
-            this.setState({ showIframe: false })
-        }
-    }
-
     render() {
 
         let profileData = ''
@@ -144,27 +133,20 @@ class DesktopProfileHeader extends React.Component {
         }
 
         return (
-            <React.Fragment>
+            <header id="is_header" className={headerClass} style={styles}>
                 {
-                    this.state.showIframe ?
-                        <iframe src={this.state.clickedOn === 'newOrder' ? `https://beta.pharmeasy.in/healthcare?utm_source=aff-docprime&utm_medium=cps&utm_campaign=leftmenu` : `https://beta.pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders`} className="pharmeasy-iframe"></iframe>
-                        :
-                        ''
+                    this.props.showPackageStrip || !this.props.ipd_chat ? ''
+                        : <IpdChatPanel {...this.props} />
                 }
-                <header id="is_header" className={headerClass} style={styles}>
-                    {
-                        this.props.showPackageStrip || !this.props.ipd_chat ? ''
-                            : <IpdChatPanel {...this.props} />
-                    }
-                    <div className={"ofr-top-header d-lg-block" + (!this.props.homePage ? " d-none" : "")}>
-                        <div className="container">
-                            <div className="d-flex justify-content-between">
-                                <div className="d-none">
-                                    <span className="top-head-link" onClick={() => this.props.history.push('/doctorsignup')}>Add your clinic or hospital</span>
-                                    <span className="top-head-link-divider">|</span>
-                                    <span className="top-head-link" onClick={() => this.props.history.push('/doctorsignup')}>Add your lab</span>
-                                </div>
-                                {/* <div className="head_text_container">
+                <div className={"ofr-top-header d-lg-block" + (!this.props.homePage ? " d-none" : "")}>
+                    <div className="container">
+                        <div className="d-flex justify-content-between">
+                            <div className="d-none">
+                                <span className="top-head-link" onClick={() => this.props.history.push('/doctorsignup')}>Add your clinic or hospital</span>
+                                <span className="top-head-link-divider">|</span>
+                                <span className="top-head-link" onClick={() => this.props.history.push('/doctorsignup')}>Add your lab</span>
+                            </div>
+                            {/* <div className="head_text_container">
                                 <p onClick={(e) => {
                                             e.preventDefault();
                                             this.navigateTo("/search?from=footer", 'opd')
@@ -186,55 +168,55 @@ class DesktopProfileHeader extends React.Component {
                                             this.navigateTo('/contact')
                                         }}>Contact us</p>
                             </div> */}
-                                <div style={{ marginLeft: 'auto' }} className="pb-side-lg">
-                                    <span className="top-head-text">A group company of </span>
-                                    <img src={ASSETS_BASE_URL + "/img/pb-logo-window.svg"} style={{ width: 100 }} />
-                                    {/* <img className="pb-img-size pb-mbl" src={ASSETS_BASE_URL + "/img/pb-logo.png"} /> */}
-                                </div>
+                            <div style={{ marginLeft: 'auto' }} className="pb-side-lg">
+                                <span className="top-head-text">A group company of </span>
+                                <img src={ASSETS_BASE_URL + "/img/pb-logo-window.svg"} style={{ width: 100 }} />
+                                {/* <img className="pb-img-size pb-mbl" src={ASSETS_BASE_URL + "/img/pb-logo.png"} /> */}
                             </div>
                         </div>
                     </div>
+                </div>
 
 
-                    <div className="smiley-img-div">
-                        <img src={ASSETS_BASE_URL + "/img/customer-icons/smiley.png"} />
-                    </div>
+                <div className="smiley-img-div">
+                    <img src={ASSETS_BASE_URL + "/img/customer-icons/smiley.png"} />
+                </div>
 
-                    <div className="container">
-                        {
-                            this.state.toggleHamburger ?
-                                <div className="cancel-overlay cl-overlay" onClick={(e) => {
-                                    e.stopPropagation()
-                                    this.toggleLeftMenu()
-                                }}>
-                                </div>
-                                : ''
-                        }
-
-                        {
-                            this.state.showLeftMenu ? <LeftMenu {...this.props} {...this.state} toggleLeftMenu={this.toggleLeftMenu.bind(this)} iFrameState={this.isIFrameOpen.bind(this)} /> : ""
-                        }
-
-                        <div className="row align-items-center">
-
-                            <div className="col-lg-cstm-1 col-md-4 col-5 align-items-center pr-0" onClick={this.logoClick}>
-                                <div className="ham-menu" onClick={(e) => {
-                                    e.stopPropagation()
-                                    document.body.style.overflow = "hidden"
-                                    this.toggleLeftMenu()
-                                }}>
-                                    <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" />
-                                </div>
-                                <a className="logo-ancher logo-width-cut" href="/" onClick={(e) => e.preventDefault()}>
-                                    <div className="d-none d-lg-block" style={{ minHeight: '54px' }}><img className="logo-size" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" /></div>
-                                    <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
-                                </a>
+                <div className="container">
+                    {
+                        this.state.toggleHamburger ?
+                            <div className="cancel-overlay cl-overlay" onClick={(e) => {
+                                e.stopPropagation()
+                                this.toggleLeftMenu()
+                            }}>
                             </div>
+                            : ''
+                    }
+
+                    {
+                        this.state.showLeftMenu ? <LeftMenu {...this.props} {...this.state} toggleLeftMenu={this.toggleLeftMenu.bind(this)} /> : ""
+                    }
+
+                    <div className="row align-items-center">
+
+                        <div className="col-lg-cstm-1 col-md-4 col-5 align-items-center pr-0" onClick={this.logoClick}>
+                            <div className="ham-menu" onClick={(e) => {
+                                e.stopPropagation()
+                                document.body.style.overflow = "hidden"
+                                this.toggleLeftMenu()
+                            }}>
+                                <img src={ASSETS_BASE_URL + "/images/ic-hamburger.png"} alt="menu" />
+                            </div>
+                            <a className="logo-ancher logo-width-cut" href="/" onClick={(e) => e.preventDefault()}>
+                                <div className="d-none d-lg-block" style={{ minHeight: '54px' }}><img className="logo-size" src={ASSETS_BASE_URL + "/img/doc-logo.svg"} alt="docprime" /></div>
+                                <div style={{ minHeight: '35px' }} className="d-lg-none" ><img style={{ width: '45px', marginBottom: '5px' }} src={ASSETS_BASE_URL + "/img/doc-logo-small.png"} alt="docprime" /></div>
+                            </a>
+                        </div>
 
 
-                            <div className="col-lg-cstm-11 col-md-8 col-8 d-none d-lg-block ml-auto text-right p-0 pl-0">
-                                <div className="header-search-full-widht ml-20">
-                                    {/* <div className="head-links" onClick={() => {
+                        <div className="col-lg-cstm-11 col-md-8 col-8 d-none d-lg-block ml-auto text-right p-0 pl-0">
+                            <div className="header-search-full-widht ml-20">
+                                {/* <div className="head-links" onClick={() => {
                                 let data = {
                                     'Category': 'ConsumerApp', 'Action': 'BookDoctorVisitClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'book-doctor-visit-clicked'
                                 }
@@ -255,187 +237,186 @@ class DesktopProfileHeader extends React.Component {
                                 <span>Book Test</span>
                             </div> */}
 
-                                    {
-                                        hideSearch ? "" : <div className="head-links hed-links-search-flex">
-                                            <div className="serch-nw-inputs new-home-full-widht" >
-                                                <div onClick={this.openSearch.bind(this)}>
-                                                    <div className="header-serach-input-div">
-                                                        <span>Search Doctors &amp; Tests</span>
-                                                    </div>
-                                                    {/* <input className="new-srch-inp" placeholder="Search Doctors, Tests, & Procedures" id="doc-input-field" /> */}
-                                                    <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
-                                                </div>
-                                                <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} /> {location}</button>
-                                            </div>
-                                        </div>
-                                    }
-
-                                    <div className="head-links">
-                                        <div className="head-dropdowns">
-                                            <img style={{ height: 20, width: 18 }} src={ASSETS_BASE_URL + "/img/articals.svg"} />
-                                            <span>Resources</span>
-                                            <ul className="list-sub-menu">
-                                                <li><a href="/all-medicines" onClick={(e) => {
-                                                    e.preventDefault();
-                                                    this.props.history.push("/all-medicines")
-                                                }}>Medicines</a></li>
-                                                {/* <li><a href="javascript:void(0);">Articles</a></li> */}
-                                                <li><a href="/all-diseases" onClick={(e) => {
-                                                    e.preventDefault();
-                                                    this.props.history.push("/all-diseases")
-                                                }}>Diseases</a></li>
-                                                <li><a href="/tests" onClick={(e) => {
-                                                    e.preventDefault();
-                                                    this.props.history.push("/tests")
-                                                }}>Tests</a></li>
-                                                <li><a href="/ipd-procedures" onClick={(e) => {
-                                                    e.preventDefault();
-                                                    this.props.history.push("/ipd-procedures")
-                                                }}>Procedures</a></li>
-                                                <li><a href="/hospitals" onClick={(e) => {
-                                                    e.preventDefault();
-                                                    this.props.history.push("/hospitals")
-                                                }}>Hospitals</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    {
-                                        profileData ? <div className="head-links">
-                                            <div className="head-links" onClick={() => {
-                                                this.props.history.push('/user')
-                                            }}>
-                                                <img src={ASSETS_BASE_URL + "/images/user-logged-in.png"} style={{ width: 24 }} />
-                                                <span className="username-overflow">{profileData.name}</span>
-                                            </div>
-                                            <div className="head-links" onClick={() => {
-                                                this.props.history.push('/notifications')
-                                            }}>
-                                                <img src={ASSETS_BASE_URL + "/img/customer-icons/bell-white.svg"} style={{ width: 16 }} /><span>Notifications</span>
-                                                {
-                                                    this.props.newNotification > 0 ? <span className="notification-alert-desktop">{this.props.newNotification}</span> : ""
-                                                }
-                                            </div>
-                                        </div> : <div className="head-links" onClick={() => {
-                                            this.props.homePage ? this.props.history.push('/user?ref=home') : this.props.history.push('/user')
-                                        }}>
-                                                <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
-                                                <span>Login</span>
-                                            </div>
-                                    }
-                                    <div className="head-links" onClick={(e) => {
-                                        e.preventDefault();
-                                        this.navigateTo('/contact')
-                                    }}>
-                                        <img className="cart-icon-mbl" src={ASSETS_BASE_URL + "/img/call-header.png"} style={{ width: '18px' }} />
-                                        <span>Contact Us</span>
-                                    </div>
-
-                                    {
-                                        profileData ? <div className="head-links" onClick={() => {
-                                            this.props.history.push('/cart')
-                                        }}>
-                                            <div className="p-relative">
-                                                <img src={ASSETS_BASE_URL + "/images/cart-ico.svg"} style={{ width: 24 }} />
-                                                {
-                                                    cart_count > 0 ? <span className="cart-count-notify">{cart_count}</span> : ""
-                                                }
-                                            </div>
-                                            <span>Cart</span>
-                                        </div> : ""
-                                    }
-
-                                </div>
-                            </div>
-
-
-                            <div className="col-lg-9 col-md-8 col-7 ml-auto text-right d-lg-none pl-0">
                                 {
-                                    this.props.showSearch ? "" : <div className="head-links" onClick={this.openSearch.bind(this)}>
-                                        <img width={19} src={ASSETS_BASE_URL + "/images/search.svg"} />
+                                    hideSearch ? "" : <div className="head-links hed-links-search-flex">
+                                        <div className="serch-nw-inputs new-home-full-widht" >
+                                            <div onClick={this.openSearch.bind(this)}>
+                                                <div className="header-serach-input-div">
+                                                    <span>Search Doctors &amp; Tests</span>
+                                                </div>
+                                                {/* <input className="new-srch-inp" placeholder="Search Doctors, Tests, & Procedures" id="doc-input-field" /> */}
+                                                <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                            </div>
+                                            <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} /> {location}</button>
+                                        </div>
                                     </div>
                                 }
 
-                                <div className="head-links" onClick={() => {
-                                    this.props.history.push('/contact')
-                                }}>
-                                    <img src={ASSETS_BASE_URL + "/img/call-header.png"} style={{ width: 22 }} />
-                                </div>
-
-                                <div className="head-links d-none">
-                                    <img width={19} src={ASSETS_BASE_URL + "/img/articals.svg"} onClick={(e) => { this.setState({ medicinePopup: !this.state.medicinePopup, headerButtonsState: false }) }} />
+                                <div className="head-links">
+                                    <div className="head-dropdowns">
+                                        <img style={{ height: 20, width: 18 }} src={ASSETS_BASE_URL + "/img/articals.svg"} />
+                                        <span>Resources</span>
+                                        <ul className="list-sub-menu">
+                                            <li><a href="/all-medicines" onClick={(e) => {
+                                                e.preventDefault();
+                                                this.props.history.push("/all-medicines")
+                                            }}>Medicines</a></li>
+                                            {/* <li><a href="javascript:void(0);">Articles</a></li> */}
+                                            <li><a href="/all-diseases" onClick={(e) => {
+                                                e.preventDefault();
+                                                this.props.history.push("/all-diseases")
+                                            }}>Diseases</a></li>
+                                            <li><a href="/tests" onClick={(e) => {
+                                                e.preventDefault();
+                                                this.props.history.push("/tests")
+                                            }}>Tests</a></li>
+                                            <li><a href="/ipd-procedures" onClick={(e) => {
+                                                e.preventDefault();
+                                                this.props.history.push("/ipd-procedures")
+                                            }}>Procedures</a></li>
+                                            <li><a href="/hospitals" onClick={(e) => {
+                                                e.preventDefault();
+                                                this.props.history.push("/hospitals")
+                                            }}>Hospitals</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
 
                                 {
-                                    profileData ? <div className="head-links d-none" onClick={() => {
-                                        this.props.history.push('/user')
-                                    }}>
-                                        {/* <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture img-fluid hed-usr-img" style={{ fontSize: 14, position: 'relative' }} notificationNew={this.props.newNotification > 0 ? true : false}>
-                                        <img src={profileData.profile_image} className="img-fluid hed-usr-img" />
-                                    </InitialsPicture> */}
-                                        <img src={ASSETS_BASE_URL + "/images/user-logged-in.png"} style={{ width: 24 }} />
-                                    </div> : <div className="head-links " onClick={() => {
-                                        this.props.homePage ? this.props.history.push('/user?ref=home') :
+                                    profileData ? <div className="head-links">
+                                        <div className="head-links" onClick={() => {
                                             this.props.history.push('/user')
+                                        }}>
+                                            <img src={ASSETS_BASE_URL + "/images/user-logged-in.png"} style={{ width: 24 }} />
+                                            <span className="username-overflow">{profileData.name}</span>
+                                        </div>
+                                        <div className="head-links" onClick={() => {
+                                            this.props.history.push('/notifications')
+                                        }}>
+                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/bell-white.svg"} style={{ width: 16 }} /><span>Notifications</span>
+                                            {
+                                                this.props.newNotification > 0 ? <span className="notification-alert-desktop">{this.props.newNotification}</span> : ""
+                                            }
+                                        </div>
+                                    </div> : <div className="head-links" onClick={() => {
+                                        this.props.homePage ? this.props.history.push('/user?ref=home') : this.props.history.push('/user')
                                     }}>
                                             <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
+                                            <span>Login</span>
                                         </div>
                                 }
+                                <div className="head-links" onClick={(e) => {
+                                    e.preventDefault();
+                                    this.navigateTo('/contact')
+                                }}>
+                                    <img className="cart-icon-mbl" src={ASSETS_BASE_URL + "/img/call-header.png"} style={{ width: '18px' }} />
+                                    <span>Contact Us</span>
+                                </div>
 
                                 {
                                     profileData ? <div className="head-links" onClick={() => {
                                         this.props.history.push('/cart')
                                     }}>
                                         <div className="p-relative">
-                                            <img className="cart-icon-mbl" src={ASSETS_BASE_URL + "/images/cart-ico.svg"} style={{ width: '24px', marginRight: '8px' }} />
+                                            <img src={ASSETS_BASE_URL + "/images/cart-ico.svg"} style={{ width: 24 }} />
                                             {
                                                 cart_count > 0 ? <span className="cart-count-notify">{cart_count}</span> : ""
                                             }
                                         </div>
+                                        <span>Cart</span>
                                     </div> : ""
                                 }
+
+                            </div>
+                        </div>
+
+
+                        <div className="col-lg-9 col-md-8 col-7 ml-auto text-right d-lg-none pl-0">
+                            {
+                                this.props.showSearch ? "" : <div className="head-links" onClick={this.openSearch.bind(this)}>
+                                    <img width={19} src={ASSETS_BASE_URL + "/images/search.svg"} />
+                                </div>
+                            }
+
+                            <div className="head-links" onClick={() => {
+                                this.props.history.push('/contact')
+                            }}>
+                                <img src={ASSETS_BASE_URL + "/img/call-header.png"} style={{ width: 22 }} />
+                            </div>
+
+                            <div className="head-links d-none">
+                                <img width={19} src={ASSETS_BASE_URL + "/img/articals.svg"} onClick={(e) => { this.setState({ medicinePopup: !this.state.medicinePopup, headerButtonsState: false }) }} />
                             </div>
 
                             {
-                                this.state.medicinePopup ?
-                                    <div className='col-12 mrb-15'>
-                                        <div className="search-show art-padding d-lg-none">
-                                            <a className="article-list border-rgt" href="/all-medicines" onClick={(e) => {
-                                                e.preventDefault();
-                                                this.props.history.push("/all-medicines")
-                                            }}>
-                                                <span>All Medicines</span>
-                                            </a>
-
-                                            <a className="article-list" href="/all-diseases" onClick={(e) => {
-                                                e.preventDefault();
-                                                this.props.history.push("/all-diseases")
-                                            }}>
-                                                <span>All Diseases</span>
-                                            </a>
-                                        </div>
+                                profileData ? <div className="head-links d-none" onClick={() => {
+                                    this.props.history.push('/user')
+                                }}>
+                                    {/* <InitialsPicture name={profileData.name} has_image={!!profileData.profile_image} className="initialsPicture img-fluid hed-usr-img" style={{ fontSize: 14, position: 'relative' }} notificationNew={this.props.newNotification > 0 ? true : false}>
+                                        <img src={profileData.profile_image} className="img-fluid hed-usr-img" />
+                                    </InitialsPicture> */}
+                                    <img src={ASSETS_BASE_URL + "/images/user-logged-in.png"} style={{ width: 24 }} />
+                                </div> : <div className="head-links " onClick={() => {
+                                    this.props.homePage ? this.props.history.push('/user?ref=home') :
+                                        this.props.history.push('/user')
+                                }}>
+                                        <img src={ASSETS_BASE_URL + "/images/user.svg"} style={{ width: 17 }} />
                                     </div>
-                                    : ''
                             }
 
-                            <div className="col-12 d-lg-none">
-                                {
-                                    this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" >
-                                        <div onClick={this.openSearch.bind(this)}>
-                                            <div className="header-serach-input-div">
-                                                <span>Search Doctors &amp; Tests</span>
-                                            </div>
-                                            {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
-                                            <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                            {
+                                profileData ? <div className="head-links" onClick={() => {
+                                    this.props.history.push('/cart')
+                                }}>
+                                    <div className="p-relative">
+                                        <img className="cart-icon-mbl" src={ASSETS_BASE_URL + "/images/cart-ico.svg"} style={{ width: '24px', marginRight: '8px' }} />
+                                        {
+                                            cart_count > 0 ? <span className="cart-count-notify">{cart_count}</span> : ""
+                                        }
+                                    </div>
+                                </div> : ""
+                            }
+                        </div>
+
+                        {
+                            this.state.medicinePopup ?
+                                <div className='col-12 mrb-15'>
+                                    <div className="search-show art-padding d-lg-none">
+                                        <a className="article-list border-rgt" href="/all-medicines" onClick={(e) => {
+                                            e.preventDefault();
+                                            this.props.history.push("/all-medicines")
+                                        }}>
+                                            <span>All Medicines</span>
+                                        </a>
+
+                                        <a className="article-list" href="/all-diseases" onClick={(e) => {
+                                            e.preventDefault();
+                                            this.props.history.push("/all-diseases")
+                                        }}>
+                                            <span>All Diseases</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                : ''
+                        }
+
+                        <div className="col-12 d-lg-none">
+                            {
+                                this.props.showSearch ? <div className="serch-nw-inputs search-input-for-mobile" >
+                                    <div onClick={this.openSearch.bind(this)}>
+                                        <div className="header-serach-input-div">
+                                            <span>Search Doctors &amp; Tests</span>
                                         </div>
-                                        <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
-                                    </div> : ""
-                                }
-                            </div>
+                                        {/* <input className="new-srch-inp home-top-input" placeholder="Search Doctors &amp; Tests" id="doc-input-field" /> */}
+                                        <img style={{ width: '18px' }} className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} />
+                                    </div>
+                                    <button onClick={this.openLocation.bind(this)} style={{ paddingLeft: '0', top: '0px' }} className="srch-inp-btn-img"><img style={{ marginRight: '8px', width: '10px' }} src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{location}</button>
+                                </div> : ""
+                            }
                         </div>
                     </div>
-                </header>
-            </React.Fragment>
+                </div>
+            </header>
         );
     }
 }

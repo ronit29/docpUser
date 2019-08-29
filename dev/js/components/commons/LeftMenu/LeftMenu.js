@@ -3,7 +3,6 @@ import InitialsPicture from '../initialsPicture'
 import STORAGE from '../../../helpers/storage';
 import CONFIG from '../../../config'
 import GTM from '../../../helpers/gtm.js'
-import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup';
 
 class LeftMenu extends React.Component {
 
@@ -11,10 +10,7 @@ class LeftMenu extends React.Component {
     super(props)
     this.state = {
       toggleProfile: false,
-      toggleArticles: false,
-      toggleMedicine: false,
-      showPopup:false,
-      clickedOn:''
+      toggleArticles: false
     }
   }
 
@@ -26,31 +22,6 @@ class LeftMenu extends React.Component {
       this.props.history.push('/prime/plans')
     }
   }
-
-  orderMedicineClick(source){
-    this.setState({showPopup:true, clickedOn: source})
-  }
-
-  continueClick() {
-    this.setState({ showPopup: false })
-    if (typeof navigator === 'object') {
-        if (/mobile/i.test(navigator.userAgent)) {
-            this.props.iFrameState(true, this.state.clickedOn);
-        }
-        else {
-            if(this.state.clickedOn === 'newOrder'){
-              window.open('https://beta.pharmeasy.in/healthcare?utm_source=aff-docprime&utm_medium=cps&utm_campaign=leftmenu', '_blank')
-            }
-            else{
-              window.open('https://beta.pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders', '_blank')
-            }
-        }
-    }
-}
-
-hidePopup() {
-  this.setState({ showPopup: false })
-}
 
   render() {
     let user = null
@@ -75,10 +46,6 @@ hidePopup() {
 
       <section>
         <div className="row">
-        {
-          this.state.showPopup?
-          <BookingConfirmationPopup continueClick={() => this.continueClick()} iFramePopup={true} hidePopup={() => this.hidePopup()}/>:''
-        }
           <div className={`col-xs-12 col-d-width ${this.props.toggleHamburger ? 'col-d-width-ease' : ''}`}>
           <div className="left-menu">
             {
@@ -146,35 +113,11 @@ hidePopup() {
                     {/*<span className="wallet-amnt"><img src="/assets/images/rupees-icon.png" />212</span>*/}
                   </li>
 
-                  <ul className="drop-list-menu list_2">
-                    <li style={{paddingTop:0}}><a onClick={(e) => {
+                  <li><a onClick={(e) => {
                       e.preventDefault()
-                      this.setState({ toggleMedicine: !this.state.toggleMedicine })
-                    }} href="#" className=""><img src={ASSETS_BASE_URL + "/img/customer-icons/medicine-order.png"} alt="" className="pad-B0" />Order Medicines
-                                    {
-                        this.state.toggleMedicine ?
-                          <img className="up-down-arw" src={ASSETS_BASE_URL + "/images/up-arrow.png"} alt="docprime" />
-                          : <img className="up-down-arw" src={ASSETS_BASE_URL + "/images/down-arrow.png"} alt="docprime" />
-                      }
-                    </a></li>
-                    {
-                      this.state.toggleMedicine ?
-                        <div className="profile-list">
-                          <li style={{paddingTop:0}}><a onClick={(e) => {
-                            e.preventDefault()
-                            this.props.toggleLeftMenu()
-                            this.orderMedicineClick('newOrder')
-                          }} href="#" className="pad-B0 my-fm">New Orders</a></li>
-
-                          <li><a onClick={(e) => {
-                            e.preventDefault()
-                            this.props.toggleLeftMenu()
-                            this.orderMedicineClick('prevOrder')
-                          }} href="#">Previous Orders</a></li>
-                        </div>
-                        : ''
-                    }
-                  </ul>
+                      this.props.history.push('/order-medicine')
+                    }} href="#" className=""><img src={ASSETS_BASE_URL + "/img/customer-icons/medicine-order.png"} alt="" className="pad-B0" />Order Medicines</a>
+                  </li>
 
                   <li ><a onClick={(e) => {
                     e.preventDefault()
