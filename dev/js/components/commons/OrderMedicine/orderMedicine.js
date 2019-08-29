@@ -4,6 +4,7 @@ import Footer from '../Home/footer'
 import RightBar from '../RightBar';
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup';
 import GTM from '../../../helpers/gtm';
+import CONFIG from '../../../config/config';
 
 class OrderMedicine extends React.Component {
     constructor(props) {
@@ -53,10 +54,10 @@ class OrderMedicine extends React.Component {
             }
             else {
                 if (this.state.clickedOn === 'newOrder') {
-                    window.open('https://beta.pharmeasy.in/healthcare?utm_source=aff-docprime&utm_medium=cps&utm_campaign=leftmenu', '_blank')
+                    window.open(CONFIG.PHARMEASY_NEW_ORDER_IFRAME_URL, '_blank')
                 }
                 else {
-                    window.open('https://beta.pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders', '_blank')
+                    window.open(CONFIG.PHARMEASY_PREV_ORDER_IFRAME_URL, '_blank')
                 }
             }
         }
@@ -73,7 +74,7 @@ class OrderMedicine extends React.Component {
                 <DesktopProfileHeader />
                 {
                     this.state.showIframe ?
-                        <iframe src={this.state.clickedOn === 'newOrder' ? `https://beta.pharmeasy.in/healthcare?utm_source=aff-docprime&utm_medium=cps&utm_campaign=leftmenu` : `https://beta.pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders`} className="pharmeasy-iframe"></iframe>
+                        <iframe src={this.state.clickedOn === 'newOrder' ? `${CONFIG.PHARMEASY_NEW_ORDER_IFRAME_URL}` : `${CONFIG.PHARMEASY_PREV_ORDER_IFRAME_URL}`} className="pharmeasy-iframe"></iframe>
                         :
                         <React.Fragment>
                             <section className="container container-top-margin">

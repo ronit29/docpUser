@@ -275,7 +275,7 @@ class Article extends React.Component {
                     window.open(this.state.articleData.pharmeasy_url, '_blank')
                 }
                 else {
-                    window.open('https://beta.pharmeasy.in/online-medicine-order?utm_source=aff-docprime&utm_medium=cps', '_blank')
+                    window.open(CONFIG.PHARMEASY_IFRAME_URL, '_blank')
                 }
             }
         }
@@ -300,7 +300,7 @@ class Article extends React.Component {
                 <ProfileHeader />
                 {
                     this.state.articleData && this.state.showIframe ?
-                        <iframe src={this.state.articleData.pharmeasy_url ? this.state.articleData.pharmeasy_url : 'https://beta.pharmeasy.in/online-medicine-order?utm_source=aff-docprime&utm_medium=cps'} className="pharmeasy-iframe"></iframe>
+                        <iframe src={this.state.articleData.pharmeasy_url ? this.state.articleData.pharmeasy_url : CONFIG.PHARMEASY_IFRAME_URL} className="pharmeasy-iframe"></iframe>
                         :
                         <React.Fragment>
                             <section className="container article-container">

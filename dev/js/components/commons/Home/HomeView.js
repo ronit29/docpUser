@@ -196,10 +196,10 @@ class HomeView extends React.Component {
 			}
 			else {
 				if (this.state.clickedOn === 'newOrder') {
-					window.open('https://beta.pharmeasy.in/healthcare?utm_source=aff-docprime&utm_medium=cps&utm_campaign=leftmenu', '_blank')
+					window.open(CONFIG.PHARMEASY_NEW_ORDER_IFRAME_URL, '_blank')
 				}
 				else {
-					window.open('https://beta.pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders', '_blank')
+					window.open(CONFIG.PHARMEASY_PREV_ORDER_IFRAME_URL, '_blank')
 				}
 			}
 		}
