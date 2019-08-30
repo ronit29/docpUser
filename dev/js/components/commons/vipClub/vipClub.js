@@ -38,7 +38,7 @@ class VipClub extends React.Component {
                         <img src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} />
                     </div>
                     <div className="vip-logo-cont">
-                        <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/logo-care-white.png"} />
+                        <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
                         <h1>in Just <span className="vip-prc-cut">₹4,999</span> <span className="vip-main-price">₹3,999</span>  </h1>
                         <p>1 year upto 4 members</p>
                     </div>
@@ -183,7 +183,7 @@ class VipClub extends React.Component {
                                 <div className="care-new-container font-analyze">
                                     <div className="vip-act-pop mb-3">
                                         <div className="vip-wrn-img">
-                                            <img src="https://cdn.docprime.com/cp/assets/images/warning-icon.png" />
+                                            <img src={ASSETS_BASE_URL + "/img/vip-warning.svg"} />
                                             <div className="vip-wrn-content">
                                                 <h5>Activate your subscription now</h5>
                                                 <p>
@@ -241,6 +241,54 @@ class VipClub extends React.Component {
                                                 <div className="vip-sbs-crd-rgt">
                                                     <button className="vip-btn-sbs">Download Invoice</button>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="vip-offer-cards mb-3">
+                                        <div className="vip-sbs-crd">
+                                            <h5 className="vip-brder-hdng">Tax Benefit</h5>
+                                            <div className="vip-accord-container">
+                                                <ul className="vip-acr-lst">
+                                                    <li>
+                                                        <h4 className="vip-acrd-hdng"><span>Rishabh Mehrotra <br /><b>(Primary)</b></span><img className="acdn-arrow acdn-arrow-up" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} /></h4>
+                                                        <div className="vip-sn-tbl">
+                                                            <table className="vip-acrd-content">
+                                                                <tr>
+                                                                    <th>Relationship</th>
+                                                                    <th>Gender</th>
+                                                                    <th>DOB</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Friend</td>
+                                                                    <td>Male</td>
+                                                                    <td>25/07/1994</td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <h4 className="vip-acrd-hdng">Rishabh Mehrotra<img className="acdn-arrow acdn-arrow-up" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} /></h4>
+                                                    </li>
+                                                    <li>
+                                                        <h4 className="vip-acrd-hdng">Rishabh Mehrotra<img className="acdn-arrow acdn-arrow-up" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} /></h4>
+                                                    </li>
+                                                    <li>
+                                                        <h4 className="vip-acrd-add-member"><img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />Add Member 1</h4>
+                                                    </li>
+                                                    <li>
+                                                        <h4 className="vip-acrd-add-member"><img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />Add Member 2</h4>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="vip-contact mb-3">
+                                        <div className="vip-sbs-crd">
+                                            <h5 className="vip-brder-hdng">Contact Support</h5>
+                                            <div className="vip-coct-content">
+                                                <p>Need help with booking? <span>Call us at 1800-123-9419</span></p>
+                                                <p>Have a query? <span>Email us at customercare@docprime.com</span></p>
                                             </div>
                                         </div>
                                     </div>

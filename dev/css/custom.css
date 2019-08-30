@@ -3649,10 +3649,11 @@ p.vip-cnsl-act img {
 }
 .vip-wrn-img img {
     margin-top: 2px;
-    margin-right: 5px;
+	margin-right: 5px;
+	width: 18px;
 }
 .vip-wrn-content {
-    padding-right: 2px;
+    padding-right: 4px;
 }
 .vip-wrn-content h5 {
     font-size: 14px;
@@ -3711,6 +3712,68 @@ button.vip-btn-sbs {
     padding: 5px 8px;
     margin-top: 3px;
     font-size: 13px;
+}
+h4.vip-acrd-hdng {
+    position: relative;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.vip-acrd-hdng span b{
+	font-size: 12px;
+	color: #757575;
+}
+.vip-sn-tbl {
+    margin: 8px -10px -12px;
+}
+table.vip-acrd-content {
+    width: 100%;
+    background: rgba(0, 0, 0, .04);
+    color: #757575;
+}
+table.vip-acrd-content th {
+    padding: 10px 10px 0px;
+    font-weight: 500;
+    font-size: 12px;
+}
+table.vip-acrd-content td {
+    font-weight: 600;
+    padding: 0px 10px 10px;
+}
+ul.vip-acr-lst li {
+    padding: 12px 0;
+    border-bottom: 1px solid #f0eeee;
+}
+ul.vip-acr-lst li:last-child {
+    border-bottom: none;
+}
+h4.vip-acrd-add-member {
+    position: relative;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #f78631;
+}
+img.vip-add-img {
+    width: 17px;
+    margin-right: 5px;
+}
+.vip-coct-content{
+
+}
+.vip-coct-content p{
+    color: #757575;
+    font-weight: 500;
+    font-size: 13px;
+    margin-bottom: 5px;
+    word-break: break-all;
+}
+.vip-coct-content span{
+    color: black;
+    font-weight: 600;
+}
+img.vipLogiImg {
+    width: 100px;
 }
 /* ============ docprim Vip ============ */
 
