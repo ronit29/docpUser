@@ -236,3 +236,8 @@ export const GET_HOSP_COMMENTS = 'GET_HOSP_COMMENTS'
 
 //CitiesData
 export const USER_CITIES = 'USER_CITIES'
+
+
+//vip-club
+export const GET_VIP_LIST = 'GET_VIP_LIST'
+export const SELECT_VIP_CLUB_PLAN = 'SELECT_VIP_CLUB_PLAN'
