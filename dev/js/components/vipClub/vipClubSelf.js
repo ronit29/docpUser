@@ -55,17 +55,6 @@ class InsuranceSelf extends React.Component {
 		if (this.props.vipClubMemberDetails[this.props.USER.defaultProfile] && !this.props.is_endorsement) {
 			profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.USER.defaultProfile])
 			this.getUserDetails(profile)
-			//this.setState({...this.props.vipClubMemberDetails[this.props.USER.defaultProfile]},()=>{
-			//if(this.state.gender == 'm'){
-			// 	this.setState({title:'mr.'},()=>{
-			// 		 this.handleSubmit()
-			// 	})
-			// }else if(this.state.gender == 'f'){
-			// 	this.setState({title:'mrs.'},()=>{
-			// 		 this.handleSubmit()
-			// 	})
-			// }
-			//})
 		} else if (this.props.is_endorsement) {
 			let oldDate
 			if (Object.keys(this.props.vipClubMemberDetails).length > 0) {
@@ -649,7 +638,7 @@ class InsuranceSelf extends React.Component {
 								onChange={this.handleChange.bind(this, 'name')} 
 								onBlur={this.handleSubmit.bind(this, false,false)} 
 								onFocus={this.handleOnFocus.bind(this, 'name')} 
-								disabled={this.state.disableName ? 'disabled' : ''} 
+								disabled={this.props.is_from_payment ? 'disabled' : ''} 
 								onKeyPress={this.handleNameCharacters.bind(this, 'name')} 
 							/>
 							<label className={this.state.disableName ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`name_${this.props.member_id}`}><span className="labelDot"></span>First Name</label>
@@ -703,7 +692,7 @@ class InsuranceSelf extends React.Component {
 								onChange={this.handleChange.bind(this, 'last_name')} 
 								onBlur={this.handleSubmit.bind(this, false,false)} 
 								onFocus={this.handleOnFocus.bind(this, 'last_name')} 
-								disabled={this.state.no_lname || this.state.disableName ? 'disabled' : ""} 
+								disabled={this.state.no_lname || this.props.is_from_payment ? 'disabled' : ""} 
 								onKeyPress={this.handleNameCharacters.bind(this, 'last_name')} 
 							/>
 							<label className={this.state.disableName ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot"></span>Last Name</label>
@@ -770,7 +759,8 @@ class InsuranceSelf extends React.Component {
 									data-param='email' 
 									onChange={this.handleChange.bind(this, 'email')} 
 									onBlur={this.handleEmail} 
-									onFocus={this.handleOnFocus.bind(this, 'email')} 
+									onFocus={this.handleOnFocus.bind(this, 'email')}
+									disabled={this.props.is_from_payment ? 'disabled' : ''}  
 								/>
 								<label className={this.state.disableEmail ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`emails_${this.props.member_id}`}><span className="labelDot"></span>Email</label>
 								<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
@@ -837,8 +827,9 @@ class InsuranceSelf extends React.Component {
 								onBlur={this.handleSubmit.bind(this, false,false)} 
 								onFocus={this.handleOnFocus.bind(this, 'state')} 
 								data-state-code={this.state.state_code} 
+								disabled={this.props.is_from_payment ? 'disabled' : ''} 
 							/>
-							<label className="form-control-placeholder" htmlFor={`isnstate_${this.props.member_id}`}>State</label>
+							<label className={this.props.is_from_payment ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`isnstate_${this.props.member_id}`}>State</label>
 							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
 						{
@@ -953,8 +944,9 @@ class InsuranceSelf extends React.Component {
 								onChange={this.handleChange.bind(this, 'address')} 
 								onBlur={this.handleSubmit.bind(this, false,false)} 
 								onFocus={this.handleOnFocus.bind(this, 'address')} 
+								disabled={this.props.is_from_payment ? 'disabled' : ''} 
 							/>
-							<label className="form-control-placeholder" htmlFor={`insaddress${this.props.member_id}`}><span className="labelDot"></span>Full Address</label>
+							<label className={this.props.is_from_payment ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`insaddress${this.props.member_id}`}><span className="labelDot"></span>Full Address</label>
 							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
 						{
@@ -980,8 +972,9 @@ class InsuranceSelf extends React.Component {
 								onChange={this.handleChange.bind(this, 'pincode')} 
 								onBlur={this.handleSubmit.bind(this, false,false)} 
 								onFocus={this.handleOnFocus.bind(this, 'pincode')} 
+								disabled={this.props.is_from_payment ? 'disabled' : ''} 
 							/>
-							<label className="form-control-placeholder" htmlFor={`isnpin_${this.props.member_id}`}><span className="labelDot"></span>Pincode</label>
+							<label className={this.props.is_from_payment ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`isnpin_${this.props.member_id}`}><span className="labelDot"></span>Pincode</label>
 							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
 						{

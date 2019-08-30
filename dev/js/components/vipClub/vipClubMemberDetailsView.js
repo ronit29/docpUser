@@ -63,7 +63,7 @@ class InsuranceInputView extends React.Component{
 
     		if(!isDummyUser){
 	    		membersId.push({'0':loginUser, type: 'self'})
-	    		if(props.is_payment){
+	    		if(props.is_from_payment){
 		    		var n = props.selected_vip_plan.total_allowed_members - 1;
 		    		card = [...Array(props.selected_vip_plan.total_allowed_members -1)].map((e, i) => {
 							membersId.push({[i+1]: i+1, type:'adult'})
@@ -71,7 +71,7 @@ class InsuranceInputView extends React.Component{
 		    	}
 			}else{
 				membersId.push({'0':0, type:'self'})
-				if(props.is_payment){
+				if(props.is_from_payment){
 		    		var n = props.selected_vip_plan.total_allowed_members - 1;
 		    		card = [...Array(props.selected_vip_plan.total_allowed_members -1)].map((e, i) => {
 							membersId.push({[i+1]: i+1, type:'adult'})
@@ -445,14 +445,22 @@ class InsuranceInputView extends React.Component{
     	}
     	if(this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && this.props.vipClubMemberDetails && Object.keys(this.props.vipClubMemberDetails).length>0){
     		data.plan_id = 	this.props.selected_vip_plan.id
-    		data.members = {}
+    		data.members = []
     		isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
     		if(!isDummyUser){
     			self_profile = this.props.vipClubMemberDetails[this.props.USER.defaultProfile]	
     		}else{
     			self_profile = this.props.vipClubMemberDetails[0]	
     		}
-    		if(Object.keys(self_profile).length > 0){
+
+    		this.props.currentSelectedVipMembersId.map((val,key) => {
+    		if(Object.keys(this.props.vipClubMemberDetails).length > 0){
+
+    			}
+    		})
+
+
+    		/*if(Object.keys(self_profile).length > 0){
     			let fields = []
 				if(self_profile.title == ""){  //common validation
 					is_disable = true
@@ -509,21 +517,24 @@ class InsuranceInputView extends React.Component{
 	    	if(is_disable && document.getElementById(member_ref)){    		
 	    		document.getElementById(member_ref).scrollIntoView();
 	    	}else{
-	    		data.members.title = self_profile.title 
-	    		data.members.first_name = self_profile.name 
-	    		data.members.last_name = self_profile.last_name 
-	    		data.members.email = self_profile.email 
-	    		data.members.dob = self_profile.dob 
-	    		data.members.city = self_profile.state 
-	    		data.members.city_code = self_profile.state_code
-	    		data.members.address = self_profile.address
-	    		data.members.pincode = self_profile.pincode
-	    		data.members.profile = self_profile.id  
-	    		console.log(data)
+	    		var members = {}
+	    		members.title = self_profile.title 
+	    		members.first_name = self_profile.name 
+	    		members.last_name = self_profile.last_name 
+	    		members.email = self_profile.email 
+	    		members.dob = self_profile.dob 
+	    		members.city = self_profile.state 
+	    		members.city_code = self_profile.state_code
+	    		members.address = self_profile.address
+	    		members.pincode = self_profile.pincode
+	    		members.profile = self_profile.profile_id
+	    		
 	    		// this.SaveUserData(this.props)
-	    		// this.props.vipClubPay(data)
+	    		data.members.push(members)
+	    		console.log(data)
+	    		this.props.vipClubPay(data)
 				// this.props.history.push('/insurance/insurance-user-details-review')
-	    	}
+	    	}*/
     	}
     }
 	render(){
@@ -532,7 +543,7 @@ class InsuranceInputView extends React.Component{
 		let userProfile
 		let selectedProfileId = parseInt(this.props.USER.defaultProfile)
 		let selectedMembersId =0
-		if(this.props.is_payment && Object.keys(this.props.selected_vip_plan).length >0){
+		if(this.props.is_from_payment && Object.keys(this.props.selected_vip_plan).length >0){
 		
 			userProfile = Object.assign({}, this.props.USER.profiles[this.props.USER.defaultProfile])
 

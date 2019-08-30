@@ -14,7 +14,7 @@ class VipClubMemberDetails extends React.Component{
 
 	render(){
 		return(
-            <VipClubMemberDetailsView {...this.props} is_payment={false}/>
+            <VipClubMemberDetailsView {...this.props} is_from_payment={false}/>
 		)
 	}
 }
