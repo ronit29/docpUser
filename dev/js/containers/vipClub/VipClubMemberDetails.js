@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 import { userData,selectInsuranceProfile, saveCurrentSelectedMembers, pushUserData, resetSelectedInsuranceMembers, submitEmailOTP, sendOtpOnEmail,
 
-userDetails, saveCurrentSelectedVipMembers, citiesData, selectVipUserProfile} from '../../actions/index.js'
+userDetails, saveCurrentSelectedVipMembers, citiesData, selectVipUserProfile, vipClubPay} from '../../actions/index.js'
 import VipClubMemberDetailsView from '../../components/vipClub/vipClubMemberDetailsView.js'
 
 class VipClubMemberDetails extends React.Component{
@@ -14,7 +14,7 @@ class VipClubMemberDetails extends React.Component{
 
 	render(){
 		return(
-            <VipClubMemberDetailsView {...this.props} is_payment={true}/>
+            <VipClubMemberDetailsView {...this.props} is_payment={false}/>
 		)
 	}
 }
@@ -37,7 +37,8 @@ const mapDispatchToProps = (dispatch) => {
         saveCurrentSelectedVipMembers: (membersId) => dispatch(saveCurrentSelectedVipMembers(membersId)),
         citiesData: () => dispatch(citiesData()),
         selectVipUserProfile:(newProfileid,member_id,newProfile,param_id) => dispatch(selectVipUserProfile(newProfileid,member_id,newProfile,param_id)),
-
+        vipClubPay :(criteria,callback) => dispatch(vipClubPay(criteria,callback)),
+        
         userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),
         selectInsuranceProfile :(newProfileid,member_id,newProfile,param_id) => dispatch(selectInsuranceProfile(newProfileid,member_id,newProfile,param_id)),
         saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),

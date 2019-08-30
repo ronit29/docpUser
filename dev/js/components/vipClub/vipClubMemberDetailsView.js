@@ -1,8 +1,8 @@
 import React from 'react'
 import ProfileHeader from '../commons/DesktopProfileHeader'
 import ChatPanel from '../commons/ChatPanel'
-import InsurSelf from './insuranceSelf.js'
-import InsurOthers from './insuranceFamily.js'
+import InsurSelf from './vipClubSelf.js'
+import InsurOthers from './vipClubFamilyMembers.js'
 // import InsurCommon from './insuranceCommonSection.js'
 import SnackBar from 'node-snackbar'
 
@@ -517,9 +517,11 @@ class InsuranceInputView extends React.Component{
 	    		data.members.city = self_profile.state 
 	    		data.members.city_code = self_profile.state_code
 	    		data.members.address = self_profile.address
-	    		data.members.pincode = self_profile.pincode  
+	    		data.members.pincode = self_profile.pincode
+	    		data.members.profile = self_profile.id  
 	    		console.log(data)
 	    		// this.SaveUserData(this.props)
+	    		// this.props.vipClubPay(data)
 				// this.props.history.push('/insurance/insurance-user-details-review')
 	    	}
     	}

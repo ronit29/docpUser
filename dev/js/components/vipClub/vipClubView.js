@@ -212,7 +212,7 @@ class VipClubView extends React.Component {
                                                                 <li><p>Doctor Consult: <span>₹{this.state.selected_plan_data.you_get.doctor_consult_amount}</span></p></li>
                                                                 <li><p>Online Chat: <span>₹{this.state.selected_plan_data.you_get.online_chat_amount}</span></p></li>
                                                                 <li><p>Health Checkup: <span>₹{this.state.selected_plan_data.you_get.health_checkups_amount}</span></p></li>
-                                                                <li className="ttl-benft"><p>Effective Price: <span>₹5,999</span></p></li>
+                                                                <li className="ttl-benft"><p>Effective Price: <span>₹{this.state.selected_plan_data.you_get.effective_price}</span></p></li>
                                                             </ul>
                                                         </div>
                                                     </div>

@@ -23,14 +23,14 @@ export const getVipList = (is_endorsement,callback) => (dispatch) => {
 
 }
 
-export const selectVipClubPlan = (type, selected_plan,callback) => (dispatch) => {
+export const selectVipClubPlan = (type, selected_vip_plan,callback) => (dispatch) => {
     dispatch({
         type: SELECT_VIP_CLUB_PLAN,
         payload: {
-            type, selected_plan
+            type, selected_vip_plan
         }
     })
-    if(callback) callback(selected_plan)
+    if(callback) callback(selected_vip_plan)
 }
 
 export const userDetails = (type, vipClubMemberDetails, forceAdd = false, previousProfile='') => (dispatch) => {
@@ -57,6 +57,24 @@ export const selectVipUserProfile = (newProfileid,member_id,newProfile,param_id)
         payload: {
             newProfileid,member_id,newProfile,param_id
         },
+    })
+
+}
+
+export const vipClubPay = (criteria,callback) => (dispatch) => {
+    return API_POST('/api/v1/plus/create',criteria).then(function (response) {
+        // dispatch({
+        //     type: INSURANCE_PAY,
+        //     payload: response
+        // })
+        if(callback) callback(response);
+    }).catch(function (error) {
+        // dispatch({
+        //     type: INSURANCE_PAY,
+        //     payload: error,
+        // })
+        if(callback) callback(error);
+        throw error
     })
 
 }
