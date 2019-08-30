@@ -1,6 +1,6 @@
 import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, INSURANCE_PAY, SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE , SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, PUSH_USER_DATA, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS, DELETE_MEMBER_PROOF, SAVE_INSURANCE_BANK_DETAILS, SAVE_AVAIL_NOW_INSURANCE, CLEAR_AVAIL_NOW_INSURANCE, CANCEL_REASON_INSURANCE, CLEAR_BANK_DETAILS_INSURANCE, 
 
-GET_VIP_LIST, SELECT_VIP_CLUB_PLAN
+GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE
  } from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
@@ -32,6 +32,36 @@ export const selectVipClubPlan = (type, selected_plan,callback) => (dispatch) =>
     })
     if(callback) callback(selected_plan)
 }
+
+export const userDetails = (type, vipClubMemberDetails, forceAdd = false, previousProfile='') => (dispatch) => {
+    dispatch({
+        type: USER_SELF_DETAILS,
+        payload: {
+            type, forceAdd
+        },
+        vipClubMemberDetails:[vipClubMemberDetails],
+        previousProfile: previousProfile
+    })
+
+}
+export const saveCurrentSelectedVipMembers = (membersId) => (dispatch) => {
+    dispatch({
+        type: SAVE_CURRENT_VIP_MEMBERS,
+        payload: membersId
+    })
+}
+
+export const selectVipUserProfile = (newProfileid,member_id,newProfile,param_id) => (dispatch) => {
+    dispatch({
+        type: SELECT_VIP_USER_PROFILE,
+        payload: {
+            newProfileid,member_id,newProfile,param_id
+        },
+    })
+
+}
+
+//insurance
 
 export const getInsuranceMemberList = (member_list_id) => (dispatch) => {
     return API_GET('/api/v1/insurance/members/list?id='+member_list_id).then(function (response) {

@@ -14,7 +14,7 @@ import SnackBar from 'node-snackbar'
 // import ArticleAuthor from '../articleAuthor/articleAuthor';
 import LocationElements from '../../containers/commons/locationElements'
 import CommonSearch from '../../containers/commons/CommonSearch.js'
-import InsurPopup from '../insurance/insurancePopup.js'
+import InsurPopup from './vipClubPopup.js'
 
 class VipClubView extends React.Component {
     constructor(props) {
@@ -64,7 +64,7 @@ class VipClubView extends React.Component {
 
     proceed(){
         if (STORAGE.checkAuth()) {
-
+            this.props.history.push('/vip-club-member-details')
         }else{
           this.setState({ showPopup: true })  
         }
@@ -134,7 +134,7 @@ class VipClubView extends React.Component {
                                                         <div className="pkgCardsList d-inline-flex sub-wd-cards top_pkgCat">
                                                             {
                                                                 Object.entries(this.state.selected_plan_data.enabled_hospital_networks).map(function ([key, value]) {
-                                                                    return <div className="pkgcustCards vip-hsp-card-mn">
+                                                                    return <div key={key} className="pkgcustCards vip-hsp-card-mn">
                                                                             <div className="vip-hsp-img">
                                                                                 <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" />
                                                                             </div>
@@ -227,7 +227,7 @@ class VipClubView extends React.Component {
                                             <ul>
                                                 {
                                                     Object.entries(this.state.selected_plan_data.content.salient_features).map(function ([key, value]) {
-                                                        return <li>{value}</li>        
+                                                        return <li key={key}>{value}</li>        
                                                     })
                                                 }
                                             </ul>

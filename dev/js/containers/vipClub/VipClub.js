@@ -73,9 +73,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getVipList: (is_endorsement,callback) => dispatch(getVipList(is_endorsement,callback)),
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
-        
-        getInsurance: (is_endorsement,callback) => dispatch(getInsurance(is_endorsement,callback)),
         getUserProfile: () => dispatch(getUserProfile()),
+        getInsurance: (is_endorsement,callback) => dispatch(getInsurance(is_endorsement,callback)),        
         selectInsurancePlan: (plan,criteria) => dispatch(selectInsurancePlan(plan,criteria)),
         // saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),
         resetSelectedPlans: () => dispatch(resetSelectedPlans()),

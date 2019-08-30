@@ -1,6 +1,6 @@
 import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES,SELF_DATA,INSURANCE_PAY,SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE, SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS, DELETE_MEMBER_PROOF, SAVE_INSURANCE_BANK_DETAILS, SAVE_AVAIL_NOW_INSURANCE, CLEAR_AVAIL_NOW_INSURANCE, CANCEL_REASON_INSURANCE, CLEAR_BANK_DETAILS_INSURANCE,
 
-GET_VIP_LIST, SELECT_VIP_CLUB_PLAN
+GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE
 } from '../../constants/types';
 
 const defaultState = {
@@ -22,7 +22,10 @@ cancel_reason:null,
 LOAD_VIP_CLUB:false,
 vipClubList:[],
 selected_vip_plan:{},
+vipClubMemberDetails:{},
+currentSelectedVipMembersId:[]
 }
+
 const DUMMY_PROFILE = {
     gender: "m",
     id: 999999,
@@ -38,7 +41,7 @@ export default function (state = defaultState, action) {
 
         case GET_VIP_LIST :{
             let newState = { ...state }
-            if(Object.keys(action.payload).length > 0){
+            if(Object.keys(action.payload).length > 0 && action.payload.plus_data && action.payload.plus_data.length){
                 newState.vipClubList = action.payload.plus_data[0]
                 if(action.payload.plus_data[0].plans && action.payload.plus_data[0].plans.length >0){
                     if(Object.keys(newState.selected_vip_plan).length == 0){
@@ -60,6 +63,45 @@ export default function (state = defaultState, action) {
                 selected_vip_plan: { ...state.selected_vip_plan }
             }
             newState.selected_vip_plan = action.payload.selected_vip_plan
+            return newState
+        }
+
+        case USER_SELF_DETAILS:{
+            let newState = { ...state,
+                vipClubMemberDetails: { ...state.vipClubMemberDetails }
+            }
+            return action.vipClubMemberDetails.reduce((selfData, selfProfile) => {
+                if (newState.vipClubMemberDetails[selfProfile.id]) {
+                    newState.vipClubMemberDetails[selfProfile.id] = Object.assign({}, selfData[selfProfile.id], selfProfile)
+                } else {
+                    newState.vipClubMemberDetails[selfProfile.id] = { ...selfProfile }
+                }
+                return newState
+            }, newState)
+        }
+
+        case SELECT_VIP_USER_PROFILE :{
+            let newState = { ...state,
+                vipClubMemberDetails: { ...state.self_data_values },
+                currentSelectedVipMembersId: [].concat(state.currentSelectedVipMembersId)
+            }         
+            newState.vipClubMemberDetails[action.payload.newProfileid] = {} 
+            newState.vipClubMemberDetails[action.payload.newProfileid] = action.payload.newProfile
+            newState.currentSelectedVipMembersId.map((val,key) => {
+                if(parseInt(key) == parseInt(action.payload.param_id)){
+                    newState.currentSelectedVipMembersId[key][action.payload.param_id] = action.payload.newProfileid
+                    
+                }    
+            })
+            
+            return newState 
+        }
+
+        case SAVE_CURRENT_VIP_MEMBERS: {
+            let newState ={
+                ...state
+            }
+            newState.currentSelectedVipMembersId = action.payload
             return newState
         }
 

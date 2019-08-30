@@ -69,7 +69,7 @@ const INSURANCE_LIST_PRESIST = {
 const VIP_CLUB_CRITERIA_PRESIST ={
     key: 'VIPCLUB',
     storage: storage,
-    whitelist: ['vipClubList', 'selected_vip_plan']
+    whitelist: ['vipClubList', 'selected_vip_plan', 'vipClubMemberDetails','currentSelectedVipMembersId']
 }
 const IPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_IPD',
