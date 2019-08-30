@@ -31,7 +31,7 @@ class VipClub extends React.Component {
         return (
 
 
-            <div className="profile-body-wrap" style={{ background: "#ffffff" }}>
+            <div className="profile-body-wrap" style={{ background: "" }}>
                 {/* <ProfileHeader /> */}
                 <div className="vipHeaderBar">
                     <div className="vipBackIco">
@@ -43,7 +43,7 @@ class VipClub extends React.Component {
                         <p>1 year upto 4 members</p>
                     </div>
                 </div>
-                <section className="container container-top-margin" style={{ marginTop: '' }}>
+                <section className="container container-top-margin d-none" style={{ marginTop: '' }}>
                     <div className="row main-row parent-section-row">
                         <LeftBar />
                         <div className="col-12 center-column">
@@ -170,10 +170,86 @@ class VipClub extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <button className="vip-foot-btn"><p>Become a Docprime VIP @ ₹4,999</p>
+                        <p className="vipbtn-sub-txt">Effective Price ₹3,499</p>
+                    </button>
                 </section>
-                <button className="vip-foot-btn"><p>Become a Docprime VIP @ ₹4,999</p>
-                    <p className="vipbtn-sub-txt">Effective Price ₹3,499</p>
-                </button>
+                {/* last screen design */}
+                <section className="container container-top-margin" style={{ marginTop: '' }}>
+                    <div className="row main-row parent-section-row">
+                        <LeftBar />
+                        <div className="col-12 center-column">
+                            <div className="container-fluid ">
+                                <div className="care-new-container font-analyze">
+                                    <div className="vip-act-pop mb-3">
+                                        <div className="vip-wrn-img">
+                                            <img src="https://cdn.docprime.com/cp/assets/images/warning-icon.png" />
+                                            <div className="vip-wrn-content">
+                                                <h5>Activate your subscription now</h5>
+                                                <p>
+                                                    Add remaining 3 members details to activate
+                                                    your subscription</p>
+                                            </div>
+                                        </div>
+                                        <button>Click here</button>
+                                    </div>
+                                    <div className="vip-dsh-main-cont mb-3">
+                                        <div className="vip-acnt-heading">
+                                            <h5>Your Account</h5>
+                                            <span>View Appointments</span>
+                                        </div>
+                                        <div className="doc-onln-cnslt">
+                                            <div className="vip-cnslt-card">
+                                                <h5 className="vip-brder-hdng">Doctor Consultation</h5>
+                                                <ul>
+                                                    <li><p>Total Limit: <span>₹6,500  </span></p></li>
+                                                    <li><p>Utilized: <span>₹6,500  </span></p></li>
+                                                    <li><p>Available: <span className="vip-crd-avl-grn">₹6,500  </span></p></li>
+                                                </ul>
+                                            </div>
+                                            <div className="vip-cnslt-card">
+                                                <h5 className="vip-brder-hdng">Doctor Consultation</h5>
+                                                <p className="vip-un-mem">Unlimited for 8 members</p>
+                                                <p className="vip-cnsl-act"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Activated </p>
+                                                <div className="text-right">
+                                                    <button className="vip-crd-btn">Chat Now</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="vip-offer-cards mb-3">
+                                        <div className="vip-sbs-crd">
+                                            <h5 className="vip-brder-hdng">Doctor Consultation</h5>
+                                            <div className="vip-sbs-crd-content">
+                                                <div className="vip-sbs-crd-lft">
+                                                    <p>Includes 60 Tests, can be used by 2 members</p>
+                                                </div>
+                                                <div className="vip-sbs-crd-rgt">
+                                                    <p className="rmng-pnt">2 <span>remaining </span></p>
+                                                    <button className="vip-btn-sbs">Book Now</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="vip-offer-cards mb-3">
+                                        <div className="vip-sbs-crd">
+                                            <h5 className="vip-brder-hdng">Tax Benefit</h5>
+                                            <div className="vip-sbs-crd-content">
+                                                <div className="vip-sbs-crd-lft">
+                                                    <p>Under Section 80D</p>
+                                                </div>
+                                                <div className="vip-sbs-crd-rgt">
+                                                    <button className="vip-btn-sbs">Download Invoice</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         );
     }
