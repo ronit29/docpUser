@@ -80,27 +80,27 @@ class Article extends React.Component {
         }
         this.setState({ hideFooterWidget: false })
 
-        if (window && this.props.match.path.split('-')[1] === 'mddp') {
-            window.addEventListener('scroll', this.scrollHandler)
-        }
+        // if (window && this.props.match.path.split('-')[1] === 'mddp') {
+        //     window.addEventListener('scroll', this.scrollHandler)
+        // }
     }
 
-    scrollHandler() {
-        if (document) {
-            let elem = document.getElementById('medicine-btn')
-            let elemContainer = document.getElementById('medicine-btn-div')
-            if (window && (elemContainer.offsetTop == window.scrollY)) {
-                elem.style.background = '#3b827d'
-                elem.style.borderRadius = '0px'
-                elemContainer.style.padding = '0px'
-            }
-            else {
-                elem.style.background = '#f78631'
-                elem.style.borderRadius = '5px'
-                elemContainer.style.padding = '0px 15px'
-            }
-        }
-    }
+    // scrollHandler() {
+    //     if (document) {
+    //         let elem = document.getElementById('medicine-btn')
+    //         let elemContainer = document.getElementById('medicine-btn-div')
+    //         if (window && (elemContainer.offsetTop == window.scrollY)) {
+    //             elem.style.background = '#3b827d'
+    //             elem.style.borderRadius = '0px'
+    //             elemContainer.style.padding = '0px'
+    //         }
+    //         else {
+    //             elem.style.background = '#f78631'
+    //             elem.style.borderRadius = '5px'
+    //             elemContainer.style.padding = '0px 15px'
+    //         }
+    //     }
+    // }
 
     componentWillUnmount() {
         window.removeEventListener('scroll', this.scrollHandler);
@@ -436,19 +436,6 @@ class Article extends React.Component {
                                                 }
 
                                                 {
-                                                    this.state.articleData && this.state.articleData.title && this.props.match.path.split('-')[1] === 'mddp' ?
-                                                        <React.Fragment>
-                                                            <div className="buy-med-btn" id="medicine-btn-div">
-                                                                <button className="v-btn v-btn-primary btn-lg text-sm" id="medicine-btn" onClick={() => this.buyMedicineClick()}>Buy {this.state.articleData.title.split('|')[0]} at Flat 20% Off</button>
-                                                            </div>
-                                                            <div className="buy-med-tagline mrb-20">
-                                                                <p className="fw-500" style={{ marginRight: 3, fontSize: 12 }}>Powered by : </p>
-                                                                <img style={{ width: 72 }} src={ASSETS_BASE_URL + "/img/customer-icons/pharmEasy.png"} />
-                                                            </div>
-                                                        </React.Fragment> : ''
-                                                }
-
-                                                {
                                                     this.state.articleData && this.state.articleData.author ?
                                                         <ArticleAuthor
                                                             name={this.state.articleData.author.name}
@@ -507,13 +494,32 @@ class Article extends React.Component {
                                                 }
                                             </div> : ""
                                         }
-                                        {
+                                        {/* {
                                             this.state.articleData && this.state.articleData.footer_widget ?
                                                 this.state.hideFooterWidget ? ''
                                                     : <FooterTestSpecializationWidgets {...this.props} footerWidget={this.state.articleData.footer_widget} handleClose={this.handleClose.bind(this)} />
                                                 : ''
+                                        } */}
+                                        {/* {
+                                            this.state.articleData && this.state.articleData.title && this.props.match.path.split('-')[1] === 'mddp' ?
+                                                <div className="buy-med-btn-div">
+                                                    <div className="buy-med-tagline">
+                                                        <p className="fw-500" style={{ marginRight: 3, fontSize: 12 }}>Powered by : </p>
+                                                        <img style={{ width: 72 }} src={ASSETS_BASE_URL + "/img/customer-icons/pharmEasy.png"} />
+                                                    </div>
+                                                    <div className="buy-med-btn" id="medicine-btn-div">
+                                                        <button className="v-btn v-btn-primary btn-lg text-sm" id="medicine-btn" onClick={() => this.buyMedicineClick()}>Buy {this.state.articleData.title.split('|')[0]} at Flat 20% Off</button>
+                                                    </div>
+                                                </div> : ''
+                                        } */}
+                                        {
+                                            this.state.articleData && this.state.articleData.title && this.props.match.path.split('-')[1] === 'mddp' ?
+                                                <div className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round sticky-btn text-center" onClick={() => this.buyMedicineClick()}>
+                                                    <p className="fw-500" style={{ fontSize: 16 }}>Buy {this.state.articleData.title.split('|')[0]} at Flat 20% Off</p>
+                                                    <span className="pw-500" style={{ marginRight: 3, fontSize: 10, verticalAlign: '1px' }}>Powered by : </span>
+                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/pharmeasy_white.png"} style={{ width: 72, verticalAlign: 'middle' }} />
+                                                </div> : ''
                                         }
-
                                     </div>
                                     <RightBar colClass="col-lg-4" articleData={this.state.articleData} />
                                 </div>
