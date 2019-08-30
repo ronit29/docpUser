@@ -307,7 +307,7 @@ class AppointmentSlot extends React.Component {
                             </header> */}
                             <div className="new-time-slot-outer">
                                 {
-                                    test_count>1 && !parsed.reschedule=='true' &&
+                                    test_count>1 && !(parsed.reschedule && parsed.reschedule=='true') &&
                                     <div className="top-sticky-radio-btn">
                                         <div className="ins-form-radio">
                                             <div className="dtl-radio">
