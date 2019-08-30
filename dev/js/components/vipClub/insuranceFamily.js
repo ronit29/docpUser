@@ -463,7 +463,7 @@ class InsuranceOthers extends React.Component {
 					<div>
 						{this.props.is_endorsement?
 							<p className="sub-form-hed">{this.props.is_child_only? `Child ${this.props.member_view_id}`:`Spouse`}</p>
-							:<p className="sub-form-hed">{this.props.is_child_only? `Child ${this.props.member_view_id-1}`:`Spouse`}</p>
+							:<p className="sub-form-hed">{this.props.is_child_only? `Member ${this.props.member_view_id+1}`:`Spouse`}</p>
 						}
 					</div>
 					<div>
@@ -674,7 +674,7 @@ class InsuranceOthers extends React.Component {
 				
 				{this.state.showPopup ?
 					<InsurPopup {...this.state.userProfiles} {...this.props} 
-						currentSelectedInsuredMembersId={this.props.currentSelectedInsuredMembersId} 
+						currentSelectedVipMembersId={this.props.currentSelectedVipMembersId} 
 						member_id={this.props.member_id} 
 						closePopup={this.togglePopup.bind(this)} 
 						isSelectprofile = {true} 
