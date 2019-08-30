@@ -1,4 +1,7 @@
-import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES,SELF_DATA,INSURANCE_PAY,SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE, SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS, DELETE_MEMBER_PROOF, SAVE_INSURANCE_BANK_DETAILS, SAVE_AVAIL_NOW_INSURANCE, CLEAR_AVAIL_NOW_INSURANCE, CANCEL_REASON_INSURANCE, CLEAR_BANK_DETAILS_INSURANCE} from '../../constants/types';
+import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES,SELF_DATA,INSURANCE_PAY,SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE, SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS, DELETE_MEMBER_PROOF, SAVE_INSURANCE_BANK_DETAILS, SAVE_AVAIL_NOW_INSURANCE, CLEAR_AVAIL_NOW_INSURANCE, CANCEL_REASON_INSURANCE, CLEAR_BANK_DETAILS_INSURANCE,
+
+GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE
+} from '../../constants/types';
 
 const defaultState = {
 insurnaceData: {},
@@ -15,8 +18,14 @@ currentSelectedInsuredMembersId: [],
 insurer_bank_details:{},
 members_proofs:[],
 avail_now_data:null,
-cancel_reason:null
+cancel_reason:null,
+LOAD_VIP_CLUB:false,
+vipClubList:[],
+selected_vip_plan:{},
+vipClubMemberDetails:{},
+currentSelectedVipMembersId:[]
 }
+
 const DUMMY_PROFILE = {
     gender: "m",
     id: 999999,
@@ -29,12 +38,83 @@ const DUMMY_PROFILE = {
 export default function (state = defaultState, action) {
 
     switch (action.type) {
+
+        case GET_VIP_LIST :{
+            let newState = { ...state }
+            if(Object.keys(action.payload).length > 0 && action.payload.plus_data && action.payload.plus_data.length){
+                newState.vipClubList = action.payload.plus_data[0]
+                if(action.payload.plus_data[0].plans && action.payload.plus_data[0].plans.length >0){
+                    if(Object.keys(newState.selected_vip_plan).length == 0){
+                        // console.log(newState.selected_vip_plan)
+                        // debugger
+                        newState.selected_vip_plan = action.payload.plus_data[0].plans.filter((x => x.is_selected))[0]
+                        if(Object.keys(newState.selected_vip_plan).length){
+                            newState.selected_vip_plan = newState.selected_vip_plan
+                        }
+                    }
+                    newState.LOAD_VIP_CLUB = true
+                }
+            }
+            return newState
+        }
+
+        case SELECT_VIP_CLUB_PLAN:{
+            let newState = { ...state,
+                selected_vip_plan: { ...state.selected_vip_plan }
+            }
+            newState.selected_vip_plan = action.payload.selected_vip_plan
+            return newState
+        }
+
+        case USER_SELF_DETAILS:{
+            let newState = { ...state,
+                vipClubMemberDetails: { ...state.vipClubMemberDetails }
+            }
+            return action.vipClubMemberDetails.reduce((selfData, selfProfile) => {
+                if (newState.vipClubMemberDetails[selfProfile.id]) {
+                    newState.vipClubMemberDetails[selfProfile.id] = Object.assign({}, selfData[selfProfile.id], selfProfile)
+                } else {
+                    newState.vipClubMemberDetails[selfProfile.id] = { ...selfProfile }
+                }
+                return newState
+            }, newState)
+        }
+
+        case SELECT_VIP_USER_PROFILE :{
+            let newState = { ...state,
+                vipClubMemberDetails: { ...state.self_data_values },
+                currentSelectedVipMembersId: [].concat(state.currentSelectedVipMembersId)
+            }         
+            newState.vipClubMemberDetails[action.payload.newProfileid] = {} 
+            newState.vipClubMemberDetails[action.payload.newProfileid] = action.payload.newProfile
+            newState.currentSelectedVipMembersId.map((val,key) => {
+                if(parseInt(key) == parseInt(action.payload.param_id)){
+                    newState.currentSelectedVipMembersId[key][action.payload.param_id] = action.payload.newProfileid
+                    
+                }    
+            })
+            
+            return newState 
+        }
+
+        case SAVE_CURRENT_VIP_MEMBERS: {
+            let newState ={
+                ...state
+            }
+            newState.currentSelectedVipMembersId = action.payload
+            return newState
+        }
+
+
+
+        // all old insurnance  cases
         case GET_INSURANCE: {
             let newState = { ...state }
             if(Object.keys(action.payload).length > 0){
                 newState.insurnaceData = action.payload
                 if(action.payload.certificate){
                     newState.LOAD_INSURANCE = false
+                    newState.LOAD_VIP_CLUB = true
                 }else{
                     if(action.payload.insurance[0].plans && action.payload.insurance[0].plans.length >0){
                         if(Object.keys(newState.selected_plan).length == 0){
@@ -49,6 +129,7 @@ export default function (state = defaultState, action) {
                             // newState.selected_plan[0].stateData = action.payload.state
                         }
                         newState.LOAD_INSURANCE = true
+                        newState.LOAD_VIP_CLUB = true
                     }
                 }
             }else{

@@ -24,5 +24,6 @@ module.exports = Object.assign({},
     ADS_BOOKING,
     INSURANCE_ACTIONS,
     CARE_DETAILS,
-    SEARCH_CRITERIA_IPD
+    SEARCH_CRITERIA_IPD,
+    VIP_CLUB_CRITERIA
 )

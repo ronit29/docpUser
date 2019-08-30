@@ -19,7 +19,8 @@ class InsurancePopup extends React.Component {
             smsBtnType: null,
             selectedProfileAge:'',
             age:'',
-            enableOtpRequest:false
+            enableOtpRequest:false,
+            user_name:''
         }
     }
     handleChange(profileid, newProfile,selectedProfileAge, event) {
@@ -90,6 +91,10 @@ class InsurancePopup extends React.Component {
     }
 
     submitOTPRequest(number, resendFlag = false, viaSms, viaWhatsapp, fromPopup=null) {
+        if(this.state.user_name == ''){
+            SnackBar.show({ pos: 'bottom-center', text: 'Enter your name' }) 
+            return
+        }
         let lead_data = queryString.parse(this.props.location.search)
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
@@ -97,13 +102,13 @@ class InsurancePopup extends React.Component {
                 if (error) {
                     // this.setState({ validationError: "Could not generate OTP." })
                 } else {
-                    if (Object.keys(this.props.selected_plan).length > 0) {
-                        this.props.generateInsuranceLead(this.props.selected_plan ? this.props.selected_plan.id : '', this.state.phoneNumber, lead_data)
-                    }
-                    let data = {
-                        'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupContinue', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-continue-click', 'mode': viaSms ? 'viaSms' : viaWhatsapp ? 'viaWhatsapp' : '', 'mobileNo': this.state.phoneNumber
-                    }
-                    GTM.sendEvent({ data: data })
+                    // if (Object.keys(this.props.selected_plan).length > 0) {
+                    //     this.props.generateInsuranceLead(this.props.selected_plan ? this.props.selected_plan.id : '', this.state.phoneNumber, lead_data)
+                    // }
+                    // let data = {
+                    //     'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupContinue', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-continue-click', 'mode': viaSms ? 'viaSms' : viaWhatsapp ? 'viaWhatsapp' : '', 'mobileNo': this.state.phoneNumber
+                    // }
+                    // GTM.sendEvent({ data: data })
                     if(viaWhatsapp){
                         this.setState({enableOtpRequest:true})
                     }else{
@@ -150,41 +155,35 @@ class InsurancePopup extends React.Component {
                     this.setState({ error_message: exists.message })
                 } else {
                     if (exists.token) {
-                        let data = {
-                            'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupOptVerified', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-opt-verified'
+                        // let data = {
+                        //     'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupOptVerified', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-opt-verified'
+                        // }
+                        // GTM.sendEvent({ data: data })
+                        // if (Object.keys(self.props.selected_plan).length > 0) {
+                        //     self.props.generateInsuranceLead(self.props.selected_plan ? self.props.selected_plan.id : '', this.state.phoneNumber, lead_data, this.props.selectedLocation)
+                        // }
+                        if (exists.user_exists) {
+                            this.props.closeLeadPopup()
+                            this.props.history.push('/vip-club-member-details')
+                        } else {
+                            this.props.closeLeadPopup()
+                            this.props.history.push('/vip-club-member-details')
                         }
-                        GTM.sendEvent({ data: data })
-                        if (Object.keys(self.props.selected_plan).length > 0) {
-                            self.props.generateInsuranceLead(self.props.selected_plan ? self.props.selected_plan.id : '', this.state.phoneNumber, lead_data, this.props.selectedLocation)
-                        }
-                        this.props.getInsurance(false, (resp) => {
-                            if (!resp.certificate) {
-                                if (this.props.isLead == 'proceed') {
-                                    if (exists.user_exists) {
-                                        // if (this.props.identifyUserClick == 'userClick') {
-                                        //     this.props.history.push('/insurance/insurance-user-details')
-                                        // } else {
-                                        //     this.props.closeLeadPopup()
-                                        // }
-                                        this.props.closeLeadPopup()
-                                        this.props.history.push('/insurance/insurance-plan-view')
-                                    } else {
-                                        // if (this.props.identifyUserClick == 'userClick') {
-                                        //     this.props.history.push('/insurance/insurance-user-details')
-                                        // } else {
-                                        //     this.props.closeLeadPopup()
-                                        // }
-                                        this.props.closeLeadPopup()
-                                        this.props.history.push('/insurance/insurance-plan-view')
-                                    }
-                                } else {
-                                    self.setState({ isLeadTrue: true })
-                                    // if(document.getElementById('terms_condition')){
-                                    //     document.getElementById('terms_condition').click()
-                                    // }
-                                }
-                            }
-                        })
+                        // this.props.getInsurance(false, (resp) => {
+                        //     if (!resp.certificate) {
+                        //         if (this.props.isLead == 'proceed') {
+                        //             if (exists.user_exists) {
+                        //                 this.props.closeLeadPopup()
+                        //                 this.props.history.push('/insurance/insurance-plan-view')
+                        //             } else {
+                        //                 this.props.closeLeadPopup()
+                        //                 this.props.history.push('/insurance/insurance-plan-view')
+                        //             }
+                        //         } else {
+                        //             self.setState({ isLeadTrue: true })
+                        //         }
+                        //     }
+                        // })
                     }
                 }
 
@@ -225,7 +224,8 @@ class InsurancePopup extends React.Component {
         let threshold_min_age
         let errorMessage
         
-        if(this.props.selected_plan && this.props.selected_plan.threshold && this.props.selected_plan.threshold[0]){
+        this.props.closePopup(this.state.profile_id, this.props.member_id, this.state.newprofile)
+        /*if(this.props.selected_plan && this.props.selected_plan.threshold && this.props.selected_plan.threshold[0]){
             if(this.props.is_child_only){
                 threshold_max_age = this.props.selected_plan.threshold[0].child_max_age
                 threshold_min_age = this.props.selected_plan.threshold[0].child_min_age
@@ -249,7 +249,7 @@ class InsurancePopup extends React.Component {
             }else{
                SnackBar.show({ pos: 'bottom-center', text: errorMessage })    
             }
-        }
+        }*/
         
     }
     render() {
@@ -315,29 +315,15 @@ class InsurancePopup extends React.Component {
                                     <div className="ins-form-slider">
                                         <div className="one">
                                             <div className="widget-header text-center mv-header">
-                                                {/*<h3 className="sign-coupon fw-700">Please login to continue</h3>*/}
-                                                <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Sounds too good to be true !! But it is ! Only docprime members get to access</h4>
-                                                {/*
-                                                    this.props.identifyUserClick == 'userClick' ?
-                                                    <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Sounds too good to be true !! But it is ! Only docprime members get to access</h4>
-                                                    : this.props.identifyUserClick == 'AutoClick' ?
-                                                        <div>
-                                                            <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Enter your access code we’ve sent to your mobile number</h4>
-                                                        </div>
-                                                        : <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Please Enter your Mobile Number to proceed</h4>
-                                                */}
+                                                <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Enter your registered mobile number to login</h4>
                                             </div>
                                             <div className="widget-content text-center">
-                                                {/* 
-                                                    <div className="mobile-verification">
-                                                        <div className="verifi-mob-iocn text-center">
-                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/mob.svg"} className="img-fluid" />
-                                                        </div>
-                                                    </div> 
-                                                */}
                                                 <div className="form-group mobile-field sup-input-pdng">
                                                     <div className="adon-group enter-mobile-number">
-                                                        <input type="number" id="number" className="fc-input text-center" placeholder="10 digit mobile number" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this._handleContinuePress.bind(this)} disabled={this.state.showOTP ? true : false} />
+                                                        <input type="text" id="name" className="fc-input text-center" placeholder="Enter your name" value={this.state.user_name} onChange={this.inputHandler.bind(this)} name="user_name" disabled={this.state.showOTP ? true : false} />
+                                                    </div>
+                                                    <div className="adon-group enter-mobile-number">
+                                                        <input type="number" id="number" className="fc-input text-center" placeholder="Enter your mobile number" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this._handleContinuePress.bind(this)} disabled={this.state.showOTP ? true : false} />
                                                     </div>
                                                 </div>
                                                 <span className="errorMessage m-0 mb-2">{this.state.error_message}</span>
@@ -347,37 +333,14 @@ class InsurancePopup extends React.Component {
                                                                 <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, false, true, false,'one')} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-sms-btn btn-grdnt">Let’s get you in
                                                                 </button>
                                                             </div>
-                                                            {/* <div className="text-center">
-                                                                    <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,false,false,true)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-wtsp-btn">
-                                                                    <img className="whtsp-ico" src={ASSETS_BASE_URL +'/img/wa-logo-gr.svg'} />Verify Via Whatsapp
-                                                                    </button>
-                                                                </div> 
-                                                            */}
                                                         </React.Fragment>
                                             </div>
                                         </div>
                                         <div className="two">
                                             <div className="widget-header text-center mv-header">
-                                                {/*<h3 className="sign-coupon fw-700">Please login to continue</h3>*/}
                                                 <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Enter the OTP we’ve sent to your mobile number</h4>
-                                                {/*
-                                                    this.props.identifyUserClick == 'userClick' ?
-                                                    <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Sounds too good to be true !! But it is ! Only docprime members get to access</h4>
-                                                    : this.props.identifyUserClick == 'AutoClick' ?
-                                                        <div>
-                                                            <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Enter your access code we’ve sent to your mobile number</h4>
-                                                        </div>
-                                                        : <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Please Enter your Mobile Number to proceed</h4>
-                                                */}
                                             </div>
                                             <div className="widget-content text-center">
-                                                {/* 
-                                                    <div className="mobile-verification">
-                                                        <div className="verifi-mob-iocn text-center">
-                                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/mob.svg"} className="img-fluid" />
-                                                        </div>
-                                                    </div> 
-                                                */}
                                                 <div className="form-group mobile-field sup-input-pdng">
                                                     <div className="adon-group enter-mobile-number">
                                                         <input type="number" id="number" className="fc-input text-center" placeholder="10 digit mobile number" value={this.state.phoneNumber} onChange={this.inputHandler.bind(this)} name="phoneNumber" onKeyPress={this._handleContinuePress.bind(this)} disabled={this.state.showOTP ? true : false} />
@@ -415,12 +378,6 @@ class InsurancePopup extends React.Component {
                                                                 <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, false, true, false)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-sms-btn btn-grdnt">Let’s get you in
                                                                 </button>
                                                             </div>
-                                                            {/* <div className="text-center">
-                                                                    <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber,false,false,true)} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-wtsp-btn">
-                                                                    <img className="whtsp-ico" src={ASSETS_BASE_URL +'/img/wa-logo-gr.svg'} />Verify Via Whatsapp
-                                                                    </button>
-                                                                </div> 
-                                                            */}
                                                         </React.Fragment>
                                                 }
                                             </div>

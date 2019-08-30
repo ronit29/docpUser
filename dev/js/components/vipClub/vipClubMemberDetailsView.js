@@ -3,7 +3,7 @@ import ProfileHeader from '../commons/DesktopProfileHeader'
 import ChatPanel from '../commons/ChatPanel'
 import InsurSelf from './insuranceSelf.js'
 import InsurOthers from './insuranceFamily.js'
-import InsurCommon from './insuranceCommonSection.js'
+// import InsurCommon from './insuranceCommonSection.js'
 import SnackBar from 'node-snackbar'
 
 class InsuranceInputView extends React.Component{
@@ -48,8 +48,11 @@ class InsuranceInputView extends React.Component{
     	let card
     	let self = this
     	let isDummyUser
-    	if(!this.state.saveMembers && Object.keys(props.selected_plan).length >0 && props.USER.defaultProfile && !props.currentSelectedInsuredMembersId.length){
-    		// let loginUser = props.USER.selectedProfile
+    	// console.log(this.state.saveMembers)
+    	// console.log(Object.keys(props.selected_vip_plan).length)
+    	// console.log(props.USER.defaultProfile)
+    	// console.log(!props.currentSelectedVipMembersId.length)
+    	if(!this.state.saveMembers && Object.keys(props.selected_vip_plan).length >0 && props.USER.defaultProfile && !props.currentSelectedVipMembersId.length){
     		let loginUser = props.USER.defaultProfile
     		let membersId = []
     		let isDefaultUser
@@ -57,53 +60,32 @@ class InsuranceInputView extends React.Component{
     			isDefaultUser = props.USER.profiles[props.USER.defaultProfile].is_default_user
     		}
     		isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
+
     		if(!isDummyUser){
 	    		membersId.push({'0':loginUser, type: 'self'})
-	    		var n = (props.selected_plan.adult_count + props.selected_plan.child_count) - 1;
-	    		card = [...Array(props.selected_plan.adult_count-1)].map((e, i) => {
-						membersId.push({[i+1]: i+1, type:'adult'})
-					})
-
-	    		card = [...Array(props.selected_plan.child_count)].map((e, i) => {
-	    				if(props.selected_plan.adult_count >1){
-	    					membersId.push({[i+2]: i+2, type:'child'})
-	    				}else{
-							membersId.push({[i+1]: i+1, type:'child'})
-						}
-					})
-/*
-				if(n !== 0){
-					card = [...Array(n)].map((e, i) => {
-						membersId.push({[i+1]: i+1, type:''})
-					})
-				}*/
+	    		if(props.is_payment){
+		    		var n = props.selected_vip_plan.total_allowed_members - 1;
+		    		card = [...Array(props.selected_vip_plan.total_allowed_members -1)].map((e, i) => {
+							membersId.push({[i+1]: i+1, type:'adult'})
+						})
+		    	}
 			}else{
 				membersId.push({'0':0, type:'self'})
-				var n = (props.selected_plan.adult_count + props.selected_plan.child_count) - 1;
-				card = [...Array(props.selected_plan.adult_count-1)].map((e, i) => {
-						membersId.push({[i+1]: i+1, type:'adult'})
-					})
-
-	    		card = [...Array(props.selected_plan.child_count)].map((e, i) => {
-	    				if(props.selected_plan.adult_count >1){
-	    					membersId.push({[i+2]: i+2, type:'child'})
-	    				}else{
-							membersId.push({[i+1]: i+1, type:'child'})
-						}
-					})
-				// if(n !== 0){
-				// 	card = [...Array(n)].map((e, i) => {
-				// 		membersId.push({[i+1]: i+1})
-				// 	})
-				// }
+				if(props.is_payment){
+		    		var n = props.selected_vip_plan.total_allowed_members - 1;
+		    		card = [...Array(props.selected_vip_plan.total_allowed_members -1)].map((e, i) => {
+							membersId.push({[i+1]: i+1, type:'adult'})
+						})
+		    	}
 			}
-			props.saveCurrentSelectedMembers(membersId)
+			// props.saveCurrentSelectedMembers(membersId)
+			props.saveCurrentSelectedVipMembers(membersId)
 			this.setState({ saveMembers: true})
     	}
     	let profileLength = Object.keys(props.USER.profiles).length;
 		let currentSelectedProfiles = []
 		let show_selected_profile = []
-        this.props.currentSelectedInsuredMembersId.map((val,key) => {
+        this.props.currentSelectedVipMembersId.map((val,key) => {
             currentSelectedProfiles.push(val[key])
         })
 	    if(profileLength > 0){
@@ -142,7 +124,7 @@ class InsuranceInputView extends React.Component{
     	let self_profile
     	let self_age
     	let adult2age
-    	this.props.currentSelectedInsuredMembersId.map((val,key) => {
+    	this.props.currentSelectedVipMembersId.map((val,key) => {
     		currentSelectedProfiles.push(val[key])
     	})
     	let validatingErrors = {}
@@ -161,7 +143,7 @@ class InsuranceInputView extends React.Component{
     			self_profile  = Object.assign({}, this.props.self_data_values[0])
     		}
     	}
-    	this.props.currentSelectedInsuredMembersId.map((val,key) => {
+    	this.props.currentSelectedVipMembersId.map((val,key) => {
     		if(Object.keys(this.props.self_data_values).length > 0){
     			let fields = []
     			let dobError = []
@@ -425,14 +407,11 @@ class InsuranceInputView extends React.Component{
     	let self = this
     	var insuranceUserData={}
     	var members={}
-    	// insuranceUserData.insurnaceData = props.insurnaceData
     	insuranceUserData.selected_plan_id=props.selected_plan.id
-    	// insuranceUserData.insurer= props.insurnaceData['insurance'][0].id
     	insuranceUserData.members= []
-    	// insuranceUserData.selected_plan = []
-    	insuranceUserData.currentSelectedInsuredMembersId = this.props.currentSelectedInsuredMembersId
+    	insuranceUserData.currentSelectedVipMembersId = this.props.currentSelectedVipMembersId
 
-    	Object.entries(this.props.currentSelectedInsuredMembersId).map(function([key, value]) {
+    	Object.entries(this.props.currentSelectedVipMembersId).map(function([key, value]) {
     		members={}
 			members={...self.props.self_data_values[value[key]]}
 			return 	insuranceUserData.members.push(members)
@@ -450,60 +429,14 @@ class InsuranceInputView extends React.Component{
 		let userProfile
 		let selectedProfileId = parseInt(this.props.USER.defaultProfile)
 		let selectedMembersId =0
-		if(Object.keys(this.props.selected_plan).length >0){
+		if(this.props.is_payment && Object.keys(this.props.selected_vip_plan).length >0){
 		
 			userProfile = Object.assign({}, this.props.USER.profiles[this.props.USER.defaultProfile])
 
-			var adult_count_api = (this.props.selected_plan.adult_count - 1)
-			if(adult_count_api !==0 && this.props.currentSelectedInsuredMembersId.length>1){
-				selectedMembersId++
-				adult =this.props.currentSelectedInsuredMembersId.filter(x=>x.type ==='adult').map((data, i) =>{
-						return <InsurOthers {...this.props} 
-							self_gender={userProfile.gender} 
-							param_id = {selectedMembersId} 
-							member_id={data[selectedMembersId]}
-							checkForValidation ={this.checkForValidation.bind(this)} 
-							id={`member_${selectedMembersId}`} 
-							validateErrors={this.state.validateErrors[data[selectedMembersId]] || []} 
-							validateOtherErrors={this.state.validateOtherErrors[data[selectedMembersId]] || []} 
-							createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[i+1]:[]}
-							show_selected_profiles={this.state.show_selected_profiles} 
-							validateDobErrors={[]} 
-							errorMessages={this.state.errorMessages} 
-							validatingNames={this.state.validatingNames||[]}
-							is_endorsement = {false}
-							endorsementError={this.state.endorsementError}
-							member_type = 'adult'
-						/>
-					})
-			}
-
-
-			// if(this.props.selected_plan.adult_count == 2 && this.props.currentSelectedInsuredMembersId.length>1){
-			// 	selectedMembersId++
-			// 	adult = <InsurOthers {...this.props} 
-			// 				self_gender={userProfile.gender} 
-			// 				param_id = {'1'} 
-			// 				member_id={this.props.currentSelectedInsuredMembersId[1]['1']} 
-			// 				checkForValidation ={this.checkForValidation.bind(this)} 
-			// 				id={`member_${0}`} 
-			// 				validateErrors={this.state.validateErrors['1'] || []} 
-			// 				validateOtherErrors={this.state.validateOtherErrors['1'] || []} 
-			// 				createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[1]:[]}
-			// 				show_selected_profiles={this.state.show_selected_profiles} 
-			// 				validateDobErrors={[]} 
-			// 				errorMessages={this.state.errorMessages} 
-			// 				validatingNames={this.state.validatingNames||[]}
-			// 				is_endorsement = {false}
-			// 				endorsementError={this.state.endorsementError}
-			// 				member_type = 'adult' 
-			// 			/>
-			// }
-		
-			var n = (this.props.selected_plan.child_count);
+			var n = (this.props.selected_vip_plan.total_allowed_members - 1)
 		
 			if(n !== 0){
-				child =this.props.currentSelectedInsuredMembersId.filter(x=>x.type ==='child').map((data, i) =>{
+				child =this.props.currentSelectedVipMembersId.filter(x=>x.type ==='adult').map((data, i) =>{
 					selectedMembersId++
 						return <InsurOthers {...this.props} 
 									key={i} 
@@ -526,7 +459,6 @@ class InsuranceInputView extends React.Component{
 								/>
 				})
 			}
-
 		}
 		return(
 			<div className="profile-body-wrap">
@@ -536,7 +468,7 @@ class InsuranceInputView extends React.Component{
 						<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
 						<section className="profile-book-screen">
 							<div>
-								<InsurCommon {...this.props} is_edit={this.state.is_edit}/>
+								{/*<InsurCommon {...this.props} is_edit={this.state.is_edit}/>*/}
 								<div className="insurance-member-container" style={{padding:0}}>
 									<h4 className="mb-0" style={{padding:'2px 0px 6px'}}>Proposer Member Details</h4>
 									<div className="widget" style={{padding:'10px'}}>

@@ -1,5 +1,5 @@
 import React from 'react'
-import InsurPopup from './insurancePopup.js'
+import InsurPopup from './vipClubPopup.js'
 import Calendar from 'rc-calendar'
 import InsuranceProofs from './insuranceProofs.js'
 const moment = require('moment')
@@ -39,8 +39,8 @@ class InsuranceOthers extends React.Component {
 	componentDidMount(){
 		let profile
 		if(this.props.is_endorsement){
-			if(Object.keys(this.props.self_data_values).length>0 && this.props.user_data.length > 0){
-				profile= Object.assign({}, this.props.self_data_values[this.props.user_data[0].id])
+			if(Object.keys(this.props.vipClubMemberDetails).length>0 && this.props.user_data.length > 0){
+				profile= Object.assign({}, this.props.vipClubMemberDetails[this.props.user_data[0].id])
 				let oldDate
 				if(Object.keys(profile).length > 0 && profile.dob){
 					oldDate= profile.dob.split('-')
@@ -81,9 +81,9 @@ class InsuranceOthers extends React.Component {
 		let adult_title
 		let adult_gender
 		if(!props.is_endorsement){
-			if(props.self_data_values[props.member_id]){
-				let profile = Object.assign({}, this.props.self_data_values[this.props.member_id])
-				let nextProfile = Object.assign({}, props.self_data_values[props.member_id])
+			if(props.vipClubMemberDetails[props.member_id]){
+				let profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.member_id])
+				let nextProfile = Object.assign({}, props.vipClubMemberDetails[props.member_id])
 				if (JSON.stringify(this.state) != JSON.stringify(nextProfile)) {
 					this.setState({ ...nextProfile })
 					if(!self.state.year && !self.state.mnth && !self.state.mnth){
@@ -136,7 +136,8 @@ class InsuranceOthers extends React.Component {
 		this.setState({ title: event.target.value }, () => {
 			var self_data = this.state
 			self_data.is_change = true
-			this.props.userData('self_data', self_data)
+			// this.props.userData('self_data', self_data)
+			this.props.userDetails('self_data', self_data)
 		})
 	}
 	handleChange(field, event) {
@@ -177,7 +178,8 @@ class InsuranceOthers extends React.Component {
 	    if(!is_endoresment){
 	    	self_data.is_change = true
 	    }
-		this.props.userData('self_data', self_data)
+		// this.props.userData('self_data', self_data)
+		this.props.userDetails('self_data', self_data)
 	}
 	getTodayDate(){
 		var today = new Date();
@@ -226,7 +228,8 @@ class InsuranceOthers extends React.Component {
 				this.populateDates(newProfileid,false)
 			}
 	    	
-			this.props.selectInsuranceProfile(newProfileid, member_id, newProfile, this.props.param_id)
+			// this.props.selectInsuranceProfile(newProfileid, member_id, newProfile, this.props.param_id)
+			this.props.selectVipUserProfile(newProfileid, member_id, newProfile, this.props.param_id)
 			this.setState({
 				showPopup: !this.state.showPopup,
 				profile_id: newProfileid,
@@ -481,8 +484,6 @@ class InsuranceOthers extends React.Component {
 					{
 						this.props.is_child_only?
 						<div>
-						{/* <button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Master</button>
-						<button className={`label-names-buttons ${this.state.title == 'miss' ? 'btn-active' : ''}`} name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss')} >Miss</button> */}
 						</div>
 						:<div>
 						<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
@@ -507,12 +508,6 @@ class InsuranceOthers extends React.Component {
 					{
 						this.props.is_child_only?
 						<div className="col-12">
-								{/*<select className="ins-select-drop" id={`relation_dropdown_${this.props.member_id}`} onClick={this.handleRelation.bind(this)}>
-									<option name={`relation_${this.props.member_id}`} data-param="relation" disabled selected hidden value="relation">RELATION</option>
-									<option name={`relation_${this.props.member_id}`} data-param="relation" value="son">Son</option>
-									<option name={`relation_${this.props.member_id}`} data-param="relation" value="daughter">Daughter</option>
-								</select>
-								<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />*/}
 							<div className="ins-form-radio">
 								<div className="dtl-radio">
 									<label className="container-radio">Son
@@ -534,13 +529,6 @@ class InsuranceOthers extends React.Component {
 						</div>
 						:''
 					}
-						{/* <div className="col-12">
-							<div className="ins-form-group">
-									<input type="text" id={`isn-pin_${this.props.member_id}`} className="form-control ins-form-control" required autoComplete="relation" name="relation" data-param='relation' value='Spouse' disabled="disabled" />
-									
-									<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
-							</div>
-						</div> */}
 
 						<div className="col-6">
 							<div className="ins-form-group inp-margin-right ">
@@ -603,18 +591,6 @@ class InsuranceOthers extends React.Component {
 								{
 									this.props.is_child_only?
 									<div className="ins-form-radio">
-										{/*<div className="dtl-radio">
-											<label className="container-radio">Male
-												<input type="radio" name={`gender_${this.props.member_id}`} data-param='gender' value='m' checked={this.state.gender === 'm'} onChange={this.handleGender.bind(this, 'm')} />
-												<span className="doc-checkmark"></span>
-											</label>
-										</div>
-										<div className="dtl-radio">
-											<label className="container-radio">Female
-												<input type="radio" data-param='gender' name={`gender_${this.props.member_id}`} value='f' checked={this.state.gender === 'f'} onChange={this.handleGender.bind(this, 'f')} />
-												<span className="doc-checkmark"></span>
-											</label>
-										</div>*/}
 									</div>	
 									:<div className="ins-form-radio">
 										<div className="dtl-radio">
@@ -649,28 +625,8 @@ class InsuranceOthers extends React.Component {
 						</div>
 						<div className="col-12">
 							<div className="ins-form-group mb-0">
-								{/* <input type="button" onClick={this.openDateModal.bind(this)} id={`isn-date_${this.props.member_id}`} className={`form-control ins-form-control text-left ${this.props.validateErrors.indexOf('dob')> -1?'fill-error':''}`} required autoComplete="dob" name="dob" data-param='dob' value={this.state.dob?this.state.dob:'yyyy/mm/dd'}
-								/> */}
 								<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Date of birth</label>
 								<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
-								{/*
-										this.state.dateModal ? <div className="calendar-overlay"><div className="date-picker-modal">
-											<Calendar
-												showWeekNumber={false}
-												defaultValue={moment(this.state.selectedDateSpan)}
-												disabledDate={(date) => {
-													return date.diff(moment((new Date)), 'days')  > 0 || date.diff(moment((new Date)), 'days') > 40
-												}}
-												showToday ={false}
-												onSelect={this.selectDateFromCalendar.bind(this)}
-											/>
-										</div></div> : ""
-									*/}
-								{/* <form action="" name="someform">
-							      <select id={`daydropdown_${this.props.member_id}`} value={this.state.day}></select> 
-							      <select id={`monthdropdown_${this.props.member_id}`} value={this.state.mnth}></select> 
-							      <select id={`yeardropdown_${this.props.member_id}`} value={this.state.year}></select> 
-							    </form> */}
 								<div className="dob-select-div d-flex align-items-center">
 									<div className="dob-select d-flex align-items-center">
 										<select id={`daydropdown_${this.props.member_id}`} value={this.state.day}>
@@ -722,7 +678,7 @@ class InsuranceOthers extends React.Component {
 						member_id={this.props.member_id} 
 						closePopup={this.togglePopup.bind(this)} 
 						isSelectprofile = {true} 
-						self_data_values ={this.props.self_data_values[this.props.member_id]}
+						vipClubMemberDetails ={this.props.vipClubMemberDetails[this.props.member_id]}
 						hideSelectProfilePopup={this.hideSelectProfilePopup.bind(this)} 
 						is_child_only = {this.props.is_child_only}
 					/> : ''
