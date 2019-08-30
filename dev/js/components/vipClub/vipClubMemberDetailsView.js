@@ -423,6 +423,107 @@ class InsuranceInputView extends React.Component{
     	
     }
     
+    proceedPlan(){
+    	let data = {}
+    	let isDummyUser
+    	let self_profile={}
+    	let is_disable  = false
+    	let member_ref = ''
+    	let empty_feilds = []
+    	let currentSelectedProfiles = []
+    	let fields_name = []
+    	let fields_name_obj = {}
+    	let errorMessagesObj = {}
+    	let validatingErrors = {}
+    	if(Object.keys(this.props.vipClubMemberDetails).length > 0){
+    		isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
+    		if(!isDummyUser){
+    			self_profile  = Object.assign({}, this.props.self_data_values[this.props.USER.defaultProfile])	
+    		}else{
+    			self_profile  = Object.assign({}, this.props.self_data_values[0])
+    		}
+    	}
+    	if(this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && this.props.vipClubMemberDetails && Object.keys(this.props.vipClubMemberDetails).length>0){
+    		data.plan_id = 	this.props.selected_vip_plan.id
+    		data.members = {}
+    		isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
+    		if(!isDummyUser){
+    			self_profile = this.props.vipClubMemberDetails[this.props.USER.defaultProfile]	
+    		}else{
+    			self_profile = this.props.vipClubMemberDetails[0]	
+    		}
+    		if(Object.keys(self_profile).length > 0){
+    			let fields = []
+				if(self_profile.title == ""){  //common validation
+					is_disable = true
+					fields.push('title')
+				}
+				if(self_profile.first_name == ""){ 
+					is_disable = true
+					fields.push('name')
+				}
+				if(self_profile.last_name == ""){  
+					is_disable = true
+					fields.push('last_name')
+				}
+				if(self_profile.email == ""){  
+					is_disable = true
+					fields.push('email')
+				}
+				if(self_profile.dob == null){  
+					is_disable = true
+					fields.push('dob')
+				}
+				if(self_profile.state == "" || self_profile.state_code == ""){  
+					is_disable = true
+					fields.push('state')
+				}
+				if(self_profile.address == ""){  
+					is_disable = true
+					fields.push('address')
+				}
+				if(self_profile.pincode == ""){  
+					is_disable = true
+					fields.push('pincode')
+				}
+
+				if(self_profile.email !='' && self_profile.relation == 'self'){
+					let validEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		  			validEmail = validEmail.test(self_profile.email)
+		  			if(!validEmail){
+		  				is_disable = true
+						fields.push('email')		
+		  			}
+				}
+				validatingErrors[self_profile.id] = fields
+			}
+			console.log(validatingErrors)
+			console.log()
+			Object.keys(validatingErrors).forEach(function(key) {
+    			if(validatingErrors[key].length > 0){
+    				is_disable = true
+    				member_ref = `member_${key}`	
+    			}
+			});
+			this.setState({validateErrors: validatingErrors})
+	    	if(is_disable && document.getElementById(member_ref)){    		
+	    		document.getElementById(member_ref).scrollIntoView();
+	    	}else{
+	    		data.members.title = self_profile.title 
+	    		data.members.first_name = self_profile.name 
+	    		data.members.last_name = self_profile.last_name 
+	    		data.members.email = self_profile.email 
+	    		data.members.dob = self_profile.dob 
+	    		data.members.city = self_profile.state 
+	    		data.members.city_code = self_profile.state_code
+	    		data.members.address = self_profile.address
+	    		data.members.pincode = self_profile.pincode  
+	    		console.log(data)
+	    		// this.SaveUserData(this.props)
+				// this.props.history.push('/insurance/insurance-user-details-review')
+	    	}
+    	}
+    }
 	render(){
 		let child
 		let adult
@@ -470,12 +571,12 @@ class InsuranceInputView extends React.Component{
 							<div>
 								{/*<InsurCommon {...this.props} is_edit={this.state.is_edit}/>*/}
 								<div className="insurance-member-container" style={{padding:0}}>
-									<h4 className="mb-0" style={{padding:'2px 0px 6px'}}>Proposer Member Details</h4>
+									<h4 className="mb-0" style={{padding:'2px 0px 6px'}}>Enter Proposer Details</h4>
 									<div className="widget" style={{padding:'10px'}}>
-										<div className="plcy-cancel-div">
+										{/*<div className="plcy-cancel-div">
 											<p className="plcy-cancel mb-0 fw-500">*Incorrect member details may lead to policy cancellation</p>
 										</div>
-										<p className="fw-500 d-block" style={{fontSize: 11, color:'#F44336', marginTop:5, paddingLeft:8}}>*All fields are mandatory</p>
+										<p className="fw-500 d-block" style={{fontSize: 11, color:'#F44336', marginTop:5, paddingLeft:8}}>*All fields are mandatory</p>*/}
 										<div className="insurance-member-details mrt-20">
 											<InsurSelf {...this.props} 
 												checkForValidation ={this.checkForValidation.bind(this)} 
@@ -497,9 +598,13 @@ class InsuranceInputView extends React.Component{
 								</div>
 							</div>
 						</section>		
-							<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Proceed (₹ {this.state.selected_plan_price})
-								<span className="foot-btn-sub-span">{this.state.gst}</span>
-							</button>
+							{
+								this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0?
+									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
+										<span className="foot-btn-sub-span"></span>
+									</button>
+								:''
+							}
 						</div>
 					<ChatPanel />
 					</div>

@@ -255,7 +255,7 @@ class InsurancePopup extends React.Component {
     render() {
         if (this.props.isSelectprofile) {
             let currentSelectedProfiles = []
-            this.props.currentSelectedInsuredMembersId.map((val, key) => {
+            this.props.currentSelectedVipMembersId.map((val, key) => {
                 currentSelectedProfiles.push(val[key])
             })
             return (

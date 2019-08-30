@@ -149,18 +149,11 @@ class InsuranceSelf extends React.Component {
 					name: profile.isDummyUser ? '' : newName[0],
 					last_name: profile.isDummyUser ? '' : newName[1]
 				})
-			} else if (newName.length == 3) {
+			}  else if (newName.length > 2) {
+				tempArray = newName.slice(1, newName.length)
 				this.setState({
 					name: profile.isDummyUser ? '' : newName[0],
-					last_name: profile.isDummyUser ? '' : newName[2],
-					middle_name: profile.isDummyUser ? '' : newName[1]
-				})
-			} else if (newName.length > 3) {
-				tempArray = newName.slice(2, newName.length)
-				this.setState({
-					name: profile.isDummyUser ? '' : newName[0],
-					last_name: profile.isDummyUser ? '' : tempArray.join(' '),
-					middle_name: profile.isDummyUser ? '' : newName[1]
+					last_name: profile.isDummyUser ? '' : tempArray.join(' ')
 				})
 			} else {
 				this.setState({ name: profile.isDummyUser ? '' : profile.name })
@@ -331,7 +324,7 @@ class InsuranceSelf extends React.Component {
 				{ 'code': 2, 'name': 'gurgaon' },
 				{ 'code': 3, 'name': 'hyderabad' }
 				]
-				
+
 		if(this.props.user_cities && this.props.user_cities.length){
 			Object.entries(this.props.user_cities).map(function ([key, value]) {
 				states.push({ 'code': value.id, 'name': value.name })
