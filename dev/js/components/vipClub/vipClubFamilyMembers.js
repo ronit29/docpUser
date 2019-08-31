@@ -587,7 +587,7 @@ class InsuranceOthers extends React.Component {
 								<span className="checkmark small-checkmark"></span></label>
 							</div>
 						</div>*/}
-						<div className="col-12">
+						{/*<div className="col-12">
 							<div className="ins-form-radio">
 								{
 									this.props.is_child_only?
@@ -623,7 +623,7 @@ class InsuranceOthers extends React.Component {
 								this.props.validateOtherErrors.indexOf('gender')> -1?
 								<span className="fill-error-span">{this.props.errorMessages['shouldGenderTitle']}</span>:''	
 							}
-						</div>
+						</div>*/}
 						<div className="col-12">
 							<div className="ins-form-group mb-0">
 								<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Date of birth</label>

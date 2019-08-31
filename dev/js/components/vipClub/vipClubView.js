@@ -5,15 +5,8 @@ import ProfileHeader from '../commons/DesktopProfileHeader'
 import CONFIG from '../../config'
 import HelmetTags from '../commons/HelmetTags'
 import GTM from '../../helpers/gtm'
-// import InitialsPicture from '../initialsPicture';
 import STORAGE from '../../helpers/storage';
-// import CommentBox from './ArticleCommentBox.js'
 import SnackBar from 'node-snackbar'
-// import Reply from './Reply.js'
-// import BannerCarousel from '../Home/bannerCarousel';
-// import ArticleAuthor from '../articleAuthor/articleAuthor';
-import LocationElements from '../../containers/commons/locationElements'
-import CommonSearch from '../../containers/commons/CommonSearch.js'
 import InsurPopup from './vipClubPopup.js'
 
 class VipClubView extends React.Component {

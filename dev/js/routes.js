@@ -529,6 +529,13 @@ const VipClubMemberDetailsView = Loadable({
     webpack: () => [require.resolveWeak('./containers/vipClub/VipClubMemberDetails')],
     loading,
 })
+
+const VipClubActivatedView = Loadable({
+    loader: () => import('./containers/vipClub/VipClubActivatedDetails'),
+    modules: ['./containers/vipClub/VipClubActivatedDetails'],
+    webpack: () => [require.resolveWeak('./containers/vipClub/VipClubActivatedDetails')],
+    loading,
+})
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
  */
@@ -654,6 +661,7 @@ let routes = [
     { path: '/cancel-policy-app',exact:true, component: CancelPolicyApp},
     { path: '/vip-club-details',exact:true, component: VipClubView},
     { path: '/vip-club-member-details',exact:true, component: VipClubMemberDetailsView},
+    { path: '/vip-club-activated-details',exact:true, component: VipClubActivatedView},
 
 ]
 

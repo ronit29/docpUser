@@ -3,7 +3,6 @@ import ProfileHeader from '../commons/DesktopProfileHeader'
 import ChatPanel from '../commons/ChatPanel'
 import InsurSelf from './vipClubSelf.js'
 import InsurOthers from './vipClubFamilyMembers.js'
-// import InsurCommon from './insuranceCommonSection.js'
 import SnackBar from 'node-snackbar'
 
 class InsuranceInputView extends React.Component{
@@ -490,7 +489,7 @@ class InsuranceInputView extends React.Component{
 	    	if(is_disable && document.getElementById(member_ref)){    		
 	    		document.getElementById(member_ref).scrollIntoView();
 	    	}else{
-	    		console.log('submit')
+	    		this.props.history.push('/vip-club-activated-details')
 	    	}
 
     		/*if(Object.keys(self_profile).length > 0){
