@@ -422,6 +422,7 @@ class InsuranceOthers extends React.Component {
   	}
 
 	render() {
+		console.log(this.props.validateErrors)
 		let show_createApi_keys_adult = []
 		let show_createApi_keys_child = []
 		let show_createApi_keys_child2 = []
@@ -550,7 +551,7 @@ class InsuranceOthers extends React.Component {
 								ErrorNameId == this.props.member_id?<span className="fill-error-span" style={{width:'320px'}}>{this.props.errorMessages['sameName']}</span>:''
 							}
 						</div>
-						<div className="col-6">
+						{/*<div className="col-6">
 							<div className="ins-form-group inp-margin-right ">
 								<input type="text" style={{'textTransform': 'capitalize'}} id={`middle_name_${this.props.member_id}`} className="form-control ins-form-control" required autoComplete="middle_name" name="middle_name" value={this.state.no_lname?'':this.state.middle_name}  data-param='middle_name' onChange={this.handleChange.bind(this,'middle_name')} onBlur={this.handleSubmit.bind(this,false)} disabled={this.state.no_lname?'disabled':""} onKeyPress={this.handleNameCharacters.bind(this,'middle_name')} />
 								<label className="form-control-placeholder" htmlFor={`middle_name_${this.props.member_id}`}>Middle Name</label>
@@ -562,7 +563,7 @@ class InsuranceOthers extends React.Component {
 								:show_createApi_keys_adult.indexOf('middle_name')> -1?
 								<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:''	
 							}
-						</div>
+						</div>*/}
 						<div className="col-6">
 							<div className="ins-form-group ins-form-group inp-margin-right  ">
 								<input type="text" style={{'textTransform': 'capitalize'}} id={`last_name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('last_name')> -1?'fill-error':''}`} required autoComplete="last_name" name="last_name" data-param='last_name' value={this.state.no_lname?'':this.state.last_name} onChange={this.handleChange.bind(this, 'last_name')} onBlur={this.handleSubmit.bind(this,false)} disabled={this.state.no_lname?'disabled':""} onKeyPress={this.handleNameCharacters.bind(this,'last_name')} />
@@ -580,12 +581,12 @@ class InsuranceOthers extends React.Component {
 								commonMsgSpan:''
 							}
 						</div>
-						<div className="col-12" style={{marginTop:'-10px'}} >
+						{/*<div className="col-12" style={{marginTop:'-10px'}} >
 							<div className="member-dtls-chk">
 								<label className="ck-bx fw-500" onChange={this.handleLastname.bind(this)} style={{fontSize: 12, paddingLeft:24, lineHeight:'16px'}}>I dont have a last name<input type="checkbox" checked={this.state.no_lname} value="on"/>
 								<span className="checkmark small-checkmark"></span></label>
 							</div>
-						</div>
+						</div>*/}
 						<div className="col-12">
 							<div className="ins-form-radio">
 								{

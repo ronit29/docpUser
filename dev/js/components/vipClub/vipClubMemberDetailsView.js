@@ -113,7 +113,7 @@ class InsuranceInputView extends React.Component{
     	this.setState({enable_proceed: is_enable, profiles_selected: profiles})
     }
 
-    proceedPlan(){
+    /*proceedPlan(){
     	let is_disable  = false
     	let member_ref = ''
     	let empty_feilds = []
@@ -401,7 +401,7 @@ class InsuranceInputView extends React.Component{
     		this.SaveUserData(this.props)
 			this.props.history.push('/insurance/insurance-user-details-review')
     	}
-    }
+    }*/
 
     SaveUserData(props){
     	let self = this
@@ -423,7 +423,7 @@ class InsuranceInputView extends React.Component{
     	
     }
     
-    proceedPlan(){
+    proceedPlan(){ //new
     	let data = {}
     	let isDummyUser
     	let self_profile={}
@@ -435,14 +435,6 @@ class InsuranceInputView extends React.Component{
     	let fields_name_obj = {}
     	let errorMessagesObj = {}
     	let validatingErrors = {}
-    	if(Object.keys(this.props.vipClubMemberDetails).length > 0){
-    		isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
-    		if(!isDummyUser){
-    			self_profile  = Object.assign({}, this.props.self_data_values[this.props.USER.defaultProfile])	
-    		}else{
-    			self_profile  = Object.assign({}, this.props.self_data_values[0])
-    		}
-    	}
     	if(this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && this.props.vipClubMemberDetails && Object.keys(this.props.vipClubMemberDetails).length>0){
     		data.plan_id = 	this.props.selected_vip_plan.id
     		data.members = []
@@ -452,13 +444,54 @@ class InsuranceInputView extends React.Component{
     		}else{
     			self_profile = this.props.vipClubMemberDetails[0]	
     		}
+    		let param
+    		let fields = []
 
     		this.props.currentSelectedVipMembersId.map((val,key) => {
     		if(Object.keys(this.props.vipClubMemberDetails).length > 0){
+    			fields = []
+    			param =this.props.vipClubMemberDetails[val[key]]
+					if(param.relation == ""){
+						is_disable = true
+						fields.push('relation')
+					}
 
+					if(param.title == ""){  //common validation
+						is_disable = true
+						fields.push('title')
+					}
+
+					if(param.name == ""){
+						is_disable = true
+						fields.push('name')
+					}
+
+					if(param.last_name == ""){
+						is_disable = true
+						fields.push('last_name')
+					}
+
+					if(param.dob == null || param.dob == ""){
+						is_disable = true
+						fields.push('dob')
+					}
     			}
+    			validatingErrors[param.id] = fields
     		})
-
+    		console.log(validatingErrors)
+			console.log()
+			Object.keys(validatingErrors).forEach(function(key) {
+    			if(validatingErrors[key].length > 0){
+    				is_disable = true
+    				member_ref = `member_${key}`	
+    			}
+			});
+			this.setState({validateErrors: validatingErrors})
+	    	if(is_disable && document.getElementById(member_ref)){    		
+	    		document.getElementById(member_ref).scrollIntoView();
+	    	}else{
+	    		console.log('submit')
+	    	}
 
     		/*if(Object.keys(self_profile).length > 0){
     			let fields = []
