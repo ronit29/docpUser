@@ -25,7 +25,7 @@ class InsuranceOthers extends React.Component {
 			// select_profile_disable:false,
 			// show_lname: this.props.no_lname,
 			// show_lname_flag:this.props.no_lname,
-			dateModal:false,
+			// dateModal:false,
 			no_lname:false,
     	    // selectedDateSpan:new Date(),
     	    is_change:false,

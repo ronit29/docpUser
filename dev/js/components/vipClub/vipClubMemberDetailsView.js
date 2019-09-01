@@ -435,6 +435,7 @@ class InsuranceInputView extends React.Component{
     	let fields_name_obj = {}
     	let errorMessagesObj = {}
     	let validatingErrors = {}
+    	let param
     	if(this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && this.props.vipClubMemberDetails && Object.keys(this.props.vipClubMemberDetails).length>0){
     		data.plan_id = 	this.props.selected_vip_plan.id
     		data.members = []
@@ -443,14 +444,14 @@ class InsuranceInputView extends React.Component{
     			self_profile = this.props.vipClubMemberDetails[this.props.USER.defaultProfile]	
     		}else{
     			self_profile = this.props.vipClubMemberDetails[0]	
-    		}
-    		let param
+    		}	
     		let fields = []
 
     		this.props.currentSelectedVipMembersId.map((val,key) => {
     		if(Object.keys(this.props.vipClubMemberDetails).length > 0){
     			fields = []
     			param =this.props.vipClubMemberDetails[val[key]]
+    			console.log(param)
 					if(param.relation == ""){
 						is_disable = true
 						fields.push('relation')
