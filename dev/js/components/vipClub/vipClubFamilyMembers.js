@@ -10,8 +10,8 @@ class InsuranceOthers extends React.Component {
 		this.state = {
 			name: '',
 			last_name: '',
-			middle_name:'',
-			gender: '',
+			// middle_name:'',
+			// gender: '',
 			dob: '',
 			id: '',
 			relation: '',
@@ -27,7 +27,7 @@ class InsuranceOthers extends React.Component {
 			// show_lname_flag:this.props.no_lname,
 			dateModal:false,
 			no_lname:false,
-    	    selectedDateSpan:new Date(),
+    	    // selectedDateSpan:new Date(),
     	    is_change:false,
     	    year:null,
     	    mnth:null,
@@ -91,13 +91,13 @@ class InsuranceOthers extends React.Component {
 					}
 				}
 			}else if(props.member_id && !this.state.setDefault){
-				if(props.self_gender == 'm'){
+				/*if(props.self_gender == 'm'){
 					adult_title = 'mrs.'
 					adult_gender = 'f'
 				}else if(props.self_gender == 'f'){
 					adult_title = 'mr.'
 					adult_gender = 'm'
-				}
+				}*/
 				this.setState({id: props.member_id, setDefault:true}, () => {
 					if(this.props.is_child_only){
 						if(!self.state.year && !self.state.mnth && !self.state.mnth){
@@ -118,7 +118,7 @@ class InsuranceOthers extends React.Component {
 	}
 	handleTitle(field, event) {
 		let title_value = event.target.value
-		if(this.props.is_child_only){
+		/*if(this.props.is_child_only){ // to be deleted
 			if(title_value == 'mr.'){
   			this.setState({gender:'m',relation:'son'})	
 	  		}else if(title_value == 'miss'){
@@ -132,7 +132,7 @@ class InsuranceOthers extends React.Component {
 	  		}else if(title_value == 'mrs.'){
 	  			this.setState({gender:'f'})
 	  		}
-		}
+		}*/
 		this.setState({ title: event.target.value }, () => {
 			var self_data = this.state
 			self_data.is_change = true
@@ -145,7 +145,7 @@ class InsuranceOthers extends React.Component {
 			[event.target.getAttribute('data-param')]: event.target.value
 		});
 	}
-	handleRelation(field,event) {
+	/*handleRelation(field,event) {
 		let relation_value = event.target.value
 		if(relation_value == 'son'){
 			this.setState({title:'mast.',gender:'m'})	
@@ -157,7 +157,7 @@ class InsuranceOthers extends React.Component {
 		},() =>{
 			this.handleSubmit(true,event)
 		})
-	}
+	}*/
 	handleSubmit(is_endoresment) {
 		var self_data = this.state
 		if(self_data.name !== ''){
@@ -165,11 +165,11 @@ class InsuranceOthers extends React.Component {
 				self_data.name = self_data.name.slice(0, 50)
 			}	
 	    }
-	    if(self_data.middle_name !== ''){
+	    /*if(self_data.middle_name !== ''){
 	    	if(self_data.middle_name.length > 50){
 				self_data.middle_name = self_data.middle_name.slice(0, 50)
 			}	
-	    }
+	    }*/
 	    if(self_data.last_name !== ''){
 	    	if(self_data.last_name.length > 50){
 				self_data.last_name = self_data.last_name.slice(0, 50)
@@ -202,7 +202,7 @@ class InsuranceOthers extends React.Component {
 		let oldDate
 		let finalDate
 		if(newProfileid !== ''){
-			if(this.props.is_child_only){
+			/*if(this.props.is_child_only){
 				if(newProfile.gender == 'm'){
 					this.setState({title:'mast.',relation:'son'})
 				}else if(newProfile.gender == 'f'){
@@ -214,7 +214,7 @@ class InsuranceOthers extends React.Component {
 				}else if(newProfile.gender == 'f'){
 					this.setState({title:'mrs.',relation:'spouse'})
 				}
-			}
+			}*/
 			if(newProfile && newProfile.dob){
 				oldDate= newProfile.dob.split('-')
 				console.log(newProfile.dob)
@@ -241,7 +241,7 @@ class InsuranceOthers extends React.Component {
 			this.setState({showPopup: !this.state.showPopup})
 		}
 	}
-	handleGender(field, event) {
+	/*handleGender(field, event) {
 		let gender_value = event.target.value
 		if(this.props.is_child_only){
 			if(gender_value == 'm'){
@@ -261,8 +261,8 @@ class InsuranceOthers extends React.Component {
 		},() =>{
 			this.handleSubmit(false,event)
 		})
-	}
-	openDateModal() {
+	}*/
+	/*openDateModal() {
 	        this.setState({ dateModal: !this.state.dateModal })
 	}
 	selectDateFromCalendar(date) {
@@ -278,7 +278,7 @@ class InsuranceOthers extends React.Component {
         } else {
             this.setState({ dateModal: false })
         }
-    }
+    }*/
     handleNameCharacters(field,event){
 		if(field == 'name'){
 			if(this.state.name.length == 50){
@@ -288,11 +288,12 @@ class InsuranceOthers extends React.Component {
 			if(this.state.last_name.length == 50){
 				event.preventDefault();
 	        }
-    	}else if(field == 'middle_name'){
+    	}
+    	/*else if(field == 'middle_name'){
 			if(this.state.middle_name.length == 50){
 				event.preventDefault();
 	        }
-    	}
+    	}*/
 
 	}
 	handleLastname(event){
@@ -462,10 +463,12 @@ class InsuranceOthers extends React.Component {
 			<div className="ins-sub-forms mrt-10" id={`member_${this.props.member_id}`}>
 				<div className="sub-form-input-data" style={{marginBottom:10}} >
 					<div>
-						{this.props.is_endorsement?
+						{
+							/*this.props.is_endorsement?
 							<p className="sub-form-hed">{this.props.is_child_only? `Child ${this.props.member_view_id}`:`Spouse`}</p>
-							:<p className="sub-form-hed">{this.props.is_child_only? `Member ${this.props.member_view_id+1}`:`Spouse`}</p>
+							:<p className="sub-form-hed">{this.props.is_child_only? `Member ${this.props.member_view_id+1}`:`Spouse`}</p>*/
 						}
+						<p className="sub-form-hed">{`Member ${this.props.member_view_id+1}`}</p>
 					</div>
 					<div>
 					{
@@ -483,14 +486,19 @@ class InsuranceOthers extends React.Component {
 				<div className='widget' style={{padding:'10px'}} >
 					<div className="col-12" style={{padding:0}}>
 					{
-						this.props.is_child_only?
+						/*this.props.is_child_only?
 						<div>
 						</div>
 						:<div>
 						<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
 						<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
-						</div>
+						</div>*/
 					}
+					<React.Fragment>
+						<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
+						<button className={`label-names-buttons ${this.state.title == 'miss' ? 'btn-active' : ''}`} name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss')} >Ms.</button>
+						<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
+					</React.Fragment>
 					{
 						!this.props.is_child_only && this.props.validateErrors.indexOf('title')> -1?<span className="fill-error-span" style={{marginTop:'-13px'}}>{this.props.errorMessages['common_message']}</span>:''
 					}
@@ -507,7 +515,7 @@ class InsuranceOthers extends React.Component {
 					</div>
 					<div className="row no-gutters">
 					{
-						this.props.is_child_only?
+						/*this.props.is_child_only?
 						<div className="col-12">
 							<div className="ins-form-radio">
 								<div className="dtl-radio">
@@ -528,9 +536,8 @@ class InsuranceOthers extends React.Component {
 								<span className="fill-error-span" style={{marginTop:'-13px'}}>{this.props.errorMessages['common_message']}</span>:''
 							}
 						</div>
-						:''
+						:''*/
 					}
-
 						<div className="col-6">
 							<div className="ins-form-group inp-margin-right ">
 								<input type="text" style={{'textTransform': 'capitalize'}} id={`name_${this.props.member_id}`} className={`form-control ins-form-control ${this.props.validateErrors.indexOf('name')> -1|| ErrorNameId == this.props.member_id?'fill-error':''}`} required autoComplete="first_name" name="name" data-param='name' value={this.state.name} onChange={this.handleChange.bind(this, 'name')} onBlur={this.handleSubmit.bind(this,false)} onKeyPress={this.handleNameCharacters.bind(this,'name')}/>
@@ -666,8 +673,7 @@ class InsuranceOthers extends React.Component {
 							}
 						</div>
 					</div>
-					{
-					this.props.is_endorsement && this.state.is_change?
+					{this.props.is_from_payment?
 						<InsuranceProofs {...this.props}/>
 					:''
 					}

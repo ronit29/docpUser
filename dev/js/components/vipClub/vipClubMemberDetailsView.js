@@ -12,9 +12,9 @@ class InsuranceInputView extends React.Component{
             // selected_plan_plan:'',
             no_lname:false,
             is_edit:true,
-            gst: 'inclusive of 18% GST',
-            enable_proceed:false,
-            profiles_selected:[],
+            // gst: 'inclusive of 18% GST', // to be deleted
+            // enable_proceed:false,// to be deleted
+            // profiles_selected:[], // to be deleted
             saveMembers:false,
             // is_adult_only: false,
             is_disable: [],
@@ -34,13 +34,14 @@ class InsuranceInputView extends React.Component{
     	if(window){
     		window.scrollTo(0,0)
     	}
-    	this.setState({...self.props.self_data_values, selected_plan_price:this.props.selected_plan.amount})
+    	// to be deleted
+    	/*this.setState({...self.props.self_data_values, selected_plan_price:this.props.selected_plan.amount})
     	if(this.props.create_payment_resp){
     		if(this.props.create_payment_resp.members && this.props.create_payment_resp.members.length >0){
     			this.setState({CreateApiErrors:self.props.create_payment_resp})	
     		}
     		
-    	}
+    	}*/
     }
 
     componentWillReceiveProps(props){
@@ -100,7 +101,7 @@ class InsuranceInputView extends React.Component{
 		}
     }
 
-    checkForValidation(profile_data, member_id){
+    /*checkForValidation(profile_data, member_id){ // to be deleted
     	let profiles = this.state.profiles_selected
     	if(profiles.length){
     		profiles = this.state.profiles_selected.filter((x => x.id != member_id))
@@ -110,7 +111,7 @@ class InsuranceInputView extends React.Component{
     	let is_enable = profiles.filter(x=> !x.isformCompleted)
     	is_enable = is_enable.length?false:true
     	this.setState({enable_proceed: is_enable, profiles_selected: profiles})
-    }
+    }*/
 
     /*proceedPlan(){
     	let is_disable  = false
@@ -402,7 +403,7 @@ class InsuranceInputView extends React.Component{
     	}
     }*/
 
-    SaveUserData(props){
+    /*SaveUserData(props){ // to be deleted
     	let self = this
     	var insuranceUserData={}
     	var members={}
@@ -416,11 +417,11 @@ class InsuranceInputView extends React.Component{
 			return 	insuranceUserData.members.push(members)
 		})
 		this.props.pushUserData(insuranceUserData)
-    }
+    }*/
 
-    checkIsEmailVerfied(){
+    /*checkIsEmailVerfied(){// to be deleted
     	
-    }
+    }*/
     
     proceedPlan(){ //new
     	let data = {}
@@ -573,7 +574,7 @@ class InsuranceInputView extends React.Component{
 		let child
 		let adult
 		let userProfile
-		let selectedProfileId = parseInt(this.props.USER.defaultProfile)
+		// let selectedProfileId = parseInt(this.props.USER.defaultProfile) // to be deleted
 		let selectedMembersId =0
 		if(this.props.is_from_payment && Object.keys(this.props.selected_vip_plan).length >0){
 		
@@ -587,7 +588,7 @@ class InsuranceInputView extends React.Component{
 						return <InsurOthers {...this.props} 
 									key={i} 
 									member_id={data[selectedMembersId]} 
-									checkForValidation ={this.checkForValidation.bind(this)} 
+									// checkForValidation ={this.checkForValidation.bind(this)} 
 									is_child_only={true} 
 									id={`member_${selectedMembersId}`} 
 									param_id = {selectedMembersId} 
@@ -614,17 +615,17 @@ class InsuranceInputView extends React.Component{
 						<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
 						<section className="profile-book-screen">
 							<div>
-								{/*<InsurCommon {...this.props} is_edit={this.state.is_edit}/>*/}
+								{/*<InsurCommon {...this.props} is_edit={this.state.is_edit}/>*/} 
 								<div className="insurance-member-container" style={{padding:0}}>
 									<h4 className="mb-0" style={{padding:'2px 0px 6px'}}>Enter Proposer Details</h4>
 									<div className="widget" style={{padding:'10px'}}>
-										{/*<div className="plcy-cancel-div">
+										{/*<div className="plcy-cancel-div"> // to be deleted
 											<p className="plcy-cancel mb-0 fw-500">*Incorrect member details may lead to policy cancellation</p>
 										</div>
 										<p className="fw-500 d-block" style={{fontSize: 11, color:'#F44336', marginTop:5, paddingLeft:8}}>*All fields are mandatory</p>*/}
 										<div className="insurance-member-details mrt-20">
 											<InsurSelf {...this.props} 
-												checkForValidation ={this.checkForValidation.bind(this)} 
+												// checkForValidation ={this.checkForValidation.bind(this)}  // to be deleted
 												id={`member_${this.props.USER.defaultProfile}`} 
 												member_id={this.props.USER.defaultProfile} 
 												validateErrors={this.state.validateErrors[this.props.USER.defaultProfile] || []}
@@ -633,7 +634,7 @@ class InsuranceInputView extends React.Component{
 												errorMessages={this.state.errorMessages} 
 												is_endorsement = {false} 
 												endorsementError={this.state.endorsementError}
-												checkIsEmailVerfied = {this.checkIsEmailVerfied.bind(this)}
+												// checkIsEmailVerfied = {this.checkIsEmailVerfied.bind(this)} // to be deleted
 												member_type='adult'
 												/>
 										</div>

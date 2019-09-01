@@ -11,10 +11,10 @@ class InsuranceSelf extends React.Component {
 		super(props)
 		this.state = {
 			name: '',
-			middle_name: '',
+			// middle_name: '', // to be deleted
 			last_name: '',
 			email: '',
-			gender: '',
+			// gender: '',
 			dob: '',
 			pincode: '',
 			address: '',
@@ -26,14 +26,14 @@ class InsuranceSelf extends React.Component {
 			town: '',
 			district: '',
 			profile_flag: true,
-			// show_lname: this.props.no_lname,
-			// show_lname_flag:this.props.no_lname,
+			// show_lname: this.props.no_lname, // to be deleted
+			// show_lname_flag:this.props.no_lname, // to be deleted
 			profile_id: null,
-			dateModal: false,
+			// dateModal: false, // to be deleted
 			state_code: '',
-			district_code: '',
-			town_code: '',
-			selectedDateSpan: new Date(),
+			// district_code: '',
+			// town_code: '',
+			// selectedDateSpan: new Date(), // to be deleted
 			no_lname: false,
 			disableName: false,
 			disableEmail: false,
@@ -100,7 +100,7 @@ class InsuranceSelf extends React.Component {
 				this.getUserDetails(profile)
 				if (Object.keys(profile).length) {
 					this.setState({ ...profile, disableEmail: profile.email != '' ? true : false, disableDob: profile.dob != null ? true : false, disableName: profile.name != '' ? true : false }, () => {
-						if (profile.gender == 'm') {
+						/*if (profile.gender == 'm') {
 							this.setState({ title: 'mr.' }, () => {
 								this.handleSubmit(false,false)
 							})
@@ -108,7 +108,7 @@ class InsuranceSelf extends React.Component {
 							this.setState({ title: 'mrs.' }, () => {
 								this.handleSubmit(false,false)
 							})
-						}
+						}*/
 					})
 				} else {
 					this.setState({ profile_flag: false })
@@ -161,12 +161,12 @@ class InsuranceSelf extends React.Component {
 				disableEmail: !profile.isDummyUser && profile.email != '' ? true : false,
 				disableDob: !profile.isDummyUser && profile.dob != null ? true : false,
 				disableName: !profile.isDummyUser && profile.name != '' ? true : false,
-				gender: profile.isDummyUser ? '' : profile.gender,
+				// gender: profile.isDummyUser ? '' : profile.gender,
 				email: profile.isDummyUser ? '' : profile.email,
 				dob: profile.isDummyUser ? '' : profile.dob,
 				id: profile.isDummyUser ? 0 : profile.id
 			}, () => {
-				if (profile.gender == 'm') {
+				/*if (profile.gender == 'm') {
 					this.setState({ title: 'mr.' })
 				} else if (profile.gender == 'f') {
 					if (this.props.selected_plan.adult_count == 2) {
@@ -174,7 +174,7 @@ class InsuranceSelf extends React.Component {
 					} else {
 						this.setState({ title: 'miss' })
 					}
-				}
+				}*/
 				this.handleSubmit(false,false)
 			})
 		}
@@ -191,11 +191,11 @@ class InsuranceSelf extends React.Component {
 	}
 	handleTitle(field, event) {
 		let title_value = event.target.value
-		if (title_value == 'mr.') {
+		/*if (title_value == 'mr.') {
 			this.setState({ gender: 'm' })
 		} else if (title_value == 'miss' || title_value == 'mrs.') {
 			this.setState({ gender: 'f' })
-		}
+		}*/
 		this.setState({ title: event.target.value }, () => {
 			var self_data = this.state
 			self_data.is_change = true
@@ -216,11 +216,11 @@ class InsuranceSelf extends React.Component {
 				self_data.name = self_data.name.slice(0, 50)
 			}
 		}
-		if (self_data.middle_name !== '') {
+		/*if (self_data.middle_name !== '') { // to be deleted
 			if (self_data.middle_name.length > 50) {
 				self_data.middle_name = self_data.middle_name.slice(0, 50)
 			}
-		}
+		}*/
 		if (self_data.last_name !== '') {
 			if (self_data.last_name.length > 50) {
 				self_data.last_name = self_data.last_name.slice(0, 50)
@@ -246,11 +246,12 @@ class InsuranceSelf extends React.Component {
 			if (this.state.last_name.length == 50) {
 				event.preventDefault();
 			}
-		} else if (field == 'middle_name') {
+		}
+		/*} else if (field == 'middle_name') { // to be deleted
 			if (this.state.middle_name.length == 50) {
 				event.preventDefault();
 			}
-		}
+		}*/
 
 	}
 	handleEmail() {
@@ -265,7 +266,7 @@ class InsuranceSelf extends React.Component {
 			}
 		}
 	}
-	handleGender(field, event) {
+	/*handleGender(field, event) {
 		let gender_value = event.target.value
 		if (gender_value == 'm') {
 			this.setState({ title: 'mr.' })
@@ -277,11 +278,11 @@ class InsuranceSelf extends React.Component {
 		}, () => {
 			this.handleSubmit(false,false)
 		})
-	}
-	openDateModal() {
+	}*/
+	/*openDateModal() { // to be deleted
 		this.setState({ dateModal: !this.state.dateModal })
-	}
-	selectDateFromCalendar(date) {
+	}*/
+	/*selectDateFromCalendar(date) {
 		if (date) {
 			date = date.toDate()
 			var date = new Date(date)
@@ -294,25 +295,22 @@ class InsuranceSelf extends React.Component {
 		} else {
 			this.setState({ dateModal: false })
 		}
-	}
+	}*/
 	handleLastname(event) {
 		this.setState({ no_lname: !this.state.no_lname }, () => {
 			this.handleSubmit(false,false)
 		})
 	}
-	showAlert(type) {
-		SnackBar.show({ pos: 'bottom-center', text: "Please select" + type + "first" });
-	}
+
+	// showAlert(type) {
+	// 	SnackBar.show({ pos: 'bottom-center', text: "Please select" + type + "first" });
+	// }
 
 	handleState(feild, event) {
 		this.setState({
 			[event.target.getAttribute('data-param')]: event.target.value
 		})
-		let states = [
-				{ 'code': 1, 'name': 'delhi' },
-				{ 'code': 2, 'name': 'gurgaon' },
-				{ 'code': 3, 'name': 'hyderabad' }
-				]
+		let states = []
 
 		if(this.props.user_cities && this.props.user_cities.length){
 			Object.entries(this.props.user_cities).map(function ([key, value]) {
@@ -322,7 +320,7 @@ class InsuranceSelf extends React.Component {
 		}
 	}
 
-	handleDistrict(feild, event) {
+	/*handleDistrict(feild, event) {
 		let self = this
 		this.setState({
 			[event.target.getAttribute('data-param')]: event.target.value
@@ -336,9 +334,9 @@ class InsuranceSelf extends React.Component {
 			}
 		})
 		this.autocomplete(document.getElementsByClassName('userDistrict')[0], districts_opt, 'isDistrict');
-	}
+	}*/
 
-	handleTown(feild, event) {
+	/*handleTown(feild, event) {
 		let self = this
 		this.setState({
 			[event.target.getAttribute('data-param')]: event.target.value
@@ -352,7 +350,7 @@ class InsuranceSelf extends React.Component {
 			}
 		})
 		this.autocomplete(document.getElementsByClassName('userTown')[0], city_opt, 'isTown');
-	}
+	}*/
 
 	autocomplete(inp, arr, type) {
 		let self = this
@@ -382,11 +380,12 @@ class InsuranceSelf extends React.Component {
 						inp.value = this.getElementsByTagName("input")[0].value;
 						if (type == 'isState') {
 							self.setState({ state: inp.value, state_code: this.getElementsByTagName("input")[0].id })
-						} else if (type == 'isDistrict') {
-							self.setState({ district: inp.value, district_code: this.getElementsByTagName("input")[0].id })
-						} else if (type == 'isTown') {
-							self.setState({ town: inp.value, town_code: this.getElementsByTagName("input")[0].id })
 						}
+						// } else if (type == 'isDistrict') {
+						// 	self.setState({ district: inp.value, district_code: this.getElementsByTagName("input")[0].id })
+						// } else if (type == 'isTown') {
+						// 	self.setState({ town: inp.value, town_code: this.getElementsByTagName("input")[0].id })
+						// }
 
 						self.handleSubmit()
 						self.closeAllLists(type)
@@ -609,8 +608,8 @@ class InsuranceSelf extends React.Component {
 				*/}
 				<div className="row no-gutters" id={isDummyUser ? 'member_0' : this.props.is_endorsement ? `member_${this.props.member_id}` : `member_${this.props.USER.defaultProfile}`}>
 					<div className="col-12">
-						{
-							this.props.selected_plan.adult_count == 2 ?
+						{ //to be deleted
+							/*this.props.selected_plan.adult_count == 2 ?
 								<div>
 									<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
 									<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
@@ -621,8 +620,13 @@ class InsuranceSelf extends React.Component {
 									<button className={`label-names-buttons ${this.state.title == 'miss' ? 'btn-active' : ''}`} name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss')} >Ms.</button>
 									<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
 
-								</div>
+								</div>*/
 						}
+						<React.Fragment>
+							<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
+							<button className={`label-names-buttons ${this.state.title == 'miss' ? 'btn-active' : ''}`} name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss')} >Ms.</button>
+							<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
+						</React.Fragment>
 					</div>
 					<div className="col-6">
 						<div className="ins-form-group inp-margin-right ">
@@ -653,7 +657,7 @@ class InsuranceSelf extends React.Component {
 								<span className="fill-error-span">{this.props.errorMessages['max_character']}</span> : ''
 						}
 					</div>
-					{/*<div className="col-6">
+					{/*<div className="col-6"> // to be deleted
 						<div className="ins-form-group inp-margin-right ">
 							<input 
 								style={{ 'textTransform': 'capitalize' }} 
@@ -994,7 +998,12 @@ class InsuranceSelf extends React.Component {
 					</div>
 				</div>
 				{
-					this.props.is_endorsement && this.state.is_change ?
+					/*this.props.is_endorsement && this.state.is_change ?
+						<InsuranceProofs {...this.props} />
+						: ''*/
+				}
+				{
+					this.props.is_from_payment?
 						<InsuranceProofs {...this.props} />
 						: ''
 				}
