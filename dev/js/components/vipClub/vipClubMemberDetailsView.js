@@ -45,18 +45,32 @@ class InsuranceInputView extends React.Component{
     }
 
     addMembers(){
+    	let member_dummy_data={
+    		name: '',
+			last_name: '',
+			dob: '',
+			// id: '',
+			relation: '',
+			title: '',
+			profile:null
+    	}
     	let card
     	let membersId = []
     	if(this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length > 0){
     		membersId = [].concat(this.props.currentSelectedVipMembersId)
     		if(this.props.currentSelectedVipMembersId.length == 2){
 				membersId.push({[2]: 2, type:'adult'})
+				member_dummy_data.id=2
     		}
     		if(this.props.currentSelectedVipMembersId.length == 3){
 				membersId.push({[3]: 3, type:'adult'})
-    		}
-    		
-    		this.props.saveCurrentSelectedVipMembers(membersId)
+				member_dummy_data.id=3
+    		}	
+    		console.log(member_dummy_data)
+    		this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{
+    			console.log(member_dummy_data)
+    			this.props.userDetails('self_data', member_dummy_data)
+    		})
     	}
     }
 
@@ -446,6 +460,7 @@ class InsuranceInputView extends React.Component{
     	let errorMessagesObj = {}
     	let validatingErrors = {}
     	let param
+    	console.log(this.props.vipClubMemberDetails)
     	if(this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && this.props.vipClubMemberDetails && Object.keys(this.props.vipClubMemberDetails).length>0){
     		data.plan_id = 	this.props.selected_vip_plan.id
     		data.members = []

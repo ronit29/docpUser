@@ -44,11 +44,12 @@ export const userDetails = (type, vipClubMemberDetails, forceAdd = false, previo
     })
 
 }
-export const saveCurrentSelectedVipMembers = (membersId) => (dispatch) => {
+export const saveCurrentSelectedVipMembers = (membersId,callback) => (dispatch) => {
     dispatch({
         type: SAVE_CURRENT_VIP_MEMBERS,
         payload: membersId
     })
+    if(callback) callback(true) 
 }
 
 export const selectVipUserProfile = (newProfileid,member_id,newProfile,param_id) => (dispatch) => {

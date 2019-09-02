@@ -34,7 +34,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         userDetails:(self_data,criteria,forceadd) => dispatch(userDetails(self_data,criteria,forceadd)),
-        saveCurrentSelectedVipMembers: (membersId) => dispatch(saveCurrentSelectedVipMembers(membersId)),
+        saveCurrentSelectedVipMembers: (membersId,callback) => dispatch(saveCurrentSelectedVipMembers(membersId,callback)),
         citiesData: () => dispatch(citiesData()),
         selectVipUserProfile:(newProfileid,member_id,newProfile,param_id) => dispatch(selectVipUserProfile(newProfileid,member_id,newProfile,param_id)),
         vipClubPay :(criteria,callback) => dispatch(vipClubPay(criteria,callback)),
