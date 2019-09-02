@@ -500,6 +500,21 @@ class InsuranceInputView extends React.Component{
 							is_disable = true
 							fields.push('dob')
 						}
+
+						if(param.relation =='self'){
+							if(param.state == "" || param.state_code == ""){  
+								is_disable = true
+								fields.push('state')
+							}
+							if(param.address == ""){  
+								is_disable = true
+								fields.push('address')
+							}
+							if(param.pincode == ""){  
+								is_disable = true
+								fields.push('pincode')
+							}
+						}
 	    			}
 	    			validatingErrors[param.id] = fields
 	    		})

@@ -425,7 +425,7 @@ class InsuranceOthers extends React.Component {
 		let show_createApi_keys_child = []
 		let show_createApi_keys_child2 = []
 		let Uploaded_image_data
-		let commonMsgSpan = <span className="fill-error-span">{this.props.errorMessages['common_message']}</span>
+		let commonMsgSpan = <span className="fill-error-span">*This is a mandatory field</span>
 		if(this.props.is_child_only){
 			let show_createApi_keys = []
 			if(Object.keys(this.props.createApiErrorsChild).length > 0){
@@ -497,18 +497,23 @@ class InsuranceOthers extends React.Component {
 						<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
 					</React.Fragment>
 					{
-						!this.props.is_child_only && this.props.validateErrors.indexOf('title')> -1?<span className="fill-error-span" style={{marginTop:'-13px'}}>{this.props.errorMessages['common_message']}</span>:''
+						// !this.props.is_child_only && this.props.validateErrors.indexOf('title')> -1?<span className="fill-error-span abcdefgh" style={{marginTop:'-13px'}}>{this.props.errorMessages['common_message']}</span>:''
 					}
 					{
-						this.props.validateOtherErrors.indexOf('title')> -1?
-						<span className="fill-error-span" style={{marginTop:'-13px'}}>{this.props.errorMessages['sameGenderTitle']}</span>:''	
+						// this.props.validateOtherErrors.indexOf('title')> -1?
+						// <span className="fill-error-span" style={{marginTop:'-13px'}}>{this.props.errorMessages['sameGenderTitle']}</span>:''	
 					}
 					{	
-						this.props.is_child_only?this.props.member_view_id == 2 && show_createApi_keys_child.indexOf('title')> -1?
+						/*this.props.is_child_only?this.props.member_view_id == 2 && show_createApi_keys_child.indexOf('title')> -1?
 						<span className="fill-error-span">{this.props.createApiErrorsChild[this.props.member_view_id].title[0]}</span>:this.props.member_view_id == 3 && show_createApi_keys_child2.indexOf('title')> -1?<span className="fill-error-span">{this.props.createApiErrorsChild[this.props.member_view_id].title[0]}</span>:''
 						:show_createApi_keys_adult.indexOf('title')> -1?
-						<span className="fill-error-span">{this.props.createApiErrors.title[0]}</span>:''	
+						<span className="fill-error-span">{this.props.createApiErrors.title[0]}</span>:''*/	
 					}
+
+					{
+						this.props.validateErrors && this.props.validateErrors.indexOf('title')> -1?commonMsgSpan:''
+					}
+
 					</div>
 					<div className="row no-gutters">
 					{
@@ -542,17 +547,17 @@ class InsuranceOthers extends React.Component {
 								<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 							</div>
 							{	
-								this.props.is_child_only?this.props.member_view_id == 2 && show_createApi_keys_child.indexOf('first_name')> -1?
+								/*this.props.is_child_only?this.props.member_view_id == 2 && show_createApi_keys_child.indexOf('first_name')> -1?
 									<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:this.props.member_view_id == 3 && show_createApi_keys_child2.indexOf('first_name')> -1?<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:''
 								:show_createApi_keys_adult.indexOf('first_name')> -1?
-								<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:''	
+								<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:''	*/
 							}
 							{
 								this.props.validateErrors.indexOf('name')> -1?
 								commonMsgSpan:''
 							}
 							{
-								ErrorNameId == this.props.member_id?<span className="fill-error-span" style={{width:'320px'}}>{this.props.errorMessages['sameName']}</span>:''
+								/*ErrorNameId == this.props.member_id?<span className="fill-error-span" style={{width:'320px'}}>{this.props.errorMessages['sameName']}</span>:''*/
 							}
 						</div>
 						{/*<div className="col-6">
@@ -575,10 +580,10 @@ class InsuranceOthers extends React.Component {
 								<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 							</div>
 							{	
-								this.props.is_child_only?this.props.member_view_id == 2 && show_createApi_keys_child.indexOf('last_name')> -1?
+								/*this.props.is_child_only?this.props.member_view_id == 2 && show_createApi_keys_child.indexOf('last_name')> -1?
 									<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:this.props.member_view_id == 3 && show_createApi_keys_child2.indexOf('last_name')> -1?<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:''
 								:show_createApi_keys_adult.indexOf('last_name')> -1?
-								<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:''	
+								<span className="fill-error-span">{this.props.errorMessages['max_character']}</span>:''	*/
 							}
 							{
 								this.props.validateErrors.indexOf('last_name')> -1?
@@ -654,19 +659,22 @@ class InsuranceOthers extends React.Component {
 								</div>
 							</div>
 							{	
-								this.props.is_child_only?this.props.member_view_id == 2 && show_createApi_keys_child.indexOf('dob')> -1?
+								/*this.props.is_child_only?this.props.member_view_id == 2 && show_createApi_keys_child.indexOf('dob')> -1?
 									<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.createApiErrorsChild[this.props.member_view_id].dob[0]}</span>:this.props.member_view_id == 3 && show_createApi_keys_child2.indexOf('dob')> -1?<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.createApiErrorsChild[this.props.member_view_id].dob[0]}</span>:''
 								:show_createApi_keys_adult.indexOf('dob')> -1?
-								<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.createApiErrors.dob[0]}</span>:''	
+								<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.createApiErrors.dob[0]}</span>:''	*/
 							}
 							{
-								this.props.validateErrors.indexOf('dob')> -1?
+								/*this.props.validateErrors.indexOf('dob')> -1?
 								this.props.is_child_only?<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.errorMessages['child_age']}</span>:
-								<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.errorMessages['adult_age']}</span>:''
+								<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.errorMessages['adult_age']}</span>:''*/
 							}
 							{
-								this.props.validateDobErrors.indexOf('dob')> -1?
-								this.props.is_child_only?<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.errorMessages['childAgeDiff']}</span>:'':''
+								/*this.props.validateDobErrors.indexOf('dob')> -1?
+								this.props.is_child_only?<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.errorMessages['childAgeDiff']}</span>:'':''*/
+							}
+							{
+								this.props.validateErrors && this.props.validateErrors.indexOf('title')> -1?commonMsgSpan:''
 							}
 						</div>
 					</div>

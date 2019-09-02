@@ -559,6 +559,7 @@ class InsuranceSelf extends React.Component {
 	}
 
 	render() {
+		console.log(this.props.validateErrors)
 		let self = this
 		let show_createApi_keys = []
 		let city_opt = []
