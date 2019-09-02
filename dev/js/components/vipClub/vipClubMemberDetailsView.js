@@ -44,14 +44,26 @@ class InsuranceInputView extends React.Component{
     	}*/
     }
 
+    addMembers(){
+    	let card
+    	let membersId = []
+    	if(this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length > 0){
+    		membersId = [].concat(this.props.currentSelectedVipMembersId)
+    		if(this.props.currentSelectedVipMembersId.length == 2){
+				membersId.push({[2]: 2, type:'adult'})
+    		}
+    		if(this.props.currentSelectedVipMembersId.length == 3){
+				membersId.push({[3]: 3, type:'adult'})
+    		}
+    		
+    		this.props.saveCurrentSelectedVipMembers(membersId)
+    	}
+    }
+
     componentWillReceiveProps(props){
     	let card
     	let self = this
     	let isDummyUser
-    	// console.log(this.state.saveMembers)
-    	// console.log(Object.keys(props.selected_vip_plan).length)
-    	// console.log(props.USER.defaultProfile)
-    	// console.log(!props.currentSelectedVipMembersId.length)
     	if(!this.state.saveMembers && Object.keys(props.selected_vip_plan).length >0 && props.USER.defaultProfile && !props.currentSelectedVipMembersId.length){
     		let loginUser = props.USER.defaultProfile
     		let membersId = []
@@ -65,7 +77,7 @@ class InsuranceInputView extends React.Component{
 	    		membersId.push({'0':loginUser, type: 'self'})
 	    		if(props.is_from_payment){
 		    		var n = props.selected_vip_plan.total_allowed_members - 1;
-		    		card = [...Array(props.selected_vip_plan.total_allowed_members -1)].map((e, i) => {
+		    		card = [...Array(props.selected_vip_plan.total_allowed_members -3)].map((e, i) => {
 							membersId.push({[i+1]: i+1, type:'adult'})
 						})
 		    	}
@@ -73,7 +85,7 @@ class InsuranceInputView extends React.Component{
 				membersId.push({'0':0, type:'self'})
 				if(props.is_from_payment){
 		    		var n = props.selected_vip_plan.total_allowed_members - 1;
-		    		card = [...Array(props.selected_vip_plan.total_allowed_members -1)].map((e, i) => {
+		    		card = [...Array(props.selected_vip_plan.total_allowed_members -3)].map((e, i) => {
 							membersId.push({[i+1]: i+1, type:'adult'})
 						})
 		    	}
@@ -451,7 +463,6 @@ class InsuranceInputView extends React.Component{
 	    		if(Object.keys(this.props.vipClubMemberDetails).length > 0){
 	    			fields = []
 	    			param =this.props.vipClubMemberDetails[val[key]]
-	    			console.log(param)
 						if(param.relation == ""){
 							is_disable = true
 							fields.push('relation')
@@ -480,7 +491,6 @@ class InsuranceInputView extends React.Component{
 	    			validatingErrors[param.id] = fields
 	    		})
 	    		console.log(validatingErrors)
-				console.log()
 				Object.keys(validatingErrors).forEach(function(key) {
 	    			if(validatingErrors[key].length > 0){
 	    				is_disable = true
@@ -540,7 +550,6 @@ class InsuranceInputView extends React.Component{
 					validatingErrors[self_profile.id] = fields
 				}
 				console.log(validatingErrors)
-				console.log()
 				Object.keys(validatingErrors).forEach(function(key) {
 	    			if(validatingErrors[key].length > 0){
 	    				is_disable = true
@@ -643,7 +652,11 @@ class InsuranceInputView extends React.Component{
 									{child}
 								</div>
 							</div>
-						</section>		
+							{this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length <= 3?
+							<button onClick={this.addMembers.bind(this)}> Add</button>		
+							:''
+							}
+						</section>
 							{
 								this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0?
 									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}

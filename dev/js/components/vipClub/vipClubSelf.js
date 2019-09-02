@@ -482,7 +482,6 @@ class InsuranceSelf extends React.Component {
 		yeardropdown.appendChild(opt_yy);
 
 		// Day
-		console.log(daysInCurrMonth)
 		for (var i = 1; i <= daysInCurrMonth; i++) {
 			var opt = document.createElement('option');
 			if (i <= 9) {
