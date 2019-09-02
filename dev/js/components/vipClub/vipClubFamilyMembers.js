@@ -222,8 +222,6 @@ class InsuranceOthers extends React.Component {
 			}
 			if(newProfile && newProfile.dob){
 				oldDate= newProfile.dob.split('-')
-				console.log(newProfile.dob)
-				console.log(oldDate)
 				this.setState({year:oldDate[0],mnth:oldDate[1],day:oldDate[2]},()=>{
 	    			this.populateDates(newProfileid,false)
 	    			finalDate = this.state.year + '-'+ this.state.mnth + '-'+this.state.day 

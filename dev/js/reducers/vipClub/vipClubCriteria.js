@@ -99,9 +99,10 @@ export default function (state = defaultState, action) {
 
         case SAVE_CURRENT_VIP_MEMBERS: {
             let newState ={
-                ...state
+                ...state,
+                currentSelectedVipMembersId:[]
             }
-            newState.currentSelectedVipMembersId = action.payload
+            newState.currentSelectedVipMembersId = newState.currentSelectedVipMembersId.concat(action.payload)
             return newState
         }
 
