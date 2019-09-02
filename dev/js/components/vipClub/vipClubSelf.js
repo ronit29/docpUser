@@ -100,7 +100,7 @@ class InsuranceSelf extends React.Component {
 				this.getUserDetails(profile)
 				if (Object.keys(profile).length) {
 					this.setState({ ...profile, disableEmail: profile.email != '' ? true : false, disableDob: profile.dob != null ? true : false, disableName: profile.name != '' ? true : false }, () => {
-						/*if (profile.gender == 'm') {
+						if (profile.gender == 'm') {
 							this.setState({ title: 'mr.' }, () => {
 								this.handleSubmit(false,false)
 							})
@@ -108,7 +108,7 @@ class InsuranceSelf extends React.Component {
 							this.setState({ title: 'mrs.' }, () => {
 								this.handleSubmit(false,false)
 							})
-						}*/
+						}
 					})
 				} else {
 					this.setState({ profile_flag: false })
@@ -166,7 +166,7 @@ class InsuranceSelf extends React.Component {
 				dob: profile.isDummyUser ? '' : profile.dob,
 				id: profile.isDummyUser ? 0 : profile.id
 			}, () => {
-				/*if (profile.gender == 'm') {
+				if (profile.gender == 'm') {
 					this.setState({ title: 'mr.' })
 				} else if (profile.gender == 'f') {
 					if (this.props.selected_plan.adult_count == 2) {
@@ -174,7 +174,7 @@ class InsuranceSelf extends React.Component {
 					} else {
 						this.setState({ title: 'miss' })
 					}
-				}*/
+				}
 				this.handleSubmit(false,false)
 			})
 		}
