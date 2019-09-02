@@ -158,7 +158,7 @@ export const resetPkgCompare = () => (dispatch) => {
     })
 }
 
-export const getCompareList = (selectedIds,selectedLocation,searchByUrl,callback) => (dispatch) => {
+export const getCompareList = (selectedIds,selectedLocation,searchByUrl,cat_ids,callback) => (dispatch) => {
     let lat = 28.644800
     let long = 77.216721
     if (selectedLocation) {
@@ -174,6 +174,7 @@ export const getCompareList = (selectedIds,selectedLocation,searchByUrl,callback
     postData.url = searchByUrl    
     postData['lat'] = lat
     postData['long'] = long
+    postData.category_id = cat_ids
     let url = '/api/v1/diagnostic/compare_lab_packages'
     if(searchByUrl){
         url = '/api/v1/diagnostic/compare_lab_packages_by_url'

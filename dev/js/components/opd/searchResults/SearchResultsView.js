@@ -339,7 +339,7 @@ class SearchResultsView extends React.Component {
             is_filter_applied = true
         }
 
-        if(specialization_filter_ids){
+        if(specialization_filter_ids && specialization_filter_ids.length){
             is_filter_applied = true
         }
 

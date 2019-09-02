@@ -333,7 +333,7 @@ class CartItem extends React.Component {
                                     <div className="shopng-cart-price ins-val-bx pkg-discountCpn">Docprime Care Benefit</div>
                                     : payment_type == 1 ? <div className="shopng-cart-price">
                                         {
-                                            mrp ? <p>₹ {deal_price} <span className="shopng-cart-price-cut">₹ {mrp}</span></p> : ""
+                                            mrp != deal_price ? <p>₹ {deal_price} <span className="shopng-cart-price-cut">₹ {mrp}</span></p> : mrp == deal_price?<p>₹ {deal_price}</p>:""
                                         }
                                     </div>
                                     :payment_type == 2 && is_enabled_for_cod && mrp != cod_deal_price? <div className="shopng-cart-price">

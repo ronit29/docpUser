@@ -232,3 +232,7 @@ export const SAVE_IPD_POPUP_DATA = 'SAVE_IPD_POPUP_DATA'
 
 //Hospital Comments
 export const GET_HOSP_COMMENTS = 'GET_HOSP_COMMENTS'
+
+
+//CitiesData
+export const USER_CITIES = 'USER_CITIES'
