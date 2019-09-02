@@ -67,11 +67,11 @@ class InsuranceInputView extends React.Component{
 				member_dummy_data.id=3
     		}	
     		// console.log(member_dummy_data)
-    		this.props.saveCurrentSelectedVipMembers(membersId)
-    		// this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{
-    		// 	console.log(member_dummy_data)
-    		// 	this.props.userDetails('self_data', member_dummy_data)
-    		// })
+    		// this.props.saveCurrentSelectedVipMembers(membersId)
+    		this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{
+    			console.log(member_dummy_data)
+    			this.props.userDetails('self_data', member_dummy_data)
+    		})
     	}
     }
 

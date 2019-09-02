@@ -80,6 +80,45 @@ export const vipClubPay = (criteria,callback) => (dispatch) => {
 
 }
 
+export const generateVipClubLead = (selectedPlan, number,lead_data,selectedLocation,user_name,callback) => (dispatch) => {
+    let lat
+    let long
+    let latitude = 28.644800
+    let longitude = 77.216721
+    if (selectedLocation) {
+        lat = selectedLocation.geometry.location.lat
+        long = selectedLocation.geometry.location.lng
+
+        if (typeof lat === 'function') lat = lat()
+        if (typeof long === 'function') long = long()
+
+    }
+    let plan={}
+        plan.plan_id= selectedPlan
+        plan.phone_number=''
+        plan.name = user_name
+        plan.source=''
+        if(lead_data && lead_data.source){
+            plan.source = lead_data.source
+        }
+        if(number == '' && lead_data &&  lead_data.phone_number){
+            plan.phone_number = lead_data.phone_number
+        }else{
+            plan.phone_number = number
+        }
+        plan.lead_data = lead_data
+        if(latitude != lat && longitude != long){
+            plan.latitude = latitude
+            plan.longitude = longitude
+        }
+    return API_POST(`/api/v1/plus/lead/create`, plan).then(function (response) {
+        debugger
+        if(callback) callback(null, response)
+    }).catch(function (error) {
+       if(callback) callback(error, null)
+    })
+}
+
 //insurance
 
 export const getInsuranceMemberList = (member_list_id) => (dispatch) => {

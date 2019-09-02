@@ -82,7 +82,7 @@ export default function (state = defaultState, action) {
 
         case SELECT_VIP_USER_PROFILE :{
             let newState = { ...state,
-                vipClubMemberDetails: { ...state.self_data_values },
+                vipClubMemberDetails: { ...state.vipClubMemberDetails },
                 currentSelectedVipMembersId: [].concat(state.currentSelectedVipMembersId)
             }         
             newState.vipClubMemberDetails[action.payload.newProfileid] = {} 

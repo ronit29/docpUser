@@ -159,9 +159,9 @@ class InsurancePopup extends React.Component {
                         //     'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupOptVerified', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-opt-verified'
                         // }
                         // GTM.sendEvent({ data: data })
-                        // if (Object.keys(self.props.selected_plan).length > 0) {
-                        //     self.props.generateInsuranceLead(self.props.selected_plan ? self.props.selected_plan.id : '', this.state.phoneNumber, lead_data, this.props.selectedLocation)
-                        // }
+                        if (Object.keys(self.props.selected_vip_plan).length > 0) {
+                            self.props.generateVipClubLead(self.props.selected_vip_plan ? self.props.selected_vip_plan.id : '', self.state.phoneNumber,lead_data, self.props.selectedLocation,self.state.user_name)
+                        }
                         if (exists.user_exists) {
                             this.props.closeLeadPopup()
                             this.props.history.push('/vip-club-member-details')

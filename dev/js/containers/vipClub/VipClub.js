@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import { getInsurance, selectInsurancePlan , saveCurrentSelectedMembers,resetSelectedInsuranceMembers,resetSelectedPlans,sendOTP, submitOTP, resetAuth, getUserProfile, userData, generateInsuranceLead, urlShortner,
 
 
-getVipList, selectVipClubPlan
+getVipList, selectVipClubPlan, generateVipClubLead
  } from '../../actions/index.js'
 import VipClubView from '../../components/vipClub/vipClubView.js'
 import Loader from '../../components/commons/Loader'
@@ -74,6 +74,7 @@ const mapDispatchToProps = (dispatch) => {
         getVipList: (is_endorsement,callback) => dispatch(getVipList(is_endorsement,callback)),
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
         getUserProfile: () => dispatch(getUserProfile()),
+        generateVipClubLead:(selectedPlan,number,lead_data,user_name,cb) =>dispatch(generateVipClubLead(selectedPlan,number,lead_data,user_name,cb)),
         getInsurance: (is_endorsement,callback) => dispatch(getInsurance(is_endorsement,callback)),        
         selectInsurancePlan: (plan,criteria) => dispatch(selectInsurancePlan(plan,criteria)),
         // saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),

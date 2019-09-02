@@ -110,7 +110,7 @@ class InsuranceOthers extends React.Component {
 		}
 	}
 	handleTitle(field, event) {
-		let title_value = event.target.value
+		// let title_value = event.target.value
 		/*if(this.props.is_child_only){ // to be deleted
 			if(title_value == 'mr.'){
   			this.setState({gender:'m',relation:'son'})	
@@ -126,7 +126,7 @@ class InsuranceOthers extends React.Component {
 	  			this.setState({gender:'f'})
 	  		}
 		}*/
-		this.setState({ title: event.target.value }, () => {
+		this.setState({ title: event.target.value, id:this.props.member_id }, () => {
 			var self_data = this.state
 			self_data.is_change = true
 			// this.props.userData('self_data', self_data)
@@ -135,7 +135,7 @@ class InsuranceOthers extends React.Component {
 	}
 	handleChange(field, event) {
 		this.setState({
-			[event.target.getAttribute('data-param')]: event.target.value
+			[event.target.getAttribute('data-param')]: event.target.value , id:this.props.member_id
 		});
 	}
 	/*handleRelation(field,event) {
