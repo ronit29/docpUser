@@ -103,7 +103,11 @@ class VisitTimeNew extends React.Component {
                             <div className="vst-time-cont">
                                 <React.Fragment>
                                     {
-                                        this.props.LABS[this.props.selectedLab].tests.map((test, key) => {
+                                        this.props.LABS[this.props.selectedLab].tests.length == Object.values(this.props.selectedSlot.selectedTestsTimeSlot).length && this.props.selectedSlot['all'] && this.props.selectedSlot['all'].time ?
+                                        <div className="vst-content-bl">
+                                            <p className="rdo-time-vst">{new Date(this.props.selectedSlot['all'].date).toDateString() || ""} {this.props.selectedSlot['all'].time.text ? "|" : ""} {this.props.selectedSlot['all'].time.text} {this.props.selectedSlot['all'].time.text ? (this.props.selectedSlot['all'].time.value >= 12 ? 'PM' : 'AM') : ''}</p>
+                                        </div>
+                                        :this.props.LABS[this.props.selectedLab].tests.map((test, key) => {
                                             return <div className="vst-content-bl" key={key}>
                                                 <p className="vst-tst-name">{test.test.name}</p>
                                                 {
