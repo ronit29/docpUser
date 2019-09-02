@@ -471,10 +471,10 @@ class InsuranceInputView extends React.Component{
 	    			fields = []
 	    			param =this.props.vipClubMemberDetails[val[key]]
 						
-						/*if(param.relation == ""){ //common validation
+						if(param.relation == ""){ //common validation
 							is_disable = true
 							fields.push('relation')
-						}*/
+						}
 
 						if(param.title == ""){
 							is_disable = true
