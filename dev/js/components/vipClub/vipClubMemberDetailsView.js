@@ -652,7 +652,10 @@ class InsuranceInputView extends React.Component{
 									{child}
 								</div>
 							</div>
+							{this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length <= 3?
 							<button onClick={this.addMembers.bind(this)}> Add</button>		
+							:''
+							}
 						</section>
 							{
 								this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0?
