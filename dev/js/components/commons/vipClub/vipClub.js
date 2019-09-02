@@ -31,7 +31,7 @@ class VipClub extends React.Component {
         return (
 
 
-            <div className="profile-body-wrap" style={{ background: "" }}>
+            <div className="profile-body-wrap" style={{ background: "white" }}>
                 {/* <ProfileHeader /> */}
                 <div className="vipHeaderBar">
                     <div className="vipBackIco">
@@ -43,7 +43,7 @@ class VipClub extends React.Component {
                         <p>1 year upto 4 members</p>
                     </div>
                 </div>
-                <section className="container container-top-margin d-none" style={{ marginTop: '' }}>
+                <section className="container container-top-margin d-none" style={{ marginTop: '200px' }}>
                     <div className="row main-row parent-section-row">
                         <LeftBar />
                         <div className="col-12 center-column">
@@ -175,7 +175,7 @@ class VipClub extends React.Component {
                     </button>
                 </section>
                 {/* last screen design */}
-                <section className="container container-top-margin" style={{ marginTop: '' }}>
+                <section className="container container-top-margin" style={{ paddingTop: '140px' }}>
                     <div className="row main-row parent-section-row">
                         <LeftBar />
                         <div className="col-12 center-column">

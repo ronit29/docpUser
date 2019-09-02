@@ -3275,13 +3275,33 @@ div.search-el-popup.non-book-pop{
 }
 /* ============ docprim Vip ============ */
 .vipHeaderBar{
-	background-image: url('/assets/img/rectangle.svg');
-    background-size: 100% 100%;
+	/* background-image: url('/assets/img/rectangle.svg'); */
+	background-size: 100% 100%;
     background-repeat: no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
     -webkit-font-smoothing: antialiased;
+    background-image: linear-gradient(to left,#f78631,#ff6d00);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+}
+.vipHeaderBar::after{
+	background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    content: '';
+    display: block;
+    height: 1.625rem;
+    pointer-events: none;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    z-index: 10;
+    background-image: url('http://www.reactjsindia.com/images/download.svg');
+    margin-top: -1.625rem;
 }
 .vipBackIco {
     position: absolute;
