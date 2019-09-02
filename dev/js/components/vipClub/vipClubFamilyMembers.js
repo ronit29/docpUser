@@ -1,10 +1,10 @@
 import React from 'react'
-import InsurPopup from './vipClubPopup.js'
+import VipLoginPopup from './vipClubPopup.js'
 import Calendar from 'rc-calendar'
 import InsuranceProofs from './insuranceProofs.js'
 const moment = require('moment')
 
-class InsuranceOthers extends React.Component {
+class VipProposerFamily extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -685,7 +685,7 @@ class InsuranceOthers extends React.Component {
 				</div>
 				
 				{this.state.showPopup ?
-					<InsurPopup {...this.state.userProfiles} {...this.props} 
+					<VipLoginPopup {...this.state.userProfiles} {...this.props} 
 						currentSelectedVipMembersId={this.props.currentSelectedVipMembersId} 
 						member_id={this.props.member_id} 
 						closePopup={this.togglePopup.bind(this)} 
@@ -701,4 +701,4 @@ class InsuranceOthers extends React.Component {
 
 }
 
-export default InsuranceOthers
+export default VipProposerFamily

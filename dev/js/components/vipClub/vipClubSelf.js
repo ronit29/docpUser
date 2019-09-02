@@ -6,7 +6,7 @@ import InsuranceProofs from './insuranceProofs.js'
 import VerifyEmail from './verifyEmail.js'
 const moment = require('moment')
 
-class InsuranceSelf extends React.Component {
+class VipProposer extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -1009,4 +1009,4 @@ class InsuranceSelf extends React.Component {
 
 }
 
-export default InsuranceSelf
+export default VipProposer

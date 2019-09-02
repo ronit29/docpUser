@@ -1,11 +1,11 @@
 import React from 'react'
 import ProfileHeader from '../commons/DesktopProfileHeader'
 import ChatPanel from '../commons/ChatPanel'
-import InsurSelf from './vipClubSelf.js'
-import InsurOthers from './vipClubFamilyMembers.js'
+import VipProposer from './vipClubSelf.js'
+import VipProposerFamily from './vipClubFamilyMembers.js'
 import SnackBar from 'node-snackbar'
 
-class InsuranceInputView extends React.Component{
+class VipClubMemberDetailsView extends React.Component{
 	constructor(props) {
         super(props)
         this.state = {
@@ -570,7 +570,7 @@ class InsuranceInputView extends React.Component{
 			if(n !== 0){
 				child =this.props.currentSelectedVipMembersId.filter(x=>x.type ==='adult').map((data, i) =>{
 					selectedMembersId++
-						return <InsurOthers {...this.props} 
+						return <VipProposerFamily {...this.props} 
 									key={i} 
 									member_id={data[selectedMembersId]} 
 									// checkForValidation ={this.checkForValidation.bind(this)} 
@@ -609,7 +609,7 @@ class InsuranceInputView extends React.Component{
 										</div>
 										<p className="fw-500 d-block" style={{fontSize: 11, color:'#F44336', marginTop:5, paddingLeft:8}}>*All fields are mandatory</p>*/}
 										<div className="insurance-member-details mrt-20">
-											<InsurSelf {...this.props} 
+											<VipProposer {...this.props} 
 												// checkForValidation ={this.checkForValidation.bind(this)}  // to be deleted
 												id={`member_${this.props.USER.defaultProfile}`} 
 												member_id={this.props.USER.defaultProfile} 
@@ -629,7 +629,7 @@ class InsuranceInputView extends React.Component{
 								</div>
 							</div>
 							{this.props.is_from_payment && this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length <= 3?
-							<button className="add-mem-blk" onClick={this.addMembers.bind(this)}> <img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />Add 3rd Member</button>		
+								<button className="add-mem-blk" onClick={this.addMembers.bind(this)}> <img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />{`Add ${this.props.currentSelectedVipMembersId.length == 2?'3rd':this.props.currentSelectedVipMembersId.length == 3?'4th':''} Member `}</button>
 							:''
 							}
 						</section>
@@ -651,4 +651,4 @@ class InsuranceInputView extends React.Component{
 }
 
 
-export default InsuranceInputView
+export default VipClubMemberDetailsView

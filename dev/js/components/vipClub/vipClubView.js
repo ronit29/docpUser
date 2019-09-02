@@ -7,7 +7,7 @@ import HelmetTags from '../commons/HelmetTags'
 import GTM from '../../helpers/gtm'
 import STORAGE from '../../helpers/storage';
 import SnackBar from 'node-snackbar'
-import InsurPopup from './vipClubPopup.js'
+import VipLoginPopup from './vipClubPopup.js'
 
 class VipClubView extends React.Component {
     constructor(props) {
@@ -84,7 +84,7 @@ class VipClubView extends React.Component {
                     </div>
                     {
                         this.state.showPopup?
-                        <InsurPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} popupClass={this.state.popupClass} overlayClass={this.state.overlayClass} identifyUserClick={this.state.identifyUserClick}/> : ''
+                        <VipLoginPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} popupClass={this.state.popupClass} overlayClass={this.state.overlayClass} identifyUserClick={this.state.identifyUserClick}/> : ''
                     }
                     <section className="container container-top-margin" style={{ paddingTop: '140px' }}>
                         <div className="row main-row parent-section-row">

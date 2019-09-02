@@ -3,7 +3,7 @@ const queryString = require('query-string');
 import GTM from '../../helpers/gtm.js'
 import SnackBar from 'node-snackbar'
 
-class InsurancePopup extends React.Component {
+class VipLoginPopup extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -392,4 +392,4 @@ class InsurancePopup extends React.Component {
         }
     }
 }
-export default InsurancePopup
+export default VipLoginPopup
