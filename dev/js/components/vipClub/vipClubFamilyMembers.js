@@ -91,13 +91,6 @@ class InsuranceOthers extends React.Component {
 					}
 				}
 			}else if(props.member_id && !this.state.setDefault){
-				if(props.self_gender == 'm'){
-					adult_title = 'mrs.'
-					adult_gender = 'f'
-				}else if(props.self_gender == 'f'){
-					adult_title = 'mr.'
-					adult_gender = 'm'
-				}
 				this.setState({id: props.member_id, setDefault:true}, () => {
 					if(this.props.is_child_only){
 						if(!self.state.year && !self.state.mnth && !self.state.mnth){
