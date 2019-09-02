@@ -653,7 +653,7 @@ class InsuranceInputView extends React.Component{
 								</div>
 							</div>
 							{this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length <= 3?
-							<button onClick={this.addMembers.bind(this)}> Add</button>		
+							<button className="add-mem-blk" onClick={this.addMembers.bind(this)}> <img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />Add 3rd Member</button>		
 							:''
 							}
 						</section>
