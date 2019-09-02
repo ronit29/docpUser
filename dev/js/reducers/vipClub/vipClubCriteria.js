@@ -4,7 +4,7 @@ GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS,
 } from '../../constants/types';
 
 const defaultState = {
-insurnaceData: {},
+/*insurnaceData: {},
 selected_plan:{},
 self_data_values:{},
 create_payment_resp:{},
@@ -16,9 +16,9 @@ endorsed_member_data:{},
 LOAD_INSURANCE: false,
 currentSelectedInsuredMembersId: [],
 insurer_bank_details:{},
-members_proofs:[],
 avail_now_data:null,
-cancel_reason:null,
+cancel_reason:null,*/
+members_proofs:[],
 LOAD_VIP_CLUB:false,
 vipClubList:[],
 selected_vip_plan:{},

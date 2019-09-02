@@ -29,7 +29,7 @@ class InsurancePopup extends React.Component {
         let tempArray
         if (newName.length == 2) {
             newProfileNames.name = newName[0]
-            if (!this.props.self_data_values.no_lname) {
+            if (!this.props.vipClubMemberDetails.no_lname) {
                 newProfileNames.middle_name = ''
                 newProfileNames.last_name = newName[1]
             } else {
@@ -38,7 +38,7 @@ class InsurancePopup extends React.Component {
             }
         } else if (newName.length == 3) {
             newProfileNames.name = newName[0]
-            if (!this.props.self_data_values.no_lname) {
+            if (!this.props.vipClubMemberDetails.no_lname) {
                 newProfileNames.middle_name = newName[1]
                 newProfileNames.last_name = newName[2]
             } else {
@@ -48,7 +48,7 @@ class InsurancePopup extends React.Component {
         } else if (newName.length > 3) {
             tempArray = newName.slice(2, newName.length)
             newProfileNames.name = newName[0]
-            if (!this.props.self_data_values.no_lname) {
+            if (!this.props.vipClubMemberDetails.no_lname) {
                 newProfileNames.middle_name = newName[1]
                 newProfileNames.last_name = tempArray.join(' ')
             } else {
@@ -57,7 +57,7 @@ class InsurancePopup extends React.Component {
             }
         } else {
             newProfileNames.name = newName[0]
-            if (!this.props.self_data_values.no_lname) {
+            if (!this.props.vipClubMemberDetails.no_lname) {
                 newProfileNames.middle_name = ''
                 newProfileNames.last_name = ''
             } else {

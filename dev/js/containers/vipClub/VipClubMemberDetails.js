@@ -22,12 +22,13 @@ class VipClubMemberDetails extends React.Component{
 const mapStateToProps = (state) => {
     const USER = state.USER
     let { user_cities } = state.USER
-    let { insurnaceData, LOAD_INSURANCE, selected_plan,self_data_values,saveCurrentSelectedMembers,selectedProfile, currentSelectedInsuredMembersId,create_payment_resp, endorsed_member_data, 
-        members_proofs} = state.INSURANCE
+    // let { insurnaceData, LOAD_INSURANCE, selected_plan,self_data_values,saveCurrentSelectedMembers,selectedProfile, currentSelectedInsuredMembersId,create_payment_resp, endorsed_member_data, 
+    //     members_proofs} = state.INSURANCE
 
     let { vipClubList, selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId } = state.VIPCLUB
     return {
-        insurnaceData,LOAD_INSURANCE,selected_plan,USER,self_data_values,saveCurrentSelectedMembers,selectedProfile, currentSelectedInsuredMembersId, create_payment_resp, endorsed_member_data, members_proofs, vipClubList, selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId, user_cities
+        // insurnaceData,LOAD_INSURANCE,selected_plan,USER,self_data_values,saveCurrentSelectedMembers,selectedProfile, currentSelectedInsuredMembersId, create_payment_resp, endorsed_member_data, members_proofs, 
+        vipClubList, selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId, user_cities, USER
     }
 }
 
@@ -38,6 +39,7 @@ const mapDispatchToProps = (dispatch) => {
         citiesData: () => dispatch(citiesData()),
         selectVipUserProfile:(newProfileid,member_id,newProfile,param_id) => dispatch(selectVipUserProfile(newProfileid,member_id,newProfile,param_id)),
         vipClubPay :(criteria,callback) => dispatch(vipClubPay(criteria,callback)),
+        
         
         userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),
         selectInsuranceProfile :(newProfileid,member_id,newProfile,param_id) => dispatch(selectInsuranceProfile(newProfileid,member_id,newProfile,param_id)),

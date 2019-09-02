@@ -454,11 +454,6 @@ class InsuranceInputView extends React.Component{
     	let self_profile={}
     	let is_disable  = false
     	let member_ref = ''
-    	let empty_feilds = []
-    	let currentSelectedProfiles = []
-    	let fields_name = []
-    	let fields_name_obj = {}
-    	let errorMessagesObj = {}
     	let validatingErrors = {}
     	let param
     	if(this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && this.props.vipClubMemberDetails && Object.keys(this.props.vipClubMemberDetails).length>0){
@@ -471,17 +466,17 @@ class InsuranceInputView extends React.Component{
     			self_profile = this.props.vipClubMemberDetails[0]	
     		}	
     		let fields = []
-    		if(this.props.is_from_payment){
-	    		this.props.currentSelectedVipMembersId.map((val,key) => {
+    		this.props.currentSelectedVipMembersId.map((val,key) => {
 	    		if(Object.keys(this.props.vipClubMemberDetails).length > 0){
 	    			fields = []
 	    			param =this.props.vipClubMemberDetails[val[key]]
-						if(param.relation == ""){
+						
+						/*if(param.relation == ""){ //common validation
 							is_disable = true
 							fields.push('relation')
-						}
+						}*/
 
-						if(param.title == ""){  //common validation
+						if(param.title == ""){
 							is_disable = true
 							fields.push('title')
 						}
@@ -514,81 +509,33 @@ class InsuranceInputView extends React.Component{
 								is_disable = true
 								fields.push('pincode')
 							}
+							if(param.email !='' && param.relation == 'self'){
+								let validEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+					  			validEmail = validEmail.test(param.email)
+					  			if(!validEmail){
+					  				is_disable = true
+									fields.push('email')		
+					  			}
+							}
 						}
-	    			}
-	    			validatingErrors[param.id] = fields
-	    		})
-	    		console.log(validatingErrors)
-				Object.keys(validatingErrors).forEach(function(key) {
-	    			if(validatingErrors[key].length > 0){
-	    				is_disable = true
-	    				member_ref = `member_${key}`	
-	    			}
-				});
-				this.setState({validateErrors: validatingErrors})
-		    	if(is_disable && document.getElementById(member_ref)){    		
+	    		}
+	    		validatingErrors[param.id] = fields
+	    	})
+	    	console.log(validatingErrors)
+			Object.keys(validatingErrors).forEach(function(key) {
+    			if(validatingErrors[key].length > 0){
+    				is_disable = true
+    				member_ref = `member_${key}`	
+    			}
+			});
+			this.setState({validateErrors: validatingErrors})
+			if(is_disable && document.getElementById(member_ref)){    		
 		    		document.getElementById(member_ref).scrollIntoView();
-		    	}else{
-		    		this.props.history.push('/vip-club-activated-details')
-		    	}
-		    }else{
-		    	if(Object.keys(self_profile).length > 0){
-	    			let fields = []
-					if(self_profile.title == ""){  //common validation
-						is_disable = true
-						fields.push('title')
-					}
-					if(self_profile.first_name == ""){ 
-						is_disable = true
-						fields.push('name')
-					}
-					if(self_profile.last_name == ""){  
-						is_disable = true
-						fields.push('last_name')
-					}
-					if(self_profile.email == ""){  
-						is_disable = true
-						fields.push('email')
-					}
-					if(self_profile.dob == null){  
-						is_disable = true
-						fields.push('dob')
-					}
-					if(self_profile.state == "" || self_profile.state_code == ""){  
-						is_disable = true
-						fields.push('state')
-					}
-					if(self_profile.address == ""){  
-						is_disable = true
-						fields.push('address')
-					}
-					if(self_profile.pincode == ""){  
-						is_disable = true
-						fields.push('pincode')
-					}
-
-					if(self_profile.email !='' && self_profile.relation == 'self'){
-						let validEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-			  			validEmail = validEmail.test(self_profile.email)
-			  			if(!validEmail){
-			  				is_disable = true
-							fields.push('email')		
-			  			}
-					}
-					validatingErrors[self_profile.id] = fields
-				}
-				console.log(validatingErrors)
-				Object.keys(validatingErrors).forEach(function(key) {
-	    			if(validatingErrors[key].length > 0){
-	    				is_disable = true
-	    				member_ref = `member_${key}`	
-	    			}
-				});
-				this.setState({validateErrors: validatingErrors})
-		    	if(is_disable && document.getElementById(member_ref)){    		
-		    		document.getElementById(member_ref).scrollIntoView();
-		    	}else{
-		    		var members = {}
+	    	}else{
+	    		if(this.props.is_from_payment){
+	    			console.log('yes')
+	    		}else{
+	    			var members = {}
 		    		members.title = self_profile.title 
 		    		members.first_name = self_profile.name 
 		    		members.last_name = self_profile.last_name 
@@ -602,9 +549,10 @@ class InsuranceInputView extends React.Component{
 		    		data.members.push(members)
 		    		console.log(data)
 		    		this.props.vipClubPay(data)
-					// this.props.history.push('/insurance/insurance-user-details-review')
-		    	}
-		    }
+	    		}
+	    		// this.props.history.push('/vip-club-activated-details')
+	    	}
+    		
     	}
     }
 	render(){

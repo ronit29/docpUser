@@ -58,14 +58,15 @@ class VipClub extends React.Component{
 
 const mapStateToProps = (state) => {
     const USER = state.USER
-    let { insurnaceData, LOAD_INSURANCE, selected_plan,self_data_values} = state.INSURANCE
+    // let { insurnaceData, LOAD_INSURANCE, selected_plan,self_data_values} = state.INSURANCE
     let { LOAD_VIP_CLUB, vipClubList, selected_vip_plan } = state.VIPCLUB
     const {
         selectedLocation
 
     } = state.SEARCH_CRITERIA_OPD
     return {
-        insurnaceData,LOAD_INSURANCE,selected_plan,self_data_values,USER, selectedLocation,LOAD_VIP_CLUB, vipClubList, selected_vip_plan
+        //insurnaceData,LOAD_INSURANCE,selected_plan,self_data_values,
+        USER, selectedLocation,LOAD_VIP_CLUB, vipClubList, selected_vip_plan
     }
 }
 
@@ -75,12 +76,14 @@ const mapDispatchToProps = (dispatch) => {
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
         getUserProfile: () => dispatch(getUserProfile()),
         generateVipClubLead:(selectedPlan,number,lead_data,user_name,cb) =>dispatch(generateVipClubLead(selectedPlan,number,lead_data,user_name,cb)),
-        getInsurance: (is_endorsement,callback) => dispatch(getInsurance(is_endorsement,callback)),        
-        selectInsurancePlan: (plan,criteria) => dispatch(selectInsurancePlan(plan,criteria)),
-        // saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),
-        resetSelectedPlans: () => dispatch(resetSelectedPlans()),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
+
+        
+        getInsurance: (is_endorsement,callback) => dispatch(getInsurance(is_endorsement,callback)),
+        selectInsurancePlan: (plan,criteria) => dispatch(selectInsurancePlan(plan,criteria)),
+        // saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),
+        resetSelectedPlans: () => dispatch(resetSelectedPlans()), 
         resetAuth: () => dispatch(resetAuth()),
         userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),
         generateInsuranceLead:(selectedPlan,number,lead_data,cb) => dispatch(generateInsuranceLead(selectedPlan,number,lead_data,cb)),
