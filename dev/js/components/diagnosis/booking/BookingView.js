@@ -177,13 +177,36 @@ class BookingView extends React.Component {
         let p_pickup = 'home'
         let r_pickup = 'lab'
         //if(this.state.selected_timings_type){}
+        let test_type = 0
         if(this.state.data.lab_test){
             this.state.data.lab_test.map((test)=>{
                 test_ids.push(test.test_id)
+                test_type = test.test_type
             })
         }
         this.props.selectLabTimeSLot({ time: {} }, true)
         let selected_timings_type = this.state.data && this.state.data.selected_timings_type=='separate'?'seperately':'all'
+
+        if(this.state.data){
+            if(this.state.data.is_home_pickup){
+                if(test_type==2){
+                    p_pickup = 'home'
+                    r_pickup='lab'
+                }else if(test_type==1){
+                    r_pickup = 'home'
+                    p_pickup = 'lab'
+                }
+            }else{
+                if(test_type==2){
+                    p_pickup = 'lab'
+                    r_pickup = 'lab'
+                }else if(test_type==1){
+                    r_pickup = 'lab'
+                    p_pickup = 'lab'
+                }
+            }
+        }
+
         if (this.state.data.lab && this.state.data.lab.is_thyrocare) {
             this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true&type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=true&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}`)
         } else {

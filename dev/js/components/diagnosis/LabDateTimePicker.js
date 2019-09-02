@@ -230,7 +230,7 @@ class DateTimePicker extends React.Component {
             <React.Fragment>
             {
                 this.props.type=='all' && this.props.test_count>1 && !this.props.reschedule?
-                    this.state.daySeries.length && this.props.timeSlots && this.props.timeSlots[selectedFormattedDate] && this.props.timeSlots[selectedFormattedDate].length?
+                    this.state.daySeries.length && this.props.timeSlots && this.props.timeSlots[selectedFormattedDate] && this.props.timeSlots[selectedFormattedDate].length || true?
                     <div className="time-slot-wrng-cont">
                         <img src={ASSETS_BASE_URL + "/img/tm-wrng.png"} />
                         <p>Showing common time slots where all tests are available.For more options you can <span className="cursor-pntr" onClick={()=>this.toggleOptions(true)}>Book Separately</span></p>

@@ -643,9 +643,9 @@ class BookingSummaryViewNew extends React.Component {
                 if(this.props.selectedSlot.selectedTestsTimeSlot[twp.test_id]){
                     let test = this.props.selectedSlot.selectedTestsTimeSlot[twp.test_id]
                     let type = 3
-                    if(test.type=="radiology"){
+                    if(twp.is_radiology){
                         type = 1
-                    }else if(test.type == "pathology"){
+                    }else if(twp.is_pathology){
                         type = 2
                     }
 
