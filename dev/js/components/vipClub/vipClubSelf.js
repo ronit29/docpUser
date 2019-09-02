@@ -81,7 +81,6 @@ class InsuranceSelf extends React.Component {
 					})
 				}
 			}
-
 		}
 	}
 	componentWillReceiveProps(props) {
@@ -169,11 +168,7 @@ class InsuranceSelf extends React.Component {
 				if (profile.gender == 'm') {
 					this.setState({ title: 'mr.' })
 				} else if (profile.gender == 'f') {
-					if (this.props.selected_plan.adult_count == 2) {
 						this.setState({ title: 'mrs.' })
-					} else {
-						this.setState({ title: 'miss' })
-					}
 				}
 				this.handleSubmit(false,false)
 			})
@@ -458,13 +453,13 @@ class InsuranceSelf extends React.Component {
 		var daydropdown = document.getElementById("daydropdown_" + this.props.member_id),
 			monthdropdown = document.getElementById("monthdropdown_" + this.props.member_id),
 			yeardropdown = document.getElementById("yeardropdown_" + this.props.member_id);
-		let age_threshold = this.props.selected_plan && this.props.selected_plan.threshold ? this.props.selected_plan.threshold[0].max_age : 65
+		let age_threshold = 65
 		var today = new Date(),
 			day = today.getUTCDate(),
 			month = today.getUTCMonth(),
 			year = today.getUTCFullYear() - age_threshold,
 			currentYear = today.getUTCFullYear(),
-			daysInCurrMonth = this.daysInMonth(month, year);
+			daysInCurrMonth = 31;
 
 		daydropdown.innerHTML = ''
 		monthdropdown.innerHTML = ''
@@ -487,6 +482,7 @@ class InsuranceSelf extends React.Component {
 		yeardropdown.appendChild(opt_yy);
 
 		// Day
+		console.log(daysInCurrMonth)
 		for (var i = 1; i <= daysInCurrMonth; i++) {
 			var opt = document.createElement('option');
 			if (i <= 9) {

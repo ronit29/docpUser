@@ -91,13 +91,13 @@ class InsuranceOthers extends React.Component {
 					}
 				}
 			}else if(props.member_id && !this.state.setDefault){
-				/*if(props.self_gender == 'm'){
+				if(props.self_gender == 'm'){
 					adult_title = 'mrs.'
 					adult_gender = 'f'
 				}else if(props.self_gender == 'f'){
 					adult_title = 'mr.'
 					adult_gender = 'm'
-				}*/
+				}
 				this.setState({id: props.member_id, setDefault:true}, () => {
 					if(this.props.is_child_only){
 						if(!self.state.year && !self.state.mnth && !self.state.mnth){
@@ -215,6 +215,11 @@ class InsuranceOthers extends React.Component {
 					this.setState({title:'mrs.',relation:'spouse'})
 				}
 			}*/
+			if (newProfile.gender == 'm') {
+				this.setState({ title: 'mr.' })
+			} else if (newProfile.gender == 'f') {
+				this.setState({ title: 'mrs.' })
+			}
 			if(newProfile && newProfile.dob){
 				oldDate= newProfile.dob.split('-')
 				console.log(newProfile.dob)
@@ -313,14 +318,15 @@ class InsuranceOthers extends React.Component {
     }
 
     populateDates(member_id,toCreateOptions){
-    	let age_threshold 
-    	if(this.props.selected_plan && this.props.selected_plan.adult_count){
-    		if(this.props.is_child_only){
-    			age_threshold = this.props.selected_plan.threshold[0].child_max_age
-    		}else{
-    			age_threshold = this.props.selected_plan.threshold[0].max_age
-    		}
-    	}
+    	let age_threshold = 65
+    	// if(this.props.selected_plan && this.props.selected_plan.adult_count){
+    	// 	if(this.props.is_child_only){
+    	// 		age_threshold = this.props.selected_plan.threshold[0].child_max_age
+    	// 	}else{
+    	// 		age_threshold = this.props.selected_plan.threshold[0].max_age
+    	// 	}
+    	// }
+
     	let default_months=['01','02','03','04','05','06','07','08','09','10','11','12']
     	let self =this
     	var daydropdown = document.getElementById('daydropdown_'+member_id),
@@ -332,7 +338,7 @@ class InsuranceOthers extends React.Component {
             month = today.getUTCMonth(),
             year= today.getUTCFullYear()-age_threshold,
             currentYear = today.getUTCFullYear(),
-            daysInCurrMonth = this.daysInMonth(month, year);
+            daysInCurrMonth = 31;
 		if(daydropdown && monthdropdown && yeardropdown){
 			
 			daydropdown.innerHTML = ''
