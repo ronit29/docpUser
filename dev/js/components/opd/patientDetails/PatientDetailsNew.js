@@ -484,9 +484,6 @@ class PatientDetailsNew extends React.Component {
             cart_item: this.state.cart_item,
             utm_tags: utm_tags
         }
-        if(parsed && parsed.appointment_id && parsed.cod_to_prepaid=='true') {
-            postData['appointment_id'] = parsed.appointment_id
-        }
         let profileData = { ...patient }
         if (profileData && profileData.whatsapp_optin == null) {
             profileData['whatsapp_optin'] = this.state.whatsapp_optin
@@ -529,6 +526,44 @@ class PatientDetailsNew extends React.Component {
                 SnackBar.show({ pos: 'bottom-center', text: message });
             })
             return
+        }
+        if(parsed && parsed.appointment_id && parsed.cod_to_prepaid=='true'){
+            postData['appointment_id'] = parsed.appointment_id
+            postData['cod_to_prepaid'] = true
+            this.props.codToPrepaid(postData, (err, data)=>{
+                if (!err) {
+                    if (data.is_agent) {
+                        this.props.removeCoupons(this.props.selectedDoctor, this.state.couponId)
+                        // this.props.history.replace(this.props.location.pathname + `?order_id=${data.data.orderId}`)
+                        this.setState({ order_id: data.data.orderId })
+                        return
+                    }
+                    if (data.payment_required) {
+                        // send to payment selection page
+                        let analyticData = {
+                            'Category': 'ConsumerApp', 'Action': 'DoctorOrderCreated', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'doctor_order_created'
+                        }
+                        GTM.sendEvent({ data: analyticData })
+                        // this.props.history.push(`/payment/${data.data.orderId}?refs=opd`)
+                        this.processPayment(data)
+                    } else {
+                        this.props.removeCoupons(this.props.selectedDoctor, this.state.couponId)
+                        // send back to appointment page
+                        this.props.history.replace(`/order/summary/${data.data.orderId}?payment_success=true`)
+                    }
+                } else {
+                    let message 
+                    if(err.error){
+                        message = err.error
+                    }else{
+                        message = "Could not create appointment. Try again later !"
+                    }
+                    if (err.message) {
+                        message = err.message
+                    }
+                    this.setState({ loading: false, error: message })
+                }
+            })
         }
 
         let analyticData = {

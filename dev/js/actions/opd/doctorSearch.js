@@ -660,3 +660,12 @@ export const getDoctorHospitalSpeciality = (state = {}, page = 1, from_server = 
 
 	})
 }
+
+export const codToPrepaid = (postData, cb)=>{
+	API_POST(`/api/v1/doctor/appointment/cod-to-prepaid/create`, postData).then((response)=>{
+		cb(null, response)
+	}).catch((e)=>{
+		cb(e, null)
+	})
+
+}
