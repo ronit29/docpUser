@@ -76,18 +76,16 @@ class InsuranceInputView extends React.Component{
     		if(!isDummyUser){
 	    		membersId.push({'0':loginUser, type: 'self'})
 	    		if(props.is_from_payment){
-		    		var n = props.selected_vip_plan.total_allowed_members - 1;
-		    		card = [...Array(props.selected_vip_plan.total_allowed_members -3)].map((e, i) => {
-							membersId.push({[i+1]: i+1, type:'adult'})
-						})
+		    		// var n = props.selected_vip_plan.total_allowed_members - 1;
+		    		membersId.push({[1]: 1, type:'adult'})
+		    // 		card = [...Array(props.selected_vip_plan.total_allowed_members -3)].map((e, i) => {
+						// 	membersId.push({[i+1]: i+1, type:'adult'})
+						// })
 		    	}
 			}else{
 				membersId.push({'0':0, type:'self'})
 				if(props.is_from_payment){
-		    		var n = props.selected_vip_plan.total_allowed_members - 1;
-		    		card = [...Array(props.selected_vip_plan.total_allowed_members -3)].map((e, i) => {
-							membersId.push({[i+1]: i+1, type:'adult'})
-						})
+		    		membersId.push({[1]: 1, type:'adult'})
 		    	}
 			}
 			// props.saveCurrentSelectedMembers(membersId)
@@ -648,11 +646,11 @@ class InsuranceInputView extends React.Component{
 												/>
 										</div>
 									</div>
-									{adult}
+									
 									{child}
 								</div>
 							</div>
-							{this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length <= 3?
+							{this.props.is_from_payment && this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length <= 3?
 							<button className="add-mem-blk" onClick={this.addMembers.bind(this)}> <img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />Add 3rd Member</button>		
 							:''
 							}

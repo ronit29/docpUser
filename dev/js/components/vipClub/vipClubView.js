@@ -86,7 +86,7 @@ class VipClubView extends React.Component {
                         this.state.showPopup?
                         <InsurPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} popupClass={this.state.popupClass} overlayClass={this.state.overlayClass} identifyUserClick={this.state.identifyUserClick}/> : ''
                     }
-                    <section className="container container-top-margin" style={{ marginTop: '' }}>
+                    <section className="container container-top-margin" style={{ paddingTop: '140px' }}>
                         <div className="row main-row parent-section-row">
                             <LeftBar />
                             <div className="col-12 center-column">

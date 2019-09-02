@@ -274,13 +274,7 @@ class VipClub extends React.Component {
                                                         <h4 className="vip-acrd-hdng">Rishabh Mehrotra<img className="acdn-arrow acdn-arrow-up" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} /></h4>
                                                     </li>
                                                     <li onClick={this.AddMemberDetails.bind(this)}>
-                                                        <h4 className="vip-acrd-add-member"><img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />Add Member 2</h4>
-                                                    </li>
-                                                    <li onClick={this.AddMemberDetails.bind(this)}>
-                                                        <h4 className="vip-acrd-add-member"><img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />Add Member 3</h4>
-                                                    </li>
-                                                    <li onClick={this.AddMemberDetails.bind(this)}>
-                                                        <h4 className="vip-acrd-add-member"><img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />Add Member 4</h4>
+                                                        <h4 className="vip-acrd-add-member"><img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />Add Members</h4>
                                                     </li>
                                                 </ul>
 
