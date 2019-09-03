@@ -3901,7 +3901,7 @@ p.vip-vld b{
 }
 b.vip-popluer {
     position: absolute;
-    top: -8px;
+    bottom: -8px;
     font-size: 9px;
     font-weight: 600;
     background: #e52b2b;
