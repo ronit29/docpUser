@@ -8,6 +8,7 @@ import GTM from '../../helpers/gtm'
 import STORAGE from '../../helpers/storage';
 import SnackBar from 'node-snackbar'
 import VipLoginPopup from './vipClubPopup.js'
+const queryString = require('query-string');
 
 class VipClubView extends React.Component {
     constructor(props) {
@@ -37,6 +38,15 @@ class VipClubView extends React.Component {
             let resp = this.props.selected_vip_plan
             this.setState({ selected_plan_data: resp, selected_plan_id: resp.id })
         }
+        let loginUser 
+        let lead_data = queryString.parse(this.props.location.search)
+        if(STORAGE.checkAuth() && this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile){
+            loginUser  = this.props.USER.profiles[this.props.USER.defaultProfile]
+                if(Object.keys(loginUser).length>0){
+                    this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number,lead_data, this.props.selectedLocation,loginUser.name)
+                }
+            }
+
         let self = this
         if (window && document) {
             window.onscroll = function () {
@@ -81,7 +91,7 @@ class VipClubView extends React.Component {
     }
 
     render() {
-        console.log(this.state.selected_plan_data)
+        // console.log(this.state.selected_plan_data)
         let self = this
 
         return (
@@ -154,10 +164,10 @@ class VipClubView extends React.Component {
                                                             {
                                                                 Object.entries(this.state.selected_plan_data.enabled_hospital_networks).map(function ([key, value]) {
                                                                     return <div key={key} className="pkgcustCards vip-hsp-card-mn">
-                                                                        <div className="vip-hsp-img">
-                                                                            <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" />
+                                                                            <div className="vip-hsp-img">
+                                                                                <img className="img-fluid" src={value.logo} />
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
                                                                 })
                                                             }
                                                         </div>
@@ -205,14 +215,14 @@ class VipClubView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            this.state.selected_plan_data && this.state.selected_plan_data.worth && Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.online_chat_amount != '' ?
+                                            this.state.selected_plan_data && this.state.selected_plan_data.worth && Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.tax_rebate != ''?
                                                 <div className="vip-offer-cards mb-24">
                                                     <div className="vip-free-doc vip-benft-bg">
                                                         <h4 className="vip-card-heading">Tax Benefits </h4>
                                                         <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Cover under section 80D</p>
                                                         <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Tax proof certificate will be provided </p>
                                                     </div>
-                                                    <span className="vip-card-tag">Worth ₹1,500  </span>
+                                                    <span className="vip-card-tag">Worth ₹{this.state.selected_plan_data.worth.tax_rebate}  </span>
                                                 </div>
                                                 : ''
                                         }
