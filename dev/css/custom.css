@@ -3628,6 +3628,21 @@ button.vip-foot-btn {
 	text-rendering: optimizeLegibility;
 	border: none;
 }
+.vip-back-btn{
+	background-image: linear-gradient(to left,#f78631,#ff6d00);
+    color: white;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 8px 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-weight: 600;
+    padding: 12px 0;
+}
 button.vip-foot-btn p {
     font-weight: 600;
 }
