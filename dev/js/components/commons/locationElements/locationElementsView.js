@@ -216,6 +216,7 @@ class LocationElementsView extends React.Component {
         this.props.getCityListLayout()
     }
 
+
     render() {
         if (this.props.commonSearchPage) {
             return <div className="serch-nw-inputs">
