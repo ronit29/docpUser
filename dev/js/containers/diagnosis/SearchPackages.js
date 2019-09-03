@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType, getOfferList, toggleOPDCriteria, selectLabAppointmentType, selectLabTimeSLot, resetPkgCompare, togglecompareCriteria, loadOPDInsurance, setCommonUtmTags } from '../../actions/index.js'
+import { mergeLABState, urlShortner, getPackages, toggleDiagnosisCriteria, getDiagnosisCriteriaResults, clearExtraTests, getFooterData, selectSearchType, getOfferList, toggleOPDCriteria, selectLabAppointmentType, selectLabTimeSLot, resetPkgCompare, togglecompareCriteria, loadOPDInsurance } from '../../actions/index.js'
 import { opdSearchStateBuilder, labSearchStateBuilder, PackageSearchStateBuilder } from '../../helpers/urltoState'
 import SearchPackagesView from '../../components/diagnosis/searchPackages/index.js'
 
@@ -36,16 +36,7 @@ class SearchPackages extends React.Component {
                     if (queryParams.page) {
                         page = parseInt(queryParams.page)
                     }
-                    let extraParams = {}
-                    if(queryParams.UtmSource && queryParams.UtmSource=='OfflineAffiliate'){
-                        extraParams = {
-                            UtmSource: queryParams.UtmSource||'',
-                            UtmTerm: queryParams.UtmTerm||'',
-                            UtmMedium: queryParams.UtmMedium||'',
-                            UtmCampaign: queryParams.UtmCampaign||''
-                        }
-                    }
-                    return store.dispatch(getPackages(state, page, true, searchUrl, extraParams, (loadMore, seoData) => {
+                    return store.dispatch(getPackages(state, page, true, searchUrl, (loadMore, seoData) => {
                         if (match.url.includes('-lbcit') || match.url.includes('-lblitcit')) {
                             getFooterData(match.url.split("/")[1])().then((footerData) => {
                                 footerData = footerData || null
@@ -76,29 +67,6 @@ class SearchPackages extends React.Component {
             window.scrollTo(0, 0)
         }
         this.props.loadOPDInsurance(this.props.selectedLocation)
-        //Add UTM tags for building url
-        try{
-            const parsed = queryString.parse(this.props.location.search)
-            if(parsed.UtmSource && parsed.UtmSource=='OfflineAffiliate'){
-                let sessionId = Math.floor(Math.random() * 103)*21 + 1050
-                if(sessionStorage) {
-                    sessionStorage.setItem('sessionIdVal',sessionId)   
-                }
-                let spo_tags = {
-                    utm_tags: {
-                        UtmSource: parsed.UtmSource||'',
-                        UtmTerm: parsed.UtmTerm||'',
-                        UtmMedium: parsed.UtmMedium||'',
-                        UtmCampaign: parsed.UtmCampaign||''
-                    },
-                    time: new Date().getTime(),
-                    currentSessionId: sessionId
-                }
-                this.props.setCommonUtmTags('spo', spo_tags)
-            }
-        }catch(e) {
-
-        }
     }
 
     render() {
@@ -178,7 +146,7 @@ const mapStateToProps = (state, passedProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         urlShortner: (url, cb) => dispatch(urlShortner(url, cb)),
-        getPackages: (state, page, from_server, searchByUrl, extraParams, cb) => dispatch(getPackages(state, page, from_server, searchByUrl, extraParams,  cb)),
+        getPackages: (state, page, from_server, searchByUrl, cb) => dispatch(getPackages(state, page, from_server, searchByUrl, cb)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd, filter) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd, filter)),
         getDiagnosisCriteriaResults: (searchString, callback) => dispatch(getDiagnosisCriteriaResults(searchString, callback)),
         clearExtraTests: () => dispatch(clearExtraTests()),
@@ -191,8 +159,7 @@ const mapDispatchToProps = (dispatch) => {
         resetPkgCompare:() => dispatch(resetPkgCompare()),
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
         selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
-        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city)),
-        setCommonUtmTags: (type, tag) => dispatch(setCommonUtmTags(type, tag))
+        loadOPDInsurance: (city) => dispatch(loadOPDInsurance(city))
     }
 }
 
