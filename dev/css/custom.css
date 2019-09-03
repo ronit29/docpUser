@@ -1877,8 +1877,15 @@ img.whtsp-ico{
 	width: 50%;
 	margin: auto;
 }
+.vip-new-container{
+	width: 60%;
+	margin: auto;
+}
 @media(max-width: 992px){
 	.care-new-container{
+		width: 100%;
+	}
+	.vip-new-container{
 		width: 100%;
 	}
 } 
@@ -2366,7 +2373,8 @@ p.clnc-name{
 }
 .ins-form-slider .one,.ins-form-slider .two {
     display: inline-block;
-    white-space: normal;
+	white-space: normal;
+	width: 100%;
 }
 
 /* ============ more clinic card ============ */
@@ -3273,6 +3281,28 @@ div.search-el-popup.non-book-pop{
 	display: block;
     margin: auto;
 }
+.mb-24{
+	margin-bottom: 24px !important;
+}
+.fnl-vip-cont {
+    padding: 40px 10px;
+    text-align: center;
+}
+.fnl-vip-cont img {
+    display: block;
+    margin: auto;
+    width: 100px;
+    margin-bottom: 20px;
+}
+p.mn-para {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+p.sb-para {
+    color: #757575;
+    font-weight: 500;
+}
 /* ============ docprim Vip ============ */
 .vipHeaderBar{
 	/* background-image: url('/assets/img/rectangle.svg'); */
@@ -3300,15 +3330,15 @@ div.search-el-popup.non-book-pop{
     bottom: 0px;
     width: 100%;
     z-index: 10;
-    background-image: url(http://www.reactjsindia.com/images/download.svg);
+    background-image: url(/assets/img/vip-curve.svg);
     margin-top: -1.625rem;
     -webkit-transition: height .2s;
-    transition: height .2s;
+    transition: height .3s;
 }
 .scrl-cont-dat{
 	position: relative;
-    -webkit-transition: visibility .1s, height .5s, margin .5s ease;
-    transition: visibility .1s, height .5s, margin .5s ease;
+    -webkit-transition: visibility .1s, height .3s, margin .3s ease;
+    transition: visibility .1s, height .3s, margin .3s ease;
     height: 22px;
 }
 .header-scroll-change .scrl-cont-dat{
@@ -3333,7 +3363,7 @@ div.search-el-popup.non-book-pop{
 .vip-logo-cont {
     text-align: center;
 	padding: 20px;
-	transition:all ease 1s;
+	transition:all ease .3s;
 }
 .vip-logo-cont h1 {
 	color: white;
@@ -3362,13 +3392,16 @@ div.search-el-popup.non-book-pop{
 	   text-rendering: optimizeLegibility;
 	}
 	.vip-tabs-container {
-		background: rgba(247, 134, 49, .1);
 		margin: 0 -15px;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 0 10px;
-		margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0 10px;
+    margin-bottom: 16px;
+    position: sticky;
+    top: 59px;
+    z-index: 9;
+    background: #fff3eb;
 	}
 .vip-tabs-container p.vp-sb-txt {
 		padding: 8px 0px;
@@ -3378,6 +3411,10 @@ div.search-el-popup.non-book-pop{
 		align-items: center;
 		border-bottom: 2px solid #1b97fd00;
 		cursor: pointer;
+		flex: 1;
+		text-align: center;
+		justify-content: center;
+		font-size: 15px;
 }
 p.vp-sb-txt span{
 	font-size: 11px;
@@ -3397,22 +3434,25 @@ p.vp-sb-txt.vp-act{
 }
 .vip-docbg{
 	background: url(/assets/img/vip-doc.png);
+	background-size: 40%;
 }
 .vip-mem-bg{
 	background: url(/assets/img/vip-member.png);
-	background-size: 30% 70% !important;
+	background-size: 20%;
 }
 .vip-chek-bg{
 	background: url(/assets/img/vip-checkup.png);
+	background-size: 22%;
 }
 .vip-benft-bg{
 	background: url(/assets/img/vip-tax.png);
+	background-size: 22%;
+	background-position: 96% 100% !important;
 }
 .vip-free-doc {
     position: relative;
     background-repeat: no-repeat;
     background-position: bottom right;
-    background-size: 45% 80%;
     padding: 12px 12px;
 }
 h4.vip-card-heading {
@@ -3440,7 +3480,8 @@ span.vip-card-tag {
     font-size: 12px;
     color: white;
     font-weight: 600;
-    padding: 2px 5px;
+	padding: 2px 5px;
+	min-width: 87px;
 }
 .vip-card-tag:before {
     border-width: 3px;
@@ -3505,7 +3546,7 @@ h4.ins-dcnt-hdng img {
 }
 h5.vip-prc-hdng {
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 600;
     text-align: center;
     padding: 12px 0px;
 }
@@ -3545,9 +3586,10 @@ p.vip-no-cost {
 }
 p.vip-no-cost span {
 	font-weight: 600;
+	margin-left: 4px;
 }
 p.vip-no-cost img {
-    width: 40px;
+    width: 22px;
     flex-shrink: 0;
     flex-grow: 0;
     margin-right: 6px;
@@ -3813,7 +3855,7 @@ img.vip-add-img {
 }
 img.vipLogiImg {
 	width: 100px;
-	transition: all ease 1s;
+	transition: all ease .3s;
 }
 .vip-logo-cont.header-scroll-change {
     padding: 10px;
@@ -3831,6 +3873,45 @@ img.vipLogiImg {
     width: 100%;
     margin-top: 30px;
     cursor: pointer;
+}
+.vip-cvpmem {
+    background: #f7e8a1;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+}
+p.vip-vld {
+    font-weight: 500;
+    display: flex;
+	align-items: center;
+	font-size: 13px;
+}
+p.vip-vld img {
+    width: 23px;
+    flex-shrink: 0;
+    margin-right: 6px;
+}
+p.vip-vld b{
+	font-weight: 600;
+}
+section.container.container-top-margin.sub-pdng-add{
+	padding-top: 50px;
+	transition: all ease .3s;
+}
+@media (max-width: 767px){
+section.container.container-top-margin.sub-pdng-add {
+    padding-top: 110px;
+    
+}
+}
+section.container.container-top-margin.sub-pdng-add.sub-pdng-rmv {
+    padding-top: 45px !important;
+}
+.vip-lg-sng{
+	width: 24px;
+    height: auto !important;
 }
 /* ============ docprim Vip ============ */
 

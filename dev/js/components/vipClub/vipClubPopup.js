@@ -292,7 +292,7 @@ class VipLoginPopup extends React.Component {
                                             </div>
                                             <div className="widget-content text-center">
                                                 <div className="form-group mobile-field sup-input-pdng">
-                                                    <div className="adon-group enter-mobile-number">
+                                                    <div className="adon-group enter-mobile-number mb-3">
                                                         <input type="text" id="name" className="fc-input text-center" placeholder="Enter your name" value={this.state.user_name} onChange={this.inputHandler.bind(this)} name="user_name" disabled={this.state.showOTP ? true : false} />
                                                     </div>
                                                     <div className="adon-group enter-mobile-number">
