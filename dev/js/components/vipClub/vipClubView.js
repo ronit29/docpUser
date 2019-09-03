@@ -8,6 +8,7 @@ import GTM from '../../helpers/gtm'
 import STORAGE from '../../helpers/storage';
 import SnackBar from 'node-snackbar'
 import VipLoginPopup from './vipClubPopup.js'
+const queryString = require('query-string');
 
 class VipClubView extends React.Component {
     constructor(props) {
@@ -38,6 +39,15 @@ class VipClubView extends React.Component {
                 let resp = this.props.selected_vip_plan
                 this.setState({selected_plan_data:resp,selected_plan_id:resp.id})
         }
+        let loginUser 
+        let lead_data = queryString.parse(this.props.location.search)
+        if(STORAGE.checkAuth() && this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile){
+            loginUser  = this.props.USER.profiles[this.props.USER.defaultProfile]
+                if(Object.keys(loginUser).length>0){
+                    this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number,lead_data, this.props.selectedLocation,loginUser.name)
+                }
+            }
+
         let self = this
         if(window && document){
             window.onscroll = function() {
@@ -81,7 +91,7 @@ class VipClubView extends React.Component {
     }
 
     render() {
-        console.log(this.state.selected_plan_data)
+        // console.log(this.state.selected_plan_data)
         let self = this
 
         return (
