@@ -19,11 +19,26 @@ class VipClub extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            toggleTabType:false
         }
     }
 
     componentDidMount() {
+        let self = this
+		if(window && document){
+			window.onscroll = function() {
+		    var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
+		    
+		    	if(self.refs['vipHeaderBar']){
+
+		    			if(scrollPosition > 10){
+					    	self.setState({toggleTabType: true})
+					    }else{
+                            self.setState({toggleTabType: false})
+                        }
+		    	}
+		  }	
+		}
     }
 
     render() {
@@ -33,14 +48,14 @@ class VipClub extends React.Component {
 
             <div className="profile-body-wrap" style={{ background: "white" }}>
                 {/* <ProfileHeader /> */}
-                <div className="vipHeaderBar">
+                <div className={`vipHeaderBar ${this.state.toggleTabType?'hed-curv-rmove':''}`} ref="vipHeaderBar">
                     <div className="vipBackIco">
                         <img src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} />
                     </div>
-                    <div className="vip-logo-cont">
+                    <div className={`vip-logo-cont ${this.state.toggleTabType?'header-scroll-change':''}`} ref="">
                         <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
-                        <h1>in Just <span className="vip-prc-cut">₹4,999</span> <span className="vip-main-price">₹3,999</span>  </h1>
-                        <p>1 year upto 4 members</p>
+                        <h1 className="scrl-cont-dat">in Just <span className="vip-prc-cut">₹4,999</span> <span className="vip-main-price">₹3,999</span>  </h1>
+                        {/* <p className="scrl-cont-dat">1 year upto 4 members</p> */}
                     </div>
                 </div>
                 <section className="container container-top-margin d-none" style={{ marginTop: '200px' }}>
