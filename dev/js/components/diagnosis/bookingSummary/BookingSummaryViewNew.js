@@ -558,7 +558,8 @@ class BookingSummaryViewNew extends React.Component {
             payment_type: 1, // TODO : Select payment type
             use_wallet: this.state.use_wallet,
             cart_item: this.state.cart_item,
-            prescription_list: prescriptionIds
+            prescription_list: prescriptionIds,
+            from_web: true
         }
         let profileData = { ...patient }
         if (profileData && profileData.whatsapp_optin == null) {

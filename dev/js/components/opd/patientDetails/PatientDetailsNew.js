@@ -475,7 +475,8 @@ class PatientDetailsNew extends React.Component {
             payment_type: this.props.payment_type,
             use_wallet: this.state.use_wallet,
             cart_item: this.state.cart_item,
-            utm_tags: utm_tags
+            utm_tags: utm_tags,
+            from_web:true
         }
         let profileData = { ...patient }
         if (profileData && profileData.whatsapp_optin == null) {
