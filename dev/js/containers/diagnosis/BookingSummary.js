@@ -101,7 +101,7 @@ const mapDispatchToProps = (dispatch) => {
         applyLabCoupons: (productId, couponCode, couponId, labId, dealPrice, test_ids, profile_id, cart_item, callback) => dispatch(applyLabCoupons(productId, couponCode, couponId, labId, dealPrice, test_ids, profile_id, cart_item, callback)),
         resetLabCoupons: () => dispatch(resetLabCoupons()),
         getCoupons: (data) => dispatch(getCoupons(data)),
-        applyCoupons: (productId, couponData, couponId, labId) => dispatch(applyCoupons(productId, couponData, couponId, labId)),
+        applyCoupons: (productId, couponData, couponId, labId, callback) => dispatch(applyCoupons(productId, couponData, couponId, labId, callback)),
         setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon)),
         createProfile: (postData, cb) => dispatch(createProfile(postData, cb)),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),

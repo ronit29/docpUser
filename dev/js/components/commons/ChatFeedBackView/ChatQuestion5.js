@@ -29,7 +29,7 @@ class ChatQuestion5 extends React.Component {
 			feedback: this.state.feedback,
 			question:'Any Comments?'
 		}
-		let feedback = this.props.chat_feedback.filter(x=>!x.type.includes('ques5'))
+		let feedback = this.props.chat_feedback && this.props.chat_feedback.length?this.props.chat_feedback.filter(x=>!x.type.includes('ques5')):[]
 		feedback.push({type: 'ques5', data: data})
 		feedback.push({createdOn: new Date()})
 		this.props.saveChatFeedBack('ques5', data)
