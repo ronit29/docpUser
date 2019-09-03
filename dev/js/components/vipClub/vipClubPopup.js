@@ -38,7 +38,8 @@ class VipLoginPopup extends React.Component {
             newProfileNames.name = newName[0]
         }
         let exactProfile = { ...newProfile, ...newProfileNames }
-        if(this.props.is_child_only){
+        this.setState({profile_id: profileid, newprofile: exactProfile,selectedProfileAge:selectedProfileAge,age:newProfile.age})
+        /*if(this.props.is_child_only){
             var today = new Date();
             var dd = String(today.getDate()).padStart(2, '0');
             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -52,7 +53,7 @@ class VipLoginPopup extends React.Component {
             this.setState({profile_id: profileid, newprofile: exactProfile,selectedProfileAge:daysDiff,age:newProfile.age})
         }else{
             this.setState({profile_id: profileid, newprofile: exactProfile,selectedProfileAge:selectedProfileAge,age:newProfile.age})
-        }
+        }*/
     }
     inputHandler(e) {
         if (this.state.showOTP && e.target.name == 'phoneNumber') {

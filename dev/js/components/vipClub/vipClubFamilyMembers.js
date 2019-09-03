@@ -195,19 +195,6 @@ class VipProposerFamily extends React.Component {
 		let oldDate
 		let finalDate
 		if(newProfileid !== ''){
-			/*if(this.props.is_child_only){
-				if(newProfile.gender == 'm'){
-					this.setState({title:'mast.',relation:'son'})
-				}else if(newProfile.gender == 'f'){
-					this.setState({title:'miss',relation:'daughter'})
-				}
-			}else{
-				if(newProfile.gender == 'm'){
-					this.setState({title:'mr.',relation:'spouse'})
-				}else if(newProfile.gender == 'f'){
-					this.setState({title:'mrs.',relation:'spouse'})
-				}
-			}*/
 			if (newProfile.gender == 'm') {
 				this.setState({ title: 'mr.' })
 			} else if (newProfile.gender == 'f') {
@@ -426,7 +413,7 @@ class VipProposerFamily extends React.Component {
 		let show_createApi_keys_child2 = []
 		let Uploaded_image_data
 		let commonMsgSpan = <span className="fill-error-span">*This is a mandatory field</span>
-		if(this.props.is_child_only){
+		/*if(this.props.is_child_only){
 			let show_createApi_keys = []
 			if(Object.keys(this.props.createApiErrorsChild).length > 0){
 			Object.entries(this.props.createApiErrorsChild).map(function([key, value]) {
@@ -447,7 +434,7 @@ class VipProposerFamily extends React.Component {
 						show_createApi_keys_adult.push(key)
 				})
 			}
-		}
+		}*/
 		let ErrorNameId
 		if(this.props.validatingNames.length>0){
 			ErrorNameId = this.props.validatingNames[0].split('=')[1]
