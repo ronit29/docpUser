@@ -179,6 +179,7 @@ class CartItem extends React.Component {
     }
 
     getFormattedDate(date){
+        date = new Date(date)
         var dd = date.getDate();
 
         var mm = date.getMonth()+1; 
