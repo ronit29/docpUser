@@ -109,7 +109,7 @@ export default function (state = defaultState, action) {
 
 
         // all old insurnance  cases
-        case GET_INSURANCE: {
+        /*case GET_INSURANCE: {
             let newState = { ...state }
             if(Object.keys(action.payload).length > 0){
                 newState.insurnaceData = action.payload
@@ -391,7 +391,7 @@ export default function (state = defaultState, action) {
             console.log(newState)
             return newState
 
-        }
+        }*/
     }
     return state
 }

@@ -135,7 +135,7 @@ export const generateVipClubLead = (selectedPlan, number,lead_data,selectedLocat
 
 //insurance
 
-export const getInsuranceMemberList = (member_list_id) => (dispatch) => {
+/*export const getInsuranceMemberList = (member_list_id) => (dispatch) => {
     return API_GET('/api/v1/insurance/members/list?id='+member_list_id).then(function (response) {
         dispatch({
             type: INSURE_MEMBER_LIST,
@@ -443,4 +443,4 @@ export const clearBankDetails = () => (dispatch) => {
     dispatch({
         type:CLEAR_BANK_DETAILS_INSURANCE
     })
-}
+}*/
