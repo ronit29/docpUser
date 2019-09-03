@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import { } from '../../actions/index.js'
 // import VipClubView from '../../components/vipClub/vipClubView.js'
 // import Loader from '../../components/commons/Loader'
-// import ProfileHeader from '../../components/commons/DesktopProfileHeader'
+import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
 
@@ -27,7 +27,9 @@ class VipClubStaticView extends React.Component{
     }
     render(){
         return(
-                <div>rishab</div>
+                <div>
+                <ProfileHeader />
+                </div>
             )
     }
 }
