@@ -3468,6 +3468,7 @@ p.vip-card-list {
 }
 p.vip-card-list span{
 	color: #757575;
+	margin-left: 3px;
 }
 p.vip-card-list:last-child {
     margin-bottom: 0;
