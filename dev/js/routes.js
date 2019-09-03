@@ -536,6 +536,12 @@ const VipClubActivatedView = Loadable({
     webpack: () => [require.resolveWeak('./containers/vipClub/VipClubActivatedDetails')],
     loading,
 })
+const VipClubStaticView = Loadable({
+    loader: () => import('./containers/vipClub/VipClubStaticView'),
+    modules: ['./containers/vipClub/VipClubStaticView'],
+    webpack: () => [require.resolveWeak('./containers/vipClub/VipClubStaticView')],
+    loading,
+})
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
  */
@@ -662,7 +668,7 @@ let routes = [
     { path: '/vip-club-details',exact:true, component: VipClubView},
     { path: '/vip-club-member-details',exact:true, component: VipClubMemberDetailsView},
     { path: '/vip-club-activated-details',exact:true, component: VipClubActivatedView},
-
+    { path: '/vip-club-static-pages', exact:true, component:VipClubStaticView}
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {
