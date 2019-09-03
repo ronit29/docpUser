@@ -29,41 +29,13 @@ class VipLoginPopup extends React.Component {
         let tempArray
         if (newName.length == 2) {
             newProfileNames.name = newName[0]
-            if (!this.props.vipClubMemberDetails.no_lname) {
-                newProfileNames.middle_name = ''
-                newProfileNames.last_name = newName[1]
-            } else {
-                newProfileNames.middle_name = ''
-                newProfileNames.last_name = ''
-            }
-        } else if (newName.length == 3) {
+            newProfileNames.last_name = newName[1]
+        } else if (newName.length > 2) {
+            tempArray = newName.slice(1, newName.length)
             newProfileNames.name = newName[0]
-            if (!this.props.vipClubMemberDetails.no_lname) {
-                newProfileNames.middle_name = newName[1]
-                newProfileNames.last_name = newName[2]
-            } else {
-                newProfileNames.middle_name = ''
-                newProfileNames.last_name = ''
-            }
-        } else if (newName.length > 3) {
-            tempArray = newName.slice(2, newName.length)
-            newProfileNames.name = newName[0]
-            if (!this.props.vipClubMemberDetails.no_lname) {
-                newProfileNames.middle_name = newName[1]
-                newProfileNames.last_name = tempArray.join(' ')
-            } else {
-                newProfileNames.middle_name = ''
-                newProfileNames.last_name = ''
-            }
+            newProfileNames.last_name = tempArray.join(' ')
         } else {
             newProfileNames.name = newName[0]
-            if (!this.props.vipClubMemberDetails.no_lname) {
-                newProfileNames.middle_name = ''
-                newProfileNames.last_name = ''
-            } else {
-                newProfileNames.middle_name = ''
-                newProfileNames.last_name = ''
-            }
         }
         let exactProfile = { ...newProfile, ...newProfileNames }
         if(this.props.is_child_only){

@@ -1,7 +1,6 @@
 import React from 'react'
 import SnackBar from 'node-snackbar'
 import Calendar from 'rc-calendar'
-import StateCityAutoComplete from './stateCityAutoComplete.js'
 import InsuranceProofs from './insuranceProofs.js'
 import VerifyEmail from './verifyEmail.js'
 const moment = require('moment')
