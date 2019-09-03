@@ -369,10 +369,10 @@ class ChoosePatientNewView extends React.Component {
                              
                             <React.Fragment>
                             {this.state.dob || this.state.email?
-                                <div class="text-right">
+                                <div className="text-right">
                                    <a href="#" className="text-primary fw-700 text-sm" onClick={this.profileDobValidation.bind(this)}>Update</a>
                                 </div>
-                                :<div class="text-right">
+                                :<div className="text-right">
                                     <a href="#" onClick={(e) => {
                                     e.preventDefault()
                                     e.stopPropagation()
@@ -380,9 +380,9 @@ class ChoosePatientNewView extends React.Component {
                                 }} className="text-primary fw-700 text-sm">{this.props.patient ? "Change Patient" : "Select Patient"}</a>
                             </div>
                             }
-                            <div class="">
+                            <div className="">
                             {this.props.show_insurance_error && this.props.insurance_error_msg?
-                                <p class="gyn-text">{this.props.insurance_error_msg}</p>
+                                <p className="gyn-text">{this.props.insurance_error_msg}</p>
                                 :''
                             }
                             </div>

@@ -1208,10 +1208,10 @@ class BookingSummaryViewNew extends React.Component {
                                                                                             <p className="payment-content fw-500">&#8377; {labDetail.home_pickup_charges || 0}</p>
                                                                                         </div> : ""
                                                                                     }
-                                                                                    <div className="payment-detail d-flex">
+                                                                                    {(finalMrp -finalPrice)? <div className="payment-detail d-flex">
                                                                                         <p style={{color:'green'}}>Docprime Discount</p>
                                                                                         <p style={{color:'green'}}>- &#8377; {finalMrp - finalPrice}</p>
-                                                                                    </div>
+                                                                                    </div>:''}
                                                                                     {
                                                                                         this.props.disCountedLabPrice && !this.state.is_cashback
                                                                                             ? <div className="payment-detail d-flex">
@@ -1221,13 +1221,13 @@ class BookingSummaryViewNew extends React.Component {
                                                                                             : ''
                                                                                     }
                                                                                     {
-                                                                                        (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
+                                                                                        /*(is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
                                                                                             <p className="payment-content fw-500">MRP</p>
                                                                                             <p className="payment-content fw-500">&#8377; {total_price || 0}</p>
                                                                                         </div> : <div className="payment-detail d-flex">
                                                                                                 <p className="payment-content fw-500">MRP</p>
                                                                                                 <p className="payment-content fw-500">&#8377; {total_price || 0}</p>
-                                                                                            </div>
+                                                                                            </div>*/
                                                                                     }
                                                                                 </div>
                                                                         }
