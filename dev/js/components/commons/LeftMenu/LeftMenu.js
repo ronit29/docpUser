@@ -77,6 +77,12 @@ class LeftMenu extends React.Component {
                   {/*<li><a href="#"><img src="/assets/images/insurance.png" alt="" className="" />Insurance</a> <a href="#" class="btn-buy-now">Buy Now</a></li>
                                 */}
 
+                  <li><a onClick={(e) => {
+                    e.preventDefault()
+                    this.props.toggleLeftMenu()
+                    this.props.history.push('/vip-club-details?source=mobile-leftmenu-vipClub-clicked')
+                  }} href="#"><img src="https://cdn.docprime.com/cp/assets/img/customer-icons/onlnpres.svg" alt="" className="" />Docprime Vip </a></li>
+
                   {
                     CONFIG.ENABLE_INSURANCE && this.props.common_settings && this.props.common_settings.insurance_availability?
                       <li><a onClick={(e) => {
