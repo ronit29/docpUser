@@ -3288,7 +3288,7 @@ div.search-el-popup.non-book-pop{
     top: 0;
     z-index: 999;
 }
-.vipHeaderBar::after{
+.vipHeaderBar::before{
 	background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -3300,8 +3300,26 @@ div.search-el-popup.non-book-pop{
     bottom: 0px;
     width: 100%;
     z-index: 10;
-    background-image: url('http://www.reactjsindia.com/images/download.svg');
+    background-image: url(http://www.reactjsindia.com/images/download.svg);
     margin-top: -1.625rem;
+    -webkit-transition: height .2s;
+    transition: height .2s;
+}
+.scrl-cont-dat{
+	position: relative;
+    -webkit-transition: visibility .1s, height .5s, margin .5s ease;
+    transition: visibility .1s, height .5s, margin .5s ease;
+    height: 22px;
+}
+.header-scroll-change .scrl-cont-dat{
+    margin: 0 !important;
+    visibility: hidden;
+    height: 0;
+}
+.hed-curv-rmove::before{
+	content: '';
+    bottom: 0px;
+    height: 0px;
 }
 .vipBackIco {
     position: absolute;
@@ -3314,7 +3332,8 @@ div.search-el-popup.non-book-pop{
 }
 .vip-logo-cont {
     text-align: center;
-    padding: 20px;
+	padding: 20px;
+	transition:all ease 1s;
 }
 .vip-logo-cont h1 {
 	color: white;
@@ -3793,7 +3812,14 @@ img.vip-add-img {
     font-weight: 600;
 }
 img.vipLogiImg {
-    width: 100px;
+	width: 100px;
+	transition: all ease 1s;
+}
+.vip-logo-cont.header-scroll-change {
+    padding: 10px;
+}
+.vip-logo-cont.header-scroll-change img {
+    width: 65px;
 }
 .add-mem-blk{
 	position: relative;
