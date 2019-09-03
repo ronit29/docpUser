@@ -3415,6 +3415,7 @@ p.sb-para {
 		text-align: center;
 		justify-content: center;
 		font-size: 15px;
+		position: relative;
 }
 p.vp-sb-txt span{
 	font-size: 11px;
@@ -3458,7 +3459,8 @@ p.vp-sb-txt.vp-act{
 h4.vip-card-heading {
     font-size: 15px;
     font-weight: 600;
-    margin-bottom: 10px;
+	margin-bottom: 10px;
+	padding-right: 90px;
 }
 p.vip-card-list {
     font-weight: 500;
@@ -3896,13 +3898,28 @@ p.vip-vld img {
 p.vip-vld b{
 	font-weight: 600;
 }
+b.vip-popluer {
+    position: absolute;
+    top: -8px;
+    font-size: 9px;
+    font-weight: 600;
+    background: #e52b2b;
+    color: white;
+    padding: 2px 3px;
+    border-radius: 5px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 50px;
+}
+
 section.container.container-top-margin.sub-pdng-add{
 	padding-top: 50px;
 	transition: all ease .3s;
 }
 @media (max-width: 767px){
 section.container.container-top-margin.sub-pdng-add {
-    padding-top: 110px;
+    padding-top: 120px;
     
 }
 }
