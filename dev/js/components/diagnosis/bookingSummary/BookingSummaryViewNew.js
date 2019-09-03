@@ -120,6 +120,7 @@ class BookingSummaryViewNew extends React.Component {
                     time: new Date().getTime(),
                     currentSessionId: sessionId
                 }
+                this.setState({is_spo_appointment: true})
                 this.props.setCommonUtmTags('spo', spo_tags)
             }
         }catch(e) {
