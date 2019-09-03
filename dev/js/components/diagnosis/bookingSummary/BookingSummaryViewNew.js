@@ -84,7 +84,7 @@ class BookingSummaryViewNew extends React.Component {
         if (window) {
             window.scrollTo(0, 0)
         }
-
+        const parsed = queryString.parse(this.props.location.search)
         if (this.props.location.search.includes("error_code")) {
             setTimeout(() => {
                 SnackBar.show({ pos: 'bottom-center', text: "Could not complete payment, Try again!" })
@@ -102,7 +102,31 @@ class BookingSummaryViewNew extends React.Component {
             var scrollPosition = elementTop - elementHeight;
             this.setState({ scrollPosition: scrollPosition });
         }*/
-        //Clear Utm tags for SPO, when 
+
+        //Add UTM tags for building url
+        try{
+            if(parsed.UtmSource && parsed.UtmSource=='OfflineAffiliate'){
+                let sessionId = Math.floor(Math.random() * 103)*21 + 1050
+                if(sessionStorage) {
+                    sessionStorage.setItem('sessionIdVal',sessionId)   
+                }
+                let spo_tags = {
+                    utm_tags: {
+                        UtmSource: parsed.UtmSource||'',
+                        UtmTerm: parsed.UtmTerm||'',
+                        UtmMedium: parsed.UtmMedium||'',
+                        UtmCampaign: parsed.UtmCampaign||''
+                    },
+                    time: new Date().getTime(),
+                    currentSessionId: sessionId
+                }
+                this.props.setCommonUtmTags('spo', spo_tags)
+            }
+        }catch(e) {
+
+        }
+
+        //Clear Utm tags for SPO, after 15 minutes
         let currentTime = new Date().getTime()
         if(sessionStorage && sessionStorage.getItem('sessionIdVal') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='spo').length) {
 

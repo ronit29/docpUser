@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions, editUserProfile, savePincode, clearExtraTests, selectSearchType, patientDetails, uploadPrescription, savePrescription, removePrescription, clearPrescriptions, preBooking, saveAvailNowInsurance, unSetCommonUtmTags, sendSPOAgentBooking } from '../../actions/index.js'
+import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions, editUserProfile, savePincode, clearExtraTests, selectSearchType, patientDetails, uploadPrescription, savePrescription, removePrescription, clearPrescriptions, preBooking, saveAvailNowInsurance, unSetCommonUtmTags, sendSPOAgentBooking, setCommonUtmTags } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/index.js'
@@ -121,7 +121,8 @@ const mapDispatchToProps = (dispatch) => {
         preBooking:(slot) => dispatch(preBooking(slot)),
         saveAvailNowInsurance:(data) => dispatch(saveAvailNowInsurance(data)),
         unSetCommonUtmTags: (type, tag)=> dispatch(unSetCommonUtmTags(type, tag)),
-        sendSPOAgentBooking: (postData, cb) => dispatch(sendSPOAgentBooking(postData, cb))
+        sendSPOAgentBooking: (postData, cb) => dispatch(sendSPOAgentBooking(postData, cb)),
+        setCommonUtmTags: (type, tag) => dispatch(setCommonUtmTags(type, tag))
     }
 }
 
