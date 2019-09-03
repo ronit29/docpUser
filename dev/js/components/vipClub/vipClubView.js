@@ -234,7 +234,7 @@ class VipClubView extends React.Component {
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <p className="vip-no-cost"><img className="img-fluid" src={ASSETS_BASE_URL + "/img/vip-ins-act.png"} /> No Cost EMI starts at <span>₹417</span></p>
+                                                    <p className="vip-no-cost"><img className="img-fluid" src={ASSETS_BASE_URL + "/img/vip-ins-act.png"} /> No Cost EMI starts at  <span>  ₹{Math.round(parseInt(this.state.selected_plan_data.deal_price)/12)}</span></p>
                                                 </div>
                                             :''
                                         }
