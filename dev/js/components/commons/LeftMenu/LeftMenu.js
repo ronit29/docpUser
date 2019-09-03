@@ -76,12 +76,14 @@ class LeftMenu extends React.Component {
                 <ul className="drop-list-menu list_1">
                   {/*<li><a href="#"><img src="/assets/images/insurance.png" alt="" className="" />Insurance</a> <a href="#" class="btn-buy-now">Buy Now</a></li>
                                 */}
-
-                  <li><a onClick={(e) => {
-                    e.preventDefault()
-                    this.props.toggleLeftMenu()
-                    this.props.history.push('/vip-club-details?source=mobile-leftmenu-vipClub-clicked')
-                  }} href="#"><img src={ASSETS_BASE_URL + '/img/viplog.png'} alt="" className="vip-lg-sng" />Docprime VIP </a></li>
+                  {
+                    CONFIG.ENABLE_VIP_CLUB?
+                      <li><a onClick={(e) => {
+                        e.preventDefault()
+                        this.props.toggleLeftMenu()
+                        this.props.history.push('/vip-club-details?source=mobile-leftmenu-vipClub-clicked')
+                      }} href="#"><img src={ASSETS_BASE_URL + '/img/viplog.png'} alt="" className="vip-lg-sng" />Docprime VIP </a></li>
+                  :''}
 
                   {
                     CONFIG.ENABLE_INSURANCE && this.props.common_settings && this.props.common_settings.insurance_availability?
