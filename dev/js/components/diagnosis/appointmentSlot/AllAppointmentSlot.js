@@ -280,6 +280,7 @@ class AppointmentSlot extends React.Component {
             radiologyTimeSlot = this.state.selectedTimeSlot['radiology']
         }
         let test_count = parsed.test_ids?parsed.test_ids.split(',').length:0
+        let hide_toggle = !(this.state.timeSlotsData && this.state.timeSlotsData['pathology'] && this.state.timeSlotsData['pathology'].tests && this.state.timeSlotsData['pathology'].tests.length == test_count) && test_count>1 && !(parsed.reschedule && parsed.reschedule=='true')
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -307,7 +308,7 @@ class AppointmentSlot extends React.Component {
                             </header> */}
                             <div className="new-time-slot-outer">
                                 {
-                                    test_count>1 && !(parsed.reschedule && parsed.reschedule=='true') &&
+                                    hide_toggle && 
                                     <div className="top-sticky-radio-btn">
                                         <div className="ins-form-radio">
                                             <div className="dtl-radio">
@@ -361,8 +362,7 @@ class AppointmentSlot extends React.Component {
                                                                 nameHeading={timeSlots.tests.map(x=>x.name).join(',')}
                                                                 toggle = {this.handleToggleType.bind(this)}
                                                                 test_id= {timeSlots.tests && timeSlots.tests.length?timeSlots.tests[0].id:''}
-                                                                test_count={test_count}
-                                                                reschedule = {this.state.reschedule}
+                                                                hide_toggle={hide_toggle}
                                                             />
                                                         : ''
                                                     }
@@ -383,8 +383,7 @@ class AppointmentSlot extends React.Component {
                                                                 nameHeading={timeSlots.tests.map(x=>x.name).join(',')}
                                                                 toggle = {this.handleToggleType.bind(this)}
                                                                 test_id= {timeSlots.tests && timeSlots.tests.length?timeSlots.tests[0].id:''}
-                                                                test_count={test_count}
-                                                                reschedule = {this.state.reschedule}
+                                                                hide_toggle={hide_toggle}
                                                             />
                                                         : ''
                                                     }
@@ -409,8 +408,7 @@ class AppointmentSlot extends React.Component {
                                                                         test_id ={tests.tests_id}
                                                                         nameHeading={tests.name}
                                                                         toggle = {this.handleToggleType.bind(this)}
-                                                                        test_count={test_count}
-                                                                        reschedule = {this.state.reschedule}
+                                                                        hide_toggle={hide_toggle}
                                                                     />
                                                         }):''
                                                     }
