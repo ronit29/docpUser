@@ -32,8 +32,8 @@ class VipClubStaticView extends React.Component {
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
                         <div className="col-12">
-                            <div className="container-fluid vip-new-container">
-                                <div className="widget mrb-15 mrng-top-12">
+                            <div className="vip-new-container">
+                                <div className="widget mrb-15 mt-20">
                                     <div className="fnl-vip-cont">
                                         <img src={ASSETS_BASE_URL + '/img/dp-vip.png'} />
                                         <p className="mn-para">Your request for Docprime VIP has been <br/>submitted successfully</p>
@@ -43,6 +43,7 @@ class VipClubStaticView extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <button className="vip-back-btn">Done</button>
                 </section>
             </div>
         )
