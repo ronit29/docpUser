@@ -1495,7 +1495,6 @@ class ThyrocarePackageView extends React.Component {
                         <RightBar extraClass=" chat-float-btn-2" />
                     </div>
                 </section>
-
                 <Footer footerData={this.state.footerData} />
             </div>
         );
