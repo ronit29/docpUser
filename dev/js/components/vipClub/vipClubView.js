@@ -55,7 +55,6 @@ class VipClubView extends React.Component {
                 if (self.refs['vipHeaderBar']) {
 
                     if (scrollPosition > 10) {
-                        console.log(scrollPosition);
                         self.setState({ toggleTabType: true })
                     } else {
                         self.setState({ toggleTabType: false })
@@ -144,7 +143,7 @@ class VipClubView extends React.Component {
                                             this.state.selected_plan_data && this.state.selected_plan_data.worth && Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.doctor_consult_amount != '' ?
                                                 <div className="vip-offer-cards mb-24">
                                                     <div className="vip-free-doc vip-docbg">
-                                                        <h4 className="vip-card-heading">Free Doctor Consultations</h4>
+                                                        <h4 className="vip-card-heading">Free In-Clinic Doctor Consultations</h4>
                                                         <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />30,000 verified doctors </p>
                                                         <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />All specializations included </p>
                                                     </div>
@@ -157,7 +156,7 @@ class VipClubView extends React.Component {
                                                 <div className="pakg-slider-container mb-24">
                                                     <div className="pkgSliderHeading">
                                                         <h5>Key Hospital Partners</h5>
-                                                        <span onClick={() => this.props.history.push('/lab/searchresults')}>View Docprime Network</span>
+                                                        <span onClick={() => this.props.history.push('/opd/searchresults')}>View Docprime Network</span>
                                                     </div>
                                                     <div className="pkgSliderContainer">
                                                         <div className="pkgCardsList d-inline-flex sub-wd-cards top_pkgCat">
@@ -191,10 +190,10 @@ class VipClubView extends React.Component {
                                             this.state.selected_plan_data && this.state.selected_plan_data.worth && Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.health_checkups_amount != '' ?
                                                 <div className="vip-offer-cards mb-24">
                                                     <div className="vip-free-doc vip-chek-bg">
-                                                        <h4 className="vip-card-heading">Free Full Body Health Checkup </h4>
+                                                        <h4 className="vip-card-heading">Free Full Body Preventive Health Checkup </h4>
                                                         {
                                                             this.state.selected_plan_data && this.state.selected_plan_data.worth && Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.members_covered_in_package ?
-                                                                <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />{this.state.selected_plan_data.worth.members_covered_in_package} members covered</p>
+                                                                <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />{this.state.selected_plan_data.worth.members_covered_in_package} {this.state.selected_plan_data.worth.members_covered_in_package == 1?'member':'members'} covered</p>
                                                                 : ''
                                                         }
                                                         {
@@ -253,7 +252,7 @@ class VipClubView extends React.Component {
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <p className="vip-no-cost"><img className="img-fluid" src={ASSETS_BASE_URL + "/img/coinico.png"} /> No Cost EMI at  <span>  ₹{Math.round(parseInt(this.state.selected_plan_data.deal_price) / 12)}</span></p>
+                                                    <p className="vip-no-cost"><img className="img-fluid" src={ASSETS_BASE_URL + "/img/coinico.png"} /> No Cost EMI @ <span>  ₹{Math.round(parseInt(this.state.selected_plan_data.deal_price) / 12)}</span></p>
                                                 </div>
                                                 : ''
                                         }
@@ -274,8 +273,8 @@ class VipClubView extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <button className="vip-foot-btn" onClick={this.proceed.bind(this)}><p>Become a Docprime VIP @ ₹{this.state.selected_plan_data.mrp}</p>
-                            <p className="vipbtn-sub-txt">No cost EMI at ₹{Math.round(parseInt(this.state.selected_plan_data.deal_price) / 12)}</p>
+                        <button className="vip-foot-btn" onClick={this.proceed.bind(this)}><p>Become a Docprime VIP @ ₹{this.state.selected_plan_data.deal_price}</p>
+                            <p className="vipbtn-sub-txt">No cost EMI @ ₹{Math.round(parseInt(this.state.selected_plan_data.deal_price) / 12)}</p>
                         </button>
                     </section>
                 </div>

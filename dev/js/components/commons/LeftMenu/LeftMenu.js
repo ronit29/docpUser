@@ -81,7 +81,7 @@ class LeftMenu extends React.Component {
                     e.preventDefault()
                     this.props.toggleLeftMenu()
                     this.props.history.push('/vip-club-details?source=mobile-leftmenu-vipClub-clicked')
-                  }} href="#"><img src={ASSETS_BASE_URL + '/img/viplog.png'} alt="" className="vip-lg-sng" />Docprime Vip </a></li>
+                  }} href="#"><img src={ASSETS_BASE_URL + '/img/viplog.png'} alt="" className="vip-lg-sng" />Docprime VIP </a></li>
 
                   {
                     CONFIG.ENABLE_INSURANCE && this.props.common_settings && this.props.common_settings.insurance_availability?
