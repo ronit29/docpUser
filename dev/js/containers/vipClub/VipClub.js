@@ -31,7 +31,7 @@ class VipClub extends React.Component{
         }
 
         // this.props.getInsurance(false)
-        this.props.getVipList(false)
+        this.props.getVipList(false,this.props.selectedLocation)
 
     }
     render(){
@@ -72,7 +72,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getVipList: (is_endorsement,callback) => dispatch(getVipList(is_endorsement,callback)),
+        getVipList: (is_endorsement,selectedLocation,callback) => dispatch(getVipList(is_endorsement,selectedLocation,callback)),
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
         getUserProfile: () => dispatch(getUserProfile()),
         generateVipClubLead:(selectedPlan,number,lead_data,user_name,cb) =>dispatch(generateVipClubLead(selectedPlan,number,lead_data,user_name,cb)),

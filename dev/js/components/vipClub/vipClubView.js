@@ -26,7 +26,8 @@ class VipClubView extends React.Component {
             overlayClass: '',
             identifyUserClick:'',
             selected_plan_id:'',
-            selected_plan_mrp:''
+            selected_plan_mrp:'',
+            toggleTabType:false
         }
     }
 
@@ -36,6 +37,21 @@ class VipClubView extends React.Component {
         if(this.props.selected_vip_plan && this.props.vipClubList && this.props.vipClubList.plans && this.props.vipClubList.plans.length > 0){
                 let resp = this.props.selected_vip_plan
                 this.setState({selected_plan_data:resp,selected_plan_id:resp.id})
+        }
+        let self = this
+        if(window && document){
+            window.onscroll = function() {
+            var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
+            
+                if(self.refs['vipHeaderBar']){
+
+                        if(scrollPosition > 10){
+                            self.setState({toggleTabType: true})
+                        }else{
+                            self.setState({toggleTabType: false})
+                        }
+                }
+          } 
         }
     }
 
@@ -72,14 +88,15 @@ class VipClubView extends React.Component {
             this.props.vipClubList && Object.keys(this.props.vipClubList).length>0 && this.state.selected_plan_data && Object.keys(this.state.selected_plan_data).length>0?
                 <div className="profile-body-wrap" style={{ background: "#ffffff" }}>
                     {/* <ProfileHeader /> */}
-                    <div className="vipHeaderBar">
+                    <div className={`vipHeaderBar ${this.state.toggleTabType?'hed-curv-rmove':''}`} ref="vipHeaderBar">
                         <div className="vipBackIco">
                             <img src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} />
                         </div>
-                        <div className="vip-logo-cont">
-                            <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/logo-care-white.png"} />
-                            <h1>in Just <span className="vip-prc-cut">₹{this.state.selected_plan_data.mrp}</span> <span className="vip-main-price">₹{this.state.selected_plan_data.deal_price}</span>  </h1>
-                                <p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>
+                        <div className={`vip-logo-cont ${this.state.toggleTabType?'header-scroll-change':''}`} ref="">
+                            <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
+                            <h1 className="scrl-cont-dat">in Just <span className="vip-prc-cut">₹{this.state.selected_plan_data.mrp}</span> <span className="vip-main-price">₹{this.state.selected_plan_data.deal_price}</span>  </h1>
+                            {/* <p className="scrl-cont-dat">1 year upto 4 members</p> */}
+                            {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
                         </div>
                     </div>
                     {
@@ -156,8 +173,16 @@ class VipClubView extends React.Component {
                                                 <div className="vip-offer-cards mb-3">
                                                     <div className="vip-free-doc vip-chek-bg">
                                                         <h4 className="vip-card-heading">Free Full Body Health Checkup </h4>
-                                                        <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />2 members covered</p>
-                                                        <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />60 tests included </p>
+                                                        {
+                                                            this.state.selected_plan_data && this.state.selected_plan_data.worth && Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.members_covered_in_package?
+                                                            <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />{this.state.selected_plan_data.worth.members_covered_in_package} members covered</p>
+                                                            :''
+                                                        }
+                                                        {
+                                                            this.state.selected_plan_data && this.state.selected_plan_data.worth && Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.total_test_covered_in_package?
+                                                            <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />{this.state.selected_plan_data.worth.total_test_covered_in_package} tests included </p>
+                                                            :''
+                                                        }
                                                     </div>
                                                     <span className="vip-card-tag">Worth ₹{this.state.selected_plan_data.worth.online_chat_amount}  </span>
                                                 </div>

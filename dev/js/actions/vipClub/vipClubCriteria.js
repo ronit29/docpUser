@@ -4,9 +4,24 @@ GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS,
  } from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
-export const getVipList = (is_endorsement,callback) => (dispatch) => {
+export const getVipList = (is_endorsement,selectedLocation,callback) => (dispatch) => {
+    let lat
+    let long
+    let latitude = 28.644800
+    let longitude = 77.216721
+    if (selectedLocation) {
+        lat = selectedLocation.geometry.location.lat
+        long = selectedLocation.geometry.location.lng
 
-    return API_GET('/api/v1/plus/list').then(function (response) {
+        if (typeof lat === 'function') lat = lat()
+        if (typeof long === 'function') long = long()
+
+    }
+    if(latitude != lat && longitude != long){
+        latitude = latitude
+        longitude = longitude
+    }
+    return API_GET('/api/v1/plus/list?lat='+latitude+'&long='+longitude).then(function (response) {
         dispatch({
             type: GET_VIP_LIST,
             payload: response
