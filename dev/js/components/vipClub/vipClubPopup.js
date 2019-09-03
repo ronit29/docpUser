@@ -136,11 +136,13 @@ class VipLoginPopup extends React.Component {
                             self.props.generateVipClubLead(self.props.selected_vip_plan ? self.props.selected_vip_plan.id : '', self.state.phoneNumber,lead_data, self.props.selectedLocation,self.state.user_name)
                         }
                         if (exists.user_exists) {
-                            this.props.closeLeadPopup()
-                            this.props.history.push('/vip-club-member-details')
+                            // this.props.closeLeadPopup()
+                            this.setState({isLeadTrue:true})
+                            // this.props.history.push('/vip-club-member-details')
                         } else {
-                            this.props.closeLeadPopup()
-                            this.props.history.push('/vip-club-member-details')
+                            // this.props.closeLeadPopup()
+                            this.setState({isLeadTrue:true})
+                            // this.props.history.push('/vip-club-member-details')
                         }
                         // this.props.getInsurance(false, (resp) => {
                         //     if (!resp.certificate) {
@@ -270,6 +272,16 @@ class VipLoginPopup extends React.Component {
                 <div className="col-12 col-md-7  center-column">
                     <div className={`cancel-overlay cancel-overlay-zindex ${this.props.overlayClass}`} onClick={this.props.hideLoginPopup.bind(this)}>
                     </div>
+                    {this.state.isLeadTrue ?
+                        <div className="insu-popup-container" onClick={this.props.closeLeadPopup.bind(this)}>
+                            <div className="insu-pop-up">
+                                <img className="insPopUp" src={ASSETS_BASE_URL + "/img/tec.svg"} />
+                                <p className="ins-main-pera-text">Request Submitted</p>
+                                <p className="ins-main-pera-sub-text">Thank you for showing interest in OPD Insurance. Our customer service executive will give you a call from 0124-6073XXX.</p>
+                                <button className="insupopdonebtn" onClick={this.props.closeLeadPopup.bind(this)}>Done</button>
+                            </div>
+                        </div>
+                    :''}
                     <section className="mobile-verification-screen p-3">
                         {
                             this.state.isLeadTrue ?

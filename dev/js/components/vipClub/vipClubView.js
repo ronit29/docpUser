@@ -121,7 +121,7 @@ class VipClubView extends React.Component {
                                                 <div className="pakg-slider-container mb-3">
                                                     <div className="pkgSliderHeading">
                                                         <h5>Key Hospital Partners</h5>
-                                                        <span>View Docprime Network</span>
+                                                        <span onClick={() => this.props.history.push('/lab/searchresults')}>View Docprime Network</span>
                                                     </div>
                                                     <div className="pkgSliderContainer">
                                                         <div className="pkgCardsList d-inline-flex sub-wd-cards top_pkgCat">
