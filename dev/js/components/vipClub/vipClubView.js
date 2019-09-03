@@ -89,6 +89,25 @@ class VipClubView extends React.Component {
         }
     }
 
+    navigateTo(data, e) {
+        e.preventDefault()
+        e.stopPropagation()
+        // let gtmData = {
+        //     'Category': 'ConsumerApp', 'Action': 'HomeWidgetHospitalClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-widget-hospital-clicked', 'selected': '', 'selectedId': data.id || ''
+        // }
+        // GTM.sendEvent({ data: gtmData })
+        console.log(data)
+        let redirectUrl = ''
+
+        if(data.url) {
+            redirectUrl = `/${data.url}?showPopup=true`
+        }else {
+            redirectUrl = `/ipd/hospital/${data.id}?showPopup=true`
+        }
+
+        this.props.history.push(redirectUrl)
+    }
+
     render() {
         // console.log(this.state.selected_plan_data)
         let self = this
@@ -162,7 +181,7 @@ class VipClubView extends React.Component {
                                                         <div className="pkgCardsList d-inline-flex sub-wd-cards top_pkgCat">
                                                             {
                                                                 Object.entries(this.state.selected_plan_data.enabled_hospital_networks).map(function ([key, value]) {
-                                                                    return <div key={key} className="pkgcustCards vip-hsp-card-mn">
+                                                                    return <div onClick={self.navigateTo.bind(self,value)} key={key} className="pkgcustCards vip-hsp-card-mn">
                                                                             <div className="vip-hsp-img">
                                                                                 <img className="img-fluid" src={value.logo} />
                                                                             </div>
