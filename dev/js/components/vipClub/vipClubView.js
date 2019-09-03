@@ -89,7 +89,7 @@ class VipClubView extends React.Component {
                 <div className="profile-body-wrap" style={{ background: "#ffffff" }}>
                     {/* <ProfileHeader /> */}
                     <div className={`vipHeaderBar ${this.state.toggleTabType?'hed-curv-rmove':''}`} ref="vipHeaderBar">
-                        <div className="vipBackIco">
+                        <div className="vipBackIco" onClick={() => this.props.history.push('/')}>
                             <img src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} />
                         </div>
                         <div className={`vip-logo-cont ${this.state.toggleTabType?'header-scroll-change':''}`} ref="">
