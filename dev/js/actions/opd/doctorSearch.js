@@ -247,7 +247,7 @@ export const getDoctorById = (doctorId, hospitalId = "", procedure_ids = "", cat
 		if(response.cod_to_prepaid && response.cod_to_prepaid.time_slot_start && extraParams && extraParams.appointment_id){
 
 			let selectedDate = response.cod_to_prepaid.time_slot_start
-			let { mrp, fees, deal_price, user_id, formatted_date } = response.cod_to_prepaid
+			let { mrp, fees, deal_price, profile_id, formatted_date } = response.cod_to_prepaid
 			let time_slot = {
 	            text: new Date(selectedDate).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0],
 	            deal_price: deal_price,
@@ -271,7 +271,7 @@ export const getDoctorById = (doctorId, hospitalId = "", procedure_ids = "", cat
             }
             dispatch({
             	type: SELECT_USER_PROFILE,
-            	payload: user_id
+            	payload: profile_id
             })
 			dispatch({
 				type: SELECT_OPD_TIME_SLOT,
