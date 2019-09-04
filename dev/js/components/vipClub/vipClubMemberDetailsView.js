@@ -11,14 +11,14 @@ class VipClubMemberDetailsView extends React.Component{
         super(props)
         this.state = {
             // selected_plan_plan:'',
-            no_lname:false,
+            // no_lname:false,
             is_edit:true,
             // gst: 'inclusive of 18% GST', // to be deleted
             // enable_proceed:false,// to be deleted
             // profiles_selected:[], // to be deleted
             saveMembers:false,
             // is_adult_only: false,
-            is_disable: [],
+            // is_disable: [],
             // isValidated: false,
             validateErrors:{},
             validateOtherErrors:{},
