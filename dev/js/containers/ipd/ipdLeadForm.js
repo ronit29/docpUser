@@ -141,7 +141,13 @@ class IpdLeadForm extends React.Component {
 
 	}
 
-	closePopUpClicked() {
+	closePopUpClicked(skip = false) {
+		if(skip) {
+			let gtmData = {
+				'Category': 'ConsumerApp', 'Action': 'IPD-1popup-skip-clicked', 'CustomerID': GTM.getUserId() || '', 'event': 'IPD-1popup-skip-clicked', 'formNo':'1'
+			}
+			GTM.sendEvent({ data: gtmData })
+		}
 		const parsed = queryString.parse(this.props.location.search)
 		if ((parsed.get_feedback && parsed.get_feedback == '1') || this.props.forcedPopup) {
 			SnackBar.show({ pos: 'bottom-center', text: "Please fill the feedback form" })
@@ -314,7 +320,7 @@ class IpdLeadForm extends React.Component {
 															:<p onClick={(e) => {
 																e.stopPropagation()
 																e.preventDefault()
-																this.closePopUpClicked()
+																this.closePopUpClicked(true)
 															}}>Skip</p>
 														}
 													</div>

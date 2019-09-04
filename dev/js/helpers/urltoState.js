@@ -47,7 +47,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let hospital_id = _getLocationParamBind('hospital_id') || ""
             let is_insured = _getLocationParamBind('is_insured') === "true"
             let group_ids = _getLocationParamBind('group_ids') || ''
-
+            let specialization_filter_ids = _getLocationParamBind('specialization_filter_ids') || ''
             let spec = []
             let cond = []
             let procedures = []
@@ -117,7 +117,7 @@ export function opdSearchStateBuilder(selectLocation, querParams, isServer = fal
             let commonSelectedCriterias = [...cond, ...spec, ...procedures, ...procedure_categories, ...ipd_ids, ...group_data]
 
             let filterCriteria = {
-                sort_order, gender, availability, avg_ratings, sits_at_hospital, sits_at_clinic, sort_on
+                sort_order, gender, availability, avg_ratings, sits_at_hospital, sits_at_clinic, sort_on, specialization_filter_ids
             }
 
             if (doctor_name) {

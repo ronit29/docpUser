@@ -14,7 +14,8 @@ const DEFAULT_FILTER_STATE = {
     doctor_name: "",
     hospital_name: "",
     hospital_id: "",
-    is_insured: false
+    is_insured: false,
+    specialization_filter_ids:[]
 }
 
 const defaultState = {
@@ -41,7 +42,8 @@ const defaultState = {
     last_save_searched_date: null,
     ipd_procedures: [],
     top_hospitals: [],
-    common_settings:null
+    common_settings:null,
+    package_categories:[]
 }
 
 export default function (state = defaultState, action) {

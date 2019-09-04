@@ -322,3 +322,11 @@ export const sendOtpOnEmail = (data, callback) =>(dispatch) =>{
         if (callback) callback(error)
     })
 }
+
+export const submitMedicineLead = (data, callback) =>(dispatch) =>{
+    API_POST(`/api/v1/diagnostic/ipdmedicinepagelead`, data).then(function (response) {
+        if (callback) callback(response)
+    }).catch(function (error) {
+        if (callback) callback(error)
+    })
+}
