@@ -133,7 +133,7 @@ class FixedMobileFooter extends React.Component {
                         this.navigateTo('/mobileviewchat')
                     }}>
                         <div className="nw-img-with-content">
-                            <img style={{ width: '24px' }} src={ASSETS_BASE_URL + "/img/lab2.svg"} />
+                            <img style={{ width: '22px' }} src={ASSETS_BASE_URL + "/img/vip-doc.svg"} />
                         </div>
                         <span>Online Consultation</span>
                     </div>
