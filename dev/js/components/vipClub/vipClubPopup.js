@@ -57,7 +57,7 @@ class VipLoginPopup extends React.Component {
     }
     inputHandler(e) {
         if (this.state.showOTP && e.target.name == 'phoneNumber') {
-            this.setState({ [e.target.name]: e.target.value, validationError: "", showOTP: false, otp: "" })
+            this.setState({ [e.target.name]: e.target.value, validationError: "", showOTP: false, otp: "" ,error_message:'' })
         } else {
             this.setState({ [e.target.name]: e.target.value })
         }
@@ -113,11 +113,11 @@ class VipLoginPopup extends React.Component {
         let parsed = queryString.parse(this.props.location.search)
         let self = this
         if (!this.state.otp) {
-            this.setState({ validationError: "Please enter OTP" })
+            this.setState({ validationError: "Please enter OTP",error_message:'' })
             return
         }
         if(this.state.otp.length < 6 || this.state.otp.length > 6){
-            this.setState({ validationError: "Please enter valid OTP" })
+            this.setState({ validationError: "Please enter valid OTP",error_message:'' })
             return   
         }
         let lead_data = parsed
@@ -125,7 +125,7 @@ class VipLoginPopup extends React.Component {
             this.setState({ validationError: "" })
             this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
                 if (exists.code == 'invalid') {
-                    this.setState({ error_message: exists.message })
+                    this.setState({ error_message: exists.message, validationError:'' })
                 } else {
                     if (exists.token) {
                         // let data = {

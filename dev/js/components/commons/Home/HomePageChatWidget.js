@@ -19,13 +19,13 @@ class TopChatWidget extends React.Component {
 
 	render() {
 		return (
-			<div className="d-md-none widget mrb-10 d-flex cursor-pntr" style={{ padding: '4px 10px', borderBottom: '5px solid #4289fe', alignItems: 'center' }} onClick={() => this.widgetClick()}>
+			<div className="d-md-none widget mrb-10 d-flex cursor-pntr" style={{ padding: '4px 6px', borderBottom: '5px solid #4289fe', alignItems: 'center',    justifyContent: 'space-between' }} onClick={() => this.widgetClick()}>
 				<div className="home-vip-cont">
 					<div className="doc-avatar">
 						<img src={ASSETS_BASE_URL + '/img/viplog.png'} />
 					</div>
 					<div style={{ flex: 1 }} >
-						<p className="fw-500" style={{ fontSize: 11 }}>Become a <span className="fw-700">Docprime VIP</span> member and Save 70% on your family medical bills</p>
+						<p className="fw-700" style={{ fontSize: 12 }}>Become a Docprime VIP member <span className="vip-tp-sub-txt">Save 70% on your family's medical bills</span></p>
 					</div>
 				</div>
 				<div className="chat-now-btn text-center">
