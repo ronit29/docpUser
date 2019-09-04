@@ -163,12 +163,28 @@ class VipClubView extends React.Component {
                                             </div>
                                             <div className="cpm-lst">
                                                 <ul className="lst-vpp">
-                                                    <li>In-Clinic Consults: ₹6,500  </li>
-                                                    <li>Health Checkups: ₹1500</li>
+                                                    {
+                                                        Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.doctor_consult_amount != ''?
+                                                            <li>In-Clinic Consults: ₹{this.state.selected_plan_data.worth.doctor_consult_amount}  </li>
+                                                        :''
+                                                    }
+                                                    {
+                                                        Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.health_checkups_amount != ''?
+                                                            <li>Health Checkups: ₹{this.state.selected_plan_data.worth.health_checkups_amount}</li>
+                                                        :''
+                                                    }
                                                 </ul>
                                                 <ul className="lst-vpp">
-                                                    <li>Unlimited Online Consult: ₹1,999</li>
-                                                    <li>Tax Benefit (80D): ₹1,200</li>
+                                                    {
+                                                        Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.online_chat_amount != ''?
+                                                            <li>Unlimited Online Consult: ₹{this.state.selected_plan_data.worth.online_chat_amount}</li>
+                                                        :''
+                                                    }
+                                                    {
+                                                        Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.tax_rebate != ''?
+                                                            <li>Tax Benefit (80D): ₹{this.state.selected_plan_data.worth.tax_rebate}</li>
+                                                        :''
+                                                    }
                                                 </ul>
                                             </div>
                                         </div>
