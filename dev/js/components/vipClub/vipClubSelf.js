@@ -54,7 +54,8 @@ class VipProposer extends React.Component {
 		if (this.props.vipClubMemberDetails[this.props.USER.defaultProfile] && !this.props.is_endorsement) {
 			profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.USER.defaultProfile])
 			this.getUserDetails(profile)
-		} else if (this.props.is_endorsement) {
+		} 
+		/*else if (this.props.is_endorsement) {
 			let oldDate
 			if (Object.keys(this.props.vipClubMemberDetails).length > 0) {
 				profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.user_data[0].id])
@@ -80,7 +81,7 @@ class VipProposer extends React.Component {
 					})
 				}
 			}
-		}
+		}*/
 	}
 	componentWillReceiveProps(props) {
 		let newName = []
@@ -120,9 +121,10 @@ class VipProposer extends React.Component {
 				this.getUserDetails(profile)
 				this.populateDates()
 			}
-		} else if (props.is_endorsement) {
+		} 
+		/*else if (props.is_endorsement) {
 			this.populateDates()
-		}
+		}*/
 	}
 
 	getUserDetails(profile) {
