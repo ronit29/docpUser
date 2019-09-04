@@ -17,6 +17,7 @@ import LAB_SEARCH_DATA from './diagnosis/labSearchData.js'
 import ELASTIC_SEARCH from './commons/elasticSearch.js'
 import INSURANCE from './insurance/insuranceCriteria.js'
 import SEARCH_CRITERIA_IPD from './ipd/searchCriteria.js'
+import VIPCLUB from './vipClub/vipClubCriteria.js'
 
 const persistConfig = {
     key: 'root',
@@ -65,6 +66,11 @@ const INSURANCE_LIST_PRESIST = {
     storage: storage,
     whitelist: ['insurnaceData','self_data_values','selected_plan','currentSelectedInsuredMembersId','create_payment_resp', 'members_proofs', 'insurer_bank_details','avail_now_data','cancel_reason']
 }
+const VIP_CLUB_CRITERIA_PRESIST ={
+    key: 'VIPCLUB',
+    storage: storage,
+    whitelist: ['vipClubList', 'selected_vip_plan', 'vipClubMemberDetails','currentSelectedVipMembersId']
+}
 const IPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_IPD',
     storage: storage,
@@ -86,7 +92,8 @@ const allReducers = combineReducers({
     LAB_SEARCH_DATA,
     ELASTIC_SEARCH,
     INSURANCE: persistReducer(INSURANCE_LIST_PRESIST,INSURANCE),
-    SEARCH_CRITERIA_IPD: persistReducer(IPD_SEARCH_PERSIST, SEARCH_CRITERIA_IPD)
+    SEARCH_CRITERIA_IPD: persistReducer(IPD_SEARCH_PERSIST, SEARCH_CRITERIA_IPD),
+    VIPCLUB: persistReducer(VIP_CLUB_CRITERIA_PRESIST,VIPCLUB)
 });
 
 const persistedReducer = persistReducer(persistConfig, allReducers)
