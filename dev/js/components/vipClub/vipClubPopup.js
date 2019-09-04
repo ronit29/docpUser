@@ -284,13 +284,13 @@ class VipLoginPopup extends React.Component {
                                     </div>
                                 </div>
                                 :
-                                <div className={`widget no-shadow no-round sign-up-container widget cancel-appointment-div cancel-popup ${this.props.popupClass}`}>
+                                <div className={`widget no-shadow no-round sign-up-container widget cancel-appointment-div cancel-popup`}>
                                     <span className="float-right" style={{ cursor: 'pointer' }} onClick={this.props.hideLoginPopup.bind(this)}><img src={ASSETS_BASE_URL + "/img/customer-icons/rt-close.svg"} style={{ width: 14 }} /></span>
 
                                     <div className="ins-form-slider">
                                         <div className="one">
                                             <div className="widget-header text-center mv-header">
-                                                <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Enter your registered mobile number to login</h4>
+                                                <h4 className="fw-500 text-md sign-up-mbl-text">Enter your registered mobile number to login</h4>
                                             </div>
                                             <div className="widget-content text-center">
                                                 <div className="form-group mobile-field sup-input-pdng">
@@ -314,7 +314,7 @@ class VipLoginPopup extends React.Component {
                                         </div>
                                         <div className="two">
                                             <div className="widget-header text-center mv-header">
-                                                <h4 className="fw-500 text-md sign-up-mbl-text" style={this.props.popupClass != '' ? { color: '#fff' } : {}} >Enter the OTP we’ve sent to your mobile number</h4>
+                                                <h4 className="fw-500 text-md sign-up-mbl-text">Enter the OTP we’ve sent to your mobile number</h4>
                                             </div>
                                             <div className="widget-content text-center">
                                                 <div className="form-group mobile-field sup-input-pdng">
@@ -360,7 +360,7 @@ class VipLoginPopup extends React.Component {
                                         </div>
                                     </div>
 
-                                    <p className="text-center fw-500 p-3" style={this.props.popupClass != '' ? { fontSize: 12, color: '#fff' } : { fontSize: 12, color: '#8a8a8a' }} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: '#f78631' }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: '#f78631' }} >Privacy Policy.</a></p>
+                                    <p className="text-center fw-500 p-3" style={{ fontSize: 12}} >By proceeding, you hereby agree to the <a href="/terms" target="_blank" style={{ color: '#f78631' }} >End User Agreement</a> and <a href="/privacy" target="_blank" style={{ color: '#f78631' }} >Privacy Policy.</a></p>
                                 </div>
                         }
                     </section>
