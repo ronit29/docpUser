@@ -13,7 +13,8 @@ class TopChatWidget extends React.Component {
 		}
 		GTM.sendEvent({ data: gtmData })
 
-		this.props.history.push('/mobileviewchat')
+		// this.props.history.push('/mobileviewchat')
+		this.props.history.push('/vip-club-details?source=mobile-home-knowmore-vipClub-clicked')
 	}
 
 	render() {
@@ -28,7 +29,7 @@ class TopChatWidget extends React.Component {
 					</div>
 				</div>
 				<div className="chat-now-btn text-center">
-					<p className="fw-500">Chat Now</p>
+					<p className="fw-500">Know More</p>
 				</div>
 			</div>
 		)

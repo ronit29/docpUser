@@ -135,7 +135,7 @@ class FixedMobileFooter extends React.Component {
                         <div className="nw-img-with-content">
                             <img style={{ width: '24px' }} src={ASSETS_BASE_URL + "/img/lab2.svg"} />
                         </div>
-                        <span>chat</span>
+                        <span>Online Consultation</span>
                     </div>
 
                     <div className="chat-div-containers" style={{ width: "36%", paddingTop: 0 }} onClick={() => {
