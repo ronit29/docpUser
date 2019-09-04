@@ -160,13 +160,16 @@ class FixedMobileFooter extends React.Component {
                         GTM.sendEvent({ data: data })
                         this.navigateTo('/mobileviewchat')
                     }}>
-                        {/* <img className="footbgRound" src={ASSETS_BASE_URL + "/img/chatFoot_new.svg"} /> */}
+                        <img className="footbgRound" src={ASSETS_BASE_URL + "/img/chatFoot_newP_vip.svg"} />
                         <div className="nw-mid-container-with-img">
-                            <div>
-                                <img style={{ width: 28 }} src={ASSETS_BASE_URL + "/img/chatbt_new.svg"} />
+                            <div className="vip-foot-cont">
+                                {/* <img style={{ width: 28 }} src={ASSETS_BASE_URL + "/img/chatbt_new.svg"} /> */}
+                                 {/* <img style={{ width: 28 }} src={ASSETS_BASE_URL + "/img/chatbt_new.svg"} /> */}
+                                 <img style={{ width: 40 }} src={ASSETS_BASE_URL + "/img/viplog.png"} />
                             </div>
-                            <p style={{ fontSize: 11 }}>Free Online</p>
-                            <p style={{ fontSize: 11 }}>Doctor Consult</p>
+                            {/* <p style={{ fontSize: 11 }}>Free Online</p>
+                            <p style={{ fontSize: 11 }}>Doctor Consult</p> */}
+                            <p className="vip-foot-txt">Save Upto 70%</p>
                         </div>
                     </div>
                     <div className="chat-div-containers" style={this.props.searchPackagePage ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
