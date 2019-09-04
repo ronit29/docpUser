@@ -82,8 +82,8 @@ class VipClubView extends React.Component {
 
     proceed() {
         if (STORAGE.checkAuth()) {
-            // this.props.history.push('/vip-club-member-details')
-            this.props.history.push('/vip-club-static-pages')
+            this.props.history.push('/vip-club-member-details')
+            // this.props.history.push('/vip-club-static-pages')
         } else {
             this.setState({ showPopup: true })
         }

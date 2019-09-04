@@ -4,6 +4,7 @@ import ChatPanel from '../commons/ChatPanel'
 import VipProposer from './vipClubSelf.js'
 import VipProposerFamily from './vipClubFamilyMembers.js'
 import SnackBar from 'node-snackbar'
+import PaymentForm from '../commons/paymentForm'
 
 class VipClubMemberDetailsView extends React.Component{
 	constructor(props) {
@@ -26,7 +27,8 @@ class VipClubMemberDetailsView extends React.Component{
             show_selected_profiles:[],
             validateDobErrors:[],
            	errorMessages:[],
-           	endorsementError:[]
+           	endorsementError:[],
+           	paymentData: null
         }
     }
     componentDidMount(){
@@ -447,8 +449,22 @@ class VipClubMemberDetailsView extends React.Component{
     /*checkIsEmailVerfied(){// to be deleted
     	
     }*/
+
+    processPayment(data) {
+        if (data && data.status) {
+            this.setState({ paymentData: data.data }, () => {
+            	setTimeout(()=>{
+            		if (document.getElementById('paymentForm') && Object.keys(this.state.paymentData).length > 0) {
+	                    let form = document.getElementById('paymentForm')
+	                    form.submit()
+	                }
+            	},500)
+            })
+        }
+    }
     
     proceedPlan(){ //new
+    	let success_id
     	let data = {}
     	let isDummyUser
     	let self_profile={}
@@ -536,7 +552,8 @@ class VipClubMemberDetailsView extends React.Component{
 	    			console.log('yes')
 	    		}else{
 	    			var members = {}
-		    		members.title = self_profile.title 
+		    		members.title = self_profile.title
+		    		members.relation = "SELF" 
 		    		members.first_name = self_profile.name 
 		    		members.last_name = self_profile.last_name 
 		    		members.email = self_profile.email 
@@ -548,7 +565,14 @@ class VipClubMemberDetailsView extends React.Component{
 		    		members.profile = self_profile.profile_id
 		    		data.members.push(members)
 		    		console.log(data)
-		    		this.props.vipClubPay(data)
+		    		this.props.vipClubPay(data,(resp)=>{
+		    			if(resp && resp.payment_required){
+                            this.processPayment(resp)
+						}else{
+							success_id = '/vip-club-activated-details?payment_success=true&id='+resp.data.id
+							this.props.history.push(success_id)
+						}
+		    		})
 	    		}
 	    		// this.props.history.push('/vip-club-activated-details')
 	    	}
@@ -644,6 +668,9 @@ class VipClubMemberDetailsView extends React.Component{
 					<ChatPanel />
 					</div>
 				</section>
+				{
+                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='opd' /> : ""
+                }
 			</div>
 			)
 	}

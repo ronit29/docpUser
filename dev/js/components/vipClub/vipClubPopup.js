@@ -137,10 +137,12 @@ class VipLoginPopup extends React.Component {
                         }
                         if (exists.user_exists) {
                             this.props.closeLeadPopup()
-                            this.props.history.push('/vip-club-static-pages')
+                            this.props.history.push('/vip-club-member-details')
+                            // this.props.history.push('/vip-club-static-pages')
                         } else {
                             this.props.closeLeadPopup()
-                            this.props.history.push('/vip-club-static-pages')
+                            this.props.history.push('/vip-club-member-details')
+                            // this.props.history.push('/vip-club-static-pages')
                         }
                         // this.props.getInsurance(false, (resp) => {
                         //     if (!resp.certificate) {
