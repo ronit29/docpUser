@@ -3499,11 +3499,19 @@ p.sb-para {
 }
 .vip-logo-cont h1 {
 	color: white;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
-    margin: 8px 0px;
+    margin: 0px 0px;
     display: flex;
     align-items: flex-end;
+    justify-content: center;
+}
+.vip-new-lft-tag{
+    position: absolute;
+    font-size: 11px;
+    top: 42px;
+    left: 56px;
+    color: #757575;
 }
 .vip-logo-cont p {
     color: white;
@@ -3515,7 +3523,7 @@ p.sb-para {
     margin: 0 5px;
 }
 .vip-main-price{
-	font-size: 20px;
+	font-size: 16px;
     font-weight: 600;
 }
 .font-analyze{
@@ -3533,21 +3541,26 @@ p.sb-para {
     position: sticky;
     top: 59px;
     z-index: 9;
-    background: #fff3eb;
+    background-color: #ffffff;
+    box-shadow: 3px 1px 0px 0px #eae6e6;
 	}
 .vip-tabs-container p.vp-sb-txt {
-		padding: 8px 0px;
-		font-weight: 600;
-		color: #757575;
-		display: flex;
-		align-items: center;
-		border-bottom: 2px solid #1b97fd00;
-		cursor: pointer;
-		flex: 1;
-		text-align: center;
-		justify-content: center;
-		font-size: 15px;
-		position: relative;
+    padding: 8px 0px;
+    font-weight: 600;
+    color: #757575;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #1b97fd00;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+    font-size: 15px;
+    position: relative;
+    border-right: 1px solid #f7f5f5;
+}
+.vip-tabs-container p.vp-sb-txt:last-child {
+    border-right: none;
 }
 p.vp-sb-txt span{
 	font-size: 11px;
@@ -4025,9 +4038,44 @@ img.vipLogiImg {
     margin-top: 30px;
     cursor: pointer;
 }
-.vip-cvpmem {
+.vip-cvpmem-main{
     background: #f7e8a1;
-    border-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.cpm-lst {
+    background: #fcf7df;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+ul.lst-vpp {
+    
+    padding-left: 15px;
+}
+ul.lst-vpp li {
+    font-weight: 500;
+    font-size: 11px;
+    position: relative;
+    margin: 8px 0;
+}
+ul.lst-vpp li::before {
+    color: #f17f3a;
+    content: "\2022";
+    display: inline-block;
+    font-size: 25px;
+    position: absolute;
+    top: 9px;
+    bottom: 0;
+    line-height: 0;
+    margin: auto;
+    left: -12px; 
+}
+
+.vip-cvpmem {
+    
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -4068,7 +4116,7 @@ section.container.container-top-margin.sub-pdng-add{
 }
 @media (max-width: 767px){
 section.container.container-top-margin.sub-pdng-add {
-    padding-top: 120px;
+    padding-top: 110px;
     
 }
 }

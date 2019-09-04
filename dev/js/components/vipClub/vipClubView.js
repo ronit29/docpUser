@@ -38,14 +38,14 @@ class VipClubView extends React.Component {
             let resp = this.props.selected_vip_plan
             this.setState({ selected_plan_data: resp, selected_plan_id: resp.id })
         }
-        let loginUser 
+        let loginUser
         let lead_data = queryString.parse(this.props.location.search)
-        if(STORAGE.checkAuth() && this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile){
-            loginUser  = this.props.USER.profiles[this.props.USER.defaultProfile]
-                if(Object.keys(loginUser).length>0){
-                    this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number,lead_data, this.props.selectedLocation,loginUser.name)
-                }
+        if (STORAGE.checkAuth() && this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
+            loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
+            if (Object.keys(loginUser).length > 0) {
+                this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name)
             }
+        }
 
         let self = this
         if (window && document) {
@@ -99,9 +99,9 @@ class VipClubView extends React.Component {
         console.log(data)
         let redirectUrl = ''
 
-        if(data.url) {
+        if (data.url) {
             redirectUrl = `/${data.url}?showPopup=true`
-        }else {
+        } else {
             redirectUrl = `/ipd/hospital/${data.id}?showPopup=true`
         }
 
@@ -123,8 +123,8 @@ class VipClubView extends React.Component {
                         </div>
                         <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
                             <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
-                            <h1 className="scrl-cont-dat">in Just <span className="vip-prc-cut">₹{this.state.selected_plan_data.mrp}</span> <span className="vip-main-price">₹{this.state.selected_plan_data.deal_price}</span>  </h1>
-                            {/* <p className="scrl-cont-dat">1 year upto 4 members</p> */}
+                            <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
+                            <h1 className="scrl-cont-dat">for just <span className="vip-prc-cut">₹{this.state.selected_plan_data.mrp}</span> <span className="vip-main-price">₹{this.state.selected_plan_data.deal_price}</span>  </h1>
                             {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
                         </div>
                     </div>
@@ -132,7 +132,7 @@ class VipClubView extends React.Component {
                         this.state.showPopup ?
                             <VipLoginPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} popupClass={this.state.popupClass} overlayClass={this.state.overlayClass} identifyUserClick={this.state.identifyUserClick} /> : ''
                     }
-                    <section className={`container container-top-margin sub-pdng-add ${this.state.toggleTabType?'sub-pdng-rmv':''}`}>
+                    <section className={`container container-top-margin sub-pdng-add ${this.state.toggleTabType ? 'sub-pdng-rmv' : ''}`}>
                         <div className="row main-row parent-section-row">
                             <LeftBar />
                             <div className="col-12 center-column">
@@ -145,19 +145,51 @@ class VipClubView extends React.Component {
                                                     Object.entries(this.props.vipClubList.plans).map(function ([key, value]) {
                                                         return <p onClick={self.selectPlan.bind(self, value)} key={key} className={`vp-sb-txt ${value.id == self.state.selected_plan_id ? 'vp-act' : ''}`}>{value.plan_name} <span>
                                                             {`(₹ ${value.deal_price})`}
-                                                        </span>{key == 1?<b className="vip-popluer">POPULAR</b>:''}</p>
+                                                        </span>{key == 1 ? <b className="vip-popluer">POPULAR</b> : ''}</p>
                                                     })
                                                     : ''
                                             }
                                         </div>
-                                        <div className="vip-cvpmem mb-24">
-                                            <p className="vip-vld">
-                                                <img src={ASSETS_BASE_URL + '/img/vipcal.svg'} /><span>Validity: <b>1 Year</b></span>
-                                            </p>
-                                            <p className="vip-vld">
-                                                <img src={ASSETS_BASE_URL + '/img/vipuser.svg'} /><span>Covers upto: <b>4 Members</b></span>
-                                            </p>
+                                        <div className="mb-24">
+                                            <div className="vip-cvpmem-main">
+                                                <div className="vip-cvpmem">
+                                                    <p className="vip-vld">
+                                                        <img src={ASSETS_BASE_URL + '/img/vipcal.svg'} /><span>Validity: <b>1 Year</b></span>
+                                                    </p>
+                                                    <p className="vip-vld">
+                                                        <img src={ASSETS_BASE_URL + '/img/vipuser.svg'} /><span>Covers upto: <b>4 Members</b></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div className="cpm-lst">
+                                                <ul className="lst-vpp">
+                                                    {
+                                                        Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.doctor_consult_amount != ''?
+                                                            <li>In-Clinic Consults: ₹{this.state.selected_plan_data.worth.doctor_consult_amount}  </li>
+                                                        :''
+                                                    }
+                                                    {
+                                                        Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.health_checkups_amount != ''?
+                                                            <li>Health Checkups: ₹{this.state.selected_plan_data.worth.health_checkups_amount}</li>
+                                                        :''
+                                                    }
+                                                </ul>
+                                                <ul className="lst-vpp">
+                                                    {
+                                                        Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.online_chat_amount != ''?
+                                                            <li>Unlimited Online Consult: ₹{this.state.selected_plan_data.worth.online_chat_amount}</li>
+                                                        :''
+                                                    }
+                                                    {
+                                                        Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.tax_rebate != ''?
+                                                            <li>Tax Benefit (80D): ₹{this.state.selected_plan_data.worth.tax_rebate}</li>
+                                                        :''
+                                                    }
+                                                </ul>
+                                            </div>
                                         </div>
+
+
                                         {
                                             this.state.selected_plan_data && this.state.selected_plan_data.worth && Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.doctor_consult_amount != '' ?
                                                 <div className="vip-offer-cards mb-24">
@@ -181,11 +213,11 @@ class VipClubView extends React.Component {
                                                         <div className="pkgCardsList d-inline-flex sub-wd-cards top_pkgCat">
                                                             {
                                                                 Object.entries(this.state.selected_plan_data.enabled_hospital_networks).map(function ([key, value]) {
-                                                                    return <div onClick={self.navigateTo.bind(self,value)} key={key} className="pkgcustCards vip-hsp-card-mn">
-                                                                            <div className="vip-hsp-img">
-                                                                                <img className="img-fluid" src={value.logo} />
-                                                                            </div>
+                                                                    return <div onClick={self.navigateTo.bind(self, value)} key={key} className="pkgcustCards vip-hsp-card-mn">
+                                                                        <div className="vip-hsp-img">
+                                                                            <img className="img-fluid" src={value.logo} />
                                                                         </div>
+                                                                    </div>
                                                                 })
                                                             }
                                                         </div>
@@ -212,7 +244,7 @@ class VipClubView extends React.Component {
                                                         <h4 className="vip-card-heading">Free Full Body Preventive Health Checkup </h4>
                                                         {
                                                             this.state.selected_plan_data && this.state.selected_plan_data.worth && Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.members_covered_in_package ?
-                                                                <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />{this.state.selected_plan_data.worth.members_covered_in_package} {this.state.selected_plan_data.worth.members_covered_in_package == 1?'member':'members'} covered</p>
+                                                                <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />{this.state.selected_plan_data.worth.members_covered_in_package} {this.state.selected_plan_data.worth.members_covered_in_package == 1 ? 'member' : 'members'} covered</p>
                                                                 : ''
                                                         }
                                                         {
@@ -233,7 +265,7 @@ class VipClubView extends React.Component {
                                             </div>
                                         </div>
                                         {
-                                            this.state.selected_plan_data && this.state.selected_plan_data.worth && Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.tax_rebate != ''?
+                                            this.state.selected_plan_data && this.state.selected_plan_data.worth && Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.tax_rebate != '' ?
                                                 <div className="vip-offer-cards mb-24">
                                                     <div className="vip-free-doc vip-benft-bg">
                                                         <h4 className="vip-card-heading">Tax Benefits </h4>
@@ -253,25 +285,26 @@ class VipClubView extends React.Component {
                                                     </div>
                                                     <div className="vip-prc-cards-cont">
                                                         <div className="vip-prc-cards">
+                                                            <h5 className="vip-prc-hdng">You Get</h5>
+                                                            <ul className="vip-prc-lst">
+                                                                <li><p>In-Clinic Consult: <span>₹{this.state.selected_plan_data.you_get.doctor_consult_amount}</span></p></li>
+                                                                <li><p>Online Consult: <span>₹{this.state.selected_plan_data.you_get.online_chat_amount}</span></p></li>
+                                                                <li><p>Health Checkup: <span>₹{this.state.selected_plan_data.you_get.health_checkups_amount}</span></p></li>
+                                                                <li className="ttl-benft"><p>Total Benefits: <span>₹{this.state.selected_plan_data.you_get.effective_price}</span></p></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="vip-prc-cards">
                                                             <h5 className="vip-prc-hdng">You Pay</h5>
                                                             <ul className="vip-prc-lst">
                                                                 <li><p>Plan Price: <span>₹{this.state.selected_plan_data.you_pay.mrp}</span></p></li>
                                                                 <li><p>Offer Price: <span>₹{this.state.selected_plan_data.you_pay.deal_price}</span></p></li>
-                                                                <li><p>Tax Rebate: <span>₹{this.state.selected_plan_data.you_pay.tax_rebate}</span></p></li>
+                                                                <li><p>Tax Rebate (80D): <span>₹{this.state.selected_plan_data.you_pay.tax_rebate}</span></p></li>
                                                                 <li className="effective-prc"><p>Effective Price: <span>₹{this.state.selected_plan_data.you_pay.effective_price}</span></p></li>
                                                             </ul>
                                                         </div>
-                                                        <div className="vip-prc-cards">
-                                                            <h5 className="vip-prc-hdng">You Get</h5>
-                                                            <ul className="vip-prc-lst">
-                                                                <li><p>Doctor Consult: <span>₹{this.state.selected_plan_data.you_get.doctor_consult_amount}</span></p></li>
-                                                                <li><p>Online Chat: <span>₹{this.state.selected_plan_data.you_get.online_chat_amount}</span></p></li>
-                                                                <li><p>Health Checkup: <span>₹{this.state.selected_plan_data.you_get.health_checkups_amount}</span></p></li>
-                                                                <li className="ttl-benft"><p>Effective Price: <span>₹{this.state.selected_plan_data.you_get.effective_price}</span></p></li>
-                                                            </ul>
-                                                        </div>
+
                                                     </div>
-                                                    <p className="vip-no-cost"><img className="img-fluid" src={ASSETS_BASE_URL + "/img/coinico.png"} /> No Cost EMI @ <span>  ₹{Math.round(parseInt(this.state.selected_plan_data.deal_price) / 12)}</span></p>
+                                                    <p className="vip-no-cost"><img className="img-fluid" src={ASSETS_BASE_URL + "/img/coinico.png"} /> No Cost EMI Starts @ <span>  ₹{Math.round(parseInt(this.state.selected_plan_data.deal_price) / 12)}</span></p>
                                                 </div>
                                                 : ''
                                         }
@@ -293,7 +326,7 @@ class VipClubView extends React.Component {
                             </div>
                         </div>
                         <button className="vip-foot-btn" onClick={this.proceed.bind(this)}><p>Become a Docprime VIP @ ₹{this.state.selected_plan_data.deal_price}</p>
-                            <p className="vipbtn-sub-txt">No cost EMI @ ₹{Math.round(parseInt(this.state.selected_plan_data.deal_price) / 12)}</p>
+                            <p className="vipbtn-sub-txt">No Cost EMI Starts @ ₹{Math.round(parseInt(this.state.selected_plan_data.deal_price) / 12)}</p>
                         </button>
                     </section>
                 </div>

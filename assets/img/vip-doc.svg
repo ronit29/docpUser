@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 50 50">
+    <defs>
+        <style>
+            .cls-1,.cls-3{fill:none;stroke:#000}.cls-1{stroke-miterlimit:10}.cls-2{fill:#f78631}.cls-3{stroke-linecap:round;stroke-linejoin:round}
+        </style>
+    </defs>
+    <path d="M14.45 11.24l3.78-2.66a7.07 7.07 0 0 1 7.59-.33s4.62 3.54 9.75.54a11 11 0 0 1 .43 2.83c0 5.89-4.82 14.91-10.76 14.91s-10.77-9-10.77-14.9c-.04-.13-.03-.26-.02-.39z" class="cls-1"/>
+    <circle cx="35.14" cy="38.14" r="1.66" class="cls-2"/>
+    <path d="M14.45 11.24S15.06 1 25.2.86c0 0 8.17-.14 10.37 7.93M3.53 48.91S0 31.48 19 25.46a8.64 8.64 0 0 0 12.41 0S48.86 29 46.88 48.91z" class="cls-1"/>
+    <path d="M15.85 35.61c-1.73-2.31-2.41-7.22-2.41-7.22M36.41 34.93c1.44-2.26 1.52-6.67 1.52-6.67M15.45 45.4l-1.59.6s-4.12-7.89 2-10c0 0 6.73-3.18 8.73 6.19l-1.71.64" class="cls-3"/>
+    <circle cx="35.14" cy="38.14" r="2.79" class="cls-3"/>
+</svg>
