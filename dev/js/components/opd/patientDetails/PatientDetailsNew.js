@@ -564,6 +564,7 @@ class PatientDetailsNew extends React.Component {
                     this.setState({ loading: false, error: message })
                 }
             })
+            return;
         }
 
         let analyticData = {
