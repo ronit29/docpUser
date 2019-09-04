@@ -3,6 +3,7 @@ import SnackBar from 'node-snackbar'
 import GTM from '../../../helpers/gtm.js'
 import Calendar from 'rc-calendar';
 const moment = require('moment');
+const queryString = require('query-string');
 
 class ChoosePatientNewView extends React.Component {
     constructor(props) {
@@ -302,6 +303,8 @@ class ChoosePatientNewView extends React.Component {
 
     }
     render() {
+        const parsed = queryString.parse(this.props.location.search)
+        
         return (
             <div className={`widget mrb-15 ${this.props.profileError ? 'rnd-error-nm' : ''}`}>
                 {
@@ -372,13 +375,14 @@ class ChoosePatientNewView extends React.Component {
                                 <div class="text-right">
                                    <a href="#" className="text-primary fw-700 text-sm" onClick={this.profileDobValidation.bind(this)}>Update</a>
                                 </div>
-                                :<div class="text-right">
-                                    <a href="#" onClick={(e) => {
-                                    e.preventDefault()
-                                    e.stopPropagation()
-                                    this.props.navigateTo('patient', this.props.is_insurance_applicable)
-                                }} className="text-primary fw-700 text-sm">{this.props.patient ? "Change Patient" : "Select Patient"}</a>
-                            </div>
+                                :(parsed && parsed.cod_to_prepaid=='true')?'':
+                                    <div class="text-right">
+                                            <a href="#" onClick={(e) => {
+                                            e.preventDefault()
+                                            e.stopPropagation()
+                                            this.props.navigateTo('patient', this.props.is_insurance_applicable)
+                                        }} className="text-primary fw-700 text-sm">{this.props.patient ? "Change Patient" : "Select Patient"}</a>
+                                    </div>
                             }
                             <div class="">
                             {this.props.show_insurance_error && this.props.insurance_error_msg?
