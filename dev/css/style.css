@@ -4993,6 +4993,11 @@ p.vip-foot-txt {
     display: flex;
     align-items: flex-start;
 }
+.vip-tp-sub-txt{
+    color: #757575;
+    font-size: 9px;
+    display: block;
+}
 /* ============= New chat container ================= */
 .cat-ico-text{
 	display: flex;
