@@ -82,7 +82,7 @@ class LeftMenu extends React.Component {
                         e.preventDefault()
                         this.props.toggleLeftMenu()
                         this.props.history.push('/vip-club-details?source=mobile-leftmenu-vipClub-clicked')
-                      }} href="#"><img src={ASSETS_BASE_URL + '/img/viplog.png'} alt="" className="vip-lg-sng" />Docprime VIP <span className="vip-new-lft-tag">Save 70% on your Family's Medical Bills</span></a></li>
+                      }} href="#"><img src={ASSETS_BASE_URL + '/img/viplog.png'} alt="" className="vip-lg-sng" />Docprime VIP <span className="vip-new-lft-tag">Save 70% on your family's medical bills</span></a></li>
                   :''}
 
                   {

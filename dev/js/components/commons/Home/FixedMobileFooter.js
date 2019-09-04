@@ -125,7 +125,7 @@ class FixedMobileFooter extends React.Component {
                             : ''
                     }
 
-                    <div className="chat-div-containers" style={this.props.searchPackagePage ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
+                    <div className="chat-div-containers" onClick={() => {
                         let data = {
                             'Category': 'ConsumerApp', 'Action': 'MobileFooterChatClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-chat-clicked'
                         }
