@@ -232,3 +232,15 @@ export const SAVE_IPD_POPUP_DATA = 'SAVE_IPD_POPUP_DATA'
 
 //Hospital Comments
 export const GET_HOSP_COMMENTS = 'GET_HOSP_COMMENTS'
+
+
+//CitiesData
+export const USER_CITIES = 'USER_CITIES'
+
+
+//vip-club
+export const GET_VIP_LIST = 'GET_VIP_LIST'
+export const SELECT_VIP_CLUB_PLAN = 'SELECT_VIP_CLUB_PLAN'
+export const USER_SELF_DETAILS = 'USER_SELF_DETAILS'
+export const SAVE_CURRENT_VIP_MEMBERS = 'SAVE_CURRENT_VIP_MEMBERS'
+export const SELECT_VIP_USER_PROFILE = 'SELECT_VIP_USER_PROFILE'

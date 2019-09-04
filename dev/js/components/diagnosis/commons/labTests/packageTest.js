@@ -75,12 +75,12 @@ class PackageTest extends React.Component {
                     
                 </div>
                 {
-                 this.props.is_plan_applicable || test.hide_price || ( (this.props.is_insurance_applicable || !this.props.selectedTestsCount) && insurance.is_insurance_covered)? "" : <span className="test-price text-sm">₹ {parseInt(deal_price)}<span className="test-mrp">₹ {parseInt(mrp)}</span></span>
+                 this.props.is_plan_applicable || test.hide_price || ( (this.props.is_insurance_applicable || !this.props.selectedTestsCount) && insurance.is_insurance_covered && insurance.is_user_insured)? "" : <span className="test-price text-sm">₹ {parseInt(deal_price)}<span className="test-mrp">₹ {parseInt(mrp)}</span></span>
 
                 }
                     
                 {
-                    this.props.is_plan_applicable || ( (this.props.is_insurance_applicable || !this.props.selectedTestsCount) && insurance.is_insurance_covered)? <span className="test-price text-sm">₹ 0</span>:''
+                    this.props.is_plan_applicable || ( (this.props.is_insurance_applicable || !this.props.selectedTestsCount) && insurance.is_insurance_covered && insurance.is_user_insured)? <span className="test-price text-sm">₹ 0</span>:''
                 }
                 {/*                 
                 <div>

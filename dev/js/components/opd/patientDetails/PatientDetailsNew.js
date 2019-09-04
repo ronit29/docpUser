@@ -348,7 +348,7 @@ class PatientDetailsNew extends React.Component {
 
     profileDataCompleted(data) {
         this.setState({ formData: { ...data } })
-        if (data.name == '' || data.gender == '' || data.phoneNumber == '' || data.email == '' || !data.otpVerifySuccess) {
+        if (data.name == '' || data.gender == '' || data.phoneNumber == '' || data.email == '' || !data.otpVerifySuccess || data.dob == '') {
             this.props.patientDetails(data)
             this.setState({ profileDataFilled: false, showTimeError: false })
         } else if (data.otpVerifySuccess) {
@@ -475,7 +475,8 @@ class PatientDetailsNew extends React.Component {
             payment_type: this.props.payment_type,
             use_wallet: this.state.use_wallet,
             cart_item: this.state.cart_item,
-            utm_tags: utm_tags
+            utm_tags: utm_tags,
+            from_web:true
         }
         let profileData = { ...patient }
         if (profileData && profileData.whatsapp_optin == null) {
@@ -1326,7 +1327,7 @@ class PatientDetailsNew extends React.Component {
                                                                             <p>MRP</p>
                                                                             <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
                                                                         </div>
-                                                                        {priceData.fees != 0?<div className="payment-detail d-flex">
+                                                                        {priceData.fees != 0 && (parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)?<div className="payment-detail d-flex">
                                                                             <p style={{color:'green'}}>Docprime Discount</p>
                                                                             <p style={{color:'green'}}>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
                                                                         </div>
@@ -1384,7 +1385,7 @@ class PatientDetailsNew extends React.Component {
                                                                             </div>
                                                                         </div>
                                                                         {
-                                                                            enabled_for_cod_payment && priceData.fees != 0 && priceData.is_cod_deal_price !== priceData.mrp && priceData.is_cod_deal_price?
+                                                                            enabled_for_cod_payment && priceData.fees != 0 && priceData.is_cod_deal_price !== priceData.mrp && priceData.is_cod_deal_price && (parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))?
                                                                                 <React.Fragment>
                                                                                     <div className="payment-detail d-flex">
                                                                                         <p style={{color:'green'}}>Docprime Discount</p>
@@ -1392,7 +1393,7 @@ class PatientDetailsNew extends React.Component {
                                                                                     </div>
                                                                                     <hr />
                                                                                 </React.Fragment> 
-                                                                            :!is_insurance_applicable &&  enabled_for_cod_payment && priceData.fees == 0 && priceData.is_cod_deal_price !== priceData.mrp && priceData.is_cod_deal_price?
+                                                                            :!is_insurance_applicable &&  enabled_for_cod_payment && priceData.fees == 0 && priceData.is_cod_deal_price !== priceData.mrp && priceData.is_cod_deal_price && (parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))?
                                                                                 <React.Fragment>
                                                                                     <div className="payment-detail d-flex">
                                                                                         <p style={{color:'green'}}>Docprime Discount</p>
