@@ -494,10 +494,52 @@ const categoryTestResults = Loadable({
     webpack: () => [require.resolveWeak('./containers/diagnosis/categoryTestResults.js')],
     loading,
 })
+
+const LensFit = Loadable({
+    loader: () => import('./containers/commons/lensFit'),
+    modules: ['./containers/commons/lensFit'],
+    webpack: () => [require.resolveWeak('./containers/commons/lensFit')],
+    loading,
+})
+
 const CancelPolicyApp = Loadable({
     loader: () => import('./containers/commons/cancelPolicyApp.js'),
     modules: ['./containers/commons/cancelPolicyApp.js'],
     webpack: () => [require.resolveWeak('./containers/commons/cancelPolicyApp.js')],
+    loading,
+})
+
+const VipClub = Loadable({
+    loader: () => import('./containers/commons/VipClub'),
+    modules: ['./containers/commons/VipClub'],
+    webpack: () => [require.resolveWeak('./containers/commons/VipClub')],
+    loading,
+})
+
+const VipClubView= Loadable({
+    loader: () => import('./containers/vipClub/VipClub'),
+    modules: ['./containers/vipClub/VipClub'],
+    webpack: () => [require.resolveWeak('./containers/vipClub/VipClub')],
+    loading,
+})
+
+const VipClubMemberDetailsView = Loadable({
+    loader: () => import('./containers/vipClub/VipClubMemberDetails'),
+    modules: ['./containers/vipClub/VipClubMemberDetails'],
+    webpack: () => [require.resolveWeak('./containers/vipClub/VipClubMemberDetails')],
+    loading,
+})
+
+const VipClubActivatedView = Loadable({
+    loader: () => import('./containers/vipClub/VipClubActivatedDetails'),
+    modules: ['./containers/vipClub/VipClubActivatedDetails'],
+    webpack: () => [require.resolveWeak('./containers/vipClub/VipClubActivatedDetails')],
+    loading,
+})
+const VipClubStaticView = Loadable({
+    loader: () => import('./containers/vipClub/VipClubStaticView'),
+    modules: ['./containers/vipClub/VipClubStaticView'],
+    webpack: () => [require.resolveWeak('./containers/vipClub/VipClubStaticView')],
     loading,
 })
 /**
@@ -620,8 +662,15 @@ let routes = [
     { path: '/categoryTestResults', exact: true, component: categoryTestResults },
     { path: '/*-tpcp', exact: true, component: categoryTestResults },
     { path: '/hospitals/inventory', exact: true, component: HospitalList, RENDER_ON_SERVER: true },
-    { path: '/cancel-policy-app',exact:true, component: CancelPolicyApp}
-
+    { path: '/lensfit-tnc', exact:true, component:LensFit,RENDER_ON_SERVER:true },
+    { path: '/cancel-policy-app',exact:true, component: CancelPolicyApp},
+    { path: '/vip-club', exact:true, component:VipClub,RENDER_ON_SERVER:true },
+    { path: '/lensfit', exact:true, component:VipClub,RENDER_ON_SERVER:true },
+    { path: '/cancel-policy-app',exact:true, component: CancelPolicyApp},
+    { path: '/vip-club-details',exact:true, component: VipClubView},
+    { path: '/vip-club-member-details',exact:true, component: VipClubMemberDetailsView},
+    { path: '/vip-club-activated-details',exact:true, component: VipClubActivatedView},
+    { path: '/vip-club-static-pages', exact:true, component:VipClubStaticView}
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {

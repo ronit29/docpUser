@@ -24,6 +24,8 @@ import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConf
 import IpdLeadForm from '../../../containers/ipd/ipdLeadForm.js'
 import PaymentForm from '../../commons/paymentForm'
 import IpdSecondPopup from '../../../containers/ipd/IpdDoctorCityPopup.js'
+import LensfitPopup from '../../diagnosis/bookingSummary/lensfitPopup.js'
+
 const MONTHS = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
 const WEEK_DAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
 
@@ -65,7 +67,11 @@ class PatientDetailsNew extends React.Component {
             firstLeadId:'',
             timeErrorText:'',
             pay_btn_loading: true,
-            isMatrix:parsed.is_matrix
+            isMatrix:parsed.is_matrix,
+            show_lensfit_popup:false,
+            lensfit_coupons:null,
+            lensfit_decline:false,
+            isLensfitSpecific:parsed.isLensfitSpecific|| false
         }
     }
 
@@ -147,7 +153,7 @@ class PatientDetailsNew extends React.Component {
                         }
                     } else {
                         this.setState({ coupon_loading: true })
-                        this.getAndApplyBestCoupons(deal_price)
+                        this.getAndApplyBestCoupons(deal_price,false)
                     }
                     this.setState({'pay_btn_loading': false})
                 })
@@ -168,7 +174,7 @@ class PatientDetailsNew extends React.Component {
                         }
                     } else {
                         this.setState({ coupon_loading: true })
-                        this.getAndApplyBestCoupons(deal_price)
+                        this.getAndApplyBestCoupons(deal_price,false)
                     }
                     this.setState({'pay_btn_loading': false})
                 })
@@ -193,7 +199,7 @@ class PatientDetailsNew extends React.Component {
             // if (this.props.selectedDoctor && deal_price && this.props.couponAutoApply) {
             if (this.props.selectedDoctor && deal_price) {
                 this.setState({'pay_btn_loading': true})
-                this.getAndApplyBestCoupons(deal_price)
+                this.getAndApplyBestCoupons(deal_price,false)
             } else {
                 this.props.resetOpdCoupons()
                 this.setState({use_wallet: true, is_payment_coupon_applied: false})
@@ -201,6 +207,14 @@ class PatientDetailsNew extends React.Component {
             this.setState({'pay_btn_loading': false})
         }
 
+        console.log(this.state.isLensfitSpecific)
+        if(this.state.isLensfitSpecific){
+            setTimeout(() => {
+                if (document.getElementById('confirm_booking')) {
+                    document.getElementById('confirm_booking').click()
+                }
+            },3000)
+        }
 
     }
 
@@ -215,12 +229,17 @@ class PatientDetailsNew extends React.Component {
         return validCoupon
     }
 
-    getAndApplyBestCoupons(deal_price = 0) {
+    getAndApplyBestCoupons(deal_price = 0,isLensfit,lensFitData) {
         this.props.getCoupons({
             productId: 1, deal_price: deal_price, doctor_id: this.props.selectedDoctor, hospital_id: this.state.selectedClinic, profile_id: this.props.selectedProfile, procedures_ids: this.getProcedureIds(this.props), cart_item: this.state.cart_item,
             cb: (coupons) => {
                 if (coupons) {
-                    let validCoupon = this.getValidCoupon(coupons)
+                    let validCoupon
+                    if(isLensfit){
+                        validCoupon = lensFitData
+                    }else{
+                        validCoupon = this.getValidCoupon(coupons)
+                    }
                     if (validCoupon) {
                         this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '',pay_btn_loading: true })
                         this.props.applyCoupons('1', validCoupon, validCoupon.coupon_id, this.props.selectedDoctor, (success)=>{
@@ -232,11 +251,20 @@ class PatientDetailsNew extends React.Component {
                         if (validCoupon.is_payment_specific) {
                             this.setState({use_wallet: false, is_payment_coupon_applied: true})
                         }
+                        if(isLensfit){
+                            this.setState({show_lensfit_popup:false})
+                        }
                     } else {
+                        if(isLensfit){
+                           this.setState({show_lensfit_popup:false})
+                        }
                         this.props.resetOpdCoupons()
                         this.setState({use_wallet: true, is_payment_coupon_applied: false,'pay_btn_loading': false})
                     }
                 } else {
+                    if(isLensfit){
+                       this.setState({show_lensfit_popup:false})
+                    }
                     this.props.resetOpdCoupons()
                     this.setState({use_wallet: true, is_payment_coupon_applied: false, 'pay_btn_loading': false})
                 }
@@ -288,7 +316,7 @@ class PatientDetailsNew extends React.Component {
                             }
                         } else {
                             this.setState({ coupon_loading: true })
-                            this.getAndApplyBestCoupons(deal_price)
+                            this.getAndApplyBestCoupons(deal_price,false)
                         }
                         this.setState({'pay_btn_loading': false})
                     })
@@ -432,7 +460,6 @@ class PatientDetailsNew extends React.Component {
 
         let is_insurance_applicable = false
         let is_selected_user_insured = false
-
         if (this.props.selectedSlot && this.props.selectedSlot.date && this.props.DOCTORS[this.props.selectedDoctor]) {
             let priceData = { ...this.props.selectedSlot.time }
             let hospitals = this.props.DOCTORS[this.props.selectedDoctor].hospitals
@@ -459,6 +486,13 @@ class PatientDetailsNew extends React.Component {
         is_insurance_applicable = is_insurance_applicable && is_selected_user_insured
 
         // React guarantees that setState inside interactive events (such as click) is flushed at browser event boundary
+        let show_lensfit=this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].lensfit_offer?this.props.DOCTORS[this.props.selectedDoctor].lensfit_offer.applicable:false
+        let lensfit_coupons =this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].lensfit_offer?this.props.DOCTORS[this.props.selectedDoctor].lensfit_offer.coupon:{}
+
+        if(!this.state.show_lensfit_popup && !this.state.lensfit_decline && show_lensfit && !is_insurance_applicable && lensfit_coupons && Object.keys(lensfit_coupons).length > 0 && this.state.couponId !=lensfit_coupons.coupon_id){
+                this.setState({show_lensfit_popup:true, lensfit_coupons:lensfit_coupons})
+            return
+        }
 
         if (!this.state.showConfirmationPopup && !addToCart && (total_price == 0 || (is_insurance_applicable && this.props.payment_type == 1) || (this.state.use_wallet && total_wallet_balance > 0))) {
             this.setState({ showConfirmationPopup: true })
@@ -482,14 +516,15 @@ class PatientDetailsNew extends React.Component {
             payment_type: this.props.payment_type,
             use_wallet: this.state.use_wallet,
             cart_item: this.state.cart_item,
-            utm_tags: utm_tags
+            utm_tags: utm_tags,
+            from_web:true
         }
         let profileData = { ...patient }
         if (profileData && profileData.whatsapp_optin == null) {
             profileData['whatsapp_optin'] = this.state.whatsapp_optin
             this.props.editUserProfile(profileData, profileData.id)
         }
-        if (this.props.disCountedOpdPrice && this.props.payment_type == 1 && !is_insurance_applicable) {
+        if (this.props.disCountedOpdPrice >= 0 && this.props.payment_type == 1 && !is_insurance_applicable) {
             postData['coupon_code'] = this.state.couponCode ? [this.state.couponCode] : []
         }
 
@@ -946,6 +981,23 @@ class PatientDetailsNew extends React.Component {
         this.props.selectOpdTimeSLot(data, false, null, extraTimeParams)
     }
 
+    applyLensFitCoupons(deal_price,coupon){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'LensFitOPDApplyClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lensfit-OPD-apply-clicked'
+        }
+        GTM.sendEvent({ data: data })
+        this.getAndApplyBestCoupons(deal_price,true,coupon)
+    }
+
+    closeLensFitPopup(){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'LensFitOpdDontWantClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lensfit-opd-dont-want-clicked'
+        }
+
+        GTM.sendEvent({ data: data })
+        this.setState({show_lensfit_popup:false,lensfit_decline:true})
+    }
+
     render() {
         const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
@@ -1097,6 +1149,11 @@ class PatientDetailsNew extends React.Component {
                     this.state.showConfirmationPopup && is_selected_user_insurance_status != 4 ?
                         <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} />
                         : ''
+                }
+                {
+                    this.state.show_lensfit_popup?
+                        <LensfitPopup {...this.props} lensfit_coupons ={this.state.lensfit_coupons} applyLensFitCoupons = {this.applyLensFitCoupons.bind(this)} closeLensFitPopup={this.closeLensFitPopup.bind(this)} deal_price={priceData.deal_price} isOPD={true}/>
+                    :''
                 }
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
