@@ -13,17 +13,17 @@ class VipProposer extends React.Component {
 			// middle_name: '', // to be deleted
 			last_name: '',
 			email: '',
-			// gender: '',
+			gender: '',
 			dob: '',
 			pincode: '',
 			address: '',
 			title: '',
 			id: '',
-			relation: 'self',
-			member_type: 'adult',
+			relation: 'SELF',
+			// member_type: 'adult',
 			state: '',
-			town: '',
-			district: '',
+			// town: '',
+			// district: '',
 			profile_flag: true,
 			// show_lname: this.props.no_lname, // to be deleted
 			// show_lname_flag:this.props.no_lname, // to be deleted
@@ -33,7 +33,7 @@ class VipProposer extends React.Component {
 			// district_code: '',
 			// town_code: '',
 			// selectedDateSpan: new Date(), // to be deleted
-			no_lname: false,
+			// no_lname: false,
 			disableName: false,
 			disableEmail: false,
 			disableDob: false,
@@ -100,11 +100,11 @@ class VipProposer extends React.Component {
 				if (Object.keys(profile).length) {
 					this.setState({ ...profile, disableEmail: profile.email != '' ? true : false, disableDob: profile.dob != null ? true : false, disableName: profile.name != '' ? true : false }, () => {
 						if (profile.gender == 'm') {
-							this.setState({ title: 'mr.' }, () => {
+							this.setState({ title: 'mr.',gender:profile.gender }, () => {
 								this.handleSubmit(false,false)
 							})
 						} else if (profile.gender == 'f') {
-							this.setState({ title: 'mrs.' }, () => {
+							this.setState({ title: 'mrs.',gender:profile.gender }, () => {
 								this.handleSubmit(false,false)
 							})
 						}
@@ -146,6 +146,11 @@ class VipProposer extends React.Component {
 				})
 			} else {
 				this.setState({ name: profile.isDummyUser ? '' : profile.name })
+			}
+			if(profile.gender == 'm'){
+				this.setState({gender:profile.gender})
+			}else if(profile.gender == 'f'){
+				this.setState({gender:profile.gender})
 			}
 			if (profile.isDummyUser && profile.dob) {
 				this.setState({ day: null, year: null, mnth: null })
@@ -292,11 +297,11 @@ class VipProposer extends React.Component {
 			this.setState({ dateModal: false })
 		}
 	}*/
-	handleLastname(event) {
-		this.setState({ no_lname: !this.state.no_lname }, () => {
-			this.handleSubmit(false,false)
-		})
-	}
+	// handleLastname(event) {
+	// 	this.setState({ no_lname: !this.state.no_lname }, () => {
+	// 		this.handleSubmit(false,false)
+	// 	})
+	// }
 
 	// showAlert(type) {
 	// 	SnackBar.show({ pos: 'bottom-center', text: "Please select" + type + "first" });
@@ -431,11 +436,12 @@ class VipProposer extends React.Component {
 		let inp
 		if (type == 'isState') {
 			inp = document.getElementsByClassName('userState')[0]
-		} else if (type == 'isDistrict') {
-			inp = document.getElementsByClassName('userDistrict')[0]
-		} else if (type == 'isTown') {
-			inp = document.getElementsByClassName('userTown')[0]
-		}
+		} 
+		// else if (type == 'isDistrict') {
+		// 	inp = document.getElementsByClassName('userDistrict')[0]
+		// } else if (type == 'isTown') {
+		// 	inp = document.getElementsByClassName('userTown')[0]
+		// }
 		var x = document.getElementsByClassName("autocomplete-items");
 		for (var i = 0; i < x.length; i++) {
 			if (elmnt != x[i] && elmnt != inp) {
@@ -688,12 +694,12 @@ class VipProposer extends React.Component {
 								className={`form-control ins-form-control ${this.props.validateErrors.indexOf('last_name') > -1 ? 'fill-error' : ''}`} required 
 								autoComplete="last_name" 
 								name="last_name" 
-								value={this.state.no_lname ? '' : this.state.last_name} 
+								value={this.state.last_name} 
 								data-param='last_name' 
 								onChange={this.handleChange.bind(this, 'last_name')} 
 								onBlur={this.handleSubmit.bind(this, false,false)} 
 								onFocus={this.handleOnFocus.bind(this, 'last_name')} 
-								disabled={this.state.no_lname || this.props.is_from_payment ? 'disabled' : ""} 
+								disabled={this.props.is_from_payment ? 'disabled' : ""} 
 								onKeyPress={this.handleNameCharacters.bind(this, 'last_name')} 
 							/>
 							<label className={this.state.disableName ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot"></span>Last Name</label>

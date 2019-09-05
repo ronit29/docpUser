@@ -512,7 +512,7 @@ class VipClubMemberDetailsView extends React.Component{
 							fields.push('dob')
 						}
 
-						if(param.relation =='self'){
+						if(param.relation =='SELF'){
 							if(param.state == "" || param.state_code == ""){  
 								is_disable = true
 								fields.push('state')
@@ -551,6 +551,7 @@ class VipClubMemberDetailsView extends React.Component{
 	    		if(this.props.is_from_payment){
 	    			console.log('yes')
 	    		}else{
+	    			console.log(self_profile)
 	    			var members = {}
 		    		members.title = self_profile.title
 		    		members.relation = "SELF" 
@@ -563,6 +564,7 @@ class VipClubMemberDetailsView extends React.Component{
 		    		members.address = self_profile.address
 		    		members.pincode = self_profile.pincode
 		    		members.profile = self_profile.profile_id
+		    		members.gender = self_profile.gender
 		    		data.members.push(members)
 		    		console.log(data)
 		    		this.props.vipClubPay(data,(resp)=>{
