@@ -1105,7 +1105,13 @@ class BookingSummaryViewNew extends React.Component {
                                             <div className="container-fluid">
                                                 <div className="row mrb-60">
                                                     <div className="col-12">
-                                                        <div className="widget mrb-15 mrng-top-12" onClick={this.goToProfile.bind(this, this.props.selectedLab, labDetail.url)} style={{ cursor: 'pointer' }}>
+                                                        <div className="widget mrb-15 mrng-top-12" onClick={()=>{
+                                                            if(parsed && parsed.test_ids){
+
+                                                            }else{
+                                                                this.goToProfile(this.props.selectedLab, labDetail.url)    
+                                                            }
+                                                        }} style={{ cursor: 'pointer' }}>
                                                             <div className="widget-content">
                                                                 <div className="lab-visit-time d-flex jc-spaceb">
                                                                     <h4 className="title d-flex">
