@@ -581,10 +581,10 @@ class VipClubMemberDetailsView extends React.Component{
 				    		members.email = self_profile.email
 							return 	data.members.push(members)
 					},this)}
-					console.log(members)
+					console.log(data)
 	    			// this.props.addVipMembersData()
 	    		}else{
-	    			console.log(self_profile)
+	    			// console.log(self_profile)
 	    			var members = {}
 		    		members.title = self_profile.title
 		    		// members.relation = "SELF" 

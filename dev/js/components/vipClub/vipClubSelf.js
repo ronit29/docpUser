@@ -135,9 +135,7 @@ class VipProposer extends React.Component {
 		    		})
 					if (Object.keys(profile).length) {
 						oldDate = profile.dob.split('-')
-						console.log(profile)
-						console.log('profile')
-						this.setState({name:profile.first_name,last_name:profile.last_name,title:profile.title,email:profile.email,year: oldDate[0], mnth: oldDate[1], day: oldDate[2],state:profile.city,state_code:profile.city_code,address:profile.address,pincode:profile.pincode,id:profile.profile,profile_id:profile.profile,gender:profile.gender,profile_flag: false,dob:profile.dob},()=>{
+						this.setState({...profile,name:profile.first_name,last_name:profile.last_name,title:profile.title,email:profile.email,year: oldDate[0], mnth: oldDate[1], day: oldDate[2],state:profile.city,state_code:profile.city_code,address:profile.address,pincode:profile.pincode,id:profile.profile,profile_id:profile.profile,gender:profile.gender,profile_flag: false,dob:profile.dob},()=>{
 							this.populateDates()
 							this.handleSubmit()
 						})
