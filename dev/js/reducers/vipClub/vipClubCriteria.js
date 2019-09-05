@@ -1,6 +1,6 @@
 import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES,SELF_DATA,INSURANCE_PAY,SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE, SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS, DELETE_MEMBER_PROOF, SAVE_INSURANCE_BANK_DETAILS, SAVE_AVAIL_NOW_INSURANCE, CLEAR_AVAIL_NOW_INSURANCE, CANCEL_REASON_INSURANCE, CLEAR_BANK_DETAILS_INSURANCE,
 
-GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE
+GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA
 } from '../../constants/types';
 
 const defaultState = {
@@ -23,7 +23,9 @@ LOAD_VIP_CLUB:false,
 vipClubList:[],
 selected_vip_plan:{},
 vipClubMemberDetails:{},
-currentSelectedVipMembersId:[]
+currentSelectedVipMembersId:[],
+LOAD_VIP_CLUB_DASHBOARD:false,
+vip_club_db_data:{}
 }
 
 const DUMMY_PROFILE = {
@@ -45,8 +47,6 @@ export default function (state = defaultState, action) {
                 newState.vipClubList = action.payload.plus_data[0]
                 if(action.payload.plus_data[0].plans && action.payload.plus_data[0].plans.length >0){
                     if(Object.keys(newState.selected_vip_plan).length == 0){
-                        // console.log(newState.selected_vip_plan)
-                        // debugger
                         newState.selected_vip_plan = action.payload.plus_data[0].plans.filter((x => x.is_selected))[0]
                         if(Object.keys(newState.selected_vip_plan).length){
                             newState.selected_vip_plan = newState.selected_vip_plan
@@ -103,6 +103,29 @@ export default function (state = defaultState, action) {
                 currentSelectedVipMembersId:[]
             }
             newState.currentSelectedVipMembersId = newState.currentSelectedVipMembersId.concat(action.payload)
+            return newState
+        }
+
+        case RESET_VIP_CLUB:{
+
+            let newState = {
+                ...state
+            }
+            newState.currentSelectedVipMembersId=[]
+            newState.selected_vip_plan={}
+            newState.vipClubMemberDetails={}
+            // newState.members_proofs = []
+            return newState   
+        }
+
+        case VIP_CLUB_DASHBOARD_DATA:{
+
+            let newState = {
+                ...state
+            }
+            newState.vip_club_db_data = action.payload
+            newState.LOAD_VIP_CLUB_DASHBOARD = true
+
             return newState
         }
 

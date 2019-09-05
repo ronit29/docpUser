@@ -51,7 +51,7 @@ class VipProposer extends React.Component {
 	}
 	componentDidMount() {
 		let profile
-		if (this.props.vipClubMemberDetails[this.props.USER.defaultProfile] && !this.props.is_endorsement) {
+		if (this.props.vipClubMemberDetails[this.props.USER.defaultProfile] && !this.props.is_endorsement && !this.props.is_from_payment) {
 			profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.USER.defaultProfile])
 			this.getUserDetails(profile)
 		} 
@@ -86,8 +86,9 @@ class VipProposer extends React.Component {
 	componentWillReceiveProps(props) {
 		let newName = []
 		let self = this
+		let oldDate
 		let profileLength = Object.keys(props.USER.profiles).length;
-		if (profileLength > 0 && this.state.profile_flag && !props.is_endorsement) {
+		if (profileLength > 0 && this.state.profile_flag && !props.is_endorsement && !props.is_from_payment) {
 			let isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
 			if (Object.keys(props.vipClubMemberDetails).length > 0) {
 				let profile
@@ -120,6 +121,35 @@ class VipProposer extends React.Component {
 				newName = profile.name.split(" ")
 				this.getUserDetails(profile)
 				this.populateDates()
+			}
+		}else if(props.is_from_payment && this.state.profile_flag && Object.keys(props.vip_club_db_data).length >0){
+			if(props.vip_club_db_data.data.user && Object.keys(props.vip_club_db_data.data.user).length > 0 && props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length > 0){
+				if (Object.keys(props.vipClubMemberDetails).length > 0) {
+					let profile ={}
+					let newProfile = {}
+					props.currentSelectedVipMembersId.map((val,key) => {
+		    			newProfile =props.vipClubMemberDetails[val[key]]
+		    			if(newProfile.relation == 'SELF'){
+		    				profile = props.vipClubMemberDetails[val[key]]
+		    			}
+		    		})
+					if (Object.keys(profile).length) {
+						oldDate = profile.dob.split('-')
+						console.log(profile)
+						console.log('profile')
+						this.setState({name:profile.first_name,last_name:profile.last_name,title:profile.title,email:profile.email,year: oldDate[0], mnth: oldDate[1], day: oldDate[2],state:profile.city,state_code:profile.city_code,address:profile.address,pincode:profile.pincode,id:profile.profile,profile_id:profile.profile,gender:profile.gender,profile_flag: false,dob:profile.dob},()=>{
+							this.populateDates()
+							this.handleSubmit()
+						})
+					}
+				} else{
+					let profile = Object.assign({}, props.vip_club_db_data.data.user.plus_members[0])
+					oldDate = profile.dob.split('-')
+					this.setState({...profile,name:profile.first_name,last_name:profile.last_name,title:profile.title,email:profile.email,year: oldDate[0], mnth: oldDate[1], day: oldDate[2],state:profile.city,state_code:profile.city_code,address:profile.address,pincode:profile.pincode,id:profile.profile,profile_id:profile.profile,gender:profile.gender, profile_flag: false,dob:profile.dob},()=>{
+						this.populateDates()
+						this.handleSubmit()
+					})
+				}
 			}
 		} 
 		/*else if (props.is_endorsement) {
@@ -212,21 +242,21 @@ class VipProposer extends React.Component {
 			this.setState({ profile_id: null })
 		}
 		var self_data = this.state
-		if (self_data.name !== '') {
-			if (self_data.name.length > 50) {
-				self_data.name = self_data.name.slice(0, 50)
-			}
-		}
+		// if (self_data.name !== '') {
+		// 	if (self_data.name.length > 50) {
+		// 		self_data.name = self_data.name.slice(0, 50)
+		// 	}
+		// }
 		/*if (self_data.middle_name !== '') { // to be deleted
 			if (self_data.middle_name.length > 50) {
 				self_data.middle_name = self_data.middle_name.slice(0, 50)
 			}
 		}*/
-		if (self_data.last_name !== '') {
-			if (self_data.last_name.length > 50) {
-				self_data.last_name = self_data.last_name.slice(0, 50)
-			}
-		}
+		// if (self_data.last_name !== '') {
+		// 	if (self_data.last_name.length > 50) {
+		// 		self_data.last_name = self_data.last_name.slice(0, 50)
+		// 	}
+		// }
 		if (!is_endoresment && !is_endorse_email) {
 			self_data.is_change = true
 			self_data.first_name = self_data.name
@@ -566,7 +596,7 @@ class VipProposer extends React.Component {
 	}
 
 	render() {
-		console.log(this.props.validateErrors)
+		// console.log(this.props.validateErrors)
 		let self = this
 		let show_createApi_keys = []
 		let city_opt = []
@@ -648,7 +678,7 @@ class VipProposer extends React.Component {
 								disabled={this.props.is_from_payment ? 'disabled' : ''} 
 								onKeyPress={this.handleNameCharacters.bind(this, 'name')} 
 							/>
-							<label className={this.state.disableName ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`name_${this.props.member_id}`}><span className="labelDot"></span>First Name</label>
+							<label className={this.props.is_from_payment ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`name_${this.props.member_id}`}><span className="labelDot"></span>First Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 						</div>
 						{
@@ -702,7 +732,7 @@ class VipProposer extends React.Component {
 								disabled={this.props.is_from_payment ? 'disabled' : ""} 
 								onKeyPress={this.handleNameCharacters.bind(this, 'last_name')} 
 							/>
-							<label className={this.state.disableName ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot"></span>Last Name</label>
+							<label className={this.props.is_from_payment ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`last_name_${this.props.member_id}`}><span className="labelDot"></span>Last Name</label>
 							<img src={ASSETS_BASE_URL + "/img/user-01.svg"} />
 						</div>
 						{
@@ -769,7 +799,7 @@ class VipProposer extends React.Component {
 									onFocus={this.handleOnFocus.bind(this, 'email')}
 									disabled={this.props.is_from_payment ? 'disabled' : ''}  
 								/>
-								<label className={this.state.disableEmail ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`emails_${this.props.member_id}`}><span className="labelDot"></span>Email</label>
+								<label className={this.props.is_from_payment ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`emails_${this.props.member_id}`}><span className="labelDot"></span>Email</label>
 								<img src={ASSETS_BASE_URL + "/img/mail-01.svg"} />
 							</div>
 							{

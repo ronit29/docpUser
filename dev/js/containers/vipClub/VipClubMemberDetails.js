@@ -27,10 +27,10 @@ const mapStateToProps = (state) => {
     // let { insurnaceData, LOAD_INSURANCE, selected_plan,self_data_values,saveCurrentSelectedMembers,selectedProfile, currentSelectedInsuredMembersId,create_payment_resp, endorsed_member_data, 
     //     members_proofs} = state.INSURANCE
 
-    let { vipClubList, selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId } = state.VIPCLUB
+    let { vipClubList, selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId, vip_club_db_data } = state.VIPCLUB
     return {
         // insurnaceData,LOAD_INSURANCE,selected_plan,USER,self_data_values,saveCurrentSelectedMembers,selectedProfile, currentSelectedInsuredMembersId, create_payment_resp, endorsed_member_data, members_proofs, 
-        vipClubList, selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId, user_cities, USER
+        vipClubList, selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId, user_cities, USER, vip_club_db_data
     }
 }
 

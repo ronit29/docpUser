@@ -1,6 +1,6 @@
 import { GET_INSURANCE, SELECT_INSURANCE_PLAN, APPEND_USER_PROFILES, SELF_DATA, INSURANCE_PAY, SELECT_PROFILE, INSURE_MEMBER_LIST, UPDATE_MEMBER_LIST,INSURED_PROFILE , SAVE_CURRENT_INSURED_MEMBERS, RESET_CURRENT_INSURED_MEMBERS, RESET_INSURED_PLANS, CLEAR_INSURANCE, PUSH_USER_DATA, RESET_INSURED_DATA, ENDORSED_MEMBER_LIST, SAVE_MEMBER_PROOFS, DELETE_MEMBER_PROOF, SAVE_INSURANCE_BANK_DETAILS, SAVE_AVAIL_NOW_INSURANCE, CLEAR_AVAIL_NOW_INSURANCE, CANCEL_REASON_INSURANCE, CLEAR_BANK_DETAILS_INSURANCE, 
 
-GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE
+GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA
  } from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
@@ -79,16 +79,8 @@ export const selectVipUserProfile = (newProfileid,member_id,newProfile,param_id)
 
 export const vipClubPay = (criteria,callback) => (dispatch) => {
     return API_POST('/api/v1/plus/create',criteria).then(function (response) {
-        // dispatch({
-        //     type: INSURANCE_PAY,
-        //     payload: response
-        // })
         if(callback) callback(response);
     }).catch(function (error) {
-        // dispatch({
-        //     type: INSURANCE_PAY,
-        //     payload: error,
-        // })
         if(callback) callback(error);
         throw error
     })
@@ -143,7 +135,39 @@ export const generateVipClubLead = (selectedPlan, number,lead_data,selectedLocat
     })
 }
 
+export const getVipDashboardList = (user_id,callback) => (dispatch) => {
 
+    return API_GET('/api/v1/plus/dashboard?id='+user_id).then(function (response) {
+        if(response){
+            let selected_vip_plan = response.data.plan[0]
+                dispatch({
+                type: SELECT_VIP_CLUB_PLAN,
+                payload: {
+                    selected_vip_plan
+                    }
+                })
+                dispatch({
+                    type: VIP_CLUB_DASHBOARD_DATA,
+                    payload: response
+                })
+        }
+        if(callback) callback(response)
+    }).catch(function (error) {
+            dispatch({
+                type: VIP_CLUB_DASHBOARD_DATA,
+                payload: error
+            })
+        if(callback) callback(error)
+        throw error
+    })
+
+}
+
+export const resetVipData = () =>(dispatch) =>{
+    dispatch({
+        type: RESET_VIP_CLUB
+    })
+}
 
 //insurance
 // https://docprime.com/api/v1/plus/add/members
