@@ -903,6 +903,7 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     render() {
+        const parsed = queryString.parse(this.props.location.search)
         let tests = []
         let tests_with_price = []
         let finalPrice = 0
@@ -1148,7 +1149,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                     </span>Test</h4>
                                                                     <div className="float-right  mbl-view-formatting text-right">
                                                                         {
-                                                                            STORAGE.isAgent() || (!is_default_user_insured && !is_corporate) ?
+                                                                            STORAGE.isAgent() || (!is_default_user_insured && !is_corporate && !(parsed && parsed.test_ids) ) ?
                                                                                 <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more/Remove tests</a>
                                                                                 : ''
                                                                         }
