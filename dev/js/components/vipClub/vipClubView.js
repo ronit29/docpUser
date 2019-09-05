@@ -86,8 +86,8 @@ class VipClubView extends React.Component {
                     this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name)
                 }
             }
-            // this.props.history.push('/vip-club-member-details')
-            this.props.history.push('/vip-club-static-pages')
+            this.props.history.push('/vip-club-member-details')
+            // this.props.history.push('/vip-club-static-pages')
         } else {
             this.setState({ showPopup: true })
         }

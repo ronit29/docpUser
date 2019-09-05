@@ -5,6 +5,7 @@ import { userData,selectInsuranceProfile, saveCurrentSelectedMembers, pushUserDa
 
 userDetails, saveCurrentSelectedVipMembers, citiesData, selectVipUserProfile, vipClubPay} from '../../actions/index.js'
 import VipClubMemberDetailsView from '../../components/vipClub/vipClubMemberDetailsView.js'
+const queryString = require('query-string');
 
 class VipClubMemberDetails extends React.Component{
     
@@ -13,8 +14,9 @@ class VipClubMemberDetails extends React.Component{
     }
 
 	render(){
+        let parsed = queryString.parse(this.props.location.search)
 		return(
-            <VipClubMemberDetailsView {...this.props} is_from_payment={true}/>
+            <VipClubMemberDetailsView {...this.props} is_from_payment={parsed.is_from_payment?parsed.is_from_payment:false}/>
 		)
 	}
 }
