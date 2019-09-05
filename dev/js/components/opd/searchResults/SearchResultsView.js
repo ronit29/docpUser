@@ -31,7 +31,8 @@ class SearchResultsView extends React.Component {
             setSearchId: false,
             scrollPosition: 0,
             quickFilter: {},
-            detectLocation: false
+            detectLocation: false,
+            sponsorData: {}
         }
     }
 
@@ -40,6 +41,22 @@ class SearchResultsView extends React.Component {
         //aa.init()
         aa.addEvents('map')*/
         const parsed = queryString.parse(this.props.location.search)
+        //API TO GET SPONSORLIST 
+        let searchUrl = null
+        if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit') || this.props.match.url.includes('-ipddp')) {
+            searchUrl = this.props.match.url.toLowerCase()
+        }
+        let sponsorData = {
+            Utm_term: parsed && parsed.Utm_term?parsed.Utm_term:'',
+            searchUrl:searchUrl,
+            specializations_ids:''
+        }
+        if(this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) {
+            sponsorData.specializations_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
+        }
+        this.props.getSponsoredList(sponsorData, this.props.selectedLocation, (response)=>{
+            this.setState({sponsorData: response})
+        })
         if (this.props.mergeUrlState) {
             let getSearchId = true
             if (this.props.location.search.includes('search_id')) {

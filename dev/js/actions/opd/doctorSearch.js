@@ -634,7 +634,7 @@ export const getSponsoredList = (data, selectedLocation, cb) =>(dispatch) =>{
 	}else{
 		locality = "Delhi"
 	}
-	return API_GET(`/api/v1/common/sponsorlisting?specialization_id=data.${specialization_id}`).then(function (response) {
+	return API_GET(`/api/v1/common/sponsorlisting?spec_id=${data.specializations_ids||''}&lat=${lat}&long=${long}&locality=${locality}&utm=${data.Utm_term}&url=${data.searchUrl||''}`).then(function (response) {
 		if(cb) cb(response)
 
 	}).catch(function (error) {
