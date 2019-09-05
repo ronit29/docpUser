@@ -4178,3 +4178,36 @@ section.container.container-top-margin.sub-pdng-add.sub-pdng-rmv {
 	}
 }
 /* ============ new care  ============ */
+/* ============ new vip book card  ============ */
+.vip-content-book {
+    margin-top: 12px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+.vip-content-book p {
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+.vip-content-book p b {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0 1px;
+}
+.vip-content-book p img {
+    width: 22px;
+    margin: -4px 2px -6px 2px;
+}
+.vip-content-book button {
+    background-image: linear-gradient(to left,#f78631,#ff6d00);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    flex-shrink: 0;
+    margin-left: 3px;
+    padding: 4px 7px;
+    font-size: 10px;
+}
+/* ============ new vip book card  ============ */
