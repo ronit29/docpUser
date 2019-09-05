@@ -39,15 +39,10 @@ class Lensfit extends React.Component {
             if(parsed && parsed.callbackurl){
                 backUrl = parsed.callbackurl
                 if(parsed.hospital_id){
-                    backUrl += '&hospital_id='+parsed.hospital_id
+                    backUrl += '&hospital_id='+parsed.hospital_id+'&isLensfitSpecific=true'
                 }
-                if (window.location.href.includes('lpp/booking')) {
-                    backUrl += '&isLensfitSpecific=true'
-                }
-                if (window.location.href.includes('bookdetails') || window.location.href.includes('book')) {
-                    backUrl += '?isLensfitSpecific=true'
-                }else{
-                    backUrl += '&isLensfitSpecific=true'
+                if(parsed.lab_id){
+                    backUrl += '&lab_id='+parsed.lab_id+'&isLensfitSpecific=true'
                 }
             }
 
