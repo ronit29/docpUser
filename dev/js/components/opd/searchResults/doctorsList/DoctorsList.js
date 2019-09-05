@@ -9,6 +9,7 @@ import ClinicResultCard from '../../commons/clinicResultCard';
 import BannerCarousel from '../../../commons/Home/bannerCarousel';
 import SnackBar from 'node-snackbar'
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _autoCompleteService } from '../../../../helpers/mapHelpers';
+import RatingStars from '../../../commons/ratingsProfileView/RatingStars';
 
 class DoctorsList extends React.Component {
     constructor(props) {
@@ -210,6 +211,18 @@ class DoctorsList extends React.Component {
         }
     }
 
+    navigateToHospital(data){
+        let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'SponsorCardClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'sponsor-card-clicked'
+        }
+        GTM.sendEvent({ data: gtmData })
+        if(data.url){
+            this.props.history.push(`/${data.url}`)
+        }else{
+            this.props.history.push(`/ipd/hospital/${data.id}`)
+        }
+    }
+
     render() {
 
         let detectFlag = true
@@ -246,6 +259,8 @@ class DoctorsList extends React.Component {
                 }
             }
         })
+
+        let sponsorData = this.props.sponsorData && this.props.sponsorData.length?this.props.sponsorData[0]:null
 
         return (
             <section ref="checkIfExists">
@@ -288,52 +303,68 @@ class DoctorsList extends React.Component {
                                     >
                                         <ul>
                                             {
-                                                true && 
-                                                <div className="clinic-card mb-3">
+                                                sponsorData && 
+                                                <div className="clinic-card mb-3" onClick={()=>this.navigateToHospital(sponsorData)}>
                                                     <div className="clnc-content">
                                                         <div className="row no-gutters">
                                                             <div className="col-8">
-                                                                <h2 className="cstmDocName">Minute Clinic Gurgaon</h2>
+                                                                <h2 className="cstmDocName">{sponsorData.name}</h2>
                                                                 <div className="cstm-doc-details-container">
-                                                                    <div className="cstm-doc-img-container">
-                                                                        <div>
-                                                                            <img style={{width:'80px'}} className="clnc-stc-img" src="https://cdn.docprime.com/media/hospital/documents/ca207923c622386d761c29fa46396bf7_LhrYNu7.jpg" />
+                                                                    {
+                                                                        sponsorData.hospital_image &&
+                                                                        <div className="cstm-doc-img-container">
+                                                                            <div>
+                                                                                <img style={{width:'80px'}} className="clnc-stc-img" src={sponsorData.hospital_image} />
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
+                                                                    }
                                                                     <div className="cstm-doc-content-container">
-                                                                        <h3>50 Doctors</h3>
-                                                                        <h3 style={{ marginBottom: "5px;" }}>OPD Timings :</h3>
-                                                                        <p><img className="cstmTimeImg" src={ASSETS_BASE_URL + "/img/watch-date.svg"} /> 8:00 AM to 12:00 PM   </p>
+                                                                        <h3>{`${sponsorData.all_doctors?sponsorData.all_doctors.length:''} Doctors`}</h3>
+                                                                        {
+                                                                            sponsorData.opd_timings &&
+                                                                            <React.Fragment>
+                                                                                <h3 style={{ marginBottom: "5px;" }}>OPD Timings :</h3>
+                                                                        <p><img className="cstmTimeImg" src={ASSETS_BASE_URL + "/img/watch-date.svg"} /> {sponsorData.opd_timings}</p>
+                                                                            </React.Fragment>
+                                                                        }
+                                                                        
                                                                     </div>
                                                                 </div>
                                                                 <div className="cstm-doc-rtng">
-                                                                    <img src="https://cdn.docprime.com/cp/assets/img/customer-icons/rating-star-filled.svg" className="img-cstm-docrating" style={{ width: '12px', height: '12px', marginRight: '2px' }} />
-                                                                    <img src="https://cdn.docprime.com/cp/assets/img/customer-icons/rating-star-filled.svg" className="img-cstm-docrating" style={{ width: '12px', height: '12px', marginRight: '2px' }} />
-                                                                    <img src="https://cdn.docprime.com/cp/assets/img/customer-icons/rating-star-filled.svg" className="img-cstm-docrating" style={{ width: '12px', height: '12px', marginRight: '2px' }} />
-                                                                    <img src="https://cdn.docprime.com/cp/assets/img/customer-icons/rating-star-filled.svg" className="img-cstm-docrating" style={{ width: '12px', height: '12px', marginRight: '2px' }} />
-                                                                    <img src="https://cdn.docprime.com/cp/assets/img/customer-icons/rating-star-filled.svg" className="img-cstm-docrating" style={{ width: '12px', height: '12px', marginRight: '2px' }} />
-                                                                    <span>(1)</span>
+                                                                    {
+                                                                        sponsorData.avg_rating && 
+                                                                            <RatingStars average_rating={parseInt(sponsorData.avg_rating)} rating_count={''} width="12px" height="12px" />
+                                                                    }
+                                                                    {
+                                                                        sponsorData.rating && sponsorData.rating.length>0 &&
+                                                                        <span>{`(${sponsorData.rating.length})`}</span>
+                                                                    }
+                                                                    
                                                                 </div>
                                                             </div>
                                                             <div className="col-4 text-right">
                                                                 <p className="clnc-spnsr">SPONSORED</p>
-                                                                <p className="cstm-cpn">Upto 30% Off </p>
+{/*                                                                <p className="cstm-cpn">Upto 30% Off </p>*/}
                                                                 <button className="cstm-book-btn clnc-btn">Book Appointment</button>
                                                             </div>
                                                         </div>
                                                         <div className="clnc-chps-cont">
                                                             <div className="clnc-chps">
-                                                                <span>Common Skin Treatment</span>
-                                                                <span>Laser Hair Removal Treatment</span>
-                                                                <span>Scar Treatment</span>
-                                                                <span>Viva Skin Rejuvenation</span>
-                                                                <span>Dermaroller</span>
+                                                                {
+                                                                    sponsorData.hospital_services.map((serv,key )=>{
+                                                                        return key<4?<span key={serv.id}>{serv.name}</span>:''
+                                                                    })
+                                                                }
                                                             </div>
-                                                            <div className="clnc-all-srvc">
-                                                                <p>All 22 Services</p>
-                                                            </div>  
+                                                            {
+                                                                sponsorData.hospital_services && sponsorData.hospital_services.length>4 && 
+                                                                <div className="clnc-all-srvc">
+                                                                    <p>{`All ${sponsorData.hospital_services.length-4} Services`}</p>
+                                                                </div>
+                                                            }
+                                                              
                                                         </div>
-                                                        <p className="cln-loc-par"><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />5818, Near Super Mart I, Aster Avenue DLF Phase IV, Gurgaon</p>
+                                                        <p className="cln-loc-par"><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{sponsorData.short_address}</p>
                                                     </div>
                                                 </div>   
                                             }

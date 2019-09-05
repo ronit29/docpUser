@@ -32,7 +32,7 @@ class SearchResultsView extends React.Component {
             scrollPosition: 0,
             quickFilter: {},
             detectLocation: false,
-            sponsorData: {}
+            sponsorData: []
         }
     }
 
@@ -672,7 +672,7 @@ class SearchResultsView extends React.Component {
                                 
                                 </React.Fragment>
                                 :<React.Fragment>
-                                    <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)}  getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} detectLocationClick={() => this.detectLocationClick()}  applyQuickFilter={this.applyQuickFilter.bind(this)} SimilarSpecializationData={this.SimilarSpecializationData.bind(this)}/>
+                                    <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)}  getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} detectLocationClick={() => this.detectLocationClick()}  applyQuickFilter={this.applyQuickFilter.bind(this)} SimilarSpecializationData={this.SimilarSpecializationData.bind(this)} sponsorData={this.state.sponsorData}/>
 
                                     {
                                         this.state.seoFriendly && show_pagination ? <div className="art-pagination-div">
