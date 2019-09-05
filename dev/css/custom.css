@@ -4210,4 +4210,7 @@ section.container.container-top-margin.sub-pdng-add.sub-pdng-rmv {
     padding: 4px 7px;
     font-size: 10px;
 }
+.vip-content-book p:last-child {
+    margin-bottom: 0;
+}
 /* ============ new vip book card  ============ */
