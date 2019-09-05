@@ -95,6 +95,16 @@ export const vipClubPay = (criteria,callback) => (dispatch) => {
 
 }
 
+export const addVipMembersData = (criteria,callback) => (dispatch) => {
+    return API_POST('/api/v1/plus/add/members',criteria).then(function (response) {
+        if(callback) callback(response);
+    }).catch(function (error) {
+        if(callback) callback(error);
+        throw error
+    })
+
+}
+
 export const generateVipClubLead = (selectedPlan, number,lead_data,selectedLocation,user_name,callback) => (dispatch) => {
     let lat
     let long
@@ -133,8 +143,10 @@ export const generateVipClubLead = (selectedPlan, number,lead_data,selectedLocat
     })
 }
 
-//insurance
 
+
+//insurance
+// https://docprime.com/api/v1/plus/add/members
 /*export const getInsuranceMemberList = (member_list_id) => (dispatch) => {
     return API_GET('/api/v1/insurance/members/list?id='+member_list_id).then(function (response) {
         dispatch({

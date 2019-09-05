@@ -534,6 +534,31 @@ class VipClubMemberDetailsView extends React.Component{
 	    	}else{
 	    		if(this.props.is_from_payment){
 	    			console.log('yes')
+	    			{Object.entries(this.props.currentSelectedVipMembersId).map(function([key, value]) {
+			    		let param =this.props.vipClubMemberDetails[value[key]]
+							members={}
+							members.relation=param.relation
+							members.title=param.title							
+					    	members.member = param.id
+					    	members.first_name=param.name
+					    	members.address=address
+					    	members.email=email
+					    	members.dob=param.dob
+					    	members.member_type=param.member_type
+					    	members.gender=param.gender
+					    	members.profile=param.profile_id					    	
+					    	members.user_form_id=param.id
+					    	// members.pincode=pincode
+					    	// members.town=town
+					    	// members.district=district
+					    	// members.state=state
+					    	// members.state_code=state_code
+					    	// members.city_code=city_code
+					    	// members.district_code=district_code
+							return 	data.members.push(members)
+					    
+					},this)}
+	    			// this.props.addVipMembersData()
 	    		}else{
 	    			var members = {}
 		    		members.title = self_profile.title 
@@ -546,6 +571,7 @@ class VipClubMemberDetailsView extends React.Component{
 		    		members.address = self_profile.address
 		    		members.pincode = self_profile.pincode
 		    		members.profile = self_profile.profile_id
+		    		members.relation = self_profile.relation
 		    		data.members.push(members)
 		    		console.log(data)
 		    		this.props.vipClubPay(data)

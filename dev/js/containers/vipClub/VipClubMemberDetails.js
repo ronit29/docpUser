@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 import { userData,selectInsuranceProfile, saveCurrentSelectedMembers, pushUserData, resetSelectedInsuranceMembers, submitEmailOTP, sendOtpOnEmail,
 
-userDetails, saveCurrentSelectedVipMembers, citiesData, selectVipUserProfile, vipClubPay} from '../../actions/index.js'
+userDetails, saveCurrentSelectedVipMembers, citiesData, selectVipUserProfile, vipClubPay, addVipMembersData} from '../../actions/index.js'
 import VipClubMemberDetailsView from '../../components/vipClub/vipClubMemberDetailsView.js'
 const queryString = require('query-string');
 
@@ -41,7 +41,7 @@ const mapDispatchToProps = (dispatch) => {
         citiesData: () => dispatch(citiesData()),
         selectVipUserProfile:(newProfileid,member_id,newProfile,param_id) => dispatch(selectVipUserProfile(newProfileid,member_id,newProfile,param_id)),
         vipClubPay :(criteria,callback) => dispatch(vipClubPay(criteria,callback)),
-        
+        addVipMembersData:(criteria,callback) => dispatch(addVipMembersData(criteria,callback)),
         
         userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),
         selectInsuranceProfile :(newProfileid,member_id,newProfile,param_id) => dispatch(selectInsuranceProfile(newProfileid,member_id,newProfile,param_id)),
