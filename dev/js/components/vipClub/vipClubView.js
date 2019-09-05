@@ -38,14 +38,6 @@ class VipClubView extends React.Component {
             let resp = this.props.selected_vip_plan
             this.setState({ selected_plan_data: resp, selected_plan_id: resp.id })
         }
-        let loginUser
-        let lead_data = queryString.parse(this.props.location.search)
-        if (STORAGE.checkAuth() && this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
-            loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
-            if (Object.keys(loginUser).length > 0) {
-                this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name)
-            }
-        }
 
         let self = this
         if (window && document) {
@@ -81,7 +73,19 @@ class VipClubView extends React.Component {
     }
 
     proceed() {
+        let loginUser
+        let lead_data = queryString.parse(this.props.location.search)
+        let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'VipClubBuyNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'VipClub-BuyNow-clicked', 'selected': ''
+        }
+        GTM.sendEvent({ data: gtmData })
         if (STORAGE.checkAuth()) {
+            if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
+                loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
+                if (Object.keys(loginUser).length > 0) {
+                    this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name)
+                }
+            }
             // this.props.history.push('/vip-club-member-details')
             this.props.history.push('/vip-club-static-pages')
         } else {
@@ -92,11 +96,10 @@ class VipClubView extends React.Component {
     navigateTo(data, e) {
         e.preventDefault()
         e.stopPropagation()
-        // let gtmData = {
-        //     'Category': 'ConsumerApp', 'Action': 'HomeWidgetHospitalClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-widget-hospital-clicked', 'selected': '', 'selectedId': data.id || ''
-        // }
-        // GTM.sendEvent({ data: gtmData })
-        console.log(data)
+        let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'VipClubWidgetHospitalClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'VipClub-widget-hospital-clicked', 'selected': '', 'selectedId': data.id || ''
+        }
+        GTM.sendEvent({ data: gtmData })
         let redirectUrl = ''
 
         if (data.url) {

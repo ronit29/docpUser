@@ -79,6 +79,10 @@ class LeftMenu extends React.Component {
                   {
                     CONFIG.ENABLE_VIP_CLUB?
                       <li><a className="p-relative" onClick={(e) => {
+                        let data = {
+                        'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuVipClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-vip-clicked'
+                      }
+                      GTM.sendEvent({ data: data })
                         e.preventDefault()
                         this.props.toggleLeftMenu()
                         this.props.history.push('/vip-club-details?source=mobile-leftmenu-vipClub-clicked')
