@@ -100,6 +100,9 @@ class PatientDetailsNew extends React.Component {
         if (parsed.token && parsed.appointment_id) {
             this.props.agentLogin(parsed.token, () => {
                 this.props.select_opd_payment_type(1)
+                this.props.getUserProfile()
+                this.props.fetchTransactions()
+                this.props.getCartItems()
             })
         }
 
