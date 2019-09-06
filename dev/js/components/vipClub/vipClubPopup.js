@@ -78,10 +78,10 @@ class VipLoginPopup extends React.Component {
                     // if (Object.keys(this.props.selected_plan).length > 0) {
                     //     this.props.generateInsuranceLead(this.props.selected_plan ? this.props.selected_plan.id : '', this.state.phoneNumber, lead_data)
                     // }
-                    // let data = {
-                    //     'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupContinue', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-continue-click', 'mode': viaSms ? 'viaSms' : viaWhatsapp ? 'viaWhatsapp' : '', 'mobileNo': this.state.phoneNumber
-                    // }
-                    // GTM.sendEvent({ data: data })
+                    let data = {
+                        'Category': 'ConsumerApp', 'Action': 'VipLoginPopupContinue', 'CustomerID': GTM.getUserId() || '', 'event': 'Vip-login-popup-continue-click', 'mode': viaSms ? 'viaSms' : viaWhatsapp ? 'viaWhatsapp' : '', 'mobileNo': this.state.phoneNumber
+                    }
+                    GTM.sendEvent({ data: data })
                     if(viaWhatsapp){
                         this.setState({enableOtpRequest:true})
                     }else{
