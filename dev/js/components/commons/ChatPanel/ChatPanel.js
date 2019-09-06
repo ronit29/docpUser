@@ -11,6 +11,7 @@ import RecentArticles from '../article/RecentArticles'
 import TableOfContent from '../article/TableOfContent'
 import BannerCarousel from '../Home/bannerCarousel';
 const queryString = require('query-string');
+import ChatRefundReasons from './ChatRefundReasons.js'
 
 class ChatPanel extends React.Component {
     constructor(props) {
@@ -33,7 +34,8 @@ class ChatPanel extends React.Component {
             iframeLoading: is_thyrocare ? false : true,
             showStaticView: is_thyrocare ? false : true,
             initialMessage: "",
-            callTimeout: false
+            callTimeout: false,
+            openRefundPopup: false
         }
     }
 
@@ -444,6 +446,14 @@ class ChatPanel extends React.Component {
         }
     }
 
+    refundClicked(){
+        let data = {
+            'Category': 'Chat', 'Action': 'RefundBtnClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'Refund-btn-clicked', "PageType": this.props.type, "url": window.location.pathname
+        }
+        GTM.sendEvent({ data: data })
+
+    }
+
     render() {
         let doctorData = null
         if (this.props.USER.chatRoomIds[this.state.selectedRoom]) {
@@ -571,6 +581,11 @@ class ChatPanel extends React.Component {
             return (
                 <div>
                     {
+                        this.state.openRefundPopup &&
+                        <ChatRefundReasons />
+
+                    }
+                    {
                         this.props.homePage || this.props.mobilechatview || this.props.noChatButton || this.props.articleData || this.props.searchTestInfoData ? '' :
                             this.props.newChatBtn || this.props.newChatBtnAds ?
                                 <section className="chat-article-btn fixed horizontal bottom no-round d-md-none fw-500 text-center" onClick={() => this.chatBtnClick()} >{chatBtnContent1}
@@ -650,6 +665,9 @@ class ChatPanel extends React.Component {
                                                         <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatclose.svg"} title="start a new chat" />
 
                                                     </span>
+                                            }
+                                            {
+                                                true && <p onClick={()=>{this.refundClicked()}}>Refund</p>
                                             }
 
                                             {
