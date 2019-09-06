@@ -39,7 +39,7 @@ class VipProposerFamily extends React.Component {
 	componentDidMount(){
 		let profile
 		if(this.props.is_endorsement){
-			if(Object.keys(this.props.vipClubMemberDetails).length>0 && this.props.user_data.length > 0){
+			/*if(Object.keys(this.props.vipClubMemberDetails).length>0 && this.props.user_data.length > 0){
 				profile= Object.assign({}, this.props.vipClubMemberDetails[this.props.user_data[0].id])
 				let oldDate
 				if(Object.keys(profile).length > 0 && profile.dob){
@@ -68,7 +68,7 @@ class VipProposerFamily extends React.Component {
 	    				// this.populateDates(this.props.member_id,true)
 	    			})
 				}
-			}
+			}*/
 		}else{
 			if(!this.state.year && !this.state.mnth && !this.state.mnth){
 				this.populateDates(this.props.member_id,true)
@@ -80,7 +80,7 @@ class VipProposerFamily extends React.Component {
 		let self = this
 		let adult_title
 		let adult_gender
-		if(!props.is_endorsement){
+		if(props.is_from_payment){
 			if(props.vipClubMemberDetails[props.member_id]){
 				let profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.member_id])
 				let nextProfile = Object.assign({}, props.vipClubMemberDetails[props.member_id])
@@ -101,7 +101,7 @@ class VipProposerFamily extends React.Component {
 						})
 					}else{
 					    self.populateDates(self.props.member_id,true)
-						this.setState({member_type:this.props.member_type,relation:'spouse',title:adult_title,gender:adult_gender,only_adult:true},() =>{
+						this.setState({member_type:this.props.member_type,title:adult_title,gender:adult_gender,only_adult:true},() =>{
 							self.handleSubmit()
 						})
 					}					
@@ -405,6 +405,7 @@ class VipProposerFamily extends React.Component {
   	}
 
 	render() {
+		console.log(this.props.validateErrors)
 		let show_createApi_keys_adult = []
 		let show_createApi_keys_child = []
 		let show_createApi_keys_child2 = []
@@ -473,13 +474,17 @@ class VipProposerFamily extends React.Component {
 								<div className="dob-select-div d-flex align-items-center">
 									<div style={{flex: 1}} className="dob-select d-flex align-items-center">
 										<select style={{width:'100%'}} value={this.state.relation} onChange={this.handleRelation.bind(this)}>
+											<option hidden>Select Relation</option>
 											{Object.entries(this.props.vip_club_db_data.data.relation_master).map(function([key, value]) {
-												return <option>{value}</option>
+												return <option key={key}>{value}</option>
 											})}
 										</select>
 										<img className="dob-down-icon" style={{right : '4px'}} src="/assets/img/customer-icons/dropdown-arrow.svg"/>
 									</div>
 								</div>
+								{
+								this.props.validateErrors && this.props.validateErrors.indexOf('relation')> -1?commonMsgSpan:''
+								}
 							</div>
 						:''}
 					{

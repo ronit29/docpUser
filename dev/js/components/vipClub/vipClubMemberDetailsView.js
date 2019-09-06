@@ -172,11 +172,6 @@ class VipClubMemberDetailsView extends React.Component{
 							fields.push('name')
 						}
 
-						if(param.last_name == ""){
-							is_disable = true
-							fields.push('last_name')
-						}
-
 						if(param.dob == null || param.dob == ""){
 							is_disable = true
 							fields.push('dob')
