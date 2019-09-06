@@ -611,6 +611,10 @@ class ChatPanel extends React.Component {
             iframe_url += `&testing_mode=b`
         }
 
+        if(parsedHref && parsedHref.consultation_id){
+            iframe_url += `&consultation_id=${parsedHref.consultation_id}`
+        }
+
         let is_payment_for_current_room = null
         if(this.props.USER && this.props.USER.chatPaymentStatus && this.props.USER.chatPaymentStatus==this.props.USER.currentRoomId){
 

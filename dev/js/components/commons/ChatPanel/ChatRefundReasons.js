@@ -34,7 +34,11 @@ class ChatRefundView extends React.Component {
 
 				</div>
 				<div className="widget cancel-appointment-div cancel-popup overflow-hidden refund-pop font-analyze " style={{padding:'12px'}}>
-					<img className="rfnd-cls-btn" src={ASSETS_BASE_URL + '/img/icons/close.png'} />
+					<img className="rfnd-cls-btn" src={ASSETS_BASE_URL + '/img/icons/close.png'} onClick={(e) => {
+						e.preventDefault()
+						e.stopPropagation()
+						this.props.toggleRefund()
+					}}/>
 					<div className="refund-chat-hdng">
 						<p className="rfnd-mn-hdng">Are you sure?</p>
 						<p className="rfnd-sub-hdng">Once you proceed further, consultation will end and refund will be initiated.</p>
