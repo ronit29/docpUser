@@ -34,7 +34,11 @@ class VipClubActivatedDetails extends React.Component{
         var member_list_id = url.searchParams.get("id");
         if (member_list_id !== null) {
             this.props.resetVipData()
-            this.props.getVipDashboardList(member_list_id,(resp)=>{
+            this.props.getVipDashboardList(member_list_id,false,(resp)=>{
+                console.log(resp)
+            })
+        }else{
+            this.props.getVipDashboardList(member_list_id,true,(resp)=>{
                 console.log(resp)
             })
         }
@@ -79,7 +83,7 @@ const mapDispatchToProps = (dispatch) => {
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
         getUserProfile: () => dispatch(getUserProfile()),
         getInsurance: (is_endorsement,callback) => dispatch(getInsurance(is_endorsement,callback)), 
-        getVipDashboardList:(user_id,callback) => dispatch(getVipDashboardList(user_id,callback)),       
+        getVipDashboardList:(user_id,is_dashboard,callback) => dispatch(getVipDashboardList(user_id,is_dashboard,callback)),       
 
         selectInsurancePlan: (plan,criteria) => dispatch(selectInsurancePlan(plan,criteria)),
         // saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),

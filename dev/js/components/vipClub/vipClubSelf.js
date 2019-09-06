@@ -96,10 +96,10 @@ class VipProposer extends React.Component {
 				this.populateDates()
 			}
 		}else if(props.is_from_payment && this.state.profile_flag && Object.keys(props.vip_club_db_data).length >0){
+			let profile ={}
+			let newProfile = {}
 			if(props.vip_club_db_data.data.user && Object.keys(props.vip_club_db_data.data.user).length > 0 && props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length > 0){
 				if (Object.keys(props.vipClubMemberDetails).length > 0) {
-					let profile ={}
-					let newProfile = {}
 					props.currentSelectedVipMembersId.map((val,key) => {
 		    			newProfile =props.vipClubMemberDetails[val[key]]
 		    			if(newProfile.relation == 'SELF'){
@@ -114,12 +114,21 @@ class VipProposer extends React.Component {
 						})
 					}
 				} else{
-					let profile = Object.assign({}, props.vip_club_db_data.data.user.plus_members[0])
-					oldDate = profile.dob.split('-')
-					this.setState({...profile,name:profile.first_name,last_name:profile.last_name,title:profile.title,email:profile.email,year: oldDate[0], mnth: oldDate[1],day: oldDate[2],state:profile.city,state_code:profile.city_code,address:profile.address,pincode:profile.pincode,id:profile.profile,profile_id:profile.profile,gender:profile.gender, profile_flag: false,dob:profile.dob},()=>{
-						this.populateDates()
-						this.handleSubmit()
-					})
+					// if(props.vip_club_db_data.data.user.plus_members)
+					if(props.vip_club_db_data && Object.keys(props.vip_club_db_data.data).length >0 && props.vip_club_db_data.data.user && Object.keys(props.vip_club_db_data.data.user).length > 0 && props.vip_club_db_data.data.user.plus_members.length > 0){
+						props.vip_club_db_data.data.user.plus_members.map((val,key) => {
+							if(val.relation == 'SELF'){
+								profile = Object.assign({}, val)
+							}
+						})
+					}
+					if(Object.keys(profile).length > 0){
+						oldDate = profile.dob.split('-')
+						this.setState({...profile,name:profile.first_name,last_name:profile.last_name,title:profile.title,email:profile.email,year: oldDate[0], mnth: oldDate[1],day: oldDate[2],state:profile.city,state_code:profile.city_code,address:profile.address,pincode:profile.pincode,id:profile.profile,profile_id:profile.profile,gender:profile.gender, profile_flag: false,dob:profile.dob},()=>{
+							this.populateDates()
+							this.handleSubmit()
+						})
+					}
 				}
 			}
 		}
@@ -564,7 +573,6 @@ class VipProposer extends React.Component {
 	}
 
 	render() {
-		// console.log(this.props.validateErrors)
 		let self = this
 		let show_createApi_keys = []
 		let city_opt = []

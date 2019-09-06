@@ -126,6 +126,12 @@ class VipProposerFamily extends React.Component {
 	  			this.setState({gender:'f'})
 	  		}
 		}*/
+		let title_value = event.target.value
+			if(title_value == 'mr.'){
+  				this.setState({gender:'m'})	
+	  		}else{
+	  			this.setState({gender:'f'})	
+	  		}
 		this.setState({ title: event.target.value, id:this.props.member_id }, () => {
 			var self_data = this.state
 			self_data.is_change = true
@@ -138,19 +144,11 @@ class VipProposerFamily extends React.Component {
 			[event.target.getAttribute('data-param')]: event.target.value , id:this.props.member_id
 		});
 	}
-	/*handleRelation(field,event) {
-		let relation_value = event.target.value
-		if(relation_value == 'son'){
-			this.setState({title:'mast.',gender:'m'})	
-  		}else if(relation_value == 'daughter'){
-  			this.setState({title:'miss',gender:'f'})	
-  		}
-		this.setState({
-			relation: event.target.value,is_change:true
-		},() =>{
+	handleRelation(event) {
+		this.setState({'relation':event.target.value},()=>{
 			this.handleSubmit(true,event)
 		})
-	}*/
+	}
 	handleSubmit(is_endoresment) {
 		var self_data = this.state
 		if(self_data.name !== ''){
@@ -407,8 +405,6 @@ class VipProposerFamily extends React.Component {
   	}
 
 	render() {
-		
-		console.log(this.props.vip_club_db_data)
 		let show_createApi_keys_adult = []
 		let show_createApi_keys_child = []
 		let show_createApi_keys_child2 = []
@@ -470,18 +466,22 @@ class VipProposerFamily extends React.Component {
 				</div>
 				<div className='widget' style={{padding:'10px'}} >
 					<div className="col-12" style={{padding:0}}>
-					<div className="ins-form-group mt-1">
-								<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Date of birth</label>
+						{this.props.vip_club_db_data && Object.keys(this.props.vip_club_db_data.data).length>0 && this.props.vip_club_db_data.data.relation_master && this.props.vip_club_db_data.data.relation_master.length > 0?
+							<div className="ins-form-group mt-1">
+								<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Relation</label>
 								<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
 								<div className="dob-select-div d-flex align-items-center">
 									<div style={{flex: 1}} className="dob-select d-flex align-items-center">
-										<select style={{width:'100%'}} id={`daydropdown_${this.props.member_id}`} value={this.state.day}>
-											<option hidden>DD</option>
+										<select style={{width:'100%'}} value={this.state.relation} onChange={this.handleRelation.bind(this)}>
+											{Object.entries(this.props.vip_club_db_data.data.relation_master).map(function([key, value]) {
+												return <option>{value}</option>
+											})}
 										</select>
 										<img className="dob-down-icon" style={{right : '4px'}} src="/assets/img/customer-icons/dropdown-arrow.svg"/>
 									</div>
 								</div>
 							</div>
+						:''}
 					{
 						/*this.props.is_child_only?
 						<div>

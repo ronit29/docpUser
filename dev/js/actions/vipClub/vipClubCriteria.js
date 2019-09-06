@@ -134,9 +134,9 @@ export const generateVipClubLead = (selectedPlan, number,lead_data,selectedLocat
     })
 }
 
-export const getVipDashboardList = (user_id,callback) => (dispatch) => {
+export const getVipDashboardList = (user_id,is_dashboard,callback) => (dispatch) => {
 
-    return API_GET('/api/v1/plus/dashboard?id='+user_id).then(function (response) {
+    return API_GET('/api/v1/plus/dashboard?id='+user_id+'&is_dashboard='+is_dashboard).then(function (response) {
         if(response){
             let selected_vip_plan = response.data.plan[0]
                 dispatch({

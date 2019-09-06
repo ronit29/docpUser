@@ -36,6 +36,9 @@ class VipClub extends React.Component{
                 <VipClubView {...this.props}/>
             )
         }else{
+            if(this.props.vipClubList.certificate && STORAGE.checkAuth()){
+                this.props.history.push('/vip-club-activated-details')
+            }
             return(
             <div className="profile-body-wrap">
                 <ProfileHeader showPackageStrip={true}/>

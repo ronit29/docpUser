@@ -157,10 +157,10 @@ class VipClubMemberDetailsView extends React.Component{
 	    			fields = []
 	    			param =this.props.vipClubMemberDetails[val[key]]
 						
-						// if(param.relation == ""){ //common validation
-						// 	is_disable = true
-						// 	fields.push('relation')
-						// }
+						if(param.relation == ""){ //common validation
+							is_disable = true
+							fields.push('relation')
+						}
 
 						if(param.title == ""){
 							is_disable = true
@@ -218,6 +218,10 @@ class VipClubMemberDetailsView extends React.Component{
 			if(is_disable && document.getElementById(member_ref)){    		
 		    		document.getElementById(member_ref).scrollIntoView();
 	    	}else{
+	    		let city
+	    		let city_code
+	    		let address
+	    		let pincode
 	    		if(this.props.is_from_payment){
 	    			console.log('yes')
 	    			{Object.entries(this.props.currentSelectedVipMembersId).map(function([key, value]) {
@@ -227,8 +231,8 @@ class VipClubMemberDetailsView extends React.Component{
 			    			}
 
 							members={}
-							if(param.relation != 'SELF'){
-								members.relation='OTHERS'
+							if(param.relation !== 'SELF'){
+								members.relation=param.relation
 								members.title=param.title							
 						    	members.member = param.id
 						    	members.first_name=param.name
@@ -236,16 +240,20 @@ class VipClubMemberDetailsView extends React.Component{
 						    	members.dob=param.dob
 						    	members.gender=param.gender
 						    	members.profile=param.profile_id
-						    	members.city = self_profile.state 
-					    		members.city_code = self_profile.state_code
+						    	members.city = self_profile.city
+					    		members.city_code = self_profile.city
 					    		members.address = self_profile.address
 					    		members.pincode = self_profile.pincode
 					    		members.email = null
+					    		return data.members.push(members)
 					    	}
-							return 	data.members.push(members)
 					},this)}
 					console.log(data)
-	    			this.props.addVipMembersData(data)
+	    			this.props.addVipMembersData(data,(resp)=>{
+	    				if(resp.success){
+	    					this.props.history.push('vip-club-activated-details')
+	    				}
+	    			})
 	    		}else{
 	    			// console.log(self_profile)
 	    			var members = {}
@@ -356,8 +364,15 @@ class VipClubMemberDetailsView extends React.Component{
 							}
 						</section>
 							{
-								this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0?
+								this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && !this.props.is_from_payment?
 									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
+										<span className="foot-btn-sub-span"></span>
+									</button>
+								:''
+							}
+							{
+								this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && this.props.is_from_payment?
+									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Submit
 										<span className="foot-btn-sub-span"></span>
 									</button>
 								:''
