@@ -842,7 +842,7 @@ class VipProposer extends React.Component {
 								data-state-code={this.state.state_code} 
 								disabled={this.props.is_from_payment ? 'disabled' : ''} 
 							/>
-							<label className={this.props.is_from_payment ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`isnstate_${this.props.member_id}`}>State</label>
+							<label className={this.props.is_from_payment ? 'form-control-placeholder datePickerLabel' : 'form-control-placeholder'} htmlFor={`isnstate_${this.props.member_id}`}>City</label>
 							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
 						{
