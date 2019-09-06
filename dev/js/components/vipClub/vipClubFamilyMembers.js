@@ -470,6 +470,18 @@ class VipProposerFamily extends React.Component {
 				</div>
 				<div className='widget' style={{padding:'10px'}} >
 					<div className="col-12" style={{padding:0}}>
+					<div className="ins-form-group mt-1">
+								<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Date of birth</label>
+								<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
+								<div className="dob-select-div d-flex align-items-center">
+									<div style={{flex: 1}} className="dob-select d-flex align-items-center">
+										<select style={{width:'100%'}} id={`daydropdown_${this.props.member_id}`} value={this.state.day}>
+											<option hidden>DD</option>
+										</select>
+										<img className="dob-down-icon" style={{right : '4px'}} src="/assets/img/customer-icons/dropdown-arrow.svg"/>
+									</div>
+								</div>
+							</div>
 					{
 						/*this.props.is_child_only?
 						<div>
