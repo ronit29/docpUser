@@ -278,6 +278,11 @@ class VipClubMemberDetailsView extends React.Component{
 		    		data.members.push(members)
 		    		console.log(data)
 		    		this.props.vipClubPay(data,(resp)=>{
+		    			
+		    			if(resp && resp.error){
+		    				SnackBar.show({ pos: 'bottom-center', text: resp.error})
+		    				return
+		    			}
 		    			if(resp && resp.payment_required){
                             this.processPayment(resp)
 						}else{
