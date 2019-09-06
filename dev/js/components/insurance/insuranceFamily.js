@@ -305,7 +305,7 @@ class InsuranceOthers extends React.Component {
     }
 
     daysInMonth(month, year) {
-        return new Date(year, month, 31).getDate();
+        return new Date(year, month, 0).getDate();
     }
 
     populateDates(member_id,toCreateOptions){

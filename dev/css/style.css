@@ -4951,26 +4951,52 @@ p.error-msg.subAlertins{
 }
 .footbgRound{
 	position: absolute;
-    width: 150px;
-    top: 0;
+    width: 130px;
+    top: 10px;
 }
 .nw-mid-container-with-img{
+    /* box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.25);
+    background-image: linear-gradient(to bottom, #448aff, #1f62d3); */
     z-index: 1;
     color: white;
     position: relative;
-    box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.25);
-    background-image: linear-gradient(to bottom, #448aff, #1f62d3);
     height: 100%;
     padding: 4px 15px 0;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
+    width: 100%;
+    
+}
+.vip-foot-cont{
+    position: absolute;
+    top: -8px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+p.vip-foot-txt {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 41px;
+    font-size: 11px;
+    font-weight: 500;
 }
 .nw-cht-border-btn{
     width: 100%;
     height: 7px;
-    background: linear-gradient(to left, #1f62d3, #448aff);
+    background: linear-gradient(to left, #f78631, #ff6d00);
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
+}
+.home-vip-cont {
+    display: flex;
+    align-items: flex-start;
+}
+.vip-tp-sub-txt{
+    color: #757575;
+    font-size: 9px;
+    display: block;
 }
 /* ============= New chat container ================= */
 .cat-ico-text{
@@ -9169,7 +9195,7 @@ border-radius: 4px;
 	padding:0;
 }
 .pkgComapre{
-	margin-top: 100px;
+	margin-top: 94px;
 }
 
 .pkgComapre .top-filter-tabs-select img{
@@ -9848,7 +9874,7 @@ ul,li{
 	position: -webkit-sticky;
 	left: 0;
 	right: 0;
-	top: 107px;
+	top: 94px;
 	z-index: 99;
 }
 .hide-all{
@@ -11989,6 +12015,11 @@ ul.chat-radio-align .custom-radio .radio-checkmark.checkmark:after{
     opacity: .6;
     cursor: no-drop;
 }
+.disable-all{
+	pointer-events: none;
+    filter: grayscale(1);
+    cursor: no-drop;
+}
 .cpn-blur{
     transition: all;
     -webkit-transition: all .5s ease-in-out;
@@ -12067,4 +12098,23 @@ font-weight: 500;
     color: black !important;
     max-width: 96px;
     display: inline-block;
+}
+.rebook-btn{
+    border: 1px solid #f78431;
+    color: #f78431;
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 6px 10px;
+    font-weight: 500;
+    background: white;
+}
+
+.docprime-article ul li {
+    list-style: disc;
+}
+.custom-li-style ul li {
+    list-style: disc;
+}
+.acrd-sub-content ul li{
+    list-style: disc;
 }

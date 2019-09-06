@@ -26,7 +26,8 @@ const PROD_CONFIG = {
     SEARCH_ELASTIC_VIEW: true,
     ENABLE_INSURANCE: true,
     GOOGLE_SERVICE_URL: 'https://docprime.com/ls',
-    CHAT_API_UTILITY_API:'https://chatapi.docprime.com'
+    CHAT_API_UTILITY_API:'https://chatapi.docprime.com',
+    ENABLE_VIP_CLUB: true
 }
 
 const STAGING_CONFIG = {
@@ -45,12 +46,13 @@ const STAGING_CONFIG = {
     SEARCH_ELASTIC_VIEW: true,
     ENABLE_INSURANCE: true,
     GOOGLE_SERVICE_URL: 'https://docprime.com/ls',
-    CHAT_API_UTILITY_API:'https://chatapi.docprime.com'
+    CHAT_API_UTILITY_API:'https://chatapi.docprime.com',
+    ENABLE_VIP_CLUB: true
 }
 
 const DEV_CONFIG = {
     // API_BASE_URL: "http://10.0.145.30:8000",
-    API_BASE_URL: "https://docprime.com",
+    API_BASE_URL: "https://kubeqa2.docprime.com",
     // SOCKET_BASE_URL: "http://10.0.28.67:4444",
     SOCKET_BASE_URL: "https://docprime.com",
     // SOCKET_BASE_URL: "http://localhost:4444",
@@ -65,7 +67,8 @@ const DEV_CONFIG = {
     SEARCH_ELASTIC_VIEW: true,
     ENABLE_INSURANCE: true,
     GOOGLE_SERVICE_URL: 'https://docprime.com/ls',
-    CHAT_API_UTILITY_API:'http://chatapi.docprime.com'
+    CHAT_API_UTILITY_API:'http://chatapi.docprime.com',
+    ENABLE_VIP_CLUB: true,
 }
 
 let CONFIG = { ...BASE_CONFIG, ...DEV_CONFIG }

@@ -73,11 +73,11 @@ class BookingView extends React.Component {
                         GTM.sendEvent({ data: analyticData }, true, false)
 
                         let criteo_data =
-                            {
-                                'event': "trackTransaction", 'id': appointmentId, 'item': [
-                                    { 'id': "1", 'price': data.length ? data[0].deal_price : '', 'quantity': 1 }
-                                ]
-                            }
+                        {
+                            'event': "trackTransaction", 'id': appointmentId, 'item': [
+                                { 'id': "1", 'price': data.length ? data[0].deal_price : '', 'quantity': 1 }
+                            ]
+                        }
 
                         CRITEO.sendData(criteo_data)
 
@@ -97,16 +97,16 @@ class BookingView extends React.Component {
 
     getAppointment(props) {
         const appointmentId = this.props.match.params.refId
-         if (!this.state.isCompleted) {
+        if (!this.state.isCompleted) {
             let appointmentData = { id: appointmentId, status: 7 }
             this.props.updateOPDAppointment(appointmentData, (err, data) => {
                 if (data) {
-                    this.setState({ data:data, isCompleted: true })
+                    this.setState({ data: data, isCompleted: true })
                 } else {
                     SnackBar.show({ pos: 'bottom-center', text: "Something went wrong." });
                 }
-            })                           
-        } 
+            })
+        }
         else {
             SnackBar.show({ pos: 'bottom-center', text: "Your appointment is already completed." });
         }
@@ -174,6 +174,23 @@ class BookingView extends React.Component {
         this.setState({ showPopup: false })
     }
 
+    goToBookingPage() {
+        let analyticData = {
+            'Category': 'ConsumerApp', 'Action': 'RebookDoctorAppointmentClicked', 'CustomerID': GTM.getUserId(), 'leadid': '', 'event': 'rebook-doctor-appointment-clicked'
+        }
+        GTM.sendEvent({ data: analyticData })
+        this.props.history.push(`/opd/doctor/${this.state.data.doctor.id}/${this.state.data.hospital.id}/bookdetails`)
+    }
+
+    navigateToVIP(){
+        let analyticData = {
+            'Category': 'ConsumerApp', 'Action': 'VipKnowMoreClicked', 'CustomerID': GTM.getUserId(), 'leadid': '', 'event': 'vip-know-more-clicked'
+        }
+        GTM.sendEvent({ data: analyticData })
+        
+        this.props.history.push('/vip-club-details?source=appointment-success-page')
+    }
+
     render() {
 
         let doctor = {}
@@ -239,28 +256,28 @@ class BookingView extends React.Component {
                         <div className="col-12 col-md-7 col-lg-7 center-column">
                             {
                                 (!this.state.loading && this.state.data) ? <section className="booking-confirm-screen">
-                                    <div className="container-fluid">
-                                        <WhatsAppOptinView {...this.props} profiles={profile} isAppointment ={true}/>
+                                    <div className="container-fluid cardMainPaddingRmv">
+                                        <WhatsAppOptinView {...this.props} profiles={profile} isAppointment={true} />
                                         <div className="row">
                                             <div className="col-12">
                                                 <div className="app-timeline book-confirmed-timeline">
                                                     {
-                                                        status == 6? <h4 style={{ textAlign: 'center' }}>Appointment Cancelled</h4>
-                                                        :status == 1?<h4 style={{ textAlign: 'center' }}>Appointment Created</h4>
-                                                            :<ul className="inline-list">
-                                                                <li className={(status <= 5 || status == 7) ? "active" : ""}>
-                                                                    <span className="dot">1</span>
-                                                                    <p className="text-sm fw-700 text-light">Received</p>
-                                                                </li>
-                                                                <li className={(status == 5 || status == 7) ? "active" : ""}>
-                                                                    <span className="dot">2</span>
-                                                                    <p className="text-sm fw-700 text-light">Confirmed</p>
-                                                                </li>
-                                                                <li className={status == 7 ? "active" : ""}>
-                                                                    <span className="dot">3</span>
-                                                                    <p className="text-sm fw-700 text-light">{status == 6 ? "Completed" : "Completed"}</p>
-                                                                </li>
-                                                            </ul>
+                                                        status == 6 ? <h4 style={{ textAlign: 'center' }}>Appointment Cancelled</h4>
+                                                            : status == 1 ? <h4 style={{ textAlign: 'center' }}>Appointment Created</h4>
+                                                                : <ul className="inline-list">
+                                                                    <li className={(status <= 5 || status == 7) ? "active" : ""}>
+                                                                        <span className="dot">1</span>
+                                                                        <p className="text-sm fw-700 text-light">Received</p>
+                                                                    </li>
+                                                                    <li className={(status == 5 || status == 7) ? "active" : ""}>
+                                                                        <span className="dot">2</span>
+                                                                        <p className="text-sm fw-700 text-light">Confirmed</p>
+                                                                    </li>
+                                                                    <li className={status == 7 ? "active" : ""}>
+                                                                        <span className="dot">3</span>
+                                                                        <p className="text-sm fw-700 text-light">{status == 6 ? "Completed" : "Completed"}</p>
+                                                                    </li>
+                                                                </ul>
                                                     }
 
                                                 </div>
@@ -305,15 +322,25 @@ class BookingView extends React.Component {
 
                                                 <div className="widget mrb-10">
                                                     <div className="widget-content">
-                                                        <p className="fw-500 text-md mrb-10">Booking ID: <span className="fw-700 text-md">{this.state.data.id}</span></p>
+                                                        <p className="fw-500 text-md">Booking ID: <span className="fw-700 text-md">{this.state.data.id}</span></p>
                                                         <p className="text-xs text-light">Details have been sent to your email-id and mobile number.</p>
                                                         {
                                                             actions.indexOf(6) > -1 && !this.state.hide_button ? <a onClick={this.toggleCancel.bind(this)} href="#" className="text-primary fw-700 text-sm">Cancel Booking</a> : ""
                                                         }
+                                                        <div className="vip-content-book">
+                                                            <div>
+                                                                <p>
+                                                                    You could have saved <b>70%</b> on this booking
+                                                            </p>
+                                                                <p>if you were a Docprime <img src={ASSETS_BASE_URL + '/img/viplog.png'} /> Member!</p>
+                                                            </div>
+                                                            <button onClick={()=>this.navigateToVIP()}>Know more</button>
+
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div className="widget mrb-10">
-                                                    <div className="widget-content bokng-card pb-details pb-location">
+                                                    <div className="widget-content bokng-card pb-location">
                                                         <h4 className="wc-title text-md fw-700 card-nm-ovrlpng">{doctor.display_name}</h4>
                                                         <InitialsPicture name={doctor.name} has_image={!!doctor_thumbnail} className="initialsPicture-dbd" onClick={this.navigateTo.bind(this, `/opd/doctor/${doctor.id}`)}>
                                                             <img src={doctor_thumbnail} style={{ width: 50 }} className="img-fluid add-map img-round crd-doc-img" />
@@ -324,15 +351,21 @@ class BookingView extends React.Component {
                                                             <p className="add-info fw-500">{this.getQualificationStr(doctor.general_specialization || [])}</p>
                                                         </div>
                                                     </div>
-                                                    <div className="widget-content pb-details pb-location">
+                                                    <div className="widget-content  pb-location">
                                                         <h4 className="wc-title text-md fw-700 card-nm-ovrlpng">{hospital.name}</h4>
                                                         <div className="address-details">
-                                                            {/*<img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid add-map" />*/}      
+                                                            {/*<img src={ASSETS_BASE_URL + "/img/customer-icons/map-icon.png"} className="img-fluid add-map" />*/}
                                                             <p className="add-info fw-500">{hospital.address}</p>
                                                         </div>
                                                         {/*<div className="pb-view text-left">
                                                             <a href={`https://www.google.com/maps/search/?api=1&query=${hospital.lat},${hospital.long}`} target="_blank" className="link-text text-md fw-700">View in Google Map</a>
                                                         </div>*/}
+                                                        {
+                                                            status == 6 || status == 7 ?
+                                                                <button className="rebook-btn" onClick={this.goToBookingPage.bind(this)}>Rebook Appointment</button>
+                                                                : ''
+                                                        }
+
                                                     </div>
                                                     {
                                                         this.state.data && this.state.data.procedures && this.state.data.procedures.length ?
@@ -421,7 +454,7 @@ class BookingView extends React.Component {
                             }
 
                             {
-                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} comments={this.state.data && this.state.data.cancellation_reason ? this.state.data.cancellation_reason : []} showCommentReasons={payment_type == 3 || payment_type == 2?true:false}/> : ""
+                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} comments={this.state.data && this.state.data.cancellation_reason ? this.state.data.cancellation_reason : []} showCommentReasons={payment_type == 3 || payment_type == 2 ? true : false} /> : ""
                             }
 
                         </div>

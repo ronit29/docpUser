@@ -1,8 +1,24 @@
 import React from 'react'
 import GTM from '../../../helpers/gtm'
+import SnackBar from 'node-snackbar'
 
 class FooterWidgetView extends React.Component {
 
+	constructor(props) {
+		super(props)
+		this.state = {
+			name: '',
+			phone_number:'',
+			show_form:false,
+			leadType:'',
+			clickedData:null,
+			city_id:null,
+			city_name:'',
+			search_city:'',
+			showCitySearchPopup:false,
+			filtered_city_list: []
+		}
+	}
 	componentDidMount() {
 		let data = {
 			'Category': 'ConsumerApp', 'Action': 'FooterWidgetDisplayed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'footer-widget-displayed', type: this.props.footerWidget && this.props.footerWidget.widget_type ? this.props.footerWidget.widget_type : ''
@@ -12,6 +28,10 @@ class FooterWidgetView extends React.Component {
 	}
 
 	selectDoctorSpecialization(data) {
+		if(!this.state.show_form){
+			this.setState({show_form:true, leadType:1,clickedData:data})
+			return
+		}
 		let criteria = {}
 		criteria.id = data[1] || ''
 		criteria.name = data[0] || ''
@@ -45,6 +65,10 @@ class FooterWidgetView extends React.Component {
 	}
 
 	selectTest(data) {
+		if(!this.state.show_form){
+			this.setState({show_form:true, leadType:2,clickedData:data})
+			return
+		}
 		let criteria = {}
 		criteria.id = data[1] || ''
 		criteria.name = data[0] || ''
@@ -86,6 +110,10 @@ class FooterWidgetView extends React.Component {
 	}
 
 	openSearchMore() {
+		if(!this.state.show_form){
+			this.setState({show_form:true, leadType:3})
+			return
+		}
 		let which = 'opd'
 		if (this.props.footerWidget && this.props.footerWidget.widget_type == 'LabTest') {
 			which = 'lab'
@@ -95,16 +123,134 @@ class FooterWidgetView extends React.Component {
 	}
 
 	goToPackage() {
+		if(!this.state.show_form){
+			this.setState({show_form:true, leadType:4})
+			return
+		}
 		let data = {
 			'Category': 'ConsumerApp', 'Action': 'ShowPackageClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'show-package-clicked', 'from': 'footerWidget'
 		}
 		GTM.sendEvent({ data: data })
-		this.props.history.push('/thyrocare-aarogyam-packages')
+		this.props.setPackageId(12227, true)
+		setTimeout(() => {
+			this.props.history.push('/searchpackages')
+		}, 100)
+		// this.props.history.push('/thyrocare-aarogyam-packages')
 	}
 
-	render() {
+	closeLeadForm(isProceed){
+		let proceed = false
+		let data={}
+		if(isProceed){
+			if(this.state.name == ''){
+				SnackBar.show({ pos: 'bottom-center', text: "Please enter name" })
+				return	
+			}
+			if(this.state.phone_number == ''){
+				SnackBar.show({ pos: 'bottom-center', text: "Please enter phone number" })
+				return	
+			}
+			if(!this.state.city_id){
+				return	
+			}
+			if(this.state.city_name == ''){
+				SnackBar.show({ pos: 'bottom-center', text: "Please select city" })
+				return	
+			}
+			if(this.state.phone_number.length < 10 || this.state.phone_number.length > 10){
+				SnackBar.show({ pos: 'bottom-center', text: "Please enter valid number" })
+				return
+			}
+			if(this.state.name !='' && this.state.phone_number !='' && this.state.city_id && this.state.city_name !=''){
+				data.name = this.state.name
+				data.phone_number = this.state.phone_number
+				data.city_id = this.state.city_id
+				data.city_name = this.state.city_name
+				if(this.state.leadType  == 1){
+					data.lead_source = 'med_doc'
+				}else if(this.state.leadType  == 2){
+					data.lead_source = 'med_test'
+				}else if(this.state.leadType  == 3){
+					data.lead_source = 'med_searchmore'
+				}else if(this.state.leadType  == 4){
+					data.lead_source = 'med_package'
+				}
+				
+				this.props.submitMedicineLead(data,(resp)=>{
+					if(resp){
+						if(this.state.leadType == 1){
+							this.selectDoctorSpecialization(this.state.clickedData)
+						}else if(this.state.leadType == 2){
+							this.selectTest(this.state.clickedData)
+						}else if(this.state.leadType == 3){
+							this.openSearchMore()
+						}else if(this.state.leadType == 4){
+							this.goToPackage()
+						}
+					}
+				})
+			}
+		}else{
+			let data = {
+			'Category': 'ConsumerApp', 'Action': 'SkipMedLeadClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'skip-med-lead-click', 'from': 'footerWidget'
+			}
+			GTM.sendEvent({ data: data })
+			if(this.state.leadType == 1){
+				this.selectDoctorSpecialization(this.state.clickedData)
+			}else if(this.state.leadType == 2){
+				this.selectTest(this.state.clickedData)
+			}else if(this.state.leadType == 3){
+				this.openSearchMore()
+			}else if(this.state.leadType == 4){
+				this.goToPackage()
+			}
+		}
+	}
 
+	handleChange(event){
+		this.setState({
+			[event.target.getAttribute('data-param')]: event.target.value
+		})		
+	}
+
+	handleInut(type, event) {
+    	try{
+	    	let search_string = event.target.value.toLowerCase()
+	    	let filtered_city_list = []
+	    	this.props.user_cities.map((city)=>{
+	    		let city_name = (city.name).toLowerCase()
+	    		if(city_name.includes(search_string)){
+	    			let index = city_name.indexOf(search_string)
+	    			filtered_city_list.push({id: city.id, name: city.name, rank: index})
+	    		}
+	    	})
+	    	filtered_city_list = filtered_city_list.sort((x,y)=>{
+	    		return x.rank-y.rank
+	    	})
+	    	this.setState({[type]: event.target.value, filtered_city_list: filtered_city_list})
+	    }catch(e) {
+
+	    }
+    }
+
+    onFocusIn(){
+    	this.setState({ search_city:'', showCitySearchPopup: true })
+    }
+
+    onFocusOut(){
+    	setTimeout(()=>{
+    		this.setState({ search_city: this.state.selectedDoctor, showCitySearchPopup: false })	
+    	},500)
+    	
+    }
+
+    clickDoctorList(name,id) {
+    	this.setState({'city_name': name, 'city_id':id, filtered_city_list:[], search_city: name, showCitySearchPopup: false}) 
+    }
+
+	render() {
 		let { footerWidget } = this.props
+		let filtered_doctor = this.state.filtered_city_list
 		return (
 			<React.Fragment>
 				{
@@ -191,6 +337,49 @@ class FooterWidgetView extends React.Component {
 						</div>
 						: ''
 				}
+
+				{this.state.show_form?<div className="search-el-popup-overlay cancel-overlay-zindex">
+					   <div className="search-el-popup ipd-pop-width">
+					      <div className="widget p-12">
+					         <div className="p-relative">
+					            <p className="ipd-needHelp">Talk to medical expert and get help with your booking</p>
+					            <div className="ipd-pop-scrl">
+					               <div className="ipd-inp-section">
+					                  <div className="nm-lst-inputcnt">
+					                  	<input type="text" value="" name="name" placeholder="*Name" autoComplete={null} onChange={this.handleChange.bind(this)} data-param='name' value={this.state.name}/>
+					                  </div>
+					                  <input type="number" value="" name="phone_number" autoComplete="none" placeholder="*Mobile Number" onChange={this.handleChange.bind(this)} data-param="phone_number" value={this.state.phone_number}/>
+					                  <div className="ipd-slects-doc">
+									  <input type="text" autoComplete="none" placeholder='Search City' onChange={this.handleInut.bind(this, 'search_city')} onFocus = {this.onFocusIn.bind(this)} onBlur={this.onFocusOut.bind(this)} value={this.state.search_city}/>
+											{
+												this.state.showCitySearchPopup?
+												<div className="doc-srch-fltr" onClick={(e)=>e.preventDefault()}>
+												{
+													
+													this.state.filtered_city_list && this.state.filtered_city_list.length?
+														this.state.filtered_city_list.map((data, key)=>{
+															return <p className="cursor-pntr" key={key} id={data.id} onClick={(e)=>{
+																e.preventDefault();
+																e.stopPropagation();
+																this.clickDoctorList(data.name,data.id)} }>
+																{data.name}</p>
+														})
+														:this.state.search_city != '' ?<p>No result found</p>:''
+												}
+												</div>
+												:''
+											}
+									  </div>
+					                  <div className="skip-btn-sgn">
+					                     <button className="ipd-inp-sbmt" onClick={this.closeLeadForm.bind(this,true)}>Submit</button>
+					                     <p onClick={this.closeLeadForm.bind(this,false)}>Skip</p>
+					                  </div>
+					               </div>
+					            </div>
+					         </div>
+					      </div>
+					   </div>
+				</div>:""}
 			</React.Fragment>
 		)
 	}
