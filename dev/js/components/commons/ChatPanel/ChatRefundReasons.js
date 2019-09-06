@@ -2,6 +2,17 @@ import React from 'react'
 
 class ChatRefundView extends React.Component {
 
+	constructor(props){
+		super(props)
+		this.state = {
+			refundReason:''
+		}
+	}
+
+	selectReason(reason){
+		this.setState({refundReason: reason})
+	}
+
 	render() {
 
 		return (
@@ -26,41 +37,42 @@ class ChatRefundView extends React.Component {
 							<li>
 								<div className="dtl-radio">
 									<label className="container-radio mb-0 hpa-container-radio">Query not addressed properly
-									<input type="radio" name="radio" /><span className="doc-checkmark hpa-radio hpa-radio-gender"></span>
+									<input type="radio" name="radio" onChange={()=>this.selectReason('Query not addressed properly')} /><span className="doc-checkmark hpa-radio hpa-radio-gender" ></span>
 									</label>
 								</div>
 							</li>
 							<li>
 								<div className="dtl-radio">
 									<label className="container-radio mb-0 hpa-container-radio">Treatment/Prescription not provided
-									<input type="radio" name="radio" /><span className="doc-checkmark hpa-radio hpa-radio-gender"></span>
+									<input type="radio" name="radio" onChange={()=>this.selectReason('Treatment/Prescription not provided')} /><span className="doc-checkmark hpa-radio hpa-radio-gender" ></span>
 									</label>
 								</div>
 							</li>
 							<li>
 								<div className="dtl-radio">
 									<label className="container-radio mb-0 hpa-container-radio">Doctor takes too long to respond
-									<input type="radio" name="radio" /><span className="doc-checkmark hpa-radio hpa-radio-gender"></span>
+									<input type="radio" name="radio" onChange={()=>this.selectReason('Doctor takes too long to respond')} /><span className="doc-checkmark hpa-radio hpa-radio-gender"></span>
 									</label>
 								</div>
 							</li>
 							<li>
 								<div className="dtl-radio">
 									<label className="container-radio mb-0 hpa-container-radio">Not happy with overall service
-									<input type="radio" name="radio" /><span className="doc-checkmark hpa-radio hpa-radio-gender"></span>
+									<input type="radio" name="radio" onChange={()=>this.selectReason('Not happy with overall service')} /><span className="doc-checkmark hpa-radio hpa-radio-gender"></span>
 									</label>
 								</div>
 							</li>
 							<li>
 								<div className="dtl-radio">
 									<label className="container-radio mb-0 hpa-container-radio">Others
-									<input type="radio" name="radio" /><span className="doc-checkmark hpa-radio hpa-radio-gender"></span>
+									<input type="radio" name="radio" onChange={()=>{
+										this.selectReason('Others')}}/><span className="doc-checkmark hpa-radio hpa-radio-gender"></span>
 									</label>
 								</div>
 							</li>
 						</ul>
 					</div>
-					<button className="rfnd-btn">Initiate Refund</button>
+					<button className="rfnd-btn" onClick={()=>{this.props.submitRefund(this.state.refundReason)}}>Initiate Refund</button>
 				</div>
 			</React.Fragment>
 

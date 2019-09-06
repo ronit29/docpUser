@@ -611,7 +611,7 @@ class ChatPanel extends React.Component {
                 <div>
                     {
                         this.state.openRefundPopup &&
-                        <ChatRefundReasons submitRefund={() => this.submitRefundReasons()} toggleRefund={() => this.toggleRefundPopup()} />
+                        <ChatRefundReasons submitRefund={this.submitRefundReasons.bind(this)} toggleRefund={() => this.toggleRefundPopup()} />
 
                     }
                     {
@@ -665,9 +665,7 @@ class ChatPanel extends React.Component {
                                         </div>
 
                                         <div className="cht-head-rqst-btn refund-chat" style={this.props.homePage ? {} : {}} >
-                                            {
-                                                true && <p className="cht-need-btn" onClick={() => { this.refundClicked() }}>Need Refund?</p>
-                                            }
+                                            <p className={`cht-need-btn cursor-pntr ${parsedHref && parsedHref.payment=='success'?'':'disable-all'}`} onClick={() => { this.refundClicked() }}>Need Refund?</p>
                                             {
                                                 this.state.selectedRoom ? <span className="mr-2" onClick={() => {
                                                     let data = {
