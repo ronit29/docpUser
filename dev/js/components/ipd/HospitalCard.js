@@ -62,8 +62,14 @@ class HospitalCard extends React.Component {
                                  false && data.count_of_insurance_provider?
                                  <p className="nw-hsp-crd-green" /*style={{cursor:'pointer'}} onClick={this.toggleProviderPopup.bind(this, data.insurance_provider)}*/><img src={ASSETS_BASE_URL + '/img/chk-green.svg'} />{`${data.count_of_insurance_provider} Insurance Providers`}</p>
                                  :''
-                              }                             
-                              <a href="javascript:void(0);" onClick={() => this.props.getCostEstimateClicked(data.id)}><button className="cstm-book-btn">Get Cost Estimate</button></a>
+                              }
+                              {
+                                 data.is_ipd_hospital?<a href="javascript:void(0);" onClick={() => this.props.getCostEstimateClicked(data.id)}><button className="cstm-book-btn">Get Cost Estimate</button></a>
+                                 :<a href="javascript:void(0);" onClick={(e) => {
+                                    e.preventDefault()
+                                    this.props.getHospitalDetailPage(data.id, data.url || null)
+                                 }}><button className="cstm-book-btn">Book Now</button></a>
+                              }
                            </div>
                         </div>
                      </div>

@@ -113,13 +113,13 @@ export const getIpdHospitals = (state, page=1, fromServer, searchByUrl, cb) => (
 
     let ipd_id = commonSelectedCriterias.map(x=>x.id)
 
-    let url = `/api/v1/doctor/ipd_procedure/${ipd_id}/hospitals?`
+    let url = ''
     
-    if (searchByUrl) {
+    if(ipd_id && ipd_id.length){
+        url = `/api/v1/doctor/ipd_procedure/${ipd_id}/hospitals?`
+    }else if (searchByUrl) {
         url = `/api/v1/doctor/hospitalsearch_by_url/${searchByUrl.split('/')[1]}?`
-    }
-
-    if(network_id) {
+    }else {
         url = `/api/v1/doctor/hospitals?`
     }
 
