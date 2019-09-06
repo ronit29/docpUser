@@ -1,4 +1,4 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF
  } from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
@@ -165,6 +165,31 @@ export const getVipDashboardList = (user_id,is_dashboard,callback) => (dispatch)
 export const resetVipData = () =>(dispatch) =>{
     dispatch({
         type: RESET_VIP_CLUB
+    })
+}
+
+
+export const uploadVipProof = (profileData, memberId,imgType,cb) => (dispatch) => {
+    console.log(imgType)
+    console.log(profileData)
+    API_POST(`/api/v1/common/upload/document-proof?type=${imgType}`,profileData).then(function (response) {
+        if (cb) cb(response,null);
+    }).catch(function (error) {
+        if (cb) cb(error, null);
+    })
+}
+
+export const storeVipMemberProofs = (imgUrl,cb) => (dispatch) => {
+    dispatch({
+        type:SAVE_VIP_MEMBER_PROOFS,
+        payload:imgUrl
+    })
+}
+
+export const removeVipMemberProof = (criteria) => (dispatch) => {
+    dispatch({
+        type:DELETE_VIP_MEMBER_PROOF,
+        payload:criteria
     })
 }
 

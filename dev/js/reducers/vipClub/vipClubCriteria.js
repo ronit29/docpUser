@@ -1,4 +1,4 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA , SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF
 } from '../../constants/types';
 
 const defaultState = {
@@ -59,30 +59,6 @@ export default function (state = defaultState, action) {
             return newState
         }
 
-        // case GET_INSURANCE: {
-        //     let newState = { ...state }
-        //     if(Object.keys(action.payload).length > 0){
-        //         newState.insurnaceData = action.payload
-        //         if(action.payload.certificate){
-        //             newState.LOAD_INSURANCE = false
-        //         }else{
-        //             if(action.payload.insurance[0].plans && action.payload.insurance[0].plans.length >0){
-        //                 if(Object.keys(newState.selected_plan).length == 0){
-        //                     newState.selected_plan = action.payload.insurance[0].plans.filter((x => x.is_selected))
-        //                     if(newState.selected_plan.length){
-        //                         newState.selected_plan = newState.selected_plan[0]
-        //                     }
-                            
-        //                 }
-        //                 newState.LOAD_INSURANCE = true
-        //             }
-        //         }
-        //     }else{
-        //         newState.insurnaceData = action.payload
-        //     }
-        //     return newState
-        // }
-
         case SELECT_VIP_CLUB_PLAN:{
             let newState = { ...state,
                 selected_vip_plan: { ...state.selected_vip_plan }
@@ -139,7 +115,7 @@ export default function (state = defaultState, action) {
             newState.currentSelectedVipMembersId=[]
             newState.selected_vip_plan={}
             newState.vipClubMemberDetails={}
-            // newState.members_proofs = []
+            newState.members_proofs = []
             return newState   
         }
 
@@ -153,8 +129,58 @@ export default function (state = defaultState, action) {
 
             return newState
         }
+        case SAVE_VIP_MEMBER_PROOFS:{
+            let newState = {
+                ...state,
+                members_proofs: [].concat(state.members_proofs)
+            }
+            if(newState.members_proofs.length > 0){
 
+                let found = []
+                newState.members_proofs = newState.members_proofs.filter((data)=> {
 
+                    if(data.id == action.payload.id) {
+                        found.push(data)
+                        return false
+                    }
+                    return true
+                })
+
+                if(found) {
+                    let data = Object.assign({}, found[0], action.payload)    
+                    newState.members_proofs.push(data)
+                }else{
+                    newState.members_proofs.push(action.payload)
+                }
+            }else{
+                newState.members_proofs.push(action.payload)
+            }            
+            return newState   
+        }
+        
+        case DELETE_VIP_MEMBER_PROOF:{
+           let newState = {
+                ...state
+            } 
+            
+            let currentSelectedMember = null
+            newState.members_proofs = newState.members_proofs.filter((member) => {
+
+                if(member.id == action.payload.member_id) {
+                    currentSelectedMember = member
+                    return false
+                }
+                return true
+            })
+
+            if(currentSelectedMember){
+                let currentProofs = currentSelectedMember.img_path_ids.filter(x=>x.id !== action.payload.id) 
+                currentSelectedMember.img_path_ids = currentProofs
+            }
+
+            newState.members_proofs.push({...currentSelectedMember})
+            return newState
+        }
 
         // all old insurnance  cases
         /*

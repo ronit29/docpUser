@@ -28,7 +28,7 @@ class VipClub extends React.Component {
     }
 
     render() {
-        console.log(this.props.data.user)
+        console.log(this.props.data)
         return (
 
 
@@ -61,7 +61,11 @@ class VipClub extends React.Component {
                                                     your subscription</p>
                                             </div>
                                         </div>
-                                        <button onClick={this.AddMemberDetails.bind(this)}>Click here</button>
+                                        {
+                                            this.props.data.is_member_allowed?
+                                            <button onClick={this.AddMemberDetails.bind(this)}>Click here</button>
+                                            :''
+                                        }
                                     </div>
                                     {
                                         this.props.data.plan && this.props.data.plan.length > 0 && this.props.data.plan[0].utilize && Object.keys(this.props.data.plan[0].utilize).length > 0 ?
@@ -130,7 +134,9 @@ class VipClub extends React.Component {
                                                             {
                                                                 this.props.data.user.plus_members.map((val,key) => {
                                                                     return <li>
-                                                                        <h4 className="vip-acrd-hdng"><span>{val.first_name} {val.last_name} <br /><b>(Primary)</b></span><img className="acdn-arrow acdn-arrow-up" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
+                                                                        <h4 className="vip-acrd-hdng"><span>{val.first_name} {val.last_name} <br />
+                                                                            {val.relation == 'SELF'?<b>(Primary)</b>:''}
+                                                                            </span><img className="acdn-arrow acdn-arrow-up" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
                                                                         </h4>
                                                                         <div className="vip-sn-tbl">
                                                                             <table className="vip-acrd-content">
