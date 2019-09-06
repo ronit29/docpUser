@@ -81,6 +81,11 @@ class PaymentForm extends React.Component {
                         <input type="text" name="insurerCode" defaultValue={this.props.paymentData['insurerCode']} />
                         :''
                     }
+                    {
+                        this.props.paymentData && this.props.paymentData['merchantCode']?
+                        <input type="text" name="merchantCode" defaultValue={this.props.paymentData['merchantCode']} />
+                        :''
+                    }
                     
                 </form>
 

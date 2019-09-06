@@ -61,7 +61,7 @@ class VipProposer extends React.Component {
 		let self = this
 		let oldDate
 		let profileLength = Object.keys(props.USER.profiles).length;
-		if (profileLength > 0 && this.state.profile_flag && !props.is_endorsement && !props.is_from_payment) {
+		if (profileLength > 0 && this.state.profile_flag && !props.is_from_payment) {
 			let isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
 			if (Object.keys(props.vipClubMemberDetails).length > 0) {
 				let profile
@@ -70,6 +70,7 @@ class VipProposer extends React.Component {
 				} else {
 					profile = Object.assign({}, props.vipClubMemberDetails[0])
 				}
+				this.populateDates()
 				this.getUserDetails(profile)
 				if (Object.keys(profile).length) {
 					this.setState({ ...profile}, () => {
@@ -86,6 +87,7 @@ class VipProposer extends React.Component {
 				} else {
 					this.setState({ profile_flag: false })
 					let new_profile = props.USER.profiles[props.USER.defaultProfile]
+					this.populateDates()
 					this.getUserDetails(new_profile)
 				}
 			} else if (props.USER.profiles[props.USER.defaultProfile]) {
@@ -792,7 +794,7 @@ class VipProposer extends React.Component {
 						</React.Fragment>
 					}
 					<div className="col-12">
-						<div className="ins-form-group">
+						<div className={`ins-form-group ${this.props.is_from_payment?'click-disable':''}`} >
 							<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">Date of birth</label>
 							<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
 							<div className="dob-select-div d-flex align-items-center">
