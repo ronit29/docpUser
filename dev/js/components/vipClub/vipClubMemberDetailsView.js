@@ -224,6 +224,8 @@ class VipClubMemberDetailsView extends React.Component{
 	    		let address
 	    		let pincode
 	    		if(this.props.is_from_payment){
+	    			console.log(this.state.proceed)
+	    			console.log(this.props.vipClubMemberDetails)
 	    			if(!this.state.proceed && this.props.vipClubMemberDetails && Object.keys(this.props.vipClubMemberDetails).length <4){
 			    		this.setState({show_popup:true})
 			    		return
@@ -252,11 +254,11 @@ class VipClubMemberDetailsView extends React.Component{
 					    	}
 					},this)}
 					console.log(data)
-	    			this.props.addVipMembersData(data,(resp)=>{
-	    				if(resp.success){
-	    					this.props.history.push('vip-club-activated-details')
-	    				}
-	    			})
+	    			// this.props.addVipMembersData(data,(resp)=>{
+	    			// 	if(resp.success){
+	    			// 		this.props.history.push('vip-club-activated-details')
+	    			// 	}
+	    			// })
 	    		}else{
 	    			// console.log(self_profile)
 	    			var members = {}
@@ -289,12 +291,16 @@ class VipClubMemberDetailsView extends React.Component{
     		
     	}
     }
+
     proceedMembers(is_wait){
-    	this.setState({proceed:is_wait?true:false,show_popup:false},()=>{
+    	this.setState({show_popup:false,proceed:is_wait?true:false},()=>{
     		if (document.getElementById('submit_buy')) {
                 document.getElementById('submit_buy').click()
             }
     	})
+    }
+    proceedMembersNo(is_wait){
+    	this.setState({show_popup:false,proceed:false})
     }
 	render(){
 		let child
@@ -350,7 +356,7 @@ class VipClubMemberDetailsView extends React.Component{
 												Are you sure you want to submit? 
 												Member details once submited cannot be added or edited later.</p>
 											<div className="search-el-btn-container">
-												<button onClick={this.proceedMembers.bind(this, 0)}>No Wait</button>
+												<button onClick={this.proceedMembersNo.bind(this, 0)}>No Wait</button>
 												{/* <span className="src-el-btn-border"></span> */}
 												<button onClick={this.proceedMembers.bind(this, 1)}>Submit</button>
 											</div>

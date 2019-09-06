@@ -167,8 +167,8 @@ class VipClub extends React.Component {
                                                         <ul className="vip-acr-lst">
                                                             {
                                                                 this.props.data.user.plus_members.map((val,key) => {
-                                                                    return <li onClick={this.ButtonHandler.bind(this,key)}>
-                                                                        <h4 className="vip-acrd-hdng"><span>{val.first_name} {val.last_name} <br />
+                                                                    return <li>
+                                                                        <h4 onClick={this.ButtonHandler.bind(this,key)} className="vip-acrd-hdng"><span>{val.first_name} {val.last_name} <br />
                                                                             {val.relation == 'SELF'?<b>(Primary)</b>:''}
                                                                             </span><img className=
                                                                             {`acdn-arrow  ${this.state.tabsValue.indexOf(key)>-1?'':'acdn-arrow-up'}`} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
