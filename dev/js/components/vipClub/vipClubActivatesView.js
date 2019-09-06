@@ -74,7 +74,7 @@ class VipClub extends React.Component {
                         <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
                             <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
                             <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
-                            <h1>in Just <span className="vip-prc-cut">₹{this.props.data.plan[0].mrp}</span> <span className="vip-main-price">₹{this.props.data.plan[0].deal_price}</span>  </h1>
+                            {/*<h1>in Just <span className="vip-prc-cut">₹{this.props.data.plan[0].mrp}</span> <span className="vip-main-price">₹{this.props.data.plan[0].deal_price}</span>  </h1>*/}
                                 <p>Valid till {expiry_date}</p>
                             {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
                         </div>
@@ -107,7 +107,7 @@ class VipClub extends React.Component {
                                                 <div className="vip-dsh-main-cont mb-3">
                                                     <div className="vip-acnt-heading">
                                                         <h5>Your Account</h5>
-                                                        <span>View Appointments</span>
+                                                        <span onClick={() => this.props.history.push('/user/appointments')}>View Appointments</span>
                                                     </div>
                                                     <div className="doc-onln-cnslt">
                                                         <div className="vip-cnslt-card">
