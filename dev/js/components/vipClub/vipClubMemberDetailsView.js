@@ -254,11 +254,11 @@ class VipClubMemberDetailsView extends React.Component{
 					    	}
 					},this)}
 					console.log(data)
-	    			// this.props.addVipMembersData(data,(resp)=>{
-	    			// 	if(resp.success){
-	    			// 		this.props.history.push('vip-club-activated-details')
-	    			// 	}
-	    			// })
+	    			this.props.addVipMembersData(data,(resp)=>{
+	    				if(resp.success){
+	    					this.props.history.push('vip-club-activated-details')
+	    				}
+	    			})
 	    		}else{
 	    			// console.log(self_profile)
 	    			var members = {}
