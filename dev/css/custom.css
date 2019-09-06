@@ -4214,3 +4214,88 @@ section.container.container-top-margin.sub-pdng-add.sub-pdng-rmv {
     margin-bottom: 0;
 }
 /* ============ new vip book card  ============ */
+/* ============ refund chat  ============ */
+.refund-chat{
+    display: flex;
+    align-items: center;
+}
+.cht-need-btn{
+    background-image: linear-gradient(to left,#f78631,#ff6d00);
+    width: 100%;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    padding: 3px 7px;
+    font-weight: 500;
+    font-size: 13px;
+    margin-right: 2px;
+}
+img.rfnd-cls-btn {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    cursor: pointer;
+}
+.refund-chat-hdng {
+    text-align: center;
+}
+p.rfnd-mn-hdng {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+p.rfnd-sub-hdng {
+    color: #757575;
+    font-weight: 500;
+    font-size: 13px;
+}
+.rfnd-lst-cont {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+p.rfnd-lst-hdng {
+    font-weight: 500;
+    margin-bottom: 0px;
+}
+p.rfnd-lstsub-hdng {
+    color: #f50707;
+    font-size: 13px;
+    font-weight: 500;
+
+}
+.rfnd-lst-cont ul {
+    margin-top: 12px;
+}
+.rfnd-lst-cont ul li {
+    margin-bottom: 10px;
+}
+.dtl-radio {
+    margin-right: 10px;
+}
+.rfnd-lst-cont ul li div.dtl-radio label {
+    font-weight: 500;
+}
+.rfnd-btn{
+    background-image: linear-gradient(to left,#f78631,#ff6d00);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    font-weight: 500;
+    font-size: 13px;
+    width: 50%;
+    display: block;
+    padding: 8px 0;
+    margin:auto;
+    
+}
+.refund-pop{
+    padding: 12px;
+}
+@media (max-width:767px){
+    .refund-pop{
+padding-bottom: 50px !important;
+    }
+}
+
+/* ============ refund chat  ============ */
