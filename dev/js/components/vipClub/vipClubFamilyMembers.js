@@ -470,7 +470,7 @@ class VipProposerFamily extends React.Component {
 						{this.props.vip_club_db_data && Object.keys(this.props.vip_club_db_data.data).length>0 && this.props.vip_club_db_data.data.relation_master && this.props.vip_club_db_data.data.relation_master.length > 0?
 							<div className="ins-form-group mt-1">
 								<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Relation</label>
-								<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
+								<img src={ASSETS_BASE_URL + "/img/hands.svg"} />
 								<div className="dob-select-div d-flex align-items-center">
 									<div style={{flex: 1}} className="dob-select d-flex align-items-center">
 										<select style={{width:'100%'}} value={this.state.relation} onChange={this.handleRelation.bind(this)}>
@@ -482,9 +482,7 @@ class VipProposerFamily extends React.Component {
 										<img className="dob-down-icon" style={{right : '4px'}} src="/assets/img/customer-icons/dropdown-arrow.svg"/>
 									</div>
 								</div>
-								{
-								this.props.validateErrors && this.props.validateErrors.indexOf('relation')> -1?commonMsgSpan:''
-								}
+								
 							</div>
 						:''}
 					{
@@ -496,11 +494,7 @@ class VipProposerFamily extends React.Component {
 						<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
 						</div>*/
 					}
-					<React.Fragment>
-						<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
-						<button className={`label-names-buttons ${this.state.title == 'miss' ? 'btn-active' : ''}`} name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss')} >Ms.</button>
-						<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
-					</React.Fragment>
+					
 					{
 						// !this.props.is_child_only && this.props.validateErrors.indexOf('title')> -1?<span className="fill-error-span abcdefgh" style={{marginTop:'-13px'}}>{this.props.errorMessages['common_message']}</span>:''
 					}
@@ -515,10 +509,17 @@ class VipProposerFamily extends React.Component {
 						<span className="fill-error-span">{this.props.createApiErrors.title[0]}</span>:''*/	
 					}
 
-					{
+					{/* {
 						this.props.validateErrors && this.props.validateErrors.indexOf('title')> -1?commonMsgSpan:''
-					}
-
+					} */}
+					{
+								this.props.validateErrors && this.props.validateErrors.indexOf('relation')> -1?commonMsgSpan:''
+								}
+					</div>
+					<div> 
+						<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
+						<button className={`label-names-buttons ${this.state.title == 'miss' ? 'btn-active' : ''}`} name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss')} >Ms.</button>
+						<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
 					</div>
 					<div className="row no-gutters">
 					{
@@ -679,7 +680,7 @@ class VipProposerFamily extends React.Component {
 								this.props.is_child_only?<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.errorMessages['childAgeDiff']}</span>:'':''*/
 							}
 							{
-								this.props.validateErrors && this.props.validateErrors.indexOf('title')> -1?commonMsgSpan:''
+								this.props.validateErrors && this.props.validateErrors.indexOf('dob')> -1?<span className="fill-error-span" style={{marginTop:'1px'}}>*This is a mandatory field</span>:''
 							}
 						</div>
 					</div>
