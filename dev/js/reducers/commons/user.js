@@ -62,7 +62,8 @@ const defaultState = {
     insurance_status: null,
     ipd_chat:false,
     is_ipd_form_submitted: false,
-    user_cities:[]
+    user_cities:[],
+    chatPaymentStatus: null
 }
 
 export default function (state = defaultState, action) {
@@ -256,6 +257,9 @@ export default function (state = defaultState, action) {
         case SET_CHATROOM_ID: {
             let newState = { ...state }
             newState.currentRoomId = action.payload
+            if(action.extraParams && action.extraParams.payment){
+                newState.chatPaymentStatus = action.payload
+            }
             return newState
         }
 

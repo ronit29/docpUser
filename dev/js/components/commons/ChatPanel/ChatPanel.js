@@ -165,8 +165,11 @@ class ChatPanel extends React.Component {
                                     'Category': 'Chat', 'Action': 'ChatInitialization', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-initialization', 'RoomId': data.data.rid, "url": window.location.pathname
                                 }
                                 GTM.sendEvent({ data: analyticData })
-
-                                this.props.setChatRoomId(data.data.rid)
+                                let extraParams = {}
+                                if(parsedHref && parsedHref.payment=='success'){
+                                    extraParams.payment = true
+                                }
+                                this.props.setChatRoomId(data.data.rid, extraParams)
                                 if (this.props.selectedLocation) {
                                     this.sendLocationNotification(this.props.selectedLocation)
                                 }
@@ -195,6 +198,10 @@ class ChatPanel extends React.Component {
                         case "Chat_Close": {
                             // this.props.startLiveChat(false, this.state.selectedLocation)
                             this.setState({ initialMessage: "", selectedRoom: null, })
+                            if(parsedHref && parsedHref.payment == 'success'){
+                                let buildUrl = this.buildUrl()
+                                this.props.history.replace(buildUrl)
+                            }
                             this.props.setChatRoomId(null)
                             let that = this
                             setTimeout(() => {
@@ -380,12 +387,21 @@ class ChatPanel extends React.Component {
     }
 
     closeChat() {
+        let parsedHref = ''
+        if (typeof window == "object") {
+            parsedHref = queryString.parse(window.location.search)
+        }
+
         STORAGE.getAuthToken().then((token) => {
             token = token || ""
             this.setState({ token, initialMessage: "", selectedRoom: null })
         })
         this.dispatchCustomEvent.call(this, 'close_frame')
         this.setState({ showCancel: !this.state.showCancel })
+        if(parsedHref && parsedHref.payment == 'success'){
+            let buildUrl = this.buildUrl()
+            this.props.history.replace(buildUrl)
+        }
         this.props.setChatRoomId(null)
         this.props.unSetCommonUtmTags('chat')
         let that = this
@@ -393,6 +409,10 @@ class ChatPanel extends React.Component {
             that.props.ipdChatView(null)
         }, 1000)
 
+    }
+
+    buildUrl(){
+        return window.pathname;
     }
 
     toggleCancel(e) {
@@ -583,6 +603,13 @@ class ChatPanel extends React.Component {
             iframe_url += `&testing_mode=b`
         }
 
+        let is_payment_for_current_room = null
+        if(this.props.USER && this.props.USER.chatPaymentStatus && this.props.USER.chatPaymentStatus==this.props.USER.currentRoomId){
+
+            is_payment_for_current_room = true;
+             
+        }
+
         if (this.props.showHalfScreenChat && !this.props.showDesktopIpd) {
             return (
                 <div className="chat-body">
@@ -665,7 +692,7 @@ class ChatPanel extends React.Component {
                                         </div>
 
                                         <div className="cht-head-rqst-btn refund-chat" style={this.props.homePage ? {} : {}} >
-                                            <p className={`cht-need-btn cursor-pntr ${parsedHref && parsedHref.payment=='success'?'':'disable-all'}`} onClick={() => { this.refundClicked() }}>Need Refund?</p>
+                                            <p className={`cht-need-btn cursor-pntr ${is_payment_for_current_room?'':'disable-all'}`} onClick={() => { this.refundClicked() }}>Need Refund?</p>
                                             {
                                                 this.state.selectedRoom ? <span className="mr-2" onClick={() => {
                                                     let data = {

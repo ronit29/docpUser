@@ -298,10 +298,11 @@ export const sendAgentBookingURL = (orderId, type, purchase_type, cb) => (dispat
 	})
 }
 
-export const setChatRoomId = (roomId) => (dispatch) => {
+export const setChatRoomId = (roomId, extraParams={}) => (dispatch) => {
 	dispatch({
 		type: SET_CHATROOM_ID,
-		payload: roomId || null
+		payload: roomId || null,
+		extraParams:extraParams	
 	})
 }
 
