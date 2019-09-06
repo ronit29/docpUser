@@ -186,6 +186,10 @@ class VipClubMemberDetailsView extends React.Component{
 								is_disable = true
 								fields.push('address')
 							}
+							if(param.email == ""){  
+								is_disable = true
+								fields.push('email')
+							}
 							if(param.pincode == ""){  
 								is_disable = true
 								fields.push('pincode')
@@ -318,6 +322,7 @@ class VipClubMemberDetailsView extends React.Component{
 				})
 			}
 		}
+		console.log(this.props.USER.defaultProfile)
 		return(
 			<div className="profile-body-wrap">
 	            <ProfileHeader showPackageStrip={true}/> 
@@ -338,7 +343,7 @@ class VipClubMemberDetailsView extends React.Component{
 												// checkForValidation ={this.checkForValidation.bind(this)}  // to be deleted
 												id={`member_${this.props.USER.defaultProfile}`} 
 												member_id={this.props.USER.defaultProfile} 
-												validateErrors={this.state.validateErrors[this.props.USER.defaultProfile] || []}
+												validateErrors={this.state.validateErrors[this.props.USER.defaultProfile == 999999?0:this.props.USER.defaultProfile] || []}
 												validateOtherErrors={this.state.validateOtherErrors[this.props.USER.defaultProfile] || []} 
 												createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} 
 												errorMessages={this.state.errorMessages} 

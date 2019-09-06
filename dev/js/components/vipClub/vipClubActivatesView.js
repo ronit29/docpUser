@@ -43,10 +43,9 @@ class VipClub extends React.Component {
     }
 
     render() {
-        // console.log(this.props.data)
+        let expiry_date = new Date(this.props.data.user.expire_date)
+        expiry_date = expiry_date.toDateString()
         return (
-
-
             <div className="profile-body-wrap" style={{ background: "" }}>
                 {/* <ProfileHeader /> */}
                 <div className={`vipHeaderBar ${this.state.toggleTabType ? 'hed-curv-rmove' : ''}`} ref="vipHeaderBar">
@@ -57,7 +56,7 @@ class VipClub extends React.Component {
                             <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
                             <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
                             <h1>in Just <span className="vip-prc-cut">₹{this.props.data.plan[0].mrp}</span> <span className="vip-main-price">₹{this.props.data.plan[0].deal_price}</span>  </h1>
-                                <p>1 year upto 4 members</p>
+                                <p>Valid till {expiry_date}</p>
                             {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
                         </div>
                     </div>
