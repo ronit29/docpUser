@@ -28,7 +28,7 @@ class VipClub extends React.Component {
     }
 
     render() {
-        console.log(this.props.data.plan[0])
+        console.log(this.props.data.user)
         return (
 
 
@@ -120,42 +120,44 @@ class VipClub extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="vip-offer-cards mb-3">
-                                        <div className="vip-sbs-crd">
-                                            <h5 className="vip-brder-hdng">Tax Benefit</h5>
-                                            <div className="vip-accord-container">
-                                                <ul className="vip-acr-lst">
-                                                    <li>
-                                                        <h4 className="vip-acrd-hdng"><span>Rishabh Mehrotra <br /><b>(Primary)</b></span><img className="acdn-arrow acdn-arrow-up" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} /></h4>
-                                                        <div className="vip-sn-tbl">
-                                                            <table className="vip-acrd-content">
-                                                                <tr>
-                                                                    <th>Relationship</th>
-                                                                    <th>Gender</th>
-                                                                    <th>DOB</th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Friend</td>
-                                                                    <td>Male</td>
-                                                                    <td>25/07/1994</td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <h4 className="vip-acrd-hdng">Rishabh Mehrotra<img className="acdn-arrow acdn-arrow-up" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} /></h4>
-                                                    </li>
-                                                    <li>
-                                                        <h4 className="vip-acrd-hdng">Rishabh Mehrotra<img className="acdn-arrow acdn-arrow-up" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} /></h4>
-                                                    </li>
-                                                    <li onClick={this.AddMemberDetails.bind(this)}>
-                                                        <h4 className="vip-acrd-add-member"><img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />Add Members</h4>
-                                                    </li>
-                                                </ul>
+                                    {
+                                        this.props.data.user && Object.keys(this.props.data.user).length >0 && this.props.data.user.plus_members && this.props.data.user.plus_members.length > 0?
+                                            <div className="vip-offer-cards mb-3">
+                                                <div className="vip-sbs-crd">
+                                                    <h5 className="vip-brder-hdng">Members</h5>
+                                                    <div className="vip-accord-container">
+                                                        <ul className="vip-acr-lst">
+                                                            {
+                                                                this.props.data.user.plus_members.map((val,key) => {
+                                                                    return <li>
+                                                                        <h4 className="vip-acrd-hdng"><span>{val.first_name} {val.last_name} <br /><b>(Primary)</b></span><img className="acdn-arrow acdn-arrow-up" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
+                                                                        </h4>
+                                                                        <div className="vip-sn-tbl">
+                                                                            <table className="vip-acrd-content">
+                                                                                <tr>
+                                                                                        <th>Relationship</th>
+                                                                                        <th>Gender</th>
+                                                                                        <th>DOB</th>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>{val.relation}</td>
+                                                                                    <td>{val.title == 'mr.'?'m':'f'}</td>
+                                                                                    <td>{val.dob}</td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </div>
+                                                                    </li>
+                                                                })
+                                                            }
+                                                            <li onClick={this.AddMemberDetails.bind(this)}>
+                                                                <h4 className="vip-acrd-add-member"><img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />Add Members</h4>
+                                                            </li>
+                                                        </ul>
 
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                    :''}
                                     <div className="vip-contact mb-3">
                                         <div className="vip-sbs-crd">
                                             <h5 className="vip-brder-hdng">Contact Support</h5>
