@@ -201,7 +201,6 @@ class PatientDetailsNew extends React.Component {
             this.setState({'pay_btn_loading': false})
         }
 
-        console.log(this.state.isLensfitSpecific)
         if(this.state.isLensfitSpecific){
             setTimeout(() => {
                 if (document.getElementById('confirm_booking')) {

@@ -81,7 +81,7 @@ class LeftMenu extends React.Component {
                       <li><a className="p-relative" onClick={(e) => {
                         let data = {
                         'Category': 'ConsumerApp', 'Action': 'MobileLeftMenuVipClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-leftmenu-vip-clicked'
-                        }
+                      }
                       GTM.sendEvent({ data: data })
                         e.preventDefault()
                         this.props.toggleLeftMenu()

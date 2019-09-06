@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import { getInsurance, selectInsurancePlan , saveCurrentSelectedMembers,resetSelectedInsuranceMembers,resetSelectedPlans,sendOTP, submitOTP, resetAuth, getUserProfile, userData, generateInsuranceLead, urlShortner,
 
 
-getVipList, selectVipClubPlan
+getVipList, selectVipClubPlan, getVipDashboardList, resetVipData
  } from '../../actions/index.js'
 import VipClubView from '../../components/vipClub/vipClubActivatesView.js'
 import Loader from '../../components/commons/Loader'
@@ -17,6 +17,7 @@ class VipClubActivatedDetails extends React.Component{
     constructor(props) {
         super(props)
         this.state={
+            data:null
         }
     }
 
@@ -29,19 +30,34 @@ class VipClubActivatedDetails extends React.Component{
             window.scrollTo(0, 0)
         }
 
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var member_list_id = url.searchParams.get("id");
+        if (member_list_id !== null) {
+            this.props.resetVipData()
+            this.props.getVipDashboardList(member_list_id,false,(resp)=>{
+                if(resp && Object.keys(resp.data).length >0){
+                    this.setState({data:resp.data})
+                }
+            })
+        }else{
+            this.props.getVipDashboardList(member_list_id,true,(resp)=>{
+                if(resp && Object.keys(resp.data).length >0){
+                    this.setState({data:resp.data})
+                }
+            })
+        }
+
         // this.props.getInsurance(false)
-        this.props.getVipList(false)
+        // this.props.getVipList(false)
 
     }
     render(){
-        if(this.props.LOAD_VIP_CLUB){
+        if(this.props.LOAD_VIP_CLUB_DASHBOARD && this.state.data){
             return(
-                <VipClubView {...this.props}/>
+                <VipClubView {...this.props} data={this.state.data}/>
             )
         }else{
-            // if(this.props.insurnaceData.certificate && STORAGE.checkAuth()){
-            //     this.props.history.push('/insurance/certificate')
-            // }
             return(
             <div className="profile-body-wrap">
                 <ProfileHeader showPackageStrip={true}/>
@@ -49,31 +65,31 @@ class VipClubActivatedDetails extends React.Component{
             </div>
                 )
         }
-        // return(
-        //         <InsuranceComponent {...this.props}/>
-        //     )
     }
 }
 
 const mapStateToProps = (state) => {
     const USER = state.USER
     let { insurnaceData, LOAD_INSURANCE, selected_plan,self_data_values} = state.INSURANCE
-    let { LOAD_VIP_CLUB, vipClubList, selected_vip_plan } = state.VIPCLUB
+    let { LOAD_VIP_CLUB, vipClubList, selected_vip_plan, LOAD_VIP_CLUB_DASHBOARD, vip_club_db_data } = state.VIPCLUB
     const {
         selectedLocation
 
     } = state.SEARCH_CRITERIA_OPD
     return {
-        insurnaceData,LOAD_INSURANCE,selected_plan,self_data_values,USER, selectedLocation,LOAD_VIP_CLUB, vipClubList, selected_vip_plan
+        insurnaceData,LOAD_INSURANCE,selected_plan,self_data_values,USER, selectedLocation,LOAD_VIP_CLUB, vipClubList, selected_vip_plan, vip_club_db_data, LOAD_VIP_CLUB_DASHBOARD
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        resetVipData:() => dispatch(resetVipData()),
         getVipList: (is_endorsement,callback) => dispatch(getVipList(is_endorsement,callback)),
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
         getUserProfile: () => dispatch(getUserProfile()),
-        getInsurance: (is_endorsement,callback) => dispatch(getInsurance(is_endorsement,callback)),        
+        getInsurance: (is_endorsement,callback) => dispatch(getInsurance(is_endorsement,callback)), 
+        getVipDashboardList:(user_id,is_dashboard,callback) => dispatch(getVipDashboardList(user_id,is_dashboard,callback)),       
+
         selectInsurancePlan: (plan,criteria) => dispatch(selectInsurancePlan(plan,criteria)),
         // saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),
         resetSelectedPlans: () => dispatch(resetSelectedPlans()),
