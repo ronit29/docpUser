@@ -16,7 +16,8 @@ class VipClub extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-           toggleTabType: false 
+           toggleTabType: false,
+           tabsValue:[]
         }
     }
 
@@ -42,6 +43,24 @@ class VipClub extends React.Component {
         this.props.history.push('/vip-club-member-details?is_from_payment=true')
     }
 
+    ButtonHandler(field, event) {
+        let tabs = [].concat(this.state.tabsValue)
+        let self = this
+        let found = false
+        tabs = tabs.filter((x) => {
+            if (x == field) {
+                found = true
+                return false
+            }
+            return true
+        })
+        if (!found) {
+            tabs.push(field)
+        }
+
+        self.setState({ tabsValue: tabs })
+        console.log(tabs)
+    }
     render() {
         let expiry_date = new Date(this.props.data.user.expire_date)
         expiry_date = expiry_date.toDateString()
@@ -148,7 +167,7 @@ class VipClub extends React.Component {
                                                         <ul className="vip-acr-lst">
                                                             {
                                                                 this.props.data.user.plus_members.map((val,key) => {
-                                                                    return <li>
+                                                                    return <li onClick={this.ButtonHandler.bind(this,key)}>
                                                                         <h4 className="vip-acrd-hdng"><span>{val.first_name} {val.last_name} <br />
                                                                             {val.relation == 'SELF'?<b>(Primary)</b>:''}
                                                                             </span><img className="acdn-arrow acdn-arrow-up" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />

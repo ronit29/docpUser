@@ -72,13 +72,10 @@ class InsuranceProofs extends React.Component {
                 form_data.append(img_tag, file_blob_data, "imageFilename.jpeg")
             }
             this.props.uploadVipProof(form_data, member_id, 'image', (data, err) => {
-                console.log(data)
                 if (data) {
                     let dataId = data.id
-                    console.log(dataId)
-                    mem_data.id = data.data.member
+                    mem_data.id = this.props.member_id;
                     mem_data.img_path_ids=[]
-                    console.log(this.props.members_proofs)
                     if(this.props.members_proofs.length > 0){
                         Object.entries(this.props.members_proofs).map(function([key, value]) {
                             if(value.id == member_id){
@@ -94,8 +91,7 @@ class InsuranceProofs extends React.Component {
                         mem_data.img_path_ids.push({id: dataId, image:data.data.proof_file, val:dataId})
                     }
                     this.setState({isLoading:false})
-                    console.log(mem_data)
-                    // this.props.storeVipMemberProofs(mem_data)
+                    this.props.storeVipMemberProofs(mem_data)
                 }
             })
         })
@@ -141,7 +137,6 @@ class InsuranceProofs extends React.Component {
         if((img_url && img_url.length > 0) || (pdf_url && pdf_url.length > 0)){
             show_upload = false
         }
-
         return <div className="insurance-proofs-cont" style={{margin: '10px -10px 0px -10px'}}>
             {
             /*    this.props.endorsementError.indexOf(this.props.member_id) != -1 && img_url.length==0?

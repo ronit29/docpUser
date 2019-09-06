@@ -1011,11 +1011,11 @@ class VipProposer extends React.Component {
 						<InsuranceProofs {...this.props} />
 						: ''*/
 				}
-				{
+				{/*
 					this.props.is_from_payment?
 						<InsuranceProofs {...this.props} />
 						: ''
-				}
+				*/}
 			</div>
 		)
 	}
