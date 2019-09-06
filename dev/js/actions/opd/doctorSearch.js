@@ -222,7 +222,7 @@ export const getDoctors = (state = {}, page = 1, from_server = false, searchByUr
 	})
 }
 
-export const getDoctorById = (doctorId, hospitalId = "", procedure_ids = "", category_ids = "", extraParams={}) => (dispatch) => {
+export const getDoctorById = (doctorId, hospitalId = "", procedure_ids = "", category_ids = "", extraParams={}, cb) => (dispatch) => {
 	procedure_ids = ''
 	category_ids = ''
 	let url = `/api/v1/doctor/profileuserview/${doctorId}?hospital_id=${hospitalId || ""}&procedure_ids=${procedure_ids || ""}&procedure_category_ids=${category_ids || ""}`
@@ -243,6 +243,7 @@ export const getDoctorById = (doctorId, hospitalId = "", procedure_ids = "", cat
 			doctorId: doctorId,
 			commonProcedurers: procedure_ids
 		})
+		if(cb)cb(null, response)
 
 		if(response.cod_to_prepaid && response.cod_to_prepaid.time_slot_start && extraParams && extraParams.appointment_id){
 
@@ -285,7 +286,7 @@ export const getDoctorById = (doctorId, hospitalId = "", procedure_ids = "", cat
 		}
 
 	}).catch(function (error) {
-
+		if(cb)cb(error, null)
 	})
 }
 

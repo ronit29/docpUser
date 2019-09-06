@@ -14,7 +14,8 @@ class PatientDetails extends React.Component {
             timeSlots: null,
             doctor_leaves: [],
             DATA_FETCH: false,
-            upcoming_slots: null
+            upcoming_slots: null,
+            codError: null
         }
     }
 
@@ -55,7 +56,11 @@ class PatientDetails extends React.Component {
                 if(parsed.appointment_id){
                     extraParams['appointment_id'] = parsed.appointment_id
                 }
-                props.getDoctorById(doctor_id, hospital_id, props.commonProfileSelectedProcedures, '', extraParams)
+                props.getDoctorById(doctor_id, hospital_id, props.commonProfileSelectedProcedures, '', extraParams, (error, response)=>{
+                    if(error && error.message){
+                        this.setState({codError: error.message})
+                    }
+                })
             }
 
             /*if (props.selectedSlot && props.selectedSlot.date && !props.selectedSlot.summaryPage) {
@@ -112,7 +117,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         selectOpdTimeSLot: (slot, reschedule, appointmentId, extraDateParams) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId, extraDateParams)),
         getUserProfile: () => dispatch(getUserProfile()),
-        getDoctorById: (doctorId, hospitalId, procedure_ids,category_ids, extraParams) => dispatch(getDoctorById(doctorId, hospitalId, procedure_ids, category_ids, extraParams)),
+        getDoctorById: (doctorId, hospitalId, procedure_ids,category_ids, extraParams, cb) => dispatch(getDoctorById(doctorId, hospitalId, procedure_ids, category_ids, extraParams, cb)),
         createOPDAppointment: (postData, callback) => dispatch(createOPDAppointment(postData, callback)),
         sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
         removeCoupons: (hospitalId, couponId) => dispatch(removeCoupons(hospitalId, couponId)),
