@@ -28,7 +28,7 @@ class VipClub extends React.Component {
     }
 
     render() {
-
+        console.log(this.props.data.plan[0])
         return (
 
 
@@ -40,7 +40,7 @@ class VipClub extends React.Component {
                     </div>
                     <div className="vip-logo-cont">
                         <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
-                        <h1>in Just <span className="vip-prc-cut">₹4,999</span> <span className="vip-main-price">₹3,999</span>  </h1>
+                        <h1>in Just <span className="vip-prc-cut">₹{this.props.data.plan[0].mrp}</span> <span className="vip-main-price">₹{this.props.data.plan[0].deal_price}</span>  </h1>
                         <p>1 year upto 4 members</p>
                     </div>
                 </div>
@@ -63,44 +63,50 @@ class VipClub extends React.Component {
                                         </div>
                                         <button onClick={this.AddMemberDetails.bind(this)}>Click here</button>
                                     </div>
-                                    <div className="vip-dsh-main-cont mb-3">
-                                        <div className="vip-acnt-heading">
-                                            <h5>Your Account</h5>
-                                            <span>View Appointments</span>
-                                        </div>
-                                        <div className="doc-onln-cnslt">
-                                            <div className="vip-cnslt-card">
-                                                <h5 className="vip-brder-hdng">Doctor Consultation</h5>
-                                                <ul>
-                                                    <li><p>Total Limit: <span>₹6,500  </span></p></li>
-                                                    <li><p>Utilized: <span>₹6,500  </span></p></li>
-                                                    <li><p>Available: <span className="vip-crd-avl-grn">₹6,500  </span></p></li>
-                                                </ul>
-                                            </div>
-                                            <div className="vip-cnslt-card">
-                                                <h5 className="vip-brder-hdng">Doctor Consultation</h5>
-                                                <p className="vip-un-mem">Unlimited for 8 members</p>
-                                                <p className="vip-cnsl-act"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Activated </p>
-                                                <div className="text-right">
-                                                    <button className="vip-crd-btn">Chat Now</button>
+                                    {
+                                        this.props.data.plan && this.props.data.plan.length > 0 && this.props.data.plan[0].utilize && Object.keys(this.props.data.plan[0].utilize).length > 0 ?
+                                            <React.Fragment>
+                                                <div className="vip-dsh-main-cont mb-3">
+                                                    <div className="vip-acnt-heading">
+                                                        <h5>Your Account</h5>
+                                                        <span>View Appointments</span>
+                                                    </div>
+                                                    <div className="doc-onln-cnslt">
+                                                        <div className="vip-cnslt-card">
+                                                            <h5 className="vip-brder-hdng">Doctor Consultation</h5>
+                                                            <ul>
+                                                                <li><p>Total Limit: <span>₹{this.props.data.plan[0].utilize.total_limit}  </span></p></li>
+                                                                <li><p>Utilized: <span>₹{this.props.data.plan[0].utilize.utilized} </span></p></li>
+                                                                <li><p>Available: <span className="vip-crd-avl-grn">₹{this.props.data.plan[0].utilize.available}</span></p></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="vip-cnslt-card">
+                                                            <h5 className="vip-brder-hdng">Doctor Consultation</h5>
+                                                            <p className="vip-un-mem">Unlimited for 4 members</p>
+                                                            <p className="vip-cnsl-act"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Activated </p>
+                                                            {/*<div className="text-right">
+                                                                <button className="vip-crd-btn">Chat Now</button>
+                                                            </div>*/}
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="vip-offer-cards mb-3">
-                                        <div className="vip-sbs-crd">
-                                            <h5 className="vip-brder-hdng">Doctor Consultation</h5>
-                                            <div className="vip-sbs-crd-content">
-                                                <div className="vip-sbs-crd-lft">
-                                                    <p>Includes 60 Tests, can be used by 2 members</p>
+                                                <div className="vip-offer-cards mb-3">
+                                                    <div className="vip-sbs-crd">
+                                                        <h5 className="vip-brder-hdng">Doctor Consultation</h5>
+                                                        <div className="vip-sbs-crd-content">
+                                                            <div className="vip-sbs-crd-lft">
+                                                                <p>Includes {this.props.data.plan[0].worth.total_test_covered_in_package} Tests, can be used by {this.props.data.plan[0].worth.members_covered_in_package} members</p>
+                                                            </div>
+                                                            <div className="vip-sbs-crd-rgt">
+                                                                <p className="rmng-pnt">{this.props.data.plan[0].utilize.members_count_online_consulation} <span>remaining </span></p>
+                                                                {/*<button className="vip-btn-sbs">Book Now</button>*/}
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className="vip-sbs-crd-rgt">
-                                                    <p className="rmng-pnt">2 <span>remaining </span></p>
-                                                    <button className="vip-btn-sbs">Book Now</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                            </React.Fragment>
+                                        :''
+                                    }
                                     <div className="vip-offer-cards mb-3">
                                         <div className="vip-sbs-crd">
                                             <h5 className="vip-brder-hdng">Tax Benefit</h5>
@@ -108,9 +114,9 @@ class VipClub extends React.Component {
                                                 <div className="vip-sbs-crd-lft">
                                                     <p>Under Section 80D</p>
                                                 </div>
-                                                <div className="vip-sbs-crd-rgt">
+                                                {/*<div className="vip-sbs-crd-rgt">
                                                     <button className="vip-btn-sbs">Download Invoice</button>
-                                                </div>
+                                                </div>*/}
                                             </div>
                                         </div>
                                     </div>

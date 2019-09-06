@@ -41,7 +41,10 @@ export default function (state = defaultState, action) {
 
         case GET_VIP_LIST :{
             let newState = { ...state }
-            if(Object.keys(action.payload).length > 0 && action.payload.plus_data && action.payload.plus_data.length){
+            if(action.payload.certificate){
+                newState.vipClubList = action.payload
+                newState.LOAD_VIP_CLUB = true
+            }else if(Object.keys(action.payload).length > 0 && action.payload.plus_data && action.payload.plus_data.length){
                 newState.vipClubList = action.payload.plus_data[0]
                 if(action.payload.plus_data[0].plans && action.payload.plus_data[0].plans.length >0){
                     if(Object.keys(newState.selected_vip_plan).length == 0){
@@ -55,6 +58,30 @@ export default function (state = defaultState, action) {
             }
             return newState
         }
+
+        // case GET_INSURANCE: {
+        //     let newState = { ...state }
+        //     if(Object.keys(action.payload).length > 0){
+        //         newState.insurnaceData = action.payload
+        //         if(action.payload.certificate){
+        //             newState.LOAD_INSURANCE = false
+        //         }else{
+        //             if(action.payload.insurance[0].plans && action.payload.insurance[0].plans.length >0){
+        //                 if(Object.keys(newState.selected_plan).length == 0){
+        //                     newState.selected_plan = action.payload.insurance[0].plans.filter((x => x.is_selected))
+        //                     if(newState.selected_plan.length){
+        //                         newState.selected_plan = newState.selected_plan[0]
+        //                     }
+                            
+        //                 }
+        //                 newState.LOAD_INSURANCE = true
+        //             }
+        //         }
+        //     }else{
+        //         newState.insurnaceData = action.payload
+        //     }
+        //     return newState
+        // }
 
         case SELECT_VIP_CLUB_PLAN:{
             let newState = { ...state,

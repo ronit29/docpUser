@@ -17,6 +17,7 @@ class VipClubActivatedDetails extends React.Component{
     constructor(props) {
         super(props)
         this.state={
+            data:null
         }
     }
 
@@ -35,11 +36,15 @@ class VipClubActivatedDetails extends React.Component{
         if (member_list_id !== null) {
             this.props.resetVipData()
             this.props.getVipDashboardList(member_list_id,false,(resp)=>{
-                console.log(resp)
+                if(resp && Object.keys(resp.data).length >0){
+                    this.setState({data:resp.data})
+                }
             })
         }else{
             this.props.getVipDashboardList(member_list_id,true,(resp)=>{
-                console.log(resp)
+                if(resp && Object.keys(resp.data).length >0){
+                    this.setState({data:resp.data})
+                }
             })
         }
 
@@ -48,9 +53,9 @@ class VipClubActivatedDetails extends React.Component{
 
     }
     render(){
-        if(this.props.LOAD_VIP_CLUB_DASHBOARD){
+        if(this.props.LOAD_VIP_CLUB_DASHBOARD && this.state.data){
             return(
-                <VipClubView {...this.props}/>
+                <VipClubView {...this.props} data={this.state.data}/>
             )
         }else{
             return(

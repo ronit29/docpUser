@@ -31,6 +31,7 @@ class VipClub extends React.Component{
 
     }
     render(){
+        console.log(this.props.vipClubList)
         if(this.props.LOAD_VIP_CLUB){
             return(
                 <VipClubView {...this.props}/>
