@@ -890,8 +890,12 @@ class BookingSummaryViewNew extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'LensFitLabDontWantClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lensfit-lab-dont-want-clicked'
         }
         GTM.sendEvent({ data: data })
-        
-        this.setState({show_lensfit_popup:false,lensfit_decline:true})
+        this.setState({show_lensfit_popup:false,lensfit_decline:true},()=>{
+            if (document.getElementById('confirm_booking')) {
+                document.getElementById('confirm_booking').click()
+            }
+        })
+        // this.setState({show_lensfit_popup:false,lensfit_decline:true})
     }
     
     render() {

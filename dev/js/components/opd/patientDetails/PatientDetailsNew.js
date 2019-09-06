@@ -949,7 +949,12 @@ class PatientDetailsNew extends React.Component {
         }
 
         GTM.sendEvent({ data: data })
-        this.setState({show_lensfit_popup:false,lensfit_decline:true})
+        this.setState({show_lensfit_popup:false,lensfit_decline:true},()=>{
+            if (document.getElementById('confirm_booking')) {
+                document.getElementById('confirm_booking').click()
+            }
+        })
+        // this.setState({show_lensfit_popup:false,lensfit_decline:true})
     }
 
     render() {
