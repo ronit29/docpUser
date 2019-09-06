@@ -249,6 +249,14 @@ class ChatPanel extends React.Component {
                             break;
                         }
 
+                        case 'bookNowPharmacy': {
+                            let analyticData = {
+                                'Category': 'Chat', 'Action': 'BookNowPharmacyFired', 'CustomerID': '', 'leadid': 0, 'event': 'book-now-pharmacy-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname
+                            }
+                            GTM.sendEvent({ data: analyticData })
+                            break;   
+                        }
+
                     }
 
                     /**
@@ -451,7 +459,20 @@ class ChatPanel extends React.Component {
             'Category': 'Chat', 'Action': 'RefundBtnClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'Refund-btn-clicked', "PageType": this.props.type, "url": window.location.pathname
         }
         GTM.sendEvent({ data: data })
+        this.toggleRefundPopup()
+    }
 
+    toggleRefundPopup(){
+        this.setState({openRefundPopup: !this.state.openRefundPopup})
+    }
+
+    submitRefundReasons(reason){
+        let data = {
+            roomId: this.state.roomId,
+            reason:reason
+        }
+        this.dispatchCustomEvent('Refund_Fees', data)
+        this.toggleRefundPopup()
     }
 
     render() {
@@ -554,6 +575,14 @@ class ChatPanel extends React.Component {
             iframe_url += `&order_id=${parsedHref.order_id}`   
         }
 
+        let payment_disable = parsedHref && parsedHref.utm_campaign && parsedHref.utm_campaign.includes('AdDocChat')?parsedHref.utm_campaign.includes('AdDocChat'):null
+
+        if(payment_disable){
+            iframe_url += `&testing_mode=a`
+        }else{
+            iframe_url += `&testing_mode=b`
+        }
+
         if (this.props.showHalfScreenChat && !this.props.showDesktopIpd) {
             return (
                 <div className="chat-body">
@@ -582,7 +611,7 @@ class ChatPanel extends React.Component {
                 <div>
                     {
                         this.state.openRefundPopup &&
-                        <ChatRefundReasons />
+                        <ChatRefundReasons submitRefund={()=>this.submitRefundReasons()} toggleRefund={()=>this.toggleRefundPopup()} />
 
                     }
                     {
