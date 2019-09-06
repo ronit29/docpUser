@@ -5,12 +5,21 @@ class ChatRefundView extends React.Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			refundReason:''
+			refundReason:'',
+			showError: false
 		}
 	}
 
 	selectReason(reason){
-		this.setState({refundReason: reason})
+		this.setState({refundReason: reason, showError: false})
+	}
+
+	submit(){
+		if(!this.state.refundReason){
+			this.setState({showError: true})
+		}else{
+			this.props.submitRefund(this.state.refundReason)
+		}
 	}
 
 	render() {
@@ -32,7 +41,9 @@ class ChatRefundView extends React.Component {
 					</div>
 					<div className="rfnd-lst-cont">
 						<p className="rfnd-lst-hdng">*Please provide your reason for refund:</p>
-						<p className="rfnd-lstsub-hdng">Select reason for refund</p>
+						{
+							this.state.showError && <p className="rfnd-lstsub-hdng">Select reason for refund</p>
+						}
 						<ul>
 							<li>
 								<div className="dtl-radio">
@@ -72,7 +83,7 @@ class ChatRefundView extends React.Component {
 							</li>
 						</ul>
 					</div>
-					<button className="rfnd-btn" onClick={()=>{this.props.submitRefund(this.state.refundReason)}}>Initiate Refund</button>
+					<button className="rfnd-btn" onClick={()=>this.submit()}>Initiate Refund</button>
 				</div>
 			</React.Fragment>
 

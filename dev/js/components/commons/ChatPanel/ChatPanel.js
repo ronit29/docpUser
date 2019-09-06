@@ -12,6 +12,7 @@ import TableOfContent from '../article/TableOfContent'
 import BannerCarousel from '../Home/bannerCarousel';
 const queryString = require('query-string');
 import ChatRefundReasons from './ChatRefundReasons.js'
+import SnackBar from 'node-snackbar'
 
 class ChatPanel extends React.Component {
     constructor(props) {
@@ -474,12 +475,19 @@ class ChatPanel extends React.Component {
         }
     }
 
-    refundClicked() {
-        let data = {
-            'Category': 'Chat', 'Action': 'RefundBtnClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'Refund-btn-clicked', "PageType": this.props.type, "url": window.location.pathname
+    refundClicked(isEnable) {
+        if(isEnable){
+            let data = {
+                'Category': 'Chat', 'Action': 'RefundBtnClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'Refund-btn-clicked', "PageType": this.props.type, "url": window.location.pathname
+            }
+            GTM.sendEvent({ data: data })
+            this.toggleRefundPopup()
+
+        }else{
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "No payment exists for this consultation" })
+            }, 200)
         }
-        GTM.sendEvent({ data: data })
-        this.toggleRefundPopup()
     }
 
     toggleRefundPopup() {
@@ -692,7 +700,9 @@ class ChatPanel extends React.Component {
                                         </div>
 
                                         <div className="cht-head-rqst-btn refund-chat" style={this.props.homePage ? {} : {}} >
-                                            <p className={`cht-need-btn cursor-pntr ${is_payment_for_current_room?'':'disable-all'}`} onClick={() => { this.refundClicked() }}>Need Refund?</p>
+                                            {
+                                                !is_religare && <p className={`cht-need-btn cursor-pntr ${is_payment_for_current_room?'':'disable-all'}`} onClick={() => { this.refundClicked(is_payment_for_current_room) }}>Need Refund?</p>
+                                            }
                                             {
                                                 this.state.selectedRoom ? <span className="mr-2" onClick={() => {
                                                     let data = {
