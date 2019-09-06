@@ -43,7 +43,7 @@ export default function (state = defaultState, action) {
             let newState = { ...state }
             if(action.payload.certificate){
                 newState.vipClubList = action.payload
-                newState.LOAD_VIP_CLUB = true
+                newState.LOAD_VIP_CLUB = false
             }else if(Object.keys(action.payload).length > 0 && action.payload.plus_data && action.payload.plus_data.length){
                 newState.vipClubList = action.payload.plus_data[0]
                 if(action.payload.plus_data[0].plans && action.payload.plus_data[0].plans.length >0){
@@ -157,7 +157,7 @@ export default function (state = defaultState, action) {
             }            
             return newState   
         }
-        
+
         case DELETE_VIP_MEMBER_PROOF:{
            let newState = {
                 ...state

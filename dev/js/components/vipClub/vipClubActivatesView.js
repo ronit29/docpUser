@@ -16,11 +16,26 @@ class VipClub extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+           toggleTabType: false 
         }
     }
 
     componentDidMount() {
+        let self = this
+        if (window && document) {
+            window.onscroll = function () {
+                var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
+
+                if (self.refs['vipHeaderBar']) {
+
+                    if (scrollPosition > 10) {
+                        self.setState({ toggleTabType: true })
+                    } else {
+                        self.setState({ toggleTabType: false })
+                    }
+                }
+            }
+        }
     }
 
     AddMemberDetails(){
@@ -28,22 +43,24 @@ class VipClub extends React.Component {
     }
 
     render() {
-        console.log(this.props.data)
+        // console.log(this.props.data)
         return (
 
 
             <div className="profile-body-wrap" style={{ background: "" }}>
                 {/* <ProfileHeader /> */}
-                <div className="vipHeaderBar">
-                    <div className="vipBackIco">
-                        <img src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} />
+                <div className={`vipHeaderBar ${this.state.toggleTabType ? 'hed-curv-rmove' : ''}`} ref="vipHeaderBar">
+                        <div className="vipBackIco" onClick={() => this.props.history.push('/')}>
+                            <img src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} />
+                        </div>
+                        <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
+                            <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
+                            <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
+                            <h1>in Just <span className="vip-prc-cut">₹{this.props.data.plan[0].mrp}</span> <span className="vip-main-price">₹{this.props.data.plan[0].deal_price}</span>  </h1>
+                                <p>1 year upto 4 members</p>
+                            {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
+                        </div>
                     </div>
-                    <div className="vip-logo-cont">
-                        <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
-                        <h1>in Just <span className="vip-prc-cut">₹{this.props.data.plan[0].mrp}</span> <span className="vip-main-price">₹{this.props.data.plan[0].deal_price}</span>  </h1>
-                        <p>1 year upto 4 members</p>
-                    </div>
-                </div>
                 {/* last screen design */}
                 <section className="container container-top-margin sub-pdng-add" style={{ marginTop: '' }}>
                     <div className="row main-row parent-section-row">
@@ -102,7 +119,7 @@ class VipClub extends React.Component {
                                                                 <p>Includes {this.props.data.plan[0].worth.total_test_covered_in_package} Tests, can be used by {this.props.data.plan[0].worth.members_covered_in_package} members</p>
                                                             </div>
                                                             <div className="vip-sbs-crd-rgt">
-                                                                <p className="rmng-pnt">{this.props.data.plan[0].utilize.members_count_online_consulation} <span>remaining </span></p>
+                                                                <p className="rmng-pnt">{this.props.data.plan[0].utilize.remaining_body_checkup_count} <span>remaining </span></p>
                                                                 {/*<button className="vip-btn-sbs">Book Now</button>*/}
                                                             </div>
                                                         </div>
@@ -155,9 +172,12 @@ class VipClub extends React.Component {
                                                                     </li>
                                                                 })
                                                             }
-                                                            <li onClick={this.AddMemberDetails.bind(this)}>
-                                                                <h4 className="vip-acrd-add-member"><img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />Add Members</h4>
-                                                            </li>
+                                                            {
+                                                                this.props.data.is_member_allowed?
+                                                                <li onClick={this.AddMemberDetails.bind(this)}>
+                                                                    <h4 className="vip-acrd-add-member"><img className="vip-add-img" src={ASSETS_BASE_URL + '/img/vip-mem.svg'} />Add Members</h4>
+                                                                </li>
+                                                            :''}
                                                         </ul>
 
                                                     </div>
