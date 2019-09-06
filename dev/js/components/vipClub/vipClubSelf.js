@@ -578,7 +578,7 @@ class VipProposer extends React.Component {
 		let city_opt = []
 		let districts_opt = []
 		let Uploaded_image_data
-		let commonMsgSpan = <span className="fill-error-span">{this.props.errorMessages['common_message']}</span>
+		let commonMsgSpan = <span className="fill-error-span">*This is a mandatory field</span>
 		if (Object.keys(this.props.createApiErrors).length > 0) {
 			Object.entries(this.props.createApiErrors).map(function ([key, value]) {
 				show_createApi_keys.push(key)
@@ -780,7 +780,7 @@ class VipProposer extends React.Component {
 							</div>
 							{
 								this.props.validateErrors.indexOf('email') > -1 ?
-									<span className="fill-error-span">{this.props.errorMessages['valid_email']}</span> : ''
+									commonMsgSpan : ''
 							}
 						</div>
 						:<React.Fragment>
@@ -818,7 +818,7 @@ class VipProposer extends React.Component {
 						</div>
 						{
 							this.props.validateErrors.indexOf('dob') > -1 ?
-								<span className="fill-error-span">{this.props.errorMessages['adult_age']}</span> : ''
+								commonMsgSpan : ''
 						}
 						{
 							show_createApi_keys.indexOf('dob') > -1 ?
@@ -991,9 +991,8 @@ class VipProposer extends React.Component {
 							<img src={ASSETS_BASE_URL + "/img/location-01.svg"} />
 						</div>
 						{
-							this.props.validateErrors.indexOf('pincode') > -1 ?
-								commonMsgSpan : ''
-						}
+								this.props.validateErrors && this.props.validateErrors.indexOf('pincode')> -1?<span className="fill-error-span" style={{marginTop:'1px'}}>*This is a mandatory field</span>:''
+							}
 						{
 							this.props.validateOtherErrors.indexOf('pincode') > -1 ?
 								<span className="fill-error-span">Please Enter Valid Pincode</span> : ''
