@@ -470,7 +470,7 @@ class VipProposerFamily extends React.Component {
 						{this.props.vip_club_db_data && Object.keys(this.props.vip_club_db_data.data).length>0 && this.props.vip_club_db_data.data.relation_master && this.props.vip_club_db_data.data.relation_master.length > 0?
 							<div className="ins-form-group mt-1">
 								<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Relation</label>
-								<img src={ASSETS_BASE_URL + "/img/calendar-01.svg"} />
+								<img src={ASSETS_BASE_URL + "/img/hands.svg"} />
 								<div className="dob-select-div d-flex align-items-center">
 									<div style={{flex: 1}} className="dob-select d-flex align-items-center">
 										<select style={{width:'100%'}} value={this.state.relation} onChange={this.handleRelation.bind(this)}>
@@ -684,10 +684,10 @@ class VipProposerFamily extends React.Component {
 							}
 						</div>
 					</div>
-					{this.props.is_from_payment?
+					{/*this.props.is_from_payment?
 						<InsuranceProofs {...this.props}/>
 					:''
-					}
+					*/}
 				</div>
 				
 				{this.state.showPopup ?

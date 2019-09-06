@@ -233,7 +233,6 @@ class VipClubMemberDetailsView extends React.Component{
 				    		if(param.relation == 'SELF'){
 			    				self_profile = this.props.vipClubMemberDetails[value[key]]
 			    			}
-
 							members={}
 							if(param.relation !== 'SELF'){
 								members.relation=param.relation
