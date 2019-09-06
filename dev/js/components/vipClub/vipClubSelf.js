@@ -54,34 +54,7 @@ class VipProposer extends React.Component {
 		if (this.props.vipClubMemberDetails[this.props.USER.defaultProfile] && !this.props.is_endorsement && !this.props.is_from_payment) {
 			profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.USER.defaultProfile])
 			this.getUserDetails(profile)
-		} 
-		/*else if (this.props.is_endorsement) {
-			let oldDate
-			if (Object.keys(this.props.vipClubMemberDetails).length > 0) {
-				profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.user_data[0].id])
-				if (Object.keys(profile).length > 0 && profile.dob) {
-					oldDate = profile.dob.split('-')
-					this.setState({ year: oldDate[0], mnth: oldDate[2], day: oldDate[1] }, () => {
-						this.populateDates()
-					})
-				}
-				this.setState({ ...profile }, () => {
-					this.handleSubmit(true,false)
-				})
-			} else {
-				if (this.props.user_data && this.props.user_data.length > 0) {
-					if (this.props.user_data[0].dob) {
-						oldDate = this.props.user_data[0].dob.split('-')
-						this.setState({ year: oldDate[0], mnth: oldDate[2], day: oldDate[1] }, () => {
-							this.populateDates()
-						})
-					}
-					this.setState({ ...this.props.user_data[0], name: this.props.user_data[0].first_name, member_type: this.props.member_type, profile_id: this.props.user_data[0].profile, is_change: false, town_code: this.props.user_data[0].city_code,profile:this.props.user_data[0].profile }, () => {
-						this.handleSubmit(true,false)
-					})
-				}
-			}
-		}*/
+		}
 	}
 	componentWillReceiveProps(props) {
 		let newName = []
@@ -99,7 +72,7 @@ class VipProposer extends React.Component {
 				}
 				this.getUserDetails(profile)
 				if (Object.keys(profile).length) {
-					this.setState({ ...profile, disableEmail: profile.email != '' ? true : false, disableDob: profile.dob != null ? true : false, disableName: profile.name != '' ? true : false }, () => {
+					this.setState({ ...profile}, () => {
 						if (profile.gender == 'm') {
 							this.setState({ title: 'mr.',gender:profile.gender }, () => {
 								this.handleSubmit(false,false)
@@ -143,16 +116,13 @@ class VipProposer extends React.Component {
 				} else{
 					let profile = Object.assign({}, props.vip_club_db_data.data.user.plus_members[0])
 					oldDate = profile.dob.split('-')
-					this.setState({...profile,name:profile.first_name,last_name:profile.last_name,title:profile.title,email:profile.email,year: oldDate[0], mnth: oldDate[1], day: oldDate[2],state:profile.city,state_code:profile.city_code,address:profile.address,pincode:profile.pincode,id:profile.profile,profile_id:profile.profile,gender:profile.gender, profile_flag: false,dob:profile.dob},()=>{
+					this.setState({...profile,name:profile.first_name,last_name:profile.last_name,title:profile.title,email:profile.email,year: oldDate[0], mnth: oldDate[1],day: oldDate[2],state:profile.city,state_code:profile.city_code,address:profile.address,pincode:profile.pincode,id:profile.profile,profile_id:profile.profile,gender:profile.gender, profile_flag: false,dob:profile.dob},()=>{
 						this.populateDates()
 						this.handleSubmit()
 					})
 				}
 			}
-		} 
-		/*else if (props.is_endorsement) {
-			this.populateDates()
-		}*/
+		}
 	}
 
 	getUserDetails(profile) {
@@ -220,11 +190,11 @@ class VipProposer extends React.Component {
 	}
 	handleTitle(field, event) {
 		let title_value = event.target.value
-		/*if (title_value == 'mr.') {
+		if (title_value == 'mr.') {
 			this.setState({ gender: 'm' })
 		} else if (title_value == 'miss' || title_value == 'mrs.') {
 			this.setState({ gender: 'f' })
-		}*/
+		}
 		this.setState({ title: event.target.value }, () => {
 			var self_data = this.state
 			self_data.is_change = true

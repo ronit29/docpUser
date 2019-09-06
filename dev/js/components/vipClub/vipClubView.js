@@ -13,21 +13,11 @@ const queryString = require('query-string');
 class VipClubView extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            // toggle: 'one',
-            // is_checked: this.props.selected_plan ? this.props.selected_plan.id : '',
-            // selected_plan_deal_price: '',
-            // gst: 'Inclusive of 18% GST',
+        this.state = {            
             selected_plan_data: this.props.selected_plan ? this.props.selected_plan : '',
             showPopup: false,
-            // shortURL: "",
             isLead: '',
-            // checkIdleTimeout: true,
-            // popupClass: '',
-            // overlayClass: '',
-            identifyUserClick: '',
             selected_plan_id: '',
-            selected_plan_mrp: '',
             toggleTabType: false
         }
     }
@@ -133,7 +123,7 @@ class VipClubView extends React.Component {
                     </div>
                     {
                         this.state.showPopup ?
-                            <VipLoginPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} overlayClass={this.state.overlayClass} identifyUserClick={this.state.identifyUserClick} /> : ''
+                            <VipLoginPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} /> : ''
                     }
                     <section className={`container container-top-margin sub-pdng-add ${this.state.toggleTabType ? 'sub-pdng-rmv' : ''}`}>
                         <div className="row main-row parent-section-row">
