@@ -407,7 +407,8 @@ class VipProposerFamily extends React.Component {
   	}
 
 	render() {
-		console.log(this.props.validateErrors)
+		
+		console.log(this.props.vip_club_db_data)
 		let show_createApi_keys_adult = []
 		let show_createApi_keys_child = []
 		let show_createApi_keys_child2 = []

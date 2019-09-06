@@ -240,7 +240,7 @@ class VipClubMemberDetailsView extends React.Component{
 					    		members.city_code = self_profile.state_code
 					    		members.address = self_profile.address
 					    		members.pincode = self_profile.pincode
-					    		members.email = self_profile.email
+					    		members.email = null
 					    	}
 							return 	data.members.push(members)
 					},this)}
