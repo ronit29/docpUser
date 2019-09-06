@@ -170,9 +170,10 @@ class VipClub extends React.Component {
                                                                     return <li onClick={this.ButtonHandler.bind(this,key)}>
                                                                         <h4 className="vip-acrd-hdng"><span>{val.first_name} {val.last_name} <br />
                                                                             {val.relation == 'SELF'?<b>(Primary)</b>:''}
-                                                                            </span><img className="acdn-arrow acdn-arrow-up" src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
+                                                                            </span><img className=
+                                                                            {`acdn-arrow  ${this.state.tabsValue.indexOf(key)>-1?'':'acdn-arrow-up'}`} src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} />
                                                                         </h4>
-                                                                        <div className="vip-sn-tbl">
+                                                                        <div className={`vip-sn-tbl ${this.state.tabsValue.indexOf(key)>-1?'d-none':''}`}>
                                                                             <table className="vip-acrd-content">
                                                                                 <tr>
                                                                                         <th>Relationship</th>
