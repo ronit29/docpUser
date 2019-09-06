@@ -67,22 +67,21 @@ class VipClub extends React.Component {
                         <div className="col-12 center-column">
                             <div className="container-fluid ">
                                 <div className="care-new-container font-analyze">
-                                    <div className="vip-act-pop mb-3">
-                                        <div className="vip-wrn-img">
-                                            <img src={ASSETS_BASE_URL + "/img/vip-warning.svg"} />
-                                            <div className="vip-wrn-content">
-                                                <h5>Activate your subscription now</h5>
-                                                <p>
-                                                    Add remaining 3 members details to activate
-                                                    your subscription</p>
+                                    {this.props.data.is_member_allowed?
+                                        <div className="vip-act-pop mb-3">
+                                            <div className="vip-wrn-img">
+                                                <img src={ASSETS_BASE_URL + "/img/vip-warning.svg"} />
+                                                <div className="vip-wrn-content">
+                                                    <h5>Activate your subscription now</h5>
+                                                    <p>
+                                                        Add remaining 3 members details to activate
+                                                        your subscription</p>
+                                                </div>
                                             </div>
+                                                <button onClick={this.AddMemberDetails.bind(this)}>Click here</button>
                                         </div>
-                                        {
-                                            this.props.data.is_member_allowed?
-                                            <button onClick={this.AddMemberDetails.bind(this)}>Click here</button>
-                                            :''
-                                        }
-                                    </div>
+                                    :''
+                                    }
                                     {
                                         this.props.data.plan && this.props.data.plan.length > 0 && this.props.data.plan[0].utilize && Object.keys(this.props.data.plan[0].utilize).length > 0 ?
                                             <React.Fragment>

@@ -19,7 +19,9 @@ class VipClubMemberDetailsView extends React.Component{
             validateDobErrors:[],
            	errorMessages:[],
            	endorsementError:[],
-           	paymentData: null
+           	paymentData: null,
+           	show_popup:false,
+           	proceed:false
         }
     }
     componentDidMount(){
@@ -222,7 +224,10 @@ class VipClubMemberDetailsView extends React.Component{
 	    		let address
 	    		let pincode
 	    		if(this.props.is_from_payment){
-	    			console.log('yes')
+	    			if(!this.state.proceed && this.props.vipClubMemberDetails && Object.keys(this.props.vipClubMemberDetails).length <4){
+			    		this.setState({show_popup:true})
+			    		return
+			    	}
 	    			{Object.entries(this.props.currentSelectedVipMembersId).map(function([key, value]) {
 			    		let param =this.props.vipClubMemberDetails[value[key]]
 				    		if(param.relation == 'SELF'){
@@ -285,6 +290,13 @@ class VipClubMemberDetailsView extends React.Component{
     		
     	}
     }
+    proceedMembers(is_wait){
+    	this.setState({proceed:is_wait?true:false,show_popup:false},()=>{
+    		if (document.getElementById('submit_buy')) {
+                document.getElementById('submit_buy').click()
+            }
+    	})
+    }
 	render(){
 		let child
 		let adult
@@ -322,13 +334,34 @@ class VipClubMemberDetailsView extends React.Component{
 				})
 			}
 		}
-		console.log(this.props.USER.defaultProfile)
 		return(
 			<div className="profile-body-wrap">
 	            <ProfileHeader showPackageStrip={true}/> 
 				<section className="container container-top-margin cardMainPaddingRmv">
 					<div className="row no-gutters dsktp-row-gutter">
 						<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
+						{
+							this.state.show_popup?
+							<div className="search-el-popup-overlay " >
+								<div className="search-el-popup">
+									<div className="widget">
+										<div className="widget-content padiing-srch-el">
+											<p className="srch-el-conent"> 2 Members Added</p>
+											<p className="srch-el-conent">
+												Are you sure you want to submit? 
+												Member details once submited cannot be added or edited later.</p>
+											<div className="search-el-btn-container">
+												<button onClick={this.proceedMembers.bind(this, 0)}>No Wait</button>
+												{/* <span className="src-el-btn-border"></span> */}
+												<button onClick={this.proceedMembers.bind(this, 1)}>Submit</button>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							:''
+						}
 						<section className="profile-book-screen">
 							<div>
 								<div className="insurance-member-container" style={{padding:0}}>
@@ -372,7 +405,7 @@ class VipClubMemberDetailsView extends React.Component{
 							}
 							{
 								this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && this.props.is_from_payment?
-									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Submit
+									<button id="submit_buy" className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Submit
 										<span className="foot-btn-sub-span"></span>
 									</button>
 								:''
