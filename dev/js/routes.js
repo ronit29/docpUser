@@ -57,9 +57,9 @@ const Cart = Loadable({
     loading,
 })
 const OrderMedicine = Loadable({
-    loader: () => import('./components/commons/OrderMedicine/orderMedicine.js'),
-    modules: ['./components/commons/OrderMedicine/orderMedicine.js'],
-    webpack: () => [require.resolveWeak('./components/commons/OrderMedicine/orderMedicine.js')],
+    loader: () => import('./containers/commons/orderMedicine.js'),
+    modules: ['./containers/commons/orderMedicine.js'],
+    webpack: () => [require.resolveWeak('./containers/commons/orderMedicine.js')],
     loading,
 })
 const OrderSummary = Loadable({

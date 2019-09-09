@@ -124,6 +124,7 @@ class LeftMenu extends React.Component {
                       }
                       GTM.sendEvent({ data: data })
                       this.props.toggleLeftMenu()
+                      this.props.iFrameState('', false, true)
                       this.props.history.push('/order-medicine')
                     }} href="#" className=""><img src={ASSETS_BASE_URL + "/img/customer-icons/medicine-order.png"} alt="" className="pad-B0" />Order Medicines</a>
                   </li>

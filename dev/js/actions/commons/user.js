@@ -732,10 +732,11 @@ export const citiesData = () => (dispatch) => {
 	})
 }
 
-export const iFrameState = (url, emptyUrls) => (dispatch) => {
+export const iFrameState = (url, emptyUrls, leftMenuClick = false) => (dispatch) => {
 	dispatch({
 		type: PHARMEASY_IFRAME,
 		url: url,
-		emptyUrls: emptyUrls
+		emptyUrls: emptyUrls,
+		leftMenuClick: leftMenuClick
 	})
 }

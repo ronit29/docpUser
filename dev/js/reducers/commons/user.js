@@ -534,6 +534,11 @@ export default function (state = defaultState, action) {
             else {
                 newState.iFrameUrls.push(action.url)
             }
+            if (action.leftMenuClick) {
+                if (newState.iFrameUrls.includes('/order-medicine')) {
+                    newState.iFrameUrls = newState.iFrameUrls.filter(x => x !== '/order-medicine')
+                }
+            }
             return newState
         }
 

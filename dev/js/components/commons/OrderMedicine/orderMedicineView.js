@@ -6,13 +6,19 @@ import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConf
 import GTM from '../../../helpers/gtm';
 import CONFIG from '../../../config/config';
 
-class OrderMedicine extends React.Component {
+class OrderMedicineView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             showPopup: false,
-            showIframe: false,
             clickedOn: ''
+        }
+    }
+
+    componentDidMount() {
+        let sessionId = sessionStorage.getItem('iFrameId')
+        if (!sessionId) {
+            this.props.iFrameState('', true)
         }
     }
 
@@ -50,7 +56,8 @@ class OrderMedicine extends React.Component {
 
         if (typeof navigator === 'object') {
             if (/mobile/i.test(navigator.userAgent)) {
-                this.setState({ showIframe: true });
+                this.props.iFrameState(this.props.location.pathname, false)
+                sessionStorage.setItem('iFrameId', 1);
             }
             else {
                 if (this.state.clickedOn === 'newOrder') {
@@ -68,12 +75,18 @@ class OrderMedicine extends React.Component {
     }
 
     render() {
+        let showIframe = false
+        if (this.props.iFrameUrls.includes(this.props.location.pathname)) {
+            showIframe = true
+        }
+
+        let sessionId = sessionStorage.getItem('iFrameId')
         return (
 
             <div className="profile-body-wrap" style={{ backgroundColor: '#fff' }}>
                 <DesktopProfileHeader />
                 {
-                    this.state.showIframe ?
+                    showIframe && sessionId ?
                         <iframe src={this.state.clickedOn === 'newOrder' ? `${CONFIG.PHARMEASY_NEW_ORDER_IFRAME_URL}` : `${CONFIG.PHARMEASY_PREV_ORDER_IFRAME_URL}`} className="pharmeasy-iframe"></iframe>
                         :
                         <React.Fragment>
@@ -121,4 +134,4 @@ class OrderMedicine extends React.Component {
     }
 }
 
-export default OrderMedicine
+export default OrderMedicineView
