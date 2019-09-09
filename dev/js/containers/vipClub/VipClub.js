@@ -1,10 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { getInsurance, selectInsurancePlan , saveCurrentSelectedMembers,resetSelectedInsuranceMembers,resetSelectedPlans,sendOTP, submitOTP, resetAuth, getUserProfile, userData, generateInsuranceLead, urlShortner,
-
-
-getVipList, selectVipClubPlan, generateVipClubLead
+import { sendOTP, submitOTP, resetAuth, getUserProfile, getVipList, selectVipClubPlan, generateVipClubLead
  } from '../../actions/index.js'
 import VipClubView from '../../components/vipClub/vipClubView.js'
 import Loader from '../../components/commons/Loader'
@@ -30,7 +27,6 @@ class VipClub extends React.Component{
             window.scrollTo(0, 0)
         }
 
-        // this.props.getInsurance(false)
         this.props.getVipList(false,this.props.selectedLocation)
 
     }
@@ -40,9 +36,9 @@ class VipClub extends React.Component{
                 <VipClubView {...this.props}/>
             )
         }else{
-            // if(this.props.insurnaceData.certificate && STORAGE.checkAuth()){
-            //     this.props.history.push('/insurance/certificate')
-            // }
+            if(this.props.vipClubList.certificate && STORAGE.checkAuth()){
+                this.props.history.push('/vip-club-activated-details')
+            }
             return(
             <div className="profile-body-wrap">
                 <ProfileHeader showPackageStrip={true}/>
@@ -50,22 +46,17 @@ class VipClub extends React.Component{
             </div>
                 )
         }
-        // return(
-        //         <InsuranceComponent {...this.props}/>
-        //     )
     }
 }
 
 const mapStateToProps = (state) => {
     const USER = state.USER
-    // let { insurnaceData, LOAD_INSURANCE, selected_plan,self_data_values} = state.INSURANCE
     let { LOAD_VIP_CLUB, vipClubList, selected_vip_plan } = state.VIPCLUB
     const {
         selectedLocation
 
     } = state.SEARCH_CRITERIA_OPD
     return {
-        //insurnaceData,LOAD_INSURANCE,selected_plan,self_data_values,
         USER, selectedLocation,LOAD_VIP_CLUB, vipClubList, selected_vip_plan
     }
 }
@@ -78,16 +69,7 @@ const mapDispatchToProps = (dispatch) => {
         generateVipClubLead:(selectedPlan,number,lead_data,user_name,cb) =>dispatch(generateVipClubLead(selectedPlan,number,lead_data,user_name,cb)),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
-
-        
-        getInsurance: (is_endorsement,callback) => dispatch(getInsurance(is_endorsement,callback)),
-        selectInsurancePlan: (plan,criteria) => dispatch(selectInsurancePlan(plan,criteria)),
-        // saveCurrentSelectedMembers: (membersId) => dispatch(saveCurrentSelectedMembers(membersId)),
-        resetSelectedPlans: () => dispatch(resetSelectedPlans()), 
-        resetAuth: () => dispatch(resetAuth()),
-        userData :(self_data,criteria,forceadd) => dispatch(userData(self_data,criteria,forceadd)),
-        generateInsuranceLead:(selectedPlan,number,lead_data,cb) => dispatch(generateInsuranceLead(selectedPlan,number,lead_data,cb)),
-        urlShortner: (url, cb) => dispatch(urlShortner(url, cb))
+        resetAuth: () => dispatch(resetAuth())
     }
 }
 

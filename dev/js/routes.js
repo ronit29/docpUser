@@ -508,17 +508,17 @@ const LensFit = Loadable({
     loading,
 })
 
-const VipClub = Loadable({
-    loader: () => import('./containers/commons/VipClub'),
-    modules: ['./containers/commons/VipClub'],
-    webpack: () => [require.resolveWeak('./containers/commons/VipClub')],
-    loading,
-})
-
 const CancelPolicyApp = Loadable({
     loader: () => import('./containers/commons/cancelPolicyApp.js'),
     modules: ['./containers/commons/cancelPolicyApp.js'],
     webpack: () => [require.resolveWeak('./containers/commons/cancelPolicyApp.js')],
+    loading,
+})
+
+const VipClub = Loadable({
+    loader: () => import('./containers/commons/VipClub'),
+    modules: ['./containers/commons/VipClub'],
+    webpack: () => [require.resolveWeak('./containers/commons/VipClub')],
     loading,
 })
 
@@ -669,6 +669,8 @@ let routes = [
     { path: '/categoryTestResults', exact: true, component: categoryTestResults },
     { path: '/*-tpcp', exact: true, component: categoryTestResults },
     { path: '/hospitals/inventory', exact: true, component: HospitalList, RENDER_ON_SERVER: true },
+    { path: '/lensfit-tnc', exact:true, component:LensFit,RENDER_ON_SERVER:true },
+    { path: '/cancel-policy-app',exact:true, component: CancelPolicyApp},
     { path: '/vip-club', exact:true, component:VipClub,RENDER_ON_SERVER:true },
     { path: '/lensfit', exact:true, component:VipClub,RENDER_ON_SERVER:true },
     { path: '/cancel-policy-app',exact:true, component: CancelPolicyApp},

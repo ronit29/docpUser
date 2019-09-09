@@ -39,7 +39,7 @@ class VipProposerFamily extends React.Component {
 	componentDidMount(){
 		let profile
 		if(this.props.is_endorsement){
-			if(Object.keys(this.props.vipClubMemberDetails).length>0 && this.props.user_data.length > 0){
+			/*if(Object.keys(this.props.vipClubMemberDetails).length>0 && this.props.user_data.length > 0){
 				profile= Object.assign({}, this.props.vipClubMemberDetails[this.props.user_data[0].id])
 				let oldDate
 				if(Object.keys(profile).length > 0 && profile.dob){
@@ -68,7 +68,7 @@ class VipProposerFamily extends React.Component {
 	    				// this.populateDates(this.props.member_id,true)
 	    			})
 				}
-			}
+			}*/
 		}else{
 			if(!this.state.year && !this.state.mnth && !this.state.mnth){
 				this.populateDates(this.props.member_id,true)
@@ -80,7 +80,7 @@ class VipProposerFamily extends React.Component {
 		let self = this
 		let adult_title
 		let adult_gender
-		if(!props.is_endorsement){
+		if(props.is_from_payment){
 			if(props.vipClubMemberDetails[props.member_id]){
 				let profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.member_id])
 				let nextProfile = Object.assign({}, props.vipClubMemberDetails[props.member_id])
@@ -101,7 +101,7 @@ class VipProposerFamily extends React.Component {
 						})
 					}else{
 					    self.populateDates(self.props.member_id,true)
-						this.setState({member_type:this.props.member_type,relation:'spouse',title:adult_title,gender:adult_gender,only_adult:true},() =>{
+						this.setState({member_type:this.props.member_type,title:adult_title,gender:adult_gender,only_adult:true},() =>{
 							self.handleSubmit()
 						})
 					}					
@@ -126,6 +126,12 @@ class VipProposerFamily extends React.Component {
 	  			this.setState({gender:'f'})
 	  		}
 		}*/
+		let title_value = event.target.value
+			if(title_value == 'mr.'){
+  				this.setState({gender:'m'})	
+	  		}else{
+	  			this.setState({gender:'f'})	
+	  		}
 		this.setState({ title: event.target.value, id:this.props.member_id }, () => {
 			var self_data = this.state
 			self_data.is_change = true
@@ -138,19 +144,11 @@ class VipProposerFamily extends React.Component {
 			[event.target.getAttribute('data-param')]: event.target.value , id:this.props.member_id
 		});
 	}
-	/*handleRelation(field,event) {
-		let relation_value = event.target.value
-		if(relation_value == 'son'){
-			this.setState({title:'mast.',gender:'m'})	
-  		}else if(relation_value == 'daughter'){
-  			this.setState({title:'miss',gender:'f'})	
-  		}
-		this.setState({
-			relation: event.target.value,is_change:true
-		},() =>{
+	handleRelation(event) {
+		this.setState({'relation':event.target.value},()=>{
 			this.handleSubmit(true,event)
 		})
-	}*/
+	}
 	handleSubmit(is_endoresment) {
 		var self_data = this.state
 		if(self_data.name !== ''){
@@ -469,6 +467,24 @@ class VipProposerFamily extends React.Component {
 				</div>
 				<div className='widget' style={{padding:'10px'}} >
 					<div className="col-12" style={{padding:0}}>
+						{this.props.vip_club_db_data && Object.keys(this.props.vip_club_db_data.data).length>0 && this.props.vip_club_db_data.data.relation_master && this.props.vip_club_db_data.data.relation_master.length > 0?
+							<div className="ins-form-group mt-1">
+								<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Relation</label>
+								<img src={ASSETS_BASE_URL + "/img/hands.svg"} />
+								<div className="dob-select-div d-flex align-items-center">
+									<div style={{flex: 1}} className="dob-select d-flex align-items-center">
+										<select style={{width:'100%'}} value={this.state.relation} onChange={this.handleRelation.bind(this)}>
+											<option hidden>Select Relation</option>
+											{Object.entries(this.props.vip_club_db_data.data.relation_master).map(function([key, value]) {
+												return <option key={key}>{value}</option>
+											})}
+										</select>
+										<img className="dob-down-icon" style={{right : '4px'}} src="/assets/img/customer-icons/dropdown-arrow.svg"/>
+									</div>
+								</div>
+								
+							</div>
+						:''}
 					{
 						/*this.props.is_child_only?
 						<div>
@@ -478,11 +494,7 @@ class VipProposerFamily extends React.Component {
 						<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
 						</div>*/
 					}
-					<React.Fragment>
-						<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
-						<button className={`label-names-buttons ${this.state.title == 'miss' ? 'btn-active' : ''}`} name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss')} >Ms.</button>
-						<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
-					</React.Fragment>
+					
 					{
 						// !this.props.is_child_only && this.props.validateErrors.indexOf('title')> -1?<span className="fill-error-span abcdefgh" style={{marginTop:'-13px'}}>{this.props.errorMessages['common_message']}</span>:''
 					}
@@ -497,10 +509,17 @@ class VipProposerFamily extends React.Component {
 						<span className="fill-error-span">{this.props.createApiErrors.title[0]}</span>:''*/	
 					}
 
-					{
+					{/* {
 						this.props.validateErrors && this.props.validateErrors.indexOf('title')> -1?commonMsgSpan:''
-					}
-
+					} */}
+					{
+								this.props.validateErrors && this.props.validateErrors.indexOf('relation')> -1?commonMsgSpan:''
+								}
+					</div>
+					<div> 
+						<button className={`label-names-buttons ${this.state.title == 'mr.' ? 'btn-active' : ''}`} name="title" value='mr.' data-param='title' onClick={this.handleTitle.bind(this, 'mr.')} >Mr.</button>
+						<button className={`label-names-buttons ${this.state.title == 'miss' ? 'btn-active' : ''}`} name="title" value='miss' data-param='title' onClick={this.handleTitle.bind(this, 'miss')} >Ms.</button>
+						<button className={`label-names-buttons ${this.state.title == 'mrs.' ? 'btn-active' : ''}`} value='mrs.' name="title" data-param='title' onClick={this.handleTitle.bind(this, 'mrs.')} >Mrs.</button>
 					</div>
 					<div className="row no-gutters">
 					{
@@ -661,14 +680,14 @@ class VipProposerFamily extends React.Component {
 								this.props.is_child_only?<span style={{marginTop: '0px'}} className="fill-error-span">{this.props.errorMessages['childAgeDiff']}</span>:'':''*/
 							}
 							{
-								this.props.validateErrors && this.props.validateErrors.indexOf('title')> -1?commonMsgSpan:''
+								this.props.validateErrors && this.props.validateErrors.indexOf('dob')> -1?<span className="fill-error-span" style={{marginTop:'1px'}}>*This is a mandatory field</span>:''
 							}
 						</div>
 					</div>
-					{this.props.is_from_payment?
+					{/*this.props.is_from_payment?
 						<InsuranceProofs {...this.props}/>
 					:''
-					}
+					*/}
 				</div>
 				
 				{this.state.showPopup ?

@@ -3259,7 +3259,139 @@ div.search-el-popup.non-book-pop{
 }
 /* ============ booking summary dob ============ */
 /* ============ lansfit ============ */
-
+h1.lansfit-tp-hdng {
+    color: #f78631;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    padding-bottom: 15px;
+    line-height: 1.4;
+}
+p.lns-avl-ofr {
+    font-weight: 600;
+}
+.lsn-stps-container {
+    margin-top: 30px;
+}
+.lns-steps-para {
+    display: flex;
+    font-weight: 500;
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+.lns-steps-para span {
+    flex-shrink: 0;
+    margin-right: 10px;
+    color: #e50045;
+}
+.lns-steps-para p {
+    font-weight: 500;
+}
+.lns-steps-para p a {
+    color: #f78631;
+    text-decoration: none;
+    word-break: break-all;
+}
+.lns-offr-apl-cont {
+    margin-top: 50px;
+    height: 50vh;
+}
+.lns-offr-apl-cont p {
+    color: #ff0101;
+    font-weight: 500;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+.font-analyze{
+	-webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+.lenfit-backbtn {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 0;
+    cursor: pointer;
+    background: #f78631;
+    text-align: center;
+    display: block;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+}
+.lnsfit-doc{
+	display: block;
+    margin: 10px auto;
+    width: 170px;
+}
+.lnst-fit-pop-bg{
+	background: url(/assets/img/lnscurve.png);
+    background-size: 100% 100%;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+.lnst-fit-pop-bg p {
+    color: #51959c;
+    font-weight: 600;
+    padding: 10px 20px;
+}
+.by-lansfit {
+    text-align: right;
+    padding-bottom: 18px;
+    padding-right: 20px;
+}
+.by-lansfit span {
+    font-weight: 500;
+}
+img.lnsfit-pop-ico {
+    width: 106px;
+    margin-left: 5px;
+}
+.lnst-fit-sub-pop {
+    margin-top: 12px;
+    text-align: center;
+}
+p.lns-para-mn {
+    text-align: center;
+    color: #39979e;
+    font-weight: 500;
+}
+p.lnsft-cpn {
+    border: 1px dashed #f78631;
+    color: #f78631;
+    display: inline-block;
+    margin: 10px 0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: 500;
+}
+p.lns-know {
+    color: #4289fe;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.lnsfit-btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-top: 1px solid #e6e4e4;
+    margin: 20px 5px 0;
+}
+.lnsfit-btn-container button {
+    flex: 1;
+    border-radius: 0px;
+    border: none;
+    border-right: 1px solid #e6e4e4;
+    padding: 10px 0;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    color: #f78631;
+    font-weight: 500;
+	font-size: 13px;
+	background:white;
+}
 /* ============ lansfit ============ */
 /* ============ new care  ============ */
 .care-new-backgroud{
@@ -3367,11 +3499,19 @@ p.sb-para {
 }
 .vip-logo-cont h1 {
 	color: white;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
-    margin: 8px 0px;
+    margin: 0px 0px;
     display: flex;
     align-items: flex-end;
+    justify-content: center;
+}
+.vip-new-lft-tag{
+    position: absolute;
+    font-size: 11px;
+    top: 42px;
+    left: 56px;
+    color: #757575;
 }
 .vip-logo-cont p {
     color: white;
@@ -3383,7 +3523,7 @@ p.sb-para {
     margin: 0 5px;
 }
 .vip-main-price{
-	font-size: 20px;
+	font-size: 16px;
     font-weight: 600;
 }
 .font-analyze{
@@ -3401,21 +3541,26 @@ p.sb-para {
     position: sticky;
     top: 59px;
     z-index: 9;
-    background: #fff3eb;
+    background-color: #ffffff;
+    box-shadow: 3px 1px 0px 0px #eae6e6;
 	}
 .vip-tabs-container p.vp-sb-txt {
-		padding: 8px 0px;
-		font-weight: 600;
-		color: #757575;
-		display: flex;
-		align-items: center;
-		border-bottom: 2px solid #1b97fd00;
-		cursor: pointer;
-		flex: 1;
-		text-align: center;
-		justify-content: center;
-		font-size: 15px;
-		position: relative;
+    padding: 8px 0px;
+    font-weight: 600;
+    color: #757575;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #1b97fd00;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+    font-size: 15px;
+    position: relative;
+    border-right: 1px solid #f7f5f5;
+}
+.vip-tabs-container p.vp-sb-txt:last-child {
+    border-right: none;
 }
 p.vp-sb-txt span{
 	font-size: 11px;
@@ -3893,9 +4038,44 @@ img.vipLogiImg {
     margin-top: 30px;
     cursor: pointer;
 }
-.vip-cvpmem {
+.vip-cvpmem-main{
     background: #f7e8a1;
-    border-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.cpm-lst {
+    background: #fcf7df;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+ul.lst-vpp {
+    
+    padding-left: 15px;
+}
+ul.lst-vpp li {
+    font-weight: 500;
+    font-size: 11px;
+    position: relative;
+    margin: 8px 0;
+}
+ul.lst-vpp li::before {
+    color: #f17f3a;
+    content: "\2022";
+    display: inline-block;
+    font-size: 25px;
+    position: absolute;
+    top: 9px;
+    bottom: 0;
+    line-height: 0;
+    margin: auto;
+    left: -12px; 
+}
+
+.vip-cvpmem {
+    
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -3936,7 +4116,7 @@ section.container.container-top-margin.sub-pdng-add{
 }
 @media (max-width: 767px){
 section.container.container-top-margin.sub-pdng-add {
-    padding-top: 120px;
+    padding-top: 110px;
     
 }
 }
@@ -3998,3 +4178,39 @@ section.container.container-top-margin.sub-pdng-add.sub-pdng-rmv {
 	}
 }
 /* ============ new care  ============ */
+/* ============ new vip book card  ============ */
+.vip-content-book {
+    margin-top: 12px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+.vip-content-book p {
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+.vip-content-book p b {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0 1px;
+}
+.vip-content-book p img {
+    width: 22px;
+    margin: -4px 2px -6px 2px;
+}
+.vip-content-book button {
+    background-image: linear-gradient(to left,#f78631,#ff6d00);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    flex-shrink: 0;
+    margin-left: 3px;
+    padding: 4px 7px;
+    font-size: 10px;
+}
+.vip-content-book p:last-child {
+    margin-bottom: 0;
+}
+/* ============ new vip book card  ============ */
