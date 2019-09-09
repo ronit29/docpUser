@@ -52,8 +52,7 @@ class Article extends React.Component {
             specialization_id: '',
             hideFooterWidget: true,
             showPopup: false,
-            medBtnTop: '',
-            showIframe: false
+            medBtnTop: ''
         }
     }
 
@@ -82,6 +81,11 @@ class Article extends React.Component {
 
         if (window && this.props.match.path.split('-')[1] === 'mddp') {
             window.addEventListener('scroll', this.scrollHandler)
+        }
+
+        let sessionId = sessionStorage.getItem('iFrameId')
+        if (!sessionId) {
+            this.props.iFrameState('', true)
         }
     }
 
@@ -268,7 +272,8 @@ class Article extends React.Component {
         GTM.sendEvent({ data: gtmData })
         if (typeof navigator === 'object') {
             if (/mobile/i.test(navigator.userAgent)) {
-                this.setState({ showIframe: true });
+                this.props.iFrameState(this.props.location.pathname, false)
+                sessionStorage.setItem('iFrameId', 1);
             }
             else {
                 if (this.state.articleData && this.state.articleData.pharmeasy_url) {
@@ -295,11 +300,18 @@ class Article extends React.Component {
             locationName = this.props.selectedLocation.formatted_address
         }
 
+        let showIframe = false
+        if (this.props.iFrameUrls.includes(this.props.location.pathname)) {
+            showIframe = true
+        }
+
+        let sessionId = sessionStorage.getItem('iFrameId')
+
         return (
-            <div className="profile-body-wrap" style={this.state.showIframe ? {} : { paddingBottom: 54 }}>
+            <div className="profile-body-wrap" style={showIframe && sessionId ? {} : { paddingBottom: 54 }}>
                 <ProfileHeader />
                 {
-                    this.state.articleData && this.state.showIframe ?
+                    this.state.articleData && showIframe && sessionId ?
                         <iframe src={this.state.articleData.pharmeasy_url ? this.state.articleData.pharmeasy_url : CONFIG.PHARMEASY_IFRAME_URL} className="pharmeasy-iframe"></iframe>
                         :
                         <React.Fragment>

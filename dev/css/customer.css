@@ -2278,7 +2278,7 @@ p.rt-doc-nm{
 
 .pharmeasy-iframe{
     width: 100%;
-    height: calc(100vh - 44px);
+    height: calc(100vh - 100px);
     margin-top: 44px;
 }
 
