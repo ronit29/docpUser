@@ -501,6 +501,8 @@ class ChatPanel extends React.Component {
         }
         this.dispatchCustomEvent('Refund_Fees', data)
         this.props.setPaymentStatus(null)
+        let buildUrl = this.buildUrl()
+        this.props.history.replace(buildUrl)
         this.toggleRefundPopup()
     }
 
