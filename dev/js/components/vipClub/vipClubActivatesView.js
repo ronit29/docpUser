@@ -37,6 +37,11 @@ class VipClub extends React.Component {
                 }
             }
         }
+        let initialTabs=[]
+        this.props.data.user.plus_members.map((val,key) => 
+            initialTabs.push(key)
+        )
+        this.setState({tabsValue:initialTabs})
     }
 
     AddMemberDetails(){
@@ -59,11 +64,11 @@ class VipClub extends React.Component {
         }
 
         self.setState({ tabsValue: tabs })
-        console.log(tabs)
     }
     render() {
         let expiry_date = new Date(this.props.data.user.expire_date)
         expiry_date = expiry_date.toDateString()
+        let expiryDate = expiry_date.split(" ")
         return (
             <div className="profile-body-wrap" style={{ background: "" }}>
                 {/* <ProfileHeader /> */}
@@ -75,7 +80,7 @@ class VipClub extends React.Component {
                             <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
                             <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
                             {/*<h1>in Just <span className="vip-prc-cut">₹{this.props.data.plan[0].mrp}</span> <span className="vip-main-price">₹{this.props.data.plan[0].deal_price}</span>  </h1>*/}
-                                <p>Valid till {expiry_date}</p>
+                                <p>Valid till {expiryDate[1] + ' ' + expiryDate[2] + ',' + expiryDate[3]}</p>
                             {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
                         </div>
                     </div>
@@ -111,7 +116,7 @@ class VipClub extends React.Component {
                                                     </div>
                                                     <div className="doc-onln-cnslt">
                                                         <div className="vip-cnslt-card">
-                                                            <h5 className="vip-brder-hdng">Doctor Consultation</h5>
+                                                            <h5 className="vip-brder-hdng">In-Clinic Consultation</h5>
                                                             <ul>
                                                                 <li><p>Total Limit: <span>₹{this.props.data.plan[0].utilize.total_limit}  </span></p></li>
                                                                 <li><p>Utilized: <span>₹{this.props.data.plan[0].utilize.utilized} </span></p></li>
@@ -119,8 +124,8 @@ class VipClub extends React.Component {
                                                             </ul>
                                                         </div>
                                                         <div className="vip-cnslt-card">
-                                                            <h5 className="vip-brder-hdng">Doctor Consultation</h5>
-                                                            <p className="vip-un-mem">Unlimited for 4 members</p>
+                                                            <h5 className="vip-brder-hdng">Docprime Care</h5>
+                                                            <p className="vip-un-mem">Unlimited online consult for 8 members</p>
                                                             <p className="vip-cnsl-act"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Activated </p>
                                                             {/*<div className="text-right">
                                                                 <button className="vip-crd-btn">Chat Now</button>
@@ -130,7 +135,7 @@ class VipClub extends React.Component {
                                                 </div>
                                                 <div className="vip-offer-cards mb-3">
                                                     <div className="vip-sbs-crd">
-                                                        <h5 className="vip-brder-hdng">Doctor Consultation</h5>
+                                                        <h5 className="vip-brder-hdng">Full Body Health Package</h5>
                                                         <div className="vip-sbs-crd-content">
                                                             <div className="vip-sbs-crd-lft">
                                                                 <p>Includes {this.props.data.plan[0].worth.total_test_covered_in_package} Tests, can be used by {this.props.data.plan[0].worth.members_covered_in_package} members</p>
@@ -167,7 +172,7 @@ class VipClub extends React.Component {
                                                         <ul className="vip-acr-lst">
                                                             {
                                                                 this.props.data.user.plus_members.map((val,key) => {
-                                                                    return <li>
+                                                                    return <li key={key}>
                                                                         <h4 onClick={this.ButtonHandler.bind(this,key)} className="vip-acrd-hdng"><span>{val.first_name} {val.last_name} <br />
                                                                             {val.relation == 'SELF'?<b>(Primary)</b>:''}
                                                                             </span><img className=
@@ -175,6 +180,7 @@ class VipClub extends React.Component {
                                                                         </h4>
                                                                         <div className={`vip-sn-tbl ${this.state.tabsValue.indexOf(key)>-1?'d-none':''}`}>
                                                                             <table className="vip-acrd-content">
+                                                                                <tbody>
                                                                                 <tr>
                                                                                         <th>Relationship</th>
                                                                                         <th>Gender</th>
@@ -182,9 +188,10 @@ class VipClub extends React.Component {
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td>{val.relation}</td>
-                                                                                    <td>{val.title == 'mr.'?'m':'f'}</td>
+                                                                                    <td style={{ 'textTransform': 'capitalize' }} >{val.title == 'mr.'?'m':'f'}</td>
                                                                                     <td>{val.dob}</td>
                                                                                 </tr>
+                                                                                </tbody>
                                                                             </table>
                                                                         </div>
                                                                     </li>
