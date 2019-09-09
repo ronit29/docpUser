@@ -13,21 +13,11 @@ const queryString = require('query-string');
 class VipClubView extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            toggle: 'one',
-            is_checked: this.props.selected_plan ? this.props.selected_plan.id : '',
-            selected_plan_deal_price: '',
-            gst: 'Inclusive of 18% GST',
+        this.state = {            
             selected_plan_data: this.props.selected_plan ? this.props.selected_plan : '',
             showPopup: false,
-            shortURL: "",
             isLead: '',
-            checkIdleTimeout: true,
-            popupClass: '',
-            overlayClass: '',
-            identifyUserClick: '',
             selected_plan_id: '',
-            selected_plan_mrp: '',
             toggleTabType: false
         }
     }
@@ -37,14 +27,6 @@ class VipClubView extends React.Component {
         if (this.props.selected_vip_plan && this.props.vipClubList && this.props.vipClubList.plans && this.props.vipClubList.plans.length > 0) {
             let resp = this.props.selected_vip_plan
             this.setState({ selected_plan_data: resp, selected_plan_id: resp.id })
-        }
-        let loginUser
-        let lead_data = queryString.parse(this.props.location.search)
-        if (STORAGE.checkAuth() && this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
-            loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
-            if (Object.keys(loginUser).length > 0) {
-                this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name)
-            }
         }
 
         let self = this
@@ -81,9 +63,21 @@ class VipClubView extends React.Component {
     }
 
     proceed() {
+        let loginUser
+        let lead_data = queryString.parse(this.props.location.search)
+        let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'VipClubBuyNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-buynow-clicked', 'selected': ''
+        }
+        GTM.sendEvent({ data: gtmData })
         if (STORAGE.checkAuth()) {
-            // this.props.history.push('/vip-club-member-details')
-            this.props.history.push('/vip-club-static-pages')
+            if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
+                loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
+                if (Object.keys(loginUser).length > 0) {
+                    this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name)
+                }
+            }
+            this.props.history.push('/vip-club-member-details')
+            // this.props.history.push('/vip-club-static-pages')
         } else {
             this.setState({ showPopup: true })
         }
@@ -92,11 +86,10 @@ class VipClubView extends React.Component {
     navigateTo(data, e) {
         e.preventDefault()
         e.stopPropagation()
-        // let gtmData = {
-        //     'Category': 'ConsumerApp', 'Action': 'HomeWidgetHospitalClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-widget-hospital-clicked', 'selected': '', 'selectedId': data.id || ''
-        // }
-        // GTM.sendEvent({ data: gtmData })
-        console.log(data)
+        let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'VipClubWidgetHospitalClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-widget-hospital-clicked', 'selected': '', 'selectedId': data.id || ''
+        }
+        GTM.sendEvent({ data: gtmData })
         let redirectUrl = ''
 
         if (data.url) {
@@ -130,7 +123,7 @@ class VipClubView extends React.Component {
                     </div>
                     {
                         this.state.showPopup ?
-                            <VipLoginPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} popupClass={this.state.popupClass} overlayClass={this.state.overlayClass} identifyUserClick={this.state.identifyUserClick} /> : ''
+                            <VipLoginPopup {...this.props} selected_plan={this.state.selected_plan_data} hideLoginPopup={this.hideLoginPopup.bind(this)} isLead={this.state.isLead} closeLeadPopup={this.closeLeadPopup.bind(this)} /> : ''
                     }
                     <section className={`container container-top-margin sub-pdng-add ${this.state.toggleTabType ? 'sub-pdng-rmv' : ''}`}>
                         <div className="row main-row parent-section-row">

@@ -94,6 +94,7 @@ class UserLoginView extends React.Component {
                 if (exists.token) {
                     const parsed = queryString.parse(this.props.location.search)
                     this.props.clearInsurance()
+                    this.props.resetVipData()
                     if (exists.user_exists) {
                         if (parsed.login) {
                             let data = {

@@ -327,16 +327,18 @@ class BookingView extends React.Component {
                                                         {
                                                             actions.indexOf(6) > -1 && !this.state.hide_button ? <a onClick={this.toggleCancel.bind(this)} href="#" className="text-primary fw-700 text-sm">Cancel Booking</a> : ""
                                                         }
-                                                        <div className="vip-content-book">
-                                                            <div>
-                                                                <p>
-                                                                    You could have saved <b>70%</b> on this booking
-                                                            </p>
-                                                                <p>if you were a Docprime <img src={ASSETS_BASE_URL + '/img/viplog.png'} /> Member!</p>
+                                                        {
+                                                            status!=6 && status!=7 &&
+                                                            <div className="vip-content-book">
+                                                                <div>
+                                                                    <p>
+                                                                        You could have saved <b>70%</b> on this booking
+                                                                    </p>
+                                                                    <p>if you were a Docprime <img src={ASSETS_BASE_URL + '/img/viplog.png'} /> Member!</p>
+                                                                </div>
+                                                                <button onClick={()=>this.navigateToVIP()}>Know more</button>
                                                             </div>
-                                                            <button onClick={()=>this.navigateToVIP()}>Know more</button>
-
-                                                        </div>
+                                                        }
                                                     </div>
                                                 </div>
                                                 <div className="widget mrb-10">

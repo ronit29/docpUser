@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { sendOTP, submitOTP, resetAuth, fetchReferralCode, clearInsurance } from '../../actions/index.js'
+import { sendOTP, submitOTP, resetAuth, fetchReferralCode, clearInsurance, resetVipData } from '../../actions/index.js'
 
 import UserLoginView from '../../components/commons/UserLogin'
 
@@ -57,7 +57,8 @@ const mapDispatchToProps = (dispatch) => {
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
         resetAuth: () => dispatch(resetAuth()),
         fetchReferralCode: (code) => dispatch(fetchReferralCode(code)),
-        clearInsurance: () => dispatch(clearInsurance())
+        clearInsurance: () => dispatch(clearInsurance()),
+        resetVipData:() => dispatch(resetVipData())
     }
 }
 
