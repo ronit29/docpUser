@@ -110,6 +110,11 @@ class VipClubView extends React.Component {
             this.props.vipClubList && Object.keys(this.props.vipClubList).length > 0 && this.state.selected_plan_data && Object.keys(this.state.selected_plan_data).length > 0 ?
                 <div className="profile-body-wrap" style={{ background: "" }}>
                     {/* <ProfileHeader /> */}
+                    <HelmetTags tagsData={{
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}`,
+                    title: `${'Docprime Vip' || ''}`,
+                        // description: `${this.props.data.description || ''}`
+                    }} noIndex={false} />                
                     <div className={`vipHeaderBar ${this.state.toggleTabType ? 'hed-curv-rmove' : ''}`} ref="vipHeaderBar">
                         <div className="vipBackIco" onClick={() => this.props.history.push('/')}>
                             <img src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} />
