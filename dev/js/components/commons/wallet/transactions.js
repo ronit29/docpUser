@@ -12,7 +12,8 @@ const ACTION = {
     3: "SALE",
     4: "RESCHEDULE_PAYMENT",
     5: "CASHBACK_CREDIT",
-    7: "REFERRAL_CREDIT"
+    7: "REFERRAL_CREDIT",
+    8: "PROMOTIONAL_DEBIT"
 }
 
 const PRODUCT = {
@@ -100,6 +101,9 @@ class Transactions extends React.Component {
             }
             case 6: {
                 return `Referral Bonus`
+            }
+            case 7: {
+                return "Promotional Amount Debited"
             }
         }
     }
