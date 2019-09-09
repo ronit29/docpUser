@@ -79,7 +79,7 @@ class VipLoginPopup extends React.Component {
                     //     this.props.generateInsuranceLead(this.props.selected_plan ? this.props.selected_plan.id : '', this.state.phoneNumber, lead_data)
                     // }
                     let data = {
-                        'Category': 'ConsumerApp', 'Action': 'VipClubLoginPopupContinue', 'CustomerID': GTM.getUserId() || '', 'event': 'VipClub-login-popup-continue-click', 'mode': viaSms ? 'viaSms' : viaWhatsapp ? 'viaWhatsapp' : '', 'mobileNo': this.state.phoneNumber
+                        'Category': 'ConsumerApp', 'Action': 'VipClubLoginPopupContinue', 'CustomerID': GTM.getUserId() || '', 'event': 'vip-login-popup-continue-click', 'mode': viaSms ? 'viaSms' : viaWhatsapp ? 'viaWhatsapp' : '', 'mobileNo': this.state.phoneNumber
                     }
                     GTM.sendEvent({ data: data })
                     if(viaWhatsapp){

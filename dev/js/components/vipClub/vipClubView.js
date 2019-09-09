@@ -66,7 +66,7 @@ class VipClubView extends React.Component {
         let loginUser
         let lead_data = queryString.parse(this.props.location.search)
         let gtmData = {
-            'Category': 'ConsumerApp', 'Action': 'VipClubBuyNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'VipClub-BuyNow-clicked', 'selected': ''
+            'Category': 'ConsumerApp', 'Action': 'VipClubBuyNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-buynow-clicked', 'selected': ''
         }
         GTM.sendEvent({ data: gtmData })
         if (STORAGE.checkAuth()) {
@@ -87,7 +87,7 @@ class VipClubView extends React.Component {
         e.preventDefault()
         e.stopPropagation()
         let gtmData = {
-            'Category': 'ConsumerApp', 'Action': 'VipClubWidgetHospitalClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'VipClub-widget-hospital-clicked', 'selected': '', 'selectedId': data.id || ''
+            'Category': 'ConsumerApp', 'Action': 'VipClubWidgetHospitalClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-widget-hospital-clicked', 'selected': '', 'selectedId': data.id || ''
         }
         GTM.sendEvent({ data: gtmData })
         let redirectUrl = ''
