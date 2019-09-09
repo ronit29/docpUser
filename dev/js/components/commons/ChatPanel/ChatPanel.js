@@ -167,6 +167,9 @@ class ChatPanel extends React.Component {
                                 }
                                 GTM.sendEvent({ data: analyticData })
                                 let extraParams = {}
+                                if (typeof window == "object") {
+                                    parsedHref = queryString.parse(window.location.search)
+                                }
                                 if(parsedHref && parsedHref.payment=='success'){
                                     extraParams.payment = true
                                 }
