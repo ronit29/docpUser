@@ -285,16 +285,8 @@ class VipClubMemberDetailsView extends React.Component{
 		    				return
 		    			}
 		    			if(resp && resp.payment_required){
-		    				let gtmData = {
-					            'Category': 'ConsumerApp', 'Action': 'vipbooked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-vipbooked'
-					        }
-					        GTM.sendEvent({ data: gtmData })
                             this.processPayment(resp)
 						}else{
-							let gtmData = {
-					            'Category': 'ConsumerApp', 'Action': 'vipbooked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-vipbooked'
-					        }
-					        GTM.sendEvent({ data: gtmData })
 							success_id = '/vip-club-activated-details?payment_success=true&id='+resp.data.id
 							this.props.history.push(success_id)
 						}
