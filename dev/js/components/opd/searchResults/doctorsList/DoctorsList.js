@@ -361,7 +361,7 @@ class DoctorsList extends React.Component {
                                                                 {
                                                                     sponsorData.hospital_services && sponsorData.hospital_services.length>4 && 
                                                                     <div className="clnc-all-srvc">
-                                                                        <p>{`All ${sponsorData.hospital_services.length-4} Services`}</p>
+                                                                        <p>{`+ ${sponsorData.hospital_services.length-4} More`}</p>
                                                                     </div>
                                                                 }
                                                                   
