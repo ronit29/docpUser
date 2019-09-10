@@ -217,9 +217,6 @@ class DoctorProfileCard extends React.Component {
                 googleRatingCount = google_rating.rating_count || ''
             }
             let is_insurance_buy_able = hospital.is_insurance_covered && !hospital.is_user_insured && deal_price <= hospital.insurance_threshold_amount
-            let is_vip_applicable = hospital.is_vip_member
-            let vip_remaining_amount = hospital.vip_remaining_amount
-
             let insurance_limit_message = hospital.insurance_limit_message
             let qualificationsArray = [];
             if (qualifications && qualifications.length) {
@@ -298,12 +295,7 @@ class DoctorProfileCard extends React.Component {
                                         <p className="cstm-doc-price">Docprime Price</p> : ''
                                 }
                                 {
-                                    !is_vip_applicable?
-                                        <p className="cst-doc-price">₹ {vip_remaining_amount} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
-                                    :''
-                                }
-                                {
-                                    is_insurance_applicable  && is_vip_applicable?
+                                    is_insurance_applicable ?
                                         ''
                                         : enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price != mrp ?
                                             <p className="cst-doc-price">₹ {cod_deal_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
