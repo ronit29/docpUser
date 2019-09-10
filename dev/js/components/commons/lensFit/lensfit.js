@@ -39,15 +39,10 @@ class Lensfit extends React.Component {
             if(parsed && parsed.callbackurl){
                 backUrl = parsed.callbackurl
                 if(parsed.hospital_id){
-                    backUrl += '&hospital_id='+parsed.hospital_id
+                    backUrl += '&hospital_id='+parsed.hospital_id+'&isLensfitSpecific=true'
                 }
-                if (window.location.href.includes('lpp/booking')) {
-                    backUrl += '&isLensfitSpecific=true'
-                }
-                if (window.location.href.includes('bookdetails') || window.location.href.includes('book')) {
-                    backUrl += '?isLensfitSpecific=true'
-                }else{
-                    backUrl += '&isLensfitSpecific=true'
+                if(parsed.lab_id){
+                    backUrl += '&lab_id='+parsed.lab_id+'&isLensfitSpecific=true'
                 }
             }
 
@@ -71,7 +66,7 @@ class Lensfit extends React.Component {
                                 <p className="lns-avl-ofr">How to avail the offer: </p>
                                 <div className="lsn-stps-container">
                                     <div className="lns-steps-para"><span>Step 1.</span> <p>Once the appointment is completed, you will get lensfit unique code through message and email</p> </div>
-                                    <div className="lns-steps-para"><span>Step 2.</span> <p>visit  <a src="https://www.lensfit.com/collections/docprime ">https://www.lensfit.com/collections/docprime </a>to redeem the offer. All products on this link will be 100% OFF with delivery charge of ₹299 + GST </p></div>
+                                    <div className="lns-steps-para"><span>Step 2.</span> <p>visit  <a href="https://www.lensfit.com/collections/docprime" target="_blank">https://www.lensfit.com/collections/docprime </a>to redeem the offer. All products on this link will be 100% OFF with delivery charge of ₹299 + GST </p></div>
                                 </div>
                                 <div className="lns-offr-apl-cont">
                                     <p>*Offer only applicable on completed OPD and lab bookings</p>

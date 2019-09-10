@@ -392,7 +392,7 @@ class CriteriaSearchView extends React.Component {
                         <PackageCompareStrip {...this.props} />
                     :''
                 }
-                <div className={this.state.swipeDirection && this.state.swipeDirection!='up'?'smth-ftr-hide shw-srch-ftr':'shw-srch-ftr'}>
+                <div className={`shw-srch-ftr d-md-none ${this.state.swipeDirection && this.state.swipeDirection!='up'?'smth-ftr-hide':''}`}>
                 {
                     this.props.searchPackages && this.props.compare_packages && this.props.compare_packages.length == 0?
                         <FixedMobileFooter searchPackagePage={true} {...this.props} />

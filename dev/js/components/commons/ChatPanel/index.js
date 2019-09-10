@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getUserProfile, setChatRoomId } from '../../../actions/index.js'
 
 import { withRouter } from 'react-router'
-import { getChatDoctorById, resetFilters, clearExtraTests, selectLocation, loginViaChat, startLiveChat, toggleDiagnosisCriteria, toggleOPDCriteria, unSetCommonUtmTags, ipdChatView } from '../../../actions/index.js'
+import { getChatDoctorById, resetFilters, clearExtraTests, selectLocation, loginViaChat, startLiveChat, toggleDiagnosisCriteria, toggleOPDCriteria, unSetCommonUtmTags, ipdChatView, setPaymentStatus } from '../../../actions/index.js'
 
 import ChatPanelView from './ChatPanel'
 
@@ -68,12 +68,13 @@ const mapDispatchToProps = (dispatch) => {
         clearExtraTests: () => dispatch(clearExtraTests()),
         selectLocation: (location) => dispatch(selectLocation(location)),
         loginViaChat: (token) => dispatch(loginViaChat(token)),
-        setChatRoomId: (roomId) => dispatch(setChatRoomId(roomId)),
+        setChatRoomId: (roomId, extraParams) => dispatch(setChatRoomId(roomId, extraParams)),
         startLiveChat: (started, deleteRoomId) => dispatch(startLiveChat(started, deleteRoomId)),
         toggleDiagnosisCriteria: (type, test, forceAdd, filters) => dispatch(toggleDiagnosisCriteria(type, test, forceAdd, filters)),
         toggleOPDCriteria: (type, test, forceAdd, filters) => dispatch(toggleOPDCriteria(type, test, forceAdd, filters)),
         unSetCommonUtmTags: (type, tags) => dispatch(unSetCommonUtmTags(type, tags)),
-        ipdChatView: (data) => dispatch(ipdChatView(data))
+        ipdChatView: (data) => dispatch(ipdChatView(data)),
+        setPaymentStatus: (status) => dispatch(setPaymentStatus(status))
     }
 }
 

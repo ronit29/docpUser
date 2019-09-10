@@ -9,12 +9,12 @@ class TopChatWidget extends React.Component {
 
 	widgetClick() {
 		let gtmData = {
-			'Category': 'ConsumerApp', 'Action': 'HomeChatWidgetClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-chat-widget-click'
+			'Category': 'ConsumerApp', 'Action': 'HomeVipWidgetClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-vip-widget-click'
 		}
 		GTM.sendEvent({ data: gtmData })
 
 		// this.props.history.push('/mobileviewchat')
-		this.props.history.push('/vip-club-details?source=mobile-home-knowmore-vipClub-clicked')
+		this.props.history.push('/vip-club-details?source=mobile-home-knowmore-vip-clicked')
 	}
 
 	render() {

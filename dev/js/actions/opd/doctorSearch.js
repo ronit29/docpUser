@@ -669,5 +669,32 @@ export const codToPrepaid = (postData, cb)=> (dispatch)=>{
 	}).catch((e)=>{
 		cb(e, null)
 	})
+}
 
+export const getSponsoredList = (data, selectedLocation, cb) =>(dispatch) =>{
+	let lat = 28.644800
+	let long = 77.216721
+	let place_id = ""
+	let locality = ""
+	let sub_locality = ""
+
+	if (selectedLocation) {
+		lat = selectedLocation.geometry.location.lat
+		long = selectedLocation.geometry.location.lng
+		place_id = selectedLocation.place_id || ""
+		if (typeof lat === 'function') lat = lat()
+		if (typeof long === 'function') long = long()
+		locality = selectedLocation.locality || ""
+		sub_locality = selectedLocation.sub_locality || ""
+	}else{
+		locality = "Delhi"
+	}
+	return API_GET(`/api/v1/common/sponsorlisting?spec_id=${data.specializations_ids||''}&lat=${lat}&long=${long}&locality=${locality}&utm_term=${data.utm_term}&url=${data.searchUrl||''}`).then(function (response) {
+		if(cb) cb(response)
+
+	}).catch(function (error) {
+		if(cb) cb(error)
+		throw error
+
+	})
 }

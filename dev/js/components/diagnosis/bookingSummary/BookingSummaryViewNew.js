@@ -106,7 +106,6 @@ class BookingSummaryViewNew extends React.Component {
             var scrollPosition = elementTop - elementHeight;
             this.setState({ scrollPosition: scrollPosition });
         }*/
-        console.log(this.state.isLensfitSpecific)
         if(this.state.isLensfitSpecific){
             setTimeout(() => {
                 if (document.getElementById('confirm_booking')) {
@@ -891,7 +890,12 @@ class BookingSummaryViewNew extends React.Component {
         }
         GTM.sendEvent({ data: data })
         
-        this.setState({show_lensfit_popup:false,lensfit_decline:true})
+        this.setState({show_lensfit_popup:false,lensfit_decline:true},()=>{
+            if (document.getElementById('confirm_booking')) {
+                document.getElementById('confirm_booking').click()
+            }
+        })
+        // this.setState({show_lensfit_popup:false,lensfit_decline:true})
     }
     
     render() {

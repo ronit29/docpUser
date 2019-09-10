@@ -31,7 +31,8 @@ class SearchResultsView extends React.Component {
             setSearchId: false,
             scrollPosition: 0,
             quickFilter: {},
-            detectLocation: false
+            detectLocation: false,
+            sponsorData: []
         }
     }
 
@@ -40,6 +41,22 @@ class SearchResultsView extends React.Component {
         //aa.init()
         aa.addEvents('map')*/
         const parsed = queryString.parse(this.props.location.search)
+        //API TO GET SPONSORLIST 
+        let searchUrl = null
+        if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit') || this.props.match.url.includes('-ipddp')) {
+            searchUrl = this.props.match.url.toLowerCase()
+        }
+        let sponsorData = {
+            utm_term: parsed && parsed.utm_term?parsed.utm_term:'',
+            searchUrl:searchUrl,
+            specializations_ids:''
+        }
+        if(this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) {
+            sponsorData.specializations_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
+        }
+        this.props.getSponsoredList(sponsorData, this.props.selectedLocation, (response)=>{
+            this.setState({sponsorData: response})
+        })
         if (this.props.mergeUrlState) {
             let getSearchId = true
             if (this.props.location.search.includes('search_id')) {
@@ -349,6 +366,10 @@ class SearchResultsView extends React.Component {
 
             url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}&sits_at_hospital=${sits_at_hospital}&sits_at_clinic=${sits_at_clinic}&group_ids=${group_ids}&specialization_filter_ids=${specialization_filter_ids}`
 
+            if(parsed && parsed.utm_term){
+                url+= `&utm_term=${parsed.utm_term||''}`
+            }
+
             is_params_exist = true
 
         } else if (this.state.seoFriendly) {
@@ -655,7 +676,7 @@ class SearchResultsView extends React.Component {
                                 
                                 </React.Fragment>
                                 :<React.Fragment>
-                                    <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)}  getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} detectLocationClick={() => this.detectLocationClick()}  applyQuickFilter={this.applyQuickFilter.bind(this)} SimilarSpecializationData={this.SimilarSpecializationData.bind(this)}/>
+                                    <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)}  getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} detectLocationClick={() => this.detectLocationClick()}  applyQuickFilter={this.applyQuickFilter.bind(this)} SimilarSpecializationData={this.SimilarSpecializationData.bind(this)} sponsorData={this.state.sponsorData}/>
 
                                     {
                                         this.state.seoFriendly && show_pagination ? <div className="art-pagination-div">
