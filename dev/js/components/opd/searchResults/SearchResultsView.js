@@ -47,7 +47,7 @@ class SearchResultsView extends React.Component {
             searchUrl = this.props.match.url.toLowerCase()
         }
         let sponsorData = {
-            Utm_term: parsed && parsed.Utm_term?parsed.Utm_term:'',
+            utm_term: parsed && parsed.utm_term?parsed.utm_term:'',
             searchUrl:searchUrl,
             specializations_ids:''
         }
@@ -365,6 +365,10 @@ class SearchResultsView extends React.Component {
         if (is_filter_applied || !this.state.seoFriendly) {
 
             url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}&sits_at_hospital=${sits_at_hospital}&sits_at_clinic=${sits_at_clinic}&group_ids=${group_ids}&specialization_filter_ids=${specialization_filter_ids}`
+
+            if(parsed && parsed.utm_term){
+                url+= `&utm_term=${parsed.utm_term||''}`
+            }
 
             is_params_exist = true
 
