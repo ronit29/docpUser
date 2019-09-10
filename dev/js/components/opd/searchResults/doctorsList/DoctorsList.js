@@ -303,7 +303,7 @@ class DoctorsList extends React.Component {
                                     >
                                         <ul>
                                             {
-                                                sponsorData && 
+                                                sponsorData && sponsorData.name &&
                                                 <div className="clinic-card mb-3" onClick={()=>this.navigateToHospital(sponsorData)}>
                                                     <div className="clnc-content">
                                                         <div className="row no-gutters">
@@ -348,22 +348,26 @@ class DoctorsList extends React.Component {
                                                                 <button className="cstm-book-btn clnc-btn">Book Appointment</button>
                                                             </div>
                                                         </div>
-                                                        <div className="clnc-chps-cont">
-                                                            <div className="clnc-chps">
-                                                                {
-                                                                    sponsorData.hospital_services.map((serv,key )=>{
-                                                                        return key<4?<span key={serv.id}>{serv.name}</span>:''
-                                                                    })
-                                                                }
-                                                            </div>
-                                                            {
-                                                                sponsorData.hospital_services && sponsorData.hospital_services.length>4 && 
-                                                                <div className="clnc-all-srvc">
-                                                                    <p>{`All ${sponsorData.hospital_services.length-4} Services`}</p>
+                                                        {
+                                                            sponsorData.hospital_services && 
+                                                            <div className="clnc-chps-cont">
+                                                                <div className="clnc-chps">
+                                                                    {
+                                                                        sponsorData.hospital_services.map((serv,key )=>{
+                                                                            return key<4?<span key={serv.id}>{serv.name}</span>:''
+                                                                        })
+                                                                    }
                                                                 </div>
-                                                            }
-                                                              
-                                                        </div>
+                                                                {
+                                                                    sponsorData.hospital_services && sponsorData.hospital_services.length>4 && 
+                                                                    <div className="clnc-all-srvc">
+                                                                        <p>{`All ${sponsorData.hospital_services.length-4} Services`}</p>
+                                                                    </div>
+                                                                }
+                                                                  
+                                                            </div>
+                                                        }
+                                                        
                                                         <p className="cln-loc-par"><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{sponsorData.short_address}</p>
                                                     </div>
                                                 </div>   
