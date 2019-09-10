@@ -145,7 +145,16 @@ class VipProposerFamily extends React.Component {
 		});
 	}
 	handleRelation(event) {
-		this.setState({'relation':event.target.value},()=>{
+		let dummy_relation = event.target.value
+		let relation_value= null
+		if(dummy_relation == 'Father-in-law'){
+			relation_value = 'SPOUSE_FATHER'
+		}else if(dummy_relation == 'Mother-in-law'){
+			relation_value = 'SPOUSE_MOTHER'
+		}else{
+			relation_value = dummy_relation
+		}
+		this.setState({'relation':relation_value},()=>{
 			this.handleSubmit(true,event)
 		})
 	}
@@ -476,7 +485,7 @@ class VipProposerFamily extends React.Component {
 										<select style={{width:'100%'}} value={this.state.relation} onChange={this.handleRelation.bind(this)}>
 											<option hidden>Select Relation</option>
 											{Object.entries(this.props.vip_club_db_data.data.relation_master).map(function([key, value]) {
-												return <option key={key}>{value}</option>
+												return <option key={key}>{value == 'SPOUSE_FATHER'?'Father-in-law':value == 'SPOUSE_MOTHER'?'Mother-in-law':value}</option>
 											})}
 										</select>
 										<img className="dob-down-icon" style={{right : '4px'}} src="/assets/img/customer-icons/dropdown-arrow.svg"/>
