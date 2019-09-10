@@ -19,6 +19,7 @@ import CommonSearch from '../../../containers/commons/CommonSearch.js'
 import FixedMobileFooter from '../Home/FixedMobileFooter'
 import FooterTestSpecializationWidgets from './FooterTestSpecializationWidgets.js'
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup';
+import Loader from '../Loader';
 
 // import RelatedArticles from './RelatedArticles'
 
@@ -93,12 +94,12 @@ class Article extends React.Component {
         if (document) {
             let elem = document.getElementById('medicine-btn')
             let elemContainer = document.getElementById('medicine-btn-div')
-            if (window && (elemContainer.offsetTop == window.scrollY)) {
+            if (window && elemContainer && (elemContainer.offsetTop == window.scrollY)) {
                 elem.style.background = '#3b827d'
                 elem.style.borderRadius = '0px'
                 elemContainer.style.padding = '0px'
             }
-            else {
+            else if (elem) {
                 elem.style.background = '#f78631'
                 elem.style.borderRadius = '5px'
                 elemContainer.style.padding = '0px 15px'
@@ -240,7 +241,6 @@ class Article extends React.Component {
             GTM.sendEvent({ data: gtmData })
 
             if (this.state.specialization_id) {
-
                 let criteria = {}
                 criteria.id = this.state.specialization_id
                 criteria.name = ''
@@ -257,7 +257,9 @@ class Article extends React.Component {
     }
 
     buyMedicineClick() {
-        this.setState({ showPopup: true })
+        this.setState({ showPopup: true }, () => {
+            setTimeout(() => this.continueClick(), 1000);
+        })
         let gtmData = {
             'Category': 'ConsumerApp', 'Action': 'BuyMedicineBtnClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'buy-medicine-btn-click'
         }
@@ -265,11 +267,10 @@ class Article extends React.Component {
     }
 
     continueClick() {
-        this.setState({ showPopup: false })
-        let gtmData = {
-            'Category': 'ConsumerApp', 'Action': 'MedicinePageContinueClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'medicine-page-continue-click'
-        }
-        GTM.sendEvent({ data: gtmData })
+        // let gtmData = {
+        //     'Category': 'ConsumerApp', 'Action': 'MedicinePageContinueClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'medicine-page-continue-click'
+        // }
+        // GTM.sendEvent({ data: gtmData })
         if (typeof navigator === 'object') {
             if (/mobile/i.test(navigator.userAgent)) {
                 this.props.iFrameState(this.props.location.pathname, false)
@@ -284,6 +285,11 @@ class Article extends React.Component {
                 }
             }
         }
+        setTimeout(() => {
+            this.setState({
+                showPopup: false
+            })
+        }, 1000)
     }
 
     hidePopup() {
@@ -316,9 +322,13 @@ class Article extends React.Component {
                         :
                         <React.Fragment>
                             <section className="container article-container">
-                                {
+                                {/* {
                                     this.state.showPopup ?
                                         <BookingConfirmationPopup continueClick={() => this.continueClick()} iFramePopup={true} hidePopup={() => this.hidePopup()} /> : ''
+                                } */}
+                                {
+                                    this.state.showPopup ?
+                                        <Loader iFramePopup={true} /> : ''
                                 }
                                 <div className="row main-row parent-section-row">
                                     <LeftBar />

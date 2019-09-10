@@ -5,6 +5,7 @@ import RightBar from '../RightBar';
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup';
 import GTM from '../../../helpers/gtm';
 import CONFIG from '../../../config/config';
+import Loader from '../Loader';
 
 class OrderMedicineView extends React.Component {
     constructor(props) {
@@ -23,7 +24,9 @@ class OrderMedicineView extends React.Component {
     }
 
     orderMedicineClick(source) {
-        this.setState({ showPopup: true, clickedOn: source })
+        this.setState({ showPopup: true, clickedOn: source }, () => {
+            setTimeout(() => this.continueClick(), 1000);
+        })
         if (source === 'newOrder') {
             let data = {
                 'Category': 'ConsumerApp', 'Action': 'OrderPageNewOrderClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'order-page-new-order-click'
@@ -39,20 +42,18 @@ class OrderMedicineView extends React.Component {
     }
 
     continueClick() {
-        this.setState({ showPopup: false })
-
-        if (this.state.clickedOn === 'newOrder') {
-            let data = {
-                'Category': 'ConsumerApp', 'Action': 'OrderPageContinueClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'order-page-continue-click'
-            }
-            GTM.sendEvent({ data: data })
-        }
-        else if (this.state.clickedOn === 'prevOrder') {
-            let data = {
-                'Category': 'ConsumerApp', 'Action': 'OrderPagePreviousOrderClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'order-page-previous-order-click'
-            }
-            GTM.sendEvent({ data: data })
-        }
+        // if (this.state.clickedOn === 'newOrder') {
+        //     let data = {
+        //         'Category': 'ConsumerApp', 'Action': 'OrderPageContinueClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'order-page-continue-click'
+        //     }
+        //     GTM.sendEvent({ data: data })
+        // }
+        // else if (this.state.clickedOn === 'prevOrder') {
+        //     let data = {
+        //         'Category': 'ConsumerApp', 'Action': 'OrderPagePreviousOrderClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'order-page-previous-order-click'
+        //     }
+        //     GTM.sendEvent({ data: data })
+        // }
 
         if (typeof navigator === 'object') {
             if (/mobile/i.test(navigator.userAgent)) {
@@ -68,6 +69,12 @@ class OrderMedicineView extends React.Component {
                 }
             }
         }
+
+        setTimeout(() => {
+            this.setState({
+                showPopup: false
+            })
+        }, 1000)
     }
 
     hidePopup() {
@@ -91,9 +98,13 @@ class OrderMedicineView extends React.Component {
                         :
                         <React.Fragment>
                             <section className="container container-top-margin">
-                                {
+                                {/* {
                                     this.state.showPopup ?
                                         <BookingConfirmationPopup continueClick={() => this.continueClick()} iFramePopup={true} hidePopup={() => this.hidePopup()} /> : ''
+                                } */}
+                                {
+                                    this.state.showPopup ?
+                                        <Loader iFramePopup={true} /> : ''
                                 }
                                 <div className="row main-row parent-section-row">
                                     <div className="col-12 col-md-7 col-lg-7 center-column">

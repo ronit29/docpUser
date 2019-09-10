@@ -17,14 +17,14 @@ class BookingConfirmationPopup extends React.Component {
 							{
 								this.props.iFramePopup ?
 									<React.Fragment>
-										<div className="close-popup-btn" onClick={() => this.props.hidePopup()}>
+										{/* <div className="close-popup-btn" onClick={() => this.props.hidePopup()}>
 											<img src={ASSETS_BASE_URL + "/img/icons/close.png"} className="img-fluid" />
-										</div>
-										<p className="srch-el-conent fw-700">Information</p>
-										<p className="mrt-20 text-center fw-500">By continuing, you will exit Docprime and enter Pharmeasy website.</p>
-										<div className="search-el-btn-container" style={{ paddingBottom: 0 }}>
+										</div> */}
+										{/* <p className="srch-el-conent fw-700">Information</p> */}
+										<p className="mrt-20 text-center fw-500">We are redirecting you to PharmEasy website in 3 seconds...</p>
+										{/* <div className="search-el-btn-container" style={{ paddingBottom: 0 }}>
 											<button onClick={() => this.props.continueClick()}>Continue</button>
-										</div>
+										</div> */}
 									</React.Fragment>
 									:
 									<React.Fragment>
@@ -44,4 +44,4 @@ class BookingConfirmationPopup extends React.Component {
 	}
 }
 
-export default BookingConfirmationPopup    
+export default BookingConfirmationPopup
