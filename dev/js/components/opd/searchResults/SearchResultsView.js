@@ -46,7 +46,7 @@ class SearchResultsView extends React.Component {
         if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit') || this.props.match.url.includes('-ipddp')) {
             searchUrl = this.props.match.url.toLowerCase()
         }
-        let sponsorData = {
+        /*let sponsorData = {
             utm_term: parsed && parsed.utm_term?parsed.utm_term:'',
             searchUrl:searchUrl,
             specializations_ids:''
@@ -56,7 +56,7 @@ class SearchResultsView extends React.Component {
         }
         this.props.getSponsoredList(sponsorData, this.props.selectedLocation, (response)=>{
             this.setState({sponsorData: response})
-        })
+        })*/
         if (this.props.mergeUrlState) {
             let getSearchId = true
             if (this.props.location.search.includes('search_id')) {
