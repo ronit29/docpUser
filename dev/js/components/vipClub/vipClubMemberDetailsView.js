@@ -232,7 +232,7 @@ class VipClubMemberDetailsView extends React.Component{
 			    				self_profile = this.props.vipClubMemberDetails[value[key]]
 			    			}
 							members={}
-								members.relation=param.relation
+								members.relation=param.relation_key
 								members.title=param.title							
 						    	members.member = param.id
 						    	members.first_name=param.name

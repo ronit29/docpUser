@@ -42,7 +42,8 @@ class VipProposer extends React.Component {
 			mnth: null,
 			day: null,
 			emailVerified:false,
-			profile:''
+			profile:'',
+			relation_key:'SELF'
 
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
