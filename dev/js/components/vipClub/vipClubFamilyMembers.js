@@ -684,10 +684,10 @@ class VipProposerFamily extends React.Component {
 							}
 						</div>
 					</div>
-					{/*this.props.is_from_payment?
+					{this.props.is_from_payment?
 						<InsuranceProofs {...this.props}/>
 					:''
-					*/}
+					}
 				</div>
 				
 				{this.state.showPopup ?

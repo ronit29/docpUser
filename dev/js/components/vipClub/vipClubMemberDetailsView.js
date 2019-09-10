@@ -52,11 +52,8 @@ class VipClubMemberDetailsView extends React.Component{
     		if(this.props.currentSelectedVipMembersId.length == 3){
 				membersId.push({[3]: 3, type:'adult'})
 				member_dummy_data.id=3
-    		}	
-    		// console.log(member_dummy_data)
-    		// this.props.saveCurrentSelectedVipMembers(membersId)
+    		}
     		this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{
-    			console.log(member_dummy_data)
     			this.props.userDetails('self_data', member_dummy_data)
     		})
     	}
@@ -95,11 +92,9 @@ class VipClubMemberDetailsView extends React.Component{
 			this.setState({ saveMembers: true})
     	}else if(!this.state.saveMembers && Object.keys(props.selected_vip_plan).length >0 && !props.currentSelectedVipMembersId.length && props.is_from_payment && Object.keys(props.vip_club_db_data).length >0){
     			if(props.vip_club_db_data.data.user && Object.keys(props.vip_club_db_data.data.user).length > 0 && props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length > 0){
-    				console.log(props.vip_club_db_data.data.user.plus_members[0].profile)
     				
     				membersId.push({'0':props.vip_club_db_data.data.user.plus_members[0].profile, type: 'self'})
 		    		membersId.push({[1]: 1, type:'adult'})
-		    		console.log(membersId)
 					props.saveCurrentSelectedVipMembers(membersId)
 					this.setState({ saveMembers: true})
     			}
@@ -225,19 +220,18 @@ class VipClubMemberDetailsView extends React.Component{
 	    		let address
 	    		let pincode
 	    		if(this.props.is_from_payment){
-	    			console.log(this.state.proceed)
-	    			console.log(this.props.vipClubMemberDetails)
 	    			if(!this.state.proceed && this.props.vipClubMemberDetails && Object.keys(this.props.vipClubMemberDetails).length <4){
 			    		this.setState({show_popup:true})
 			    		return
 			    	}
+			    	let is_member_updated = []
+    				let image_ids = []
 	    			{Object.entries(this.props.currentSelectedVipMembersId).map(function([key, value]) {
 			    		let param =this.props.vipClubMemberDetails[value[key]]
 				    		if(param.relation == 'SELF'){
 			    				self_profile = this.props.vipClubMemberDetails[value[key]]
 			    			}
 							members={}
-							if(param.relation !== 'SELF'){
 								members.relation=param.relation
 								members.title=param.title							
 						    	members.member = param.id
@@ -251,8 +245,20 @@ class VipClubMemberDetailsView extends React.Component{
 					    		members.address = self_profile.address
 					    		members.pincode = self_profile.pincode
 					    		members.email = null
+						    	if(this.props.members_proofs && this.props.members_proofs.length>0){
+									is_member_updated = this.props.members_proofs.filter((x=>x.id == param.id))
+									if(is_member_updated && is_member_updated.length > 0){
+										if(is_member_updated[0].img_path_ids.length > 0){
+											image_ids = []
+											is_member_updated[0].img_path_ids.map((imgId,i)=>{
+												image_ids.push({'proof_file':imgId.id})
+											})
+										}
+										members.document_ids = image_ids
+									}
+									members.id=param.id
+								}
 					    		return data.members.push(members)
-					    	}
 					},this)}
 					console.log(data)
 	    			this.props.addVipMembersData(data,(resp)=>{
@@ -261,10 +267,8 @@ class VipClubMemberDetailsView extends React.Component{
 	    				}
 	    			})
 	    		}else{
-	    			// console.log(self_profile)
 	    			var members = {}
 		    		members.title = self_profile.title
-		    		// members.relation = "SELF" 
 		    		members.first_name = self_profile.name 
 		    		members.last_name = self_profile.last_name 
 		    		members.email = self_profile.email 
