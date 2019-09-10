@@ -207,7 +207,7 @@ class InsuranceProofs extends React.Component {
                             this.state.isLoading?
                             <div className="ins-prf-img-grd">
                                 <div className="loader-for-chat-div mt-0">
-                                    <div className='loader-for-chat mb-0' style={{width:'50px;'}}>
+                                    <div className='loader-for-chat mb-0' style={{width:'50px'}}>
                                         <span></span>
                                         <span></span>
                                         <span></span>
