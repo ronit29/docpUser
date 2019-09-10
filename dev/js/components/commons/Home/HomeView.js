@@ -21,6 +21,7 @@ import HomePagePackageCategory from './HomePagePackageCategory.js'
 import TopChatWidget from './HomePageChatWidget';
 import DemoWidget from './DemoWidget.js'
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup';
+import Loader from '../Loader';
 
 const GENDER = {
 	"m": "Male",
@@ -173,7 +174,9 @@ class HomeView extends React.Component {
 	}
 
 	orderMedClick(source) {
-		this.setState({ showPopup: true, clickedOn: source })
+		this.setState({ showPopup: true, clickedOn: source }, () => {
+			setTimeout(() => this.continueClick(), 1000);
+		})
 		if (source === 'newOrder') {
 			let data = {
 				'Category': 'ConsumerApp', 'Action': 'DesktopNewOrderClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-new-order-click'
@@ -189,7 +192,6 @@ class HomeView extends React.Component {
 	}
 
 	continueClick() {
-		this.setState({ showPopup: false })
 		if (typeof navigator === 'object') {
 			if (/mobile/i.test(navigator.userAgent)) {
 
@@ -203,6 +205,11 @@ class HomeView extends React.Component {
 				}
 			}
 		}
+		setTimeout(() => {
+			this.setState({
+				showPopup: false
+			})
+		}, 1000)
 	}
 
 	hidePopup() {
@@ -475,9 +482,14 @@ class HomeView extends React.Component {
 
 				<ProfileHeader homePage={true} showSearch={true} showPackageStrip={showPackageStrip} />
 
-				{
+				{/* {
 					this.state.showPopup ?
 						<BookingConfirmationPopup continueClick={() => this.continueClick()} iFramePopup={true} hidePopup={() => this.hidePopup()} /> : ''
+				} */}
+
+				{
+					this.state.showPopup ?
+						<Loader continueClick={() => this.continueClick()} iFramePopup={true} hidePopup={() => this.hidePopup()} /> : ''
 				}
 
 				{/* <div className="sub-header mrg-top"></div> */}
