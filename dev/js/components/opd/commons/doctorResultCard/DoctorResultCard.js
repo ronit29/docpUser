@@ -210,6 +210,9 @@ class DoctorProfileCard extends React.Component {
                 offPercent = parseInt(((mrp - cod_deal_price) / mrp) * 100);
             }
 
+            let is_vip_applicable = hospital.is_vip_member
+            let vip_remaining_amount = hospital.vip_remaining_amount
+            console.log(vip_remaining_amount)
             let avgGoogleRating = ''
             let googleRatingCount = ''
             if (google_rating && google_rating.avg_rating) {
@@ -295,7 +298,12 @@ class DoctorProfileCard extends React.Component {
                                         <p className="cstm-doc-price">Docprime Price</p> : ''
                                 }
                                 {
-                                    is_insurance_applicable ?
+                                    is_vip_applicable?
+                                        <p className="cst-doc-price">₹ {vip_remaining_amount >mrp?0:vip_remaining_amount-mrp} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+                                    :''
+                                }
+                                {
+                                    is_insurance_applicable || is_vip_applicable?
                                         ''
                                         : enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price != mrp ?
                                             <p className="cst-doc-price">₹ {cod_deal_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
