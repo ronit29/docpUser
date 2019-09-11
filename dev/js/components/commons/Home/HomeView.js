@@ -20,6 +20,8 @@ import HomePageTopProcedures from './HomePageProcedureWidgets.js'
 import HomePagePackageCategory from './HomePagePackageCategory.js'
 import TopChatWidget from './HomePageChatWidget';
 import DemoWidget from './DemoWidget.js'
+import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup';
+import Loader from '../Loader';
 
 const GENDER = {
 	"m": "Male",
@@ -35,7 +37,9 @@ class HomeView extends React.Component {
 			footerData = this.props.initialServerData.footerData
 		}
 		this.state = {
-			specialityFooterData: footerData
+			specialityFooterData: footerData,
+			showPopup: false,
+			clickedOn: ''
 		}
 	}
 
@@ -169,8 +173,51 @@ class HomeView extends React.Component {
 		return topList
 	}
 
+	orderMedClick(source) {
+		this.setState({ showPopup: true, clickedOn: source }, () => {
+			setTimeout(() => this.continueClick(), 1000);
+		})
+		if (source === 'newOrder') {
+			let data = {
+				'Category': 'ConsumerApp', 'Action': 'DesktopNewOrderClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-new-order-click'
+			}
+			GTM.sendEvent({ data: data })
+		}
+		else if (source === 'prevOrder') {
+			let data = {
+				'Category': 'ConsumerApp', 'Action': 'DesktopPreviousOrderClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-previous-order-click'
+			}
+			GTM.sendEvent({ data: data })
+		}
+	}
+
+	continueClick() {
+		if (typeof navigator === 'object') {
+			if (/mobile/i.test(navigator.userAgent)) {
+
+			}
+			else {
+				if (this.state.clickedOn === 'newOrder') {
+					window.open(CONFIG.PHARMEASY_NEW_ORDER_IFRAME_URL, '_blank')
+				}
+				else {
+					window.open(CONFIG.PHARMEASY_PREV_ORDER_IFRAME_URL, '_blank')
+				}
+			}
+		}
+		setTimeout(() => {
+			this.setState({
+				showPopup: false
+			})
+		}, 1000)
+	}
+
+	hidePopup() {
+		this.setState({ showPopup: false })
+	}
+
 	render() {
-		
+
 		let topSpecializations = []
 		if (this.props.specializations && this.props.specializations.length) {
 			topSpecializations = this.getTopList(this.props.specializations)
@@ -428,18 +475,28 @@ class HomeView extends React.Component {
 					canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
 					ogUrl: 'https://docprime.com',
 					ogType: 'website',
-                    ogTitle: 'Book Doctor Online | 50% Off on Doctor Appointment & Lab Tests',
+					ogTitle: 'Book Doctor Online | 50% Off on Doctor Appointment & Lab Tests',
 					ogDescription: 'Book Doctor Appointment at Docprime & get 50% off. Find & Book Doctor online, find & Book best Labs, and & Hospitals.',
 					ogImage: 'https://cdn.docprime.com/media/banner/images/1200X628.png'
 				}} setDefault={true} />
 
-				<ProfileHeader homePage={true} showSearch={true} showPackageStrip={showPackageStrip}/>
+				<ProfileHeader homePage={true} showSearch={true} showPackageStrip={showPackageStrip} />
+
+				{/* {
+					this.state.showPopup ?
+						<BookingConfirmationPopup continueClick={() => this.continueClick()} iFramePopup={true} hidePopup={() => this.hidePopup()} /> : ''
+				} */}
+
+				{
+					this.state.showPopup ?
+						<Loader continueClick={() => this.continueClick()} iFramePopup={true} hidePopup={() => this.hidePopup()} /> : ''
+				}
 
 				{/* <div className="sub-header mrg-top"></div> */}
 				<div className="headerSubLinkContainer">
 					<div className="container">
 						<div className="head_text_container">
-							{this.props.common_settings && this.props.common_settings.insurance_availability?
+							{this.props.common_settings && this.props.common_settings.insurance_availability ?
 								<a href="/insurance/insurance-plans" onClick={(e) => {
 									let data = {
 										'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-navbar-insurance-clicked'
@@ -450,7 +507,7 @@ class HomeView extends React.Component {
 								}}>OPD Insurance
 								<span className="opdNewHeaderOfr">New</span>
 								</a>
-							:''}
+								: ''}
 							<a href="/search" onClick={(e) => {
 								e.preventDefault();
 								this.navigateTo("/search", 'opd')
@@ -467,6 +524,20 @@ class HomeView extends React.Component {
 								e.preventDefault();
 								this.navigateTo('/online-consultation')
 							}}>Online Doctor Consultation</a>
+							<a href="/online-consultation" className="order-med-list-link" onClick={(e) => {
+								e.preventDefault();
+							}}>Order Medicines
+								<ul className="order-med-list">
+									<li><a href="" onClick={(e) => {
+										e.preventDefault();
+										this.orderMedClick('newOrder')
+									}}>New Order</a></li>
+									<li><a href="" onClick={(e) => {
+										e.preventDefault();
+										this.orderMedClick('prevOrder')
+									}}>Previous Order</a></li>
+								</ul>
+							</a>
 							{/* <p onClick={(e) => {
 								e.preventDefault();
 								this.navigateTo('/contact')
@@ -483,7 +554,7 @@ class HomeView extends React.Component {
 
 					<Accordian />
 					{
-						showPackageStrip?
+						showPackageStrip ?
 							<PackageCompareStrip {...this.props} />
 							:
 							<FixedMobileFooter {...this.props} />
