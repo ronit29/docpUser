@@ -66,7 +66,7 @@ class VipClubView extends React.Component {
         let loginUser
         let lead_data = queryString.parse(this.props.location.search)
         let gtmData = {
-            'Category': 'ConsumerApp', 'Action': 'VipClubBuyNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'VipClub-BuyNow-clicked', 'selected': ''
+            'Category': 'ConsumerApp', 'Action': 'VipClubBuyNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-buynow-clicked', 'selected': ''
         }
         GTM.sendEvent({ data: gtmData })
         if (STORAGE.checkAuth()) {
@@ -87,7 +87,7 @@ class VipClubView extends React.Component {
         e.preventDefault()
         e.stopPropagation()
         let gtmData = {
-            'Category': 'ConsumerApp', 'Action': 'VipClubWidgetHospitalClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'VipClub-widget-hospital-clicked', 'selected': '', 'selectedId': data.id || ''
+            'Category': 'ConsumerApp', 'Action': 'VipClubWidgetHospitalClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-widget-hospital-clicked', 'selected': '', 'selectedId': data.id || ''
         }
         GTM.sendEvent({ data: gtmData })
         let redirectUrl = ''
@@ -110,6 +110,11 @@ class VipClubView extends React.Component {
             this.props.vipClubList && Object.keys(this.props.vipClubList).length > 0 && this.state.selected_plan_data && Object.keys(this.state.selected_plan_data).length > 0 ?
                 <div className="profile-body-wrap" style={{ background: "" }}>
                     {/* <ProfileHeader /> */}
+                    <HelmetTags tagsData={{
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}`,
+                    title: `${'Docprime Vip' || ''}`,
+                        // description: `${this.props.data.description || ''}`
+                    }} noIndex={false} />                
                     <div className={`vipHeaderBar ${this.state.toggleTabType ? 'hed-curv-rmove' : ''}`} ref="vipHeaderBar">
                         <div className="vipBackIco" onClick={() => this.props.history.push('/')}>
                             <img src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} />

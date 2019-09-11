@@ -10,6 +10,7 @@ import VipClubView from '../../components/vipClub/vipClubActivatesView.js'
 import Loader from '../../components/commons/Loader'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import STORAGE from '../../helpers/storage'
+import GTM from '../../helpers/gtm'
 const queryString = require('query-string');
 
 class VipClubActivatedDetails extends React.Component{
@@ -34,6 +35,10 @@ class VipClubActivatedDetails extends React.Component{
         var url = new URL(url_string);
         var member_list_id = url.searchParams.get("id");
         if (member_list_id !== null) {
+            let gtmData = {
+                'Category': 'ConsumerApp', 'Action': 'vipbooked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vipbooked'
+            }
+            GTM.sendEvent({ data: gtmData })
             this.props.resetVipData()
             this.props.getVipDashboardList(member_list_id,false,(resp)=>{
                 if(resp && Object.keys(resp.data).length >0){
@@ -41,6 +46,7 @@ class VipClubActivatedDetails extends React.Component{
                 }
             })
         }else{
+            this.props.resetVipData()
             this.props.getVipDashboardList(member_list_id,true,(resp)=>{
                 if(resp && Object.keys(resp.data).length >0){
                     this.setState({data:resp.data})
