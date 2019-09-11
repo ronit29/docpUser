@@ -88,10 +88,9 @@ class AppointmentList extends React.Component {
 
     render() {
 
-        let { doctor_name, display_name, time_slot_end, time_slot_start, status, type, id, lab_name, doctor_thumbnail, lab_thumbnail, patient_name, invoices, hospital_name } = this.props.data
-
+        let { doctor_name, display_name, time_slot_end, time_slot_start, status, type, id, lab_name, doctor_thumbnail, lab_thumbnail, patient_name, invoices, hospital_name, vip } = this.props.data
         let date = new Date(time_slot_start)
-
+        let is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
         return (
             <li style={{ position: 'relative', paddingTop: 32, cursor: 'unset' }}>
                 <span className="icon consultant-dp">
@@ -101,7 +100,13 @@ class AppointmentList extends React.Component {
                     </InitialsPicture>
                 </span>
                 <div className="consultant-details" style={{ cursor: 'pointer' }} onClick={this.openAppointment.bind(this, type, id)}>
-                    <h4 className="title app-title" style={{ marginBottom: 0 }} >{display_name || lab_name}</h4>
+                    <h4 className="title app-title vip-ico-hdng">{display_name || lab_name}
+                    {
+                        is_vip_applicable?
+                        <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                        :''
+                    }
+                    </h4>
                     <ul className="list">
                         {
                          lab_name || hospital_name?

@@ -1881,6 +1881,12 @@ img.whtsp-ico{
 	width: 60%;
 	margin: auto;
 }
+.vip-ico-hdng{
+	display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 0px;
+}
 @media(max-width: 992px){
 	.care-new-container{
 		width: 100%;

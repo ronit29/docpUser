@@ -199,12 +199,12 @@ class CartItem extends React.Component {
 
         let { valid, product_id, mrp, deal_price, id, is_enabled_for_cod, cod_deal_price } = this.props
         let { lab, tests, doctor, hospital, coupons, profile, date, thumbnail, procedures } = this.props.data
-        let { is_home_pickup, payment_type, insurance_message, is_appointment_insured, included_in_user_plan } = this.props.actual_data
-
+        let { is_home_pickup, payment_type, insurance_message, is_appointment_insured, included_in_user_plan, cover_under_vip, is_vip_member, vip_amount } = this.props.actual_data
         if (date) {
             date = new Date(date)
         }
         let parsed = queryString.parse(this.props.location.search)
+        let is_vip_applicable = is_vip_member && cover_under_vip
         return (
             <div>
                 <div className="widget mrb-15 mrng-top-12 p-relative">
@@ -214,8 +214,17 @@ class CartItem extends React.Component {
                         {/* {
                             !valid ? <p className="appointmentPassed">Your appointment date and time has passed.</p> : ""
                         } */}
-
                         {
+                            is_vip_applicable?
+                                <div className="shopng-cart-price">
+                                    <p>₹ {vip_amount} <span className="shopng-cart-price-cut">₹ {mrp}</span> 
+
+                                    </p>
+                                </div>
+                                :''
+                        }
+
+                        {is_vip_applicable? '':
                             is_appointment_insured ?
                                 <div className="shopng-cart-price ins-val-bx">Covered Under Insurance</div>
                                 :
@@ -253,7 +262,11 @@ class CartItem extends React.Component {
                             </div>
                             {
                                 doctor ? <div className="dr-profile mrt-10">
-                                    <h1 className="dr-name">Dr. {doctor.name}</h1>
+                                    <h1 className="dr-name">Dr. {doctor.name} 
+                                        {is_vip_applicable?
+                                               <img style={{height:'28px', width:'25px'}} className="vip-main-ico img-fluid vip-ico-hdng" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                        :''}
+                                    </h1>
                                     {
                                         payment_type == 2 ? <span className="pay-at-clinic">Pay at Clinic</span> : ""
                                     }

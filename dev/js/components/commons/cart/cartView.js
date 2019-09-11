@@ -56,6 +56,7 @@ class CartView extends React.Component {
         let platformConvFees = 0
         let total_amnt = 0
         let dd = 0
+        let vip_amnt_price =0
         for (let item of cart_items) {
             if (item.valid && item.actual_data.payment_type == 1) {
                 
@@ -64,15 +65,22 @@ class CartView extends React.Component {
                 if(item.actual_data.is_appointment_insured){
 
                 }else{
+                    console.log(item)
+                    if(item.actual_data.is_vip_member && item.actual_data.cover_under_vip){
+
+                        if(item.actual_data.vip_amount == 0){
+                            vip_amnt_price += item.mrp
+                        }else{
+                            vip_amnt_price += item.actual_data.vip_amount
+                        }
+                    }
                     total_mrp += item.mrp
                     if(item.consultation && item.consultation.fees == 0){
                         dd = item.mrp
                     }else{
                         dd = item.mrp - item.deal_price
                     }
-                    console.log('dd='+dd)
                     total_deal_price += dd
-                    console.log(total_deal_price)
                     // total_deal_price += item.deal_price  
                     total_home_pickup_charges += item.total_home_pickup_charges || 0
                     if (item.data.coupons && item.data.coupons.length) {
@@ -99,7 +107,7 @@ class CartView extends React.Component {
 
             }
         }
-        total_amnt = total_mrp - total_deal_price + platformConvFees - total_coupon_discount
+        total_amnt = total_mrp - total_deal_price + platformConvFees - total_coupon_discount - vip_amnt_price
         return {
             total_mrp,
             total_deal_price,
@@ -109,7 +117,8 @@ class CartView extends React.Component {
             coupon_breakup,
             cashback_breakup,
             platformConvFees,
-            total_amnt
+            total_amnt,
+            vip_amnt_price
         }
     }
 
@@ -215,7 +224,8 @@ class CartView extends React.Component {
             coupon_breakup,
             cashback_breakup,
             platformConvFees,
-            total_amnt
+            total_amnt,
+            vip_amnt_price
         } = this.getPriceBreakup(cart)
 
         let total_wallet_balance = 0
@@ -346,6 +356,11 @@ class CartView extends React.Component {
                                                                                     })
                                                                                 }
                                                                             </div> : ''
+                                                                        }
+
+                                                                        {
+                                                                            <div class="payment-detail d-flex"><p style={{color: 'green'}}>Docprime VIP Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
+                                                                            </div>
                                                                         }
 
                                                                     </div>
