@@ -78,7 +78,7 @@ class LocationElementsView extends React.Component {
                 this.setState({ location_object: null, search: '' })
             }
         }
-        if (e.target.getAttribute('id') === 'doc-input-field') {
+        if (e.target.getAttribute('id') === 'article-type-input-field') {
             var top = document.getElementsByClassName('articleTypeloc')[0];
             window.scroll(0, top.offsetParent.offsetTop);
         }
@@ -216,6 +216,7 @@ class LocationElementsView extends React.Component {
         this.props.getCityListLayout()
     }
 
+
     render() {
         if (this.props.commonSearchPage) {
             return <div className="serch-nw-inputs">
@@ -241,7 +242,7 @@ class LocationElementsView extends React.Component {
                                 : ''
                         }
                         {this.props.commonSearch ? 'Location' : this.props.specialityName}</button>
-                    <input className={`artc-inp-loc`} type="text" autoComplete="off" placeholder="Location" value={this.state.search} onChange={this.inputHandler.bind(this)} id="doc-input-field" onFocus={this.onfocus.bind(this)} onBlur={this.onblur.bind(this)} />
+                    <input className={`artc-inp-loc`} type="text" autoComplete="off" placeholder="Location" value={this.state.search} onChange={this.inputHandler.bind(this)} id="doc-input-field article-type-input-field" onFocus={this.onfocus.bind(this)} onBlur={this.onblur.bind(this)} />
                 </div>
             </div>
         }

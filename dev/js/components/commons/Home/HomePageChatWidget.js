@@ -9,24 +9,27 @@ class TopChatWidget extends React.Component {
 
 	widgetClick() {
 		let gtmData = {
-			'Category': 'ConsumerApp', 'Action': 'HomeChatWidgetClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-chat-widget-click'
+			'Category': 'ConsumerApp', 'Action': 'HomeVipWidgetClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-vip-widget-click'
 		}
 		GTM.sendEvent({ data: gtmData })
 
-		this.props.history.push('/mobileviewchat')
+		// this.props.history.push('/mobileviewchat')
+		this.props.history.push('/vip-club-details?source=mobile-home-knowmore-vip-clicked')
 	}
 
 	render() {
 		return (
-			<div className="d-md-none widget mrb-10 d-flex cursor-pntr" style={{ padding: '4px 10px', borderBottom: '5px solid #4289fe', alignItems: 'baseline' }} onClick={() => this.widgetClick()}>
-				<div className="doc-avatar">
-					<img src={ASSETS_BASE_URL + '/img/customer-icons/chat-icon.png'} />
-				</div>
-				<div style={{ flex: 1 }} >
-					<p className="fw-500" style={{ fontSize: 13 }}>Free Online Doctor Consultation!</p>
+			<div className="d-md-none widget mrb-10 d-flex cursor-pntr" style={{ padding: '4px 6px', borderBottom: '5px solid #4289fe', alignItems: 'center',    justifyContent: 'space-between' }} onClick={() => this.widgetClick()}>
+				<div className="home-vip-cont">
+					<div className="doc-avatar">
+						<img src={ASSETS_BASE_URL + '/img/viplog.png'} />
+					</div>
+					<div style={{ flex: 1 }} >
+						<p className="fw-700" style={{ fontSize: 12 }}>Become a Docprime VIP member <span className="vip-tp-sub-txt">Save 70% on your family's medical bills</span></p>
+					</div>
 				</div>
 				<div className="chat-now-btn text-center">
-					<p className="fw-500">Chat Now</p>
+					<p className="fw-500">Know More</p>
 				</div>
 			</div>
 		)
