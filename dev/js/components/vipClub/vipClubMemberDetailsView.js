@@ -22,7 +22,8 @@ class VipClubMemberDetailsView extends React.Component{
            	endorsementError:[],
            	paymentData: null,
            	show_popup:false,
-           	proceed:false
+           	proceed:false,
+           	popupMemData:{}
         }
     }
     componentDidMount(){
@@ -154,8 +155,8 @@ class VipClubMemberDetailsView extends React.Component{
 	    		if(Object.keys(this.props.vipClubMemberDetails).length > 0){
 	    			fields = []
 	    			param =this.props.vipClubMemberDetails[val[key]]
-						
-						if(param.relation == ""){ //common validation
+
+					if(param.relation == ""){ //common validation
 							is_disable = true
 							fields.push('relation')
 						}
@@ -220,10 +221,6 @@ class VipClubMemberDetailsView extends React.Component{
 	    		let address
 	    		let pincode
 	    		if(this.props.is_from_payment){
-	    			if(!this.state.proceed && this.props.vipClubMemberDetails && Object.keys(this.props.vipClubMemberDetails).length <4){
-			    		this.setState({show_popup:true})
-			    		return
-			    	}
 			    	let is_member_updated = []
     				let image_ids = []
 	    			{Object.entries(this.props.currentSelectedVipMembersId).map(function([key, value]) {
@@ -260,7 +257,14 @@ class VipClubMemberDetailsView extends React.Component{
 								}
 					    		return data.members.push(members)
 					},this)}
-					console.log(data)
+					let popupMemData
+					popupMemData = data.members
+					this.setState({popupMemData:popupMemData},()=>{
+						if(!this.state.proceed && this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length <4){
+				    		this.setState({show_popup:true})
+				    		return
+				    	}
+				    })
 	    			this.props.addVipMembersData(data,(resp)=>{
 	    				if(resp.success){
 	    					this.props.history.push('vip-club-activated-details')
@@ -360,15 +364,41 @@ class VipClubMemberDetailsView extends React.Component{
 							<div className="search-el-popup-overlay " >
 								<div className="search-el-popup">
 									<div className="widget">
-										<div className="widget-content padiing-srch-el">
-											<p className="srch-el-conent"> 2 Members Added</p>
-											<p className="srch-el-conent">
+										<div className="widget-content padiing-srch-el pb-0">
+											<p style={{fontSize: '14px'}} className="srch-el-conent"> {this.props.currentSelectedVipMembersId.length-1} Members Added</p>
+											<div className="vip-pop-table">
+												{
+												this.state.popupMemData && Object.keys(this.state.popupMemData).length >0?
+												Object.entries(this.state.popupMemData).map(function([key, val]) {
+													return val.relation == 'SELF'?
+													''
+													: 	<div className="vip-sn-tbl m-0" key={key}>
+															<p className="vip-pop-tbl-hd">{val.first_name} {val.last_name}</p>
+					                                            <table className="vip-acrd-content text-left">
+					                                                <tbody>
+					                                                <tr>
+				                                                        <th>Relationship</th>
+				                                                        <th>Gender</th>
+				                                                        <th>DOB</th>
+					                                                </tr>
+					                                                <tr>
+					                                                    <td>{val.relation}</td>
+					                                                    <td style={{ 'textTransform': 'capitalize' }} >{val.title == 'mr.'?'m':'f'}</td>
+					                                                    <td>{val.dob}</td>
+					                                                </tr>
+					                                                </tbody>
+					                                            </table>
+				                                        </div>
+												})
+	                                        :''}
+											</div>
+											<p className="vip-vls-png">
 												Are you sure you want to submit? 
 												Member details once submited cannot be added or edited later.</p>
 											<div className="search-el-btn-container">
-												<button onClick={this.proceedMembersNo.bind(this, 0)}>No Wait</button>
+												<button style={{fontSize: '14px'}} onClick={this.proceedMembersNo.bind(this, 0)}>No Wait</button>
 												{/* <span className="src-el-btn-border"></span> */}
-												<button onClick={this.proceedMembers.bind(this, 1)}>Submit</button>
+												<button style={{fontSize: '14px'}} onClick={this.proceedMembers.bind(this, 1)}>Submit</button>
 											</div>
 										</div>
 									</div>

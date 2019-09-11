@@ -80,7 +80,7 @@ class VipClub extends React.Component {
                             <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
                             <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
                             {/*<h1>in Just <span className="vip-prc-cut">₹{this.props.data.plan[0].mrp}</span> <span className="vip-main-price">₹{this.props.data.plan[0].deal_price}</span>  </h1>*/}
-                                <p>Valid till {expiryDate[1] + ' ' + expiryDate[2] + ',' + expiryDate[3]}</p>
+                                <p>Valid till {expiryDate[1] + ' ' + expiryDate[2] + ',' + ' '+ expiryDate[3]}</p>
                             {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
                         </div>
                     </div>
