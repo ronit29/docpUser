@@ -182,12 +182,12 @@ class BookingView extends React.Component {
         this.props.history.push(`/opd/doctor/${this.state.data.doctor.id}/${this.state.data.hospital.id}/bookdetails`)
     }
 
-    navigateToVIP(){
+    navigateToVIP() {
         let analyticData = {
             'Category': 'ConsumerApp', 'Action': 'VipKnowMoreClicked', 'CustomerID': GTM.getUserId(), 'leadid': '', 'event': 'vip-know-more-clicked'
         }
         GTM.sendEvent({ data: analyticData })
-        
+
         this.props.history.push('/vip-club-details?source=appointment-success-page')
     }
 
@@ -203,6 +203,8 @@ class BookingView extends React.Component {
         let payment_type = 1
         let mrp = 0
         let deal_price = 0
+        let discount = 0
+        let paymemntMode = ''
         if (this.state.data) {
             doctor = this.state.data.doctor
             hospital = this.state.data.hospital
@@ -223,6 +225,19 @@ class BookingView extends React.Component {
                 summary_utm_tag = <img src={src} width="1" height="1" border="0" />
             }
         }
+
+        discount = mrp - deal_price
+
+        if (payment_type == 1) {
+            paymemntMode = 'Online'
+        } else if (payment_type == 2) {
+            paymemntMode = 'Cash'
+        } else if (payment_type == 3) {
+            paymemntMode = 'Insurance'
+        } else if (payment_type == 4) {
+            paymemntMode = 'Docprime Care'
+        }
+
         return (
             <div className="profile-body-wrap">
                 {summary_utm_tag}
@@ -328,7 +343,7 @@ class BookingView extends React.Component {
                                                             actions.indexOf(6) > -1 && !this.state.hide_button ? <a onClick={this.toggleCancel.bind(this)} href="#" className="text-primary fw-700 text-sm">Cancel Booking</a> : ""
                                                         }
                                                         {
-                                                            status!=6 && status!=7 &&
+                                                            status != 6 && status != 7 &&
                                                             <div className="vip-content-book">
                                                                 <div>
                                                                     <p>
@@ -336,7 +351,7 @@ class BookingView extends React.Component {
                                                                     </p>
                                                                     <p>if you were a Docprime <img src={ASSETS_BASE_URL + '/img/viplog.png'} /> Member!</p>
                                                                 </div>
-                                                                <button onClick={()=>this.navigateToVIP()}>Know more</button>
+                                                                <button onClick={() => this.navigateToVIP()}>Know more</button>
                                                             </div>
                                                         }
                                                     </div>
@@ -413,6 +428,37 @@ class BookingView extends React.Component {
                                                     </div>
                                                 </div>
 
+                                                <div className="widget mrb-10">
+                                                    <div className="widget-content">
+                                                        <div className="test-report">
+                                                            <h4 className="title"><span><img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/nw-usr.svg"} style={{
+                                                                width: 16, marginRight: 5, verticalAlign: -3
+                                                            }} /></span>Payment Detail</h4>
+                                                            <div className="d-flex justify-content-between align-items-center mrb-10">
+                                                                <p className="fw-500" style={{ color: '#757575' }}>MRP</p>
+                                                                <p className="fw-500">&#8377; {mrp}</p>
+                                                            </div>
+                                                            {
+                                                                discount ?
+                                                                    <div className="d-flex justify-content-between align-items-center mrb-20">
+                                                                        <p className="fw-500" style={{ color: 'green' }}>Docprime discount</p>
+                                                                        <p className="fw-500" style={{ color: 'green' }}>- &#8377; 450</p>
+                                                                    </div> : ''
+                                                            }
+                                                            <div className="d-flex justify-content-between align-items-center mrb-10">
+                                                                <p className="fw-500">Amount Payable</p>
+                                                                <p className="fw-500">&#8377; {deal_price}</p>
+                                                            </div>
+                                                            {
+                                                                paymemntMode ?
+                                                                    <div className="d-flex justify-content-between align-items-center">
+                                                                        <p className="fw-500">Payment Mode</p>
+                                                                        <p className="fw-500">{paymemntMode}</p>
+                                                                    </div> : ''
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                                 {
                                                     status <= 5 ? <div className="widget mrb-10">
@@ -440,10 +486,6 @@ class BookingView extends React.Component {
                                                         </div>
                                                     </div> : ""
                                                 }
-
-
-
-
                                             </div>
                                         </div>
                                     </div>
