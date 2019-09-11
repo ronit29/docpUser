@@ -1174,8 +1174,6 @@ class PatientDetailsNew extends React.Component {
         let upcoming_date = this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length ? Object.keys(this.props.upcoming_slots)[0] : ''
         let dateAfter24Days = new Date().setDate(new Date().getDate() + 23)
         let showPopup = parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE  && !this.props.is_ipd_form_submitted
-        console.log(is_vip_applicable)
-        console.log(vip_amount)
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader bookingPage={true} />

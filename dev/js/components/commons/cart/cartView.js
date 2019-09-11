@@ -65,7 +65,6 @@ class CartView extends React.Component {
                 if(item.actual_data.is_appointment_insured){
 
                 }else{
-                    console.log(item)
                     if(item.actual_data.is_vip_member && item.actual_data.cover_under_vip){
 
                         if(item.actual_data.vip_amount == 0){
