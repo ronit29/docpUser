@@ -82,7 +82,7 @@ class Lensfit extends React.Component {
                 <button className="lenfit-backbtn" onClick={(e) => {
                                 e.preventDefault()
                                 e.stopPropagation()
-                                this.props.history.push(backUrl)
+                                this.props.history.push('/offers')
                                 }}>
                 Back</button>
             </div>
