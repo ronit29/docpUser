@@ -3128,6 +3128,74 @@ h2.lbcrdcstfont.cstmDocName{
 	width: 45px;
 }
 /* ============ ipd-comment ============ */
+/* ============ clinic-card ============ */
+.clinic-card.mb-3 {
+    background: #e1f7f9;
+    margin-top: 1rem;
+    border: 1px solid #ccf2f6;
+    border-radius: 5px;
+}
+.clnc-content {
+    padding: 5px;
+}
+p.clnc-spnsr {
+    display: inline-block;
+    background: white;
+    color: #757575;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 1px 7px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+.clnc-chps-cont {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+.clnc-chps {
+    margin-right: 6px;
+}
+.clnc-chps span {
+    border: 1px solid #acacac;
+    border-radius: 10px;
+    padding: 0px 8px;
+    display: inline-block;
+    font-size: 10px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+.clnc-all-srvc {
+    width: 82px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.clnc-all-srvc p {
+    font-weight: 500;
+    color: #f78631;
+	font-size: 12px;
+	cursor: pointer;
+}
+.cln-loc-par{
+	font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: end;
+    margin-top: 6px;
+}
+.cln-loc-par img{
+	width: 10px;
+    margin-right: 5px;
+    margin-top: 2px;
+}
+
+@media(max-width : 380px){
+	.clnc-btn{
+		font-size: 11px;
+	}
+}
+/* ============ clinic-card ============ */
 /* ============ opd filter ============ */
 .multy-select-fltr-container {
     overflow: auto;
@@ -4222,3 +4290,88 @@ section.container.container-top-margin.sub-pdng-add.sub-pdng-rmv {
     margin-bottom: 0;
 }
 /* ============ new vip book card  ============ */
+/* ============ refund chat  ============ */
+.refund-chat{
+    display: flex;
+    align-items: center;
+}
+.cht-need-btn{
+    background-image: linear-gradient(to left,#f78631,#ff6d00);
+    width: 100%;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    padding: 3px 7px;
+    font-weight: 500;
+    font-size: 13px;
+    margin-right: 2px;
+}
+img.rfnd-cls-btn {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    cursor: pointer;
+}
+.refund-chat-hdng {
+    text-align: center;
+}
+p.rfnd-mn-hdng {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+p.rfnd-sub-hdng {
+    color: #757575;
+    font-weight: 500;
+    font-size: 13px;
+}
+.rfnd-lst-cont {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+p.rfnd-lst-hdng {
+    font-weight: 500;
+    margin-bottom: 0px;
+}
+p.rfnd-lstsub-hdng {
+    color: #f50707;
+    font-size: 13px;
+    font-weight: 500;
+
+}
+.rfnd-lst-cont ul {
+    margin-top: 12px;
+}
+.rfnd-lst-cont ul li {
+    margin-bottom: 10px;
+}
+.dtl-radio {
+    margin-right: 10px;
+}
+.rfnd-lst-cont ul li div.dtl-radio label {
+    font-weight: 500;
+}
+.rfnd-btn{
+    background-image: linear-gradient(to left,#f78631,#ff6d00);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    font-weight: 500;
+    font-size: 13px;
+    width: 50%;
+    display: block;
+    padding: 8px 0;
+    margin:auto;
+    
+}
+.refund-pop{
+    padding: 12px;
+}
+@media (max-width:767px){
+    .refund-pop{
+padding-bottom: 50px !important;
+    }
+}
+
+/* ============ refund chat  ============ */

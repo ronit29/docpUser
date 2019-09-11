@@ -140,10 +140,10 @@ class FixedMobileFooter extends React.Component {
 
                     <div className="chat-div-containers" style={{ width: "36%", paddingTop: 0 }} onClick={() => {
                         let data = {
-                            'Category': 'ConsumerApp', 'Action': 'MobileFooterVipClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-Vip-clicked'
+                            'Category': 'ConsumerApp', 'Action': 'MobileFooterVipClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-vip-clicked'
                         }
                         GTM.sendEvent({ data: data })
-                        this.navigateTo('/vip-club-details?source=mobile-footer-vipClub-clicked')
+                        this.navigateTo('/vip-club-details?source=mobile-footer-vip-clicked')
                     }}>
                         <img className="footbgRound" src={ASSETS_BASE_URL + "/img/chatFoot_newP_vip.svg"} />
                         <div className="nw-mid-container-with-img">
@@ -172,7 +172,7 @@ class FixedMobileFooter extends React.Component {
                         <span>Health Packages</span>
                     </div>
                     { 
-                        this.props.common_settings && this.props.common_settings.insurance_availability?
+                        /*this.props.common_settings && this.props.common_settings.insurance_availability?
                             <div className="chat-div-containers" style={this.props.selectedSearchType === 'lab' ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
                             let data = {
                                 'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-insurance-clicked'
@@ -184,7 +184,6 @@ class FixedMobileFooter extends React.Component {
                                     <img style={{ width: '20px' }} className="opdUpico" src={ASSETS_BASE_URL + "/img/opdNewIco.svg"} />
                                 </div>
                                 <span>OPD Insurance</span>
-                                {/* <p className="opdNewShow">New</p> */}
                             </div>
                         :<div className="chat-div-containers" style={this.props.selectedSearchType === 'lab' ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
                             let data = {
@@ -197,9 +196,9 @@ class FixedMobileFooter extends React.Component {
                                 <img width="22px" src={ASSETS_BASE_URL + "/img/flask.svg"} />
                             </div>
                             <span>Book Lab Tests</span>
-                        </div>
+                        </div>*/
                     }
-                    {/*<div className="chat-div-containers" style={this.props.offersPage ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
+                    {<div className="chat-div-containers" style={this.props.offersPage ? { borderTop: '2px solid #1f62d3' } : {}} onClick={() => {
                         let data = {
                             'Category': 'ConsumerApp', 'Action': 'MobileFooterOffersClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-offers-clicked'
                         }
@@ -210,7 +209,7 @@ class FixedMobileFooter extends React.Component {
                             <img style={{ width: 22 }} src={ASSETS_BASE_URL + "/img/offers.svg"} />
                         </div>
                         <span>View Offers</span>
-                    </div>*/}
+                    </div>}
                 </div>
                 <div className="nw-cht-border-btn"></div>
             </div>
