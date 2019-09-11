@@ -922,6 +922,7 @@ class BookingSummaryViewNew extends React.Component {
         let is_selected_user_has_active_plan = false
         let is_insurance_buy_able = false
         let is_selected_user_insurance_status
+        let is_vip_applicable = false
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
@@ -1147,7 +1148,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                     </span>Test</h4>
                                                                     <div className="float-right  mbl-view-formatting text-right">
                                                                         {
-                                                                            STORAGE.isAgent() || (!is_default_user_insured && !is_corporate) ?
+                                                                            STORAGE.isAgent() || (!is_default_user_insured && !is_corporate) && !is_vip_applicable?
                                                                                 <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more/Remove tests</a>
                                                                                 : ''
                                                                         }
@@ -1187,7 +1188,7 @@ class BookingSummaryViewNew extends React.Component {
                                                             {this.getSelectors(is_insurance_applicable)}
                                                         </div>
                                                         {
-                                                            amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable ?
+                                                            amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable && !is_vip_applicable ?
                                                                 <div className="widget mrb-15" onClick={this.applyCoupons.bind(this)}>
                                                                     {
                                                                         labCoupons.length ?

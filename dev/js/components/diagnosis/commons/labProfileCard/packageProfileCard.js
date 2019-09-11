@@ -148,7 +148,7 @@ class LabProfileCard extends React.Component {
     }
 
     render() {
-        let { discounted_price, price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id, number_of_tests, show_details, categories, category_details, address, included_in_user_plan, insurance } = this.props.details;
+        let { discounted_price, price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id, number_of_tests, show_details, categories, category_details, address, included_in_user_plan, insurance, vip } = this.props.details;
         distance = Math.ceil(distance / 1000);
         var openingTime = ''
         if (this.props.details.lab_timing) {
@@ -195,6 +195,8 @@ class LabProfileCard extends React.Component {
         if (insurance && insurance.is_insurance_covered && insurance.is_user_insured) {
             is_insurance_applicable = true
         }
+        let is_vip_applicable = vip.is_vip_member && vip.cover_under_vip
+        let vip_amount = vip.vip_amount
         return (
             <div className="pkg-card-container mb-3">
                 {!this.props.isCompared && (this.props.isCompare || this.props.compare_packages.length > 0) ?

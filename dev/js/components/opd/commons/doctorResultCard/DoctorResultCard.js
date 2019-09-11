@@ -210,9 +210,8 @@ class DoctorProfileCard extends React.Component {
                 offPercent = parseInt(((mrp - cod_deal_price) / mrp) * 100);
             }
 
-            let is_vip_applicable = hospital.is_vip_member
-            let vip_remaining_amount = hospital.vip_remaining_amount
-            console.log(vip_remaining_amount)
+            let is_vip_applicable = hospital.is_vip_member && hospital.cover_under_vip
+            let vip_amount = hospital.vip_amount
             let avgGoogleRating = ''
             let googleRatingCount = ''
             if (google_rating && google_rating.avg_rating) {
@@ -294,12 +293,12 @@ class DoctorProfileCard extends React.Component {
                             </div>
                             <div className="col-4" style={mrp == 0 ? { paddingTop: 40 } : {}}>
                                 {
-                                    !is_insurance_applicable && enabled_for_hospital_booking && mrp != 0 && this.state.ssrFlag ?
+                                    !is_insurance_applicable && enabled_for_hospital_booking && mrp != 0 && this.state.ssrFlag && !is_vip_applicable?
                                         <p className="cstm-doc-price">Docprime Price</p> : ''
                                 }
                                 {
                                     is_vip_applicable?
-                                        <p className="cst-doc-price">₹ {vip_remaining_amount >mrp?0:vip_remaining_amount-mrp} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+                                        <p className="cst-doc-price">₹ {vip_amount} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
                                     :''
                                 }
                                 {
@@ -317,7 +316,7 @@ class DoctorProfileCard extends React.Component {
                                                             <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
                                 }
                                 {
-                                    !is_insurance_applicable && enabled_for_hospital_booking && offPercent && offPercent > 0 ?
+                                    !is_insurance_applicable && enabled_for_hospital_booking && offPercent && offPercent > 0 && !is_vip_applicable?
                                         <p className="cstm-cpn">{offPercent}% Off
                                             {
                                                 deal_price != discounted_price ?
