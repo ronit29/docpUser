@@ -13,7 +13,7 @@ const queryString = require('query-string');
 class VipClubView extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {            
+        this.state = {
             selected_plan_data: this.props.selected_plan ? this.props.selected_plan : '',
             showPopup: false,
             isLead: '',
@@ -111,13 +111,13 @@ class VipClubView extends React.Component {
                 <div className="profile-body-wrap" style={{ background: "" }}>
                     {/* <ProfileHeader /> */}
                     <HelmetTags tagsData={{
-                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}`,
-                    title: `${'Docprime Vip' || ''}`,
+                        canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.location.pathname}`,
+                        title: `${'Docprime Vip' || ''}`,
                         // description: `${this.props.data.description || ''}`
-                    }} noIndex={false} />                
+                    }} noIndex={false} />
                     <div className={`vipHeaderBar ${this.state.toggleTabType ? 'hed-curv-rmove' : ''}`} ref="vipHeaderBar">
                         <div className="vipBackIco" onClick={() => this.props.history.push('/')}>
-                            <img src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} />
+                            <img src={ASSETS_BASE_URL + "/img/vip-home.svg"} />
                         </div>
                         <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
                             <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
@@ -162,26 +162,26 @@ class VipClubView extends React.Component {
                                             <div className="cpm-lst">
                                                 <ul className="lst-vpp">
                                                     {
-                                                        Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.doctor_consult_amount != ''?
+                                                        Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.doctor_consult_amount != '' ?
                                                             <li>In-Clinic Consults: ₹{this.state.selected_plan_data.worth.doctor_consult_amount}  </li>
-                                                        :''
+                                                            : ''
                                                     }
                                                     {
-                                                        Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.health_checkups_amount != ''?
+                                                        Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.health_checkups_amount != '' ?
                                                             <li>Health Checkups: ₹{this.state.selected_plan_data.worth.health_checkups_amount}</li>
-                                                        :''
+                                                            : ''
                                                     }
                                                 </ul>
                                                 <ul className="lst-vpp">
                                                     {
-                                                        Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.online_chat_amount != ''?
+                                                        Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.online_chat_amount != '' ?
                                                             <li>Unlimited Online Consult: ₹{this.state.selected_plan_data.worth.online_chat_amount}</li>
-                                                        :''
+                                                            : ''
                                                     }
                                                     {
-                                                        Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.tax_rebate != ''?
+                                                        Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.tax_rebate != '' ?
                                                             <li>Tax Benefit (80D): ₹{this.state.selected_plan_data.worth.tax_rebate}</li>
-                                                        :''
+                                                            : ''
                                                     }
                                                 </ul>
                                             </div>
@@ -260,6 +260,15 @@ class VipClubView extends React.Component {
                                             <div className="ins-dc-lstng">
                                                 <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />Pre-existing diseases covered</p>
                                                 <p className="vip-card-list"><img src={ASSETS_BASE_URL + '/img/vip-chk.svg'} />No medical tests required for plan activation </p>
+                                            </div>
+                                        </div>
+
+                                        <div className="vip-offer-cards mb-24">
+                                            <div className="vip-free-doc vip-bkdiscount-bg">
+                                                <div className="bkdiscount-text">
+                                                    <h4 className="vip-card-heading">25% Discount on Lab Bookings </h4>
+                                                    <p>Maximum discount upto ₹100</p>
+                                                </div>
                                             </div>
                                         </div>
                                         {
