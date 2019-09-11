@@ -384,7 +384,7 @@ class AppointmentSlot extends React.Component {
                                                                 nameHeading={timeSlots.tests.map(x=>x.name).join(',')}
                                                                 toggle = {this.handleToggleType.bind(this)}
                                                                 test_id= {timeSlots.tests && timeSlots.tests.length?timeSlots.tests[0].id:''}
-                                                                hide_toggle={hide_toggle}
+                                                                hide_toggle={false}
                                                             />
                                                         : ''
                                                     }
@@ -409,7 +409,7 @@ class AppointmentSlot extends React.Component {
                                                                         test_id ={tests.tests_id}
                                                                         nameHeading={tests.name}
                                                                         toggle = {this.handleToggleType.bind(this)}
-                                                                        hide_toggle={hide_toggle}
+                                                                        hide_toggle={false}
                                                                     />
                                                         }):''
                                                     }
