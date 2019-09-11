@@ -74,7 +74,7 @@ class CartView extends React.Component {
                     total_deal_price += dd
                     console.log(total_deal_price)
                     // total_deal_price += item.deal_price  
-                    total_home_pickup_charges += item.total_home_pickup_charges || 0
+                    total_home_pickup_charges += item.home_pickup_charges || 0
                     if (item.data.coupons && item.data.coupons.length) {
                         total_coupon_discount += item.coupon_discount
                         total_coupon_cashback += item.coupon_cashback
@@ -99,7 +99,7 @@ class CartView extends React.Component {
 
             }
         }
-        total_amnt = total_mrp - total_deal_price + platformConvFees - total_coupon_discount
+        total_amnt = total_mrp - total_deal_price + platformConvFees - total_coupon_discount + total_home_pickup_charges
         return {
             total_mrp,
             total_deal_price,
@@ -331,7 +331,7 @@ class CartView extends React.Component {
                                                                         {
                                                                             total_home_pickup_charges ? <div className="payment-detail d-flex">
                                                                                 <p>Home pickup charges</p>
-                                                                                <p>- &#8377; {parseInt(total_home_pickup_charges)}</p>
+                                                                                <p>+ &#8377; {parseInt(total_home_pickup_charges)}</p>
                                                                             </div> : ""
                                                                         }
 

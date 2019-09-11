@@ -58,9 +58,28 @@ class VisitTimeNew extends React.Component {
         return props.LABS && props.LABS[props.selectedLab] && props.LABS[props.selectedLab].lab && props.LABS[props.selectedLab].lab.is_thyrocare
     }
 
+    goToTime(){
+        if(this.props.selectedSlot && this.props.selectedSlot['all']){
+            this.props.navigateTo('time', this.props.is_insurance_applicable, false)
+        }else{
+            this.props.navigateTo('time', this.props.is_insurance_applicable, true)
+        }
+    }
+
     render() {
 
         let is_thyrocare = this.is_thyrocare_lab(this.props)
+
+        let unique_common_tests = null
+        if(this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.selectedSlot && this.props.selectedSlot['all'] && this.props.selectedSlot.selectedTestsTimeSlot){
+            this.props.LABS[this.props.selectedLab].tests.map((x)=>{
+                if(this.props.selectedSlot.selectedTestsTimeSlot[x.test_id]){
+                    
+                }else{
+                    unique_common_tests = true
+                }
+            })
+        }
 
         return (
             <div className={`widget mrb-15 ${this.props.timeError ? 'rnd-error-nm' : ''}`}>
@@ -104,7 +123,7 @@ class VisitTimeNew extends React.Component {
                             <div className="vst-time-cont">
                                 <React.Fragment>
                                     {
-                                        this.props.LABS[this.props.selectedLab].tests.length == Object.values(this.props.selectedSlot.selectedTestsTimeSlot).length && this.props.selectedSlot['all'] && this.props.selectedSlot['all'].time ?
+                                        !unique_common_tests && this.props.selectedSlot['all'] && this.props.selectedSlot['all'].time ?
                                         <div className="vst-content-bl">
                                             <p className="rdo-time-vst">{new Date(this.props.selectedSlot['all'].date).toDateString() || ""} {this.props.selectedSlot['all'].time.text ? "|" : ""} {this.props.selectedSlot['all'].time.text} {this.props.selectedSlot['all'].time.text ? (this.props.selectedSlot['all'].time.value >= 12 ? 'PM' : 'AM') : ''}</p>
                                         </div>
@@ -117,7 +136,7 @@ class VisitTimeNew extends React.Component {
                                                         : <a href="" onClick={(e) => {
                                                             e.preventDefault()
                                                             e.stopPropagation()
-                                                            this.props.navigateTo('time', this.props.is_insurance_applicable, true)
+                                                            this.goToTime()
                                                         }} className="text-primary fw-700 text-sm">Select Time</a>
                                                                             }
 
