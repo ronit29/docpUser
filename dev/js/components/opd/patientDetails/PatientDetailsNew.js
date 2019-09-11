@@ -1485,7 +1485,7 @@ class PatientDetailsNew extends React.Component {
                                                                             </div>
                                                                             {is_vip_applicable?
                                                                                 <div className="payment-detail d-flex">
-                                                                                    <p style={{color:'green'}}>Docprime VIP Member</p>
+                                                                                    <p style={{color:'green'}}>Docprime VIP Member <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} /></p>
                                                                                     <p style={{color:'green'}}>- &#8377; {parseInt(priceData.mrp) - parseInt(vip_amount)}</p>
                                                                                  </div>
                                                                             :''}

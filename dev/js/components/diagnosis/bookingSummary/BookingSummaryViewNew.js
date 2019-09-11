@@ -1297,7 +1297,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 <div className="payment-summary-content">
                                                                                     {tests_with_price}
                                                                                     {is_vip_applicable? <div className="payment-detail d-flex">
-                                                                                        <p style={{color:'green'}}>Docprime VIP Member</p>
+                                                                                        <p style={{color:'green'}}>Docprime VIP Member <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} /></p>
                                                                                         <p style={{color:'green'}}>- &#8377; {total_price - vip_amount}</p>
                                                                                     </div>:''}
                                                                                     {

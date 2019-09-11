@@ -4297,6 +4297,9 @@ section.container.container-top-margin.sub-pdng-add.sub-pdng-rmv {
 .vip-content-book p:last-child {
     margin-bottom: 0;
 }
+.vip-main-ico{
+    width: 25px;
+}
 /* ============ new vip book card  ============ */
 /* ============ refund chat  ============ */
 .refund-chat{

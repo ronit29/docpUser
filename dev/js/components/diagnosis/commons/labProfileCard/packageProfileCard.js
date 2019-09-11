@@ -263,6 +263,11 @@ class LabProfileCard extends React.Component {
                                             <p className="dc-prc">Docprime Price</p>
                                         :''
                                     }
+                                    {is_vip_applicable?
+                                        <div className="text-right mb-2">
+                                            <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                        </div>
+                                    :''}
                                     {
                                         is_vip_applicable?
                                             <p className="fw-500">₹ {parseInt(vip_amount)}
