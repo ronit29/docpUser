@@ -74,7 +74,7 @@ class VipClub extends React.Component {
                 {/* <ProfileHeader /> */}
                 <div className={`vipHeaderBar ${this.state.toggleTabType ? 'hed-curv-rmove' : ''}`} ref="vipHeaderBar">
                         <div className="vipBackIco" onClick={() => this.props.history.push('/')}>
-                            <img src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} />
+                            <img src={ASSETS_BASE_URL + "/img/vip-home.svg"} />
                         </div>
                         <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
                             <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />

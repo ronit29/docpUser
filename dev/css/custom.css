@@ -3663,6 +3663,22 @@ p.vp-sb-txt.vp-act{
 	background-size: 22%;
 	background-position: 96% 100% !important;
 }
+.vip-bkdiscount-bg{
+    background: url(/assets/img/vip-dscnt.png);
+    background-size: 25%;
+    background-position: 96% 100% !important;
+}
+.bkdiscount-text {
+    padding: 7px 0;
+}
+.bkdiscount-text h4.vip-card-heading {
+    margin-bottom: 2px;
+}
+.bkdiscount-text p {
+    color: #757575;
+    font-weight: 500;
+    font-size: 13px;
+}
 .vip-free-doc {
     position: relative;
     background-repeat: no-repeat;
