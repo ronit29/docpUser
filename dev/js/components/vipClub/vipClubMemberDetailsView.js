@@ -259,12 +259,11 @@ class VipClubMemberDetailsView extends React.Component{
 					},this)}
 					let popupMemData
 					popupMemData = data.members
-					this.setState({popupMemData:popupMemData},()=>{
-						if(!this.state.proceed && this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length <4){
-				    		this.setState({show_popup:true})
-				    		return
-				    	}
-				    })
+					this.setState({popupMemData:popupMemData})
+					if(!this.state.proceed && this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length <4){
+			    		this.setState({show_popup:true})
+			    		return
+				    }
 	    			this.props.addVipMembersData(data,(resp)=>{
 	    				if(resp.success){
 	    					this.props.history.push('vip-club-activated-details')
