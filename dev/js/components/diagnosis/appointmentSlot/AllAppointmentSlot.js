@@ -360,7 +360,7 @@ class AppointmentSlot extends React.Component {
                                                                 getTimeSlots= {this.getTimeSlots.bind(this)}
                                                                 upcoming_slots= {timeSlots.upcoming_slots}
                                                                 is_thyrocare = {timeSlots.is_thyrocare}
-                                                                nameHeading={timeSlots.tests.map(x=>x.name).join(',')}
+                                                                nameHeading={timeSlots.tests}
                                                                 toggle = {this.handleToggleType.bind(this)}
                                                                 test_id= {timeSlots.tests && timeSlots.tests.length?timeSlots.tests[0].id:''}
                                                                 hide_toggle={hide_toggle}
@@ -381,7 +381,7 @@ class AppointmentSlot extends React.Component {
                                                                 getTimeSlots= {this.getTimeSlots.bind(this)}
                                                                 upcoming_slots= {timeSlots.upcoming_slots}
                                                                 is_thyrocare = {timeSlots.is_thyrocare}
-                                                                nameHeading={timeSlots.tests.map(x=>x.name).join(',')}
+                                                                nameHeading={timeSlots.tests}
                                                                 toggle = {this.handleToggleType.bind(this)}
                                                                 test_id= {timeSlots.tests && timeSlots.tests.length?timeSlots.tests[0].id:''}
                                                                 hide_toggle={false}
@@ -407,6 +407,7 @@ class AppointmentSlot extends React.Component {
                                                                         is_thyrocare = {tests.timings.is_thyrocare}
                                                                         test_name = {tests.name}
                                                                         test_id ={tests.tests_id}
+                                                                        is_radiology={true}
                                                                         nameHeading={tests.name}
                                                                         toggle = {this.handleToggleType.bind(this)}
                                                                         hide_toggle={false}

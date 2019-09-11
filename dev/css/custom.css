@@ -3312,6 +3312,16 @@ div.search-el-popup.non-book-pop{
     font-size: 14px;
     font-weight: 500;
 }
+span.tm-slot-hdng {
+    background: #eeeeee;
+    color: #757575;
+    margin: 4px 4px;
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 5px;
+}
 .time-slot-wrng-cont {
     background: rgba(247, 134, 49, .1);
     margin-top: 12px;

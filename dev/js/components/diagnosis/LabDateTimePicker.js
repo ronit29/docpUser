@@ -243,7 +243,15 @@ class DateTimePicker extends React.Component {
                 :''
             }
 			<div className="widget mrng-top-12">
-                <h4 className="tm-slt-hddng">{this.props.nameHeading}</h4>
+                {
+                    this.props.is_radiology?
+                    <span className="tm-slot-hdng">{this.props.nameHeading}</span>
+                    :this.props.nameHeading && Array.isArray(this.props.nameHeading)?
+                        this.props.nameHeading.map((test)=>{
+                            return <span className="tm-slot-hdng">{test.name}</span>
+                        })
+                    :''
+                }
                 <div className="time-slot-container">
                     <div className="vertical-date-select-container">
                         <div className="slect-date-heading">
