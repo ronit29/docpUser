@@ -118,9 +118,9 @@ class VipClub extends React.Component {
                                                         <div className="vip-cnslt-card">
                                                             <h5 className="vip-brder-hdng">In-Clinic Consultation</h5>
                                                             <ul>
-                                                                <li><p>Total Limit: <span>₹{this.props.data.plan[0].utilize.total_limit}  </span></p></li>
-                                                                <li><p>Utilized: <span>₹{this.props.data.plan[0].utilize.utilized} </span></p></li>
-                                                                <li><p>Available: <span className="vip-crd-avl-grn">₹{this.props.data.plan[0].utilize.available}</span></p></li>
+                                                                <li><p>Total Limit: <span>₹{this.props.data.plan[0].utilize.doctor_consult_amount}  </span></p></li>
+                                                                <li><p>Utilized: <span>₹{this.props.data.plan[0].utilize.doctor_amount_utilized} </span></p></li>
+                                                                <li><p>Available: <span className="vip-crd-avl-grn">₹{this.props.data.plan[0].utilize.doctor_amount_available}</span></p></li>
                                                             </ul>
                                                         </div>
                                                         <div className="vip-cnslt-card">
@@ -141,7 +141,7 @@ class VipClub extends React.Component {
                                                                 <p>Includes {this.props.data.plan[0].worth.total_test_covered_in_package} Tests, can be used by {this.props.data.plan[0].worth.members_covered_in_package} members</p>
                                                             </div>
                                                             <div className="vip-sbs-crd-rgt">
-                                                                <p className="rmng-pnt">{this.props.data.plan[0].utilize.remaining_body_checkup_count} <span>remaining </span></p>
+                                                                <p className="rmng-pnt">{this.props.data.plan[0].utilize.total_package_count_limit} <span>remaining </span></p>
                                                                 {/*<button className="vip-btn-sbs">Book Now</button>*/}
                                                             </div>
                                                         </div>
