@@ -761,10 +761,16 @@ class BookingSummaryViewNew extends React.Component {
         this.setState({ error: '' })
     }
 
-    getBookingButtonText(total_wallet_balance, price_to_pay) {
+    getBookingButtonText(total_wallet_balance, price_to_pay,is_vip_applicable,vip_amount) {
         let price_from_wallet = 0
         let price_from_pg = 0
-
+        if(is_vip_applicable){
+            if(vip_amount){
+                return `Confirm Booking (₹ ${vip_amount})`
+            }else{
+                return `Confirm Booking`
+            }
+        }
         if (this.state.use_wallet && total_wallet_balance) {
             price_from_wallet = Math.min(total_wallet_balance, price_to_pay)
         }
@@ -923,6 +929,7 @@ class BookingSummaryViewNew extends React.Component {
         let is_insurance_buy_able = false
         let is_selected_user_insurance_status
         let is_vip_applicable = false
+        let vip_amount
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
@@ -960,11 +967,17 @@ class BookingSummaryViewNew extends React.Component {
                 } else {
                     is_tests_covered_under_plan = false
                 }
+                if(test.vip && test.vip.is_vip_member && !test.vip.covered_under_vip){
+                    is_vip_applicable = true
+                    vip_amount = test.vip.vip_amount
+                }else{
+
+                }
             })
 
         }
         is_insurance_applicable = is_tests_covered_under_insurance && is_selected_user_insured
-        
+
         if(is_tests_covered_under_insurance && !is_selected_user_insured){
             is_insurance_buy_able = true
         }
@@ -1073,6 +1086,9 @@ class BookingSummaryViewNew extends React.Component {
             total_price = total_price ? parseInt(total_price) - (this.props.disCountedLabPrice || 0) : 0
         }
         total_price = is_corporate || is_insurance_applicable || is_plan_applicable ? 0 : total_price
+        if(is_vip_applicable){
+            total_price = finalMrp
+        }
         let total_wallet_balance = 0
         if (this.props.userWalletBalance >= 0 && this.props.userCashbackBalance >= 0) {
             total_wallet_balance = this.props.userWalletBalance + this.props.userCashbackBalance
@@ -1280,19 +1296,22 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 :
                                                                                 <div className="payment-summary-content">
                                                                                     {tests_with_price}
+                                                                                    {is_vip_applicable? <div className="payment-detail d-flex">
+                                                                                        <p style={{color:'green'}}>Docprime VIP Member</p>
+                                                                                        <p style={{color:'green'}}>- &#8377; {total_price - vip_amount}</p>
+                                                                                    </div>:''}
                                                                                     {
-                                                                                        (total_price && is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
+                                                                                        (total_price && is_home_collection_enabled && this.props.selectedAppointmentType == 'home') && !is_vip_applicable ? <div className="payment-detail d-flex">
                                                                                             <p className="payment-content">Home Pickup Charges</p>
                                                                                             <p className="payment-content fw-500">&#8377; {labDetail.home_pickup_charges || 0}</p>
                                                                                         </div> : ""
                                                                                     }
-                                                                                    {(finalMrp -finalPrice)? <div className="payment-detail d-flex">
+                                                                                    {(finalMrp -finalPrice) && !is_vip_applicable? <div className="payment-detail d-flex">
                                                                                         <p style={{color:'green'}}>Docprime Discount</p>
                                                                                         <p style={{color:'green'}}>- &#8377; {finalMrp - finalPrice}</p>
                                                                                     </div>:''}
                                                                                     {
-                                                                                        this.props.disCountedLabPrice && !this.state.is_cashback
-                                                                                            ? <div className="payment-detail d-flex">
+                                                                                        this.props.disCountedLabPrice && !this.state.is_cashback && !is_vip_applicable ? <div className="payment-detail d-flex">
                                                                                                 <p style={{ color: 'green' }}>Coupon Discount</p>
                                                                                                 <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedLabPrice}</p>
                                                                                             </div>
@@ -1314,7 +1333,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                         <div className="lab-visit-time test-report">
                                                                             <h4 className="title payment-amt-label">Amount Payable</h4>
                                                                             {
-                                                                                this.props.selectedAppointmentType == 'home' ? <h5 className="payment-amt-value fw-500">&#8377;  {total_price || 0}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {total_price || 0}</h5>
+                                                                                this.props.selectedAppointmentType == 'home' ? <h5 className="payment-amt-value fw-500">&#8377;  {is_vip_applicable?vip_amount: total_price || 0}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {!is_vip_applicable?vip_amount:total_price || 0}</h5>
                                                                             }
 
 
@@ -1414,7 +1433,7 @@ class BookingSummaryViewNew extends React.Component {
                                 {
                                     STORAGE.isAgent() || this.state.cart_item ? "" : <button disabled={this.state.pay_btn_loading} className={`v-btn-primary book-btn-mrgn-adjust pdd-12 ${this.state.pay_btn_loading ? " disable-all" : ""}`}  id="confirm_booking" data-disabled={
                                         !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                    } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance, prescriptionPicked, is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
+                                    } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance, prescriptionPicked, is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_price,is_vip_applicable,vip_amount)}</button>
                                 }
                             </div>
 

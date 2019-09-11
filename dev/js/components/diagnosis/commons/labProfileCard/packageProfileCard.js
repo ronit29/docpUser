@@ -258,9 +258,20 @@ class LabProfileCard extends React.Component {
                             </div>
                             <div className="col-4">
                                 <div className="pkg-card-price text-right">
-                                    <p className="dc-prc">Docprime Price</p>
                                     {
-                                        !is_insurance_applicable && !hide_price && discounted_price ? <p className="fw-500">₹ {parseInt(discounted_price)}
+                                        !is_vip_applicable?
+                                            <p className="dc-prc">Docprime Price</p>
+                                        :''
+                                    }
+                                    {
+                                        is_vip_applicable?
+                                            <p className="fw-500">₹ {parseInt(vip_amount)}
+                                                <span className="pkg-cut-price">₹ {parseInt(mrp)}</span>
+                                            </p>
+                                        :''
+                                    }
+                                    {
+                                        !is_insurance_applicable && !hide_price && discounted_price && !is_vip_applicable? <p className="fw-500">₹ {parseInt(discounted_price)}
                                             <span className="pkg-cut-price">₹ {parseInt(mrp)}</span></p> : ''
                                     }
                                     {
@@ -275,7 +286,7 @@ class LabProfileCard extends React.Component {
                                             : ''
                                     }
                                     {
-                                        !is_insurance_applicable && !hide_price && offPercent && offPercent > 0 ?
+                                        !is_insurance_applicable && !hide_price && offPercent && offPercent > 0 && !is_vip_applicable ?
                                             <p className="dc-cpn-include">{offPercent}% Off 
                                                 {!is_insurance_applicable && !included_in_user_plan && discounted_price != price?
                                                     <span>(includes Coupon)</span>
