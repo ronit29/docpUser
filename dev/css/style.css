@@ -12118,3 +12118,7 @@ font-weight: 500;
 .acrd-sub-content ul li{
     list-style: disc;
 }
+.pay-amnt-shrnk{
+    flex-shrink: 0;
+    padding-left: 8px;
+}

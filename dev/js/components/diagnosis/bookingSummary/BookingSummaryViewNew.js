@@ -1168,9 +1168,9 @@ class BookingSummaryViewNew extends React.Component {
                                 <p>&#8377; 0</p>
                                 :
                                 price == twp.mrp ?
-                                    <p>&#8377; {price}</p>
+                                    <p className="pay-amnt-shrnk">&#8377; {price}</p>
                                     :
-                                    <p>&#8377; {parseFloat(twp.mrp)}</p>
+                                    <p className="pay-amnt-shrnk">&#8377; {parseFloat(twp.mrp)}</p>
                         }
                     </div>
                 )

@@ -311,13 +311,13 @@ class CartView extends React.Component {
                                                                     <div className="payment-summary-content">
                                                                         <div className="payment-detail d-flex">
                                                                             <p>Total Fees</p>
-                                                                            <p>&#8377; {parseInt(total_mrp)}</p>
+                                                                            <p className="pay-amnt-shrnk">&#8377; {parseInt(total_mrp)}</p>
                                                                         </div>
                                                                         {
                                                                             is_platform_conv_fees>0?
                                                                             <div className="payment-detail d-flex">
                                                                                 <p>Platform Convenience Fee</p>
-                                                                                <p>&#8377; {parseInt(platformConvFees)}</p>
+                                                                                <p className="pay-amnt-shrnk">&#8377; {parseInt(platformConvFees)}</p>
                                                                             </div>
                                                                             :''
                                                                         }

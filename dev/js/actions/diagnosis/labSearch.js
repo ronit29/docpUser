@@ -188,7 +188,7 @@ export const getLabTimeSlots = (labId, pickup, pincode, date, extraParams, callb
 	}
 	
 	return API_GET(url).then(function (response) {
-		callback(response)
+		if(callback)callback(response)
 	}).catch(function (error) {
 
 	})
