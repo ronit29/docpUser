@@ -4200,7 +4200,8 @@ ul.stc-data-ul-list li{
 }
 .test-lab-radio{
 	padding-left: 0px;
-    margin-top: 20px;
+    padding: 0;
+    margin-bottom: 12px;
 }
 .mrgn-top-12{
 	margin-top: 12px;
@@ -12117,4 +12118,8 @@ font-weight: 500;
 }
 .acrd-sub-content ul li{
     list-style: disc;
+}
+.pay-amnt-shrnk{
+    flex-shrink: 0;
+    padding-left: 8px;
 }

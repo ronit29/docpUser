@@ -107,7 +107,11 @@ class LabProfileCard extends React.Component {
         let slot = { time: {} }
         this.props.clearExtraTests()
         this.props.selectLabTimeSLot(slot, false)
-        this.props.selectLabAppointmentType('home')
+        let selectedType = {
+            r_pickup: 'home',
+            p_pickup: 'lab'
+        }
+        this.props.selectLabAppointmentType(selectedType)
         this.mergeTests(id)
 
         if (url) {

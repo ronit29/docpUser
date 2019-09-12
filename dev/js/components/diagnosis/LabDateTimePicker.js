@@ -8,13 +8,14 @@ const MONTHS = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sep
 const queryString = require('query-string');
 import STORAGE from '../../helpers/storage'
 import Loader from '../commons/Loader'
+import GTM from '../../helpers/gtm.js'
 
 class DateTimePicker extends React.Component {
 
 	constructor(props){
 		super(props)
 		this.state = {
-			selectedDateSpan: props.selectedSlot && props.selectedSlot.date?new Date(props.selectedSlot.date):props.selectedDateFormat?new Date(props.selectedDateFormat):new Date(),
+			selectedDateSpan: props.selectedSlot && props.selectedSlot.date?new Date(props.selectedSlot.date):new Date(),
 			currentTimeSlot: props.selectedSlot && props.selectedSlot.time ? props.selectedSlot.time : {},
 			dateModal: false,
 			daySeries:[]
@@ -31,15 +32,18 @@ class DateTimePicker extends React.Component {
             
             this.generateDays(true, this.props.selectedSlot.date)
         } else {
+            this.props.enableProceed(false)
             let getUpcomingDate= false
             let upcoming_time = null
 
-            if(this.props.selectedDateFormat) {
+/*            if(this.props.selectedDateFormat) {
                 upcoming_time = this.props.selectedDateFormat
             
             }else{
-                upcoming_time = this.getFormattedDate(new Date())
-            }/*else if(this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length){
+                
+            }*/
+            upcoming_time = this.getFormattedDate(new Date())
+            /*else if(this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length){
                 upcoming_time = Object.keys(this.props.upcoming_slots)[0]
             }*/
 
@@ -139,7 +143,7 @@ class DateTimePicker extends React.Component {
 
             }
             this.setState({ selectedDateSpan: dateFormat, currentTimeSlot: {} })
-        	this.props.enableProceed(false, [])	
+        	this.props.enableProceed(false, [], this.props.type)	
     	}else {
             
         }
@@ -176,13 +180,17 @@ class DateTimePicker extends React.Component {
                 date: self.state.selectedDateSpan,
                 month: MONTHS[new Date(self.state.selectedDateSpan).getMonth()],
                 slot: '',
-                time: self.state.currentTimeSlot
+                time: self.state.currentTimeSlot,
+                type: this.props.type||'',
+                test_id: this.props.test_id || '',
+                test_name: this.props.test_name
             }
-            self.props.enableProceed(false, data)
+            self.props.enableProceed(false, data, this.props.type)
         })
     }
 
      getFormattedDate(date){
+        date = new Date(date)
         var dd = date.getDate();
 
         var mm = date.getMonth()+1; 
@@ -201,6 +209,15 @@ class DateTimePicker extends React.Component {
         return today
     }
 
+    toggleOptions(isAvailable = false){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'BookSeperatelyClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'book-seperately-clicked', 'isAvailable': isAvailable
+        }
+
+        GTM.sendEvent({ data: data })
+        this.props.toggle('seperately')
+    }
+
 	render(){
 
         let upperDisableDateLimit = this.props.is_thyrocare?7:30
@@ -211,7 +228,30 @@ class DateTimePicker extends React.Component {
         let selectedFormattedDate = this.getFormattedDate(this.state.selectedDateSpan)
 
 		return(
+            <React.Fragment>
+            {
+                this.props.hide_toggle?
+                    this.state.daySeries.length && this.props.timeSlots && this.props.timeSlots[selectedFormattedDate] && this.props.timeSlots[selectedFormattedDate].length || true?
+                    <div className="time-slot-wrng-cont">
+                        <img src={ASSETS_BASE_URL + "/img/tm-wrng.png"} />
+                        <p>Showing common time slots where all tests are available.For more options you can <span className="cursor-pntr" onClick={()=>this.toggleOptions(true)}>Book Separately</span></p>
+                    </div>
+                    :<div className="time-slot-wrng-cont">
+                        <img src={ASSETS_BASE_URL + "/img/tm-wrng.png"} />
+                        <p>Both test can’t be book for the same time. You can <span className="cursor-pntr" onClick={()=>this.toggleOptions()}>Book Separately</span></p>
+                    </div>
+                :''
+            }
 			<div className="widget mrng-top-12">
+                {
+                    this.props.is_radiology?
+                    <span className="tm-slot-hdng">{this.props.nameHeading}</span>
+                    :this.props.nameHeading && Array.isArray(this.props.nameHeading)?
+                        this.props.nameHeading.map((test)=>{
+                            return <span className="tm-slot-hdng">{test.name}</span>
+                        })
+                    :''
+                }
                 <div className="time-slot-container">
                     <div className="vertical-date-select-container">
                         <div className="slect-date-heading">
@@ -269,8 +309,7 @@ class DateTimePicker extends React.Component {
                     	<div className="select-time-slot-container">
 				            <div className="slect-date-img-content mb-0">
                                 {
-                                    this.props.timeSlots && this.props.timeSlots[selectedFormattedDate]
-                                    ?this.props.timeSlots[selectedFormattedDate].length
+                                    this.props.timeSlots && this.props.timeSlots[selectedFormattedDate] && this.props.timeSlots[selectedFormattedDate].length
                                         ?<div className="date-text-img">
                                             <img src={ASSETS_BASE_URL + "/img/watch-date.svg"} />
                                             <p>Select Time Slot</p>
@@ -278,7 +317,6 @@ class DateTimePicker extends React.Component {
                                         :<div className="select-time-slot-container">
                                             <p style={{ textAlign: 'center' }}>Not available on this day.</p>
                                         </div>
-                                    :<Loader/>
                                 }
 				                
 				            </div>
@@ -317,6 +355,7 @@ class DateTimePicker extends React.Component {
                     }
                 </div>
             </div>
+            </React.Fragment>
 			)
 	}
 }

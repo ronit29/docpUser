@@ -50,15 +50,128 @@ class CartItem extends React.Component {
     }
 
     buildLabTimeSlot(data) {
-
-        let time = {
-            text: new Date(data.data.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0],
+        /*let timeSlot = {
+                date: new Date(data.data.date),
+                time: time_slot
+            }*/
+        /*let time = {
             deal_price: data.deal_price,
             is_available: true,
             mrp: data.mrp,
             price: data.deal_price,
-            title: new Date(data.data.date).getHours() >= 12 ? 'PM' : 'AM',
-            value: new Date(data.data.date).getHours() + new Date(data.data.date).getMinutes() / 60
+            time.text :new Date(data.data.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0]
+            time.title : new Date(data.data.date).getHours() >= 12 ? 'PM' : 'AM',
+            time.value : new Date(data.data.date).getHours() + new Date(data.data.date).getMinutes() / 60
+        }*/
+        let time = {
+
+        }
+
+        if(data.actual_data.multi_timings_enabled) {
+            let timeSelected = {}
+            let pathology_timing = {}
+            let radiology_timing = {}
+            let common_timing = {}
+            let finalTests = {}
+            let r_pickup = 'home'
+            let p_pickup = 'home'
+            data.data.tests.map((test)=>{
+
+                if(data.data.selected_timings_type=='common'){
+
+                    if(timeSelected['all']){
+                        finalTests[test.test_id] = {...timeSelected['all'], test_id:test.test_id, test_name: '', is_home_pickup: test.is_home_pickup}
+                    }else{
+                        common_timing = {
+                            text: new Date(test.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0],
+                            deal_price: test.deal_price,
+                            is_available: true,
+                            mrp: test.mrp,
+                            price: test.deal_price,
+                            title:new Date(test.date).getHours() >= 12 ? 'PM' : 'AM',
+                            value:new Date(test.date).getHours() + new Date(test.date).getMinutes() / 60
+                        }
+                        p_pickup = test.is_home_pickup?'home':'lab'
+                        r_pickup = test.is_home_pickup?'home':'lab'
+                        timeSelected['all'] = {
+                            date:new Date(test.date),
+                            time: common_timing,
+                            type:'all',
+                            test_id: test.test_id
+                        }
+                        finalTests[test.test_id] = {...timeSelected['all'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
+                        //timeSelected['selectedTestsTimeSlot'] = timeSelected['selectedTestsTimeSlot']?{...timeSelected['selectedTestsTimeSlot']}:{}
+
+                    }
+
+
+                }else {
+
+
+                    if(test.type==2) {
+                        if(timeSelected['pathology']){
+                            finalTests[test.test_id] = {...timeSelected['pathology'], test_id:test.test_id, test_name: '', is_home_pickup: test.is_home_pickup}
+                        }else{
+                            pathology_timing = {
+                                text: new Date(test.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0],
+                                deal_price: test.deal_price,
+                                is_available: true,
+                                mrp: test.mrp,
+                                price: test.deal_price,
+                                title:new Date(test.date).getHours() >= 12 ? 'PM' : 'AM',
+                                value:new Date(test.date).getHours() + new Date(test.date).getMinutes() / 60
+                            }
+                            p_pickup = test.is_home_pickup?'home':'lab'
+                            timeSelected['pathology'] = {
+                                date:new Date(test.date),
+                                time: pathology_timing,
+                                type:'pathology',
+                                test_id: test.test_id
+                            }
+                            finalTests[test.test_id] = {...timeSelected['pathology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
+                            //timeSelected['selectedTestsTimeSlot'] = timeSelected['selectedTestsTimeSlot']?{...timeSelected['selectedTestsTimeSlot']}:{}
+
+                        }
+                        
+                    }
+
+                    if(test.type==1) {
+                        if(timeSelected['radiology']){
+                            finalTests[test.test_id] = {...timeSelected['radiology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
+                            timeSelected['radiology'][test.test_id] = {...timeSelected['radiology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
+                        }else{
+                            radiology_timing = {
+                                text: new Date(test.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0],
+                                deal_price: test.deal_price,
+                                is_available: true,
+                                mrp: test.mrp,
+                                price: test.deal_price,
+                                title:new Date(test.date).getHours() >= 12 ? 'PM' : 'AM',
+                                value:new Date(test.date).getHours() + new Date(test.date).getMinutes() / 60
+                            }
+                            r_pickup = test.is_home_pickup?'home':'lab'
+                            timeSelected['radiology'] = {
+                                date:new Date(test.date),
+                                time: radiology_timing,
+                                type:'radiology',
+                                test_id: test.test_id
+                            }
+                            timeSelected['radiology'][test.test_id] = {...timeSelected['radiology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
+
+                            finalTests[test.test_id] = {...timeSelected['radiology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
+
+                        }
+                        
+                    }
+                }
+            })
+            let selectedType = {
+                r_pickup: r_pickup,
+                p_pickup: p_pickup
+            }
+            this.props.selectLabAppointmentType(selectedType)
+            timeSelected['selectedTestsTimeSlot'] = finalTests
+            return timeSelected
         }
 
         return time
@@ -66,6 +179,7 @@ class CartItem extends React.Component {
     }
 
     getFormattedDate(date){
+        date = new Date(date)
         var dd = date.getDate();
 
         var mm = date.getMonth()+1; 
@@ -149,11 +263,8 @@ class CartItem extends React.Component {
 
         this.props.selectProfile(data.actual_data.profile)
         if (data.valid) {
-            let time_slot = this.buildLabTimeSlot(data)
-            let timeSlot = {
-                date: new Date(data.data.date),
-                time: time_slot
-            }
+            let timeSlot = this.buildLabTimeSlot(data)
+            
             let extraTimeParams = null
             if(timeSlot.date){
                 extraTimeParams = this.getFormattedDate(timeSlot.date)
@@ -175,11 +286,11 @@ class CartItem extends React.Component {
                 }
 
             }
-            if (data.actual_data.is_home_pickup) {
+            /*if (data.actual_data.is_home_pickup) {
                 this.props.selectLabAppointmentType('home')
             } else {
                 this.props.selectLabAppointmentType('lab')
-            }
+            }*/
 
         }
 

@@ -44,7 +44,7 @@ class PrimeCareSuccessView extends React.Component {
                                             {
                                                 this.props.data && this.props.data.unlimited_online_consultation?
                                                     <li className="careListiLi"><p className="careListin">Free Unlimited Online Consultation </p>
-                                                        <span>Anytime, Anywhere!</span>
+                                                        <span>Our online consultation timings are from 8:00 AM to 5:00 PM</span>
                                                     </li>
                                                 :''
                                             }
