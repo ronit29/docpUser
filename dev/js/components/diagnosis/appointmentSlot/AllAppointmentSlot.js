@@ -130,7 +130,7 @@ class AppointmentSlot extends React.Component {
             if(parsed.is_thyrocare && parsed.is_thyrocare.includes('true')){
                     
                 let nextDate = new Date()
-                if(this.props.selectedDateFormat) {
+                if(this.props.selectedDateFormat && false) {
                     
                     if(new Date().toDateString()==new Date(this.props.selectedDateFormat).toDateString()){
                         nextDate.setDate(new Date().getDate() + 1)
