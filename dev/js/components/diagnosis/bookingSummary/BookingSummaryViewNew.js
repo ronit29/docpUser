@@ -1233,62 +1233,65 @@ class BookingSummaryViewNew extends React.Component {
         let r_pickup = this.props.selectedAppointmentType.r_pickup
         let p_pickup = this.props.selectedAppointmentType.p_pickup
         let reset = false
-        if(this.props.selectedAppointmentType.r_pickup == 'home' && !r_pickup_home && (r_pickup_center || !radiology_tests.length)) {
-            if(r_pickup_center){
-                r_pickup = 'lab'    
+
+        if(radiology_tests.length || pathology_tests.length) {
+            if(this.props.selectedAppointmentType.r_pickup == 'home' && !r_pickup_home && (r_pickup_center || !radiology_tests.length)) {
+                if(r_pickup_center){
+                    r_pickup = 'lab'    
+                }
+                
+                reset = true
+            } 
+
+            if(this.props.selectedAppointmentType.r_pickup == 'lab' && !r_pickup_center && (r_pickup_home || !radiology_tests.length) ) {
+                if(r_pickup_home){
+                    r_pickup = 'home'    
+                }
+                reset = true
+            }
+
+            if(this.props.selectedAppointmentType.p_pickup == 'home' && !p_pickup_home && (p_pickup_center || !pathology_tests.length)) {
+                if(p_pickup_center){
+                    p_pickup = 'lab'    
+                }
+                reset = true
+            }
+
+            if(this.props.selectedAppointmentType.p_pickup == 'lab' && !p_pickup_center && (p_pickup_home || !pathology_tests.length) ) {
+                if(p_pickup_home){
+                    p_pickup = 'home'    
+                }
+                reset = true
             }
             
-            reset = true
-        } 
-
-        if(this.props.selectedAppointmentType.r_pickup == 'lab' && !r_pickup_center && (r_pickup_home || !radiology_tests.length) ) {
-            if(r_pickup_home){
-                r_pickup = 'home'    
+            if(!p_pickup_home && !p_pickup_center) {
+                p_pickup = null
             }
-            reset = true
-        }
 
-        if(this.props.selectedAppointmentType.p_pickup == 'home' && !p_pickup_home && (p_pickup_center || !pathology_tests.length)) {
-            if(p_pickup_center){
-                p_pickup = 'lab'    
+            if(!r_pickup_home && !r_pickup_center) {
+                r_pickup = null
             }
-            reset = true
-        }
 
-        if(this.props.selectedAppointmentType.p_pickup == 'lab' && !p_pickup_center && (p_pickup_home || !pathology_tests.length) ) {
-            if(p_pickup_home){
-                p_pickup = 'home'    
+            if(!this.props.selectedAppointmentType.r_pickup && (r_pickup_home || r_pickup_center)){
+                reset = true
+                r_pickup = r_pickup_home?'home':r_pickup_center?'lab':''
             }
-            reset = true
-        }
-        
-        if(!p_pickup_home && !p_pickup_center) {
-            p_pickup = null
-        }
 
-        if(!r_pickup_home && !r_pickup_center) {
-            r_pickup = null
-        }
-
-        if(!this.props.selectedAppointmentType.r_pickup && (r_pickup_home || r_pickup_center)){
-            reset = true
-            r_pickup = r_pickup_home?'home':r_pickup_center?'lab':''
-        }
-
-        if(!this.props.selectedAppointmentType.p_pickup && (p_pickup_home || p_pickup_center)){
-            reset = true
-            p_pickup = p_pickup_home?'home':p_pickup_center?'lab':''
-        }
-        
-
-        if(reset){
-            let selectedType = {
-                r_pickup: r_pickup,
-                p_pickup: p_pickup
+            if(!this.props.selectedAppointmentType.p_pickup && (p_pickup_home || p_pickup_center)){
+                reset = true
+                p_pickup = p_pickup_home?'home':p_pickup_center?'lab':''
             }
-            setTimeout(() => {
-                this.props.selectLabAppointmentType(selectedType)
-            })
+            
+
+            if(reset){
+                let selectedType = {
+                    r_pickup: r_pickup,
+                    p_pickup: p_pickup
+                }
+                setTimeout(() => {
+                    this.props.selectLabAppointmentType(selectedType)
+                })
+            }
         }
 
         is_home_collection_enabled = r_pickup_home || p_pickup_home
