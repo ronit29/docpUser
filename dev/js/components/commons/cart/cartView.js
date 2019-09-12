@@ -70,11 +70,11 @@ class CartView extends React.Component {
                         if(item.actual_data.vip_amount == 0){
                             vip_amnt_price += item.mrp
                         }else{
-                            vip_amnt_price += item.actual_data.vip_amount
+                            vip_amnt_price += item.mrp - item.actual_data.vip_amount
                         }
                     }
                     total_mrp += item.mrp
-                    if(!item.actual_data.is_vip_member && !item.actual_data.cover_under_vip){
+                    if(!item.actual_data.cover_under_vip){
                         if(item.consultation && item.consultation.fees == 0){
                             dd = item.mrp
                         }else{

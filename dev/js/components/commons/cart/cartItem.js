@@ -373,7 +373,7 @@ class CartItem extends React.Component {
                             </div>
                             {
                                 doctor ? <div className="dr-profile mrt-10">
-                                    <h1 className="dr-name">Dr. {doctor.name} 
+                                    <h1 className="dr-name vip-ico-hdng">Dr. {doctor.name} 
                                         {is_vip_applicable?
                                                <img style={{height:'28px', width:'25px'}} className="vip-main-ico img-fluid vip-ico-hdng" src={ASSETS_BASE_URL + '/img/viplog.png'} />
                                         :''}

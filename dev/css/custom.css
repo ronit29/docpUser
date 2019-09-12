@@ -1882,7 +1882,7 @@ img.whtsp-ico{
 	margin: auto;
 }
 .vip-ico-hdng{
-	display: flex;
+	display: flex !important;
     align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 0px;
