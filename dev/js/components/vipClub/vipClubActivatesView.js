@@ -141,7 +141,7 @@ class VipClub extends React.Component {
                                                                 <p>Includes {this.props.data.plan[0].worth.total_test_covered_in_package} Tests, can be used by {this.props.data.plan[0].worth.members_covered_in_package} members</p>
                                                             </div>
                                                             <div className="vip-sbs-crd-rgt">
-                                                                <p className="rmng-pnt">{this.props.data.plan[0].utilize.total_package_count_limit} <span>remaining </span></p>
+                                                                <p className="rmng-pnt">{this.props.data.plan[0].utilize.available_package_count} <span>remaining </span></p>
                                                                 <button className="vip-btn-sbs" onClick={() => {
                                                                     this.props.history.push('/searchpackages');
 

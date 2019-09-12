@@ -204,7 +204,7 @@ class BookingView extends React.Component {
     }
 
     render() {
-console.log(this.props)
+        
         let doctor = {}
         let profile = {}
         let hospital = {}
