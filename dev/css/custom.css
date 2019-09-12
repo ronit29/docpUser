@@ -708,7 +708,10 @@ body.lineLoader {
 
 /* ============ headerTextUpdate ============ */
 .head_text_container{
-	text-align: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .head_text_container a{
 	display: inline-block;
