@@ -491,10 +491,10 @@ class PatientDetailsNew extends React.Component {
         let show_lensfit=this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].lensfit_offer?this.props.DOCTORS[this.props.selectedDoctor].lensfit_offer.applicable:false
         let lensfit_coupons =this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].lensfit_offer?this.props.DOCTORS[this.props.selectedDoctor].lensfit_offer.coupon:{}
 
-        if(!this.state.show_lensfit_popup && !this.state.lensfit_decline && show_lensfit && !is_insurance_applicable && lensfit_coupons && Object.keys(lensfit_coupons).length > 0 && this.state.couponId !=lensfit_coupons.coupon_id){
+        /*if(!this.state.show_lensfit_popup && !this.state.lensfit_decline && show_lensfit && !is_insurance_applicable && lensfit_coupons && Object.keys(lensfit_coupons).length > 0 && this.state.couponId !=lensfit_coupons.coupon_id){
                 this.setState({show_lensfit_popup:true, lensfit_coupons:lensfit_coupons})
             return
-        }
+        }*/
 
         if (!this.state.showConfirmationPopup && !addToCart && (total_price == 0 || (is_insurance_applicable && this.props.payment_type == 1) || (this.state.use_wallet && total_wallet_balance > 0))) {
             this.setState({ showConfirmationPopup: true })
