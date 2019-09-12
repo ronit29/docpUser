@@ -205,6 +205,7 @@ class BookingView extends React.Component {
         let deal_price = 0
         let discount = 0
         let paymentMode = ''
+        let effective_price = 0
         if (this.state.data) {
             doctor = this.state.data.doctor
             hospital = this.state.data.hospital
@@ -216,6 +217,7 @@ class BookingView extends React.Component {
             payment_type = this.state.data.payment_type
             mrp = this.state.data.mrp
             deal_price = this.state.data.deal_price
+            effective_price = this.state.data.effective_price
         }
 
         let summary_utm_tag = ""
@@ -226,7 +228,11 @@ class BookingView extends React.Component {
             }
         }
 
-        discount = mrp - deal_price
+        if (payment_type == 2) {
+            discount = mrp - deal_price
+        } else {
+            discount = mrp - effective_price
+        }
 
         if (payment_type == 1) {
             paymentMode = 'Online'
@@ -428,38 +434,46 @@ class BookingView extends React.Component {
                                                     </div>
                                                 </div>
 
-                                                <div className="widget mrb-10">
-                                                    <div className="widget-content">
-                                                        <div className="test-report">
-                                                            <h4 className="title"><span><img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/rupeeicon.png"} style={{
-                                                                width: 16, marginRight: 5, verticalAlign: -3
-                                                            }} /></span>Payment Detail</h4>
-                                                            <div className="d-flex justify-content-between align-items-center mrb-10">
-                                                                <p className="fw-500" style={{ color: '#757575', paddingTop: 4 }}>MRP</p>
-                                                                <p className="fw-500">&#8377; {mrp}</p>
-                                                            </div>
-                                                            {
-                                                                discount ?
+                                                {
+                                                    status !== 6 ?
+                                                        <div className="widget mrb-10">
+                                                            <div className="widget-content">
+                                                                <div className="test-report">
+                                                                    <h4 className="title"><span><img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/rupeeicon.png"} style={{
+                                                                        width: 16, marginRight: 5, verticalAlign: -3
+                                                                    }} /></span>Payment Detail</h4>
                                                                     <div className="d-flex justify-content-between align-items-center mrb-10">
-                                                                        <p className="fw-500" style={{ color: 'green' }}>Docprime discount</p>
-                                                                        <p className="fw-500" style={{ color: 'green' }}>- &#8377; {discount}</p>
-                                                                    </div> : ''
-                                                            }
-                                                            <hr style={{ boxSizing: 'border-box', margin: '0 -12px 10px -12px', backgroundColor: '#eeeeee' }} />
-                                                            <div className="d-flex justify-content-between align-items-center mrb-10">
-                                                                <p className="fw-500">Amount Payable</p>
-                                                                <p className="fw-500">&#8377; {deal_price}</p>
+                                                                        <p className="fw-500" style={{ color: '#757575', paddingTop: 4 }}>MRP</p>
+                                                                        <p className="fw-500">&#8377; {mrp}</p>
+                                                                    </div>
+                                                                    {
+                                                                        discount ?
+                                                                            <div className="d-flex justify-content-between align-items-center mrb-10">
+                                                                                <p className="fw-500" style={{ color: 'green' }}>Docprime discount</p>
+                                                                                <p className="fw-500" style={{ color: 'green' }}>- &#8377; {discount}</p>
+                                                                            </div> : ''
+                                                                    }
+                                                                    <hr style={{ boxSizing: 'border-box', margin: '0 -12px 10px -12px', backgroundColor: '#eeeeee' }} />
+                                                                    <div className="d-flex justify-content-between align-items-center mrb-10">
+                                                                        <p className="fw-500">Amount Payable</p>
+                                                                        {
+                                                                            payment_type == 2 ?
+                                                                                <p className="fw-500">&#8377; {deal_price}</p>
+                                                                                :
+                                                                                <p className="fw-500">&#8377; {effective_price}</p>
+                                                                        }
+                                                                    </div>
+                                                                    {
+                                                                        paymentMode ?
+                                                                            <div className="d-flex justify-content-between align-items-center">
+                                                                                <p className="fw-500">Payment Mode</p>
+                                                                                <p className="fw-500">{paymentMode}</p>
+                                                                            </div> : ''
+                                                                    }
+                                                                </div>
                                                             </div>
-                                                            {
-                                                                paymentMode ?
-                                                                    <div className="d-flex justify-content-between align-items-center">
-                                                                        <p className="fw-500">Payment Mode</p>
-                                                                        <p className="fw-500">{paymentMode}</p>
-                                                                    </div> : ''
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                        </div> : ''
+                                                }
 
                                                 {
                                                     status <= 5 ? <div className="widget mrb-10">

@@ -173,7 +173,7 @@ class BookingView extends React.Component {
         this.props.history.push(where)
     }
 
-    goToBookingPage(){
+    goToBookingPage() {
         let analyticData = {
             'Category': 'ConsumerApp', 'Action': 'RebookLabAppointmentClicked', 'CustomerID': GTM.getUserId(), 'leadid': '', 'event': 'rebook-lab-appointment-clicked'
         }
@@ -192,6 +192,11 @@ class BookingView extends React.Component {
         let reports = []
         let is_thyrocare = null
         let payment_type
+        let mrp = ''
+        let deal_price = ''
+        let discount = ''
+        let effective_price = ''
+        let paymentMode = ''
 
         if (this.state.data) {
             lab = this.state.data.lab
@@ -202,8 +207,11 @@ class BookingView extends React.Component {
             status = this.state.data.status
             lab_thumbnail = this.state.data.lab_thumbnail
             reports = this.state.data.reports || []
-            is_thyrocare = this.state.data.lab?this.state.data.lab.is_thyrocare:null
+            is_thyrocare = this.state.data.lab ? this.state.data.lab.is_thyrocare : null
             payment_type = this.state.data.payment_type
+            mrp = this.state.data.price
+            deal_price = this.state.data.deal_price
+            effective_price = this.state.data.effective_price
         }
         let summar_utm_tag = ""
         if (this.state.data && this.props.summary_utm && this.props.summary_utm_validity) {
@@ -211,6 +219,22 @@ class BookingView extends React.Component {
                 let src = `https://cplcps.com/p.ashx?o=116216&e=4531&f=img&t=${this.state.data.id}`
                 summar_utm_tag = <img src={src} width="1" height="1" border="0" />
             }
+        }
+
+        if (payment_type == 2) {
+            discount = mrp - deal_price
+        } else {
+            discount = mrp - effective_price
+        }
+
+        if (payment_type == 1) {
+            paymentMode = 'Online'
+        } else if (payment_type == 2) {
+            paymentMode = 'Cash'
+        } else if (payment_type == 3) {
+            paymentMode = 'Insurance'
+        } else if (payment_type == 4) {
+            paymentMode = 'Docprime Care'
         }
 
         return (
@@ -259,21 +283,21 @@ class BookingView extends React.Component {
                                                     <div className="app-timeline book-confirmed-timeline">
                                                         {
                                                             status == 6 ? <h4 style={{ textAlign: 'center' }}>Appointment Cancelled</h4>
-                                                             :status == 1 ? <h4 style={{ textAlign: 'center' }}>Appointment Created</h4> 
-                                                                :<ul className="inline-list">
-                                                                    <li className={(status <= 5 || status == 7) ? "active" : ""}>
-                                                                        <span className="dot">1</span>
-                                                                        <p className="text-sm fw-700 text-light">Received</p>
-                                                                    </li>
-                                                                    <li className={(status == 5 || status == 7) ? "active" : ""}>
-                                                                        <span className="dot">2</span>
-                                                                        <p className="text-sm fw-700 text-light">Confirmed</p>
-                                                                    </li>
-                                                                    <li className={status == 7 ? "active" : ""}>
-                                                                        <span className="dot">3</span>
-                                                                        <p className="text-sm fw-700 text-light">{status == 6 ? "Completed" : "Completed"}</p>
-                                                                    </li>
-                                                                </ul>
+                                                                : status == 1 ? <h4 style={{ textAlign: 'center' }}>Appointment Created</h4>
+                                                                    : <ul className="inline-list">
+                                                                        <li className={(status <= 5 || status == 7) ? "active" : ""}>
+                                                                            <span className="dot">1</span>
+                                                                            <p className="text-sm fw-700 text-light">Received</p>
+                                                                        </li>
+                                                                        <li className={(status == 5 || status == 7) ? "active" : ""}>
+                                                                            <span className="dot">2</span>
+                                                                            <p className="text-sm fw-700 text-light">Confirmed</p>
+                                                                        </li>
+                                                                        <li className={status == 7 ? "active" : ""}>
+                                                                            <span className="dot">3</span>
+                                                                            <p className="text-sm fw-700 text-light">{status == 6 ? "Completed" : "Completed"}</p>
+                                                                        </li>
+                                                                    </ul>
                                                         }
                                                     </div>
                                                 </div>
@@ -327,24 +351,24 @@ class BookingView extends React.Component {
                                                                 </a>
                                                             </div>*/}
                                                             {
-                                                                status ==6 || status ==7?
-                                                                <button className="rebook-btn" onClick={this.goToBookingPage.bind(this)}>Rebook Appointment</button>
-                                                                :''    
+                                                                status == 6 || status == 7 ?
+                                                                    <button className="rebook-btn" onClick={this.goToBookingPage.bind(this)}>Rebook Appointment</button>
+                                                                    : ''
                                                             }
-                                                            
+
                                                         </div>
                                                     </div>
                                                     {
-                                                        is_thyrocare?
-                                                        <div className="thyroCallContainer">
-                                                            <div className="thyroContent">
-                                                                <h4 className="wc-title text-md fw-700">Reschedule Appointment?</h4>
-                                                                <p>If you want to reschedule or cancel appointment, contact us at  <a href="tel:18001239419">1800 123 9419</a></p>
+                                                        is_thyrocare ?
+                                                            <div className="thyroCallContainer">
+                                                                <div className="thyroContent">
+                                                                    <h4 className="wc-title text-md fw-700">Reschedule Appointment?</h4>
+                                                                    <p>If you want to reschedule or cancel appointment, contact us at  <a href="tel:18001239419">1800 123 9419</a></p>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        :''
+                                                            : ''
                                                     }
-                                                    
+
 
                                                     {
                                                         this.state.data.is_home_pickup ? <div className="widget mrt-10">
@@ -410,6 +434,47 @@ class BookingView extends React.Component {
                                                     </div>
 
                                                     {
+                                                        status !== 6 ?
+                                                            <div className="widget mrb-10">
+                                                                <div className="widget-content">
+                                                                    <div className="test-report">
+                                                                        <h4 className="title"><span><img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/rupeeicon.png"} style={{
+                                                                            width: 16, marginRight: 5, verticalAlign: -3
+                                                                        }} /></span>Payment Detail</h4>
+                                                                        <div className="d-flex justify-content-between align-items-center mrb-10">
+                                                                            <p className="fw-500" style={{ color: '#757575', paddingTop: 4 }}>MRP</p>
+                                                                            <p className="fw-500">&#8377; {mrp}</p>
+                                                                        </div>
+                                                                        {
+                                                                            discount ?
+                                                                                <div className="d-flex justify-content-between align-items-center mrb-10">
+                                                                                    <p className="fw-500" style={{ color: 'green' }}>Docprime discount</p>
+                                                                                    <p className="fw-500" style={{ color: 'green' }}>- &#8377; {discount}</p>
+                                                                                </div> : ''
+                                                                        }
+                                                                        <hr style={{ boxSizing: 'border-box', margin: '0 -12px 10px -12px', backgroundColor: '#eeeeee' }} />
+                                                                        <div className="d-flex justify-content-between align-items-center mrb-10">
+                                                                            <p className="fw-500">Amount Payable</p>
+                                                                            {
+                                                                                payment_type == 2 ?
+                                                                                    <p className="fw-500">&#8377; {deal_price}</p>
+                                                                                    :
+                                                                                    <p className="fw-500">&#8377; {effective_price}</p>
+                                                                            }
+                                                                        </div>
+                                                                        {
+                                                                            paymentMode ?
+                                                                                <div className="d-flex justify-content-between align-items-center">
+                                                                                    <p className="fw-500">Payment Mode</p>
+                                                                                    <p className="fw-500">{paymentMode}</p>
+                                                                                </div> : ''
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div> : ''
+                                                    }
+
+                                                    {
                                                         status <= 5 ? <div className="widget mrb-10" style={{ marginTop: 10 }}>
                                                             <div className="widget-content">
                                                                 <div className="my-profile-item" style={{ cursor: 'auto' }} onClick={() => {
@@ -450,7 +515,7 @@ class BookingView extends React.Component {
                             <TestDetail show={this.state.showTestDetail} toggle={this.toogleTestDetails.bind(this)} lab_test={lab_test} />
 
                             {
-                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} comments={this.state.data && this.state.data.cancellation_reason ? this.state.data.cancellation_reason : []} showCommentReasons={payment_type == 3 || payment_type == 2?true:false}/> : ""
+                                this.state.showCancel ? <CancelPopup toggle={this.toggleCancel.bind(this)} cancelAppointment={this.cancelAppointment.bind(this)} comments={this.state.data && this.state.data.cancellation_reason ? this.state.data.cancellation_reason : []} showCommentReasons={payment_type == 3 || payment_type == 2 ? true : false} /> : ""
                             }
 
                         </div>
