@@ -1,4 +1,4 @@
-import { SET_SUMMARY_UTM, AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL, CLOSE_POPUP, SELECT_USER_ADDRESS, CLEAR_INSURANCE } from '../../constants/types';
+import { SET_SUMMARY_UTM, AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL, CLOSE_POPUP, SELECT_USER_ADDRESS, CLEAR_INSURANCE, RESET_VIP_CLUB } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import STORAGE from '../../helpers/storage'
 import NAVIGATE from '../../helpers/navigate'
@@ -65,6 +65,10 @@ export const submitOTP = (number, otp, cb) => (dispatch) => {
         dispatch({
             type: SELECT_USER_ADDRESS,
             payload: null
+        })
+
+        dispatch({
+            type: RESET_VIP_CLUB
         })
 
         if (cb) cb(response);
