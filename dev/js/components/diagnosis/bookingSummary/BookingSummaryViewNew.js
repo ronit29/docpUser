@@ -1040,7 +1040,7 @@ class BookingSummaryViewNew extends React.Component {
         let is_vip_applicable = false
         let is_selected_user_under_vip = false
         let is_default_user_under_vip = false
-        let is_tests_covered_under_vip = true
+        let is_tests_covered_under_vip = false
         let vip_amount
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
