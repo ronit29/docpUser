@@ -431,20 +431,21 @@ class BookingView extends React.Component {
                                                 <div className="widget mrb-10">
                                                     <div className="widget-content">
                                                         <div className="test-report">
-                                                            <h4 className="title"><span><img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/nw-usr.svg"} style={{
+                                                            <h4 className="title"><span><img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/rupeeicon.png"} style={{
                                                                 width: 16, marginRight: 5, verticalAlign: -3
                                                             }} /></span>Payment Detail</h4>
                                                             <div className="d-flex justify-content-between align-items-center mrb-10">
-                                                                <p className="fw-500" style={{ color: '#757575' }}>MRP</p>
+                                                                <p className="fw-500" style={{ color: '#757575', paddingTop: 4 }}>MRP</p>
                                                                 <p className="fw-500">&#8377; {mrp}</p>
                                                             </div>
                                                             {
                                                                 discount ?
-                                                                    <div className="d-flex justify-content-between align-items-center mrb-20">
+                                                                    <div className="d-flex justify-content-between align-items-center mrb-10">
                                                                         <p className="fw-500" style={{ color: 'green' }}>Docprime discount</p>
-                                                                        <p className="fw-500" style={{ color: 'green' }}>- &#8377; 450</p>
+                                                                        <p className="fw-500" style={{ color: 'green' }}>- &#8377; {discount}</p>
                                                                     </div> : ''
                                                             }
+                                                            <hr style={{ boxSizing: 'border-box', margin: '0 -12px 10px -12px', backgroundColor: '#eeeeee' }} />
                                                             <div className="d-flex justify-content-between align-items-center mrb-10">
                                                                 <p className="fw-500">Amount Payable</p>
                                                                 <p className="fw-500">&#8377; {deal_price}</p>
