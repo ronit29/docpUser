@@ -145,9 +145,9 @@ class VipProposerFamily extends React.Component {
 			[event.target.getAttribute('data-param')]: event.target.value , id:this.props.member_id
 		});
 	}
-	handleRelation(e) {
-		var e = document.getElementById("relation_id");
-		this.setState({'relation_key':e.options[e.selectedIndex].getAttribute('data-param'),'relation':event.target.value},()=>{
+	handleRelation(id,event) {
+		var relation_id = document.getElementById(id);
+		this.setState({'relation':event.target.value,'relation_key':relation_id.options[relation_id.selectedIndex].getAttribute('data-param')},()=>{
 			this.handleSubmit(true,event)
 		})
 	}
@@ -475,7 +475,7 @@ class VipProposerFamily extends React.Component {
 								<img src={ASSETS_BASE_URL + "/img/hands.svg"} />
 								<div className="dob-select-div d-flex align-items-center">
 									<div style={{flex: 1}} className="dob-select d-flex align-items-center">
-										<select style={{width:'100%'}} value={this.state.relation} onChange={this.handleRelation.bind(this)} id="relation_id">
+										<select style={{width:'100%'}} value={this.state.relation} onChange={this.handleRelation.bind(this,'relation_id_'+this.props.member_id )} id={`relation_id_${this.props.member_id}`} >
 											<option hidden>Select Relation</option>
 											{Object.entries(this.props.vip_club_db_data.data.relation_master).map(function([key, value]) {
 												return <option data-param={key} key={key}>{value}</option>

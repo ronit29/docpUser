@@ -142,7 +142,15 @@ class VipClub extends React.Component {
                                                             </div>
                                                             <div className="vip-sbs-crd-rgt">
                                                                 <p className="rmng-pnt">{this.props.data.plan[0].utilize.total_package_count_limit} <span>remaining </span></p>
-                                                                {/*<button className="vip-btn-sbs">Book Now</button>*/}
+                                                                <button className="vip-btn-sbs" onClick={() => {
+                                                                    this.props.history.push('/searchpackages');
+
+                                                                    let data = {
+                                                                        'Category': 'ConsumerApp', 'Action': 'vipPackageClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-package-click'
+                                                                    }
+                                                                    GTM.sendEvent({ data: data });
+
+                                                                }}>Book Now</button>
                                                             </div>
                                                         </div>
                                                     </div>

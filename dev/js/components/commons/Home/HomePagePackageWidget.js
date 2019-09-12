@@ -71,7 +71,10 @@ class HomePagePackageWidget extends React.Component {
                                     {listItem.mrp && listItem.discounted_price ?
                                         <div className="pkg-card-price-offr">
                                             <div className="pkg-prc-ct">
-                                                <p>₹ {listItem.discounted_price} <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span></p>
+                                                <p>₹ {listItem.discounted_price} 
+                                                    <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span>
+                                                    {/*<img style={{width: '20px','marginLeft': '5px'}} src={ASSETS_BASE_URL + '/img/viplog.png'}/>*/}
+                                                </p>
                                             </div>
                                             <span className="pkg-hlth-offer">{parseInt(((listItem.mrp - listItem.discounted_price) / listItem.mrp) * 100)}% OFF</span>
                                         </div>

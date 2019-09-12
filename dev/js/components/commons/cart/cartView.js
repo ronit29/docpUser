@@ -359,9 +359,10 @@ class CartView extends React.Component {
                                                                             </div> : ''
                                                                         }
 
-                                                                        {
+                                                                        {vip_amnt_price ?
                                                                             <div class="payment-detail d-flex"><p style={{color: 'green'}}>Docprime VIP Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
                                                                             </div>
+                                                                            :''
                                                                         }
 
                                                                     </div>

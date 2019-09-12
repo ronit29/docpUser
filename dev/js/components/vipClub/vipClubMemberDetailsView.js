@@ -313,7 +313,7 @@ class VipClubMemberDetailsView extends React.Component{
     	})
     }
     proceedMembersNo(is_wait){
-    	this.setState({show_popup:false,proceed:false})
+    	this.setState({show_popup:false,proceed:false,popupMemData:{} })
     }
 	render(){
 		let child
@@ -381,7 +381,7 @@ class VipClubMemberDetailsView extends React.Component{
 				                                                        <th>DOB</th>
 					                                                </tr>
 					                                                <tr>
-					                                                    <td>{val.relation}</td>
+					                                                    <td>{val.relation =="SPOUSE_FATHER"?'Father-in-law':val.relation == 'SPOUSE_MOTHER'?'Mother-in-law':val.relation }</td>
 					                                                    <td style={{ 'textTransform': 'capitalize' }} >{val.title == 'mr.'?'m':'f'}</td>
 					                                                    <td>{val.dob}</td>
 					                                                </tr>
