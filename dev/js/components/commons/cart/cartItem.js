@@ -316,7 +316,6 @@ class CartItem extends React.Component {
         }
         let parsed = queryString.parse(this.props.location.search)
         let is_vip_applicable = is_vip_member && cover_under_vip
-        console.log(is_vip_applicable)
         return (
             <div>
                 <div className="widget mrb-15 mrng-top-12 p-relative">
