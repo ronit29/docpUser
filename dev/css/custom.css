@@ -3379,12 +3379,14 @@ display: flex;
     align-items: baseline;
     justify-content: space-between;
     margin-bottom: 10px;
+    font-size: 12px;
 }
 .vst-tst-name{
 	font-weight: 500;
 }
 .rdo-time-vst{
 	font-weight: 600;
+	    padding-left: 8px;
 }
 @media(max-width: 993px){
 	.new-time-slot-outer{
