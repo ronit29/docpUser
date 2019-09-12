@@ -316,6 +316,7 @@ class CartItem extends React.Component {
         }
         let parsed = queryString.parse(this.props.location.search)
         let is_vip_applicable = is_vip_member && cover_under_vip
+        console.log(is_vip_applicable)
         return (
             <div>
                 <div className="widget mrb-15 mrng-top-12 p-relative">
@@ -383,7 +384,9 @@ class CartItem extends React.Component {
                                     }
                                     <p className="clinic-name text-sm">{hospital.name}</p>
                                 </div> : <div className="dr-profile mrt-10">
-                                        <h1 className="dr-name">{lab && lab.name?lab.name:''}</h1>
+                                        <h1 className="dr-name vip-ico-hdng">{lab && lab.name?lab.name:''} {is_vip_applicable?
+                                               <img style={{height:'28px', width:'25px'}} className="vip-main-ico img-fluid vip-ico-hdng" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                        :''}</h1>
                                     </div>
                             }
 
