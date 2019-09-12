@@ -967,7 +967,7 @@ class BookingSummaryViewNew extends React.Component {
                 } else {
                     is_tests_covered_under_plan = false
                 }
-                if(test.vip && test.vip.is_vip_member && !test.vip.covered_under_vip){
+                if(test.vip && test.vip.is_vip_member && test.vip.covered_under_vip){
                     is_vip_applicable = true
                     vip_amount = test.vip.vip_amount
                 }else{
@@ -1333,7 +1333,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                         <div className="lab-visit-time test-report">
                                                                             <h4 className="title payment-amt-label">Amount Payable</h4>
                                                                             {
-                                                                                this.props.selectedAppointmentType == 'home' ? <h5 className="payment-amt-value fw-500">&#8377;  {is_vip_applicable?vip_amount: total_price || 0}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {!is_vip_applicable?vip_amount:total_price || 0}</h5>
+                                                                                this.props.selectedAppointmentType == 'home' ? <h5 className="payment-amt-value fw-500">&#8377;  {is_vip_applicable?vip_amount: total_price || 0}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {is_vip_applicable?vip_amount:total_price || 0}</h5>
                                                                             }
 
 

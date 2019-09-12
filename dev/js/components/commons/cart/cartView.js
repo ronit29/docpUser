@@ -74,33 +74,35 @@ class CartView extends React.Component {
                         }
                     }
                     total_mrp += item.mrp
-                    if(item.consultation && item.consultation.fees == 0){
-                        dd = item.mrp
-                    }else{
-                        dd = item.mrp - item.deal_price
-                    }
-                    total_deal_price += dd
-                    // total_deal_price += item.deal_price  
-                    total_home_pickup_charges += item.total_home_pickup_charges || 0
-                    if (item.data.coupons && item.data.coupons.length) {
-                        total_coupon_discount += item.coupon_discount
-                        total_coupon_cashback += item.coupon_cashback
-                        if (item.coupon_cashback <= 0) {
-                            if (coupon_breakup[item.data.coupons[0].code]) {
-                                coupon_breakup[item.data.coupons[0].code] += item.coupon_discount
+                    if(!item.actual_data.is_vip_member && !item.actual_data.cover_under_vip){
+                        if(item.consultation && item.consultation.fees == 0){
+                            dd = item.mrp
+                        }else{
+                            dd = item.mrp - item.deal_price
+                        }
+                        total_deal_price += dd
+                        // total_deal_price += item.deal_price  
+                        total_home_pickup_charges += item.total_home_pickup_charges || 0
+                        if (item.data.coupons && item.data.coupons.length) {
+                            total_coupon_discount += item.coupon_discount
+                            total_coupon_cashback += item.coupon_cashback
+                            if (item.coupon_cashback <= 0) {
+                                if (coupon_breakup[item.data.coupons[0].code]) {
+                                    coupon_breakup[item.data.coupons[0].code] += item.coupon_discount
+                                } else {
+                                    coupon_breakup[item.data.coupons[0].code] = item.coupon_discount
+                                }
                             } else {
-                                coupon_breakup[item.data.coupons[0].code] = item.coupon_discount
-                            }
-                        } else {
-                            if (cashback_breakup[item.data.coupons[0].code]) {
-                                cashback_breakup[item.data.coupons[0].code] += item.coupon_cashback
-                            } else {
-                                cashback_breakup[item.data.coupons[0].code] = item.coupon_cashback
+                                if (cashback_breakup[item.data.coupons[0].code]) {
+                                    cashback_breakup[item.data.coupons[0].code] += item.coupon_cashback
+                                } else {
+                                    cashback_breakup[item.data.coupons[0].code] = item.coupon_cashback
+                                }
                             }
                         }
-                    }
-                    if(item.consultation && item.consultation.fees == 0){
-                        platformConvFees += parseInt(item.deal_price)
+                        if(item.consultation && item.consultation.fees == 0){
+                            platformConvFees += parseInt(item.deal_price)
+                        }
                     }
                 }
 

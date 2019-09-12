@@ -86,7 +86,6 @@ class OrderSummaryView extends React.Component {
     }
 
     render() {
-        let is_vip_applicable = false
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
