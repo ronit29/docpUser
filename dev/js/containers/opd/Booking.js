@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, getOPDBookingSummary, updateOPDAppointment, selectOpdTimeSLot, retryPaymentOPD, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp,OTTLogin, getUnratedAppointment,closeAppointmentRating,editUserProfile, resetPkgCompare} from '../../actions/index.js'
+import { getCartItems, getOPDBookingSummary, updateOPDAppointment, selectOpdTimeSLot, retryPaymentOPD, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentPopUp,OTTLogin, getUnratedAppointment,closeAppointmentRating,editUserProfile, resetPkgCompare, generateVipClubLead} from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 import BookingView from '../../components/opd/booking/BookingView.js'
 import FCM from '../../helpers/fcm'
@@ -42,9 +42,13 @@ const mapStateToProps = (state) => {
     let {
         summary_utm, summary_utm_validity, newNotification, notifications, rated_appoinments, profiles, selectedProfile
     } = state.USER
+    const {
+        selectedLocation
+
+    } = state.SEARCH_CRITERIA_OPD
 
     return {
-        rescheduleSlot, newNotification, notifications, rated_appoinments, profiles, selectedProfile, summary_utm, summary_utm_validity
+        rescheduleSlot, newNotification, notifications, rated_appoinments, profiles, selectedProfile, summary_utm, summary_utm_validity, selectedLocation
     }
 }
 
@@ -64,6 +68,7 @@ const mapDispatchToProps = (dispatch) => {
         closeAppointmentRating: (doctorId, callback) => dispatch(closeAppointmentRating(doctorId, callback)),
         editUserProfile: (profileData, profileId, cb) => dispatch(editUserProfile(profileData, profileId, cb)),
         resetPkgCompare:() => dispatch(resetPkgCompare()),
+        generateVipClubLead:(selectedPlan,number,lead_data,user_name,cb) =>dispatch(generateVipClubLead(selectedPlan,number,lead_data,user_name,cb)),
     }
 }
 
