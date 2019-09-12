@@ -1098,7 +1098,7 @@ class BookingSummaryViewNew extends React.Component {
                 finalMrp += parseFloat(mrp)
 
                 if(twp.is_radiology) {
-                    r_pickup_center = true
+                    r_pickup_center = this.props.LABS[this.props.selectedLab].lab.center_visit_enabled
                     if (!twp.is_home_collection_enabled) {
                         r_pickup_home = false
                     }
@@ -1128,7 +1128,7 @@ class BookingSummaryViewNew extends React.Component {
                         <span className="rdo-rmv-spn" onClick={()=>this.removeTest(twp)}>Remove</span>
                     </p>)
                 }else if(twp.is_pathology){
-                    p_pickup_center = true
+                    p_pickup_center = this.props.LABS[this.props.selectedLab].lab.center_visit_enabled
                     if (!twp.is_home_collection_enabled) {
                         p_pickup_home = false
                     }
