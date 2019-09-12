@@ -74,7 +74,7 @@ class CartView extends React.Component {
                     total_deal_price += dd
                     console.log(total_deal_price)
                     // total_deal_price += item.deal_price  
-                    total_home_pickup_charges += item.total_home_pickup_charges || 0
+                    total_home_pickup_charges += item.home_pickup_charges || 0
                     if (item.data.coupons && item.data.coupons.length) {
                         total_coupon_discount += item.coupon_discount
                         total_coupon_cashback += item.coupon_cashback
@@ -99,7 +99,7 @@ class CartView extends React.Component {
 
             }
         }
-        total_amnt = total_mrp - total_deal_price + platformConvFees - total_coupon_discount
+        total_amnt = total_mrp - total_deal_price + platformConvFees - total_coupon_discount + total_home_pickup_charges
         return {
             total_mrp,
             total_deal_price,
@@ -311,13 +311,13 @@ class CartView extends React.Component {
                                                                     <div className="payment-summary-content">
                                                                         <div className="payment-detail d-flex">
                                                                             <p>Total Fees</p>
-                                                                            <p>&#8377; {parseInt(total_mrp)}</p>
+                                                                            <p className="pay-amnt-shrnk">&#8377; {parseInt(total_mrp)}</p>
                                                                         </div>
                                                                         {
                                                                             is_platform_conv_fees>0?
                                                                             <div className="payment-detail d-flex">
                                                                                 <p>Platform Convenience Fee</p>
-                                                                                <p>&#8377; {parseInt(platformConvFees)}</p>
+                                                                                <p className="pay-amnt-shrnk">&#8377; {parseInt(platformConvFees)}</p>
                                                                             </div>
                                                                             :''
                                                                         }
@@ -331,7 +331,7 @@ class CartView extends React.Component {
                                                                         {
                                                                             total_home_pickup_charges ? <div className="payment-detail d-flex">
                                                                                 <p>Home pickup charges</p>
-                                                                                <p>- &#8377; {parseInt(total_home_pickup_charges)}</p>
+                                                                                <p>+ &#8377; {parseInt(total_home_pickup_charges)}</p>
                                                                             </div> : ""
                                                                         }
 
@@ -339,7 +339,7 @@ class CartView extends React.Component {
                                                                             total_coupon_discount ? <div>
                                                                                 {
                                                                                     Object.keys(coupon_breakup).map((cp, j) => {
-                                                                                        return <div className="payment-detail d-flex">
+                                                                                        return <div className="payment-detail d-flex" key={j}>
                                                                                             <p style={{ color: 'green' }}>Coupon Discount ({cp})</p>
                                                                                             <p style={{ color: 'green' }}>-&#8377; {coupon_breakup[cp]}</p>
                                                                                         </div>
@@ -363,7 +363,7 @@ class CartView extends React.Component {
                                                                     total_coupon_cashback ? <div className="csh-back-applied-container">
                                                                         {
                                                                             Object.keys(cashback_breakup).map((key, i) => {
-                                                                                return <p className="csh-mny-applied">+ &#8377; {cashback_breakup[key]} Cashback Applied ({key})</p>
+                                                                                return <p key={i} className="csh-mny-applied">+ &#8377; {cashback_breakup[key]} Cashback Applied ({key})</p>
                                                                             })
                                                                         }
                                                                         <p className="csh-mny-applied-content">Cashback will be added to your docprime wallet balance on appointment completion</p>
