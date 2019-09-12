@@ -1038,15 +1038,16 @@ class BookingSummaryViewNew extends React.Component {
         let p_pickup_home = true
         let p_pickup_center = false
         let is_vip_applicable = false
+        let is_selected_user_under_vip = false
         let is_default_user_under_vip = false
         let vip_amount
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
             is_selected_user_insurance_status = this.props.profiles[this.props.selectedProfile].insurance_status
+            is_selected_user_under_vip = this.props.profiles[this.props.selectedProfile].is_vip_member
 
         }
-
         if (this.props.is_prescription_needed) {
             prescriptionPicked = true
         }
@@ -1054,7 +1055,6 @@ class BookingSummaryViewNew extends React.Component {
             is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
             is_default_user_under_vip = this.props.profiles[this.props.defaultProfile].is_vip_member
         }
-
 
         //Check If each Tests Covered Under Insurance
         if (this.props.isUserCared && this.props.isUserCared.has_active_plan) {
@@ -1078,8 +1078,8 @@ class BookingSummaryViewNew extends React.Component {
                 } else {
                     is_tests_covered_under_plan = false
                 }
-                if(test.vip && test.vip.is_vip_member && test.vip.covered_under_vip){
-                    is_vip_applicable = true
+                if(test.vip && test.vip.covered_under_vip){
+                    is_tests_covered_under_vip = true
                     vip_amount = test.vip.vip_amount
                 }else{
 
@@ -1088,7 +1088,7 @@ class BookingSummaryViewNew extends React.Component {
 
         }
         is_insurance_applicable = is_tests_covered_under_insurance && is_selected_user_insured
-
+        is_vip_applicable = is_tests_covered_under_vip && is_selected_user_under_vip
         if(is_tests_covered_under_insurance && !is_selected_user_insured){
             is_insurance_buy_able = true
         }

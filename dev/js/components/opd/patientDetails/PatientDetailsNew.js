@@ -1040,6 +1040,8 @@ class PatientDetailsNew extends React.Component {
         let is_vip_applicable = false
         let is_selected_user_insurance_status 
         let vip_amount
+        let is_selected_user_under_vip = false
+        let is_default_user_under_vip = false
         let all_cities = this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].all_cities?this.props.DOCTORS[this.props.selectedDoctor].all_cities:[]
         if (doctorDetails) {
             let { name, qualifications, hospitals, enabled_for_cod } = doctorDetails
@@ -1056,14 +1058,15 @@ class PatientDetailsNew extends React.Component {
         }
         if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]) {
             is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
+            is_default_user_under_vip = this.props.profiles[this.props.defaultProfile].is_vip_member
         }
 
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
             is_selected_user_insurance_status = this.props.profiles[this.props.selectedProfile].insurance_status
+            is_selected_user_under_vip = this.props.profiles[this.props.selectedProfile].is_vip_member
         }
-
         if (this.props.selectedSlot && this.props.selectedSlot.date) {
             priceData = { ...this.props.selectedSlot.time }
             priceData.payable_amount = priceData.deal_price
@@ -1076,7 +1079,7 @@ class PatientDetailsNew extends React.Component {
                 }
             }
             if(hospital && hospital.vip){
-                is_vip_applicable = hospital.vip.is_vip_member && hospital.vip.cover_under_vip
+                is_vip_applicable = hospital.vip.cover_under_vip && is_selected_user_under_vip
                 vip_amount = hospital.vip.vip_amount
             }
 
@@ -1093,7 +1096,7 @@ class PatientDetailsNew extends React.Component {
             priceData.is_cod_deal_price = hospital.cod_deal_price
 
             if(hospital.vip){
-                is_vip_applicable = hospital.vip.is_vip_member && hospital.vip.cover_under_vip
+                is_vip_applicable = hospital.vip.cover_under_vip && is_selected_user_under_vip
                 vip_amount = hospital.vip.vip_amount
             }
             if (hospital.insurance) {
