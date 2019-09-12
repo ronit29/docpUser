@@ -204,7 +204,7 @@ class BookingView extends React.Component {
         let mrp = 0
         let deal_price = 0
         let discount = 0
-        let paymemntMode = ''
+        let paymentMode = ''
         if (this.state.data) {
             doctor = this.state.data.doctor
             hospital = this.state.data.hospital
@@ -229,13 +229,13 @@ class BookingView extends React.Component {
         discount = mrp - deal_price
 
         if (payment_type == 1) {
-            paymemntMode = 'Online'
+            paymentMode = 'Online'
         } else if (payment_type == 2) {
-            paymemntMode = 'Cash'
+            paymentMode = 'Cash'
         } else if (payment_type == 3) {
-            paymemntMode = 'Insurance'
+            paymentMode = 'Insurance'
         } else if (payment_type == 4) {
-            paymemntMode = 'Docprime Care'
+            paymentMode = 'Docprime Care'
         }
 
         return (
@@ -450,10 +450,10 @@ class BookingView extends React.Component {
                                                                 <p className="fw-500">&#8377; {deal_price}</p>
                                                             </div>
                                                             {
-                                                                paymemntMode ?
+                                                                paymentMode ?
                                                                     <div className="d-flex justify-content-between align-items-center">
                                                                         <p className="fw-500">Payment Mode</p>
-                                                                        <p className="fw-500">{paymemntMode}</p>
+                                                                        <p className="fw-500">{paymentMode}</p>
                                                                     </div> : ''
                                                             }
                                                         </div>
