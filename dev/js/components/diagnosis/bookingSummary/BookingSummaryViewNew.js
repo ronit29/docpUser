@@ -584,9 +584,14 @@ class BookingSummaryViewNew extends React.Component {
         let is_insurance_applicable = false
         let is_tests_covered_under_insurance = false
         let is_selected_user_insured = false
+        let is_vip_applicable = false
+        let is_selected_user_under_vip = false
+        let is_tests_covered_under_vip = false
+        let vip_amount
 
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
+            is_selected_user_under_vip = this.props.profiles[this.props.selectedProfile].is_vip_member
         }
 
         let is_plan_applicable = false
@@ -628,6 +633,12 @@ class BookingSummaryViewNew extends React.Component {
                 }else{
 
                 }
+                if(test.vip && test.vip.covered_under_vip){
+                    is_tests_covered_under_vip = true
+                    vip_amount = test.vip.vip_amount
+                }else{
+
+                }
             })
 
         }
@@ -641,6 +652,7 @@ class BookingSummaryViewNew extends React.Component {
             this.setState({show_lensfit_popup:true, lensfit_coupons:lensfit_coupons})
             return
         }*/
+        is_vip_applicable = is_tests_covered_under_vip && is_selected_user_under_vip
         let prescriptionIds = []
         if (prescriptionPicked && is_insurance_applicable) {
             if (this.props.user_prescriptions && this.props.user_prescriptions.length == 0) {
@@ -707,7 +719,7 @@ class BookingSummaryViewNew extends React.Component {
             profileData['whatsapp_optin'] = this.state.whatsapp_optin
             this.props.editUserProfile(profileData, profileData.id)
         }
-        if (this.props.disCountedLabPrice >= 0 && !is_plan_applicable && !is_insurance_applicable) {
+        if (this.props.disCountedLabPrice >= 0 && !is_plan_applicable && !is_insurance_applicable && !is_vip_applicable) {
             postData['coupon_code'] = this.state.couponCode ? [this.state.couponCode] : []
         }
 
@@ -723,7 +735,7 @@ class BookingSummaryViewNew extends React.Component {
             postData['is_thyrocare'] = false
 
         }
-
+        
 
         if (addToCart) {
             let data = {
