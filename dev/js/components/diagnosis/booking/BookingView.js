@@ -420,9 +420,9 @@ class BookingView extends React.Component {
                                                                     }
 
                                                                 </h4>
-                                                                {/*<p className="date-time test-list fw-500">{date.toDateString()} | {date.toLocaleTimeString()}</p>
-                                                                */}
-                                                                {
+                                                                <p className="date-time test-list fw-500">{new Date(date).toDateString()} | {new Date(date).toLocaleTimeString()}</p>
+                                                                
+                                                                {/*
                                                                     this.state.data.lab_test && this.state.data.lab_test.map((test, key)=>
                                                                         <div className="vst-content-bl" key={key}>
                                                                             <p className="vst-tst-name">{test.test.name}</p>
@@ -432,7 +432,7 @@ class BookingView extends React.Component {
                                                                             
                                                                         </div>
                                                                     )
-                                                                }
+                                                               */ }
                                                             </div>
                                                         </div>
                                                     </div>

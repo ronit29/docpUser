@@ -568,10 +568,10 @@ class BookingSummaryViewNew extends React.Component {
             }
         }
 
-        if (!this.state.profileDataFilled) {
+        /*if (!this.state.profileDataFilled) {
             SnackBar.show({ pos: 'bottom-center', text: "Please fill the info" });
             return
-        }
+        }*/
         if (e.target.dataset.disabled == true) {
             return
         }
