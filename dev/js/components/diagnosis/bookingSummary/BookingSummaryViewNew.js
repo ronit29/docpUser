@@ -570,10 +570,10 @@ class BookingSummaryViewNew extends React.Component {
         
         show_lensfit = show_lensfit && this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length
 
-        if(!this.state.show_lensfit_popup && !this.state.lensfit_decline && show_lensfit && !is_plan_applicable && !is_insurance_applicable && lensfit_coupons && Object.keys(lensfit_coupons).length > 0 && this.state.couponId !=lensfit_coupons.coupon_id){
+        /*if(!this.state.show_lensfit_popup && !this.state.lensfit_decline && show_lensfit && !is_plan_applicable && !is_insurance_applicable && lensfit_coupons && Object.keys(lensfit_coupons).length > 0 && this.state.couponId !=lensfit_coupons.coupon_id){
             this.setState({show_lensfit_popup:true, lensfit_coupons:lensfit_coupons})
             return
-        }
+        }*/
         let prescriptionIds = []
         if (prescriptionPicked && is_insurance_applicable) {
             if (this.props.user_prescriptions && this.props.user_prescriptions.length == 0) {

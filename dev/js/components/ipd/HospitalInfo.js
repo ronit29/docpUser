@@ -17,6 +17,19 @@ class HospitalInfoView extends React.Component {
   render() {
     let { hospital_data } = this.props
     let { photoIndex, isOpen } = this.state
+
+    let name = ''
+    if(hospital_data) {
+
+      if(hospital_data.seo_title){
+        name = hospital_data.seo_title
+      }else if(hospital_data.seo && hospital_data.seo.h1_title) {
+        name = hospital_data.seo.h1_title
+      }else {
+        name = hospital_data.name_city
+      }
+
+    }
     return (
       <div className="hs-card">
         {
@@ -45,7 +58,7 @@ class HospitalInfoView extends React.Component {
                 <RatingStars average_rating={hospital_data.rating_graph.avg_rating} rating_count={''} width="12px" height="12px" /> : ''
             }
           </div> */}
-          <h1 className="section-heading pb-10" style={{ paddingTop: 0 }} >{hospital_data && hospital_data.seo && hospital_data.seo.h1_title?hospital_data.seo.h1_title:hospital_data.name_city}</h1>
+          <h1 className="section-heading pb-10" style={{ paddingTop: 0 }} >{name}</h1>
           {
             hospital_data.address ?
               <div className="opd-timing opd-mapico">

@@ -2430,9 +2430,17 @@ p.clnc-name{
 }
 .ipd-carousel-slider{
 	overflow: auto;
-    margin: 0 -15px;
+    margin: 0 -5px;
     padding: 0px 15px;
 }
+h3.othr-cntr{
+	display: flex;
+    justify-content: space-between;
+    padding: 0px 5px;
+    }
+  h3.othr-cntr span{
+    color: #f78631;
+    }
 /* ============ ipd slider card ============ */
 /* ============ new pkg card ============ */
 .nw-pkg-crd-img{
