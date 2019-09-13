@@ -753,9 +753,18 @@ class PatientDetailsNew extends React.Component {
     }
 
     getBookingButtonText(total_wallet_balance, price_to_pay, mrp, enabled_for_cod_payment, is_cod_deal_price,is_vip_applicable,vip_amount) {
+
+        let price_from_wallet = 0
         if(is_vip_applicable){
             if(vip_amount){
-                return `Confirm Booking (₹ ${vip_amount})`
+                let vip_price_pay = 0
+                if (this.state.use_wallet && total_wallet_balance) {
+                    price_from_wallet = Math.min(total_wallet_balance, vip_amount)
+                }
+
+                vip_price_pay = vip_amount - price_from_wallet
+
+                return `Confirm Booking ${vip_price_pay?`(₹ ${vip_price_pay})`:''}`
             }else{
                 return `Confirm Booking`
             }
@@ -772,7 +781,7 @@ class PatientDetailsNew extends React.Component {
             }
 
         }
-        let price_from_wallet = 0
+        
         let price_from_pg = 0
 
         if (this.state.use_wallet && total_wallet_balance) {
