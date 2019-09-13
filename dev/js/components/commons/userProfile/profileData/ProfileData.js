@@ -98,7 +98,7 @@ class ProfileData extends React.Component {
                             <p className="usr-dtls-name pdng-usr-dtls-slots">{`Welcome to Docprime${this.props.USER.userName ? `, ${this.props.USER.userName}! ` : ''} `}</p>
                             {/* <p className="usr-dtls-benf pdng-usr-dtls-slots">docprime benefits</p> */}
                             <div className="usr-dtls-startup">
-                                <p className="usr-dtls-strt-txt pdng-usr-dtls-slots fw-500"><img src={ASSETS_BASE_URL + "/img/viplog.png"} className="img-fluid" /> Docprime VIP</p>
+                                <p className="usr-dtls-strt-txt pdng-usr-dtls-slots fw-500"><img src={ASSETS_BASE_URL + "/img/viplog.png"} className="img-fluid" />Become a Docprime VIP member and get below benefits</p>
                                 <div className="row no-gutters pdng-bttm">
                                     <div className="col-4 mbl-usr-grd">
                                         <span className="usr-dtls-free">FREE</span>
@@ -111,7 +111,7 @@ class ProfileData extends React.Component {
                                         }}>
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/su-chat.svg"} className="img-fluid usr-frst-ico" />
                                             <p>
-                                                <span>Chat Now </span>
+                                                <span>Unlimited chats</span>
                                                 with qualified doctors
                                             </p>
                                         </a>
