@@ -263,7 +263,9 @@ class LabProfileCard extends React.Component {
                             }
                             {
                                 !is_insurance_applicable && (discounted_price || discounted_price == 0) && !hide_price ?
-                                    <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p> : ''
+                                    discounted_price != mrp?
+                                    <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+                                    :<p className="cst-doc-price">₹ {discounted_price} </p> : ''
                             }
                             {
                                 !is_insurance_applicable && discounted_price != price && !hide_price && offPercent && offPercent > 0 ?
