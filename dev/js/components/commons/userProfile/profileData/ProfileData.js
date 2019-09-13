@@ -95,10 +95,10 @@ class ProfileData extends React.Component {
                 <div className="widget-content padding-remove">
                     <ul className="list nav-items dp-user-list bg-lst">
                         <li className="my-profile-item padding-remove">
-                            <p className="usr-dtls-name pdng-usr-dtls-slots">{`Welcome to docprime${this.props.USER.userName ? `, ${this.props.USER.userName}! ` : ''} `}</p>
+                            <p className="usr-dtls-name pdng-usr-dtls-slots">{`Welcome to Docprime${this.props.USER.userName ? `, ${this.props.USER.userName}! ` : ''} `}</p>
                             {/* <p className="usr-dtls-benf pdng-usr-dtls-slots">docprime benefits</p> */}
                             <div className="usr-dtls-startup">
-                                <p className="usr-dtls-strt-txt pdng-usr-dtls-slots"><img src={ASSETS_BASE_URL + "/img/customer-icons/pinkarw.svg"} className="img-fluid" /> GETTING STARTED</p>
+                                <p className="usr-dtls-strt-txt pdng-usr-dtls-slots fw-500"><img src={ASSETS_BASE_URL + "/img/viplog.png"} className="img-fluid" /> Docprime VIP</p>
                                 <div className="row no-gutters pdng-bttm">
                                     <div className="col-4 mbl-usr-grd">
                                         <span className="usr-dtls-free">FREE</span>
@@ -107,7 +107,7 @@ class ProfileData extends React.Component {
                                                 'Category': 'ConsumerApp', 'Action': 'ChatNowProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'chat-now-profile-clicked'
                                             }
                                             GTM.sendEvent({ data: data })
-                                            this.props.history.push(`/`)
+                                            this.props.history.push(`/vip-club-details`)
                                         }}>
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/su-chat.svg"} className="img-fluid usr-frst-ico" />
                                             <p>
@@ -122,13 +122,13 @@ class ProfileData extends React.Component {
                                             'Category': 'ConsumerApp', 'Action': 'FindDoctorsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'find-doctors-profile-clicked'
                                         }
                                         GTM.sendEvent({ data: data })
-                                        this.props.history.push(`/search?from=profile_banner_click`)
+                                        this.props.history.push(`/vip-club-details`)
                                     }}>
                                         <a className="usr-dtls-anchor lft-rgt-brdr" href="javascript:void(0);">
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/book-doctor.svg"} className="img-fluid" />
                                             <p>
-                                                <span>Find Doctors </span>
-                                                Upto 50% OFF
+                                                <span>Book Doctors </span>
+                                                Save 70%
                                             </p>
                                         </a>
                                     </div>
@@ -137,13 +137,13 @@ class ProfileData extends React.Component {
                                             'Category': 'ConsumerApp', 'Action': 'BookTestsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'book-tests-profile-clicked'
                                         }
                                         GTM.sendEvent({ data: data })
-                                        this.props.history.push(`/search?from=profile_banner_click`)
+                                        this.props.history.push(`/vip-club-details`)
                                     }}>
                                         <a className="usr-dtls-anchor" href="javascript:void(0);">
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/bk-tst.svg"} className="img-fluid" />
                                             <p>
                                                 <span>Book Tests </span>
-                                                Upto 50% OFF
+                                                25% OFF
                                             </p>
                                         </a>
                                     </div>
