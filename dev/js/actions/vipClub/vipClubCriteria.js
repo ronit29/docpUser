@@ -86,7 +86,6 @@ export const vipClubPay = (criteria,callback) => (dispatch) => {
 }
 
 export const addVipMembersData = (criteria,callback) => (dispatch) => {
-    console.log(criteria)
     return API_POST('/api/v1/plus/add/members',criteria).then(function (response) {
         if(callback) callback(response);
     }).catch(function (error) {
@@ -170,8 +169,6 @@ export const resetVipData = () =>(dispatch) =>{
 
 
 export const uploadVipProof = (profileData, memberId,imgType,cb) => (dispatch) => {
-    console.log(imgType)
-    console.log(profileData)
     API_POST(`/api/v1/common/upload/document-proof?type=${imgType}`,profileData).then(function (response) {
         if (cb) cb(response,null);
     }).catch(function (error) {

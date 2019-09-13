@@ -462,6 +462,7 @@ class PatientDetailsNew extends React.Component {
 
         let is_insurance_applicable = false
         let is_selected_user_insured = false
+        let is_vip_applicable = false
         if (this.props.selectedSlot && this.props.selectedSlot.date && this.props.DOCTORS[this.props.selectedDoctor]) {
             let priceData = { ...this.props.selectedSlot.time }
             let hospitals = this.props.DOCTORS[this.props.selectedDoctor].hospitals
@@ -477,6 +478,10 @@ class PatientDetailsNew extends React.Component {
 
             if (hospital && hospital.insurance) {
                 is_insurance_applicable = (parseInt(priceData.deal_price) <= hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered
+            }
+
+            if(hospital && hospital.vip){
+                is_vip_applicable = hospital.vip.is_vip_member && hospital.vip.cover_under_vip
             }
         }
 
@@ -526,7 +531,7 @@ class PatientDetailsNew extends React.Component {
             profileData['whatsapp_optin'] = this.state.whatsapp_optin
             this.props.editUserProfile(profileData, profileData.id)
         }
-        if (this.props.disCountedOpdPrice >= 0 && this.props.payment_type == 1 && !is_insurance_applicable) {
+        if (this.props.disCountedOpdPrice >= 0 && this.props.payment_type == 1 && !is_insurance_applicable && !is_vip_applicable) {
             postData['coupon_code'] = this.state.couponCode ? [this.state.couponCode] : []
         }
 
@@ -747,7 +752,23 @@ class PatientDetailsNew extends React.Component {
         this.setState({ error: '' })
     }
 
-    getBookingButtonText(total_wallet_balance, price_to_pay, mrp, enabled_for_cod_payment, is_cod_deal_price) {
+    getBookingButtonText(total_wallet_balance, price_to_pay, mrp, enabled_for_cod_payment, is_cod_deal_price,is_vip_applicable,vip_amount) {
+
+        let price_from_wallet = 0
+        if(is_vip_applicable){
+            if(vip_amount){
+                let vip_price_pay = 0
+                if (this.state.use_wallet && total_wallet_balance) {
+                    price_from_wallet = Math.min(total_wallet_balance, vip_amount)
+                }
+
+                vip_price_pay = vip_amount - price_from_wallet
+
+                return `Confirm Booking ${vip_price_pay?`(₹ ${vip_price_pay})`:''}`
+            }else{
+                return `Confirm Booking`
+            }
+        }
         if (this.props.payment_type != 1) {
             if (enabled_for_cod_payment) {
                 if (is_cod_deal_price) {
@@ -760,7 +781,7 @@ class PatientDetailsNew extends React.Component {
             }
 
         }
-        let price_from_wallet = 0
+        
         let price_from_pg = 0
 
         if (this.state.use_wallet && total_wallet_balance) {
@@ -1025,7 +1046,11 @@ class PatientDetailsNew extends React.Component {
         let insurance_error_msg = ''
         let show_insurance_error = false
         let payment_mode_count = 0
+        let is_vip_applicable = false
         let is_selected_user_insurance_status 
+        let vip_amount
+        let is_selected_user_under_vip = false
+        let is_default_user_under_vip = false
         let all_cities = this.props.DOCTORS[this.props.selectedDoctor] && this.props.DOCTORS[this.props.selectedDoctor].all_cities?this.props.DOCTORS[this.props.selectedDoctor].all_cities:[]
         if (doctorDetails) {
             let { name, qualifications, hospitals, enabled_for_cod } = doctorDetails
@@ -1042,25 +1067,29 @@ class PatientDetailsNew extends React.Component {
         }
         if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]) {
             is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
+            is_default_user_under_vip = this.props.profiles[this.props.defaultProfile].is_vip_member
         }
 
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
             is_selected_user_insurance_status = this.props.profiles[this.props.selectedProfile].insurance_status
+            is_selected_user_under_vip = this.props.profiles[this.props.selectedProfile].is_vip_member
         }
-
         if (this.props.selectedSlot && this.props.selectedSlot.date) {
             priceData = { ...this.props.selectedSlot.time }
             priceData.payable_amount = priceData.deal_price
             priceData.is_cod_deal_price = priceData.cod_deal_price
             if (hospital && hospital.insurance) {
                 is_insurance_applicable = (parseInt(priceData.deal_price) <= hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered
-                
                 if(hospital.insurance.error_message != ''){
                     insurance_error_msg = hospital.insurance.error_message
                     show_insurance_error = true
                 }
+            }
+            if(hospital && hospital.vip){
+                is_vip_applicable = hospital.vip.cover_under_vip && is_selected_user_under_vip
+                vip_amount = hospital.vip.vip_amount
             }
 
 
@@ -1074,9 +1103,13 @@ class PatientDetailsNew extends React.Component {
             priceData.deal_price = hospital.deal_price
             priceData.payable_amount = hospital.deal_price
             priceData.is_cod_deal_price = hospital.cod_deal_price
+
+            if(hospital.vip){
+                is_vip_applicable = hospital.vip.cover_under_vip && is_selected_user_under_vip
+                vip_amount = hospital.vip.vip_amount
+            }
             if (hospital.insurance) {
                 is_insurance_applicable = (parseInt(hospital.deal_price) <= hospital.insurance.insurance_threshold_amount) && hospital.insurance.is_insurance_covered
-            
                 if(hospital.insurance.error_message != ''){
                     insurance_error_msg = hospital.insurance.error_message
                     show_insurance_error = true
@@ -1288,7 +1321,7 @@ class PatientDetailsNew extends React.Component {
                                                             }
 
                                                             {
-                                                                ((parseInt(priceData.deal_price) + treatment_Price) != 0) ?
+                                                                ((parseInt(priceData.deal_price) + treatment_Price) != 0) && !is_vip_applicable?
                                                                     <div className={`widget cpn-blur mrb-15 cursor-pointer ${this.props.payment_type != 1 ? 'disable_coupon' : ''}`} onClick={this.applyCoupons.bind(this)}>
                                                                         {
                                                                             doctorCoupons.length ?
@@ -1378,7 +1411,7 @@ class PatientDetailsNew extends React.Component {
                                                                                     <div className="payment-detail d-flex">
                                                                                         <label className="container-radio payment-type-radio">
                                                                                             <h4 className="title payment-amt-label">Online Payment</h4>
-                                                                                            <span className="payment-mode-amt">{is_insurance_applicable ? '₹0' : this.getBookingAmount(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp))}</span>
+                                                                                            <span className="payment-mode-amt">{is_insurance_applicable ? '₹0' :is_vip_applicable? `₹ ${vip_amount}`: this.getBookingAmount(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp))}</span>
                                                                                             {/* {
                                                                                                 is_insurance_applicable ? ""
                                                                                                     : <span className="save-upto">Save {percent_discount}%</span>
@@ -1460,13 +1493,18 @@ class PatientDetailsNew extends React.Component {
                                                                                 <p>MRP</p>
                                                                                 <p>&#8377; {parseInt(priceData.mrp) + treatment_mrp}</p>
                                                                             </div>
-                                                                            {priceData.fees != 0 && (parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)?<div className="payment-detail d-flex">
+                                                                            {is_vip_applicable?
+                                                                                <div className="payment-detail d-flex">
+                                                                                    <p style={{color:'green'}}>Docprime VIP Member <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} /></p>
+                                                                                    <p style={{color:'green'}}>- &#8377; {parseInt(priceData.mrp) - parseInt(vip_amount)}</p>
+                                                                                 </div>
+                                                                            :''}
+                                                                            {!is_vip_applicable && priceData.fees != 0 && (parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)?<div className="payment-detail d-flex">
                                                                                 <p style={{color:'green'}}>Docprime Discount</p>
                                                                                 <p style={{color:'green'}}>- &#8377; {(parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.deal_price) + treatment_Price)}</p>
                                                                             </div>
                                                                             :''}
-                                                                            {
-                                                                            this.props.payment_type == 1 && priceData.fees == 0?
+                                                                            {!is_vip_applicable && this.props.payment_type == 1 && priceData.fees == 0?
                                                                                 <React.Fragment>
                                                                                 <div className="payment-detail d-flex">
                                                                                     <p>Docprime price</p>
@@ -1477,10 +1515,8 @@ class PatientDetailsNew extends React.Component {
                                                                                     <p>&#8377; {parseInt(priceData.deal_price)}</p>
                                                                                 </div>
                                                                                 </React.Fragment>
-                                                                            :''
-                                                                            }
-                                                                            {
-                                                                                this.props.disCountedOpdPrice && !this.state.is_cashback
+                                                                            :''}
+                                                                            {!is_vip_applicable && this.props.disCountedOpdPrice && !this.state.is_cashback
                                                                                     ? <div className="payment-detail d-flex">
                                                                                         <p style={{ color: 'green' }}>Coupon Discount</p>
                                                                                         <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedOpdPrice}</p>
@@ -1493,7 +1529,7 @@ class PatientDetailsNew extends React.Component {
                                                                         {
                                                                             priceData ? <div className="test-report payment-detail mt-20">
                                                                                 <h4 className="title payment-amt-label">Amount Payable</h4>
-                                                                                <h5 className="payment-amt-value">&#8377; {finalPrice || 0}</h5>
+                                                                                <h5 className="payment-amt-value">&#8377; {is_vip_applicable?vip_amount :finalPrice || 0}</h5>
                                                                             </div> : ""
                                                                         }
                                                                         {
@@ -1640,7 +1676,7 @@ class PatientDetailsNew extends React.Component {
                                     {
                                         ((STORAGE.isAgent() || this.state.isMatrix) && !(enabled_for_cod_payment && this.props.payment_type == 2)) || this.state.cart_item ? "" : <button disabled={this.state.pay_btn_loading} className={`v-btn-primary book-btn-mrgn-adjust ${this.state.pay_btn_loading ? " disable-all" : ""}`} id="confirm_booking" data-disabled={
                                             !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                        } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance,is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp), enabled_for_cod_payment, priceData.is_cod_deal_price)}</button>
+                                        } onClick={this.proceed.bind(this, (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance,is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, finalPrice, (parseInt(priceData.mrp) + treatment_mrp), enabled_for_cod_payment, priceData.is_cod_deal_price,is_vip_applicable,vip_amount)}</button>
                                     }
                                 </div>
                             </div>

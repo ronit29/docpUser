@@ -42,10 +42,24 @@ class BookingView extends React.Component {
 
         let appointmentId = this.props.match.params.refId
 
-        if (this.props.rescheduleSlot && this.props.rescheduleSlot.date) {
-            let start_date = this.props.rescheduleSlot.date
-            let start_time = this.props.rescheduleSlot.time.value
-            let appointmentData = { id: this.props.match.params.refId, start_date, start_time, status: 4 }
+        if (this.props.rescheduleSlot && this.props.rescheduleSlot.selectedTestsTimeSlot && Object.values(this.props.rescheduleSlot.selectedTestsTimeSlot).length) {
+            /*let tests = []
+            Object.values(this.props.rescheduleSlot.selectedTestsTimeSlot).map((twp)=>{
+
+                    let type = 3
+                    if(twp.type=="radiology"){
+                        type = 1
+                    }else if(twp.type == "pathology"){
+                        type = 2
+                    }
+
+                    tests.push({test: twp.test_id,type:type, start_date: twp.date, start_time: twp.time.value, is_home_pickup: twp.is_home_pickup })
+            })*/
+            let selectedTime = Object.values(this.props.rescheduleSlot.selectedTestsTimeSlot)[0]
+            let start_date = selectedTime.date
+            let start_time = selectedTime.time.value
+            let appointmentData = { id: this.props.match.params.refId, status: 4, start_date, start_time }
+            //multi_timings_enabled: true,
 
             this.props.updateLabAppointment(appointmentData, (err, data) => {
                 if (data) {
@@ -159,10 +173,44 @@ class BookingView extends React.Component {
     goToSlotSelector(e) {
         e.preventDefault()
         e.stopPropagation()
+        let test_ids = []
+        let p_pickup = 'home'
+        let r_pickup = 'lab'
+        //if(this.state.selected_timings_type){}
+        let test_type = 0
+        if(this.state.data.lab_test){
+            this.state.data.lab_test.map((test)=>{
+                test_ids.push(test.test_id)
+                test_type = test.test_type
+            })
+        }
+        this.props.selectLabTimeSLot({ time: {} }, true)
+        let selected_timings_type = this.state.data && this.state.data.selected_timings_type=='separate'?'seperately':'all'
+
+        if(this.state.data){
+            if(this.state.data.is_home_pickup){
+                if(test_type==2){
+                    p_pickup = 'home'
+                    r_pickup='lab'
+                }else if(test_type==1){
+                    r_pickup = 'home'
+                    p_pickup = 'lab'
+                }
+            }else{
+                if(test_type==2){
+                    p_pickup = 'lab'
+                    r_pickup = 'lab'
+                }else if(test_type==1){
+                    r_pickup = 'lab'
+                    p_pickup = 'lab'
+                }
+            }
+        }
+
         if (this.state.data.lab && this.state.data.lab.is_thyrocare) {
-            this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true?type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=true`)
+            this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true&type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=true&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}`)
         } else {
-            this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true?type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=false`)
+            this.props.history.push(`/lab/${this.state.data.lab.id}/timeslots?reschedule=true&type=${this.state.data.is_home_pickup ? 'home' : 'lab'}&is_thyrocare=false&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}`)
         }
 
     }
@@ -212,6 +260,8 @@ class BookingView extends React.Component {
                 summar_utm_tag = <img src={src} width="1" height="1" border="0" />
             }
         }
+
+
 
         return (
             <div className="profile-body-wrap">
@@ -365,12 +415,24 @@ class BookingView extends React.Component {
                                                                 <h4 className="title"><span><img src={ASSETS_BASE_URL + "/img/customer-icons/clock.svg"} className="visit-time-icon" /></span>Visit Time
 
                                                                     {
-                                                                        (!is_thyrocare) && (actions.indexOf(4) > -1) && (new Date(date).getTime() > new Date().getTime()) ?
+                                                                        (!is_thyrocare) && (actions.indexOf(4) > -1)/* && (new Date(date).getTime() > new Date().getTime()) */?
                                                                             <span onClick={this.goToSlotSelector.bind(this)} className="float-right"><a href="#" className="text-primary fw-700 text-sm">Reschedule Time</a></span> : ""
                                                                     }
 
                                                                 </h4>
-                                                                <p className="date-time test-list fw-500">{date.toDateString()} | {date.toLocaleTimeString()}</p>
+                                                                <p className="date-time test-list fw-500">{new Date(date).toDateString()} | {new Date(date).toLocaleTimeString()}</p>
+                                                                
+                                                                {/*
+                                                                    this.state.data.lab_test && this.state.data.lab_test.map((test, key)=>
+                                                                        <div className="vst-content-bl" key={key}>
+                                                                            <p className="vst-tst-name">{test.test.name}</p>
+                                                                            {
+                                                                                date && <p className="rdo-time-vst">{new Date(date).toDateString()} | {new Date(date).toLocaleTimeString()}</p>
+                                                                            }
+                                                                            
+                                                                        </div>
+                                                                    )
+                                                               */ }
                                                             </div>
                                                         </div>
                                                     </div>

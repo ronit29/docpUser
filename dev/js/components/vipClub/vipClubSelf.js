@@ -42,7 +42,8 @@ class VipProposer extends React.Component {
 			mnth: null,
 			day: null,
 			emailVerified:false,
-			profile:''
+			profile:'',
+			relation_key:'SELF'
 
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -1012,11 +1013,11 @@ class VipProposer extends React.Component {
 						<InsuranceProofs {...this.props} />
 						: ''*/
 				}
-				{/*
+				{
 					this.props.is_from_payment?
 						<InsuranceProofs {...this.props} />
 						: ''
-				*/}
+				}
 			</div>
 		)
 	}

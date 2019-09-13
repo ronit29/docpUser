@@ -183,6 +183,18 @@ class BookingView extends React.Component {
     }
 
     navigateToVIP(){
+        let profile = {}
+        let number = ''
+        let name = ''
+        if (this.state.data) {
+            profile = this.state.data.profile
+            number = profile.phone_number
+            name = profile.name
+        }
+        let lead_data ={}
+        lead_data.source = 'AppointmentPaySuccess'
+
+        this.props.generateVipClubLead('', number,lead_data, this.props.selectedLocation, name)
         let analyticData = {
             'Category': 'ConsumerApp', 'Action': 'VipKnowMoreClicked', 'CustomerID': GTM.getUserId(), 'leadid': '', 'event': 'vip-know-more-clicked'
         }
@@ -192,7 +204,7 @@ class BookingView extends React.Component {
     }
 
     render() {
-
+        
         let doctor = {}
         let profile = {}
         let hospital = {}

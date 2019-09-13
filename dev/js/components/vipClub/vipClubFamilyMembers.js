@@ -31,7 +31,8 @@ class VipProposerFamily extends React.Component {
     	    is_change:false,
     	    year:null,
     	    mnth:null,
-    	    day:null
+    	    day:null,
+    	    relation_key:''
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
@@ -144,8 +145,9 @@ class VipProposerFamily extends React.Component {
 			[event.target.getAttribute('data-param')]: event.target.value , id:this.props.member_id
 		});
 	}
-	handleRelation(event) {
-		this.setState({'relation':event.target.value},()=>{
+	handleRelation(id,event) {
+		var relation_id = document.getElementById(id);
+		this.setState({'relation':event.target.value,'relation_key':relation_id.options[relation_id.selectedIndex].getAttribute('data-param')},()=>{
 			this.handleSubmit(true,event)
 		})
 	}
@@ -464,19 +466,19 @@ class VipProposerFamily extends React.Component {
 					{/*<label className="ck-bx" onChange={this.handleLastname.bind(this)} style={{'fontWeight': '400', 'fontSize': '14'}}>I dont have last name<input type="checkbox" checked={this.state.no_lname} value="on"/>
 					<span className="checkmark"></span></label>*/}
 					</div> 
-				</div>
+				</div>{}
 				<div className='widget' style={{padding:'10px'}} >
 					<div className="col-12" style={{padding:0}}>
-						{this.props.vip_club_db_data && Object.keys(this.props.vip_club_db_data.data).length>0 && this.props.vip_club_db_data.data.relation_master && this.props.vip_club_db_data.data.relation_master.length > 0?
+						{this.props.vip_club_db_data && Object.keys(this.props.vip_club_db_data.data).length>0 && this.props.vip_club_db_data.data.relation_master && Object.keys(this.props.vip_club_db_data.data.relation_master).length > 0?
 							<div className="ins-form-group mt-1">
 								<label className="form-control-placeholder datePickerLabel" htmlFor="ins-date">*Relation</label>
 								<img src={ASSETS_BASE_URL + "/img/hands.svg"} />
 								<div className="dob-select-div d-flex align-items-center">
 									<div style={{flex: 1}} className="dob-select d-flex align-items-center">
-										<select style={{width:'100%'}} value={this.state.relation} onChange={this.handleRelation.bind(this)}>
+										<select style={{width:'100%'}} value={this.state.relation} onChange={this.handleRelation.bind(this,'relation_id_'+this.props.member_id )} id={`relation_id_${this.props.member_id}`} >
 											<option hidden>Select Relation</option>
 											{Object.entries(this.props.vip_club_db_data.data.relation_master).map(function([key, value]) {
-												return <option key={key}>{value}</option>
+												return <option data-param={key} key={key}>{value}</option>
 											})}
 										</select>
 										<img className="dob-down-icon" style={{right : '4px'}} src="/assets/img/customer-icons/dropdown-arrow.svg"/>
@@ -684,10 +686,10 @@ class VipProposerFamily extends React.Component {
 							}
 						</div>
 					</div>
-					{/*this.props.is_from_payment?
+					{this.props.is_from_payment?
 						<InsuranceProofs {...this.props}/>
 					:''
-					*/}
+					}
 				</div>
 				
 				{this.state.showPopup ?

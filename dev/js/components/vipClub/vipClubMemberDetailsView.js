@@ -22,7 +22,8 @@ class VipClubMemberDetailsView extends React.Component{
            	endorsementError:[],
            	paymentData: null,
            	show_popup:false,
-           	proceed:false
+           	proceed:false,
+           	popupMemData:{}
         }
     }
     componentDidMount(){
@@ -52,11 +53,8 @@ class VipClubMemberDetailsView extends React.Component{
     		if(this.props.currentSelectedVipMembersId.length == 3){
 				membersId.push({[3]: 3, type:'adult'})
 				member_dummy_data.id=3
-    		}	
-    		// console.log(member_dummy_data)
-    		// this.props.saveCurrentSelectedVipMembers(membersId)
+    		}
     		this.props.saveCurrentSelectedVipMembers(membersId,(resp)=>{
-    			console.log(member_dummy_data)
     			this.props.userDetails('self_data', member_dummy_data)
     		})
     	}
@@ -95,11 +93,9 @@ class VipClubMemberDetailsView extends React.Component{
 			this.setState({ saveMembers: true})
     	}else if(!this.state.saveMembers && Object.keys(props.selected_vip_plan).length >0 && !props.currentSelectedVipMembersId.length && props.is_from_payment && Object.keys(props.vip_club_db_data).length >0){
     			if(props.vip_club_db_data.data.user && Object.keys(props.vip_club_db_data.data.user).length > 0 && props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length > 0){
-    				console.log(props.vip_club_db_data.data.user.plus_members[0].profile)
     				
     				membersId.push({'0':props.vip_club_db_data.data.user.plus_members[0].profile, type: 'self'})
 		    		membersId.push({[1]: 1, type:'adult'})
-		    		console.log(membersId)
 					props.saveCurrentSelectedVipMembers(membersId)
 					this.setState({ saveMembers: true})
     			}
@@ -159,8 +155,8 @@ class VipClubMemberDetailsView extends React.Component{
 	    		if(Object.keys(this.props.vipClubMemberDetails).length > 0){
 	    			fields = []
 	    			param =this.props.vipClubMemberDetails[val[key]]
-						
-						if(param.relation == ""){ //common validation
+
+					if(param.relation == ""){ //common validation
 							is_disable = true
 							fields.push('relation')
 						}
@@ -225,20 +221,15 @@ class VipClubMemberDetailsView extends React.Component{
 	    		let address
 	    		let pincode
 	    		if(this.props.is_from_payment){
-	    			console.log(this.state.proceed)
-	    			console.log(this.props.vipClubMemberDetails)
-	    			if(!this.state.proceed && this.props.vipClubMemberDetails && Object.keys(this.props.vipClubMemberDetails).length <4){
-			    		this.setState({show_popup:true})
-			    		return
-			    	}
+			    	let is_member_updated = []
+    				let image_ids = []
 	    			{Object.entries(this.props.currentSelectedVipMembersId).map(function([key, value]) {
 			    		let param =this.props.vipClubMemberDetails[value[key]]
 				    		if(param.relation == 'SELF'){
 			    				self_profile = this.props.vipClubMemberDetails[value[key]]
 			    			}
 							members={}
-							if(param.relation !== 'SELF'){
-								members.relation=param.relation
+								members.relation=param.relation_key
 								members.title=param.title							
 						    	members.member = param.id
 						    	members.first_name=param.name
@@ -251,20 +242,36 @@ class VipClubMemberDetailsView extends React.Component{
 					    		members.address = self_profile.address
 					    		members.pincode = self_profile.pincode
 					    		members.email = null
+						    	if(this.props.members_proofs && this.props.members_proofs.length>0){
+									is_member_updated = this.props.members_proofs.filter((x=>x.id == param.id))
+									if(is_member_updated && is_member_updated.length > 0){
+										if(is_member_updated[0].img_path_ids.length > 0){
+											image_ids = []
+											is_member_updated[0].img_path_ids.map((imgId,i)=>{
+												image_ids.push({'proof_file':imgId.id})
+											})
+										}
+										members.document_ids = image_ids
+									}
+									members.id=param.id
+								}
 					    		return data.members.push(members)
-					    	}
 					},this)}
-					console.log(data)
+					let popupMemData
+					popupMemData = data.members
+					this.setState({popupMemData:popupMemData})
+					if(!this.state.proceed && this.props.currentSelectedVipMembersId && this.props.currentSelectedVipMembersId.length <4){
+			    		this.setState({show_popup:true})
+			    		return
+				    }
 	    			this.props.addVipMembersData(data,(resp)=>{
 	    				if(resp.success){
 	    					this.props.history.push('vip-club-activated-details')
 	    				}
 	    			})
 	    		}else{
-	    			// console.log(self_profile)
 	    			var members = {}
 		    		members.title = self_profile.title
-		    		// members.relation = "SELF" 
 		    		members.first_name = self_profile.name 
 		    		members.last_name = self_profile.last_name 
 		    		members.email = self_profile.email 
@@ -306,7 +313,7 @@ class VipClubMemberDetailsView extends React.Component{
     	})
     }
     proceedMembersNo(is_wait){
-    	this.setState({show_popup:false,proceed:false})
+    	this.setState({show_popup:false,proceed:false,popupMemData:{} })
     }
 	render(){
 		let child
@@ -356,15 +363,41 @@ class VipClubMemberDetailsView extends React.Component{
 							<div className="search-el-popup-overlay " >
 								<div className="search-el-popup">
 									<div className="widget">
-										<div className="widget-content padiing-srch-el">
-											<p className="srch-el-conent"> 2 Members Added</p>
-											<p className="srch-el-conent">
+										<div className="widget-content padiing-srch-el pb-0">
+											<p style={{fontSize: '14px'}} className="srch-el-conent"> {this.props.currentSelectedVipMembersId.length-1} Members Added</p>
+											<div className="vip-pop-table">
+												{
+												this.state.popupMemData && Object.keys(this.state.popupMemData).length >0?
+												Object.entries(this.state.popupMemData).map(function([key, val]) {
+													return val.relation == 'SELF'?
+													''
+													: 	<div className="vip-sn-tbl m-0" key={key}>
+															<p className="vip-pop-tbl-hd">{val.first_name} {val.last_name}</p>
+					                                            <table className="vip-acrd-content text-left">
+					                                                <tbody>
+					                                                <tr>
+				                                                        <th>Relationship</th>
+				                                                        <th>Gender</th>
+				                                                        <th>DOB</th>
+					                                                </tr>
+					                                                <tr>
+					                                                    <td>{val.relation =="SPOUSE_FATHER"?'Father-in-law':val.relation == 'SPOUSE_MOTHER'?'Mother-in-law':val.relation }</td>
+					                                                    <td style={{ 'textTransform': 'capitalize' }} >{val.title == 'mr.'?'m':'f'}</td>
+					                                                    <td>{val.dob}</td>
+					                                                </tr>
+					                                                </tbody>
+					                                            </table>
+				                                        </div>
+												})
+	                                        :''}
+											</div>
+											<p className="vip-vls-png">
 												Are you sure you want to submit? 
 												Member details once submited cannot be added or edited later.</p>
 											<div className="search-el-btn-container">
-												<button onClick={this.proceedMembersNo.bind(this, 0)}>No Wait</button>
+												<button style={{fontSize: '14px'}} onClick={this.proceedMembersNo.bind(this, 0)}>No Wait</button>
 												{/* <span className="src-el-btn-border"></span> */}
-												<button onClick={this.proceedMembers.bind(this, 1)}>Submit</button>
+												<button style={{fontSize: '14px'}} onClick={this.proceedMembers.bind(this, 1)}>Submit</button>
 											</div>
 										</div>
 									</div>
