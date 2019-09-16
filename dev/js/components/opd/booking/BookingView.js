@@ -186,17 +186,22 @@ class BookingView extends React.Component {
         let profile = {}
         let number = ''
         let name = ''
+        let city_id = ''
         if (this.state.data) {
             profile = this.state.data.profile
             number = profile.phone_number
             name = profile.name
         }
+        if(this.state.data.hospital){
+            city_id  = this.state.data.hospital.matrix_city
+        }
         let lead_data ={}
         lead_data.source = 'AppointmentPaySuccess'
+        lead_data.city_id = city_id
 
         this.props.generateVipClubLead('', number,lead_data, this.props.selectedLocation, name)
         let analyticData = {
-            'Category': 'ConsumerApp', 'Action': 'VipKnowMoreClicked', 'CustomerID': GTM.getUserId(), 'leadid': '', 'event': 'vip-know-more-clicked'
+            'Category': 'ConsumerApp', 'Action': 'VipKnowMoreClicked', 'CustomerID': GTM.getUserId(), 'leadid': '', 'event': 'vip-know-more-clicked',city_id: city_id
         }
         GTM.sendEvent({ data: analyticData })
 
