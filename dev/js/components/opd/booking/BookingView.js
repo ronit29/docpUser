@@ -456,13 +456,13 @@ class BookingView extends React.Component {
                                                                     }} /></span>Payment Detail</h4>
                                                                     <div className="d-flex justify-content-between align-items-center mrb-10">
                                                                         <p className="fw-500" style={{ color: '#757575', paddingTop: 4 }}>MRP</p>
-                                                                        <p className="fw-500">&#8377; {mrp}</p>
+                                                                        <p className="fw-500">&#8377; {parseInt(mrp)}</p>
                                                                     </div>
                                                                     {
                                                                         discount ?
                                                                             <div className="d-flex justify-content-between align-items-center mrb-10">
-                                                                                <p className="fw-500" style={{ color: 'green' }}>Docprime discount</p>
-                                                                                <p className="fw-500" style={{ color: 'green' }}>- &#8377; {discount}</p>
+                                                                                <p className="fw-500" style={{ color: 'green' }}>Docprime Discount</p>
+                                                                                <p className="fw-500" style={{ color: 'green' }}>- &#8377; {parseInt(discount)}</p>
                                                                             </div> : ''
                                                                     }
                                                                     <hr style={{ boxSizing: 'border-box', margin: '0 -12px 10px -12px', backgroundColor: '#eeeeee' }} />
@@ -470,9 +470,9 @@ class BookingView extends React.Component {
                                                                         <p className="fw-500">Amount Payable</p>
                                                                         {
                                                                             payment_type == 2 ?
-                                                                                <p className="fw-500">&#8377; {deal_price}</p>
+                                                                                <p className="fw-500">&#8377; {parseInt(deal_price)}</p>
                                                                                 :
-                                                                                <p className="fw-500">&#8377; {effective_price}</p>
+                                                                                <p className="fw-500">&#8377; {parseInt(effective_price)}</p>
                                                                         }
                                                                     </div>
                                                                     {

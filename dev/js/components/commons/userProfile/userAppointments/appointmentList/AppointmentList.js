@@ -152,7 +152,7 @@ class AppointmentList extends React.Component {
                         <span className="fw-500" style={{ position: 'absolute', top: 4, left: 8, fontSize: 12 }}>{`Booking id : ${id}`}</span> : ''
                 }
                 {
-                    deal_price ?
+                    deal_price && !is_vip_applicable?
                         <span className="fw-500" style={{ position: 'absolute', top: 20, right: 8, fontSize: 12, color: '#f78631' }}>&#8377; {parseInt(deal_price)}</span> : ''
                 }
                 {
