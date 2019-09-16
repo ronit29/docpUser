@@ -574,12 +574,12 @@ class PatientDetailsNew extends React.Component {
             postData['cod_to_prepaid'] = true
             this.props.codToPrepaid(postData, (err, data)=>{
                 if (!err) {
-                    if (data.is_agent) {
+                    /*if (data.is_agent) {
                         this.props.removeCoupons(this.props.selectedDoctor, this.state.couponId)
-                        // this.props.history.replace(this.props.location.pathname + `?order_id=${data.data.orderId}`)
-                        this.setState({ order_id: data.data.orderId })
+                         this.props.history.replace(this.props.location.pathname + `?order_id=${data.data.orderId}`)
+                       // this.setState({ order_id: data.data.orderId })
                         return
-                    }
+                    }*/
                     if (data.payment_required) {
                         // send to payment selection page
                         let analyticData = {
