@@ -197,6 +197,7 @@ class BookingView extends React.Component {
         }
         let lead_data ={}
         lead_data.source = 'AppointmentPaySuccess'
+        lead_data.city_id = city_id
 
         this.props.generateVipClubLead('', number,lead_data, this.props.selectedLocation, name)
         let analyticData = {
