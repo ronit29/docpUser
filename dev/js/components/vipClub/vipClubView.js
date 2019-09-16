@@ -143,7 +143,9 @@ class VipClubView extends React.Component {
                                                     Object.entries(this.props.vipClubList.plans).map(function ([key, value]) {
                                                         return <p onClick={self.selectPlan.bind(self, value)} key={key} className={`vp-sb-txt ${value.id == self.state.selected_plan_id ? 'vp-act' : ''}`}>{value.plan_name} <span>
                                                             {`(₹ ${value.deal_price})`}
-                                                        </span>{value.is_selected ? <b className="vip-popluer">POPULAR</b> : ''}</p>
+                                                        </span>
+                                                        {/*value.is_selected ? <b className="vip-popluer">POPULAR</b> : ''*/}
+                                                        </p>
                                                     })
                                                     : ''
                                             }
