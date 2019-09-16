@@ -621,12 +621,12 @@ class PatientDetailsNew extends React.Component {
 
         this.props.createOPDAppointment(postData, (err, data) => {
             if (!err) {
-                if (data.is_agent) {
+                /*if (data.is_agent) {
                     this.props.removeCoupons(this.props.selectedDoctor, this.state.couponId)
                     // this.props.history.replace(this.props.location.pathname + `?order_id=${data.data.orderId}`)
                     this.setState({ order_id: data.data.orderId })
                     return
-                }
+                }*/
                 if (data.payment_required) {
                     // send to payment selection page
                     let analyticData = {
