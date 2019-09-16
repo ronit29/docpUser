@@ -18,6 +18,9 @@ import LocationElements from '../../../containers/commons/locationElements'
 import CommonSearch from '../../../containers/commons/CommonSearch.js'
 import FixedMobileFooter from '../Home/FixedMobileFooter'
 import FooterTestSpecializationWidgets from './FooterTestSpecializationWidgets.js'
+import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup';
+import Loader from '../Loader';
+
 // import RelatedArticles from './RelatedArticles'
 
 class Article extends React.Component {
@@ -48,7 +51,9 @@ class Article extends React.Component {
             searchCities: [],
             searchWidget: '',
             specialization_id: '',
-            hideFooterWidget: true
+            hideFooterWidget: true,
+            showPopup: false,
+            medBtnTop: ''
         }
     }
 
@@ -73,8 +78,37 @@ class Article extends React.Component {
 
             this.props.getOfferList(lat, long);
         }
-        this.setState({hideFooterWidget: false})
+        this.setState({ hideFooterWidget: false })
 
+        if (window && this.props.match.path.split('-')[1] === 'mddp') {
+            window.addEventListener('scroll', this.scrollHandler)
+        }
+
+        let sessionId = sessionStorage.getItem('iFrameId')
+        if (!sessionId) {
+            this.props.iFrameState('', true)
+        }
+    }
+
+    scrollHandler() {
+        if (document) {
+            let elem = document.getElementById('medicine-btn')
+            let elemContainer = document.getElementById('medicine-btn-div')
+            if (window && elemContainer && (elemContainer.offsetTop == window.scrollY)) {
+                elem.style.background = '#3b827d'
+                elem.style.borderRadius = '0px'
+                elemContainer.style.padding = '0px'
+            }
+            else if (elem) {
+                elem.style.background = '#f78631'
+                elem.style.borderRadius = '5px'
+                elemContainer.style.padding = '0px 15px'
+            }
+        }
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.scrollHandler);
     }
 
     getArticleData() {
@@ -207,7 +241,6 @@ class Article extends React.Component {
             GTM.sendEvent({ data: gtmData })
 
             if (this.state.specialization_id) {
-
                 let criteria = {}
                 criteria.id = this.state.specialization_id
                 criteria.name = ''
@@ -219,8 +252,48 @@ class Article extends React.Component {
         })
     }
 
-    handleClose(){
-        this.setState({hideFooterWidget: true})
+    handleClose() {
+        this.setState({ hideFooterWidget: true })
+    }
+
+    buyMedicineClick() {
+        this.setState({ showPopup: true }, () => {
+            setTimeout(() => this.continueClick(), 1000);
+        })
+        let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'BuyMedicineBtnClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'buy-medicine-btn-click'
+        }
+        GTM.sendEvent({ data: gtmData })
+    }
+
+    continueClick() {
+        // let gtmData = {
+        //     'Category': 'ConsumerApp', 'Action': 'MedicinePageContinueClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'medicine-page-continue-click'
+        // }
+        // GTM.sendEvent({ data: gtmData })
+        if (typeof navigator === 'object') {
+            if (/mobile/i.test(navigator.userAgent)) {
+                this.props.iFrameState(this.props.location.pathname, false)
+                sessionStorage.setItem('iFrameId', 1);
+            }
+            else {
+                if (this.state.articleData && this.state.articleData.pharmeasy_url) {
+                    window.open(this.state.articleData.pharmeasy_url, '_blank')
+                }
+                else {
+                    window.open(CONFIG.PHARMEASY_IFRAME_URL, '_blank')
+                }
+            }
+        }
+        setTimeout(() => {
+            this.setState({
+                showPopup: false
+            })
+        }, 1000)
+    }
+
+    hidePopup() {
+        this.setState({ showPopup: false })
     }
 
     render() {
@@ -233,238 +306,290 @@ class Article extends React.Component {
             locationName = this.props.selectedLocation.formatted_address
         }
 
+        let showIframe = false
+        if (this.props.iFrameUrls.includes(this.props.location.pathname)) {
+            showIframe = true
+        }
+
+        let sessionId = sessionStorage.getItem('iFrameId')
+
         return (
-            <div className="profile-body-wrap" style={{ paddingBottom: 54 }}>
+            <div className="profile-body-wrap" style={showIframe && sessionId ? {} : { paddingBottom: 54 }}>
                 <ProfileHeader />
-                <section className="container article-container">
-                    <div className="row main-row parent-section-row">
-                        <LeftBar />
-                        <div className="col-12 col-md-7 col-lg-8 center-column">
-                            {
-                                this.state.articleData ? <div className="container-fluid article-column">
-
-                                    <HelmetTags tagsData={{
-                                        title: (this.state.articleData.seo ? this.state.articleData.seo.title : ""),
-                                        description: (this.state.articleData.seo ? this.state.articleData.seo.description : ""),
-                                        keywords: (this.state.articleData.seo ? this.state.articleData.seo.keywords : ""),
-                                        canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
-                                        schema: this.state.articleData.title === 'Blood Pressure | Causes, Treatment, Tests & Vaccines' ?
-                                            {
-                                                "@context": "http://schema.org",
-                                                "@type": "MedicalCondition",
-                                                "alternateName": "Blood Pressure",
-                                                "associatedAnatomy": {
-                                                    "@type": "AnatomicalStructure",
-                                                    "name": "heart"
-                                                },
-                                                "cause": [
-                                                    {
-                                                        "@type": "MedicalCause",
-                                                        "name": "Smoking, Stress,Genetics,Heart arrhythmias,Blood vessel dilation,Heat stroke, Pregnancy,Liver Disease"
-                                                    }
-                                                ],
-                                                "code": {
-                                                    "@type": "MedicalCode",
-                                                    "code": "401",
-                                                    "codingSystem": "ICD-9-CM"
-                                                },
-                                                "differentialDiagnosis": {
-                                                    "@type": "DDxElement",
-                                                    "diagnosis": {
-                                                        "@type": "MedicalCondition",
-                                                        "name": "Low Blood Pressure & High Blood Presure"
-                                                    },
-                                                    "distinguishingSign": [
-                                                        {
-                                                            "@type": "MedicalSymptom",
-                                                            "name": "Severe headache,Fatigue,Mental Confusion,Pain in chest, Mental Confusion,Pale, damp, cold skin,Breathing difficulties, Weak Pulses"
-                                                        }
-                                                    ]
-                                                },
-                                                "name": "High & Low Blood Pressure",
-                                                "possibleTreatment": [
-                                                    {
-                                                        "@type": "drug",
-                                                        "name": "Consult Doctor"
-                                                    }
-                                                ],
-                                                "riskFactor": [
-                                                    {
-                                                        "@type": "MedicalRiskFactor",
-                                                        "name": "Age,Gender, Smoking, Total cholesterol"
-                                                    }
-                                                ],
-                                                "secondaryPrevention": [
-                                                    {
-                                                        "@type": "LifestyleModification",
-                                                        "name": "stopping smoking,weight management,increased physical activity"
-                                                    }
-                                                ],
-                                                "signOrSymptom": [
-                                                    {
-                                                        "@type": "MedicalSymptom",
-                                                        "name": "Light-headedness or wooziness, Fainting, Nausea, Exhaustion"
-                                                    }
-                                                ]
-                                            } : ''
-                                    }} />
-
-                                    {
-                                        this.props.match.path.split('-')[1] === 'mddp' && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'medicine_detail_page').length ?
-                                            <BannerCarousel {...this.props} sliderLocation="medicine_detail_page" /> : ''
-                                    }
-
-                                    <ul className="mrb-10 breadcrumb-list" style={{ wordBreak: 'break-word' }}>
-                                        <li className="breadcrumb-list-item">
-                                            <a href="/" onClick={(e) => this.onHomeClick(e, "/")}>
-                                                <span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span>
-                                            </a>
-                                            <span className="breadcrumb-arrow">&gt;</span>
-                                        </li>
-                                        <li className="breadcrumb-list-item">
-                                            <a href={`/${this.state.articleData.category.url}`} onClick={(e) => this.onHomeClick(e, `/${this.state.articleData.category.url}`)}>
-                                                <span className="fw-500 breadcrumb-title breadcrumb-colored-title">{this.state.articleData.category.name}</span>
-                                            </a>
-                                            <span className="breadcrumb-arrow">&gt;</span>
-                                        </li>
-                                        <li className="breadcrumb-list-item">
-                                            {
-                                                this.props.match.path.split('-')[1] === 'nmdp' ?
-                                                    <h2 className="fw-500 breadcrumb-title">{this.state.articleData.heading_title}</h2>
-                                                    : <h2 className="fw-500 breadcrumb-title">{this.state.articleData.title.split('|')[0]}</h2>
-                                            }
-                                        </li>
-                                    </ul>
-
-                                    <div className="art-sharing-div mrt-20 mrb-20">
-                                        <div className="art-sharing-btn mr-3" onClick={() => this.facebookClick()} >
-                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/facebook.svg"} />
-                                        </div>
-                                        <div className="art-sharing-btn ml-3 mr-3" onClick={() => this.twitterClick()}>
-                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/twitter.svg"} />
-                                        </div>
-                                        <div className="art-sharing-btn ml-3 mr-3" onClick={() => this.linkedinClick()}>
-                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/linkedin.svg"} />
-                                        </div>
-                                        <div className="art-sharing-btn ml-3" onClick={() => this.whatsappClick()}>
-                                            <img src={ASSETS_BASE_URL + "/img/customer-icons/whatsapp.svg"} />
-                                        </div>
-                                    </div>
-
-                                    {
-                                        this.state.articleData.header_image ?
-                                            <div>
-                                                <img style={{ width: '100%', paddingBottom: '4px' }} src={this.state.articleData.header_image} alt={this.state.articleData.header_image_alt} />
-                                            </div> : ""
-                                    }
-
-                                    {
-                                        this.state.articleData && this.state.articleData.heading_title ? <div className="dp-article-heading mrb-20">
-                                            <h1 className="fw-500">{this.state.articleData.heading_title}</h1>
-                                        </div> : ""
-                                    }
-
-                                    {
-                                        this.state.articleData && this.state.articleData.author ?
-                                            <ArticleAuthor
-                                                name={this.state.articleData.author.name}
-                                                profileImage={this.state.articleData.author.profile_img}
-                                                url={this.state.articleData.author.url}
-                                                id={this.state.articleData.author.id}
-                                                speciality={this.state.articleData.author.speciality[0].name}
-                                                experience={this.state.articleData.author.experience}
-                                                publishedDate={this.state.articleData.published_date}
-                                                history={this.props.history}
-                                            /> : ''
-                                    }
-
-                                    {
-                                        this.state.articleData && this.state.articleData.body_doms && this.state.articleData.body_doms.map((val, key) => {
-
-                                            if (val.type.includes('html')) {
-                                                return <div key={key} className="docprime-article" dangerouslySetInnerHTML={{ __html: val.content }}>
-                                                </div>
-                                            } else if (val.type.includes('search_widget')) {
-                                                return <div key={key} className="sticky-article-div">
-                                                    {
-                                                        val.content.lat && val.content.lng && val.content.location_name ?
-                                                            <CommonSearch {...this.props} location={val.content.location_name} latitude={val.content.lat} longitude={val.content.lng} />
-                                                            : val.content.specialization_id ?
-                                                                <div>
-                                                                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName={locationName} articleSearchPage={true} specialityName={val.content.specialization_name} specialityId={val.content.specialization_id} widgetId={key} />
-                                                                    {this.getCityList(key)}
-                                                                </div>
-                                                                : <div>
-                                                                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName='' widgetId={key} commonSearch={true} articleSearchPage={true} />
-                                                                    {this.getCityList(key)}
-                                                                    <CommonSearch {...this.props} commonSearch={true} />
-                                                                </div>
-                                                    }
-                                                </div>
-
-                                            }
-
-                                        })
-                                    }
-
-                                    { /*<div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
-                                    </div>*/}
-                                    {
-                                        this.state.articleData && this.state.articleData.last_updated_at ?
-                                            <div className="last-updated text-right">
-                                                <span>Last updated on : {this.state.articleData.last_updated_at}</span>
-                                            </div> : ''
-                                    }
-                                    {
-                                        this.props.match.path.split('-')[1] === 'mddp' ?
-                                            <div className="mrt-20">
-                                                <p className="article-disclaimer"><span className="fw-700">Disclaimer : </span>Docprime doesn’t endorse or take any guarantee of the accuracy or completeness of information provided on its website. Docprime shall not be held responsible for any aspect of healthcare administered with the information provided on its website.</p>
-                                            </div> : ''
-                                    }
-                                </div> : ""
-                            }
-                            {
-                                this.state.articleData && this.state.articleData.footer_widget && false?
-                                    this.state.hideFooterWidget?''
-                                    :<FooterTestSpecializationWidgets {...this.props} footerWidget={this.state.articleData.footer_widget} handleClose={this.handleClose.bind(this)}/>
-                                :''
-                            }
-                            
-                        </div>
-                        <RightBar colClass="col-lg-4" articleData={this.state.articleData} />
-                    </div>
-
-                    <div className="row">
-                        {
-                            this.state.articleLoaded ?
-                                this.state.articleData && this.state.articleData.comments && this.state.articleData.comments.length ?
+                {
+                    this.state.articleData && showIframe && sessionId ?
+                        <iframe src={this.state.articleData.pharmeasy_url ? this.state.articleData.pharmeasy_url : CONFIG.PHARMEASY_IFRAME_URL} className="pharmeasy-iframe"></iframe>
+                        :
+                        <React.Fragment>
+                            <section className="container article-container">
+                                {/* {
+                                    this.state.showPopup ?
+                                        <BookingConfirmationPopup continueClick={() => this.continueClick()} iFramePopup={true} hidePopup={() => this.hidePopup()} /> : ''
+                                } */}
+                                {
+                                    this.state.showPopup ?
+                                        <Loader iFramePopup={true} /> : ''
+                                }
+                                <div className="row main-row parent-section-row">
+                                    <LeftBar />
                                     <div className="col-12 col-md-7 col-lg-8 center-column">
-                                        <h4 className="comments-main-heading">{`User Comments (${this.state.articleData.comments.length})`}</h4>
                                         {
-                                            this.state.articleData.comments.map((comment, key) => {
-                                                return <Reply key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists} articlePage={true}/>
-                                            })}
-                                    </div>
-                                    : ''
-                                : ''
-                        }
+                                            this.state.articleData ? <div className="container-fluid article-column">
 
-                        {
-                            this.state.articleLoaded ?
-                                <div className="col-12 col-md-7 col-lg-8 center-column">
-                                    <div className="widget mrb-15 mrng-top-12">
-                                        <div className="widget-content">
-                                            <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} commentsExists={commentsExists} parentCommentId={this.state.replyOpenFor} articlePage={true}/>
-                                        </div>
+                                                <HelmetTags tagsData={{
+                                                    title: (this.state.articleData.seo ? this.state.articleData.seo.title : ""),
+                                                    description: (this.state.articleData.seo ? this.state.articleData.seo.description : ""),
+                                                    keywords: (this.state.articleData.seo ? this.state.articleData.seo.keywords : ""),
+                                                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+                                                    schema: this.state.articleData.title === 'Blood Pressure | Causes, Treatment, Tests & Vaccines' ?
+                                                        {
+                                                            "@context": "http://schema.org",
+                                                            "@type": "MedicalCondition",
+                                                            "alternateName": "Blood Pressure",
+                                                            "associatedAnatomy": {
+                                                                "@type": "AnatomicalStructure",
+                                                                "name": "heart"
+                                                            },
+                                                            "cause": [
+                                                                {
+                                                                    "@type": "MedicalCause",
+                                                                    "name": "Smoking, Stress,Genetics,Heart arrhythmias,Blood vessel dilation,Heat stroke, Pregnancy,Liver Disease"
+                                                                }
+                                                            ],
+                                                            "code": {
+                                                                "@type": "MedicalCode",
+                                                                "code": "401",
+                                                                "codingSystem": "ICD-9-CM"
+                                                            },
+                                                            "differentialDiagnosis": {
+                                                                "@type": "DDxElement",
+                                                                "diagnosis": {
+                                                                    "@type": "MedicalCondition",
+                                                                    "name": "Low Blood Pressure & High Blood Presure"
+                                                                },
+                                                                "distinguishingSign": [
+                                                                    {
+                                                                        "@type": "MedicalSymptom",
+                                                                        "name": "Severe headache,Fatigue,Mental Confusion,Pain in chest, Mental Confusion,Pale, damp, cold skin,Breathing difficulties, Weak Pulses"
+                                                                    }
+                                                                ]
+                                                            },
+                                                            "name": "High & Low Blood Pressure",
+                                                            "possibleTreatment": [
+                                                                {
+                                                                    "@type": "drug",
+                                                                    "name": "Consult Doctor"
+                                                                }
+                                                            ],
+                                                            "riskFactor": [
+                                                                {
+                                                                    "@type": "MedicalRiskFactor",
+                                                                    "name": "Age,Gender, Smoking, Total cholesterol"
+                                                                }
+                                                            ],
+                                                            "secondaryPrevention": [
+                                                                {
+                                                                    "@type": "LifestyleModification",
+                                                                    "name": "stopping smoking,weight management,increased physical activity"
+                                                                }
+                                                            ],
+                                                            "signOrSymptom": [
+                                                                {
+                                                                    "@type": "MedicalSymptom",
+                                                                    "name": "Light-headedness or wooziness, Fainting, Nausea, Exhaustion"
+                                                                }
+                                                            ]
+                                                        } : ''
+                                                }} />
+
+                                                {
+                                                    this.props.match.path.split('-')[1] === 'mddp' && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'medicine_detail_page').length ?
+                                                        <BannerCarousel {...this.props} sliderLocation="medicine_detail_page" /> : ''
+                                                }
+
+                                                <ul className="mrb-10 breadcrumb-list" style={{ wordBreak: 'break-word' }}>
+                                                    <li className="breadcrumb-list-item">
+                                                        <a href="/" onClick={(e) => this.onHomeClick(e, "/")}>
+                                                            <span className="fw-500 breadcrumb-title breadcrumb-colored-title">Home</span>
+                                                        </a>
+                                                        <span className="breadcrumb-arrow">&gt;</span>
+                                                    </li>
+                                                    <li className="breadcrumb-list-item">
+                                                        <a href={`/${this.state.articleData.category.url}`} onClick={(e) => this.onHomeClick(e, `/${this.state.articleData.category.url}`)}>
+                                                            <span className="fw-500 breadcrumb-title breadcrumb-colored-title">{this.state.articleData.category.name}</span>
+                                                        </a>
+                                                        <span className="breadcrumb-arrow">&gt;</span>
+                                                    </li>
+                                                    <li className="breadcrumb-list-item">
+                                                        {
+                                                            this.props.match.path.split('-')[1] === 'nmdp' ?
+                                                                <h2 className="fw-500 breadcrumb-title">{this.state.articleData.heading_title}</h2>
+                                                                : <h2 className="fw-500 breadcrumb-title">{this.state.articleData.title.split('|')[0]}</h2>
+                                                        }
+                                                    </li>
+                                                </ul>
+
+                                                <div className="art-sharing-div mrt-20 mrb-20">
+                                                    <div className="art-sharing-btn mr-3" onClick={() => this.facebookClick()} >
+                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/facebook.svg"} />
+                                                    </div>
+                                                    <div className="art-sharing-btn ml-3 mr-3" onClick={() => this.twitterClick()}>
+                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/twitter.svg"} />
+                                                    </div>
+                                                    <div className="art-sharing-btn ml-3 mr-3" onClick={() => this.linkedinClick()}>
+                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/linkedin.svg"} />
+                                                    </div>
+                                                    <div className="art-sharing-btn ml-3" onClick={() => this.whatsappClick()}>
+                                                        <img src={ASSETS_BASE_URL + "/img/customer-icons/whatsapp.svg"} />
+                                                    </div>
+                                                </div>
+
+                                                {
+                                                    this.state.articleData.header_image ?
+                                                        <div>
+                                                            <img style={{ width: '100%', paddingBottom: '4px' }} src={this.state.articleData.header_image} alt={this.state.articleData.header_image_alt} />
+                                                        </div> : ""
+                                                }
+
+                                                {
+                                                    this.state.articleData && this.state.articleData.heading_title ? <div className="dp-article-heading mrb-20">
+                                                        <h1 className="fw-500">{this.state.articleData.heading_title}</h1>
+                                                    </div> : ""
+                                                }
+
+                                                {
+                                                    this.state.articleData && this.state.articleData.title && this.props.match.path.split('-')[1] === 'mddp' ?
+                                                        <React.Fragment>
+                                                            <div className="buy-med-btn" id="medicine-btn-div">
+                                                                <button className="v-btn v-btn-primary btn-lg text-sm" id="medicine-btn" onClick={() => this.buyMedicineClick()}>Buy {this.state.articleData.title.split('|')[0]} at Flat 20% Off</button>
+                                                            </div>
+                                                            <div className="buy-med-tagline mrb-20">
+                                                                <p className="fw-500" style={{ marginRight: 3, fontSize: 12 }}>Powered by : </p>
+                                                                <img style={{ width: 72 }} src={ASSETS_BASE_URL + "/img/customer-icons/pharmEasy.png"} />
+                                                            </div>
+                                                        </React.Fragment> : ''
+                                                }
+
+                                                {
+                                                    this.state.articleData && this.state.articleData.author ?
+                                                        <ArticleAuthor
+                                                            name={this.state.articleData.author.name}
+                                                            profileImage={this.state.articleData.author.profile_img}
+                                                            url={this.state.articleData.author.url}
+                                                            id={this.state.articleData.author.id}
+                                                            speciality={this.state.articleData.author.speciality[0].name}
+                                                            experience={this.state.articleData.author.experience}
+                                                            publishedDate={this.state.articleData.published_date}
+                                                            history={this.props.history}
+                                                        /> : ''
+                                                }
+
+                                                {
+                                                    this.state.articleData && this.state.articleData.body_doms && this.state.articleData.body_doms.map((val, key) => {
+
+                                                        if (val.type.includes('html')) {
+                                                            return <div key={key} className="docprime-article" dangerouslySetInnerHTML={{ __html: val.content }}>
+                                                            </div>
+                                                        } else if (val.type.includes('search_widget')) {
+                                                            return <div key={key} className="sticky-article-div">
+                                                                {
+                                                                    val.content.lat && val.content.lng && val.content.location_name ?
+                                                                        <CommonSearch {...this.props} location={val.content.location_name} latitude={val.content.lat} longitude={val.content.lng} />
+                                                                        : val.content.specialization_id ?
+                                                                            <div>
+                                                                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName={locationName} articleSearchPage={true} specialityName={val.content.specialization_name} specialityId={val.content.specialization_id} widgetId={key} />
+                                                                                {this.getCityList(key)}
+                                                                            </div>
+                                                                            : <div>
+                                                                                <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName='' widgetId={key} commonSearch={true} articleSearchPage={true} />
+                                                                                {this.getCityList(key)}
+                                                                                <CommonSearch {...this.props} commonSearch={true} />
+                                                                            </div>
+                                                                }
+                                                            </div>
+
+                                                        }
+
+                                                    })
+                                                }
+
+                                                { /*<div className="docprime-article" dangerouslySetInnerHTML={{ __html: this.state.articleData.body }}>
+                                                </div>*/}
+                                                {
+                                                    this.state.articleData && this.state.articleData.last_updated_at ?
+                                                        <div className="last-updated text-right">
+                                                            <span>Last updated on : {this.state.articleData.last_updated_at}</span>
+                                                        </div> : ''
+                                                }
+                                                {
+                                                    this.props.match.path.split('-')[1] === 'mddp' ?
+                                                        <div className="mrt-20">
+                                                            <p className="article-disclaimer"><span className="fw-700">Disclaimer : </span>Docprime doesn’t endorse or take any guarantee of the accuracy or completeness of information provided on its website. Docprime shall not be held responsible for any aspect of healthcare administered with the information provided on its website.</p>
+                                                        </div> : ''
+                                                }
+                                            </div> : ""
+                                        }
+                                        {/* {
+                                            this.state.articleData && this.state.articleData.footer_widget ?
+                                                this.state.hideFooterWidget ? ''
+                                                    : <FooterTestSpecializationWidgets {...this.props} footerWidget={this.state.articleData.footer_widget} handleClose={this.handleClose.bind(this)} />
+                                                : ''
+                                        } */}
+                                        {/* {
+                                            this.state.articleData && this.state.articleData.title && this.props.match.path.split('-')[1] === 'mddp' ?
+                                                <div className="buy-med-btn-div">
+                                                    <div className="buy-med-tagline">
+                                                        <p className="fw-500" style={{ marginRight: 3, fontSize: 12 }}>Powered by : </p>
+                                                        <img style={{ width: 72 }} src={ASSETS_BASE_URL + "/img/customer-icons/pharmEasy.png"} />
+                                                    </div>
+                                                    <div className="buy-med-btn" id="medicine-btn-div">
+                                                        <button className="v-btn v-btn-primary btn-lg text-sm" id="medicine-btn" onClick={() => this.buyMedicineClick()}>Buy {this.state.articleData.title.split('|')[0]} at Flat 20% Off</button>
+                                                    </div>
+                                                </div> : ''
+                                        } */}
+                                        {/* {
+                                            this.state.articleData && this.state.articleData.title && this.props.match.path.split('-')[1] === 'mddp' ?
+                                                <div className="v-btn v-btn-primary btn-lg fixed horizontal bottom no-round sticky-btn text-center" onClick={() => this.buyMedicineClick()}>
+                                                    <p className="fw-500" style={{ fontSize: 16 }}>Buy {this.state.articleData.title.split('|')[0]} at Flat 20% Off</p>
+                                                    <span className="pw-500" style={{ marginRight: 3, fontSize: 10, verticalAlign: '1px' }}>Powered by : </span>
+                                                    <img src={ASSETS_BASE_URL + "/img/customer-icons/pharmeasy_white.png"} style={{ width: 72, verticalAlign: 'middle' }} />
+                                                </div> : ''
+                                        } */}
                                     </div>
+                                    <RightBar colClass="col-lg-4" articleData={this.state.articleData} />
                                 </div>
-                                : ''
-                        }
-                    </div>
-{/*
-                    <FixedMobileFooter {...this.props} />*/}
-                </section>
-                <Footer />
+
+                                <div className="row">
+                                    {
+                                        this.state.articleLoaded ?
+                                            this.state.articleData && this.state.articleData.comments && this.state.articleData.comments.length ?
+                                                <div className="col-12 col-md-7 col-lg-8 center-column">
+                                                    <h4 className="comments-main-heading">{`User Comments (${this.state.articleData.comments.length})`}</h4>
+                                                    {
+                                                        this.state.articleData.comments.map((comment, key) => {
+                                                            return <Reply key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} postReply={this.postReply.bind(this)} handleInputComment={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists} articlePage={true} />
+                                                        })}
+                                                </div>
+                                                : ''
+                                            : ''
+                                    }
+
+                                    {
+                                        this.state.articleLoaded ?
+                                            <div className="col-12 col-md-7 col-lg-8 center-column">
+                                                <div className="widget mrb-15 mrng-top-12">
+                                                    <div className="widget-content">
+                                                        <CommentBox {...this.props} {...this.state} getArticleData={this.getArticleData.bind(this)} commentsExists={commentsExists} parentCommentId={this.state.replyOpenFor} articlePage={true} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            : ''
+                                    }
+                                </div>
+                            </section>
+                            <Footer />
+                        </React.Fragment>
+                }
             </div>
         );
     }

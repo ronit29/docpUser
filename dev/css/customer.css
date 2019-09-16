@@ -2287,3 +2287,95 @@ p.rt-doc-nm{
     color: #55a740;
     font-size: 11px;
 }
+.pharmeasy-iframe{
+    width: 100%;
+    height: calc(100vh - 100px);
+    margin-top: 44px;
+}
+
+.close-popup-btn{
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.order-med-list{
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 36px;
+    left: 7px;
+    width: 120px;
+    text-align: center;
+    transform: translateY(-2em);
+    z-index: 99;
+    transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 1px 1px 4px grey;
+}
+
+.order-med-list-link:hover .order-med-list, .order-med-list-link:focus .order-med-list{
+    visibility: visible;
+    opacity: 1;
+    z-index: 999;
+    transform: translateY(0%);
+    transition-delay: 0s, 0s, 0.3s;
+}
+
+ul.order-med-list a {
+	padding: 8px 0px;
+    display: block;
+    border-bottom: 1px solid #f1efef;
+    font-weight: 400;
+	text-shadow: 1px 1px #e2e2e2;
+	
+}
+ul.order-med-list a:hover {
+    color: #f07238;
+	background: #e0e0e0;
+	font-weight: 400;
+}
+
+.buy-med-tagline{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.order-widget{
+    border: 1px solid rgba(117, 117, 117, 0.3);
+    border-radius: 5px;
+    padding: 12px;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+.order-med-img{
+    width: 24px;
+    margin-right: 16px;
+}
+
+.buy-med-btn{
+	display: block;
+	position: sticky;
+	top: 44px;
+	margin-left: -15px;
+	margin-right: -15px;
+	padding: 0 15px;
+}
+
+#medicine-btn{
+	width: 100%;
+	padding: 12px 14px;
+	white-space: normal;
+}
+
+@media(min-width: 992px){
+	.buy-med-btn{
+		top: 94px;
+	}
+}

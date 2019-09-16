@@ -40,7 +40,7 @@ const LAB_LIST_PRESIST = {
 const USER_PERSIST = {
     key: 'USER',
     storage: storage,
-    whitelist: ['summary_utm_validity', 'summary_utm', 'chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted', 'userPhoneNo', 'selectedSearchType', 'common_utm_tags', 'app_download_list', 'ipd_chat','user_cities', 'chatPaymentStatus']
+    whitelist: ['summary_utm_validity', 'summary_utm', 'chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted', 'userPhoneNo', 'selectedSearchType', 'common_utm_tags', 'app_download_list', 'ipd_chat', 'user_cities', 'iFrameUrls', 'chatPaymentStatus']
 }
 
 const OPD_SEARCH_PERSIST = {
@@ -64,12 +64,12 @@ const AUTH_PERSIST = {
 const INSURANCE_LIST_PRESIST = {
     key: 'INSURANCE',
     storage: storage,
-    whitelist: ['insurnaceData','self_data_values','selected_plan','currentSelectedInsuredMembersId','create_payment_resp', 'members_proofs', 'insurer_bank_details','avail_now_data','cancel_reason']
+    whitelist: ['insurnaceData', 'self_data_values', 'selected_plan', 'currentSelectedInsuredMembersId', 'create_payment_resp', 'members_proofs', 'insurer_bank_details', 'avail_now_data', 'cancel_reason']
 }
-const VIP_CLUB_CRITERIA_PRESIST ={
+const VIP_CLUB_CRITERIA_PRESIST = {
     key: 'VIPCLUB',
     storage: storage,
-    whitelist: ['vipClubList', 'selected_vip_plan', 'vipClubMemberDetails','currentSelectedVipMembersId','LOAD_VIP_CLUB_DASHBOARD', 'vip_club_db_data','members_proofs']
+    whitelist: ['vipClubList', 'selected_vip_plan', 'vipClubMemberDetails', 'currentSelectedVipMembersId', 'LOAD_VIP_CLUB_DASHBOARD', 'vip_club_db_data', 'members_proofs']
 }
 const IPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_IPD',
@@ -91,9 +91,9 @@ const allReducers = combineReducers({
     DOCTOR_PROFILES,
     LAB_SEARCH_DATA,
     ELASTIC_SEARCH,
-    INSURANCE: persistReducer(INSURANCE_LIST_PRESIST,INSURANCE),
+    INSURANCE: persistReducer(INSURANCE_LIST_PRESIST, INSURANCE),
     SEARCH_CRITERIA_IPD: persistReducer(IPD_SEARCH_PERSIST, SEARCH_CRITERIA_IPD),
-    VIPCLUB: persistReducer(VIP_CLUB_CRITERIA_PRESIST,VIPCLUB)
+    VIPCLUB: persistReducer(VIP_CLUB_CRITERIA_PRESIST, VIPCLUB)
 });
 
 const persistedReducer = persistReducer(persistConfig, allReducers)
