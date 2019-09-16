@@ -342,7 +342,7 @@ class DoctorProfileCard extends React.Component {
                                 {
                                     !is_insurance_applicable ?
                                         <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 5 }} onClick={() => {
-                                            this.props.history.push('/vip-club-details')
+                                            this.props.history.push('/vip-club-details?source=doctorlisting')
                                             let data = {
                                                 'Category': 'ConsumerApp', 'Action': 'DoctorCardVIPClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-card-vip-clicked'
                                             }
