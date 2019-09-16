@@ -88,7 +88,8 @@ class AppointmentList extends React.Component {
 
     render() {
 
-        let { doctor_name, display_name, time_slot_end, time_slot_start, status, type, id, lab_name, doctor_thumbnail, lab_thumbnail, patient_name, invoices, hospital_name, vip } = this.props.data
+        let { deal_price, doctor_name, display_name, time_slot_end, time_slot_start, status, type, id, lab_name, lab_test_name, doctor_thumbnail, lab_thumbnail, patient_name, invoices, hospital_name, specialization, vip } = this.props.data
+
         let date = new Date(time_slot_start)
         let is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
         return (
@@ -109,12 +110,28 @@ class AppointmentList extends React.Component {
                     </h4>
                     <ul className="list">
                         {
-                         lab_name || hospital_name?
-                            <li style={{ marginBottom: 5 }} className="apnt-hsp-name" >{lab_name|| hospital_name} </li>
-                            :''    
+                            specialization && specialization.length ?
+                                <li className="appointment-specialization">
+                                    {
+                                        specialization.map((speciality, index) => {
+                                            if (index < 3) {
+                                                return <span className="apnt-hsp-name" key={index}>{speciality} {(index < specialization.length - 1) && (index != 2) ? '| ' : ''}</span>
+                                            }
+                                        })
+                                    }
+                                </li> : ''
                         }
-                        
-                        <li style={{ marginBottom: 5 }} ><span className="ct-img ct-img-xs text-right"><img style={{width:'15px'}} src={ASSETS_BASE_URL + "/img/new-cal.svg"} className="img-fluid" /></span>{date.toDateString()} | <span className="ct-img ct-img-xs text-right"><img style={{width:'15px'}} src={ASSETS_BASE_URL + "/img/watch-date.svg"} className="img-fluid" /></span>{this.getTime(time_slot_start)}</li>
+                        {
+                            hospital_name ?
+                                <li style={{ marginBottom: 4 }} className="apnt-hsp-name">{hospital_name}</li>
+                                : ''
+                        }
+                        {
+                            lab_test_name && lab_test_name.length ?
+                                <li style={{ marginBottom: 4 }} className="apnt-hsp-name">{lab_test_name[0].test_name} {lab_test_name.length > 1 ? `& ${lab_test_name.length - 1} more` : ''}</li>
+                                : ''
+                        }
+                        <li style={{ marginBottom: 5 }} ><span className="ct-img ct-img-xs text-right"><img style={{ width: '15px' }} src={ASSETS_BASE_URL + "/img/new-cal.svg"} className="img-fluid" /></span>{date.toDateString()} | <span className="ct-img ct-img-xs text-right"><img style={{ width: '15px' }} src={ASSETS_BASE_URL + "/img/watch-date.svg"} className="img-fluid" /></span>{this.getTime(time_slot_start)}</li>
                         {/* <li style={{ marginBottom: 5 }} ></li> */}
                         <li style={{ marginBottom: 5 }} ><span className="ct-img ct-img-xs text-right"><img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} className="img-fluid" style={{ width: 15, marginTop: -4 }} /></span>{patient_name}</li>
                     </ul>
@@ -133,6 +150,10 @@ class AppointmentList extends React.Component {
                 {
                     id ?
                         <span className="fw-500" style={{ position: 'absolute', top: 4, left: 8, fontSize: 12 }}>{`Booking id : ${id}`}</span> : ''
+                }
+                {
+                    deal_price ?
+                        <span className="fw-500" style={{ position: 'absolute', top: 20, right: 8, fontSize: 12, color: '#f78631' }}>&#8377; {parseInt(deal_price)}</span> : ''
                 }
                 {
                     invoices && invoices.length === 1 && (!this.props.data.reports || !this.props.data.reports.length) ?

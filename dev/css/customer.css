@@ -2275,3 +2275,11 @@ p.rt-doc-nm{
 .opd-mapico img{
 
 }
+
+.appointment-specialization{
+    width: calc(100% - 18px);
+    height: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

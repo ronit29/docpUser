@@ -197,7 +197,7 @@ class ThyrocarePackageView extends React.Component {
                                             </div>
                                             <div className="acrd-stc-data">
                                                 <p>
-                                                    76
+                                                    68
                                                                         </p>
                                             </div>
                                         </div>
