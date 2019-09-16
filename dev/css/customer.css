@@ -2283,3 +2283,7 @@ p.rt-doc-nm{
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.grn-txt-vip{
+    color: #55a740;
+    font-size: 11px;
+}

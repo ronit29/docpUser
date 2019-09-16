@@ -232,7 +232,7 @@ class DoctorProfileCard extends React.Component {
                         }} /> : ""
                     }
 
-                    <div className="cstm-docCard-content" onClick={enabled_for_hospital_booking ? this.bookNowClicked.bind(this, id, url, hospital.hospital_id || '') : this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')}>
+                    <div className="cstm-docCard-content">
 
                         <div className="row no-gutters">
                             <div className="col-8">
@@ -292,16 +292,16 @@ class DoctorProfileCard extends React.Component {
                                 }
                             </div>
                             <div className="col-4" style={mrp == 0 ? { paddingTop: 40 } : {}}>
-                                {
+                                {/* {
                                     !is_insurance_applicable && enabled_for_hospital_booking && mrp != 0 && this.state.ssrFlag && !is_vip_applicable ?
                                         <p className="cstm-doc-price">Docprime Price</p> : ''
-                                }
+                                } */}
 
-                                {is_vip_applicable?
+                                {is_vip_applicable ?
                                     <div className="text-right mb-2">
                                         <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
                                     </div>
-                                :''}
+                                    : ''}
 
                                 {
                                     is_vip_applicable ?
@@ -336,6 +336,21 @@ class DoctorProfileCard extends React.Component {
                                         <div>
                                             <p className="cst-doc-price">₹ {0}</p>
                                             <div className="ins-val-bx">Covered Under Insurance</div>
+                                        </div>
+                                        : ''
+                                }
+                                {
+                                    !is_insurance_applicable ?
+                                        <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 5 }} onClick={() => {
+                                            this.props.history.push('/vip-club-details')
+                                            let data = {
+                                                'Category': 'ConsumerApp', 'Action': 'DoctorCardVIPClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-card-vip-clicked'
+                                            }
+                                            GTM.sendEvent({ data: data })
+                                        }}>
+                                            <p className="fw-500 grn-txt-vip">Save 70% with</p>
+                                            <img src={ASSETS_BASE_URL + '/img/viplog.png'} style={{ width: 18, marginLeft: 4, marginRight: 2 }} />
+                                            <img src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} style={{ transform: 'rotate(-90deg)' }} />
                                         </div>
                                         : ''
                                 }
