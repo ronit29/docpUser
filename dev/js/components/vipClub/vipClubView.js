@@ -28,6 +28,16 @@ class VipClubView extends React.Component {
             let resp = this.props.selected_vip_plan
             this.setState({ selected_plan_data: resp, selected_plan_id: resp.id })
         }
+        let loginUser
+        let lead_data = queryString.parse(this.props.location.search)
+        if (STORAGE.checkAuth()) {
+            if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
+                loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
+                if (Object.keys(loginUser).length > 0) {
+                    this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name)
+                }
+            }
+        }
 
         let self = this
         if (window && document) {
@@ -143,7 +153,9 @@ class VipClubView extends React.Component {
                                                     Object.entries(this.props.vipClubList.plans).map(function ([key, value]) {
                                                         return <p onClick={self.selectPlan.bind(self, value)} key={key} className={`vp-sb-txt ${value.id == self.state.selected_plan_id ? 'vp-act' : ''}`}>{value.plan_name} <span>
                                                             {`(₹ ${value.deal_price})`}
-                                                        </span>{key == 1 ? <b className="vip-popluer">POPULAR</b> : ''}</p>
+                                                        </span>
+                                                        {/*value.is_selected ? <b className="vip-popluer">POPULAR</b> : ''*/}
+                                                        </p>
                                                     })
                                                     : ''
                                             }
