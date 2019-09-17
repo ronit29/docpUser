@@ -611,6 +611,10 @@ class ChatPanel extends React.Component {
 
         let payment_disable = parsedHref && parsedHref.utm_campaign && parsedHref.utm_campaign.includes('AdDocChat') ? parsedHref.utm_campaign.includes('AdDocChat') : null
 
+        if(parsedHref.utm_campaign){
+            iframe_url += `&utm_campaign=${parsedHref.utm_campaign}`
+        }
+
         if (payment_disable) {
             iframe_url += `&testing_mode=a`
         } else {
