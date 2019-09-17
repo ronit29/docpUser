@@ -64,7 +64,8 @@ const defaultState = {
     is_ipd_form_submitted: false,
     user_cities: [],
     iFrameUrls: [],
-    chatPaymentStatus: null
+    chatPaymentStatus: null,
+    mobileVerificationDone: false
 }
 
 export default function (state = defaultState, action) {
@@ -258,9 +259,17 @@ export default function (state = defaultState, action) {
         case SET_CHATROOM_ID: {
             let newState = { ...state }
             newState.currentRoomId = action.payload
-            if (action.extraParams && action.extraParams.payment) {
-                newState.chatPaymentStatus = action.payload
+            if (action.extraParams) {
+
+                if(action.extraParams.payment){
+                    newState.chatPaymentStatus = action.payload
+                }
+                
+                if(extraParams.showDisabledPayment){
+                    newState.mobileVerificationDone = action.payload
+                }
             }
+
             return newState
         }
 
@@ -551,6 +560,7 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.chatPaymentStatus = action.payload
+            newState.mobileVerificationDone = action.payload
             return newState
         }
 

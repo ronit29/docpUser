@@ -268,6 +268,15 @@ class ChatPanel extends React.Component {
                             break;
                         }
 
+                        case 'MobileVerification': {
+                            let analyticData = {
+                                'Category': 'Chat', 'Action': 'MobileVerificationFired', 'CustomerID': '', 'leadid': 0, 'event': 'mobile-verification-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname
+                            }
+                            GTM.sendEvent({ data: analyticData })
+                            this.props.setChatRoomId(data.data.rid, {showDisabledPayment:true})
+                            break;
+                        }
+
                     }
 
                     /**
@@ -626,10 +635,16 @@ class ChatPanel extends React.Component {
         }
 
         let is_payment_for_current_room = null
-        if(this.props.USER && this.props.USER.chatPaymentStatus && this.props.USER.chatPaymentStatus==this.props.USER.currentRoomId){
+        let show_disabled_refund_button = null
+        if(this.props.USER && this.props.USER.currentRoomId){
 
-            is_payment_for_current_room = true;
-             
+            if(this.props.USER.chatPaymentStatus == this.props.USER.currentRoomId){
+                is_payment_for_current_room = true;
+            }
+            
+            if(this.props.USER.mobileVerificationDone == this.props.USER.currentRoomId){
+                show_disabled_refund_button = true
+            }   
         }
 
         if (this.props.showHalfScreenChat && !this.props.showDesktopIpd) {
@@ -715,7 +730,7 @@ class ChatPanel extends React.Component {
 
                                         <div className="cht-head-rqst-btn refund-chat" style={this.props.homePage ? {} : {}} >
                                             {
-                                                !is_religare && <p className={`cht-need-btn cursor-pntr ${is_payment_for_current_room?'':'disable-all'}`} onClick={() => { this.refundClicked(is_payment_for_current_room) }}>Refund</p>
+                                                !is_religare && show_disabled_refund_button &&<p className={`cht-need-btn cursor-pntr ${is_payment_for_current_room?'':'disable-all'}`} onClick={() => { this.refundClicked(is_payment_for_current_room) }}>Refund</p>
                                             }
                                             {
                                                 this.state.selectedRoom ? <span className="mr-2" onClick={() => {
