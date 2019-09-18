@@ -95,7 +95,7 @@ export const addVipMembersData = (criteria,callback) => (dispatch) => {
 
 }
 
-export const generateVipClubLead = (selectedPlan, number,lead_data,selectedLocation,user_name,callback) => (dispatch) => {
+export const generateVipClubLead = (selectedPlan, number,lead_data,selectedLocation,user_name,extraParams={}, callback) => (dispatch) => {
     let lat
     let long
     let latitude = 28.644800
@@ -126,6 +126,9 @@ export const generateVipClubLead = (selectedPlan, number,lead_data,selectedLocat
             plan.latitude = latitude
             plan.longitude = longitude
         }
+    if(extraParams && extraParams.city_id) {
+        plan.city_id = extraParams.city_id
+    }
     return API_POST(`/api/v1/plus/lead/create`, plan).then(function (response) {
         if(callback) callback(null, response)
     }).catch(function (error) {

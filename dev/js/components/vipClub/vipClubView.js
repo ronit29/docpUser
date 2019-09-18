@@ -89,6 +89,7 @@ class VipClubView extends React.Component {
             this.props.history.push('/vip-club-member-details')
             // this.props.history.push('/vip-club-static-pages')
         } else {
+            this.props.citiesData()
             this.setState({ showPopup: true })
         }
     }

@@ -20,7 +20,11 @@ class VipLoginPopup extends React.Component {
             selectedProfileAge:'',
             age:'',
             enableOtpRequest:false,
-            user_name:''
+            user_name:'',
+            search_city: '',
+            filtered_city_list: [],
+            showCitySearchPopup:false,
+            selectedCity:''
         }
     }
     handleChange(profileid, newProfile,selectedProfileAge, event) {
@@ -134,8 +138,11 @@ class VipLoginPopup extends React.Component {
                         // GTM.sendEvent({ data: data })
                         this.props.getVipList(false, this.props.selectedLocation,(resp) => {
                             if (!resp.certificate) {
+                                let extraParams = {
+                                    city_id: this.props.user_cities.filter(x=>x.name==this.state.selectedCity).map(x=>x.id)
+                                }
                                 if (Object.keys(self.props.selected_vip_plan).length > 0) {
-                                    self.props.generateVipClubLead(self.props.selected_vip_plan ? self.props.selected_vip_plan.id : '', self.state.phoneNumber,lead_data, self.props.selectedLocation,self.state.user_name)
+                                    self.props.generateVipClubLead(self.props.selected_vip_plan ? self.props.selected_vip_plan.id : '', self.state.phoneNumber,lead_data, self.props.selectedLocation,self.state.user_name, extraParams)
                                 }
                                 if (exists.user_exists) {
                                     this.props.closeLeadPopup()
@@ -219,6 +226,42 @@ class VipLoginPopup extends React.Component {
         }*/
         
     }
+
+    handleCityInut(type, event) {
+        try{
+            let search_string = event.target.value.toLowerCase()
+            let filtered_doctor_list = []
+            this.props.user_cities && this.props.user_cities.map((doctor)=>{
+                let doctor_name = (doctor.name).toLowerCase()
+                if(doctor_name.includes(search_string)){
+                    let index = doctor_name.indexOf(search_string)
+                    filtered_doctor_list.push({id: doctor.id, name: doctor.name, rank: index})
+                }
+            })
+            filtered_doctor_list = filtered_doctor_list.sort((x,y)=>{
+                return x.rank-y.rank
+            })
+            this.setState({[type]: event.target.value, filtered_city_list: filtered_doctor_list})
+        }catch(e) {
+
+        }
+    }
+
+    clickCityList(value) {
+        this.setState({'selectedCity': value, filtered_city_list:[], search_city: value, showCitySearchPopup: false}) 
+    }
+
+    onFocusIn(){
+        this.setState({ filtered_city_list: this.props.user_cities, search_city:'', showCitySearchPopup: true })
+    }
+
+    onFocusOut(){
+        setTimeout(()=>{
+            this.setState({ search_city: this.state.selectedCity, showCitySearchPopup: false })   
+        },500)
+        
+    }
+
     render() {
         if (this.props.isSelectprofile) {
             let currentSelectedProfiles = []
@@ -283,7 +326,28 @@ class VipLoginPopup extends React.Component {
                                             </div>
                                         </div>
                                         <span className="errorMessage m-0 mb-2">{this.state.error_message}</span>
-                                        <span className="errorMessage m-0 mb-2">{this.state.validationError}</span>                     
+                                        <span className="errorMessage m-0 mb-2">{this.state.validationError}</span>  
+                                        <div className="adon-group enter-mobile-number">
+                                            <input type="text" className="fc-input text-center" placeholder='Search Cities' onChange={this.handleCityInut.bind(this, 'search_city')} onFocus = {this.onFocusIn.bind(this)} onBlur={this.onFocusOut.bind(this)} value={this.state.search_city}/>
+                                            {
+                                                this.state.showCitySearchPopup?
+                                                <div className="doc-srch-fltr" onClick={(e)=>e.preventDefault()}>
+                                                {
+                                                    
+                                                    this.state.filtered_city_list && this.state.filtered_city_list.length?
+                                                        this.state.filtered_city_list.map((data, key)=>{
+                                                            return <p className="cursor-pntr" key={key} id={data.id} onClick={(e)=>{
+                                                                e.preventDefault();
+                                                                e.stopPropagation();
+                                                                this.clickCityList(data.name)} }>
+                                                                {data.name}</p>
+                                                        })
+                                                        :<p>No result found</p>
+                                                }
+                                                </div>
+                                                :''
+                                            } 
+                                        </div>                  
                                         <div className="text-center">
                                             <button onClick={this.submitOTPRequest.bind(this, this.state.phoneNumber, false, true, false,'one')} disabled={this.props.otp_request_sent} className="v-btn v-btn-primary btn-sm lg-sms-btn btn-grdnt">Let’s get you in
                                             </button>

@@ -68,7 +68,7 @@ const mapDispatchToProps = (dispatch) => {
         closeAppointmentRating: (doctorId, callback) => dispatch(closeAppointmentRating(doctorId, callback)),
         editUserProfile: (profileData, profileId, cb) => dispatch(editUserProfile(profileData, profileId, cb)),
         resetPkgCompare:() => dispatch(resetPkgCompare()),
-        generateVipClubLead:(selectedPlan,number,lead_data,user_name,cb) =>dispatch(generateVipClubLead(selectedPlan,number,lead_data,user_name,cb)),
+        generateVipClubLead:(selectedPlan,number,lead_data,user_name,extraParams,cb) =>dispatch(generateVipClubLead(selectedPlan,number,lead_data,user_name,extraParams,cb)),
     }
 }
 
