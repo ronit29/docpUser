@@ -68,28 +68,30 @@ class VipClubMemberDetailsView extends React.Component{
     	if(!this.state.saveMembers && Object.keys(props.selected_vip_plan).length >0 && props.USER.defaultProfile && !props.currentSelectedVipMembersId.length && !props.is_from_payment){
     		let loginUser = props.USER.defaultProfile
     		let isDefaultUser
-    		if(props.USER.profiles && Object.keys(props.USER.profiles).length && props.USER.profiles[props.USER.defaultProfile]){
-    			isDefaultUser = props.USER.profiles[props.USER.defaultProfile].is_default_user
-    		}
-    		isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
-
-    		if(!isDummyUser){
-	    		membersId.push({'0':loginUser, type: 'self'})
-	    		if(props.is_from_payment){
-		    		// var n = props.selected_vip_plan.total_allowed_members - 1;
-		    		membersId.push({[1]: 1, type:'adult'})
-		    // 		card = [...Array(props.selected_vip_plan.total_allowed_members -3)].map((e, i) => {
-						// 	membersId.push({[i+1]: i+1, type:'adult'})
-						// })
-		    	}
-			}else{
-				membersId.push({'0':0, type:'self'})
-				if(props.is_from_payment){
-		    		membersId.push({[1]: 1, type:'adult'})
-		    	}
+    		console.log(props.savedMemberData)
+    		if(props.savedMemberData && props.savedMemberData.length > 0){
+    			Object.entries(props.savedMemberData).map(function([key, value]) {
+    				console.log(value)
+    			})
+    		}else{
+	    		if(props.USER.profiles && Object.keys(props.USER.profiles).length && props.USER.profiles[props.USER.defaultProfile]){
+	    			isDefaultUser = props.USER.profiles[props.USER.defaultProfile].is_default_user
+	    		}
+	    		isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
+	    		if(!isDummyUser){
+		    		membersId.push({'0':loginUser, type: 'self'})
+		    		if(props.is_from_payment){
+			    		membersId.push({[1]: 1, type:'adult'})
+			    	}
+				}else{
+					membersId.push({'0':0, type:'self'})
+					if(props.is_from_payment){
+			    		membersId.push({[1]: 1, type:'adult'})
+			    	}
+				}
 			}
 			// props.saveCurrentSelectedMembers(membersId)
-			props.saveCurrentSelectedVipMembers(membersId)
+			// props.saveCurrentSelectedVipMembers(membersId)
 			this.setState({ saveMembers: true})
     	}else if(!this.state.saveMembers && Object.keys(props.selected_vip_plan).length >0 && !props.currentSelectedVipMembersId.length && props.is_from_payment && Object.keys(props.vip_club_db_data).length >0){
     			if(props.vip_club_db_data.data.user && Object.keys(props.vip_club_db_data.data.user).length > 0 && props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length > 0){
@@ -135,6 +137,7 @@ class VipClubMemberDetailsView extends React.Component{
     proceedPlan(){ //new
     	let success_id
     	let data = {}
+    	let pushData = {}
     	let isDummyUser
     	let self_profile={}
     	let is_disable  = false
@@ -144,6 +147,8 @@ class VipClubMemberDetailsView extends React.Component{
     	if(this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && this.props.vipClubMemberDetails && Object.keys(this.props.vipClubMemberDetails).length>0){
     		data.plan_id = 	this.props.selected_vip_plan.id
     		data.members = []
+    		pushData.plan = this.props.selected_vip_plan
+    		pushData.members = []
     		isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
     		if(!isDummyUser){
     			self_profile = this.props.vipClubMemberDetails[this.props.USER.defaultProfile]	
@@ -255,6 +260,7 @@ class VipClubMemberDetailsView extends React.Component{
 									}
 									members.id=param.id
 								}
+								pushData.members.push(members)
 					    		return data.members.push(members)
 					},this)}
 					let popupMemData
@@ -284,25 +290,31 @@ class VipClubMemberDetailsView extends React.Component{
 		    		members.gender = self_profile.gender
 		    		members.relation = self_profile.relation
 		    		data.members.push(members)
+		    		pushData.members.push(self_profile)
 		    		console.log(data)
-		    		this.props.vipClubPay(data,(resp)=>{
+		    		this.pushUserData(pushData)
+		    // 		this.props.vipClubPay(data,(resp)=>{
 		    			
-		    			if(resp && resp.error){
-		    				SnackBar.show({ pos: 'bottom-center', text: resp.error})
-		    				return
-		    			}
-		    			if(resp && resp.payment_required){
-                            this.processPayment(resp)
-						}else{
-							success_id = '/vip-club-activated-details?payment_success=true&id='+resp.data.id
-							this.props.history.push(success_id)
-						}
-		    		})
+		    // 			if(resp && resp.error){
+		    // 				SnackBar.show({ pos: 'bottom-center', text: resp.error})
+		    // 				return
+		    // 			}
+		    // 			if(resp && resp.payment_required){
+      //                       this.processPayment(resp)
+						// }else{
+						// 	success_id = '/vip-club-activated-details?payment_success=true&id='+resp.data.id
+						// 	this.props.history.push(success_id)
+						// }
+		    // 		})
 	    		}
 	    		// this.props.history.push('/vip-club-activated-details')
 	    	}
     		
     	}
+    }
+
+    pushUserData(data){
+    	this.props.pushMembersData(data)
     }
 
     proceedMembers(is_wait){
@@ -441,14 +453,28 @@ class VipClubMemberDetailsView extends React.Component{
 							}
 						</section>
 							{
-								this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && !this.props.is_from_payment?
+								this.props.isSalesAgent && this.props.isAgent && this.props.isAgent === 'true' && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && !this.props.is_from_payment?
+									/*<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price} rishi
+										<span className="foot-btn-sub-span"></span>
+									</button>*/
 									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
 										<span className="foot-btn-sub-span"></span>
 									</button>
 								:''
 							}
 							{
-								this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && this.props.is_from_payment?
+								this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && !this.props.is_from_payment && !this.props.isAgent?
+									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
+										<span className="foot-btn-sub-span"></span>
+									</button>
+								:this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && !this.props.is_from_payment && this.props.isAgent === 'false'?
+									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
+										<span className="foot-btn-sub-span"></span>
+									</button>
+								:''
+							}
+							{
+								this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && this.props.is_from_payment && !this.props.isSalesAgent && !this.props.isAgent?
 									<button id="submit_buy" className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Submit
 										<span className="foot-btn-sub-span"></span>
 									</button>

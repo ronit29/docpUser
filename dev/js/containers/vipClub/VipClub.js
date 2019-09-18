@@ -13,8 +13,10 @@ class VipClub extends React.Component{
 
     constructor(props) {
         super(props)
+        const parsed = queryString.parse(this.props.location.search)
         this.state={
-            showInsuranceView:false
+            isSalesAgent:parsed.utm_source,
+            isAgent:parsed.is_agent
         }
     }
 
@@ -27,13 +29,13 @@ class VipClub extends React.Component{
             window.scrollTo(0, 0)
         }
 
-        this.props.getVipList(false,this.props.selectedLocation)
+        this.props.getVipList(false,this.props.selectedLocation,this.state.isSalesAgent,this.state.isAgent)
 
     }
     render(){
         if(this.props.LOAD_VIP_CLUB){
             return(
-                <VipClubView {...this.props}/>
+                <VipClubView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent}/>
             )
         }else{
             if(this.props.vipClubList.certificate && STORAGE.checkAuth()){
@@ -63,7 +65,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getVipList: (is_endorsement,selectedLocation,callback) => dispatch(getVipList(is_endorsement,selectedLocation,callback)),
+        getVipList: (is_endorsement,selectedLocation,isSalesAgent,isAgent,callback) => dispatch(getVipList(is_endorsement,selectedLocation,isSalesAgent,isAgent,callback)),
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
         getUserProfile: () => dispatch(getUserProfile()),
         generateVipClubLead:(selectedPlan,number,lead_data,user_name,cb) =>dispatch(generateVipClubLead(selectedPlan,number,lead_data,user_name,cb)),
