@@ -128,9 +128,9 @@ export const generateVipClubLead = (selectedPlan, number,lead_data,selectedLocat
             plan.longitude = longitude
         }
     return API_POST(`/api/v1/plus/lead/create`, plan).then(function (response) {
-        if(callback) callback(null, response)
+        if(callback) callback(response)
     }).catch(function (error) {
-       if(callback) callback(error, null)
+       if(callback) callback(error)
     })
 }
 
