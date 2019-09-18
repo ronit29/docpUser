@@ -122,6 +122,7 @@ export const generateVipClubLead = (selectedPlan, number,lead_data,selectedLocat
             plan.phone_number = number
         }
         plan.lead_data = lead_data
+        plan.lead_source = lead_data.lead_source
         if(latitude != lat && longitude != long){
             plan.latitude = latitude
             plan.longitude = longitude

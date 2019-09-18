@@ -143,7 +143,7 @@ class FixedMobileFooter extends React.Component {
                             'Category': 'ConsumerApp', 'Action': 'MobileFooterVipClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'mobile-footer-vip-clicked'
                         }
                         GTM.sendEvent({ data: data })
-                        this.navigateTo('/vip-club-details?source=mobile-footer-vip-clicked')
+                        this.navigateTo('/vip-club-details?source=mobile-footer-vip-clicked&lead_source=Docprime')
                     }}>
                         <img className="footbgRound" src={ASSETS_BASE_URL + "/img/chatFoot_newP_vip.svg"} />
                         <div className="nw-mid-container-with-img">
