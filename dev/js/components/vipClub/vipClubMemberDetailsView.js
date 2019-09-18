@@ -375,7 +375,10 @@ class VipClubMemberDetailsView extends React.Component{
 		}
 		return(
 			<div className="profile-body-wrap">
-	            <ProfileHeader showPackageStrip={true}/> 
+				{
+					this.props.isSalesAgent && this.props.isAgent?''
+	            	:<ProfileHeader showPackageStrip={true}/> 
+	            }
 				<section className="container container-top-margin cardMainPaddingRmv">
 					<div className="row no-gutters dsktp-row-gutter">
 						<div className="col-12 col-md-7 col-lg-7 ins-main-padding">

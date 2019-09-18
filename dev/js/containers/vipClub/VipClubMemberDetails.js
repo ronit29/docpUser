@@ -31,13 +31,18 @@ class VipClubMemberDetails extends React.Component{
             <VipClubMemberDetailsView {...this.props} is_from_payment={parsed.is_from_payment?parsed.is_from_payment:false} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} />
         )
         }else{
-            
+            if(this.state.isSalesAgent && this.state.isAgent){
+                return <div className="profile-body-wrap">
+                    <Loader />
+                </div>
+            }else{
             return(
-            <div className="profile-body-wrap">
-                <ProfileHeader showPackageStrip={true}/>
-                <Loader />
-            </div>
+                <div className="profile-body-wrap">
+                    <ProfileHeader showPackageStrip={true}/>
+                    <Loader />
+                </div>
                 )
+            }
         }
 	}
 }
