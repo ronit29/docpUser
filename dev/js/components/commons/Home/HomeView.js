@@ -514,7 +514,7 @@ class HomeView extends React.Component {
 								}
 								GTM.sendEvent({ data: data })
 								e.preventDefault();
-								this.navigateTo("/vip-club-details?source=vipClickSubheader", 'opd')
+								this.navigateTo("/vip-club-details?source=vipClickSubheader&lead_source=Docprime", 'opd')
 							}}>Docprime <img src={ASSETS_BASE_URL + '/img/viplog.png'} style={{ width: 24, marginLeft: 2, verticalAlign: 'middle' }} /><span className="opdNewHeaderOfr">New</span></a>
 							<a href="/search" onClick={(e) => {
 								e.preventDefault();

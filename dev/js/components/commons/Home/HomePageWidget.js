@@ -23,7 +23,7 @@ class HomePageWidget extends React.Component {
     render() {
         return (
             <div className="card cstm-card mb-3">
-                <div className="card-header" style={{ justifyContent: 'normal' }}>
+                <div id={`${this.props.type}`} className="card-header" style={{ justifyContent: 'normal' }}>
                     {
                         this.props.type === 'opd' ?
                             <h1>{this.props.heading}</h1>

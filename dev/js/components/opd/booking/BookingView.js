@@ -197,6 +197,7 @@ class BookingView extends React.Component {
         }
         let lead_data ={}
         lead_data.source = 'AppointmentPaySuccess'
+        lead_data.lead_source= 'AppointmentPaySuccess'
         lead_data.city_id = city_id
 
         this.props.generateVipClubLead('', number,lead_data, this.props.selectedLocation, name)
@@ -205,7 +206,7 @@ class BookingView extends React.Component {
         }
         GTM.sendEvent({ data: analyticData })
 
-        this.props.history.push('/vip-club-details?source=appointment-success-page')
+        this.props.history.push('/vip-club-details?source=appointment-success-page&lead_source=Docprime')
     }
 
     render() {
