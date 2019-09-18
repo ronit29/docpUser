@@ -265,7 +265,7 @@ export default function (state = defaultState, action) {
                     newState.chatPaymentStatus = action.payload
                 }
                 
-                if(extraParams.showDisabledPayment){
+                if(action.extraParams.showDisabledPayment){
                     newState.mobileVerificationDone = action.payload
                 }
             }
