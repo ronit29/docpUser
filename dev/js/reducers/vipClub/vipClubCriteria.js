@@ -1,4 +1,4 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA , SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA , SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM
 } from '../../constants/types';
 
 const defaultState = {
@@ -23,7 +23,9 @@ selected_vip_plan:{},
 vipClubMemberDetails:{},
 currentSelectedVipMembersId:[],
 LOAD_VIP_CLUB_DASHBOARD:false,
-vip_club_db_data:{}
+vip_club_db_data:{},
+showVipDetailsView:false,
+savedMemberData:[]
 }
 
 const DUMMY_PROFILE = {
@@ -182,60 +184,21 @@ export default function (state = defaultState, action) {
             return newState
         }
 
-        // all old insurnance  cases
-        /*
-        case SAVE_MEMBER_PROOFS:{
+        case SHOW_VIP_MEMBERS_FORM:{
             let newState = {
-                ...state,
-                members_proofs: [].concat(state.members_proofs)
-            }
-            if(newState.members_proofs.length > 0){
-
-                let found = []
-                newState.members_proofs = newState.members_proofs.filter((data)=> {
-
-                    if(data.id == action.payload.id) {
-                        found.push(data)
-                        return false
-                    }
-                    return true
-                })
-
-                if(found) {
-                    let data = Object.assign({}, found[0], action.payload)    
-                    newState.members_proofs.push(data)
-                }else{
-                    newState.members_proofs.push(action.payload)
-                }
-            }else{
-                newState.members_proofs.push(action.payload)
-            }            
-            return newState   
-        }
-        case DELETE_MEMBER_PROOF:{
-           let newState = {
                 ...state
             } 
-            
-            let currentSelectedMember = null
-            newState.members_proofs = newState.members_proofs.filter((member) => {
-
-                if(member.id == action.payload.member_id) {
-                    currentSelectedMember = member
-                    return false
+            if(action.payload.data && Object.keys(action.payload.data).length > 0 && action.payload.data.members && action.payload.data.members.length > 0){
+                    newState.currentSelectedVipMembersId=[]
+                    newState.selected_vip_plan={}
+                    newState.vipClubMemberDetails={}
+                    newState.members_proofs = []
+                    newState.selected_vip_plan=action.payload.data.plan
+                    newState.savedMemberData = action.payload.data.members
                 }
-                return true
-            })
-
-            if(currentSelectedMember){
-                let currentProofs = currentSelectedMember.img_path_ids.filter(x=>x.id !== action.payload.id) 
-                currentSelectedMember.img_path_ids = currentProofs
-            }
-
-            newState.members_proofs.push({...currentSelectedMember})
-            return newState
+            newState.showVipDetailsView=true
+            return newState 
         }
-        */
     }
     return state
 }

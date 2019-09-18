@@ -1,4 +1,4 @@
-import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF
+import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP_MEMBERS, SELECT_VIP_USER_PROFILE, RESET_VIP_CLUB, VIP_CLUB_DASHBOARD_DATA, SAVE_VIP_MEMBER_PROOFS, DELETE_VIP_MEMBER_PROOF, SHOW_VIP_MEMBERS_FORM
  } from '../../constants/types';
 import { API_GET,API_POST } from '../../api/api.js';
 
@@ -209,6 +209,10 @@ export const pushMembersData = (criteria) => (dispatch) =>{
 
 export const retrieveMembersData = (callback) => (dispatch) =>{
     API_GET('api/v1/plus/show_dummy_data').then(function (response) {
+        dispatch({
+            type:SHOW_VIP_MEMBERS_FORM,
+            payload:response
+        })
         if (callback) callback(response)
     }).catch(function (error) {
         if (callback) callback(null)

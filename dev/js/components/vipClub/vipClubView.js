@@ -125,7 +125,6 @@ class VipClubView extends React.Component {
     }
 
     render() {
-        // console.log(this.state.selected_plan_data)
         let self = this
 
         return (

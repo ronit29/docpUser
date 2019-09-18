@@ -93,8 +93,16 @@ class VipProposer extends React.Component {
 				}
 			} else if (props.USER.profiles[props.USER.defaultProfile]) {
 				this.setState({ profile_flag: false })
-				let profile = Object.assign({}, props.USER.profiles[props.USER.defaultProfile])
-				newName = profile.name.split(" ")
+				let profile
+				if(props.savedMemberData && props.savedMemberData.length > 0){
+					profile = props.savedMemberData.filter((x=>x.relation == 'SELF'))
+					if(profile.length > 0){
+						profile = profile[0]
+						this.setState({...profile})
+					}
+				}else{
+					profile = Object.assign({}, props.USER.profiles[props.USER.defaultProfile])
+				}
 				this.getUserDetails(profile)
 				this.populateDates()
 			}

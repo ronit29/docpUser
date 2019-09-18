@@ -14,43 +14,21 @@ class VipClubMemberDetails extends React.Component{
         const parsed = queryString.parse(this.props.location.search)
         this.state={
             isSalesAgent:parsed.utm_source,
-            isAgent:parsed.is_agent,
-            showVipDetailsView:true,
-            savedMemberData:[]
+            isAgent:parsed.is_agent
         }
     }
 
     componentDidMount() {
         this.props.retrieveMembersData((resp) =>{
-            if(resp){
-                if(resp.data && Object.keys(resp.data).length > 0 && resp.data.members && resp.data.members.length > 0){
-                    this.props.resetVipData()
-                    let plan = resp.data.plan
-                    if(this.props.selectVipClubPlan && Object.keys(this.props.selectVipClubPlan).length ==0 && this.props.vipClubMemberDetails && Object.keys(this.props.vipClubMemberDetails).length == 0){
-                        this.props.selectVipClubPlan('plan', plan, (response) => {
-                            console.log('ssssss')
-                            
-                            this.setState({savedMemberData:resp.data.members},()=>{
-                                this.setState({showVipDetailsView:true})
-                            })
-                        })
-                    }
-                }else{
-                    this.setState({savedMemberData:[]},()=>{
-                            this.setState({showVipDetailsView:true})
-                    })
-                }
-                
-            }
         })
         this.props.citiesData()
     }
 
 	render(){
         let parsed = queryString.parse(this.props.location.search)
-        if(this.state.showVipDetailsView){
+        if(this.props.showVipDetailsView){
             return(
-            <VipClubMemberDetailsView {...this.props} is_from_payment={parsed.is_from_payment?parsed.is_from_payment:false} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} savedMemberData={this.state.savedMemberData}/>
+            <VipClubMemberDetailsView {...this.props} is_from_payment={parsed.is_from_payment?parsed.is_from_payment:false} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} />
         )
         }else{
             
@@ -68,9 +46,9 @@ const mapStateToProps = (state) => {
     const USER = state.USER
     let { user_cities } = state.USER
 
-    let { vipClubList, selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId, vip_club_db_data, members_proofs } = state.VIPCLUB
+    let { vipClubList, selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId, vip_club_db_data, members_proofs, showVipDetailsView,savedMemberData } = state.VIPCLUB
     return {
-        vipClubList, selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId, user_cities, USER, vip_club_db_data, members_proofs
+        vipClubList, selected_vip_plan, vipClubMemberDetails, currentSelectedVipMembersId, user_cities, USER, vip_club_db_data, members_proofs, showVipDetailsView, savedMemberData
     }
 }
 

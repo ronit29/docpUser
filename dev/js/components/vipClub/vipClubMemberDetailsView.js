@@ -68,12 +68,12 @@ class VipClubMemberDetailsView extends React.Component{
     	if(!this.state.saveMembers && Object.keys(props.selected_vip_plan).length >0 && props.USER.defaultProfile && !props.currentSelectedVipMembersId.length && !props.is_from_payment){
     		let loginUser = props.USER.defaultProfile
     		let isDefaultUser
-    		console.log('rishab')
-    		console.log(props.savedMemberData)
-    		if(props.savedMemberData && props.savedMemberData.length > 0){
+    		if(this.props.savedMemberData && this.props.savedMemberData.length >0){
     			Object.entries(props.savedMemberData).map(function([key, value]) {
-    				console.log(value)
+    				membersId.push({[key]: value.id, type:value.relation == 'SELF'?'self':'adult'})
     			})
+    			props.saveCurrentSelectedVipMembers(membersId)
+				this.setState({ saveMembers: true})
     		}else{
 	    		if(props.USER.profiles && Object.keys(props.USER.profiles).length && props.USER.profiles[props.USER.defaultProfile]){
 	    			isDefaultUser = props.USER.profiles[props.USER.defaultProfile].is_default_user
@@ -90,17 +90,15 @@ class VipClubMemberDetailsView extends React.Component{
 			    		membersId.push({[1]: 1, type:'adult'})
 			    	}
 				}
+				props.saveCurrentSelectedVipMembers(membersId)
+				this.setState({ saveMembers: true})
 			}
-			// props.saveCurrentSelectedMembers(membersId)
-			// props.saveCurrentSelectedVipMembers(membersId)
-			this.setState({ saveMembers: true})
     	}else if(!this.state.saveMembers && Object.keys(props.selected_vip_plan).length >0 && !props.currentSelectedVipMembersId.length && props.is_from_payment && Object.keys(props.vip_club_db_data).length >0){
-    		console.log('rishabaaaaa')
     			if(props.vip_club_db_data.data.user && Object.keys(props.vip_club_db_data.data.user).length > 0 && props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length > 0){
     				
     				membersId.push({'0':props.vip_club_db_data.data.user.plus_members[0].profile, type: 'self'})
 		    		membersId.push({[1]: 1, type:'adult'})
-					// props.saveCurrentSelectedVipMembers(membersId)
+					props.saveCurrentSelectedVipMembers(membersId)
 					this.setState({ saveMembers: true})
     			}
     	}
@@ -333,6 +331,15 @@ class VipClubMemberDetailsView extends React.Component{
 		let child
 		let adult
 		let userProfile
+		let proposer_id = ''
+		// let selectedProfileId = parseInt(this.props.USER.defaultProfile) // to be deleted
+		if(this.props.savedMemberData && this.props.savedMemberData.length > 0){
+			Object.entries(this.props.savedMemberData).map(function([key, value]) {
+    				if(value.relation == 'SELF'){
+    					proposer_id = value.id
+    				}
+    			})
+		}
 		// let selectedProfileId = parseInt(this.props.USER.defaultProfile) // to be deleted
 		let selectedMembersId =0
 		if(this.props.is_from_payment && Object.keys(this.props.selected_vip_plan).length >0){
@@ -425,22 +432,17 @@ class VipClubMemberDetailsView extends React.Component{
 								<div className="insurance-member-container" style={{padding:0}}>
 									<h4 className="mb-0" style={{padding:'2px 0px 6px'}}>Enter Proposer Details</h4>
 									<div className="widget" style={{padding:'10px'}}>
-										{/*<div className="plcy-cancel-div"> // to be deleted
-											<p className="plcy-cancel mb-0 fw-500">*Incorrect member details may lead to policy cancellation</p>
-										</div>
-										<p className="fw-500 d-block" style={{fontSize: 11, color:'#F44336', marginTop:5, paddingLeft:8}}>*All fields are mandatory</p>*/}
 										<div className="insurance-member-details mrt-20">
 											<VipProposer {...this.props} 
 												// checkForValidation ={this.checkForValidation.bind(this)}  // to be deleted
-												id={`member_${this.props.USER.defaultProfile}`} 
-												member_id={this.props.USER.defaultProfile} 
-												validateErrors={this.state.validateErrors[this.props.USER.defaultProfile == 999999?0:this.props.USER.defaultProfile] || []}
-												validateOtherErrors={this.state.validateOtherErrors[this.props.USER.defaultProfile] || []} 
+												id={`member_${proposer_id?proposer_id:this.props.USER.defaultProfile}`} 
+												member_id={proposer_id?proposer_id:this.props.USER.defaultProfile} 
+												validateErrors={this.state.validateErrors[proposer_id?proposer_id:this.props.USER.defaultProfile == 999999?0:this.props.USER.defaultProfile] || []}
+												validateOtherErrors={this.state.validateOtherErrors[proposer_id?proposer_id:this.props.USER.defaultProfile] || []} 
 												createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} 
 												errorMessages={this.state.errorMessages} 
 												is_endorsement = {false} 
 												endorsementError={this.state.endorsementError}
-												// checkIsEmailVerfied = {this.checkIsEmailVerfied.bind(this)} // to be deleted
 												member_type='adult'
 												/>
 										</div>
