@@ -22,20 +22,25 @@ class VipClubMemberDetails extends React.Component{
 
     componentDidMount() {
         this.props.retrieveMembersData((resp) =>{
-            if(resp){console.log(resp)
-
+            if(resp){
                 if(resp.data && Object.keys(resp.data).length > 0 && resp.data.members && resp.data.members.length > 0){
                     this.props.resetVipData()
                     let plan = resp.data.plan
                     if(this.props.selectVipClubPlan && Object.keys(this.props.selectVipClubPlan).length ==0 && this.props.vipClubMemberDetails && Object.keys(this.props.vipClubMemberDetails).length == 0){
-                        this.props.selectVipClubPlan('plan', plan, (resp) => {
+                        this.props.selectVipClubPlan('plan', plan, (response) => {
                             console.log('ssssss')
-                            this.setState({savedMemberData:resp.data.members})
+                            
+                            this.setState({savedMemberData:resp.data.members},()=>{
+                                this.setState({showVipDetailsView:true})
+                            })
                         })
                     }
-                    // this.setState({savedMemberData:resp.data.members})
+                }else{
+                    this.setState({savedMemberData:[]},()=>{
+                            this.setState({showVipDetailsView:true})
+                    })
                 }
-                this.setState({showVipDetailsView:true})
+                
             }
         })
         this.props.citiesData()

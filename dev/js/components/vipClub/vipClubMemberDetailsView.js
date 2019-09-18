@@ -68,6 +68,7 @@ class VipClubMemberDetailsView extends React.Component{
     	if(!this.state.saveMembers && Object.keys(props.selected_vip_plan).length >0 && props.USER.defaultProfile && !props.currentSelectedVipMembersId.length && !props.is_from_payment){
     		let loginUser = props.USER.defaultProfile
     		let isDefaultUser
+    		console.log('rishab')
     		console.log(props.savedMemberData)
     		if(props.savedMemberData && props.savedMemberData.length > 0){
     			Object.entries(props.savedMemberData).map(function([key, value]) {
@@ -94,11 +95,12 @@ class VipClubMemberDetailsView extends React.Component{
 			// props.saveCurrentSelectedVipMembers(membersId)
 			this.setState({ saveMembers: true})
     	}else if(!this.state.saveMembers && Object.keys(props.selected_vip_plan).length >0 && !props.currentSelectedVipMembersId.length && props.is_from_payment && Object.keys(props.vip_club_db_data).length >0){
+    		console.log('rishabaaaaa')
     			if(props.vip_club_db_data.data.user && Object.keys(props.vip_club_db_data.data.user).length > 0 && props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length > 0){
     				
     				membersId.push({'0':props.vip_club_db_data.data.user.plus_members[0].profile, type: 'self'})
 		    		membersId.push({[1]: 1, type:'adult'})
-					props.saveCurrentSelectedVipMembers(membersId)
+					// props.saveCurrentSelectedVipMembers(membersId)
 					this.setState({ saveMembers: true})
     			}
     	}
