@@ -1,4 +1,4 @@
-import { SET_SUMMARY_UTM, AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL, CLOSE_POPUP, SELECT_USER_ADDRESS, CLEAR_INSURANCE, RESET_VIP_CLUB } from '../../constants/types';
+import { SET_SUMMARY_UTM, AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL, CLOSE_POPUP, SELECT_USER_ADDRESS, CLEAR_INSURANCE, RESET_VIP_CLUB, CLEAR_LAB_COUPONS, CLEAR_OPD_COUPONS } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import STORAGE from '../../helpers/storage'
 import NAVIGATE from '../../helpers/navigate'
@@ -57,6 +57,7 @@ export const submitOTP = (number, otp, cb) => (dispatch) => {
         STORAGE.setAuthToken(response.token)
         STORAGE.setUserId(response.user_id)
 
+        clearStoreOnLogin()(dispatch);
         dispatch({
             type: SUBMIT_OTP_SUCCESS,
             payload: { token: response.token }
@@ -332,5 +333,15 @@ export const submitMedicineLead = (data, callback) =>(dispatch) =>{
         if (callback) callback(response)
     }).catch(function (error) {
         if (callback) callback(error)
+    })
+}
+
+export const clearStoreOnLogin = () => (dispatch) =>{
+    dispatch({
+        type: CLEAR_LAB_COUPONS
+    })
+
+    dispatch({
+        type: CLEAR_OPD_COUPONS
     })
 }
