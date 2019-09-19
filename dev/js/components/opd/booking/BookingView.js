@@ -197,6 +197,7 @@ class BookingView extends React.Component {
         }
         let lead_data ={}
         lead_data.source = 'AppointmentPaySuccess'
+        lead_data.lead_source= 'AppointmentPaySuccess'
         lead_data.city_id = city_id
 
         this.props.generateVipClubLead('', number,lead_data, this.props.selectedLocation, name)
@@ -205,7 +206,7 @@ class BookingView extends React.Component {
         }
         GTM.sendEvent({ data: analyticData })
 
-        this.props.history.push('/vip-club-details?source=appointment-success-page')
+        this.props.history.push('/vip-club-details?source=appointment-success-page&lead_source=Docprime')
     }
 
     render() {
@@ -223,6 +224,9 @@ class BookingView extends React.Component {
         let discount = 0
         let paymentMode = ''
         let effective_price = 0
+        let is_vip_member = false
+        let covered_under_vip = false
+        let vip_amount = 0
         if (this.state.data) {
             doctor = this.state.data.doctor
             hospital = this.state.data.hospital
@@ -235,6 +239,9 @@ class BookingView extends React.Component {
             mrp = this.state.data.mrp
             deal_price = this.state.data.deal_price
             effective_price = this.state.data.effective_price
+            is_vip_member = this.state.data.vip.is_vip_member
+            covered_under_vip = this.state.data.vip.covered_under_vip
+            vip_amount = this.state.data.vip.vip_amount
         }
 
         let summary_utm_tag = ""
@@ -250,17 +257,20 @@ class BookingView extends React.Component {
         } else {
             discount = mrp - effective_price
         }
-
-        if (payment_type == 1) {
-            paymentMode = 'Online'
-        } else if (payment_type == 2) {
-            paymentMode = 'Cash'
-        } else if (payment_type == 3) {
-            paymentMode = 'Insurance'
-        } else if (payment_type == 4) {
-            paymentMode = 'Docprime Care'
+        if(!is_vip_member && !covered_under_vip){
+            if (payment_type == 1) {
+                paymentMode = 'Online'
+            } else if (payment_type == 2) {
+                paymentMode = 'Cash'
+            } else if (payment_type == 3) {
+                paymentMode = 'Insurance'
+            } else if (payment_type == 4) {
+                paymentMode = 'Docprime Care'
+            }
         }
-
+        if(is_vip_member && covered_under_vip){
+            paymentMode = 'Docprime VIP Member'
+        }
         return (
             <div className="profile-body-wrap">
                 {summary_utm_tag}
@@ -466,9 +476,17 @@ class BookingView extends React.Component {
                                                                             <p className="fw-500">&#8377; {parseInt(mrp)}</p>
                                                                         </div>
                                                                     }
+
+                                                                    {
+                                                                        is_vip_member && covered_under_vip?
+                                                                            <div className="d-flex justify-content-between align-items-center mrb-10">
+                                                                                <p className="fw-500" style={{ color: 'green' }}>Docprime VIP Member <img className="vip-main-ico img-fluid"src={ASSETS_BASE_URL + '/img/viplog.png'} /></p>
+                                                                                <p className="fw-500" style={{ color: 'green' }}>- &#8377; {parseInt(mrp) - parseInt(vip_amount)}</p>
+                                                                            </div> : ''
+                                                                    }
                                                                     
                                                                     {
-                                                                        discount && payment_type!=3?
+                                                                        discount && payment_type!=3 && !is_vip_member && !covered_under_vip?
                                                                             <div className="d-flex justify-content-between align-items-center mrb-10">
                                                                                 <p className="fw-500" style={{ color: 'green' }}>Docprime Discount</p>
                                                                                 <p className="fw-500" style={{ color: 'green' }}>- &#8377; {parseInt(discount)}</p>
@@ -484,8 +502,9 @@ class BookingView extends React.Component {
                                                                         {
                                                                             payment_type == 2 ?
                                                                                 <p className="fw-500">&#8377; {parseInt(deal_price)}</p>
-                                                                                :
-                                                                                <p className="fw-500">&#8377; {parseInt(effective_price)}</p>
+                                                                                :is_vip_member && covered_under_vip ?
+                                                                                <p className="fw-500">&#8377; {parseInt(vip_amount)}</p>
+                                                                                :<p className="fw-500">&#8377; {parseInt(effective_price)}</p>
                                                                         }
                                                                     </div>
                                                                     {

@@ -14,7 +14,7 @@ class TopChatWidget extends React.Component {
 		GTM.sendEvent({ data: gtmData })
 
 		// this.props.history.push('/mobileviewchat')
-		this.props.history.push('/vip-club-details?source=mobile-home-knowmore-vip-clicked')
+		this.props.history.push('/vip-club-details?source=mobile-home-knowmore-vip-clicked&lead_source=Docprime')
 	}
 
 	render() {
