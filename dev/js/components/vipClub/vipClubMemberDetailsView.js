@@ -497,14 +497,15 @@ class VipClubMemberDetailsView extends React.Component{
 							}
 
 							{
-								this.props.isAgent && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && <div style={{display:'flex'}}>
-									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" style={{flex:1}} onClick={()=>this.sendSMS()}>Send SMS
+								this.props.isAgent && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && <div className="v-btn-primary d-flex align-flex-sp-bt fixed horizontal bottom no-round text-lg sticky-btn">
+									<button className="v-btn p-3 v-btn-primary" onClick={()=>this.sendSMS()}>Send SMS
 										<span className="foot-btn-sub-span"></span>
 									</button>
-									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" style={{flex:1}} onClick={this.proceedPlan.bind(this)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
+									<button className="v-btn p-3 v-btn-primary" onClick={this.proceedPlan.bind(this)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
 										<span className="foot-btn-sub-span"></span>
 									</button>
 									</div>
+									
 							}
 							{
 								this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && this.props.is_from_payment && !this.props.isSalesAgent && !this.props.isAgent?
