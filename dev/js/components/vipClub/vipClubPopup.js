@@ -124,7 +124,7 @@ class VipLoginPopup extends React.Component {
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
 
-            if(this.props.vipPlusLead) {
+            if(this.props.vipPlusLead && parsed && parsed.utm_source) {
                 let data = {
                     name: this.state.user_name,
                     phone_number: this.state.phoneNumber,
