@@ -12124,3 +12124,8 @@ font-weight: 500;
     flex-shrink: 0;
     padding-left: 8px;
 }
+div.doc-srch-fltr.vip-slct-pop{
+    top: 81px;
+    max-height: 106px;
+    
+}
