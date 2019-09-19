@@ -505,6 +505,7 @@ class VipClubMemberDetailsView extends React.Component{
 										<span className="foot-btn-sub-span"></span>
 									</button>
 									</div>
+									
 							}
 							{
 								this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && this.props.is_from_payment && !this.props.isSalesAgent && !this.props.isAgent?
