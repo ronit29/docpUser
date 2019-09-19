@@ -317,7 +317,7 @@ class VipClubMemberDetailsView extends React.Component{
     pushUserData(data){
     	let parsed = queryString.parse(this.props.location.search)
     	if(this.props.vipPlusLead && parsed && parsed.utm_source) {
-            this.props.vipPlusLead(data)
+            this.props.vipPlusLead({ ...data, utm_source:parsed.utm_source })
         }
     	this.props.pushMembersData(data)
     }
