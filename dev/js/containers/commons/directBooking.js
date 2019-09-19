@@ -18,11 +18,15 @@ class DirectBooking extends React.Component {
     componentDidMount() {
         const parsed = queryString.parse(this.props.location.search)
         let OTT = parsed.token
-        let callbackurl = parsed.callbackurl 
+        let callbackurl = parsed.callbackurl
         if (OTT) {
             this.props.OTTLogin(OTT).then(() => {
                 if(callbackurl){
-                    this.props.history.push('/'+callbackurl)
+                    if(callbackurl == 'lab' || callbackurl == 'opd'){
+                        window.location.href = '/#' + callbackurl
+                    }else{
+                        this.props.history.push('/'+callbackurl)
+                    }
                 }else{
                     this.props.history.push('/cart?is_agent_booking=true')
                 }
