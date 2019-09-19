@@ -1,8 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { sendOTP, submitOTP, resetAuth, getUserProfile, getVipList, selectVipClubPlan, generateVipClubLead
- } from '../../actions/index.js'
+import { sendOTP, submitOTP, resetAuth, getUserProfile, getVipList, selectVipClubPlan, generateVipClubLead, vipPlusLead } from '../../actions/index.js'
 import VipClubView from '../../components/vipClub/vipClubView.js'
 import Loader from '../../components/commons/Loader'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
@@ -71,7 +70,8 @@ const mapDispatchToProps = (dispatch) => {
         generateVipClubLead:(selectedPlan,number,lead_data,selectedLocation,user_name,cb) =>dispatch(generateVipClubLead(selectedPlan,number,lead_data,selectedLocation,user_name,cb)),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
-        resetAuth: () => dispatch(resetAuth())
+        resetAuth: () => dispatch(resetAuth()),
+        vipPlusLead: (data) => dispatch(vipPlusLead(data))
     }
 }
 

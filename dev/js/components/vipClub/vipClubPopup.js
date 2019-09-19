@@ -123,6 +123,15 @@ class VipLoginPopup extends React.Component {
         let lead_data = parsed
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
+
+            if(this.props.vipPlusLead) {
+                let data = {
+                    name: this.state.user_name,
+                    phone_number: this.state.phoneNumber,
+                    utm_source: parsed.utm_source || ''
+                }
+                this.props.vipPlusLead(data)
+            }
             this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
                 if (exists.code == 'invalid') {
                     this.setState({ error_message: exists.message, validationError:'' })

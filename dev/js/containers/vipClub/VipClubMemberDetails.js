@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { userDetails, saveCurrentSelectedVipMembers, citiesData, selectVipUserProfile, vipClubPay, addVipMembersData, uploadVipProof, removeVipMemberProof, storeVipMemberProofs, pushMembersData, retrieveMembersData, selectVipClubPlan, resetVipData } from '../../actions/index.js'
+import { userDetails, saveCurrentSelectedVipMembers, citiesData, selectVipUserProfile, vipClubPay, addVipMembersData, uploadVipProof, removeVipMemberProof, storeVipMemberProofs, pushMembersData, retrieveMembersData, selectVipClubPlan, resetVipData, vipPlusLead, sendAgentBookingURL } from '../../actions/index.js'
 import VipClubMemberDetailsView from '../../components/vipClub/vipClubMemberDetailsView.js'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import Loader from '../../components/commons/Loader'
@@ -72,6 +72,8 @@ const mapDispatchToProps = (dispatch) => {
         retrieveMembersData:(callback) => dispatch(retrieveMembersData(callback)),
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
         resetVipData:() => dispatch(resetVipData()),
+        vipPlusLead: (data) => dispatch(vipPlusLead(data)),
+        sendAgentBookingURL: (orderId, type, purchase_type,cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type, cb))
     }
 }
 
