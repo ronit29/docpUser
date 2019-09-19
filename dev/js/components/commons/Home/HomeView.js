@@ -230,7 +230,7 @@ class HomeView extends React.Component {
 
 		let topPackages = []
 		if (this.props.common_package && this.props.common_package.length) {
-			topPackages = this.getTopList(this.props.common_package)
+			topPackages = this.props.common_package//this.getTopList(this.props.common_package)
 		}
 
 		let profileData = this.props.profiles[this.props.selectedProfile]
@@ -376,18 +376,6 @@ class HomeView extends React.Component {
 						}
 
 						{
-							this.props.ipd_procedures && this.props.ipd_procedures.length ?
-								<HomePageTopProcedures {...this.props} top_data={this.props.ipd_procedures} />
-								: ''
-						}
-						{
-							this.props.package_categories && this.props.package_categories.length ?
-								<HomePagePackageCategory {...this.props} top_data={this.props.package_categories} />
-								: ''
-						}
-
-
-						{
 							this.props.common_package && this.props.common_package.length ?
 								<HomePagePackageWidget
 									heading="Health Packages"
@@ -402,6 +390,17 @@ class HomeView extends React.Component {
 									navTo="/searchpackages"
 								/> : ""
 						}
+
+						<HomePageWidget
+							heading="Book Doctor Appointment"
+							discount="50%"
+							list={topSpecializations}
+							searchFunc={(sp) => this.searchDoctor(sp)}
+							searchType="specializations"
+							{...this.props}
+							navTo="/search?from=home"
+							type="opd"
+						/>
 
 						{/* x ray landing page cards */}
 						{/* <div className="xray-container">
@@ -437,16 +436,11 @@ class HomeView extends React.Component {
 							<button className="lap-doc-btn" >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
 						</div> */}
 
-						<HomePageWidget
-							heading="Book Doctor Appointment"
-							discount="50%"
-							list={topSpecializations}
-							searchFunc={(sp) => this.searchDoctor(sp)}
-							searchType="specializations"
-							{...this.props}
-							navTo="/search?from=home"
-							type="opd"
-						/>
+						{
+							this.props.package_categories && this.props.package_categories.length ?
+								<HomePagePackageCategory {...this.props} top_data={this.props.package_categories} />
+								: ''
+						}
 
 						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>
 							<p className="top-head-link card-lab-link">Run a lab? Reach more<span>customers near you</span></p>
@@ -463,6 +457,12 @@ class HomeView extends React.Component {
 							navTo="/search?from=home"
 							type="lab"
 						/>
+
+						{
+							this.props.ipd_procedures && this.props.ipd_procedures.length ?
+								<HomePageTopProcedures {...this.props} top_data={this.props.ipd_procedures} />
+								: ''
+						}
 
 					</div>
 				</div>)

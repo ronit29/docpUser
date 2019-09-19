@@ -567,7 +567,7 @@ export const select_opd_payment_type = (type = 1) => (dispatch) => {
 		payload: type
 	})
 }
-	function getDoctorFiltersParams(state,page, from_server, searchByUrl, clinic_card,isHospitalFilter ){
+	function getDoctorFiltersParams(state,page, from_server, searchByUrl=false, clinic_card,isHospitalFilter ){
 	let { selectedLocation, commonSelectedCriterias, filterCriteria, locationType } = state
 	let specializations_ids = commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
 	let condition_ids = commonSelectedCriterias.filter(x => x.type == 'condition').map(x => x.id)
@@ -637,6 +637,10 @@ export const select_opd_payment_type = (type = 1) => (dispatch) => {
 
 	if (!!filterCriteria.hospital_id) {
 		newUrl += `&hospital_id=${filterCriteria.hospital_id || ''}`
+	}
+
+	if(searchByUrl) {
+		newUrl += `&url=${searchByUrl}`
 	}
 	return newUrl
 }

@@ -719,7 +719,7 @@ class BookingSummaryViewNew extends React.Component {
             profileData['whatsapp_optin'] = this.state.whatsapp_optin
             this.props.editUserProfile(profileData, profileData.id)
         }
-        if (false && this.props.disCountedLabPrice >= 0 && !is_plan_applicable && !is_insurance_applicable && !is_vip_applicable) {
+        if (this.props.disCountedLabPrice >= 0 && !is_plan_applicable && !is_insurance_applicable && !is_vip_applicable) {
             postData['coupon_code'] = this.state.couponCode ? [this.state.couponCode] : []
         }
 

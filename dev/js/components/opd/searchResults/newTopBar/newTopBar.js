@@ -199,6 +199,11 @@ class TopBar extends React.Component {
         let searchUrl = null
         let page = this.props.page
         let state = this.props
+        if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit') || this.props.match.url.includes('-ipddp')) {
+            searchUrl = this.props.match.url.toLowerCase()
+            searchUrl = searchUrl.split('/')
+            searchUrl = searchUrl.length>1?searchUrl[1]:searchUrl[0]
+        }
         this.props.getDoctorHospitalFilters(state, page, false, searchUrl, (...resp) => {
             if (resp && resp[0].result) {
                 this.setState({ HospFilter: resp[0].result, HospFilterOnFoucsData: resp[0].result })

@@ -50,9 +50,9 @@ class HomePagePackageWidget extends React.Component {
 
     render() {
         return (
-            <div className="pakg-slider-container mt-10">
+            <div className="pakg-slider-container mt-10 mb-3">
                 <div className="pkgSliderHeading">
-                    <h5>Book Health Packages</h5>
+                    <h5>Popular Health Packages</h5>
                     <span onClick={this.navigateTo.bind(this, this.props.navTo)}>View All</span>
                 </div>
                 <div className="pkgSliderContainer" id="pkgSlider">
