@@ -148,10 +148,10 @@ class ThyrocarePackageView extends React.Component {
                                                                 </p>
                                         </div>
                                         <p className="stc-free-pick">Free Home Pickup</p>
-                                        <a href="/lab/searchresults?test_ids=12221"
+                                        <a href="/lab/searchresults?test_ids=14947"
                                             onClick={(e) => {
                                                 e.preventDefault()
-                                                this.bookNowClicked('/lab/searchresults?test_ids=12221', 'TopbookNowClickedBlock3')
+                                                this.bookNowClicked('/lab/searchresults?test_ids=14947', 'TopbookNowClickedBlock3')
                                             }}
                                             className="stc-book-btn">Book Now</a>
                                     </div>
