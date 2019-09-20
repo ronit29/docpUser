@@ -54,7 +54,11 @@ class VipProposer extends React.Component {
 		let profile
 		if (this.props.vipClubMemberDetails[this.props.USER.defaultProfile] && !this.props.is_endorsement && !this.props.is_from_payment) {
 			profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.USER.defaultProfile])
-			this.getUserDetails(profile)
+			if(Object.keys(profile).length > 0){
+				this.setState({...profile},()=>{
+					this.getUserDetails(profile)
+				})
+			}
 		}
 	}
 	componentWillReceiveProps(props) {
@@ -230,21 +234,6 @@ class VipProposer extends React.Component {
 			this.setState({ profile_id: null })
 		}
 		var self_data = this.state
-		// if (self_data.name !== '') {
-		// 	if (self_data.name.length > 50) {
-		// 		self_data.name = self_data.name.slice(0, 50)
-		// 	}
-		// }
-		/*if (self_data.middle_name !== '') { // to be deleted
-			if (self_data.middle_name.length > 50) {
-				self_data.middle_name = self_data.middle_name.slice(0, 50)
-			}
-		}*/
-		// if (self_data.last_name !== '') {
-		// 	if (self_data.last_name.length > 50) {
-		// 		self_data.last_name = self_data.last_name.slice(0, 50)
-		// 	}
-		// }
 		if (!is_endoresment && !is_endorse_email) {
 			self_data.is_change = true
 			self_data.first_name = self_data.name

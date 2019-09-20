@@ -222,8 +222,5 @@ export const retrieveMembersData = (callback) => (dispatch) =>{
 
 export const vipPlusLead = (data) => (dispatch) => {
     API_POST(`api/v1/plus/push_vip_lead`, data).then(function (response) {
-        dispatch({
-
-        })
     })
 }
