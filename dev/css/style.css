@@ -1472,7 +1472,7 @@ padding: 20px;
     margin-bottom: 20px;
     color: #757575;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 }
 .usr-dtls-strt-txt img{
     width: 19px;
