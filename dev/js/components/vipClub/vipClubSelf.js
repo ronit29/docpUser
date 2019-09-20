@@ -57,6 +57,7 @@ class VipProposer extends React.Component {
 			if(Object.keys(profile).length > 0){
 				this.setState({...profile},()=>{
 					this.getUserDetails(profile)
+					this.populateDates()
 				})
 			}
 		}

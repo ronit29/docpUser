@@ -66,7 +66,17 @@ class VipClubMemberDetailsView extends React.Component{
     	let self = this
     	let isDummyUser
     	let membersId = []
+    	console.log(this.state.saveMembers)
+    	console.log('props.selected_vip_plan')
+    	console.log(props.selected_vip_plan)
+    	console.log('props.USER.defaultProfile')
+    	console.log(props.USER.defaultProfile)
+    	console.log('props.currentSelectedVipMembersId')
+    	console.log(props.currentSelectedVipMembersId)
+    	console.log('props.is_from_payment')
+    	console.log(props.is_from_payment)
     	if(!this.state.saveMembers && Object.keys(props.selected_vip_plan).length >0 && props.USER.defaultProfile && !props.currentSelectedVipMembersId.length && !props.is_from_payment){
+    		console.log('iffff')
     		let loginUser = props.USER.defaultProfile
     		let isDefaultUser
     		if(this.props.savedMemberData && this.props.savedMemberData.length >0){
@@ -321,6 +331,7 @@ class VipClubMemberDetailsView extends React.Component{
     pushUserData(data){
     	let parsed = queryString.parse(this.props.location.search)
     	if(this.props.vipPlusLead && parsed && parsed.utm_source) {
+    		data.utm_data = parsed
             this.props.vipPlusLead({ ...data, utm_source:this.props.isSalesAgent })
         }
     	this.props.pushMembersData(data)

@@ -104,6 +104,10 @@ export default function (state = defaultState, action) {
             newState.selected_vip_plan={}
             newState.vipClubMemberDetails={}
             newState.members_proofs = []
+            newState.vipClubList=[]
+            newState.LOAD_VIP_CLUB_DASHBOARD=false
+            newState.showVipDetailsView=false
+            newState.savedMemberData=[]
             return newState   
         }
 
