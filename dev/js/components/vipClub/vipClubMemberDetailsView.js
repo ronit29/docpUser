@@ -66,30 +66,35 @@ class VipClubMemberDetailsView extends React.Component{
     	let self = this
     	let isDummyUser
     	let membersId = []
-    	console.log(this.state.saveMembers)
-    	console.log('props.selected_vip_plan')
-    	console.log(props.selected_vip_plan)
-    	console.log('props.USER.defaultProfile')
-    	console.log(props.USER.defaultProfile)
-    	console.log('props.currentSelectedVipMembersId')
-    	console.log(props.currentSelectedVipMembersId)
-    	console.log('props.is_from_payment')
-    	console.log(props.is_from_payment)
-    	if(!this.state.saveMembers && Object.keys(props.selected_vip_plan).length >0 && props.USER.defaultProfile && !props.currentSelectedVipMembersId.length && !props.is_from_payment){
-    		console.log('iffff')
-    		let loginUser = props.USER.defaultProfile
+    	// console.log(this.state.saveMembers)
+    	// console.log('props.selected_vip_plan')
+    	// console.log(props.selected_vip_plan)
+    	// console.log('props.USER.defaultProfile')
+    	// console.log(props.USER.defaultProfile)
+    	// console.log('props.currentSelectedVipMembersId')
+    	// console.log(props.currentSelectedVipMembersId)
+    	// console.log('props.is_from_payment')
+    	// console.log(props.is_from_payment)
+    	if(!this.state.saveMembers && Object.keys(props.selected_vip_plan).length >0 && !props.currentSelectedVipMembersId.length && !props.is_from_payment){
+    		// console.log('iffff')
+    		let loginUser
     		let isDefaultUser
+    		if(props.USER){
+    			loginUser = props.USER.defaultProfile
+    		}
     		if(this.props.savedMemberData && this.props.savedMemberData.length >0){
     			Object.entries(props.savedMemberData).map(function([key, value]) {
     				membersId.push({[key]: value.id, type:value.relation == 'SELF'?'self':'adult'})
     			})
     			props.saveCurrentSelectedVipMembers(membersId)
 				this.setState({ saveMembers: true})
+				// console.log(membersId)
+				// console.log('membersId')
     		}else{
 	    		if(props.USER.profiles && Object.keys(props.USER.profiles).length && props.USER.profiles[props.USER.defaultProfile]){
 	    			isDefaultUser = props.USER.profiles[props.USER.defaultProfile].is_default_user
+	    			isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
 	    		}
-	    		isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
 	    		if(!isDummyUser){
 		    		membersId.push({'0':loginUser, type: 'self'})
 		    		if(props.is_from_payment){
@@ -101,6 +106,8 @@ class VipClubMemberDetailsView extends React.Component{
 			    		membersId.push({[1]: 1, type:'adult'})
 			    	}
 				}
+				// console.log('membersIdelse')
+				// console.log(membersId)
 				props.saveCurrentSelectedVipMembers(membersId)
 				this.setState({ saveMembers: true})
 			}
@@ -155,9 +162,12 @@ class VipClubMemberDetailsView extends React.Component{
     	let member_ref = ''
     	let validatingErrors = {}
     	let param
+    	let parsed = queryString.parse(this.props.location.search)
     	if(this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length > 0 && this.props.vipClubMemberDetails && Object.keys(this.props.vipClubMemberDetails).length>0){
     		data.plan_id = 	this.props.selected_vip_plan.id
     		data.members = []
+			data.utm_spo_tags = parsed
+			pushData.utm_spo_tags = parsed
     		pushData.plan = this.props.selected_vip_plan
     		pushData.members = []
     		isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
@@ -331,14 +341,14 @@ class VipClubMemberDetailsView extends React.Component{
     pushUserData(data){
     	let parsed = queryString.parse(this.props.location.search)
     	if(this.props.vipPlusLead && parsed && parsed.utm_source) {
-    		data.utm_data = parsed
             this.props.vipPlusLead({ ...data, utm_source:this.props.isSalesAgent })
         }
     	this.props.pushMembersData(data)
     }
 
     sendSMS(){
-    	this.props.sendAgentBookingURL(null, 'sms', 'vip_purchase',(err, res) => {
+    	let parsed = queryString.parse(this.props.location.search)
+    	this.props.sendAgentBookingURL(null, 'sms', 'vip_purchase',parsed,(err, res) => {
             if (err) {
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
             } else {
@@ -468,9 +478,9 @@ class VipClubMemberDetailsView extends React.Component{
 										<div className="insurance-member-details mrt-20">
 											<VipProposer {...this.props} 
 												// checkForValidation ={this.checkForValidation.bind(this)}  // to be deleted
-												id={`member_${proposer_id?proposer_id:this.props.USER.defaultProfile}`} 
-												member_id={proposer_id?proposer_id:this.props.USER.defaultProfile} 
-												validateErrors={this.state.validateErrors[proposer_id?proposer_id:this.props.USER.defaultProfile == 999999?0:this.props.USER.defaultProfile] || []}
+												id={`member_${proposer_id?proposer_id:this.props.USER.defaultProfile?this.props.USER.defaultProfile == 999999?0:this.props.USER.defaultProfile:0}`} 
+												member_id={proposer_id?proposer_id:this.props.USER.defaultProfile?this.props.USER.defaultProfile == 999999?0:this.props.USER.defaultProfile:0} 
+												validateErrors={this.state.validateErrors[proposer_id?proposer_id:this.props.USER.defaultProfile?this.props.USER.defaultProfile == 999999?0:this.props.USER.defaultProfile:0] || []}
 												validateOtherErrors={this.state.validateOtherErrors[proposer_id?proposer_id:this.props.USER.defaultProfile] || []} 
 												createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} 
 												errorMessages={this.state.errorMessages} 

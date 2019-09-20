@@ -19,8 +19,7 @@ class VipClubMemberDetails extends React.Component{
     }
 
     componentDidMount() {
-        this.props.retrieveMembersData((resp) =>{
-        })
+        this.props.retrieveMembersData()
         this.props.citiesData()
     }
 
@@ -73,7 +72,7 @@ const mapDispatchToProps = (dispatch) => {
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
         resetVipData:() => dispatch(resetVipData()),
         vipPlusLead: (data) => dispatch(vipPlusLead(data)),
-        sendAgentBookingURL: (orderId, type, purchase_type,cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type, cb))
+        sendAgentBookingURL: (orderId, type, purchase_type,query_data,cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type,query_data, cb)),
     }
 }
 

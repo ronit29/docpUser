@@ -106,7 +106,15 @@ class VipClubView extends React.Component {
                 if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
                     loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
                     if (Object.keys(loginUser).length > 0) {
-                        // this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name)
+                        if(this.props.vipPlusLead && lead_data && lead_data.utm_source) {
+                            let data = {
+                                name: loginUser.name,
+                                phone_number: loginUser.phone_number,
+                                utm_source: lead_data.utm_source || '',
+                                utm_spo_tags : lead_data || ''
+                            }
+                            this.props.vipPlusLead(data)
+                        }
                     }
                 }
                 this.props.history.push('/vip-club-member-details?utm_source='+this.props.isSalesAgent+'&is_agent='+this.props.isAgent)

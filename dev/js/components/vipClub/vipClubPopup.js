@@ -133,7 +133,7 @@ class VipLoginPopup extends React.Component {
                             name: this.state.user_name,
                             phone_number: this.state.phoneNumber,
                             utm_source: parsed.utm_source || '',
-                            utm_data: parsed || ''
+                            utm_spo_tags: parsed || ''
                         }
                         this.props.vipPlusLead(data)
                     }
