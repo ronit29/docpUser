@@ -181,7 +181,7 @@ export default function (state = defaultState, action) {
             if(action.payload.data && Object.keys(action.payload.data).length > 0 && action.payload.data.members && action.payload.data.members.length > 0){
                     newState.currentSelectedVipMembersId=[]
                     newState.selected_vip_plan={}
-                    newState.vipClubMemberDetails={}
+                    // newState.vipClubMemberDetails={}
                     newState.members_proofs = []
                     newState.selected_vip_plan=action.payload.data.plan
                     newState.savedMemberData = action.payload.data.members

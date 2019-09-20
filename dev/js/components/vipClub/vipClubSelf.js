@@ -62,6 +62,24 @@ class VipProposer extends React.Component {
 				})
 			}
 		}
+// 		if (this.props.vipClubMemberDetails[this.props.USER.defaultProfile] && !this.props.is_endorsement && !this.props.is_from_payment) {
+// 			if(this.props.savedMemberData && this.props.savedMemberData.length > 0){
+// 				profile = this.props.savedMemberData.filter((x=>x.relation == 'SELF'))
+// console.log(profile)
+// 	console.log('profileaaa')
+// 				if(profile.length > 0){
+// 					profile = profile[0]
+// 					this.setState({...profile})
+// 				}
+// 			}else{
+// 				profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.USER.defaultProfile])
+// 				console.log(profile)
+// 				console.log('profile')
+// 				this.setState({...profile})
+// 			}
+// 			this.populateDates()
+// 			this.getUserDetails(profile)
+// 		}
 	}
 	componentWillReceiveProps(props) {
 		let newName = []
@@ -77,6 +95,8 @@ class VipProposer extends React.Component {
 				} else {
 					profile = Object.assign({}, props.vipClubMemberDetails[0])
 				}
+				// console.log(profile)
+				// console.log('profile1')
 				this.populateDates()
 				this.getUserDetails(profile)
 				if (Object.keys(profile).length) {
@@ -91,27 +111,41 @@ class VipProposer extends React.Component {
 							})
 						}
 					})
-				} else {
+				}else {
 					let new_profile = props.USER.profiles[props.USER.defaultProfile]
+					// console.log(new_profile)
+					// console.log('profile1')
 					this.populateDates()
 					this.getUserDetails(new_profile)
 				}
 				this.setState({ profile_flag: false })
-			} else if (props.USER.profiles[props.USER.defaultProfile]) {
+			}else if (props.USER.profiles[props.USER.defaultProfile]) {
 				let profile
+				// console.log('eeeeeee')
 				if(props.savedMemberData && props.savedMemberData.length > 0){
 					profile = props.savedMemberData.filter((x=>x.relation == 'SELF'))
+					//console.log(profile)
+					// console.log('profile11111')
 					if(profile.length > 0){
 						profile = profile[0]
-						this.setState({...profile})
+						this.getUserDetails(profile)
+						this.populateDates()
+						this.setState({...profile,name:profile.name,email:profile.email},()=>{
+							this.handleSubmit(false,false)
+						})
+						this.setState({ profile_flag: false })
 					}
 				}else{
 					profile = Object.assign({}, props.USER.profiles[props.USER.defaultProfile])
-					this.setState({...profile})
+					// console.log(profile)
+					// console.log('profile122222')
+					this.getUserDetails(profile)
+					this.populateDates()
+					this.setState({...profile},()=>{
+						this.handleSubmit(false,false)
+					})
+					this.setState({ profile_flag: false })
 				}
-				this.getUserDetails(profile)
-				this.populateDates()
-				this.setState({ profile_flag: false })
 			}
 		}else if(props.is_from_payment && this.state.profile_flag && Object.keys(props.vip_club_db_data).length >0){
 			let profile ={}
