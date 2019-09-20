@@ -113,7 +113,7 @@ class HospitalDetailView extends React.Component {
 	}
 
 	getCostEstimateClicked() {
-
+		const parsed = queryString.parse(this.props.location.search)
 		let ipd_id = this.props.commonSelectedCriterias.length ? this.props.commonSelectedCriterias[0].id : null
 		let hospital_id = this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ? this.props.ipd_hospital_detail.id : ''
 		let gtmData = {
@@ -121,6 +121,13 @@ class HospitalDetailView extends React.Component {
 		}
 		GTM.sendEvent({ data: gtmData })
 
+		if(parsed.fromProcedure){
+
+		}else{
+			ipd_id = null
+			let selectedCriteria = []
+			this.props.toggleIPDCriteria(selectedCriteria, true)
+		}
 
 		this.props.history.push(`/ipd/${ipd_id ? ipd_id : 'price'}/getPriceEstimate?hospital_id=${hospital_id}`)
 
