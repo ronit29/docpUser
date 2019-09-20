@@ -2,20 +2,6 @@ import { GET_VIP_LIST, SELECT_VIP_CLUB_PLAN, USER_SELF_DETAILS, SAVE_CURRENT_VIP
 } from '../../constants/types';
 
 const defaultState = {
-/*insurnaceData: {},
-selected_plan:{},
-self_data_values:{},
-create_payment_resp:{},
-members_data_value:{},
-insured_member_list:{},
-member_list_updated:{},
-get_insured_profile:{},
-endorsed_member_data:{},
-LOAD_INSURANCE: false,
-currentSelectedInsuredMembersId: [],
-insurer_bank_details:{},
-avail_now_data:null,
-cancel_reason:null,*/
 members_proofs:[],
 LOAD_VIP_CLUB:false,
 vipClubList:[],

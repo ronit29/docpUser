@@ -135,7 +135,7 @@ class VipClubMemberDetailsView extends React.Component{
         }
     }
     
-    proceedPlan(){ //new
+    proceedPlan(isSms){ //new
     	let success_id
     	let data = {}
     	let pushData = {}
@@ -294,19 +294,23 @@ class VipClubMemberDetailsView extends React.Component{
 		    		pushData.members.push(self_profile)
 		    		console.log(data)
 		    		this.pushUserData(pushData)
-		    // 		this.props.vipClubPay(data,(resp)=>{
-		    			
-		    // 			if(resp && resp.error){
-		    // 				SnackBar.show({ pos: 'bottom-center', text: resp.error})
-		    // 				return
-		    // 			}
-		    // 			if(resp && resp.payment_required){
-      //                       this.processPayment(resp)
-						// }else{
-						// 	success_id = '/vip-club-activated-details?payment_success=true&id='+resp.data.id
-						// 	this.props.history.push(success_id)
-						// }
-		    // 		})
+		    		if(isSms){
+		    			this.sendSMS()
+		    		}else{
+			    		this.props.vipClubPay(data,(resp)=>{
+			    			
+			    			if(resp && resp.error){
+			    				SnackBar.show({ pos: 'bottom-center', text: resp.error})
+			    				return
+			    			}
+			    			if(resp && resp.payment_required){
+	                            this.processPayment(resp)
+							}else{
+								success_id = '/vip-club-activated-details?payment_success=true&id='+resp.data.id
+								this.props.history.push(success_id)
+							}
+			    		})
+			    	}
 	    		}
 	    		// this.props.history.push('/vip-club-activated-details')
 	    	}
@@ -317,7 +321,7 @@ class VipClubMemberDetailsView extends React.Component{
     pushUserData(data){
     	let parsed = queryString.parse(this.props.location.search)
     	if(this.props.vipPlusLead && parsed && parsed.utm_source) {
-            this.props.vipPlusLead({ ...data, utm_source:parsed.utm_source })
+            this.props.vipPlusLead({ ...data, utm_source:this.props.isSalesAgent })
         }
     	this.props.pushMembersData(data)
     }
@@ -475,22 +479,22 @@ class VipClubMemberDetailsView extends React.Component{
 							}
 						</section>
 							{
-								this.props.isSalesAgent && this.props.isAgent && this.props.isAgent === 'true' && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && !this.props.is_from_payment?
-									/*<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price} rishi
+								/*this.props.isSalesAgent && this.props.isAgent && this.props.isAgent === 'true' && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && !this.props.is_from_payment?
+									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price} rishi
 										<span className="foot-btn-sub-span"></span>
-									</button>*/
+									</button>
 									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
 										<span className="foot-btn-sub-span"></span>
 									</button>
-								:''
+								:''*/
 							}
 							{
 								this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && !this.props.is_from_payment && !this.props.isAgent?
-									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
+									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this,false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
 										<span className="foot-btn-sub-span"></span>
 									</button>
 								:this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && !this.props.is_from_payment && this.props.isAgent === 'false'?
-									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
+									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this,false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
 										<span className="foot-btn-sub-span"></span>
 									</button>
 								:''
@@ -498,10 +502,10 @@ class VipClubMemberDetailsView extends React.Component{
 
 							{
 								this.props.isAgent && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && <div className="v-btn-primary d-flex align-flex-sp-bt fixed horizontal bottom no-round text-lg sticky-btn">
-									<button className="v-btn p-3 v-btn-primary" onClick={()=>this.sendSMS()}>Send SMS
+									<button className="v-btn p-3 v-btn-primary" onClick={this.proceedPlan.bind(this,true)}>Send SMS
 										<span className="foot-btn-sub-span"></span>
 									</button>
-									<button className="v-btn p-3 v-btn-primary" onClick={this.proceedPlan.bind(this)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
+									<button className="v-btn p-3 v-btn-primary" onClick={this.proceedPlan.bind(this,false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
 										<span className="foot-btn-sub-span"></span>
 									</button>
 									</div>
@@ -509,7 +513,7 @@ class VipClubMemberDetailsView extends React.Component{
 							}
 							{
 								this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && this.props.is_from_payment && !this.props.isSalesAgent && !this.props.isAgent?
-									<button id="submit_buy" className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Submit
+									<button id="submit_buy" className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this,false)}>Submit
 										<span className="foot-btn-sub-span"></span>
 									</button>
 								:''

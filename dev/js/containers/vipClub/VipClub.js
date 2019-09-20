@@ -40,12 +40,16 @@ class VipClub extends React.Component{
             if(this.props.vipClubList.certificate && STORAGE.checkAuth()){
                 this.props.history.push('/vip-club-activated-details')
             }
-            return(
-            <div className="profile-body-wrap">
-                <ProfileHeader showPackageStrip={true}/>
-                <Loader />
-            </div>
-                )
+            if(this.state.isSalesAgent && this.state.isAgent){
+                return <div className="profile-body-wrap">
+                        <Loader />
+                        </div>
+            }else{
+                return <div className="profile-body-wrap">
+                    <ProfileHeader showPackageStrip={true}/>
+                    <Loader />
+                </div>
+            }               
         }
     }
 }
