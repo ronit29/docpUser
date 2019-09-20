@@ -117,7 +117,23 @@ class VipClubView extends React.Component {
                 //         }
                 //     }
                 // }
-                this.props.history.push('/vip-club-member-details?utm_source='+this.props.isSalesAgent+'&is_agent='+this.props.isAgent)
+                let url = '/vip-club-member-details?'
+                if(lead_data.utm_source){
+                    url += 'utm_source='+lead_data.utm_source
+                }
+                if(lead_data.utm_term){
+                    url += 'utm_term='+lead_data.utm_term
+                }
+                if(lead_data.utm_campaign){
+                    url += 'utm_campaign='+lead_data.utm_campaign
+                }
+                if(lead_data.utm_medium){
+                    url += 'utm_medium='+lead_data.utm_medium
+                }
+                if(lead_data.is_agent){
+                    url += 'is_agent='+lead_data.is_agent
+                }
+                this.props.history.push(url)
             } else {
                 this.setState({ showPopup: true })
             }
