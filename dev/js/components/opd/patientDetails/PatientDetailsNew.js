@@ -57,7 +57,7 @@ class PatientDetailsNew extends React.Component {
             cart_item: parsed.cart_item,
             whatsapp_optin: true,
             formData: '',
-            showConfirmationPopup: false,
+            showConfirmationPopup: true,
             coupon_loading: false,
             seoFriendly: this.props.match.url.includes('-dpp'),
             showIpdLeadForm: true,

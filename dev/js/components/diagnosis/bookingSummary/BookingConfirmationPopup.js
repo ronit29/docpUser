@@ -11,8 +11,8 @@ class BookingConfirmationPopup extends React.Component {
 	render() {
 		return (
 			<div className="search-el-popup-overlay">
-				<div className="search-el-popup">
-					<div className="widget">
+				<div className="search-el-popup vip-srch-pop-min">
+					<div className="widget d-none">
 						<div className="widget-content padiing-srch-el">
 							{
 								this.props.iFramePopup ?
@@ -36,6 +36,18 @@ class BookingConfirmationPopup extends React.Component {
 										</div>
 									</React.Fragment>
 							}
+						</div>
+					</div>
+
+					{/* vip banner container */}
+					<div className="vip-banner-container">
+						<div className="vip-banner">
+							<img className="img-fluid vp-cls-img" src={ASSETS_BASE_URL + '/img/vip-pop-cls.svg'} />
+							<img className="img-fluid vp-bnr-img" src={ASSETS_BASE_URL + '/img/vip-img-pop.png'} />
+							<div className="pop-bnr-txt">
+								<p className="vp-bnr-know-txt">Know more about Docprime VIP</p>
+								<p className="vp-bnr-sub-txt">Not Interested? Continue Booking <img style={{width:'7px'}} className="img-fluid" src={ASSETS_BASE_URL + '/img/vip-rght.svg'} /></p>
+							</div>
 						</div>
 					</div>
 				</div>
