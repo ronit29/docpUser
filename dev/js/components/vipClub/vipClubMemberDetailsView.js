@@ -371,14 +371,21 @@ class VipClubMemberDetailsView extends React.Component{
 		let child
 		let adult
 		let userProfile
-		let proposer_id = ''
+		let proposer_id = null
 		// let selectedProfileId = parseInt(this.props.USER.defaultProfile) // to be deleted
+		if(this.props.USER && this.props.USER.defaultProfile){
+			if(this.props.USER.defaultProfile == 999999){
+				proposer_id = 0
+			}else{
+				proposer_id = this.props.USER.defaultProfile
+			}
+		}
 		if(this.props.savedMemberData && this.props.savedMemberData.length > 0){
 			Object.entries(this.props.savedMemberData).map(function([key, value]) {
     				if(value.relation == 'SELF'){
     					proposer_id = value.id
     				}
-    			})
+    		})
 		}
 		// let selectedProfileId = parseInt(this.props.USER.defaultProfile) // to be deleted
 		let selectedMembersId =0
@@ -478,10 +485,10 @@ class VipClubMemberDetailsView extends React.Component{
 										<div className="insurance-member-details mrt-20">
 											<VipProposer {...this.props} 
 												// checkForValidation ={this.checkForValidation.bind(this)}  // to be deleted
-												id={`member_${proposer_id?proposer_id:this.props.USER.defaultProfile?this.props.USER.defaultProfile == 999999?0:this.props.USER.defaultProfile:0}`} 
-												member_id={proposer_id?proposer_id:this.props.USER.defaultProfile?this.props.USER.defaultProfile == 999999?0:this.props.USER.defaultProfile:0} 
-												validateErrors={this.state.validateErrors[proposer_id?proposer_id:this.props.USER.defaultProfile?this.props.USER.defaultProfile == 999999?0:this.props.USER.defaultProfile:0] || []}
-												validateOtherErrors={this.state.validateOtherErrors[proposer_id?proposer_id:this.props.USER.defaultProfile] || []} 
+												id={`member_${proposer_id}`} 
+												member_id={proposer_id} 
+												validateErrors={this.state.validateErrors[proposer_id] || []}
+												validateOtherErrors={this.state.validateOtherErrors[proposer_id] || []} 
 												createApiErrors={this.state.CreateApiErrors.members?this.state.CreateApiErrors.members[0]:[]} 
 												errorMessages={this.state.errorMessages} 
 												is_endorsement = {false} 

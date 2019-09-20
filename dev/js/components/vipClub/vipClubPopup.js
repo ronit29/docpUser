@@ -128,15 +128,15 @@ class VipLoginPopup extends React.Component {
                 if (exists.code == 'invalid') {
                     this.setState({ error_message: exists.message, validationError:'' })
                 } else {
-                    if(this.props.vipPlusLead && parsed && parsed.utm_source) {
-                        let data = {
-                            name: this.state.user_name,
-                            phone_number: this.state.phoneNumber,
-                            utm_source: parsed.utm_source || '',
-                            utm_spo_tags: parsed || ''
-                        }
-                        this.props.vipPlusLead(data)
-                    }
+                    // if(this.props.vipPlusLead && parsed && parsed.utm_source) {
+                    //     let data = {
+                    //         name: this.state.user_name,
+                    //         phone_number: this.state.phoneNumber,
+                    //         utm_source: parsed.utm_source || '',
+                    //         utm_spo_tags: parsed || ''
+                    //     }
+                    //     this.props.vipPlusLead(data)
+                    // }
                     if (exists.token) {
                         // let data = {
                         //     'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupOptVerified', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-opt-verified'

@@ -185,7 +185,7 @@ export default function (state = defaultState, action) {
                     newState.members_proofs = []
                     newState.selected_vip_plan=action.payload.data.plan
                     newState.savedMemberData = action.payload.data.members
-                }
+            }
             newState.showVipDetailsView=true
             return newState 
         }

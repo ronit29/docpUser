@@ -92,13 +92,12 @@ class VipProposer extends React.Component {
 						}
 					})
 				} else {
-					this.setState({ profile_flag: false })
 					let new_profile = props.USER.profiles[props.USER.defaultProfile]
 					this.populateDates()
 					this.getUserDetails(new_profile)
 				}
-			} else if (props.USER.profiles[props.USER.defaultProfile]) {
 				this.setState({ profile_flag: false })
+			} else if (props.USER.profiles[props.USER.defaultProfile]) {
 				let profile
 				if(props.savedMemberData && props.savedMemberData.length > 0){
 					profile = props.savedMemberData.filter((x=>x.relation == 'SELF'))
@@ -108,9 +107,11 @@ class VipProposer extends React.Component {
 					}
 				}else{
 					profile = Object.assign({}, props.USER.profiles[props.USER.defaultProfile])
+					this.setState({...profile})
 				}
 				this.getUserDetails(profile)
 				this.populateDates()
+				this.setState({ profile_flag: false })
 			}
 		}else if(props.is_from_payment && this.state.profile_flag && Object.keys(props.vip_club_db_data).length >0){
 			let profile ={}
