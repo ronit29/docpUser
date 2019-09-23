@@ -52,23 +52,40 @@ class VipProposer extends React.Component {
 	}
 	componentDidMount() {
 		let profile
-		let newProfile
-		if (this.props.vipClubMemberDetails[this.props.USER.defaultProfile] && !this.props.is_from_payment) {
-			profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.USER.defaultProfile])
+		let isDummyUser
+		let profileLength = Object.keys(this.props.USER.profiles).length;
+		// if (this.props.vipClubMemberDetails[this.props.USER.defaultProfile] && !this.props.is_from_payment) { profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.USER.defaultProfile])
+		if (profileLength > 0 && this.props.vipClubMemberDetails[this.props.member_id] && !this.props.is_from_payment) {
+			if (!isDummyUser) {
+				profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.USER.defaultProfile])
+			} else {
+				profile = Object.assign({}, this.props.vipClubMemberDetails[0])
+			}
+			
 			if(Object.keys(profile).length > 0){
-
-				this.setState({...profile},()=>{
-					this.getUserDetails(profile)
-					this.populateDates()
-					this.handleSubmit(false,false)
-				})
+				isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
+				if(profile.isDummyUser){
+					profile.id = 0
+					this.setState({id:0},()=>{
+						this.populateDates()
+	    				this.getUserDetails(profile)	
+	    			})
+				}else{
+					this.setState({id:profile.id},()=>{
+						this.populateDates()
+	    				this.getUserDetails(profile)	
+	    			})
+				}
+				// this.setState({...profile},()=>{
+				// 	this.getUserDetails(profile)
+				// 	this.populateDates()
+				// 	this.handleSubmit(false,false)
+				// })
 			}
 		}
 	}
 	componentWillReceiveProps(props) {
-		let newName = []
 		let self = this
-		let oldDate
 		let profileLength = Object.keys(props.USER.profiles).length;
 		if (profileLength > 0 && this.state.profile_flag && !props.is_from_payment) {
 			let isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
@@ -121,10 +138,10 @@ class VipProposer extends React.Component {
 			if(props.vip_club_db_data && Object.keys(props.vip_club_db_data.data).length >0 && props.vip_club_db_data.data.user && Object.keys(props.vip_club_db_data.data.user).length > 0 && props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length > 0){
 				if(props.vipClubMemberDetails && Object.keys(props.vipClubMemberDetails).length > 0){
 					props.currentSelectedVipMembersId.map((val,key) => {
-			    			newProfile =props.vipClubMemberDetails[val[key]]
-			    			if(newProfile && newProfile.relation == 'SELF'){
-			    				profile = props.vipClubMemberDetails[val[key]]
-			    			}
+		    			newProfile =props.vipClubMemberDetails[val[key]]
+		    			if(newProfile && newProfile.relation == 'SELF'){
+		    				profile = props.vipClubMemberDetails[val[key]]
+		    			}
 			    	})
 			    	if (profile && Object.keys(profile).length) {
 			    		this.setState({id:profile.profile,profile_flag:false},()=>{
@@ -153,43 +170,47 @@ class VipProposer extends React.Component {
 		let newName = []
 		let oldDate
 		let tempArray
-		this.populateDates()
+		// this.populateDates()
 		if(Object.keys(profile).length > 0){
 			if(profile.name){
 				newName = profile.name.split(" ")
 				if (newName.length == 2) {
 					this.setState({
-						name: profile.isDummyUser ? '' : newName[0],
-						last_name: profile.isDummyUser ? '' : newName[1]
+						// name: profile.isDummyUser ? '' : newName[0],
+						// last_name: profile.isDummyUser ? '' : newName[1]
+						name: newName[0],last_name: newName[1]
 					})
 				}  else if (newName.length > 2) {
 					tempArray = newName.slice(1, newName.length)
 					this.setState({
-						name: profile.isDummyUser ? '' : newName[0],
-						last_name: profile.isDummyUser ? '' : tempArray.join(' ')
+						// name: profile.isDummyUser ? '' : newName[0],
+						// last_name: profile.isDummyUser ? '' : tempArray.join(' ')
+						name: newName[0],
+						last_name: tempArray.join(' ')
 					})
 				} else {
-					this.setState({ name: profile.isDummyUser ? '' : profile.name })
+					this.setState({ name:profile.name?profile.name:'' })
 				}
 			}
 			if(this.props.is_from_payment){
 				if(profile.first_name){
-					this.setState({name:profile.first_name})
+					this.setState({name:profile.first_name?profile.first_name:profile.name?profile.name:''})
 				}
 				if(profile.city){
-					this.setState({state:profile.city})
+					this.setState({state:profile.city?profile.city:''})
 				}
 				if(profile.city_code){
-					this.setState({state_code:profile.city_code})
+					this.setState({state_code:profile.city_code?profile.city_code:''})
 				}
 			}
 			if(profile.gender == 'm'){
-				this.setState({gender:profile.gender,title: 'mr.'})
+				this.setState({gender:profile.gender?profile.gender:'',title: 'mr.'})
 			}else if(profile.gender == 'f'){
-				this.setState({gender:profile.gender,title: 'mrs.'})
+				this.setState({gender:profile.gender?profile.gender:'',title: 'mrs.'})
 			}
 			if (profile.isDummyUser && profile.dob) {
 				this.setState({ day: null, year: null, mnth: null })
+				this.populateDates()
 			} else if (Object.keys(profile).length > 0 && profile.dob) {
 				oldDate = profile.dob.split('-')
 				this.setState({ year: oldDate[0], mnth: oldDate[1], day: oldDate[2] }, () => {
@@ -199,8 +220,10 @@ class VipProposer extends React.Component {
 				this.populateDates()
 			}
 			this.setState({
-				email: profile.isDummyUser ? '' : profile.email,
-				dob: profile.isDummyUser ? '' : profile.dob
+				// email: profile.isDummyUser ? '' : profile.email,
+				// dob: profile.isDummyUser ? '' : profile.dob
+				email: profile.email ? profile.email :'',
+				dob: profile.dob ? profile.dob :''
 			})
 			this.setState({...profile},()=>{
 				this.handleSubmit(false,false)
