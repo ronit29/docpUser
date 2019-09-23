@@ -51,9 +51,16 @@ export default function (state = defaultState, action) {
 				nextSelectedCriterias: []
 			}
 			if (action.forceAdd) {
-				newState.selectedCriterias.push({ ...action.payload })
-				newState.commonSelectedCriterias.push({ ...action.payload })
-				newState.nextSelectedCriterias.push({ ...action.payload })
+				if(action.payload.length){
+					newState.selectedCriterias.push({ ...action.payload })
+					newState.commonSelectedCriterias.push({ ...action.payload })
+					newState.nextSelectedCriterias.push({ ...action.payload })	
+				}else{
+					newState.selectedCriterias = []
+					newState.commonSelectedCriterias = []
+					newState.nextSelectedCriterias = []
+				}
+				
 			} else {
 				let found = false
 				newState.selectedCriterias = newState.selectedCriterias.filter((ipd) => {
