@@ -311,7 +311,11 @@ class Article extends React.Component {
             showIframe = true
         }
 
-        let sessionId = sessionStorage.getItem('iFrameId')
+        let sessionId = null
+        if(typeof sessionStorage =="object" ){
+            sessionId = sessionStorage.getItem('iFrameId')    
+        }
+        
 
         return (
             <div className="profile-body-wrap" style={showIframe && sessionId ? {} : { paddingBottom: 54 }}>
