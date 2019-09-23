@@ -26,6 +26,7 @@ import PaymentForm from '../../commons/paymentForm'
 import IpdSecondPopup from '../../../containers/ipd/IpdDoctorCityPopup.js'
 import LensfitPopup from '../../diagnosis/bookingSummary/lensfitPopup.js'
 import CodErrorPopup from './CodErrorPopup.js'
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
 const WEEK_DAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
@@ -1693,6 +1694,7 @@ class PatientDetailsNew extends React.Component {
                 {
                     this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='opd' /> : ""
                 }
+                <Disclaimer />
             </div>
         );
     }

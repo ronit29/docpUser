@@ -23,6 +23,7 @@ import BookingConfirmationPopup from './BookingConfirmationPopup.js'
 import UploadPrescription from './uploadPrescription.js'
 import PaymentForm from '../../commons/paymentForm'
 import LensfitPopup from './lensfitPopup.js'
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
@@ -1723,6 +1724,7 @@ class BookingSummaryViewNew extends React.Component {
                 {
                     this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='lab' /> : ""
                 }
+                <Disclaimer />
             </div>
 
         );
