@@ -6,6 +6,7 @@ import VipProposerFamily from './vipClubFamilyMembers.js'
 import SnackBar from 'node-snackbar'
 import PaymentForm from '../commons/paymentForm'
 import GTM from '../../helpers/gtm'
+import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
 
 class VipClubMemberDetailsView extends React.Component{
