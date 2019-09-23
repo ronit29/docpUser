@@ -93,6 +93,7 @@ class VipProposer extends React.Component {
 					if(profile.length > 0){
 						profile = profile[0]
 						this.setState({id:profile.id,profile_flag:false},()=>{
+							this.populateDates()
 			    			this.getUserDetails(profile)	
 			    		})
 					}
@@ -102,10 +103,12 @@ class VipProposer extends React.Component {
 						if(profile.isDummyUser){
 							profile.id = 0
 							this.setState({id:0,profile_flag:false},()=>{
+								this.populateDates()
 			    				this.getUserDetails(profile)	
 			    			})
 						}else{
 							this.setState({id:profile.id,profile_flag:false},()=>{
+								this.populateDates()
 			    				this.getUserDetails(profile)	
 			    			})
 						}
@@ -125,6 +128,7 @@ class VipProposer extends React.Component {
 			    	})
 			    	if (profile && Object.keys(profile).length) {
 			    		this.setState({id:profile.profile,profile_flag:false},()=>{
+			    			this.populateDates()
 			    			this.getUserDetails(profile)	
 			    		})
 					}
@@ -136,6 +140,7 @@ class VipProposer extends React.Component {
 					})
 			    	if (profile && Object.keys(profile).length) {
 			    		this.setState({id:profile.profile,profile_flag:false},()=>{
+			    			this.populateDates()
 			    			this.getUserDetails(profile)	
 			    		})
 					}
