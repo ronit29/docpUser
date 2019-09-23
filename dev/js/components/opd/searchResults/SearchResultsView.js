@@ -11,6 +11,7 @@ import Footer from '../../commons/Home/footer'
 import ResultCount from './topBar/result_count.js'
 const queryString = require('query-string');
 import SCROLL from '../../../helpers/scrollHelper.js'
+import CarouselView from './carouselView.js'
 
 class SearchResultsView extends React.Component {
     constructor(props) {
@@ -32,7 +33,8 @@ class SearchResultsView extends React.Component {
             scrollPosition: 0,
             quickFilter: {},
             detectLocation: false,
-            sponsorData: []
+            sponsorData: [],
+            fromVip: true
         }
     }
 
@@ -57,6 +59,13 @@ class SearchResultsView extends React.Component {
         this.props.getSponsoredList(sponsorData, this.props.selectedLocation, (response)=>{
             this.setState({sponsorData: response})
         })*/
+
+        //IF From VIP get nearbyDoctors
+        if(this.state.fromVip) {
+            this.props.getNearbyHospitals(this.props.selectedLocation)
+            this.props.getTopHospitals(this.props.selectedLocation)
+        }
+
         if (this.props.mergeUrlState) {
             let getSearchId = true
             if (this.props.location.search.includes('search_id')) {
@@ -584,6 +593,35 @@ class SearchResultsView extends React.Component {
         return data
     }
 
+    sortFilterClicked(){
+        if(this.child && this.child.sortFilterClicked){
+            this.child.sortFilterClicked()
+        }
+    }
+
+    hospitalCardClicked(top=false, data) {
+        let gtmData = {}
+        if(top){
+            gtmData = {
+                'Category': 'ConsumerApp', 'Action': 'nearby-hospitals-clicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'nearby-hospitals-clicked'
+            }
+        
+        }else{
+            gtmData = {
+                'Category': 'ConsumerApp', 'Action': 'tophospitalsClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'top-hospitals-clicked'
+            }
+        }
+        GTM.sendEvent({ data: gtmData })
+        let redirectUrl = ''
+
+        if(data.url) {
+            redirectUrl = `/${data.url}?showPopup=true`
+        }else {
+            redirectUrl = `/ipd/hospital/${data.id}?showPopup=true`
+        }
+        this.props.history.push(redirectUrl)
+    }
+
     render() {
         let show_pagination = this.props.doctorList && this.props.doctorList.length > 0
         let url = `${CONFIG.API_BASE_URL}${this.props.location.pathname}`
@@ -635,7 +673,7 @@ class SearchResultsView extends React.Component {
                 <CriteriaSearch {...this.props} checkForLoad={landing_page || this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card} newChatBtn={true} searchDoctors={true}>
                     {
                         this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
-                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} resetQuickFilters={this.resetQuickFilters.bind(this)} quickFilter={this.state.quickFilter}/>
+                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} resetQuickFilters={this.resetQuickFilters.bind(this)} quickFilter={this.state.quickFilter} fromVip={this.state.fromVip} topBarRef={ref => (this.child = ref)}/>
                             {/*<ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />*/}
                             {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                                 <img src={ASSETS_BASE_URL + "/img/banners/banner_doc.png"} className="banner-img" />
@@ -676,6 +714,20 @@ class SearchResultsView extends React.Component {
                                 
                                 </React.Fragment>
                                 :<React.Fragment>
+                                    {
+                                        this.state.fromVip && 
+                                        <React.Fragment>
+                                            <button onClick={()=>this.sortFilterClicked()}>Sort/Filter</button>
+                                            {
+                                                this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length>0 &&
+                                                <CarouselView topHeading='Nearby Hospitals' dataList ={this.props.nearbyHospitals.hospitals} dataType='nearbyHospitals' carouselCardClicked={(top, data)=>this.hospitalCardClicked(top, data)} />
+                                            }
+                                            {
+                                                this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length>0 &&
+                                                <CarouselView topHeading='Top Hospitals' dataList ={this.props.topHospitals.top_hospitals} dataType='topHospitals' carouselCardClicked={(top, data)=>this.hospitalCardClicked(top, data)} topHospital={true}/>
+                                            }
+                                        </React.Fragment>
+                                    }
                                     <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)}  getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} detectLocationClick={() => this.detectLocationClick()}  applyQuickFilter={this.applyQuickFilter.bind(this)} SimilarSpecializationData={this.SimilarSpecializationData.bind(this)} sponsorData={this.state.sponsorData}/>
 
                                     {
