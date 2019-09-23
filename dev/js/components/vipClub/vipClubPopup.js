@@ -138,8 +138,9 @@ class VipLoginPopup extends React.Component {
                         // GTM.sendEvent({ data: data })
                         this.props.getVipList(false, this.props.selectedLocation, (resp) => {
                             if (!resp.certificate) {
-                                let extraParams = {
-                                    city_id: this.props.user_cities.filter(x => x.name == this.state.selectedCity).map(x => x.id)
+                                let extraParams = {}
+                                if(this.props.user_cities && this.props.user_cities.length){
+                                    extraParams.city_id = this.props.user_cities.filter(x => x.name == this.state.selectedCity).map(x => x.id)
                                 }
                                 if (Object.keys(self.props.selected_vip_plan).length > 0) {
                                     self.props.generateVipClubLead(self.props.selected_vip_plan ? self.props.selected_vip_plan.id : '', self.state.phoneNumber,lead_data, self.props.selectedLocation,self.state.user_name,extraParams, (resp)=>{
