@@ -540,7 +540,7 @@ class VipClubMemberDetailsView extends React.Component{
 											<span className="foot-btn-sub-span"></span>
 										</button>
 									</React.Fragment>
-									:!this.props.isAgent?
+									:!this.props.isAgent && this.props.isAgent === 'false'?
 										<button className="v-btn p-3 v-btn-primary" onClick={this.proceedPlan.bind(this,false)}>Continue to Pay ₹{this.props.selected_vip_plan.deal_price}
 											<span className="foot-btn-sub-span"></span>
 										</button>
