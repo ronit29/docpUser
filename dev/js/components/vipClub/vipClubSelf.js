@@ -18,7 +18,7 @@ class VipProposer extends React.Component {
 			pincode: '',
 			address: '',
 			title: '',
-			id: '',
+			id: this.props.member_id,
 			relation: 'SELF',
 			// member_type: 'adult',
 			state: '',
