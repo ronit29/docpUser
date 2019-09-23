@@ -4512,3 +4512,28 @@ padding-bottom: 50px !important;
 }
 
 /* ============ refund chat  ============ */
+/* ============ home-chat-new-widget  ============ */
+.home-duo-widget {
+    display: flex;
+}
+.home-duo-widget .widget {
+    margin-right: 8px;
+}
+.home-duo-widget .widget:last-child {
+    margin-right: 0;
+}
+.chat-now-btn{
+    margin-left: 5px;
+    padding: 8px 0 4px 0;
+    flex-shrink: 0;
+}
+
+.chat-now-btn p{
+    color: #fff;
+    font-size: 11px;
+    background-color: #4289fe;
+    border-radius: 5px;
+    padding: 4px 12px;
+    display: inline-block;
+}
+/* ============ home-chat-new-widget  ============ */

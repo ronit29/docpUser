@@ -19,18 +19,34 @@ class TopChatWidget extends React.Component {
 
 	render() {
 		return (
-			<div className="d-md-none widget mrb-10 d-flex cursor-pntr" style={{ padding: '4px 6px', borderBottom: '5px solid #4289fe', alignItems: 'center',    justifyContent: 'space-between' }} onClick={() => this.widgetClick()}>
-				<div className="home-vip-cont">
-					<div className="doc-avatar">
-						<img src={ASSETS_BASE_URL + '/img/viplog.png'} />
+			<div className="d-md-none home-duo-widget">
+				<div className=" widget mrb-10 cursor-pntr" style={{ padding: '4px 6px', borderBottom: '5px solid #ffb601', alignItems: 'center', justifyContent: 'space-between' }} onClick={() => this.widgetClick()}>
+					<div className="home-vip-cont">
+						<div className="doc-avatar">
+							<img src={ASSETS_BASE_URL + '/img/viplog.png'} />
+						</div>
+						<div style={{ flex: 1 }} >
+							<p className="fw-700" style={{ fontSize: 12 }}>Become a Docprime VIP member <span className="vip-tp-sub-txt">Save 70% on your family's medical bills</span></p>
+						</div>
 					</div>
-					<div style={{ flex: 1 }} >
-						<p className="fw-700" style={{ fontSize: 12 }}>Become a Docprime VIP member <span className="vip-tp-sub-txt">Save 70% on your family's medical bills</span></p>
+					<div className="chat-now-btn text-right">
+						<p className="fw-500">Know More</p>
 					</div>
 				</div>
-				<div className="chat-now-btn text-center">
-					<p className="fw-500">Know More</p>
+				<div className=" widget mrb-10 cursor-pntr" style={{ padding: '4px 6px', borderBottom: '5px solid #4289fe', alignItems: 'center', justifyContent: 'space-between' }} onClick={() => this.widgetClick()}>
+					<div className="home-vip-cont">
+						<div className="doc-avatar">
+							<img src={ASSETS_BASE_URL + '/img/customer-icons/chat-icon.png'} />
+						</div>
+						<div style={{ flex: 1 }} >
+							<p className="fw-700" style={{ fontSize: 12 }}>Online Doctor Consultation ! <span className="vip-tp-sub-txt">Save 70% on your family's medical bills</span></p>
+						</div>
+					</div>
+					<div className="chat-now-btn text-right">
+						<p className="fw-500">Chat Now</p>
+					</div>
 				</div>
+
 			</div>
 		)
 	}

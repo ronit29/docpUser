@@ -2208,18 +2208,7 @@ p.rt-doc-nm{
     width: 100%;
 }
 
-.chat-now-btn{
-    margin-left: 5px;
-    background-color: #4289fe;
-    border-radius: 5px;
-    padding: 4px 12px;
-    flex-shrink: 0;
-}
 
-.chat-now-btn p{
-    color: #fff;
-    font-size: 11px;
-}
 
 .footer-dropdown{
     position: absolute;
