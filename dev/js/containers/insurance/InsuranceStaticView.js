@@ -30,7 +30,8 @@ class InsuranceStaticView extends React.Component{
         if (window) {
             window.scrollTo(0, 0)
         }
-        this.props.getInsurance(false)
+        this.props.history.push('/vip-club-details?source=mobile-leftmenu-vip-clicked&lead_source=Docprime')
+        // this.props.getInsurance(false)
     }
 	render(){
         if(this.props.LOAD_INSURANCE){
