@@ -61,7 +61,7 @@ class VipProposer extends React.Component {
 			} else {
 				profile = Object.assign({}, this.props.vipClubMemberDetails[0])
 			}
-			
+
 			if(Object.keys(profile).length > 0){
 				isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
 				if(profile.isDummyUser){
@@ -96,7 +96,9 @@ class VipProposer extends React.Component {
 				} else {
 					profile = Object.assign({}, props.vipClubMemberDetails[0])
 				}
-
+				if(profile && Object.keys(profile).length == 0 && props.USER.profiles[props.USER.defaultProfile]){
+					profile = props.USER.profiles[props.USER.defaultProfile]
+				}
 				if(profile && Object.keys(profile).length){
 					this.setState({id:profile.id,profile_flag:false},()=>{
 						this.populateDates()
