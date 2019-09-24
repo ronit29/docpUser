@@ -4512,3 +4512,46 @@ padding-bottom: 50px !important;
 }
 
 /* ============ refund chat  ============ */
+/* ============ vip-popup  ============ */
+.vip-banner {
+    position: relative;
+}
+.pop-bnr-txt {
+    position: absolute;
+    top: 0;
+    padding-top: 22%;
+    padding-left: 5%;
+}
+p.vp-bnr-know-txt {
+    color: #f78631;
+    background: white;
+    padding: 1px 8px;
+    border-radius: 5px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+p.vp-bnr-sub-txt {
+    color: #f78631;
+    font-weight: 500;
+    cursor: pointer;
+}
+img.img-fluid.vp-cls-img {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    cursor: pointer;
+    width: 20px;
+}
+@media (max-width:767px){
+    p.vp-bnr-know-txt {
+       font-size: 12px;
+    }
+    p.vp-bnr-sub-txt {
+       font-size: 12px;
+    }
+    div.search-el-popup.vip-srch-pop-min{
+        width: 97% !important;
+    }
+}
+/* ============ vip-popup  ============ */
