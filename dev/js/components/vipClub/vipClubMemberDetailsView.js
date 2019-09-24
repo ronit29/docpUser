@@ -372,7 +372,7 @@ class VipClubMemberDetailsView extends React.Component{
 		let child
 		let adult
 		let userProfile
-		let proposer_id = null
+		let proposer_id = 0
 		// let selectedProfileId = parseInt(this.props.USER.defaultProfile) // to be deleted
 		if(this.props.USER && this.props.USER.defaultProfile){
 			if(this.props.USER.defaultProfile == 999999){
