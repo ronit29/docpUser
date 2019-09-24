@@ -56,13 +56,17 @@ class VipProposer extends React.Component {
 		let profileLength = Object.keys(this.props.USER.profiles).length;
 		// if (this.props.vipClubMemberDetails[this.props.USER.defaultProfile] && !this.props.is_from_payment) { profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.USER.defaultProfile])
 		if (profileLength > 0 && this.props.vipClubMemberDetails[this.props.member_id] && !this.props.is_from_payment) {
+			// console.log('11')
 			if (!isDummyUser) {
+				// console.log('12')
 				profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.USER.defaultProfile])
 			} else {
+				// console.log('13')
 				profile = Object.assign({}, this.props.vipClubMemberDetails[0])
 			}
 
 			if(Object.keys(profile).length > 0){
+				// console.log('14')
 				isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
 				if(profile.isDummyUser){
 					profile.id = 0
@@ -90,34 +94,47 @@ class VipProposer extends React.Component {
 		if (profileLength > 0 && this.state.profile_flag && !props.is_from_payment) {
 			let isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
 			if (Object.keys(props.vipClubMemberDetails).length > 0) {
+				// console.log('15')
 				let profile
 				if (!isDummyUser) {
+					// console.log('16')
 					profile = Object.assign({}, props.vipClubMemberDetails[props.USER.defaultProfile])
 				} else {
+					// console.log('17')
 					profile = Object.assign({}, props.vipClubMemberDetails[0])
 				}
 				if(profile && Object.keys(profile).length == 0 && props.USER.profiles[props.USER.defaultProfile]){
+					// console.log('18')
 					profile = props.USER.profiles[props.USER.defaultProfile]
 				}
 				if(profile && Object.keys(profile).length){
+					// console.log(profile)
+					// console.log('19')
 					this.setState({id:profile.id,profile_flag:false},()=>{
 						this.populateDates()
 			    		this.getUserDetails(profile)	
 			    	})
 			    }
 			}else if (props.USER.profiles[props.USER.defaultProfile]) {
+				// console.log('20')
 				let profile
 				if(props.savedMemberData && props.savedMemberData.length > 0){
+					// console.log('21')
 					profile = props.savedMemberData.filter((x=>x.relation == 'SELF'))
 					if(profile.length > 0){
 						profile = profile[0]
+						// console.log(profile)
+						// console.log('profile21')
 						this.setState({id:profile.id,profile_flag:false},()=>{
 							this.populateDates()
 			    			this.getUserDetails(profile)	
 			    		})
 					}
 				}else{
+					// console.log('22')
 					profile = Object.assign({}, props.USER.profiles[props.USER.defaultProfile])
+					// console.log(profile)
+					// console.log('profile23')
 					if (profile && Object.keys(profile).length) {
 						if(profile.isDummyUser){
 							profile.id = 0

@@ -143,6 +143,7 @@ class VipLoginPopup extends React.Component {
                         // }
                         // GTM.sendEvent({ data: data })
                         this.props.getVipList(false, this.props.selectedLocation,this.props.isSalesAgent,this.props.isAgent,(resp) => {
+                            this.props.getUserProfile()
                             if(!this.props.isSalesAgent && !this.props.isAgent){
                                 if (!resp.certificate) {
                                     if (Object.keys(self.props.selected_vip_plan).length > 0) {
