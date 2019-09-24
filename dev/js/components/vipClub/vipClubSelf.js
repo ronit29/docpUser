@@ -228,6 +228,12 @@ class VipProposer extends React.Component {
 				dob: profile.dob ? profile.dob :''
 			})
 			this.setState({...profile},()=>{
+				if(profile.name){
+					if(profile.name == 'User' || profile.name == 'user'){
+						profile.name = ''
+					}
+					this.setState({ name:profile.name})
+				}
 				this.handleSubmit(false,false)
 			})
 			// this.setState({
