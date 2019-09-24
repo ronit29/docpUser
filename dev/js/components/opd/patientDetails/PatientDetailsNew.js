@@ -1208,12 +1208,12 @@ class PatientDetailsNew extends React.Component {
                 <ProfileHeader bookingPage={true} />
                 {
                     this.state.show_banner?
-                        <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} is_vip_applicable={is_vip_applicable} is_insurance_applicable = {is_insurance_applicable} show_banner={this.state.show_banner} bannerConfirmationPopup={this.bannerConfirmationPopup.bind(this)}/>
+                        <BookingConfirmationPopup {...this.props} priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} is_vip_applicable={is_vip_applicable} is_insurance_applicable = {is_insurance_applicable} show_banner={this.state.show_banner} bannerConfirmationPopup={this.bannerConfirmationPopup.bind(this)}/>
                         : ''
                 }
                 {
                     this.state.showConfirmationPopup && is_selected_user_insurance_status != 4 ?
-                        <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} is_vip_applicable={is_vip_applicable} is_insurance_applicable = {is_insurance_applicable} show_banner={this.state.show_banner} bannerConfirmationPopup={this.bannerConfirmationPopup.bind(this)}/>
+                        <BookingConfirmationPopup {...this.props} priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} is_vip_applicable={is_vip_applicable} is_insurance_applicable = {is_insurance_applicable} show_banner={this.state.show_banner} bannerConfirmationPopup={this.bannerConfirmationPopup.bind(this)}/>
                         : ''
                 }
                 {
