@@ -72,7 +72,8 @@ class PatientDetailsNew extends React.Component {
             lensfit_coupons:null,
             lensfit_decline:false,
             isLensfitSpecific:parsed.isLensfitSpecific|| false,
-            show_banner:false
+            show_banner:false,
+            banner_decline:false
         }
     }
 
@@ -501,7 +502,7 @@ class PatientDetailsNew extends React.Component {
                 this.setState({show_lensfit_popup:true, lensfit_coupons:lensfit_coupons})
             return
         }*/
-        if (!this.state.show_banner && !is_vip_applicable && !addToCart && (total_price == 0 || !is_insurance_applicable || (this.state.use_wallet && total_wallet_balance > 0))) {
+        if (!this.state.show_banner && !this.state.banner_decline && !is_vip_applicable && !addToCart && (total_price == 0 || !is_insurance_applicable || (this.state.use_wallet && total_wallet_balance > 0))) {
             this.setState({ show_banner:true})
             return
         }
@@ -843,7 +844,7 @@ class PatientDetailsNew extends React.Component {
 
     bannerConfirmationPopup(choice) {
         if (!choice) {
-            this.setState({ show_banner: choice })
+            this.setState({ show_banner: choice, banner_decline:true })
         } else {
             this.setState({ show_banner: '' })
             if (document.getElementById('confirm_booking')) {

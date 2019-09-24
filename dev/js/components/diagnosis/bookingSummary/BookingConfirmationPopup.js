@@ -1,4 +1,5 @@
 import React from 'react'
+import GTM from '../../../helpers/gtm.js'
 
 class BookingConfirmationPopup extends React.Component {
 	constructor(props) {
@@ -44,11 +45,17 @@ class BookingConfirmationPopup extends React.Component {
 						
 						<div className="vip-banner-container">
 							<div className="vip-banner">
-								<img className="img-fluid vp-cls-img" src={ASSETS_BASE_URL + '/img/vip-pop-cls.svg'} />
+								<img className="img-fluid vp-cls-img" src={ASSETS_BASE_URL + '/img/vip-pop-cls.svg'} onClick={this.props.bannerConfirmationPopup.bind(this,false)}/>
 								<img className="img-fluid vp-bnr-img" src={ASSETS_BASE_URL + '/img/vip-img-pop.png'} />
-								<div className="pop-bnr-txt" onClick={this.props.bannerConfirmationPopup.bind(this,false)}>
-									<p className="vp-bnr-know-txt">Know more about Docprime VIP</p>
-									<p className="vp-bnr-sub-txt">Not Interested? Continue Booking <img style={{width:'7px'}} className="img-fluid" src={ASSETS_BASE_URL + '/img/vip-rght.svg'} /></p>
+								<div className="pop-bnr-txt">
+									<p className="vp-bnr-know-txt" onClick={(e) => {
+			                        let data = {
+			                        	'Category': 'ConsumerApp', 'Action': 'BookingPageVipBannerClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'bookingpage-vip-click'
+			                      	}
+			                      	GTM.sendEvent({ data: data })
+			                        e.preventDefault()
+			                        this.props.history.push('/vip-club-details?source=bookingpage-vip-click&lead_source=bookingpage') }}>Know more about Docprime VIP</p>
+									<p className="vp-bnr-sub-txt" onClick={this.props.bannerConfirmationPopup.bind(this,true)}>Not Interested? Continue Booking <img style={{width:'7px'}} className="img-fluid" src={ASSETS_BASE_URL + '/img/vip-rght.svg'} /></p>
 								</div>
 							</div>
 						</div>
