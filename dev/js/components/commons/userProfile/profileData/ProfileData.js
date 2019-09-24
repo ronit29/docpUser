@@ -223,7 +223,7 @@ class ProfileData extends React.Component {
                             </a>
                         </li> */}
                         {
-                        CONFIG.ENABLE_INSURANCE && this.props.common_settings && this.props.common_settings.insurance_availability?
+                        /*CONFIG.ENABLE_INSURANCE && this.props.common_settings && this.props.common_settings.insurance_availability?
                             <li onClick={this.goToInsurance.bind(this, isUserLoginInsured)} className="my-profile-item lst-spcng">
                                 <a>
                                     <span className="icon icon-md nav-icon">
@@ -231,13 +231,13 @@ class ProfileData extends React.Component {
                                     </span>
                                     <div className="nav-content">
                                         <h4 className="title app-title">OPD Insurance
-                                            {/* <span className="float-right badge badge-warning">1</span> */}
+                                            { <span className="float-right badge badge-warning">1</span> }
                                         </h4>
                                     </div>
                                 </a>
                                 {this.getInsuranceBtnText()}
                             </li>
-                        :''
+                        :''*/
                         }
                         <li onClick={this.isDocCare.bind(this)} className="my-profile-item lst-spcng">
                             <a>
