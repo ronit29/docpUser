@@ -195,7 +195,7 @@ class IpdTabForm extends React.Component {
 	render(){
 		let { ipd_info } = this.props
 
-		if(this.props.tabView || !(this.props.selectedCriterias && this.props.selectedCriterias.length))  {
+		if(this.props.tabView || !(this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length))  {
 			ipd_info = null
 		}
 
