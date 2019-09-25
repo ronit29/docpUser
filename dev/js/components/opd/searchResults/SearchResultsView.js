@@ -18,6 +18,7 @@ class SearchResultsView extends React.Component {
         super(props)
         let seoData = null
         let footerData = null
+        const parsed = queryString.parse(this.props.location.search)
         if (this.props.initialServerData) {
             seoData = this.props.initialServerData.seoData
             footerData = this.props.initialServerData.footerData
@@ -34,7 +35,7 @@ class SearchResultsView extends React.Component {
             quickFilter: {},
             detectLocation: false,
             sponsorData: [],
-            fromVip: true
+            fromVip: parsed && parsed.fromVip
         }
     }
 
@@ -369,11 +370,15 @@ class SearchResultsView extends React.Component {
             is_filter_applied = true
         }
 
+        if(parsed && parsed.fromVip) {
+            is_filter_applied = true
+        }
+
         let is_params_exist = false
 
         if (is_filter_applied || !this.state.seoFriendly) {
 
-            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}&sits_at_hospital=${sits_at_hospital}&sits_at_clinic=${sits_at_clinic}&group_ids=${group_ids}&specialization_filter_ids=${specialization_filter_ids}`
+            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}&sits_at_hospital=${sits_at_hospital}&sits_at_clinic=${sits_at_clinic}&group_ids=${group_ids}&specialization_filter_ids=${specialization_filter_ids}&fromVip=${parsed.fromVip}`
 
             if(parsed && parsed.utm_term){
                 url+= `&utm_term=${parsed.utm_term||''}`

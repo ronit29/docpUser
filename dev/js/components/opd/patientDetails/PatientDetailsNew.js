@@ -71,7 +71,9 @@ class PatientDetailsNew extends React.Component {
             show_lensfit_popup:false,
             lensfit_coupons:null,
             lensfit_decline:false,
-            isLensfitSpecific:parsed.isLensfitSpecific|| false
+            isLensfitSpecific:parsed.isLensfitSpecific|| false,
+            show_banner:false,
+            banner_decline:false
         }
     }
 
@@ -500,9 +502,13 @@ class PatientDetailsNew extends React.Component {
                 this.setState({show_lensfit_popup:true, lensfit_coupons:lensfit_coupons})
             return
         }*/
+        if (!this.state.show_banner && !this.state.banner_decline && !is_vip_applicable && !addToCart && (total_price == 0 || !is_insurance_applicable || (this.state.use_wallet && total_wallet_balance > 0))) {
+            this.setState({ show_banner:true})
+            return
+        }
 
         if (!this.state.showConfirmationPopup && !addToCart && (total_price == 0 || (is_insurance_applicable && this.props.payment_type == 1) || (this.state.use_wallet && total_wallet_balance > 0))) {
-            this.setState({ showConfirmationPopup: true })
+            this.setState({ showConfirmationPopup: true, show_banner:false })
             return
         }
 
@@ -691,7 +697,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     sendAgentBookingURL() {
-        this.props.sendAgentBookingURL(this.state.order_id, 'sms', (err, res) => {
+        this.props.sendAgentBookingURL(this.state.order_id, 'sms','','', (err, res) => {
             if (err) {
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
             } else {
@@ -827,9 +833,28 @@ class PatientDetailsNew extends React.Component {
 
     priceConfirmationPopup(choice) {
         if (!choice) {
-            this.setState({ showConfirmationPopup: choice })
+            this.setState({ showConfirmationPopup: choice, show_banner:false })
         } else {
-            this.setState({ showConfirmationPopup: '' })
+            this.setState({ showConfirmationPopup: '',show_banner:false })
+            if (document.getElementById('confirm_booking')) {
+                document.getElementById('confirm_booking').click()
+            }
+        }
+    }
+
+    bannerConfirmationPopup(choice) {
+        if (!choice) {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'BookingPageVipBannerCrossClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'bookingpage-vip-banner-cross-click'
+            }
+            GTM.sendEvent({ data: data })
+            this.setState({ show_banner: choice, banner_decline:true })
+        } else {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'BookingPageVipBannerNotInterstedClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'bookingpage-vip-banner-not-intersted-click'
+            }
+            GTM.sendEvent({ data: data })
+            this.setState({ show_banner: '' })
             if (document.getElementById('confirm_booking')) {
                 document.getElementById('confirm_booking').click()
             }
@@ -1031,6 +1056,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     render() {
+        console.log(this.state)
         const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
         let doctorCoupons = this.props.doctorCoupons[this.props.selectedDoctor] || []
@@ -1190,8 +1216,13 @@ class PatientDetailsNew extends React.Component {
             <div className="profile-body-wrap">
                 <ProfileHeader bookingPage={true} />
                 {
+                    this.state.show_banner?
+                        <BookingConfirmationPopup {...this.props} priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} is_vip_applicable={is_vip_applicable} is_insurance_applicable = {is_insurance_applicable} show_banner={this.state.show_banner} bannerConfirmationPopup={this.bannerConfirmationPopup.bind(this)}/>
+                        : ''
+                }
+                {
                     this.state.showConfirmationPopup && is_selected_user_insurance_status != 4 ?
-                        <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} />
+                        <BookingConfirmationPopup {...this.props} priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} is_vip_applicable={is_vip_applicable} is_insurance_applicable = {is_insurance_applicable} show_banner={this.state.show_banner} bannerConfirmationPopup={this.bannerConfirmationPopup.bind(this)}/>
                         : ''
                 }
                 {

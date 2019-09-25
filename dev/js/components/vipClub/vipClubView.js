@@ -30,7 +30,7 @@ class VipClubView extends React.Component {
         }
         let loginUser
         let lead_data = queryString.parse(this.props.location.search)
-        if (STORAGE.checkAuth()) {
+        if (STORAGE.checkAuth() && !this.props.isSalesAgent && !this.props.isAgent) {
             if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
                 loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
                 if (Object.keys(loginUser).length > 0) {
@@ -84,22 +84,59 @@ class VipClubView extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'VipClubBuyNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-buynow-clicked', 'selected': ''
         }
         GTM.sendEvent({ data: gtmData })
-        if (STORAGE.checkAuth()) {
-            if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
-                loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
-                if (Object.keys(loginUser).length > 0) {
-                    this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name,(resp)=>{
-                        let LeadIdData = {
-                                'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id?resp.lead_id:0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
-                            }
-                        GTM.sendEvent({ data: LeadIdData })
-                    })
+        if(!this.props.isSalesAgent && !this.props.isAgent ){
+            if (STORAGE.checkAuth()) {
+                if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
+                    loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
+                    if (Object.keys(loginUser).length > 0) {
+                        this.props.generateVipClubLead(this.props.selected_vip_plan ? this.props.selected_vip_plan.id : '', loginUser.phone_number, lead_data, this.props.selectedLocation, loginUser.name,(resp)=>{
+                            let LeadIdData = {
+                                    'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id?resp.lead_id:0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
+                                }
+                            GTM.sendEvent({ data: LeadIdData })
+                        })
+                    }
+                    this.props.history.push('/vip-club-member-details')
                 }
+            }else {
+                this.setState({ showPopup: true })
             }
-            this.props.history.push('/vip-club-member-details')
-            // this.props.history.push('/vip-club-static-pages')
-        } else {
-            this.setState({ showPopup: true })
+        }else{
+            if (STORAGE.checkAuth()) {
+                // if (this.props.USER && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.defaultProfile) {
+                //     loginUser = this.props.USER.profiles[this.props.USER.defaultProfile]
+                //     if (Object.keys(loginUser).length > 0) {
+                //         if(this.props.vipPlusLead && lead_data && lead_data.utm_source) {
+                //             let data = {
+                //                 name: loginUser.name,
+                //                 phone_number: loginUser.phone_number,
+                //                 utm_source: lead_data.utm_source || '',
+                //                 utm_spo_tags : lead_data || ''
+                //             }
+                //             this.props.vipPlusLead(data)
+                //         }
+                //     }
+                // }
+                let url = '/vip-club-member-details?isDummy=true'
+                if(lead_data.utm_source){
+                    url += '&utm_source='+lead_data.utm_source
+                }
+                if(lead_data.utm_term){
+                    url += '&utm_term='+lead_data.utm_term
+                }
+                if(lead_data.utm_campaign){
+                    url += '&utm_campaign='+lead_data.utm_campaign
+                }
+                if(lead_data.utm_medium){
+                    url += '&utm_medium='+lead_data.utm_medium
+                }
+                if(lead_data.is_agent){
+                    url += '&is_agent='+lead_data.is_agent
+                }
+                this.props.history.push(url)
+            } else {
+                this.setState({ showPopup: true })
+            }
         }
     }
 
@@ -122,7 +159,6 @@ class VipClubView extends React.Component {
     }
 
     render() {
-        // console.log(this.state.selected_plan_data)
         let self = this
 
         return (
@@ -136,9 +172,12 @@ class VipClubView extends React.Component {
                         // description: `${this.props.data.description || ''}`
                     }} noIndex={false} />
                     <div className={`vipHeaderBar ${this.state.toggleTabType ? 'hed-curv-rmove' : ''}`} ref="vipHeaderBar">
-                        <div className="vipBackIco" onClick={() => this.props.history.push('/')}>
-                            <img src={ASSETS_BASE_URL + "/img/vip-home.svg"} />
-                        </div>
+                        {
+                            this.props.isSalesAgent && this.props.isAgent?''
+                            :<div className="vipBackIco" onClick={() => this.props.history.push('/')}>
+                                <img src={ASSETS_BASE_URL + "/img/vip-home.svg"} />
+                            </div>
+                        }
                         <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
                             <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
                             <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
@@ -225,10 +264,13 @@ class VipClubView extends React.Component {
                                         {
                                             this.state.selected_plan_data && this.state.selected_plan_data.enabled_hospital_networks && this.state.selected_plan_data.enabled_hospital_networks.length > 0 ?
                                                 <div className="pakg-slider-container mb-24">
-                                                    <div className="pkgSliderHeading">
-                                                        <h5>Key Hospital Partners</h5>
-                                                        <span onClick={() => this.props.history.push('/opd/searchresults')}>View Docprime Network</span>
-                                                    </div>
+                                                    {
+                                                        this.props.isSalesAgent && this.props.isAgent?''
+                                                        :<div className="pkgSliderHeading">
+                                                            <h5>Key Hospital Partners</h5>
+                                                            <span onClick={() => this.props.history.push('/opd/searchresults?fromVip=true')}>View Docprime Network</span>
+                                                        </div>
+                                                    }
                                                     <div className="pkgSliderContainer">
                                                         <div className="pkgCardsList d-inline-flex sub-wd-cards top_pkgCat">
                                                             {

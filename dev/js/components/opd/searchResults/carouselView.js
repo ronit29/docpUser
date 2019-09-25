@@ -47,7 +47,9 @@ class CarouselView extends React.Component {
                     		dataList.map((data, key)=>{
                 			return <a key={`${key}_${data.id}`} href='' className="pkgcustCards"  onClick={()=>this.props.carouselCardClicked(topHospital?true:false,data)}>
 	                            <div className="pkgcardImgCont">
-	                                <img className="img-fluid" src="https://cdn.docprime.com/media/hospital/documents/medanta-the-medicity.jpg" />
+	                            	{
+	                            		data.logo && <img className="img-fluid" src={data.logo} />
+	                            	}
 	                            </div>
 	                            <p className="pkgtstName prcd-height">
 	                                {data.name}
