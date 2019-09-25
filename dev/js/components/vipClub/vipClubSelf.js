@@ -191,26 +191,26 @@ class VipProposer extends React.Component {
 		let tempArray
 		// this.populateDates()
 		if(Object.keys(profile).length > 0){
-			if(profile.name){
-				newName = profile.name.split(" ")
-				if (newName.length == 2) {
-					this.setState({
-						// name: profile.isDummyUser ? '' : newName[0],
-						// last_name: profile.isDummyUser ? '' : newName[1]
-						name: newName[0],last_name: newName[1]
-					})
-				}  else if (newName.length > 2) {
-					tempArray = newName.slice(1, newName.length)
-					this.setState({
-						// name: profile.isDummyUser ? '' : newName[0],
-						// last_name: profile.isDummyUser ? '' : tempArray.join(' ')
-						name: newName[0],
-						last_name: tempArray.join(' ')
-					})
-				} else {
-					this.setState({ name:profile.name?profile.name:'' })
-				}
-			}
+			// if(profile.name){
+			// 	newName = profile.name.split(" ")
+			// 	if (newName.length == 2) {
+			// 		this.setState({
+			// 			// name: profile.isDummyUser ? '' : newName[0],
+			// 			// last_name: profile.isDummyUser ? '' : newName[1]
+			// 			name: newName[0],last_name: newName[1]
+			// 		})
+			// 	}  else if (newName.length > 2) {
+			// 		tempArray = newName.slice(1, newName.length)
+			// 		this.setState({
+			// 			// name: profile.isDummyUser ? '' : newName[0],
+			// 			// last_name: profile.isDummyUser ? '' : tempArray.join(' ')
+			// 			name: newName[0],
+			// 			last_name: tempArray.join(' ')
+			// 		})
+			// 	} else {
+			// 		this.setState({ name:profile.name?profile.name:'' })
+			// 	}
+			// }
 			if(this.props.is_from_payment){
 				if(profile.first_name){
 					this.setState({name:profile.first_name?profile.first_name:profile.name?profile.name:''})
@@ -238,6 +238,12 @@ class VipProposer extends React.Component {
 			} else {
 				this.populateDates()
 			}
+			if(profile.id){
+				this.setState({profile_id:profile.id?profile.id:''})
+			}
+			if(profile.profile){
+				this.setState({profile_id:profile.profile?profile.profile:''})
+			}
 			this.setState({
 				// email: profile.isDummyUser ? '' : profile.email,
 				// dob: profile.isDummyUser ? '' : profile.dob
@@ -248,8 +254,20 @@ class VipProposer extends React.Component {
 				if(profile.name){
 					if(profile.name == 'User' || profile.name == 'user'){
 						profile.name = ''
+						this.setState({ name:profile.name})
+					}else{
+						if(profile.name){
+							newName = profile.name.split(" ")
+							if (newName.length == 2) {
+								this.setState({name: newName[0],last_name: newName[1]})
+							}  else if (newName.length > 2) {
+								tempArray = newName.slice(1, newName.length)
+								this.setState({name: newName[0],last_name: tempArray.join(' ')})
+							} else {
+								this.setState({ name:profile.name?profile.name:'' })
+							}
+						}
 					}
-					this.setState({ name:profile.name})
 				}
 				this.handleSubmit(false,false)
 			})

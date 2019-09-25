@@ -182,8 +182,8 @@ class VipClubMemberDetailsView extends React.Component{
 	    		if(Object.keys(this.props.vipClubMemberDetails).length > 0){
 	    			fields = []
 	    			param =this.props.vipClubMemberDetails[val[key]]
-
-					if(param.relation == ""){ //common validation
+	    			if(param && Object.keys(param).length > 0){
+						if(param.relation == ""){ //common validation
 							is_disable = true
 							fields.push('relation')
 						}
@@ -229,6 +229,7 @@ class VipClubMemberDetailsView extends React.Component{
 					  			}
 							}
 						}
+	    			}
 	    		}
 	    		validatingErrors[param.id] = fields
 	    	})
