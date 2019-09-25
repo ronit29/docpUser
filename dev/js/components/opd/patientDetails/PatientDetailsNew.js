@@ -844,8 +844,16 @@ class PatientDetailsNew extends React.Component {
 
     bannerConfirmationPopup(choice) {
         if (!choice) {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'BookingPageVipBannerCrossClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'bookingpage-vip-banner-cross-click'
+            }
+            GTM.sendEvent({ data: data })
             this.setState({ show_banner: choice, banner_decline:true })
         } else {
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'BookingPageVipBannerNotInterstedClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'bookingpage-vip-banner-not-intersted-click'
+            }
+            GTM.sendEvent({ data: data })
             this.setState({ show_banner: '' })
             if (document.getElementById('confirm_booking')) {
                 document.getElementById('confirm_booking').click()
