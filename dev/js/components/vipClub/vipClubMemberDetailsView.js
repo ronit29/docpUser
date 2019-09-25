@@ -560,11 +560,11 @@ class VipClubMemberDetailsView extends React.Component{
 
 							{ 
 								STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && this.props.is_from_payment && !this.props.isSalesAgent && !this.props.isAgent ?
-									<button className="v-btn p-3 v-btn-primary" onClick={this.proceedPlan.bind(this,true)}>Send SMS
+									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this,true)}>Send SMS
 										<span className="foot-btn-sub-span"></span>
 									</button>
 								:STORAGE.isAgent() && this.props.selected_vip_plan && Object.keys(this.props.selected_vip_plan).length >0 && !this.props.is_from_payment && !this.props.isSalesAgent && !this.props.isAgent ?
-									<button className="v-btn p-3 v-btn-primary" onClick={this.proceedPlan.bind(this,true)}>Send SMS
+									<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this,true)}>Send SMS
 										<span className="foot-btn-sub-span"></span>
 									</button>
 								:''
