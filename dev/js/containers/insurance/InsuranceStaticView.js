@@ -35,9 +35,10 @@ class InsuranceStaticView extends React.Component{
 	render(){
         if(this.props.LOAD_INSURANCE){
             this.props.history.push('/vip-club-details?source=mobile-leftmenu-vip-clicked&lead_source=Docprime')
-            // return(
-            //     <InsuranceComponent {...this.props}/>
-            // )
+            return(
+                // <InsuranceComponent {...this.props}/>
+                <div></div>
+            )
         }else{
             if(this.props.insurnaceData.certificate && STORAGE.checkAuth()){
                 this.props.history.push('/insurance/certificate')
