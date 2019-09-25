@@ -2344,6 +2344,8 @@ ul.order-med-list a:hover {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    padding-bottom: 2px;
+    background: white;
 }
 
 .order-widget{
