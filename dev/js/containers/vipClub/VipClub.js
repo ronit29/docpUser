@@ -15,7 +15,8 @@ class VipClub extends React.Component{
         const parsed = queryString.parse(this.props.location.search)
         this.state={
             isSalesAgent:parsed.utm_source,
-            isAgent:parsed.is_agent
+            isAgent:parsed.is_agent,
+            source:parsed.source
         }
     }
 
@@ -34,7 +35,7 @@ class VipClub extends React.Component{
     render(){
         if(this.props.LOAD_VIP_CLUB){
             return(
-                <VipClubView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent}/>
+                <VipClubView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} source={this.state.source}/>
             )
         }else{
             if(this.props.vipClubList.certificate && STORAGE.checkAuth()){
