@@ -1472,7 +1472,7 @@ padding: 20px;
     margin-bottom: 20px;
     color: #757575;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 }
 .usr-dtls-strt-txt img{
     width: 19px;
@@ -4060,7 +4060,7 @@ ul li.time-slot-li-listing{
 }
 
 p.stc-sub-para{
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.7;
     margin-bottom: 5px;
 }
@@ -4201,7 +4201,8 @@ ul.stc-data-ul-list li{
 }
 .test-lab-radio{
 	padding-left: 0px;
-    margin-top: 20px;
+    padding: 0;
+    margin-bottom: 12px;
 }
 .mrgn-top-12{
 	margin-top: 12px;
@@ -12118,4 +12119,8 @@ font-weight: 500;
 }
 .acrd-sub-content ul li{
     list-style: disc;
+}
+.pay-amnt-shrnk{
+    flex-shrink: 0;
+    padding-left: 8px;
 }

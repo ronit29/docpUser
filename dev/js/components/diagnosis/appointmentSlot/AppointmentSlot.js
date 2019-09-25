@@ -131,7 +131,8 @@ class AppointmentSlot extends React.Component {
             pincode = ''
             date = ''
         }
-        this.props.getLabTimeSlots(selectedLab, this.state.pickupType, pincode||'', date, (data) => {
+        let extraParams = {}
+        this.props.getLabTimeSlots(selectedLab, this.state.pickupType, pincode||'', date, extraParams, (data) => {
             this.setState({ timeSlots: data.timeslots ||null, upcoming_slots: data.upcoming_slots|| null, is_thyrocare: data.is_thyrocare})
         })
     }

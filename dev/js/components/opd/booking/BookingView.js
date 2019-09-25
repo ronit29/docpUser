@@ -183,16 +183,34 @@ class BookingView extends React.Component {
     }
 
     navigateToVIP(){
+        let profile = {}
+        let number = ''
+        let name = ''
+        let city_id = ''
+        if (this.state.data) {
+            profile = this.state.data.profile
+            number = profile.phone_number
+            name = profile.name
+        }
+        if(this.state.data.hospital){
+            city_id  = this.state.data.hospital.matrix_city
+        }
+        let lead_data ={}
+        lead_data.source = 'AppointmentPaySuccess'
+        lead_data.lead_source= 'AppointmentPaySuccess'
+        lead_data.city_id = city_id
+
+        this.props.generateVipClubLead('', number,lead_data, this.props.selectedLocation, name)
         let analyticData = {
-            'Category': 'ConsumerApp', 'Action': 'VipKnowMoreClicked', 'CustomerID': GTM.getUserId(), 'leadid': '', 'event': 'vip-know-more-clicked'
+            'Category': 'ConsumerApp', 'Action': 'VipKnowMoreClicked', 'CustomerID': GTM.getUserId(), 'leadid': '', 'event': 'vip-know-more-clicked',city_id: city_id
         }
         GTM.sendEvent({ data: analyticData })
-        
-        this.props.history.push('/vip-club-details?source=appointment-success-page')
+
+        this.props.history.push('/vip-club-details?source=appointment-success-page&lead_source=Docprime')
     }
 
     render() {
-
+        
         let doctor = {}
         let profile = {}
         let hospital = {}
@@ -203,6 +221,12 @@ class BookingView extends React.Component {
         let payment_type = 1
         let mrp = 0
         let deal_price = 0
+        let discount = 0
+        let paymentMode = ''
+        let effective_price = 0
+        let is_vip_member = false
+        let covered_under_vip = false
+        let vip_amount = 0
         if (this.state.data) {
             doctor = this.state.data.doctor
             hospital = this.state.data.hospital
@@ -214,6 +238,10 @@ class BookingView extends React.Component {
             payment_type = this.state.data.payment_type
             mrp = this.state.data.mrp
             deal_price = this.state.data.deal_price
+            effective_price = this.state.data.effective_price
+            is_vip_member = this.state.data.vip.is_vip_member
+            covered_under_vip = this.state.data.vip.covered_under_vip
+            vip_amount = this.state.data.vip.vip_amount
         }
 
         let summary_utm_tag = ""
@@ -222,6 +250,26 @@ class BookingView extends React.Component {
                 let src = `https://cplcps.com/p.ashx?o=116216&e=4531&f=img&t=${this.state.data.id}`
                 summary_utm_tag = <img src={src} width="1" height="1" border="0" />
             }
+        }
+
+        if (payment_type == 2) {
+            discount = mrp - deal_price
+        } else {
+            discount = mrp - effective_price
+        }
+        if(!is_vip_member && !covered_under_vip){
+            if (payment_type == 1) {
+                paymentMode = 'Online'
+            } else if (payment_type == 2) {
+                paymentMode = 'Cash'
+            } else if (payment_type == 3) {
+                paymentMode = 'Insurance'
+            } else if (payment_type == 4) {
+                paymentMode = 'Docprime Care'
+            }
+        }
+        if(is_vip_member && covered_under_vip){
+            paymentMode = 'Docprime VIP Member'
         }
         return (
             <div className="profile-body-wrap">
@@ -328,16 +376,16 @@ class BookingView extends React.Component {
                                                             actions.indexOf(6) > -1 && !this.state.hide_button ? <a onClick={this.toggleCancel.bind(this)} href="#" className="text-primary fw-700 text-sm">Cancel Booking</a> : ""
                                                         }
                                                         {
-                                                            status!=6 && status!=7 &&
-                                                            <div className="vip-content-book">
-                                                                <div>
-                                                                    <p>
-                                                                        You could have saved <b>70%</b> on this booking
-                                                                    </p>
-                                                                    <p>if you were a Docprime <img src={ASSETS_BASE_URL + '/img/viplog.png'} /> Member!</p>
+                                                            STORAGE.checkAuth() && this.props.profiles && this.props.profiles[this.props.defaultProfile] && this.props.profiles[this.props.defaultProfile].is_vip_member?'':status != 6 && status != 7 &&
+                                                                <div className="vip-content-book">
+                                                                    <div>
+                                                                        <p>
+                                                                            You could have saved <b>70%</b> on this booking
+                                                                        </p>
+                                                                        <p>if you were a Docprime <img src={ASSETS_BASE_URL + '/img/viplog.png'} /> Member!</p>
+                                                                    </div>
+                                                                    <button onClick={() => this.navigateToVIP()}>Know more</button>
                                                                 </div>
-                                                                <button onClick={()=>this.navigateToVIP()}>Know more</button>
-                                                            </div>
                                                         }
                                                     </div>
                                                 </div>
@@ -413,6 +461,63 @@ class BookingView extends React.Component {
                                                     </div>
                                                 </div>
 
+                                                {
+                                                    status !== 6 ?
+                                                        <div className="widget mrb-10">
+                                                            <div className="widget-content">
+                                                                <div className="test-report">
+                                                                    <h4 className="title"><span><img className="visit-time-icon" src={ASSETS_BASE_URL + "/img/rupeeicon.png"} style={{
+                                                                        width: 16, marginRight: 5, verticalAlign: -3
+                                                                    }} /></span>Payment Detail</h4>
+                                                                    {
+                                                                        payment_type==3?'':
+                                                                        <div className="d-flex justify-content-between align-items-center mrb-10">
+                                                                            <p className="fw-500" style={{ color: '#757575', paddingTop: 4 }}>MRP</p>
+                                                                            <p className="fw-500">&#8377; {parseInt(mrp)}</p>
+                                                                        </div>
+                                                                    }
+
+                                                                    {
+                                                                        is_vip_member && covered_under_vip?
+                                                                            <div className="d-flex justify-content-between align-items-center mrb-10">
+                                                                                <p className="fw-500" style={{ color: 'green' }}>Docprime VIP Member <img className="vip-main-ico img-fluid"src={ASSETS_BASE_URL + '/img/viplog.png'} /></p>
+                                                                                <p className="fw-500" style={{ color: 'green' }}>- &#8377; {parseInt(mrp) - parseInt(vip_amount)}</p>
+                                                                            </div> : ''
+                                                                    }
+                                                                    
+                                                                    {
+                                                                        discount && payment_type!=3 && !is_vip_member && !covered_under_vip?
+                                                                            <div className="d-flex justify-content-between align-items-center mrb-10">
+                                                                                <p className="fw-500" style={{ color: 'green' }}>Docprime Discount</p>
+                                                                                <p className="fw-500" style={{ color: 'green' }}>- &#8377; {parseInt(discount)}</p>
+                                                                            </div> : ''
+                                                                    }
+                                                                    {
+                                                                        payment_type==3?'':
+                                                                        <hr style={{ boxSizing: 'border-box', margin: '0 -12px 10px -12px', backgroundColor: '#eeeeee' }} />
+                                                                    }
+                                                                    
+                                                                    <div className="d-flex justify-content-between align-items-center mrb-10">
+                                                                        <p className="fw-500">Amount Payable</p>
+                                                                        {
+                                                                            payment_type == 2 ?
+                                                                                <p className="fw-500">&#8377; {parseInt(deal_price)}</p>
+                                                                                :is_vip_member && covered_under_vip ?
+                                                                                <p className="fw-500">&#8377; {parseInt(vip_amount)}</p>
+                                                                                :<p className="fw-500">&#8377; {parseInt(effective_price)}</p>
+                                                                        }
+                                                                    </div>
+                                                                    {
+                                                                        paymentMode ?
+                                                                            <div className="d-flex justify-content-between align-items-center">
+                                                                                <p className="fw-500">Payment Mode</p>
+                                                                                <p className="fw-500">{paymentMode}</p>
+                                                                            </div> : ''
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div> : ''
+                                                }
 
                                                 {
                                                     status <= 5 ? <div className="widget mrb-10">
@@ -440,10 +545,6 @@ class BookingView extends React.Component {
                                                         </div>
                                                     </div> : ""
                                                 }
-
-
-
-
                                             </div>
                                         </div>
                                     </div>

@@ -60,11 +60,11 @@ class DoctorProfileCard extends React.Component {
         this.props.selectOpdTimeSLot(slot, false)
 
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'OpdSearchBookNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-book-now-clicked', 'selectedId': id, 'isNonBookablePopup': this.props.isNonBookablePopup?this.props.isNonBookablePopup:false
+            'Category': 'ConsumerApp', 'Action': 'OpdSearchBookNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-book-now-clicked', 'selectedId': id, 'isNonBookablePopup': this.props.isNonBookablePopup ? this.props.isNonBookablePopup : false
         }
         GTM.sendEvent({ data: data })
 
-        if(this.props.isNonBookablePopup){
+        if (this.props.isNonBookablePopup) {
             let nonBookableDocData = {
                 'Category': 'ConsumerApp', 'Action': 'NonBookableBookNowPopupClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'non-bookable-book-now-popup-clicked', 'selectedId': id
             }
@@ -210,6 +210,9 @@ class DoctorProfileCard extends React.Component {
                 offPercent = parseInt(((mrp - cod_deal_price) / mrp) * 100);
             }
 
+            let is_vip_applicable = hospital.is_vip_member && hospital.cover_under_vip
+            let vip_amount = hospital.vip_amount
+            let is_enable_for_vip = hospital.is_enable_for_vip
             let avgGoogleRating = ''
             let googleRatingCount = ''
             if (google_rating && google_rating.avg_rating) {
@@ -230,7 +233,7 @@ class DoctorProfileCard extends React.Component {
                         }} /> : ""
                     }
 
-                    <div className="cstm-docCard-content" onClick={enabled_for_hospital_booking ? this.bookNowClicked.bind(this, id, url, hospital.hospital_id || '') : this.viewProfileClicked.bind(this, id, url, hospital.hospital_id || '')}>
+                    <div className="cstm-docCard-content">
 
                         <div className="row no-gutters">
                             <div className="col-8">
@@ -290,12 +293,24 @@ class DoctorProfileCard extends React.Component {
                                 }
                             </div>
                             <div className="col-4" style={mrp == 0 ? { paddingTop: 40 } : {}}>
-                                {
-                                    !is_insurance_applicable && enabled_for_hospital_booking && mrp != 0 && this.state.ssrFlag ?
+                                {/* {
+                                    !is_insurance_applicable && enabled_for_hospital_booking && mrp != 0 && this.state.ssrFlag && !is_vip_applicable ?
                                         <p className="cstm-doc-price">Docprime Price</p> : ''
+                                } */}
+
+                                {is_vip_applicable ?
+                                    <div className="text-right mb-2">
+                                        <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                    </div>
+                                    : ''}
+
+                                {
+                                    is_vip_applicable ?
+                                        <p className="cst-doc-price">₹ {vip_amount} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+                                        : ''
                                 }
                                 {
-                                    is_insurance_applicable ?
+                                    is_insurance_applicable || is_vip_applicable ?
                                         ''
                                         : enabled_for_cod && cod_deal_price != null && !enabled_for_prepaid_booking && enabled_for_online_booking && cod_deal_price != mrp ?
                                             <p className="cst-doc-price">₹ {cod_deal_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
@@ -309,7 +324,7 @@ class DoctorProfileCard extends React.Component {
                                                             <span className="filtr-offer ofr-ribbon free-ofr-ribbon fw-700">Free Consultation</span> : ''
                                 }
                                 {
-                                    !is_insurance_applicable && enabled_for_hospital_booking && offPercent && offPercent > 0 ?
+                                    !is_insurance_applicable && enabled_for_hospital_booking && offPercent && offPercent > 0 && !is_vip_applicable ?
                                         <p className="cstm-cpn">{offPercent}% Off
                                             {
                                                 deal_price != discounted_price ?
@@ -322,6 +337,21 @@ class DoctorProfileCard extends React.Component {
                                         <div>
                                             <p className="cst-doc-price">₹ {0}</p>
                                             <div className="ins-val-bx">Covered Under Insurance</div>
+                                        </div>
+                                        : ''
+                                }
+                                {
+                                    !is_insurance_applicable && enabled_for_hospital_booking && is_enable_for_vip && !is_vip_applicable?
+                                        <div className="d-flex align-items-center justify-content-end" style={{ cursor: 'pointer', marginTop: 5, marginBottom: 5, position: 'relative', zIndex: 1 }} onClick={() => {
+                                            this.props.history.push('/vip-club-details?source=doctorlisting&lead_source=Docprime')
+                                            let data = {
+                                                'Category': 'ConsumerApp', 'Action': 'DoctorCardVIPClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-card-vip-clicked'
+                                            }
+                                            GTM.sendEvent({ data: data })
+                                        }}>
+                                            <p className="fw-500 grn-txt-vip">Save 70% with</p>
+                                            <img src={ASSETS_BASE_URL + '/img/viplog.png'} style={{ width: 18, marginLeft: 4, marginRight: 2 }} />
+                                            <img src={ASSETS_BASE_URL + '/img/customer-icons/dropdown-arrow.svg'} style={{ transform: 'rotate(-90deg)' }} />
                                         </div>
                                         : ''
                                 }

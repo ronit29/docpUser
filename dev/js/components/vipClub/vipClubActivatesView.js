@@ -74,13 +74,13 @@ class VipClub extends React.Component {
                 {/* <ProfileHeader /> */}
                 <div className={`vipHeaderBar ${this.state.toggleTabType ? 'hed-curv-rmove' : ''}`} ref="vipHeaderBar">
                         <div className="vipBackIco" onClick={() => this.props.history.push('/')}>
-                            <img src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} />
+                            <img src={ASSETS_BASE_URL + "/img/vip-home.svg"} />
                         </div>
                         <div className={`vip-logo-cont ${this.state.toggleTabType ? 'header-scroll-change' : ''}`} ref="">
                             <img className="vipLogiImg" src={ASSETS_BASE_URL + "/img/vip-logo.png"} />
                             <p className="scrl-cont-dat">Save 70% on your family's medical bills</p>
                             {/*<h1>in Just <span className="vip-prc-cut">₹{this.props.data.plan[0].mrp}</span> <span className="vip-main-price">₹{this.props.data.plan[0].deal_price}</span>  </h1>*/}
-                                <p>Valid till {expiryDate[1] + ' ' + expiryDate[2] + ',' + expiryDate[3]}</p>
+                                <p>Valid till {expiryDate[1] + ' ' + expiryDate[2] + ',' + ' '+ expiryDate[3]}</p>
                             {/*<p>{`${this.state.selected_plan_data.tenure} year upto ${this.state.selected_plan_data.total_allowed_members} members`}</p>*/}
                         </div>
                     </div>
@@ -118,9 +118,9 @@ class VipClub extends React.Component {
                                                         <div className="vip-cnslt-card">
                                                             <h5 className="vip-brder-hdng">In-Clinic Consultation</h5>
                                                             <ul>
-                                                                <li><p>Total Limit: <span>₹{this.props.data.plan[0].utilize.total_limit}  </span></p></li>
-                                                                <li><p>Utilized: <span>₹{this.props.data.plan[0].utilize.utilized} </span></p></li>
-                                                                <li><p>Available: <span className="vip-crd-avl-grn">₹{this.props.data.plan[0].utilize.available}</span></p></li>
+                                                                <li><p>Total Limit: <span>₹{this.props.data.plan[0].utilize.doctor_consult_amount}  </span></p></li>
+                                                                <li><p>Utilized: <span>₹{this.props.data.plan[0].utilize.doctor_amount_utilized} </span></p></li>
+                                                                <li><p>Available: <span className="vip-crd-avl-grn">₹{this.props.data.plan[0].utilize.doctor_amount_available}</span></p></li>
                                                             </ul>
                                                         </div>
                                                         <div className="vip-cnslt-card">
@@ -141,8 +141,16 @@ class VipClub extends React.Component {
                                                                 <p>Includes {this.props.data.plan[0].worth.total_test_covered_in_package} Tests, can be used by {this.props.data.plan[0].worth.members_covered_in_package} members</p>
                                                             </div>
                                                             <div className="vip-sbs-crd-rgt">
-                                                                <p className="rmng-pnt">{this.props.data.plan[0].utilize.remaining_body_checkup_count} <span>remaining </span></p>
-                                                                {/*<button className="vip-btn-sbs">Book Now</button>*/}
+                                                                <p className="rmng-pnt">{this.props.data.plan[0].utilize.available_package_count} <span>remaining </span></p>
+                                                                <button className="vip-btn-sbs" onClick={() => {
+                                                                    this.props.history.push('/searchpackages');
+
+                                                                    let data = {
+                                                                        'Category': 'ConsumerApp', 'Action': 'vipPackageClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-package-click'
+                                                                    }
+                                                                    GTM.sendEvent({ data: data });
+
+                                                                }}>Book Now</button>
                                                             </div>
                                                         </div>
                                                     </div>

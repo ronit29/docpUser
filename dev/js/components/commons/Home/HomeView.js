@@ -220,17 +220,17 @@ class HomeView extends React.Component {
 
 		let topSpecializations = []
 		if (this.props.specializations && this.props.specializations.length) {
-			topSpecializations = this.getTopList(this.props.specializations)
+			topSpecializations = this.props.specializations.slice(0,8)//this.getTopList(this.props.specializations)
 		}
 
 		let topTests = []
 		if (this.props.common_tests && this.props.common_tests.length) {
-			topTests = this.getTopList(this.props.common_tests)
+			topTests = this.props.common_tests.slice(0,8)//this.getTopList(this.props.common_tests)
 		}
 
 		let topPackages = []
 		if (this.props.common_package && this.props.common_package.length) {
-			topPackages = this.getTopList(this.props.common_package)
+			topPackages = this.props.common_package//this.getTopList(this.props.common_package)
 		}
 
 		let profileData = this.props.profiles[this.props.selectedProfile]
@@ -376,18 +376,6 @@ class HomeView extends React.Component {
 						}
 
 						{
-							this.props.ipd_procedures && this.props.ipd_procedures.length ?
-								<HomePageTopProcedures {...this.props} top_data={this.props.ipd_procedures} />
-								: ''
-						}
-						{
-							this.props.package_categories && this.props.package_categories.length ?
-								<HomePagePackageCategory {...this.props} top_data={this.props.package_categories} />
-								: ''
-						}
-
-
-						{
 							this.props.common_package && this.props.common_package.length ?
 								<HomePagePackageWidget
 									heading="Health Packages"
@@ -402,6 +390,17 @@ class HomeView extends React.Component {
 									navTo="/searchpackages"
 								/> : ""
 						}
+
+						<HomePageWidget
+							heading="Book Doctor Appointment"
+							discount="50%"
+							list={topSpecializations}
+							searchFunc={(sp) => this.searchDoctor(sp)}
+							searchType="specializations"
+							{...this.props}
+							navTo="/search?from=home"
+							type="opd"
+						/>
 
 						{/* x ray landing page cards */}
 						{/* <div className="xray-container">
@@ -437,16 +436,11 @@ class HomeView extends React.Component {
 							<button className="lap-doc-btn" >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
 						</div> */}
 
-						<HomePageWidget
-							heading="Book Doctor Appointment"
-							discount="50%"
-							list={topSpecializations}
-							searchFunc={(sp) => this.searchDoctor(sp)}
-							searchType="specializations"
-							{...this.props}
-							navTo="/search?from=home"
-							type="opd"
-						/>
+						{
+							this.props.package_categories && this.props.package_categories.length ?
+								<HomePagePackageCategory {...this.props} top_data={this.props.package_categories} />
+								: ''
+						}
 
 						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>
 							<p className="top-head-link card-lab-link">Run a lab? Reach more<span>customers near you</span></p>
@@ -463,6 +457,12 @@ class HomeView extends React.Component {
 							navTo="/search?from=home"
 							type="lab"
 						/>
+
+						{
+							this.props.ipd_procedures && this.props.ipd_procedures.length ?
+								<HomePageTopProcedures {...this.props} top_data={this.props.ipd_procedures} />
+								: ''
+						}
 
 					</div>
 				</div>)
@@ -496,7 +496,7 @@ class HomeView extends React.Component {
 				<div className="headerSubLinkContainer">
 					<div className="container">
 						<div className="head_text_container">
-							{this.props.common_settings && this.props.common_settings.insurance_availability ?
+							{/* {this.props.common_settings && this.props.common_settings.insurance_availability?
 								<a href="/insurance/insurance-plans" onClick={(e) => {
 									let data = {
 										'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-navbar-insurance-clicked'
@@ -507,7 +507,15 @@ class HomeView extends React.Component {
 								}}>OPD Insurance
 								<span className="opdNewHeaderOfr">New</span>
 								</a>
-								: ''}
+							:''} */}
+							<a href="/vip-club-details" onClick={(e) => {
+								let data = {
+									'Category': 'ConsumerApp', 'Action': 'vipClickSubheader', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-click-subheader'
+								}
+								GTM.sendEvent({ data: data })
+								e.preventDefault();
+								this.navigateTo("/vip-club-details?source=vipClickSubheader&lead_source=Docprime", 'opd')
+							}}>Docprime <img src={ASSETS_BASE_URL + '/img/viplog.png'} style={{ width: 24, marginLeft: 2, verticalAlign: 'middle' }} /><span className="opdNewHeaderOfr">New</span></a>
 							<a href="/search" onClick={(e) => {
 								e.preventDefault();
 								this.navigateTo("/search", 'opd')
@@ -524,7 +532,7 @@ class HomeView extends React.Component {
 								e.preventDefault();
 								this.navigateTo('/online-consultation')
 							}}>Online Doctor Consultation</a>
-							<a href="/online-consultation" className="order-med-list-link" onClick={(e) => {
+							{/*<a href="/online-consultation" className="order-med-list-link" onClick={(e) => {
 								e.preventDefault();
 							}}>Order Medicines
 								<ul className="order-med-list">
@@ -537,7 +545,7 @@ class HomeView extends React.Component {
 										this.orderMedClick('prevOrder')
 									}}>Previous Order</a></li>
 								</ul>
-							</a>
+							</a>*/}
 							{/* <p onClick={(e) => {
 								e.preventDefault();
 								this.navigateTo('/contact')

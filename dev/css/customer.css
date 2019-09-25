@@ -2276,6 +2276,17 @@ p.rt-doc-nm{
 
 }
 
+.appointment-specialization{
+    width: calc(100% - 18px);
+    height: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.grn-txt-vip{
+    color: #55a740;
+    font-size: 11px;
+}
 .pharmeasy-iframe{
     width: 100%;
     height: calc(100vh - 100px);

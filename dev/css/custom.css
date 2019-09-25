@@ -708,7 +708,10 @@ body.lineLoader {
 
 /* ============ headerTextUpdate ============ */
 .head_text_container{
-	text-align: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .head_text_container a{
 	display: inline-block;
@@ -1880,6 +1883,12 @@ img.whtsp-ico{
 .vip-new-container{
 	width: 60%;
 	margin: auto;
+}
+.vip-ico-hdng{
+	display: flex !important;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 0px;
 }
 @media(max-width: 992px){
 	.care-new-container{
@@ -3298,9 +3307,103 @@ div.search-el-popup.non-book-pop{
 /* ============ appointment card ============ */
 .apnt-hsp-name{
 	color: #757575;
-    font-size: 13px;
+    font-size: 12px;
 }
 /* ============ appointment card ============ */
+/* ============ radiology-timeslot ============ */
+.top-sticky-radio-btn {
+    margin: 0;
+    padding: 10px 15px;
+    background: white;
+    box-shadow: 0 1px 1px #dedede;
+}
+.top-sticky-radio-btn .container-radio {
+    margin-bottom: 0;
+    color: black !important;
+    font-size: 13px !important;
+}
+.tm-slt-hddng{
+    color: #f98025;
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    padding: 2px 12px;
+    font-size: 14px;
+    font-weight: 500;
+}
+span.tm-slot-hdng {
+    background: #eeeeee;
+    color: #757575;
+    margin: 4px 4px;
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 5px;
+}
+.time-slot-wrng-cont {
+    background: rgba(247, 134, 49, .1);
+    margin-top: 12px;
+    display: flex;
+    align-items: end;
+    padding: 8px;
+    border-radius: 5px;
+}
+.time-slot-wrng-cont img {
+    margin-right: 7px;
+    width: 18px;
+    margin-top: 3px;
+}
+.time-slot-wrng-cont p {
+    color: #7e510a;
+    font-weight: 500;
+    font-size: 13px;
+}
+.time-slot-wrng-cont span {
+    color: #f78631;
+    display: inline-block;
+}
+.rdo-rmv-spn{
+    padding-left: 8px;
+	color: #ed1515;
+	cursor: pointer;
+}
+.rdo-rmv-btn{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+.rdo-pth-tst{
+	font-weight: 500;
+    margin-bottom: 5px;
+}
+.new-time-slot-outer{
+	top: 94px;
+	z-index: 11;
+	position: sticky;
+}
+.vst-time-cont{
+	margin-bottom: 15px;
+}
+.vst-content-bl{
+display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+.vst-tst-name{
+	font-weight: 500;
+}
+.rdo-time-vst{
+	font-weight: 600;
+	    padding-left: 8px;
+}
+@media(max-width: 993px){
+	.new-time-slot-outer{
+		top: 44px;
+	}
+}
+/* ============ radiology-timeslot ============ */
+
 /* ============ booking summary dob ============ */
 .dob-summary-container {
     padding-left: 28px;
@@ -3670,6 +3773,22 @@ p.vp-sb-txt.vp-act{
 	background: url(/assets/img/vip-tax.png);
 	background-size: 22%;
 	background-position: 96% 100% !important;
+}
+.vip-bkdiscount-bg{
+    background: url(/assets/img/vip-dscnt.png);
+    background-size: 25%;
+    background-position: 96% 100% !important;
+}
+.bkdiscount-text {
+    padding: 7px 0;
+}
+.bkdiscount-text h4.vip-card-heading {
+    margin-bottom: 2px;
+}
+.bkdiscount-text p {
+    color: #757575;
+    font-weight: 500;
+    font-size: 13px;
 }
 .vip-free-doc {
     position: relative;
@@ -4289,6 +4408,24 @@ section.container.container-top-margin.sub-pdng-add.sub-pdng-rmv {
 .vip-content-book p:last-child {
     margin-bottom: 0;
 }
+.vip-main-ico{
+    width: 25px;
+}
+.vip-pop-tbl-hd{
+	    background: whitesmoke;
+    padding: 5px 0 0 10px;
+    font-weight: 600;
+    font-size: 12px;
+}
+.vip-pop-table{
+	margin: 15px 0px;
+}
+
+p.vip-vls-png {
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+}
 /* ============ new vip book card  ============ */
 /* ============ refund chat  ============ */
 .refund-chat{
@@ -4375,3 +4512,46 @@ padding-bottom: 50px !important;
 }
 
 /* ============ refund chat  ============ */
+/* ============ vip-popup  ============ */
+.vip-banner {
+    position: relative;
+}
+.pop-bnr-txt {
+    position: absolute;
+    top: 0;
+    padding-top: 22%;
+    padding-left: 5%;
+}
+p.vp-bnr-know-txt {
+    color: #f78631;
+    background: white;
+    padding: 1px 8px;
+    border-radius: 5px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+p.vp-bnr-sub-txt {
+    color: #f78631;
+    font-weight: 500;
+    cursor: pointer;
+}
+img.img-fluid.vp-cls-img {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    cursor: pointer;
+    width: 20px;
+}
+@media (max-width:767px){
+    p.vp-bnr-know-txt {
+       font-size: 12px;
+    }
+    p.vp-bnr-sub-txt {
+       font-size: 12px;
+    }
+    div.search-el-popup.vip-srch-pop-min{
+        width: 97% !important;
+    }
+}
+/* ============ vip-popup  ============ */

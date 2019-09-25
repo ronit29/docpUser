@@ -28,19 +28,19 @@ const persistConfig = {
 const DOCTOR_LIST_PRESIST = {
     key: 'DOCTOR_SEARCH',
     storage: storage,
-    whitelist: ['selectedSlot', 'rescheduleSlot', 'doctorCoupons', 'selectedDoctorProcedure', 'commonProfileSelectedProcedures', 'payment_type', 'selectedDateFormat']
+    whitelist: ['selectedSlot', 'rescheduleSlot', 'selectedDoctorProcedure', 'commonProfileSelectedProcedures', 'payment_type', 'selectedDateFormat', 'doctorCoupons']
 }
 
 const LAB_LIST_PRESIST = {
     key: 'LAB_SEARCH',
     storage: storage,
-    whitelist: ['selectedSlot', 'rescheduleSlot', 'selectedAppointmentType', 'selectedAddress', 'labCoupons', 'user_prescriptions', 'is_prescription_needed', 'selectedDateFormat']
+    whitelist: ['selectedSlot', 'rescheduleSlot', 'selectedAppointmentType', 'selectedAddress', 'user_prescriptions', 'is_prescription_needed', 'selectedDateFormat', 'labCoupons']
 }
 
 const USER_PERSIST = {
     key: 'USER',
     storage: storage,
-    whitelist: ['summary_utm_validity', 'summary_utm', 'chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted', 'userPhoneNo', 'selectedSearchType', 'common_utm_tags', 'app_download_list', 'ipd_chat', 'user_cities', 'iFrameUrls', 'chatPaymentStatus']
+    whitelist: ['summary_utm_validity', 'summary_utm', 'chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted', 'userPhoneNo', 'selectedSearchType', 'common_utm_tags', 'app_download_list', 'ipd_chat', 'user_cities', 'iFrameUrls', 'chatPaymentStatus', 'defaultProfile', 'profiles']
 }
 
 const OPD_SEARCH_PERSIST = {
@@ -69,12 +69,12 @@ const INSURANCE_LIST_PRESIST = {
 const VIP_CLUB_CRITERIA_PRESIST = {
     key: 'VIPCLUB',
     storage: storage,
-    whitelist: ['vipClubList', 'selected_vip_plan', 'vipClubMemberDetails', 'currentSelectedVipMembersId', 'LOAD_VIP_CLUB_DASHBOARD', 'vip_club_db_data', 'members_proofs']
+    whitelist: ['vipClubList', 'selected_vip_plan', 'vipClubMemberDetails', 'currentSelectedVipMembersId', 'LOAD_VIP_CLUB_DASHBOARD', 'vip_club_db_data', 'members_proofs', 'showVipDetailsView','savedMemberData']
 }
 const IPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_IPD',
     storage: storage,
-    blacklist: ['page', 'getNewResults', 'fetchNewResults', 'locationFetched', 'HOSPITAL_DETAIL_LOADED', 'IPD_INFO_LOADED', 'ipd_hospital_detail_info', 'ipdPopupData']
+    blacklist: ['page', 'getNewResults', 'fetchNewResults', 'locationFetched', 'HOSPITAL_DETAIL_LOADED', 'IPD_INFO_LOADED', 'ipd_hospital_detail_info', 'ipdPopupData', 'hospital_list']
 }
 
 const allReducers = combineReducers({

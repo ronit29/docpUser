@@ -31,7 +31,8 @@ const mapStateToProps = (state, passedProps) => {
 	const {
 		selectedCriterias,
 		ipd_info,
-		IPD_INFO_LOADED
+		IPD_INFO_LOADED,
+		commonSelectedCriterias
 	} = state.SEARCH_CRITERIA_IPD
 
 	const {
@@ -51,7 +52,8 @@ const mapStateToProps = (state, passedProps) => {
 		defaultProfile,
 		profiles,
 		offerList,
-		selectedLocation
+		selectedLocation,
+		commonSelectedCriterias
 	}
 }
 
