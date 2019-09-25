@@ -833,9 +833,9 @@ class PatientDetailsNew extends React.Component {
 
     priceConfirmationPopup(choice) {
         if (!choice) {
-            this.setState({ showConfirmationPopup: choice })
+            this.setState({ showConfirmationPopup: choice, show_banner:false })
         } else {
-            this.setState({ showConfirmationPopup: '' })
+            this.setState({ showConfirmationPopup: '',show_banner:false })
             if (document.getElementById('confirm_booking')) {
                 document.getElementById('confirm_booking').click()
             }
@@ -1056,6 +1056,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     render() {
+        console.log(this.state)
         const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
         let doctorCoupons = this.props.doctorCoupons[this.props.selectedDoctor] || []
