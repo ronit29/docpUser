@@ -22,7 +22,7 @@ const PRODUCT = {
     3: 'Insurance',
     4: 'Plan',
     5: 'Chat',
-    11: 'Vip'
+    11: 'Vip Membership'
 }
 
 const SOURCE_FROM = {
