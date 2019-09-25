@@ -462,7 +462,7 @@ class Article extends React.Component {
                                                 }
 
                                                 {
-                                                    this.state.articleData && this.state.articleData.title && this.props.match.path.split('-')[1] === 'mddp' && false?
+                                                    this.state.articleData && this.state.articleData.title && this.props.match.path.split('-')[1] === 'mddp'?
                                                         <React.Fragment>
                                                             <div className="buy-med-btn" id="medicine-btn-div">
                                                                 <button className="v-btn v-btn-primary btn-lg text-sm" id="medicine-btn" onClick={() => this.buyMedicineClick()}>Buy {this.state.articleData.title.split('|')[0]} at Flat 20% Off</button>
