@@ -247,8 +247,8 @@ class DateTimePicker extends React.Component {
                     this.props.is_radiology?
                     <span className="tm-slot-hdng">{this.props.nameHeading}</span>
                     :this.props.nameHeading && Array.isArray(this.props.nameHeading)?
-                        this.props.nameHeading.map((test)=>{
-                            return <span className="tm-slot-hdng">{test.name}</span>
+                        this.props.nameHeading.map((test, i)=>{
+                            return <span key={i} className="tm-slot-hdng">{test.name}</span>
                         })
                     :''
                 }

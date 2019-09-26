@@ -296,7 +296,7 @@ class VipProposerFamily extends React.Component {
     }
 
     populateDates(member_id,toCreateOptions){
-    	let age_threshold = 65
+    	let age_threshold = 150
     	// if(this.props.selected_plan && this.props.selected_plan.adult_count){
     	// 	if(this.props.is_child_only){
     	// 		age_threshold = this.props.selected_plan.threshold[0].child_max_age

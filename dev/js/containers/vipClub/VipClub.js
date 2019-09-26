@@ -1,8 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import { sendOTP, submitOTP, resetAuth, getUserProfile, getVipList, selectVipClubPlan, generateVipClubLead
- } from '../../actions/index.js'
+import { sendOTP, submitOTP, resetAuth, getUserProfile, getVipList, selectVipClubPlan, generateVipClubLead, vipPlusLead } from '../../actions/index.js'
 import VipClubView from '../../components/vipClub/vipClubView.js'
 import Loader from '../../components/commons/Loader'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
@@ -13,8 +12,11 @@ class VipClub extends React.Component{
 
     constructor(props) {
         super(props)
+        const parsed = queryString.parse(this.props.location.search)
         this.state={
-            showInsuranceView:false
+            isSalesAgent:parsed.utm_source,
+            isAgent:parsed.is_agent,
+            source:parsed.source
         }
     }
 
@@ -27,24 +29,28 @@ class VipClub extends React.Component{
             window.scrollTo(0, 0)
         }
 
-        this.props.getVipList(false,this.props.selectedLocation)
+        this.props.getVipList(false,this.props.selectedLocation,this.state.isSalesAgent,this.state.isAgent)
 
     }
     render(){
         if(this.props.LOAD_VIP_CLUB){
             return(
-                <VipClubView {...this.props}/>
+                <VipClubView {...this.props} isSalesAgent={this.state.isSalesAgent} isAgent={this.state.isAgent} source={this.state.source}/>
             )
         }else{
             if(this.props.vipClubList.certificate && STORAGE.checkAuth()){
                 this.props.history.push('/vip-club-activated-details')
             }
-            return(
-            <div className="profile-body-wrap">
-                <ProfileHeader showPackageStrip={true}/>
-                <Loader />
-            </div>
-                )
+            if(this.state.isSalesAgent && this.state.isAgent){
+                return <div className="profile-body-wrap">
+                        <Loader />
+                        </div>
+            }else{
+                return <div className="profile-body-wrap">
+                    <ProfileHeader showPackageStrip={true}/>
+                    <Loader />
+                </div>
+            }               
         }
     }
 }
@@ -63,13 +69,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getVipList: (is_endorsement,selectedLocation,callback) => dispatch(getVipList(is_endorsement,selectedLocation,callback)),
+        getVipList: (is_endorsement,selectedLocation,isSalesAgent,isAgent,callback) => dispatch(getVipList(is_endorsement,selectedLocation,isSalesAgent,isAgent,callback)),
         selectVipClubPlan: (plan,criteria, callback) => dispatch(selectVipClubPlan(plan,criteria, callback)),
         getUserProfile: () => dispatch(getUserProfile()),
         generateVipClubLead:(selectedPlan,number,lead_data,selectedLocation,user_name,cb) =>dispatch(generateVipClubLead(selectedPlan,number,lead_data,selectedLocation,user_name,cb)),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
         submitOTP: (number, otp, cb) => dispatch(submitOTP(number, otp, cb)),
-        resetAuth: () => dispatch(resetAuth())
+        resetAuth: () => dispatch(resetAuth()),
+        vipPlusLead: (data) => dispatch(vipPlusLead(data))
     }
 }
 

@@ -8,6 +8,7 @@ import HelmetTags from '../commons/HelmetTags'
 import GTM from '../../helpers/gtm'
 import STORAGE from '../../helpers/storage';
 import SnackBar from 'node-snackbar'
+import Disclaimer from '../commons/Home/staticDisclaimer.js'
 // import LocationElements from '../../../containers/commons/locationElements'
 // import CommonSearch from '../../../containers/commons/CommonSearch.js'
 
@@ -232,6 +233,7 @@ class VipClub extends React.Component {
                         </div>
                     </div>
                 </section>
+                <Disclaimer />
             </div>
         );
     }

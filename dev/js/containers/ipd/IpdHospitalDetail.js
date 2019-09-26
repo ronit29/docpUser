@@ -12,6 +12,7 @@ import Footer from '../../components/commons/Home/footer'
 import HelmetTags from '../../components/commons/HelmetTags'
 import CONFIG from '../../config'
 import BreadCrumbView from '../../components/ipd/breadCrumb.js'
+import Disclaimer from '../../components/commons/Home/staticDisclaimer.js'
 
 
 
@@ -215,6 +216,7 @@ class HospitalDetail extends React.Component {
 						<RightBar extraClass=" chat-float-btn-2" showHalfScreenChat={false && this.props.ipd_chat && this.props.ipd_chat.showIpdChat?true:false} showDesktopIpd={true} ipdFormParams={this.state.showIpdChat ?true:false}/>
 						</div>
 					</section>
+					<Disclaimer />
 				</div>
 				
 			)

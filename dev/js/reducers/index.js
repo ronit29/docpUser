@@ -40,7 +40,7 @@ const LAB_LIST_PRESIST = {
 const USER_PERSIST = {
     key: 'USER',
     storage: storage,
-    whitelist: ['summary_utm_validity', 'summary_utm', 'chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted', 'userPhoneNo', 'selectedSearchType', 'common_utm_tags', 'app_download_list', 'ipd_chat', 'user_cities', 'iFrameUrls', 'chatPaymentStatus']
+    whitelist: ['summary_utm_validity', 'summary_utm', 'chatDoctors', 'chatRoomIds', 'currentRoomId', 'liveChatStarted', 'userPhoneNo', 'selectedSearchType', 'common_utm_tags', 'app_download_list', 'ipd_chat', 'user_cities', 'iFrameUrls', 'chatPaymentStatus', 'defaultProfile', 'profiles']
 }
 
 const OPD_SEARCH_PERSIST = {
@@ -69,7 +69,7 @@ const INSURANCE_LIST_PRESIST = {
 const VIP_CLUB_CRITERIA_PRESIST = {
     key: 'VIPCLUB',
     storage: storage,
-    whitelist: ['vipClubList', 'selected_vip_plan', 'vipClubMemberDetails', 'currentSelectedVipMembersId', 'LOAD_VIP_CLUB_DASHBOARD', 'vip_club_db_data', 'members_proofs']
+    whitelist: ['vipClubList', 'selected_vip_plan', 'vipClubMemberDetails', 'currentSelectedVipMembersId', 'LOAD_VIP_CLUB_DASHBOARD', 'vip_club_db_data', 'members_proofs', 'showVipDetailsView','savedMemberData']
 }
 const IPD_SEARCH_PERSIST = {
     key: 'SEARCH_CRITERIA_IPD',

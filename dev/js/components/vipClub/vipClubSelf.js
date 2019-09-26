@@ -18,7 +18,7 @@ class VipProposer extends React.Component {
 			pincode: '',
 			address: '',
 			title: '',
-			id: '',
+			id: this.props.member_id,
 			relation: 'SELF',
 			// member_type: 'adult',
 			state: '',
@@ -52,85 +52,133 @@ class VipProposer extends React.Component {
 	}
 	componentDidMount() {
 		let profile
-		if (this.props.vipClubMemberDetails[this.props.USER.defaultProfile] && !this.props.is_endorsement && !this.props.is_from_payment) {
-			profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.USER.defaultProfile])
-			this.getUserDetails(profile)
+		let isDummyUser
+		let profileLength = Object.keys(this.props.USER.profiles).length;
+		// if (this.props.vipClubMemberDetails[this.props.USER.defaultProfile] && !this.props.is_from_payment) { profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.USER.defaultProfile])
+		if (profileLength > 0 && this.props.vipClubMemberDetails[this.props.member_id] && !this.props.is_from_payment) {
+			// console.log('11')
+			if (!isDummyUser) {
+				// console.log('12')
+				profile = Object.assign({}, this.props.vipClubMemberDetails[this.props.USER.defaultProfile])
+			} else {
+				// console.log('13')
+				profile = Object.assign({}, this.props.vipClubMemberDetails[0])
+			}
+
+			if(Object.keys(profile).length > 0){
+				// console.log('14')
+				isDummyUser = this.props.USER.profiles[this.props.USER.defaultProfile].isDummyUser
+				if(profile.isDummyUser){
+					profile.id = 0
+					this.setState({id:0},()=>{
+						this.populateDates()
+	    				this.getUserDetails(profile)	
+	    			})
+				}else{
+					this.setState({id:profile.id},()=>{
+						this.populateDates()
+	    				this.getUserDetails(profile)	
+	    			})
+				}
+				// this.setState({...profile},()=>{
+				// 	this.getUserDetails(profile)
+				// 	this.populateDates()
+				// 	this.handleSubmit(false,false)
+				// })
+			}
 		}
 	}
 	componentWillReceiveProps(props) {
-		let newName = []
 		let self = this
-		let oldDate
 		let profileLength = Object.keys(props.USER.profiles).length;
 		if (profileLength > 0 && this.state.profile_flag && !props.is_from_payment) {
 			let isDummyUser = props.USER.profiles[props.USER.defaultProfile].isDummyUser
 			if (Object.keys(props.vipClubMemberDetails).length > 0) {
+				// console.log('15')
 				let profile
 				if (!isDummyUser) {
+					// console.log('16')
 					profile = Object.assign({}, props.vipClubMemberDetails[props.USER.defaultProfile])
 				} else {
+					// console.log('17')
 					profile = Object.assign({}, props.vipClubMemberDetails[0])
 				}
-				this.populateDates()
-				this.getUserDetails(profile)
-				if (Object.keys(profile).length) {
-					this.setState({ ...profile}, () => {
-						if (profile.gender == 'm') {
-							this.setState({ title: 'mr.',gender:profile.gender }, () => {
-								this.handleSubmit(false,false)
-							})
-						} else if (profile.gender == 'f') {
-							this.setState({ title: 'mrs.',gender:profile.gender }, () => {
-								this.handleSubmit(false,false)
-							})
-						}
-					})
-				} else {
-					this.setState({ profile_flag: false })
-					let new_profile = props.USER.profiles[props.USER.defaultProfile]
-					this.populateDates()
-					this.getUserDetails(new_profile)
+				if(profile && Object.keys(profile).length == 0 && props.USER.profiles[props.USER.defaultProfile]){
+					// console.log('18')
+					profile = props.USER.profiles[props.USER.defaultProfile]
 				}
-			} else if (props.USER.profiles[props.USER.defaultProfile]) {
-				this.setState({ profile_flag: false })
-				let profile = Object.assign({}, props.USER.profiles[props.USER.defaultProfile])
-				newName = profile.name.split(" ")
-				this.getUserDetails(profile)
-				this.populateDates()
+				if(profile && Object.keys(profile).length){
+					// console.log(profile)
+					// console.log('19')
+					this.setState({id:profile.id,profile_flag:false},()=>{
+						this.populateDates()
+			    		this.getUserDetails(profile)	
+			    	})
+			    }
+			}else if (props.USER.profiles[props.USER.defaultProfile]) {
+				// console.log('20')
+				let profile
+				if(props.savedMemberData && props.savedMemberData.length > 0){
+					// console.log('21')
+					profile = props.savedMemberData.filter((x=>x.relation == 'SELF'))
+					if(profile.length > 0){
+						profile = profile[0]
+						// console.log(profile)
+						// console.log('profile21')
+						this.setState({id:profile.id,profile_flag:false},()=>{
+							this.populateDates()
+			    			this.getUserDetails(profile)	
+			    		})
+					}
+				}else{
+					// console.log('22')
+					profile = Object.assign({}, props.USER.profiles[props.USER.defaultProfile])
+					// console.log(profile)
+					// console.log('profile23')
+					if (profile && Object.keys(profile).length) {
+						if(profile.isDummyUser){
+							profile.id = 0
+							this.setState({id:0,profile_flag:false},()=>{
+								this.populateDates()
+			    				this.getUserDetails(profile)	
+			    			})
+						}else{
+							this.setState({id:profile.id,profile_flag:false},()=>{
+								this.populateDates()
+			    				this.getUserDetails(profile)	
+			    			})
+						}
+					}
+				}
 			}
 		}else if(props.is_from_payment && this.state.profile_flag && Object.keys(props.vip_club_db_data).length >0){
 			let profile ={}
 			let newProfile = {}
-			if(props.vip_club_db_data.data.user && Object.keys(props.vip_club_db_data.data.user).length > 0 && props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length > 0){
-				if (Object.keys(props.vipClubMemberDetails).length > 0) {
+			if(props.vip_club_db_data && Object.keys(props.vip_club_db_data.data).length >0 && props.vip_club_db_data.data.user && Object.keys(props.vip_club_db_data.data.user).length > 0 && props.vip_club_db_data.data.user.plus_members && props.vip_club_db_data.data.user.plus_members.length > 0){
+				if(props.vipClubMemberDetails && Object.keys(props.vipClubMemberDetails).length > 0){
 					props.currentSelectedVipMembersId.map((val,key) => {
 		    			newProfile =props.vipClubMemberDetails[val[key]]
-		    			if(newProfile.relation == 'SELF'){
+		    			if(newProfile && newProfile.relation == 'SELF'){
 		    				profile = props.vipClubMemberDetails[val[key]]
 		    			}
-		    		})
-					if (Object.keys(profile).length) {
-						oldDate = profile.dob.split('-')
-						this.setState({...profile,name:profile.first_name,last_name:profile.last_name,title:profile.title,email:profile.email,year: oldDate[0], mnth: oldDate[1], day: oldDate[2],state:profile.city,state_code:profile.city_code,address:profile.address,pincode:profile.pincode,id:profile.profile,profile_id:profile.profile,gender:profile.gender,profile_flag: false,dob:profile.dob},()=>{
-							this.populateDates()
-							this.handleSubmit()
-						})
+			    	})
+			    	if (profile && Object.keys(profile).length) {
+			    		this.setState({id:profile.profile,profile_flag:false},()=>{
+			    			this.populateDates()
+			    			this.getUserDetails(profile)	
+			    		})
 					}
-				} else{
-					// if(props.vip_club_db_data.data.user.plus_members)
-					if(props.vip_club_db_data && Object.keys(props.vip_club_db_data.data).length >0 && props.vip_club_db_data.data.user && Object.keys(props.vip_club_db_data.data.user).length > 0 && props.vip_club_db_data.data.user.plus_members.length > 0){
-						props.vip_club_db_data.data.user.plus_members.map((val,key) => {
-							if(val.relation == 'SELF'){
-								profile = Object.assign({}, val)
-							}
-						})
-					}
-					if(Object.keys(profile).length > 0){
-						oldDate = profile.dob.split('-')
-						this.setState({...profile,name:profile.first_name,last_name:profile.last_name,title:profile.title,email:profile.email,year: oldDate[0], mnth: oldDate[1],day: oldDate[2],state:profile.city,state_code:profile.city_code,address:profile.address,pincode:profile.pincode,id:profile.profile,profile_id:profile.profile,gender:profile.gender, profile_flag: false,dob:profile.dob},()=>{
-							this.populateDates()
-							this.handleSubmit()
-						})
+				}else{
+			    	props.vip_club_db_data.data.user.plus_members.map((val,key) => {
+						if(val.relation == 'SELF'){
+							profile = Object.assign({}, val)
+						}
+					})
+			    	if (profile && Object.keys(profile).length) {
+			    		this.setState({id:profile.profile,profile_flag:false},()=>{
+			    			this.populateDates()
+			    			this.getUserDetails(profile)	
+			    		})
 					}
 				}
 			}
@@ -141,29 +189,47 @@ class VipProposer extends React.Component {
 		let newName = []
 		let oldDate
 		let tempArray
+		// this.populateDates()
 		if(Object.keys(profile).length > 0){
-			newName = profile.name.split(" ")
-			if (newName.length == 2) {
-				this.setState({
-					name: profile.isDummyUser ? '' : newName[0],
-					last_name: profile.isDummyUser ? '' : newName[1]
-				})
-			}  else if (newName.length > 2) {
-				tempArray = newName.slice(1, newName.length)
-				this.setState({
-					name: profile.isDummyUser ? '' : newName[0],
-					last_name: profile.isDummyUser ? '' : tempArray.join(' ')
-				})
-			} else {
-				this.setState({ name: profile.isDummyUser ? '' : profile.name })
+			// if(profile.name){
+			// 	newName = profile.name.split(" ")
+			// 	if (newName.length == 2) {
+			// 		this.setState({
+			// 			// name: profile.isDummyUser ? '' : newName[0],
+			// 			// last_name: profile.isDummyUser ? '' : newName[1]
+			// 			name: newName[0],last_name: newName[1]
+			// 		})
+			// 	}  else if (newName.length > 2) {
+			// 		tempArray = newName.slice(1, newName.length)
+			// 		this.setState({
+			// 			// name: profile.isDummyUser ? '' : newName[0],
+			// 			// last_name: profile.isDummyUser ? '' : tempArray.join(' ')
+			// 			name: newName[0],
+			// 			last_name: tempArray.join(' ')
+			// 		})
+			// 	} else {
+			// 		this.setState({ name:profile.name?profile.name:'' })
+			// 	}
+			// }
+			if(this.props.is_from_payment){
+				if(profile.first_name){
+					this.setState({name:profile.first_name?profile.first_name:profile.name?profile.name:''})
+				}
+				if(profile.city){
+					this.setState({state:profile.city?profile.city:''})
+				}
+				if(profile.city_code){
+					this.setState({state_code:profile.city_code?profile.city_code:''})
+				}
 			}
 			if(profile.gender == 'm'){
-				this.setState({gender:profile.gender})
+				this.setState({gender:profile.gender?profile.gender:'',title: 'mr.'})
 			}else if(profile.gender == 'f'){
-				this.setState({gender:profile.gender})
+				this.setState({gender:profile.gender?profile.gender:'',title: 'mrs.'})
 			}
 			if (profile.isDummyUser && profile.dob) {
 				this.setState({ day: null, year: null, mnth: null })
+				this.populateDates()
 			} else if (Object.keys(profile).length > 0 && profile.dob) {
 				oldDate = profile.dob.split('-')
 				this.setState({ year: oldDate[0], mnth: oldDate[1], day: oldDate[2] }, () => {
@@ -172,22 +238,55 @@ class VipProposer extends React.Component {
 			} else {
 				this.populateDates()
 			}
+			if(profile.id){
+				this.setState({profile_id:profile.id?profile.id:''})
+			}
+			if(profile.profile){
+				this.setState({profile_id:profile.profile?profile.profile:''})
+			}
 			this.setState({
-				disableEmail: !profile.isDummyUser && profile.email != '' ? true : false,
-				disableDob: !profile.isDummyUser && profile.dob != null ? true : false,
-				disableName: !profile.isDummyUser && profile.name != '' ? true : false,
-				// gender: profile.isDummyUser ? '' : profile.gender,
-				email: profile.isDummyUser ? '' : profile.email,
-				dob: profile.isDummyUser ? '' : profile.dob,
-				id: profile.isDummyUser ? 0 : profile.id
-			}, () => {
-				if (profile.gender == 'm') {
-					this.setState({ title: 'mr.' })
-				} else if (profile.gender == 'f') {
-						this.setState({ title: 'mrs.' })
+				// email: profile.isDummyUser ? '' : profile.email,
+				// dob: profile.isDummyUser ? '' : profile.dob
+				email: profile.email ? profile.email :'',
+				dob: profile.dob ? profile.dob :''
+			})
+			this.setState({...profile},()=>{
+				if(profile.name){
+					if(profile.name == 'User' || profile.name == 'user'){
+						profile.name = ''
+						this.setState({ name:profile.name})
+					}else{
+						if(profile.name){
+							newName = profile.name.split(" ")
+							if (newName.length == 2) {
+								this.setState({name: newName[0],last_name: newName[1]})
+							}  else if (newName.length > 2) {
+								tempArray = newName.slice(1, newName.length)
+								this.setState({name: newName[0],last_name: tempArray.join(' ')})
+							} else {
+								this.setState({ name:profile.name?profile.name:'' })
+							}
+						}
+					}
 				}
 				this.handleSubmit(false,false)
 			})
+			// this.setState({
+			// 	// disableEmail: !profile.isDummyUser && profile.email != '' ? true : false,
+			// 	// disableDob: !profile.isDummyUser && profile.dob != null ? true : false,
+			// 	// disableName: !profile.isDummyUser && profile.name != '' ? true : false,
+			// 	// gender: profile.isDummyUser ? '' : profile.gender,
+			// 	email: profile.isDummyUser ? '' : profile.email,
+			// 	dob: profile.isDummyUser ? '' : profile.dob,
+			// 	id: profile.isDummyUser ? 0 : profile.id
+			// }, () => {
+			// 	if (profile.gender == 'm') {
+			// 		this.setState({ title: 'mr.' })
+			// 	} else if (profile.gender == 'f') {
+			// 			this.setState({ title: 'mrs.' })
+			// 	}
+			// 	this.handleSubmit(false,false)
+			// })
 		}
 	}
 	handleChange(field, event) {
@@ -222,21 +321,6 @@ class VipProposer extends React.Component {
 			this.setState({ profile_id: null })
 		}
 		var self_data = this.state
-		// if (self_data.name !== '') {
-		// 	if (self_data.name.length > 50) {
-		// 		self_data.name = self_data.name.slice(0, 50)
-		// 	}
-		// }
-		/*if (self_data.middle_name !== '') { // to be deleted
-			if (self_data.middle_name.length > 50) {
-				self_data.middle_name = self_data.middle_name.slice(0, 50)
-			}
-		}*/
-		// if (self_data.last_name !== '') {
-		// 	if (self_data.last_name.length > 50) {
-		// 		self_data.last_name = self_data.last_name.slice(0, 50)
-		// 	}
-		// }
 		if (!is_endoresment && !is_endorse_email) {
 			self_data.is_change = true
 			self_data.first_name = self_data.name
@@ -377,6 +461,7 @@ class VipProposer extends React.Component {
 			parentDiv = document.createElement("DIV")
 			parentDiv.setAttribute("id", this.id + "autocomplete-list")
 			parentDiv.setAttribute("class", "autocomplete-items")
+			parentDiv.setAttribute("style", "cursor: pointer;")
 			this.parentNode.appendChild(parentDiv)
 
 			for (i = 0; i < arr.length; i++) {
@@ -470,7 +555,7 @@ class VipProposer extends React.Component {
 		var daydropdown = document.getElementById("daydropdown_" + this.props.member_id),
 			monthdropdown = document.getElementById("monthdropdown_" + this.props.member_id),
 			yeardropdown = document.getElementById("yeardropdown_" + this.props.member_id);
-		let age_threshold = 65
+		let age_threshold = 150
 		var today = new Date(),
 			day = today.getUTCDate(),
 			month = today.getUTCMonth(),

@@ -18,6 +18,7 @@ import LocationElements from '../../../containers/commons/locationElements'
 import CommonSearch from '../../../containers/commons/CommonSearch.js'
 import FixedMobileFooter from '../Home/FixedMobileFooter'
 const queryString = require('query-string');
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 // import FooterTestSpecializationWidgets from './FooterTestSpecializationWidgets.js'
 
 // import RelatedArticles from './RelatedArticles'
@@ -79,6 +80,7 @@ class Lensfit extends React.Component {
                         <RightBar colClass="col-lg-4" />
                     </div>
                 </section>
+                <Disclaimer />
                 <button className="lenfit-backbtn" onClick={(e) => {
                                 e.preventDefault()
                                 e.stopPropagation()

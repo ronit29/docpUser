@@ -156,6 +156,9 @@ export const agentLogin = (token, cb) => (dispatch) => {
         })
         STORAGE.setAuthToken(token)
         clearInsurance()(dispatch)
+        dispatch({
+            type: RESET_VIP_CLUB
+        })
         cb()
     })
 }
