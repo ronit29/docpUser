@@ -56,7 +56,8 @@ class OrderMedicineView extends React.Component {
         // }
 
         if (typeof navigator === 'object') {
-            if (/mobile/i.test(navigator.userAgent)) {
+            var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+            if (/mobile/i.test(navigator.userAgent) && !isSafari) {
                 this.props.iFrameState(this.props.location.pathname, false)
                 sessionStorage.setItem('iFrameId', 1);
             }
