@@ -180,7 +180,7 @@ class CartView extends React.Component {
     }
 
     sendAgentBookingURL() {
-        this.props.sendAgentBookingURL(null, 'sms', '',(err, res) => {
+        this.props.sendAgentBookingURL(null, 'sms', '','',(err, res) => {
             if (err) {
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
             } else {
@@ -272,7 +272,7 @@ class CartView extends React.Component {
                 <ProfileHeader />
                 {
                     this.state.showConfirmationPopup && is_selected_user_insurance_status !=4?
-                    <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)}/>
+                    <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} bannerConfirmationPopup={()=>{}} isCart={true}/>
                     :''
                 }
                 <section className="container container-top-margin">

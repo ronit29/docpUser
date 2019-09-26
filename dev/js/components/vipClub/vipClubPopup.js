@@ -123,37 +123,79 @@ class VipLoginPopup extends React.Component {
         let lead_data = parsed
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
             this.setState({ validationError: "" })
+
             this.props.submitOTP(this.state.phoneNumber, this.state.otp, (exists) => {
                 if (exists.code == 'invalid') {
                     this.setState({ error_message: exists.message, validationError:'' })
                 } else {
+                    // if(this.props.vipPlusLead && parsed && parsed.utm_source) {
+                    //     let data = {
+                    //         name: this.state.user_name,
+                    //         phone_number: this.state.phoneNumber,
+                    //         utm_source: parsed.utm_source || '',
+                    //         utm_spo_tags: parsed || ''
+                    //     }
+                    //     this.props.vipPlusLead(data)
+                    // }
                     if (exists.token) {
                         // let data = {
                         //     'Category': 'ConsumerApp', 'Action': 'InsuranceLoginPopupOptVerified', 'CustomerID': GTM.getUserId() || '', 'event': 'Insurance-login-popup-opt-verified'
                         // }
                         // GTM.sendEvent({ data: data })
-                        this.props.getVipList(false, this.props.selectedLocation,(resp) => {
-                            if (!resp.certificate) {
-                                if (Object.keys(self.props.selected_vip_plan).length > 0) {
-                                    self.props.generateVipClubLead(self.props.selected_vip_plan ? self.props.selected_vip_plan.id : '', self.state.phoneNumber,lead_data, self.props.selectedLocation,self.state.user_name,(resp)=>{
-                                        let LeadIdData = {
-                                                'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id?resp.lead_id:0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
-                                            }
-                                        GTM.sendEvent({ data: LeadIdData })
-                                    })
-                                }
-                                if (exists.user_exists) {
+                        this.props.getVipList(false, this.props.selectedLocation,this.props.isSalesAgent,this.props.isAgent,(resp) => {
+                            this.props.getUserProfile()
+                            if(!this.props.isSalesAgent && !this.props.isAgent){
+                                if (!resp.certificate) {
+                                    if (Object.keys(self.props.selected_vip_plan).length > 0) {
+                                        self.props.generateVipClubLead(self.props.selected_vip_plan ? self.props.selected_vip_plan.id : '', self.state.phoneNumber,lead_data, self.props.selectedLocation,self.state.user_name,(resp)=>{
+                                            let LeadIdData = {
+                                                    'Category': 'ConsumerApp', 'Action': 'VipLeadClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': resp.lead_id?resp.lead_id:0, 'event': 'vip-lead-clicked', 'source': lead_data.source || ''
+                                                }
+                                            GTM.sendEvent({ data: LeadIdData })
+                                        })
+                                    }
+                                    if (exists.user_exists) {
+                                        this.props.closeLeadPopup()
+                                        this.props.history.push('/vip-club-member-details')
+                                        // this.props.history.push('/vip-club-static-pages')
+                                    } else {
+                                        this.props.closeLeadPopup()
+                                        this.props.history.push('/vip-club-member-details')
+                                        // this.props.history.push('/vip-club-static-pages')
+                                    }
+                                }else{
                                     this.props.closeLeadPopup()
-                                    this.props.history.push('/vip-club-member-details')
-                                    // this.props.history.push('/vip-club-static-pages')
-                                } else {
-                                    this.props.closeLeadPopup()
-                                    this.props.history.push('/vip-club-member-details')
-                                    // this.props.history.push('/vip-club-static-pages')
+                                    this.props.history.push('vip-club-activated-details')
                                 }
                             }else{
-                                this.props.closeLeadPopup()
-                                this.props.history.push('vip-club-activated-details')
+                                if (!resp.certificate) {
+                                    let url = '/vip-club-member-details?isDummy=true'
+                                                if(lead_data.utm_source){
+                                                    url += '&utm_source='+lead_data.utm_source
+                                                }
+                                                if(lead_data.utm_term){
+                                                    url += '&utm_term='+lead_data.utm_term
+                                                }
+                                                if(lead_data.utm_campaign){
+                                                    url += '&utm_campaign='+lead_data.utm_campaign
+                                                }
+                                                if(lead_data.utm_medium){
+                                                    url += '&utm_medium='+lead_data.utm_medium
+                                                }
+                                                if(lead_data.is_agent){
+                                                    url += '&is_agent='+lead_data.is_agent
+                                                }
+                                    if (exists.user_exists) {
+                                        this.props.closeLeadPopup()
+                                        this.props.history.push(url)
+                                    } else {
+                                        this.props.closeLeadPopup()
+                                        this.props.history.push(url)
+                                    }
+                                }else{
+                                    this.props.closeLeadPopup()
+                                    this.props.history.push('vip-club-activated-details?utm_source='+this.props.isSalesAgent+'&is_agent='+this.props.isAgent)
+                                }
                             }
                         })
                     }
