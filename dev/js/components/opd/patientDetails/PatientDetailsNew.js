@@ -697,7 +697,7 @@ class PatientDetailsNew extends React.Component {
     }
 
     sendAgentBookingURL() {
-        this.props.sendAgentBookingURL(this.state.order_id, 'sms','','', (err, res) => {
+        this.props.sendAgentBookingURL(this.state.order_id, 'sms',null,null, (err, res) => {
             if (err) {
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
             } else {
