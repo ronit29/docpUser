@@ -835,7 +835,7 @@ class BookingSummaryViewNew extends React.Component {
     }
 
     sendAgentBookingURL() {
-        this.props.sendAgentBookingURL(this.state.order_id, 'sms', (err, res) => {
+        this.props.sendAgentBookingURL(this.state.order_id, 'sms','','', (err, res) => {
             if (err) {
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
             } else {
@@ -1346,7 +1346,7 @@ class BookingSummaryViewNew extends React.Component {
                 <ProfileHeader bookingPage={true} />
                 {
                     this.state.showConfirmationPopup && is_selected_user_insurance_status != 4 ?
-                        <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} />
+                        <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} bannerConfirmationPopup={()=>{}} isLab={true}/>
                         : ''
                 }
                 {
