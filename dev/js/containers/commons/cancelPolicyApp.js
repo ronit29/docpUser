@@ -4,6 +4,8 @@ import { } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage';
 import HelmetTags from '../../components/commons/HelmetTags'
 const queryString = require('query-string');
+import Disclaimer from '../../components/commons/Home/staticDisclaimer.js'
+
 class cancelPolicyApp extends React.Component {
 
 	componentDidMount() {
@@ -60,6 +62,7 @@ class cancelPolicyApp extends React.Component {
                         </div>
                     </div>
                 </div>
+                <Disclaimer />
             </div>
 		)
 	}

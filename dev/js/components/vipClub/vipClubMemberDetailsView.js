@@ -8,6 +8,7 @@ import PaymentForm from '../commons/paymentForm'
 import GTM from '../../helpers/gtm'
 import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
+import Disclaimer from '../commons/Home/staticDisclaimer.js'
 
 class VipClubMemberDetailsView extends React.Component{
 	constructor(props) {
@@ -574,6 +575,7 @@ class VipClubMemberDetailsView extends React.Component{
 					<ChatPanel />
 					</div>
 				</section>
+				<Disclaimer />
 				{
                     this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='opd' /> : ""
                 }

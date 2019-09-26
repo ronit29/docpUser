@@ -15,6 +15,7 @@ import Footer from '../../commons/Home/footer'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import Loader from '../../commons/Loader'
 import { Route } from 'react-router-dom'
+import StaticDisclaimer from '../../commons/Home/staticDisclaimer.js'
 
 const queryString = require('query-string');
 
@@ -117,7 +118,7 @@ class StaticPagesView extends React.Component {
                 }} />
 
                 {
-                    parsed.fromApp ? '' : <Footer />
+                    parsed.fromApp ? <StaticDisclaimer /> : <Footer />
                 }
 
             </div>

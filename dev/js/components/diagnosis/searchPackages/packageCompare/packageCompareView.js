@@ -6,6 +6,7 @@ import Footer from '../../../commons/Home/footer'
 import GTM from '../../../../helpers/gtm.js'
 import HelmetTags from '../../../commons/HelmetTags'
 import CONFIG from '../../../../config'
+import Disclaimer from '../../../commons/Home/staticDisclaimer.js'
 
 const queryString = require('query-string');
 
@@ -480,6 +481,7 @@ const queryString = require('query-string');
                       : ''
                   }
               </section>
+              <Disclaimer/>
           </div>
       )
       }

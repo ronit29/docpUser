@@ -23,6 +23,7 @@ import BookingConfirmationPopup from './BookingConfirmationPopup.js'
 import UploadPrescription from './uploadPrescription.js'
 import PaymentForm from '../../commons/paymentForm'
 import LensfitPopup from './lensfitPopup.js'
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
@@ -1664,7 +1665,6 @@ class BookingSummaryViewNew extends React.Component {
                                                             <img src={ASSETS_BASE_URL + '/img/customer-icons/tick.svg'} style={{ marginRight: 8, width: 20, marginTop: 2 }} />
                                                             <p className="fw-500" style={{ flex: 1 }} >By continuing, you are authorizing Docprime to directly share lab test reports with you.</p>
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -1720,6 +1720,7 @@ class BookingSummaryViewNew extends React.Component {
                         <RightBar extraClass=" chat-float-btn-2" type="lab" noChatButton={true} />
                     </div>
                 </section>
+                <Disclaimer />
                 {
                     this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='lab' /> : ""
                 }

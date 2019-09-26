@@ -525,12 +525,9 @@ class Article extends React.Component {
                                                             <span>Last updated on : {this.state.articleData.last_updated_at}</span>
                                                         </div> : ''
                                                 }
-                                                {
-                                                    this.props.match.path.split('-')[1] === 'mddp' ?
-                                                        <div className="mrt-20">
-                                                            <p className="article-disclaimer"><span className="fw-700">Disclaimer : </span>Docprime doesn’t endorse or take any guarantee of the accuracy or completeness of information provided on its website. Docprime shall not be held responsible for any aspect of healthcare administered with the information provided on its website.</p>
-                                                        </div> : ''
-                                                }
+                                                <div className="mrt-20">
+                                                    <p className="article-disclaimer"><span className="fw-700">Disclaimer : </span>Docprime doesn’t endorse or take any guarantee of the accuracy or completeness of information provided under this article and these are the views strictly of the writer. Docprime shall not be held responsible for any aspect of healthcare services administered with the information provided on this article.</p>
+                                                </div>
                                             </div> : ""
                                         }
                                         {/* {

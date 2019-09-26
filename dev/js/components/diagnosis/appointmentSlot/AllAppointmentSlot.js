@@ -9,6 +9,7 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 const queryString = require('query-string');
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 class AppointmentSlot extends React.Component {
     constructor(props) {
@@ -420,13 +421,14 @@ class AppointmentSlot extends React.Component {
                                         </div>
                                     </section> : <Loader />
                             }
-
+                            
                             <button disabled={!this.state.enableProceed} onClick={this.proceed.bind(this)} className="p-3 mrt-10 v-btn v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg static-btn">Select</button>
 
                         </div>
                         <RightBar extraClass=" chat-float-btn-2" type="lab" />
                     </div>
                 </section>
+                <Disclaimer />
             </div>
         );
     }

@@ -17,6 +17,7 @@ import Loader from '../../commons/Loader'
 import UserReview from '../../commons/userProfile/userReviews'
 
 import { Route } from 'react-router-dom'
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 const Section_Component = ({ children, title, history, logout }) => {
     return <div>
@@ -126,6 +127,7 @@ class UserProfileView extends React.Component {
                         <RightBar noChatButton={true} extraClass={(this.props.location.pathname.includes('/family') || this.props.location.pathname.includes('/address')) ? " chat-float-btn-3" : (this.props.location.pathname.includes('/edit') ? " chat-float-btn-2" : "")} />
                     </div>
                 </section>
+                <Disclaimer />
             </div>
         );
     }
