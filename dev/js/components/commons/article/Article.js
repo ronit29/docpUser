@@ -99,7 +99,7 @@ class Article extends React.Component {
                 elem.style.borderRadius = '0px'
                 elemContainer.style.padding = '0px'
             }
-            else if (elem) {
+            else if (elem && elemContainer) {
                 elem.style.background = '#f78631'
                 elem.style.borderRadius = '5px'
                 elemContainer.style.padding = '0px 15px'
