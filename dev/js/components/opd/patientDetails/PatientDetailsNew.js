@@ -1641,7 +1641,6 @@ class PatientDetailsNew extends React.Component {
                                                                     {/* <span className="errorMessage">{this.state.error}</span> */}
                                                                 </div>
                                                             </a>
-                                                            <Disclaimer />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1691,6 +1690,7 @@ class PatientDetailsNew extends React.Component {
                         </div>
                     </section>
                 }
+                <Disclaimer />
                 {
                     this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='opd' /> : ""
                 }

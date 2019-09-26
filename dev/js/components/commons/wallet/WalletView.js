@@ -5,6 +5,7 @@ import Loader from '../Loader'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 class WalletView extends React.Component {
     constructor(props) {
@@ -168,6 +169,7 @@ class WalletView extends React.Component {
                         <RightBar noChatButton={true} />
                     </div>
                 </section>
+                <Disclaimer />
             </div >
         );
     }

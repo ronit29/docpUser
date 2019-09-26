@@ -9,6 +9,7 @@ import STORAGE from '../../helpers/storage';
 import SnackBar from 'node-snackbar'
 import VipLoginPopup from './vipClubPopup.js'
 const queryString = require('query-string');
+import Disclaimer from '../commons/Home/staticDisclaimer.js'
 
 class VipClubView extends React.Component {
     constructor(props) {
@@ -358,6 +359,7 @@ class VipClubView extends React.Component {
                             <p className="vipbtn-sub-txt">No Cost EMI Starts @ ₹{Math.round(parseInt(this.state.selected_plan_data.deal_price) / 12)}</p>
                         </button>
                     </section>
+                    <Disclaimer />
                 </div>
                 : <div></div>
         );

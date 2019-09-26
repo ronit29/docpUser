@@ -12124,3 +12124,10 @@ font-weight: 500;
     flex-shrink: 0;
     padding-left: 8px;
 }
+
+.dsclmer-ftr{
+	bottom: 70px;
+    width: 100%;
+    padding: 0 10px;
+    padding-bottom: 55px;
+}
