@@ -98,7 +98,7 @@ class Article extends React.Component {
                 
                 if(elem && elemContainer) {
                // alert(window.scrollY +'a'+ elemContainer.offsetTop)
-                    if (window && (window.scrollY >= elemContainer.offsetHeight + 395 )) {
+                    if (window && (window.scrollY >= elemContainer.offsetHeight + 390 )) {
                         elem.style.background = '#3b827d'
                         elem.style.borderRadius = '0px'
                         elemContainer.style.padding = '0px'
