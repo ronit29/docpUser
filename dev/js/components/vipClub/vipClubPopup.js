@@ -72,9 +72,15 @@ class VipLoginPopup extends React.Component {
             SnackBar.show({ pos: 'bottom-center', text: 'Enter your name' })
             return
         }
+
         let lead_data = queryString.parse(this.props.location.search)
         if (number.match(/^[56789]{1}[0-9]{9}$/)) {
+
             this.setState({ validationError: "" })
+            if(this.props.user_cities && this.props.user_cities.length && !this.state.selectedCity){
+                this.setState({ validationError: "Please select the city", error_message: '' })
+                return;
+            }
             this.props.sendOTP(number, viaSms, viaWhatsapp, 'insurance-login', (error) => {
                 if (error) {
                     // this.setState({ validationError: "Could not generate OTP." })
@@ -124,12 +130,6 @@ class VipLoginPopup extends React.Component {
             this.setState({ validationError: "Please enter valid OTP", error_message: '' })
             return
         }
-
-        if(this.props.user_cities && this.props.user_cities.length && !this.state.selectedCity){
-            this.setState({ validationError: "Please select the city", error_message: '' })
-            return;
-        }
-
 
         let lead_data = parsed
         if (this.state.phoneNumber.match(/^[56789]{1}[0-9]{9}$/)) {
