@@ -173,7 +173,11 @@ class VipClubView extends React.Component {
                     }} noIndex={false} />
                     <div className={`vipHeaderBar ${this.state.toggleTabType ? 'hed-curv-rmove' : ''}`} ref="vipHeaderBar">
                         {
-                            this.props.isSalesAgent && this.props.isAgent?''
+                            this.props.isSalesAgent && this.props.isAgent?'':
+                            this.props.source == 'doctorlisting' || this.props.source == 'bookingpage'
+                            ?<div className="vipBackIco" onClick={() => this.props.history.go(-1)}>
+                                <img src={ASSETS_BASE_URL + "/img/careleft-arrow.svg"} />
+                            </div>
                             :<div className="vipBackIco" onClick={() => this.props.history.push('/')}>
                                 <img src={ASSETS_BASE_URL + "/img/vip-home.svg"} />
                             </div>
