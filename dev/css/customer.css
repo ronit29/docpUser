@@ -2333,6 +2333,9 @@ ul.order-med-list a:hover {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    padding-bottom: 2px;
+    background: white;
+    padding-right: 5px;
 }
 
 .order-widget{
@@ -2350,7 +2353,8 @@ ul.order-med-list a:hover {
 
 .buy-med-btn{
 	display: block;
-	position: sticky;
+    position: sticky;
+    position: -webkit-sticky;
 	top: 44px;
 	margin-left: -15px;
 	margin-right: -15px;
