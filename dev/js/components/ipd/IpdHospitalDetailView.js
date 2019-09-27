@@ -538,7 +538,8 @@ class HospitalDetailView extends React.Component {
 	                                                return <Reply key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} 
 	                                                	loadComments={this.loadComments.bind(this)} postComment={this.props.postHospitalComments}
 
-	                                                 postReply={this.postReply.bind(this)} handleInputComment={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists} hospitalPage={true} hospital_id={this.props.ipd_hospital_detail.id}/>
+	                                                 postReply={this.postReply.bind(this)} handleInputComment={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists} hospitalPage={true} hospital_id={this.props.ipd_hospital_detail.id}
+	                                                  notArticle={true}/>
 	                                            })}
 	                                    </div>
 	                                    : ''
