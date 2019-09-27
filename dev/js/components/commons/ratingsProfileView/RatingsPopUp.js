@@ -24,7 +24,6 @@ class RatingsPopUp extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props.selectedHospital);
         if (STORAGE.checkAuth()) {
             if (typeof (this.props.unverified) == 'undefined' && !this.props.unverified) {
                 this.props.getUnratedAppointment((err, data) => {

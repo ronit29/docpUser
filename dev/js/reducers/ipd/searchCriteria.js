@@ -4,7 +4,8 @@ import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET
 
 const DEFAULT_HOSPITAL_FILTER_STATE = {
 	distance: [0, 20],
-	provider_ids: []
+	provider_ids: [],
+	network_id:''
 }
 
 const defaultState = {
@@ -50,9 +51,16 @@ export default function (state = defaultState, action) {
 				nextSelectedCriterias: []
 			}
 			if (action.forceAdd) {
-				newState.selectedCriterias.push({ ...action.payload })
-				newState.commonSelectedCriterias.push({ ...action.payload })
-				newState.nextSelectedCriterias.push({ ...action.payload })
+				if(action.payload.length){
+					newState.selectedCriterias.push({ ...action.payload })
+					newState.commonSelectedCriterias.push({ ...action.payload })
+					newState.nextSelectedCriterias.push({ ...action.payload })	
+				}else{
+					newState.selectedCriterias = []
+					newState.commonSelectedCriterias = []
+					newState.nextSelectedCriterias = []
+				}
+				
 			} else {
 				let found = false
 				newState.selectedCriterias = newState.selectedCriterias.filter((ipd) => {

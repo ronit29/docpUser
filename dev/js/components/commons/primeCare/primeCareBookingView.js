@@ -5,6 +5,7 @@ import ProfileHeader from '../DesktopProfileHeader'
 import SnackBar from 'node-snackbar'
 import GTM from '../../../helpers/gtm.js'
 import PaymentForm from '../paymentForm'
+import Disclaimer from '../Home/staticDisclaimer.js'
 
 const queryString = require('query-string');
 
@@ -238,6 +239,7 @@ class PrimeCareBookingView extends React.Component {
                         {/*<RightBar className="col-md-5 mb-3" />*/}
                     </div>
                 </section>
+                <Disclaimer />
                 {
                     this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='care' /> : ""
                 }

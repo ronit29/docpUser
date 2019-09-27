@@ -9,6 +9,7 @@ import ClinicResultCard from '../../commons/clinicResultCard';
 import BannerCarousel from '../../../commons/Home/bannerCarousel';
 import SnackBar from 'node-snackbar'
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _autoCompleteService } from '../../../../helpers/mapHelpers';
+import RatingStars from '../../../commons/ratingsProfileView/RatingStars';
 
 class DoctorsList extends React.Component {
     constructor(props) {
@@ -210,6 +211,18 @@ class DoctorsList extends React.Component {
         }
     }
 
+    navigateToHospital(data) {
+        let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'SponsorCardClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'sponsor-card-clicked'
+        }
+        GTM.sendEvent({ data: gtmData })
+        if (data.url) {
+            this.props.history.push(`/${data.url}`)
+        } else {
+            this.props.history.push(`/ipd/hospital/${data.id}`)
+        }
+    }
+
     render() {
 
         let detectFlag = true
@@ -246,6 +259,8 @@ class DoctorsList extends React.Component {
                 }
             }
         })
+
+        let sponsorData = this.props.sponsorData && this.props.sponsorData.length ? this.props.sponsorData[0] : null
 
         return (
             <section ref="checkIfExists">
@@ -288,6 +303,77 @@ class DoctorsList extends React.Component {
                                     >
                                         <ul>
                                             {
+                                                sponsorData && sponsorData.name &&
+                                                <div className="clinic-card mb-3" onClick={() => this.navigateToHospital(sponsorData)}>
+                                                    <div className="clnc-content">
+                                                        <div className="row no-gutters">
+                                                            <div className="col-8">
+                                                                <h2 className="cstmDocName">{sponsorData.name}</h2>
+                                                                <div className="cstm-doc-details-container">
+                                                                    {
+                                                                        sponsorData.hospital_image &&
+                                                                        <div className="cstm-doc-img-container">
+                                                                            <div>
+                                                                                <img style={{ width: '80px' }} className="clnc-stc-img" src={sponsorData.hospital_image} />
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                    <div className="cstm-doc-content-container">
+                                                                        <h3>{`${sponsorData.all_doctors ? sponsorData.all_doctors.length : ''} Doctors`}</h3>
+                                                                        {
+                                                                            sponsorData.opd_timings &&
+                                                                            <React.Fragment>
+                                                                                <h3 style={{ marginBottom: "5px;" }}>OPD Timings :</h3>
+                                                                                <p><img className="cstmTimeImg" src={ASSETS_BASE_URL + "/img/watch-date.svg"} /> {sponsorData.opd_timings}</p>
+                                                                            </React.Fragment>
+                                                                        }
+
+                                                                    </div>
+                                                                </div>
+                                                                <div className="cstm-doc-rtng">
+                                                                    {
+                                                                        sponsorData.avg_rating &&
+                                                                        <RatingStars average_rating={parseInt(sponsorData.avg_rating)} rating_count={''} width="12px" height="12px" />
+                                                                    }
+                                                                    {
+                                                                        sponsorData.rating && sponsorData.rating.length > 0 &&
+                                                                        <span>{`(${sponsorData.rating.length})`}</span>
+                                                                    }
+
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-4 text-right">
+                                                                <p className="clnc-spnsr">SPONSORED</p>
+                                                                {/*                                                                <p className="cstm-cpn">Upto 30% Off </p>*/}
+                                                                <button className="cstm-book-btn clnc-btn">Book Appointment</button>
+                                                            </div>
+                                                        </div>
+                                                        {
+                                                            sponsorData.hospital_services &&
+                                                            <div className="clnc-chps-cont">
+                                                                <div className="clnc-chps">
+                                                                    {
+                                                                        sponsorData.hospital_services.map((serv, key) => {
+                                                                            return key < 4 ? <span key={serv.id}>{serv.name}</span> : ''
+                                                                        })
+                                                                    }
+                                                                </div>
+                                                                {
+                                                                    sponsorData.hospital_services && sponsorData.hospital_services.length > 4 &&
+                                                                    <div className="clnc-all-srvc">
+                                                                        <p>{`+ ${sponsorData.hospital_services.length - 4} More`}</p>
+                                                                    </div>
+                                                                }
+
+                                                            </div>
+                                                        }
+
+                                                        <p className="cln-loc-par"><img src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />{sponsorData.short_address}</p>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            {
                                                 result_list.map((cardId, i) => {
                                                     if (result_data[cardId]) {
 
@@ -311,8 +397,10 @@ class DoctorsList extends React.Component {
                                                                     <div className="d-flex align-items-center justify-content-between auto-location-widget mb-3 mrt-20">
                                                                         <div className="d-flex align-items-center auto-location-text">
                                                                             <img src={ASSETS_BASE_URL + '/img/customer-icons/location-colored.svg'} />
-                                                                            <p className="fw-500 pr-4">Show</p>
-                                                                            <h2 className="fw-500">{this.props.commonSelectedCriterias[0].name} near me</h2>
+                                                                            <div>
+                                                                                <p className="fw-500 pr-4 d-inline">Show</p>
+                                                                                <h2 className="fw-500 d-inline" style={{fontSize: '14px'}}>{this.props.commonSelectedCriterias[0].name} near me</h2>
+                                                                            </div>
                                                                         </div>
                                                                         <div className="auto-location-btn fw-500" onClick={() => this.detectLocation('Sptcit')} >Detect Location</div>
                                                                     </div>
@@ -344,17 +432,18 @@ class DoctorsList extends React.Component {
                                                                     </li> : ''
                                                             }
 
-                                                            {result_list && result_list.length > 5 &&  i == 3?
-                                                                <div className="mb-3 referDocimg" onClick={(e)=>{
+                                                            {result_list && result_list.length > 5 && i == 3 ?
+                                                                <div className="mb-3 referDocimg" onClick={(e) => {
                                                                     e.preventDefault();
                                                                     let data = {
-                                                                            'Category': 'ConsumerApp', 'Action': 'ReferDoctorList', 'CustomerID': GTM.getUserId() || '', 'event': 'refer-doctor-list'
-                                                                        }
+                                                                        'Category': 'ConsumerApp', 'Action': 'ReferDoctorList', 'CustomerID': GTM.getUserId() || '', 'event': 'refer-doctor-list'
+                                                                    }
                                                                     GTM.sendEvent({ data: data })
-                                                                    this.props.history.push('/doctorsignup?member_type=1')}}>
-                                                                <img src={ASSETS_BASE_URL + "/img/refrlbnr.png"} />
-                                                            </div>:''}
-                                                            
+                                                                    this.props.history.push('/doctorsignup?member_type=1')
+                                                                }}>
+                                                                    <img src={ASSETS_BASE_URL + "/img/refrlbnr.png"} />
+                                                                </div> : ''}
+
                                                             {
                                                                 this.props.insurance_status != 1 && !this.state.sort_order && ((i == 6 && this.state.availability && !this.state.availability.length) || (i == 3 && this.state.availability && this.state.availability.length)) ?
                                                                     <div className="sort-sub-filter-container mb-3">
@@ -380,24 +469,24 @@ class DoctorsList extends React.Component {
                                                                 }
                                                             </li>
 
-                                                            {this.props.similar_specializations && this.props.similar_specializations.length && 
-                                                                !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && (i == 7 || this.props.count-1 == i)  ?
-                                                                    this.props.SimilarSpecializationData()
+                                                            {this.props.similar_specializations && this.props.similar_specializations.length &&
+                                                                !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && (i == 7 || this.props.count - 1 == i) ?
+                                                                this.props.SimilarSpecializationData()
                                                                 : ''
                                                             }
 
-                                                            {this.props.similar_specializations && this.props.similar_specializations.length && this.state.sort_order && (this.state.availability || this.state.availability.length) && this.props.count < 8 && i== (this.props.count-1) ?
-                                                                    this.props.SimilarSpecializationData()
+                                                            {this.props.similar_specializations && this.props.similar_specializations.length && this.state.sort_order && (this.state.availability || this.state.availability.length) && this.props.count < 8 && i == (this.props.count - 1) ?
+                                                                this.props.SimilarSpecializationData()
                                                                 : ''
                                                             }
 
                                                             {this.props.similar_specializations && this.props.similar_specializations.length && this.state.sort_order && (this.state.availability || this.state.availability.length) && this.props.count < 8 && i == 3 ?
-                                                                    this.props.SimilarSpecializationData()
+                                                                this.props.SimilarSpecializationData()
                                                                 : ''
                                                             }
 
-                                                            {this.props.similar_specializations && this.props.similar_specializations.length && this.state.sort_order && (this.state.availability || this.state.availability.length) && i== 3 ?
-                                                                    this.props.SimilarSpecializationData()
+                                                            {this.props.similar_specializations && this.props.similar_specializations.length && this.state.sort_order && (this.state.availability || this.state.availability.length) && i == 3 ?
+                                                                this.props.SimilarSpecializationData()
                                                                 : ''
                                                             }
 

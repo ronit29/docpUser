@@ -83,6 +83,7 @@ class LabView extends React.Component {
         let is_insurance_applicable = false
         let hide_price = false
         let is_user_insured = false
+        let is_vip_applicable = false
 
         //For Insured Person Remove unselected Tests/Packages
 
@@ -94,6 +95,7 @@ class LabView extends React.Component {
             let selectedTests = this.props.currentLabSelectedTests.filter(x => x.is_selected)
             is_plan_applicable = selectedTests.length ? true : false
             is_insurance_applicable = selectedTests.length ? true : false
+            is_plan_applicable = selectedTests.length ? true : false
 
             this.props.currentLabSelectedTests.map((test, i) => {
 
@@ -113,6 +115,12 @@ class LabView extends React.Component {
 
                     } else {
                         is_plan_applicable = false
+                    }
+
+                    if(test.vip && test.vip.covered_under_vip){
+                        is_vip_applicable = true
+                    }else{
+
                     }
                 }
 
@@ -172,16 +180,18 @@ class LabView extends React.Component {
                             </header> */}
 
                             {
-                                (this.props.LABS[lab_id] && this.props.LABS[lab_id].tests) || landing_page ?
+                                (this.props.LABS[lab_id] && this.props.LABS[lab_id].tests)?
                                     <div>
+                                        {
+                                            this.props.LABS[lab_id] && this.props.LABS[lab_id].lab && 
+                                            <HelmetTags tagsData={{
+                                                title: this.getMetaTagsData(this.props.LABS[lab_id].lab.seo).title,
+                                                description: this.getMetaTagsData(this.props.LABS[lab_id].lab.seo).description,
+                                                canonicalUrl: `${CONFIG.API_BASE_URL}${seo_url || this.props.match.url}`
+                                            }} noIndex={this.props.location && this.props.location.pathname && this.props.location.pathname.includes('ck-birla-hospital-for-women-in-sector-50-gurgaon-lpp')} />
+                                        }
 
-                                        <HelmetTags tagsData={{
-                                            title: this.getMetaTagsData(this.props.LABS[lab_id].lab.seo).title,
-                                            description: this.getMetaTagsData(this.props.LABS[lab_id].lab.seo).description,
-                                            canonicalUrl: `${CONFIG.API_BASE_URL}${seo_url || this.props.match.url}`
-                                        }} noIndex={this.props.location && this.props.location.pathname && this.props.location.pathname.includes('ck-birla-hospital-for-women-in-sector-50-gurgaon-lpp')} />
-
-                                        <LabDetails {...this.props} is_insurance_applicable={is_insurance_applicable} data={this.props.LABS[lab_id]} is_plan_applicable={is_plan_applicable} hide_price={hide_price} is_user_insured={is_user_insured} seoFriendly={this.state.seoFriendly} />
+                                        <LabDetails {...this.props} is_insurance_applicable={is_insurance_applicable} data={this.props.LABS[lab_id]} is_plan_applicable={is_plan_applicable} hide_price={hide_price} is_user_insured={is_user_insured} seoFriendly={this.state.seoFriendly} is_vip_applicable={is_vip_applicable} />
 
                                         <button disabled={
                                             this.props.currentLabSelectedTests.filter(x => x.is_selected).length < 1

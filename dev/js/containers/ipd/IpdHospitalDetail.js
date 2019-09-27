@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getHospitaDetails , selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, toggleIPDCriteria, mergeOPDState, ipdChatView, checkIpdChatAgentStatus, getHospitalComments, postHospitalComments } from '../../actions/index.js'
+import { getHospitaDetails , selectOpdTimeSLot, saveProfileProcedures, cloneCommonSelectedCriterias, toggleIPDCriteria, mergeOPDState, ipdChatView, checkIpdChatAgentStatus, getHospitalComments, postHospitalComments, mergeIpdCriteria } from '../../actions/index.js'
 
 import IpdHospitalDetailView from '../../components/ipd/IpdHospitalDetailView.js'
 const queryString = require('query-string')
@@ -12,6 +12,7 @@ import Footer from '../../components/commons/Home/footer'
 import HelmetTags from '../../components/commons/HelmetTags'
 import CONFIG from '../../config'
 import BreadCrumbView from '../../components/ipd/breadCrumb.js'
+import Disclaimer from '../../components/commons/Home/staticDisclaimer.js'
 
 
 
@@ -135,18 +136,43 @@ class HospitalDetail extends React.Component {
 		this.setState({showIpdChat: true})
 	}
 
+	getSchema(ipd_hospital_detail){
+		let hospital_schema = "" 
+        let breadcrumb_schema=""
+        let itemList_schema=""
+        if(ipd_hospital_detail && ipd_hospital_detail.seo && ipd_hospital_detail.seo.all_schema ){
+        	ipd_hospital_detail.seo.all_schema.map((schema)=>{
+        		try{
+        			if(schema['@type']=="Hospital"){
+	        			hospital_schema = JSON.stringify(schema)
+	        		}
+	        		if(schema['@type']=="BreadcrumbList"){
+	        			breadcrumb_schema = JSON.stringify(schema)
+	        		}
+	        		if(schema['@type']=="ItemList"){
+	        			itemList_schema = JSON.stringify(schema)
+	        		}
+        		}catch(e){
+        			if(schema['@type']=="Hospital"){
+	        			hospital_schema = ''
+	        		}
+	        		if(schema['@type']=="BreadcrumbList"){
+	        			breadcrumb_schema = ''
+	        		}
+	        		if(schema['@type']=="ItemList"){
+	        			itemList_schema = ''
+	        		}
+        		}
+        	})
+        }
+        return { hospital_schema, breadcrumb_schema, itemList_schema }
+	}
+
 	render(){
 
 		let ipd_hospital_detail = this.state.hospital_id && this.props.ipd_hospital_detail_info && this.props.ipd_hospital_detail_info[this.state.hospital_id]?this.props.ipd_hospital_detail_info[this.state.hospital_id]:{}
 
-		let new_schema = ""
-		try {
-            if (ipd_hospital_detail && ipd_hospital_detail.seo && ipd_hospital_detail.seo.schema) {
-                new_schema = JSON.stringify(ipd_hospital_detail.seo.schema)
-            }
-        } catch (e) {
-            new_schema = ""
-        }
+        let {hospital_schema, breadcrumb_schema, itemList_schema} = this.getSchema(ipd_hospital_detail)
 
 		return(
 				<div className="profile-body-wrap">
@@ -157,16 +183,27 @@ class HospitalDetail extends React.Component {
 						description: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail : null).description
 					}} noIndex={!this.state.is_seo} />
 					{
-                        new_schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
-                            __html: new_schema
+                        hospital_schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
+                            __html: hospital_schema
+                        }} /> : ""
+                    }
+                    {
+                        breadcrumb_schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
+                            __html: breadcrumb_schema
+                        }} /> : ""
+                    }
+                    {
+                        itemList_schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
+                            __html: itemList_schema
                         }} /> : ""
                     }
 					<section className="container parent-section book-appointment-section breadcrumb-mrgn">
 						{
-							ipd_hospital_detail && ipd_hospital_detail.breadcrumb ?
+							ipd_hospital_detail && ipd_hospital_detail.breadcrumb &&	
 								<BreadCrumbView breadcrumb={ipd_hospital_detail.breadcrumb} {...this.props} />
-								: ''
 						}
+
+
 						<div className="row main-row parent-section-row">
 							<LeftBar />
 							<div className="col-12 col-md-7 col-lg-7 center-column">
@@ -179,6 +216,7 @@ class HospitalDetail extends React.Component {
 						<RightBar extraClass=" chat-float-btn-2" showHalfScreenChat={false && this.props.ipd_chat && this.props.ipd_chat.showIpdChat?true:false} showDesktopIpd={true} ipdFormParams={this.state.showIpdChat ?true:false}/>
 						</div>
 					</section>
+					<Disclaimer />
 				</div>
 				
 			)
@@ -238,7 +276,8 @@ const mapDisptachToProps = (dispatch) => {
 		ipdChatView: (data) => dispatch(ipdChatView(data)),
 		checkIpdChatAgentStatus: (cb) => dispatch(checkIpdChatAgentStatus(cb)),
 		getHospitalComments: (hospitalId) => dispatch(getHospitalComments(hospitalId)),
-		postHospitalComments: (postData, cb)=> dispatch(postHospitalComments(postData, cb))
+		postHospitalComments: (postData, cb)=> dispatch(postHospitalComments(postData, cb)),
+		mergeIpdCriteria: (filterCriteria)=> dispatch(mergeIpdCriteria(filterCriteria))
 	}
 }
 export default connect(mapStateToProps, mapDisptachToProps)(HospitalDetail)

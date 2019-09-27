@@ -17,6 +17,19 @@ class HospitalInfoView extends React.Component {
   render() {
     let { hospital_data } = this.props
     let { photoIndex, isOpen } = this.state
+
+    let name = ''
+    if(hospital_data) {
+
+      if(hospital_data.seo_title){
+        name = hospital_data.seo_title
+      }else if(hospital_data.seo && hospital_data.seo.h1_title) {
+        name = hospital_data.seo.h1_title
+      }else {
+        name = hospital_data.name_city
+      }
+
+    }
     return (
       <div className="hs-card">
         {
@@ -32,7 +45,7 @@ class HospitalInfoView extends React.Component {
             hospital_data.logo ?
               <div className="hosNme">
                 <div className={`hs-nme hsptName ${this.props.showPopup ? 'popupTopChange' : ''}`}>
-                  <img style={{ width: '135px' }} src={hospital_data.logo} alt="" className="img-fluid" />
+                  <img style={{ width: '135px' }} src={hospital_data.logo} alt={name} className="img-fluid" />
                 </div>
               </div>
               : ''
@@ -45,11 +58,11 @@ class HospitalInfoView extends React.Component {
                 <RatingStars average_rating={hospital_data.rating_graph.avg_rating} rating_count={''} width="12px" height="12px" /> : ''
             }
           </div> */}
-          <h1 className="section-heading pb-10" style={{ paddingTop: 0 }} >{hospital_data && hospital_data.seo && hospital_data.seo.h1_title?hospital_data.seo.h1_title:hospital_data.name_city}</h1>
+          <h1 className="section-heading pb-10" style={{ paddingTop: 0 }} >{name}</h1>
           {
             hospital_data.address ?
               <div className="opd-timing opd-mapico">
-                <h2>{hospital_data.address} </h2>
+                <h2><span class="ipd-adrs-tb">Address: </span>{hospital_data.address} </h2>
                 <a href={`https://www.google.com/maps/search/?api=1&query=${hospital_data.lat},${hospital_data.long}`} style={{ float: 'right', cursor: 'pointer' }} target="_blank">
                   <img style={{ width: '25px', height: '25px' }} src={ASSETS_BASE_URL + '/img/customer-icons/map-icon.png'} />
                 </a>

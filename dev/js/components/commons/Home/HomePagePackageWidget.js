@@ -50,9 +50,9 @@ class HomePagePackageWidget extends React.Component {
 
     render() {
         return (
-            <div className="pakg-slider-container mt-10">
+            <div className="pakg-slider-container mt-10 mb-3">
                 <div className="pkgSliderHeading">
-                    <h5>Book Health Packages</h5>
+                    <h5>Popular Health Packages</h5>
                     <span onClick={this.navigateTo.bind(this, this.props.navTo)}>View All</span>
                 </div>
                 <div className="pkgSliderContainer" id="pkgSlider">
@@ -68,13 +68,23 @@ class HomePagePackageWidget extends React.Component {
                                 <p className="newpkgInclude">{listItem.no_of_tests} tests included </p> */}
                                     <p className="pkgtstName">{listItem.name} {listItem.no_of_tests > 0 ?
                                         `(${listItem.no_of_tests} tests)` : ''}</p>
-                                    {listItem.mrp && listItem.discounted_price ?
-                                        <div className="pkg-card-price-offr">
-                                            <div className="pkg-prc-ct">
-                                                <p>₹ {listItem.discounted_price} <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span></p>
-                                            </div>
-                                            <span className="pkg-hlth-offer">{parseInt(((listItem.mrp - listItem.discounted_price) / listItem.mrp) * 100)}% OFF</span>
-                                        </div>
+                                    {listItem.mrp && listItem.discounted_price ? listItem.vip && listItem.vip.is_vip_member && listItem.vip.covered_under_vip?
+                                              <div className="pkg-card-price-offr">
+                                                    <div className="pkg-prc-ct">
+                                                        <p>₹ {listItem.vip.vip_amount} 
+                                                            <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span>
+                                                            <img style={{width: '20px','marginLeft': '5px'}} src={ASSETS_BASE_URL + '/img/viplog.png'}/>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                :<div className="pkg-card-price-offr">
+                                                    <div className="pkg-prc-ct">
+                                                        <p>₹ {listItem.discounted_price} 
+                                                            <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span>
+                                                        </p>
+                                                    </div>
+                                                    <span className="pkg-hlth-offer">{parseInt(((listItem.mrp - listItem.discounted_price) / listItem.mrp) * 100)}% OFF</span>
+                                                </div>
                                         : ''}
                                 </div>
                             })

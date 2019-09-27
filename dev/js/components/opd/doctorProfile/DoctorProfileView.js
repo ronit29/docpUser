@@ -384,7 +384,7 @@ class DoctorProfileView extends React.Component {
         }
         let showForcedPopup = !isUtmTagsExist && landing_page && this.state.seoFriendly && doctor_id && this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].is_congot && this.state.showIpdLeadForm && this.props.DOCTORS[doctor_id].potential_ipd && !this.state.is_live
         showForcedPopup = false
-
+        
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
@@ -469,7 +469,7 @@ class DoctorProfileView extends React.Component {
                                             description: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).description,
                                             canonicalUrl: `${CONFIG.API_BASE_URL}${seo_url || this.props.match.url}`,
                                             schema: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).schema
-                                        }} noIndex={false && !this.state.seoFriendly} />
+                                        }} noIndex={!this.state.seoFriendly} />
 
                                         <div className="container-fluid">
                                             <div className="row">

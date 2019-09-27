@@ -452,12 +452,16 @@ class InsuranceSelf extends React.Component {
 		this.removeActive(x);
 		if (currentFocus >= x.length) currentFocus = 0;
 		if (currentFocus < 0) currentFocus = (x.length - 1);
-		x[currentFocus].classList.add("autocomplete-active");
+		if(x[currentFocus].classList){
+			x[currentFocus].classList.add("autocomplete-active");
+		}
 	}
 
 	removeActive(x) {
 		for (var i = 0; i < x.length; i++) {
-			x[i].classList.remove("autocomplete-active");
+			if(x[i].classList){
+				x[i].classList.remove("autocomplete-active");
+			}
 		}
 	}
 
@@ -479,7 +483,7 @@ class InsuranceSelf extends React.Component {
 	}
 
 	daysInMonth(month, year) {
-		return new Date(year, month, 31).getDate();
+		return new Date(year, month, 0).getDate();
 	}
 
 	populateDates() {

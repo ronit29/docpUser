@@ -9,6 +9,7 @@ const queryString = require('query-string')
 import GTM from '../../helpers/gtm.js'
 import BannerCarousel from '../commons/Home/bannerCarousel';
 import IPDForm from './IpdTabForm.js'
+import Disclaimer from '../commons/Home/staticDisclaimer.js'
 
 class IPDFormView extends React.Component {
 
@@ -66,6 +67,7 @@ class IPDFormView extends React.Component {
 							<RightBar extraClass=" chat-float-btn-2" />
 						</div>
 					</section>
+					<Disclaimer />
 				</div>
 			)
 		}

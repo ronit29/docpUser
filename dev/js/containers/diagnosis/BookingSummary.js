@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions, editUserProfile, savePincode, clearExtraTests, selectSearchType, patientDetails, uploadPrescription, savePrescription, removePrescription, clearPrescriptions, preBooking, saveAvailNowInsurance } from '../../actions/index.js'
+import { getCartItems, addToCart, selectLabTimeSLot, getLabById, getUserProfile, selectLabAppointmentType, getUserAddress, selectPickupAddress, createLABAppointment, sendAgentBookingURL, removeLabCoupons, applyLabCoupons, resetLabCoupons, getCoupons, applyCoupons, setCorporateCoupon, createProfile, sendOTP, submitOTP, fetchTransactions, editUserProfile, savePincode, clearExtraTests, selectSearchType, patientDetails, uploadPrescription, savePrescription, removePrescription, clearPrescriptions, preBooking, saveAvailNowInsurance, toggleDiagnosisCriteria } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 
 import BookingSummaryViewNew from '../../components/diagnosis/bookingSummary/index.js'
@@ -96,12 +96,12 @@ const mapDispatchToProps = (dispatch) => {
         getUserAddress: () => dispatch(getUserAddress()),
         selectPickupAddress: (address) => dispatch(selectPickupAddress(address)),
         createLABAppointment: (postData, callback) => dispatch(createLABAppointment(postData, callback)),
-        sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
+        sendAgentBookingURL: (orderId, type, purchase_type,query_data,cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type,query_data, cb)),
         removeLabCoupons: (labId, couponId) => dispatch(removeLabCoupons(labId, couponId)),
         applyLabCoupons: (productId, couponCode, couponId, labId, dealPrice, test_ids, profile_id, cart_item, callback) => dispatch(applyLabCoupons(productId, couponCode, couponId, labId, dealPrice, test_ids, profile_id, cart_item, callback)),
         resetLabCoupons: () => dispatch(resetLabCoupons()),
         getCoupons: (data) => dispatch(getCoupons(data)),
-        applyCoupons: (productId, couponData, couponId, labId) => dispatch(applyCoupons(productId, couponData, couponId, labId)),
+        applyCoupons: (productId, couponData, couponId, labId, callback) => dispatch(applyCoupons(productId, couponData, couponId, labId, callback)),
         setCorporateCoupon: (coupon) => dispatch(setCorporateCoupon(coupon)),
         createProfile: (postData, cb) => dispatch(createProfile(postData, cb)),
         sendOTP: (number,viaSms,viaWhatsapp,message_type, cb) => dispatch(sendOTP(number,viaSms,viaWhatsapp,message_type, cb)),
@@ -119,7 +119,8 @@ const mapDispatchToProps = (dispatch) => {
         removePrescription:(criteria)=>dispatch(removePrescription(criteria)),
         clearPrescriptions:()=>dispatch(clearPrescriptions()),
         preBooking:(slot) => dispatch(preBooking(slot)),
-        saveAvailNowInsurance:(data) => dispatch(saveAvailNowInsurance(data))
+        saveAvailNowInsurance:(data) => dispatch(saveAvailNowInsurance(data)),
+        toggleDiagnosisCriteria: (type, criteria) => dispatch(toggleDiagnosisCriteria(type, criteria))
     }
 }
 

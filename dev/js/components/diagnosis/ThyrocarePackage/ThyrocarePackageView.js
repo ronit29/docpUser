@@ -11,7 +11,7 @@ class ThyrocarePackageView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            collapse: [false, false, false, false, false, false, false, false, false, false, false],
+            collapse: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
             expandClick: true,
             expandText: 'Expand All'
         }
@@ -94,31 +94,31 @@ class ThyrocarePackageView extends React.Component {
                                 <div className="static-pk-container sticky-pk-container">
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Aarogyam B <br />(Includes 60 tests)</p>
-                                            <p className="stc-price-cut">₹ 549 <span>₹ 750</span></p>
+                                            <p className="stc-sub-para">Aarogyam B<br />(Includes 60 tests)</p>
+                                            <p className="stc-price-cut">₹ 750{/*634 <span>₹ 750</span>*/}</p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn">
                                         <div className="stc-pkg-sub">
                                             <p className="stc-sub-para">Aarogyam C <br />(Includes 63 tests)</p>
-                                            <p className="stc-price-cut">₹ 949 <span>₹ 1100</span></p>
+                                            <p className="stc-price-cut">₹ 1100{/*950 <span>₹ 1100</span>*/}</p>
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column">
                                         <div className="stc-pkg-sub">
-                                            <p className="stc-sub-para">Aarogyam 3 <br />(Includes 68 tests)</p>
-                                            <p className="stc-price-cut">₹ 1725 <span>₹ 2000</span></p>
+                                            <p className="stc-sub-para">Aarogyam 1.3 <br />(Includes 94 tests)</p>
+                                            <p className="stc-price-cut">₹ 1600{/*1440 <span>₹ 1600</span>*/}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="static-pk-container sticky-pk-container-2" style={{ paddingTop: 0, paddingBottom: 30 }} >
                                     <div className="static-pkg-top-column">
-                                        <div className="stc-offr-cpn">
+                                        {/*<div className="stc-offr-cpn">
                                             <p className="stc-off-para">
-                                                Includes ₹ 75
+                                                Includes ₹ 100
                                                 OFF Coupon
                                                                 </p>
-                                        </div>
+                                        </div>*/}
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=12227" onClick={(e) => {
                                             e.preventDefault()
@@ -126,9 +126,9 @@ class ThyrocarePackageView extends React.Component {
                                         }} className="stc-book-btn">Book Now</a>
                                     </div>
                                     <div className="static-pkg-top-column stc-mid-mrgn" style={{ position: 'relative' }} >
-                                        <div className="stc-offr-cpn">
-                                            <p className="stc-off-para">Includes ₹ 75 OFF Coupon</p>
-                                        </div>
+                                        {/*<div className="stc-offr-cpn">
+                                            <p className="stc-off-para">Includes ₹ 150 OFF Coupon</p>
+                                        </div>*/}
                                         <p className="stc-free-pick">Free Home Pickup</p>
                                         <a href="/lab/searchresults?test_ids=12213" onClick={(e) => {
                                             e.preventDefault()
@@ -141,17 +141,17 @@ class ThyrocarePackageView extends React.Component {
                                         </div>
                                     </div>
                                     <div className="static-pkg-top-column">
-                                        <div className="stc-offr-cpn">
+                                        {/*<div className="stc-offr-cpn">
                                             <p className="stc-off-para">
-                                                Includes ₹ 75
+                                                Includes ₹ 160
                                                 OFF Coupon
                                                                 </p>
-                                        </div>
+                                        </div>*/}
                                         <p className="stc-free-pick">Free Home Pickup</p>
-                                        <a href="/lab/searchresults?test_ids=12229"
+                                        <a href="/lab/searchresults?test_ids=14947"
                                             onClick={(e) => {
                                                 e.preventDefault()
-                                                this.bookNowClicked('/lab/searchresults?test_ids=12229', 'TopbookNowClickedBlock3')
+                                                this.bookNowClicked('/lab/searchresults?test_ids=14947', 'TopbookNowClickedBlock3')
                                             }}
                                             className="stc-book-btn">Book Now</a>
                                     </div>
@@ -197,7 +197,7 @@ class ThyrocarePackageView extends React.Component {
                                             </div>
                                             <div className="acrd-stc-data">
                                                 <p>
-                                                    68
+                                                    94
                                                                         </p>
                                             </div>
                                         </div>
@@ -1395,12 +1395,12 @@ class ThyrocarePackageView extends React.Component {
                                                         </div>
                                                         <div className="acrd-stc-data">
                                                             <ul className="stc-data-ul-list">
-                                                                <li><p>25-OH VITAMIN D (TOTAL)</p></li>
+                                                                <li><p>Vitamin D Total-25 Hydroxy</p></li>
                                                             </ul>
                                                         </div>
                                                         <div className="acrd-stc-data">
                                                             <ul className="stc-data-ul-list">
-                                                                <li><p>25-OH VITAMIN D (TOTAL)</p></li>
+                                                                <li><p>Vitamin D Total-25 Hydroxy</p></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -1452,7 +1452,7 @@ class ThyrocarePackageView extends React.Component {
                                     </div>
                                     <div className="stc-accord-container">
                                         <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 10)}>
-                                            <p >TESTOSTERONE</p>
+                                            <p>TESTOSTERONE</p>
                                             {/* <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /> */}
                                         </div>
                                         <div className="stc-acrd-content pb-0 text-center">
@@ -1467,13 +1467,102 @@ class ThyrocarePackageView extends React.Component {
                                                                         </p>
                                             </div>
                                             <div className="acrd-stc-data">
+                                                <p>
+                                                    1
+                                                                        </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="stc-accord-container">
+                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 11)}>
+                                            <p >Cystatin C</p>
+                                        </div>
+                                        <div className="stc-acrd-content pb-0 text-center">
+                                            <div className="acrd-stc-data">
                                                 <p className="acrd-stc-red">
                                                     X
                                                                         </p>
                                             </div>
+                                            <div className="acrd-stc-data mid-border-mrgn">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data">
+                                                <p>
+                                                    1
+                                                                        </p>
+                                            </div>
                                         </div>
-                                        {/* {
-                                            this.state.collapse[10] ?
+                                    </div>
+                                    <div className="stc-accord-container">
+                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 12)}>
+                                            <p >Copper Serum</p>
+                                        </div>
+                                        <div className="stc-acrd-content pb-0 text-center">
+                                            <div className="acrd-stc-data">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data mid-border-mrgn">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data">
+                                                <p>
+                                                    1
+                                                                        </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="stc-accord-container">
+                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 13)}>
+                                            <p >Zinc - Serum</p>
+                                        </div>
+                                        <div className="stc-acrd-content pb-0 text-center">
+                                            <div className="acrd-stc-data">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data mid-border-mrgn">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data">
+                                                <p>
+                                                    1
+                                                                        </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="stc-accord-container">
+                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 14)}>
+                                            <p>Elements</p>
+                                            <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
+                                        </div>
+                                        <div className="stc-acrd-content pb-0 text-center">
+                                            <div className="acrd-stc-data">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data mid-border-mrgn">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data">
+                                                <p>
+                                                    22
+                                                                        </p>
+                                            </div>
+                                        </div>
+                                        {
+                                            this.state.collapse[14] ?
                                                 <div>
                                                     <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
                                                         <div className="acrd-stc-data">
@@ -1483,19 +1572,83 @@ class ThyrocarePackageView extends React.Component {
 
                                                         </div>
                                                         <div className="acrd-stc-data">
-
+                                                            <ul className="stc-data-ul-list">
+                                                                <li><p>Aluminium</p></li>
+                                                                <li><p>Arsenic</p></li>
+                                                                <li><p>Barium</p></li>
+                                                                <li><p>Cadmium</p></li>
+                                                                <li><p>Caesium</p></li>
+                                                                <li><p>Mercury</p></li>
+                                                                <li><p>Lead</p></li>
+                                                                <li><p>Tin</p></li>
+                                                                <li><p>Bismuth</p></li>
+                                                                <li><p>Beryllium</p></li>
+                                                                <li><p>Antimony</p></li>
+                                                                <li><p>Strontium</p></li>
+                                                                <li><p>Thallium</p></li>
+                                                                <li><p>Uranium</p></li>
+                                                                <li><p>Cobalt</p></li>
+                                                                <li><p>Chromium</p></li>
+                                                                <li><p>Molybdenum</p></li>
+                                                                <li><p>Silver</p></li>
+                                                                <li><p>Vanadium</p></li>
+                                                                <li><p>Selenium</p></li>
+                                                                <li><p>Nickel</p></li>
+                                                                <li><p>Magnesium</p></li>
+                                                            </ul>
                                                         </div>
                                                     </div>
                                                 </div> : ''
-                                        } */}
+                                        }
                                     </div>
+{/*                                    <div className="stc-accord-container">
+                                        <div className="stc-acrd-heading" onClick={this.toggle.bind(this, 15)}>
+                                            <p>Pancreatic (Acute) Profile</p>
+                                            <img className="titlearrow" src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} />
+                                        </div>
+                                        <div className="stc-acrd-content pb-0 text-center">
+                                            <div className="acrd-stc-data">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data mid-border-mrgn">
+                                                <p className="acrd-stc-red">
+                                                    X
+                                                                        </p>
+                                            </div>
+                                            <div className="acrd-stc-data">
+                                                <p>
+                                                    2
+                                                                        </p>
+                                            </div>
+                                        </div>
+                                        {
+                                            this.state.collapse[15] ?
+                                                <div>
+                                                    <div className="stc-acrd-content stc-hide-acrd-container pt-0 text-center">
+                                                        <div className="acrd-stc-data">
+
+                                                        </div>
+                                                        <div className="acrd-stc-data mid-border-mrgn">
+
+                                                        </div>
+                                                        <div className="acrd-stc-data">
+                                                            <ul className="stc-data-ul-list">
+                                                                <li><p>AMYLASE</p></li>
+                                                                <li><p>LIPASE</p></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div> : ''
+                                        }
+                                    </div>*/}
                                 </div>
                             </div>
                         </div>
                         <RightBar extraClass=" chat-float-btn-2" />
                     </div>
                 </section>
-
                 <Footer footerData={this.state.footerData} />
             </div>
         );
