@@ -4580,3 +4580,31 @@ img.img-fluid.vp-cls-img {
     }
 }
 /* ============ vip-popup  ============ */
+/* ============ vip-card  ============ */
+.pkgcustCards.vip-cmmnt-card {
+    width: 80%;
+    max-width: 80%;
+    min-width: 80%;
+    min-height: 100px;
+    padding: 8px 10px ;
+}
+.pkgcustCards.vip-cmmnt-card h4 {
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 5px 0 10px 0;
+}
+.pkgcustCards.vip-cmmnt-card img {
+    position: absolute;
+    right: 5px;
+    width: 17px;
+    top: 8px;
+}
+.pkgcustCards.vip-cmmnt-card p {
+    color: #757575;
+    white-space: normal;
+    text-align: left;
+    font-weight: 500;
+    font-size: 13px;
+}
+/* ============ vip-card  ============ */
