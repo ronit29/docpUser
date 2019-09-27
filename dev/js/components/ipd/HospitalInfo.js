@@ -99,7 +99,11 @@ class HospitalInfoView extends React.Component {
                   <div className="hsptl-img">
                     {
                       hospital_data.images.slice(0, 4).map((image, i) => {
-                        return <span key={i}><img className="bg-img-box img-fluid" alt={`${hospital_data.name}: Photo${i+1}`} src={image.original}  onClick={() => this.setState({ isOpen: true, photoIndex: i })}/></span>
+                        return <span key={i}><a href={image.original} onClick={(e)=>{
+                          e.preventDefault();
+                          e.stopPropagation();} }>
+                          <img className="bg-img-box img-fluid" alt={`${hospital_data.name}: Photo${i+1}`} src={image.original}  onClick={() => this.setState({ isOpen: true, photoIndex: i })}/>
+                          </a></span>
                       })
                     }
                     {isOpen && (

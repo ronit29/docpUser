@@ -30,7 +30,8 @@ const PROD_CONFIG = {
     ENABLE_VIP_CLUB: true,
     PHARMEASY_IFRAME_URL: 'https://pharmeasy.in/online-medicine-order?utm_source=aff-docprime&utm_medium=cps',
     PHARMEASY_NEW_ORDER_IFRAME_URL: 'https://pharmeasy.in/healthcare?utm_source=aff-docprime&utm_medium=cps&utm_campaign=leftmenu',
-    PHARMEASY_PREV_ORDER_IFRAME_URL: 'https://pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders'
+    PHARMEASY_PREV_ORDER_IFRAME_URL: 'https://pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders',
+    SEO_FRIENDLY_HOSPITAL_IDS:[58395,3880,3230,40669,4044,4271,30927,18417,4340,2961,57640,5194,2958,4918,4569,24837,19239,27423,57604,57639]
 }
 
 const STAGING_CONFIG = {
@@ -53,7 +54,8 @@ const STAGING_CONFIG = {
     ENABLE_VIP_CLUB: true,
     PHARMEASY_IFRAME_URL: 'https://beta.pharmeasy.in/online-medicine-order?utm_source=aff-docprime&utm_medium=cps',
     PHARMEASY_NEW_ORDER_IFRAME_URL: 'https://beta.pharmeasy.in/healthcare?utm_source=aff-docprime&utm_medium=cps&utm_campaign=leftmenu',
-    PHARMEASY_PREV_ORDER_IFRAME_URL: 'https://beta.pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders'
+    PHARMEASY_PREV_ORDER_IFRAME_URL: 'https://beta.pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders',
+    SEO_FRIENDLY_HOSPITAL_IDS:[52779,3851,45894]
 }
 
 const DEV_CONFIG = {
@@ -77,7 +79,8 @@ const DEV_CONFIG = {
     ENABLE_VIP_CLUB: true,
     PHARMEASY_IFRAME_URL: 'https://beta.pharmeasy.in/online-medicine-order?utm_source=aff-docprime&utm_medium=cps',
     PHARMEASY_NEW_ORDER_IFRAME_URL: 'https://beta.pharmeasy.in/healthcare?utm_source=aff-docprime&utm_medium=cps&utm_campaign=leftmenu',
-    PHARMEASY_PREV_ORDER_IFRAME_URL: 'https://beta.pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders'
+    PHARMEASY_PREV_ORDER_IFRAME_URL: 'https://beta.pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders',
+    SEO_FRIENDLY_HOSPITAL_IDS:[52779,3851,45894]
 }
 
 let CONFIG = { ...BASE_CONFIG, ...DEV_CONFIG }
