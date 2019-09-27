@@ -174,6 +174,10 @@ class HospitalDetail extends React.Component {
 
         let {hospital_schema, breadcrumb_schema, itemList_schema} = this.getSchema(ipd_hospital_detail)
 
+        let isSeoValid= true
+        if(CONFIG.SEO_FRIENDLY_HOSPITAL_IDS && this.state.hospital_id &&  CONFIG.SEO_FRIENDLY_HOSPITAL_IDS.indexOf(this.state.hospital_id)> -1){
+            isSeoValid = false
+        }
 		return(
 				<div className="profile-body-wrap">
 					<ProfileHeader showSearch={true} pageType='HospitalDetailPage'/>
@@ -181,7 +185,7 @@ class HospitalDetail extends React.Component {
 						canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
 						title: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail : null).title,
 						description: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail : null).description
-					}} noIndex={!this.state.is_seo} />
+					}} noIndex={!this.state.is_seo || !isSeoValid} />
 					{
                         hospital_schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
                             __html: hospital_schema
