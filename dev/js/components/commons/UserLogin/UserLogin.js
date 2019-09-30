@@ -5,6 +5,7 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 class UserLoginView extends React.Component {
     constructor(props) {
@@ -263,6 +264,7 @@ class UserLoginView extends React.Component {
                         <RightBar noChatButton={true} />
                     </div>
                 </section>
+                <Disclaimer />
             </div>
         );
     }

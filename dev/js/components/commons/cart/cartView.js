@@ -12,6 +12,7 @@ import SnackBar from 'node-snackbar'
 import GTM from '../../../helpers/gtm';
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup.js'
 import PaymentForm from '../paymentForm'
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 class CartView extends React.Component {
     constructor(props) {
@@ -180,7 +181,7 @@ class CartView extends React.Component {
     }
 
     sendAgentBookingURL() {
-        this.props.sendAgentBookingURL(null, 'sms', '','',(err, res) => {
+        this.props.sendAgentBookingURL(null, 'sms', null,null,(err, res) => {
             if (err) {
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
             } else {
@@ -452,6 +453,7 @@ class CartView extends React.Component {
                         <RightBar noChatButton={true} />
                     </div>
                 </section>
+                <Disclaimer />
                 {
                     this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='lab'/> : ""
                 }

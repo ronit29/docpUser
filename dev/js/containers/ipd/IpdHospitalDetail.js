@@ -12,6 +12,7 @@ import Footer from '../../components/commons/Home/footer'
 import HelmetTags from '../../components/commons/HelmetTags'
 import CONFIG from '../../config'
 import BreadCrumbView from '../../components/ipd/breadCrumb.js'
+import Disclaimer from '../../components/commons/Home/staticDisclaimer.js'
 
 
 
@@ -173,6 +174,10 @@ class HospitalDetail extends React.Component {
 
         let {hospital_schema, breadcrumb_schema, itemList_schema} = this.getSchema(ipd_hospital_detail)
 
+        let isSeoValid= true
+        if(CONFIG.SEO_FRIENDLY_HOSPITAL_IDS && this.state.hospital_id &&  CONFIG.SEO_FRIENDLY_HOSPITAL_IDS.indexOf(this.state.hospital_id)> -1){
+            isSeoValid = false
+        }
 		return(
 				<div className="profile-body-wrap">
 					<ProfileHeader showSearch={true} pageType='HospitalDetailPage'/>
@@ -180,7 +185,7 @@ class HospitalDetail extends React.Component {
 						canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
 						title: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail : null).title,
 						description: this.getMetaTagsData(ipd_hospital_detail ? ipd_hospital_detail : null).description
-					}} noIndex={!this.state.is_seo} />
+					}} noIndex={!this.state.is_seo || !isSeoValid} />
 					{
                         hospital_schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{
                             __html: hospital_schema
@@ -215,6 +220,7 @@ class HospitalDetail extends React.Component {
 						<RightBar extraClass=" chat-float-btn-2" showHalfScreenChat={false && this.props.ipd_chat && this.props.ipd_chat.showIpdChat?true:false} showDesktopIpd={true} ipdFormParams={this.state.showIpdChat ?true:false}/>
 						</div>
 					</section>
+					<Disclaimer />
 				</div>
 				
 			)

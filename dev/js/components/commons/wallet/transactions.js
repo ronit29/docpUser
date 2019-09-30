@@ -21,13 +21,15 @@ const PRODUCT = {
     2: 'Lab',
     3: 'Insurance',
     4: 'Plan',
-    5: 'Chat'
+    5: 'Chat',
+    11: 'Vip Membership'
 }
 
 const SOURCE_FROM = {
     1: '',
     2: 'from Promotional Balance',
-    3:''
+    3: '',
+    11: ''
 }
 
 const SOURCE_TO = {
@@ -40,7 +42,8 @@ const ENTITY = {
     2: 'Appointment',
     3: '',
     4: '',
-    5: 'Consultation'
+    5: 'Consultation',
+    11: ''
 }
 
 class Transactions extends React.Component {

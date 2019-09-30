@@ -5,6 +5,7 @@ import RightBar from '../../RightBar'
 import Footer from '../../Home/footer'
 import MyReviewCard from '../../ratingsProfileView/MyReviewCard.js';
 const queryString = require('query-string');
+import Disclaimer from '../../Home/staticDisclaimer.js'
 
 class UserReview extends React.Component {
     constructor(props) {
@@ -73,6 +74,7 @@ class UserReview extends React.Component {
                         <RightBar />
                     </div>
                 </section>
+                <Disclaimer />
                 <Footer footerData={this.state.footerData} />
             </div>
         );

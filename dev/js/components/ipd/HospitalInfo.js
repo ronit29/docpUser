@@ -45,7 +45,7 @@ class HospitalInfoView extends React.Component {
             hospital_data.logo ?
               <div className="hosNme">
                 <div className={`hs-nme hsptName ${this.props.showPopup ? 'popupTopChange' : ''}`}>
-                  <img style={{ width: '135px' }} src={hospital_data.logo} alt="" className="img-fluid" />
+                  <img style={{ width: '135px' }} src={hospital_data.logo} alt={name} className="img-fluid" />
                 </div>
               </div>
               : ''
@@ -62,7 +62,7 @@ class HospitalInfoView extends React.Component {
           {
             hospital_data.address ?
               <div className="opd-timing opd-mapico">
-                <h2>{hospital_data.address} </h2>
+                <h2><span class="ipd-adrs-tb">Address: </span>{hospital_data.address} </h2>
                 <a href={`https://www.google.com/maps/search/?api=1&query=${hospital_data.lat},${hospital_data.long}`} style={{ float: 'right', cursor: 'pointer' }} target="_blank">
                   <img style={{ width: '25px', height: '25px' }} src={ASSETS_BASE_URL + '/img/customer-icons/map-icon.png'} />
                 </a>
@@ -99,7 +99,11 @@ class HospitalInfoView extends React.Component {
                   <div className="hsptl-img">
                     {
                       hospital_data.images.slice(0, 4).map((image, i) => {
-                        return <span key={i}><img className="bg-img-box img-fluid" alt={`${hospital_data.name}: Photo${i+1}`} src={image.original}  onClick={() => this.setState({ isOpen: true, photoIndex: i })}/></span>
+                        return <span key={i}><a href={image.original} onClick={(e)=>{
+                          e.preventDefault();
+                          e.stopPropagation();} }>
+                          <img className="bg-img-box img-fluid" alt={`${hospital_data.name}: Photo${i+1}`} src={image.original}  onClick={() => this.setState({ isOpen: true, photoIndex: i })}/>
+                          </a></span>
                       })
                     }
                     {isOpen && (
