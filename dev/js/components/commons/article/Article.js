@@ -270,7 +270,7 @@ class Article extends React.Component {
             setTimeout(() => this.continueClick(), 1000);
         })
         let gtmData = {
-            'Category': 'ConsumerApp', 'Action': 'BuyMedicineBtnClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'buy-medicine-btn-click'
+            'Category': 'ConsumerApp', 'Action': 'BuyMedicineBtnClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'buy-medicine-btn-click', 'articleId': this.state.articleData && this.state.articleData.id?this.state.articleData.id:''
         }
         GTM.sendEvent({ data: gtmData })
     }
