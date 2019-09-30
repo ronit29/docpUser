@@ -575,7 +575,7 @@ class VipClubMemberDetailsView extends React.Component{
 					<ChatPanel />
 					</div>
 				</section>
-				<Disclaimer />
+				<Disclaimer isVip={true}/>
 				{
                     this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='opd' /> : ""
                 }

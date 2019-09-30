@@ -3966,7 +3966,8 @@ button.vip-foot-btn {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 	text-rendering: optimizeLegibility;
-	border: none;
+    border: none;
+    z-index: 2;
 }
 .vip-back-btn{
 	background-image: linear-gradient(to left,#f78631,#ff6d00);
@@ -4606,5 +4607,8 @@ img.img-fluid.vp-cls-img {
     text-align: left;
     font-weight: 500;
     font-size: 13px;
+}
+.margin-bottom-55{
+margin-bottom: 55px;
 }
 /* ============ vip-card  ============ */

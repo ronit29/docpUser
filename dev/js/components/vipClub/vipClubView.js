@@ -445,7 +445,7 @@ class VipClubView extends React.Component {
                             <p className="vipbtn-sub-txt">No Cost EMI Starts @ ₹{Math.round(parseInt(this.state.selected_plan_data.deal_price) / 12)}</p>
                         </button>
                     </section>
-                    <Disclaimer />
+                    <Disclaimer isVip={true}/>
                 </div>
                 : <div></div>
         );
