@@ -8,15 +8,19 @@ class TopChatWidget extends React.Component {
 	}
 
 	widgetClick(knowMore = false) {
-		let gtmData = {
-			'Category': 'ConsumerApp', 'Action': 'HomeVipWidgetClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-vip-widget-click'
-		}
-		GTM.sendEvent({ data: gtmData })
 
 		// this.props.history.push('/mobileviewchat')
 		if(knowMore) {
+			let gtmData = {
+			'Category': 'ConsumerApp', 'Action': 'HomeVipWidgetClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-vip-widget-click'
+			}
+			GTM.sendEvent({ data: gtmData })
 			this.props.history.push('/vip-club-details?source=mobile-home-knowmore-vip-clicked&lead_source=Docprime')
 		}else{
+			let gtmData = {
+			'Category': 'ConsumerApp', 'Action': 'HomeChatWidgetClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-chat-widget-click'
+			}
+			GTM.sendEvent({ data: gtmData })
 			this.props.history.push('/mobileviewchat')
 		}
 		
