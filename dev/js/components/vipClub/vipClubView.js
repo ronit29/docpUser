@@ -337,8 +337,8 @@ class VipClubView extends React.Component {
                                         <div className="vip-offer-cards mb-24">
                                             <div className="vip-free-doc vip-bkdiscount-bg">
                                                 <div className="bkdiscount-text">
-                                                    <h4 className="vip-card-heading">25% Discount on Lab Bookings </h4>
-                                                    {/*<p>Maximum discount upto ₹200</p>*/}
+                                                    <h4 className="vip-card-heading">Flat 25% discount on lab bookings </h4>
+                                                    <p>No cap on maximum discount</p>
                                                 </div>
                                             </div>
                                         </div>
