@@ -86,7 +86,7 @@ class DoctorProfileView extends React.Component {
 
         this.setState({ searchShown: true })
         setTimeout(()=>{
-            this.setState({VIPPopup: true})
+            this.setState({showVipPopup: true})
         }, 500)
     }
 

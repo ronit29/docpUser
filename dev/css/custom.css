@@ -4608,3 +4608,35 @@ img.img-fluid.vp-cls-img {
     font-size: 13px;
 }
 /* ============ vip-card  ============ */
+/* ============ vip-pop-card  ============ */
+.widget.cancel-appointment-div.cancel-popup.vip-pop-mbl{
+    background: url(/assets/img/popbg.png);
+    background-size: cover;
+    background-position: 50% 100%;
+}
+p.vp-pop-grn {
+    color: #10a628;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+p.vp-pop-sub-txt {
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+button.vp-pop-ch-btn {
+    background-image: linear-gradient(to left,#f78631,#ff6d00);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    padding: 6px 10px;
+    cursor: pointer;
+}
+@media (max-width:767px){
+.widget.cancel-appointment-div.cancel-popup.vip-pop-mbl{
+    width: 100%;
+    left: 0;
+    border-radius: 0px;
+}
+}
+/* ============ vip-pop-card  ============ */
