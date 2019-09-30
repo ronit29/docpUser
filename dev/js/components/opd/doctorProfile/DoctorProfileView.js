@@ -27,6 +27,7 @@ import STORAGE from '../../../helpers/storage'
 import IpdLeadForm from '../../../containers/ipd/ipdLeadForm.js'
 import IpdSecondPopup from '../../../containers/ipd/IpdDoctorCityPopup.js'
 import NonBookableDoctor from './nonBookableDoctor.js'
+import VIPPopup from './vipProfilePopup.js'
 
 const queryString = require('query-string');
 
@@ -55,7 +56,8 @@ class DoctorProfileView extends React.Component {
             showIpdLeadForm: true,
             showSecondPopup: false,
             firstLeadId: '',
-            closeNonBookable: false
+            closeNonBookable: false,
+            showVipPopup: false
         }
     }
 
@@ -83,6 +85,9 @@ class DoctorProfileView extends React.Component {
         }
 
         this.setState({ searchShown: true })
+        setTimeout(()=>{
+            this.setState({VIPPopup: true})
+        }, 500)
     }
 
     showDownloadAppWidget(dataList) {
@@ -664,6 +669,9 @@ class DoctorProfileView extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
+                                        {
+                                            this.state.showVipPopup && <VIPPopup />
+                                        }
                                         {
                                             this.state.is_live ?
                                                 <div className="dpp-btn-div fixed horizontal bottom sticky-btn">
