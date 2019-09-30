@@ -384,7 +384,7 @@ class DoctorProfileView extends React.Component {
         let showForcedPopup = !isUtmTagsExist && landing_page && this.state.seoFriendly && doctor_id && this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].is_congot && this.state.showIpdLeadForm && this.props.DOCTORS[doctor_id].potential_ipd && !this.state.is_live
         showForcedPopup = false
         let isSeoValid= true
-        if(CONFIG.SEO_FRIENDLY_HOSPITAL_IDS && this.state.selectedClinic &&  CONFIG.SEO_FRIENDLY_HOSPITAL_IDS.indexOf(this.state.selectedClinic)> -1){
+        if(CONFIG.SEO_FRIENDLY_HOSPITAL_IDS && this.state.selectedClinic &&  CONFIG.SEO_FRIENDLY_HOSPITAL_IDS.indexOf(parseInt(this.state.selectedClinic))> -1){
             isSeoValid = false
         }
         return (

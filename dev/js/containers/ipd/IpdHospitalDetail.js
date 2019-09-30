@@ -174,8 +174,8 @@ class HospitalDetail extends React.Component {
 
         let {hospital_schema, breadcrumb_schema, itemList_schema} = this.getSchema(ipd_hospital_detail)
 
-        let isSeoValid= true
-        if(CONFIG.SEO_FRIENDLY_HOSPITAL_IDS && this.state.hospital_id &&  CONFIG.SEO_FRIENDLY_HOSPITAL_IDS.indexOf(this.state.hospital_id)> -1){
+		let isSeoValid= true
+        if(CONFIG.SEO_FRIENDLY_HOSPITAL_IDS && this.state.hospital_id &&  CONFIG.SEO_FRIENDLY_HOSPITAL_IDS.indexOf(parseInt(this.state.hospital_id))> -1){
             isSeoValid = false
         }
 		return(
