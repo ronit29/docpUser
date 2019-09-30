@@ -4637,6 +4637,10 @@ button.vp-pop-ch-btn {
     width: 100%;
     left: 0;
     border-radius: 0px;
+    box-shadow: 1px -1px 12px 0px #bfbcbc;
+}
+.cancel-overlay.vip-cncl-overlay{
+    background-color:transparent;
 }
 }
 /* ============ vip-pop-card  ============ */
