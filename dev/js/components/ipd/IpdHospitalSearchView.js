@@ -301,7 +301,7 @@ class IpdHospitalView extends React.Component{
 		return(
 				<div className="profile-body-wrap">
                 <HelmetTags tagsData={{
-                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}${page}`,
                     title: this.getMetaTagsData(this.props.hospitalSearchSeoData).title,
                     description: this.getMetaTagsData(this.props.hospitalSearchSeoData).description,
                     prev: prev,
