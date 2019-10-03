@@ -54,7 +54,7 @@ class BookingConfirmationPopup extends React.Component {
 			                      	}
 			                      	GTM.sendEvent({ data: data })
 			                        e.preventDefault()
-			                        this.props.history.push('/vip-club-details?source=bookingpage-vip-click&lead_source=bookingpage') }}>Know more about Docprime VIP</p>
+			                        this.props.history.push('/vip-club-details?source=bookingpage&lead_source=bookingpage') }}>Know more about Docprime VIP</p>
 									<p className="vp-bnr-sub-txt" onClick={this.props.bannerConfirmationPopup.bind(this,true)}>Not Interested? Continue Booking <img style={{width:'7px'}} className="img-fluid" src={ASSETS_BASE_URL + '/img/vip-rght.svg'} /></p>
 								</div>
 							</div>

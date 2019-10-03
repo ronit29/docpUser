@@ -2208,18 +2208,7 @@ p.rt-doc-nm{
     width: 100%;
 }
 
-.chat-now-btn{
-    margin-left: 5px;
-    background-color: #4289fe;
-    border-radius: 5px;
-    padding: 4px 12px;
-    flex-shrink: 0;
-}
 
-.chat-now-btn p{
-    color: #fff;
-    font-size: 11px;
-}
 
 .footer-dropdown{
     position: absolute;
@@ -2344,6 +2333,9 @@ ul.order-med-list a:hover {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    padding-bottom: 2px;
+    background: white;
+    padding-right: 5px;
 }
 
 .order-widget{
@@ -2361,7 +2353,8 @@ ul.order-med-list a:hover {
 
 .buy-med-btn{
 	display: block;
-	position: sticky;
+    position: sticky;
+    position: -webkit-sticky;
 	top: 44px;
 	margin-left: -15px;
 	margin-right: -15px;

@@ -532,7 +532,7 @@ class HomeView extends React.Component {
 								e.preventDefault();
 								this.navigateTo('/online-consultation')
 							}}>Online Doctor Consultation</a>
-							{/*<a href="/online-consultation" className="order-med-list-link" onClick={(e) => {
+							<a href="/online-consultation" className="order-med-list-link" onClick={(e) => {
 								e.preventDefault();
 							}}>Order Medicines
 								<ul className="order-med-list">
@@ -545,7 +545,7 @@ class HomeView extends React.Component {
 										this.orderMedClick('prevOrder')
 									}}>Previous Order</a></li>
 								</ul>
-							</a>*/}
+							</a>
 							{/* <p onClick={(e) => {
 								e.preventDefault();
 								this.navigateTo('/contact')

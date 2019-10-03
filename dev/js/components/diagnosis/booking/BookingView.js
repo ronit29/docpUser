@@ -13,6 +13,7 @@ import GTM from '../../../helpers/gtm.js'
 import STORAGE from '../../../helpers/storage'
 import CRITEO from '../../../helpers/criteo.js'
 import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -588,6 +589,7 @@ class BookingView extends React.Component {
                         <RightBar />
                     </div>
                 </section>
+                <Disclaimer />
             </div>
         );
     }

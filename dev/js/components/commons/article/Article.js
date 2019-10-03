@@ -53,7 +53,8 @@ class Article extends React.Component {
             specialization_id: '',
             hideFooterWidget: true,
             showPopup: false,
-            medBtnTop: ''
+            medBtnTop: '',
+            showPharmacyAtClient: false
         }
     }
 
@@ -78,7 +79,7 @@ class Article extends React.Component {
 
             this.props.getOfferList(lat, long);
         }
-        this.setState({ hideFooterWidget: false })
+        this.setState({ hideFooterWidget: false, showPharmacyAtClient: true })
 
         if (window && this.props.match.path.split('-')[1] === 'mddp') {
             window.addEventListener('scroll', this.scrollHandler)
@@ -91,20 +92,28 @@ class Article extends React.Component {
     }
 
     scrollHandler() {
-        if (document) {
-            let elem = document.getElementById('medicine-btn')
-            let elemContainer = document.getElementById('medicine-btn-div')
-            if (window && elemContainer && (elemContainer.offsetTop == window.scrollY)) {
-                elem.style.background = '#3b827d'
-                elem.style.borderRadius = '0px'
-                elemContainer.style.padding = '0px'
+        setTimeout(()=>{
+            if (document) {
+                let elem = document.getElementById('medicine-btn')
+                let elemContainer = document.getElementById('medicine-btn-div')
+                
+                if(elem && elemContainer) {
+               // alert(window.scrollY +'a'+ elemContainer.offsetTop)
+                    if (window && (window.scrollY >= elemContainer.offsetHeight + 335 )) {
+                        elem.style.background = '#3b827d'
+                        elem.style.borderRadius = '0px'
+                        elemContainer.style.padding = '0px'
+                    }
+                    else{
+                        elem.style.background = '#f78631'
+                        elem.style.borderRadius = '5px'
+                        elemContainer.style.padding = '0px 15px'
+                    }
+                }
+                
             }
-            else if (elem) {
-                elem.style.background = '#f78631'
-                elem.style.borderRadius = '5px'
-                elemContainer.style.padding = '0px 15px'
-            }
-        }
+        },100)
+        
     }
 
     componentWillUnmount() {
@@ -261,7 +270,7 @@ class Article extends React.Component {
             setTimeout(() => this.continueClick(), 1000);
         })
         let gtmData = {
-            'Category': 'ConsumerApp', 'Action': 'BuyMedicineBtnClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'buy-medicine-btn-click'
+            'Category': 'ConsumerApp', 'Action': 'BuyMedicineBtnClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'buy-medicine-btn-click', 'articleId': this.state.articleData && this.state.articleData.id?this.state.articleData.id:''
         }
         GTM.sendEvent({ data: gtmData })
     }
@@ -272,7 +281,8 @@ class Article extends React.Component {
         // }
         // GTM.sendEvent({ data: gtmData })
         if (typeof navigator === 'object') {
-            if (/mobile/i.test(navigator.userAgent)) {
+            var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+            if (/mobile/i.test(navigator.userAgent) && !isSafari ) {
                 this.props.iFrameState(this.props.location.pathname, false)
                 sessionStorage.setItem('iFrameId', 1);
             }
@@ -312,10 +322,10 @@ class Article extends React.Component {
         }
 
         let sessionId = null
-        if(typeof sessionStorage =="object" ){
-            sessionId = sessionStorage.getItem('iFrameId')    
+        if (typeof sessionStorage == "object") {
+            sessionId = sessionStorage.getItem('iFrameId')
         }
-        
+
 
         return (
             <div className="profile-body-wrap" style={showIframe && sessionId ? {} : { paddingBottom: 54 }}>
@@ -462,15 +472,16 @@ class Article extends React.Component {
                                                 }
 
                                                 {
-                                                    this.state.articleData && this.state.articleData.title && this.props.match.path.split('-')[1] === 'mddp' && false?
+                                                    this.state.showPharmacyAtClient && this.state.articleData && this.state.articleData.title && this.props.match.path.split('-')[1] === 'mddp' ?
                                                         <React.Fragment>
                                                             <div className="buy-med-btn" id="medicine-btn-div">
-                                                                <button className="v-btn v-btn-primary btn-lg text-sm" id="medicine-btn" onClick={() => this.buyMedicineClick()}>Buy {this.state.articleData.title.split('|')[0]} at Flat 20% Off</button>
+                                                                <button className="v-btn v-btn-primary btn-lg text-sm" id="medicine-btn" onClick={() => this.buyMedicineClick()}>Order {/*this.state.articleData.title.split('|')[0]*/} now at Flat 20% Off</button>
+                                                                <div className="buy-med-tagline mrb-20">
+                                                                    <p className="fw-500" style={{ marginRight: 3, fontSize: 12 }}>Powered by : </p>
+                                                                    <img style={{ width: 72 }} src={ASSETS_BASE_URL + "/img/customer-icons/pharmEasy.png"} />
+                                                                </div>
                                                             </div>
-                                                            <div className="buy-med-tagline mrb-20">
-                                                                <p className="fw-500" style={{ marginRight: 3, fontSize: 12 }}>Powered by : </p>
-                                                                <img style={{ width: 72 }} src={ASSETS_BASE_URL + "/img/customer-icons/pharmEasy.png"} />
-                                                            </div>
+
                                                         </React.Fragment> : ''
                                                 }
 
@@ -525,12 +536,9 @@ class Article extends React.Component {
                                                             <span>Last updated on : {this.state.articleData.last_updated_at}</span>
                                                         </div> : ''
                                                 }
-                                                {
-                                                    this.props.match.path.split('-')[1] === 'mddp' ?
-                                                        <div className="mrt-20">
-                                                            <p className="article-disclaimer"><span className="fw-700">Disclaimer : </span>Docprime doesn’t endorse or take any guarantee of the accuracy or completeness of information provided on its website. Docprime shall not be held responsible for any aspect of healthcare administered with the information provided on its website.</p>
-                                                        </div> : ''
-                                                }
+                                                <div className="mrt-20">
+                                                    <p className="article-disclaimer"><span className="fw-700">Disclaimer : </span>Docprime doesn’t endorse or take any guarantee of the accuracy or completeness of information provided under this article and these are the views strictly of the writer. Docprime shall not be held responsible for any aspect of healthcare services administered with the information provided on this article.</p>
+                                                </div>
                                             </div> : ""
                                         }
                                         {/* {
