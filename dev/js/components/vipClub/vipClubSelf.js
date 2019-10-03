@@ -555,7 +555,7 @@ class VipProposer extends React.Component {
 		var daydropdown = document.getElementById("daydropdown_" + this.props.member_id),
 			monthdropdown = document.getElementById("monthdropdown_" + this.props.member_id),
 			yeardropdown = document.getElementById("yeardropdown_" + this.props.member_id);
-		let age_threshold = 65
+		let age_threshold = 150
 		var today = new Date(),
 			day = today.getUTCDate(),
 			month = today.getUTCMonth(),

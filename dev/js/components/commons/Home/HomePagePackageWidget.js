@@ -78,12 +78,22 @@ class HomePagePackageWidget extends React.Component {
                                                     </div>
                                                 </div>
                                                 :<div className="pkg-card-price-offr">
-                                                    <div className="pkg-prc-ct">
-                                                        <p>₹ {listItem.discounted_price} 
-                                                            <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span>
-                                                        </p>
-                                                    </div>
-                                                    <span className="pkg-hlth-offer">{parseInt(((listItem.mrp - listItem.discounted_price) / listItem.mrp) * 100)}% OFF</span>
+                                                    {
+                                                        listItem.discounted_price == listItem.mrp?
+                                                        <div className="pkg-prc-ct">
+                                                            <p>₹ {listItem.mrp}
+                                                            </p>
+                                                        </div>
+                                                        :<div className="pkg-prc-ct">
+                                                            <p>₹ {listItem.discounted_price} 
+                                                                <span className="pkg-ofr-cut-prc">₹ {listItem.mrp}</span>
+                                                            </p>
+                                                        </div>
+                                                    }
+                                                    {
+                                                        parseInt(((listItem.mrp - listItem.discounted_price) / listItem.mrp) * 100)!=0 && (listItem.discounted_price != listItem.mrp)?
+                                                        <span className="pkg-hlth-offer">{parseInt(((listItem.mrp - listItem.discounted_price) / listItem.mrp) * 100)}% OFF</span>:''
+                                                    }
                                                 </div>
                                         : ''}
                                 </div>

@@ -8,6 +8,7 @@ import RatingGraph from '../../commons/ratingsProfileView/RatingGraph.js'
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import Footer from '../../commons/Home/footer'
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 class AllRatingsView extends React.Component {
     constructor(props) {
@@ -90,6 +91,7 @@ class AllRatingsView extends React.Component {
                         <RightBar />
                     </div>
                 </section>
+                <Disclaimer />
                 <Footer footerData={this.state.footerData} />
             </div>
         )

@@ -280,8 +280,12 @@ class LabProfileCard extends React.Component {
                                         :''
                                     }
                                     {
-                                        !is_insurance_applicable && !hide_price && discounted_price && !is_vip_applicable? <p className="fw-500">₹ {parseInt(discounted_price)}
-                                            <span className="pkg-cut-price">₹ {parseInt(mrp)}</span></p> : ''
+                                        !is_insurance_applicable && !hide_price && discounted_price && !is_vip_applicable? 
+                                            parseInt(discounted_price)!= parseInt(mrp)?
+                                            <p className="fw-500">₹ {parseInt(discounted_price)}
+                                                <span className="pkg-cut-price">₹ {parseInt(mrp)}</span></p>
+                                            :<p className="fw-500">₹ {parseInt(discounted_price)}</p>
+                                             : ''
                                     }
                                     {
                                         hide_price ? <p className="fw-500">₹ 0</p> : ""

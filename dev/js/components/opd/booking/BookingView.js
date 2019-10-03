@@ -14,6 +14,7 @@ import SnackBar from 'node-snackbar'
 const queryString = require('query-string');
 import RatingsPopUp from '../../commons/ratingsProfileView/RatingsPopUp.js'
 import WhatsAppOptinView from '../../commons/WhatsAppOptin/WhatsAppOptinView.js'
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 const STATUS_MAP = {
     CREATED: 1,
@@ -565,6 +566,7 @@ class BookingView extends React.Component {
                         <RightBar />
                     </div>
                 </section>
+                <Disclaimer />
             </div>
         );
     }

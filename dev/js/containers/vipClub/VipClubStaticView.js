@@ -7,6 +7,7 @@ import { } from '../../actions/index.js'
 import ProfileHeader from '../../components/commons/DesktopProfileHeader'
 import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
+import Disclaimer from '../../components/commons/Home/staticDisclaimer.js'
 
 class VipClubStaticView extends React.Component {
 
@@ -45,6 +46,7 @@ class VipClubStaticView extends React.Component {
                     </div>
                     <button className="vip-back-btn" onClick={() => this.props.history.push('/vip-club-details')}>Done</button>
                 </section>
+                <Disclaimer isVip={true}/>
             </div>
         )
     }

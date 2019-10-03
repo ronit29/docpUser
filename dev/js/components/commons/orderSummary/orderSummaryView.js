@@ -7,6 +7,7 @@ import GTM from '../../../helpers/gtm.js'
 import STORAGE from '../../../helpers/storage'
 import InitialsPicture from '../../commons/initialsPicture'
 import CRITEO from '../../../helpers/criteo.js'
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 class OrderSummaryView extends React.Component {
     constructor(props) {
@@ -184,6 +185,7 @@ class OrderSummaryView extends React.Component {
                         <RightBar extraClass=" chat-float-btn-2" noChatButton={true} />
                     </div>
                 </section>
+                <Disclaimer />
             </div>
         );
     }
