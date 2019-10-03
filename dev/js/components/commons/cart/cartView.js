@@ -59,7 +59,7 @@ class CartView extends React.Component {
         let dd = 0
         let vip_amnt_price =0
         for (let item of cart_items) {
-            if (item.valid && item.actual_data.payment_type == 1) {
+            if (item.valid && (item.actual_data.payment_type == 1 || item.actual_data.payment_type == 5)) {
                 
 
                 //For Insured Appointments Do not add deal price to Amount Payable
