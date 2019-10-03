@@ -1057,7 +1057,6 @@ class PatientDetailsNew extends React.Component {
     }
 
     render() {
-        console.log(this.state)
         const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
         let doctorCoupons = this.props.doctorCoupons[this.props.selectedDoctor] || []
