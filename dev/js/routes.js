@@ -548,6 +548,13 @@ const VipClubStaticView = Loadable({
     webpack: () => [require.resolveWeak('./containers/vipClub/VipClubStaticView')],
     loading,
 })
+
+const PaypalCancellation = Loadable({
+    loader: () => import('./components/commons/PaypalCancellation.js'),
+    modules: ['./components/commons/PaypalCancellation.js'],
+    webpack: () => [require.resolveWeak('./components/commons/PaypalCancellation.js')],
+    loading,  
+})
 /**
  * RENDER_ON_SERVER : true will enable Server-side-rendering  for that route.
  */
@@ -677,7 +684,8 @@ let routes = [
     { path: '/vip-club-details',exact:true, component: VipClubView},
     { path: '/vip-club-member-details',exact:true, component: VipClubMemberDetailsView},
     { path: '/vip-club-activated-details',exact:true, component: VipClubActivatedView},
-    { path: '/vip-club-static-pages', exact:true, component:VipClubStaticView}
+    { path: '/vip-club-static-pages', exact:true, component:VipClubStaticView},
+    { path: '/cancellation-policy-paypal', exact:true, component:PaypalCancellation}
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {
