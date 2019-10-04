@@ -289,7 +289,7 @@ class ChoosePatientNewView extends React.Component {
                     self.setState({ showOtp: true, showVerify: false, smsBtnType: viaSms ? true : false })
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
-                    }, 10000)
+                    }, 20000)
                     setTimeout(() => {
                         this.setState({ enableOtpRequest:false })
                     }, 60000)

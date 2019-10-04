@@ -1057,7 +1057,6 @@ class PatientDetailsNew extends React.Component {
     }
 
     render() {
-        console.log(this.state)
         const parsed = queryString.parse(this.props.location.search)
         let doctorDetails = this.props.DOCTORS[this.props.selectedDoctor]
         let doctorCoupons = this.props.doctorCoupons[this.props.selectedDoctor] || []
@@ -1462,7 +1461,7 @@ class PatientDetailsNew extends React.Component {
                                                                         }
 
                                                                         {
-                                                                            !is_insurance_applicable && enabled_for_cod_payment && !(parsed.appointment_id && parsed.cod_to_prepaid=='true')?
+                                                                            !is_insurance_applicable && !is_vip_applicable && enabled_for_cod_payment && !(parsed.appointment_id && parsed.cod_to_prepaid=='true')?
                                                                                 <div className="test-report payment-detail mt-20" onClick={() => {
                                                                                     this.props.select_opd_payment_type(2)
                                                                                 }}>

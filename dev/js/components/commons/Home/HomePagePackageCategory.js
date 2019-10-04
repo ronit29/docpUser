@@ -53,7 +53,7 @@ class HomePagePackageCategory extends React.Component {
 		     <div className="pakg-slider-container mt-10 mb-10">
                 <div className="pkgSliderHeading">
                     <h5>Health Package Categories</h5>
-                    <span onClick={this.ViewAll.bind(this)}>View All</span>
+                    {/*<span onClick={this.ViewAll.bind(this)}>View All</span>*/}
                 </div>
                 <div className="pkgSliderContainer" id="top_pkgCat">
                     <div className='pkgCardsList d-inline-flex sub-wd-cards top_pkgCat'>
