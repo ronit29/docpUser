@@ -47,7 +47,7 @@ app.use(compression())
 if (CONFIG.RAVEN_SERVER_DSN_KEY) {
     Sentry.init({ dsn: CONFIG.RAVEN_SERVER_DSN_KEY })
     app.use(Sentry.Handlers.requestHandler())
-    app.use(helmet.hsts({
+    app.use(Helmet.hsts({
       maxAge: 5184000,
       includeSubDomains: true,
       preload: true
