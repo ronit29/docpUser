@@ -528,7 +528,7 @@ class PatientDetailsNew extends React.Component {
             profile: this.props.selectedProfile,
             start_date, start_time,
             payment_type: this.props.payment_type,
-            use_wallet: this.state.use_wallet,
+            use_wallet: is_vip_applicable?false:this.state.use_wallet,
             cart_item: this.state.cart_item,
             utm_tags: utm_tags,
             from_web:true
@@ -1643,7 +1643,7 @@ class PatientDetailsNew extends React.Component {
 
 
                                                             {
-                                                                !is_insurance_applicable && this.props.payment_type == 1 && total_wallet_balance && total_wallet_balance > 0 && (parseInt(priceData.mrp) + treatment_mrp) > 0 ?
+                                                                !is_vip_applicable && !is_insurance_applicable && this.props.payment_type == 1 && total_wallet_balance && total_wallet_balance > 0 && (parseInt(priceData.mrp) + treatment_mrp) > 0 ?
                                                                     <div className={"widget mrb-15" + (this.state.is_payment_coupon_applied ? " disable_coupon" : "")}>
                                                                         <div className="widget-content">
                                                                             <div className="select-pt-form">
