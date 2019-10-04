@@ -38,6 +38,7 @@ import allReducers from './dev/js/reducers/index.js';
 import { matchPath } from 'react-router-dom'
 import CONFIG from './dev/js/config'
 import Loadable from 'react-loadable';
+const helmet = require('helmet')
 // import { getBundles } from 'react-loadable/webpack'
 // import { getBundles } from 'react-loadable-ssr-addon';
 
@@ -47,7 +48,7 @@ app.use(compression())
 if (CONFIG.RAVEN_SERVER_DSN_KEY) {
     Sentry.init({ dsn: CONFIG.RAVEN_SERVER_DSN_KEY })
     app.use(Sentry.Handlers.requestHandler())
-    app.use(Helmet.hsts({
+    app.use(helmet.hsts({
       maxAge: 5184000,
       includeSubDomains: true,
       preload: true
