@@ -870,9 +870,7 @@ class TopBar extends React.Component {
                             </div>
                         </div> : ""
                 }
-                <div className="filter-row sticky-header mbl-stick">
-                    <div className="filter-row sticky-header mbl-stick">
-                        <div className="filter-row sticky-header mbl-stick">
+                        <div className={`${this.props.fromVip?'':"filter-row sticky-header mbl-stick"}`}>
                             {this.props.breadcrumb && this.props.breadcrumb.length ?
                                 <div className="col-12 mrng-top-12 d-none d-md-block p-0">
                                     <ul className="mrb-10 breadcrumb-list breadcrumb-list-ul" style={{ 'wordBreak': 'breakWord' }}>
@@ -975,7 +973,6 @@ class TopBar extends React.Component {
                                     </div>
                                 </section>
                             }
-                        </div>
                         {
                             this.state.showLocationPopup && !this.props.fromVip?
                                 <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
@@ -1002,7 +999,6 @@ class TopBar extends React.Component {
                                 </div>
                                 : ''
                         }
-                    </div>
                 </div>
             </React.Fragment>
         );

@@ -4620,6 +4620,7 @@ div.row.searchForVip{
     margin: 10px 5px 5px !important;
     background-color: #ffffff;
     box-shadow: 0 1px 5px rgba(76, 76, 76, 0.12), 1px 1px 4px rgba(128, 128, 128, 0.24);
+    margin: 5px 0 !important;
 }
 div.col-12.vip-srch-pdng-adj{
     padding: 10px 8px !important;
@@ -4674,5 +4675,26 @@ button.srt-scrl-btn img {
 .paypal-dtls-cont a{
     color:#F78631;
     cursor: pointer;
+}
+.srch-vp-nt{
+    top: 13px;
+    height: 32px;
+    padding: 0;
+    right: 11px;
+    background: transparent;
+    border-top: transparent;
+    border-bottom: transparent;
+    border-right: transparent;
+    border-left: 1px solid #dcd8d8;
+    cursor: pointer;
+    color: rgba(40, 40, 40, .8);
+    font-weight: 500;
+    align-items: center;
+    white-space: nowrap;
+    width: 114px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    position: absolute;
 }
 /* ============ paypal-page  ============ */

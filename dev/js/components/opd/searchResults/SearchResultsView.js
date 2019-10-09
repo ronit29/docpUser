@@ -726,10 +726,11 @@ class SearchResultsView extends React.Component {
                                         {
                                             this.state.fromVip &&
                                             <React.Fragment>
-                                                <div className="row searchForVip">
+                                                <div className="row searchForVip filter-row sticky-header mbl-stick">
                                                     <div className="serch-nw-inputs mb-0 col-12 vip-srch-pdng-adj">
-                                                        <input type="text" autocomplete="off" className="d-block new-srch-doc-lab" id="search_bar" value="" placeholder="Search for doctor, hospital, specialty" />
-                                                        <img  className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} style={{ width: '15px',top:'0', bottom: '0', left: '18' }} />
+                                                        <input type="text" autoComplete="off" className="d-block new-srch-doc-lab" id="search_bar" value="" placeholder="Search for doctor"/>
+                                                        <img  className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} style={{ width: '15px',top:'0', bottom: '0', left: '18px' }} />
+                                                        <button class="srch-vp-nt"><img style={{marginRight:'8px',width:'10px'}} src={ASSETS_BASE_URL +"/img/new-loc-ico.svg"}/>Sector 44,</button>
                                                     </div>
                                                     <button className="srt-scrl-btn" onClick={() => this.sortFilterClicked()}><img src={ASSETS_BASE_URL + '/img/filtersort.png'}/> Sort/Filter</button>
                                                 </div>
