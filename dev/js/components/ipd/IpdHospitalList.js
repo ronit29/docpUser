@@ -16,7 +16,7 @@ class IpdHospitalListView extends React.Component {
          hasMore: true,
          loading: false,
          page: parsed && parsed.page?parseInt(parsed.page)||1:1,
-         readMore: 'search-details-data-less'
+         readMore: 'search-details-data-less' 
       }
    	}
 
