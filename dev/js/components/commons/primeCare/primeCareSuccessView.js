@@ -44,7 +44,7 @@ class PrimeCareSuccessView extends React.Component {
                                             {
                                                 this.props.data && this.props.data.unlimited_online_consultation?
                                                     <li className="careListiLi"><p className="careListin">Free Unlimited Online Consultation </p>
-                                                        <span>Anytime, Anywhere!</span>
+                                                        <span>Our online consultation timings are from 8:00 AM to 5:00 PM</span>
                                                     </li>
                                                 :''
                                             }
@@ -72,6 +72,9 @@ class PrimeCareSuccessView extends React.Component {
                                             }
                                             
                                         </ul>
+                                        <div className="d-flex justify-content-center align-items-center mrb-10" onClick={() => this.props.history.push('/mobileviewchat')}>
+                                            <button class="cstm-book-btn fw-500" style={{ width: 100, marginTop: 0 }}>Chat now</button>
+                                        </div>
                                         <p className="careThankpara">Thanks for choosing <a onClick={(e) =>this.props.history.push('/')}>docprime.com</a></p>
                                     </div>
                                 </div>

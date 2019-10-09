@@ -6,8 +6,13 @@ class IpdQnA extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      treatment: []
+      treatment: [],
+      getAns: true
     }
+  }
+
+  componentDidMount(){
+    this.setState({getAns: false})
   }
 
   toggleTreatment(id){
@@ -47,7 +52,7 @@ class IpdQnA extends React.Component {
                       }
                    </h3>
                    {
-                      this.state.treatment.indexOf(treatment.id)>-1?
+                      this.state.treatment.indexOf(treatment.id)>-1 || this.state.getAns?
                       <p className="accordian-dtl"  style={{textAlign:'justify', fontSize:'14px'}} dangerouslySetInnerHTML={{ __html: treatment.answer}}>
         
                      </p>

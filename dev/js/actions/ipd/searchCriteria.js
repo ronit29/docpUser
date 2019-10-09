@@ -109,16 +109,21 @@ export const getIpdHospitals = (state, page=1, fromServer, searchByUrl, cb) => (
     let min_distance = filterCriteria.distance[0]
     let max_distance = filterCriteria.distance[1]
     let provider_ids = filterCriteria.provider_ids
+    let network_id = filterCriteria.network_id || ''
 
     let ipd_id = commonSelectedCriterias.map(x=>x.id)
 
-    let url = `/api/v1/doctor/ipd_procedure/${ipd_id}/hospitals?`
+    let url = ''
     
-    if (searchByUrl) {
+    if(ipd_id && ipd_id.length){
+        url = `/api/v1/doctor/ipd_procedure/${ipd_id}/hospitals?`
+    }else if (searchByUrl) {
         url = `/api/v1/doctor/hospitalsearch_by_url/${searchByUrl.split('/')[1]}?`
+    }else {
+        url = `/api/v1/doctor/hospitals?`
     }
 
-    url+= `long=${long}&lat=${lat}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&page=${page}`
+    url+= `long=${long}&lat=${lat}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&page=${page}&network=${network_id}`
 
     if(parseInt(page)==1) {
         dispatch({

@@ -546,6 +546,7 @@ export function HospitalSearchStateBuilder(selectLocation, querParams, isServer 
             let locationType = _getLocationParamBind('locationType') || "geo"
             let page = _getLocationParamBind('page') || 1
             page = parseInt(page)
+            let network_id = _getLocationParamBind('network_id') || ""
 
             let filterCriteria = {
                min_distance, max_distance
@@ -555,6 +556,7 @@ export function HospitalSearchStateBuilder(selectLocation, querParams, isServer 
             filterCriteria.distance[0] = filterCriteria.min_distance
             filterCriteria.distance[1] = filterCriteria.max_distance
             filterCriteria.provider_ids = provider_ids
+            filterCriteria.network_id = network_id
 
             if(ipd_id){
                 ipd_id = ipd_id.split(',').map((x) => {

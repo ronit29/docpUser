@@ -5,6 +5,7 @@ import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
 import GTM from '../../../helpers/gtm.js'
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 class UserLoginView extends React.Component {
     constructor(props) {
@@ -72,7 +73,7 @@ class UserLoginView extends React.Component {
                     this.setState({ showOTP: true, otpTimeout: true, smsBtnType: viaSms ? true : false })
                     setTimeout(() => {
                         this.setState({ otpTimeout: false })
-                    }, 10000)
+                    }, 20000)
                     setTimeout(() => {
                         this.setState({ enableOtpRequest:false })
                     }, 60000)
@@ -94,6 +95,7 @@ class UserLoginView extends React.Component {
                 if (exists.token) {
                     const parsed = queryString.parse(this.props.location.search)
                     this.props.clearInsurance()
+                    this.props.resetVipData()
                     if (exists.user_exists) {
                         if (parsed.login) {
                             let data = {
@@ -179,7 +181,7 @@ class UserLoginView extends React.Component {
                                             this.state.referralName ? <h3 className="sign-coupon fw-700">Get &#8377; 50 in your wallet</h3> : ""
                                         }
                                         {
-                                            this.state.referralName ? <h3 className="sign-coupon fw-700">Signup to claim your gift from<br /><span className="ft-25">{this.state.referralName}</span> </h3> : <h3 className="sign-coupon fw-700">Signup & get coupons worth<br /><span className="ft-25">&#8377; 500!</span> </h3>
+                                            this.state.referralName ? <h3 className="sign-coupon fw-700">Signup to claim your gift from<br /><span className="ft-25">{this.state.referralName}</span> </h3> : <h3 className="sign-coupon fw-700" style={{ fontSize: 16 }} >Signup &amp; get great offers on your doctor and lab appointments<br /></h3>
                                         }
                                         <h4 className="fw-500 text-md sign-up-mbl-text">Enter your Mobile Number to continue</h4>
                                     </div>
@@ -262,6 +264,7 @@ class UserLoginView extends React.Component {
                         <RightBar noChatButton={true} />
                     </div>
                 </section>
+                <Disclaimer />
             </div>
         );
     }

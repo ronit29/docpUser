@@ -3,7 +3,7 @@ import React from 'react';
 import LeftBar from '../../commons/LeftBar'
 import RightBar from '../../commons/RightBar'
 import ProfileHeader from '../../commons/DesktopProfileHeader'
-
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 class NotificationsView extends React.Component {
     constructor(props) {
@@ -88,6 +88,7 @@ class NotificationsView extends React.Component {
                         <RightBar noChatButton={true} />
                     </div>
                 </section>
+                <Disclaimer />
             </div>
         );
     }

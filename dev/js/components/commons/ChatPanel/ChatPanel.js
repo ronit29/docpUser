@@ -11,6 +11,8 @@ import RecentArticles from '../article/RecentArticles'
 import TableOfContent from '../article/TableOfContent'
 import BannerCarousel from '../Home/bannerCarousel';
 const queryString = require('query-string');
+import ChatRefundReasons from './ChatRefundReasons.js'
+import SnackBar from 'node-snackbar'
 
 class ChatPanel extends React.Component {
     constructor(props) {
@@ -33,7 +35,8 @@ class ChatPanel extends React.Component {
             iframeLoading: is_thyrocare ? false : true,
             showStaticView: is_thyrocare ? false : true,
             initialMessage: "",
-            callTimeout: false
+            callTimeout: false,
+            openRefundPopup: false
         }
     }
 
@@ -163,13 +166,19 @@ class ChatPanel extends React.Component {
                                     'Category': 'Chat', 'Action': 'ChatInitialization', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-initialization', 'RoomId': data.data.rid, "url": window.location.pathname
                                 }
                                 GTM.sendEvent({ data: analyticData })
-
-                                this.props.setChatRoomId(data.data.rid)
+                                let extraParams = {}
+                                if (typeof window == "object") {
+                                    parsedHref = queryString.parse(window.location.search)
+                                }
+                                if(parsedHref && parsedHref.payment=='success'){
+                                    extraParams.payment = true
+                                }
+                                this.props.setChatRoomId(data.data.rid, extraParams)
                                 if (this.props.selectedLocation) {
                                     this.sendLocationNotification(this.props.selectedLocation)
                                 }
                                 //Send payment event ,when payment is in url
-                                if(parsedHref && parsedHref.payment) {
+                                if (parsedHref && parsedHref.payment) {
                                     this.sendPaymentStatusEvent(data.data.rid)
                                 }
 
@@ -193,6 +202,10 @@ class ChatPanel extends React.Component {
                         case "Chat_Close": {
                             // this.props.startLiveChat(false, this.state.selectedLocation)
                             this.setState({ initialMessage: "", selectedRoom: null, })
+                            if(parsedHref && parsedHref.payment == 'success'){
+                                let buildUrl = this.buildUrl()
+                                this.props.history.replace(buildUrl)
+                            }
                             this.props.setChatRoomId(null)
                             let that = this
                             setTimeout(() => {
@@ -247,6 +260,14 @@ class ChatPanel extends React.Component {
                             break;
                         }
 
+                        case 'bookNowPharmacy': {
+                            let analyticData = {
+                                'Category': 'Chat', 'Action': 'BookNowPharmacyFired', 'CustomerID': '', 'leadid': 0, 'event': 'book-now-pharmacy-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname
+                            }
+                            GTM.sendEvent({ data: analyticData })
+                            break;
+                        }
+
                     }
 
                     /**
@@ -267,7 +288,7 @@ class ChatPanel extends React.Component {
 
     }
 
-    sendPaymentStatusEvent(rid){
+    sendPaymentStatusEvent(rid) {
         let parsedHref = ''
         if (typeof window == "object") {
             parsedHref = queryString.parse(window.location.search)
@@ -276,7 +297,7 @@ class ChatPanel extends React.Component {
             rid: rid,
             payment_status: parsedHref.payment || ''
         }
-        this.dispatchCustomEvent('payment', data)        
+        this.dispatchCustomEvent('payment', data)
     }
 
     componentWillUnmount() {
@@ -370,12 +391,21 @@ class ChatPanel extends React.Component {
     }
 
     closeChat() {
+        let parsedHref = ''
+        if (typeof window == "object") {
+            parsedHref = queryString.parse(window.location.search)
+        }
+
         STORAGE.getAuthToken().then((token) => {
             token = token || ""
             this.setState({ token, initialMessage: "", selectedRoom: null })
         })
         this.dispatchCustomEvent.call(this, 'close_frame')
         this.setState({ showCancel: !this.state.showCancel })
+        if(parsedHref && parsedHref.payment == 'success'){
+            let buildUrl = this.buildUrl()
+            this.props.history.replace(buildUrl)
+        }
         this.props.setChatRoomId(null)
         this.props.unSetCommonUtmTags('chat')
         let that = this
@@ -383,6 +413,10 @@ class ChatPanel extends React.Component {
             that.props.ipdChatView(null)
         }, 1000)
 
+    }
+
+    buildUrl(){
+        return window.pathname;
     }
 
     toggleCancel(e) {
@@ -442,6 +476,37 @@ class ChatPanel extends React.Component {
         else {
             this.setState({ showChatBlock: true, additionClasses: "" });
         }
+    }
+
+    refundClicked(isEnable) {
+        if(isEnable){
+            let data = {
+                'Category': 'Chat', 'Action': 'RefundBtnClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'Refund-btn-clicked', "PageType": this.props.type, "url": window.location.pathname
+            }
+            GTM.sendEvent({ data: data })
+            this.toggleRefundPopup()
+
+        }else{
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "No payment exists for this consultation" })
+            }, 200)
+        }
+    }
+
+    toggleRefundPopup() {
+        this.setState({ openRefundPopup: !this.state.openRefundPopup })
+    }
+
+    submitRefundReasons(reason) {
+        let data = {
+            roomId: this.state.roomId,
+            reason: reason
+        }
+        this.dispatchCustomEvent('Refund_Fees', data)
+        this.props.setPaymentStatus(null)
+        let buildUrl = this.buildUrl()
+        this.props.history.replace(buildUrl)
+        this.toggleRefundPopup()
     }
 
     render() {
@@ -536,12 +601,35 @@ class ChatPanel extends React.Component {
             iframe_url += '&msg=startchat'
         }
 
-        if(parsedHref.payment) {
+        if (parsedHref.payment) {
             iframe_url += `&payment=${parsedHref.payment}`
         }
 
-        if(parsedHref.order_id) {
-            iframe_url += `&order_id=${parsedHref.order_id}`   
+        if (parsedHref.order_id) {
+            iframe_url += `&order_id=${parsedHref.order_id}`
+        }
+
+        let payment_disable = parsedHref && parsedHref.utm_campaign && parsedHref.utm_campaign.includes('AdDocChat') ? parsedHref.utm_campaign.includes('AdDocChat') : null
+
+        if(parsedHref.utm_campaign){
+            iframe_url += `&utm_campaign=${parsedHref.utm_campaign}`
+        }
+
+        if (payment_disable) {
+            iframe_url += `&testing_mode=a`
+        } else {
+            iframe_url += `&testing_mode=b`
+        }
+
+        if(parsedHref && parsedHref.consultation_id){
+            iframe_url += `&consultation_id=${parsedHref.consultation_id}`
+        }
+
+        let is_payment_for_current_room = null
+        if(this.props.USER && this.props.USER.chatPaymentStatus && this.props.USER.chatPaymentStatus==this.props.USER.currentRoomId){
+
+            is_payment_for_current_room = true;
+             
         }
 
         if (this.props.showHalfScreenChat && !this.props.showDesktopIpd) {
@@ -570,6 +658,11 @@ class ChatPanel extends React.Component {
         } else {
             return (
                 <div>
+                    {
+                        this.state.openRefundPopup &&
+                        <ChatRefundReasons submitRefund={this.submitRefundReasons.bind(this)} toggleRefund={() => this.toggleRefundPopup()} />
+
+                    }
                     {
                         this.props.homePage || this.props.mobilechatview || this.props.noChatButton || this.props.articleData || this.props.searchTestInfoData ? '' :
                             this.props.newChatBtn || this.props.newChatBtnAds ?
@@ -609,18 +702,21 @@ class ChatPanel extends React.Component {
                                                     :
                                                     this.props.chatPage ?
                                                         <h1 className="text-left header-text-chat" style={{ color: '#ef5350' }}>
-                                                            <span className="hed-txt-lt">Get a </span>
-                                                            Free Online Doctor Consultation!
+                                                            {/* <span className="hed-txt-lt">Get a </span> */}
+                                                            Online Doctor Consultation!
                                                         </h1>
                                                         :
                                                         <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
-                                                            <span className="hed-txt-lt">Get a </span>
-                                                            Free Online Doctor Consultation!
+                                                            {/* <span className="hed-txt-lt">Get a </span> */}
+                                                            Online Doctor Consultation!
                                                         </p>
                                             }
                                         </div>
 
-                                        <div className="cht-head-rqst-btn" style={this.props.homePage ? { width: 64 } : { width: 98 }} >
+                                        <div className="cht-head-rqst-btn refund-chat" style={this.props.homePage ? {} : {}} >
+                                            {
+                                                !is_religare && <p className={`cht-need-btn cursor-pntr ${is_payment_for_current_room?'':'disable-all'}`} onClick={() => { this.refundClicked(is_payment_for_current_room) }}>Refund</p>
+                                            }
                                             {
                                                 this.state.selectedRoom ? <span className="mr-2" onClick={() => {
                                                     let data = {
@@ -651,6 +747,7 @@ class ChatPanel extends React.Component {
 
                                                     </span>
                                             }
+
 
                                             {
                                                 this.state.showChatBlock

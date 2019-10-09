@@ -12,6 +12,7 @@ import SnackBar from 'node-snackbar'
 import GTM from '../../../helpers/gtm';
 import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup.js'
 import PaymentForm from '../paymentForm'
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 class CartView extends React.Component {
     constructor(props) {
@@ -56,6 +57,7 @@ class CartView extends React.Component {
         let platformConvFees = 0
         let total_amnt = 0
         let dd = 0
+        let vip_amnt_price =0
         for (let item of cart_items) {
             if (item.valid && item.actual_data.payment_type == 1) {
                 
@@ -64,42 +66,50 @@ class CartView extends React.Component {
                 if(item.actual_data.is_appointment_insured){
 
                 }else{
-                    total_mrp += item.mrp
-                    if(item.consultation && item.consultation.fees == 0){
-                        dd = item.mrp
-                    }else{
-                        dd = item.mrp - item.deal_price
-                    }
-                    console.log('dd='+dd)
-                    total_deal_price += dd
-                    console.log(total_deal_price)
-                    // total_deal_price += item.deal_price  
-                    total_home_pickup_charges += item.total_home_pickup_charges || 0
-                    if (item.data.coupons && item.data.coupons.length) {
-                        total_coupon_discount += item.coupon_discount
-                        total_coupon_cashback += item.coupon_cashback
-                        if (item.coupon_cashback <= 0) {
-                            if (coupon_breakup[item.data.coupons[0].code]) {
-                                coupon_breakup[item.data.coupons[0].code] += item.coupon_discount
-                            } else {
-                                coupon_breakup[item.data.coupons[0].code] = item.coupon_discount
-                            }
-                        } else {
-                            if (cashback_breakup[item.data.coupons[0].code]) {
-                                cashback_breakup[item.data.coupons[0].code] += item.coupon_cashback
-                            } else {
-                                cashback_breakup[item.data.coupons[0].code] = item.coupon_cashback
-                            }
+                    if(item.actual_data.is_vip_member && item.actual_data.cover_under_vip){
+
+                        if(item.actual_data.vip_amount == 0){
+                            vip_amnt_price += item.mrp
+                        }else{
+                            vip_amnt_price += item.mrp - item.actual_data.vip_amount
                         }
                     }
-                    if(item.consultation && item.consultation.fees == 0){
-                        platformConvFees += parseInt(item.deal_price)
+                    total_mrp += item.mrp
+                    if(!item.actual_data.cover_under_vip){
+                        if(item.consultation && item.consultation.fees == 0){
+                            dd = item.mrp
+                        }else{
+                            dd = item.mrp - item.deal_price
+                        }
+                        total_deal_price += dd
+                        // total_deal_price += item.deal_price  
+                        total_home_pickup_charges += item.total_home_pickup_charges || 0
+                        if (item.data.coupons && item.data.coupons.length) {
+                            total_coupon_discount += item.coupon_discount
+                            total_coupon_cashback += item.coupon_cashback
+                            if (item.coupon_cashback <= 0) {
+                                if (coupon_breakup[item.data.coupons[0].code]) {
+                                    coupon_breakup[item.data.coupons[0].code] += item.coupon_discount
+                                } else {
+                                    coupon_breakup[item.data.coupons[0].code] = item.coupon_discount
+                                }
+                            } else {
+                                if (cashback_breakup[item.data.coupons[0].code]) {
+                                    cashback_breakup[item.data.coupons[0].code] += item.coupon_cashback
+                                } else {
+                                    cashback_breakup[item.data.coupons[0].code] = item.coupon_cashback
+                                }
+                            }
+                        }
+                        if(item.consultation && item.consultation.fees == 0){
+                            platformConvFees += parseInt(item.deal_price)
+                        }
                     }
                 }
 
             }
         }
-        total_amnt = total_mrp - total_deal_price + platformConvFees - total_coupon_discount
+        total_amnt = total_mrp - total_deal_price + platformConvFees - total_coupon_discount + total_home_pickup_charges - vip_amnt_price
         return {
             total_mrp,
             total_deal_price,
@@ -109,7 +119,8 @@ class CartView extends React.Component {
             coupon_breakup,
             cashback_breakup,
             platformConvFees,
-            total_amnt
+            total_amnt,
+            vip_amnt_price
         }
     }
 
@@ -189,7 +200,7 @@ class CartView extends React.Component {
     }
 
     sendAgentBookingURL() {
-        this.props.sendAgentBookingURL(null, 'sms', '',(err, res) => {
+        this.props.sendAgentBookingURL(null, 'sms', null,null,(err, res) => {
             if (err) {
                 SnackBar.show({ pos: 'bottom-center', text: "SMS SEND ERROR" })
             } else {
@@ -234,7 +245,8 @@ class CartView extends React.Component {
             coupon_breakup,
             cashback_breakup,
             platformConvFees,
-            total_amnt
+            total_amnt,
+            vip_amnt_price
         } = this.getPriceBreakup(cart)
 
         let total_wallet_balance = 0
@@ -280,7 +292,7 @@ class CartView extends React.Component {
                 <ProfileHeader />
                 {
                     this.state.showConfirmationPopup && is_selected_user_insurance_status !=4?
-                    <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)}/>
+                    <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} bannerConfirmationPopup={()=>{}} isCart={true}/>
                     :''
                 }
                 <section className="container container-top-margin">
@@ -330,13 +342,13 @@ class CartView extends React.Component {
                                                                     <div className="payment-summary-content">
                                                                         <div className="payment-detail d-flex">
                                                                             <p>Total Fees</p>
-                                                                            <p>&#8377; {parseInt(total_mrp)}</p>
+                                                                            <p className="pay-amnt-shrnk">&#8377; {parseInt(total_mrp)}</p>
                                                                         </div>
                                                                         {
                                                                             is_platform_conv_fees>0?
                                                                             <div className="payment-detail d-flex">
                                                                                 <p>Platform Convenience Fee</p>
-                                                                                <p>&#8377; {parseInt(platformConvFees)}</p>
+                                                                                <p className="pay-amnt-shrnk">&#8377; {parseInt(platformConvFees)}</p>
                                                                             </div>
                                                                             :''
                                                                         }
@@ -350,7 +362,7 @@ class CartView extends React.Component {
                                                                         {
                                                                             total_home_pickup_charges ? <div className="payment-detail d-flex">
                                                                                 <p>Home pickup charges</p>
-                                                                                <p>- &#8377; {parseInt(total_home_pickup_charges)}</p>
+                                                                                <p>+ &#8377; {parseInt(total_home_pickup_charges)}</p>
                                                                             </div> : ""
                                                                         }
 
@@ -358,13 +370,19 @@ class CartView extends React.Component {
                                                                             total_coupon_discount ? <div>
                                                                                 {
                                                                                     Object.keys(coupon_breakup).map((cp, j) => {
-                                                                                        return <div className="payment-detail d-flex">
+                                                                                        return <div className="payment-detail d-flex" key={j}>
                                                                                             <p style={{ color: 'green' }}>Coupon Discount ({cp})</p>
                                                                                             <p style={{ color: 'green' }}>-&#8377; {coupon_breakup[cp]}</p>
                                                                                         </div>
                                                                                     })
                                                                                 }
                                                                             </div> : ''
+                                                                        }
+
+                                                                        {vip_amnt_price ?
+                                                                            <div class="payment-detail d-flex"><p style={{color: 'green'}}>Docprime VIP Member</p><p style={{color: 'green'}}>-₹ {vip_amnt_price}</p>
+                                                                            </div>
+                                                                            :''
                                                                         }
 
                                                                     </div>
@@ -382,7 +400,7 @@ class CartView extends React.Component {
                                                                     total_coupon_cashback ? <div className="csh-back-applied-container">
                                                                         {
                                                                             Object.keys(cashback_breakup).map((key, i) => {
-                                                                                return <p className="csh-mny-applied">+ &#8377; {cashback_breakup[key]} Cashback Applied ({key})</p>
+                                                                                return <p key={i} className="csh-mny-applied">+ &#8377; {cashback_breakup[key]} Cashback Applied ({key})</p>
                                                                             })
                                                                         }
                                                                         <p className="csh-mny-applied-content">Cashback will be added to your docprime wallet balance on appointment completion</p>
@@ -454,6 +472,7 @@ class CartView extends React.Component {
                         <RightBar noChatButton={true} />
                     </div>
                 </section>
+                <Disclaimer />
                 {
                     this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='lab'/> : ""
                 }

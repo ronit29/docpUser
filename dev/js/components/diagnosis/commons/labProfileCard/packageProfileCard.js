@@ -77,7 +77,11 @@ class LabProfileCard extends React.Component {
         let slot = { time: {} }
         this.props.clearExtraTests()
         this.props.selectLabTimeSLot(slot, false)
-        this.props.selectLabAppointmentType('home')
+        let selectedType = {
+            r_pickup: 'home',
+            p_pickup: 'lab'
+        }
+        this.props.selectLabAppointmentType(selectedType)
 
         let new_test = {}
         new_test.extra_test = true
@@ -148,7 +152,7 @@ class LabProfileCard extends React.Component {
     }
 
     render() {
-        let { discounted_price, price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id, number_of_tests, show_details, categories, category_details, address, included_in_user_plan, insurance } = this.props.details;
+        let { discounted_price, price, lab, distance, pickup_available, lab_timing, lab_timing_data, mrp, next_lab_timing, next_lab_timing_data, distance_related_charges, pickup_charges, name, id, number_of_tests, show_details, categories, category_details, address, included_in_user_plan, insurance, vip } = this.props.details;
         distance = Math.ceil(distance / 1000);
         var openingTime = ''
         if (this.props.details.lab_timing) {
@@ -195,6 +199,8 @@ class LabProfileCard extends React.Component {
         if (insurance && insurance.is_insurance_covered && insurance.is_user_insured) {
             is_insurance_applicable = true
         }
+        let is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
+        let vip_amount = vip.vip_amount
         return (
             <div className="pkg-card-container mb-3">
                 {!this.props.isCompared && (this.props.isCompare || this.props.compare_packages.length > 0) ?
@@ -256,10 +262,30 @@ class LabProfileCard extends React.Component {
                             </div>
                             <div className="col-4">
                                 <div className="pkg-card-price text-right">
-                                    <p className="dc-prc">Docprime Price</p>
                                     {
-                                        !is_insurance_applicable && !hide_price && discounted_price ? <p className="fw-500">₹ {parseInt(discounted_price)}
-                                            <span className="pkg-cut-price">₹ {parseInt(mrp)}</span></p> : ''
+                                        !is_vip_applicable?
+                                            <p className="dc-prc">Docprime Price</p>
+                                        :''
+                                    }
+                                    {is_vip_applicable?
+                                        <div className="text-right mb-2">
+                                            <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                        </div>
+                                    :''}
+                                    {
+                                        is_vip_applicable?
+                                            <p className="fw-500">₹ {parseInt(vip_amount)}
+                                                <span className="pkg-cut-price">₹ {parseInt(mrp)}</span>
+                                            </p>
+                                        :''
+                                    }
+                                    {
+                                        !is_insurance_applicable && !hide_price && discounted_price && !is_vip_applicable? 
+                                            parseInt(discounted_price)!= parseInt(mrp)?
+                                            <p className="fw-500">₹ {parseInt(discounted_price)}
+                                                <span className="pkg-cut-price">₹ {parseInt(mrp)}</span></p>
+                                            :<p className="fw-500">₹ {parseInt(discounted_price)}</p>
+                                             : ''
                                     }
                                     {
                                         hide_price ? <p className="fw-500">₹ 0</p> : ""
@@ -273,7 +299,7 @@ class LabProfileCard extends React.Component {
                                             : ''
                                     }
                                     {
-                                        !is_insurance_applicable && !hide_price && offPercent && offPercent > 0 ?
+                                        !is_insurance_applicable && !hide_price && offPercent && offPercent > 0 && !is_vip_applicable ?
                                             <p className="dc-cpn-include">{offPercent}% Off 
                                                 {!is_insurance_applicable && !included_in_user_plan && discounted_price != price?
                                                     <span>(includes Coupon)</span>

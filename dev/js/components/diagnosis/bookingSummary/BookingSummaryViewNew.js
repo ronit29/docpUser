@@ -22,6 +22,8 @@ import PincodeErrorPopup from './PincodeErrorPopup.js'
 import BookingConfirmationPopup from './BookingConfirmationPopup.js'
 import UploadPrescription from './uploadPrescription.js'
 import PaymentForm from '../../commons/paymentForm'
+import LensfitPopup from './lensfitPopup.js'
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 class BookingSummaryViewNew extends React.Component {
     constructor(props) {
@@ -59,7 +61,11 @@ class BookingSummaryViewNew extends React.Component {
             is_payment_coupon_applied: false,
             is_spo_appointment: false,
             pay_btn_loading: true,
-            isDobNotValid:false
+            isDobNotValid:false,
+            show_lensfit_popup:false,
+            lensfit_coupons:null,
+            lensfit_decline:false,
+            isLensfitSpecific:parsed.isLensfitSpecific|| false
         }
     }
 
@@ -144,13 +150,23 @@ class BookingSummaryViewNew extends React.Component {
                 }
             }
         }
+        if(this.state.isLensfitSpecific){
+            setTimeout(() => {
+                if (document.getElementById('confirm_booking')) {
+                    document.getElementById('confirm_booking').click()
+                }
+            },3000)
+        }
     }
 
     componentWillReceiveProps(nextProps) {
         /*if (!STORAGE.checkAuth()) {
             return
         }*/
-
+        let isPickupStatusSame = false
+        if(nextProps.selectedAppointmentType.r_pickup == this.props.selectedAppointmentType.r_pickup && nextProps.selectedAppointmentType.p_pickup == this.props.selectedAppointmentType.p_pickup){
+            isPickupStatusSame = true    
+        }
         if (nextProps.LABS[this.props.selectedLab] && nextProps.LABS[this.props.selectedLab].tests && nextProps.LABS[this.props.selectedLab].tests.length == 0) {
             this.props.resetLabCoupons()
             this.setState({'pay_btn_loading': false})
@@ -158,8 +174,41 @@ class BookingSummaryViewNew extends React.Component {
         }
         if (nextProps.LABS[this.props.selectedLab] && nextProps.LABS[this.props.selectedLab].tests && nextProps.LABS[this.props.selectedLab].tests.length) {
             // bases cases
-            if (this.props.LABS[this.props.selectedLab] && nextProps.LABS[this.props.selectedLab].tests == this.props.LABS[this.props.selectedLab].tests && nextProps.selectedAppointmentType == this.props.selectedAppointmentType) {
-                return
+            if (this.props.LABS[this.props.selectedLab] && nextProps.LABS[this.props.selectedLab].tests == this.props.LABS[this.props.selectedLab].tests && isPickupStatusSame) {
+                
+            }
+
+            //If after selecting time, user add more tests then for pathology test we have to force add the pathology timings 
+            if(nextProps.selectedSlot && nextProps.selectedSlot.selectedTestsTimeSlot &&  Object.keys(nextProps.selectedSlot.selectedTestsTimeSlot).length &&  nextProps.LABS[this.props.selectedLab].tests.length ){
+
+                    let commonTestId = nextProps.selectedSlot['pathology']?nextProps.selectedSlot['pathology'].test_id:nextProps.selectedSlot['all']?nextProps.selectedSlot['all'].test_id:null
+
+                    let newTests = []
+                    nextProps.LABS[this.props.selectedLab].tests.map((test)=>{
+
+                        if(test.is_pathology) {
+                            if(nextProps.selectedSlot.selectedTestsTimeSlot[test.test_id]) {
+
+                            }else if(test.is_pathology){
+                                newTests.push(test)
+                            }    
+                        }
+                        
+                    })
+
+                if(commonTestId && newTests.length) {
+                    
+                    let finalSelectedSlot = {...nextProps.selectedSlot}
+                    let testsObj = {...finalSelectedSlot.selectedTestsTimeSlot}
+                    if(newTests.length) {
+                        newTests.map((x)=>{
+                            testsObj[x.test.id] = {...testsObj[commonTestId], test_id: x.test.id, test_name:x.test.name}
+                        })
+                        finalSelectedSlot['selectedTestsTimeSlot'] = testsObj
+                        this.props.selectLabTimeSLot(finalSelectedSlot)
+                    }
+
+                }
             }
 
             // remove corporate coupon if tests are not valid
@@ -184,7 +233,7 @@ class BookingSummaryViewNew extends React.Component {
 
             // if corporateCoupon is set, apply that, leave rest
             if (nextProps.corporateCoupon) {
-                if (this.props.LABS[this.props.selectedLab] != nextProps.LABS[this.props.selectedLab] || this.props.selectedAppointmentType != nextProps.selectedAppointmentType) {
+                if (this.props.LABS[this.props.selectedLab] != nextProps.LABS[this.props.selectedLab] || !isPickupStatusSame) {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupon = nextProps.corporateCoupon
@@ -203,7 +252,7 @@ class BookingSummaryViewNew extends React.Component {
 
             // if coupon already applied just set discount price.
             if (nextProps.labCoupons[this.props.selectedLab] && nextProps.labCoupons[this.props.selectedLab].length) {
-                if (this.props.LABS[this.props.selectedLab] != nextProps.LABS[this.props.selectedLab] || this.props.selectedAppointmentType != nextProps.selectedAppointmentType) {
+                if (this.props.LABS[this.props.selectedLab] != nextProps.LABS[this.props.selectedLab] || !isPickupStatusSame) {
                     let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
 
                     let labCoupons = nextProps.labCoupons[this.props.selectedLab]
@@ -216,7 +265,7 @@ class BookingSummaryViewNew extends React.Component {
                             }
                         } else {
                             this.setState({ coupon_loading: true })
-                            this.getAndApplyBestCoupons(nextProps)
+                            this.getAndApplyBestCoupons(nextProps,false)
                         }
                         this.setState({'pay_btn_loading': false})
                     })
@@ -226,7 +275,7 @@ class BookingSummaryViewNew extends React.Component {
 
             // if no coupon is applied
             if (!nextProps.labCoupons[this.props.selectedLab]) {
-                this.getAndApplyBestCoupons(nextProps)
+                this.getAndApplyBestCoupons(nextProps,false)
                 this.setState({'pay_btn_loading': false})
             }
 
@@ -248,15 +297,24 @@ class BookingSummaryViewNew extends React.Component {
         return validCoupon
     }
 
-    getAndApplyBestCoupons(nextProps) {
+    getAndApplyBestCoupons(nextProps,isLensfit) {
+        
         // if (nextProps.couponAutoApply) {
             let { finalPrice, test_ids } = this.getLabPriceData(nextProps)
-
+            let validCoupon
             this.props.getCoupons({
                 productId: 2, deal_price: finalPrice, lab_id: this.props.selectedLab, test_ids: test_ids, profile_id: nextProps.selectedProfile, cart_item: this.state.cart_item,
                 cb: (coupons) => {
                     if (coupons) {
-                        let validCoupon = this.getValidCoupon(coupons)
+                        if(isLensfit){
+                            let lensFitProps = {...nextProps}
+                            delete lensFitProps.finalPrice
+                            delete lensFitProps.test_ids
+                            delete lensFitProps.LABS
+                            validCoupon= lensFitProps
+                        }else{
+                            validCoupon= this.getValidCoupon(coupons)
+                        }
                         if (validCoupon) {
                             this.setState({'pay_btn_loading': true})
                             this.props.applyCoupons('2', validCoupon, validCoupon.coupon_id, this.props.selectedLab, (success) => {
@@ -265,15 +323,24 @@ class BookingSummaryViewNew extends React.Component {
                             this.props.applyLabCoupons('2', validCoupon.code, validCoupon.coupon_id, this.props.selectedLab, finalPrice, test_ids, this.props.selectedProfile, this.state.cart_item, (err, data) => {
                                 this.setState({'pay_btn_loading': false})
                             })
+                            if(isLensfit){
+                                this.setState({show_lensfit_popup:false})
+                            }
                             this.setState({ is_cashback: validCoupon.is_cashback, couponCode: validCoupon.code, couponId: validCoupon.coupon_id || '' })
                             if (validCoupon.is_payment_specific) {
                                 this.setState({use_wallet: false, is_payment_coupon_applied: true})
                             }
                         } else {
+                            if(isLensfit){
+                                this.setState({show_lensfit_popup:false})
+                            }
                             this.props.resetLabCoupons()
                             this.setState({ couponCode: "", couponId: '', is_cashback: false, use_wallet: true, is_payment_coupon_applied: false,'pay_btn_loading': false })
                         }
                     } else {
+                        if(isLensfit){
+                            this.setState({show_lensfit_popup:false})
+                        }
                         this.props.resetLabCoupons()
                         this.setState({ couponCode: "", couponId: '', is_cashback: false, use_wallet: true, is_payment_coupon_applied: false,'pay_btn_loading': false })
                     }
@@ -299,7 +366,7 @@ class BookingSummaryViewNew extends React.Component {
             finalPrice += parseFloat(price)
         })
 
-        if (is_home_collection_enabled && nextProps.selectedAppointmentType == 'home') {
+        if (is_home_collection_enabled && (nextProps.selectedAppointmentType.r_pickup == 'home' || nextProps.selectedAppointmentType.p_pickup == 'home') ) {
             finalPrice = finalPrice + (nextProps.LABS[this.props.selectedLab].lab.home_pickup_charges || 0)
         }
 
@@ -315,32 +382,37 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    handlePickupType(e) {
+    handlePickupType(type) {
         //always clear selected time at lab profile
         let slot = { time: {} }
         this.props.selectLabTimeSLot(slot, false)
-        this.props.selectLabAppointmentType(e.target.value)
+        this.props.selectLabAppointmentType(type)
         this.setState({ showTimeError: false, showAddressError: false });
     }
 
-    navigateTo(where, is_insurance_applicable, e) {
+    navigateTo(where, is_insurance_applicable, selectTimeError=false) {
         switch (where) {
             case "time": {
+                //Get Test ids of all selected Tests
+                let test_ids = this.props.LABS[this.props.selectedLab].tests.map(x=>x.test_id)
+
                 if (this.state.pincode || (this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].lab && !this.props.LABS[this.props.selectedLab].lab.is_thyrocare)) {
 
+                    let r_pickup = this.props.selectedAppointmentType.r_pickup
+                    let p_pickup = this.props.selectedAppointmentType.p_pickup
                     if (this.props.LABS[this.props.selectedLab].lab.is_thyrocare) {
                         if (this.state.seoFriendly) {
-                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true&action_page=timings&is_insurance=${is_insurance_applicable}`
+                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=lab&goback=true&is_thyrocare=true&action_page=timings&is_insurance=${is_insurance_applicable}&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}&selectedType=${selectTimeError?'seperately':'all'}`
                             this.props.history.push(url)
                         } else {
-                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=true&is_insurance=${is_insurance_applicable}`)
+                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=lab&goback=true&is_thyrocare=true&is_insurance=${is_insurance_applicable}&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}&selectedType=${selectTimeError?'seperately':'all'}`)
                         }
                     } else {
                         if (this.state.seoFriendly) {
-                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false&action_page=timings&is_insurance=${is_insurance_applicable}`
+                            let url = `${window.location.pathname}?lab_id=${this.props.selectedLab}&type=lab&goback=true&is_thyrocare=false&action_page=timings&is_insurance=${is_insurance_applicable}&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}&selectedType=${selectTimeError?'seperately':'all'}`
                             this.props.history.push(url)
                         } else {
-                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=${this.props.selectedAppointmentType}&goback=true&is_thyrocare=false&is_insurance=${is_insurance_applicable}`)
+                            this.props.history.push(`/lab/${this.props.selectedLab}/timeslots?type=lab&goback=true&is_thyrocare=false&is_insurance=${is_insurance_applicable}&test_ids=${test_ids}&r_pickup=${r_pickup}&p_pickup=${p_pickup}&selectedType=${selectTimeError?'seperately':'all'}`)
                         }
                     }
 
@@ -368,12 +440,23 @@ class BookingSummaryViewNew extends React.Component {
         }
     }
 
-    getSelectors(is_insurance_applicable) {
+    getSelectors(is_insurance_applicable, center_visit_enabled, is_home_charges_applicable) {
         let patient = null
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
         }
 
+        return <React.Fragment>
+            <VisitTimeNew type="home" navigateTo={this.navigateTo.bind(this)} selectedSlot={this.props.selectedSlot} timeError={this.state.showTimeError} {...this.props} selectedLab={this.props.selectedLab} toggle={this.toggle.bind(this, 'showPincodePopup')} is_insurance_applicable={is_insurance_applicable}/>
+            <ChoosePatientNewView is_corporate={!!this.props.corporateCoupon} patient={patient} navigateTo={this.navigateTo.bind(this)} profileDataCompleted={this.profileDataCompleted.bind(this)} {...this.props} is_lab={true} clearTestForInsured={this.clearTestForInsured.bind(this)} is_insurance_applicable={is_insurance_applicable} checkPrescription={this.checkPrescription.bind(this)} isEmailNotValid={this.state.isEmailNotValid} />
+            {
+                patient && is_home_charges_applicable?
+                    <PickupAddress {...this.props} navigateTo={this.navigateTo.bind(this, 'address')} addressError={this.state.showAddressError} />
+                    : ''
+            }
+
+        </React.Fragment>
+/*
         switch (this.props.selectedAppointmentType) {
             case "lab": {
                 return <div>
@@ -393,7 +476,7 @@ class BookingSummaryViewNew extends React.Component {
                     }
                 </div>
             }
-        }
+        }*/
     }
 
     profileDataCompleted(data) {
@@ -463,6 +546,21 @@ class BookingSummaryViewNew extends React.Component {
             return
         }
 
+        if(this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot){
+            let found = false
+            this.props.LABS[this.props.selectedLab].tests.map((test)=>{
+                if(this.props.selectedSlot.selectedTestsTimeSlot[test.test_id]){
+
+                }else{
+                    found = true
+                }
+            })
+            if(found) {
+                SnackBar.show({ pos: 'bottom-center', text: "Please select timings of all Tests." });
+                return
+            }
+        }
+
         if (!datePicked) {
             this.setState({ showTimeError: true });
             SnackBar.show({ pos: 'bottom-center', text: "Please pick a time slot." });
@@ -514,10 +612,10 @@ class BookingSummaryViewNew extends React.Component {
             }
         }
 
-        if (!this.state.profileDataFilled) {
+        /*if (!this.state.profileDataFilled) {
             SnackBar.show({ pos: 'bottom-center', text: "Please fill the info" });
             return
-        }
+        }*/
         if (e.target.dataset.disabled == true) {
             return
         }
@@ -530,14 +628,21 @@ class BookingSummaryViewNew extends React.Component {
         let is_insurance_applicable = false
         let is_tests_covered_under_insurance = false
         let is_selected_user_insured = false
+        let is_vip_applicable = false
+        let is_selected_user_under_vip = false
+        let is_tests_covered_under_vip = false
+        let vip_amount
 
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
+            is_selected_user_under_vip = this.props.profiles[this.props.selectedProfile].is_vip_member
         }
 
         let is_plan_applicable = false
         let is_tests_covered_under_plan = true
         let is_selected_user_has_active_plan = false
+        let show_lensfit = true
+        let lensfit_coupons= null
 
         if (this.props.isUserCared && this.props.isUserCared.has_active_plan) {
             is_selected_user_has_active_plan = this.props.isUserCared.has_active_plan
@@ -562,14 +667,36 @@ class BookingSummaryViewNew extends React.Component {
                 } else {
                     is_tests_covered_under_plan = false
                 }
+                if(test.lensfit_offer){
+                    if(!test.lensfit_offer.applicable){
+                        show_lensfit = false
+                    }else{
+                        lensfit_coupons = test.lensfit_offer.coupon
+                    }  
+                    
+                }else{
+
+                }
+                if(test.vip && test.vip.covered_under_vip){
+                    is_tests_covered_under_vip = true
+                    vip_amount = test.vip.vip_amount
+                }else{
+
+                }
             })
 
         }
-
-
         is_insurance_applicable = is_tests_covered_under_insurance && is_selected_user_insured
 
         is_plan_applicable = is_tests_covered_under_plan && is_selected_user_has_active_plan
+        
+        show_lensfit = show_lensfit && this.props.LABS[this.props.selectedLab] && this.props.LABS[this.props.selectedLab].tests && this.props.LABS[this.props.selectedLab].tests.length
+
+        /*if(!this.state.show_lensfit_popup && !this.state.lensfit_decline && show_lensfit && !is_plan_applicable && !is_insurance_applicable && lensfit_coupons && Object.keys(lensfit_coupons).length > 0 && this.state.couponId !=lensfit_coupons.coupon_id){
+            this.setState({show_lensfit_popup:true, lensfit_coupons:lensfit_coupons})
+            return
+        }*/
+        is_vip_applicable = is_tests_covered_under_vip && is_selected_user_under_vip
         let prescriptionIds = []
         if (prescriptionPicked && is_insurance_applicable) {
             if (this.props.user_prescriptions && this.props.user_prescriptions.length == 0) {
@@ -592,20 +719,29 @@ class BookingSummaryViewNew extends React.Component {
         }
         
 
-        let start_date = this.props.selectedSlot.date
+       /* let start_date = this.props.selectedSlot.date
         let start_time = this.props.selectedSlot.time.value
-        let testIds = this.props.lab_test_data[this.props.selectedLab] || []
+       */ let testIds = this.props.lab_test_data[this.props.selectedLab] || []
         testIds = testIds.map(x => x.id)
 
         let postData = {
             lab: this.props.selectedLab,
             test_ids: testIds,
             profile: this.props.selectedProfile,
-            start_date, start_time, is_home_pickup: this.props.selectedAppointmentType == 'home', address: this.props.selectedAddress,
+            address: this.props.selectedAddress,
             payment_type: 1, // TODO : Select payment type
             use_wallet: this.state.use_wallet,
             cart_item: this.state.cart_item,
-            prescription_list: prescriptionIds
+            prescription_list: prescriptionIds,
+            multi_timings_enabled: true,
+            from_web: true
+        }
+        if(this.props.selectedSlot){
+            if(this.props.selectedSlot['all']) {
+                postData['selected_timings_type'] = 'common'
+            }else{
+                postData['selected_timings_type'] = 'separate'
+            }
         }
         //Check SPO UTM Tags
         if(sessionStorage && sessionStorage.getItem('sessionIdVal') && this.props.common_utm_tags && this.props.common_utm_tags.length && this.props.common_utm_tags.filter(x=>x.type=='spo').length) {
@@ -618,12 +754,31 @@ class BookingSummaryViewNew extends React.Component {
         }
 
 
+        if(this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot){
+            let tests = []
+
+            this.props.LABS[this.props.selectedLab].tests.map((twp)=>{
+
+                if(this.props.selectedSlot.selectedTestsTimeSlot[twp.test_id]){
+                    let test = this.props.selectedSlot.selectedTestsTimeSlot[twp.test_id]
+                    let type = 3
+                    if(twp.is_radiology){
+                        type = 1
+                    }else if(twp.is_pathology){
+                        type = 2
+                    }
+
+                    tests.push({test: test.test_id,type:type, start_date: test.date, start_time: test.time.value, is_home_pickup: test.is_home_pickup })   
+                }
+            })
+            postData['test_timings'] = tests
+        }
         let profileData = { ...patient }
         if (profileData && profileData.whatsapp_optin == null) {
             profileData['whatsapp_optin'] = this.state.whatsapp_optin
             this.props.editUserProfile(profileData, profileData.id)
         }
-        if (this.props.disCountedLabPrice && !is_plan_applicable && !is_insurance_applicable) {
+        if (this.props.disCountedLabPrice >= 0 && !is_plan_applicable && !is_insurance_applicable && !is_vip_applicable) {
             postData['coupon_code'] = this.state.couponCode ? [this.state.couponCode] : []
         }
 
@@ -639,7 +794,7 @@ class BookingSummaryViewNew extends React.Component {
             postData['is_thyrocare'] = false
 
         }
-
+        
 
         if (addToCart) {
             let data = {
@@ -675,7 +830,7 @@ class BookingSummaryViewNew extends React.Component {
         GTM.sendEvent({ data: data })
 
         data = {
-            'Category': 'ConsumerApp', 'Action': 'AppointmentType', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'appointment-type', 'appointmentType': this.props.selectedAppointmentType || ''
+            'Category': 'ConsumerApp', 'Action': 'AppointmentType', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'appointment-type', 'appointmentType': '', 'r_pickup': this.props.selectedAppointmentType.r_pickup, 'p_pickup':this.props.selectedAppointmentType.p_pickup
         }
 
         GTM.sendEvent({ data: data })
@@ -791,10 +946,16 @@ class BookingSummaryViewNew extends React.Component {
         this.setState({ error: '' })
     }
 
-    getBookingButtonText(total_wallet_balance, price_to_pay) {
+    getBookingButtonText(total_wallet_balance, price_to_pay,is_vip_applicable,vip_amount) {
         let price_from_wallet = 0
         let price_from_pg = 0
-
+        if(is_vip_applicable){
+            if(vip_amount){
+                return `Confirm Booking (₹ ${vip_amount})`
+            }else{
+                return `Confirm Booking`
+            }
+        }
         if (this.state.use_wallet && total_wallet_balance) {
             price_from_wallet = Math.min(total_wallet_balance, price_to_pay)
         }
@@ -902,6 +1063,41 @@ class BookingSummaryViewNew extends React.Component {
         GTM.sendEvent({ data: data })
     }
 
+    removeTest(twp) {
+        let test = Object.assign({}, twp.test)
+        test.extra_test = true
+        test.lab_id = this.props.selectedLab
+        test.removeTest = true
+        test.selectedLabTests = this.props.LABS[this.props.selectedLab]
+        this.props.toggleDiagnosisCriteria('test', test)
+    }
+
+    applyLensFitCoupons(deal_price,coupon){
+        let { finalPrice, test_ids } = this.getLabPriceData(this.props)
+        coupon.finalPrice = finalPrice
+        coupon.test_ids = test_ids
+        coupon.LABS = this.props.LABS
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'LensFitLabApplyClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lensfit-lab-apply-clicked'
+        }
+        GTM.sendEvent({ data: data })
+        this.getAndApplyBestCoupons(coupon,true)
+    }
+
+    closeLensFitPopup(){
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'LensFitLabDontWantClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lensfit-lab-dont-want-clicked'
+        }
+        GTM.sendEvent({ data: data })
+        
+        this.setState({show_lensfit_popup:false,lensfit_decline:true},()=>{
+            if (document.getElementById('confirm_booking')) {
+                document.getElementById('confirm_booking').click()
+            }
+        })
+        // this.setState({show_lensfit_popup:false,lensfit_decline:true})
+    }
+    
     render() {
         const parsed = queryString.parse(this.props.location.search)
         let tests = []
@@ -927,20 +1123,31 @@ class BookingSummaryViewNew extends React.Component {
         let is_selected_user_has_active_plan = false
         let is_insurance_buy_able = false
         let is_selected_user_insurance_status 
+        let radiology_tests = []
+        let pathology_tests = []
+        let r_pickup_home = true
+        let r_pickup_center = false
+        let p_pickup_home = true
+        let p_pickup_center = false
+        let is_vip_applicable = false
+        let is_selected_user_under_vip = false
+        let is_default_user_under_vip = false
+        let is_tests_covered_under_vip = false
+        let vip_amount
         if (this.props.profiles[this.props.selectedProfile] && !this.props.profiles[this.props.selectedProfile].isDummyUser) {
             patient = this.props.profiles[this.props.selectedProfile]
             is_selected_user_insured = this.props.profiles[this.props.selectedProfile].is_insured
             is_selected_user_insurance_status = this.props.profiles[this.props.selectedProfile].insurance_status
+            is_selected_user_under_vip = this.props.profiles[this.props.selectedProfile].is_vip_member
 
         }
-
         if (this.props.is_prescription_needed) {
             prescriptionPicked = true
         }
         if (this.props.defaultProfile && this.props.profiles[this.props.defaultProfile]) {
             is_default_user_insured = this.props.profiles[this.props.defaultProfile].is_insured
+            is_default_user_under_vip = this.props.profiles[this.props.defaultProfile].is_vip_member
         }
-
 
         //Check If each Tests Covered Under Insurance
         if (this.props.isUserCared && this.props.isUserCared.has_active_plan) {
@@ -953,12 +1160,10 @@ class BookingSummaryViewNew extends React.Component {
             is_tests_covered_under_insurance = true
 
             this.props.LABS[this.props.selectedLab].tests.map((test, i) => {
-
                 if (test.insurance && test.insurance.is_insurance_covered && test.insurance.insurance_threshold_amount >= parseInt(test.deal_price)) {
 
                 } else {
                     is_tests_covered_under_insurance = false
-
                 }
 
                 if (test.included_in_user_plan) {
@@ -966,11 +1171,17 @@ class BookingSummaryViewNew extends React.Component {
                 } else {
                     is_tests_covered_under_plan = false
                 }
+                if(test.vip && test.vip.covered_under_vip){
+                    is_tests_covered_under_vip = true
+                    vip_amount = test.vip.vip_amount
+                }else{
+
+                }
             })
 
         }
         is_insurance_applicable = is_tests_covered_under_insurance && is_selected_user_insured
-        
+        is_vip_applicable = is_tests_covered_under_vip && is_selected_user_under_vip
         if(is_tests_covered_under_insurance && !is_selected_user_insured){
             is_insurance_buy_able = true
         }
@@ -989,14 +1200,18 @@ class BookingSummaryViewNew extends React.Component {
                 let price = twp.deal_price
                 let mrp = twp.mrp
                 // check if any of the selected test does not allow home_pickup_available
-                if (!twp.is_home_collection_enabled) {
+                /*if (!twp.is_home_collection_enabled) {
                     is_home_collection_enabled = false
-                }
+                }*/
                 finalPrice += parseFloat(price)
                 finalMrp += parseFloat(mrp)
 
-                tests.push(
-                    <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
+                if(twp.is_radiology) {
+                    r_pickup_center = this.props.LABS[this.props.selectedLab].lab.center_visit_enabled
+                    if (!twp.is_home_collection_enabled) {
+                        r_pickup_home = false
+                    }
+                    radiology_tests.push(<p key={i} className="test-list test-list-label new-lab-test-list rdo-rmv-btn">
                         {/*
                         is_corporate || is_insurance_applicable || is_plan_applicable ?
                         <span className="float-right fw-700">₹ 0 </span>
@@ -1019,7 +1234,40 @@ class BookingSummaryViewNew extends React.Component {
                                 <p className="pkg-discountCpn" style={{ display: 'inline-block', float: 'right', marginTop: '5px' }}>Docprime Care Benefit</p>
                                 : ''
                         }
+                        <span className="rdo-rmv-spn" onClick={()=>this.removeTest(twp)}>Remove</span>
                     </p>)
+                }else if(twp.is_pathology){
+                    p_pickup_center = this.props.LABS[this.props.selectedLab].lab.center_visit_enabled
+                    if (!twp.is_home_collection_enabled) {
+                        p_pickup_home = false
+                    }
+                    pathology_tests.push(
+                    <p key={i} className="test-list test-list-label rdo-rmv-btn new-lab-test-list">
+                        {/*
+                        is_corporate || is_insurance_applicable || is_plan_applicable ?
+                        <span className="float-right fw-700">₹ 0 </span>
+                        :
+                        price == twp.mrp ?
+                        <span className="float-right fw-700">&#8377; {price}</span>
+                        :
+                        <span className="float-right fw-700">&#8377; {price}<span className="test-mrp">₹ {parseFloat(twp.mrp)}</span>
+                        </span>
+                    */}
+                        <span className="test-name-item p-0">{twp.test.name}
+                        {twp && twp.test && twp.test.show_details?
+                                <span style={{ 'marginLeft': '5px', marginTop: '1px', display: 'inline-block' }} key={i} onClick={this.testInfo.bind(this, twp.test.id, this.state.selectedLab, twp.test.url)}> 
+                                    <img src={ASSETS_BASE_URL+ '/img/icons/Info.svg'} style={{width:'15px'}}/> 
+                                </span>
+                        :''}
+                        </span>
+                        {
+                            is_plan_applicable ?
+                                <p className="pkg-discountCpn" style={{ display: 'inline-block', float: 'right', marginTop: '5px' }}>Docprime Care Benefit</p>
+                                : ''
+                        }
+                        <span className="rdo-rmv-spn" onClick={()=>this.removeTest(twp)}>Remove</span>
+                    </p>)
+                }
 
                 tests_with_price.push(
                     <div className="payment-detail d-flex" key={i}>
@@ -1029,9 +1277,9 @@ class BookingSummaryViewNew extends React.Component {
                                 <p>&#8377; 0</p>
                                 :
                                 price == twp.mrp ?
-                                    <p>&#8377; {price}</p>
+                                    <p className="pay-amnt-shrnk">&#8377; {price}</p>
                                     :
-                                    <p>&#8377; {parseFloat(twp.mrp)}</p>
+                                    <p className="pay-amnt-shrnk">&#8377; {parseFloat(twp.mrp)}</p>
                         }
                     </div>
                 )
@@ -1041,7 +1289,7 @@ class BookingSummaryViewNew extends React.Component {
         }
 
         // if center visi not enabled, check home pick as true
-        if (!center_visit_enabled) {
+        /*if (!center_visit_enabled) {
             setTimeout(() => {
                 this.props.selectLabAppointmentType('home')
             })
@@ -1053,10 +1301,83 @@ class BookingSummaryViewNew extends React.Component {
                     this.props.selectLabAppointmentType('lab')
                 })
             }
+        }*/
+
+        //Check both pathology and radiology pickup status & toggle accordingly if not available
+        if(!radiology_tests.length) {
+            r_pickup_home = false
+        }
+        if(!pathology_tests.length) {
+            p_pickup_home = false
+        }
+        let r_pickup = this.props.selectedAppointmentType.r_pickup
+        let p_pickup = this.props.selectedAppointmentType.p_pickup
+        let reset = false
+
+        if(radiology_tests.length || pathology_tests.length) {
+            if(this.props.selectedAppointmentType.r_pickup == 'home' && !r_pickup_home && (r_pickup_center || !radiology_tests.length)) {
+                if(r_pickup_center){
+                    r_pickup = 'lab'    
+                }
+                
+                reset = true
+            } 
+
+            if(this.props.selectedAppointmentType.r_pickup == 'lab' && !r_pickup_center && (r_pickup_home || !radiology_tests.length) ) {
+                if(r_pickup_home){
+                    r_pickup = 'home'    
+                }
+                reset = true
+            }
+
+            if(this.props.selectedAppointmentType.p_pickup == 'home' && !p_pickup_home && (p_pickup_center || !pathology_tests.length)) {
+                if(p_pickup_center){
+                    p_pickup = 'lab'    
+                }
+                reset = true
+            }
+
+            if(this.props.selectedAppointmentType.p_pickup == 'lab' && !p_pickup_center && (p_pickup_home || !pathology_tests.length) ) {
+                if(p_pickup_home){
+                    p_pickup = 'home'    
+                }
+                reset = true
+            }
+            
+            if(!p_pickup_home && !p_pickup_center) {
+                p_pickup = null
+            }
+
+            if(!r_pickup_home && !r_pickup_center) {
+                r_pickup = null
+            }
+
+            if(!this.props.selectedAppointmentType.r_pickup && (r_pickup_home || r_pickup_center)){
+                reset = true
+                r_pickup = r_pickup_home?'home':r_pickup_center?'lab':''
+            }
+
+            if(!this.props.selectedAppointmentType.p_pickup && (p_pickup_home || p_pickup_center)){
+                reset = true
+                p_pickup = p_pickup_home?'home':p_pickup_center?'lab':''
+            }
+            
+
+            if(reset){
+                let selectedType = {
+                    r_pickup: r_pickup,
+                    p_pickup: p_pickup
+                }
+                setTimeout(() => {
+                    this.props.selectLabAppointmentType(selectedType)
+                })
+            }
         }
 
+        is_home_collection_enabled = r_pickup_home || p_pickup_home
+
         // check if the picked address is correct or not
-        if (this.props.selectedAppointmentType == 'home') {
+        if (this.props.selectedAppointmentType && (this.props.selectedAppointmentType.r_pickup=='home' || this.props.selectedAppointmentType.p_pickup=='home') ) {
             if (this.props.address && this.props.address.length && this.props.selectedAddress) {
                 this.props.address.map((add) => {
                     if (add.id == this.props.selectedAddress) {
@@ -1066,11 +1387,20 @@ class BookingSummaryViewNew extends React.Component {
             }
         }
 
+        let address_picked = address_picked_verified
+        if(this.props.selectedAppointmentType && (this.props.selectedAppointmentType.r_pickup=='lab' || this.props.selectedAppointmentType.p_pickup=='lab')) {
+            address_picked = true
+        }
+
         let labCoupons = this.props.labCoupons[this.props.selectedLab] || []
 
         let amtBeforeCoupon = 0
         let total_price = finalPrice
-        if (is_home_collection_enabled && this.props.selectedAppointmentType == 'home' && finalPrice) {
+        let is_home_charges_applicable = false
+        if(is_home_collection_enabled && this.props.selectedAppointmentType && (this.props.selectedAppointmentType.r_pickup=='home' || this.props.selectedAppointmentType.p_pickup=='home') ) {
+            is_home_charges_applicable = true
+        }
+        if (is_home_collection_enabled && finalPrice && is_home_charges_applicable) {
             total_price = finalPrice + (labDetail.home_pickup_charges || 0)
         }
         amtBeforeCoupon = total_price
@@ -1079,20 +1409,30 @@ class BookingSummaryViewNew extends React.Component {
             total_price = total_price ? parseInt(total_price) - (this.props.disCountedLabPrice || 0) : 0
         }
         total_price = is_corporate || is_insurance_applicable || is_plan_applicable ? 0 : total_price
+        if(is_vip_applicable){
+            total_price = finalMrp
+        }
         let total_wallet_balance = 0
         if (this.props.userWalletBalance >= 0 && this.props.userCashbackBalance >= 0) {
             total_wallet_balance = this.props.userWalletBalance + this.props.userCashbackBalance
         }
 
         let is_add_to_card = STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured)
+        let total_test_count = pathology_tests.length + radiology_tests.length
+        let is_time_selected_for_all_tests = this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot?Object.keys(this.props.selectedSlot.selectedTestsTimeSlot).length:0
         return (
 
             <div className="profile-body-wrap">
                 <ProfileHeader bookingPage={true} />
                 {
                     this.state.showConfirmationPopup && is_selected_user_insurance_status != 4 ?
-                        <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} />
+                        <BookingConfirmationPopup priceConfirmationPopup={this.priceConfirmationPopup.bind(this)} bannerConfirmationPopup={()=>{}} isLab={true}/>
                         : ''
+                }
+                {
+                    this.state.show_lensfit_popup?
+                        <LensfitPopup {...this.props} lensfit_coupons ={this.state.lensfit_coupons} applyLensFitCoupons = {this.applyLensFitCoupons.bind(this)} closeLensFitPopup={this.closeLensFitPopup.bind(this)}/>
+                    :''
                 }
                 <section className="container container-top-margin">
                     <div className="row main-row parent-section-row">
@@ -1122,14 +1462,14 @@ class BookingSummaryViewNew extends React.Component {
                                                                             labDetail.name && labDetail.name.toLowerCase().includes('thyrocare') ?
                                                                                 <p className="lab-crd-txt-pr">{labDetail.name.split('-')[0]}
                                                                                     {
-                                                                                        this.props.selectedAppointmentType == 'lab' ?
+                                                                                        this.props.selectedAppointmentType && (this.props.selectedAppointmentType.r_pickup == 'lab' || this.props.selectedAppointmentType.p_pickup == 'lab' )?
                                                                                             <span>{labDetail.address || ''}</span> : ''
                                                                                     }
                                                                                 </p>
                                                                                 :
                                                                                 <p className="lab-crd-txt-pr">{labDetail.name}
                                                                                     {
-                                                                                        this.props.selectedAppointmentType == 'lab' ?
+                                                                                        this.props.selectedAppointmentType == 'lab' && (this.props.selectedAppointmentType.r_pickup == 'lab' || this.props.selectedAppointmentType.p_pickup == 'lab' )?
                                                                                             <span>{labDetail.address || ''}</span> : ''
                                                                                     }
                                                                                 </p>
@@ -1155,7 +1495,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                     </span>Test</h4>
                                                                     <div className="float-right  mbl-view-formatting text-right">
                                                                         {
-                                                                            STORAGE.isAgent() || (!is_default_user_insured && !is_corporate && !(parsed && parsed.test_ids) ) ?
+                                                                            STORAGE.isAgent() || (!is_default_user_insured && !is_corporate && !is_default_user_under_vip && !(parsed && parsed.test_ids) ) ?
                                                                                 <a style={{ cursor: 'pointer' }} onClick={this.openTests.bind(this)} className="text-primary fw-700 text-sm">Add more/Remove tests</a>
                                                                                 : ''
                                                                         }
@@ -1166,24 +1506,52 @@ class BookingSummaryViewNew extends React.Component {
                                                                         }
                                                                     </div>
                                                                 </div>
-                                                                {tests}
+                                                                {radiology_tests}
+                                                                {(r_pickup_center || r_pickup_home) && 
                                                                 <div>
                                                                     <div className="">
                                                                         <div className="test-lab-radio widget-content test-report lab-appointment-div row">
 
                                                                             <ul className="inline-list booking-type search-list-radio">
                                                                                 {
-                                                                                    is_home_collection_enabled ?
-                                                                                        <li><input type="radio" id="home" name="radio-group" onChange={this.handlePickupType.bind(this)} value="home" checked={this.props.selectedAppointmentType == 'home'} /><label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="home"> Home Pick-up</label></li> : ""
+                                                                                    r_pickup_home?
+                                                                                    <li><input type="radio" id="home" name="radiology" onChange={this.handlePickupType.bind(this, {r_pickup:'home', p_pickup:this.props.selectedAppointmentType.p_pickup})} value="home" checked={this.props.selectedAppointmentType && this.props.selectedAppointmentType.r_pickup == 'home'} /><label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="home"> Home Pick-up</label></li> : ""
                                                                                 }
 
                                                                                 {
-                                                                                    center_visit_enabled ? <li><input type="radio" id="lab" name="radio-group" onChange={this.handlePickupType.bind(this)} value="lab" checked={this.props.selectedAppointmentType == 'lab'} /> <label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="lab">Lab Visit</label></li> : ""
+                                                                                    r_pickup_center?
+                                                                                    <li><input type="radio" id="lab" name="radiology" onChange={this.handlePickupType.bind(this, {r_pickup:'lab', p_pickup:this.props.selectedAppointmentType.p_pickup})} value="lab" checked={this.props.selectedAppointmentType && this.props.selectedAppointmentType.r_pickup == 'lab' } /> <label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="lab">Lab Visit</label></li> : ""
                                                                                 }
                                                                             </ul>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                }
+
+                                                                {//Pathology Tests}
+                                                                }
+                                                                
+                                                                {pathology_tests}
+                                                                {(p_pickup_center || p_pickup_home) && 
+                                                                <div>
+                                                                    <div className="">
+                                                                        <div className="test-lab-radio widget-content test-report lab-appointment-div row">
+
+                                                                            <ul className="inline-list booking-type search-list-radio">
+                                                                                {
+                                                                                    p_pickup_home?
+                                                                                    <li><input type="radio" id="phome" name="pathology" onChange={this.handlePickupType.bind(this, {p_pickup:'home', r_pickup:this.props.selectedAppointmentType.r_pickup})} value="home" checked={this.props.selectedAppointmentType && this.props.selectedAppointmentType.p_pickup == 'home'} /><label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="phome"> Home Pick-up</label></li> : ""
+                                                                                }
+
+                                                                                {
+                                                                                    p_pickup_center?
+                                                                                    <li><input type="radio" id="plab" name="pathology" onChange={this.handlePickupType.bind(this, {p_pickup:'lab', r_pickup:this.props.selectedAppointmentType.r_pickup})} value="lab" checked={this.props.selectedAppointmentType && this.props.selectedAppointmentType.p_pickup == 'lab' } /> <label className="radio-inline lab-appointment-label text-md fw-500 text-primary" htmlFor="plab">Lab Visit</label></li> : ""
+                                                                                }
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                }
                                                             </div>
                                                         </div>
                                                         {
@@ -1192,10 +1560,10 @@ class BookingSummaryViewNew extends React.Component {
                                                                 : ''
                                                         }
                                                         <div className="">
-                                                            {this.getSelectors(is_insurance_applicable)}
+                                                            {this.getSelectors(is_insurance_applicable, center_visit_enabled, is_home_charges_applicable)}
                                                         </div>
                                                         {
-                                                            amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable ?
+                                                            amtBeforeCoupon != 0 && !is_plan_applicable && !is_insurance_applicable && !is_vip_applicable ?
                                                                 <div className="widget mrb-15" onClick={this.applyCoupons.bind(this)}>
                                                                     {
                                                                         labCoupons.length ?
@@ -1287,32 +1655,35 @@ class BookingSummaryViewNew extends React.Component {
                                                                                 :
                                                                                 <div className="payment-summary-content">
                                                                                     {tests_with_price}
+                                                                                    {is_vip_applicable? <div className="payment-detail d-flex">
+                                                                                        <p style={{color:'green'}}>Docprime VIP Member <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} /></p>
+                                                                                        <p style={{color:'green'}}>- &#8377; {total_price - vip_amount}</p>
+                                                                                    </div>:''}
                                                                                     {
-                                                                                        (total_price && is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
+                                                                                        (total_price && is_home_collection_enabled && is_home_charges_applicable && !is_vip_applicable) ? <div className="payment-detail d-flex">
                                                                                             <p className="payment-content">Home Pickup Charges</p>
                                                                                             <p className="payment-content fw-500">&#8377; {labDetail.home_pickup_charges || 0}</p>
                                                                                         </div> : ""
                                                                                     }
-                                                                                    {(finalMrp -finalPrice)? <div className="payment-detail d-flex">
+                                                                                    {(finalMrp -finalPrice) && !is_vip_applicable? <div className="payment-detail d-flex">
                                                                                         <p style={{color:'green'}}>Docprime Discount</p>
                                                                                         <p style={{color:'green'}}>- &#8377; {finalMrp - finalPrice}</p>
                                                                                     </div>:''}
                                                                                     {
-                                                                                        this.props.disCountedLabPrice && !this.state.is_cashback
-                                                                                            ? <div className="payment-detail d-flex">
+                                                                                        this.props.disCountedLabPrice && !this.state.is_cashback && !is_vip_applicable ? <div className="payment-detail d-flex">
                                                                                                 <p style={{ color: 'green' }}>Coupon Discount</p>
                                                                                                 <p style={{ color: 'green' }}>-&#8377; {this.props.disCountedLabPrice}</p>
                                                                                             </div>
                                                                                             : ''
                                                                                     }
                                                                                     {
-                                                                                        (is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
+                                                                                        /*(is_home_collection_enabled && this.props.selectedAppointmentType == 'home') ? <div className="payment-detail d-flex">
                                                                                             <p className="payment-content fw-500">MRP</p>
                                                                                             <p className="payment-content fw-500">&#8377; {total_price || 0}</p>
                                                                                         </div> : <div className="payment-detail d-flex">
                                                                                                 <p className="payment-content fw-500">MRP</p>
                                                                                                 <p className="payment-content fw-500">&#8377; {total_price || 0}</p>
-                                                                                            </div>
+                                                                                            </div>*/
                                                                                     }
                                                                                 </div>
                                                                         }
@@ -1321,7 +1692,7 @@ class BookingSummaryViewNew extends React.Component {
                                                                         <div className="lab-visit-time test-report">
                                                                             <h4 className="title payment-amt-label">Amount Payable</h4>
                                                                             {
-                                                                                this.props.selectedAppointmentType == 'home' ? <h5 className="payment-amt-value fw-500">&#8377;  {total_price || 0}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {total_price || 0}</h5>
+                                                                                is_home_charges_applicable ? <h5 className="payment-amt-value fw-500">&#8377;  {is_vip_applicable?vip_amount: total_price || 0}</h5> : <h5 className="payment-amt-value fw-500">&#8377;  {is_vip_applicable?vip_amount: total_price || 0}</h5>
                                                                             }
 
 
@@ -1379,7 +1750,6 @@ class BookingSummaryViewNew extends React.Component {
                                                             <img src={ASSETS_BASE_URL + '/img/customer-icons/tick.svg'} style={{ marginRight: 8, width: 20, marginTop: 2 }} />
                                                             <p className="fw-500" style={{ flex: 1 }} >By continuing, you are authorizing Docprime to directly share lab test reports with you.</p>
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -1407,9 +1777,9 @@ class BookingSummaryViewNew extends React.Component {
                             <div className={`fixed sticky-btn p-0 v-btn  btn-lg horizontal bottom no-round text-lg buttons-addcart-container ${!is_add_to_card && this.props.ipd_chat && this.props.ipd_chat.showIpdChat ? 'ipd-foot-btn-duo' : ''}`}>
                                 {
                                     STORAGE.isAgent() || this.state.cart_item || (!is_corporate && !is_default_user_insured) ?
-                                    <button disabled={this.state.pay_btn_loading} className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn") + (this.state.pay_btn_loading ? " disable-all" : "")} data-disabled={
-                                            !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                        } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, true, total_price, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status)}>
+                                        <button disabled={this.state.pay_btn_loading} className={"add-shpng-cart-btn" + (!this.state.cart_item ? "" : " update-btn") + (this.state.pay_btn_loading ? " disable-all" : "")}  data-disabled={
+                                            !(patient && this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot) || this.state.loading
+                                        } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, true, total_price, total_wallet_balance, prescriptionPicked,is_selected_user_insurance_status)}>
                                             {
                                                 this.state.cart_item ? "" : <img src={ASSETS_BASE_URL + "/img/cartico.svg"} />
                                             }
@@ -1419,9 +1789,9 @@ class BookingSummaryViewNew extends React.Component {
                                 }
 
                                 {
-                                    STORAGE.isAgent() || this.state.cart_item ? "" : <button disabled={this.state.pay_btn_loading} className={`v-btn-primary book-btn-mrgn-adjust pdd-12 ${this.state.pay_btn_loading ? " disable-all" : ""}`}  id="confirm_booking" data-disabled={
-                                        !(patient && this.props.selectedSlot && this.props.selectedSlot.date) || this.state.loading
-                                    } onClick={this.proceed.bind(this, tests.length, (address_picked_verified || this.props.selectedAppointmentType == 'lab'), (this.props.selectedSlot && this.props.selectedSlot.date), patient, false, total_price, total_wallet_balance, prescriptionPicked, is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_price)}</button>
+                                    STORAGE.isAgent() || this.state.cart_item ? "" : <button disabled={this.state.pay_btn_loading} className={`v-btn-primary book-btn-mrgn-adjust pdd-12 ${this.state.pay_btn_loading ? " disable-all" : ""}`} id="confirm_booking" data-disabled={
+                                        !(patient && this.props.selectedSlot && this.props.selectedSlot.selectedTestsTimeSlot) || this.state.loading
+                                    } onClick={this.proceed.bind(this, total_test_count, address_picked, is_time_selected_for_all_tests, patient, false, total_price, total_wallet_balance, prescriptionPicked, is_selected_user_insurance_status)}>{this.getBookingButtonText(total_wallet_balance, total_price,is_vip_applicable,vip_amount)}</button>
                                 }
                             </div>
 
@@ -1435,6 +1805,7 @@ class BookingSummaryViewNew extends React.Component {
                         <RightBar extraClass=" chat-float-btn-2" type="lab" noChatButton={true} />
                     </div>
                 </section>
+                <Disclaimer />
                 {
                     this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='lab' /> : ""
                 }

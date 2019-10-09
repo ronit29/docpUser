@@ -113,7 +113,7 @@ class HospitalDetailView extends React.Component {
 	}
 
 	getCostEstimateClicked() {
-
+		const parsed = queryString.parse(this.props.location.search)
 		let ipd_id = this.props.commonSelectedCriterias.length ? this.props.commonSelectedCriterias[0].id : null
 		let hospital_id = this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ? this.props.ipd_hospital_detail.id : ''
 		let gtmData = {
@@ -121,6 +121,13 @@ class HospitalDetailView extends React.Component {
 		}
 		GTM.sendEvent({ data: gtmData })
 
+		if(parsed.fromProcedure){
+
+		}else{
+			ipd_id = null
+			let selectedCriteria = []
+			this.props.toggleIPDCriteria(selectedCriteria, true)
+		}
 
 		this.props.history.push(`/ipd/${ipd_id ? ipd_id : 'price'}/getPriceEstimate?hospital_id=${hospital_id}`)
 
@@ -355,6 +362,13 @@ class HospitalDetailView extends React.Component {
 
 							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} showPopup={showPopup} isSeo={this.state.seoFriendly} />
 
+							
+							{
+								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.other_network_hospitals && this.props.ipd_hospital_detail.other_network_hospitals.length?
+								<IpdCarousel {...this.props} hospital_data ={this.props.ipd_hospital_detail}/>
+								:''
+							}
+
 							<div className="ipd-tabs-container">
 								<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type#doctors`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'doctors' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
 									e.preventDefault()
@@ -412,7 +426,7 @@ class HospitalDetailView extends React.Component {
 									this.props.ipd_hospital_detail && ((this.props.ipd_hospital_detail.doctors && this.props.ipd_hospital_detail.doctors.result.length) || (this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length)) ?
 										<div>
 											<div>
-												<div className="card-head"><h2 className="dsply-ipd-hdng">{`${this.props.ipd_hospital_detail.name_city ? this.props.ipd_hospital_detail.name_city : ''} Doctors List`}</h2></div>
+												<div className="card-head"><h2 className="dsply-ipd-hdng">{`${this.props.ipd_hospital_detail.seo_title?this.props.ipd_hospital_detail.seo_title:this.props.ipd_hospital_detail.name_city ? this.props.ipd_hospital_detail.name_city : ''} Doctors List`}</h2></div>
 												{
 													this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length ?
 														this.props.ipd_hospital_detail.specialization_doctors.result.map((doctorCard, i) => {
@@ -488,12 +502,12 @@ class HospitalDetailView extends React.Component {
 									: ''
 							}
 
-							{
+							{/*
 								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.other_network_hospitals && this.props.ipd_hospital_detail.other_network_hospitals.length ?
 									<HospitalLocations hospital_data={this.props.ipd_hospital_detail} />
 
 									: ''
-							}
+							*/}
 
 							{/* {
 								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.images && this.props.ipd_hospital_detail.images.length ?
@@ -524,7 +538,8 @@ class HospitalDetailView extends React.Component {
 	                                                return <Reply key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} 
 	                                                	loadComments={this.loadComments.bind(this)} postComment={this.props.postHospitalComments}
 
-	                                                 postReply={this.postReply.bind(this)} handleInputComment={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists} hospitalPage={true} hospital_id={this.props.ipd_hospital_detail.id}/>
+	                                                 postReply={this.postReply.bind(this)} handleInputComment={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists} hospitalPage={true} hospital_id={this.props.ipd_hospital_detail.id}
+	                                                  notArticle={true}/>
 	                                            })}
 	                                    </div>
 	                                    : ''

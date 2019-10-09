@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails, ipdChatView, checkIpdChatAgentStatus, saveAvailNowInsurance, submitIPDForm } from '../../actions/index.js'
+import { getCartItems, addToCart, getDoctorById, getUserProfile, createOPDAppointment, selectOpdTimeSLot, sendAgentBookingURL, removeCoupons, applyOpdCoupons, resetOpdCoupons, getCoupons, applyCoupons, createProfile, sendOTP, submitOTP, fetchTransactions, select_opd_payment_type, getTimeSlots, editUserProfile, patientDetails, ipdChatView, checkIpdChatAgentStatus, saveAvailNowInsurance, submitIPDForm, agentLogin, codToPrepaid } from '../../actions/index.js'
 import STORAGE from '../../helpers/storage'
 const queryString = require('query-string');
 
@@ -14,7 +14,8 @@ class PatientDetails extends React.Component {
             timeSlots: null,
             doctor_leaves: [],
             DATA_FETCH: false,
-            upcoming_slots: null
+            upcoming_slots: null,
+            codError: null
         }
     }
 
@@ -51,7 +52,15 @@ class PatientDetails extends React.Component {
 
         if (doctor_id) {
             if(callDoctorById){
-                props.getDoctorById(doctor_id, hospital_id, props.commonProfileSelectedProcedures)
+                let extraParams={}
+                if(parsed.appointment_id){
+                    extraParams['appointment_id'] = parsed.appointment_id
+                }
+                props.getDoctorById(doctor_id, hospital_id, props.commonProfileSelectedProcedures, '', extraParams, (error, response)=>{
+                    if(error && error.message){
+                        this.setState({codError: error.message})
+                    }
+                })
             }
 
             /*if (props.selectedSlot && props.selectedSlot.date && !props.selectedSlot.summaryPage) {
@@ -108,9 +117,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         selectOpdTimeSLot: (slot, reschedule, appointmentId, extraDateParams) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId, extraDateParams)),
         getUserProfile: () => dispatch(getUserProfile()),
-        getDoctorById: (doctorId, hospitalId, procedure_ids) => dispatch(getDoctorById(doctorId, hospitalId, procedure_ids)),
+        getDoctorById: (doctorId, hospitalId, procedure_ids,category_ids, extraParams, cb) => dispatch(getDoctorById(doctorId, hospitalId, procedure_ids, category_ids, extraParams, cb)),
         createOPDAppointment: (postData, callback) => dispatch(createOPDAppointment(postData, callback)),
-        sendAgentBookingURL: (orderId, type, cb) => dispatch(sendAgentBookingURL(orderId, type, cb)),
+        sendAgentBookingURL: (orderId, type, purchase_type,query_data,cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type,query_data, cb)),
         removeCoupons: (hospitalId, couponId) => dispatch(removeCoupons(hospitalId, couponId)),
         applyOpdCoupons: (productId, couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id, procedures_ids, cart_item, callback) => dispatch(applyOpdCoupons(productId, couponCode, couponId, doctor_id, dealPrice, hospitalId, profile_id, procedures_ids, cart_item, callback)),
         applyCoupons: (productId, couponData, couponId, hospitalId,callback) => dispatch(applyCoupons(productId, couponData, couponId, hospitalId,callback)),
@@ -129,7 +138,9 @@ const mapDispatchToProps = (dispatch) => {
         ipdChatView: (data) => dispatch(ipdChatView(data)),
         checkIpdChatAgentStatus: (cb) => dispatch(checkIpdChatAgentStatus(cb)),
         saveAvailNowInsurance:(data) => dispatch(saveAvailNowInsurance(data)),
-        submitIPDForm: (formData, selectedLocation, cb) => dispatch(submitIPDForm(formData, selectedLocation, cb))
+        submitIPDForm: (formData, selectedLocation, cb) => dispatch(submitIPDForm(formData, selectedLocation, cb)),
+        agentLogin: (token, cb) => dispatch(agentLogin(token, cb)),
+        codToPrepaid: (postData, cb) => dispatch(codToPrepaid(postData, cb))
     }
 }
 

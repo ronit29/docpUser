@@ -12,7 +12,8 @@ const ACTION = {
     3: "SALE",
     4: "RESCHEDULE_PAYMENT",
     5: "CASHBACK_CREDIT",
-    7: "REFERRAL_CREDIT"
+    7: "REFERRAL_CREDIT",
+    8: "PROMOTIONAL_DEBIT"
 }
 
 const PRODUCT = {
@@ -20,13 +21,15 @@ const PRODUCT = {
     2: 'Lab',
     3: 'Insurance',
     4: 'Plan',
-    5: 'Chat'
+    5: 'Chat',
+    11: 'Vip Membership'
 }
 
 const SOURCE_FROM = {
     1: '',
     2: 'from Promotional Balance',
-    3:''
+    3: '',
+    11: ''
 }
 
 const SOURCE_TO = {
@@ -39,7 +42,8 @@ const ENTITY = {
     2: 'Appointment',
     3: '',
     4: '',
-    5: 'Consultation'
+    5: 'Consultation',
+    11: ''
 }
 
 class Transactions extends React.Component {
@@ -100,6 +104,9 @@ class Transactions extends React.Component {
             }
             case 6: {
                 return `Referral Bonus`
+            }
+            case 7: {
+                return "Promotional Amount Debited"
             }
         }
     }
