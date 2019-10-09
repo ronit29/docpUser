@@ -1461,7 +1461,7 @@ class PatientDetailsNew extends React.Component {
                                                                         }
 
                                                                         {
-                                                                            !is_insurance_applicable && enabled_for_cod_payment && !(parsed.appointment_id && parsed.cod_to_prepaid=='true')?
+                                                                            !is_insurance_applicable && !is_vip_applicable && enabled_for_cod_payment && !(parsed.appointment_id && parsed.cod_to_prepaid=='true')?
                                                                                 <div className="test-report payment-detail mt-20" onClick={() => {
                                                                                     this.props.select_opd_payment_type(2)
                                                                                 }}>
@@ -1585,7 +1585,7 @@ class PatientDetailsNew extends React.Component {
                                                                                 </div>
                                                                             </div>
                                                                             {
-                                                                                enabled_for_cod_payment && priceData.fees != 0 && priceData.is_cod_deal_price !== priceData.mrp && priceData.is_cod_deal_price && (parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))?
+                                                                                !is_insurance_applicable && enabled_for_cod_payment && priceData.fees != 0 && priceData.is_cod_deal_price !== priceData.mrp && priceData.is_cod_deal_price && (parseInt(priceData.mrp) + treatment_mrp) - (parseInt(priceData.is_cod_deal_price))?
                                                                                     <React.Fragment>
                                                                                         <div className="payment-detail d-flex">
                                                                                             <p style={{color:'green'}}>Docprime Discount</p>
