@@ -683,7 +683,7 @@ class BookingSummaryViewNew extends React.Component {
             profile: this.props.selectedProfile,
             address: this.props.selectedAddress,
             payment_type: 1, // TODO : Select payment type
-            use_wallet: this.state.use_wallet,
+            use_wallet: is_vip_applicable?false:this.state.use_wallet,
             cart_item: this.state.cart_item,
             prescription_list: prescriptionIds,
             multi_timings_enabled: true,
@@ -1633,7 +1633,7 @@ class BookingSummaryViewNew extends React.Component {
 
 
                                                         {
-                                                            !is_insurance_applicable && total_wallet_balance && total_wallet_balance > 0 ?
+                                                            !is_vip_applicable && !is_insurance_applicable && total_wallet_balance && total_wallet_balance > 0 ?
                                                                 <div className={"widget mrb-15" + (this.state.is_payment_coupon_applied ? " disable_coupon" : "")}>
                                                                     <div className="widget-content">
                                                                         <div className="select-pt-form">
