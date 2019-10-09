@@ -685,7 +685,7 @@ let routes = [
     { path: '/vip-club-member-details',exact:true, component: VipClubMemberDetailsView},
     { path: '/vip-club-activated-details',exact:true, component: VipClubActivatedView},
     { path: '/vip-club-static-pages', exact:true, component:VipClubStaticView},
-    { path: '/cancellation-policy-paypal', exact:true, component:PaypalCancellation}
+    { path: '/terms-conditions-policy-paypal', exact:true, component:PaypalCancellation}
 ]
 
 if (CONFIG.ENABLE_INSURANCE) {
