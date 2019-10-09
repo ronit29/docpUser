@@ -1,6 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router'
 import GTM from '../../../helpers/gtm';
+import { connect } from 'react-redux';
+
+import { clearOpdPage } from '../../../actions/index.js'
 
 class Footer extends React.Component {
     constructor(props) {
@@ -17,6 +20,7 @@ class Footer extends React.Component {
     }
 
     navigateTo(where) {
+        this.props.clearOpdPage()
         this.props.history.push(where)
     }
 
@@ -640,4 +644,20 @@ class Footer extends React.Component {
     }
 }
 
-export default withRouter(Footer)
+const mapStateToProps = (state, passedProps) => {
+    /**
+     * initialServerData is server rendered async data required build html on server. 
+     */
+    return {
+    
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        clearOpdPage:()=> dispatch(clearOpdPage())
+    }
+}
+
+// export default withRouter(Footer)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Footer))
