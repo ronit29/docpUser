@@ -238,6 +238,22 @@ class IpdHospitalView extends React.Component{
 
         if (parsed.page) {
             url += `${is_params_exist ? '&' : '?'}page=${parsed.page}`
+            is_params_exist = true
+        }
+
+        if(parsed.utm_source) {
+            url+= `${is_params_exist ? '&' : '?'}utm_source=${parsed.utm_source||''}`
+            is_params_exist = true
+        }
+
+        if(parsed.utm_medium) {
+            url+= `${is_params_exist ? '&' : '?'}utm_medium=${parsed.utm_medium||''}`
+            is_params_exist = true
+        }
+
+        if(parsed.utm_campaign) {
+            url+= `${is_params_exist ? '&' : '?'}utm_campaign=${parsed.utm_campaign||''}`
+            is_params_exist = true
         }
 
         return url
