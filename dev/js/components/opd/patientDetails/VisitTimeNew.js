@@ -109,7 +109,7 @@ class VisitTimeNew extends React.Component {
                     <div className="lab-visit-time d-flex jc-spaceb mb-0">
                         <h4 className="title mb-0"><span><img src={ASSETS_BASE_URL + "/img/watch-date.svg"} className="visit-time-icon" /></span>Visit Time</h4>
                     </div>
-                    <p className="apnt-doc-dtl">The appointment is subject to the availability of Doctor. </p>
+                    <p className="apnt-doc-dtl">The appointment is subject to confirmation from the Doctor. </p>
                     {
                         ((this.props.selectedSlot && this.props.selectedSlot.summaryPage) || !date) ?
                             <div className='nw-timeslot-container'>

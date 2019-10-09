@@ -25,7 +25,7 @@ class SearchElasticView extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
 
         let data = {
-            'Category': 'ConsumerApp', 'Action': 'OpenSearchPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `open-search-from-${parsed.from || "default"}`, 'from': parsed.from, 'defaultSearchButton': this.props.selectedSearchType || ''
+            'Category': 'ConsumerApp', 'Action': 'OpenSearchPage', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': `open-search-from-${parsed.from || "default"}`, 'from': parsed.from, 'defaultSearchButton': this.props.selectedSearchType || '', 'page': parsed.pageType?parsed.pageType:''
         }
 
         GTM.sendEvent({ data: data })
@@ -357,7 +357,7 @@ class SearchElasticView extends React.Component {
                             {commonSearched}
 
                             {
-                                this.props.selectedSearchType.includes('lab') ?
+                                this.props.selectedSearchType.includes('lab') && !this.props.is_login_user_insured ?
                                     <CommonlySearched {...this.props}
                                         heading="Common Health Packages"
                                         type="test"

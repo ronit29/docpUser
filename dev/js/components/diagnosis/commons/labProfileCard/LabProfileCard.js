@@ -107,7 +107,11 @@ class LabProfileCard extends React.Component {
         let slot = { time: {} }
         this.props.clearExtraTests()
         this.props.selectLabTimeSLot(slot, false)
-        this.props.selectLabAppointmentType('home')
+        let selectedType = {
+            r_pickup: 'home',
+            p_pickup: 'lab'
+        }
+        this.props.selectLabAppointmentType(selectedType)
         this.mergeTests(id)
 
         if (url) {
@@ -170,7 +174,7 @@ class LabProfileCard extends React.Component {
         }
 
         let offPercent = ''
-        if (mrp && discounted_price && (discounted_price < mrp)) {
+        if (mrp && (discounted_price || discounted_price == 0) && (discounted_price < mrp)) {
             offPercent = parseInt(((mrp - discounted_price) / mrp) * 100);
         }
         let hide_price = false
@@ -192,9 +196,14 @@ class LabProfileCard extends React.Component {
             }
         }
         let is_insurance_applicable = false
+        let is_insurance_buy_able = false
         if (insurance && insurance.is_insurance_covered && insurance.is_user_insured) {
             is_insurance_applicable = true
             pickup_text = ""
+        }
+
+        if (insurance && insurance.is_insurance_covered && !insurance.is_user_insured) {
+            is_insurance_buy_able =  true
         }
 
         return (
@@ -249,12 +258,14 @@ class LabProfileCard extends React.Component {
                         </div>
                         <div className="col-4">
                             {
-                                !is_insurance_applicable && this.state.ssrFlag && discounted_price && !hide_price ?
+                                !is_insurance_applicable && this.state.ssrFlag && (discounted_price || discounted_price == 0) && !hide_price ?
                                     <p className="cstm-doc-price">Docprime Price</p> : ''
                             }
                             {
-                                !is_insurance_applicable && discounted_price && !hide_price ?
-                                    <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p> : ''
+                                !is_insurance_applicable && (discounted_price || discounted_price == 0) && !hide_price ?
+                                    discounted_price != mrp?
+                                    <p className="cst-doc-price">₹ {discounted_price} <span className="cstm-doc-cut-price">₹ {mrp} </span></p>
+                                    :<p className="cst-doc-price">₹ {discounted_price} </p> : ''
                             }
                             {
                                 !is_insurance_applicable && discounted_price != price && !hide_price && offPercent && offPercent > 0 ?
@@ -271,6 +282,21 @@ class LabProfileCard extends React.Component {
                             <button className="cstm-book-btn">Book Now</button>
                         </div>
                     </div>
+                    {/*
+                        is_insurance_buy_able && this.props.common_settings && this.props.common_settings.insurance_availability?
+                        <div className="ins-buyable">
+                            <p>Book this Lab for ₹0 with OPD Insurance</p>
+                            <span style={{cursor:'pointer'}} onClick={(e)=>{
+                                e.stopPropagation()
+                                let data = {
+                                    'Category': 'ConsumerApp', 'Action': 'KnowMoreLabClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'know-more-lab-clicked'
+                                }
+                                GTM.sendEvent({ data: data })
+                                this.props.history.push('/insurance/insurance-plans?source=lab-listing&show_button=true')
+                            }}>Know more</span>
+                        </div>
+                        :''
+                    */}
                 </div>
                 <div className="cstmCardFooter">
                     <div className="cstmfooterContent">

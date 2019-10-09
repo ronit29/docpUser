@@ -355,7 +355,7 @@ ul.inline-list li {
 }
 .resendOtp{
     color: #f78631;
-    font-weight: bold;
+    font-weight: 500;
     margin-top: 10px;
     cursor: pointer;
 }
@@ -1518,7 +1518,8 @@ span.free-ofr-ribbon:after {
 }
 
 /* Test Blog Styles */
-.tst-main-acrd-data a#about-test, .tst-main-acrd-data a#why-get-tested,
+
+.tst-main-acrd-data a#about-test, .tst-main-acrd-data a#why-get-tested,.card.cstm-card a#lab,.card.cstm-card a#opd,
 .tst-main-acrd-data a#test-includes, .tst-main-acrd-data a#package-includes,
 .tst-main-acrd-data a#test-preparations, .tst-main-acrd-data a#test-faq {
     display: block;

@@ -1,5 +1,5 @@
 
-import { TOGGLE_404, SET_SERVER_RENDER_LAB, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH, ADD_LAB_COUPONS, REMOVE_LAB_COUPONS, APPLY_LAB_COUPONS, RESET_LAB_COUPONS, SEARCH_HEALTH_PACKAGES, SAVE_PRESCRIPTION, DELETE_PRESCRIPTION,  CLEAR_PRESCRIPTION, SAVE_IS_PRESCRIPTION_NEED } from '../../constants/types';
+import { TOGGLE_404, SET_SERVER_RENDER_LAB, SELECT_USER_ADDRESS, SELECR_APPOINTMENT_TYPE_LAB, SELECT_LAB_TIME_SLOT, LAB_SEARCH_START, LAB_SEARCH, ADD_LAB_COUPONS, REMOVE_LAB_COUPONS, APPLY_LAB_COUPONS, RESET_LAB_COUPONS, SEARCH_HEALTH_PACKAGES, SAVE_PRESCRIPTION, DELETE_PRESCRIPTION,  CLEAR_PRESCRIPTION, SAVE_IS_PRESCRIPTION_NEED, CLEAR_LAB_COUPONS } from '../../constants/types';
 
 const defaultState = {
     labList: [],
@@ -7,7 +7,10 @@ const defaultState = {
     LOADED_LABS_SEARCH: false,
     selectedSlot: { time: {} },
     rescheduleSlot: { time: {} },
-    selectedAppointmentType: 'home',
+    selectedAppointmentType: {
+        r_pickup: 'home',
+        p_pickup: 'lab' 
+    },
     selectedAddress: null,
     SET_FROM_SERVER: false,
     labCoupons: {},
@@ -19,7 +22,8 @@ const defaultState = {
     test_data: [],
     show404: false,
     user_prescriptions:[],
-    is_prescription_needed:null
+    is_prescription_needed:null,
+    selectedDateFormat: null
 }
 
 export default function (state = defaultState, action) {
@@ -71,15 +75,16 @@ export default function (state = defaultState, action) {
 
         case SELECT_LAB_TIME_SLOT: {
             let newState = {
-                ...state,
+                ...state/*,
                 selectedSlot: { ...state.selectedSlot },
-                rescheduleSlot: { ...state.rescheduleSlot }
+                rescheduleSlot: { ...state.rescheduleSlot }*/
             }
 
             if (action.payload.reschedule) {
                 newState.rescheduleSlot = { ...action.payload.slot }
             }
             newState.selectedSlot = { ...action.payload.slot }
+            newState.selectedDateFormat = action.payload.dateParams
 
 
             return newState
@@ -87,7 +92,7 @@ export default function (state = defaultState, action) {
 
         case SELECR_APPOINTMENT_TYPE_LAB: {
             let newState = { ...state }
-            newState.selectedAppointmentType = action.payload
+            newState.selectedAppointmentType = {...action.payload}
             return newState
         }
 
@@ -221,6 +226,14 @@ export default function (state = defaultState, action) {
                 ...state
             }
             newState.is_prescription_needed =action.payload.prescription_needed
+            return newState
+        }
+
+        case CLEAR_LAB_COUPONS :{
+            let newState = {
+                ...state
+            }
+            newState.labCoupons = {}
             return newState
         }
     }

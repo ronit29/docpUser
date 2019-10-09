@@ -124,6 +124,11 @@ class LabsList extends React.Component {
             }
         }
 
+        let gtmData = {
+            'Category': 'LabQuickFilterClicked', 'Action': 'LabQuickFilterClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'lab-quick-filter-clicked', 'url': window.location.pathname, 'type': type, 'val': val
+        }
+        GTM.sendEvent({ data: gtmData })
+
         let filters = {...this.props.filterCriteria}
         if(type.includes('sort_on') ) {
 
@@ -208,7 +213,7 @@ class LabsList extends React.Component {
 
                                                         return <React.Fragment key={i}>
                                                                 {
-                                                                    i==3 && !this.state.avg_ratings ?
+                                                                    i==4 && !this.state.avg_ratings ?
                                                                     <div className="sort-sub-filter-container mb-3">
                                                                         <p>Filter by <span className="fw-700"> Ratings </span><span className="fw-500 sort-more-filter" onClick={this.viewMoreClicked.bind(this)}>More filters</span></p>
                                                                         <div className="srt-sb-btn-cont">
@@ -233,6 +238,16 @@ class LabsList extends React.Component {
                                                                             : <LabProfileCard {...this.props} details={LABS[labId]} key={i} rank={i} />
                                                                     }
                                                                 </li>
+                                                                {labList && labList.length > 5 &&  i == 2?
+                                                                <div className="mb-3 referDocimg" onClick={(e)=>{
+                                                                    e.preventDefault();
+                                                                    let data = {
+                                                                            'Category': 'ConsumerApp', 'Action': 'ReferLabList', 'CustomerID': GTM.getUserId() || '', 'event': 'refer-lab-list'
+                                                                        }
+                                                                    GTM.sendEvent({ data: data })
+                                                                    this.props.history.push('/doctorsignup?member_type=2')}}>
+                                                                    <img src={ASSETS_BASE_URL + "/img/zero_lab-min.png"} />
+                                                                </div>:''}
                                                                </React.Fragment>
                                                         
                                                     } else {

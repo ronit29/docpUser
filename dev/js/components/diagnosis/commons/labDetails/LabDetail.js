@@ -131,12 +131,21 @@ class LabDetails extends React.Component {
                                             <img src={lab_thumbnail} className="img-fluid" />
                                         </InitialsPicture>
                                     </div>
-                                    <h1 className="widget-title pb-title">{name}</h1>
-                                    <p className="location text-black">{locality} {city}
-                                        {/* <span className="ct-img ct-img-xs">
+                                    {
+                                        name && name.toLowerCase().includes('thyrocare') ?
+                                            <h1 className="widget-title pb-title">{name.split('-')[0]}</h1>
+                                            :
+                                            <h1 className="widget-title pb-title">{name}</h1>
+                                    }
+                                    {
+                                        name && name.toLowerCase().includes('thyrocare') ?
+                                            ''
+                                            :
+                                            <p className="location text-black">{locality} {city}</p>
+                                    }
+                                    {/* <span className="ct-img ct-img-xs">
                                         <img src={ASSETS_BASE_URL + "/img/customer-icons/map-marker.svg"} className="img-fluid" />
                                     </span> */}
-                                    </p>
                                     <ul className="list time-contact">
                                         <li className="uTimingPara">
                                             <span className="fw-700 text-sm">Timing: </span>
@@ -152,7 +161,7 @@ class LabDetails extends React.Component {
                                         STORAGE.isAgent() || (!this.props.hide_price && !this.props.is_user_insured) ?
                                             this.props.location && this.props.location.search && this.props.location.search.includes('from=insurance_network') ? "" :
                                                 <div className="serch-nw-inputs mb-0" onClick={this.openTests.bind(this)}>
-                                                    <input type="text" autocomplete="off" className="d-block clkInput new-srch-doc-lab" id="search_bar" value="" placeholder="Search tests" />
+                                                    <input type="text" autoComplete="off" className="d-block clkInput new-srch-doc-lab" id="search_bar" value="" placeholder="Search more Tests" />
                                                     <img className="srch-inp-img" src="https://cdn.docprime.com/cp/assets/img/shape-srch.svg" style={{ width: '15px' }} />
                                                 </div> : ''
                                     }

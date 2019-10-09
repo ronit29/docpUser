@@ -1,4 +1,4 @@
-import { SET_SUMMARY_UTM, AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL, CLOSE_POPUP, SELECT_USER_ADDRESS } from '../../constants/types';
+import { SET_SUMMARY_UTM, AUTH_USER_TYPE, APPEND_USER_PROFILES, RESET_AUTH, SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAIL, SUBMIT_OTP_REQUEST, SUBMIT_OTP_SUCCESS, SUBMIT_OTP_FAIL, CLOSE_POPUP, SELECT_USER_ADDRESS, CLEAR_INSURANCE, RESET_VIP_CLUB, CLEAR_LAB_COUPONS, CLEAR_OPD_COUPONS } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import STORAGE from '../../helpers/storage'
 import NAVIGATE from '../../helpers/navigate'
@@ -6,13 +6,14 @@ import SnackBar from 'node-snackbar'
 import Axios from 'axios';
 import CONFIG from '../../config/config.js'
 
-export const sendOTP = (number,viaSms,viaWhatsapp, cb) => (dispatch) => {
+export const sendOTP = (number,viaSms,viaWhatsapp,message_type, cb) => (dispatch) => {
     dispatch({
         type: SEND_OTP_REQUEST,
         payload: {
             phoneNumber: number,
             via_sms:viaSms,
-            via_whatsapp:viaWhatsapp
+            via_whatsapp:viaWhatsapp,
+            message_type:message_type
         }
     })
 
@@ -20,7 +21,8 @@ export const sendOTP = (number,viaSms,viaWhatsapp, cb) => (dispatch) => {
         "phone_number": number,
         "request_source": "DocprimeWeb",
         "via_sms":viaSms,
-        "via_whatsapp":viaWhatsapp
+        "via_whatsapp":viaWhatsapp,
+        "message_type":message_type
     }).then(function (response) {
         SnackBar.show({ pos: 'bottom-center', text: "OTP Sent Successfuly." });
         dispatch({
@@ -55,6 +57,7 @@ export const submitOTP = (number, otp, cb) => (dispatch) => {
         STORAGE.setAuthToken(response.token)
         STORAGE.setUserId(response.user_id)
 
+        clearStoreOnLogin()(dispatch);
         dispatch({
             type: SUBMIT_OTP_SUCCESS,
             payload: { token: response.token }
@@ -63,6 +66,10 @@ export const submitOTP = (number, otp, cb) => (dispatch) => {
         dispatch({
             type: SELECT_USER_ADDRESS,
             payload: null
+        })
+
+        dispatch({
+            type: RESET_VIP_CLUB
         })
 
         if (cb) cb(response);
@@ -105,7 +112,9 @@ export const registerUser = (postData, cb) => (dispatch) => {
 
 export const logout = (roomId) => (dispatch) => {
     // delete chat of current opened room
-    Axios.get(`${CONFIG.CHAT_API_URL}/livechat/healthservices/closeChat/${roomId}`)
+    Axios.get(`${CONFIG.CHAT_API_URL}/livechat/healthservices/closeChat/${roomId}`).catch((e)=>{
+        
+    })
     STORAGE.deleteAuth().then(() => {
         dispatch({
             type: RESET_AUTH,
@@ -148,6 +157,10 @@ export const agentLogin = (token, cb) => (dispatch) => {
             payload: {}
         })
         STORAGE.setAuthToken(token)
+        clearInsurance()(dispatch)
+        dispatch({
+            type: RESET_VIP_CLUB
+        })
         cb()
     })
 }
@@ -293,3 +306,47 @@ export function chat_utm(term) {
     let url = CONFIG.CHAT_API_URL + `/livechat/healthservices/intentresponse/BasicEnquiry?text=${term}`
     return Axios.get(url)
 } 
+
+export const clearInsurance = () => (dispatch) =>{
+    dispatch({
+            type: CLEAR_INSURANCE
+        })
+}
+
+export const submitEmailOTP = (data, callback) => (dispatch) => {
+
+    API_POST(`/api/v1/user/profile-email/update`, data).then(function (response) {
+        if (callback) callback(response, null)
+    }).catch(function (error) {
+        if (callback) callback(null, error)
+    })
+}
+
+export const sendOtpOnEmail = (data, callback) =>(dispatch) =>{
+    API_POST(`/api/v1/user/profile-email/update/init`, data).then(function (response) {
+        SnackBar.show({ pos: 'bottom-center', text: "OTP Sent Successfuly." });    
+        if (callback) callback(response)
+    }).catch(function (error) {
+        let message = "Cannot generate OTP."
+        SnackBar.show({ pos: 'bottom-center', text: message });
+        if (callback) callback(error)
+    })
+}
+
+export const submitMedicineLead = (data, callback) =>(dispatch) =>{
+    API_POST(`/api/v1/diagnostic/ipdmedicinepagelead`, data).then(function (response) {
+        if (callback) callback(response)
+    }).catch(function (error) {
+        if (callback) callback(error)
+    })
+}
+
+export const clearStoreOnLogin = () => (dispatch) =>{
+    dispatch({
+        type: CLEAR_LAB_COUPONS
+    })
+
+    dispatch({
+        type: CLEAR_OPD_COUPONS
+    })
+}

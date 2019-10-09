@@ -1,6 +1,7 @@
 import React from 'react'
 import SnackBar from 'node-snackbar'
 import { _getlocationFromLatLong, _getLocationFromPlaceId, _autoCompleteService } from '../../../helpers/mapHelpers'
+import GTM from '../../../helpers/gtm.js'
 
 class LocationElementsView extends React.Component {
 
@@ -65,7 +66,7 @@ class LocationElementsView extends React.Component {
         // }
     }
 
-    onfocus() {
+    onfocus(e) {
         if (!this.props.isTopbar) {
             let search_val = ""
 
@@ -76,6 +77,10 @@ class LocationElementsView extends React.Component {
                 this.props.getCityListLayout()
                 this.setState({ location_object: null, search: '' })
             }
+        }
+        if (e.target.getAttribute('id') === 'article-type-input-field') {
+            var top = document.getElementsByClassName('articleTypeloc')[0];
+            window.scroll(0, top.offsetParent.offsetTop);
         }
     }
 
@@ -202,11 +207,27 @@ class LocationElementsView extends React.Component {
         }
     }
 
+    clearSearch() {
+        let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'ClearLocationSearchText', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'clear-location-search-text', 'searchString': this.state.search
+        }
+        GTM.sendEvent({ data: gtmData })
+        this.setState({ search: '' })
+        this.props.getCityListLayout()
+    }
+
+
     render() {
         if (this.props.commonSearchPage) {
             return <div className="serch-nw-inputs">
                 <input className="new-srch-inp" autoComplete="off" placeholder="Search Location" value={this.state.search} onChange={this.inputHandler.bind(this)} id="doc-input-field" onBlur={this.onblur.bind(this)} onFocus={this.onfocus.bind(this)} />
                 <img className="srch-inp-img" src={ASSETS_BASE_URL + "/img/new-loc-ico.svg"} />
+                {
+                    this.state.search ?
+                        <span className="cursor-pntr search-close-icon" onClick={this.clearSearch.bind(this)}><img src={ASSETS_BASE_URL + '/img/sl-close.svg'} /></span>
+                        : ''
+                }
+
                 <button className="srch-inp-btn-img" onClick={this.detectLocation.bind(this)}>Auto Detect <img src={ASSETS_BASE_URL + "/img/loc-track.svg"} /></button>
             </div>
         }
@@ -221,7 +242,7 @@ class LocationElementsView extends React.Component {
                                 : ''
                         }
                         {this.props.commonSearch ? 'Location' : this.props.specialityName}</button>
-                    <input className={`artc-inp-loc`} type="text" autoComplete="off" placeholder="Location" value={this.state.search} onChange={this.inputHandler.bind(this)} id="doc-input-field" onFocus={this.onfocus.bind(this)} onBlur={this.onblur.bind(this)} />
+                    <input className={`artc-inp-loc`} type="text" autoComplete="off" placeholder="Location" value={this.state.search} onChange={this.inputHandler.bind(this)} id="doc-input-field article-type-input-field" onFocus={this.onfocus.bind(this)} onBlur={this.onblur.bind(this)} />
                 </div>
             </div>
         }
@@ -233,7 +254,7 @@ class LocationElementsView extends React.Component {
                 <div className="col-12">
                     {
                         this.props.resultType == 'list' ?
-                            <p className="location-txt-msg">Tell us your exact location to get more relevant results:</p>
+                            <p className="location-txt-msg">Select your location to get the most relevant results</p>
                             : ''
                     }
                     <div className={this.props.resultType == 'list' ? "doc-caret" : "doc-select-none"}></div>

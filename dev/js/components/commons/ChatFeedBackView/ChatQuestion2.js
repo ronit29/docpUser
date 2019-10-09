@@ -1,14 +1,21 @@
 import React from 'react'
+import GTM from '../../../helpers/gtm.js'
+import SnackBar from 'node-snackbar'
 
 class ChatQuestion2 extends React.Component {
-	constructor(props){
+	constructor(props) {
 		super(props)
-		this.state={
-			feedback:null
+		this.state = {
+			feedback: null
 		}
 	}
 
-	componentDidMount(){
+	componentDidMount() {
+		let data = {
+
+			'Category': 'Chat', 'Action': 'ChatQuestion2PageLanded', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-question-2-page-landed', "url": window.location.pathname
+		}
+		GTM.sendEvent({ data: data })
 		/*if(this.props.chat_feedback){
 			let feedback = this.props.chat_feedback.filter(x=>x.type.includes('ques2'))
 			if(feedback.length){
@@ -17,22 +24,31 @@ class ChatQuestion2 extends React.Component {
 		}*/
 	}
 
-	saveFeedBack(data){
+	saveFeedBack(data) {
+		if (!this.state.feedback) {
+			SnackBar.show({ pos: 'bottom-center', text: "Please answer the Question" })
+			return
+		}
 		data = {
 			feedback: this.state.feedback,
-			question:'How have your symptoms improved with our treatment?'
+			question: 'How have your symptoms improved with our treatment?'
 		}
 		this.props.saveChatFeedBack('ques2', data)
+		let gtmData = {
+
+			'Category': 'Chat', 'Action': 'ChatQuestion2Submitted', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-question-2-submitted', "url": window.location.pathname
+		}
+		GTM.sendEvent({ data: gtmData })
 		this.props.history.push('/chat/feedback/ques3')
 	}
 
 	render() {
 
-		return(
+		return (
 			<div className="customer-feedback cf-hght">
 				<div className="cf-card">
-		            <div className="cf-body">
-		              <p className="cf-prgh">How have your symptoms improved with our treatment?*</p>  
+					<div className="cf-body">
+						 <p className="cf-prgh">How have your symptoms improved with our treatment?*</p>  
 		              <span className="cf-light-txt">Rate on a scale from 1 - 5, where 5 is perfectly recovered/healthy</span>
 		              <ul className="cf-rating cursor-pntr">
 		                <li onClick={()=>this.setState({feedback: 1})}>
@@ -77,20 +93,20 @@ class ChatQuestion2 extends React.Component {
 		                	<span className="cf-rating-val">5</span>
 		                    <div className="rating-txt">Fantastic</div>
 		                </li>
-		             </ul>
-		            </div>
-		            <div className="cf-footer">
-		               <a href="javascript:void(0);" onClick={()=>this.props.history.push('/chat/feedback/ques1')} className="cf-btn cf-prev"> 
-		                   <img src="/assets/images/right_arrow.png" alt="r-arrow" className="cf-img cf-rotate" />
-		                   PREVIOUS
+		             </ul> 
+					</div>
+					<div className="cf-footer">
+						<a href="javascript:void(0);" onClick={() => this.props.history.push('/chat/feedback')} className="cf-btn cf-prev">
+							<img src="/assets/images/right_arrow.png" alt="r-arrow" className="cf-img cf-rotate" />
+							PREVIOUS
 		               </a>
-		               <a href="javascript:void(0);" onClick={this.saveFeedBack.bind(this)} className="cf-btn cf-next">NEXT 
+						<a href="javascript:void(0);" onClick={this.saveFeedBack.bind(this)} className="cf-btn cf-next">NEXT
 		                   <img src="/assets/images/right_arrow.png" alt="r-arrow" className="cf-img" />
-		               </a>
-		            </div>
-		         </div>
-	         </div>
-			)
+						</a>
+					</div>
+				</div>
+			</div>
+		)
 	}
 }
 

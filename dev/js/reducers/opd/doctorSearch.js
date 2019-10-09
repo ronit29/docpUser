@@ -1,4 +1,4 @@
-import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_PROFILE_PROCEDURES, HOSPITAL_SEARCH, TOGGLE_404, SELECT_OPD_PAYMENT_TYPE } from '../../constants/types';
+import { SET_SERVER_RENDER_OPD, SELECT_OPD_TIME_SLOT, DOCTOR_SEARCH, DOCTOR_SEARCH_START, ADD_OPD_COUPONS, REMOVE_OPD_COUPONS, APPLY_OPD_COUPONS, RESET_OPD_COUPONS, SET_PROCEDURES, TOGGLE_PROFILE_PROCEDURES, SAVE_PROFILE_PROCEDURES, HOSPITAL_SEARCH, TOGGLE_404, SELECT_OPD_PAYMENT_TYPE, START_FETCHING_OPD_TIME, END_FETCHING_OPD_TIME, CLEAR_OPD_COUPONS } from '../../constants/types';
 
 const defaultState = {
     doctorList: [],
@@ -25,7 +25,11 @@ const defaultState = {
     seoData: {},
     show404: false,
     payment_type: 1,
-    canonical_url: null
+    canonical_url: null,
+    hospitalData: null,
+    selectedDateFormat: null,
+    TIMESLOT_DATA_LOADING: false,
+    similar_specializations:null
 }
 
 export default function (state = defaultState, action) {
@@ -83,7 +87,8 @@ export default function (state = defaultState, action) {
             newState.seoData = action.payload.seo
             newState.show404 = action.payload.show404 || false
             newState.canonical_url = action.payload.canonical_url||null
-
+            newState.hospitalData = action.payload.hospital || null
+            newState.similar_specializations = action.payload.similar_specializations || null
             return newState
         }
 
@@ -134,6 +139,8 @@ export default function (state = defaultState, action) {
             }
 
             newState.selectedSlot = { ...action.payload.slot }
+
+            newState.selectedDateFormat = action.payload.extraDateParams
 
             return newState
         }
@@ -363,6 +370,30 @@ export default function (state = defaultState, action) {
             }
 
             newState.commonProfileSelectedProcedures = selectedProcedures
+            return newState
+        }
+
+        case START_FETCHING_OPD_TIME: {
+            let newState = {
+                ...state
+            }
+            newState.TIMESLOT_DATA_LOADING = true
+            return newState
+        }
+
+        case END_FETCHING_OPD_TIME: {
+            let newState = {
+                ...state
+            }
+            newState.TIMESLOT_DATA_LOADING = false
+            return newState
+        }
+
+        case CLEAR_OPD_COUPONS: {
+            let newState = {
+                ...state
+            }
+            newState.doctorCoupons = {}
             return newState
         }
 

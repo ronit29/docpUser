@@ -23,12 +23,15 @@ class AppointmentSlot extends React.Component {
         const parsed = queryString.parse(props.location.search)
 
         let lab_id = props.selectedLab || props.match.params.id || parsed.lab_id
-
+        let test_ids = []
         if (window) {
             window.scrollTo(0, 0)
         }
+        if(parsed.test_ids) {
+            test_ids = parsed.test_ids.split(',')
+        }
         if (lab_id) {
-            props.getLabById(lab_id)
+            props.getLabById(lab_id, test_ids)
         }
     }
 
@@ -57,19 +60,19 @@ const mapStateToProps = (state) => {
 
     let LABS = state.LABS
     let { pincode, selectedCriterias } = state.SEARCH_CRITERIA_LABS
-    let { selectedSlot } = state.LAB_SEARCH
+    let { selectedSlot, selectedDateFormat } = state.LAB_SEARCH
     const { selectedProfile, profiles } = state.USER
 
     return {
-        LABS, selectedSlot, pincode, selectedProfile, profiles, selectedCriterias
+        LABS, selectedSlot, pincode, selectedProfile, profiles, selectedCriterias, selectedDateFormat
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getLabById: (labId) => dispatch(getLabById(labId)),
-        getLabTimeSlots: (labId, pickup, pincode, date, callback) => dispatch(getLabTimeSlots(labId, pickup, pincode, date, callback)),
-        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
+        getLabById: (labId, tests) => dispatch(getLabById(labId, tests)),
+        getLabTimeSlots: (labId, pickup, pincode, date, extraParams, callback) => dispatch(getLabTimeSlots(labId, pickup, pincode, date, extraParams, callback)),
+        selectLabTimeSLot: (slot, reschedule, dateParam) => dispatch(selectLabTimeSLot(slot, reschedule, dateParam)),
         preBooking:(slot) => dispatch(preBooking(slot))
     }
 }

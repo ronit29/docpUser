@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorById, getTimeSlots, selectOpdTimeSLot } from '../../actions/index.js'
+import { getDoctorById, getTimeSlots, selectOpdTimeSLot, submitIPDForm } from '../../actions/index.js'
 const queryString = require('query-string');
 
 import AppointmentSlotView from '../../components/opd/appointmentSlot/index.js'
@@ -26,7 +26,7 @@ class AppointmentSlot extends React.Component {
         const parsed = queryString.parse(props.location.search)
 
         let doctor_id = props.selectedDoctor || props.match.params.id || parsed.doctor_id
-        let hospital_id = props.selectedClinic || props.match.params.clinicId || parsed.hospital_id
+        let hospital_id = parsed.hospital_id || props.match.params.clinicId
 
         if (doctor_id) {
             props.getDoctorById(doctor_id, hospital_id, props.commonProfileSelectedProcedures)
@@ -48,7 +48,7 @@ class AppointmentSlot extends React.Component {
         const parsed = queryString.parse(this.props.location.search)
 
         let doctor_id = this.props.selectedDoctor || this.props.match.params.id || parsed.doctor_id
-        let hospital_id = this.props.selectedClinic || this.props.match.params.clinicId || parsed.hospital_id
+        let hospital_id = parsed.hospital_id || this.props.match.params.clinicId 
 
         return (
             <AppointmentSlotView {...this.props} selectedDoctor={doctor_id} selectedClinic={hospital_id} />
@@ -60,11 +60,13 @@ const mapStateToProps = (state) => {
 
     let DOCTORS = state.DOCTOR_PROFILES
 
-    let { selectedSlot, rescheduleSlot, selectedDoctorProcedure, commonProfileSelectedProcedures } = state.DOCTOR_SEARCH
+    let { selectedSlot, rescheduleSlot, selectedDoctorProcedure, commonProfileSelectedProcedures, selectedDateFormat } = state.DOCTOR_SEARCH
 
-    let { commonProcedurers } = state.SEARCH_CRITERIA_OPD
+    let { commonProcedurers, selectedLocation } = state.SEARCH_CRITERIA_OPD
+
+    let { primaryMobile, userName } = state.USER
     return {
-        DOCTORS, selectedSlot, rescheduleSlot, commonProcedurers, selectedDoctorProcedure, commonProfileSelectedProcedures
+        DOCTORS, selectedSlot, rescheduleSlot, commonProcedurers, selectedDoctorProcedure, commonProfileSelectedProcedures, selectedDateFormat, selectedLocation, primaryMobile, userName
     }
 }
 
@@ -72,7 +74,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getDoctorById: (doctorId, clinicId, procedure_ids, category_ids) => dispatch(getDoctorById(doctorId, clinicId, procedure_ids, category_ids)),
         getTimeSlots: (doctorId, clinicId, callback) => dispatch(getTimeSlots(doctorId, clinicId, callback)),
-        selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId))
+        selectOpdTimeSLot: (slot, reschedule, appointmentId, dateParam) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId, dateParam)),
+        submitIPDForm: (formData, selectedLocation, cb) => dispatch(submitIPDForm(formData, selectedLocation, cb))
     }
 }
 

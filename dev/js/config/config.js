@@ -16,7 +16,7 @@ const PROD_CONFIG = {
     SOCKET_BASE_PATH: "/io",
     RAVEN_DSN_KEY: "https://bbd8f89e401548749ce274c4e9dd9741@sentry.io/1244528",
     RAVEN_SERVER_DSN_KEY: "https://b8816627d7f84535bfd7d634d94916a3@sentry.io/1290505",
-    PG_URL: "https://pay.docprime.com/dp/pay/init",
+    PG_URL: "https://pay.docprime.com/dp/pay/dpOrder",
     CHAT_URL: "https://telemed.docprime.com/livechat",
     CHAT_API_URL: "https://telemed.docprime.com/api/v1",
     env: "production",
@@ -26,7 +26,12 @@ const PROD_CONFIG = {
     SEARCH_ELASTIC_VIEW: true,
     ENABLE_INSURANCE: true,
     GOOGLE_SERVICE_URL: 'https://docprime.com/ls',
-    CHAT_API_UTILITY_API:'https://chatapi.docprime.com'
+    CHAT_API_UTILITY_API: 'https://chatapi.docprime.com',
+    ENABLE_VIP_CLUB: true,
+    PHARMEASY_IFRAME_URL: 'https://pharmeasy.in/online-medicine-order?utm_source=aff-docprime&utm_medium=cps',
+    PHARMEASY_NEW_ORDER_IFRAME_URL: 'https://pharmeasy.in/healthcare?utm_source=aff-docprime&utm_medium=cps&utm_campaign=navbarnew',
+    PHARMEASY_PREV_ORDER_IFRAME_URL: 'https://pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=navbarprevious',
+    SEO_FRIENDLY_HOSPITAL_IDS:[58395,3880,3230,40669,4044,4271,30927,18417,4340,2961,57640,5194,2958,4918,4569,24837,19239,27423,57604,57639]
 }
 
 const STAGING_CONFIG = {
@@ -35,7 +40,7 @@ const STAGING_CONFIG = {
     SOCKET_BASE_PATH: "/io",
     RAVEN_DSN_KEY: "https://293dcc01cda545df925ccb2f7837b6a3@sentry.io/1341625",
     RAVEN_SERVER_DSN_KEY: "https://43567a5b14bb4aee988d45a95d55cc9c@sentry.io/1290589",
-    PG_URL: "https://payqa.docprime.com/dp/pay/init",
+    PG_URL: "https://payqa.docprime.com/dp/pay/dpOrder",
     CHAT_URL: "https://chatqa.docprime.com/livechat",
     CHAT_API_URL: "https://chatqa.docprime.com/api/v1",
     env: "staging",
@@ -45,17 +50,22 @@ const STAGING_CONFIG = {
     SEARCH_ELASTIC_VIEW: true,
     ENABLE_INSURANCE: true,
     GOOGLE_SERVICE_URL: 'https://docprime.com/ls',
-    CHAT_API_UTILITY_API:'https://chatapi.docprime.com'
+    CHAT_API_UTILITY_API: 'https://chatapi.docprime.com',
+    ENABLE_VIP_CLUB: true,
+    PHARMEASY_IFRAME_URL: 'https://beta.pharmeasy.in/online-medicine-order?utm_source=aff-docprime&utm_medium=cps',
+    PHARMEASY_NEW_ORDER_IFRAME_URL: 'https://beta.pharmeasy.in/healthcare?utm_source=aff-docprime&utm_medium=cps&utm_campaign=leftmenu',
+    PHARMEASY_PREV_ORDER_IFRAME_URL: 'https://beta.pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders',
+    SEO_FRIENDLY_HOSPITAL_IDS:[52779,3851,45894]
 }
 
 const DEV_CONFIG = {
-    // API_BASE_URL: "http://10.0.145.30:8000",
+    // API_BASE_URL: "http://10.0.88.131:8000",
     API_BASE_URL: "https://kubeqa3.docprime.com",
     // SOCKET_BASE_URL: "http://10.0.28.67:4444",
     SOCKET_BASE_URL: "https://docprime.com",
     // SOCKET_BASE_URL: "http://localhost:4444",
     SOCKET_BASE_PATH: "/io",
-    PG_URL: "https://payqa.docprime.com/dp/pay/init",
+    PG_URL: "https://payqa.docprime.com/dp/pay/dpOrder",
     CHAT_URL: "https://chatqa.docprime.com/livechat",
     CHAT_API_URL: "https://chatqa.docprime.com/api/v1",
     env: "dev",
@@ -65,7 +75,12 @@ const DEV_CONFIG = {
     SEARCH_ELASTIC_VIEW: true,
     ENABLE_INSURANCE: true,
     GOOGLE_SERVICE_URL: 'https://docprime.com/ls',
-    CHAT_API_UTILITY_API:'http://chatapi.docprime.com'
+    CHAT_API_UTILITY_API: 'http://chatapi.docprime.com',
+    ENABLE_VIP_CLUB: true,
+    PHARMEASY_IFRAME_URL: 'https://beta.pharmeasy.in/online-medicine-order?utm_source=aff-docprime&utm_medium=cps',
+    PHARMEASY_NEW_ORDER_IFRAME_URL: 'https://beta.pharmeasy.in/healthcare?utm_source=aff-docprime&utm_medium=cps&utm_campaign=leftmenu',
+    PHARMEASY_PREV_ORDER_IFRAME_URL: 'https://beta.pharmeasy.in/account/orders/medicine?utm_source=docprime&utm_medium=cps&utm_campaign=docprime-account-orders',
+    SEO_FRIENDLY_HOSPITAL_IDS:[52779,3851,45894]
 }
 
 let CONFIG = { ...BASE_CONFIG, ...DEV_CONFIG }

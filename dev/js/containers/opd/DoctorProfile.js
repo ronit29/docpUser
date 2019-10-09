@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, mergeOPDState, toggleProfileProcedures, saveProfileProcedures, getDoctorNo, toggleOPDCriteria, getAllRatings, getDownloadAppBannerList, ipdChatView } from '../../actions/index.js'
+import { getDoctorNumber, getDoctorByUrl, getDoctorById, selectOpdTimeSLot, getRatingCompliments, createAppointmentRating, updateAppointmentRating, closeAppointmentRating, closeAppointmentPopUp, getFooterData, mergeOPDState, toggleProfileProcedures, saveProfileProcedures, getDoctorNo, toggleOPDCriteria, getAllRatings, getDownloadAppBannerList, ipdChatView} from '../../actions/index.js'
 
 import DoctorProfileView from '../../components/opd/doctorProfile/index.js'
 const queryString = require('query-string');
@@ -77,22 +77,22 @@ class DoctorProfile extends React.Component {
         }
 
         if (this.props.match.params.id) {
-            if (!this.state.selectedDoctor || !this.props.DOCTORS[this.state.selectedDoctor]) {
+            //if (!this.state.selectedDoctor || !this.props.DOCTORS[this.state.selectedDoctor]) {
                 this.props.getDoctorById(this.props.match.params.id, hospital_id, procedure_ids, category_ids)
-            }
+            //}
             this.setState({ hospital_id: hospital_id, is_procedure: is_procedure })
         } else {
             let url = this.props.match.url
             if (url) {
                 url = url.split("/")[1]
             }
-            if (!this.state.selectedDoctor || !this.props.DOCTORS[this.state.selectedDoctor]) {
+            //if (!this.state.selectedDoctor || !this.props.DOCTORS[this.state.selectedDoctor]) {
                 this.props.getDoctorByUrl(url, hospital_id, procedure_ids, category_ids, (doctor_id) => {
                     if (doctor_id) {
                         this.setState({ selectedDoctor: doctor_id })
                     }
                 })
-            }
+            //}
             this.setState({ hospital_id: hospital_id, is_procedure: is_procedure })
         }
 
@@ -134,7 +134,8 @@ const mapStateToProps = (state, passedProps) => {
         selectedLocation,
         fetchNewResults,
         commonProcedurers,
-        filterCriteria
+        filterCriteria,
+        commonSelectedCriterias
     } = state.SEARCH_CRITERIA_OPD
 
     const {
@@ -143,7 +144,7 @@ const mapStateToProps = (state, passedProps) => {
     } = state.DOCTOR_SEARCH
 
     return {
-        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, selectedLocation, fetchNewResults, commonProcedurers, selectedDoctorProcedure, profileCommonProcedures, primaryMobile, filterCriteria, app_download_list, device_info, ipd_chat
+        DOCTORS, initialServerData, rated_appoinments, profiles, selectedProfile, selectedCriterias, selectedLocation, fetchNewResults, commonProcedurers, selectedDoctorProcedure, profileCommonProcedures, primaryMobile, filterCriteria, app_download_list, device_info, ipd_chat, commonSelectedCriterias
     }
 }
 

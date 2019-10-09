@@ -7,6 +7,7 @@ import GTM from '../../../helpers/gtm.js'
 import STORAGE from '../../../helpers/storage'
 import InitialsPicture from '../../commons/initialsPicture'
 import CRITEO from '../../../helpers/criteo.js'
+import Disclaimer from '../../commons/Home/staticDisclaimer.js'
 
 class OrderSummaryView extends React.Component {
     constructor(props) {
@@ -34,6 +35,13 @@ class OrderSummaryView extends React.Component {
                     res.data.map((data) => {
                         info[orderId].push({ 'booking_id': data.booking_id, 'mrp': data.mrp, 'deal_price': data.deal_price })
                         deal_price += parseInt(data.deal_price)
+
+                        if (data.payment_type && data.payment_type == 2) {
+                            let analyticData = {
+                                'Category': 'ConsumerApp', 'Action': 'OrderPlaced', 'CustomerID': GTM.getUserId(), 'leadid': orderId, 'event': 'cod-doctor-appointment-booked', 'mrp': data.mrp
+                            }
+                            GTM.sendEvent({ data: analyticData })
+                        }
                     })
                     info = JSON.stringify(info)
 
@@ -48,14 +56,15 @@ class OrderSummaryView extends React.Component {
                             this.props.history.replace(this.props.location.pathname + "?hide_button=true")
 
                             let criteo_data =
-                                {
-                                    'event': "trackTransaction", 'id': orderId, 'item': [
-                                        { 'id': "1", 'price': deal_price, 'quantity': 1 }
-                                    ]
-                                }
+                            {
+                                'event': "trackTransaction", 'id': orderId, 'item': [
+                                    { 'id': "1", 'price': deal_price, 'quantity': 1 }
+                                ]
+                            }
 
                             CRITEO.sendData(criteo_data)
                         }
+
                     })
 
                 }
@@ -78,7 +87,6 @@ class OrderSummaryView extends React.Component {
     }
 
     render() {
-
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader />
@@ -107,18 +115,32 @@ class OrderSummaryView extends React.Component {
                                                             }
                                                         </div>
                                                         <div className={item.booking_id ? "" : "cart-card-blur-opacity"}>
-                                                            <div className="shopng-cart-price">
-                                                                {
-                                                                    item.payment_type==3?<span>{item.data.profile && item.data.profile.name?item.data.profile.name:''}</span>
-                                                                    :item.payment_type == 1 || item.payment_type == 4? <p>
-                                                                        <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />
-                                                                        {" " + item.effective_price}
-                                                                    </p> : <p>
-                                                                            <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />
-                                                                            {" " + item.mrp}
-                                                                        </p>
-                                                                }
-                                                            </div>
+                                                            {
+                                                                !item.is_vip_member && !item.covered_under_vip?
+                                                                <div className="shopng-cart-price">
+                                                                    {
+                                                                        item.payment_type == 3 ? <span>{item.data.profile && item.data.profile.name ? item.data.profile.name : ''}</span>
+                                                                            : item.payment_type == 1 || item.payment_type == 4 ? <p>
+                                                                                <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />
+                                                                                {" " + item.effective_price}
+                                                                            </p> : item.payment_type == 2 ?
+                                                                                    <p>
+                                                                                        <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />
+                                                                                        {" " + item.cod_deal_price}
+                                                                                    </p>
+                                                                                    : <p>
+                                                                                        <img src={ASSETS_BASE_URL + "/img/rupee-icon.svg"} alt="rupee-icon" className="icon-rupee" />
+                                                                                        {" " + item.mrp}
+                                                                                    </p>
+                                                                    }
+                                                                </div>
+                                                                :<div className="shopng-cart-price">
+                                                                    <div className="text-right mb-2">
+                                                                        <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                                                    </div>
+                                                                    <p>₹ {item.vip_amount} <span className="cstm-doc-cut-price">₹ {item.mrp} </span></p>
+                                                                </div>
+                                                            }
                                                             <div className="widget-header dr-qucik-info">
                                                                 <div>
                                                                     <div>
@@ -163,6 +185,7 @@ class OrderSummaryView extends React.Component {
                         <RightBar extraClass=" chat-float-btn-2" noChatButton={true} />
                     </div>
                 </section>
+                <Disclaimer />
             </div>
         );
     }

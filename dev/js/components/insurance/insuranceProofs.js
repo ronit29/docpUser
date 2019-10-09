@@ -149,7 +149,7 @@ class InsuranceProofs extends React.Component {
             show_upload = false
         }
 
-        return <div className="insurance-proofs-cont">
+        return <div className="insurance-proofs-cont" style={{margin: '10px -10px 0px -10px'}}>
             {
             /*    this.props.endorsementError.indexOf(this.props.member_id) != -1 && img_url.length==0?
                 <span className="ins-prf-error-msg">*Please upload the required documents</span>

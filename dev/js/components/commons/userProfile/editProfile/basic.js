@@ -5,6 +5,7 @@ import SnackBar from 'node-snackbar'
 import Loader from '../../Loader'
 import Calendar from 'rc-calendar';
 const moment = require('moment');
+import VerifyEmail from '../../../insurance/verifyEmail.js'
 
 class BasicDetails extends React.Component {
     constructor(props) {
@@ -126,11 +127,10 @@ class BasicDetails extends React.Component {
     }
 
     render() {
-
         let { name, email, gender, phone_number, profile_image, id, dob} = this.props.profileData
         profile_image = profile_image || (ASSETS_BASE_URL + "/img/customer-icons/user.png")
         return (
-            <section className="myProfile profile-details mrb-15">
+            <section className={`myProfile profile-details mrb-15 ${this.props.is_profile_editable?'':'click-disable'}`}>
                 {
                     this.state.loading ? "" : <div className="widget no-shadow no-radius">
                         <div className="widget-content">
@@ -189,10 +189,12 @@ class BasicDetails extends React.Component {
                                 <input value={name} onChange={this.handleChange.bind(this, 'name')} id="age" name="lname" type="text" required />
                                 <label htmlFor="age">Age</label>
                             </div> */}
-                                <div className="labelWrap">
+                                {/*<div className="labelWrap">
                                     <input value={email} onChange={this.handleChange.bind(this, 'email')} id="email" name="lname" type="text" className={this.props.errors['email'] ? 'errorColorBorder' : ""} required onKeyPress={this.handleEnterPress.bind(this)} />
                                     <label htmlFor="email">Email</label>
-                                </div>
+                                </div>*/}
+                                <VerifyEmail {...this.props} member_id={this.props.profileData} email={email} validateErrors = {[]}/>
+
                                 <div className="labelWrap">
                                     <input value={phone_number || ""} onChange={this.handleChange.bind(this, 'phone_number')} id="number" name="lname" type="text" className={this.props.errors['phone_number'] ? 'errorColorBorder' : ""} required onKeyPress={this.handleEnterPress.bind(this)} />
                                     <label htmlFor="number">Mobile Number</label>
@@ -212,6 +214,10 @@ class BasicDetails extends React.Component {
                                 this.state.is_default_user}/><span className="checkmark"></span></label>
                             </div>
                             :''
+                            }
+                            {
+                                this.props.is_profile_editable?''
+                                :<span>*Details of the profiles which are covered under insurance cannot be updated</span>
                             }
                         </div>
                     </div>

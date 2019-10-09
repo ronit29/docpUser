@@ -25,6 +25,9 @@ import RatingStars from '../../commons/ratingsProfileView/RatingStars';
 import HospitalPopUp from '../../commons/ratingsProfileView/HospitalPopUp.js'
 import STORAGE from '../../../helpers/storage'
 import IpdLeadForm from '../../../containers/ipd/ipdLeadForm.js'
+import IpdSecondPopup from '../../../containers/ipd/IpdDoctorCityPopup.js'
+import NonBookableDoctor from './nonBookableDoctor.js'
+
 const queryString = require('query-string');
 
 class DoctorProfileView extends React.Component {
@@ -49,7 +52,10 @@ class DoctorProfileView extends React.Component {
             show_contact: '',
             isOrganic: this.props.location.search.includes('hospital_id'),
             displayHospitalRatingBlock: 0,
-            showIpdLeadForm: true
+            showIpdLeadForm: true,
+            showSecondPopup: false,
+            firstLeadId: '',
+            closeNonBookable: false
         }
     }
 
@@ -126,9 +132,14 @@ class DoctorProfileView extends React.Component {
         this.setState({ selectedClinic: clinic_id, is_live, rank, numberShown: "", consultation_fee: consultation_fee, clinicPhoneNo: clinicPhoneNo, show_contact: show_contact })
     }
 
-    navigateToClinic(doctor_id, clinicId) {
+    navigateToClinic(doctor_id, clinicId, topBookNow) {
         let rank = this.state.rank
-
+        if (topBookNow) {
+            let gtmData = {
+                'Category': 'ConsumerApp', 'Action': 'OpdTopBookNowClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'opd-top-book-now-clicked', 'selectedId': clinicId || ''
+            }
+            GTM.sendEvent({ data: gtmData })
+        }
         if (this.state.is_live) {
 
             let data = {
@@ -206,7 +217,12 @@ class DoctorProfileView extends React.Component {
 
     navigateToDoctor(doctor, e) {
         e.preventDefault();
-        this.props.history.push(`/${doctor.url}`);
+        if (doctor.url) {
+            this.props.history.push(`/${doctor.url}`);
+        }
+        else {
+            this.props.history.push(`/opd/doctor/${doctor.id}`);
+        }
 
         let data = {
             'Category': 'ConsumerApp', 'Action': 'recommendedDoctorClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'recommended-doctor-click', 'DoctorID': doctor.doctor_id
@@ -228,7 +244,7 @@ class DoctorProfileView extends React.Component {
         this.setState({ displayHospitalRatingBlock: 1 })
     }
 
-    hospitalPopUpState(){
+    hospitalPopUpState() {
         this.setState({ displayHospitalRatingBlock: 0 })
     }
 
@@ -243,7 +259,7 @@ class DoctorProfileView extends React.Component {
     }
 
     submitLeadFormGeneration(ipdFormParams) {
-        if(ipdFormParams) {
+        if (ipdFormParams) {
             let gtmData = {
                 'Category': 'ConsumerApp', 'Action': 'DoctorProfileIpdFormClosed', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-profile-ipd-form-closed'
             }
@@ -253,14 +269,31 @@ class DoctorProfileView extends React.Component {
             showChat: true,
             ipdFormParams: ipdFormParams
         }
-        
-        this.setState({ showIpdLeadForm: false }, ()=>{
-            this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize:true})   
+
+        this.setState({ showIpdLeadForm: false, showSecondPopup: true }, () => {
+            // this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize:true})   
         })
     }
 
-    render() {
+    saveLeadIdForUpdation(response) {
+        if (response.id) {
+            this.setState({ firstLeadId: response.id, showSecondPopup: true })
+        }
+    }
 
+    secondIpdFormSubmitted() {
+        this.setState({ showSecondPopup: false })
+    }
+
+    closeNonBookableDocPopup() {
+        let data = {
+            'Category': 'ConsumerApp', 'Action': 'NonBookableDoctorCrossClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'Non-Bookable-Doctor-cross-clicked'
+        }
+        GTM.sendEvent({ data: data })
+        this.setState({ closeNonBookable: true })
+    }
+
+    render() {
         let doctor_id = this.props.selectedDoctor
         if (this.props.initialServerData && this.props.initialServerData.doctor_id) {
             doctor_id = this.props.initialServerData.doctor_id
@@ -343,14 +376,34 @@ class DoctorProfileView extends React.Component {
         }
 
         const parsed = queryString.parse(this.props.location.search)
-
+        //check if any utm tag exist in url
+        let isUtmTagsExist = false
+        if (parsed.utm_source || parsed.utm_medium || parsed.utm_term || parsed.utm_campaign) {
+            isUtmTagsExist = true
+        }
+        let showForcedPopup = !isUtmTagsExist && landing_page && this.state.seoFriendly && doctor_id && this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].is_congot && this.state.showIpdLeadForm && this.props.DOCTORS[doctor_id].potential_ipd && !this.state.is_live
+        showForcedPopup = false
+        let isSeoValid= true
+        if(CONFIG.SEO_FRIENDLY_HOSPITAL_IDS && this.state.selectedClinic &&  CONFIG.SEO_FRIENDLY_HOSPITAL_IDS.indexOf(parseInt(this.state.selectedClinic))> -1){
+            isSeoValid = false
+        }
         return (
             <div className="profile-body-wrap">
                 <ProfileHeader showSearch={true} />
                 {
-                    this.props.DOCTORS[doctor_id] && parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE?
-                    <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={selectedClinicName} hospital_id={this.state.selectedClinic} doctor_name={this.props.DOCTORS[doctor_id].name?this.props.DOCTORS[doctor_id].name:''} formSource='DoctorBookingPage'/>
-                    :''
+                    (this.props.DOCTORS[doctor_id] && parsed.showPopup && this.state.showIpdLeadForm && typeof window == 'object' && window.ON_LANDING_PAGE) || showForcedPopup ?
+                        <IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={selectedClinicName} hospital_id={this.state.selectedClinic} doctor_name={this.props.DOCTORS[doctor_id].name ? this.props.DOCTORS[doctor_id].name : ''} formSource='DoctorBookingPage' saveLeadIdForUpdation={this.saveLeadIdForUpdation.bind(this)} />
+                        : ''
+                }
+                {
+                    this.props.DOCTORS[doctor_id] && this.state.showSecondPopup && parsed.get_feedback && parsed.get_feedback == '1' ?
+                        <IpdSecondPopup {...this.props} firstLeadId={this.state.firstLeadId} all_doctors={[]} all_cities={this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].all_cities ? this.props.DOCTORS[doctor_id].all_cities : []} doctorProfilePage={true} secondIpdFormSubmitted={this.secondIpdFormSubmitted.bind(this)} hospital_name={selectedClinicName} hospital_id={this.state.selectedClinic} doctor_name={this.props.DOCTORS[doctor_id].name ? this.props.DOCTORS[doctor_id].name : ''} formSource='DoctorBookingPage' />
+                        : ''
+                }
+                {
+                    nearbyDoctors && Object.keys(nearbyDoctors).length && !this.state.closeNonBookable ?
+                        <NonBookableDoctor {...this.props} closeNonBookableDocPopup={this.closeNonBookableDocPopup.bind(this)} nearbyDoctors={nearbyDoctors} navigateToDoctor={this.navigateToDoctor.bind(this)} details={this.props.DOCTORS[doctor_id]} />
+                        : ''
                 }
                 <section className="container parent-section book-appointment-section breadcrumb-mrgn">
                     {this.props.DOCTORS[doctor_id] && this.props.DOCTORS[doctor_id].breadcrumb && this.props.DOCTORS[doctor_id].breadcrumb.length ?
@@ -418,14 +471,22 @@ class DoctorProfileView extends React.Component {
                                             description: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).description,
                                             canonicalUrl: `${CONFIG.API_BASE_URL}${seo_url || this.props.match.url}`,
                                             schema: this.getMetaTagsData(this.props.DOCTORS[doctor_id].seo).schema
-                                        }} noIndex={false && !this.state.seoFriendly} />
+                                        }} noIndex={!this.state.seoFriendly || !isSeoValid} />
 
                                         <div className="container-fluid">
                                             <div className="row">
                                                 <div className="col-12">
+                                                    {
+                                                        this.state.is_live && landing_page && this.state.seoFriendly ?
+                                                            <button className="doc-top-book-btn" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic, true)}>
+                                                                Book Now
+                                                        </button>
+                                                            : ''
+                                                    }
+
                                                     {/* Hospital Selection Block */}
-                                                    { this.state.displayHospitalRatingBlock ?
-                                                         <HospitalPopUp {...this.props} doctor_details = {this.props.DOCTORS[doctor_id]} popUpState={this.hospitalPopUpState.bind(this)} /> : ""
+                                                    {this.state.displayHospitalRatingBlock ?
+                                                        <HospitalPopUp {...this.props} doctor_details={this.props.DOCTORS[doctor_id]} popUpState={this.hospitalPopUpState.bind(this)} /> : ""
                                                     }
 
                                                     {
@@ -504,9 +565,12 @@ class DoctorProfileView extends React.Component {
                                                                                                         doctor.hospitals && doctor.hospitals.length ?
                                                                                                             <p className="slideDocExp" style={{ marginTop: 5 }} >{doctor.hospitals[0].hospital_name}</p> : ''
                                                                                                     }
-                                                                                                    <div className="slideDocPrice">
-                                                                                                        <span className="slideNamePrc">₹ {doctor.deal_price}</span><span className="slideCutPrc">₹ {doctor.mrp}</span>
-                                                                                                    </div>
+                                                                                                    {
+                                                                                                        doctor.discounted_price && doctor.mrp ?
+                                                                                                            <div className="slideDocPrice">
+                                                                                                                <span className="slideNamePrc">₹ {doctor.discounted_price}</span><span className="slideCutPrc">₹ {doctor.mrp}</span>
+                                                                                                            </div> : ''
+                                                                                                    }
                                                                                                     <div className="slidBookBtn">
                                                                                                         <button style={{ cursor: 'pointer' }} onClick={(e) => this.navigateToDoctor(doctor, e)}>Book Now</button>
                                                                                                     </div>
@@ -551,7 +615,7 @@ class DoctorProfileView extends React.Component {
                                                             />
 
                                                             {/* this one is rating */}
-                                                            { STORAGE.checkAuth() ? 
+                                                            {STORAGE.checkAuth() ?
                                                                 <div className="widget-panel">
                                                                     <div className="panel-content ratecardBrdr">
                                                                         <div className="rateUrDoc">
@@ -559,7 +623,7 @@ class DoctorProfileView extends React.Component {
                                                                             <button onClick={this.display_hospital_rating_block}>Rate Now</button>
                                                                         </div>
                                                                     </div>
-                                                                </div> : "" 
+                                                                </div> : ""
                                                             }
                                                             {/* this one is rating */}
                                                             {
@@ -617,7 +681,7 @@ class DoctorProfileView extends React.Component {
                                                                 <p>{`View ${search_data.result_count} ${search_data.title}`}</p>
                                                             </a> : ''
                                                     } */}
-                                                    <div className="dpp-btn-book dpp-btn-book-custom" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic)}>
+                                                    <div className="dpp-btn-book dpp-btn-book-custom" onClick={this.navigateToClinic.bind(this, doctor_id, this.state.selectedClinic, false)}>
                                                         {/*<p>{`Book Now (₹ ${final_price})`}</p>*/}
                                                         <p style={{ flex: 2 }}><span style={{ marginTop: '5px', display: 'inline-block' }}>Book Now</span></p>
                                                         {
@@ -677,7 +741,7 @@ class DoctorProfileView extends React.Component {
                                     </section> : <Loader />
                             }
                         </div>
-                        <RightBar extraClass=" chat-float-btn-2" type="opd" noChatButton={!this.state.searchDataHidden} showDesktopIpd={true}/>
+                        <RightBar extraClass=" chat-float-btn-2" type="opd" noChatButton={!this.state.searchDataHidden} showDesktopIpd={true} />
                     </div>
                 </section>
                 <Footer footerData={this.state.footerData} />

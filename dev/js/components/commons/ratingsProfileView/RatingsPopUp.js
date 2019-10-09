@@ -24,7 +24,6 @@ class RatingsPopUp extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props.selectedHospital);
         if (STORAGE.checkAuth()) {
             if (typeof (this.props.unverified) == 'undefined' && !this.props.unverified) {
                 this.props.getUnratedAppointment((err, data) => {
@@ -130,7 +129,7 @@ class RatingsPopUp extends React.Component {
             let qualification_object = this.state.data.doctor ? this.state.data.doctor.qualifications : null;
             let pipe = ''
             let data_obj = {
-                'name': (this.state.data.doctor) ? this.state.data.doctor.name : this.state.data.lab.name,
+                'name': this.state.data && this.state.data.doctor ? this.state.data.doctor.name : this.state.data && this.state.data.lab ?this.state.data.lab.name:'',
                 'qualification': qualification_object && qualification_object.length ? qualification_object[0].qualification : '',
                 'specialization': qualification_object && qualification_object.length ? qualification_object[0].specialization : '',
                 'type': this.getAppointmentType(),

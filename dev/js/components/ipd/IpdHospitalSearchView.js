@@ -91,7 +91,8 @@ class IpdHospitalView extends React.Component{
         let criteria =[]
         let filters = {
             distance: [],
-            provider_ids: []
+            provider_ids: [],
+            network_id :''
         }
 
         if(parsed.ipd_id){
@@ -120,6 +121,12 @@ class IpdHospitalView extends React.Component{
             filters.provider_ids = providers
         }else{
             filters.provider_ids.concat(filterCriteria.provider_ids)
+        }
+
+        if(parsed.network_id) {
+            filters.network_id = parsed.network_id
+        }else {
+            filters.network_id = filterCriteria.network_id
         }
 
         return({criteria, filters})
@@ -198,6 +205,7 @@ class IpdHospitalView extends React.Component{
         let min_distance = filterCriteria.distance[0]
         let max_distance = filterCriteria.distance[1]
         let provider_ids = filterCriteria.provider_ids
+        let network_id = filterCriteria.network_id
 
         let url = ''
 
@@ -218,7 +226,7 @@ class IpdHospitalView extends React.Component{
 
         if(is_filter_applied || !this.state.seoFriendly) {
 
-            url = `${window.location.pathname}?ipd_id=${ipd_id}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&search_id=${this.state.search_id}&lat=${lat}&long=${long}&place_id=${place_id}`
+            url = `${window.location.pathname}?ipd_id=${ipd_id}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&search_id=${this.state.search_id}&lat=${lat}&long=${long}&place_id=${place_id}&network_id=${network_id}`
 
             is_params_exist = true
 
@@ -293,7 +301,7 @@ class IpdHospitalView extends React.Component{
 		return(
 				<div className="profile-body-wrap">
                 <HelmetTags tagsData={{
-                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+                    canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}${page}`,
                     title: this.getMetaTagsData(this.props.hospitalSearchSeoData).title,
                     description: this.getMetaTagsData(this.props.hospitalSearchSeoData).description,
                     prev: prev,

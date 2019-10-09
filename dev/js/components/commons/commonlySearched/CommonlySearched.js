@@ -82,7 +82,7 @@ class CommonlySearched extends React.Component {
         }
         this.props.toggle((this.props.type || row.type), row)
     }
-    testInfo(test_id, url) {
+    testInfo(test_id, url, e) {
         let lat = 28.644800
         let long = 77.216721
         if (this.props.dataState && this.props.dataState.selectedLocation) {
@@ -96,6 +96,7 @@ class CommonlySearched extends React.Component {
         this.props.data.map((row, i) => {
             selected_test_ids.push(row.id)
         })
+        e.stopPropagation()
         if (url && url != '') {
             this.props.history.push('/' + url + '?test_ids=' + test_id + '&selected_test_ids=' + selected_test_ids + '&lat=' + lat + '&long=' + long + '&from=search')
         } else {

@@ -140,6 +140,12 @@ class IpdInfoContainer extends React.Component{
 			new_url+= `&utm_campaign=${parsed.utm_campaign||''}`
 		} 
 		
+		if(this.props.is_ipd_form_submitted) {
+			
+		}else if(parsed && parsed.get_feedback=='1'){
+			new_url+='&get_feedback=1'
+		}
+
 		if(parsed && parsed.type) {
 			new_url+= `&type=${parsed.type}`
 		}

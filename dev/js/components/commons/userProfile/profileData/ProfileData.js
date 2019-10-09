@@ -49,10 +49,28 @@ class ProfileData extends React.Component {
 
     goToInsurance(isUserLoginInsured){
         if(isUserLoginInsured){
-            this.props.history.push('/insurance/certificate')   
+            if(this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ||
+                this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 4 || this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 5){
+                this.props.history.push('/insurance/certificate')
+            }else{
+                this.props.history.push('/insurance/insurance-plans?source=profile-insurance-clicked')
+            }
         }else{
             this.props.generateInsuranceLead()
             this.props.history.push('/insurance/insurance-plans?source=profile-insurance-clicked')
+        }
+    }
+
+    getInsuranceBtnText(){
+        let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user:false
+        if(isUserLoginInsured){
+            if(this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ||
+                this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 4 ||
+                this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 5){
+                return <button className="ins-userdetails-active">Active</button>
+            }else{
+                return <button className="ins-userdetails-buy">Buy Now</button>
+            }
         }
     }    
 
@@ -65,7 +83,7 @@ class ProfileData extends React.Component {
             coupon = this.props.applicableCoupons[0]
         }
 
-        let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)]?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_insured && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user:false
+        let isUserLoginInsured = this.props.USER.profiles && this.props.USER.defaultProfile && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user?this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].is_default_user:false
         
         if(this.props.isUserCared && this.props.isUserCared.has_active_plan){
             memberClass = 'float-right ins-userdetails-active'
@@ -77,10 +95,10 @@ class ProfileData extends React.Component {
                 <div className="widget-content padding-remove">
                     <ul className="list nav-items dp-user-list bg-lst">
                         <li className="my-profile-item padding-remove">
-                            <p className="usr-dtls-name pdng-usr-dtls-slots">{`Welcome to docprime${this.props.USER.userName ? `, ${this.props.USER.userName}! ` : ''} `}</p>
+                            <p className="usr-dtls-name pdng-usr-dtls-slots">{`Welcome to Docprime${this.props.USER.userName ? `, ${this.props.USER.userName}! ` : ''} `}</p>
                             {/* <p className="usr-dtls-benf pdng-usr-dtls-slots">docprime benefits</p> */}
                             <div className="usr-dtls-startup">
-                                <p className="usr-dtls-strt-txt pdng-usr-dtls-slots"><img src={ASSETS_BASE_URL + "/img/customer-icons/pinkarw.svg"} className="img-fluid" /> GETTING STARTED</p>
+                                <p className="usr-dtls-strt-txt pdng-usr-dtls-slots fw-500"><img src={ASSETS_BASE_URL + "/img/viplog.png"} className="img-fluid" />Become a Docprime VIP member and get below benefits</p>
                                 <div className="row no-gutters pdng-bttm">
                                     <div className="col-4 mbl-usr-grd">
                                         <span className="usr-dtls-free">FREE</span>
@@ -89,11 +107,11 @@ class ProfileData extends React.Component {
                                                 'Category': 'ConsumerApp', 'Action': 'ChatNowProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'chat-now-profile-clicked'
                                             }
                                             GTM.sendEvent({ data: data })
-                                            this.props.history.push(`/`)
+                                            this.props.history.push(`/vip-club-details`)
                                         }}>
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/su-chat.svg"} className="img-fluid usr-frst-ico" />
                                             <p>
-                                                <span>Chat Now </span>
+                                                <span>Unlimited chats</span>
                                                 with qualified doctors
                                             </p>
                                         </a>
@@ -104,13 +122,13 @@ class ProfileData extends React.Component {
                                             'Category': 'ConsumerApp', 'Action': 'FindDoctorsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'find-doctors-profile-clicked'
                                         }
                                         GTM.sendEvent({ data: data })
-                                        this.props.history.push(`/search?from=profile_banner_click`)
+                                        this.props.history.push(`/vip-club-details`)
                                     }}>
                                         <a className="usr-dtls-anchor lft-rgt-brdr" href="javascript:void(0);">
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/book-doctor.svg"} className="img-fluid" />
                                             <p>
-                                                <span>Find Doctors </span>
-                                                Upto 50% OFF
+                                                <span>Book Doctors </span>
+                                                Save 70%
                                             </p>
                                         </a>
                                     </div>
@@ -119,13 +137,13 @@ class ProfileData extends React.Component {
                                             'Category': 'ConsumerApp', 'Action': 'BookTestsProfileClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'book-tests-profile-clicked'
                                         }
                                         GTM.sendEvent({ data: data })
-                                        this.props.history.push(`/search?from=profile_banner_click`)
+                                        this.props.history.push(`/vip-club-details`)
                                     }}>
                                         <a className="usr-dtls-anchor" href="javascript:void(0);">
                                             <img src={ASSETS_BASE_URL + "/img/customer-icons/bk-tst.svg"} className="img-fluid" />
                                             <p>
                                                 <span>Book Tests </span>
-                                                Upto 50% OFF
+                                                25% OFF
                                             </p>
                                         </a>
                                     </div>
@@ -205,7 +223,7 @@ class ProfileData extends React.Component {
                             </a>
                         </li> */}
                         {
-                        CONFIG.ENABLE_INSURANCE && this.props.common_settings && this.props.common_settings.insurance_availability?
+                        CONFIG.ENABLE_INSURANCE && this.props.common_settings && this.props.common_settings.insurance_availability && isUserLoginInsured && this.props.USER && this.props.USER.profiles && Object.keys(this.props.USER.profiles).length > 0 && this.props.USER.profiles[parseInt(this.props.USER.defaultProfile)].insurance_status == 1 ?
                             <li onClick={this.goToInsurance.bind(this, isUserLoginInsured)} className="my-profile-item lst-spcng">
                                 <a>
                                     <span className="icon icon-md nav-icon">
@@ -213,13 +231,10 @@ class ProfileData extends React.Component {
                                     </span>
                                     <div className="nav-content">
                                         <h4 className="title app-title">OPD Insurance
-                                            {/* <span className="float-right badge badge-warning">1</span> */}
                                         </h4>
                                     </div>
                                 </a>
-                                {
-                                    isUserLoginInsured?<button className="ins-userdetails-active">Active</button>:<button className="ins-userdetails-buy">Buy Now</button>
-                                }
+                                {this.getInsuranceBtnText()}
                             </li>
                         :''
                         }

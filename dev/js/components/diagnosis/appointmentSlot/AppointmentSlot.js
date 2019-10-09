@@ -77,7 +77,11 @@ class AppointmentSlot extends React.Component {
     }
 
     selectTimeSlot(slot) {
-        this.props.selectLabTimeSLot(slot, this.state.reschedule)
+        let extraTimeParams = null
+        if(this.state.selectedTimeSlot && this.state.selectedTimeSlot.date) {
+            extraTimeParams = this.getFormattedDate(this.state.selectedTimeSlot.date)
+        }
+        this.props.selectLabTimeSLot(slot, this.state.reschedule, extraTimeParams)
     }
 
     componentDidMount() {
@@ -93,8 +97,18 @@ class AppointmentSlot extends React.Component {
             if(parsed.is_thyrocare && parsed.is_thyrocare.includes('true')){
                     
                 let nextDate = new Date()
-                nextDate.setDate(new Date().getDate() + 1)
+                if(this.props.selectedDateFormat) {
+                    
+                    if(new Date().toDateString()==new Date(this.props.selectedDateFormat).toDateString()){
+                        nextDate.setDate(new Date().getDate() + 1)
+                    }else {
+                        nextDate = new Date(this.props.selectedDateFormat)
+                    }
+                }else {
+                    nextDate.setDate(new Date().getDate() + 1)
+                }
                 this.getTimeSlots(nextDate)
+                
                 
             }else{
                 this.getTimeSlots(new Date())
@@ -117,10 +131,9 @@ class AppointmentSlot extends React.Component {
             pincode = ''
             date = ''
         }
-        this.props.getLabTimeSlots(selectedLab, this.state.pickupType, pincode||'', date, (data) => {
-            let { time_slots } = data
-            this.setState({ timeSlots: time_slots.time_slots ||null, upcoming_slots: time_slots.upcoming_slots|| null, is_thyrocare: time_slots.is_thyrocare})
-            // this.setState({ timeSlots: data.timeslots ||null, upcoming_slots: data.upcoming_slots|| null, is_thyrocare: data.is_thyrocare})
+        let extraParams = {}
+        this.props.getLabTimeSlots(selectedLab, this.state.pickupType, pincode||'', date, extraParams, (data) => {
+            this.setState({ timeSlots: data.timeslots ||null, upcoming_slots: data.upcoming_slots|| null, is_thyrocare: data.is_thyrocare})
         })
     }
 

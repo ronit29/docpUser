@@ -13,7 +13,7 @@ class DateTimePicker extends React.Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			selectedDateSpan: props.selectedSlot && props.selectedSlot.date?new Date(props.selectedSlot.date):new Date(),
+			selectedDateSpan: props.selectedSlot && props.selectedSlot.date?new Date(props.selectedSlot.date):props.selectedDateFormat?new Date(props.selectedDateFormat):new Date(),
 			currentTimeSlot: props.selectedSlot && props.selectedSlot.time ? props.selectedSlot.time : {},
 			dateModal: false,
 			daySeries:[]
@@ -31,14 +31,20 @@ class DateTimePicker extends React.Component {
             this.generateDays(true, this.props.selectedSlot.date)
         } else {
             let getUpcomingDate= false
-            if(this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length){
-                let upcoming_time = Object.keys(this.props.upcoming_slots)
-                if(this.props.timeSlots[upcoming_time[0]]){
-                    getUpcomingDate = true
-                    this.setState({selectedDateSpan: new Date(upcoming_time[0])})
-                    this.generateDays(true, new Date(upcoming_time[0]))
-                }
+            let upcoming_time = null
+            if(this.props.selectedDateFormat) {
+                upcoming_time = this.props.selectedDateFormat
+            
+            }else if(this.props.upcoming_slots && Object.keys(this.props.upcoming_slots).length){
+                upcoming_time = Object.keys(this.props.upcoming_slots)[0]   
             }
+
+            if(upcoming_time && this.props.timeSlots[upcoming_time] ){
+                getUpcomingDate = true
+                this.setState({selectedDateSpan: new Date(upcoming_time)})
+                this.generateDays(true, new Date(upcoming_time))
+            }
+
             if(!getUpcomingDate){
                 this.generateDays()   
             }
@@ -95,7 +101,6 @@ class DateTimePicker extends React.Component {
     		this.setState({ selectedDateSpan: dateFormat, currentTimeSlot: {} })
         	this.props.enableProceed(false, [])	
     	}
-	    
     }
 
     selectDateFromCalendar(date) {
@@ -220,7 +225,7 @@ class DateTimePicker extends React.Component {
 				                </div>
 				            </div>
 				            {
-				            	this.props.timeSlots && this.props.timeSlots[selectedFormattedDate]?
+				            	this.props.timeSlots && this.props.timeSlots[selectedFormattedDate] && this.props.timeSlots[selectedFormattedDate].length?
 				            	this.props.timeSlots[selectedFormattedDate].map((schedule, key) => {
 
 				            		return schedule.timing && schedule.timing.length?
@@ -244,11 +249,13 @@ class DateTimePicker extends React.Component {
 					                </div>
 					                :''
 				            	})
-				            	:''
+				            	:<div className="select-time-slot-container">
+                                    <p className="no-tm-slot pl-0 pt-20"><img src={ASSETS_BASE_URL +"/images/warning-icon.png"} style={{height: '15px', width: '15px', marginRight: '8px'}}/>Not available on this day.</p>
+                                </div>
 				            }
 				        </div>
 				        :<div className="select-time-slot-container">
-				            <p style={{ textAlign: 'center' }}>Not available on this day.</p>
+				            <p className="no-tm-slot pl-0 pt-20"><img src={ASSETS_BASE_URL +"/images/warning-icon.png"} style={{height: '15px', width: '15px', marginRight: '8px'}}/>Not available on this day.</p>
 				        </div>
 
                     }

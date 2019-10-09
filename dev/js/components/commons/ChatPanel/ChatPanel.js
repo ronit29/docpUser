@@ -11,10 +11,18 @@ import RecentArticles from '../article/RecentArticles'
 import TableOfContent from '../article/TableOfContent'
 import BannerCarousel from '../Home/bannerCarousel';
 const queryString = require('query-string');
+import ChatRefundReasons from './ChatRefundReasons.js'
+import SnackBar from 'node-snackbar'
 
 class ChatPanel extends React.Component {
     constructor(props) {
         super(props)
+        let parsedHref = ''
+        let is_thyrocare = false
+        if (typeof window == "object") {
+            parsedHref = queryString.parse(window.location.search)
+            is_thyrocare = (parsedHref && parsedHref.utm_source && parsedHref.utm_source.includes('Thyrocare'))
+        }
         this.state = {
             selectedRoom: null,
             token: "",
@@ -23,24 +31,30 @@ class ChatPanel extends React.Component {
             showCancel: false,
             showChatBlock: false,
             additionClasses: ' chat-load-mobile',
-            hideIframe: true,
-            iframeLoading: true,
-            showStaticView: true,
+            hideIframe: is_thyrocare ? false : true,
+            iframeLoading: is_thyrocare ? false : true,
+            showStaticView: is_thyrocare ? false : true,
             initialMessage: "",
-            callTimeout: false
+            callTimeout: false,
+            openRefundPopup: false
         }
     }
 
     componentDidMount() {
-        if(this.props.onRefIpd) {
-            this.props.onRefIpd(this)    
+        let parsedHref = ''
+        if (typeof window == "object") {
+            parsedHref = queryString.parse(window.location.search)
+        }
+
+        if (this.props.onRefIpd) {
+            this.props.onRefIpd(this)
         }
         if (this.props.selectedLocation) {
             this.sendLocationNotification(this.props.selectedLocation)
         }
 
         STORAGE.getAuthToken().then((token) => {
-            this.sendUserDetails(this.props.USER)
+            //this.sendUserDetails(this.props.USER)
             token = token || ""
             if (this.props.location.state) {
                 this.setState({ token, symptoms: (this.props.location.state.symptoms || []), roomId: (this.props.location.state.roomId || "") })
@@ -56,7 +70,7 @@ class ChatPanel extends React.Component {
         /**
          * Check for static message and hide/show iframe with loader accordingly.
          */
-        if (this.props.USER && (this.props.USER.liveChatStarted || this.props.USER.ipd_chat && this.props.USER.ipd_chat.showIpdChat) ){
+        if (this.props.USER && (this.props.USER.liveChatStarted || this.props.USER.ipd_chat && this.props.USER.ipd_chat.showIpdChat)) {
             this.setState({ showStaticView: false, iframeLoading: true }, () => {
                 this.setState({ hideIframe: false }, () => {
                     let iframe = this.refs.chat_frame
@@ -152,8 +166,23 @@ class ChatPanel extends React.Component {
                                     'Category': 'Chat', 'Action': 'ChatInitialization', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-initialization', 'RoomId': data.data.rid, "url": window.location.pathname
                                 }
                                 GTM.sendEvent({ data: analyticData })
+                                let extraParams = {}
+                                if (typeof window == "object") {
+                                    parsedHref = queryString.parse(window.location.search)
+                                }
+                                if(parsedHref && parsedHref.payment=='success'){
+                                    extraParams.payment = true
+                                }
+                                this.props.setChatRoomId(data.data.rid, extraParams)
+                                if (this.props.selectedLocation) {
+                                    this.sendLocationNotification(this.props.selectedLocation)
+                                }
+                                //Send payment event ,when payment is in url
+                                if (parsedHref && parsedHref.payment) {
+                                    this.sendPaymentStatusEvent(data.data.rid)
+                                }
 
-                                this.props.setChatRoomId(data.data.rid)
+                                this.sendUserDetails()
                                 this.setState({ selectedRoom: data.data.rid, iframeLoading: false })
                             }
                             break
@@ -173,8 +202,15 @@ class ChatPanel extends React.Component {
                         case "Chat_Close": {
                             // this.props.startLiveChat(false, this.state.selectedLocation)
                             this.setState({ initialMessage: "", selectedRoom: null, })
+                            if(parsedHref && parsedHref.payment == 'success'){
+                                let buildUrl = this.buildUrl()
+                                this.props.history.replace(buildUrl)
+                            }
                             this.props.setChatRoomId(null)
-                            this.props.ipdChatView(null)
+                            let that = this
+                            setTimeout(() => {
+                                that.props.ipdChatView(null)
+                            }, 1000)
                             this.props.unSetCommonUtmTags('chat')
                             // this.props.history.go(-1)
                             break
@@ -200,6 +236,16 @@ class ChatPanel extends React.Component {
                                     'Category': 'Chat', 'Action': 'BannerTransferFired', 'CustomerID': '', 'leadid': 0, 'event': 'banner-transfer-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname
                                 }
                                 GTM.sendEvent({ data: analyticData })
+                            } else if (data.type == 'preventive') {
+                                let analyticData = {
+                                    'Category': 'Chat', 'Action': 'PreventiveFired', 'CustomerID': '', 'leadid': 0, 'event': 'preventive-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname
+                                }
+                                GTM.sendEvent({ data: analyticData })
+                            } else if (data.type == 'salesBanner') {
+                                let analyticData = {
+                                    'Category': 'Chat', 'Action': 'BannerSalesFired', 'CustomerID': '', 'leadid': 0, 'event': 'banner-sales-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname
+                                }
+                                GTM.sendEvent({ data: analyticData })
                             }
                             break;
                         }
@@ -214,13 +260,21 @@ class ChatPanel extends React.Component {
                             break;
                         }
 
+                        case 'bookNowPharmacy': {
+                            let analyticData = {
+                                'Category': 'Chat', 'Action': 'BookNowPharmacyFired', 'CustomerID': '', 'leadid': 0, 'event': 'book-now-pharmacy-fired', 'RoomId': eventData.rid || '', "url": window.location.pathname
+                            }
+                            GTM.sendEvent({ data: analyticData })
+                            break;
+                        }
+
                     }
 
                     /**
                      * redirecting chat to new page for mobile users on homepage and on focus
                      * TODO : review this
                      */
-                    if (data.message && data.message == 'focus' && !(this.props.USER && this.props.USER.ipd_chat && this.props.USER.ipd_chat.showIpdChat) ) {
+                    if (data.message && data.message == 'focus' && !(this.props.USER && this.props.USER.ipd_chat && this.props.USER.ipd_chat.showIpdChat)) {
                         let iframe = this.refs.chat_frame
                         // iframe.scrollTop = iframe.scrollHeight
                         if (this.props.homePage && window.innerWidth < 768 && !this.props.history.location.pathname.includes('mobileviewchat')) {
@@ -234,9 +288,21 @@ class ChatPanel extends React.Component {
 
     }
 
+    sendPaymentStatusEvent(rid) {
+        let parsedHref = ''
+        if (typeof window == "object") {
+            parsedHref = queryString.parse(window.location.search)
+        }
+        let data = {
+            rid: rid,
+            payment_status: parsedHref.payment || ''
+        }
+        this.dispatchCustomEvent('payment', data)
+    }
+
     componentWillUnmount() {
-        if(this.props.onRefIpd) {
-            this.props.onRefIpd(undefined)    
+        if (this.props.onRefIpd) {
+            this.props.onRefIpd(undefined)
         }
     }
 
@@ -251,27 +317,38 @@ class ChatPanel extends React.Component {
         this.dispatchCustomEvent('location', data)
     }
 
-    sendUserDetails(user){
-        let data={}
-        if(user && Object.keys(user.profiles).length > 0){
-            data.is_insured = user.profiles[user.selectedProfile].is_insured
-            data.name = user.profiles[user.selectedProfile].name       
-        }
-        this.dispatchCustomEvent('user_details', data)
+    sendUserDetails() {
+        let data = {}
+        setTimeout(() => {
+            let user = this.props.USER
+            if (user && user.profiles && Object.keys(user.profiles).length > 0 && user.profiles[user.selectedProfile]) {
+
+                this.dispatchCustomEvent('user_details', { is_insured: user.profiles[user.selectedProfile].is_insured, name: user.profiles[user.selectedProfile].name })
+            } else {
+                this.dispatchCustomEvent('user_details', { is_insured: false, name: '' })
+            }
+
+        }, 1000)
+
     }
 
     componentWillReceiveProps(props) {
+        let parsedHref = ''
+        if (typeof window == "object") {
+            parsedHref = queryString.parse(window.location.search);
+        }
+        let is_thyrocare = (parsedHref && parsedHref.utm_source && parsedHref.utm_source.includes('Thyrocare')) ? true : false
 
         if (this.props.selectedLocation != props.selectedLocation && props.selectedLocation) {
             this.sendLocationNotification(props.selectedLocation)
         }
 
-        if ((props.USER && props.USER.liveChatStarted && props.USER.liveChatStarted != this.props.USER.liveChatStarted) || (props.USER && props.USER.ipd_chat && props.USER.ipd_chat.showIpdChat) ) {
-            this.sendUserDetails(props.USER)
+        if ((props.USER && props.USER.liveChatStarted && props.USER.liveChatStarted != this.props.USER.liveChatStarted) || (props.USER && props.USER.ipd_chat && props.USER.ipd_chat.showIpdChat)) {
+            //this.sendUserDetails(props.USER)
             this.setState({ showStaticView: false, iframeLoading: true }, () => {
                 this.setState({ hideIframe: false }, () => {
 
-                    let iframe = this.refs.chat_frame 
+                    let iframe = this.refs.chat_frame
                     if (iframe) {
                         iframe.onload = () => {
                             this.setState({ iframeLoading: false })
@@ -292,7 +369,7 @@ class ChatPanel extends React.Component {
             })
         } else {
             if (props.USER && !props.USER.liveChatStarted) {
-                this.setState({ showStaticView: true, iframeLoading: false })
+                this.setState({ showStaticView: is_thyrocare ? false : true, iframeLoading: false })
             }
         }
 
@@ -301,28 +378,45 @@ class ChatPanel extends React.Component {
     dispatchCustomEvent(eventName, data = {}) {
         let event = new Event(eventName)
         let iframe = this.refs.chat_frame
-        
-        if(iframe){
+
+        if (iframe && iframe.contentWindow) {
             iframe.dispatchEvent(event)
             iframe.contentWindow.postMessage({ 'event': eventName, data }, '*')
         }
         let iframe1 = this.refs.chat_frame1
-         if(iframe1){
+        if (iframe1 && iframe1.contentWindow) {
             iframe1.dispatchEvent(event)
             iframe1.contentWindow.postMessage({ 'event': eventName, data }, '*')
         }
     }
 
     closeChat() {
+        let parsedHref = ''
+        if (typeof window == "object") {
+            parsedHref = queryString.parse(window.location.search)
+        }
+
         STORAGE.getAuthToken().then((token) => {
             token = token || ""
             this.setState({ token, initialMessage: "", selectedRoom: null })
         })
         this.dispatchCustomEvent.call(this, 'close_frame')
         this.setState({ showCancel: !this.state.showCancel })
+        if(parsedHref && parsedHref.payment == 'success'){
+            let buildUrl = this.buildUrl()
+            this.props.history.replace(buildUrl)
+        }
         this.props.setChatRoomId(null)
         this.props.unSetCommonUtmTags('chat')
-        this.props.ipdChatView(null)
+        let that = this
+        setTimeout(() => {
+            that.props.ipdChatView(null)
+        }, 1000)
+
+    }
+
+    buildUrl(){
+        return window.pathname;
     }
 
     toggleCancel(e) {
@@ -392,6 +486,36 @@ class ChatPanel extends React.Component {
             console.log('error in rendering chat iframe'+error);
         }
     }
+    refundClicked(isEnable) {
+        if(isEnable){
+            let data = {
+                'Category': 'Chat', 'Action': 'RefundBtnClicked', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'Refund-btn-clicked', "PageType": this.props.type, "url": window.location.pathname
+            }
+            GTM.sendEvent({ data: data })
+            this.toggleRefundPopup()
+
+        }else{
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "No payment exists for this consultation" })
+            }, 200)
+        }
+    }
+
+    toggleRefundPopup() {
+        this.setState({ openRefundPopup: !this.state.openRefundPopup })
+    }
+
+    submitRefundReasons(reason) {
+        let data = {
+            roomId: this.state.roomId,
+            reason: reason
+        }
+        this.dispatchCustomEvent('Refund_Fees', data)
+        this.props.setPaymentStatus(null)
+        let buildUrl = this.buildUrl()
+        this.props.history.replace(buildUrl)
+        this.toggleRefundPopup()
+    }
 
     render() {
         let doctorData = null
@@ -432,7 +556,7 @@ class ChatPanel extends React.Component {
             }
         }
         let is_religare = false
-        if (this.props.USER && this.props.USER.common_utm_tags && this.props.USER.common_utm_tags.length) {
+        if (false && this.props.USER && this.props.USER.common_utm_tags && this.props.USER.common_utm_tags.length) {
             let religareTag = this.props.USER.common_utm_tags.filter(x => x.type == 'chat' && x.utm_source == 'religare')
 
             if (religareTag.length) {
@@ -440,13 +564,17 @@ class ChatPanel extends React.Component {
                 iframe_url += `&source=religare&visitid=${religareTag[0].visitorId}`
             }
         }
-        if(parsedHref && parsedHref.utm_source && parsedHref.utm_source.includes('religare')) {
+        if (parsedHref && parsedHref.utm_source) {
 
-            if(!is_religare) {
-                is_religare = true
-                iframe_url += `&source=religare&visitid=${parsedHref.visitid?parsedHref.visitid:''}`
+            if (parsedHref.utm_source != 'religare') {
+                iframe_url += `&source=${parsedHref.utm_source}`
             }
-            
+
+            if (!is_religare && parsedHref.utm_source.includes('religare')) {
+                is_religare = true
+                iframe_url += `&source=religare&visitid=${parsedHref.visitid ? parsedHref.visitid : ''}`
+            }
+
         }
         is_religare = is_religare && this.props.mobilechatview
         let chatBtnContent1 = ''
@@ -463,18 +591,57 @@ class ChatPanel extends React.Component {
             recentArticles = this.props.articleData.recent_articles
         }
 
-        
+
         //if(this.props.showHalfScreenChat && this.props.ipdFormParams) {
-        if(this.props.USER && this.props.USER.ipd_chat && this.props.USER.ipd_chat.ipdForm){
+        if (this.props.USER && this.props.USER.ipd_chat && this.props.USER.ipd_chat.ipdForm && false) {
 
             let params = JSON.stringify(this.props.USER.ipd_chat.ipdForm)
-            iframe_url += `&product=IPD&params=${params}`
-        }else{
-            iframe_url += '&product=DocPrime'      
+            iframe_url += `&product=IPD&params=${params}&msg=startchat`
+        } else {
+            iframe_url += '&product=DocPrime'
         }
-        
-        if(this.props.showHalfScreenChat && !this.props.showDesktopIpd) {
-            return(
+
+        if (parsedHref.booking_id) {
+            iframe_url += `&booking_id=${parsedHref.booking_id}`
+        }
+
+        if (parsedHref.utm_source && parsedHref.utm_source.includes('Thyrocare')) {
+            iframe_url += '&msg=startchat'
+        }
+
+        if (parsedHref.payment) {
+            iframe_url += `&payment=${parsedHref.payment}`
+        }
+
+        if (parsedHref.order_id) {
+            iframe_url += `&order_id=${parsedHref.order_id}`
+        }
+
+        let payment_disable = parsedHref && parsedHref.utm_campaign && parsedHref.utm_campaign.includes('AdDocChat') ? parsedHref.utm_campaign.includes('AdDocChat') : null
+
+        if(parsedHref.utm_campaign){
+            iframe_url += `&utm_campaign=${parsedHref.utm_campaign}`
+        }
+
+        if (payment_disable) {
+            iframe_url += `&testing_mode=a`
+        } else {
+            iframe_url += `&testing_mode=b`
+        }
+
+        if(parsedHref && parsedHref.consultation_id){
+            iframe_url += `&consultation_id=${parsedHref.consultation_id}`
+        }
+
+        let is_payment_for_current_room = null
+        if(this.props.USER && this.props.USER.chatPaymentStatus && this.props.USER.chatPaymentStatus==this.props.USER.currentRoomId){
+
+            is_payment_for_current_room = true;
+             
+        }
+
+        if (this.props.showHalfScreenChat && !this.props.showDesktopIpd) {
+            return (
                 <div className="chat-body">
                     {
                         STORAGE.isAgent() || this.state.hideIframe ? "" : <iframe className={this.props.homePage ? `chat-iframe ${this.state.iframeLoading ? 'd-none' : ''}` : `chat-iframe-inner float-chat-height ${this.state.iframeLoading ? 'd-none' : ''}`} src={iframe_url} allow="microphone;camera" ref="chat_frame1"></iframe>
@@ -495,10 +662,15 @@ class ChatPanel extends React.Component {
                             : ""
                     }
                 </div>
-                )
-        }else {
+            )
+        } else {
             return (
                 <div>
+                    {
+                        this.state.openRefundPopup &&
+                        <ChatRefundReasons submitRefund={this.submitRefundReasons.bind(this)} toggleRefund={() => this.toggleRefundPopup()} />
+
+                    }
                     {
                         this.props.homePage || this.props.mobilechatview || this.props.noChatButton || this.props.articleData || this.props.searchTestInfoData ? '' :
                             this.props.newChatBtn || this.props.newChatBtnAds ?
@@ -518,10 +690,10 @@ class ChatPanel extends React.Component {
                                 <TableOfContent searchTestInfoData={this.props.searchTestInfoData} updateTabsValues={this.props.updateTabsValues} resp_test_id={this.props.resp_test_id} />
                             </div> : ''
                     }
-                    <div className={`${this.state.showChatBlock?"floating-chat " : ""} ${is_religare?' chat-rlgr-view':''}`}>
+                    <div className={`${this.state.showChatBlock ? "floating-chat " : ""} ${is_religare ? ' chat-rlgr-view' : ''}`}>
                         {
                             this.state.showStaticView ?
-                                <ChatStaticView {...this.props} startLiveChatWithMessage={this.startLiveChatWithMessage.bind(this)} hideStaticChat={this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`} is_religare={is_religare}/>
+                                <ChatStaticView {...this.props} startLiveChatWithMessage={this.startLiveChatWithMessage.bind(this)} hideStaticChat={this.hideStaticChat.bind(this)} showChatBlock={this.state.showChatBlock} dataClass={this.state.showChatBlock ? "chatbox-right test-chat " : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`} is_religare={is_religare} />
                                 :
                                 <div className={this.state.showChatBlock ? "chatbox-right test-chat" : `${this.props.homePage ? 'chatbox-right' : 'chatbox-right chat-slide-down d-lg-flex mt-21'} ${this.props.homePage ? '' : this.state.additionClasses}`}>
 
@@ -538,18 +710,21 @@ class ChatPanel extends React.Component {
                                                     :
                                                     this.props.chatPage ?
                                                         <h1 className="text-left header-text-chat" style={{ color: '#ef5350' }}>
-                                                            <span className="hed-txt-lt">Get a </span>
-                                                            Free Online Doctor Consultation!
+                                                            {/* <span className="hed-txt-lt">Get a </span> */}
+                                                            Online Doctor Consultation!
                                                         </h1>
                                                         :
                                                         <p className="text-left header-text-chat" style={{ color: '#ef5350' }}>
-                                                            <span className="hed-txt-lt">Get a </span>
-                                                            Free Online Doctor Consultation!
+                                                            {/* <span className="hed-txt-lt">Get a </span> */}
+                                                            Online Doctor Consultation!
                                                         </p>
                                             }
                                         </div>
 
-                                        <div className="cht-head-rqst-btn" style={this.props.homePage ? { width: 64 } : { width: 98 }} >
+                                        <div className="cht-head-rqst-btn refund-chat" style={this.props.homePage ? {} : {}} >
+                                            {
+                                                !is_religare && <p className={`cht-need-btn cursor-pntr ${is_payment_for_current_room?'':'disable-all'}`} onClick={() => { this.refundClicked(is_payment_for_current_room) }}>Refund</p>
+                                            }
                                             {
                                                 this.state.selectedRoom ? <span className="mr-2" onClick={() => {
                                                     let data = {
@@ -569,24 +744,25 @@ class ChatPanel extends React.Component {
                                                 </span> : ""
                                             }
 
+                                            {
+                                                is_religare ?
+                                                    <span onClick={this.toggleCancel.bind(this)}>
+                                                        <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/rel_chatclose.svg"} title="start a new chat" />
+
+                                                    </span>
+                                                    : <span onClick={this.toggleCancel.bind(this)}>
+                                                        <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatclose.svg"} title="start a new chat" />
+
+                                                    </span>
+                                            }
+
 
                                             {
                                                 this.state.showChatBlock
-                                                    ? is_religare?
-                                                        <span onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/rel_chatminimize.svg"} /></span>
-                                                        :<span onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatminimize.svg"} /></span>
+                                                    ? is_religare ?
+                                                        <span className="ml-2" onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/rel_chatminimize.svg"} /></span>
+                                                        : <span className="ml-2" onClick={() => this.closeChatClick()}><img className="close-chat" style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatminimize.svg"} /></span>
                                                     : ''
-                                            }
-                                            {
-                                                is_religare?
-                                                <span className="ml-2" onClick={this.toggleCancel.bind(this)}>
-                                                    <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/rel_chatclose.svg"} title="start a new chat" />
-
-                                                </span>
-                                                :<span className="ml-2" onClick={this.toggleCancel.bind(this)}>
-                                                    <img style={{ width: 26 }} src={ASSETS_BASE_URL + "/img/chatclose.svg"} title="start a new chat" />
-
-                                                </span>
                                             }
                                         </div>
                                     </div>
@@ -648,13 +824,13 @@ class ChatPanel extends React.Component {
                             </div> : ''
                     }
                     {
-                        this.props.homePage && !this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
+                        this.props.homePage && !!!this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'home_page').length ?
                             <BannerCarousel {...this.props} sliderLocation="home_page" />
-                            :
-                            this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'online_consultation').length ?
-                                <div className="mrt-20">
-                                    <BannerCarousel {...this.props} sliderLocation="online_consultation" />
-                                </div> : ''
+                            : ''
+                    }
+                    {
+                        this.props.chatPage && this.props.offerList && this.props.offerList.filter(x => x.slider_location === 'online_consultation').length ?
+                            <BannerCarousel {...this.props} sliderLocation="online_consultation" chatPage={this.props.chatPage} /> : ''
                     }
                 </div>
             );

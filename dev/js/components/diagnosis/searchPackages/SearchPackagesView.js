@@ -33,9 +33,6 @@ class SearchPackagesView extends React.Component {
     componentDidMount() {
         if (true) {
             this.getLabList(this.props)
-            // if (window) {
-            //     window.scrollTo(0, 0)
-            // }
         }
         if (this.state.seoFriendly) {
             this.props.getFooterData(this.props.match.url.split('/')[1]).then((footerData) => {
@@ -43,6 +40,10 @@ class SearchPackagesView extends React.Component {
                     this.setState({ footerData: footerData })
                 }
             })
+        }
+
+        if (window) {
+            window.scrollTo(0, 0)
         }
 
         this.setState({ showChatWithus: true })
@@ -139,15 +140,24 @@ class SearchPackagesView extends React.Component {
             'Category': 'ConsumerApp', 'Action': 'CompareButton', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'compare-button-click'
         }
         GTM.sendEvent({ data: data })
-        if (this.props.packagesList.count == 1) {
-            if (this.props.packagesList.result) {
-                let packages = {}
-                packages.id = this.props.packagesList.result[0].id
-                packages.lab_id = this.props.packagesList.result[0].lab.id
-                packages.img = this.props.packagesList.result[0].lab.lab_thumbnail
-                packages.name = this.props.packagesList.result[0].name
+        if(this.props.packagesList.count == 1){
+            if(this.props.packagesList.result){
+                let packages={}
+                let selectedPkgCompareIds=[]
+                packages.id=this.props.packagesList.result[0].id
+                packages.lab_id=this.props.packagesList.result[0].lab.id
+                packages.img=this.props.packagesList.result[0].lab.lab_thumbnail
+                packages.name=this.props.packagesList.result[0].name
                 this.props.togglecompareCriteria(packages)
-                this.props.history.push('/package/compare?package_ids=' + this.props.packagesList.result[0].id + '-' + this.props.packagesList.result[0].lab.id)
+                if(this.props.compare_packages && this.props.compare_packages.length >0){
+                      this.props.compare_packages.map((packages, i) => {
+                        if(packages.id != this.props.packagesList.result[0].id && packages.lab_id != this.props.packagesList.result[0].lab.id){ 
+                          selectedPkgCompareIds.push(packages.id+'-'+packages.lab_id)
+                        }
+                      })
+                }
+                selectedPkgCompareIds.push(this.props.packagesList.result[0].id+'-'+this.props.packagesList.result[0].lab.id)
+                this.props.history.push('/package/compare?package_ids='+selectedPkgCompareIds)
             }
         } else {
             this.setState({ isCompare: !this.state.isCompare }, () => {
@@ -205,21 +215,26 @@ class SearchPackagesView extends React.Component {
         let package_type = filterCriteriaPackages.packageType || ""
         let test_ids = filterCriteriaPackages.test_ids || ""
         let package_ids = filterCriteriaPackages.package_ids || ""
+        // let package_category_ids = filterCriteriaPackages.package_category_ids || ""
 
         let url
         const parsed = queryString.parse(this.props.location.search)
-
+        let package_category_ids = parsed.package_category_ids
         if (this.props.forTaxSaver) {
-            let package_category_id = parsed.package_category_ids
-            url = `${window.location.pathname}?lat=${lat}&long=${long}&package_category_ids=${package_category_id}`
+            url = `${window.location.pathname}?lat=${lat}&long=${long}&page=${page}`
         } else {
             url = `${window.location.pathname}?lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&avg_ratings=${avg_ratings}&home_visit=${home_visit}&lab_visit=${lab_visit}&lab_name=${lab_name}&place_id=${place_id}&locationType=${locationType || ""}&network_id=${network_id}&category_ids=${cat_ids}&min_age=${min_age}&max_age=${max_age}&gender=${gender}&package_type=${package_type}&test_ids=${test_ids}&package_ids=${package_ids}&page=${page}`
+        }
+        
+        if(parsed.package_category_ids){
+            url += `&package_category_ids=${package_category_ids}`
         }
 
         if (parsed.scrollbyid) {
             let scrollby_test_id = parseInt(parsed.scrollbyid)
             let scrollby_lab_id = parseInt(parsed.scrollbylabid)
-            url += `&scrollbyid=${scrollby_test_id || ""}&scrollbylabid=${scrollby_lab_id || ""}`
+            // url += `&scrollbyid=${scrollby_test_id || ""}&scrollbylabid=${scrollby_lab_id || ""}`
+            url += `&scrollbyid=${scrollby_test_id || ""}`
         }
 
         if (parsed.isComparable) {
@@ -249,13 +264,14 @@ class SearchPackagesView extends React.Component {
     render() {
         let self = this
         const parsed = queryString.parse(this.props.location.search)
-        if (this.props.forTaxSaver && this.state.isScroll) {
+        if(this.state.isScroll){
             let scrollby_test_id = parseInt(parsed.scrollbyid)
             let scrollby_lab_id = parseInt(parsed.scrollbylabid)
-            let url_id = `scrollById_${scrollby_test_id}_${scrollby_lab_id}`
-            if (typeof window == "object" && typeof document == "object" && document.getElementById(url_id)) {
-                window.scrollTo(0, document.getElementById(url_id).offsetTop + 250)
-                self.setState({ isScroll: false })
+            // let url_id= `scrollById_${scrollby_test_id}_${scrollby_lab_id}`
+            let url_id= `scrollById_${scrollby_test_id}`
+            if ( typeof window == "object" && typeof document == "object" && document.getElementById(url_id) ) {
+               window.scrollTo(0, document.getElementById(url_id).offsetTop+250)
+               self.setState({isScroll:false})
             }
         }
         let isCompared = false

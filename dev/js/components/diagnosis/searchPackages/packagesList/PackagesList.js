@@ -117,6 +117,10 @@ class packagesList extends React.Component {
             catId: viewMore?[]:[category],
             viewMore: viewMore
         }
+        let gtmData = {
+            'Category': 'PackageQuickFilterClicked', 'Action': 'PackageQuickFilterClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'package-quick-filter-clicked', 'url': window.location.pathname, 'type': category
+        }
+        GTM.sendEvent({ data: gtmData })
         this.props.applyQuickFilter(filters)
     }
 
@@ -170,18 +174,18 @@ class packagesList extends React.Component {
                                     </div>
                                     : ''
                             }
-                            {
+                            {/*
                                 this.props.forTaxSaver ? <div>
                                     <div className="taxBanner">
                                         <img className="img-fluid" src="https://cdn.docprime.com/images/artboard1243.png" />
                                     </div>
                                     <div className="taxContent">
-                                        {/* <img style={{ cursor: 'pointer', marginTop: '3px' }} src={ASSETS_BASE_URL + "/img/icons/info.svg"} /> */}
+                                        { <img style={{ cursor: 'pointer', marginTop: '3px' }} src={ASSETS_BASE_URL + "/img/icons/info.svg"} /> }
                                         <p className="taxContentPara">Book Preventive Healthcare Packages for you and your family and get a tax benefit upto <span style={{ display: 'inline-block' }}>₹ 5000</span> under section 80D of the Income Tax Act. To know more <span className="taxClickbtn" onClick={this.showTc.bind(this)}> click here</span></p>
                                     </div>
                                 </div>
                                     : ''
-                            }
+                            */}
                             <div className="row no-gutters">
                                 <div className="col-12">
                                     <InfiniteScroll
@@ -217,7 +221,7 @@ class packagesList extends React.Component {
                                                                         <BannerCarousel {...this.props} sliderLocation={this.props.forTaxSaver ? "tax_saver_packages_page" : this.props.forOrganicSearch ? 'full_body_chechkup_page' : 'search_packages_page'} />
                                                                     </div> : ''
                                                             }
-                                                            <li id={`scrollById_${packages.id}_${packages.lab.id}`}>
+                                                            <li id={`scrollById_${packages.id}`}>
                                                                 <PackageProfileCard {...this.props} details={packages} key={i} rank={i} />
                                                             </li>
                                                            </React.Fragment>

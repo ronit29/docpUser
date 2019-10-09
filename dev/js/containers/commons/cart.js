@@ -36,11 +36,11 @@ class Cart extends React.Component {
 
 const mapStateToProps = (state) => {
     let {
-        cart, userWalletBalance, userCashbackBalance
+        cart, userWalletBalance, userCashbackBalance, profiles, defaultProfile
     } = state.USER
 
     return {
-        cart, userWalletBalance, userCashbackBalance
+        cart, userWalletBalance, userCashbackBalance, profiles, defaultProfile
     }
 }
 
@@ -51,15 +51,15 @@ const mapDispatchToProps = (dispatch) => {
         removeFromCart: (id) => dispatch(removeFromCart(id)),
         processCartItems: (use_wallet) => dispatch(processCartItems(use_wallet)),
         selectProfile: (id) => dispatch(selectProfile(id)),
-        selectOpdTimeSLot: (slot, reschedule, appointmentId) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId)),
-        selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
+        selectOpdTimeSLot: (slot, reschedule, appointmentId, dateParam) => dispatch(selectOpdTimeSLot(slot, reschedule, appointmentId, dateParam)),
+        selectLabTimeSLot: (slot, reschedule, dateParam) => dispatch(selectLabTimeSLot(slot, reschedule, dateParam)),
         saveProfileProcedures: (doctor_id, clinic_id, selectedProcedures, forceAdd) => dispatch(saveProfileProcedures(doctor_id, clinic_id, selectedProcedures, forceAdd)),
         clearAllTests: () => dispatch(clearAllTests()),
         applyCoupons: (productId, couponData, couponId, doctor_id) => dispatch(applyCoupons(productId, couponData, couponId, doctor_id)),
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         fetchTransactions: () => dispatch(fetchTransactions()),
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
-        sendAgentBookingURL: (orderId, type, purchase_type,cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type, cb)),
+        sendAgentBookingURL: (orderId, type, purchase_type,query_data,cb) => dispatch(sendAgentBookingURL(orderId, type,purchase_type,query_data, cb)),
         select_opd_payment_type: (type) => dispatch(select_opd_payment_type(type)),
         savePincode: (pincode) => dispatch(savePincode(pincode))
     }

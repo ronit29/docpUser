@@ -28,7 +28,8 @@ class InsuranceEndoresmentInputView extends React.Component{
             show_selected_profiles:[],
             validateDobErrors:[],
            	errorMessages:[],
-           	endorsementError:[]
+           	endorsementError:[],
+           	emailVerified:false
         }
     }
     componentDidMount(){
@@ -118,6 +119,10 @@ class InsuranceEndoresmentInputView extends React.Component{
     	let is_enable = profiles.filter(x=> !x.isformCompleted)
     	is_enable = is_enable.length?false:true
     	this.setState({enable_proceed: is_enable, profiles_selected: profiles})
+    }
+
+    checkIsEmailVerfied(){
+    	this.setState({emailVerified:true})
     }
 
     proceedPlan(){
@@ -307,24 +312,25 @@ class InsuranceEndoresmentInputView extends React.Component{
 					}
 				}
 
-				if(fields.length > 0 || empty_feilds.length > 0 || dobError.length > 0){	
-					is_disable = true
-					if(this.props.selected_plan.threshold.length>0){
-						errorMessagesObj.child_max_age= this.props.selected_plan.threshold[0].child_max_age
-						errorMessagesObj.child_min_age= this.props.selected_plan.threshold[0].child_min_age
-						errorMessagesObj.max_age= this.props.selected_plan.threshold[0].max_age
-						errorMessagesObj.min_age= this.props.selected_plan.threshold[0].min_age
-						errorMessagesObj.common_message= '*This is a mandatory field'
-						errorMessagesObj.max_character= 'Maximum character limit: 50'
-						errorMessagesObj.valid_email= '*Please enter a valid email'
-						errorMessagesObj.adult_age = `*Age should be more than ${this.props.selected_plan.threshold[0].min_age} years and less than ${this.props.selected_plan.threshold[0].max_age} years`
-						errorMessagesObj.child_age = `*Age should be more than ${this.props.selected_plan.threshold[0].child_min_age} days and less than ${this.props.selected_plan.threshold[0].child_max_age} years`
-						errorMessagesObj.sameGenderTitle = "*Both the Adults can't have same Gender and Title"
-						errorMessagesObj.shouldGenderTitle = "*Both Gender and Title can't be different"
-						errorMessagesObj.childAgeDiff = '*Difference between age of child and adult should be more than 18 years'						
-					}
-					member_ref = `member_${param.id}`
+				if(this.props.selected_plan.threshold.length>0){
+					errorMessagesObj.child_max_age= this.props.selected_plan.threshold[0].child_max_age
+					errorMessagesObj.child_min_age= this.props.selected_plan.threshold[0].child_min_age
+					errorMessagesObj.max_age= this.props.selected_plan.threshold[0].max_age
+					errorMessagesObj.min_age= this.props.selected_plan.threshold[0].min_age
+					errorMessagesObj.common_message= '*This is a mandatory field'
+					errorMessagesObj.max_character= 'Maximum character limit: 50'
+					errorMessagesObj.valid_email= '*Please enter a valid email'
+					errorMessagesObj.adult_age = `*Age should be more than ${this.props.selected_plan.threshold[0].min_age} years and less than ${this.props.selected_plan.threshold[0].max_age} years`
+					errorMessagesObj.child_age = `*Age should be more than ${this.props.selected_plan.threshold[0].child_min_age} days and less than ${this.props.selected_plan.threshold[0].child_max_age} years`
+					errorMessagesObj.sameGenderTitle = "*Both the Adults can't have same Gender and Title"
+					errorMessagesObj.shouldGenderTitle = "*Both Gender and Title can't be different"
+					errorMessagesObj.childAgeDiff = '*Difference between age of child and adult should be more than 18 years'						
 				}
+
+				// if(fields.length > 0 || empty_feilds.length > 0 || dobError.length > 0){	
+				// 	is_disable = true
+				// 	member_ref = `member_${param.id}`
+				// }
 				if(param.name != "" && param.middle_name != "" && param.last_name != "" && !param.no_lname){//name validation
 					let fullnameObj={}
 					fullname = param.name+param.middle_name+param.last_name
@@ -350,10 +356,11 @@ class InsuranceEndoresmentInputView extends React.Component{
 					fullnameObj.fName=fullname.toLowerCase()
 					fields_name.push(fullnameObj)
 				}
+
 				validatingErrors[param.id] = fields
-				validatingDobErrors[key] = dobError
+				validatingDobErrors[param.id] = dobError
 				if(param.member_type == 'adult'){
-					validatingOtherErrors[key] = empty_feilds
+					validatingOtherErrors[param.id] = empty_feilds
 				}
     		}
     	})		
@@ -379,6 +386,39 @@ class InsuranceEndoresmentInputView extends React.Component{
 				is_disable = true
 				errorMessagesObj.sameName = '*Name of the members cannot be same'
 			}
+
+			Object.keys(validatingErrors).forEach(function(key) {
+    			if(validatingErrors[key].length > 0){
+    				is_disable = true
+    				member_ref = `member_${key}`	
+    			}
+			});
+
+			Object.keys(validatingOtherErrors).forEach(function(key) {
+    			if(validatingOtherErrors[key].length > 0){
+    				is_disable = true
+    				member_ref = `member_${key}`	
+    			}
+			});
+
+			Object.keys(validatingDobErrors).forEach(function(key) {
+    			if(validatingDobErrors[key].length > 0){
+    				is_disable = true
+    				member_ref = `member_${key}`	
+    			}
+			});
+
+			
+			console.log('validateErrors')
+			console.log(validatingErrors)
+			console.log('validateOtherErrors')
+			console.log(validatingOtherErrors)
+			console.log('validatingNames')
+			console.log(invalidname)
+			console.log('validatingDobErrors')
+			console.log(validatingDobErrors)
+			console.log('member_ref')
+			console.log(member_ref)
 			// validating is user had changed anything	
 			if(this.props.endorsed_member_data.members.length == Object.keys(this.props.self_data_values).length){
 				for(var i =0;i < this.props.endorsed_member_data.members.length;i++) {
@@ -386,15 +426,28 @@ class InsuranceEndoresmentInputView extends React.Component{
 					if(this.props.self_data_values[id]) {
 						let selectedProfile = this.props.self_data_values[id]
 						let selectedApiProfile = this.props.endorsed_member_data.members[i]
-						for(let j in  selectedApiProfile ) {
-							if(selectedProfile[j] != selectedApiProfile[j]) {
-								is_fields_edited.push(id)
-								if(edited_fields[id]) {
+						for(let j in  selectedApiProfile ) {							
+							if(j=='first_name') {
+								if(selectedProfile['name'] !=selectedApiProfile['first_name']){
+									is_fields_edited.push(id)
+									if(edited_fields[id]) {
 
-								}else {
-									edited_fields[id] = []
+									}else {
+										edited_fields[id] = []
+									}
+									edited_fields[id].push(j)
 								}
-								edited_fields[id].push(j)
+							}
+							if(j!='email') {
+								if(selectedProfile[j] != selectedApiProfile[j]) {
+									is_fields_edited.push(id)
+									if(edited_fields[id]) {
+
+									}else {
+										edited_fields[id] = []
+									}
+									edited_fields[id].push(j)
+								}
 							}
 						} 
 					}
@@ -422,15 +475,19 @@ class InsuranceEndoresmentInputView extends React.Component{
 			}
 			console.log(member_ref)
 		this.setState({validateErrors: validatingErrors,validateOtherErrors: validatingOtherErrors,validatingNames:invalidname,validateDobErrors:validatingDobErrors,errorMessages:errorMessagesObj,endorsementError:newIdProofs})
-    	if(is_disable && document.getElementById(member_ref)){    		
-    		document.getElementById(member_ref).scrollIntoView();
-    	}else{
-    		this.SaveUserData(this.props,edited_fields)
-    		if(STORAGE.isAgent()){
-    			isAgent = true
-    		}
-			this.props.history.push(`/insurance/insurance-user-details-review?is_endorsement=true&isAgent=${isAgent}`)
-    	}
+		if(Object.keys(edited_fields).length >0 || this.state.emailVerified){
+	    	if(is_disable && document.getElementById(member_ref)){    		
+	    		document.getElementById(member_ref).scrollIntoView();
+	    	}else{
+	    		this.SaveUserData(this.props,edited_fields)
+	    		if(STORAGE.isAgent()){
+	    			isAgent = true
+	    		}
+				this.props.history.push(`/insurance/insurance-user-details-review?is_endorsement=true&isAgent=${isAgent}`)
+	    	}
+	    }else{
+	    	SnackBar.show({ pos: 'bottom-center', text: "Please update the required fields to proceed" });
+	    }
     }
 
     SaveUserData(props,edited_fields){
@@ -512,7 +569,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 
 			return(
 			<div className="profile-body-wrap">
-	            <ProfileHeader /> 
+	            <ProfileHeader showPackageStrip={true}/> 
 				<section className="container container-top-margin">
 					<div className="row main-row parent-section-row">
 						<div className="col-12 col-md-7 col-lg-7 ins-main-padding">
@@ -532,7 +589,7 @@ class InsuranceEndoresmentInputView extends React.Component{
 										</span>
 									</div>
 								</div>
-								<div className="insurance-member-container pt-2 pb-0">
+								<div className="insurance-member-container" style={{padding: '10px'}}>
 									<p className="plcy-cancel">*Incorrect member details may lead to policy cancellation</p>
 									<h4 className="mb-0">Insured Member Details</h4>
 									<p className="fill-error-span fw-500 text-right d-block" style={{marginTop:'0px', fontSize: '11px'}}>*All fields are mandatory
@@ -550,12 +607,13 @@ class InsuranceEndoresmentInputView extends React.Component{
 											user_data={this.props.endorsed_member_data.members.filter(x=>x.relation == 'self')} 
 											member_type={'adult'}
 											endorsementError={this.state.endorsementError}
+											checkIsEmailVerfied = {this.checkIsEmailVerfied.bind(this)}
 										/>
-										{adult}
-										{child}
 									</div>
 								</div>
 							</div>
+							{adult}
+							{child}
 						</section>		
 							<button className="v-btn p-3 v-btn-primary btn-lg fixed horizontal bottom no-round btn-lg text-lg sticky-btn" onClick={this.proceedPlan.bind(this)}>Update
 							</button>

@@ -12,20 +12,24 @@ const ACTION = {
     3: "SALE",
     4: "RESCHEDULE_PAYMENT",
     5: "CASHBACK_CREDIT",
-    7: "REFERRAL_CREDIT"
+    7: "REFERRAL_CREDIT",
+    8: "PROMOTIONAL_DEBIT"
 }
 
 const PRODUCT = {
     1: 'Doctor',
     2: 'Lab',
     3: 'Insurance',
-    4: 'Plan'
+    4: 'Plan',
+    5: 'Chat',
+    11: 'Vip Membership'
 }
 
 const SOURCE_FROM = {
     1: '',
     2: 'from Promotional Balance',
-    3:''
+    3: '',
+    11: ''
 }
 
 const SOURCE_TO = {
@@ -37,7 +41,9 @@ const ENTITY = {
     1: 'Appointment',
     2: 'Appointment',
     3: '',
-    4: ''
+    4: '',
+    5: 'Consultation',
+    11: ''
 }
 
 class Transactions extends React.Component {
@@ -94,10 +100,13 @@ class Transactions extends React.Component {
                 return "Refund for rescheduled appointment"
             }
             case 5: {
-                return `Cashback Received for ${PRODUCT[product_id]} Appointment`
+                return `Cashback Received for ${PRODUCT[product_id]} ${ENTITY[product_id]}`
             }
             case 6: {
                 return `Referral Bonus`
+            }
+            case 7: {
+                return "Promotional Amount Debited"
             }
         }
     }
@@ -129,7 +138,10 @@ class Transactions extends React.Component {
                         <div className="csh-booking-id-content">
                             <p>{this.getTxMessage(this.props.data)}</p>
                             {
-                                reference_id ? <span style={{cursor:'pointer'}} onClick={this.openAppointment.bind(this, product_id, reference_id)}>Booking ID : {reference_id}</span> : ""
+                                reference_id ?
+                                    product_id == 5 ? <span>Booking ID : {reference_id}</span>
+                                    : <span style={{cursor:'pointer'}} onClick={this.openAppointment.bind(this, product_id, reference_id)}>Booking ID : {reference_id}</span>
+                                : ""
                             }
                         </div>
                     </div>

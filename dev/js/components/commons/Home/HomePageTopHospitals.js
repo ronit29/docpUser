@@ -11,11 +11,25 @@ class TopHospitalWidgets extends React.Component {
         }
         GTM.sendEvent({ data: gtmData })
 
+        let redirectUrl = ''
+
         if(data.url) {
-            this.props.history.push(`/${data.url}?showPopup=true`)
+            redirectUrl = `/${data.url}`
         }else {
-            this.props.history.push(`/ipd/hospital/${data.id}?showPopup=true`)
+            redirectUrl = `/ipd/hospital/${data.id}`
         }
+
+        if(data.is_ipd_hospital) {
+            redirectUrl+= `?showPopup=true`
+        }
+
+        /*if(this.props.is_ipd_form_submitted){
+
+        }else {
+            redirectUrl+= '&get_feedback=1'
+        }*/
+
+        this.props.history.push(redirectUrl)
     }
 
     scroll(type) {
@@ -43,25 +57,37 @@ class TopHospitalWidgets extends React.Component {
             document.getElementById('leftArrow_hsptl').classList.remove("d-none")
         }
     }
+
+    viewAllClicked(){
+        let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'HomeWidgetHospitalViewAllClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'home-widget-hospital-view-all-clicked'
+        }
+        GTM.sendEvent({ data: gtmData })
+        this.props.mergeIpdCriteria({
+            commonSelectedCriterias: [],
+            nextSelectedCriterias: []
+        })
+        this.props.history.push(`/ipd/searchHospitals`)   
+    }
 	
 	render(){
 
 		return(
-		     <div className="pakg-slider-container">
+		     <div className="pakg-slider-container mb-10">
                 <div className="pkgSliderHeading">
                     <h5>Top Hospitals</h5>
-                    {/*<span>View All</span>*/}
+                    <span onClick={()=>this.viewAllClicked()}>View All</span>
                 </div>
                 <div className="pkgSliderContainer" id="top_hospitals">
                     <div className='pkgCardsList d-inline-flex sub-wd-cards top_hospitals_list'>
                     	{
                     		this.props.top_data.map((data, i) => {
-                    			return <a key={this.props.mergeState?i:data.logo} href={data.url?`/${data.url}`:`/ipd/hospital/${data.id}`} className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
+                    			return <a key={this.props.mergeState?i:data.url?data.url:i} href={data.url?`/${data.url}`:`/ipd/hospital/${data.id}`} className="pkgcustCards" onClick={this.navigateTo.bind(this, data)}>
 				                            <div className="pkgcardImgCont">
 				                                <img style={{width:82}} className="img-fluid" src={data.logo} />
 				                            </div>
 				                            <p className="pkgtstName">
-				                                {data.name}
+				                                {data.seo_title?data.seo_title:data.h1_title?data.h1_title:data.name}
 				                        	</p>
 				                        </a>		
                     		})

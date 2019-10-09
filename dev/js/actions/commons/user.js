@@ -1,4 +1,4 @@
-import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, ADD_OPD_COUPONS, ADD_LAB_COUPONS, START_LIVE_CHAT, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART, TOGGLE_LEFT_MENU, UPCOMING_APPOINTMENTS, SET_COMMON_UTM_TAGS, UNSET_COMMON_UTM_TAGS, APPEND_ARTICLE_DATA, GET_APP_DOWNLOAD_BANNER_LIST, SAVE_CHAT_FEEDBACK , SUBMIT_CHAT_FEEDBACK, SAVE_CHAT_FEEDBACK_ROOMID, IPD_CHAT_START, IPD_POPUP_FIRED } from '../../constants/types';
+import { SET_SUMMARY_UTM, SELECT_SEARCH_TYPE, APPEND_CITIES, SET_CHATROOM_ID, APPEND_CHAT_HISTORY, APPEND_CHAT_DOCTOR, APPEND_ARTICLES, APPEND_ORDER_HISTORY, APPEND_USER_TRANSACTIONS, APPEND_UPCOMING_APPOINTMENTS, APPEND_NOTIFICATIONS, APPEND_ADDRESS, APPEND_USER_PROFILES, APPEND_USER_APPOINTMENTS, SELECT_USER_PROFILE, APPEND_HEALTH_TIP, APPEND_ARTICLE_LIST, SAVE_UTM_TAGS, SAVE_DEVICE_INFO, GET_APPLICABLE_COUPONS, GET_USER_PRESCRIPTION, ADD_OPD_COUPONS, ADD_LAB_COUPONS, START_LIVE_CHAT, SELECT_TESTS, GET_OFFER_LIST, APPEND_CART, TOGGLE_LEFT_MENU, UPCOMING_APPOINTMENTS, SET_COMMON_UTM_TAGS, UNSET_COMMON_UTM_TAGS, APPEND_ARTICLE_DATA, GET_APP_DOWNLOAD_BANNER_LIST, SAVE_CHAT_FEEDBACK, SUBMIT_CHAT_FEEDBACK, SAVE_CHAT_FEEDBACK_ROOMID, IPD_CHAT_START, IPD_POPUP_FIRED, USER_CITIES, PHARMEASY_IFRAME, SET_CHAT_PAYMENT_STATUS } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm.js'
 import CONFIG from '../../config'
@@ -290,18 +290,19 @@ export const fetchOrderById = (orderId) => (dispatch) => {
 	return API_GET(`/api/v1/user/order/${orderId}`)
 }
 
-export const sendAgentBookingURL = (orderId, type, purchase_type, cb) => (dispatch) => {
-	API_POST(`/api/v1/user/order/send`, { type, purchase_type }).then(function (response) {
+export const sendAgentBookingURL = (orderId, type, purchase_type,utm_spo_tags, cb) => (dispatch) => {
+	API_POST(`/api/v1/user/order/send`, { type, purchase_type,utm_spo_tags }).then(function (response) {
 		if (cb) cb(null, response);
 	}).catch(function (error) {
 		if (cb) cb(error, null);
 	})
 }
 
-export const setChatRoomId = (roomId) => (dispatch) => {
+export const setChatRoomId = (roomId, extraParams = {}) => (dispatch) => {
 	dispatch({
 		type: SET_CHATROOM_ID,
-		payload: roomId || null
+		payload: roomId || null,
+		extraParams: extraParams
 	})
 }
 
@@ -468,7 +469,7 @@ export const getUserPrescription = (mobile) => (dispatch) => {
 	})
 }
 
-export const applyCoupons = (productId = '', couponData, couponId, hospitalId) => (dispatch) => {
+export const applyCoupons = (productId = '', couponData, couponId, hospitalId, callback) => (dispatch) => {
 
 	couponData.couponApplied = true
 
@@ -484,6 +485,9 @@ export const applyCoupons = (productId = '', couponData, couponId, hospitalId) =
 			payload: couponData,
 			labId: hospitalId
 		})
+	}
+	if (callback) {
+		callback(true)
 	}
 
 }
@@ -571,6 +575,7 @@ export const removeFromCart = (id) => (dispatch) => {
 export const processCartItems = (use_wallet = true) => (dispatch) => {
 	let postData = {}
 	postData['visitor_info'] = GTM.getVisitorInfo()
+	postData['from_web'] = true
 	use_wallet = use_wallet ? 1 : 0
 	return API_POST(`/api/v1/cart/process?use_wallet=${use_wallet}`, postData)
 }
@@ -629,7 +634,7 @@ export const getUpComingAppointment = () => (dispatch) => {
 	})
 }
 
-export const saveChatFeedBack = (ques, data)  => (dispatch) => {
+export const saveChatFeedBack = (ques, data) => (dispatch) => {
 	dispatch({
 		type: SAVE_CHAT_FEEDBACK,
 		data: data,
@@ -640,9 +645,22 @@ export const saveChatFeedBack = (ques, data)  => (dispatch) => {
 export const submitChatFeedback = (postData) => (dispatch) => {
 
 	return API_POST(`${CONFIG.CHAT_API_UTILITY_API}/postfeedback`, postData).then(function (response) {
+
+		let gtmData = {
+
+			'Category': 'Chat', 'Action': 'ChatFeedBackSubmittedSuccess', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-feedback-submitted-success'
+		}
+		GTM.sendEvent({ data: gtmData })
+
 		dispatch({
 			type: SUBMIT_CHAT_FEEDBACK
 		})
+	}).catch(function (e) {
+		let gtmData = {
+
+			'Category': 'Chat', 'Action': 'ChatFeedBackApiSumittedError', 'CustomerID': GTM.getUserId(), 'leadid': 0, 'event': 'chat-feedback-api-failed'
+		}
+		GTM.sendEvent({ data: gtmData })
 	})
 }
 
@@ -671,19 +689,19 @@ export const unSetCommonUtmTags = (type, tags) => (dispatch) => {
 
 export const getDownloadAppBannerList = (cb) => (dispatch) => {
 
-	return API_GET('/api/v1/common/get_key_data?key=AppInstall').then( function (response){
+	return API_GET('/api/v1/common/get_key_data?key=AppInstall').then(function (response) {
 		dispatch({
 			type: GET_APP_DOWNLOAD_BANNER_LIST,
 			payload: response
 		})
-		if(cb)cb(response)
+		if (cb) cb(response)
 
-	}).catch( function (e){
-		if(cb)cb(null)
+	}).catch(function (e) {
+		if (cb) cb(null)
 	})
 }
 
-export const ipdChatView = (data=false) => (dispatch) => {
+export const ipdChatView = (data = false) => (dispatch) => {
 	dispatch({
 		type: IPD_CHAT_START,
 		payload: data
@@ -691,17 +709,42 @@ export const ipdChatView = (data=false) => (dispatch) => {
 }
 
 export const checkIpdChatAgentStatus = (cb) => (dispatch) => {
-	return API_GET(`${CONFIG.CHAT_API_UTILITY_API}/getOnlineUsers?departmentId=etmum62FLjZckHpvx`).then( function (response){
-		
-		if(cb)cb(response)
+	return API_GET(`${CONFIG.CHAT_API_UTILITY_API}/getOnlineUsers?departmentId=etmum62FLjZckHpvx`).then(function (response) {
 
-	}).catch( function (e){
-		if(cb)cb(null)
-	})	
+		if (cb) cb(response)
+
+	}).catch(function (e) {
+		if (cb) cb(null)
+	})
 }
 
 export const ipdPopupFired = () => (dispatch) => {
 	dispatch({
 		type: IPD_POPUP_FIRED
+	})
+}
+
+export const citiesData = () => (dispatch) => {
+	return API_GET('/api/v1/diagnostic/allmatrixcities').then(function (response) {
+		dispatch({
+			type: USER_CITIES,
+			payload: response
+		})
+	})
+}
+
+export const iFrameState = (url, emptyUrls, leftMenuClick = false) => (dispatch) => {
+	dispatch({
+		type: PHARMEASY_IFRAME,
+		url: url,
+		emptyUrls: emptyUrls,
+		leftMenuClick: leftMenuClick
+	})
+}
+
+export const setPaymentStatus = (status = null) => (dispatch) => {
+	dispatch({
+		type: SET_CHAT_PAYMENT_STATUS,
+		payload: status
 	})
 }

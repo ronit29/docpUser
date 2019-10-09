@@ -17,7 +17,11 @@ const queryString = require('query-string');
 import CRITEO from '../../../helpers/criteo.js'
 import HomePageTopHospitals from './HomePageTopHospitals.js'
 import HomePageTopProcedures from './HomePageProcedureWidgets.js'
+import HomePagePackageCategory from './HomePagePackageCategory.js'
 import TopChatWidget from './HomePageChatWidget';
+import DemoWidget from './DemoWidget.js'
+import BookingConfirmationPopup from '../../diagnosis/bookingSummary/BookingConfirmationPopup';
+import Loader from '../Loader';
 
 const GENDER = {
 	"m": "Male",
@@ -33,7 +37,9 @@ class HomeView extends React.Component {
 			footerData = this.props.initialServerData.footerData
 		}
 		this.state = {
-			specialityFooterData: footerData
+			specialityFooterData: footerData,
+			showPopup: false,
+			clickedOn: ''
 		}
 	}
 
@@ -167,21 +173,64 @@ class HomeView extends React.Component {
 		return topList
 	}
 
+	orderMedClick(source) {
+		this.setState({ showPopup: true, clickedOn: source }, () => {
+			setTimeout(() => this.continueClick(), 1000);
+		})
+		if (source === 'newOrder') {
+			let data = {
+				'Category': 'ConsumerApp', 'Action': 'DesktopNewOrderClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-new-order-click'
+			}
+			GTM.sendEvent({ data: data })
+		}
+		else if (source === 'prevOrder') {
+			let data = {
+				'Category': 'ConsumerApp', 'Action': 'DesktopPreviousOrderClick', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-previous-order-click'
+			}
+			GTM.sendEvent({ data: data })
+		}
+	}
+
+	continueClick() {
+		if (typeof navigator === 'object') {
+			if (/mobile/i.test(navigator.userAgent)) {
+
+			}
+			else {
+				if (this.state.clickedOn === 'newOrder') {
+					window.open(CONFIG.PHARMEASY_NEW_ORDER_IFRAME_URL, '_blank')
+				}
+				else {
+					window.open(CONFIG.PHARMEASY_PREV_ORDER_IFRAME_URL, '_blank')
+				}
+			}
+		}
+		setTimeout(() => {
+			this.setState({
+				showPopup: false
+			})
+		}, 1000)
+	}
+
+	hidePopup() {
+		this.setState({ showPopup: false })
+	}
+
 	render() {
 
 		let topSpecializations = []
 		if (this.props.specializations && this.props.specializations.length) {
-			topSpecializations = this.getTopList(this.props.specializations)
+			topSpecializations = this.props.specializations.slice(0,8)//this.getTopList(this.props.specializations)
 		}
 
 		let topTests = []
 		if (this.props.common_tests && this.props.common_tests.length) {
-			topTests = this.getTopList(this.props.common_tests)
+			topTests = this.props.common_tests.slice(0,8)//this.getTopList(this.props.common_tests)
 		}
 
 		let topPackages = []
 		if (this.props.common_package && this.props.common_package.length) {
-			topPackages = this.getTopList(this.props.common_package)
+			topPackages = this.props.common_package//this.getTopList(this.props.common_package)
 		}
 
 		let profileData = this.props.profiles[this.props.selectedProfile]
@@ -264,6 +313,11 @@ class HomeView extends React.Component {
 								<HomePageTopProcedures {...this.props} top_data={this.props.ipd_procedures} />
 								: ''
 						}
+						{
+							this.props.package_categories && this.props.package_categories.length ?
+								<HomePagePackageCategory {...this.props} top_data={this.props.package_categories} />
+								: ''
+						}
 
 						{
 							this.props.top_hospitals && this.props.top_hospitals.length ?
@@ -322,12 +376,6 @@ class HomeView extends React.Component {
 						}
 
 						{
-							this.props.ipd_procedures && this.props.ipd_procedures.length ?
-								<HomePageTopProcedures {...this.props} top_data={this.props.ipd_procedures} />
-								: ''
-						}
-
-						{
 							this.props.common_package && this.props.common_package.length ?
 								<HomePagePackageWidget
 									heading="Health Packages"
@@ -342,6 +390,17 @@ class HomeView extends React.Component {
 									navTo="/searchpackages"
 								/> : ""
 						}
+
+						<HomePageWidget
+							heading="Book Doctor Appointment"
+							discount="50%"
+							list={topSpecializations}
+							searchFunc={(sp) => this.searchDoctor(sp)}
+							searchType="specializations"
+							{...this.props}
+							navTo="/search?from=home"
+							type="opd"
+						/>
 
 						{/* x ray landing page cards */}
 						{/* <div className="xray-container">
@@ -377,16 +436,11 @@ class HomeView extends React.Component {
 							<button className="lap-doc-btn" >Join us <img className="img-arwp" src={ASSETS_BASE_URL + "/img/rgtarw.png"} /> </button>
 						</div> */}
 
-						<HomePageWidget
-							heading="Book Doctor Appointment"
-							discount="50%"
-							list={topSpecializations}
-							searchFunc={(sp) => this.searchDoctor(sp)}
-							searchType="specializations"
-							{...this.props}
-							navTo="/search?from=home"
-							type="opd"
-						/>
+						{
+							this.props.package_categories && this.props.package_categories.length ?
+								<HomePagePackageCategory {...this.props} top_data={this.props.package_categories} />
+								: ''
+						}
 
 						{/* <div className="fw-500 doc-lap-link" onClick={this.gotToDoctorSignup.bind(this, true)}>
 							<p className="top-head-link card-lab-link">Run a lab? Reach more<span>customers near you</span></p>
@@ -404,24 +458,45 @@ class HomeView extends React.Component {
 							type="lab"
 						/>
 
+						{
+							this.props.ipd_procedures && this.props.ipd_procedures.length ?
+								<HomePageTopProcedures {...this.props} top_data={this.props.ipd_procedures} />
+								: ''
+						}
+
 					</div>
 				</div>)
 		}
 
 		return (
-			<div className="profile-body-wrap">
+			<div className="profile-body-wrap fxd-ftr-btm-pdng">
 
 				<HelmetTags tagsData={{
-					canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`
+					canonicalUrl: `${CONFIG.API_BASE_URL}${this.props.match.url}`,
+					ogUrl: 'https://docprime.com',
+					ogType: 'website',
+					ogTitle: 'Book Doctor Online | 50% Off on Doctor Appointment & Lab Tests',
+					ogDescription: 'Book Doctor Appointment at Docprime & get 50% off. Find & Book Doctor online, find & Book best Labs, and & Hospitals.',
+					ogImage: 'https://cdn.docprime.com/media/banner/images/1200X628.png'
 				}} setDefault={true} />
 
-				<ProfileHeader homePage={true} showSearch={true} showPackageStrip={showPackageStrip}/>
+				<ProfileHeader homePage={true} showSearch={true} showPackageStrip={showPackageStrip} />
+
+				{/* {
+					this.state.showPopup ?
+						<BookingConfirmationPopup continueClick={() => this.continueClick()} iFramePopup={true} hidePopup={() => this.hidePopup()} /> : ''
+				} */}
+
+				{
+					this.state.showPopup ?
+						<Loader continueClick={() => this.continueClick()} iFramePopup={true} hidePopup={() => this.hidePopup()} /> : ''
+				}
 
 				{/* <div className="sub-header mrg-top"></div> */}
 				<div className="headerSubLinkContainer">
 					<div className="container">
 						<div className="head_text_container">
-							{this.props.common_settings && this.props.common_settings.insurance_availability?
+							{/* {this.props.common_settings && this.props.common_settings.insurance_availability?
 								<a href="/insurance/insurance-plans" onClick={(e) => {
 									let data = {
 										'Category': 'ConsumerApp', 'Action': 'MobileFooterBookTestClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'desktop-navbar-insurance-clicked'
@@ -432,7 +507,15 @@ class HomeView extends React.Component {
 								}}>OPD Insurance
 								<span className="opdNewHeaderOfr">New</span>
 								</a>
-							:''}
+							:''} */}
+							<a href="/vip-club-details" onClick={(e) => {
+								let data = {
+									'Category': 'ConsumerApp', 'Action': 'vipClickSubheader', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-click-subheader'
+								}
+								GTM.sendEvent({ data: data })
+								e.preventDefault();
+								this.navigateTo("/vip-club-details?source=vipClickSubheader&lead_source=Docprime", 'opd')
+							}}>Docprime <img src={ASSETS_BASE_URL + '/img/viplog.png'} style={{ width: 24, marginLeft: 2, verticalAlign: 'middle' }} /><span className="opdNewHeaderOfr">New</span></a>
 							<a href="/search" onClick={(e) => {
 								e.preventDefault();
 								this.navigateTo("/search", 'opd')
@@ -449,6 +532,20 @@ class HomeView extends React.Component {
 								e.preventDefault();
 								this.navigateTo('/online-consultation')
 							}}>Online Doctor Consultation</a>
+							<a href="/online-consultation" className="order-med-list-link" onClick={(e) => {
+								e.preventDefault();
+							}}>Order Medicines
+								<ul className="order-med-list">
+									<li><a href="" onClick={(e) => {
+										e.preventDefault();
+										this.orderMedClick('newOrder')
+									}}>New Order</a></li>
+									<li><a href="" onClick={(e) => {
+										e.preventDefault();
+										this.orderMedClick('prevOrder')
+									}}>Previous Order</a></li>
+								</ul>
+							</a>
 							{/* <p onClick={(e) => {
 								e.preventDefault();
 								this.navigateTo('/contact')
@@ -465,7 +562,7 @@ class HomeView extends React.Component {
 
 					<Accordian />
 					{
-						showPackageStrip?
+						showPackageStrip ?
 							<PackageCompareStrip {...this.props} />
 							:
 							<FixedMobileFooter {...this.props} />

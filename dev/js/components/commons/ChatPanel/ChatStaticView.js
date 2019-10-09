@@ -21,7 +21,7 @@ class ChatStatic extends React.Component {
         if ((this.state.BasicEnquiry || this.state.force_start) && this.props.mobilechatview) {
             this.getIframe()
         } else {
-            if (this.state.utm_term) {
+            /*if (this.state.utm_term) {
                 chat_utm(this.state.utm_term).then((data) => {
                     if (data && data.data && data.data.BasicEnquiry) {
                         this.setState({ BasicEnquiry: data.data.BasicEnquiry, utm_loader: false })
@@ -39,7 +39,12 @@ class ChatStatic extends React.Component {
                         utm_loader: false
                     })
                 })
-            }
+            }*/
+             this.setState({
+                            BasicEnquiry: "",
+                            utm_term: "",
+                            utm_loader: false
+                        })
         }
     }
 
@@ -93,9 +98,9 @@ class ChatStatic extends React.Component {
                     <div className="hd-chat" style={{ flex: 1 }}>
                         {
                             this.props.chatPage ?
-                                <h1 className="text-left header-text-chat" style={{ color: '#ef5350' }}><span className="hed-txt-lt">Get a </span>Free Online Doctor Consultation!</h1>
+                                <h1 className="text-left header-text-chat" style={{ color: '#ef5350' }}><span className="hed-txt-lt"></span>Online Doctor Consultation!</h1>
                                 :
-                                <p className="text-left header-text-chat" style={{ color: '#ef5350' }}><span className="hed-txt-lt">Get a </span>Free Online Doctor Consultation!</p>
+                                <p className="text-left header-text-chat" style={{ color: '#ef5350' }}><span className="hed-txt-lt"></span>Online Doctor Consultation!</p>
                         }
                     </div>
                     <div className="cht-head-rqst-btn" style={{ width: 64 }}>
@@ -132,7 +137,7 @@ class ChatStatic extends React.Component {
                                                     <div className="in-mssgs">
                                                         <div className="received-msg HS_font">
                                                             <p className="chat-text">
-                                                                Hi, welcome to Docprime. Briefly describe your symptom or health concern (e.g. I have a fever).
+                                                                Welcome to Docprime. Briefly describe your symptom or health concern (e.g. I have a fever).
                                               <span className="send-chat-time">{time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
                                                                 }</span>
                                                             </p>

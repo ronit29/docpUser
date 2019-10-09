@@ -44,17 +44,26 @@ class AppointmentList extends React.Component {
     getStatus(status) {
         status = parseInt(status)
         switch (status) {
+            case 1: {
+                return <span className="appointment-status" style={{ color: '#f78631' }}>Created</span>
+            }
             case 2: {
-                return <span className="appointment-status" style={{ color: '#f78631' }}>Upcoming</span>
+                return <span className="appointment-status" style={{ color: '#f78631' }}>Booked</span>
+            }
+            case 3: {
+                return <span className="appointment-status" style={{ color: '#f78631' }}>Rescheduled</span>
+            }
+            case 4: {
+                return <span className="appointment-status" style={{ color: '#f78631' }}>Rescheduled</span>
             }
             case 5: {
-                return <span className="appointment-status" style={{ color: '#f78631' }}>Upcoming</span>
-            }
-            case 7: {
-                return <span className="appointment-status" style={{ color: 'green' }}>Complete</span>
+                return <span className="appointment-status" style={{ color: '#f78631' }}>Accepted</span>
             }
             case 6: {
                 return <span className="appointment-status" style={{ color: 'red' }}>Cancelled</span>
+            }
+            case 7: {
+                return <span className="appointment-status" style={{ color: 'green' }}>Completed</span>
             }
             default: {
                 return <span className="appointment-status" style={{ color: '#f78631' }}>Upcoming</span>
@@ -79,10 +88,10 @@ class AppointmentList extends React.Component {
 
     render() {
 
-        let { doctor_name, display_name, time_slot_end, time_slot_start, status, type, id, lab_name, doctor_thumbnail, lab_thumbnail, patient_name, invoices } = this.props.data
+        let { deal_price, doctor_name, display_name, time_slot_end, time_slot_start, status, type, id, lab_name, lab_test_name, doctor_thumbnail, lab_thumbnail, patient_name, invoices, hospital_name, specialization, vip } = this.props.data
 
         let date = new Date(time_slot_start)
-
+        let is_vip_applicable = vip.is_vip_member && vip.covered_under_vip
         return (
             <li style={{ position: 'relative', paddingTop: 32, cursor: 'unset' }}>
                 <span className="icon consultant-dp">
@@ -92,11 +101,39 @@ class AppointmentList extends React.Component {
                     </InitialsPicture>
                 </span>
                 <div className="consultant-details" style={{ cursor: 'pointer' }} onClick={this.openAppointment.bind(this, type, id)}>
-                    <h4 className="title app-title" style={{ marginBottom: 8 }} >{display_name || lab_name}</h4>
+                    <h4 className="title app-title vip-ico-hdng">{display_name || lab_name}
+                    {
+                        is_vip_applicable?
+                        <img className="vip-main-ico img-fluid" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                        :''
+                    }
+                    </h4>
                     <ul className="list">
-                        <li style={{ marginBottom: 5 }} ><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/icons/calendar.svg"} className="img-fluid" /></span>{date.toDateString()} </li>
-                        <li style={{ marginBottom: 5 }} ><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/customer-icons/clock.svg"} className="img-fluid" /></span>{this.getTime(time_slot_start)}</li>
-                        <li style={{ marginBottom: 5 }} ><span className="ct-img ct-img-xs"><img src={ASSETS_BASE_URL + "/img/icons/user.svg"} className="img-fluid" style={{ width: 14, marginTop: -4 }} /></span>{patient_name}</li>
+                        {
+                            specialization && specialization.length ?
+                                <li className="appointment-specialization">
+                                    {
+                                        specialization.map((speciality, index) => {
+                                            if (index < 3) {
+                                                return <span className="apnt-hsp-name" key={index}>{speciality} {(index < specialization.length - 1) && (index != 2) ? '| ' : ''}</span>
+                                            }
+                                        })
+                                    }
+                                </li> : ''
+                        }
+                        {
+                            hospital_name ?
+                                <li style={{ marginBottom: 4 }} className="apnt-hsp-name">{hospital_name}</li>
+                                : ''
+                        }
+                        {
+                            lab_test_name && lab_test_name.length ?
+                                <li style={{ marginBottom: 4 }} className="apnt-hsp-name">{lab_test_name[0].test_name} {lab_test_name.length > 1 ? `& ${lab_test_name.length - 1} more` : ''}</li>
+                                : ''
+                        }
+                        <li style={{ marginBottom: 5 }} ><span className="ct-img ct-img-xs text-right"><img style={{ width: '15px' }} src={ASSETS_BASE_URL + "/img/new-cal.svg"} className="img-fluid" /></span>{date.toDateString()} | <span className="ct-img ct-img-xs text-right"><img style={{ width: '15px' }} src={ASSETS_BASE_URL + "/img/watch-date.svg"} className="img-fluid" /></span>{this.getTime(time_slot_start)}</li>
+                        {/* <li style={{ marginBottom: 5 }} ></li> */}
+                        <li style={{ marginBottom: 5 }} ><span className="ct-img ct-img-xs text-right"><img src={ASSETS_BASE_URL + "/img/nw-usr.svg"} className="img-fluid" style={{ width: 15, marginTop: -4 }} /></span>{patient_name}</li>
                     </ul>
                     {/* <div className="view-chat text-right">
                             {
@@ -113,6 +150,10 @@ class AppointmentList extends React.Component {
                 {
                     id ?
                         <span className="fw-500" style={{ position: 'absolute', top: 4, left: 8, fontSize: 12 }}>{`Booking id : ${id}`}</span> : ''
+                }
+                {
+                    deal_price && !is_vip_applicable?
+                        <span className="fw-500" style={{ position: 'absolute', top: 20, right: 8, fontSize: 12, color: '#f78631' }}>&#8377; {parseInt(deal_price)}</span> : ''
                 }
                 {
                     invoices && invoices.length === 1 && (!this.props.data.reports || !this.props.data.reports.length) ?

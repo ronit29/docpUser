@@ -8,6 +8,7 @@ import CONFIG from '../../../config'
 import HelmetTags from '../../commons/HelmetTags'
 import Footer from '../../commons/Home/footer'
 import ResultCount from './topBar/result_count.js'
+import GTM from '../../../helpers/gtm'
 const queryString = require('query-string');
 
 class SearchResultsView extends React.Component {
@@ -228,6 +229,46 @@ class SearchResultsView extends React.Component {
         }
     }
 
+    isFilterApplied(filterCriteria){
+        let is_filter_applied = false
+        if(filterCriteria){
+            let sort_on = filterCriteria.sort_on || ""
+            let sort_order = filterCriteria.sort_order || ""
+            let availability = filterCriteria.availability || []
+            let avg_ratings = filterCriteria.avg_ratings || ''
+            let home_visit = filterCriteria.home_visit || false
+            let lab_visit = filterCriteria.lab_visit || false
+
+            let lab_name = filterCriteria.lab_name || ""
+            let network_id = filterCriteria.network_id || ""
+            let is_insured = filterCriteria.is_insured || false
+
+            //Check if any filter applied        
+
+            if (sort_on) {
+                is_filter_applied = true
+            }
+
+            if(availability && availability.length) {
+                is_filter_applied = true
+            }
+
+            if(avg_ratings && avg_ratings.length) {
+                is_filter_applied = true
+            }
+
+            if(home_visit) {
+                is_filter_applied = true
+            }
+
+            if(lab_visit) {
+                is_filter_applied = true
+            }
+
+        }
+        return is_filter_applied
+    }
+
     buildURI(state) {
         let { selectedLocation, currentSearchedCriterias, filterCriteria, locationType, page } = state
         let testIds = currentSearchedCriterias.filter(x => x.type == 'test').map(x => x.id)
@@ -407,8 +448,23 @@ class SearchResultsView extends React.Component {
                                     <div className="pkg-card-container mt-20 mb-3">
                                         <div className="pkg-no-result">
                                             <p className="pkg-n-rslt">No result found!</p>
-                                            <img className="n-rslt-img" src={ASSETS_BASE_URL + '/img/no-result.png'} />
-                                            <p className="pkg-ty-agn cursor-pntr" onClick={this.applyQuickFilter.bind(this, {viewMore: true})}>Try again with fewer filters</p>
+                                            {this.isFilterApplied(this.props.filterCriteria)?
+                                                <React.Fragment>
+                                                <img className="n-rslt-img" src={ASSETS_BASE_URL + '/img/no-result.png'} />
+                                                <p className="pkg-ty-agn cursor-pntr" onClick={this.applyQuickFilter.bind(this, {viewMore: true})}>Try again with fewer filters</p>
+                                                </React.Fragment>
+                                            : <React.Fragment>
+                                                <img style={{width:'130px'}} className="n-rslt-img" src={ASSETS_BASE_URL + '/img/vct-no.png'} />
+                                                <p className="pkg-ty-agn text-dark text-center">Can’t find your lab here?<br></br>Help us to list your lab</p>
+                                                <button className="referDoctorbtn" onClick={(e)=>{
+                                                        e.preventDefault();
+                                                        let data = {
+                                                                'Category': 'ConsumerApp', 'Action': 'ReferLabListNoresult', 'CustomerID': GTM.getUserId() || '', 'event': 'refer-lab-list-noresult'
+                                                            }
+                                                        GTM.sendEvent({ data: data })
+                                                    this.props.history.push('/doctorsignup?member_type=2')}}>Refer your Lab</button>
+                                                </React.Fragment>
+                                        }
                                         </div>
                                     </div>
                                 </div>

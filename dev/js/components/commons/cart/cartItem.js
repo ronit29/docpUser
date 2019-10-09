@@ -1,5 +1,6 @@
 import React from 'react';
 import InitialsPicture from '../../commons/initialsPicture'
+const queryString = require('query-string');
 
 class CartItem extends React.Component {
     constructor(props) {
@@ -38,6 +39,7 @@ class CartItem extends React.Component {
             deal_price: data.consultation.deal_price,
             is_available: true,
             mrp: data.consultation.mrp,
+            fees:data.consultation.fees,
             price: data.consultation.deal_price,
             title: new Date(data.data.date).getHours() >= 12 ? 'PM' : 'AM',
             value: new Date(data.data.date).getHours() + new Date(data.data.date).getMinutes() / 60
@@ -48,19 +50,152 @@ class CartItem extends React.Component {
     }
 
     buildLabTimeSlot(data) {
-
-        let time = {
-            text: new Date(data.data.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0],
+        /*let timeSlot = {
+                date: new Date(data.data.date),
+                time: time_slot
+            }*/
+        /*let time = {
             deal_price: data.deal_price,
             is_available: true,
             mrp: data.mrp,
             price: data.deal_price,
-            title: new Date(data.data.date).getHours() >= 12 ? 'PM' : 'AM',
-            value: new Date(data.data.date).getHours() + new Date(data.data.date).getMinutes() / 60
+            time.text :new Date(data.data.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0]
+            time.title : new Date(data.data.date).getHours() >= 12 ? 'PM' : 'AM',
+            time.value : new Date(data.data.date).getHours() + new Date(data.data.date).getMinutes() / 60
+        }*/
+        let time = {
+
+        }
+
+        if(data.actual_data.multi_timings_enabled) {
+            let timeSelected = {}
+            let pathology_timing = {}
+            let radiology_timing = {}
+            let common_timing = {}
+            let finalTests = {}
+            let r_pickup = 'home'
+            let p_pickup = 'home'
+            data.data.tests.map((test)=>{
+
+                if(data.data.selected_timings_type=='common'){
+
+                    if(timeSelected['all']){
+                        finalTests[test.test_id] = {...timeSelected['all'], test_id:test.test_id, test_name: '', is_home_pickup: test.is_home_pickup}
+                    }else{
+                        common_timing = {
+                            text: new Date(test.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0],
+                            deal_price: test.deal_price,
+                            is_available: true,
+                            mrp: test.mrp,
+                            price: test.deal_price,
+                            title:new Date(test.date).getHours() >= 12 ? 'PM' : 'AM',
+                            value:new Date(test.date).getHours() + new Date(test.date).getMinutes() / 60
+                        }
+                        p_pickup = test.is_home_pickup?'home':'lab'
+                        r_pickup = test.is_home_pickup?'home':'lab'
+                        timeSelected['all'] = {
+                            date:new Date(test.date),
+                            time: common_timing,
+                            type:'all',
+                            test_id: test.test_id
+                        }
+                        finalTests[test.test_id] = {...timeSelected['all'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
+                        //timeSelected['selectedTestsTimeSlot'] = timeSelected['selectedTestsTimeSlot']?{...timeSelected['selectedTestsTimeSlot']}:{}
+
+                    }
+
+
+                }else {
+
+
+                    if(test.type==2) {
+                        if(timeSelected['pathology']){
+                            finalTests[test.test_id] = {...timeSelected['pathology'], test_id:test.test_id, test_name: '', is_home_pickup: test.is_home_pickup}
+                        }else{
+                            pathology_timing = {
+                                text: new Date(test.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0],
+                                deal_price: test.deal_price,
+                                is_available: true,
+                                mrp: test.mrp,
+                                price: test.deal_price,
+                                title:new Date(test.date).getHours() >= 12 ? 'PM' : 'AM',
+                                value:new Date(test.date).getHours() + new Date(test.date).getMinutes() / 60
+                            }
+                            p_pickup = test.is_home_pickup?'home':'lab'
+                            timeSelected['pathology'] = {
+                                date:new Date(test.date),
+                                time: pathology_timing,
+                                type:'pathology',
+                                test_id: test.test_id
+                            }
+                            finalTests[test.test_id] = {...timeSelected['pathology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
+                            //timeSelected['selectedTestsTimeSlot'] = timeSelected['selectedTestsTimeSlot']?{...timeSelected['selectedTestsTimeSlot']}:{}
+
+                        }
+                        
+                    }
+
+                    if(test.type==1) {
+                        if(timeSelected['radiology']){
+                            finalTests[test.test_id] = {...timeSelected['radiology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
+                            timeSelected['radiology'][test.test_id] = {...timeSelected['radiology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
+                        }else{
+                            radiology_timing = {
+                                text: new Date(test.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).split(' ')[0],
+                                deal_price: test.deal_price,
+                                is_available: true,
+                                mrp: test.mrp,
+                                price: test.deal_price,
+                                title:new Date(test.date).getHours() >= 12 ? 'PM' : 'AM',
+                                value:new Date(test.date).getHours() + new Date(test.date).getMinutes() / 60
+                            }
+                            r_pickup = test.is_home_pickup?'home':'lab'
+                            timeSelected['radiology'] = {
+                                date:new Date(test.date),
+                                time: radiology_timing,
+                                type:'radiology',
+                                test_id: test.test_id
+                            }
+                            timeSelected['radiology'][test.test_id] = {...timeSelected['radiology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
+
+                            finalTests[test.test_id] = {...timeSelected['radiology'], test_id:test.test_id, test_name: test.test_name, is_home_pickup: test.is_home_pickup}
+
+                        }
+                        
+                    }
+                }
+            })
+            let selectedType = {
+                r_pickup: r_pickup,
+                p_pickup: p_pickup
+            }
+            this.props.selectLabAppointmentType(selectedType)
+            timeSelected['selectedTestsTimeSlot'] = finalTests
+            return timeSelected
         }
 
         return time
 
+    }
+
+    getFormattedDate(date){
+        date = new Date(date)
+        var dd = date.getDate();
+
+        var mm = date.getMonth()+1; 
+        var yyyy = date.getFullYear();
+        if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        }
+
+        var today = yyyy+'-'+mm+'-'+dd
+        return today
     }
 
     setOpdBooking(data) {
@@ -75,7 +210,11 @@ class CartItem extends React.Component {
                 selectedDoctor: data.actual_data.doctor,
                 selectedClinic: data.actual_data.hospital
             }
-            this.props.selectOpdTimeSLot(timeSlot, false)
+            let extraTimeParams = null
+            if(timeSlot.date) {
+                extraTimeParams = this.getFormattedDate(timeSlot.date)
+            }
+            this.props.selectOpdTimeSLot(timeSlot, false, null, extraTimeParams)
 
             if (data.actual_data.coupon_code) {
                 let coupon_id = ''
@@ -124,12 +263,13 @@ class CartItem extends React.Component {
 
         this.props.selectProfile(data.actual_data.profile)
         if (data.valid) {
-            let time_slot = this.buildLabTimeSlot(data)
-            let timeSlot = {
-                date: new Date(data.data.date),
-                time: time_slot
+            let timeSlot = this.buildLabTimeSlot(data)
+            
+            let extraTimeParams = null
+            if(timeSlot.date){
+                extraTimeParams = this.getFormattedDate(timeSlot.date)
             }
-            this.props.selectLabTimeSLot(timeSlot, false)
+            this.props.selectLabTimeSLot(timeSlot, false, extraTimeParams)
             if (data.actual_data.coupon_code) {
 
                 let coupon_id = ''
@@ -146,11 +286,11 @@ class CartItem extends React.Component {
                 }
 
             }
-            if (data.actual_data.is_home_pickup) {
+            /*if (data.actual_data.is_home_pickup) {
                 this.props.selectLabAppointmentType('home')
             } else {
                 this.props.selectLabAppointmentType('lab')
-            }
+            }*/
 
         }
 
@@ -168,13 +308,14 @@ class CartItem extends React.Component {
 
     render() {
 
-        let { valid, product_id, mrp, deal_price, id } = this.props
+        let { valid, product_id, mrp, deal_price, id, is_enabled_for_cod, cod_deal_price } = this.props
         let { lab, tests, doctor, hospital, coupons, profile, date, thumbnail, procedures } = this.props.data
-        let { is_home_pickup, payment_type, insurance_message, is_appointment_insured, included_in_user_plan } = this.props.actual_data
-
+        let { is_home_pickup, payment_type, insurance_message, is_appointment_insured, included_in_user_plan, cover_under_vip, is_vip_member, vip_amount } = this.props.actual_data
         if (date) {
             date = new Date(date)
         }
+        let parsed = queryString.parse(this.props.location.search)
+        let is_vip_applicable = is_vip_member && cover_under_vip
         return (
             <div>
                 <div className="widget mrb-15 mrng-top-12 p-relative">
@@ -184,8 +325,17 @@ class CartItem extends React.Component {
                         {/* {
                             !valid ? <p className="appointmentPassed">Your appointment date and time has passed.</p> : ""
                         } */}
-
                         {
+                            is_vip_applicable?
+                                <div className="shopng-cart-price">
+                                    <p>₹ {vip_amount} <span className="shopng-cart-price-cut">₹ {mrp}</span> 
+
+                                    </p>
+                                </div>
+                                :''
+                        }
+
+                        {is_vip_applicable? '':
                             is_appointment_insured ?
                                 <div className="shopng-cart-price ins-val-bx">Covered Under Insurance</div>
                                 :
@@ -193,9 +343,17 @@ class CartItem extends React.Component {
                                     <div className="shopng-cart-price ins-val-bx pkg-discountCpn">Docprime Care Benefit</div>
                                     : payment_type == 1 ? <div className="shopng-cart-price">
                                         {
-                                            mrp ? <p>₹ {deal_price} <span className="shopng-cart-price-cut">₹ {mrp}</span></p> : ""
+                                            mrp != deal_price ? <p>₹ {deal_price} <span className="shopng-cart-price-cut">₹ {mrp}</span></p> : mrp == deal_price?<p>₹ {deal_price}</p>:""
                                         }
-                                    </div> : <div className="shopng-cart-price">
+                                    </div>
+                                    :payment_type == 2 && is_enabled_for_cod && mrp != cod_deal_price? <div className="shopng-cart-price">
+                                        {
+                                            mrp ? <p>₹ {cod_deal_price?cod_deal_price:deal_price} 
+                                                    <span className="shopng-cart-price-cut">₹ {mrp}</span>
+                                                </p> : ""
+                                        }
+                                    </div>
+                                    : <div className="shopng-cart-price">
                                             {
                                                 mrp ? <p>₹ {mrp}</p> : ""
                                             }
@@ -207,7 +365,7 @@ class CartItem extends React.Component {
                                     {
                                         doctor ? <InitialsPicture name={doctor.name} has_image={!!thumbnail} className="initialsPicture-dbd cart-initialspic">
                                             <img src={thumbnail} style={{ width: '50px', height: '50px', marginTop: '8px' }} className="img-fluid img-round" />
-                                        </InitialsPicture> : <InitialsPicture name={lab.name} has_image={!!thumbnail} className="initialsPicture-xs-cart">
+                                        </InitialsPicture> : <InitialsPicture name={lab && lab.name?lab.name:''} has_image={!!thumbnail} className="initialsPicture-xs-cart">
                                                 <img style={{ height: 'auto', width: 'auto', marginTop: '15px' }} src={thumbnail} className="fltr-usr-image-lab" />
                                             </InitialsPicture>
                                     }
@@ -215,13 +373,19 @@ class CartItem extends React.Component {
                             </div>
                             {
                                 doctor ? <div className="dr-profile mrt-10">
-                                    <h1 className="dr-name">Dr. {doctor.name}</h1>
+                                    <h1 className="dr-name vip-ico-hdng">Dr. {doctor.name} 
+                                        {is_vip_applicable?
+                                               <img style={{height:'28px', width:'25px'}} className="vip-main-ico img-fluid vip-ico-hdng" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                        :''}
+                                    </h1>
                                     {
                                         payment_type == 2 ? <span className="pay-at-clinic">Pay at Clinic</span> : ""
                                     }
                                     <p className="clinic-name text-sm">{hospital.name}</p>
                                 </div> : <div className="dr-profile mrt-10">
-                                        <h1 className="dr-name">{lab.name}</h1>
+                                        <h1 className="dr-name vip-ico-hdng">{lab && lab.name?lab.name:''} {is_vip_applicable?
+                                               <img style={{height:'28px', width:'25px'}} className="vip-main-ico img-fluid vip-ico-hdng" src={ASSETS_BASE_URL + '/img/viplog.png'} />
+                                        :''}</h1>
                                     </div>
                             }
 
@@ -312,7 +476,11 @@ class CartItem extends React.Component {
 
                     <div className="shpng-card-btns">
                         <button onClick={this.removeFromCart.bind(this, id)}>Remove</button>
-                        <button onClick={this.edit.bind(this)}>Edit</button>
+                        {
+                            parsed.is_agent_booking && parsed.is_agent_booking == 'true' && is_appointment_insured?''
+                            :<button onClick={this.edit.bind(this)}>Edit</button>
+                        }
+                        {/*<button onClick={this.edit.bind(this)}>Edit</button>*/}
                     </div>
                 </div>
 

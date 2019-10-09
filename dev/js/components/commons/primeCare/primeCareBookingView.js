@@ -4,6 +4,8 @@ import RightBar from '../RightBar'
 import ProfileHeader from '../DesktopProfileHeader'
 import SnackBar from 'node-snackbar'
 import GTM from '../../../helpers/gtm.js'
+import PaymentForm from '../paymentForm'
+import Disclaimer from '../Home/staticDisclaimer.js'
 
 const queryString = require('query-string');
 
@@ -15,7 +17,8 @@ class PrimeCareBookingView extends React.Component {
             phoneNumber: '',
             gender: '',
             email:'',
-            profileDataFilled: true
+            profileDataFilled: true,
+            paymentData: null
         }
     }
 
@@ -52,7 +55,8 @@ class PrimeCareBookingView extends React.Component {
             })
             self.props.createCareBooking(selectedPlan,(resp)=>{
                 if(resp.payment_required){
-                    this.props.history.push(`/payment/${resp.data.orderId}?refs=care`)
+                    // this.props.history.push(`/payment/${resp.data.orderId}?refs=care`)
+                    this.processPayment(resp)
                 }else{
                     this.props.history.push('/prime/success?user_plan='+resp.data.id)
                 }        
@@ -60,13 +64,27 @@ class PrimeCareBookingView extends React.Component {
         }else{
             this.props.createCareBooking(selectedPlan,(resp)=>{
                 if(resp.payment_required){
-                    this.props.history.push(`/payment/${resp.data.orderId}?refs=care`)
+                    // this.props.history.push(`/payment/${resp.data.orderId}?refs=care`)
+                    this.processPayment(resp)
                 }else{
                     this.props.history.push('/prime/success?user_plan='+resp.data.id)
                     
                 }        
             })
         }    
+    }
+
+    processPayment(data) {
+        if (data && data.status) {
+            this.setState({ paymentData: data.data }, () => {
+                setTimeout(()=>{
+                    if (document.getElementById('paymentForm') && Object.keys(this.state.paymentData).length > 0) {
+                        let form = document.getElementById('paymentForm')
+                        form.submit()
+                    }
+                },500)
+            })
+        }
     }
 
     inputHandler(e) {
@@ -83,7 +101,6 @@ class PrimeCareBookingView extends React.Component {
         } else {
             this.setState({ [e.target.name]: e.target.value })
         }
-
     }
 
     render() {
@@ -184,7 +201,7 @@ class PrimeCareBookingView extends React.Component {
                                                 {
                                                     this.props.data && this.props.data.length>0 && this.props.data[0].unlimited_online_consultation?
                                                         <li className="careListiLi"><p className="careListin">Free Unlimited Online Consultation </p>
-                                                            <span>Anytime, Anywhere!</span>
+                                                            <span>Our online consultation timings are from 8:00 AM to 5:00 PM</span>
                                                         </li>
                                                     :''
                                                 }
@@ -222,6 +239,10 @@ class PrimeCareBookingView extends React.Component {
                         {/*<RightBar className="col-md-5 mb-3" />*/}
                     </div>
                 </section>
+                <Disclaimer />
+                {
+                    this.state.paymentData ? <PaymentForm paymentData={this.state.paymentData} refs='care' /> : ""
+                }
             </div>
         );
     }

@@ -8,7 +8,7 @@ import DoctorResultCard from '../opd/commons/doctorResultCard'
 import RatingGraph from '../commons/ratingsProfileView/RatingGraph.js'
 import ReviewList from '../commons/ratingsProfileView/ReviewList.js'
 import HospitalLocations from './HospitalLocations.js'
-import HospitalGallery from './HospitalGallery.js'
+// import HospitalGallery from './HospitalGallery.js'
 import HospitalAboutUs from './HospitalAboutUs.js'
 import GTM from '../../helpers/gtm.js'
 import IpdFormView from '../../containers/ipd/IpdForm.js'
@@ -16,6 +16,14 @@ const queryString = require('query-string')
 import IpdLeadForm from '../../containers/ipd/ipdLeadForm.js'
 import ChatIpdPanel from '../commons/ChatPanel/ChatIpdPanel.js'
 import IpdOffersPage from './IpdOffersPage.js'
+import CommonSearch from '../../containers/commons/CommonSearch.js'
+import IpdCarousel from './IpdHospitalDetailCarousel.js'
+import IpdQuestionAnswer from './ipdQuestionAnswer.js'
+import IpdSecondPopup from '../../containers/ipd/IpdDoctorCityPopup.js'
+import CommentBox from '../commons/article/ArticleCommentBox.js'
+import Reply from '../commons/article/Reply.js'
+import STORAGE from '../../helpers/storage';
+import SnackBar from 'node-snackbar'
 
 //View all rating for hospital ,content_type = 3
 
@@ -27,11 +35,21 @@ class HospitalDetailView extends React.Component {
 			seoFriendly: this.props.match.url.includes('-hpp'),
 			toggleTabType: 'doctors',
 			showLeadForm: true,
-			ipdFormParams: {}
+			ipdFormParams: {},
+			showForcedPopup: false,
+			showSecondPopup: false,
+			firstLeadId:'',
+			replyOpenFor: '',
+			comment:''
 		}
 	}
 
 	componentDidMount() {
+
+		if (window) {
+            window.scrollTo(0, 0)
+        }
+                
 		let hospital_id = this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ? this.props.ipd_hospital_detail.id : this.props.match.params.hospitalId || ''
 		let gtmData = {
 			'Category': 'ConsumerApp', 'Action': 'IpdHospitalDetailPageLanded', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-detail-page-landed', selectedId: hospital_id
@@ -42,8 +60,11 @@ class HospitalDetailView extends React.Component {
 		var sections = {};
 		var i = 0
 
-		let headerHeight = -35
-
+		let headerHeight = 35
+		if(document.getElementsByClassName('ipd-tabs-container') && document.getElementsByClassName('ipd-tabs-container').length) {
+			headerHeight = document.getElementsByClassName('ipd-tabs-container')[0].offsetHeight
+		}
+		headerHeight = -(headerHeight)
 		Object.keys(this.refs).forEach((prp, i) => {
 
 			sections[prp] = this.refs[prp].offsetTop + headerHeight
@@ -57,12 +78,12 @@ class HospitalDetailView extends React.Component {
 				for (i in sections) {
 					if (self.refs[i]) {
 
-						if(i.includes('view_more')) {
-							if(scrollPosition > (self.refs['view_more'].offsetTop +  headerHeight )){
-						    	self.setState({toggleTabType: ''})
-						    }
-						}else { 
-							
+						if (i.includes('view_more')) {
+							if (scrollPosition > (self.refs['view_more'].offsetTop + headerHeight)) {
+								self.setState({ toggleTabType: '' })
+							}
+						} else {
+
 							if ((self.refs[i].offsetTop + headerHeight) <= scrollPosition) {
 								self.setState({ toggleTabType: i })
 							}
@@ -78,11 +99,21 @@ class HospitalDetailView extends React.Component {
 			this.toggleTabs(parsed.type)
 		}
 
+		if(window.location.href.includes('type#')) {
+			let type = window.location.href.split('#')
+			if(type.length==2 && this.refs[type[1]]) {
+				this.toggleTabs(type[1])		
+			}
+		}
+ 
+		setTimeout(()=>{
+			this.setState({showForcedPopup: true })
+		},1000)
 
 	}
 
 	getCostEstimateClicked() {
-
+		const parsed = queryString.parse(this.props.location.search)
 		let ipd_id = this.props.commonSelectedCriterias.length ? this.props.commonSelectedCriterias[0].id : null
 		let hospital_id = this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ? this.props.ipd_hospital_detail.id : ''
 		let gtmData = {
@@ -90,12 +121,19 @@ class HospitalDetailView extends React.Component {
 		}
 		GTM.sendEvent({ data: gtmData })
 
+		if(parsed.fromProcedure){
+
+		}else{
+			ipd_id = null
+			let selectedCriteria = []
+			this.props.toggleIPDCriteria(selectedCriteria, true)
+		}
 
 		this.props.history.push(`/ipd/${ipd_id ? ipd_id : 'price'}/getPriceEstimate?hospital_id=${hospital_id}`)
 
 	}
 
-	viewDoctorsClicked(specializedSearch = false, e) {
+	viewDoctorsClicked(specializationId = null, e) {
 		/*if(this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length){
 
 
@@ -117,9 +155,8 @@ class HospitalDetailView extends React.Component {
 		let hospital_name = ''
 		let state = {}
 
-		if (specializedSearch) {
-			hospital_id = ''
-			this.props.cloneCommonSelectedCriterias({ id: this.props.specialization_id, type: 'speciality' })
+		if (specializationId) {
+			this.props.cloneCommonSelectedCriterias({ id: specializationId, type: 'speciality' })
 		}
 
 		state = {
@@ -146,7 +183,11 @@ class HospitalDetailView extends React.Component {
 			GTM.sendEvent({ data: gtmData })
 
 			let headerHeight = this.refs[type].offsetTop
-			headerHeight = headerHeight - 35
+			let tabheight = 35;
+			if(document.getElementsByClassName('ipd-tabs-container') && document.getElementsByClassName('ipd-tabs-container').length) {
+				tabheight = document.getElementsByClassName('ipd-tabs-container')[0].offsetHeight
+			}
+			headerHeight = headerHeight - tabheight
 			this.setState({ toggleTabType: type })
 			window.scrollTo(0, headerHeight)
 
@@ -172,21 +213,111 @@ class HospitalDetailView extends React.Component {
 			}
 			GTM.sendEvent({ data: gtmData })
 		}
-		let ipd_data = {
+		/*let ipd_data = {
 			showChat: true,
-			ipdFormParams: ipdFormParams
-		}
-		
-		this.setState({ showLeadForm: false, ipdFormParams: ipdFormParams }, ()=>{
-			this.props.checkIpdChatAgentStatus((response)=> {
+			ipdFormParams: ipdFormParams,
+			hospital:this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id?this.props.ipd_hospital_detail.id:''
+		}*/
+
+		this.setState({ showLeadForm: false, ipdFormParams: ipdFormParams }, () => {
+			/*this.props.checkIpdChatAgentStatus((response)=> {
 				if(response && response.users && response.users.length) {
 
-					this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize: true})
+					// this.props.ipdChatView({showIpdChat:true, ipdForm: ipdFormParams, showMinimize: true})
 				}
-			})
-			this.props.showChatView(ipd_data)	
+			})*/
+			// this.props.showChatView(ipd_data)	
 		})
 	}
+
+	applyQuickFilters(category) {
+		let gtmData = {
+			'Category': 'ConsumerApp', 'Action': 'IpdHospitalSpecializationSearch', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'ipd-hospital-specialization-search', 'specializationId': category.id
+		}
+		GTM.sendEvent({ data: gtmData })
+		let self = this
+
+		let hospital_id = this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ? this.props.ipd_hospital_detail.id : ''
+		let doctor_name = ''
+		let hospital_name = ''
+		let state = {}
+		let specialization_category = [{id: category.id, type:'group_ids'}]
+		
+		this.props.cloneCommonSelectedCriterias(specialization_category)
+		state = {
+			filterCriteria: {
+				...self.props.filterCriteria,
+				hospital_id, doctor_name, hospital_name
+			},
+			nextFilterCriteria: {
+				...self.props.filterCriteria,
+				hospital_id, doctor_name, hospital_name
+			}
+		}
+
+		this.props.mergeOPDState(state)
+		this.props.history.push(`/opd/searchresults`)
+	}
+
+	getInputFocus() {
+		let headerHeight = document.getElementById('common_search') ? document.getElementById('common_search').offsetTop : 0
+		headerHeight = headerHeight - 89
+		window.scrollTo(0, headerHeight)
+	}
+
+	saveLeadIdForUpdation(response) {
+		if (response.id) {
+			this.setState({ firstLeadId: response.id, showSecondPopup: true })
+		}
+	}
+
+	secondIpdFormSubmitted() {
+		this.setState({ showSecondPopup: false })
+	}
+
+	postReply(e) {
+        e.preventDefault()
+        if (!this.state.comment) {
+            setTimeout(() => {
+                SnackBar.show({ pos: 'bottom-center', text: "Please write valid comment" })
+            }, 500)
+            return
+        }
+        let postData = {
+        	type: 'hospital',
+            id: this.props.ipd_hospital_detail.id,
+            comment: this.state.comment,
+            name: Object.values(this.props.profiles).length && this.props.profiles[this.props.defaultProfile] ? this.props.profiles[this.props.defaultProfile].name : '',
+            email: Object.values(this.props.profiles).length && this.props.profiles[this.props.defaultProfile] ? this.props.profiles[this.props.defaultProfile].email : '',
+            parent: this.state.replyOpenFor
+        }
+        this.props.postHospitalComments(postData, (error, data) => {
+            if (data) {
+                this.setState({ comment: '', replyOpenFor: '' })
+                this.loadComments()
+                setTimeout(() => {
+                    SnackBar.show({ pos: 'bottom-center', text: "Comment Posted Sucessfully, Awaiting moderation" })
+                }, 500)
+            } else {
+                setTimeout(() => {
+                    SnackBar.show({ pos: 'bottom-center', text: "Could not post your comment, Try again!" })
+                }, 500)
+            }
+        })
+        return
+    }
+
+	loadComments(){
+		this.props.getHospitalComments(this.props.ipd_hospital_detail.id)
+	}
+
+	commentReplyClicked(id) {
+        this.setState({ replyOpenFor: id })
+    }
+
+    handleInputComment(e) {
+        this.setState({ comment: e.target.value })
+    }
 
 	render() {
 
@@ -196,50 +327,113 @@ class HospitalDetailView extends React.Component {
 
 		showPopup = parsed.showPopup && this.state.showLeadForm && !this.props.is_ipd_form_submitted
 
+		let landing_page = false
+		if (typeof window == 'object' && window.ON_LANDING_PAGE) {
+			landing_page = true
+		}
+
+		let showForcedPopup= this.state.showLeadForm && landing_page && this.state.seoFriendly && this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.is_ipd_hospital && this.state.showForcedPopup
+
+
+		let isUserLogin = Object.values(this.props.profiles).length || STORAGE.checkAuth()
+        let commentsExists = this.props.hospitalComments && this.props.hospitalComments.length ? this.props.hospitalComments.length : null
+
+        let specialization_data = []
+        if(this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.specializations){
+
+        	specialization_data = this.props.ipd_hospital_detail.specialization_doctors.specializations
+        }
+
 		return (
 			<React.Fragment>
 				{
 					this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.id ?
 						<div className="ipd-section">
 							{
-								showPopup ?
-									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} formSource='ipdHospitalPopup' />
+								(showPopup || showForcedPopup) ?
+									<IpdLeadForm submitLeadFormGeneration={this.submitLeadFormGeneration.bind(this)} {...this.props} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} formSource='ipdHospitalPopup' saveLeadIdForUpdation={this.saveLeadIdForUpdation.bind(this)} noToastMessage={true} specialization_data={specialization_data}/>
+									: ''
+							}
+							{
+								this.state.showSecondPopup && this.state.firstLeadId && parsed.get_feedback && parsed.get_feedback == '1' ?
+									<IpdSecondPopup {...this.props} firstLeadId={this.state.firstLeadId} all_doctors={this.props.ipd_hospital_detail.all_doctors} all_cities={this.props.ipd_hospital_detail.all_cities} hospitalProfilePage={true} secondIpdFormSubmitted={this.secondIpdFormSubmitted.bind(this)} hospital_name={this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : null} hospital_id={this.props.ipd_hospital_detail.id} />
 									: ''
 							}
 
-							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} showPopup={showPopup} />
+							<HospitalInfo hospital_data={this.props.ipd_hospital_detail} showPopup={showPopup} isSeo={this.state.seoFriendly} />
+
+							
+							{
+								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.other_network_hospitals && this.props.ipd_hospital_detail.other_network_hospitals.length?
+								<IpdCarousel {...this.props} hospital_data ={this.props.ipd_hospital_detail}/>
+								:''
+							}
 
 							<div className="ipd-tabs-container">
-								<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'doctors' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'doctors')}>Doctors</p>
+								<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type#doctors`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'doctors' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
+									e.preventDefault()
+									this.toggleTabs('doctors')
+								}}>Doctors</a>
 								{
-									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count ?
-										<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'bookNow' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'bookNow')}>Book Now</p>
+									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count && false ?
+										<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type#bookNow`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'bookNow' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
+											e.preventDefault()
+											this.toggleTabs('bookNow')
+										}}>Book Now</a>
 										: ''
 								}
-
-								<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'feedback' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'feedback')}>Feedback</p>
-
+								{
+									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.rating_graph && this.props.ipd_hospital_detail.rating_graph.star_count && this.props.ipd_hospital_detail.display_rating_widget?
+										<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type#feedback`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'feedback' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
+											e.preventDefault()
+											this.toggleTabs('feedback')
+										}}>Feedback</a>
+										:''	
+								}
 								{
 									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.offers && this.props.ipd_hospital_detail.offers.length?
-									<p className={`ipd-tb-tabs ${this.state.toggleTabType == 'offers' ? ' ipd-tb-active' : ''}`} onClick={this.toggleTabs.bind(this, 'offers')}>Offers</p>
+									<a href={`${this.props.location && this.props.location.pathname?`${this.props.location.pathname}?type#offers`:''}`} className={`ipd-tb-tabs ${this.state.toggleTabType == 'offers' ? ' ipd-tb-active' : ''}`} onClick={(e)=>{
+										e.preventDefault()
+										this.toggleTabs('offers')
+									}}>Offers</a>
 									:''	
 								}
-								
-							</div>
 
+							</div>
+							{
+								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.is_ipd_hospital ?
+									<div id="common_search" className="ipd-sl-srch">
+										<CommonSearch {...this.props} hospital_id_search={this.props.hospital_id} commonSearch={true} getInputFocus={this.getInputFocus.bind(this)} hospital_lat={this.props.ipd_hospital_detail.lat} hospital_long={this.props.ipd_hospital_detail.long} hospital_search_name={this.props.ipd_hospital_detail.name || ''} />
+									</div>
+									: ''
+							}
+
+							{
+								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.all_specialization_groups && this.props.ipd_hospital_detail.all_specialization_groups.length ?
+									<div className="sort-sub-filter-container mb-3">
+										<p><span className="fw-700">Popular Specializations</span></p>
+										<div className="srt-sb-btn-cont">
+											{
+												this.props.ipd_hospital_detail.all_specialization_groups.map((category, j) => {
+													return <button key={j} className='srt-act' id={category.id} onClick={this.applyQuickFilters.bind(this, category)}> {category.name}</button>
+												})
+											}
+										</div>
+									</div> : ''
+							}
 							<div id="doctors" ref="doctors">
 								{
 									this.props.ipd_hospital_detail && ((this.props.ipd_hospital_detail.doctors && this.props.ipd_hospital_detail.doctors.result.length) || (this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length)) ?
 										<div>
 											<div>
-												<div className="card-head"><h2 className="dsply-ipd-hdng">Doctors</h2></div>
+												<div className="card-head"><h2 className="dsply-ipd-hdng">{`${this.props.ipd_hospital_detail.seo_title?this.props.ipd_hospital_detail.seo_title:this.props.ipd_hospital_detail.name_city ? this.props.ipd_hospital_detail.name_city : ''} Doctors List`}</h2></div>
 												{
 													this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length ?
 														this.props.ipd_hospital_detail.specialization_doctors.result.map((doctorCard, i) => {
-															return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.specialization_doctors.seo} {...this.props} />
+															return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.specialization_doctors.seo} {...this.props} isHospitalPage={true} />
 														})
 														: this.props.ipd_hospital_detail.doctors.result.map((doctorCard, i) => {
-															return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.doctors.seo} {...this.props} />
+															return <DoctorResultCard details={doctorCard} key={i} rank={i} seoFriendly={this.props.ipd_hospital_detail.doctors.seo} {...this.props} isHospitalPage={true} />
 														})
 												}
 											</div>
@@ -247,7 +441,7 @@ class HospitalDetailView extends React.Component {
 
 												{
 													this.props.ipd_hospital_detail.specialization_doctors && this.props.ipd_hospital_detail.specialization_doctors.result.length ?
-														<a href="javascript:void(0);" onClick={this.viewDoctorsClicked.bind(this, true)}>{this.getSpecializationName()}</a>
+														<a href="javascript:void(0);" onClick={this.viewDoctorsClicked.bind(this, this.props.specialization_id || '')}>{this.getSpecializationName()}</a>
 														: ''
 
 												}
@@ -264,7 +458,7 @@ class HospitalDetailView extends React.Component {
 								}
 							</div>
 							{
-								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count ?
+								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.bed_count && false ?
 									<div id="bookNow" ref="bookNow" className="nav_top_bar">
 										<IpdFormView {...this.props} tabView={true} formSource='IpdHospitalDetailPage' />
 									</div>
@@ -275,7 +469,7 @@ class HospitalDetailView extends React.Component {
 								{
 									this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.rating_graph && this.props.ipd_hospital_detail.rating_graph.star_count && this.props.ipd_hospital_detail.display_rating_widget ?
 										<div className="hs-card">
-											<div className="card-head"><h2 className="dsply-ipd-hdng">Patient Feedback</h2></div>
+											<div className="card-head"><h2 className="dsply-ipd-hdng">Reviews for {this.props.ipd_hospital_detail.name ? this.props.ipd_hospital_detail.name : ''}</h2></div>
 											<RatingGraph details={this.props.ipd_hospital_detail} />
 											{
 												this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.rating && this.props.ipd_hospital_detail.rating.length && this.props.ipd_hospital_detail.display_rating_widget ?
@@ -287,14 +481,13 @@ class HospitalDetailView extends React.Component {
 								}
 							</div>
 							{
-								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.offers && this.props.ipd_hospital_detail.offers.length?
-								<div id="offers" ref="offers">
-									<IpdOffersPage {...this.props} offers={this.props.ipd_hospital_detail.offers}/>
-								</div>
-								:''	 
+								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.offers && this.props.ipd_hospital_detail.offers.length ?
+									<div id="offers" ref="offers">
+										<IpdOffersPage {...this.props} offers={this.props.ipd_hospital_detail.offers} />
+									</div>
+									: ''
 							}
-							
-							
+
 							<div ref="view_more">
 							</div>
 							{
@@ -309,36 +502,66 @@ class HospitalDetailView extends React.Component {
 									: ''
 							}
 
-							{
+							{/*
 								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.other_network_hospitals && this.props.ipd_hospital_detail.other_network_hospitals.length ?
 									<HospitalLocations hospital_data={this.props.ipd_hospital_detail} />
 
 									: ''
-							}
+							*/}
 
-							{
+							{/* {
 								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.images && this.props.ipd_hospital_detail.images.length ?
 									<HospitalGallery hospital_data={this.props.ipd_hospital_detail} />
 									: ''
-							}
+							} */}
 
 
 							{
-								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.about ?
+								this.props.ipd_hospital_detail && (this.props.ipd_hospital_detail.new_about) ?
 									<HospitalAboutUs hospital_data={this.props.ipd_hospital_detail} />
 									: ''
 							}
+
 							{
-								this.props.ipd_chat || showPopup?''
-								:typeof window == 'object' && window.ON_LANDING_PAGE?
-									this.props.ipd_hospital_detail.bed_count?
-									<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Need Help?</a></div>
-									:''
-								:<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a></div>
-
-
-									
+								this.props.ipd_hospital_detail && this.props.ipd_hospital_detail.question_answers && this.props.ipd_hospital_detail.question_answers.length ?
+									<IpdQuestionAnswer hospital_data={this.props.ipd_hospital_detail} />
+									: ''
 							}
+
+		                    <div className="ipd-wdg-pdng">
+		                        {
+	                                this.props.hospitalComments && this.props.hospitalComments.length?
+	                                    <div className="">
+	                                        <h4 className="comments-main-heading">{`User Comments (${this.props.hospitalComments.length})`}</h4>
+	                                        {
+	                                            this.props.hospitalComments.map((comment, key) => {
+	                                                return <Reply key={comment.id} commentReplyClicked={this.commentReplyClicked.bind(this)} isUserLogin={isUserLogin} {...this.props} {...this.state} 
+	                                                	loadComments={this.loadComments.bind(this)} postComment={this.props.postHospitalComments}
+
+	                                                 postReply={this.postReply.bind(this)} handleInputComment={this.handleInputComment.bind(this)} commentData={comment} commentsExists={commentsExists} hospitalPage={true} hospital_id={this.props.ipd_hospital_detail.id}
+	                                                  notArticle={true}/>
+	                                            })}
+	                                    </div>
+	                                    : ''
+		                        }
+
+                                <div className="">
+                                    <div className="widget mrb-15 mrng-top-12 p-0">
+                                        <div className="widget-content">
+                                            <CommentBox {...this.props} {...this.state}  parentCommentId={this.state.replyOpenFor} hospitalPage={true} parentCommentId='' hospital_id={this.props.ipd_hospital_detail.id} loadComments={this.loadComments.bind(this)} postComment={this.props.postHospitalComments}/>
+                                        </div>
+                                    </div>
+                                </div>
+		                            
+		                    </div>
+
+							{
+								this.props.ipd_chat || showPopup || (this.props.ipd_hospital_detail && !this.props.ipd_hospital_detail.is_ipd_hospital) ? ''
+									: parsed.fromProcedure ?
+										<div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Get Cost Estimate</a></div>
+										: <div className="btn-search-div btn-apply-div btn-sbmt"><a href="javascript:void(0);" onClick={this.getCostEstimateClicked.bind(this)} className="btn-search">Need Help?</a></div>
+							}
+
 
 						</div>
 						: <Loader />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { searchTestData, selectedCriterias, searchTestInfoData, toggleDiagnosisCriteria, setLabSearchId, clearExtraTests, mergeLABState, clearAllTests, selectLabTimeSLot, selectLabAppointmentType } from '../../actions/index.js'
+import { searchTestData, selectedCriterias, searchTestInfoData, toggleDiagnosisCriteria, setLabSearchId, clearExtraTests, mergeLABState, clearAllTests, selectLabTimeSLot, selectLabAppointmentType, setPackageId, postComment } from '../../actions/index.js'
 
 import SearchTestView from '../../components/commons/search/searchTestInfo.js'
 
@@ -56,7 +56,9 @@ const mapDispatchToProps = (dispatch) => {
         mergeLABState: (state, fetchNewResults) => dispatch(mergeLABState(state, fetchNewResults)),
         clearAllTests: () => dispatch(clearAllTests()),
         selectLabTimeSLot: (slot, reschedule) => dispatch(selectLabTimeSLot(slot, reschedule)),
-        selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type))
+        selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
+        setPackageId: (package_id, isHomePage) => dispatch(setPackageId(package_id, isHomePage)),
+        postComment: (comment, cb) => dispatch(postComment(comment, cb))
     }
 }
 

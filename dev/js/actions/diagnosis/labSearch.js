@@ -181,21 +181,26 @@ export const getLabByUrl = (lab_url, testIds = [], cb) => (dispatch) => {
 	})
 }
 
-export const getLabTimeSlots = (labId, pickup, pincode, date, callback) => (dispatch) => {
-	let url = `/api/v1/diagnostic/labtiming_new?lab=${labId}&pickup=${pickup}&pincode=${pincode}&date=${date}`
+export const getLabTimeSlots = (labId, pickup, pincode, date, extraParams, callback) => (dispatch) => {
+	let url = `/api/v1/diagnostic/labtiming_v3?lab=${labId}&pickup=${pickup}&pincode=${pincode}&date=${date}`
+	if(extraParams){
+		url+= `&test_ids=${extraParams.test_ids||''}&r_pickup=${extraParams.r_pickup||0}&p_pickup=${extraParams.p_pickup||0}`	
+	}
+	
 	return API_GET(url).then(function (response) {
-		callback(response)
+		if(callback)callback(response)
 	}).catch(function (error) {
 
 	})
 }
 
-export const selectLabTimeSLot = (slot, reschedule = false) => (dispatch) => {
+export const selectLabTimeSLot = (slot, reschedule = false, dateParams=null) => (dispatch) => {
 	dispatch({
 		type: SELECT_LAB_TIME_SLOT,
 		payload: {
 			reschedule,
-			slot
+			slot,
+			dateParams
 		}
 	})
 }
@@ -361,7 +366,8 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	let package_type = filterCriteriaPackages.packageType || ""
 	let test_ids = filterCriteriaPackages.test_ids || ""
 	let package_ids = filterCriteriaPackages.package_ids || ""
-	let package_category_id
+	let package_category_ids = parsed.package_category_ids || ""
+	// let package_category_ids = filterCriteriaPackages.package_category_ids || ""
 	let url = `/api/v1/diagnostic/packagelist?`
 
 	if (searchByUrl) {
@@ -369,17 +375,21 @@ export const getPackages = (state = {}, page = 1, from_server = false, searchByU
 	}
 
 	if (forTaxSaver) {
-		package_category_id = parsed.package_category_ids
-		url += `long=${long || ""}&lat=${lat || ""}&package_category_ids=${package_category_id}`
+		// package_category_id = parsed.package_category_ids
+		url += `long=${long || ""}&lat=${lat || ""}&page=${page}`
 	}
 
 	if (!forTaxSaver) {
-
+		// package_category_id = parsed.package_category_ids
 		url += `long=${long || ""}&lat=${lat || ""}&sort_on=${sort_on}&sort_order=${sort_order}&avg_ratings=${avg_ratings}&home_visit=${home_visit}&lab_visit=${lab_visit}&category_ids=${catIds || ""}&max_age=${max_age || ""}&min_age=${min_age || ""}&gender=${gender || ""}&package_type=${package_type || ""}&test_ids=${test_ids || ""}&page=${page}&package_ids=${package_ids}`
 	}
 
 	if (!!filterCriteriaPackages.lab_name) {
 		url += `&name=${filterCriteria.lab_name || ""}`
+	}
+
+	if(parsed.package_category_ids){
+		url += `&package_category_ids=${package_category_ids}`
 	}
 
 	if (!!filterCriteriaPackages.network_id) {
@@ -520,4 +530,14 @@ export const preBooking = (selectedTime) => (dispatch) => {
 	        payload:response
 	    })
 	})
+}
+
+export const getTestCategoryList = (state = {}, page = 1, from_server = false, searchByUrl = false, callback) => (dispatch) => {
+
+	return API_GET(`/api/v1/diagnostic/lab-test-category-landing-urls?url=${searchByUrl.split('/')[1]}&page=${page}`).then(function (response) {
+        if(callback) callback(response)
+    }).catch(function (error) {
+        if(callback) callback(error)
+        throw error
+    })
 }

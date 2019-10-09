@@ -30,11 +30,11 @@ class ReplyView extends React.Component{
                     <div className="dr-qucik-info doc-gold-" key={this.props.commentData.id}>
                         <div className="fltr-crd-img text-center">
                             <div>
-                                <InitialsPicture  name={this.props.commentData.author?this.props.commentData.author.name:this.props.commentData.user_name} has_image={this.props.commentData.author?this.props.commentData.author.profile_img:this.props.commentData.profile_img} className="initialsPicture-ds fltr-initialPicture-ds"><img style={{ width: '50px' }} className="img-fluid img-round" src={this.props.commentData.author?this.props.commentData.author.profile_img:this.props.commentData.profile_img} alt={this.props.commentData.author?this.props.commentData.author.name:this.props.commentData.user_name} title={this.props.commentData.author?this.props.commentData.author.name:this.props.commentData.user_name} /></InitialsPicture>
+                                <InitialsPicture  name={this.props.commentData.author?this.props.commentData.author.name:this.props.commentData.user_name} has_image={this.props.commentData.author && this.props.commentData.author.profile_img?this.props.commentData.author.profile_img:this.props.commentData.profile_img} className="initialsPicture-ds fltr-initialPicture-ds"><img style={{ width: '50px' }} className="img-fluid img-round" src={this.props.commentData.author && this.props.commentData.author.profile_img?this.props.commentData.author.profile_img:this.props.commentData.profile_img} alt={this.props.commentData.author?this.props.commentData.author.name:this.props.commentData.user_name} title={this.props.commentData.author?this.props.commentData.author.name:this.props.commentData.user_name} /></InitialsPicture>
                             </div>
                         </div>
                         <div className="dr-profile">
-                            <p className={`dr-name ${this.props.commentData.author?'comments-rply':''}`} onClick={(e) => this.authorClick(this.props.commentData)}>{this.props.commentData.author?this.props.commentData.author.name:this.props.commentData.user_name}</p>
+                            <p className={`dr-name ${this.props.commentData.author && !this.props.notArticle?'comments-rply':''}`} onClick={(e) => this.props.notArticle?{}:this.authorClick(this.props.commentData)}>{this.props.commentData.author?this.props.commentData.author.name:this.props.commentData.user_name}</p>
                             <p className="add-details">{this.props.commentData.submit_date?new Date(this.props.commentData.submit_date).toDateString():""}</p>
                         </div>
                     </div>
@@ -54,7 +54,7 @@ class ReplyView extends React.Component{
                                 <input type="text" onChange={this.props.handleInputComment.bind(this)} />
                                 <button className="comments-post-btns" onClick={this.props.postReply.bind(this)}>Post</button>
                             </div>
-                            :<CommentBox {...this.props} {...this.state} getArticleData={this.props.getArticleData.bind(this)} parentCommentId = {this.props.commentData.id}/>
+                            :<CommentBox {...this.props} {...this.state} getArticleData={this.props.hospitalPage?()=>{}:this.props.getArticleData.bind(this)} parentCommentId = {this.props.commentData.id}/>
                         :''   
                     }
     				{

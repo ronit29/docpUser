@@ -4,6 +4,7 @@ import DoctorsList from '../searchResults/doctorsList/index.js'
 import CriteriaSearch from '../../commons/criteriaSearch'
 import TopBar from './newTopBar'
 import CONFIG from '../../../config'
+import GTM from '../../../helpers/gtm'
 import HelmetTags from '../../commons/HelmetTags'
 import NAVIGATE from '../../../helpers/navigate'
 import Footer from '../../commons/Home/footer'
@@ -30,7 +31,8 @@ class SearchResultsView extends React.Component {
             setSearchId: false,
             scrollPosition: 0,
             quickFilter: {},
-            detectLocation: false
+            detectLocation: false,
+            sponsorData: []
         }
     }
 
@@ -39,6 +41,22 @@ class SearchResultsView extends React.Component {
         //aa.init()
         aa.addEvents('map')*/
         const parsed = queryString.parse(this.props.location.search)
+        //API TO GET SPONSORLIST 
+        let searchUrl = null
+        if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit') || this.props.match.url.includes('-ipddp')) {
+            searchUrl = this.props.match.url.toLowerCase()
+        }
+        /*let sponsorData = {
+            utm_term: parsed && parsed.utm_term?parsed.utm_term:'',
+            searchUrl:searchUrl,
+            specializations_ids:''
+        }
+        if(this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) {
+            sponsorData.specializations_ids = this.props.commonSelectedCriterias.filter(x => x.type == 'speciality').map(x => x.id)
+        }
+        this.props.getSponsoredList(sponsorData, this.props.selectedLocation, (response)=>{
+            this.setState({sponsorData: response})
+        })*/
         if (this.props.mergeUrlState) {
             let getSearchId = true
             if (this.props.location.search.includes('search_id')) {
@@ -262,6 +280,8 @@ class SearchResultsView extends React.Component {
 
         let ipd_ids = commonSelectedCriterias.filter(x => x.type == 'ipd').map(x => x.id)
 
+        let group_ids = commonSelectedCriterias.filter(x => x.type == 'group_ids').map(x => x.id)
+
         let lat = 28.644800
         let long = 77.216721
         let place_id = ""
@@ -304,7 +324,7 @@ class SearchResultsView extends React.Component {
         let doctor_name = filterCriteria.doctor_name || ""
         let hospital_id = filterCriteria.hospital_id || ""
         let is_insured = filterCriteria.is_insured || false
-
+        let specialization_filter_ids = filterCriteria.specialization_filter_ids || []
 
 
         let url = ''
@@ -336,23 +356,34 @@ class SearchResultsView extends React.Component {
             is_filter_applied = true
         }
 
-        let is_params_exist = false
+        if(specialization_filter_ids && specialization_filter_ids.length){
+            is_filter_applied = true
+        }
 
+        let is_params_exist = false
+        url = `${window.location.pathname}`
+        
+        if (page > 1) {
+            url += `?page=${page}`
+            is_params_exist = true
+        }
+
+        url+= `${is_params_exist ? '&' : '?'}search_id=${this.state.search_id}`
+        is_params_exist = true
         if (is_filter_applied || !this.state.seoFriendly) {
 
-            url = `${window.location.pathname}?specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&search_id=${this.state.search_id}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}&sits_at_hospital=${sits_at_hospital}&sits_at_clinic=${sits_at_clinic}`
+            url+= `&specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}&sits_at_hospital=${sits_at_hospital}&sits_at_clinic=${sits_at_clinic}&group_ids=${group_ids}&specialization_filter_ids=${specialization_filter_ids}`
+
+            if(parsed && parsed.utm_term){
+                url+= `&utm_term=${parsed.utm_term||''}`
+            }
 
             is_params_exist = true
 
-        } else if (this.state.seoFriendly) {
+        }/* else if (this.state.seoFriendly) {
 
             url = `${window.location.pathname}`
-        }
-
-        if (page > 1) {
-            url += `${is_params_exist ? '&' : '?'}page=${page}`
-            is_params_exist = true
-        }
+        }*/
 
         if (this.state.clinic_card) {
             url += `${is_params_exist ? '&' : '?'}clinic_card=true`
@@ -401,29 +432,159 @@ class SearchResultsView extends React.Component {
     }
 
     getMetaTagsData(seoData) {
-        let title = "Doctor Search"
-        if (this.state.seoFriendly) {
-            title = ""
-        }
+        let title = ''
         let description = ""
+        if (this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length) {
+            title = `${this.props.commonSelectedCriterias[0].name} : Book Best ${this.props.commonSelectedCriterias[0].name} Doctors Near You`
+            description = `${this.props.commonSelectedCriterias[0].name}: Book appointment with the best ${this.props.commonSelectedCriterias[0].name} from top hospitals and clinics near you at discounted price. Check doctor reviews and more.`
+        }
         let schema = {}
         if (seoData) {
-            title = seoData.title || ""
-            description = seoData.description || ""
-            schema = seoData.schema
+            title = seoData.title || title
+            description = seoData.description || description
+            schema = seoData.schema || schema
         }
         if (parseInt(this.props.page) != 1) {
-            title = 'Page  ' + this.props.page + ' - ' + title
+            title = 'Page ' + this.props.page + ' - ' + title
         }
         return { title, description, schema }
     }
 
-    resetQuickFilters(){
-        this.setState({quickFilter: {}})
+    resetQuickFilters() {
+        this.setState({ quickFilter: {} })
     }
 
     applyQuickFilter(filter) {
-        this.setState({quickFilter: filter})
+        this.setState({ quickFilter: filter })
+    }
+
+    isFilterApplied(filterCriteria) {
+        //Check if any filter applied 
+        let is_filter_applied = false
+        if (filterCriteria) {
+            let sort_on = filterCriteria.sort_on || ""
+            let sort_order = filterCriteria.sort_order || ""
+            let availability = filterCriteria.availability || []
+            let avg_ratings = filterCriteria.avg_ratings || []
+            let gender = filterCriteria.gender || ''
+            let sits_at_hospital = filterCriteria.sits_at_hospital
+            let sits_at_clinic = filterCriteria.sits_at_clinic
+
+
+            let hospital_name = filterCriteria.hospital_name || ""
+            let doctor_name = filterCriteria.doctor_name || ""
+            let hospital_id = filterCriteria.hospital_id || ""
+            let is_insured = filterCriteria.is_insured || false
+
+            if (sort_on) {
+                is_filter_applied = true
+            }
+            if (availability && availability.length) {
+                is_filter_applied = true
+            }
+
+            if (avg_ratings && avg_ratings.length) {
+                is_filter_applied = true
+            }
+
+            if (gender) {
+                is_filter_applied = true
+            }
+        }
+
+        return is_filter_applied
+    }
+
+    searchDoctorSpecialization(speciality,isViewAll) {
+        if (window) {
+            window.scrollTo(0, 0)
+        }
+        let specialityData={}
+        let ViewAllData=[]
+        if(isViewAll){
+            speciality.map((spec, i) => {
+                ViewAllData.push({id:spec.specialization_id,type:'speciality'})
+            })
+        
+            let state = {}
+            let hospital_id =''
+            let doctor_name = ''
+            let hospital_name = ''
+            if (ViewAllData.length) {
+                this.props.cloneCommonSelectedCriterias(ViewAllData)
+            }
+
+            state = {
+                filterCriteria: {
+                    ...this.props.filterCriteria,
+                    hospital_id, doctor_name, hospital_name
+                },
+                nextFilterCriteria: {
+                    ...this.props.filterCriteria,
+                    hospital_id, doctor_name, hospital_name
+                }
+            }
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'SimilarSpecializationsViewAll', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'similar-specializations-viewall'
+            }
+            GTM.sendEvent({ data: data })
+            this.props.mergeOPDState(state)
+            this.props.history.push(`/opd/searchresults`)
+        }else{
+            specialityData.type = 'speciality'
+            specialityData.name = speciality.specialization_name
+            specialityData.id = speciality.specialization_id
+            this.props.toggleOPDCriteria('speciality', specialityData, true)
+            setTimeout(() => {
+                this.props.history.push('/opd/searchresults')
+            }, 100)
+            let data = {
+                'Category': 'ConsumerApp', 'Action': 'SimilarSpecializations', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'similar-specializations'
+            }
+            GTM.sendEvent({ data: data })
+        }
+    }
+
+    SimilarSpecialization(flag){/*
+        let dataLength = parseInt(this.props.similar_specializations.length/2)
+        let count = 0
+        if (!flag) {
+            count = dataLength;
+            dataLength = 
+        }*/
+        let dataModel = []
+        for (let i = 0; i < this.props.similar_specializations.length; i++) {
+            if(flag && i%2==0) {
+                dataModel.push(<span id={this.props.similar_specializations[i].specialization_id} onClick={this.searchDoctorSpecialization.bind(this,this.props.similar_specializations[i],false)}>
+                    {this.props.similar_specializations[i].specialization_name}
+                </span>)    
+            }
+            if(!flag && i%2!=0) {
+                dataModel.push(<span id={this.props.similar_specializations[i].specialization_id} onClick={this.searchDoctorSpecialization.bind(this,this.props.similar_specializations[i],false)}>
+                {this.props.similar_specializations[i].specialization_name}
+            </span>)
+            }
+            
+        }
+        return dataModel
+    }
+
+    SimilarSpecializationData(){
+        let data=(<div className="sort-sub-filter-container mb-3 pb-0">
+            <p>Looking for other related   
+                <span className="fw-700"> specializations? </span>
+                <span className="fw-500 sort-more-filter" onClick={this.searchDoctorSpecialization.bind(this,this.props.similar_specializations,true)}>Search all</span>
+            </p>
+            <div className="doc-sld-container">
+                <div className="sm-chips-container">
+                    {this.SimilarSpecialization(true)}
+                </div>
+                <div className="sm-chips-container">
+                    {this.SimilarSpecialization(false)}
+                </div>
+            </div>
+        </div>)
+        return data
     }
 
     render() {
@@ -467,7 +628,11 @@ class SearchResultsView extends React.Component {
                     schema: this.getMetaTagsData(this.props.seoData).schema,
                     seoFriendly: this.state.seoFriendly,
                     prev: prev,
-                    next: next
+                    next: next,
+                    ogType: 'Website',
+                    ogSiteName: 'Docprime',
+                    ogTitle: this.getMetaTagsData(this.props.seoData).title,
+                    ogDescription: this.getMetaTagsData(this.props.seoData).description
                 }} />
 
                 <CriteriaSearch {...this.props} checkForLoad={landing_page || this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card} newChatBtn={true} searchDoctors={true}>
@@ -480,17 +645,41 @@ class SearchResultsView extends React.Component {
                             </div> */}
                             {
                                 (this.state.clinic_card && this.props.hospitalList && this.props.hospitalList.length==0) || this.props.doctorList && this.props.doctorList.length ==0?
+                                <React.Fragment>
                                 <div className="container-fluid cardMainPaddingRmv">
                                     <div className="pkg-card-container mt-20 mb-3">
                                         <div className="pkg-no-result">
                                             <p className="pkg-n-rslt">No result found!</p>
-                                            <img className="n-rslt-img" src={ASSETS_BASE_URL + '/img/no-result.png'} />
-                                            <p className="pkg-ty-agn cursor-pntr" onClick={this.applyQuickFilter.bind(this, {viewMore: true})}>Try again with fewer filters</p>
+                                            {
+                                                this.isFilterApplied(this.props.filterCriteria)?
+                                                <React.Fragment>
+                                                    <img className="n-rslt-img" src={ASSETS_BASE_URL + '/img/no-result.png'} />
+                                                    <p className="pkg-ty-agn cursor-pntr" onClick={this.applyQuickFilter.bind(this, {viewMore: true})}>Try again with fewer filters</p>
+                                                </React.Fragment>
+                                                :
+                                                <React.Fragment>
+                                                    <img style={{width:'130px'}} className="n-rslt-img" src={ASSETS_BASE_URL + '/img/vct-no.png'} />
+                                                    <p className="pkg-ty-agn text-dark text-center">Can’t find your doctor here?<br></br>Help us to list your doctor</p>
+                                                    <button className="referDoctorbtn" onClick={(e)=>{
+                                                        e.preventDefault();
+                                                        let data = {
+                                                                'Category': 'ConsumerApp', 'Action': 'ReferDoctorListNoresult', 'CustomerID': GTM.getUserId() || '', 'event': 'refer-doctor-list-noresult'
+                                                            }
+                                                        GTM.sendEvent({ data: data })
+                                                        this.props.history.push('/doctorsignup?member_type=1')}}>Refer your Doctor</button>
+                                                </React.Fragment>
+                                            }
                                         </div>
                                     </div>
+                                    {this.props.similar_specializations && this.props.similar_specializations.length && !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && this.props.count ==0 ?
+                                    this.SimilarSpecializationData()
+                                : ''
+                                }
                                 </div>
+                                
+                                </React.Fragment>
                                 :<React.Fragment>
-                                    <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)}  getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} detectLocationClick={() => this.detectLocationClick()}  applyQuickFilter={this.applyQuickFilter.bind(this)} />
+                                    <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)}  getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} detectLocationClick={() => this.detectLocationClick()}  applyQuickFilter={this.applyQuickFilter.bind(this)} SimilarSpecializationData={this.SimilarSpecializationData.bind(this)} sponsorData={this.state.sponsorData}/>
 
                                     {
                                         this.state.seoFriendly && show_pagination ? <div className="art-pagination-div">

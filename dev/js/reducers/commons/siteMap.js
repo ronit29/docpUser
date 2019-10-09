@@ -1,4 +1,4 @@
-import { GET_CITIES_MAP, GET_CITIES_SPECIALITIES, GET_SPECIALITIES_CITIES, GET_SPECIALITIES_MAP, GET_TESTS_ALPHABETICALLY, GET_TESTS_FLAG, GET_INSURANCE_NETWORK, SET_NETWORK_TYPE, START_FETCHING_IPD_LIST, GET_IPD_ALPHABETICALLY } from '../../constants/types';
+import { GET_CITIES_MAP, GET_CITIES_SPECIALITIES, GET_SPECIALITIES_CITIES, GET_SPECIALITIES_MAP, GET_TESTS_ALPHABETICALLY, GET_TESTS_FLAG, GET_INSURANCE_NETWORK, SET_NETWORK_TYPE, START_FETCHING_IPD_LIST, GET_IPD_ALPHABETICALLY, START_FETCHING_HOSPITAL_LIST, GET_HOSPITAL_LIST_DATA, GET_HOSPITAL_LOCALITY_LIST, START_FETCHING_HOSPITAL_LOCALITY_LIST } from '../../constants/types';
 
 const defaultState = {
 	citiesMap: [],
@@ -11,7 +11,11 @@ const defaultState = {
 	testIndexLoading: true,
 	alphabeticalIpdTests: [],
 	selectedIpdListAlphabet: '',
-	ipdIndexLoading: true
+	ipdIndexLoading: true,
+	hospitalIndexLoading: true,
+	selectedHospitalList: [],
+	hospitalLocalityList: {},
+	hospitalListLoading: true
 }
 
 export default function (state = defaultState, action) {
@@ -104,6 +108,40 @@ export default function (state = defaultState, action) {
 			newState.alphabeticalIpdTests = action.payload
 			newState.selectedIpdListAlphabet = action.character
 			newState.ipdIndexLoading = action.flag
+			return newState
+		}
+
+		case START_FETCHING_HOSPITAL_LIST: {
+			let newState = {
+				...state
+			}
+			newState.hospitalIndexLoading = true
+			return newState
+		}
+
+		case GET_HOSPITAL_LIST_DATA: {
+			let newState = {
+				...state
+			}
+			newState.selectedHospitalList = action.payload
+			newState.hospitalIndexLoading = false
+			return newState
+		}
+
+		case START_FETCHING_HOSPITAL_LOCALITY_LIST: {
+			let newState = {
+				...state
+			}
+			newState.hospitalListLoading = true
+			return newState
+		}
+
+		case GET_HOSPITAL_LOCALITY_LIST: {
+			let newState = {
+				...state
+			}
+			newState.hospitalLocalityList = action.payload
+			newState.hospitalListLoading = false
 			return newState
 		}
 	}

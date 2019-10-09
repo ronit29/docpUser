@@ -1,4 +1,4 @@
-import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET_IPD_SEARCH_ID, SAVE_IPD_RESULTS_WITH_SEARCHID, GET_IPD_SEARCH_ID_RESULTS, GET_IPD_HOSPITAL_DETAIL, CLEAR_IPD_SEARCH_IDS, GET_IPD_HOSPITAL_DETAIL_START, LOADED_IPD_INFO_START, START_HOSPITAL_SEARCH } from '../../constants/types';
+import { TOGGLE_IPD, LOADED_IPD_INFO, GET_IPD_HOSPITALS, MERGE_IPD_CRITERIA, SET_IPD_SEARCH_ID, SAVE_IPD_RESULTS_WITH_SEARCHID, GET_IPD_SEARCH_ID_RESULTS, GET_IPD_HOSPITAL_DETAIL, CLEAR_IPD_SEARCH_IDS, GET_IPD_HOSPITAL_DETAIL_START, LOADED_IPD_INFO_START, START_HOSPITAL_SEARCH, SAVE_IPD_POPUP_DATA, GET_HOSP_COMMENTS } from '../../constants/types';
 import { API_GET, API_POST } from '../../api/api.js';
 import GTM from '../../helpers/gtm'
 
@@ -109,16 +109,21 @@ export const getIpdHospitals = (state, page=1, fromServer, searchByUrl, cb) => (
     let min_distance = filterCriteria.distance[0]
     let max_distance = filterCriteria.distance[1]
     let provider_ids = filterCriteria.provider_ids
+    let network_id = filterCriteria.network_id || ''
 
     let ipd_id = commonSelectedCriterias.map(x=>x.id)
 
-    let url = `/api/v1/doctor/ipd_procedure/${ipd_id}/hospitals?`
+    let url = ''
     
-    if (searchByUrl) {
+    if(ipd_id && ipd_id.length){
+        url = `/api/v1/doctor/ipd_procedure/${ipd_id}/hospitals?`
+    }else if (searchByUrl) {
         url = `/api/v1/doctor/hospitalsearch_by_url/${searchByUrl.split('/')[1]}?`
+    }else {
+        url = `/api/v1/doctor/hospitals?`
     }
 
-    url+= `long=${long}&lat=${lat}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&page=${page}`
+    url+= `long=${long}&lat=${lat}&min_distance=${min_distance}&max_distance=${max_distance}&provider_ids=${provider_ids}&page=${page}&network=${network_id}`
 
     if(parseInt(page)==1) {
         dispatch({
@@ -234,14 +239,19 @@ export const getHospitaDetails = (hospitalId, selectedLocation, searchByUrl=null
     }
 
     return API_GET(url).then( function( response) {
-        dispatch({
-            type: GET_IPD_HOSPITAL_DETAIL,
-            payload: response
-        })
+        if(response.status){
+        }else {
+            dispatch({
+                type: GET_IPD_HOSPITAL_DETAIL,
+                payload: response
+            })
+                
+        }
         if(cb)cb(response)
-
     }).catch( function( error) {
-
+        if(error && error.status) {
+            if(cb)cb(error)
+        }
     })
 
 }
@@ -249,5 +259,68 @@ export const getHospitaDetails = (hospitalId, selectedLocation, searchByUrl=null
 export const clearIpdSearchId = () => (dispatch) => {
     dispatch({
         type: CLEAR_IPD_SEARCH_IDS
+    })
+}
+
+export const submitSecondIPDForm = (formData, selectedLocation, cb) => (dispatch) => {
+
+    let lat = 28.644800
+    let long = 77.216721
+    let place_id = ""
+    let locality = ""
+    let sub_locality = ""
+
+    if (selectedLocation) {
+        lat = selectedLocation.geometry.location.lat
+        long = selectedLocation.geometry.location.lng
+        place_id = selectedLocation.place_id || ""
+        if (typeof lat === 'function') lat = lat()
+        if (typeof long === 'function') long = long()
+        locality = selectedLocation.locality || ""
+        sub_locality = selectedLocation.sub_locality || ""
+    }else{
+        locality = 'Delhi'
+    }
+
+    if(formData) {
+        formData.lat = lat
+        formData.long = long
+        formData.locality = locality
+        formData.sub_locality = sub_locality
+    }
+
+
+    return API_POST('/api/v1/doctor/ipd_procedure/update_lead', formData).then(function(response) {
+        if(cb) cb(null, response)
+    }).catch(function(error){
+        if(cb) cb(error, null)
+    })
+}
+
+export const saveIpdPopupData = (type, data) => (dispatch) => {
+    dispatch({
+        type: SAVE_IPD_POPUP_DATA,
+        payload: data,
+        dataType: type
+    })
+}
+
+export const getHospitalComments = (hospitalId) => (dispatch) => {
+    return API_GET(`api/v1/common/comment/list?type=hospital&id=${hospitalId}`).then((response)=>{
+        dispatch({
+            type: GET_HOSP_COMMENTS,
+            payload: response
+        })
+    })
+}
+
+export const postHospitalComments = (postData, cb) => (dispatch) => {
+    return API_POST(`/api/v1/common/comment/post`, postData).then((response)=>{
+        
+        if(response){
+            if(cb) cb(null, response)
+        }
+    }).catch((e)=>{
+        if(cb) cb(e, null)
     })
 }

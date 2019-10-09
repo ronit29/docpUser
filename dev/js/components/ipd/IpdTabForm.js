@@ -142,7 +142,8 @@ class IpdTabForm extends React.Component {
 	            utm_medium: parsed.utm_medium || '',
 	            utm_term: parsed.utm_term || '',
 	            utm_campaign: parsed.utm_campaign || '',
-	            referrer: document.referrer || ''
+	            referrer: document.referrer || '',
+	            gclid: parsed.gclid || ''
 	        }
 
 	        formData.data = {}
@@ -194,7 +195,7 @@ class IpdTabForm extends React.Component {
 	render(){
 		let { ipd_info } = this.props
 
-		if(this.props.tabView) {
+		if(this.props.tabView || !(this.props.commonSelectedCriterias && this.props.commonSelectedCriterias.length))  {
 			ipd_info = null
 		}
 
