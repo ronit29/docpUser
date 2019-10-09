@@ -62,7 +62,7 @@ class SearchResultsView extends React.Component {
         })*/
 
         //IF From VIP get nearbyDoctors
-        if(this.state.fromVip) {
+        if (this.state.fromVip) {
             this.props.getNearbyHospitals(this.props.selectedLocation)
             this.props.getTopHospitals(this.props.selectedLocation)
         }
@@ -311,16 +311,16 @@ class SearchResultsView extends React.Component {
             locality = selectedLocation.locality || ''
             sub_locality = selectedLocation.sub_locality || ''
         }
-/*
-        let min_fees = filterCriteria.priceRange[0]
-        let max_fees = filterCriteria.priceRange[1]
-        let min_distance = filterCriteria.distanceRange[0]
-        let max_distance = filterCriteria.distanceRange[1]
-        let sort_on = filterCriteria.sort_on || ""
-        let is_available = filterCriteria.is_available
-        let is_female = filterCriteria.is_female
-
-*/      
+        /*
+                let min_fees = filterCriteria.priceRange[0]
+                let max_fees = filterCriteria.priceRange[1]
+                let min_distance = filterCriteria.distanceRange[0]
+                let max_distance = filterCriteria.distanceRange[1]
+                let sort_on = filterCriteria.sort_on || ""
+                let is_available = filterCriteria.is_available
+                let is_female = filterCriteria.is_female
+        
+        */
         let sort_on = filterCriteria.sort_on || ""
         let sort_order = filterCriteria.sort_order || ""
         let availability = filterCriteria.availability || []
@@ -366,11 +366,11 @@ class SearchResultsView extends React.Component {
             is_filter_applied = true
         }
 
-        if(specialization_filter_ids && specialization_filter_ids.length){
+        if (specialization_filter_ids && specialization_filter_ids.length) {
             is_filter_applied = true
         }
 
-        if(parsed && parsed.fromVip) {
+        if (parsed && parsed.fromVip) {
             is_filter_applied = true
         }
 
@@ -378,10 +378,10 @@ class SearchResultsView extends React.Component {
         url = `${window.location.pathname}?search_id=${this.state.search_id}`
         if (is_filter_applied || !this.state.seoFriendly) {
 
-            url+= `&specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}&sits_at_hospital=${sits_at_hospital}&sits_at_clinic=${sits_at_clinic}&group_ids=${group_ids}&specialization_filter_ids=${specialization_filter_ids}&fromVip=${parsed.fromVip||''}`
+            url += `&specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}&sits_at_hospital=${sits_at_hospital}&sits_at_clinic=${sits_at_clinic}&group_ids=${group_ids}&specialization_filter_ids=${specialization_filter_ids}&fromVip=${parsed.fromVip || ''}`
 
-            if(parsed && parsed.utm_term){
-                url+= `&utm_term=${parsed.utm_term||''}`
+            if (parsed && parsed.utm_term) {
+                url += `&utm_term=${parsed.utm_term || ''}`
             }
 
             is_params_exist = true
@@ -506,19 +506,19 @@ class SearchResultsView extends React.Component {
         return is_filter_applied
     }
 
-    searchDoctorSpecialization(speciality,isViewAll) {
+    searchDoctorSpecialization(speciality, isViewAll) {
         if (window) {
             window.scrollTo(0, 0)
         }
-        let specialityData={}
-        let ViewAllData=[]
-        if(isViewAll){
+        let specialityData = {}
+        let ViewAllData = []
+        if (isViewAll) {
             speciality.map((spec, i) => {
-                ViewAllData.push({id:spec.specialization_id,type:'speciality'})
+                ViewAllData.push({ id: spec.specialization_id, type: 'speciality' })
             })
-        
+
             let state = {}
-            let hospital_id =''
+            let hospital_id = ''
             let doctor_name = ''
             let hospital_name = ''
             if (ViewAllData.length) {
@@ -541,7 +541,7 @@ class SearchResultsView extends React.Component {
             GTM.sendEvent({ data: data })
             this.props.mergeOPDState(state)
             this.props.history.push(`/opd/searchresults`)
-        }else{
+        } else {
             specialityData.type = 'speciality'
             specialityData.name = speciality.specialization_name
             specialityData.id = speciality.specialization_id
@@ -556,7 +556,7 @@ class SearchResultsView extends React.Component {
         }
     }
 
-    SimilarSpecialization(flag){/*
+    SimilarSpecialization(flag) {/*
         let dataLength = parseInt(this.props.similar_specializations.length/2)
         let count = 0
         if (!flag) {
@@ -565,26 +565,26 @@ class SearchResultsView extends React.Component {
         }*/
         let dataModel = []
         for (let i = 0; i < this.props.similar_specializations.length; i++) {
-            if(flag && i%2==0) {
-                dataModel.push(<span id={this.props.similar_specializations[i].specialization_id} onClick={this.searchDoctorSpecialization.bind(this,this.props.similar_specializations[i],false)}>
+            if (flag && i % 2 == 0) {
+                dataModel.push(<span id={this.props.similar_specializations[i].specialization_id} onClick={this.searchDoctorSpecialization.bind(this, this.props.similar_specializations[i], false)}>
                     {this.props.similar_specializations[i].specialization_name}
-                </span>)    
+                </span>)
             }
-            if(!flag && i%2!=0) {
-                dataModel.push(<span id={this.props.similar_specializations[i].specialization_id} onClick={this.searchDoctorSpecialization.bind(this,this.props.similar_specializations[i],false)}>
-                {this.props.similar_specializations[i].specialization_name}
-            </span>)
+            if (!flag && i % 2 != 0) {
+                dataModel.push(<span id={this.props.similar_specializations[i].specialization_id} onClick={this.searchDoctorSpecialization.bind(this, this.props.similar_specializations[i], false)}>
+                    {this.props.similar_specializations[i].specialization_name}
+                </span>)
             }
-            
+
         }
         return dataModel
     }
 
-    SimilarSpecializationData(){
-        let data=(<div className="sort-sub-filter-container mb-3 pb-0">
-            <p>Looking for other related   
+    SimilarSpecializationData() {
+        let data = (<div className="sort-sub-filter-container mb-3 pb-0">
+            <p>Looking for other related
                 <span className="fw-700"> specializations? </span>
-                <span className="fw-500 sort-more-filter" onClick={this.searchDoctorSpecialization.bind(this,this.props.similar_specializations,true)}>Search all</span>
+                <span className="fw-500 sort-more-filter" onClick={this.searchDoctorSpecialization.bind(this, this.props.similar_specializations, true)}>Search all</span>
             </p>
             <div className="doc-sld-container">
                 <div className="sm-chips-container">
@@ -598,20 +598,20 @@ class SearchResultsView extends React.Component {
         return data
     }
 
-    sortFilterClicked(){
-        if(this.child && this.child.sortFilterClicked){
+    sortFilterClicked() {
+        if (this.child && this.child.sortFilterClicked) {
             this.child.sortFilterClicked()
         }
     }
 
-    hospitalCardClicked(top=false, data) {
+    hospitalCardClicked(top = false, data) {
         let gtmData = {}
-        if(top){
+        if (top) {
             gtmData = {
                 'Category': 'ConsumerApp', 'Action': 'nearby-hospitals-clicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'nearby-hospitals-clicked'
             }
-        
-        }else{
+
+        } else {
             gtmData = {
                 'Category': 'ConsumerApp', 'Action': 'tophospitalsClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'top-hospitals-clicked'
             }
@@ -619,9 +619,9 @@ class SearchResultsView extends React.Component {
         GTM.sendEvent({ data: gtmData })
         let redirectUrl = ''
 
-        if(data.url) {
+        if (data.url) {
             redirectUrl = `/${data.url}?showPopup=true`
-        }else {
+        } else {
             redirectUrl = `/ipd/hospital/${data.id}?showPopup=true`
         }
         this.props.history.push(redirectUrl)
@@ -657,7 +657,7 @@ class SearchResultsView extends React.Component {
         if (typeof window == 'object' && window.ON_LANDING_PAGE) {
             landing_page = true
         }
-        
+
         return (
             <div>
                 <div id="map" style={{ display: 'none' }}></div>
@@ -678,88 +678,96 @@ class SearchResultsView extends React.Component {
                 <CriteriaSearch {...this.props} checkForLoad={landing_page || this.props.LOADED_DOCTOR_SEARCH || this.state.showError} title="Search For Disease or Doctor." type="opd" goBack={true} clinic_card={!!this.state.clinic_card} newChatBtn={true} searchDoctors={true}>
                     {
                         this.state.showError ? <div className="norf">No Results Found!!</div> : <div>
-                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} resetQuickFilters={this.resetQuickFilters.bind(this)} quickFilter={this.state.quickFilter} fromVip={this.state.fromVip} topBarRef={ref => (this.child = ref)}/>
+                            <TopBar {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} resetQuickFilters={this.resetQuickFilters.bind(this)} quickFilter={this.state.quickFilter} fromVip={this.state.fromVip} topBarRef={ref => (this.child = ref)} />
                             {/*<ResultCount {...this.props} applyFilters={this.applyFilters.bind(this)} seoData={this.props.seoData} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} />*/}
                             {/* <div style={{ width: '100%', padding: '10px 30px', textAlign: 'center' }}>
                                 <img src={ASSETS_BASE_URL + "/img/banners/banner_doc.png"} className="banner-img" />
                             </div> */}
                             {
-                                (this.state.clinic_card && this.props.hospitalList && this.props.hospitalList.length==0) || this.props.doctorList && this.props.doctorList.length ==0?
-                                <React.Fragment>
-                                <div className="container-fluid cardMainPaddingRmv">
-                                    <div className="pkg-card-container mt-20 mb-3">
-                                        <div className="pkg-no-result">
-                                            <p className="pkg-n-rslt">No result found!</p>
-                                            {
-                                                this.isFilterApplied(this.props.filterCriteria)?
-                                                <React.Fragment>
-                                                    <img className="n-rslt-img" src={ASSETS_BASE_URL + '/img/no-result.png'} />
-                                                    <p className="pkg-ty-agn cursor-pntr" onClick={this.applyQuickFilter.bind(this, {viewMore: true})}>Try again with fewer filters</p>
-                                                </React.Fragment>
-                                                :
-                                                <React.Fragment>
-                                                    <img style={{width:'130px'}} className="n-rslt-img" src={ASSETS_BASE_URL + '/img/vct-no.png'} />
-                                                    <p className="pkg-ty-agn text-dark text-center">Can’t find your doctor here?<br></br>Help us to list your doctor</p>
-                                                    <button className="referDoctorbtn" onClick={(e)=>{
-                                                        e.preventDefault();
-                                                        let data = {
-                                                                'Category': 'ConsumerApp', 'Action': 'ReferDoctorListNoresult', 'CustomerID': GTM.getUserId() || '', 'event': 'refer-doctor-list-noresult'
-                                                            }
-                                                        GTM.sendEvent({ data: data })
-                                                        this.props.history.push('/doctorsignup?member_type=1')}}>Refer your Doctor</button>
-                                                </React.Fragment>
+                                (this.state.clinic_card && this.props.hospitalList && this.props.hospitalList.length == 0) || this.props.doctorList && this.props.doctorList.length == 0 ?
+                                    <React.Fragment>
+                                        <div className="container-fluid cardMainPaddingRmv">
+                                            <div className="pkg-card-container mt-20 mb-3">
+                                                <div className="pkg-no-result">
+                                                    <p className="pkg-n-rslt">No result found!</p>
+                                                    {
+                                                        this.isFilterApplied(this.props.filterCriteria) ?
+                                                            <React.Fragment>
+                                                                <img className="n-rslt-img" src={ASSETS_BASE_URL + '/img/no-result.png'} />
+                                                                <p className="pkg-ty-agn cursor-pntr" onClick={this.applyQuickFilter.bind(this, { viewMore: true })}>Try again with fewer filters</p>
+                                                            </React.Fragment>
+                                                            :
+                                                            <React.Fragment>
+                                                                <img style={{ width: '130px' }} className="n-rslt-img" src={ASSETS_BASE_URL + '/img/vct-no.png'} />
+                                                                <p className="pkg-ty-agn text-dark text-center">Can’t find your doctor here?<br></br>Help us to list your doctor</p>
+                                                                <button className="referDoctorbtn" onClick={(e) => {
+                                                                    e.preventDefault();
+                                                                    let data = {
+                                                                        'Category': 'ConsumerApp', 'Action': 'ReferDoctorListNoresult', 'CustomerID': GTM.getUserId() || '', 'event': 'refer-doctor-list-noresult'
+                                                                    }
+                                                                    GTM.sendEvent({ data: data })
+                                                                    this.props.history.push('/doctorsignup?member_type=1')
+                                                                }}>Refer your Doctor</button>
+                                                            </React.Fragment>
+                                                    }
+                                                </div>
+                                            </div>
+                                            {this.props.similar_specializations && this.props.similar_specializations.length && !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && this.props.count == 0 ?
+                                                this.SimilarSpecializationData()
+                                                : ''
                                             }
                                         </div>
-                                    </div>
-                                    {this.props.similar_specializations && this.props.similar_specializations.length && !this.state.sort_order && (!this.state.availability || !this.state.availability.length) && this.props.count ==0 ?
-                                    this.SimilarSpecializationData()
-                                : ''
-                                }
-                                </div>
-                                
-                                </React.Fragment>
-                                :<React.Fragment>
-                                    {
-                                        this.state.fromVip && 
-                                        <React.Fragment>
-                                            <button onClick={()=>this.sortFilterClicked()}>Sort/Filter</button>
-                                            {
-                                                this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length>0 &&
-                                                <CarouselView topHeading='Nearby Hospitals' dataList ={this.props.nearbyHospitals.hospitals} dataType='nearbyHospitals' carouselCardClicked={(top, data)=>this.hospitalCardClicked(top, data)} />
-                                            }
-                                            {
-                                                this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length>0 &&
-                                                <CarouselView topHeading='Top Hospitals' dataList ={this.props.topHospitals.top_hospitals} dataType='topHospitals' carouselCardClicked={(top, data)=>this.hospitalCardClicked(top, data)} topHospital={true}/>
-                                            }
-                                        </React.Fragment>
-                                    }
-                                    <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)}  getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} detectLocationClick={() => this.detectLocationClick()}  applyQuickFilter={this.applyQuickFilter.bind(this)} SimilarSpecializationData={this.SimilarSpecializationData.bind(this)} sponsorData={this.state.sponsorData}/>
 
-                                    {
-                                        this.state.seoFriendly && show_pagination ? <div className="art-pagination-div">
-                                            {
-                                                prev ? <a href={prev} >
-                                                    <div className="art-pagination-btn">
-                                                        <span className="fw-500">{curr_page - 1}</span>
+                                    </React.Fragment>
+                                    : <React.Fragment>
+                                        {
+                                            this.state.fromVip &&
+                                            <React.Fragment>
+                                                <div className="row searchForVip">
+                                                    <div className="serch-nw-inputs mb-0 col-12 vip-srch-pdng-adj">
+                                                        <input type="text" autocomplete="off" className="d-block new-srch-doc-lab" id="search_bar" value="" placeholder="Search for doctor, hospital, specialty" />
+                                                        <img  className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} style={{ width: '15px',top:'0', bottom: '0', left: '18' }} />
                                                     </div>
-                                                </a> : ""
-                                            }
+                                                    <button className="srt-scrl-btn" onClick={() => this.sortFilterClicked()}><img src={ASSETS_BASE_URL + '/img/filtersort.png'}/> Sort/Filter</button>
+                                                </div>
 
-                                            <div className="art-pagination-btn">
-                                                <span className="fw-500" style={{ color: '#000' }}>{curr_page}</span>
-                                            </div>
+                                                {
+                                                    this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length > 0 &&
+                                                    <CarouselView topHeading='Nearby Hospitals' dataList={this.props.nearbyHospitals.hospitals} dataType='nearbyHospitals' carouselCardClicked={(top, data) => this.hospitalCardClicked(top, data)} />
+                                                }
+                                                {
+                                                    this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 &&
+                                                    <CarouselView topHeading='Top Hospitals' dataList={this.props.topHospitals.top_hospitals} dataType='topHospitals' carouselCardClicked={(top, data) => this.hospitalCardClicked(top, data)} topHospital={true} />
+                                                }
+                                            </React.Fragment>
+                                        }
+                                        <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)} getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} detectLocationClick={() => this.detectLocationClick()} applyQuickFilter={this.applyQuickFilter.bind(this)} SimilarSpecializationData={this.SimilarSpecializationData.bind(this)} sponsorData={this.state.sponsorData} />
 
-                                            {
-                                                next ? <a href={next} >
-                                                    <div className="art-pagination-btn">
-                                                        <span className="fw-500">{curr_page + 1}</span>
-                                                    </div>
-                                                </a> : ""
-                                            }
+                                        {
+                                            this.state.seoFriendly && show_pagination ? <div className="art-pagination-div">
+                                                {
+                                                    prev ? <a href={prev} >
+                                                        <div className="art-pagination-btn">
+                                                            <span className="fw-500">{curr_page - 1}</span>
+                                                        </div>
+                                                    </a> : ""
+                                                }
 
-                                        </div> : ""
-                                    }
-                                </React.Fragment>
+                                                <div className="art-pagination-btn">
+                                                    <span className="fw-500" style={{ color: '#000' }}>{curr_page}</span>
+                                                </div>
+
+                                                {
+                                                    next ? <a href={next} >
+                                                        <div className="art-pagination-btn">
+                                                            <span className="fw-500">{curr_page + 1}</span>
+                                                        </div>
+                                                    </a> : ""
+                                                }
+
+                                            </div> : ""
+                                        }
+                                    </React.Fragment>
                             }
 
                         </div>

@@ -249,7 +249,7 @@ class LocationElementsView extends React.Component {
 
         return (
             // toggle class : 'doc-select-none'
-            <div className="row" style={{ backgroundColor: '#f78316', marginTop: 10, position: 'relative', zIndex: 11 }} id="location_element">
+            <div className="row searchForVip"  style={{ backgroundColor: '#f78316', marginTop: 10, position: 'relative', zIndex: 11 }} id="location_element">
 
                 <div className="col-12">
                     {
@@ -260,7 +260,8 @@ class LocationElementsView extends React.Component {
                     <div className={this.props.resultType == 'list' ? "doc-caret" : "doc-select-none"}></div>
                 </div>
 
-                <div className="col-12" style={{ paddingBottom: 10 }}>
+                <div className="col-12 vip-srch-pdng-adj" style={{ paddingBottom: 10 }}>
+                    <p className="vip-srch-slct">Select your location</p>
                     <div className="doc-select-location-div">
                         <div className="doc-input-loc-div" onClick={this.goToLocation.bind(this)}>
                             <input type="text" className="form-control doc-input-loc" id="doc-input-field" placeholder="Search your locality" value={this.state.search} onBlur={this.onblur.bind(this)} onFocus={this.onfocus.bind(this)} onChange={this.inputHandler.bind(this)} />

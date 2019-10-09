@@ -4614,3 +4614,35 @@ img.img-fluid.vp-cls-img {
 margin-bottom: 55px;
 }
 /* ============ vip-card  ============ */
+/* ============ search for vip  ============ */
+div.row.searchForVip{
+    background-color: white !important;
+    margin: 10px 5px 5px !important;
+    background-color: #ffffff;
+    box-shadow: 0 1px 5px rgba(76, 76, 76, 0.12), 1px 1px 4px rgba(128, 128, 128, 0.24);
+}
+div.col-12.vip-srch-pdng-adj{
+    padding: 10px 8px !important;
+}
+p.vip-srch-slct{
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+div.col-12.vip-srch-pdng-adj .doc-input-loc{
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 0 0 !important;
+}
+button.srt-scrl-btn {
+    margin: auto;
+    margin-bottom: 8px;
+    background: white;
+    border: none;
+    font-weight: 500;
+}
+button.srt-scrl-btn img {
+    width: 12px;
+    margin-top: 2px;
+    margin-right: 3px;
+}
+/* ============ search for vip  ============ */
