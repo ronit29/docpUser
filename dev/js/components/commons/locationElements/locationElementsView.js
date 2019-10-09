@@ -249,7 +249,7 @@ class LocationElementsView extends React.Component {
 
         return (
             // toggle class : 'doc-select-none'
-            <div className="row searchForVip"  style={{ backgroundColor: '#f78316', marginTop: 10, position: 'relative', zIndex: 11 }} id="location_element">
+            <div className={`row ${this.props.fromVip?'searchForVip':''}`}  style={{ backgroundColor: '#f78316', marginTop: 10, position: 'relative', zIndex: 11 }} id="location_element">
 
                 <div className="col-12">
                     {

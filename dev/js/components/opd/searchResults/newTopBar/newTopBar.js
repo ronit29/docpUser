@@ -904,7 +904,7 @@ class TopBar extends React.Component {
                             {
                                 this.props.fromVip?
                                 <React.Fragment>
-                                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName={locationName} />
+                                    <LocationElements {...this.props} onRef={ref => (this.child = ref)} getCityListLayout={this.getCityListLayout.bind(this)} resultType='search' locationName={locationName} fromVip={this.props.fromVip}/>
                                     {this.getCityList()}
                                 </React.Fragment>
                                 :<section className="scroll-shadow-bar">
@@ -977,19 +977,19 @@ class TopBar extends React.Component {
                             }
                         </div>
                         {
-                            this.state.showLocationPopup ?
+                            this.state.showLocationPopup && !this.props.fromVip?
                                 <LocationElements {...this.props} onRef={ref => (this.child = ref)} resultType='list' isTopbar={true} hideLocationPopup={() => this.hideLocationPopup()} locationName={locationName} />
                                 : ''
                         }
 
                         {
-                            this.state.showLocationPopup && this.state.overlayVisible && !this.props.clinic_card ?
+                            this.state.showLocationPopup && this.state.overlayVisible && !this.props.clinic_card  && !this.props.fromVip?
                                 <div className="locationPopup-overlay" onClick={() => this.overlayClick()} ></div>
                                 : ''
                         }
 
                         {
-                            this.state.showLocationPopup && this.props.clinic_card && this.state.showPopupContainer ?
+                            this.state.showLocationPopup && this.props.clinic_card && this.state.showPopupContainer  && !this.props.fromVip?
                                 <div className="popupContainer-overlay"></div>
                                 : ''
                         }
