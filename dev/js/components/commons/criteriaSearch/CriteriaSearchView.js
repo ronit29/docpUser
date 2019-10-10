@@ -186,10 +186,14 @@ class CriteriaSearchView extends React.Component {
         }
 
         let showPackageStrip = this.props.compare_packages && this.props.compare_packages.length > 0
+        let showSearch = true
+        if(this.props.location &&  this.props.location.search && this.props.location.search.includes('fromVip')){
+            showSearch = false
+        }
         return (
             <div className="profile-body-wrap">
                 {
-                    this.props.hideHeaderOnMobile ? <div className="hide-762"><ProfileHeader showSearch={true} showPackageStrip={showPackageStrip || this.props.isPackage}/></div> : <ProfileHeader showSearch={true} showPackageStrip={showPackageStrip || this.props.isPackage}/>
+                    this.props.hideHeaderOnMobile ? <div className="hide-762"><ProfileHeader showSearch={showSearch} showPackageStrip={showPackageStrip || this.props.isPackage}/></div> : <ProfileHeader showSearch={showSearch} showPackageStrip={showPackageStrip || this.props.isPackage}/>
                 }
                 <section ref="scrollTarget" className={"container parent-section book-appointment-section" + (this.props.hideHeaderOnMobile ? " mp0" : "") + (this.props.isPackage ?" pkgComapre":"")}>
                     {

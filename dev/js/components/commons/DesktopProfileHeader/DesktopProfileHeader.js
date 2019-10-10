@@ -122,7 +122,7 @@ class DesktopProfileHeader extends React.Component {
             headerClass += " remove-header-height"
         }
         let hideSearch = false
-        if (this.props.history.location.pathname == '/search' || (this.props.history.location.search && this.props.history.location.search.includes('fromVip')) ) {
+        if (this.props.history.location.pathname == '/search') {
             hideSearch = true
         }
 
