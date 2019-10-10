@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 const queryString = require('query-string');
 import SnackBar from 'node-snackbar'
 
-import { OTTLogin, fetchOrderById, getUpcomingAppointments, fetchHeatlhTip, fetchOrderHistory, toggleDiagnosisCriteria, selectProfile, selectLabTimeSLot, selectOpdTimeSLot, clearAllTests, selectPickupAddress, selectLabAppointmentType, saveProfileProcedures } from '../../actions/index.js'
+import { OTTLogin, fetchOrderById, getUpcomingAppointments, fetchHeatlhTip, fetchOrderHistory, toggleDiagnosisCriteria, selectProfile, selectLabTimeSLot, selectOpdTimeSLot, clearAllTests, selectPickupAddress, selectLabAppointmentType, saveProfileProcedures, setCommonUtmTags } from '../../actions/index.js'
 import Loader from '../../components/commons/Loader'
 
 class DirectBooking extends React.Component {
@@ -18,7 +18,30 @@ class DirectBooking extends React.Component {
     componentDidMount() {
         const parsed = queryString.parse(this.props.location.search)
         let OTT = parsed.token
-        let callbackurl = parsed.callbackurl
+        let callbackurl = parsed.callbackurl 
+        //Add UTM tags for building url
+        try{
+            if(parsed.UtmSource && parsed.UtmSource=='OfflineAffiliate'){
+                let sessionId = Math.floor(Math.random() * 103)*21 + 1050
+                if(sessionStorage) {
+                    sessionStorage.setItem('sessionIdVal',sessionId)   
+                }
+                let spo_tags = {
+                    utm_tags: {
+                        UtmSource: parsed.UtmSource||'',
+                        UtmTerm: parsed.UtmTerm||'',
+                        UtmMedium: parsed.UtmMedium||'',
+                        UtmCampaign: parsed.UtmCampaign||''
+                    },
+                    time: new Date().getTime(),
+                    currentSessionId: sessionId
+                }
+                this.props.setCommonUtmTags('spo', spo_tags)
+            }
+        }catch(e) {
+
+        }
+
         if (OTT) {
             this.props.OTTLogin(OTT).then(() => {
                 if(callbackurl){
@@ -112,7 +135,8 @@ const mapDispatchToProps = (dispatch) => {
         toggleDiagnosisCriteria: (type, criteria, forceAdd) => dispatch(toggleDiagnosisCriteria(type, criteria, forceAdd)),
         selectPickupAddress: (address) => dispatch(selectPickupAddress(address)),
         selectLabAppointmentType: (type) => dispatch(selectLabAppointmentType(type)),
-        saveProfileProcedures: (doctor_id, clinic_id, selectedProcedures, forceAdd) => dispatch(saveProfileProcedures(doctor_id, clinic_id, selectedProcedures, forceAdd))
+        saveProfileProcedures: (doctor_id, clinic_id, selectedProcedures, forceAdd) => dispatch(saveProfileProcedures(doctor_id, clinic_id, selectedProcedures, forceAdd)),
+        setCommonUtmTags: (type, tag) => dispatch(setCommonUtmTags(type, tag))
     }
 }
 

@@ -572,9 +572,10 @@ export const removeFromCart = (id) => (dispatch) => {
 	})
 }
 
-export const processCartItems = (use_wallet = true) => (dispatch) => {
+export const processCartItems = (use_wallet = true, extraParams={}) => (dispatch) => {
 	let postData = {}
 	postData['visitor_info'] = GTM.getVisitorInfo()
+	postData['utm_spo_tags'] = extraParams
 	postData['from_web'] = true
 	use_wallet = use_wallet ? 1 : 0
 	return API_POST(`/api/v1/cart/process?use_wallet=${use_wallet}`, postData)
@@ -724,6 +725,13 @@ export const ipdPopupFired = () => (dispatch) => {
 	})
 }
 
+export const sendSPOAgentBooking = (postData, cb) => (dispatch) => {
+	return API_POST(`/api/v1/user/send_cart_url`, postData).then((data)=> {
+		if(cb)cb(null, data)
+	}).catch((e)=>{
+ 		if(cb)cb(e, null)
+	})
+}
 export const citiesData = () => (dispatch) => {
 	return API_GET('/api/v1/diagnostic/allmatrixcities').then(function (response) {
 		dispatch({
