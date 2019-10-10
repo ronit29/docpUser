@@ -437,8 +437,17 @@ class CartItem extends React.Component {
                                             tests.map((test, i) => {
                                                 return <p key={i} className="test-list test-list-label clearfix new-lab-test-list">
 
+                                                    
                                                     {
-                                                        is_appointment_insured || included_in_user_plan ?
+                                                        is_vip_applicable?
+                                                        <span className="float-right fw-700">₹ {vip_amount}<span className="test-mrp">₹ {mrp}</span>
+                                                        </span>
+                                                        :''
+                                                    }
+
+                                                    {
+                                                        is_vip_applicable?''
+                                                        : is_appointment_insured || included_in_user_plan ?
                                                             <span className="float-right fw-700">₹ 0 </span>
                                                             : <span className="float-right fw-700">₹ {test.deal_price}<span className="test-mrp">₹ {test.mrp}</span>
                                                             </span>
