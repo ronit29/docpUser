@@ -4646,6 +4646,24 @@ button.srt-scrl-btn img {
     margin-top: 2px;
     margin-right: 3px;
 }
+.pkgSliderContainer.network-slider {
+    margin: 0 15px;
+}
+.netwrk-btns div.pkg-btnlft{
+left: 3px;
+}
+.netwrk-btns div.pkg-btnrgt{
+    right: 3px;
+}
+.pkg-ntwk-mrgn{
+    /* margin-left: 5px;
+    margin-right: 5px; */
+}
+@media(max-width: 992px) {
+    .pkgSliderContainer.network-slider {
+        margin: 0px;
+    } 
+}
 /* ============ search for vip  ============ */
 /* ============ paypal-page  ============ */
 .paypal-main-cont h1 {
@@ -4697,4 +4715,5 @@ button.srt-scrl-btn img {
     display: block;
     position: absolute;
 }
+
 /* ============ paypal-page  ============ */

@@ -36,13 +36,13 @@ class CarouselView extends React.Component {
 
 		let { topHeading, dataList, dataType, topHospital, extraHeading } = this.props
 		return(
-			<div className="pakg-slider-container mt-10 mb-10">
+			<div className="pakg-slider-container mt-10 mb-10 pkg-ntwk-mrgn">
                 <div className="pkgSliderHeading">
                     <h5>{topHeading||''}</h5>
                     {extraHeading && <span onClick={() => this.props.navigateTo()}>View Docprime Network</span>}
                     {/*<span>View All</span>*/}
                 </div>
-                <div className="pkgSliderContainer" id={`top_${this.props.dataType}`}>
+                <div className="pkgSliderContainer network-slider" id={`top_${this.props.dataType}`}>
                     <div className={`pkgCardsList d-inline-flex sub-wd-cards top_${this.props.dataType}_list`}>
                     	{
                     		dataList.map((data, key)=>{
@@ -60,7 +60,7 @@ class CarouselView extends React.Component {
                     	}
                     </div>
                 </div>
-                <div className="pkglftRhtbtncont">
+                <div className="pkglftRhtbtncont netwrk-btns">
                     <div className="pkg-btnlft d-none" id={`RightArrow_${dataType}`} onClick={this.scroll.bind(this, 'left')}><img src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></div>
                     <div className="pkg-btnrgt" id={`leftArrow_${dataType}`} onClick={this.scroll.bind(this, 'right')}><img src={ASSETS_BASE_URL + "/img/customer-icons/dropdown-arrow.svg"} /></div>
                 </div>
