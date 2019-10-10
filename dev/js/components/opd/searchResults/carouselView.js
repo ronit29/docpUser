@@ -34,11 +34,12 @@ class CarouselView extends React.Component {
 
 	render(){
 
-		let { topHeading, dataList, dataType, topHospital } = this.props
+		let { topHeading, dataList, dataType, topHospital, extraHeading } = this.props
 		return(
 			<div className="pakg-slider-container mt-10 mb-10">
                 <div className="pkgSliderHeading">
                     <h5>{topHeading||''}</h5>
+                    {extraHeading && <span onClick={() => this.props.navigateTo()}>View Docprime Network</span>}
                     {/*<span>View All</span>*/}
                 </div>
                 <div className="pkgSliderContainer" id={`top_${this.props.dataType}`}>

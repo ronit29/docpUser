@@ -35,7 +35,10 @@ class SearchResultsView extends React.Component {
             quickFilter: {},
             detectLocation: false,
             sponsorData: [],
-            fromVip: parsed && parsed.fromVip
+            fromVip: parsed && parsed.fromVip,
+            search_string:'',
+            showSearchBtn:false,
+            scrollEventAdded: false
         }
     }
 
@@ -49,6 +52,33 @@ class SearchResultsView extends React.Component {
         if (this.props.match.url.includes('-sptcit') || this.props.match.url.includes('-sptlitcit') || this.props.match.url.includes('-ipddp')) {
             searchUrl = this.props.match.url.toLowerCase()
         }
+
+        //START Save Selected City on Location Change
+        if (this.props.locationType && !this.props.locationType.includes("geo") && this.props.selectedLocation && this.props.selectedLocation.formatted_address) {
+
+            this.setState({ search_string: this.props.selectedLocation.formatted_address })
+
+        }
+        //START Save Selected City on Location Change
+        //Add Scroll Events for Sticky Search Filter for Vip Network search
+        if(this.state.fromVip && !this.state.scrollEventAdded && this.refs['vip_srch_widget']){
+            document.addEventListener('scroll', (e)=>{
+                var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
+                if(scrollPosition>375){
+                    this.setState({showSearchBtn: true})
+                }else{
+                    this.setState({showSearchBtn: false})
+                }
+            })
+            this.setState({scrollEventAdded: true})
+        }
+
+        //End Add Scroll Events for Sticky Search Filter for Vip Network search
+
+
+
+
+
         /*let sponsorData = {
             utm_term: parsed && parsed.utm_term?parsed.utm_term:'',
             searchUrl:searchUrl,
@@ -145,6 +175,31 @@ class SearchResultsView extends React.Component {
     }
 
     componentWillReceiveProps(props) {
+        //START Save Selected City on Location Change
+        if (props.selectedLocation && this.props.selectedLocation) {
+            if (this.state.search_string) {
+                if (props.selectedLocation != this.props.selectedLocation) {
+                    this.setState({ search_string: props.selectedLocation.formatted_address })
+                }
+            } else if (!props.locationType.includes("geo")) {
+                // this.setState({ location_object: props.selectedLocation, search: props.selectedLocation.formatted_address })
+            }
+        }
+        //END Save Selected City on Location Change
+                //Add Scroll Events for Sticky Search Filter for Vip Network search
+        if(this.state.fromVip && !this.state.scrollEventAdded && this.refs['vip_srch_widget']){
+            document.addEventListener('scroll', (e)=>{
+                var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
+                if(scrollPosition>375){
+                    this.setState({showSearchBtn: true})
+                }else{
+                    this.setState({showSearchBtn: false})
+                }
+            })
+            this.setState({scrollEventAdded: true})
+        }
+
+        //End Add Scroll Events for Sticky Search Filter for Vip Network search
         let search_id = ''
         let page = 1
         const parsed = queryString.parse(props.location.search)
@@ -233,6 +288,12 @@ class SearchResultsView extends React.Component {
                 let new_url = this.buildURI(props)
                 this.props.history.replace(new_url)
             }
+        }
+    }
+
+    componentWillUnmount(){
+        if(this.state.scrollEventAdded){
+            document.removeEventListener('scroll');
         }
     }
 
@@ -630,6 +691,14 @@ class SearchResultsView extends React.Component {
         this.props.history.push(redirectUrl)
     }
 
+    navigateToSearchVip(){
+        let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'search-bar-clicked-fromVip', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'search-bar-clicked-fromVip'
+        }
+        GTM.sendEvent({ data: gtmData })
+        this.props.history.push('/search')
+    }
+
     render() {
         let show_pagination = this.props.doctorList && this.props.doctorList.length > 0
         let url = `${CONFIG.API_BASE_URL}${this.props.location.pathname}`
@@ -726,15 +795,6 @@ class SearchResultsView extends React.Component {
                                         {
                                             this.state.fromVip &&
                                             <React.Fragment>
-                                                <div className="row searchForVip filter-row sticky-header mbl-stick">
-                                                    <div className="serch-nw-inputs mb-0 col-12 vip-srch-pdng-adj">
-                                                        <input type="text" autoComplete="off" className="d-block new-srch-doc-lab" id="search_bar" value="" placeholder="Search for doctor"/>
-                                                        <img  className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} style={{ width: '15px',top:'0', bottom: '0', left: '18px' }} />
-                                                        <button class="srch-vp-nt"><img style={{marginRight:'8px',width:'10px'}} src={ASSETS_BASE_URL +"/img/new-loc-ico.svg"}/>Sector 44,</button>
-                                                    </div>
-                                                    <button className="srt-scrl-btn" onClick={() => this.sortFilterClicked()}><img src={ASSETS_BASE_URL + '/img/filtersort.png'}/> Sort/Filter</button>
-                                                </div>
-
                                                 {
                                                     this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length > 0 &&
                                                     <CarouselView topHeading='Nearby Hospitals' dataList={this.props.nearbyHospitals.hospitals} dataType='nearbyHospitals' carouselCardClicked={(top, data) => this.hospitalCardClicked(top, data)} />
@@ -743,6 +803,16 @@ class SearchResultsView extends React.Component {
                                                     this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 &&
                                                     <CarouselView topHeading='Top Hospitals' dataList={this.props.topHospitals.top_hospitals} dataType='topHospitals' carouselCardClicked={(top, data) => this.hospitalCardClicked(top, data)} topHospital={true} />
                                                 }
+                                                <div className="row searchForVip filter-row sticky-header mbl-stick" ref="vip_srch_widget">
+                                                    <div className="serch-nw-inputs mb-0 col-12 vip-srch-pdng-adj" onClick={()=>this.navigateToSearchVip()}>
+                                                        <input type="text" autoComplete="off" className="d-block new-srch-doc-lab" id="search_bar" value="" placeholder="Search for doctor"/>
+                                                        <img  className="srch-inp-img" src={ASSETS_BASE_URL + "/img/shape-srch.svg"} style={{ width: '15px',top:'0', bottom: '0', left: '18px' }} />
+                                                        {
+                                                            this.state.showSearchBtn && <button className="srch-vp-nt"><img style={{marginRight:'8px',width:'10px'}} src={ASSETS_BASE_URL +"/img/new-loc-ico.svg"}/>{this.state.search_string}</button>
+                                                        }
+                                                    </div>
+                                                    <button className="srt-scrl-btn" onClick={() => this.sortFilterClicked()}><img src={ASSETS_BASE_URL + '/img/filtersort.png'}/> Sort/Filter</button>
+                                                </div>
                                             </React.Fragment>
                                         }
                                         <DoctorsList {...this.props} applyFilters={this.applyFilters.bind(this)} getDoctorList={this.getDoctorList.bind(this)} clinic_card={!!this.state.clinic_card} seoFriendly={this.state.seoFriendly} detectLocationClick={() => this.detectLocationClick()} applyQuickFilter={this.applyQuickFilter.bind(this)} SimilarSpecializationData={this.SimilarSpecializationData.bind(this)} sponsorData={this.state.sponsorData} />

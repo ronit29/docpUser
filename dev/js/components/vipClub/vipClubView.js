@@ -10,6 +10,7 @@ import SnackBar from 'node-snackbar'
 import VipLoginPopup from './vipClubPopup.js'
 const queryString = require('query-string');
 import Disclaimer from '../commons/Home/staticDisclaimer.js'
+import CarouselView from '../opd/searchResults/carouselView.js'
 
 class VipClubView extends React.Component {
     constructor(props) {
@@ -161,6 +162,29 @@ class VipClubView extends React.Component {
         this.props.history.push(redirectUrl)
     }
 
+    hospitalCardClicked(top = false, data) {
+        let gtmData = {}
+        if (top) {
+            gtmData = {
+                'Category': 'ConsumerApp', 'Action': 'vip-nearby-hospitals-clicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-nearby-hospitals-clicked'
+            }
+
+        } else {
+            gtmData = {
+                'Category': 'ConsumerApp', 'Action': 'vip-tophospitalsClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-top-hospitals-clicked'
+            }
+        }
+        GTM.sendEvent({ data: gtmData })
+        let redirectUrl = ''
+
+        if (data.url) {
+            redirectUrl = `/${data.url}?showPopup=true`
+        } else {
+            redirectUrl = `/ipd/hospital/${data.id}?showPopup=true`
+        }
+        this.props.history.push(redirectUrl)
+    }
+
     render() {
         let self = this
 
@@ -269,30 +293,43 @@ class VipClubView extends React.Component {
                                                 : ''
                                         }
                                         {
-                                            this.state.selected_plan_data && this.state.selected_plan_data.enabled_hospital_networks && this.state.selected_plan_data.enabled_hospital_networks.length > 0 ?
-                                                <div className="pakg-slider-container mb-24">
-                                                    {
-                                                        this.props.isSalesAgent && this.props.isAgent?''
-                                                        :<div className="pkgSliderHeading">
-                                                            <h5>Key Hospital Partners</h5>
-                                                            <span onClick={() => this.props.history.push('/opd/searchresults?fromVip=true')}>View Docprime Network</span>
-                                                        </div>
-                                                    }
-                                                    <div className="pkgSliderContainer">
-                                                        <div className="pkgCardsList d-inline-flex sub-wd-cards top_pkgCat">
-                                                            {
-                                                                Object.entries(this.state.selected_plan_data.enabled_hospital_networks).map(function ([key, value]) {
-                                                                    return <div onClick={self.navigateTo.bind(self, value)} key={key} className="pkgcustCards vip-hsp-card-mn">
-                                                                        <div className="vip-hsp-img">
-                                                                            <img className="img-fluid" src={value.logo} />
-                                                                        </div>
-                                                                    </div>
-                                                                })
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                : ''
+                                            //this.state.selected_plan_data && this.state.selected_plan_data.enabled_hospital_networks && this.state.selected_plan_data.enabled_hospital_networks.length > 0 ?
+                                                // <div className="pakg-slider-container mb-24">
+                                                //     {
+                                                //         this.props.isSalesAgent && this.props.isAgent?''
+                                                //         :<div className="pkgSliderHeading">
+                                                //             <h5>Key Hospital Partners</h5>
+                                                //             <span onClick={() => this.props.history.push('/opd/searchresults?fromVip=true')}>View Docprime Network</span>
+                                                //         </div>
+                                                //     }
+                                                //     <div className="pkgSliderContainer">
+                                                //         <div className="pkgCardsList d-inline-flex sub-wd-cards top_pkgCat">
+                                                //             {
+                                                //                 Object.entries(this.state.selected_plan_data.enabled_hospital_networks).map(function ([key, value]) {
+                                                //                     return <div onClick={self.navigateTo.bind(self, value)} key={key} className="pkgcustCards vip-hsp-card-mn">
+                                                //                         <div className="vip-hsp-img">
+                                                //                             <img className="img-fluid" src={value.logo} />
+                                                //                         </div>
+                                                //                     </div>
+                                                //                 })
+                                                //             }
+                                                //         </div>
+                                                //     </div>
+                                                // </div>
+                                                // : ''
+                                        }
+                                        {
+                                            this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 &&
+                                            <div className="pakg-slider-container mb-24">
+                                                    <CarouselView topHeading='Key Hospital Partners' dataList={this.props.topHospitals.top_hospitals} dataType='top_vip_Hospitals' carouselCardClicked={(top, data) => this.hospitalCardClicked(top, data)} topHospital={true} extraHeading={true} navigateTo= {()=>this.props.history.push('/opd/searchresults?fromVip=true')}/>
+                                            </div>
+                                        }
+                                        {
+                                            this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length > 0 &&
+                                            <div className="pakg-slider-container mb-24">
+                                                    <CarouselView topHeading='Hospitals Near You' dataList={this.props.nearbyHospitals.hospitals} dataType='nearby_vip_Hospitals' carouselCardClicked={(top, data) => this.hospitalCardClicked(top, data)} />
+                                            </div>
+
                                         }
                                         {
                                             this.state.selected_plan_data && this.state.selected_plan_data.worth && Object.keys(this.state.selected_plan_data.worth).length > 0 && this.state.selected_plan_data.worth.online_chat_amount != '' ?
