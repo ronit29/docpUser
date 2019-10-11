@@ -195,7 +195,7 @@ class CriteriaSearchView extends React.Component {
                 {
                     this.props.hideHeaderOnMobile ? <div className="hide-762"><ProfileHeader showSearch={showSearch} showPackageStrip={showPackageStrip || this.props.isPackage}/></div> : <ProfileHeader showSearch={showSearch} showPackageStrip={showPackageStrip || this.props.isPackage}/>
                 }
-                <section ref="scrollTarget" className={"container parent-section book-appointment-section" + (this.props.hideHeaderOnMobile ? " mp0" : "") + (this.props.isPackage ?" pkgComapre":"")}>
+                <section ref="scrollTarget" className={`${!showSearch?'container container-top-margin':'container parent-section book-appointment-section'} ${this.props.hideHeaderOnMobile ? " mp0" : ""}  ${this.props.isPackage ?" pkgComapre":""} `}>
                     {
                         typeof navigator == 'object' && navigator && navigator.userAgent && navigator.userAgent.includes('iPhone')?''
                         :<ScrollWidget getScrollView={this.getScrollView.bind(this)} target={this.refs && this.refs['scrollTarget']?this.refs['scrollTarget']:''}/>    
