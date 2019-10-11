@@ -4620,7 +4620,7 @@ div.row.searchForVip{
     margin: 10px 5px 5px !important;
     background-color: #ffffff;
     box-shadow: 0 1px 5px rgba(76, 76, 76, 0.12), 1px 1px 4px rgba(128, 128, 128, 0.24);
-    margin: 5px 0 !important;
+    margin: 5px 0 12px 0 !important;
 }
 div.col-12.vip-srch-pdng-adj{
     padding: 10px 8px !important;
