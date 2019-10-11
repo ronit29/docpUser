@@ -327,7 +327,7 @@ class HomeView extends React.Component {
 
 						{
 							this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl'/>
+								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true}/>
 								: ''
 						}
 
@@ -383,7 +383,7 @@ class HomeView extends React.Component {
 
 						{
 							this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length ?
-								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl'/>
+								<HomePageTopHospitals {...this.props} top_data={this.props.nearbyHospitals.hospitals} topHeading='Hospitals Near you' dataType='home_nearby-hsptl' showViewAll={true}/>
 								: ''
 						}
 

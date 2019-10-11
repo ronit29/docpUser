@@ -82,13 +82,13 @@ class TopHospitalWidgets extends React.Component {
 	
 	render(){
 
-        let { topHeading, dataType }  = this.props
+        let { topHeading, dataType, showViewAll }  = this.props
 		return(
 		     <div className="pakg-slider-container mb-10">
                 <div className="pkgSliderHeading">
                     <h5>{topHeading}</h5>
                     {
-                        this.props.top_data.length >20 && <span onClick={()=>this.viewAllClicked()}>View All</span>
+                        showViewAll && this.props.top_data.length >20 && <span onClick={()=>this.viewAllClicked()}>View All</span>
                     }
                 </div>
                 <div className="pkgSliderContainer" id={dataType}>

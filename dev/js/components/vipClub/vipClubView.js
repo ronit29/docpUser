@@ -185,6 +185,14 @@ class VipClubView extends React.Component {
         this.props.history.push(redirectUrl)
     }
 
+    viewDocprimeNetworkClicked(){
+        let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'VipDoctorNetworkClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'vip-doctor-network-clicked'
+        }
+        GTM.sendEvent({ data: gtmData })
+        this.props.history.push('/opd/searchresults?fromVip=true')
+    }
+
     render() {
         let self = this
 
@@ -321,7 +329,7 @@ class VipClubView extends React.Component {
                                         {
                                             this.props.topHospitals && this.props.topHospitals.top_hospitals && this.props.topHospitals.top_hospitals.length > 0 &&
                                             <div className="pakg-slider-container mb-24">
-                                                    <CarouselView topHeading='Key Hospital Partners' dataList={this.props.topHospitals.top_hospitals} dataType='top_vip_Hospitals' carouselCardClicked={(top, data) => this.hospitalCardClicked(top, data)} topHospital={true} extraHeading={true} navigateTo= {()=>this.props.history.push('/opd/searchresults?fromVip=true')}/>
+                                                    <CarouselView topHeading='Key Hospital Partners' dataList={this.props.topHospitals.top_hospitals} dataType='top_vip_Hospitals' carouselCardClicked={(top, data) => this.hospitalCardClicked(top, data)} topHospital={true} extraHeading='View Docprime Network' navigateTo= {()=>this.viewDocprimeNetworkClicked()}/>
                                             </div>
                                         }
                                         {

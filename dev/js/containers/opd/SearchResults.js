@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { toggle404, getDoctorNumber, mergeOPDState, urlShortner, getDoctors, getOPDCriteriaResults, toggleOPDCriteria, getFooterData, saveCommonProcedures, resetProcedureURl, setSearchId, getSearchIdResults, selectSearchType, setNextSearchCriteria, getOfferList, toggleDiagnosisCriteria, selectOpdTimeSLot, saveProfileProcedures, resetPkgCompare, selectLocation, cloneCommonSelectedCriterias,loadOPDInsurance, getDoctorHospitalFilters, getDoctorHospitalSpeciality, getSponsoredList, getNearbyHospitals, toggleIPDCriteria, getTopHospitals } from '../../actions/index.js'
-import { opdSearchStateBuilder, labSearchStateBuilder, mergeSelectedCriterias } from '../../helpers/urltoState'
+import { opdSearchStateBuilder, labSearchStateBuilder, mergeSelectedCriterias, mergeIpdCriteria } from '../../helpers/urltoState'
 import SearchResultsView from '../../components/opd/searchResults/index.js'
 import NotFoundView from '../../components/commons/notFound'
 
@@ -206,7 +206,8 @@ const mapDispatchToProps = (dispatch) => {
         getSponsoredList: (data, selectedLocation, cb)=> dispatch(getSponsoredList(data, selectedLocation, cb)),
         getNearbyHospitals: (params, cb) => dispatch(getNearbyHospitals(params, cb)),
         toggleIPDCriteria: (criteria, forceAdd) => dispatch(toggleIPDCriteria(criteria, forceAdd)),
-        getTopHospitals: (dataParams, cb) => dispatch(getTopHospitals(dataParams, cb))
+        getTopHospitals: (dataParams, cb) => dispatch(getTopHospitals(dataParams, cb)),
+        mergeIpdCriteria: (filterCriteria)=> dispatch(mergeIpdCriteria(filterCriteria))
     }
 }
 

@@ -47,9 +47,9 @@ class SearchResultsView extends React.Component {
         var screenSize = window.screen && window.screen.width || null
         let height = 375
         if(screenSize && screenSize<992) {
-            height-=90
+            height= height-120
         }
-        if(scrollPosition>375){
+        if(scrollPosition>height){
             this.setState({showSearchBtn: true})
         }else{
             this.setState({showSearchBtn: false})
@@ -447,7 +447,11 @@ class SearchResultsView extends React.Component {
         is_params_exist = true
         if (is_filter_applied || !this.state.seoFriendly) {
 
-            url += `&specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}&sits_at_hospital=${sits_at_hospital}&sits_at_clinic=${sits_at_clinic}&group_ids=${group_ids}&specialization_filter_ids=${specialization_filter_ids}&fromVip=${parsed.fromVip || ''}`
+            url += `&specializations=${specializations_ids}&conditions=${condition_ids}&lat=${lat}&long=${long}&sort_on=${sort_on}&sort_order=${sort_order}&availability=${availability}&gender=${gender}&avg_ratings=${avg_ratings}&doctor_name=${doctor_name || ""}&hospital_name=${hospital_name || ""}&place_id=${place_id}&locationType=${locationType || ""}&procedure_ids=${procedures_ids || ""}&procedure_category_ids=${category_ids || ""}&hospital_id=${hospital_id}&ipd_procedures=${ipd_ids || ''}&is_insured=${is_insured}&locality=${locality}&sub_locality=${sub_locality}&sits_at_hospital=${sits_at_hospital}&sits_at_clinic=${sits_at_clinic}&group_ids=${group_ids}&specialization_filter_ids=${specialization_filter_ids}`
+
+            if(parsed && parsed.fromVip){
+                url+= `&fromVip=${parsed.fromVip || ''}`
+            }
 
             if (parsed && parsed.utm_term) {
                 url += `&utm_term=${parsed.utm_term || ''}`
@@ -699,6 +703,18 @@ class SearchResultsView extends React.Component {
         this.props.history.push('/search')
     }
 
+    viewAllHospitalClicked(){
+        let gtmData = {
+            'Category': 'ConsumerApp', 'Action': 'DoctorSearchHospitalViewAllClicked', 'CustomerID': GTM.getUserId() || '', 'leadid': 0, 'event': 'doctor-search-hospital-view-all-clicked'
+        }
+        GTM.sendEvent({ data: gtmData })
+        this.props.mergeIpdCriteria({
+            commonSelectedCriterias: [],
+            nextSelectedCriterias: []
+        })
+        this.props.history.push(`/ipd/searchHospitals`)   
+    }
+
     render() {
         let show_pagination = this.props.doctorList && this.props.doctorList.length > 0
         let url = `${CONFIG.API_BASE_URL}${this.props.location.pathname}`
@@ -801,7 +817,7 @@ class SearchResultsView extends React.Component {
                                                 }
                                                 {
                                                     this.props.nearbyHospitals && this.props.nearbyHospitals.hospitals && this.props.nearbyHospitals.hospitals.length > 0 &&
-                                                    <CarouselView topHeading='Nearby Hospitals' dataList={this.props.nearbyHospitals.hospitals} dataType='nearbyHospitals' carouselCardClicked={(top, data) => this.hospitalCardClicked(top, data)} />
+                                                    <CarouselView topHeading='Nearby Hospitals' dataList={this.props.nearbyHospitals.hospitals} dataType='nearbyHospitals' carouselCardClicked={(top, data) => this.hospitalCardClicked(top, data)} extraHeading='View All' navigateTo= {()=>this.viewAllHospitalClicked()}/>
                                                 }
                                                 
                                                 <div className="row vipNetTop searchForVip filter-row sticky-header mbl-stick" ref="vip_srch_widget">
